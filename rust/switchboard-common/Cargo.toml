@@ -1,0 +1,19 @@
+[package]
+name = "switchboard-common"
+version = "0.1.0"
+edition = "2021"
+description = "A Rust library to interact with common Switchboard primitives"
+keywords = ["switchboard", "oracle", "solana"]
+homepage = "https://docs.switchboard.xyz"
+license = "MIT"
+documentation = "https://docs.rs/switchboard-v2/"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[lib]
+crate-type = ["cdylib", "lib"]
+name = "switchboard_common"
+# doctest = false
+
+[dependencies]
+rust_decimal = { version = "1.18.0" }
