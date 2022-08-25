@@ -12,7 +12,8 @@ const config = {
     process.env.NODE_ENV === "production"
       ? "https://docs.switchboard.xyz"
       : "http://localhost",
-  baseUrl: "/",
+  // TODO: Revert back to '/' after migrating to permanent domain
+  baseUrl: "/sbv2-core/",
   onBrokenLinks: "throw",
   onBrokenMarkdownLinks: "warn",
   favicon: "img/favicon.ico",
