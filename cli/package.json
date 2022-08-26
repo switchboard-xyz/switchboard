@@ -1,6 +1,6 @@
 {
   "name": "@switchboard-xyz/switchboardv2-cli",
-  "version": "0.2.26",
+  "version": "1.0.0-beta.0",
   "description": "command line tool to interact with switchboard v2",
   "author": "gallynaut @gallynaut",
   "bin": {
