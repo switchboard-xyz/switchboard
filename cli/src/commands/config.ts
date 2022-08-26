@@ -1,7 +1,7 @@
 import { Flags } from "@oclif/core";
 import BaseCommand from "../BaseCommand";
-import OracleDeposit from "./oracle/deposit";
-import OracleWithdraw from "./oracle/withdraw";
+import OracleDeposit from "./solana/oracle/deposit";
+import OracleWithdraw from "./solana/oracle/withdraw";
 
 export default class Config extends BaseCommand {
   static hidden = true; // not ready yet

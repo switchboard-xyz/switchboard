@@ -9,7 +9,7 @@
     "prettier"
   ],
   "plugins": ["@typescript-eslint", "prettier", "unicorn", "import"],
-  "parserOptions": { "project": ["./tsconfig.json"] },
+  // "parserOptions": { "project": ["./tsconfig.json"] },
   "ignorePatterns": ["test/**/*.ts"],
   "rules": {
     "valid-jsdoc": "off",

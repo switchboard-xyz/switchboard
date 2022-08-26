@@ -4,8 +4,6 @@ import Big from "big.js";
  * Switchboard precisioned representation of numbers.
  */
 export class SwitchboardDecimal {
-  _big?: Big;
-
   public constructor(
     public readonly mantissa: BN,
     public readonly scale: number
@@ -70,10 +68,7 @@ export class SwitchboardDecimal {
   }
 
   get big(): Big {
-    if (!this._big) {
-      this._big = this.toBig();
-    }
-    return this._big;
+    return this.toBig();
   }
 
   /**

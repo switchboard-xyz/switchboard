@@ -1,17 +1,18 @@
 {
-  "extends": "./tsconfig.build.json",
   "compilerOptions": {
-    "paths": {
-      "@switchboard-xyz/switchboard-v2": ["../libraries/ts"],
-      "@switchboard-xyz/sbv2-utils": ["../libraries/sbv2-utils"],
-      "@solana/spl-token": [
-        "../node_modules/@solana/spl-token",
-        "./node_modules/@solana/spl-token"
-      ]
-    }
+    "declaration": true,
+    "declarationMap": true,
+    "importHelpers": true,
+    "module": "commonjs",
+    "outDir": "dist",
+    "rootDir": "src",
+    "strict": false,
+    "target": "es2019",
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "strictPropertyInitialization": false
   },
-  "references": [
-    { "path": "../libraries/ts" },
-    { "path": "../libraries/sbv2-utils" }
-  ]
+  "files": ["src/index.ts"],
+  "include": ["src/**/*"],
+  "exclude": ["dist", "node_modules", "scripts"]
 }

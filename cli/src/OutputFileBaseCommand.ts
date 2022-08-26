@@ -41,24 +41,25 @@ abstract class OutputFileBaseCommand extends BaseCommand {
     BaseCommand.flags = flags as any;
 
     const parsedPath = path.parse(
-      flags.outputFile.startsWith("/") || flags.outputFile.startsWith("C:")
-        ? flags.outputFile
-        : path.join(process.cwd(), flags.outputFile)
+      (flags as any).outputFile.startsWith("/") ||
+        (flags as any).outputFile.startsWith("C:")
+        ? (flags as any).outputFile
+        : path.join(process.cwd(), (flags as any).outputFile)
     );
     this.outputBasePath = path.join(parsedPath.dir, parsedPath.name);
 
     if (parsedPath.ext === ".json" || flags.json) {
       this.outputJsonFile = `${this.outputBasePath}.json`;
-      if (fs.existsSync(this.outputJsonFile) && !flags.force) {
+      if (fs.existsSync(this.outputJsonFile) && !(flags as any).force) {
         throw new Error(
           `output json file already exists: ${this.outputJsonFile}`
         );
       }
     }
 
-    if (parsedPath.ext === ".csv" || flags.csv) {
+    if (parsedPath.ext === ".csv" || (flags as any).csv) {
       this.outputCsvFile = `${this.outputBasePath}.csv`;
-      if (fs.existsSync(this.outputCsvFile) && !flags.force) {
+      if (fs.existsSync(this.outputCsvFile) && !(flags as any).force) {
         throw new Error(
           `output csv file already exists: ${this.outputCsvFile}`
         );

@@ -62,7 +62,7 @@ abstract class PrintBaseCommand extends Command {
 
   async init() {
     const { flags } = (await this.parse(this.constructor as any)) as any;
-    // this.flags = flags;
+    PrintBaseCommand.flags = flags as any;
 
     // setup logging
     const level = flags.silent ? "error" : flags.verbose ? "debug" : "info";
