@@ -1,7 +1,7 @@
 import { PublicKey } from "@solana/web3.js";
 import { prettyPrintOracle } from "@switchboard-xyz/sbv2-utils";
 import { OracleAccount } from "@switchboard-xyz/switchboard-v2";
-import BaseCommand from "../../../BaseCommand";
+import BaseCommand from "../../../BaseCommands/Solana";
 
 export default class OraclePrint extends BaseCommand {
   outputFile?: string;

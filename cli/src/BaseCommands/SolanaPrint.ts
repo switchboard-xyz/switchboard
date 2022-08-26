@@ -31,11 +31,11 @@ import {
 } from "@switchboard-xyz/switchboard-v2";
 import chalk from "chalk";
 import * as path from "path";
-import { CliConfig } from "./config";
-import { FsProvider } from "./types";
-import { CommandContext } from "./types/context/context";
-import { LoggerParameters, LogProvider } from "./types/context/logging";
-import { FAILED_ICON, loadAnchor } from "./utils";
+import { CliConfig } from "../config";
+import { FsProvider } from "../types";
+import { CommandContext } from "../types/context/context";
+import { LoggerParameters, LogProvider } from "../types/context/logging";
+import { FAILED_ICON, loadAnchor } from "../utils";
 
 export interface ClusterConfigs {
   devnet: anchor.Program;

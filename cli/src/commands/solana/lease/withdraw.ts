@@ -12,7 +12,7 @@ import {
   OracleQueueAccount,
 } from "@switchboard-xyz/switchboard-v2";
 import chalk from "chalk";
-import BaseCommand from "../../../BaseCommand";
+import BaseCommand from "../../../BaseCommands/Solana";
 import { CHECK_ICON, loadKeypair } from "../../../utils";
 
 export default class AggregatorLeaseWithdraw extends BaseCommand {

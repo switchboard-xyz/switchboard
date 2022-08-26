@@ -1,7 +1,7 @@
 import { PublicKey } from "@solana/web3.js";
 import { prettyPrintVrf } from "@switchboard-xyz/sbv2-utils";
 import { VrfAccount } from "@switchboard-xyz/switchboard-v2";
-import BaseCommand from "../../../BaseCommand";
+import BaseCommand from "../../../BaseCommands/Solana";
 
 export default class VrfPrint extends BaseCommand {
   outputFile?: string;

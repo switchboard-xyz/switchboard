@@ -3,7 +3,7 @@ import { PublicKey } from "@solana/web3.js";
 import { verifyProgramHasPayer } from "@switchboard-xyz/sbv2-utils";
 import { AggregatorAccount } from "@switchboard-xyz/switchboard-v2";
 import chalk from "chalk";
-import BaseCommand from "../../../../BaseCommand";
+import BaseCommand from "../../../../BaseCommands/Solana";
 import { CHECK_ICON } from "../../../../utils";
 
 export default class AggregatorSetMinOracleResults extends BaseCommand {

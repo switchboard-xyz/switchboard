@@ -1,5 +1,5 @@
 import { Flags } from "@oclif/core";
-import BaseCommand from "../../../BaseCommand";
+import BaseCommand from "../../../BaseCommands/Solana";
 
 export default class ConfigSet extends BaseCommand {
   hidden = true;

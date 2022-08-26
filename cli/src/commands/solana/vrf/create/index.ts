@@ -21,7 +21,7 @@ import {
   VrfAccount,
 } from "@switchboard-xyz/switchboard-v2";
 import fs from "fs";
-import BaseCommand from "../../../../BaseCommand";
+import BaseCommand from "../../../../BaseCommands/Solana";
 import { loadKeypair } from "../../../../utils";
 
 export default class VrfCreate extends BaseCommand {

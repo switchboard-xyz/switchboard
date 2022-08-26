@@ -3,7 +3,7 @@ import { Keypair, PublicKey } from "@solana/web3.js";
 import { prettyPrintQueue } from "@switchboard-xyz/sbv2-utils";
 import { OracleQueueAccount } from "@switchboard-xyz/switchboard-v2";
 import chalk from "chalk";
-import BaseCommand from "../../../../BaseCommand";
+import BaseCommand from "../../../../BaseCommands/Solana";
 import { CHECK_ICON, getProgramPayer } from "../../../../utils";
 
 export default class QueueSetVrf extends BaseCommand {

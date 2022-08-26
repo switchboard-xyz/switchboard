@@ -17,7 +17,7 @@ import {
   SwitchboardDecimal,
 } from "@switchboard-xyz/switchboard-v2";
 import Big from "big.js";
-import BaseCommand from "../BaseCommand";
+import BaseCommand from "../BaseCommands/Solana";
 import { sleep } from "../utils";
 
 function fromBN(n: anchor.BN, decimals = 0): Big {

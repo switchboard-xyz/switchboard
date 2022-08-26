@@ -7,7 +7,7 @@ import {
   prettyPrintAggregator,
 } from "@switchboard-xyz/sbv2-utils";
 import { AggregatorAccount } from "@switchboard-xyz/switchboard-v2";
-import BaseCommand from "../../../BaseCommand";
+import BaseCommand from "../../../BaseCommands/Solana";
 
 export default class AggregatorPrint extends BaseCommand {
   static enableJsonFlag = true;

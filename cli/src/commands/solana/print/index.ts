@@ -1,6 +1,6 @@
 import { PublicKey } from "@solana/web3.js";
 import chalk from "chalk";
-import PrintBaseCommand from "../../../PrintBaseCommand";
+import PrintBaseCommand from "../../../BaseCommands/SolanaPrint";
 
 export default class Print extends PrintBaseCommand {
   static description =

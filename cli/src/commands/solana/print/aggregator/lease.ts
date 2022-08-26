@@ -5,7 +5,7 @@ import {
   LeaseAccount,
   OracleQueueAccount,
 } from "@switchboard-xyz/switchboard-v2";
-import BaseCommand from "../../../../BaseCommand";
+import BaseCommand from "../../../../BaseCommands/Solana";
 
 export default class AggregatorLeasePrint extends BaseCommand {
   static description =

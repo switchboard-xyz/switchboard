@@ -3,7 +3,7 @@ import { PublicKey } from "@solana/web3.js";
 import { AggregatorAccount } from "@switchboard-xyz/switchboard-v2";
 import Big from "big.js";
 import chalk from "chalk";
-import BaseCommand from "../../../../BaseCommand";
+import BaseCommand from "../../../../BaseCommands/Solana";
 import { CHECK_ICON, verifyProgramHasPayer } from "../../../../utils";
 
 export default class AggregatorSetVarianceThreshold extends BaseCommand {

@@ -11,7 +11,7 @@ import {
 import { ChildProcess, exec, spawn } from "child_process";
 import fs from "fs";
 import path from "path";
-import BaseCommand from "../../../BaseCommand";
+import BaseCommand from "../../../BaseCommands/Solana";
 
 export default class AnchorTest extends BaseCommand {
   static description = "run anchor test and a switchboard oracle in parallel";

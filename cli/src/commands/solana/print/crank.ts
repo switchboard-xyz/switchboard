@@ -1,7 +1,7 @@
 import { PublicKey } from "@solana/web3.js";
 import { prettyPrintCrank } from "@switchboard-xyz/sbv2-utils";
 import { CrankAccount } from "@switchboard-xyz/switchboard-v2";
-import BaseCommand from "../../../BaseCommand";
+import BaseCommand from "../../../BaseCommands/Solana";
 
 export default class CrankPrint extends BaseCommand {
   outputFile?: string;

@@ -18,12 +18,12 @@ import Big from "big.js";
 import chalk from "chalk";
 import * as fs from "fs";
 import * as path from "path";
-import { CliConfig, ConfigParameter, DEFAULT_CONFIG } from "./config";
-import { AuthorityMismatch } from "./types";
-import { CommandContext } from "./types/context/context";
-import { FsProvider } from "./types/context/FsProvider";
-import { LoggerParameters, LogProvider } from "./types/context/logging";
-import { FAILED_ICON, loadKeypair, toCluster } from "./utils";
+import { CliConfig, ConfigParameter, DEFAULT_CONFIG } from "../config";
+import { AuthorityMismatch } from "../types";
+import { CommandContext } from "../types/context/context";
+import { FsProvider } from "../types/context/FsProvider";
+import { LoggerParameters, LogProvider } from "../types/context/logging";
+import { FAILED_ICON, loadKeypair, toCluster } from "../utils";
 
 abstract class BaseCommand extends Command {
   static flags = {

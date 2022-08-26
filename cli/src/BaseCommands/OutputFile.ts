@@ -5,7 +5,7 @@ import { SwitchboardDecimal } from "@switchboard-xyz/switchboard-v2";
 import Big from "big.js";
 import fs from "fs";
 import path from "path";
-import BaseCommand from "./BaseCommand";
+import BaseCommand from "./Solana";
 
 abstract class OutputFileBaseCommand extends BaseCommand {
   outputBasePath: string;

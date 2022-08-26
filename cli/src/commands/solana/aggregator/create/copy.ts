@@ -28,7 +28,7 @@ import {
   SwitchboardDecimal,
 } from "@switchboard-xyz/switchboard-v2";
 import Big from "big.js";
-import BaseCommand from "../../../../BaseCommand";
+import BaseCommand from "../../../../BaseCommands/Solana";
 
 // TODO: Fix command so it accepts a feed authority flag
 // TODO: Add flag that skips job creation

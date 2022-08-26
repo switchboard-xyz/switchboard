@@ -1,7 +1,7 @@
 import { Flags } from "@oclif/core";
 import { BN } from "@project-serum/anchor";
 import { SwitchboardDecimal } from "@switchboard-xyz/switchboard-v2";
-import BaseCommand from "../BaseCommand";
+import BaseCommand from "../BaseCommands/Solana";
 
 export default class SandboxCommand extends BaseCommand {
   static description = "sandbox";

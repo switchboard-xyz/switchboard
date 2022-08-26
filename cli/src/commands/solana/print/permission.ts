@@ -7,7 +7,7 @@ import {
   OracleAccount,
   PermissionAccount,
 } from "@switchboard-xyz/switchboard-v2";
-import BaseCommand from "../../../BaseCommand";
+import BaseCommand from "../../../BaseCommands/Solana";
 
 export default class PermissionPrint extends BaseCommand {
   static description = "Print the deserialized Switchboard permission account";

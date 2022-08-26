@@ -29,7 +29,7 @@ import {
 import Big from "big.js";
 import fs from "fs";
 import path from "path";
-import BaseCommand from "../../../BaseCommand";
+import BaseCommand from "../../../BaseCommands/Solana";
 import { verifyProgramHasPayer } from "../../../utils";
 
 export default class QueueCreate extends BaseCommand {

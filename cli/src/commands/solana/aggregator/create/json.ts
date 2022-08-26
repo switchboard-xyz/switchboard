@@ -16,7 +16,7 @@ import {
 import chalk from "chalk";
 import * as fs from "fs";
 import * as path from "path";
-import BaseCommand from "../../../../BaseCommand";
+import BaseCommand from "../../../../BaseCommands/Solana";
 import {
   CHECK_ICON,
   loadKeypair,

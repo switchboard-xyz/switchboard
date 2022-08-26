@@ -1,5 +1,5 @@
 import { Flags } from "@oclif/core";
-import BaseCommand from "../BaseCommand";
+import BaseCommand from "../BaseCommands/Solana";
 import OracleDeposit from "./solana/oracle/deposit";
 import OracleWithdraw from "./solana/oracle/withdraw";
 

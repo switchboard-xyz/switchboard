@@ -2,7 +2,7 @@
 import { Flags } from "@oclif/core";
 import { prettyPrintBufferRelayer } from "@switchboard-xyz/sbv2-utils";
 import { BufferRelayerAccount } from "@switchboard-xyz/switchboard-v2";
-import BaseCommand from "../../../BaseCommand";
+import BaseCommand from "../../../BaseCommands/Solana";
 
 export default class BufferPrint extends BaseCommand {
   static description =

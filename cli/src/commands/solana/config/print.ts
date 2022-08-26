@@ -1,6 +1,6 @@
 import { chalkString } from "@switchboard-xyz/sbv2-utils";
 import chalk from "chalk";
-import BaseCommand from "../../../BaseCommand";
+import BaseCommand from "../../../BaseCommands/Solana";
 
 export default class ConfigPrint extends BaseCommand {
   static description = "print cli config";

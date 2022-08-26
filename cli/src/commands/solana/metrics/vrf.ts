@@ -4,7 +4,7 @@ import { AccountInfo, PublicKey } from "@solana/web3.js";
 import bs58 from "bs58";
 import fs from "fs";
 import path from "path";
-import BaseCommand from "../../../BaseCommand";
+import BaseCommand from "../../../BaseCommands/Solana";
 
 export default class MetricsVrf extends BaseCommand {
   static description = "get metrics on switchboard vrfs";

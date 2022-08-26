@@ -5,7 +5,7 @@ import {
   OracleQueueAccount,
   PermissionAccount,
 } from "@switchboard-xyz/switchboard-v2";
-import BaseCommand from "../../../../BaseCommand";
+import BaseCommand from "../../../../BaseCommands/Solana";
 
 export default class AggregatorPermissionPrint extends BaseCommand {
   static description =

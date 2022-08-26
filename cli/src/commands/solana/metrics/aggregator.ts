@@ -9,7 +9,7 @@ import Big from "big.js";
 import bs58 from "bs58";
 import fs from "fs";
 import path from "path";
-import BaseCommand from "../../../BaseCommand";
+import BaseCommand from "../../../BaseCommands/Solana";
 import { LogProvider } from "../../../types";
 
 export default class MetricsAggregator extends BaseCommand {

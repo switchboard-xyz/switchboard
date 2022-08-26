@@ -12,7 +12,7 @@ import {
   programWallet,
 } from "@switchboard-xyz/switchboard-v2";
 import chalk from "chalk";
-import BaseCommand from "../../../BaseCommand";
+import BaseCommand from "../../../BaseCommands/Solana";
 import { CHECK_ICON, verifyProgramHasPayer } from "../../../utils";
 
 export default class LeaseCreate extends BaseCommand {

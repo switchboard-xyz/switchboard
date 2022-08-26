@@ -6,7 +6,7 @@ import { programWallet } from "@switchboard-xyz/switchboard-v2";
 import chalk from "chalk";
 import * as fs from "fs";
 import * as path from "path";
-import BaseCommand from "../../../BaseCommand";
+import BaseCommand from "../../../BaseCommands/Solana";
 import { verifyProgramHasPayer } from "../../../utils";
 
 export default class LocalnetEnvironment extends BaseCommand {

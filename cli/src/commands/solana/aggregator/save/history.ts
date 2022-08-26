@@ -1,6 +1,6 @@
 import { PublicKey } from "@solana/web3.js";
 import { AggregatorAccount } from "@switchboard-xyz/switchboard-v2";
-import OutputFileBaseCommand from "../../../../OutputFileBaseCommand";
+import OutputFileBaseCommand from "../../../../BaseCommands/OutputFile";
 
 export default class AggregatorUpdate extends OutputFileBaseCommand {
   static description = "request a new aggregator result from a set of oracles";

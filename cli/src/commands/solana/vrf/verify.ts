@@ -8,7 +8,7 @@ import {
   programWallet,
   VrfAccount,
 } from "@switchboard-xyz/switchboard-v2";
-import BaseCommand from "../../../BaseCommand";
+import BaseCommand from "../../../BaseCommands/Solana";
 
 export default class VrfVerify extends BaseCommand {
   static description = "if ready, verify a VRF proof";

@@ -2,7 +2,7 @@ import { Flags } from "@oclif/core";
 import { PublicKey } from "@solana/web3.js";
 import { prettyPrintQueue } from "@switchboard-xyz/sbv2-utils";
 import { OracleQueueAccount } from "@switchboard-xyz/switchboard-v2";
-import BaseCommand from "../../../BaseCommand";
+import BaseCommand from "../../../BaseCommands/Solana";
 
 export default class QueuePrint extends BaseCommand {
   outputFile?: string;
