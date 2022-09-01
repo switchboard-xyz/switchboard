@@ -2202,10 +2202,6 @@
     mocha "^9.1.1"
     toml "^3.0.0"
 
-"@switchboard-xyz/secret-manager@link:../javascript/secret-manager":
-  version "0.0.0"
-  uid ""
-
 "@switchboard-xyz/switchboard-v2@^0.0.129":
   version "0.0.129"
   resolved "https://registry.npmjs.org/@switchboard-xyz/switchboard-v2/-/switchboard-v2-0.0.129.tgz#0f80fe3ed758c212c904c20ed7560d78a0ab6c9b"

@@ -52,7 +52,6 @@
     "@switchboard-xyz/common": "^2.0.0",
     "@switchboard-xyz/near.js": "^2.0.1-beta.9",
     "@switchboard-xyz/sbv2-utils": "^0.1.43",
-    "@switchboard-xyz/secret-manager": "link:../javascript/secret-manager",
     "@switchboard-xyz/switchboard-v2": "^0.0.129",
     "aptos": "^1.3.10",
     "assert": "^2.0.0",
