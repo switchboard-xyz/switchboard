@@ -1,3 +1,6 @@
 [submodule "sdks/aptos"]
 	path = sdks/aptos
 	url = https://github.com/switchboard-xyz/sbv2-aptos.git
+[submodule "sdks/solana"]
+	path = sdks/solana
+	url = https://github.com/switchboard-xyz/switchboard-v2
