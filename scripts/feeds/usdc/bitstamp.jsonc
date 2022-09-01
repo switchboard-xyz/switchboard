@@ -1,0 +1,30 @@
+{
+  "tasks": [
+    {
+      "httpTask": {
+        "url": "https://www.bitstamp.net/api/v2/ticker/usdcusd"
+      }
+    },
+    {
+      "medianTask": {
+        "tasks": [
+          {
+            "jsonParseTask": {
+              "path": "$.ask"
+            }
+          },
+          {
+            "jsonParseTask": {
+              "path": "$.bid"
+            }
+          },
+          {
+            "jsonParseTask": {
+              "path": "$.last"
+            }
+          }
+        ]
+      }
+    }
+  ]
+}

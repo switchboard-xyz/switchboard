@@ -1,0 +1,30 @@
+{
+  "tasks": [
+    {
+      "httpTask": {
+        "url": "https://api-pub.bitfinex.com/v2/tickers?symbols=tETHUSD"
+      }
+    },
+    {
+      "medianTask": {
+        "tasks": [
+          {
+            "jsonParseTask": {
+              "path": "$[0][1]"
+            }
+          },
+          {
+            "jsonParseTask": {
+              "path": "$[0][3]"
+            }
+          },
+          {
+            "jsonParseTask": {
+              "path": "$[0][7]"
+            }
+          }
+        ]
+      }
+    }
+  ]
+}

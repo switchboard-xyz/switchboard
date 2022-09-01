@@ -9,7 +9,7 @@ import {
 import chalk from "chalk";
 import fs from "fs";
 import path from "path";
-import BaseCommand from "../../../../BaseCommands/Solana";
+import { SolanaWithSignerBaseCommand as BaseCommand } from "../../../../solana";
 import { CHECK_ICON } from "../../../../utils";
 
 export default class AggregatorAddJob extends BaseCommand {

@@ -1,6 +1,6 @@
 import { Flags } from "@oclif/core";
 import { PublicKey, Transaction } from "@solana/web3.js";
-import { verifyProgramHasPayer } from "@switchboard-xyz/sbv2-utils";
+import {} from "@switchboard-xyz/sbv2-utils";
 import {
   AggregatorAccount,
   OracleQueueAccount,
@@ -9,7 +9,7 @@ import {
 } from "@switchboard-xyz/switchboard-v2";
 import Big from "big.js";
 import chalk from "chalk";
-import BaseCommand from "../../../../BaseCommands/Solana";
+import { SolanaWithSignerBaseCommand as BaseCommand } from "../../../../solana";
 import { CHECK_ICON } from "../../../../utils";
 
 export default class AggregatorSet extends BaseCommand {
@@ -62,7 +62,6 @@ export default class AggregatorSet extends BaseCommand {
 
   async run() {
     const { args, flags } = await this.parse(AggregatorSet);
-    verifyProgramHasPayer(this.program);
 
     const payerKeypair = programWallet(this.program);
 

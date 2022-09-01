@@ -1,0 +1,43 @@
+{
+  "name": "@switchboard-xyz/secret-manager",
+  "author": "",
+  "license": "MIT",
+  "version": "1.0.0",
+  "description": "switchboard utils to load a secret",
+  "files": [
+    "lib",
+    "src",
+    "package.json"
+  ],
+  "exports": {
+    ".": {
+      "import": "./lib/esm/index.js",
+      "require": "./lib/cjs/index.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "main": "lib/cjs/index.js",
+  "module": "lib/esm/index.js",
+  "types": "lib/cjs/index.d.ts",
+  "scripts": {
+    "build": "yarn build:cjs && yarn build:esm",
+    "build:cjs": "tsc -p tsconfig.cjs.json",
+    "build:esm": "tsc",
+    "watch:cjs": "tsc -p tsconfig.cjs.json --watch",
+    "watch:esm": "tsc --watch",
+    "watch": "run-p watch:cjs watch:esm",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "@aws-sdk/client-secrets-manager": "^3.154.0",
+    "@aws-sdk/credential-providers": "^3.157.0",
+    "@google-cloud/secret-manager": "^3.10.1",
+    "dotenv": "^16.0.1",
+    "npm-run-all": "^4.1.5"
+  },
+  "devDependencies": {
+    "@types/node": "^18.7.13",
+    "shx": "^0.3.4",
+    "typescript": "^4.7.4"
+  }
+}

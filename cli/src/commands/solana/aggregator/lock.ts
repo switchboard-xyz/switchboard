@@ -2,8 +2,8 @@ import { Flags } from "@oclif/core";
 import { PublicKey } from "@solana/web3.js";
 import { AggregatorAccount } from "@switchboard-xyz/switchboard-v2";
 import chalk from "chalk";
-import BaseCommand from "../../../BaseCommands/Solana";
-import { CHECK_ICON, verifyProgramHasPayer } from "../../../utils";
+import { SolanaWithSignerBaseCommand as BaseCommand } from "../../../solana";
+import { CHECK_ICON } from "../../../utils";
 
 export default class AggregatorLock extends BaseCommand {
   static description =
@@ -28,7 +28,6 @@ export default class AggregatorLock extends BaseCommand {
 
   async run() {
     const { args, flags } = await this.parse(AggregatorLock);
-    verifyProgramHasPayer(this.program);
 
     const aggregatorAccount = new AggregatorAccount({
       program: this.program,

@@ -3,8 +3,8 @@ import { Keypair, PublicKey } from "@solana/web3.js";
 import { prettyPrintQueue } from "@switchboard-xyz/sbv2-utils";
 import { OracleQueueAccount } from "@switchboard-xyz/switchboard-v2";
 import chalk from "chalk";
-import BaseCommand from "../../../../BaseCommands/Solana";
-import { CHECK_ICON, getProgramPayer } from "../../../../utils";
+import { SolanaWithSignerBaseCommand as BaseCommand } from "../../../../solana";
+import { CHECK_ICON } from "../../../../utils";
 
 export default class QueueSetVrf extends BaseCommand {
   queueAccount: OracleQueueAccount;
@@ -52,7 +52,7 @@ export default class QueueSetVrf extends BaseCommand {
 
     const setVrfTxn = await this.queueAccount.setVrfSettings({
       unpermissionedVrf: true,
-      authority: this.queueAuthority ?? getProgramPayer(this.program),
+      authority: this.queueAuthority ?? this.signer,
     });
 
     if (this.silent) {

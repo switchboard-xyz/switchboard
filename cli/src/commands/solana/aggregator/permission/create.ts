@@ -6,8 +6,8 @@ import {
   PermissionAccount,
 } from "@switchboard-xyz/switchboard-v2";
 import chalk from "chalk";
-import BaseCommand from "../../../../BaseCommands/Solana";
-import { CHECK_ICON, verifyProgramHasPayer } from "../../../../utils";
+import { SolanaWithSignerBaseCommand as BaseCommand } from "../../../../solana";
+import { CHECK_ICON } from "../../../../utils";
 
 export default class AggregatorPermissionCreate extends BaseCommand {
   static description = "create a permission account for an aggregator";
@@ -25,7 +25,6 @@ export default class AggregatorPermissionCreate extends BaseCommand {
 
   async run() {
     const { args } = await this.parse(AggregatorPermissionCreate);
-    verifyProgramHasPayer(this.program);
 
     const aggregatorAccount = new AggregatorAccount({
       program: this.program,

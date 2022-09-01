@@ -4,7 +4,6 @@ import { PublicKey } from "@solana/web3.js";
 import {
   chalkString,
   getOrCreateSwitchboardTokenAccount,
-  verifyProgramHasPayer,
 } from "@switchboard-xyz/sbv2-utils";
 import {
   AggregatorAccount,
@@ -13,7 +12,7 @@ import {
   programWallet,
 } from "@switchboard-xyz/switchboard-v2";
 import chalk from "chalk";
-import BaseCommand from "../../../BaseCommands/Solana";
+import { SolanaWithSignerBaseCommand as BaseCommand } from "../../../solana";
 import { CHECK_ICON } from "../../../utils";
 
 export default class LeaseExtend extends BaseCommand {
@@ -43,7 +42,6 @@ export default class LeaseExtend extends BaseCommand {
 
   async run() {
     const { args, flags } = await this.parse(LeaseExtend);
-    verifyProgramHasPayer(this.program);
 
     const payerKeypair = programWallet(this.program);
 

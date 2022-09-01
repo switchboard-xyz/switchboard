@@ -4,8 +4,8 @@ import {
   CrankAccount,
 } from "@switchboard-xyz/switchboard-v2";
 import chalk from "chalk";
-import BaseCommand from "../../../BaseCommands/Solana";
-import { CHECK_ICON, verifyProgramHasPayer } from "../../../utils";
+import { SolanaWithSignerBaseCommand as BaseCommand } from "../../../solana";
+import { CHECK_ICON } from "../../../utils";
 
 export default class CrankPush extends BaseCommand {
   static description = "push an aggregator onto a crank";
@@ -29,7 +29,6 @@ export default class CrankPush extends BaseCommand {
 
   async run() {
     const { args } = await this.parse(CrankPush);
-    verifyProgramHasPayer(this.program);
 
     const crankAccount = new CrankAccount({
       program: this.program,

@@ -3,7 +3,7 @@ import { PublicKey } from "@solana/web3.js";
 import { CrankAccount, CrankRow } from "@switchboard-xyz/switchboard-v2";
 import * as fs from "fs";
 import * as path from "path";
-import BaseCommand from "../../../BaseCommands/Solana";
+import { SolanaWithSignerBaseCommand as BaseCommand } from "../../../solana";
 
 export default class CrankList extends BaseCommand {
   static description = "list the pubkeys currently on the crank";

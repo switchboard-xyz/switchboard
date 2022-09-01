@@ -5,7 +5,7 @@ import {
 } from "@switchboard-xyz/sbv2-utils";
 import { AggregatorAccount } from "@switchboard-xyz/switchboard-v2";
 import chalk from "chalk";
-import BaseCommand from "../../../../BaseCommands/Solana";
+import { SolanaWithoutSignerBaseCommand as BaseCommand } from "../../../../solana";
 
 export default class AggregatorHistoryPrint extends BaseCommand {
   static description =

@@ -29,8 +29,8 @@ import {
 import Big from "big.js";
 import fs from "fs";
 import path from "path";
-import BaseCommand from "../../../BaseCommands/Solana";
-import { verifyProgramHasPayer } from "../../../utils";
+import { SolanaWithSignerBaseCommand as BaseCommand } from "../../../solana";
+import {} from "../../../utils";
 
 export default class QueueCreate extends BaseCommand {
   static description = "create a custom queue";
@@ -100,7 +100,6 @@ export default class QueueCreate extends BaseCommand {
   };
 
   async run() {
-    verifyProgramHasPayer(this.program);
     const { flags, args } = await this.parse(QueueCreate);
     const payerKeypair = programWallet(this.program);
     const signers: Keypair[] = [payerKeypair];

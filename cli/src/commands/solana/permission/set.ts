@@ -5,12 +5,9 @@ import {
   SwitchboardPermission,
 } from "@switchboard-xyz/switchboard-v2";
 import chalk from "chalk";
-import BaseCommand from "../../../BaseCommands/Solana";
-import {
-  CHECK_ICON,
-  loadSwitchboardAccount,
-  verifyProgramHasPayer,
-} from "../../../utils";
+import { SolanaWithSignerBaseCommand as BaseCommand } from "../../../solana";
+import { loadSwitchboardAccount } from "../../../solana";
+import { CHECK_ICON } from "../../../utils";
 
 export default class PermissionSet extends BaseCommand {
   static description = "permit a grantee to use a granters resources";
@@ -35,7 +32,6 @@ export default class PermissionSet extends BaseCommand {
 
   async run() {
     const { args, flags } = await this.parse(PermissionSet);
-    verifyProgramHasPayer(this.program);
 
     const permissionAccount = new PermissionAccount({
       program: this.program,

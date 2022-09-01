@@ -3,7 +3,7 @@ import { PublicKey } from "@solana/web3.js";
 import { chalkString } from "@switchboard-xyz/sbv2-utils";
 import { VrfAccount } from "@switchboard-xyz/switchboard-v2";
 import chalk from "chalk";
-import BaseCommand from "../../../BaseCommands/Solana";
+import { SolanaWithoutSignerBaseCommand as BaseCommand } from "../../../solana";
 
 export default class WatchVrf extends BaseCommand {
   static description = "watch a vrf for a new value";

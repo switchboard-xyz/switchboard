@@ -19,8 +19,8 @@ import {
   ProgramStateAccount,
 } from "@switchboard-xyz/switchboard-v2";
 import chalk from "chalk";
-import BaseCommand from "../../../BaseCommands/Solana";
-import { CHECK_ICON, loadKeypair, verifyProgramHasPayer } from "../../../utils";
+import { SolanaWithSignerBaseCommand as BaseCommand } from "../../../solana";
+import { CHECK_ICON, loadKeypair } from "../../../utils";
 
 export default class OracleCreate extends BaseCommand {
   static description = "create a new oracle account for a given queue";
@@ -48,7 +48,6 @@ export default class OracleCreate extends BaseCommand {
   static args = [
     {
       name: "queueKey",
-
       description: "public key of the oracle queue to join",
     },
   ];
@@ -61,7 +60,7 @@ export default class OracleCreate extends BaseCommand {
 
   async run() {
     const { args, flags } = await this.parse(OracleCreate);
-    verifyProgramHasPayer(this.program);
+
     const payerKeypair = programWallet(this.program);
     const signers: Keypair[] = [payerKeypair];
 

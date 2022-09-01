@@ -9,7 +9,7 @@ import {
   SwitchboardDecimal,
 } from "@switchboard-xyz/switchboard-v2";
 import chalk from "chalk";
-import BaseCommand from "../../../BaseCommands/Solana";
+import { SolanaWithoutSignerBaseCommand as BaseCommand } from "../../../solana";
 
 export default class WatchAggregator extends BaseCommand {
   static description = "watch an aggregator for a new value";

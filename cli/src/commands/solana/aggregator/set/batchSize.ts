@@ -2,8 +2,8 @@ import { Flags } from "@oclif/core";
 import { PublicKey } from "@solana/web3.js";
 import { AggregatorAccount } from "@switchboard-xyz/switchboard-v2";
 import chalk from "chalk";
-import BaseCommand from "../../../../BaseCommands/Solana";
-import { CHECK_ICON, verifyProgramHasPayer } from "../../../../utils";
+import { SolanaWithSignerBaseCommand as BaseCommand } from "../../../../solana";
+import { CHECK_ICON } from "../../../../utils";
 
 export default class AggregatorSetBatchSize extends BaseCommand {
   static description = "set an aggregator's batch size";
@@ -32,7 +32,6 @@ export default class AggregatorSetBatchSize extends BaseCommand {
 
   async run() {
     const { args, flags } = await this.parse(AggregatorSetBatchSize);
-    verifyProgramHasPayer(this.program);
 
     const batchSize = Number.parseInt(args.batchSize, 10);
     if (batchSize <= 0 || batchSize > 16) {

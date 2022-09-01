@@ -1,13 +1,13 @@
 import { PublicKey } from "@solana/web3.js";
 import chalk from "chalk";
-import PrintBaseCommand from "../../../BaseCommands/SolanaPrint";
+import { SolanaMultiNetworkBaseCommand as BaseCommand } from "../../../solana";
 
-export default class Print extends PrintBaseCommand {
+export default class Print extends BaseCommand {
   static description =
     "find a switchboard account by public key for a given cluster";
 
   static flags = {
-    ...PrintBaseCommand.flags,
+    ...BaseCommand.flags,
   };
 
   static args = [

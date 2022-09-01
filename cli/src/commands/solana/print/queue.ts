@@ -2,14 +2,14 @@ import { Flags } from "@oclif/core";
 import { PublicKey } from "@solana/web3.js";
 import { prettyPrintQueue } from "@switchboard-xyz/sbv2-utils";
 import { OracleQueueAccount } from "@switchboard-xyz/switchboard-v2";
-import BaseCommand from "../../../BaseCommands/Solana";
+import { SolanaWithoutSignerBaseCommand as BaseCommand } from "../../../solana";
 
 export default class QueuePrint extends BaseCommand {
   outputFile?: string;
 
   static description = "Print the deserialized Switchboard oraclequeue account";
 
-  static aliases = ["queue:print"];
+  static aliases = ["solana:queue:print"];
 
   static flags = {
     ...BaseCommand.flags,
@@ -27,7 +27,7 @@ export default class QueuePrint extends BaseCommand {
   ];
 
   static examples = [
-    "$ sbv2 queue:print GhYg3R1V6DmJbwuc57qZeoYG6gUuvCotUF1zU3WCj98U",
+    "$ sbv2 solana queue print GhYg3R1V6DmJbwuc57qZeoYG6gUuvCotUF1zU3WCj98U",
   ];
 
   async run() {

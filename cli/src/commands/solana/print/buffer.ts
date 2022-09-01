@@ -2,13 +2,13 @@
 import { Flags } from "@oclif/core";
 import { prettyPrintBufferRelayer } from "@switchboard-xyz/sbv2-utils";
 import { BufferRelayerAccount } from "@switchboard-xyz/switchboard-v2";
-import BaseCommand from "../../../BaseCommands/Solana";
+import { SolanaWithoutSignerBaseCommand as BaseCommand } from "../../../solana";
 
 export default class BufferPrint extends BaseCommand {
   static description =
     "Print the deserialized Switchboard buffer relayer account";
 
-  static aliases = ["buffer:print"];
+  static aliases = ["solana:buffer:print"];
 
   static flags = {
     ...BaseCommand.flags,

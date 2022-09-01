@@ -16,14 +16,14 @@ import {
   programWallet,
   VrfAccount,
 } from "@switchboard-xyz/switchboard-v2";
-import BaseCommand from "../../../../BaseCommands/Solana";
-import { loadKeypair, sleep, verifyProgramHasPayer } from "../../../../utils";
+import { SolanaWithSignerBaseCommand as BaseCommand } from "../../../../solana";
+import { loadKeypair, sleep } from "../../../../utils";
 
 export default class VrfCreateExample extends BaseCommand {
   static description = "create a VRF account for the client example program";
 
   static examples = [
-    "sbv2 vrf:create:example 9WZ59yz95bd3XwJxDPVE2PjvVWmSy9WM1NgGD2Hqsohw --vrfPid 6MLk7G54uHZ7JuzNxpBAVENANrgM9BZ51pKkzGwPYBCE --keypair ../payer-keypair.json -v --enable --queueAuthority queue-authority-keypair.json",
+    "sbv2 solana vrf create example 9WZ59yz95bd3XwJxDPVE2PjvVWmSy9WM1NgGD2Hqsohw --vrfPid 6MLk7G54uHZ7JuzNxpBAVENANrgM9BZ51pKkzGwPYBCE --keypair ../payer-keypair.json -v --enable --queueAuthority queue-authority-keypair.json",
   ];
 
   static flags = {
@@ -56,7 +56,7 @@ export default class VrfCreateExample extends BaseCommand {
 
   async run() {
     const { args, flags } = await this.parse(VrfCreateExample);
-    verifyProgramHasPayer(this.program);
+
     const payerKeypair = programWallet(this.program);
     this.mainnetCheck();
 

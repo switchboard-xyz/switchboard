@@ -14,8 +14,34 @@ import {
   SwitchboardPermissionValue,
 } from "@switchboard-xyz/switchboard-v2";
 import Big from "big.js";
+import { isBN } from "bn.js";
 import chalk from "chalk";
 import { loadKeypair } from "./keypair";
+
+export const baseJsonReplacers = (key: any, value: any): any => {
+  if (
+    !value ||
+    typeof value === "string" ||
+    typeof value === "number" ||
+    typeof value === "boolean"
+  ) {
+    return value;
+  } else {
+    if (value instanceof Big) {
+      return value.toString();
+    } else if (isBN(value)) {
+      return value.toString(10);
+    }
+  }
+  return value;
+};
+
+export const toUtf8 = (buf: any): string => {
+  buf = buf ?? "";
+  return Buffer.from(buf)
+    .toString("utf8")
+    .replace(/\u0000/g, "");
+};
 
 export const getArrayOfSizeN = (number_: number): number[] => {
   return Array.from({ length: number_ }, (_, index) => index + 1);

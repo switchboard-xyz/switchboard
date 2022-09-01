@@ -1,0 +1,14 @@
+{
+  "tasks": [
+    {
+      "httpTask": {
+        "url": "https://www.binance.us/api/v3/ticker/price?symbol=SOLUSD"
+      }
+    },
+    {
+      "jsonParseTask": {
+        "path": "$.price"
+      }
+    }
+  ]
+}

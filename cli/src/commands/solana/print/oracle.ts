@@ -1,14 +1,14 @@
 import { PublicKey } from "@solana/web3.js";
 import { prettyPrintOracle } from "@switchboard-xyz/sbv2-utils";
 import { OracleAccount } from "@switchboard-xyz/switchboard-v2";
-import BaseCommand from "../../../BaseCommands/Solana";
+import { SolanaWithoutSignerBaseCommand as BaseCommand } from "../../../solana";
 
 export default class OraclePrint extends BaseCommand {
   outputFile?: string;
 
   static description = "Print the deserialized Switchboard oracle account";
 
-  static aliases = ["oracle:print"];
+  static aliases = ["solana:oracle:print"];
 
   static flags = {
     ...BaseCommand.flags,

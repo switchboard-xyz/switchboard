@@ -1,0 +1,30 @@
+{
+  "tasks": [
+    {
+      "httpTask": {
+        "url": "https://api.bittrex.com/v3/markets/btc-usd/ticker"
+      }
+    },
+    {
+      "medianTask": {
+        "tasks": [
+          {
+            "jsonParseTask": {
+              "path": "$.askRate"
+            }
+          },
+          {
+            "jsonParseTask": {
+              "path": "$.bidRate"
+            }
+          },
+          {
+            "jsonParseTask": {
+              "path": "$.lastTradeRate"
+            }
+          }
+        ]
+      }
+    }
+  ]
+}

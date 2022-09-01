@@ -6,7 +6,7 @@ export class NoPayerKeypairProvided extends Error {
 }
 
 export class AuthorityMismatch extends Error {
-  constructor(message = "authority keypair does not match expected authority") {
+  constructor(message = "account authority does not match expected authority") {
     super(message);
     Object.setPrototypeOf(this, AuthorityMismatch.prototype);
   }

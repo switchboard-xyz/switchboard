@@ -5,8 +5,8 @@ import {
   OracleQueueAccount,
 } from "@switchboard-xyz/switchboard-v2";
 import chalk from "chalk";
-import BaseCommand from "../../../BaseCommands/Solana";
-import { CHECK_ICON, verifyProgramHasPayer } from "../../../utils";
+import { SolanaWithSignerBaseCommand as BaseCommand } from "../../../solana";
+import { CHECK_ICON } from "../../../utils";
 
 export default class CrankPop extends BaseCommand {
   static description = "pop the crank";
@@ -24,7 +24,6 @@ export default class CrankPop extends BaseCommand {
 
   async run() {
     const { args } = await this.parse(CrankPop);
-    verifyProgramHasPayer(this.program);
 
     const crankAccount = new CrankAccount({
       program: this.program,

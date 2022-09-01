@@ -1,14 +1,14 @@
 import { PublicKey } from "@solana/web3.js";
 import { prettyPrintJob } from "@switchboard-xyz/sbv2-utils";
 import { JobAccount } from "@switchboard-xyz/switchboard-v2";
-import BaseCommand from "../../../BaseCommands/Solana";
+import { SolanaWithoutSignerBaseCommand as BaseCommand } from "../../../solana";
 
 export default class JobPrint extends BaseCommand {
   outputFile?: string;
 
   static description = "Print the deserialized Switchboard job account";
 
-  static aliases = ["job:print"];
+  static aliases = ["solana:job:print"];
 
   static flags = {
     ...BaseCommand.flags,

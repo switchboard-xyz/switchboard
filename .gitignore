@@ -25,12 +25,11 @@ target
 
 # Misc
 .keypairs
-secrets
 *-keypair*.json
 .archive
 *-error.log
 *-debug.log
-
+.aptos
 
 # Docusaurus
 public

@@ -7,12 +7,12 @@ import {
   OracleAccount,
   PermissionAccount,
 } from "@switchboard-xyz/switchboard-v2";
-import BaseCommand from "../../../BaseCommands/Solana";
+import { SolanaWithoutSignerBaseCommand as BaseCommand } from "../../../solana";
 
 export default class PermissionPrint extends BaseCommand {
   static description = "Print the deserialized Switchboard permission account";
 
-  static aliases = ["permission:print"];
+  static aliases = ["solana:permission:print"];
 
   static flags = {
     ...BaseCommand.flags,

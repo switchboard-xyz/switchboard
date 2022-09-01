@@ -1,0 +1,14 @@
+{
+  "tasks": [
+    {
+      "httpTask": {
+        "url": "https://ftx.com/api/markets/usdt/usd"
+      }
+    },
+    {
+      "jsonParseTask": {
+        "path": "$.result.price"
+      }
+    }
+  ]
+}

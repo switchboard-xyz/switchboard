@@ -7,8 +7,8 @@ import {
 } from "@switchboard-xyz/switchboard-v2";
 import fs from "fs";
 import path from "path";
-import BaseCommand from "../../../../BaseCommands/Solana";
-import { verifyProgramHasPayer } from "../../../../utils";
+import { SolanaWithSignerBaseCommand as BaseCommand } from "../../../../solana";
+import {} from "../../../../utils";
 
 export default class JobCreate extends BaseCommand {
   static description = "create a job account";
@@ -34,7 +34,6 @@ export default class JobCreate extends BaseCommand {
   ];
 
   async run() {
-    verifyProgramHasPayer(this.program);
     const { args, flags } = await this.parse(JobCreate);
     const payerKeypair = programWallet(this.program);
     const authority = await this.loadAuthority(flags.authority);

@@ -5,8 +5,8 @@ import {
   OracleQueueAccount,
 } from "@switchboard-xyz/switchboard-v2";
 import chalk from "chalk";
-import BaseCommand from "../../../../BaseCommands/Solana";
-import { CHECK_ICON, verifyProgramHasPayer } from "../../../../utils";
+import { SolanaWithSignerBaseCommand as BaseCommand } from "../../../../solana";
+import { CHECK_ICON } from "../../../../utils";
 
 export default class AggregatorSetQueue extends BaseCommand {
   static description = "set an aggregator's oracle queue";
@@ -32,7 +32,6 @@ export default class AggregatorSetQueue extends BaseCommand {
 
   async run() {
     const { args, flags } = await this.parse(AggregatorSetQueue);
-    verifyProgramHasPayer(this.program);
 
     const aggregatorAccount = new AggregatorAccount({
       program: this.program,

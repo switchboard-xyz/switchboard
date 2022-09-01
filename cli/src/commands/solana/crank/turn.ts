@@ -7,8 +7,8 @@ import {
   programWallet,
 } from "@switchboard-xyz/switchboard-v2";
 import chalk from "chalk";
-import BaseCommand from "../../../BaseCommands/Solana";
-import { CHECK_ICON, verifyProgramHasPayer } from "../../../utils";
+import { SolanaWithSignerBaseCommand as BaseCommand } from "../../../solana";
+import { CHECK_ICON } from "../../../utils";
 
 export default class CrankTurn extends BaseCommand {
   crankAccount: CrankAccount;
@@ -33,7 +33,7 @@ export default class CrankTurn extends BaseCommand {
 
   async run() {
     const { args } = await this.parse(CrankTurn);
-    verifyProgramHasPayer(this.program);
+
     const payer = programWallet(this.program);
 
     // load crank

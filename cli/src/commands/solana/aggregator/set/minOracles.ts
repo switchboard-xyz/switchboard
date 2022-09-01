@@ -1,9 +1,9 @@
 import { Flags } from "@oclif/core";
 import { PublicKey } from "@solana/web3.js";
-import { verifyProgramHasPayer } from "@switchboard-xyz/sbv2-utils";
+import {} from "@switchboard-xyz/sbv2-utils";
 import { AggregatorAccount } from "@switchboard-xyz/switchboard-v2";
 import chalk from "chalk";
-import BaseCommand from "../../../../BaseCommands/Solana";
+import { SolanaWithSignerBaseCommand as BaseCommand } from "../../../../solana";
 import { CHECK_ICON } from "../../../../utils";
 
 export default class AggregatorSetMinOracleResults extends BaseCommand {
@@ -34,7 +34,6 @@ export default class AggregatorSetMinOracleResults extends BaseCommand {
 
   async run() {
     const { args, flags } = await this.parse(AggregatorSetMinOracleResults);
-    verifyProgramHasPayer(this.program);
 
     const aggregatorAccount = new AggregatorAccount({
       program: this.program,

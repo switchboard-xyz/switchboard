@@ -5,8 +5,8 @@ import {
   PermissionAccount,
 } from "@switchboard-xyz/switchboard-v2";
 import chalk from "chalk";
-import BaseCommand from "../../../BaseCommands/Solana";
-import { CHECK_ICON, verifyProgramHasPayer } from "../../../utils";
+import { SolanaWithSignerBaseCommand as BaseCommand } from "../../../solana";
+import { CHECK_ICON } from "../../../utils";
 
 export default class PermissionCreate extends BaseCommand {
   static description = "create a permission account";
@@ -28,7 +28,6 @@ export default class PermissionCreate extends BaseCommand {
 
   async run() {
     const { args } = await this.parse(PermissionCreate);
-    verifyProgramHasPayer(this.program);
 
     const granter = new PublicKey(args.granter);
     const grantee = new PublicKey(args.grantee);

@@ -3,15 +3,11 @@
 import { Flags } from "@oclif/core";
 import { AnchorProvider } from "@project-serum/anchor";
 import { PublicKey } from "@solana/web3.js";
-import {
-  sleep,
-  SwitchboardTestContext,
-  verifyProgramHasPayer,
-} from "@switchboard-xyz/sbv2-utils";
+import { sleep, SwitchboardTestContext } from "@switchboard-xyz/sbv2-utils";
 import { ChildProcess, exec, spawn } from "child_process";
 import fs from "fs";
 import path from "path";
-import BaseCommand from "../../../BaseCommands/Solana";
+import { SolanaWithSignerBaseCommand as BaseCommand } from "../../../solana";
 
 export default class AnchorTest extends BaseCommand {
   static description = "run anchor test and a switchboard oracle in parallel";
@@ -190,7 +186,6 @@ export default class AnchorTest extends BaseCommand {
   }
 
   async run() {
-    verifyProgramHasPayer(this.program);
     const { flags } = await this.parse(AnchorTest);
 
     let oraclePubkey: PublicKey;

@@ -1,0 +1,30 @@
+{
+  "tasks": [
+    {
+      "httpTask": {
+        "url": "https://api.kraken.com/0/public/Ticker?pair=XETHZUSD"
+      }
+    },
+    {
+      "medianTask": {
+        "tasks": [
+          {
+            "jsonParseTask": {
+              "path": "$.result.XETHZUSD.a[0]"
+            }
+          },
+          {
+            "jsonParseTask": {
+              "path": "$.result.XETHZUSD.b[0]"
+            }
+          },
+          {
+            "jsonParseTask": {
+              "path": "$.result.XETHZUSD.c[0]"
+            }
+          }
+        ]
+      }
+    }
+  ]
+}

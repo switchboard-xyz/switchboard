@@ -4,7 +4,6 @@ import { PublicKey } from "@solana/web3.js";
 import {
   chalkString,
   getOrCreateSwitchboardTokenAccount,
-  verifyProgramHasPayer,
 } from "@switchboard-xyz/sbv2-utils";
 import {
   AggregatorAccount,
@@ -12,7 +11,7 @@ import {
   OracleQueueAccount,
 } from "@switchboard-xyz/switchboard-v2";
 import chalk from "chalk";
-import BaseCommand from "../../../BaseCommands/Solana";
+import { SolanaWithSignerBaseCommand as BaseCommand } from "../../../solana";
 import { CHECK_ICON, loadKeypair } from "../../../utils";
 
 export default class AggregatorLeaseWithdraw extends BaseCommand {
@@ -42,7 +41,6 @@ export default class AggregatorLeaseWithdraw extends BaseCommand {
   static args = [
     {
       name: "aggregatorKey",
-
       description: "public key of the aggregator to extend a lease for",
     },
   ];
@@ -53,7 +51,6 @@ export default class AggregatorLeaseWithdraw extends BaseCommand {
 
   async run() {
     const { args, flags } = await this.parse(AggregatorLeaseWithdraw);
-    verifyProgramHasPayer(this.program);
 
     const aggregatorAccount = new AggregatorAccount({
       program: this.program,

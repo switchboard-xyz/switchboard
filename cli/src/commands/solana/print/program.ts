@@ -1,12 +1,12 @@
 import { prettyPrintProgramState } from "@switchboard-xyz/sbv2-utils";
 import { ProgramStateAccount } from "@switchboard-xyz/switchboard-v2";
-import BaseCommand from "../../../BaseCommands/Solana";
+import { SolanaWithoutSignerBaseCommand as BaseCommand } from "../../../solana";
 
 export default class ProgramPrint extends BaseCommand {
   static description =
     "print the deserialized switchboard program state account";
 
-  static aliases = ["program:print"];
+  static aliases = ["solana:program:print"];
 
   static flags = {
     ...BaseCommand.flags,

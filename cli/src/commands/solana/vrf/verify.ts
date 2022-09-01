@@ -1,14 +1,11 @@
 import { PublicKey } from "@solana/web3.js";
-import {
-  toVrfStatusString,
-  verifyProgramHasPayer,
-} from "@switchboard-xyz/sbv2-utils";
+import { toVrfStatusString } from "@switchboard-xyz/sbv2-utils";
 import {
   OracleAccount,
   programWallet,
   VrfAccount,
 } from "@switchboard-xyz/switchboard-v2";
-import BaseCommand from "../../../BaseCommands/Solana";
+import { SolanaWithSignerBaseCommand as BaseCommand } from "../../../solana";
 
 export default class VrfVerify extends BaseCommand {
   static description = "if ready, verify a VRF proof";
@@ -28,7 +25,7 @@ export default class VrfVerify extends BaseCommand {
 
   async run() {
     const { args, flags } = await this.parse(VrfVerify);
-    verifyProgramHasPayer(this.program);
+
     const payerKeypair = programWallet(this.program);
 
     const vrfAccount = new VrfAccount({

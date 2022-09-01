@@ -12,8 +12,8 @@ import {
   programWallet,
 } from "@switchboard-xyz/switchboard-v2";
 import chalk from "chalk";
-import BaseCommand from "../../../BaseCommands/Solana";
-import { CHECK_ICON, loadKeypair, verifyProgramHasPayer } from "../../../utils";
+import { SolanaWithSignerBaseCommand as BaseCommand } from "../../../solana";
+import { CHECK_ICON, loadKeypair } from "../../../utils";
 
 export default class OracleWithdraw extends BaseCommand {
   static description = "withdraw tokens from an oracle's token wallet";
@@ -46,7 +46,6 @@ export default class OracleWithdraw extends BaseCommand {
   static args = [
     {
       name: "oracleKey",
-
       description: "public key of the oracle to withdraw from",
     },
   ];
@@ -57,7 +56,6 @@ export default class OracleWithdraw extends BaseCommand {
   ];
 
   async run() {
-    verifyProgramHasPayer(this.program);
     const { args, flags } = await this.parse(OracleWithdraw);
     const payer = programWallet(this.program);
 

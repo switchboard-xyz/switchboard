@@ -29,8 +29,7 @@ import {
 import Big from "big.js";
 import fs from "fs";
 import path from "path";
-import BaseCommand from "../../../../BaseCommands/Solana";
-import { verifyProgramHasPayer } from "../../../../utils";
+import { SolanaWithSignerBaseCommand as BaseCommand } from "../../../../solana";
 
 // TODO: Finish
 export default class AggregatorCreate extends BaseCommand {
@@ -92,7 +91,6 @@ export default class AggregatorCreate extends BaseCommand {
   ];
 
   async run() {
-    verifyProgramHasPayer(this.program);
     const { args, flags } = await this.parse(AggregatorCreate);
 
     const payerKeypair = programWallet(this.program);

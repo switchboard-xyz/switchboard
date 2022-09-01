@@ -9,8 +9,8 @@ import Big from "big.js";
 import bs58 from "bs58";
 import fs from "fs";
 import path from "path";
-import BaseCommand from "../../../BaseCommands/Solana";
-import { LogProvider } from "../../../types";
+import { SolanaWithoutSignerBaseCommand as BaseCommand } from "../../../solana";
+import { LogProvider } from "../../../providers";
 
 export default class MetricsAggregator extends BaseCommand {
   static description = "get metrics on switchboard aggregators";

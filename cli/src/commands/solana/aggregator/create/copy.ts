@@ -13,7 +13,6 @@ import {
   packAndSend,
   prettyPrintAggregator,
   promiseWithTimeout,
-  verifyProgramHasPayer,
 } from "@switchboard-xyz/sbv2-utils";
 import {
   AggregatorAccount,
@@ -28,15 +27,15 @@ import {
   SwitchboardDecimal,
 } from "@switchboard-xyz/switchboard-v2";
 import Big from "big.js";
-import BaseCommand from "../../../../BaseCommands/Solana";
+import { SolanaWithSignerBaseCommand } from "../../../../solana";
 
 // TODO: Fix command so it accepts a feed authority flag
 // TODO: Add flag that skips job creation
-export default class AggregatorCreateCopy extends BaseCommand {
+export default class AggregatorCreateCopy extends SolanaWithSignerBaseCommand {
   static description = "copy an aggregator account to a new oracle queue";
 
   static flags = {
-    ...BaseCommand.flags,
+    ...SolanaWithSignerBaseCommand.flags,
     authority: Flags.string({
       char: "a",
       description: "alternate keypair that will be the aggregator authority",
@@ -98,7 +97,6 @@ export default class AggregatorCreateCopy extends BaseCommand {
   ];
 
   async run() {
-    verifyProgramHasPayer(this.program);
     const { args, flags } = await this.parse(AggregatorCreateCopy);
 
     const payerKeypair = programWallet(this.program);

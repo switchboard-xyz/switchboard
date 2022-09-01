@@ -10,8 +10,8 @@ import {
 } from "@switchboard-xyz/switchboard-v2";
 import fs from "fs";
 import path from "path";
-import BaseCommand from "../../../BaseCommands/Solana";
-import { verifyProgramHasPayer } from "../../../utils";
+import { SolanaWithSignerBaseCommand as BaseCommand } from "../../../solana";
+import {} from "../../../utils";
 
 export default class BufferCreate extends BaseCommand {
   static description = "create a buffer relayer account";
@@ -48,7 +48,6 @@ export default class BufferCreate extends BaseCommand {
   ];
 
   async run() {
-    verifyProgramHasPayer(this.program);
     const { args, flags } = await this.parse(BufferCreate);
     const payerKeypair = programWallet(this.program);
     const authority = await this.loadAuthority(flags.authority);

@@ -7,11 +7,7 @@ import {
   SystemProgram,
   Transaction,
 } from "@solana/web3.js";
-import {
-  prettyPrintVrf,
-  sleep,
-  verifyProgramHasPayer,
-} from "@switchboard-xyz/sbv2-utils";
+import { prettyPrintVrf, sleep } from "@switchboard-xyz/sbv2-utils";
 import {
   Callback,
   OracleQueueAccount,
@@ -21,7 +17,7 @@ import {
   VrfAccount,
 } from "@switchboard-xyz/switchboard-v2";
 import fs from "fs";
-import BaseCommand from "../../../../BaseCommands/Solana";
+import { SolanaWithSignerBaseCommand as BaseCommand } from "../../../../solana";
 import { loadKeypair } from "../../../../utils";
 
 export default class VrfCreate extends BaseCommand {
@@ -66,7 +62,6 @@ export default class VrfCreate extends BaseCommand {
   static args = [
     {
       name: "queueKey",
-
       description: "public key of the oracle queue to create VRF account for",
     },
   ];
@@ -79,7 +74,7 @@ export default class VrfCreate extends BaseCommand {
 
   async run() {
     const { args, flags } = await this.parse(VrfCreate);
-    verifyProgramHasPayer(this.program);
+
     const payerKeypair = programWallet(this.program);
 
     let callback: Callback;

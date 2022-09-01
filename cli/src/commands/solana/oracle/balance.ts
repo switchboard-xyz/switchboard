@@ -1,7 +1,7 @@
 import { PublicKey } from "@solana/web3.js";
 import { chalkString } from "@switchboard-xyz/sbv2-utils";
 import { OracleAccount } from "@switchboard-xyz/switchboard-v2";
-import BaseCommand from "../../../BaseCommands/Solana";
+import { SolanaWithoutSignerBaseCommand as BaseCommand } from "../../../solana";
 
 export default class OracleBalance extends BaseCommand {
   static description = "check an oracles token balance";
@@ -13,7 +13,6 @@ export default class OracleBalance extends BaseCommand {
   static args = [
     {
       name: "oracleKey",
-
       description: "public key of the oracle to check token balance",
     },
   ];

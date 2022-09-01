@@ -5,7 +5,7 @@ import {
   OracleQueueAccount,
   PermissionAccount,
 } from "@switchboard-xyz/switchboard-v2";
-import BaseCommand from "../../../../BaseCommands/Solana";
+import { SolanaWithoutSignerBaseCommand as BaseCommand } from "../../../../solana";
 
 export default class OraclePermissionPrint extends BaseCommand {
   static description =

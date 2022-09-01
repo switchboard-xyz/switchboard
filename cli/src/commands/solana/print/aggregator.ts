@@ -7,14 +7,14 @@ import {
   prettyPrintAggregator,
 } from "@switchboard-xyz/sbv2-utils";
 import { AggregatorAccount } from "@switchboard-xyz/switchboard-v2";
-import BaseCommand from "../../../BaseCommands/Solana";
+import { SolanaWithoutSignerBaseCommand as BaseCommand } from "../../../solana";
 
 export default class AggregatorPrint extends BaseCommand {
   static enableJsonFlag = true;
 
   static description = "Print the deserialized Switchboard aggregator account";
 
-  static aliases = ["aggregator:print"];
+  static aliases = ["solana:aggregator:print"];
 
   static flags = {
     ...BaseCommand.flags,

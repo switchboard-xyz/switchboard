@@ -2,10 +2,7 @@
 import { Flags } from "@oclif/core";
 import * as anchor from "@project-serum/anchor";
 import { PublicKey } from "@solana/web3.js";
-import {
-  prettyPrintAggregator,
-  verifyProgramHasPayer,
-} from "@switchboard-xyz/sbv2-utils";
+import { prettyPrintAggregator } from "@switchboard-xyz/sbv2-utils";
 import {
   AggregatorAccount,
   JobAccount,
@@ -16,7 +13,7 @@ import {
 import chalk from "chalk";
 import * as fs from "fs";
 import * as path from "path";
-import BaseCommand from "../../../../BaseCommands/Solana";
+import { SolanaWithSignerBaseCommand as BaseCommand } from "../../../../solana";
 import {
   CHECK_ICON,
   loadKeypair,
@@ -55,7 +52,6 @@ export default class JsonCreateAggregator extends BaseCommand {
 
   async run() {
     const { args, flags } = await this.parse(JsonCreateAggregator);
-    verifyProgramHasPayer(this.program);
 
     const payerKeypair = programWallet(this.program);
 

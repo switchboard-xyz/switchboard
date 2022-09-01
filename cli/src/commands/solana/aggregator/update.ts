@@ -5,7 +5,7 @@ import {
   OracleQueueAccount,
 } from "@switchboard-xyz/switchboard-v2";
 import chalk from "chalk";
-import BaseCommand from "../../../BaseCommands/Solana";
+import { SolanaWithSignerBaseCommand as BaseCommand } from "../../../solana";
 import { AggregatorIllegalRoundOpenCall } from "../../../types";
 import { CHECK_ICON } from "../../../utils";
 
@@ -73,7 +73,7 @@ export default class AggregatorUpdate extends BaseCommand {
       error instanceof AggregatorIllegalRoundOpenCall ||
       error.toString().includes("0x177d")
     ) {
-      this.context.logger.info(error.toString());
+      this.logger.info(error.toString());
       this.exit(0);
     }
 

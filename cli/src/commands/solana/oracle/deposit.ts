@@ -12,8 +12,8 @@ import {
   programWallet,
 } from "@switchboard-xyz/switchboard-v2";
 import chalk from "chalk";
-import BaseCommand from "../../../BaseCommands/Solana";
-import { CHECK_ICON, verifyProgramHasPayer } from "../../../utils";
+import { SolanaWithSignerBaseCommand as BaseCommand } from "../../../solana";
+import { CHECK_ICON } from "../../../utils";
 
 export default class OracleDeposit extends BaseCommand {
   static description = "deposit tokens into an oracle's token wallet";
@@ -30,7 +30,6 @@ export default class OracleDeposit extends BaseCommand {
   static args = [
     {
       name: "oracleKey",
-
       description: "public key of the oracle to deposit funds into",
     },
   ];
@@ -40,7 +39,6 @@ export default class OracleDeposit extends BaseCommand {
   ];
 
   async run() {
-    verifyProgramHasPayer(this.program);
     const { args, flags } = await this.parse(OracleDeposit);
 
     const payer = programWallet(this.program);
@@ -97,7 +95,6 @@ export default class OracleDeposit extends BaseCommand {
       funderTokenAddress,
       oracle.tokenAccount,
       payer,
-
       amount.toNumber(),
       undefined,
       undefined,

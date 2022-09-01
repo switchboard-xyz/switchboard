@@ -1,7 +1,7 @@
 import { PublicKey } from "@solana/web3.js";
 import { prettyPrintVrf } from "@switchboard-xyz/sbv2-utils";
 import { VrfAccount } from "@switchboard-xyz/switchboard-v2";
-import BaseCommand from "../../../BaseCommands/Solana";
+import { SolanaWithoutSignerBaseCommand as BaseCommand } from "../../../solana";
 
 export default class VrfPrint extends BaseCommand {
   outputFile?: string;
@@ -10,7 +10,7 @@ export default class VrfPrint extends BaseCommand {
 
   static description = "Print the deserialized Switchboard VRF account";
 
-  static aliases = ["vrf:print"];
+  static aliases = ["solana:vrf:print"];
 
   static flags = {
     ...BaseCommand.flags,
@@ -23,7 +23,7 @@ export default class VrfPrint extends BaseCommand {
     },
   ];
 
-  static examples = ["$ sbv2 vrf:print"];
+  static examples = ["$ sbv2 solana vrf print [VRF_PUBKEY]"];
 
   async run() {
     const { args, flags } = await this.parse(VrfPrint);

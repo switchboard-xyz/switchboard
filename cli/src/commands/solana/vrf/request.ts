@@ -9,8 +9,8 @@ import {
   programWallet,
   VrfAccount,
 } from "@switchboard-xyz/switchboard-v2";
-import BaseCommand from "../../../BaseCommands/Solana";
-import { loadKeypair, sleep, verifyProgramHasPayer } from "../../../utils";
+import { SolanaWithSignerBaseCommand as BaseCommand } from "../../../solana";
+import { loadKeypair, sleep } from "../../../utils";
 
 export default class VrfRequest extends BaseCommand {
   static description = "request a new value for a VRF";
@@ -38,7 +38,7 @@ export default class VrfRequest extends BaseCommand {
 
   async run() {
     const { args, flags } = await this.parse(VrfRequest);
-    verifyProgramHasPayer(this.program);
+
     const payerKeypair = programWallet(this.program);
 
     const vrfAccount = new VrfAccount({

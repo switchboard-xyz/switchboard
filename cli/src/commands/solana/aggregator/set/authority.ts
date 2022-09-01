@@ -2,7 +2,7 @@ import { Flags } from "@oclif/core";
 import { PublicKey } from "@solana/web3.js";
 import { AggregatorAccount } from "@switchboard-xyz/switchboard-v2";
 import chalk from "chalk";
-import BaseCommand from "../../../../BaseCommands/Solana";
+import { SolanaWithSignerBaseCommand as BaseCommand } from "../../../../solana";
 import { CHECK_ICON, loadKeypair } from "../../../../utils";
 
 export default class AggregatorSetAuthority extends BaseCommand {

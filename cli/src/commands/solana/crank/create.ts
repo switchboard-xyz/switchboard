@@ -1,17 +1,14 @@
 import { Flags } from "@oclif/core";
 import * as anchor from "@project-serum/anchor";
 import { PublicKey, SystemProgram } from "@solana/web3.js";
-import {
-  prettyPrintCrank,
-  verifyProgramHasPayer,
-} from "@switchboard-xyz/sbv2-utils";
+import { prettyPrintCrank } from "@switchboard-xyz/sbv2-utils";
 import {
   CrankAccount,
   OracleQueueAccount,
   programWallet,
 } from "@switchboard-xyz/switchboard-v2";
 import chalk from "chalk";
-import BaseCommand from "../../../BaseCommands/Solana";
+import { SolanaWithSignerBaseCommand as BaseCommand } from "../../../solana";
 import { CHECK_ICON } from "../../../utils";
 
 export default class QueueAddCrank extends BaseCommand {
@@ -49,7 +46,7 @@ export default class QueueAddCrank extends BaseCommand {
 
   async run() {
     const { args, flags } = await this.parse(QueueAddCrank);
-    verifyProgramHasPayer(this.program);
+
     const payerKeypair = programWallet(this.program);
 
     if (flags.maxRows < 0) {

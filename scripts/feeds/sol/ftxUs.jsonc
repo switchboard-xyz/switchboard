@@ -1,0 +1,14 @@
+{
+  "tasks": [
+    {
+      "httpTask": {
+        "url": "https://ftx.us/api/markets/sol/usd"
+      }
+    },
+    {
+      "jsonParseTask": {
+        "path": "$.result.price"
+      }
+    }
+  ]
+}

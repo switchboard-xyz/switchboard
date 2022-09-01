@@ -1,14 +1,14 @@
 import { PublicKey } from "@solana/web3.js";
 import { prettyPrintCrank } from "@switchboard-xyz/sbv2-utils";
 import { CrankAccount } from "@switchboard-xyz/switchboard-v2";
-import BaseCommand from "../../../BaseCommands/Solana";
+import { SolanaWithoutSignerBaseCommand as BaseCommand } from "../../../solana";
 
 export default class CrankPrint extends BaseCommand {
   outputFile?: string;
 
   static description = "print deserialized switchboard crank account";
 
-  static aliases = ["crank:print"];
+  static aliases = ["solana:crank:print"];
 
   static flags = {
     ...BaseCommand.flags,

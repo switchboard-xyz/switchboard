@@ -2,8 +2,8 @@ import { Flags } from "@oclif/core";
 import { PublicKey } from "@solana/web3.js";
 import { OracleQueueAccount } from "@switchboard-xyz/switchboard-v2";
 import chalk from "chalk";
-import BaseCommand from "../../../../BaseCommands/Solana";
-import { CHECK_ICON, verifyProgramHasPayer } from "../../../../utils";
+import { SolanaWithSignerBaseCommand as BaseCommand } from "../../../../solana";
+import { CHECK_ICON } from "../../../../utils";
 
 export default class QueueSetRewards extends BaseCommand {
   static description = "set an oracle queue's rewards";
@@ -19,7 +19,6 @@ export default class QueueSetRewards extends BaseCommand {
   static args = [
     {
       name: "queueKey",
-
       description: "public key of the oracle queue",
     },
     {
@@ -35,7 +34,6 @@ export default class QueueSetRewards extends BaseCommand {
 
   async run() {
     const { args, flags } = await this.parse(QueueSetRewards);
-    verifyProgramHasPayer(this.program);
 
     const queueAccount = new OracleQueueAccount({
       program: this.program,

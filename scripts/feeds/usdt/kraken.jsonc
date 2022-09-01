@@ -1,0 +1,30 @@
+{
+  "tasks": [
+    {
+      "httpTask": {
+        "url": "https://api.kraken.com/0/public/Ticker?pair=USDTZUSD"
+      }
+    },
+    {
+      "medianTask": {
+        "tasks": [
+          {
+            "jsonParseTask": {
+              "path": "$.result.USDTZUSD.a[0]"
+            }
+          },
+          {
+            "jsonParseTask": {
+              "path": "$.result.USDTZUSD.b[0]"
+            }
+          },
+          {
+            "jsonParseTask": {
+              "path": "$.result.USDTZUSD.c[0]"
+            }
+          }
+        ]
+      }
+    }
+  ]
+}
