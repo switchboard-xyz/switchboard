@@ -19,3 +19,9 @@ git submodule update --remote
 # Single SDK
 git submodule update --remote sdks/solana
 ```
+
+To link the CLI,
+
+```bash
+cd cli && yarn link; cd ../;
+```
