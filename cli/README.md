@@ -39,23 +39,18 @@ node bin/dev print GvDMxPzN1sCj7L26YDK2HnMRXEQmQ2aemov8YBtPS7vR
 * [`sbv2 aptos aggregator add job [AGGREGATORHEXSTRING]`](#sbv2-aptos-aggregator-add-job-aggregatorhexstring)
 * [`sbv2 aptos aggregator create [QUEUEHEXSTRING]`](#sbv2-aptos-aggregator-create-queuehexstring)
 * [`sbv2 aptos aggregator job add [AGGREGATORHEXSTRING]`](#sbv2-aptos-aggregator-job-add-aggregatorhexstring)
-* [`sbv2 aptos aggregator permission create [AGGREGATORADDRESS]`](#sbv2-aptos-aggregator-permission-create-aggregatoraddress)
 * [`sbv2 aptos aggregator update [AGGREGATORHEXSTRING]`](#sbv2-aptos-aggregator-update-aggregatorhexstring)
 * [`sbv2 aptos airdrop`](#sbv2-aptos-airdrop)
-* [`sbv2 aptos crank copy create [QUEUEADDRESS]`](#sbv2-aptos-crank-copy-create-queueaddress)
 * [`sbv2 aptos crank create [QUEUEHEXSTRING]`](#sbv2-aptos-crank-create-queuehexstring)
 * [`sbv2 aptos crank pop [CRANKHEXSTRING]`](#sbv2-aptos-crank-pop-crankhexstring)
 * [`sbv2 aptos crank push [CRANKHEXSTRING]`](#sbv2-aptos-crank-push-crankhexstring)
 * [`sbv2 aptos create aggregator [QUEUEHEXSTRING]`](#sbv2-aptos-create-aggregator-queuehexstring)
-* [`sbv2 aptos create crank [QUEUEADDRESS]`](#sbv2-aptos-create-crank-queueaddress)
+* [`sbv2 aptos create crank [QUEUEHEXSTRING]`](#sbv2-aptos-create-crank-queuehexstring)
 * [`sbv2 aptos create job [QUEUEHEXSTRING] JOBDEFINITION`](#sbv2-aptos-create-job-queuehexstring-jobdefinition)
 * [`sbv2 aptos create oracle [QUEUEHEXSTRING]`](#sbv2-aptos-create-oracle-queuehexstring)
-* [`sbv2 aptos create permission [QUEUEHEXSTRING]`](#sbv2-aptos-create-permission-queuehexstring)
 * [`sbv2 aptos create queue`](#sbv2-aptos-create-queue)
 * [`sbv2 aptos job create [QUEUEHEXSTRING] JOBDEFINITION`](#sbv2-aptos-job-create-queuehexstring-jobdefinition)
 * [`sbv2 aptos oracle create [QUEUEHEXSTRING]`](#sbv2-aptos-oracle-create-queuehexstring)
-* [`sbv2 aptos oracle oracle [QUEUEADDRESS]`](#sbv2-aptos-oracle-oracle-queueaddress)
-* [`sbv2 aptos permission create [QUEUEHEXSTRING]`](#sbv2-aptos-permission-create-queuehexstring)
 * [`sbv2 aptos pop crank [CRANKHEXSTRING]`](#sbv2-aptos-pop-crank-crankhexstring)
 * [`sbv2 aptos print ACCOUNTTYPE ADDRESS`](#sbv2-aptos-print-accounttype-address)
 * [`sbv2 aptos push crank [CRANKHEXSTRING]`](#sbv2-aptos-push-crank-crankhexstring)
@@ -64,12 +59,12 @@ node bin/dev print GvDMxPzN1sCj7L26YDK2HnMRXEQmQ2aemov8YBtPS7vR
 * [`sbv2 config print`](#sbv2-config-print)
 * [`sbv2 config set [PARAM] [VALUE]`](#sbv2-config-set-param-value)
 * [`sbv2 crank add aggregator [CRANKKEY] [AGGREGATORKEY]`](#sbv2-crank-add-aggregator-crankkey-aggregatorkey)
-* [`sbv2 create secret CHAIN NETWORK NAME`](#sbv2-create-secret-chain-network-name)
 * [`sbv2 custom queue`](#sbv2-custom-queue)
 * [`sbv2 help [COMMAND]`](#sbv2-help-command)
 * [`sbv2 json create aggregator [DEFINITIONFILE]`](#sbv2-json-create-aggregator-definitionfile)
 * [`sbv2 near aggregator add job [AGGREGATORADDRESS]`](#sbv2-near-aggregator-add-job-aggregatoraddress)
 * [`sbv2 near aggregator create [QUEUEADDRESS]`](#sbv2-near-aggregator-create-queueaddress)
+* [`sbv2 near aggregator job add [AGGREGATORADDRESS]`](#sbv2-near-aggregator-job-add-aggregatoraddress)
 * [`sbv2 near aggregator permission create [AGGREGATORADDRESS]`](#sbv2-near-aggregator-permission-create-aggregatoraddress)
 * [`sbv2 near aggregator remove job [AGGREGATORADDRESS]`](#sbv2-near-aggregator-remove-job-aggregatoraddress)
 * [`sbv2 near aggregator update [AGGREGATORADDRESS]`](#sbv2-near-aggregator-update-aggregatoraddress)
@@ -96,10 +91,6 @@ node bin/dev print GvDMxPzN1sCj7L26YDK2HnMRXEQmQ2aemov8YBtPS7vR
 * [`sbv2 near update aggregator [AGGREGATORADDRESS]`](#sbv2-near-update-aggregator-aggregatoraddress)
 * [`sbv2 oracle permission print [ORACLEKEY]`](#sbv2-oracle-permission-print-oraclekey)
 * [`sbv2 oracle print permission [ORACLEKEY]`](#sbv2-oracle-print-permission-oraclekey)
-* [`sbv2 sandbox [PLACEHOLDER]`](#sbv2-sandbox-placeholder)
-* [`sbv2 secrets create CHAIN NETWORK NAME`](#sbv2-secrets-create-chain-network-name)
-* [`sbv2 secrets init`](#sbv2-secrets-init)
-* [`sbv2 secrets list`](#sbv2-secrets-list)
 * [`sbv2 set aggregator [AGGREGATORKEY]`](#sbv2-set-aggregator-aggregatorkey)
 * [`sbv2 solana aggregator add job [AGGREGATORKEY]`](#sbv2-solana-aggregator-add-job-aggregatorkey)
 * [`sbv2 solana aggregator create [QUEUEKEY]`](#sbv2-solana-aggregator-create-queuekey)
@@ -172,7 +163,6 @@ node bin/dev print GvDMxPzN1sCj7L26YDK2HnMRXEQmQ2aemov8YBtPS7vR
 * [`sbv2 solana vrf verify [VRFKEY]`](#sbv2-solana-vrf-verify-vrfkey)
 * [`sbv2 solana watch aggregator [AGGREGATORKEY]`](#sbv2-solana-watch-aggregator-aggregatorkey)
 * [`sbv2 solana watch vrf [VRFKEY]`](#sbv2-solana-watch-vrf-vrfkey)
-* [`sbv2 test [ORACLEKEY]`](#sbv2-test-oraclekey)
 * [`sbv2 update [CHANNEL]`](#sbv2-update-channel)
 * [`sbv2 version`](#sbv2-version)
 * [`sbv2 vrf watch [VRFKEY]`](#sbv2-vrf-watch-vrfkey)
@@ -632,10 +622,11 @@ request an airdrop
 ```
 USAGE
   $ sbv2 aptos account airdrop --keypair <value> [-h] [-v] [-s] [--networkId devnet] [--programId <value>] [--stateAddress
-    <value>] [-u <value>] [--profileName <value>] [--json]
+    <value>] [-u <value>] [--profileName <value>] [--json] [-n <value>]
 
 FLAGS
   -h, --help              Show CLI help.
+  -n, --amount=<value>    [default: 50000] number of airdrops to request, 10_000 coins each
   -s, --silent            suppress cli prompts
   -u, --rpcUrl=<value>    alternate RPC url
   -v, --verbose           log everything
@@ -708,8 +699,8 @@ create an aptos aggregator for a given queue
 USAGE
   $ sbv2 aptos aggregator create [QUEUEHEXSTRING] --keypair <value> --updateInterval <value> [-h] [-v] [-s] [--networkId
     devnet] [--programId <value>] [--stateAddress <value>] [-u <value>] [--profileName <value>] [--json] [-a <value>]
-    [--crankAddress <value>] [--name <value>] [--metadata <value>] [--forceReportPeriod <value>] [--batchSize <value>]
-    [--minJobs <value>] [--minOracles <value>] [--varianceThreshold <value>] [-j <value>] [--new]
+    [--name <value>] [--metadata <value>] [--forceReportPeriod <value>] [--batchSize <value>] [--minJobs <value>]
+    [--minOracles <value>] [--varianceThreshold <value>] [-j <value>] [--new]
 
 ARGUMENTS
   QUEUEHEXSTRING  HexString address of the queue
@@ -722,7 +713,6 @@ FLAGS
   -u, --rpcUrl=<value>         alternate RPC url
   -v, --verbose                log everything
   --batchSize=<value>          number of oracles requested for each open round call
-  --crankAddress=<value>       optional, address of the crank to add the aggregator to
   --forceReportPeriod=<value>  Number of seconds for which, even if the variance threshold is not passed, accept new
                                responses from oracles.
   --keypair=<value>            (required) Path to AptosAccount keypair or config.yaml file
@@ -795,41 +785,6 @@ ALIASES
   $ sbv2 aptos aggregator job add
 ```
 
-## `sbv2 aptos aggregator permission create [AGGREGATORADDRESS]`
-
-create a permission account for a near aggregator
-
-```
-USAGE
-  $ sbv2 aptos aggregator permission create [AGGREGATORADDRESS] --accountName <value> [-h] [-v] [-s] [--networkId
-    testnet|mainnet|betanet|local] [--programId <value>] [-u <value>] [--nearCredentialsDir <value>] [--json]
-
-ARGUMENTS
-  AGGREGATORADDRESS  address of the aggregator in Uint8 or Base58 encoding
-
-FLAGS
-  -h, --help                    Show CLI help.
-  -s, --silent                  suppress cli prompts
-  -u, --rpcUrl=<value>          alternate RPC url
-  -v, --verbose                 log everything
-  --accountName=<value>         (required) Named account to load from your nearCredentialsDir
-  --nearCredentialsDir=<value>  [default: /Users/gally/.near-credentials] Alternative directory for near credentials.
-                                Defaults to ~/.near-credentials
-  --networkId=<option>          [default: testnet] Near network ID to connect to
-                                <options: testnet|mainnet|betanet|local>
-  --programId=<value>           [default: dev-1661444952413-29070842546310] Switchboard programId on the selected Near
-                                networkId
-
-GLOBAL FLAGS
-  --json  Format output as json.
-
-DESCRIPTION
-  create a permission account for a near aggregator
-
-ALIASES
-  $ sbv2 near create aggregator permission
-```
-
 ## `sbv2 aptos aggregator update [AGGREGATORHEXSTRING]`
 
 request a new value on-chain for an aggregator
@@ -871,10 +826,11 @@ request an airdrop
 ```
 USAGE
   $ sbv2 aptos airdrop --keypair <value> [-h] [-v] [-s] [--networkId devnet] [--programId <value>] [--stateAddress
-    <value>] [-u <value>] [--profileName <value>] [--json]
+    <value>] [-u <value>] [--profileName <value>] [--json] [-n <value>]
 
 FLAGS
   -h, --help              Show CLI help.
+  -n, --amount=<value>    [default: 50000] number of airdrops to request, 10_000 coins each
   -s, --silent            suppress cli prompts
   -u, --rpcUrl=<value>    alternate RPC url
   -v, --verbose           log everything
@@ -896,45 +852,6 @@ DESCRIPTION
 
 ALIASES
   $ sbv2 aptos airdrop
-```
-
-## `sbv2 aptos crank copy create [QUEUEADDRESS]`
-
-create a new crank
-
-```
-USAGE
-  $ sbv2 aptos crank copy create [QUEUEADDRESS] --keypair <value> [-h] [-v] [-s] [--networkId devnet] [--programId <value>]
-    [--stateAddress <value>] [-u <value>] [--profileName <value>] [--name <value>] [--metadata <value>] [--maxRows
-    <value>] [--new]
-
-ARGUMENTS
-  QUEUEADDRESS  HexString of the oracle queue to create a crank for
-
-FLAGS
-  -h, --help              Show CLI help.
-  -s, --silent            suppress cli prompts
-  -u, --rpcUrl=<value>    alternate RPC url
-  -v, --verbose           log everything
-  --keypair=<value>       (required) Path to AptosAccount keypair or config.yaml file
-  --maxRows=<value>       [default: 100] maximum number of rows on the crank
-  --metadata=<value>      metadata of the queue for easier identification
-  --name=<value>          name of the queue for easier identification
-  --networkId=<option>    [default: devnet] Aptos network to connect to
-                          <options: devnet>
-  --new                   create account at new AptosAccount with authority set to --account
-  --profileName=<value>   [default: default] If --keypair is pointing to a yaml file, provide an optional profile to
-                          load. If none provided, default will be used
-  --programId=<value>     [default: 0x14611263909398572be034debb2e61b6751cafbeaddd994b9a1250cb76b99d38] Switchboard
-                          programId on the selected Aptos network
-  --stateAddress=<value>  [default: 0x14611263909398572be034debb2e61b6751cafbeaddd994b9a1250cb76b99d38] Switchboard
-                          state address
-
-DESCRIPTION
-  create a new crank
-
-ALIASES
-  $ sbv2 aptos create crank
 ```
 
 ## `sbv2 aptos crank create [QUEUEHEXSTRING]`
@@ -1059,8 +976,8 @@ create an aptos aggregator for a given queue
 USAGE
   $ sbv2 aptos create aggregator [QUEUEHEXSTRING] --keypair <value> --updateInterval <value> [-h] [-v] [-s] [--networkId
     devnet] [--programId <value>] [--stateAddress <value>] [-u <value>] [--profileName <value>] [--json] [-a <value>]
-    [--crankAddress <value>] [--name <value>] [--metadata <value>] [--forceReportPeriod <value>] [--batchSize <value>]
-    [--minJobs <value>] [--minOracles <value>] [--varianceThreshold <value>] [-j <value>] [--new]
+    [--name <value>] [--metadata <value>] [--forceReportPeriod <value>] [--batchSize <value>] [--minJobs <value>]
+    [--minOracles <value>] [--varianceThreshold <value>] [-j <value>] [--new]
 
 ARGUMENTS
   QUEUEHEXSTRING  HexString address of the queue
@@ -1073,7 +990,6 @@ FLAGS
   -u, --rpcUrl=<value>         alternate RPC url
   -v, --verbose                log everything
   --batchSize=<value>          number of oracles requested for each open round call
-  --crankAddress=<value>       optional, address of the crank to add the aggregator to
   --forceReportPeriod=<value>  Number of seconds for which, even if the variance threshold is not passed, accept new
                                responses from oracles.
   --keypair=<value>            (required) Path to AptosAccount keypair or config.yaml file
@@ -1105,18 +1021,18 @@ ALIASES
   $ sbv2 aptos create aggregator
 ```
 
-## `sbv2 aptos create crank [QUEUEADDRESS]`
+## `sbv2 aptos create crank [QUEUEHEXSTRING]`
 
 create a new crank
 
 ```
 USAGE
-  $ sbv2 aptos create crank [QUEUEADDRESS] --keypair <value> [-h] [-v] [-s] [--networkId devnet] [--programId <value>]
+  $ sbv2 aptos create crank [QUEUEHEXSTRING] --keypair <value> [-h] [-v] [-s] [--networkId devnet] [--programId <value>]
     [--stateAddress <value>] [-u <value>] [--profileName <value>] [--name <value>] [--metadata <value>] [--maxRows
     <value>] [--new]
 
 ARGUMENTS
-  QUEUEADDRESS  HexString of the oracle queue to create a crank for
+  QUEUEHEXSTRING  HexString of the oracle queue to create a crank for
 
 FLAGS
   -h, --help              Show CLI help.
@@ -1228,48 +1144,6 @@ DESCRIPTION
 
 ALIASES
   $ sbv2 aptos create oracle
-```
-
-## `sbv2 aptos create permission [QUEUEHEXSTRING]`
-
-create a permission account
-
-```
-USAGE
-  $ sbv2 aptos create permission [QUEUEHEXSTRING] --keypair <value> [-h] [-v] [-s] [--networkId devnet] [--programId <value>]
-    [--stateAddress <value>] [-u <value>] [--profileName <value>] [--json] [-a <value>] [--name <value>] [--metadata
-    <value>] [--new]
-
-ARGUMENTS
-  QUEUEHEXSTRING  HexString address of the queue
-
-FLAGS
-  -a, --authority=<value>  alternate named account that will be the authority for the oracle
-  -h, --help               Show CLI help.
-  -s, --silent             suppress cli prompts
-  -u, --rpcUrl=<value>     alternate RPC url
-  -v, --verbose            log everything
-  --keypair=<value>        (required) Path to AptosAccount keypair or config.yaml file
-  --metadata=<value>       metadata of the oracle for easier identification
-  --name=<value>           name of the oracle for easier identification
-  --networkId=<option>     [default: devnet] Aptos network to connect to
-                           <options: devnet>
-  --new                    create account at new AptosAccount with authority set to --account
-  --profileName=<value>    [default: default] If --keypair is pointing to a yaml file, provide an optional profile to
-                           load. If none provided, default will be used
-  --programId=<value>      [default: 0x14611263909398572be034debb2e61b6751cafbeaddd994b9a1250cb76b99d38] Switchboard
-                           programId on the selected Aptos network
-  --stateAddress=<value>   [default: 0x14611263909398572be034debb2e61b6751cafbeaddd994b9a1250cb76b99d38] Switchboard
-                           state address
-
-GLOBAL FLAGS
-  --json  Format output as json.
-
-DESCRIPTION
-  create a permission account
-
-ALIASES
-  $ sbv2 aptos create permission
 ```
 
 ## `sbv2 aptos create queue`
@@ -1405,87 +1279,6 @@ DESCRIPTION
 
 ALIASES
   $ sbv2 aptos create oracle
-```
-
-## `sbv2 aptos oracle oracle [QUEUEADDRESS]`
-
-create a near oracle for a given queue
-
-```
-USAGE
-  $ sbv2 aptos oracle oracle [QUEUEADDRESS] --accountName <value> [-h] [-v] [-s] [--networkId
-    testnet|mainnet|betanet|local] [--programId <value>] [-u <value>] [--nearCredentialsDir <value>] [--json] [-a
-    <value>] [--name <value>] [--metadata <value>]
-
-ARGUMENTS
-  QUEUEADDRESS  address of the queue in Uint8 or Base58 encoding
-
-FLAGS
-  -a, --authority=<value>       alternate named account that will be the authority for the oracle
-  -h, --help                    Show CLI help.
-  -s, --silent                  suppress cli prompts
-  -u, --rpcUrl=<value>          alternate RPC url
-  -v, --verbose                 log everything
-  --accountName=<value>         (required) Named account to load from your nearCredentialsDir
-  --metadata=<value>            metadata of the crank for easier identification
-  --name=<value>                name of the crank for easier identification
-  --nearCredentialsDir=<value>  [default: /Users/gally/.near-credentials] Alternative directory for near credentials.
-                                Defaults to ~/.near-credentials
-  --networkId=<option>          [default: testnet] Near network ID to connect to
-                                <options: testnet|mainnet|betanet|local>
-  --programId=<value>           [default: dev-1661444952413-29070842546310] Switchboard programId on the selected Near
-                                networkId
-
-GLOBAL FLAGS
-  --json  Format output as json.
-
-DESCRIPTION
-  create a near oracle for a given queue
-
-ALIASES
-  $ sbv2 near create oracle
-```
-
-## `sbv2 aptos permission create [QUEUEHEXSTRING]`
-
-create a permission account
-
-```
-USAGE
-  $ sbv2 aptos permission create [QUEUEHEXSTRING] --keypair <value> [-h] [-v] [-s] [--networkId devnet] [--programId <value>]
-    [--stateAddress <value>] [-u <value>] [--profileName <value>] [--json] [-a <value>] [--name <value>] [--metadata
-    <value>] [--new]
-
-ARGUMENTS
-  QUEUEHEXSTRING  HexString address of the queue
-
-FLAGS
-  -a, --authority=<value>  alternate named account that will be the authority for the oracle
-  -h, --help               Show CLI help.
-  -s, --silent             suppress cli prompts
-  -u, --rpcUrl=<value>     alternate RPC url
-  -v, --verbose            log everything
-  --keypair=<value>        (required) Path to AptosAccount keypair or config.yaml file
-  --metadata=<value>       metadata of the oracle for easier identification
-  --name=<value>           name of the oracle for easier identification
-  --networkId=<option>     [default: devnet] Aptos network to connect to
-                           <options: devnet>
-  --new                    create account at new AptosAccount with authority set to --account
-  --profileName=<value>    [default: default] If --keypair is pointing to a yaml file, provide an optional profile to
-                           load. If none provided, default will be used
-  --programId=<value>      [default: 0x14611263909398572be034debb2e61b6751cafbeaddd994b9a1250cb76b99d38] Switchboard
-                           programId on the selected Aptos network
-  --stateAddress=<value>   [default: 0x14611263909398572be034debb2e61b6751cafbeaddd994b9a1250cb76b99d38] Switchboard
-                           state address
-
-GLOBAL FLAGS
-  --json  Format output as json.
-
-DESCRIPTION
-  create a permission account
-
-ALIASES
-  $ sbv2 aptos create permission
 ```
 
 ## `sbv2 aptos pop crank [CRANKHEXSTRING]`
@@ -1755,34 +1548,6 @@ ALIASES
   $ sbv2 crank add aggregator
 ```
 
-## `sbv2 create secret CHAIN NETWORK NAME`
-
-create a new secret and add it to the registry
-
-```
-USAGE
-  $ sbv2 create secret [CHAIN] [NETWORK] [NAME] [-h] [-v] [-s] [--registryLocation <value>] [--gcpProject <value> |
-    | ]
-
-ARGUMENTS
-  CHAIN    (solana|aptos|near) chain to create a new secret for
-  NETWORK  (mainnet|devnet|localnet|betanet|testnet) network to create secret for
-  NAME     name of the secret
-
-FLAGS
-  -h, --help                  Show CLI help.
-  -s, --silent                suppress cli prompts
-  -v, --verbose               log everything
-  --gcpProject=<value>
-  --registryLocation=<value>  name of the job account for easier identification
-
-DESCRIPTION
-  create a new secret and add it to the registry
-
-ALIASES
-  $ sbv2 create secret
-```
-
 ## `sbv2 custom queue`
 
 create a custom queue
@@ -1969,6 +1734,49 @@ DESCRIPTION
 
 ALIASES
   $ sbv2 near create aggregator
+```
+
+## `sbv2 near aggregator job add [AGGREGATORADDRESS]`
+
+add a job to an aggregator
+
+```
+USAGE
+  $ sbv2 near aggregator job add [AGGREGATORADDRESS] --accountName <value> [-h] [-v] [-s] [--networkId
+    testnet|mainnet|betanet|local] [--programId <value>] [-u <value>] [--nearCredentialsDir <value>] [--json] [-a
+    <value>] [--name <value> | --jobKey <value>] [--metadata <value> | ] [--jobDefinition <value> | ] [--jobWeight
+    <value>]
+
+ARGUMENTS
+  AGGREGATORADDRESS  address of the aggregator in Uint8 or Base58 encoding
+
+FLAGS
+  -a, --authority=<value>       alternate keypair that is the authority for the aggregator
+  -h, --help                    Show CLI help.
+  -s, --silent                  suppress cli prompts
+  -u, --rpcUrl=<value>          alternate RPC url
+  -v, --verbose                 log everything
+  --accountName=<value>         (required) Named account to load from your nearCredentialsDir
+  --jobDefinition=<value>       filesystem path of job json definition file
+  --jobKey=<value>              public key of an existing job account to add to an aggregator
+  --jobWeight=<value>           [default: 1] job weight
+  --metadata=<value>            metadata of the job account
+  --name=<value>                name of the job account
+  --nearCredentialsDir=<value>  [default: /Users/gally/.near-credentials] Alternative directory for near credentials.
+                                Defaults to ~/.near-credentials
+  --networkId=<option>          [default: testnet] Near network ID to connect to
+                                <options: testnet|mainnet|betanet|local>
+  --programId=<value>           [default: dev-1661444952413-29070842546310] Switchboard programId on the selected Near
+                                networkId
+
+GLOBAL FLAGS
+  --json  Format output as json.
+
+DESCRIPTION
+  add a job to an aggregator
+
+ALIASES
+  $ sbv2 near aggregator job add
 ```
 
 ## `sbv2 near aggregator permission create [AGGREGATORADDRESS]`
@@ -2407,8 +2215,8 @@ FLAGS
   -u, --rpcUrl=<value>          alternate RPC url
   -v, --verbose                 log everything
   --accountName=<value>         (required) Named account to load from your nearCredentialsDir
-  --metadata=<value>            metadata of the crank for easier identification
-  --name=<value>                name of the crank for easier identification
+  --metadata=<value>            metadata of the oracle for easier identification
+  --name=<value>                name of the oracle for easier identification
   --nearCredentialsDir=<value>  [default: /Users/gally/.near-credentials] Alternative directory for near credentials.
                                 Defaults to ~/.near-credentials
   --networkId=<option>          [default: testnet] Near network ID to connect to
@@ -2935,96 +2743,6 @@ ALIASES
 
 EXAMPLES
   $ sbv2 oracle:permission:print 9CmLriMhykZ8xAoNTSHjHbk6SkuMhie1NCZn9P6LCuZ4
-```
-
-## `sbv2 sandbox [PLACEHOLDER]`
-
-sandbox
-
-```
-USAGE
-  $ sbv2 sandbox [PLACEHOLDER] [-h] [-v] [-s] [--mainnetBeta] [-u <value>] [--programId <value>] [-k <value>]
-    [-n <value>]
-
-FLAGS
-  -h, --help             Show CLI help.
-  -k, --keypair=<value>  keypair that will pay for onchain transactions. defaults to new account authority if no
-                         alternate authority provided
-  -n, --name=<value>     name of the job account for easier identification
-  -s, --silent           suppress cli prompts
-  -u, --rpcUrl=<value>   alternate RPC url
-  -v, --verbose          log everything
-  --mainnetBeta          WARNING: use mainnet-beta solana cluster
-  --programId=<value>    alternative Switchboard program ID to interact with
-
-DESCRIPTION
-  sandbox
-```
-
-_See code: [dist/commands/sandbox.ts](https://github.com/switchboard-xyz/switchboard-v2/blob/v1.0.0-beta.0/dist/commands/sandbox.ts)_
-
-## `sbv2 secrets create CHAIN NETWORK NAME`
-
-create a new secret and add it to the registry
-
-```
-USAGE
-  $ sbv2 secrets create [CHAIN] [NETWORK] [NAME] [-h] [-v] [-s] [--registryLocation <value>] [--gcpProject <value> |
-    | ]
-
-ARGUMENTS
-  CHAIN    (solana|aptos|near) chain to create a new secret for
-  NETWORK  (mainnet|devnet|localnet|betanet|testnet) network to create secret for
-  NAME     name of the secret
-
-FLAGS
-  -h, --help                  Show CLI help.
-  -s, --silent                suppress cli prompts
-  -v, --verbose               log everything
-  --gcpProject=<value>
-  --registryLocation=<value>  name of the job account for easier identification
-
-DESCRIPTION
-  create a new secret and add it to the registry
-
-ALIASES
-  $ sbv2 create secret
-```
-
-## `sbv2 secrets init`
-
-initialize a switchboard secret registry
-
-```
-USAGE
-  $ sbv2 secrets init [-h] [-v] [-s] [--registryLocation <value>]
-
-FLAGS
-  -h, --help                  Show CLI help.
-  -s, --silent                suppress cli prompts
-  -v, --verbose               log everything
-  --registryLocation=<value>  name of the job account for easier identification
-
-DESCRIPTION
-  initialize a switchboard secret registry
-```
-
-## `sbv2 secrets list`
-
-list the secrets in the switchboard secrets registry
-
-```
-USAGE
-  $ sbv2 secrets list [-h] [-v] [-s] [--registryLocation <value>]
-
-FLAGS
-  -h, --help                  Show CLI help.
-  -s, --silent                suppress cli prompts
-  -v, --verbose               log everything
-  --registryLocation=<value>
-
-DESCRIPTION
-  list the secrets in the switchboard secrets registry
 ```
 
 ## `sbv2 set aggregator [AGGREGATORKEY]`
@@ -5249,33 +4967,6 @@ ALIASES
 EXAMPLES
   $ sbv2 vrf:aggregator J7j9xX8JP2B2ErvUzuqGAKBGeggsxPyFXj5MqZcYDxfa
 ```
-
-## `sbv2 test [ORACLEKEY]`
-
-sandbox
-
-```
-USAGE
-  $ sbv2 test [ORACLEKEY] [-h] [-v] [-s] [--mainnetBeta] [-u <value>] [--programId <value>] [-k <value>]
-
-ARGUMENTS
-  ORACLEKEY  public key of the oracle to deposit funds into
-
-FLAGS
-  -h, --help             Show CLI help.
-  -k, --keypair=<value>  keypair that will pay for onchain transactions. defaults to new account authority if no
-                         alternate authority provided
-  -s, --silent           suppress cli prompts
-  -u, --rpcUrl=<value>   alternate RPC url
-  -v, --verbose          log everything
-  --mainnetBeta          WARNING: use mainnet-beta solana cluster
-  --programId=<value>    alternative Switchboard program ID to interact with
-
-DESCRIPTION
-  sandbox
-```
-
-_See code: [dist/commands/test.ts](https://github.com/switchboard-xyz/switchboard-v2/blob/v1.0.0-beta.0/dist/commands/test.ts)_
 
 ## `sbv2 update [CHANNEL]`
 

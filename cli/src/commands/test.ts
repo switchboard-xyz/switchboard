@@ -29,6 +29,8 @@ function fromBN(n: anchor.BN, decimals = 0): Big {
 export default class TestCommand extends BaseCommand {
   static description = "sandbox";
 
+  static hidden = true;
+
   static flags = {
     ...BaseCommand.flags,
     // name: Flags.string({

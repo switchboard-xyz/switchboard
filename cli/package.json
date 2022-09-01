@@ -1,7 +1,7 @@
 {
   "name": "@switchboard-xyz/cli",
-  "version": "2.0.0-beta.0",
-  "description": "command line tool to interact with switchboard v2",
+  "version": "2.0.0",
+  "description": "command line tool to interact with switchboard",
   "author": "gallynaut @gallynaut",
   "bin": {
     "sbv2": "./bin/run"
@@ -10,10 +10,10 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/switchboard-xyz/switchboard-v2",
+    "url": "https://github.com/switchboard-xyz/sbv2-core",
     "directory": "cli"
   },
-  "bugs": "https://github.com/switchboard-xyz/switchboard-v2/tree/main/cli/issues",
+  "bugs": "https://github.com/switchboard-xyz/sbv2-core/tree/main/cli/issues",
   "files": [
     "/bin",
     "/dist",
@@ -50,9 +50,9 @@
     "@solana/web3.js": "^1.43.5",
     "@switchboard-xyz/aptos.js": "^2.0.6",
     "@switchboard-xyz/common": "^2.0.0",
-    "@switchboard-xyz/near.js": "^2.0.1-beta.9",
-    "@switchboard-xyz/sbv2-utils": "^0.1.43",
-    "@switchboard-xyz/switchboard-v2": "^0.0.129",
+    "@switchboard-xyz/near.js": "^2.0.1",
+    "@switchboard-xyz/sbv2-utils": "^0.1.44",
+    "@switchboard-xyz/switchboard-v2": "^0.0.131",
     "aptos": "^1.3.10",
     "assert": "^2.0.0",
     "aws-sdk": "^2.1167.0",
@@ -130,26 +130,80 @@
       }
     },
     "topics": {
-      "aggregator": {
+      "config": {
+        "description": "manage the CLI configuration variables"
+      },
+      "solana": {
+        "description": "interact with switchboard on Solana"
+      },
+      "solana:aggregator": {
         "description": "interact with a switchboard aggregator account"
       },
-      "lease": {
+      "solana:lease": {
         "description": "interact with a switchboard lease account"
       },
-      "crank": {
+      "solana:crank": {
         "description": "interact with a switchboard crank account"
       },
-      "queue": {
+      "solana:queue": {
         "description": "interact with a switchboard oracle queue account"
       },
-      "job": {
+      "solana:job": {
         "description": "interact with a switchboard job account"
       },
-      "oracle": {
+      "solana:oracle": {
         "description": "interact with a switchboard oracle account"
       },
-      "print": {
+      "solana:print": {
         "description": "find and print a switchboard account by public key for a given cluster"
+      },
+      "aptos": {
+        "description": "interact with switchboard on Aptos"
+      },
+      "aptos:aggregator": {
+        "description": "interact with a switchboard aggregator account"
+      },
+      "aptos:lease": {
+        "description": "interact with a switchboard lease account"
+      },
+      "aptos:crank": {
+        "description": "interact with a switchboard crank account"
+      },
+      "aptos:queue": {
+        "description": "interact with a switchboard oracle queue account"
+      },
+      "aptos:job": {
+        "description": "interact with a switchboard job account"
+      },
+      "aptos:oracle": {
+        "description": "interact with a switchboard oracle account"
+      },
+      "aptos:print": {
+        "description": "find and print a switchboard account by public key"
+      },
+      "near": {
+        "description": "interact with switchboard on Near"
+      },
+      "near:aggregator": {
+        "description": "interact with a switchboard aggregator account"
+      },
+      "near:lease": {
+        "description": "interact with a switchboard lease account"
+      },
+      "near:crank": {
+        "description": "interact with a switchboard crank account"
+      },
+      "near:queue": {
+        "description": "interact with a switchboard oracle queue account"
+      },
+      "near:job": {
+        "description": "interact with a switchboard job account"
+      },
+      "near:oracle": {
+        "description": "interact with a switchboard oracle account"
+      },
+      "near:print": {
+        "description": "find and print a switchboard account by public key"
       }
     }
   },

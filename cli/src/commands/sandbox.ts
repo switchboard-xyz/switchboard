@@ -6,6 +6,8 @@ import { SolanaWithSignerBaseCommand as BaseCommand } from "../solana";
 export default class SandboxCommand extends BaseCommand {
   static description = "sandbox";
 
+  static hidden = true;
+
   static flags = {
     ...BaseCommand.flags,
     name: Flags.string({
