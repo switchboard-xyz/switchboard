@@ -3,6 +3,8 @@ import chalk from "chalk";
 import { CliBaseCommand as BaseCommand } from "../../BaseCommand";
 
 export default class ConfigPrint extends BaseCommand {
+  static enableJsonFlag = true;
+
   static description = "print cli config";
 
   static alias = ["config get"];
@@ -14,9 +16,10 @@ export default class ConfigPrint extends BaseCommand {
   static examples = ["$ sbv2 config:print"];
 
   async run() {
+    this.log(JSON.stringify(this.ctx.toJSON(), undefined, 2));
     const PADDING: number = 24;
     try {
-      const { devnet, mainnet } = this.ctx.config.solana;
+      const { devnet, mainnet } = this.ctx.solana;
       this.log(chalk.underline(chalk.blue("## Solana".padEnd(PADDING))));
       this.log(
         chalkString(
@@ -33,7 +36,7 @@ export default class ConfigPrint extends BaseCommand {
     } catch (error) {}
 
     try {
-      const { testnet, mainnet } = this.ctx.config.near;
+      const { testnet, mainnet } = this.ctx.near;
       this.log(chalk.underline(chalk.blue("## Near".padEnd(PADDING))));
       this.log(
         chalkString(

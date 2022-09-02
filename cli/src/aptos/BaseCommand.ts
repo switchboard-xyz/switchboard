@@ -8,12 +8,7 @@ import {
   HexString,
   MaybeHexString,
 } from "aptos";
-import {
-  AwsProvider,
-  DEFAULT_CONFIG,
-  FsProvider,
-  GcpProvider,
-} from "../providers";
+import { AwsProvider, FsProvider, GcpProvider } from "../providers";
 import YAML from "yaml";
 import fs from "fs";
 import { AptosNetwork } from ".";
@@ -115,9 +110,8 @@ export abstract class AptosBaseCommand extends BaseCommand {
       }
       return rpcUrl;
     } catch (error) {
-      const rpcUrl = DEFAULT_CONFIG.aptos.devnet.rpcUrl;
-      this.ctx.set("aptos-devnet-rpc", rpcUrl);
-      return rpcUrl;
+      this.ctx.aptosDevnetRpc = "https://fullnode.devnet.aptoslabs.com/v1";
+      return this.ctx.aptosDevnetRpc;
     }
   }
 

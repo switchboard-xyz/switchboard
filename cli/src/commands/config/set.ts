@@ -16,16 +16,22 @@ export default class ConfigSet extends BaseCommand {
 
   static args = [
     {
-      name: "param",
-      options: [
-        "solana-devnet-rpc",
-        "solana-mainnet-rpc",
-        "near-testnet-rpc",
-        "near-mainnet-rpc",
-        "near-betanet-rpc",
-        "aptos-devnet-rpc",
-      ],
-      description: "configuration parameter to set",
+      name: "chain",
+      required: true,
+      options: ["solana", "near", "aptos"],
+      description: "chain to set a config parameter",
+    },
+    {
+      name: "network",
+      required: true,
+      options: ["localnet", "testnet", "betanet", "devnet", "mainnet"],
+      description: "network of chain to set parameter",
+    },
+    {
+      name: "parameter",
+      required: true,
+      options: ["rpc", "default-account", "account"],
+      description: "parameter to set",
     },
     {
       name: "value",
@@ -36,7 +42,20 @@ export default class ConfigSet extends BaseCommand {
 
   async run() {
     const { args, flags } = await this.parse(ConfigSet);
-    this.ctx.set(args.param, flags.reset ? undefined : args.value);
+
+    if (!flags.reset && !args.value) {
+      throw new Error(`Need to provide value if --reset is not set`);
+    }
+
+    if (args.parameter === "rpc") {
+      this.ctx.setRpcUrl(
+        args.chain,
+        args.network,
+        flags.reset ? undefined : args.value
+      );
+    }
+
+    // this.ctx.set(args.param, flags.reset ? undefined : args.value);
   }
 
   async catch(error) {
