@@ -61,8 +61,8 @@ export default class QueueCreate extends BaseCommand {
   async run() {
     const { flags, args } = await this.parse(QueueCreate);
 
-    const queueAccount = await QueueAccount.create(this.signer, {
-      authority: flags.authority || this.signer.accountId,
+    const queueAccount = await QueueAccount.create(this.program, {
+      authority: flags.authority || this.program.account.accountId,
       name: Buffer.from(flags.name || ""),
       metadata: Buffer.from(flags.metadata || ""),
       mint: "wrap.test",

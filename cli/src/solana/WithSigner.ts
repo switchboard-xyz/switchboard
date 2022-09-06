@@ -22,7 +22,15 @@ export abstract class SolanaWithSignerBaseCommand extends SolanaBaseCommand {
     const { flags } = await this.parse((<Input<any>>this.constructor) as any);
     SolanaBaseCommand.flags = flags as any;
 
-    this.signer = await this.getSigner((flags as any).keypair);
+    const keypairPath =
+      (flags as any).keypair ||
+      this.ctx.getDefaultAccount("solana", this.cluster);
+
+    if (!keypairPath || keypairPath === undefined) {
+      throw new Error(`Command requires '--keypair' flag to be provided`);
+    }
+
+    this.signer = await this.getSigner(keypairPath);
     this.program = await this.loadProgram(this.signer);
 
     this.logConfig({ signer: this.signer.publicKey.toString() }, false);

@@ -1,15 +1,18 @@
 import { Flags } from "@oclif/core";
 import { Input } from "@oclif/parser";
-import { keyStores, Account, Near } from "near-api-js";
+import { Account } from "near-api-js";
 import { homedir } from "os";
-import { loadNear, SwitchboardPermission } from "@switchboard-xyz/near.js";
+import {
+  SwitchboardPermission,
+  SwitchboardProgram,
+  TESTNET_PROGRAM_ID,
+} from "@switchboard-xyz/near.js";
 import { CliBaseCommand as BaseCommand } from "../BaseCommand";
 import bs58 from "bs58";
 import { NearNetwork } from ".";
 import { isBN } from "bn.js";
 import Big from "big.js";
 import { SwitchboardDecimal } from "@switchboard-xyz/common";
-import base58 from "bs58";
 
 export const toUtf8 = (buf: any): string => {
   buf = buf ?? "";
@@ -23,12 +26,12 @@ export abstract class NearBaseCommand extends BaseCommand {
     ...BaseCommand.flags,
     networkId: Flags.string({
       description: "Near network ID to connect to",
-      options: ["testnet", "mainnet", "betanet", "local"],
+      options: ["testnet", "mainnet", "betanet", "localnet"],
       default: "testnet",
     }),
     programId: Flags.string({
       description: "Switchboard programId on the selected Near networkId",
-      default: "dev-1661444952413-29070842546310",
+      default: TESTNET_PROGRAM_ID,
     }),
     rpcUrl: Flags.string({
       char: "u",
@@ -50,7 +53,7 @@ export abstract class NearBaseCommand extends BaseCommand {
 
   public programId: string;
 
-  public near: Near;
+  public program: SwitchboardProgram;
 
   async init() {
     await super.init();
@@ -60,10 +63,10 @@ export abstract class NearBaseCommand extends BaseCommand {
     this.networkId = this.getNetworkId((flags as any).networkId);
     this.rpcUrl = this.getRpcUrl(this.networkId, (flags as any).rpcUrl);
     this.programId = (flags as any).programId;
-    this.near = await this.loadNear(
+
+    this.program = await SwitchboardProgram.loadReadOnly(
       this.networkId,
-      this.rpcUrl,
-      (flags as any).nearCredentialsDir
+      this.rpcUrl
     );
 
     this.logConfig({
@@ -81,7 +84,7 @@ export abstract class NearBaseCommand extends BaseCommand {
       networkIdFlag !== "testnet" &&
       networkIdFlag !== "mainnet" &&
       networkIdFlag !== "betanet" &&
-      networkIdFlag !== "local"
+      networkIdFlag !== "localnet"
     ) {
       throw new Error(
         `--networkId must be 'testnet', 'mainnet', 'betanet', or 'local'`
@@ -119,22 +122,24 @@ export abstract class NearBaseCommand extends BaseCommand {
     );
   }
 
-  async loadNear(
-    networkId: NearNetwork,
-    rpcUrl: string,
-    credentialDir: string
-  ): Promise<Near> {
-    const keystore = new keyStores.UnencryptedFileSystemKeyStore(credentialDir);
-    this.near = await loadNear(networkId, keystore, rpcUrl);
-    return this.near;
-  }
+  // async loadNear(
+  //   networkId: NearNetwork,
+  //   rpcUrl: string,
+  //   credentialDir: string
+  // ): Promise<Near> {
+  //   const keystore = new keyStores.UnencryptedFileSystemKeyStore(credentialDir);
+  //   this.near = await loadNear(networkId, keystore, rpcUrl);
+  //   return this.near;
+  // }
 
   getSigner(nearNamedAccount: string): Account {
     // TODO: Support loading secrets from GCP & AWS
-    if (!this.near) {
-      throw new Error(`Need to load the Near object before loading the signer`);
+    if (!this.program) {
+      throw new Error(
+        `Need to load the SwitchboardProgram before loading the signer`
+      );
     }
-    return new Account(this.near.connection, nearNamedAccount);
+    return new Account(this.program.connection, nearNamedAccount);
   }
 
   isBase58(value: string): boolean {
@@ -146,8 +151,10 @@ export abstract class NearBaseCommand extends BaseCommand {
   parseAddress(address: string): Uint8Array {
     if (this.isBase58(address)) {
       return bs58.decode(address);
-    } else if (Array.isArray(address)) {
-      return new Uint8Array(address);
+    } else {
+      try {
+        return new Uint8Array(JSON.parse(address));
+      } catch {}
     }
 
     throw new Error(`Failed to convert near address to Uint8Array, ${address}`);

@@ -49,7 +49,7 @@ export default class CreateOraclePermissions extends BaseCommand {
     // first try aggregator
     try {
       const aggregator = new AggregatorAccount({
-        connection: this.near.connection,
+        program: this.program,
         address: granteeAddress,
       });
       await aggregator.loadData();
@@ -59,7 +59,7 @@ export default class CreateOraclePermissions extends BaseCommand {
     // next try oracle
     try {
       const oracle = new OracleAccount({
-        connection: this.near.connection,
+        program: this.program,
         address: granteeAddress,
       });
       await oracle.loadData();
@@ -75,7 +75,7 @@ export default class CreateOraclePermissions extends BaseCommand {
     const { flags } = await this.parse(CreateOraclePermissions);
 
     const granter = new QueueAccount({
-      connection: this.near.connection,
+      program: this.program,
       address: this.parseAddress(flags.granter),
     });
     const granterData = await granter.loadData();
@@ -93,12 +93,12 @@ export default class CreateOraclePermissions extends BaseCommand {
         granteeAddress
       );
       permissionAccount = new PermissionAccount({
-        connection: this.near.connection,
+        program: this.program,
         address: permissionKey,
       });
       permissionData = await permissionAccount.loadData();
     } catch {
-      permissionAccount = await PermissionAccount.create(this.signer, {
+      permissionAccount = await PermissionAccount.create(this.program, {
         authority: granterData.authority,
         granter: granter.address,
         grantee: granteeAddress,
@@ -117,7 +117,7 @@ export default class CreateOraclePermissions extends BaseCommand {
           : accountType === "Oracle"
           ? SwitchboardPermission.PERMIT_ORACLE_HEARTBEAT
           : SwitchboardPermission.NONE;
-      const txn = await permissionAccount.set(queueAuthority, {
+      const txn = await permissionAccount.set({
         permission,
         enable: flags.enable,
       });

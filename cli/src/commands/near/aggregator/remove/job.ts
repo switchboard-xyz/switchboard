@@ -34,7 +34,7 @@ export default class AggregatorRemoveJob extends BaseCommand {
     const { flags, args } = await this.parse(AggregatorRemoveJob);
 
     const aggregatorAccount = new AggregatorAccount({
-      connection: this.near.connection,
+      program: this.program,
       address: this.parseAddress(args.aggregatorAddress),
     });
     const aggregatorData = await aggregatorAccount.loadData();
@@ -48,7 +48,7 @@ export default class AggregatorRemoveJob extends BaseCommand {
 
     for (const jobKey of flags.jobAddress) {
       const jobAccount = new JobAccount({
-        connection: this.near.connection,
+        program: this.program,
         address: this.parseAddress(jobKey),
       });
       await jobAccount.loadData();
@@ -61,7 +61,7 @@ export default class AggregatorRemoveJob extends BaseCommand {
           `Failed to find job ${jobAddressBase58} for the given aggregator`
         );
       }
-      const removeTxn = await aggregatorAccount.removeJob(authority, {
+      const removeTxn = await aggregatorAccount.removeJob({
         idx: jobIdx,
       });
 

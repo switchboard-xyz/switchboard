@@ -36,26 +36,19 @@ export default class CrankPush extends BaseCommand {
     const { flags, args } = await this.parse(CrankPush);
 
     const crankAccount = new CrankAccount({
-      connection: this.near.connection,
+      program: this.program,
       address: this.parseAddress(args.crankAddress),
     });
     const crankData = await crankAccount.loadData();
 
     const aggregatorAccount = new AggregatorAccount({
-      connection: this.near.connection,
+      program: this.program,
       address: this.parseAddress(flags.aggregatorAddress),
     });
     const aggregatorData = await aggregatorAccount.loadData();
 
-    const txnReceipt = await this.signer.functionCall({
-      contractId: PID,
-      methodName: "crank_push",
-      args: {
-        ix: {
-          crank: [...crankAccount.address],
-          aggregator: [...aggregatorAccount.address],
-        },
-      },
+    const txnReceipt = await crankAccount.push({
+      aggregator: aggregatorAccount.address,
     });
 
     if (flags.json) {

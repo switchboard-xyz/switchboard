@@ -1,11 +1,8 @@
 import { Flags } from "@oclif/core";
 import * as anchor from "@project-serum/anchor";
 import { PublicKey } from "@solana/web3.js";
-import {
-  AggregatorAccount,
-  JobAccount,
-  OracleJob,
-} from "@switchboard-xyz/switchboard-v2";
+import { OracleJob } from "@switchboard-xyz/common";
+import { AggregatorAccount, JobAccount } from "@switchboard-xyz/switchboard-v2";
 import chalk from "chalk";
 import fs from "fs";
 import path from "path";

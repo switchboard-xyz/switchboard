@@ -39,8 +39,8 @@ export default class CreateJob extends BaseCommand {
     const oracleJob = this.loadJobJson(args.jobDefinition);
     const data = Buffer.from(OracleJob.encodeDelimited(oracleJob).finish());
 
-    const jobAccount = await JobAccount.create(this.signer, {
-      authority: flags.authority || this.signer.accountId,
+    const jobAccount = await JobAccount.create(this.program, {
+      authority: flags.authority || this.program.account.accountId,
       data: data,
       name: Buffer.from(flags.name || ""),
       metadata: Buffer.from(flags.metadata || ""),

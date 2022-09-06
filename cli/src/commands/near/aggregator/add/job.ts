@@ -48,7 +48,7 @@ export default class AggregatorAddJob extends BaseCommand {
     const { flags, args } = await this.parse(AggregatorAddJob);
 
     const aggregatorAccount = new AggregatorAccount({
-      connection: this.near.connection,
+      program: this.program,
       address: this.parseAddress(args.aggregatorAddress),
     });
     const aggregatorData = await aggregatorAccount.loadData();
@@ -62,8 +62,8 @@ export default class AggregatorAddJob extends BaseCommand {
     if (flags.jobDefinition) {
       const oracleJob = this.loadJobJson(flags.jobDefinition);
 
-      jobAccount = await JobAccount.create(this.signer, {
-        authority: flags.authority || this.signer.accountId,
+      jobAccount = await JobAccount.create(this.program, {
+        authority: flags.authority || this.program.account.accountId,
         data: Buffer.from(OracleJob.encodeDelimited(oracleJob).finish()),
         name: Buffer.from(flags.name || ""),
         metadata: Buffer.from(flags.metadata || ""),
@@ -71,7 +71,7 @@ export default class AggregatorAddJob extends BaseCommand {
     } else if (flags.jobKey) {
       const jobAddress = this.parseAddress(flags.jobKey);
       jobAccount = new JobAccount({
-        connection: this.near.connection,
+        program: this.program,
         address: jobAddress,
       });
     } else {
@@ -80,7 +80,7 @@ export default class AggregatorAddJob extends BaseCommand {
       );
     }
 
-    const txnReceipt = await aggregatorAccount.addJob(this.signer, {
+    const txnReceipt = await aggregatorAccount.addJob({
       job: jobAccount.address,
       weight: flags.jobWeight,
     });
@@ -90,7 +90,7 @@ export default class AggregatorAddJob extends BaseCommand {
       (newAggregatorData.jobs as Array<Array<number>>).map(
         async (jobAddress) => {
           const jobAccount = new JobAccount({
-            connection: this.near.connection,
+            program: this.program,
             address: new Uint8Array(jobAddress),
           });
           const jobData = await jobAccount.loadData();

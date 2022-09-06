@@ -55,6 +55,14 @@ export default class ConfigSet extends BaseCommand {
       );
     }
 
+    if (args.parameter === "account" || args.parameter === "default-account") {
+      this.ctx.setDefaultAccount(
+        args.chain,
+        args.network,
+        flags.reset ? undefined : args.value
+      );
+    }
+
     // this.ctx.set(args.param, flags.reset ? undefined : args.value);
   }
 

@@ -9,6 +9,7 @@ import {
   QueueAccount,
 } from "@switchboard-xyz/near.js";
 import { OracleJob } from "@switchboard-xyz/common";
+import base58 from "bs58";
 
 export default class NearPrint extends BaseCommand {
   static enableJsonFlag = true;
@@ -53,7 +54,7 @@ export default class NearPrint extends BaseCommand {
 
     const address = this.parseAddress(args.address);
     const params = {
-      connection: this.near.connection,
+      program: this.program,
       address,
     };
     let data: any;
@@ -66,7 +67,14 @@ export default class NearPrint extends BaseCommand {
       }
       case "crank": {
         const crank = new CrankAccount(params);
-        data = await crank.loadData();
+        const crankData = await crank.loadData();
+        data = {
+          ...crankData,
+          length: crankData.data.length,
+          data: crankData.data.map(
+            (row) => `${row.next_timestamp}, ${base58.encode(row.uuid)}`
+          ),
+        };
         break;
       }
       case "oracle": {
@@ -74,7 +82,7 @@ export default class NearPrint extends BaseCommand {
         data = await oracle.loadData();
         if (flags.all) {
           const queue = new QueueAccount({
-            connection: this.near.connection,
+            program: this.program,
             address: data.queue,
           });
           const queueData = await queue.loadData();
@@ -86,7 +94,7 @@ export default class NearPrint extends BaseCommand {
               address
             );
             const permission = new PermissionAccount({
-              connection: this.near.connection,
+              program: this.program,
               address: permissionKey,
             });
             const permissionData = await permission.loadData();
@@ -108,7 +116,7 @@ export default class NearPrint extends BaseCommand {
         data = await aggregator.loadData();
         if (flags.all) {
           const queue = new QueueAccount({
-            connection: this.near.connection,
+            program: this.program,
             address: data.queue,
           });
           const queueData = await queue.loadData();
@@ -120,7 +128,7 @@ export default class NearPrint extends BaseCommand {
               address
             );
             const permission = new PermissionAccount({
-              connection: this.near.connection,
+              program: this.program,
               address: permissionKey,
             });
             const permissionData = await permission.loadData();
@@ -138,7 +146,7 @@ export default class NearPrint extends BaseCommand {
             const aggregatorJobData: any[] = await Promise.all(
               (data.jobs as Array<Array<number>>).map(async (jobAddress) => {
                 const jobAccount = new JobAccount({
-                  connection: this.near.connection,
+                  program: this.program,
                   address: new Uint8Array(jobAddress),
                 });
                 const jobData = await jobAccount.loadData();

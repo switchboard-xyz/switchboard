@@ -29,13 +29,13 @@ export default class CreateAggregatorPermission extends BaseCommand {
     const { flags, args } = await this.parse(CreateAggregatorPermission);
 
     const aggregatorAccount = new AggregatorAccount({
-      connection: this.near.connection,
+      program: this.program,
       address: this.parseAddress(args.aggregatorAddress),
     });
     const aggregatorData = await aggregatorAccount.loadData();
 
     const queueAccount = new QueueAccount({
-      connection: this.near.connection,
+      program: this.program,
       address: aggregatorData.queue,
     });
     const queueData = await queueAccount.loadData();
@@ -49,12 +49,12 @@ export default class CreateAggregatorPermission extends BaseCommand {
         aggregatorAccount.address
       );
       permissionAccount = new PermissionAccount({
-        connection: this.near.connection,
+        program: this.program,
         address: permissionKey,
       });
       permissionData = await permissionAccount.loadData();
     } catch (error) {
-      permissionAccount = await PermissionAccount.create(this.signer, {
+      permissionAccount = await PermissionAccount.create(this.program, {
         authority: queueData.authority,
         granter: queueAccount.address,
         grantee: aggregatorAccount.address,

@@ -259,6 +259,7 @@ export class ConfigProvider {
         switch (network) {
           case "devnet":
             return this.solanaDevnetRpc;
+          case "mainnet-beta":
           case "mainnet":
             return this.solanaMainnetRpc;
         }
@@ -277,6 +278,40 @@ export class ConfigProvider {
         switch (network) {
           case "devnet":
             return this.aptosDevnetRpc;
+        }
+      }
+    }
+
+    return "";
+  }
+
+  getDefaultAccount(
+    chain: "solana" | "near" | "aptos",
+    network: string
+  ): string | undefined {
+    switch (chain) {
+      case "solana": {
+        switch (network) {
+          case "devnet":
+            return this.solanaDevnetDefaultAccount;
+          case "mainnet":
+            return this.solanaMainnetDefaultAccount;
+        }
+      }
+      case "near": {
+        switch (network) {
+          case "betanet":
+            return this.nearBetanetDefaultAccount;
+          case "testnet":
+            return this.nearTestnetDefaultAccount;
+          case "mainnet":
+            return this.nearMainnetDefaultAccount;
+        }
+      }
+      case "aptos": {
+        switch (network) {
+          case "devnet":
+            return this.aptosDevnetDefaultAccount;
         }
       }
     }
@@ -322,6 +357,55 @@ export class ConfigProvider {
         switch (network) {
           case "devnet":
             this.aptosDevnetRpc = value || DEFAULT_APTOS_DEVNET_RPC;
+            this.save();
+            return;
+        }
+      }
+    }
+
+    throw new Error(
+      `Failed to set config parameter for chain ${chain} and network ${network}`
+    );
+  }
+
+  setDefaultAccount(
+    chain: "solana" | "near" | "aptos",
+    network: string,
+    value: string | undefined
+  ) {
+    switch (chain) {
+      case "solana": {
+        switch (network) {
+          case "devnet":
+            this.solanaDevnetDefaultAccount = value || "";
+            this.save();
+            return;
+          case "mainnet":
+            this.solanaMainnetDefaultAccount = value || "";
+            this.save();
+            return;
+        }
+      }
+      case "near": {
+        switch (network) {
+          case "betanet":
+            this.nearBetanetDefaultAccount = value || "";
+            this.save();
+            return;
+          case "testnet":
+            this.nearTestnetDefaultAccount = value || "";
+            this.save();
+            return;
+          case "mainnet":
+            this.nearMainnetDefaultAccount = value || "";
+            this.save();
+            return;
+        }
+      }
+      case "aptos": {
+        switch (network) {
+          case "devnet":
+            this.aptosDevnetDefaultAccount = value || "";
             this.save();
             return;
         }

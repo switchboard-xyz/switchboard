@@ -1,14 +1,10 @@
 import { Flags } from "@oclif/core";
+import { OracleJob } from "@switchboard-xyz/common";
 import { prettyPrintJob } from "@switchboard-xyz/sbv2-utils";
-import {
-  JobAccount,
-  OracleJob,
-  programWallet,
-} from "@switchboard-xyz/switchboard-v2";
+import { JobAccount, programWallet } from "@switchboard-xyz/switchboard-v2";
 import fs from "fs";
 import path from "path";
 import { SolanaWithSignerBaseCommand as BaseCommand } from "../../../../solana";
-import {} from "../../../../utils";
 
 export default class JobCreate extends BaseCommand {
   static description = "create a job account";
@@ -35,7 +31,7 @@ export default class JobCreate extends BaseCommand {
 
   async run() {
     const { args, flags } = await this.parse(JobCreate);
-    const payerKeypair = programWallet(this.program);
+    const payerKeypair = this.signer;
     const authority = await this.loadAuthority(flags.authority);
 
     const jobDefinitionPath = args.jobDefinition.startsWith("/")

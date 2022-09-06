@@ -7,6 +7,7 @@ import {
 } from "@switchboard-xyz/near.js";
 import Big from "big.js";
 import { OracleJob } from "@switchboard-xyz/common";
+import { Action } from "near-api-js/lib/transaction";
 
 export default class CreateAggregator extends BaseCommand {
   static enableJsonFlag = true;
@@ -60,6 +61,14 @@ export default class CreateAggregator extends BaseCommand {
       description: "filesystem path to job definition file",
       multiple: true,
     }),
+    rewardEscrow: Flags.string({
+      description: "where to send rewards. defaults to user's escrow account",
+      required: false,
+    }),
+    historyLimit: Flags.integer({
+      description: "number of samples to store in aggregator's history",
+      default: 1000,
+    }),
   };
 
   static args = [
@@ -72,49 +81,66 @@ export default class CreateAggregator extends BaseCommand {
   async run() {
     const { flags, args } = await this.parse(CreateAggregator);
 
+    const actions: Action[] = [];
+
     const jobs: JobAccount[] = flags.job
       ? await Promise.all(
           flags.job.map(async (jobDefinition) => {
             const oracleJob = this.loadJobJson(jobDefinition);
-            const jobAccount = await JobAccount.create(this.signer, {
-              authority: flags.authority || this.signer.accountId,
-              data: Buffer.from(OracleJob.encodeDelimited(oracleJob).finish()),
-              name: Buffer.from(flags.name || ""),
-              metadata: Buffer.from(flags.metadata || ""),
-            });
+            const [createJobAction, jobAccount] = JobAccount.createAction(
+              this.program,
+              {
+                authority: flags.authority || this.program.account.accountId,
+                data: Buffer.from(
+                  OracleJob.encodeDelimited(oracleJob).finish()
+                ),
+                name: Buffer.from(flags.name || ""),
+                metadata: Buffer.from(flags.metadata || ""),
+              }
+            );
+            actions.push(createJobAction);
 
             return jobAccount;
           })
         )
       : [];
 
-    const aggregatorAccount = await AggregatorAccount.create(this.signer, {
-      authority: flags.authority || this.signer.accountId,
-      queue: this.parseAddress(args.queueAddress),
-      name: Buffer.from(flags.name || ""),
-      metadata: Buffer.from(flags.metadata || ""),
-      batchSize: flags.batchSize,
-      minOracleResults: flags.minOracles,
-      minJobResults: flags.minJobs,
-      minUpdateDelaySeconds: flags.updateInterval,
-      startAfter: 0,
-      varianceThreshold: SwitchboardDecimal.fromBig(
-        new Big(flags.varianceThreshold)
-      ),
-      forceReportPeriod: flags.forceReportPeriod,
-      crank: flags.crankAddress
-        ? this.parseAddress(flags.crankAddress)
-        : undefined,
-    });
+    const [createAggregatorAction, aggregatorAccount] =
+      AggregatorAccount.createAction(this.program, {
+        authority: flags.authority || this.program.account.accountId,
+        queue: this.parseAddress(args.queueAddress),
+        name: Buffer.from(flags.name || ""),
+        metadata: Buffer.from(flags.metadata || ""),
+        batchSize: flags.batchSize,
+        minOracleResults: flags.minOracles,
+        minJobResults: flags.minJobs,
+        minUpdateDelaySeconds: flags.updateInterval,
+        startAfter: 0,
+        varianceThreshold: SwitchboardDecimal.fromBig(
+          new Big(flags.varianceThreshold)
+        ),
+        forceReportPeriod: flags.forceReportPeriod,
+        crank: flags.crankAddress
+          ? this.parseAddress(flags.crankAddress)
+          : undefined,
+        rewardEscrow: flags.rewardEscrow
+          ? this.parseAddress(flags.rewardEscrow)
+          : (await this.loadEscrow()).address,
+        historyLimit: flags.historyLimit,
+      });
+
+    actions.push(createAggregatorAction);
+    jobs.forEach((job) =>
+      actions.push(aggregatorAccount.addJobAction({ job: job.address }))
+    );
+
+    const txnReceipt = await this.program.sendActions(actions);
+
     const accountData = await aggregatorAccount.loadData();
 
     if (flags.json) {
       return this.normalizeAccountData(aggregatorAccount.address, accountData);
     }
-
-    // for await (const job of jobs) {
-    //   const tx = await aggregatorAccount.addJob();
-    // }
 
     this.logger.info(
       `Aggregator Key (Uint8Array): [${aggregatorAccount.address
@@ -127,6 +153,7 @@ export default class CreateAggregator extends BaseCommand {
       )}`
     );
     this.logger.info(JSON.stringify(accountData, this.jsonReplacers, 2));
+    this.logger.info(`${this.toUrl(txnReceipt.transaction.hash)}`);
   }
 
   async catch(error) {

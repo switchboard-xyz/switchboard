@@ -28,13 +28,13 @@ export default class CreateOraclePermissions extends BaseCommand {
     const { flags, args } = await this.parse(CreateOraclePermissions);
 
     const oracleAccount = new OracleAccount({
-      connection: this.near.connection,
+      program: this.program,
       address: this.parseAddress(args.oracleAddress),
     });
     const oracleData = await oracleAccount.loadData();
 
     const queueAccount = new QueueAccount({
-      connection: this.near.connection,
+      program: this.program,
       address: oracleData.queue,
     });
     const queueData = await queueAccount.loadData();
@@ -48,12 +48,12 @@ export default class CreateOraclePermissions extends BaseCommand {
         oracleAccount.address
       );
       oraclePermissionAccount = new PermissionAccount({
-        connection: this.near.connection,
+        program: this.program,
         address: permissionKey,
       });
       oraclePermissionData = await oraclePermissionAccount.loadData();
     } catch (error) {
-      oraclePermissionAccount = await PermissionAccount.create(this.signer, {
+      oraclePermissionAccount = await PermissionAccount.create(this.program, {
         authority: queueData.authority,
         granter: queueAccount.address,
         grantee: oracleAccount.address,
@@ -67,7 +67,6 @@ export default class CreateOraclePermissions extends BaseCommand {
         oraclePermissionData
       );
     }
-
 
     this.logger.info(
       `Permission Key (Uint8Array): [${oraclePermissionAccount.address

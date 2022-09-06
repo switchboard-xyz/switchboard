@@ -22,20 +22,20 @@ export default class AggregatorUpdate extends BaseCommand {
     const { flags, args } = await this.parse(AggregatorUpdate);
 
     const aggregatorAccount = new AggregatorAccount({
-      connection: this.near.connection,
+      program: this.program,
       address: this.parseAddress(args.aggregatorAddress),
     });
     const aggregatorData = await aggregatorAccount.loadData();
 
     const queueAccount = new QueueAccount({
-      connection: this.near.connection,
+      program: this.program,
       address: aggregatorData.queue,
     });
     const queueData = await queueAccount.loadData();
 
-    const [escrowAccount, escrowData] = await this.loadEscrow(queueData.mint);
+    const escrowAccount = await this.loadEscrow();
 
-    const txnReceipt = await aggregatorAccount.openRound(this.signer, {
+    const txnReceipt = await aggregatorAccount.openRound({
       rewardRecipient: escrowAccount.address,
     });
 

@@ -1,10 +1,10 @@
 import { Flags } from "@oclif/core";
 import { PublicKey } from "@solana/web3.js";
+import { OracleJob } from "@switchboard-xyz/common";
 import { prettyPrintBufferRelayer } from "@switchboard-xyz/sbv2-utils";
 import {
   BufferRelayerAccount,
   JobAccount,
-  OracleJob,
   OracleQueueAccount,
   programWallet,
 } from "@switchboard-xyz/switchboard-v2";

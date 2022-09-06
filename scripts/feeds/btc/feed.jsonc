@@ -1,0 +1,339 @@
+{
+  "name": "BTC/USD",
+  "metadata": "BTC/USD Spot Price",
+  "minUpdateDelaySeconds": 10,
+  "batchSize": 1,
+  "minOracleResponses": 1,
+  "minJobResponses": 1,
+  "forceReportPeriod": "",
+  "varianceThreshold": "",
+  "jobs": [
+    {
+      "name": "BinanceCom BTC/USD",
+      "tasks": [
+        {
+          "httpTask": {
+            "url": "https://www.binance.com/api/v3/ticker/price?symbol=BTCUSDT"
+          }
+        },
+        {
+          "jsonParseTask": {
+            "path": "$.price"
+          }
+        },
+        {
+          "multiplyTask": {
+            /* Mainnet USDT/USD Feed */
+            "aggregatorPubkey": "ETAaeeuQBwsh9mC2gCov9WdhJENZuffRMXY2HgjCcSL9"
+          }
+        }
+      ]
+    },
+    {
+      "name": "BinanceUs BTC/USD",
+      "tasks": [
+        {
+          "httpTask": {
+            "url": "https://www.binance.us/api/v3/ticker/price?symbol=BTCUSD"
+          }
+        },
+        {
+          "jsonParseTask": {
+            "path": "$.price"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Bitfinex BTC/USD",
+      "tasks": [
+        {
+          "httpTask": {
+            "url": "https://api-pub.bitfinex.com/v2/tickers?symbols=tBTCUSD"
+          }
+        },
+        {
+          "medianTask": {
+            "tasks": [
+              {
+                "jsonParseTask": {
+                  "path": "$[0][1]"
+                }
+              },
+              {
+                "jsonParseTask": {
+                  "path": "$[0][3]"
+                }
+              },
+              {
+                "jsonParseTask": {
+                  "path": "$[0][7]"
+                }
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "tasks": [
+        {
+          "httpTask": {
+            "url": "https://www.bitstamp.net/api/v2/ticker/btcusd"
+          }
+        },
+        {
+          "medianTask": {
+            "tasks": [
+              {
+                "jsonParseTask": {
+                  "path": "$.ask"
+                }
+              },
+              {
+                "jsonParseTask": {
+                  "path": "$.bid"
+                }
+              },
+              {
+                "jsonParseTask": {
+                  "path": "$.last"
+                }
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "tasks": [
+        {
+          "httpTask": {
+            "url": "https://api.bittrex.com/v3/markets/btc-usd/ticker"
+          }
+        },
+        {
+          "medianTask": {
+            "tasks": [
+              {
+                "jsonParseTask": {
+                  "path": "$.askRate"
+                }
+              },
+              {
+                "jsonParseTask": {
+                  "path": "$.bidRate"
+                }
+              },
+              {
+                "jsonParseTask": {
+                  "path": "$.lastTradeRate"
+                }
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Coinbase BTC/USD",
+      "tasks": [
+        {
+          "websocketTask": {
+            "url": "wss://ws-feed.pro.coinbase.com",
+            "subscription": "{\"type\":\"subscribe\",\"product_ids\":[\"BTC-USD\"],\"channels\":[\"ticker\",{\"name\":\"ticker\",\"product_ids\":[\"BTC-USD\"]}]}",
+            "maxDataAgeSeconds": 15,
+            "filter": "$[?(@.type == 'ticker' && @.product_id == 'BTC-USD')]"
+          }
+        },
+        {
+          "jsonParseTask": {
+            "path": "$.price"
+          }
+        }
+      ]
+    },
+    {
+      "name": "FtxCom BTC/USD",
+      "tasks": [
+        {
+          "websocketTask": {
+            "url": "wss://ftx.com/ws/",
+            "subscription": "{\"op\":\"subscribe\",\"channel\":\"ticker\",\"market\":\"BTC/USD\"}",
+            "maxDataAgeSeconds": 15,
+            "filter": "$[?(@.type == 'update' && @.channel == 'ticker' && @.market == 'BTC/USD')]"
+          }
+        },
+        {
+          "medianTask": {
+            "tasks": [
+              {
+                "jsonParseTask": {
+                  "path": "$.data.bid"
+                }
+              },
+              {
+                "jsonParseTask": {
+                  "path": "$.data.ask"
+                }
+              },
+              {
+                "jsonParseTask": {
+                  "path": "$.data.last"
+                }
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "FtxUs BTC/USD",
+      "tasks": [
+        {
+          "httpTask": {
+            "url": "https://ftx.us/api/markets/btc/usd"
+          }
+        },
+        {
+          "jsonParseTask": {
+            "path": "$.result.price"
+          }
+        }
+      ]
+    },
+    {
+      "tasks": [
+        {
+          "httpTask": {
+            "url": "https://api.huobi.pro/market/detail/merged?symbol=btcusdt"
+          }
+        },
+        {
+          "medianTask": {
+            "tasks": [
+              {
+                "jsonParseTask": {
+                  "path": "$.tick.bid[0]"
+                }
+              },
+              {
+                "jsonParseTask": {
+                  "path": "$.tick.ask[0]"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "multiplyTask": {
+            "aggregatorPubkey": "ETAaeeuQBwsh9mC2gCov9WdhJENZuffRMXY2HgjCcSL9"
+          }
+        }
+      ]
+    },
+    {
+      "tasks": [
+        {
+          "httpTask": {
+            "url": "https://api.kraken.com/0/public/Ticker?pair=XXBTZUSD"
+          }
+        },
+        {
+          "medianTask": {
+            "tasks": [
+              {
+                "jsonParseTask": {
+                  "path": "$.result.XXBTZUSD.a[0]"
+                }
+              },
+              {
+                "jsonParseTask": {
+                  "path": "$.result.XXBTZUSD.b[0]"
+                }
+              },
+              {
+                "jsonParseTask": {
+                  "path": "$.result.XXBTZUSD.c[0]"
+                }
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "tasks": [
+        {
+          "httpTask": {
+            "url": "https://www.mexc.com/open/api/v2/market/ticker?symbol=BTC_USDT"
+          }
+        },
+        {
+          "medianTask": {
+            "tasks": [
+              {
+                "jsonParseTask": {
+                  "path": "$.data[0].ask"
+                }
+              },
+              {
+                "jsonParseTask": {
+                  "path": "$.data[0].bid"
+                }
+              },
+              {
+                "jsonParseTask": {
+                  "path": "$.data[0].last"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "multiplyTask": {
+            "aggregatorPubkey": "ETAaeeuQBwsh9mC2gCov9WdhJENZuffRMXY2HgjCcSL9"
+          }
+        }
+      ]
+    },
+    {
+      "tasks": [
+        {
+          "websocketTask": {
+            "url": "wss://ws.okex.com:8443/ws/v5/public",
+            "subscription": "{\"op\":\"subscribe\",\"args\":[{\"channel\":\"tickers\",\"instId\":\"BTC-USDT\"}]}",
+            "maxDataAgeSeconds": 15,
+            "filter": "$[?(@.event != 'subscribe' && @.arg.channel == 'tickers' && @.arg.instId == 'BTC-USDT' && @.data[0].instType == 'SPOT' && @.data[0].instId == 'BTC-USDT')]"
+          }
+        },
+        {
+          "medianTask": {
+            "tasks": [
+              {
+                "jsonParseTask": {
+                  "path": "$.data[0].bidPx"
+                }
+              },
+              {
+                "jsonParseTask": {
+                  "path": "$.data[0].askPx"
+                }
+              },
+              {
+                "jsonParseTask": {
+                  "path": "$.data[0].last"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "multiplyTask": {
+            "aggregatorPubkey": "ETAaeeuQBwsh9mC2gCov9WdhJENZuffRMXY2HgjCcSL9"
+          }
+        }
+      ]
+    }
+  ]
+}

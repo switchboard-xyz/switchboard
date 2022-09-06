@@ -33,7 +33,7 @@ export default class CrankCreate extends BaseCommand {
   async run() {
     const { flags, args } = await this.parse(CrankCreate);
 
-    const crankAccount = await CrankAccount.create(this.signer, {
+    const crankAccount = await CrankAccount.create(this.program, {
       queue: this.parseAddress(args.queueAddress),
       maxRows: flags.maxRows,
       name: Buffer.from(flags.name || ""),

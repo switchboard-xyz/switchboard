@@ -4,13 +4,14 @@ import { Flags } from "@oclif/core";
 import * as anchor from "@project-serum/anchor";
 import { AccountInfo, PublicKey } from "@solana/web3.js";
 import { buffer2string } from "@switchboard-xyz/sbv2-utils";
-import { OracleJob, SwitchboardDecimal } from "@switchboard-xyz/switchboard-v2";
+import { SwitchboardDecimal } from "@switchboard-xyz/switchboard-v2";
 import Big from "big.js";
 import bs58 from "bs58";
 import fs from "fs";
 import path from "path";
 import { SolanaWithoutSignerBaseCommand as BaseCommand } from "../../../solana";
 import { LogProvider } from "../../../providers";
+import { OracleJob } from "@switchboard-xyz/common";
 
 export default class MetricsAggregator extends BaseCommand {
   static description = "get metrics on switchboard aggregators";

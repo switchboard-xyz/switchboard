@@ -24,7 +24,8 @@ export default class CreateEscrow extends BaseCommand {
   async run() {
     const { flags, args } = await this.parse(CreateEscrow);
 
-    const [escrowAccount, escrowData] = await this.loadEscrow(flags.mint);
+    const escrowAccount = await this.loadEscrow();
+    const escrowData = await escrowAccount.loadData();
 
     if (flags.json) {
       return this.normalizeAccountData(escrowAccount.address, escrowData);

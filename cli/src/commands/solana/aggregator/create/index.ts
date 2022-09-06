@@ -8,6 +8,7 @@ import {
   SystemProgram,
   TransactionInstruction,
 } from "@solana/web3.js";
+import { OracleJob } from "@switchboard-xyz/common";
 import {
   packAndSend,
   prettyPrintAggregator,
@@ -19,7 +20,6 @@ import {
   CrankAccount,
   JobAccount,
   LeaseAccount,
-  OracleJob,
   OracleQueueAccount,
   PermissionAccount,
   ProgramStateAccount,

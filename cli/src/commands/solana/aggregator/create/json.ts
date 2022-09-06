@@ -2,11 +2,11 @@
 import { Flags } from "@oclif/core";
 import * as anchor from "@project-serum/anchor";
 import { PublicKey } from "@solana/web3.js";
+import { OracleJob } from "@switchboard-xyz/common";
 import { prettyPrintAggregator } from "@switchboard-xyz/sbv2-utils";
 import {
   AggregatorAccount,
   JobAccount,
-  OracleJob,
   OracleQueueAccount,
   programWallet,
 } from "@switchboard-xyz/switchboard-v2";

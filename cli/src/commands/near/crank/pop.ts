@@ -26,20 +26,20 @@ export default class CrankPop extends BaseCommand {
     const { flags, args } = await this.parse(CrankPop);
 
     const crankAccount = new CrankAccount({
-      connection: this.near.connection,
+      program: this.program,
       address: this.parseAddress(args.crankAddress),
     });
     const crankData = await crankAccount.loadData();
 
     const queueAccount = new QueueAccount({
-      connection: this.near.connection,
+      program: this.program,
       address: crankData.queue,
     });
     const queueData = await queueAccount.loadData();
 
-    const [escrowAccount, escrowData] = await this.loadEscrow(queueData.mint);
+    const escrowAccount = await this.loadEscrow();
 
-    const popTxn = await crankAccount.pop(this.signer, {
+    const popTxn = await crankAccount.pop({
       rewardRecipient: escrowAccount.address,
     });
 

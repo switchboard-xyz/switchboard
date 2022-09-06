@@ -1,1 +1,1 @@
-export type NearNetwork = "testnet" | "mainnet" | "betanet" | "local";
+export type NearNetwork = "testnet" | "mainnet" | "betanet" | "localnet";

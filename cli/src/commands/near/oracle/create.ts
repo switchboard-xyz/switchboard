@@ -34,8 +34,8 @@ export default class CreateOracle extends BaseCommand {
   async run() {
     const { flags, args } = await this.parse(CreateOracle);
 
-    const oracleAccount = await OracleAccount.create(this.signer, {
-      authority: flags.authority || this.signer.accountId,
+    const oracleAccount = await OracleAccount.create(this.program, {
+      authority: flags.authority || this.program.account.accountId,
       queue: this.parseAddress(args.queueAddress),
       name: Buffer.from(flags.name || ""),
       metadata: Buffer.from(flags.metadata || ""),
