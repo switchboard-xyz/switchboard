@@ -57,6 +57,9 @@ export default class MetricsAggregator extends BaseCommand {
       description:
         "output the aggregator jobs to a directory sorted by the first task type",
     }),
+    feedDirectory: Flags.string({
+      description: "output the aggregator definitions to a directory",
+    }),
   };
 
   static args = [
@@ -141,12 +144,23 @@ export default class MetricsAggregator extends BaseCommand {
       this.aggregatorAccounts
     );
 
+    if (flags.feedDirectory) {
+      const feedDir = this.normalizeDirPath(flags.feedDirectory);
+      fs.mkdirSync(feedDir, {
+        recursive: true,
+      });
+      for (const feed of allAggregators) {
+        const name =
+          feed.name?.replace(/\//g, "_") || feed.publicKey.toString();
+        fs.writeFileSync(
+          path.join(feedDir, `${name}.json`),
+          JSON.stringify(feed.toJSON(), this.jsonReplacers, 2)
+        );
+      }
+    }
+
     if (flags.jobDirectory) {
-      const jobDirPath =
-        flags.jobDirectory.startsWith("/") ||
-        flags.jobDirectory.startsWith("C:")
-          ? flags.jobDirectory
-          : path.join(process.cwd(), flags.jobDirectory);
+      const jobDirPath = this.normalizeDirPath(flags.jobDirectory);
       fs.mkdirSync(jobDirPath, { recursive: true });
       for (const aggregator of allAggregators) {
         for (const job of aggregator.jobs) {

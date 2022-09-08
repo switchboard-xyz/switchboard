@@ -92,6 +92,15 @@ export abstract class CliBaseCommand extends Command {
     return normalizedPath;
   }
 
+  normalizeDirPath(dirPath: string): string {
+    const normalizedPath =
+      dirPath.startsWith("/") || dirPath.startsWith("C:")
+        ? dirPath
+        : path.join(process.cwd(), dirPath);
+
+    return normalizedPath;
+  }
+
   async catch(error: any, message?: string) {
     const logger = this.logger ?? console;
     if (message) {
@@ -141,6 +150,17 @@ export abstract class CliBaseCommand extends Command {
           .replace(/\/\*[\s\S]*?\*\/|([^\\:]|^)\/\/.*$/g, "")
       )
     );
+
+    const buffer = Buffer.from(OracleJob.encodeDelimited(oracleJob).finish());
+    const bytes = new Uint8Array(buffer);
+    const hex = buffer.toString("hex");
+    const utf = buffer.toString();
+    const utfBytes = new Uint8Array(Buffer.from(utf, "utf-8"));
+
+    // console.log(`OracleJob Bytes: [${[...bytes]}]`);
+    // console.log(`OracleJob Hex  : 0x${hex}`);
+    // console.log(`OracleJob Utf  : ${utf}`);
+    // console.log(`OracleJob UtfBytes: [${[...utfBytes]}]`);
 
     return oracleJob;
   }

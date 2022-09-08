@@ -1,6 +1,6 @@
 {
-  "name": "BTC/USD",
-  "metadata": "BTC/USD Spot Price",
+  "name": "ETH/USD",
+  "metadata": "ETH/USD Spot Price",
   "minUpdateDelaySeconds": 10,
   "batchSize": 1,
   "minOracleResponses": 1,
@@ -9,11 +9,10 @@
   "varianceThreshold": "",
   "jobs": [
     {
-      "name": "BinanceCom BTC/USD",
       "tasks": [
         {
           "httpTask": {
-            "url": "https://www.binance.com/api/v3/ticker/price?symbol=BTCUSDT"
+            "url": "https://www.binance.com/api/v3/ticker/price?symbol=ETHUSDT"
           }
         },
         {
@@ -23,18 +22,16 @@
         },
         {
           "multiplyTask": {
-            /* Mainnet USDT/USD Feed */
             "aggregatorPubkey": "ETAaeeuQBwsh9mC2gCov9WdhJENZuffRMXY2HgjCcSL9"
           }
         }
       ]
     },
     {
-      "name": "BinanceUs BTC/USD",
       "tasks": [
         {
           "httpTask": {
-            "url": "https://www.binance.us/api/v3/ticker/price?symbol=BTCUSD"
+            "url": "https://www.binance.us/api/v3/ticker/price?symbol=ETHUSD"
           }
         },
         {
@@ -79,7 +76,7 @@
       "tasks": [
         {
           "httpTask": {
-            "url": "https://www.bitstamp.net/api/v2/ticker/btcusd"
+            "url": "https://www.bitstamp.net/api/v2/ticker/ethusd"
           }
         },
         {
@@ -109,7 +106,7 @@
       "tasks": [
         {
           "httpTask": {
-            "url": "https://api.bittrex.com/v3/markets/btc-usd/ticker"
+            "url": "https://api.bittrex.com/v3/markets/eth-usd/ticker"
           }
         },
         {
@@ -136,14 +133,13 @@
       ]
     },
     {
-      "name": "Coinbase BTC/USD",
       "tasks": [
         {
           "websocketTask": {
             "url": "wss://ws-feed.pro.coinbase.com",
-            "subscription": "{\"type\":\"subscribe\",\"product_ids\":[\"BTC-USD\"],\"channels\":[\"ticker\",{\"name\":\"ticker\",\"product_ids\":[\"BTC-USD\"]}]}",
+            "subscription": "{\"type\":\"subscribe\",\"product_ids\":[\"ETH-USD\"],\"channels\":[\"ticker\",{\"name\":\"ticker\",\"product_ids\":[\"ETH-USD\"]}]}",
             "maxDataAgeSeconds": 15,
-            "filter": "$[?(@.type == 'ticker' && @.product_id == 'BTC-USD')]"
+            "filter": "$[?(@.type == 'ticker' && @.product_id == 'ETH-USD')]"
           }
         },
         {
@@ -154,14 +150,13 @@
       ]
     },
     {
-      "name": "FtxCom BTC/USD",
       "tasks": [
         {
           "websocketTask": {
             "url": "wss://ftx.com/ws/",
-            "subscription": "{\"op\":\"subscribe\",\"channel\":\"ticker\",\"market\":\"BTC/USD\"}",
+            "subscription": "{\"op\":\"subscribe\",\"channel\":\"ticker\",\"market\":\"ETH/USD\"}",
             "maxDataAgeSeconds": 15,
-            "filter": "$[?(@.type == 'update' && @.channel == 'ticker' && @.market == 'BTC/USD')]"
+            "filter": "$[?(@.type == 'update' && @.channel == 'ticker' && @.market == 'ETH/USD')]"
           }
         },
         {
@@ -188,11 +183,10 @@
       ]
     },
     {
-      "name": "FtxUs BTC/USD",
       "tasks": [
         {
           "httpTask": {
-            "url": "https://ftx.us/api/markets/btc/usd"
+            "url": "https://ftx.us/api/markets/eth/usd"
           }
         },
         {
@@ -206,7 +200,7 @@
       "tasks": [
         {
           "httpTask": {
-            "url": "https://api.huobi.pro/market/detail/merged?symbol=btcusdt"
+            "url": "https://api.huobi.pro/market/detail/merged?symbol=ethusdt"
           }
         },
         {
@@ -236,7 +230,7 @@
       "tasks": [
         {
           "httpTask": {
-            "url": "https://api.kraken.com/0/public/Ticker?pair=XXBTZUSD"
+            "url": "https://api.kraken.com/0/public/Ticker?pair=XETHZUSD"
           }
         },
         {
@@ -244,17 +238,17 @@
             "tasks": [
               {
                 "jsonParseTask": {
-                  "path": "$.result.XXBTZUSD.a[0]"
+                  "path": "$.result.XETHZUSD.a[0]"
                 }
               },
               {
                 "jsonParseTask": {
-                  "path": "$.result.XXBTZUSD.b[0]"
+                  "path": "$.result.XETHZUSD.b[0]"
                 }
               },
               {
                 "jsonParseTask": {
-                  "path": "$.result.XXBTZUSD.c[0]"
+                  "path": "$.result.XETHZUSD.c[0]"
                 }
               }
             ]
@@ -266,7 +260,37 @@
       "tasks": [
         {
           "httpTask": {
-            "url": "https://www.mexc.com/open/api/v2/market/ticker?symbol=BTC_USDT"
+            "url": "https://api.kraken.com/0/public/Ticker?pair=XETHZUSD"
+          }
+        },
+        {
+          "medianTask": {
+            "tasks": [
+              {
+                "jsonParseTask": {
+                  "path": "$.result.XETHZUSD.a[0]"
+                }
+              },
+              {
+                "jsonParseTask": {
+                  "path": "$.result.XETHZUSD.b[0]"
+                }
+              },
+              {
+                "jsonParseTask": {
+                  "path": "$.result.XETHZUSD.c[0]"
+                }
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "tasks": [
+        {
+          "httpTask": {
+            "url": "https://www.mexc.com/open/api/v2/market/ticker?symbol=ETH_USDT"
           }
         },
         {
@@ -280,44 +304,6 @@
               {
                 "jsonParseTask": {
                   "path": "$.data[0].bid"
-                }
-              },
-              {
-                "jsonParseTask": {
-                  "path": "$.data[0].last"
-                }
-              }
-            ]
-          }
-        },
-        {
-          "multiplyTask": {
-            "aggregatorPubkey": "ETAaeeuQBwsh9mC2gCov9WdhJENZuffRMXY2HgjCcSL9"
-          }
-        }
-      ]
-    },
-    {
-      "tasks": [
-        {
-          "websocketTask": {
-            "url": "wss://ws.okex.com:8443/ws/v5/public",
-            "subscription": "{\"op\":\"subscribe\",\"args\":[{\"channel\":\"tickers\",\"instId\":\"BTC-USDT\"}]}",
-            "maxDataAgeSeconds": 15,
-            "filter": "$[?(@.event != 'subscribe' && @.arg.channel == 'tickers' && @.arg.instId == 'BTC-USDT' && @.data[0].instType == 'SPOT' && @.data[0].instId == 'BTC-USDT')]"
-          }
-        },
-        {
-          "medianTask": {
-            "tasks": [
-              {
-                "jsonParseTask": {
-                  "path": "$.data[0].bidPx"
-                }
-              },
-              {
-                "jsonParseTask": {
-                  "path": "$.data[0].askPx"
                 }
               },
               {

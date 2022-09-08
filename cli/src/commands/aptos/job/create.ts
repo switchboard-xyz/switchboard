@@ -42,6 +42,7 @@ export default class JobCreate extends BaseCommand {
   static args = [
     {
       name: "queueHexString",
+      required: true,
       description: "HexString address of the queue",
     },
     {
@@ -66,7 +67,7 @@ export default class JobCreate extends BaseCommand {
       account = this.signer;
     }
 
-    const [crank, sig] = await JobAccount.init(
+    const [job, sig] = await JobAccount.init(
       this.aptos,
       account,
       {
@@ -77,15 +78,32 @@ export default class JobCreate extends BaseCommand {
           : this.signer.address(),
         data: Buffer.from(
           OracleJob.encodeDelimited(oracleJob).finish()
-        ).toString("hex"),
+        ).toString(),
         weight: flags.weight || 1,
       },
       this.programId
     );
-    const crankData = await crank.loadData();
+    const jobData = await job.loadData();
 
-    this.logger.info(`Job HexString: ${crank.address}`);
-    this.logger.info(JSON.stringify(crankData, this.jsonReplacers, 2));
+    // const hexString = jobData.data.startsWith("0x")
+    //   ? (jobData.data as string).slice(2)
+    //   : jobData.data;
+
+    // var numBytes = hexString.length / 2;
+    // var byteArray = new Uint8Array(numBytes);
+    // for (var i = 0; i < numBytes; i++) {
+    //   byteArray[i] = parseInt(hexString.substr(i * 2, 2), 16);
+    // }
+
+    if (flags.json) {
+      return {
+        ...jobData,
+        tasks: this.deserializeJobData(jobData.data),
+      };
+    }
+
+    this.logger.info(`Job HexString: ${job.address}`);
+    this.logger.info(JSON.stringify(jobData, this.jsonReplacers, 2));
   }
 
   async catch(error) {

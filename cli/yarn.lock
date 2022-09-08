@@ -2148,10 +2148,10 @@
     superstruct "^0.14.2"
     tweetnacl "^1.0.3"
 
-"@switchboard-xyz/aptos.js@^2.0.6":
-  version "2.0.6"
-  resolved "https://registry.npmjs.org/@switchboard-xyz/aptos.js/-/aptos.js-2.0.6.tgz#115a7197875334a8a278e867275068a3f7607be9"
-  integrity sha512-5F6NK5g4EbtB6MFdV2SYz/UiFxH6xG6mXmzc1iNbkUxxTtDNNXbuCBssrBaj/srok5EgDByhh3Mxr7kjaUDEsQ==
+"@switchboard-xyz/aptos.js@^2.0.8":
+  version "2.0.8"
+  resolved "https://registry.npmjs.org/@switchboard-xyz/aptos.js/-/aptos.js-2.0.8.tgz#9f34f25d49eaa2bbdcb1d2262c87196153415ff9"
+  integrity sha512-74IjSa147Kazc7aE1cp8c9KoSmGB42vD6tnLisgJZdMRCy95+jsralHwGLu5vMc1ddpUPhNloz+PEOOh0u02aA==
   dependencies:
     "@switchboard-xyz/common" "^2.0.0"
     aptos "^1.3.10"
@@ -2169,10 +2169,10 @@
     bn.js "^5.2.1"
     protobufjs "^6.11.3"
 
-"@switchboard-xyz/near.js@^2.0.7":
-  version "2.0.7"
-  resolved "https://registry.npmjs.org/@switchboard-xyz/near.js/-/near.js-2.0.7.tgz#436bbc4a02d3f5830d6195604b49871f8610a54d"
-  integrity sha512-rzLW5GviaSsx+jTBbg3/ZKTJktqXyft3uf7T/jSZ2B33qgwzN94bNk6r9u0D320EbYyE/5CSve+mQFBX0FdGyg==
+"@switchboard-xyz/near.js@^2.0.11":
+  version "2.0.11"
+  resolved "https://registry.npmjs.org/@switchboard-xyz/near.js/-/near.js-2.0.11.tgz#3c4c630f56cabf3d1573672abe62679c36fa4c90"
+  integrity sha512-CJrF0RtpEK0WRGAuznSsYmmsfskt9k9s2d1g3VKGzsQbzaoE76UXQi9wb5BosDjAm5DWiM5s6Ai+nJYViMwnlA==
   dependencies:
     "@switchboard-xyz/common" "^2.0.0"
     big.js "^6.2.1"
@@ -2732,7 +2732,7 @@ anymatch@~3.1.2:
   resolved "https://registry.npmjs.org/aproba/-/aproba-2.0.0.tgz#52520b8ae5b569215b354efc0caa3fe1e45a8adc"
   integrity sha512-lYe4Gx7QT+MKGbDsA+Z+he/Wtef0BiwDOlK/XkBrdfsh9J/jPPXbX0tE9x9cl27Tmu5gg3QUbUrQYa/y+KOHPQ==
 
-aptos@^1.3.10:
+aptos@1.3.10, aptos@^1.3.10:
   version "1.3.10"
   resolved "https://registry.npmjs.org/aptos/-/aptos-1.3.10.tgz#a801e25456159485d27d0ff738c5e1fbd9fe073d"
   integrity sha512-a5DUuFR22gwxLBZqyXxIO656oA5pjHfON8Ll0sYdQGwUwnFYnbgJd9C7TFJok2/kGrRkM1rwyMdqsECVRPpqYA==

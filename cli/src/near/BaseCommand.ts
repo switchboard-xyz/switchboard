@@ -1,8 +1,9 @@
 import { Flags } from "@oclif/core";
 import { Input } from "@oclif/parser";
-import { Account } from "near-api-js";
+import { Account, connect } from "near-api-js";
 import { homedir } from "os";
 import {
+  loadNear,
   SwitchboardPermission,
   SwitchboardProgram,
   TESTNET_PROGRAM_ID,

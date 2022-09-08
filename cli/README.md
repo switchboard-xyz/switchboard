@@ -46,10 +46,10 @@ node bin/dev print GvDMxPzN1sCj7L26YDK2HnMRXEQmQ2aemov8YBtPS7vR
 * [`sbv2 aptos crank push [CRANKHEXSTRING]`](#sbv2-aptos-crank-push-crankhexstring)
 * [`sbv2 aptos create aggregator [QUEUEHEXSTRING]`](#sbv2-aptos-create-aggregator-queuehexstring)
 * [`sbv2 aptos create crank [QUEUEHEXSTRING]`](#sbv2-aptos-create-crank-queuehexstring)
-* [`sbv2 aptos create job [QUEUEHEXSTRING] JOBDEFINITION`](#sbv2-aptos-create-job-queuehexstring-jobdefinition)
+* [`sbv2 aptos create job QUEUEHEXSTRING JOBDEFINITION`](#sbv2-aptos-create-job-queuehexstring-jobdefinition)
 * [`sbv2 aptos create oracle [QUEUEHEXSTRING]`](#sbv2-aptos-create-oracle-queuehexstring)
 * [`sbv2 aptos create queue`](#sbv2-aptos-create-queue)
-* [`sbv2 aptos job create [QUEUEHEXSTRING] JOBDEFINITION`](#sbv2-aptos-job-create-queuehexstring-jobdefinition)
+* [`sbv2 aptos job create QUEUEHEXSTRING JOBDEFINITION`](#sbv2-aptos-job-create-queuehexstring-jobdefinition)
 * [`sbv2 aptos oracle create [QUEUEHEXSTRING]`](#sbv2-aptos-oracle-create-queuehexstring)
 * [`sbv2 aptos pop crank [CRANKHEXSTRING]`](#sbv2-aptos-pop-crank-crankhexstring)
 * [`sbv2 aptos print ACCOUNTTYPE ADDRESS`](#sbv2-aptos-print-accounttype-address)
@@ -57,7 +57,7 @@ node bin/dev print GvDMxPzN1sCj7L26YDK2HnMRXEQmQ2aemov8YBtPS7vR
 * [`sbv2 aptos queue create`](#sbv2-aptos-queue-create)
 * [`sbv2 aptos update aggregator [AGGREGATORHEXSTRING]`](#sbv2-aptos-update-aggregator-aggregatorhexstring)
 * [`sbv2 config print`](#sbv2-config-print)
-* [`sbv2 config set [PARAM] [VALUE]`](#sbv2-config-set-param-value)
+* [`sbv2 config set CHAIN NETWORK PARAMETER [VALUE]`](#sbv2-config-set-chain-network-parameter-value)
 * [`sbv2 crank add aggregator [CRANKKEY] [AGGREGATORKEY]`](#sbv2-crank-add-aggregator-crankkey-aggregatorkey)
 * [`sbv2 custom queue`](#sbv2-custom-queue)
 * [`sbv2 help [COMMAND]`](#sbv2-help-command)
@@ -621,8 +621,8 @@ request an airdrop
 
 ```
 USAGE
-  $ sbv2 aptos account airdrop --keypair <value> [-h] [-v] [-s] [--networkId devnet] [--programId <value>] [--stateAddress
-    <value>] [-u <value>] [--profileName <value>] [--json] [-n <value>]
+  $ sbv2 aptos account airdrop --address <value> [-h] [-v] [-s] [--networkId devnet] [--programId <value>] [--stateAddress
+    <value>] [-u <value>] [--json] [-n <value>]
 
 FLAGS
   -h, --help              Show CLI help.
@@ -630,11 +630,9 @@ FLAGS
   -s, --silent            suppress cli prompts
   -u, --rpcUrl=<value>    alternate RPC url
   -v, --verbose           log everything
-  --keypair=<value>       (required) Path to AptosAccount keypair or config.yaml file
+  --address=<value>       (required) HexString address of account to fund
   --networkId=<option>    [default: devnet] Aptos network to connect to
                           <options: devnet>
-  --profileName=<value>   [default: default] If --keypair is pointing to a yaml file, provide an optional profile to
-                          load. If none provided, default will be used
   --programId=<value>     [default: 0x14611263909398572be034debb2e61b6751cafbeaddd994b9a1250cb76b99d38] Switchboard
                           programId on the selected Aptos network
   --stateAddress=<value>  [default: 0x14611263909398572be034debb2e61b6751cafbeaddd994b9a1250cb76b99d38] Switchboard
@@ -825,8 +823,8 @@ request an airdrop
 
 ```
 USAGE
-  $ sbv2 aptos airdrop --keypair <value> [-h] [-v] [-s] [--networkId devnet] [--programId <value>] [--stateAddress
-    <value>] [-u <value>] [--profileName <value>] [--json] [-n <value>]
+  $ sbv2 aptos airdrop --address <value> [-h] [-v] [-s] [--networkId devnet] [--programId <value>] [--stateAddress
+    <value>] [-u <value>] [--json] [-n <value>]
 
 FLAGS
   -h, --help              Show CLI help.
@@ -834,11 +832,9 @@ FLAGS
   -s, --silent            suppress cli prompts
   -u, --rpcUrl=<value>    alternate RPC url
   -v, --verbose           log everything
-  --keypair=<value>       (required) Path to AptosAccount keypair or config.yaml file
+  --address=<value>       (required) HexString address of account to fund
   --networkId=<option>    [default: devnet] Aptos network to connect to
                           <options: devnet>
-  --profileName=<value>   [default: default] If --keypair is pointing to a yaml file, provide an optional profile to
-                          load. If none provided, default will be used
   --programId=<value>     [default: 0x14611263909398572be034debb2e61b6751cafbeaddd994b9a1250cb76b99d38] Switchboard
                           programId on the selected Aptos network
   --stateAddress=<value>  [default: 0x14611263909398572be034debb2e61b6751cafbeaddd994b9a1250cb76b99d38] Switchboard
@@ -1060,7 +1056,7 @@ ALIASES
   $ sbv2 aptos create crank
 ```
 
-## `sbv2 aptos create job [QUEUEHEXSTRING] JOBDEFINITION`
+## `sbv2 aptos create job QUEUEHEXSTRING JOBDEFINITION`
 
 create a new job
 
@@ -1195,7 +1191,7 @@ ALIASES
   $ sbv2 aptos create queue
 ```
 
-## `sbv2 aptos job create [QUEUEHEXSTRING] JOBDEFINITION`
+## `sbv2 aptos job create QUEUEHEXSTRING JOBDEFINITION`
 
 create a new job
 
@@ -1480,12 +1476,15 @@ print cli config
 
 ```
 USAGE
-  $ sbv2 config print [-h] [-v] [-s]
+  $ sbv2 config print [-h] [-v] [-s] [--json]
 
 FLAGS
   -h, --help     Show CLI help.
   -s, --silent   suppress cli prompts
   -v, --verbose  log everything
+
+GLOBAL FLAGS
+  --json  Format output as json.
 
 DESCRIPTION
   print cli config
@@ -1494,18 +1493,19 @@ EXAMPLES
   $ sbv2 config:print
 ```
 
-## `sbv2 config set [PARAM] [VALUE]`
+## `sbv2 config set CHAIN NETWORK PARAMETER [VALUE]`
 
 set a configuration option
 
 ```
 USAGE
-  $ sbv2 config set [PARAM] [VALUE] [-h] [-v] [-s] [-r]
+  $ sbv2 config set [CHAIN] [NETWORK] [PARAMETER] [VALUE] [-h] [-v] [-s] [-r]
 
 ARGUMENTS
-  PARAM  (solana-devnet-rpc|solana-mainnet-rpc|near-testnet-rpc|near-mainnet-rpc|near-betanet-rpc|aptos-devnet-rpc)
-         configuration parameter to set
-  VALUE  value of the param to set
+  CHAIN      (solana|near|aptos) chain to set a config parameter
+  NETWORK    (localnet|testnet|betanet|devnet|mainnet) network of chain to set parameter
+  PARAMETER  (rpc|default-account|account) parameter to set
+  VALUE      value of the param to set
 
 FLAGS
   -h, --help     Show CLI help.
@@ -1649,7 +1649,7 @@ add a job to an aggregator
 ```
 USAGE
   $ sbv2 near aggregator add job [AGGREGATORADDRESS] --accountName <value> [-h] [-v] [-s] [--networkId
-    testnet|mainnet|betanet|local] [--programId <value>] [-u <value>] [--nearCredentialsDir <value>] [--json] [-a
+    testnet|mainnet|betanet|localnet] [--programId <value>] [-u <value>] [--nearCredentialsDir <value>] [--json] [-a
     <value>] [--name <value> | --jobKey <value>] [--metadata <value> | ] [--jobDefinition <value> | ] [--jobWeight
     <value>]
 
@@ -1671,9 +1671,8 @@ FLAGS
   --nearCredentialsDir=<value>  [default: /Users/gally/.near-credentials] Alternative directory for near credentials.
                                 Defaults to ~/.near-credentials
   --networkId=<option>          [default: testnet] Near network ID to connect to
-                                <options: testnet|mainnet|betanet|local>
-  --programId=<value>           [default: dev-1661444952413-29070842546310] Switchboard programId on the selected Near
-                                networkId
+                                <options: testnet|mainnet|betanet|localnet>
+  --programId=<value>           [default: switchboard-v2.testnet] Switchboard programId on the selected Near networkId
 
 GLOBAL FLAGS
   --json  Format output as json.
@@ -1692,9 +1691,10 @@ create a near aggregator for a given queue
 ```
 USAGE
   $ sbv2 near aggregator create [QUEUEADDRESS] --accountName <value> --updateInterval <value> [-h] [-v] [-s] [--networkId
-    testnet|mainnet|betanet|local] [--programId <value>] [-u <value>] [--nearCredentialsDir <value>] [--json] [-a
+    testnet|mainnet|betanet|localnet] [--programId <value>] [-u <value>] [--nearCredentialsDir <value>] [--json] [-a
     <value>] [--crankAddress <value>] [--name <value>] [--metadata <value>] [--forceReportPeriod <value>] [--batchSize
-    <value>] [--minJobs <value>] [--minOracles <value>] [--varianceThreshold <value>] [-j <value>]
+    <value>] [--minJobs <value>] [--minOracles <value>] [--varianceThreshold <value>] [-j <value>] [--rewardEscrow
+    <value>] [--historyLimit <value>]
 
 ARGUMENTS
   QUEUEADDRESS  address of the queue in Uint8 or Base58 encoding
@@ -1711,6 +1711,7 @@ FLAGS
   --crankAddress=<value>        optional, address of the crank to add the aggregator to
   --forceReportPeriod=<value>   Number of seconds for which, even if the variance threshold is not passed, accept new
                                 responses from oracles.
+  --historyLimit=<value>        [default: 1000] number of samples to store in aggregator's history
   --metadata=<value>            metadata of the crank for easier identification
   --minJobs=<value>             number of jobs that must respond before an oracle responds
   --minOracles=<value>          number of oracles that must respond before a value is accepted on-chain
@@ -1718,9 +1719,9 @@ FLAGS
   --nearCredentialsDir=<value>  [default: /Users/gally/.near-credentials] Alternative directory for near credentials.
                                 Defaults to ~/.near-credentials
   --networkId=<option>          [default: testnet] Near network ID to connect to
-                                <options: testnet|mainnet|betanet|local>
-  --programId=<value>           [default: dev-1661444952413-29070842546310] Switchboard programId on the selected Near
-                                networkId
+                                <options: testnet|mainnet|betanet|localnet>
+  --programId=<value>           [default: switchboard-v2.testnet] Switchboard programId on the selected Near networkId
+  --rewardEscrow=<value>        where to send rewards. defaults to user's escrow account
   --updateInterval=<value>      (required) set an aggregator's minimum update delay
   --varianceThreshold=<value>   [default: 0] percentage change between a previous accepted result and the next round
                                 before an oracle reports a value on-chain. Used to conserve lease cost during low
@@ -1743,7 +1744,7 @@ add a job to an aggregator
 ```
 USAGE
   $ sbv2 near aggregator job add [AGGREGATORADDRESS] --accountName <value> [-h] [-v] [-s] [--networkId
-    testnet|mainnet|betanet|local] [--programId <value>] [-u <value>] [--nearCredentialsDir <value>] [--json] [-a
+    testnet|mainnet|betanet|localnet] [--programId <value>] [-u <value>] [--nearCredentialsDir <value>] [--json] [-a
     <value>] [--name <value> | --jobKey <value>] [--metadata <value> | ] [--jobDefinition <value> | ] [--jobWeight
     <value>]
 
@@ -1765,9 +1766,8 @@ FLAGS
   --nearCredentialsDir=<value>  [default: /Users/gally/.near-credentials] Alternative directory for near credentials.
                                 Defaults to ~/.near-credentials
   --networkId=<option>          [default: testnet] Near network ID to connect to
-                                <options: testnet|mainnet|betanet|local>
-  --programId=<value>           [default: dev-1661444952413-29070842546310] Switchboard programId on the selected Near
-                                networkId
+                                <options: testnet|mainnet|betanet|localnet>
+  --programId=<value>           [default: switchboard-v2.testnet] Switchboard programId on the selected Near networkId
 
 GLOBAL FLAGS
   --json  Format output as json.
@@ -1786,7 +1786,7 @@ create a permission account for a near aggregator
 ```
 USAGE
   $ sbv2 near aggregator permission create [AGGREGATORADDRESS] --accountName <value> [-h] [-v] [-s] [--networkId
-    testnet|mainnet|betanet|local] [--programId <value>] [-u <value>] [--nearCredentialsDir <value>] [--json]
+    testnet|mainnet|betanet|localnet] [--programId <value>] [-u <value>] [--nearCredentialsDir <value>] [--json]
 
 ARGUMENTS
   AGGREGATORADDRESS  address of the aggregator in Uint8 or Base58 encoding
@@ -1800,9 +1800,8 @@ FLAGS
   --nearCredentialsDir=<value>  [default: /Users/gally/.near-credentials] Alternative directory for near credentials.
                                 Defaults to ~/.near-credentials
   --networkId=<option>          [default: testnet] Near network ID to connect to
-                                <options: testnet|mainnet|betanet|local>
-  --programId=<value>           [default: dev-1661444952413-29070842546310] Switchboard programId on the selected Near
-                                networkId
+                                <options: testnet|mainnet|betanet|localnet>
+  --programId=<value>           [default: switchboard-v2.testnet] Switchboard programId on the selected Near networkId
 
 GLOBAL FLAGS
   --json  Format output as json.
@@ -1821,7 +1820,7 @@ remove a job to an aggregator
 ```
 USAGE
   $ sbv2 near aggregator remove job [AGGREGATORADDRESS] --accountName <value> [-h] [-v] [-s] [--networkId
-    testnet|mainnet|betanet|local] [--programId <value>] [-u <value>] [--nearCredentialsDir <value>] [--json] [-a
+    testnet|mainnet|betanet|localnet] [--programId <value>] [-u <value>] [--nearCredentialsDir <value>] [--json] [-a
     <value>] [-j <value>]
 
 ARGUMENTS
@@ -1838,9 +1837,8 @@ FLAGS
   --nearCredentialsDir=<value>  [default: /Users/gally/.near-credentials] Alternative directory for near credentials.
                                 Defaults to ~/.near-credentials
   --networkId=<option>          [default: testnet] Near network ID to connect to
-                                <options: testnet|mainnet|betanet|local>
-  --programId=<value>           [default: dev-1661444952413-29070842546310] Switchboard programId on the selected Near
-                                networkId
+                                <options: testnet|mainnet|betanet|localnet>
+  --programId=<value>           [default: switchboard-v2.testnet] Switchboard programId on the selected Near networkId
 
 GLOBAL FLAGS
   --json  Format output as json.
@@ -1859,7 +1857,7 @@ request a new value on-chain for an aggregator
 ```
 USAGE
   $ sbv2 near aggregator update [AGGREGATORADDRESS] --accountName <value> [-h] [-v] [-s] [--networkId
-    testnet|mainnet|betanet|local] [--programId <value>] [-u <value>] [--nearCredentialsDir <value>] [--json]
+    testnet|mainnet|betanet|localnet] [--programId <value>] [-u <value>] [--nearCredentialsDir <value>] [--json]
 
 ARGUMENTS
   AGGREGATORADDRESS  address of the aggregator in Uint8 or Base58 encoding
@@ -1873,9 +1871,8 @@ FLAGS
   --nearCredentialsDir=<value>  [default: /Users/gally/.near-credentials] Alternative directory for near credentials.
                                 Defaults to ~/.near-credentials
   --networkId=<option>          [default: testnet] Near network ID to connect to
-                                <options: testnet|mainnet|betanet|local>
-  --programId=<value>           [default: dev-1661444952413-29070842546310] Switchboard programId on the selected Near
-                                networkId
+                                <options: testnet|mainnet|betanet|localnet>
+  --programId=<value>           [default: switchboard-v2.testnet] Switchboard programId on the selected Near networkId
 
 GLOBAL FLAGS
   --json  Format output as json.
@@ -1894,7 +1891,7 @@ create a new crank
 ```
 USAGE
   $ sbv2 near crank create [QUEUEADDRESS] --accountName <value> [-h] [-v] [-s] [--networkId
-    testnet|mainnet|betanet|local] [--programId <value>] [-u <value>] [--nearCredentialsDir <value>] [--json] [--name
+    testnet|mainnet|betanet|localnet] [--programId <value>] [-u <value>] [--nearCredentialsDir <value>] [--json] [--name
     <value>] [--metadata <value>] [--maxRows <value>]
 
 ARGUMENTS
@@ -1912,9 +1909,8 @@ FLAGS
   --nearCredentialsDir=<value>  [default: /Users/gally/.near-credentials] Alternative directory for near credentials.
                                 Defaults to ~/.near-credentials
   --networkId=<option>          [default: testnet] Near network ID to connect to
-                                <options: testnet|mainnet|betanet|local>
-  --programId=<value>           [default: dev-1661444952413-29070842546310] Switchboard programId on the selected Near
-                                networkId
+                                <options: testnet|mainnet|betanet|localnet>
+  --programId=<value>           [default: switchboard-v2.testnet] Switchboard programId on the selected Near networkId
 
 GLOBAL FLAGS
   --json  Format output as json.
@@ -1933,7 +1929,7 @@ pop the crank
 ```
 USAGE
   $ sbv2 near crank pop [CRANKADDRESS] --accountName <value> [-h] [-v] [-s] [--networkId
-    testnet|mainnet|betanet|local] [--programId <value>] [-u <value>] [--nearCredentialsDir <value>] [--json]
+    testnet|mainnet|betanet|localnet] [--programId <value>] [-u <value>] [--nearCredentialsDir <value>] [--json]
 
 ARGUMENTS
   CRANKADDRESS  address of the crank in Uint8 or Base58 encoding
@@ -1947,9 +1943,8 @@ FLAGS
   --nearCredentialsDir=<value>  [default: /Users/gally/.near-credentials] Alternative directory for near credentials.
                                 Defaults to ~/.near-credentials
   --networkId=<option>          [default: testnet] Near network ID to connect to
-                                <options: testnet|mainnet|betanet|local>
-  --programId=<value>           [default: dev-1661444952413-29070842546310] Switchboard programId on the selected Near
-                                networkId
+                                <options: testnet|mainnet|betanet|localnet>
+  --programId=<value>           [default: switchboard-v2.testnet] Switchboard programId on the selected Near networkId
 
 GLOBAL FLAGS
   --json  Format output as json.
@@ -1968,7 +1963,7 @@ push an aggregator onto the crank
 ```
 USAGE
   $ sbv2 near crank push [CRANKADDRESS] --accountName <value> -a <value> [-h] [-v] [-s] [--networkId
-    testnet|mainnet|betanet|local] [--programId <value>] [-u <value>] [--nearCredentialsDir <value>] [--json]
+    testnet|mainnet|betanet|localnet] [--programId <value>] [-u <value>] [--nearCredentialsDir <value>] [--json]
 
 ARGUMENTS
   CRANKADDRESS  address of the crank in Uint8 or Base58 encoding
@@ -1983,9 +1978,9 @@ FLAGS
   --nearCredentialsDir=<value>     [default: /Users/gally/.near-credentials] Alternative directory for near credentials.
                                    Defaults to ~/.near-credentials
   --networkId=<option>             [default: testnet] Near network ID to connect to
-                                   <options: testnet|mainnet|betanet|local>
-  --programId=<value>              [default: dev-1661444952413-29070842546310] Switchboard programId on the selected
-                                   Near networkId
+                                   <options: testnet|mainnet|betanet|localnet>
+  --programId=<value>              [default: switchboard-v2.testnet] Switchboard programId on the selected Near
+                                   networkId
 
 GLOBAL FLAGS
   --json  Format output as json.
@@ -2004,9 +1999,10 @@ create a near aggregator for a given queue
 ```
 USAGE
   $ sbv2 near create aggregator [QUEUEADDRESS] --accountName <value> --updateInterval <value> [-h] [-v] [-s] [--networkId
-    testnet|mainnet|betanet|local] [--programId <value>] [-u <value>] [--nearCredentialsDir <value>] [--json] [-a
+    testnet|mainnet|betanet|localnet] [--programId <value>] [-u <value>] [--nearCredentialsDir <value>] [--json] [-a
     <value>] [--crankAddress <value>] [--name <value>] [--metadata <value>] [--forceReportPeriod <value>] [--batchSize
-    <value>] [--minJobs <value>] [--minOracles <value>] [--varianceThreshold <value>] [-j <value>]
+    <value>] [--minJobs <value>] [--minOracles <value>] [--varianceThreshold <value>] [-j <value>] [--rewardEscrow
+    <value>] [--historyLimit <value>]
 
 ARGUMENTS
   QUEUEADDRESS  address of the queue in Uint8 or Base58 encoding
@@ -2023,6 +2019,7 @@ FLAGS
   --crankAddress=<value>        optional, address of the crank to add the aggregator to
   --forceReportPeriod=<value>   Number of seconds for which, even if the variance threshold is not passed, accept new
                                 responses from oracles.
+  --historyLimit=<value>        [default: 1000] number of samples to store in aggregator's history
   --metadata=<value>            metadata of the crank for easier identification
   --minJobs=<value>             number of jobs that must respond before an oracle responds
   --minOracles=<value>          number of oracles that must respond before a value is accepted on-chain
@@ -2030,9 +2027,9 @@ FLAGS
   --nearCredentialsDir=<value>  [default: /Users/gally/.near-credentials] Alternative directory for near credentials.
                                 Defaults to ~/.near-credentials
   --networkId=<option>          [default: testnet] Near network ID to connect to
-                                <options: testnet|mainnet|betanet|local>
-  --programId=<value>           [default: dev-1661444952413-29070842546310] Switchboard programId on the selected Near
-                                networkId
+                                <options: testnet|mainnet|betanet|localnet>
+  --programId=<value>           [default: switchboard-v2.testnet] Switchboard programId on the selected Near networkId
+  --rewardEscrow=<value>        where to send rewards. defaults to user's escrow account
   --updateInterval=<value>      (required) set an aggregator's minimum update delay
   --varianceThreshold=<value>   [default: 0] percentage change between a previous accepted result and the next round
                                 before an oracle reports a value on-chain. Used to conserve lease cost during low
@@ -2055,7 +2052,7 @@ create a permission account for a near aggregator
 ```
 USAGE
   $ sbv2 near create aggregator permission [AGGREGATORADDRESS] --accountName <value> [-h] [-v] [-s] [--networkId
-    testnet|mainnet|betanet|local] [--programId <value>] [-u <value>] [--nearCredentialsDir <value>] [--json]
+    testnet|mainnet|betanet|localnet] [--programId <value>] [-u <value>] [--nearCredentialsDir <value>] [--json]
 
 ARGUMENTS
   AGGREGATORADDRESS  address of the aggregator in Uint8 or Base58 encoding
@@ -2069,9 +2066,8 @@ FLAGS
   --nearCredentialsDir=<value>  [default: /Users/gally/.near-credentials] Alternative directory for near credentials.
                                 Defaults to ~/.near-credentials
   --networkId=<option>          [default: testnet] Near network ID to connect to
-                                <options: testnet|mainnet|betanet|local>
-  --programId=<value>           [default: dev-1661444952413-29070842546310] Switchboard programId on the selected Near
-                                networkId
+                                <options: testnet|mainnet|betanet|localnet>
+  --programId=<value>           [default: switchboard-v2.testnet] Switchboard programId on the selected Near networkId
 
 GLOBAL FLAGS
   --json  Format output as json.
@@ -2090,7 +2086,7 @@ create a new crank
 ```
 USAGE
   $ sbv2 near create crank [QUEUEADDRESS] --accountName <value> [-h] [-v] [-s] [--networkId
-    testnet|mainnet|betanet|local] [--programId <value>] [-u <value>] [--nearCredentialsDir <value>] [--json] [--name
+    testnet|mainnet|betanet|localnet] [--programId <value>] [-u <value>] [--nearCredentialsDir <value>] [--json] [--name
     <value>] [--metadata <value>] [--maxRows <value>]
 
 ARGUMENTS
@@ -2108,9 +2104,8 @@ FLAGS
   --nearCredentialsDir=<value>  [default: /Users/gally/.near-credentials] Alternative directory for near credentials.
                                 Defaults to ~/.near-credentials
   --networkId=<option>          [default: testnet] Near network ID to connect to
-                                <options: testnet|mainnet|betanet|local>
-  --programId=<value>           [default: dev-1661444952413-29070842546310] Switchboard programId on the selected Near
-                                networkId
+                                <options: testnet|mainnet|betanet|localnet>
+  --programId=<value>           [default: switchboard-v2.testnet] Switchboard programId on the selected Near networkId
 
 GLOBAL FLAGS
   --json  Format output as json.
@@ -2128,7 +2123,7 @@ create an escrow token account
 
 ```
 USAGE
-  $ sbv2 near create escrow --accountName <value> [-h] [-v] [-s] [--networkId testnet|mainnet|betanet|local]
+  $ sbv2 near create escrow --accountName <value> [-h] [-v] [-s] [--networkId testnet|mainnet|betanet|localnet]
     [--programId <value>] [-u <value>] [--nearCredentialsDir <value>] [--json] [-a <value>] [--mint <value>]
 
 FLAGS
@@ -2142,9 +2137,8 @@ FLAGS
   --nearCredentialsDir=<value>  [default: /Users/gally/.near-credentials] Alternative directory for near credentials.
                                 Defaults to ~/.near-credentials
   --networkId=<option>          [default: testnet] Near network ID to connect to
-                                <options: testnet|mainnet|betanet|local>
-  --programId=<value>           [default: dev-1661444952413-29070842546310] Switchboard programId on the selected Near
-                                networkId
+                                <options: testnet|mainnet|betanet|localnet>
+  --programId=<value>           [default: switchboard-v2.testnet] Switchboard programId on the selected Near networkId
 
 GLOBAL FLAGS
   --json  Format output as json.
@@ -2163,7 +2157,7 @@ create a job on near
 ```
 USAGE
   $ sbv2 near create job [JOBDEFINITION] --accountName <value> [-h] [-v] [-s] [--networkId
-    testnet|mainnet|betanet|local] [--programId <value>] [-u <value>] [--nearCredentialsDir <value>] [--json] [-a
+    testnet|mainnet|betanet|localnet] [--programId <value>] [-u <value>] [--nearCredentialsDir <value>] [--json] [-a
     <value>] [--name <value>] [--metadata <value>]
 
 ARGUMENTS
@@ -2181,9 +2175,8 @@ FLAGS
   --nearCredentialsDir=<value>  [default: /Users/gally/.near-credentials] Alternative directory for near credentials.
                                 Defaults to ~/.near-credentials
   --networkId=<option>          [default: testnet] Near network ID to connect to
-                                <options: testnet|mainnet|betanet|local>
-  --programId=<value>           [default: dev-1661444952413-29070842546310] Switchboard programId on the selected Near
-                                networkId
+                                <options: testnet|mainnet|betanet|localnet>
+  --programId=<value>           [default: switchboard-v2.testnet] Switchboard programId on the selected Near networkId
 
 GLOBAL FLAGS
   --json  Format output as json.
@@ -2202,7 +2195,7 @@ create a near oracle for a given queue
 ```
 USAGE
   $ sbv2 near create oracle [QUEUEADDRESS] --accountName <value> [-h] [-v] [-s] [--networkId
-    testnet|mainnet|betanet|local] [--programId <value>] [-u <value>] [--nearCredentialsDir <value>] [--json] [-a
+    testnet|mainnet|betanet|localnet] [--programId <value>] [-u <value>] [--nearCredentialsDir <value>] [--json] [-a
     <value>] [--name <value>] [--metadata <value>]
 
 ARGUMENTS
@@ -2220,9 +2213,8 @@ FLAGS
   --nearCredentialsDir=<value>  [default: /Users/gally/.near-credentials] Alternative directory for near credentials.
                                 Defaults to ~/.near-credentials
   --networkId=<option>          [default: testnet] Near network ID to connect to
-                                <options: testnet|mainnet|betanet|local>
-  --programId=<value>           [default: dev-1661444952413-29070842546310] Switchboard programId on the selected Near
-                                networkId
+                                <options: testnet|mainnet|betanet|localnet>
+  --programId=<value>           [default: switchboard-v2.testnet] Switchboard programId on the selected Near networkId
 
 GLOBAL FLAGS
   --json  Format output as json.
@@ -2241,7 +2233,7 @@ create a permission account for a near oracle
 ```
 USAGE
   $ sbv2 near create oracle permission [ORACLEADDRESS] --accountName <value> [-h] [-v] [-s] [--networkId
-    testnet|mainnet|betanet|local] [--programId <value>] [-u <value>] [--nearCredentialsDir <value>] [--json]
+    testnet|mainnet|betanet|localnet] [--programId <value>] [-u <value>] [--nearCredentialsDir <value>] [--json]
 
 ARGUMENTS
   ORACLEADDRESS  address of the oracle in Uint8 or Base58 encoding
@@ -2255,9 +2247,8 @@ FLAGS
   --nearCredentialsDir=<value>  [default: /Users/gally/.near-credentials] Alternative directory for near credentials.
                                 Defaults to ~/.near-credentials
   --networkId=<option>          [default: testnet] Near network ID to connect to
-                                <options: testnet|mainnet|betanet|local>
-  --programId=<value>           [default: dev-1661444952413-29070842546310] Switchboard programId on the selected Near
-                                networkId
+                                <options: testnet|mainnet|betanet|localnet>
+  --programId=<value>           [default: switchboard-v2.testnet] Switchboard programId on the selected Near networkId
 
 GLOBAL FLAGS
   --json  Format output as json.
@@ -2275,7 +2266,7 @@ create a new oracle queue
 
 ```
 USAGE
-  $ sbv2 near create queue --accountName <value> [-h] [-v] [-s] [--networkId testnet|mainnet|betanet|local]
+  $ sbv2 near create queue --accountName <value> [-h] [-v] [-s] [--networkId testnet|mainnet|betanet|localnet]
     [--programId <value>] [-u <value>] [--nearCredentialsDir <value>] [--json] [-a <value>] [--name <value>] [--metadata
     <value>] [--minStake <value>] [-r <value>] [--oracleTimeout <value>] [--queueSize <value>] [--slashingEnabled]
     [--unpermissionedFeeds] [--unpermissionedVrf] [--enableBufferRelayers]
@@ -2295,10 +2286,9 @@ FLAGS
   --nearCredentialsDir=<value>  [default: /Users/gally/.near-credentials] Alternative directory for near credentials.
                                 Defaults to ~/.near-credentials
   --networkId=<option>          [default: testnet] Near network ID to connect to
-                                <options: testnet|mainnet|betanet|local>
+                                <options: testnet|mainnet|betanet|localnet>
   --oracleTimeout=<value>       [default: 180] number of oracles to add to the queue
-  --programId=<value>           [default: dev-1661444952413-29070842546310] Switchboard programId on the selected Near
-                                networkId
+  --programId=<value>           [default: switchboard-v2.testnet] Switchboard programId on the selected Near networkId
   --queueSize=<value>           [default: 100] maximum number of oracles the queue can support
   --slashingEnabled             permit slashing malicous oracles
   --unpermissionedFeeds         permit unpermissioned feeds
@@ -2320,7 +2310,7 @@ create an escrow token account
 
 ```
 USAGE
-  $ sbv2 near escrow create --accountName <value> [-h] [-v] [-s] [--networkId testnet|mainnet|betanet|local]
+  $ sbv2 near escrow create --accountName <value> [-h] [-v] [-s] [--networkId testnet|mainnet|betanet|localnet]
     [--programId <value>] [-u <value>] [--nearCredentialsDir <value>] [--json] [-a <value>] [--mint <value>]
 
 FLAGS
@@ -2334,9 +2324,8 @@ FLAGS
   --nearCredentialsDir=<value>  [default: /Users/gally/.near-credentials] Alternative directory for near credentials.
                                 Defaults to ~/.near-credentials
   --networkId=<option>          [default: testnet] Near network ID to connect to
-                                <options: testnet|mainnet|betanet|local>
-  --programId=<value>           [default: dev-1661444952413-29070842546310] Switchboard programId on the selected Near
-                                networkId
+                                <options: testnet|mainnet|betanet|localnet>
+  --programId=<value>           [default: switchboard-v2.testnet] Switchboard programId on the selected Near networkId
 
 GLOBAL FLAGS
   --json  Format output as json.
@@ -2355,7 +2344,7 @@ create a job on near
 ```
 USAGE
   $ sbv2 near job create [JOBDEFINITION] --accountName <value> [-h] [-v] [-s] [--networkId
-    testnet|mainnet|betanet|local] [--programId <value>] [-u <value>] [--nearCredentialsDir <value>] [--json] [-a
+    testnet|mainnet|betanet|localnet] [--programId <value>] [-u <value>] [--nearCredentialsDir <value>] [--json] [-a
     <value>] [--name <value>] [--metadata <value>]
 
 ARGUMENTS
@@ -2373,9 +2362,8 @@ FLAGS
   --nearCredentialsDir=<value>  [default: /Users/gally/.near-credentials] Alternative directory for near credentials.
                                 Defaults to ~/.near-credentials
   --networkId=<option>          [default: testnet] Near network ID to connect to
-                                <options: testnet|mainnet|betanet|local>
-  --programId=<value>           [default: dev-1661444952413-29070842546310] Switchboard programId on the selected Near
-                                networkId
+                                <options: testnet|mainnet|betanet|localnet>
+  --programId=<value>           [default: switchboard-v2.testnet] Switchboard programId on the selected Near networkId
 
 GLOBAL FLAGS
   --json  Format output as json.
@@ -2394,7 +2382,7 @@ create a near oracle for a given queue
 ```
 USAGE
   $ sbv2 near oracle create [QUEUEADDRESS] --accountName <value> [-h] [-v] [-s] [--networkId
-    testnet|mainnet|betanet|local] [--programId <value>] [-u <value>] [--nearCredentialsDir <value>] [--json] [-a
+    testnet|mainnet|betanet|localnet] [--programId <value>] [-u <value>] [--nearCredentialsDir <value>] [--json] [-a
     <value>] [--name <value>] [--metadata <value>]
 
 ARGUMENTS
@@ -2412,9 +2400,8 @@ FLAGS
   --nearCredentialsDir=<value>  [default: /Users/gally/.near-credentials] Alternative directory for near credentials.
                                 Defaults to ~/.near-credentials
   --networkId=<option>          [default: testnet] Near network ID to connect to
-                                <options: testnet|mainnet|betanet|local>
-  --programId=<value>           [default: dev-1661444952413-29070842546310] Switchboard programId on the selected Near
-                                networkId
+                                <options: testnet|mainnet|betanet|localnet>
+  --programId=<value>           [default: switchboard-v2.testnet] Switchboard programId on the selected Near networkId
 
 GLOBAL FLAGS
   --json  Format output as json.
@@ -2433,7 +2420,7 @@ create a permission account for a near oracle
 ```
 USAGE
   $ sbv2 near oracle permission create [ORACLEADDRESS] --accountName <value> [-h] [-v] [-s] [--networkId
-    testnet|mainnet|betanet|local] [--programId <value>] [-u <value>] [--nearCredentialsDir <value>] [--json]
+    testnet|mainnet|betanet|localnet] [--programId <value>] [-u <value>] [--nearCredentialsDir <value>] [--json]
 
 ARGUMENTS
   ORACLEADDRESS  address of the oracle in Uint8 or Base58 encoding
@@ -2447,9 +2434,8 @@ FLAGS
   --nearCredentialsDir=<value>  [default: /Users/gally/.near-credentials] Alternative directory for near credentials.
                                 Defaults to ~/.near-credentials
   --networkId=<option>          [default: testnet] Near network ID to connect to
-                                <options: testnet|mainnet|betanet|local>
-  --programId=<value>           [default: dev-1661444952413-29070842546310] Switchboard programId on the selected Near
-                                networkId
+                                <options: testnet|mainnet|betanet|localnet>
+  --programId=<value>           [default: switchboard-v2.testnet] Switchboard programId on the selected Near networkId
 
 GLOBAL FLAGS
   --json  Format output as json.
@@ -2468,7 +2454,7 @@ create a permission account
 ```
 USAGE
   $ sbv2 near permission create --accountName <value> --granter <value> --grantee <value> [-h] [-v] [-s] [--networkId
-    testnet|mainnet|betanet|local] [--programId <value>] [-u <value>] [--nearCredentialsDir <value>] [--json] [-a
+    testnet|mainnet|betanet|localnet] [--programId <value>] [-u <value>] [--nearCredentialsDir <value>] [--json] [-a
     <value>] [--enable]
 
 FLAGS
@@ -2484,9 +2470,8 @@ FLAGS
   --nearCredentialsDir=<value>  [default: /Users/gally/.near-credentials] Alternative directory for near credentials.
                                 Defaults to ~/.near-credentials
   --networkId=<option>          [default: testnet] Near network ID to connect to
-                                <options: testnet|mainnet|betanet|local>
-  --programId=<value>           [default: dev-1661444952413-29070842546310] Switchboard programId on the selected Near
-                                networkId
+                                <options: testnet|mainnet|betanet|localnet>
+  --programId=<value>           [default: switchboard-v2.testnet] Switchboard programId on the selected Near networkId
 
 GLOBAL FLAGS
   --json  Format output as json.
@@ -2505,7 +2490,7 @@ pop the crank
 ```
 USAGE
   $ sbv2 near pop crank [CRANKADDRESS] --accountName <value> [-h] [-v] [-s] [--networkId
-    testnet|mainnet|betanet|local] [--programId <value>] [-u <value>] [--nearCredentialsDir <value>] [--json]
+    testnet|mainnet|betanet|localnet] [--programId <value>] [-u <value>] [--nearCredentialsDir <value>] [--json]
 
 ARGUMENTS
   CRANKADDRESS  address of the crank in Uint8 or Base58 encoding
@@ -2519,9 +2504,8 @@ FLAGS
   --nearCredentialsDir=<value>  [default: /Users/gally/.near-credentials] Alternative directory for near credentials.
                                 Defaults to ~/.near-credentials
   --networkId=<option>          [default: testnet] Near network ID to connect to
-                                <options: testnet|mainnet|betanet|local>
-  --programId=<value>           [default: dev-1661444952413-29070842546310] Switchboard programId on the selected Near
-                                networkId
+                                <options: testnet|mainnet|betanet|localnet>
+  --programId=<value>           [default: switchboard-v2.testnet] Switchboard programId on the selected Near networkId
 
 GLOBAL FLAGS
   --json  Format output as json.
@@ -2539,7 +2523,7 @@ print a near switchboard account
 
 ```
 USAGE
-  $ sbv2 near print [ACCOUNTTYPE] [ADDRESS] [-h] [-v] [-s] [--networkId testnet|mainnet|betanet|local]
+  $ sbv2 near print [ACCOUNTTYPE] [ADDRESS] [-h] [-v] [-s] [--networkId testnet|mainnet|betanet|localnet]
     [--programId <value>] [-u <value>] [--nearCredentialsDir <value>] [--json] [--all]
 
 ARGUMENTS
@@ -2555,9 +2539,8 @@ FLAGS
   --nearCredentialsDir=<value>  [default: /Users/gally/.near-credentials] Alternative directory for near credentials.
                                 Defaults to ~/.near-credentials
   --networkId=<option>          [default: testnet] Near network ID to connect to
-                                <options: testnet|mainnet|betanet|local>
-  --programId=<value>           [default: dev-1661444952413-29070842546310] Switchboard programId on the selected Near
-                                networkId
+                                <options: testnet|mainnet|betanet|localnet>
+  --programId=<value>           [default: switchboard-v2.testnet] Switchboard programId on the selected Near networkId
 
 GLOBAL FLAGS
   --json  Format output as json.
@@ -2576,7 +2559,7 @@ push an aggregator onto the crank
 ```
 USAGE
   $ sbv2 near push crank [CRANKADDRESS] --accountName <value> -a <value> [-h] [-v] [-s] [--networkId
-    testnet|mainnet|betanet|local] [--programId <value>] [-u <value>] [--nearCredentialsDir <value>] [--json]
+    testnet|mainnet|betanet|localnet] [--programId <value>] [-u <value>] [--nearCredentialsDir <value>] [--json]
 
 ARGUMENTS
   CRANKADDRESS  address of the crank in Uint8 or Base58 encoding
@@ -2591,9 +2574,9 @@ FLAGS
   --nearCredentialsDir=<value>     [default: /Users/gally/.near-credentials] Alternative directory for near credentials.
                                    Defaults to ~/.near-credentials
   --networkId=<option>             [default: testnet] Near network ID to connect to
-                                   <options: testnet|mainnet|betanet|local>
-  --programId=<value>              [default: dev-1661444952413-29070842546310] Switchboard programId on the selected
-                                   Near networkId
+                                   <options: testnet|mainnet|betanet|localnet>
+  --programId=<value>              [default: switchboard-v2.testnet] Switchboard programId on the selected Near
+                                   networkId
 
 GLOBAL FLAGS
   --json  Format output as json.
@@ -2611,7 +2594,7 @@ create a new oracle queue
 
 ```
 USAGE
-  $ sbv2 near queue create --accountName <value> [-h] [-v] [-s] [--networkId testnet|mainnet|betanet|local]
+  $ sbv2 near queue create --accountName <value> [-h] [-v] [-s] [--networkId testnet|mainnet|betanet|localnet]
     [--programId <value>] [-u <value>] [--nearCredentialsDir <value>] [--json] [-a <value>] [--name <value>] [--metadata
     <value>] [--minStake <value>] [-r <value>] [--oracleTimeout <value>] [--queueSize <value>] [--slashingEnabled]
     [--unpermissionedFeeds] [--unpermissionedVrf] [--enableBufferRelayers]
@@ -2631,10 +2614,9 @@ FLAGS
   --nearCredentialsDir=<value>  [default: /Users/gally/.near-credentials] Alternative directory for near credentials.
                                 Defaults to ~/.near-credentials
   --networkId=<option>          [default: testnet] Near network ID to connect to
-                                <options: testnet|mainnet|betanet|local>
+                                <options: testnet|mainnet|betanet|localnet>
   --oracleTimeout=<value>       [default: 180] number of oracles to add to the queue
-  --programId=<value>           [default: dev-1661444952413-29070842546310] Switchboard programId on the selected Near
-                                networkId
+  --programId=<value>           [default: switchboard-v2.testnet] Switchboard programId on the selected Near networkId
   --queueSize=<value>           [default: 100] maximum number of oracles the queue can support
   --slashingEnabled             permit slashing malicous oracles
   --unpermissionedFeeds         permit unpermissioned feeds
@@ -2657,7 +2639,7 @@ request a new value on-chain for an aggregator
 ```
 USAGE
   $ sbv2 near update aggregator [AGGREGATORADDRESS] --accountName <value> [-h] [-v] [-s] [--networkId
-    testnet|mainnet|betanet|local] [--programId <value>] [-u <value>] [--nearCredentialsDir <value>] [--json]
+    testnet|mainnet|betanet|localnet] [--programId <value>] [-u <value>] [--nearCredentialsDir <value>] [--json]
 
 ARGUMENTS
   AGGREGATORADDRESS  address of the aggregator in Uint8 or Base58 encoding
@@ -2671,9 +2653,8 @@ FLAGS
   --nearCredentialsDir=<value>  [default: /Users/gally/.near-credentials] Alternative directory for near credentials.
                                 Defaults to ~/.near-credentials
   --networkId=<option>          [default: testnet] Near network ID to connect to
-                                <options: testnet|mainnet|betanet|local>
-  --programId=<value>           [default: dev-1661444952413-29070842546310] Switchboard programId on the selected Near
-                                networkId
+                                <options: testnet|mainnet|betanet|localnet>
+  --programId=<value>           [default: switchboard-v2.testnet] Switchboard programId on the selected Near networkId
 
 GLOBAL FLAGS
   --json  Format output as json.
