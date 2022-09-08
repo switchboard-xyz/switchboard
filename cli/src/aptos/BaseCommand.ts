@@ -128,6 +128,10 @@ export abstract class AptosBaseCommand extends BaseCommand {
     return HexString.ensure(address);
   }
 
+  getAccount(address: string): AptosAccount {
+    return new AptosAccount(this.hexStringToBytes(address));
+  }
+
   async getSigner(
     keypairPath: string,
     profileName = "default"
@@ -146,9 +150,7 @@ export abstract class AptosBaseCommand extends BaseCommand {
       // check if hex
       const hexRegex = /^(0x|0X)?[a-fA-F0-9]{64}/g;
       if (hexRegex.test(parsedFileString)) {
-        return new AptosAccount(
-          new Uint8Array(HexString.ensure(parsedFileString).toBuffer())
-        );
+        return new AptosAccount(this.hexStringToBytes(parsedFileString));
       }
 
       // check if base64 encoded
@@ -175,9 +177,7 @@ export abstract class AptosBaseCommand extends BaseCommand {
           "private_key" in parsedYaml.profiles.default
         ) {
           return new AptosAccount(
-            HexString.ensure(
-              parsedYaml.profiles[profileName].private_key
-            ).toBuffer()
+            this.hexStringToBytes(parsedYaml.profiles[profileName].private_key)
           );
         }
       } catch (error) {
@@ -230,6 +230,17 @@ export abstract class AptosBaseCommand extends BaseCommand {
 
   toUrl(signature: string) {
     return `https://explorer.devnet.aptos.dev/txn/${signature}`;
+  }
+
+  hexStringToBuffer(hexString: string): Buffer {
+    return Buffer.from(
+      hexString.toLowerCase().startsWith("0x") ? hexString.slice(2) : hexString,
+      "hex"
+    );
+  }
+
+  hexStringToBytes(hexString: string): Uint8Array {
+    return new Uint8Array(this.hexStringToBuffer(hexString));
   }
 
   jsonReplacers(key: any, value: any) {

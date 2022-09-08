@@ -100,7 +100,6 @@ export default class QueueCreate extends BaseCommand {
         unpermissionedFeedsEnabled: flags.unpermissionedFeeds,
         unpermissionedVrfEnabled: flags.unpermissionedVrf,
         lockLeaseFunding: flags.lockLeaseFunding,
-        mint: this.signer.address().hex(),
         enableBufferRelayers: flags.enableBufferRelayers,
         maxSize: flags.queueSize,
         coinType: "0x1::aptos_coin::AptosCoin",
