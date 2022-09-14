@@ -134,6 +134,7 @@ export default class NearPrint extends BaseCommand {
             const permissionData = await permission.loadData();
             data = {
               ...data,
+              history: undefined,
               permission: {
                 address: permission.address,
                 addressBase58: this.encodeAddress(permission.address),
@@ -159,7 +160,7 @@ export default class NearPrint extends BaseCommand {
                 };
               })
             );
-            data = { ...data, jobs: aggregatorJobData };
+            data = { ...data, history: undefined, jobs: aggregatorJobData };
           } catch {}
         }
         break;

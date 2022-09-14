@@ -1,0 +1,35 @@
+{
+  "tasks": [
+    {
+      "httpTask": {
+        "url": "https://www.mexc.com/open/api/v2/market/ticker?symbol=NEAR_USDT"
+      }
+    },
+    {
+      "medianTask": {
+        "tasks": [
+          {
+            "jsonParseTask": {
+              "path": "$.data[0].ask"
+            }
+          },
+          {
+            "jsonParseTask": {
+              "path": "$.data[0].bid"
+            }
+          },
+          {
+            "jsonParseTask": {
+              "path": "$.data[0].last"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "multiplyTask": {
+        "aggregatorPubkey": "ETAaeeuQBwsh9mC2gCov9WdhJENZuffRMXY2HgjCcSL9"
+      }
+    }
+  ]
+}

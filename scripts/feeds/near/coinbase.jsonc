@@ -1,0 +1,18 @@
+{
+  "name": "Coinbase NEAR/USD",
+  "tasks": [
+    {
+      "websocketTask": {
+        "url": "wss://ws-feed.pro.coinbase.com",
+        "subscription": "{\"type\":\"subscribe\",\"product_ids\":[\"NEAR-USD\"],\"channels\":[\"ticker\",{\"name\":\"ticker\",\"product_ids\":[\"NEAR-USD\"]}]}",
+        "maxDataAgeSeconds": 15,
+        "filter": "$[?(@.type == 'ticker' && @.product_id == 'NEAR-USD')]"
+      }
+    },
+    {
+      "jsonParseTask": {
+        "path": "$.price"
+      }
+    }
+  ]
+}

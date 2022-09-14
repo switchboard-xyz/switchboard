@@ -132,6 +132,35 @@ touch "$envFilename"
   printf "ORACLE_PERMISSION_ADDRESS_BYTES=\"%s\"\n\n" "$oraclePermissionBytes";
   } >> "$envFilename"
 
+#   # Create Aggregator
+# btc=$(sbv2 near aggregator create "$queueAddress" \
+#   --accountName "$authority" \
+#   --name "BTC/ USD" \
+#   --metadata "BTC / USD" \
+#   --crankAddress "$crankAddress" \
+#   --batchSize 1 \
+#   --minJobs 3 \
+#   --minOracles 1 \
+#   --updateInterval "${update_interval}" \
+#   --job scripts/feeds/btc/binanceCom.jsonc \
+#   --job scripts/feeds/btc/binanceUs.jsonc \
+#   --job scripts/feeds/btc/bitfinex.jsonc \
+#   `#--job scripts/feeds/btc/bitstamp.jsonc` \
+#   `#--job scripts/feeds/btc/bittrex.jsonc` \
+#   --job scripts/feeds/btc/coinbase.jsonc \
+#   --job scripts/feeds/btc/ftxCom.jsonc \
+#   --job scripts/feeds/btc/ftxUs.jsonc \
+#   --job scripts/feeds/btc/huobi.jsonc \
+#   --job scripts/feeds/btc/kraken.jsonc \
+#   --job scripts/feeds/btc/mexc.jsonc \
+#   --job scripts/feeds/btc/okex.jsonc \
+#   --json
+# )
+# btcAddress=$(echo "$btc" | jq -r '.addressBase58')
+# btcBytes=$(echo "$btcAddress" | jq -r '.address')
+# echo -e "${Green}✓ Create BTC Aggregator:${Color_Off} $btcAddress"
+# echo -e "${Blue}Bytes:${Color_Off} $btcBytes"
+
 ## CREATE FEEDS
 for feed in "${feeds[@]}"
 do
@@ -149,6 +178,7 @@ do
     --minJobs 3 \
     --minOracles 1 \
     --updateInterval "${update_interval}" \
+    --job scripts/feeds/btc/binanceCom.jsonc \
     --json
   )
   aggregatorAddress=$(echo "$aggregator" | jq -r '.addressBase58')

@@ -1,0 +1,21 @@
+{
+  "name": "BinanceCom NEAR/USD",
+  "tasks": [
+    {
+      "httpTask": {
+        "url": "https://www.binance.com/api/v3/ticker/price?symbol=NEARUSDT"
+      }
+    },
+    {
+      "jsonParseTask": {
+        "path": "$.price"
+      }
+    },
+    {
+      "multiplyTask": {
+        /* Mainnet USDT/USD Feed */
+        "aggregatorPubkey": "ETAaeeuQBwsh9mC2gCov9WdhJENZuffRMXY2HgjCcSL9"
+      }
+    }
+  ]
+}

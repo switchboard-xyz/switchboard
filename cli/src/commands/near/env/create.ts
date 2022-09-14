@@ -178,121 +178,117 @@ export default class EnvCreate extends BaseCommand {
       `Oracle Key (Base58): ${this.encodeAddress(oracleAccount.address)}`
     );
 
-    const feeds = await Promise.all(
-      flags.feed.map(async (feedDefinitionPath) => {
-        const feedActions: Action[] = [];
-
-        try {
-          const feedDefinition = JSON.parse(
-            fs
-              .readFileSync(this.normalizePath(feedDefinitionPath), "utf-8")
-              .replace(/\/\*[\s\S]*?\*\/|([^\\:]|^)\/\/.*$/g, "")
-          );
-          const jobs: JobAccount[] = [];
-          const jobActions: Action[] = [];
-          if ("jobs" in feedDefinition && Array.isArray(feedDefinition.jobs)) {
-            for (const job of feedDefinition.jobs) {
-              try {
-                const oracleJob = OracleJob.fromObject(job);
-                const [createJobAction, jobAccount] = JobAccount.createAction(
-                  this.program,
-                  {
-                    authority:
-                      flags.authority || this.program.account.accountId,
-                    data: Buffer.from(
-                      OracleJob.encodeDelimited(oracleJob).finish()
-                    ),
-                  }
-                );
-                jobActions.push(createJobAction);
-                jobs.push(jobAccount);
-              } catch (error) {
-                this.error(`Failed to create job account for ${job}: ${error}`);
-              }
+    const feeds: {
+      aggregatorAccount: AggregatorAccount;
+      jobs: JobAccount[];
+      permissionAccount: PermissionAccount;
+    }[] = [];
+    for await (const feedDefinitionPath of flags.feed) {
+      try {
+        const feedDefinition = JSON.parse(
+          fs
+            .readFileSync(this.normalizePath(feedDefinitionPath), "utf-8")
+            .replace(/\/\*[\s\S]*?\*\/|([^\\:]|^)\/\/.*$/g, "")
+        );
+        const jobs: JobAccount[] = [];
+        const jobActions: Action[] = [];
+        if ("jobs" in feedDefinition && Array.isArray(feedDefinition.jobs)) {
+          for (const job of feedDefinition.jobs) {
+            try {
+              const oracleJob = OracleJob.fromObject(job);
+              const [createJobAction, jobAccount] = JobAccount.createAction(
+                this.program,
+                {
+                  authority: flags.authority || this.program.account.accountId,
+                  data: Buffer.from(
+                    OracleJob.encodeDelimited(oracleJob).finish()
+                  ),
+                }
+              );
+              jobActions.push(createJobAction);
+              jobs.push(jobAccount);
+            } catch (error) {
+              this.error(`Failed to create job account for ${job}: ${error}`);
             }
           }
-          const jobReceipt = await this.program.sendActions(jobActions);
-          txnReceipts.push(jobReceipt);
-          this.logger.info(`${this.toUrl(jobReceipt.transaction.hash)}`);
+        }
+        const jobReceipt = await this.program.sendActions(jobActions);
+        txnReceipts.push(jobReceipt);
+        this.logger.info(`${this.toUrl(jobReceipt.transaction.hash)}`);
 
-          const [createAggregatorAction, aggregatorAccount] =
-            AggregatorAccount.createAction(this.program, {
-              queue: queueAccount.address,
-              crank: crankAccount.address,
-              authority: flags.authority || this.program.account.accountId,
-              name: Buffer.from(flags.name || ""),
-              metadata: Buffer.from(flags.metadata || ""),
-              batchSize: feedDefinition.batchSize || 1,
-              minOracleResults: feedDefinition.minOracleResponses || 1,
-              minJobResults: feedDefinition.minJobResponses || 1,
-              minUpdateDelaySeconds: feedDefinition.minUpdateDelaySeconds || 30,
-              startAfter: 0,
-              rewardEscrow: escrow.address,
-              historyLimit: 1000,
-              varianceThreshold: feedDefinition.varianceThreshold
-                ? SwitchboardDecimal.fromBig(
-                    new Big(feedDefinition.varianceThreshold)
-                  )
-                : SwitchboardDecimal.fromBig(new Big(0)),
-              forceReportPeriod: feedDefinition.forceReportPeriod
-                ? Number.parseInt(feedDefinition.forceReportPeriod)
-                : 0,
-            });
-          feedActions.push(createAggregatorAction);
+        const feedActions: Action[] = [];
 
-          // add jobs
+        const [createAggregatorAction, aggregatorAccount] =
+          AggregatorAccount.createAction(this.program, {
+            queue: queueAccount.address,
+            crank: crankAccount.address,
+            authority: flags.authority || this.program.account.accountId,
+            name: Buffer.from(flags.name || ""),
+            metadata: Buffer.from(flags.metadata || ""),
+            batchSize: feedDefinition.batchSize || 1,
+            minOracleResults: feedDefinition.minOracleResponses || 1,
+            minJobResults: feedDefinition.minJobResponses || 1,
+            minUpdateDelaySeconds: feedDefinition.minUpdateDelaySeconds || 30,
+            startAfter: 0,
+            rewardEscrow: escrow.address,
+            historyLimit: 1000,
+            varianceThreshold: feedDefinition.varianceThreshold
+              ? SwitchboardDecimal.fromBig(
+                  new Big(feedDefinition.varianceThreshold)
+                )
+              : SwitchboardDecimal.fromBig(new Big(0)),
+            forceReportPeriod: feedDefinition.forceReportPeriod
+              ? Number.parseInt(feedDefinition.forceReportPeriod)
+              : 0,
+          });
+        feedActions.push(createAggregatorAction);
+
+        // add jobs
+        feedActions.push(
+          ...jobs.map((j) => aggregatorAccount.addJobAction({ job: j.address }))
+        );
+
+        // add permissions
+        const [aggregatorPermissionAction, aggregatorPermissionAccount] =
+          PermissionAccount.createAction(this.program, {
+            authority: flags.authority || this.program.account.accountId,
+            granter: queueAccount.address,
+            grantee: aggregatorAccount.address,
+          });
+        feedActions.push(aggregatorPermissionAction);
+
+        // set permissions if required
+        if (!flags.unpermissionedFeeds) {
           feedActions.push(
-            ...jobs.map((j) =>
-              aggregatorAccount.addJobAction({ job: j.address })
-            )
-          );
-
-          // add permissions
-          const [aggregatorPermissionAction, aggregatorPermissionAccount] =
-            PermissionAccount.createAction(this.program, {
-              authority: flags.authority || this.program.account.accountId,
-              granter: queueAccount.address,
-              grantee: aggregatorAccount.address,
-            });
-          feedActions.push(aggregatorPermissionAction);
-
-          // set permissions if required
-          if (!flags.unpermissionedFeeds) {
-            feedActions.push(
-              aggregatorPermissionAccount.setAction({
-                permission: SwitchboardPermission.PERMIT_ORACLE_QUEUE_USAGE,
-                enable: true,
-              })
-            );
-          }
-
-          // add to crank
-          feedActions.push(
-            crankAccount.pushAction({ aggregator: aggregatorAccount.address })
-          );
-
-          console.log(feedActions.length);
-
-          const feedReceipt = await this.program.sendActions(feedActions);
-          txnReceipts.push(feedReceipt);
-          this.logger.info(`${this.toUrl(feedReceipt.transaction.hash)}`);
-
-          return {
-            aggregatorAccount,
-            jobs,
-            permissionAccount: aggregatorPermissionAccount,
-          };
-        } catch (error) {
-          this.logger.error(
-            `Failed to create feed ${feedDefinitionPath}: ${error}`
+            aggregatorPermissionAccount.setAction({
+              permission: SwitchboardPermission.PERMIT_ORACLE_QUEUE_USAGE,
+              enable: true,
+            })
           );
         }
-      })
-    ).catch((e) => []);
-    // .filter(
-    //   (v) =>
-    //     v.aggregatorAccount !== undefined && v.permissionAccount !== undefined
-    // );
+
+        // add to crank
+        feedActions.push(
+          crankAccount.pushAction({ aggregator: aggregatorAccount.address })
+        );
+
+        console.log(feedActions.length);
+
+        const feedReceipt = await this.program.sendActions(feedActions);
+        txnReceipts.push(feedReceipt);
+        this.logger.info(`${this.toUrl(feedReceipt.transaction.hash)}`);
+
+        feeds.push({
+          aggregatorAccount,
+          jobs,
+          permissionAccount: aggregatorPermissionAccount,
+        });
+      } catch (error) {
+        this.logger.error(
+          `Failed to create feed ${feedDefinitionPath}: ${error}`
+        );
+      }
+    }
 
     // build objects
 

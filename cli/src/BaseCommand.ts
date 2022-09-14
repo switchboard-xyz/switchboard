@@ -140,6 +140,29 @@ export abstract class CliBaseCommand extends Command {
     }
   }
 
+  // loadFeedJson(jsonDefinitionPath: string): {
+  //   authority: string;
+  //   name?: string;
+  //   metadata?: string;
+  //   queueAddress: string;
+  //   coinType: string;
+  //   batchSize: number;
+  //   minOracleResults: number;
+  //   minJobResults: number;
+  //   minUpdateDelaySeconds: number;
+  //   startAfter?: number;
+  //   varianceThreshold?: Big;
+  //   forceReportPeriod?: number;
+  //   expiration?: number;
+  //   disableCrank?: boolean;
+  //   historySize?: number;
+  //   readCharge?: number;
+  //   rewardEscrow?: string;
+  //   maxGasCost?: string;
+  // } {
+
+  // }
+
   loadJobJson(jsonDefinitionPath: string): OracleJob {
     const normalizedPath = this.normalizePath(jsonDefinitionPath);
 
@@ -151,11 +174,11 @@ export abstract class CliBaseCommand extends Command {
       )
     );
 
-    const buffer = Buffer.from(OracleJob.encodeDelimited(oracleJob).finish());
-    const bytes = new Uint8Array(buffer);
-    const hex = buffer.toString("hex");
-    const utf = buffer.toString();
-    const utfBytes = new Uint8Array(Buffer.from(utf, "utf-8"));
+    // const buffer = Buffer.from(OracleJob.encodeDelimited(oracleJob).finish());
+    // const bytes = new Uint8Array(buffer);
+    // const hex = buffer.toString("hex");
+    // const utf = buffer.toString();
+    // const utfBytes = new Uint8Array(Buffer.from(utf, "utf-8"));
 
     // console.log(`OracleJob Bytes: [${[...bytes]}]`);
     // console.log(`OracleJob Hex  : 0x${hex}`);

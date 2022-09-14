@@ -11,6 +11,12 @@ git clone --recurse-submodules https://github.com/switchboard-xyz/sbv2-core.git
 cd sbv2-core
 ```
 
+To add SDKs,
+
+```bash
+git submodule add https://github.com/switchboard-xyz/switchboard-v2 sdks/solana
+```
+
 To update SDKs,
 
 ```bash

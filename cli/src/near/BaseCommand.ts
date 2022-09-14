@@ -3,7 +3,9 @@ import { Input } from "@oclif/parser";
 import { Account, connect } from "near-api-js";
 import { homedir } from "os";
 import {
+  AggregatorAccount,
   loadNear,
+  QueueAccount,
   SwitchboardPermission,
   SwitchboardProgram,
   TESTNET_PROGRAM_ID,
@@ -215,5 +217,25 @@ export abstract class NearBaseCommand extends BaseCommand {
     }
 
     return value;
+  }
+
+  async loadQueue(address: string): Promise<[QueueAccount, any]> {
+    const account = new QueueAccount({
+      program: this.program,
+      address: this.parseAddress(address),
+    });
+    const data = await account.loadData();
+
+    return [account, data];
+  }
+
+  async loadAggregator(address: string): Promise<[AggregatorAccount, any]> {
+    const account = new AggregatorAccount({
+      program: this.program,
+      address: this.parseAddress(address),
+    });
+    const data = await account.loadData();
+
+    return [account, data];
   }
 }

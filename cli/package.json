@@ -50,7 +50,7 @@
     "@solana/web3.js": "^1.43.5",
     "@switchboard-xyz/aptos.js": "^2.1.0",
     "@switchboard-xyz/common": "^2.0.0",
-    "@switchboard-xyz/near.js": "^2.0.11",
+    "@switchboard-xyz/near.js": "^2.0.13",
     "@switchboard-xyz/sbv2-utils": "^0.1.45",
     "@switchboard-xyz/switchboard-v2": "^0.0.132",
     "aptos": "^1.3.11",

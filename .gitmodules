@@ -4,3 +4,6 @@
 [submodule "sdks/solana"]
 	path = sdks/solana
 	url = https://github.com/switchboard-xyz/switchboard-v2
+[submodule "sdks/near"]
+	path = sdks/near
+	url = https://github.com/switchboard-xyz/sbv2-near
