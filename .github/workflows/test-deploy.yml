@@ -26,5 +26,4 @@ jobs:
         working-directory: website
         run: |
           yarn install
-          yarn docgen
-          yarn build
+          yarn build:all

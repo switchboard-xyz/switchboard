@@ -45,6 +45,6 @@ export const FeatureList: FeatureItem[] = [
     title: "Publish",
     image: "/img/icons/publish.svg",
     description: "Publish your own data feeds on-chain through Switchboard.",
-    linkTo: "https://publish.switchboard.xyz/",
+    linkTo: "/feeds/publisher",
   },
 ];
