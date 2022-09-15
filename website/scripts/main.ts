@@ -10,29 +10,58 @@
 import path from "path";
 import chalk from "chalk";
 import { generateCliDocs } from "./cli";
-import {
-  generateAptosDocs,
-  generateCommonDocs,
-  generateNearDocs,
-  generateSolanaDocs,
-} from "./typedoc";
+import { generateGenericApiTypedocs } from "./typedoc";
 
 const projectRoot = path.join(__dirname, "..", "..");
 
 (() => {
+  console.log(chalk.green(`Generating typedocs for @switchboard-xyz/common`));
+  generateGenericApiTypedocs(
+    projectRoot,
+    ["javascript", "common"],
+    ["@switchboard-xyz", "common"]
+  );
+
   console.log(chalk.green(`Generating typedocs for @switchboard-xyz/aptos.js`));
-  generateAptosDocs(projectRoot);
+  generateGenericApiTypedocs(
+    projectRoot,
+    ["sdks", "aptos"],
+    ["@switchboard-xyz", "aptos.js"]
+  );
 
   console.log(chalk.green(`Generating typedocs for @switchboard-xyz/near.js`));
-  generateNearDocs(projectRoot);
+  generateGenericApiTypedocs(
+    projectRoot,
+    ["sdks", "near", "client"],
+    ["@switchboard-xyz", "near.js"]
+  );
 
   console.log(
     chalk.green(`Generating typedocs for @switchboard-xyz/solana.js`)
   );
-  generateSolanaDocs(projectRoot);
+  generateGenericApiTypedocs(
+    projectRoot,
+    ["sdks", "solana", "libraries", "ts"],
+    ["@switchboard-xyz", "solana.js"]
+  );
 
-  console.log(chalk.green(`Generating typedocs for @switchboard-xyz/common`));
-  generateCommonDocs(projectRoot);
+  console.log(
+    chalk.green(`Generating typedocs for @switchboard-xyz/sbv2-lite`)
+  );
+  generateGenericApiTypedocs(
+    projectRoot,
+    ["sdks", "solana", "libraries", "sbv2-lite"],
+    ["@switchboard-xyz", "sbv2-lite"]
+  );
+
+  console.log(
+    chalk.green(`Generating typedocs for @switchboard-xyz/sbv2-utils`)
+  );
+  generateGenericApiTypedocs(
+    projectRoot,
+    ["sdks", "solana", "libraries", "sbv2-utils"],
+    ["@switchboard-xyz", "sbv2-utils"]
+  );
 
   console.log(chalk.green(`Generating documentation for @switchboard-xyz/cli`));
   generateCliDocs(projectRoot);

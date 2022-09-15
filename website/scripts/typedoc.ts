@@ -15,90 +15,28 @@ function generateTypedoc(entryPoint: string, relativeOutputPath: string) {
   }
 }
 
-export function generateAptosDocs(projectRoot: string) {
+export function generateGenericApiTypedocs(
+  projectRoot: string,
+  modulePaths: string[],
+  outputPaths: string[],
+  entry = "./src/index.ts"
+) {
   const currentWorkingDir = process.cwd();
 
-  const sdkPath = path.join(projectRoot, "sdks", "aptos");
+  const sdkPath = path.join(projectRoot, ...modulePaths);
 
   const sdkDocsOutputPath = path.join(
     projectRoot,
     "website",
     "static",
     "api",
-    "js",
-    "aptos.js"
+    ...outputPaths
   );
   const sdkDocsRelativeOutputPath = path.relative(sdkPath, sdkDocsOutputPath);
 
   shell.cd(sdkPath);
 
-  generateTypedoc("./src/index.ts", sdkDocsRelativeOutputPath);
-
-  shell.cd(currentWorkingDir);
-}
-
-export function generateNearDocs(projectRoot: string) {
-  const currentWorkingDir = process.cwd();
-
-  const sdkPath = path.join(projectRoot, "sdks", "near", "client");
-
-  const sdkDocsOutputPath = path.join(
-    projectRoot,
-    "website",
-    "static",
-    "api",
-    "js",
-    "near.js"
-  );
-  const sdkDocsRelativeOutputPath = path.relative(sdkPath, sdkDocsOutputPath);
-
-  shell.cd(sdkPath);
-
-  generateTypedoc("./src/index.ts", sdkDocsRelativeOutputPath);
-
-  shell.cd(currentWorkingDir);
-}
-
-export function generateSolanaDocs(projectRoot: string) {
-  const currentWorkingDir = process.cwd();
-
-  const sdkPath = path.join(projectRoot, "sdks", "solana", "libraries", "ts");
-
-  const sdkDocsOutputPath = path.join(
-    projectRoot,
-    "website",
-    "static",
-    "api",
-    "js",
-    "solana.js"
-  );
-  const sdkDocsRelativeOutputPath = path.relative(sdkPath, sdkDocsOutputPath);
-
-  shell.cd(sdkPath);
-
-  generateTypedoc("./src/index.ts", sdkDocsRelativeOutputPath);
-
-  shell.cd(currentWorkingDir);
-}
-
-export function generateCommonDocs(projectRoot: string) {
-  const currentWorkingDir = process.cwd();
-
-  const sdkPath = path.join(projectRoot, "javascript", "common");
-
-  const sdkDocsOutputPath = path.join(
-    projectRoot,
-    "website",
-    "static",
-    "api",
-    "js",
-    "common"
-  );
-  const sdkDocsRelativeOutputPath = path.relative(sdkPath, sdkDocsOutputPath);
-
-  shell.cd(sdkPath);
-
-  generateTypedoc("./src/index.ts", sdkDocsRelativeOutputPath);
+  generateTypedoc(entry, sdkDocsRelativeOutputPath);
 
   shell.cd(currentWorkingDir);
 }

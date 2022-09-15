@@ -13,6 +13,7 @@
   "scripts": {
     "docusaurus": "docusaurus",
     "start": "docusaurus start",
+    "prebuild": "yarn docgen",
     "build": "docusaurus build --out-dir public",
     "swizzle": "docusaurus swizzle",
     "deploy": "docusaurus build --out-dir public && docusaurus deploy --out-dir public",

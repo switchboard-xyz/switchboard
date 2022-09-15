@@ -18,7 +18,7 @@ module.exports = {
         {
           type: "link",
           label: "@switchboard-xyz/common",
-          href: "https://docs.switchboard.xyz/api/js/common/",
+          href: "https://docs.switchboard.xyz/api/@switchboard-xyz/common",
           className: "typescript-item",
         },
         {
@@ -37,7 +37,7 @@ module.exports = {
           // value: `<a href="https://docs.switchboard.xyz/api/aptos.js/">@switchboard-xyz/aptos.js</a>`,
           type: "link",
           label: "@switchboard-xyz/aptos.js",
-          href: "https://docs.switchboard.xyz/api/js/aptos.js/",
+          href: "https://docs.switchboard.xyz/api/@switchboard-xyz/aptos.js",
           // className: "header-typescript-link",
         },
       ],
@@ -50,7 +50,7 @@ module.exports = {
         {
           type: "link",
           label: "@switchboard-xyz/near.js",
-          href: "https://docs.switchboard.xyz/api/js/near.js/",
+          href: "https://docs.switchboard.xyz/api/@switchboard-xyz/near.js",
         },
       ],
     },
@@ -63,22 +63,22 @@ module.exports = {
         {
           type: "link",
           label: "@switchboard-xyz/solana.js",
-          href: "https://docs.switchboard.xyz/api/js/solana.js/",
+          href: "https://docs.switchboard.xyz/api/@switchboard-xyz/solana.js",
         },
         {
           type: "link",
           label: "@switchboard-xyz/sbv2-lite",
-          href: "https://docs.switchboard.xyz/api/js/ts-lite/",
+          href: "https://docs.switchboard.xyz/api/@switchboard-xyz/sbv2-lite",
         },
         {
           type: "link",
           label: "@switchboard-xyz/sbv2-utils",
-          href: "https://docs.switchboard.xyz/api/js/sbv2-utils/",
+          href: "https://docs.switchboard.xyz/api/@switchboard-xyz/sbv2-utils",
         },
         {
           type: "link",
           label: "switchboardpy",
-          href: "https://docs.switchboard.xyz/api/py/switchboardpy",
+          href: "https://docs.switchboard.xyz/api/@switchboard-xyz/switchboardpy",
         },
         {
           type: "link",

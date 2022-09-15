@@ -14,7 +14,7 @@ const config = {
       : "http://localhost",
   // TODO: Revert back to '/' after migrating to permanent domain
   baseUrl: "/sbv2-core/",
-  onBrokenLinks: "throw",
+  onBrokenLinks: "warn", // throw
   onBrokenMarkdownLinks: "warn",
   favicon: "img/favicon.ico",
   organizationName: "switchboard-xyz", // Usually your GitHub org/user name.
@@ -74,6 +74,16 @@ const config = {
         id: "learn",
         path: "learn",
         routeBasePath: "learn",
+        sidebarPath: require.resolve("./sidebar.learn.js"),
+      },
+    ],
+    // Alot of bloat, need to find better way
+    [
+      "@docusaurus/plugin-content-docs",
+      {
+        id: "idl",
+        path: "idl",
+        routeBasePath: "idl",
         sidebarPath: require.resolve("./sidebar.learn.js"),
       },
     ],
