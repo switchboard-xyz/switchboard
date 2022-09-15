@@ -3,7 +3,7 @@ name: Test deployment
 on:
   pull_request:
     branches: [main]
-    paths: [docs/**]
+    paths: [website/**]
 
 jobs:
   test-deploy:
@@ -15,7 +15,7 @@ jobs:
         with:
           node-version: 16.x
           cache: yarn
-          cache-dependency-path: "./docs/yarn.lock"
+          cache-dependency-path: "./website/yarn.lock"
       # - name: Setup npmrc
       #   run:
       #     echo "//registry.npmjs.org/:_authToken=${{secrets.NPM_AUTH_TOKEN}}" >
@@ -23,7 +23,8 @@ jobs:
       # - name: Setup yarnrc
       #   run: echo "registry \"https://registry.npmjs.org\"" > .yarnrc
       - name: Test build
-        working-directory: docs
+        working-directory: website
         run: |
           yarn install
           yarn build
+          yarn docgen
