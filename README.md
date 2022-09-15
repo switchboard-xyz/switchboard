@@ -2,7 +2,7 @@
 
 Umbrella repo for the multi-chain implementations of Switchboard V2.
 
-Documentation: https://switchboard-xyz.github.io/sbv2-core/
+Documentation (WIP): https://switchboard-xyz.github.io/sbv2-core/
 
 ## Setup
 

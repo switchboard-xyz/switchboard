@@ -1,0 +1,1378 @@
+
+interact with switchboard on Near
+
+* [`sbv2 near aggregator add job [AGGREGATORADDRESS]`](#sbv2-near-aggregator-add-job-aggregatoraddress)
+* [`sbv2 near aggregator create QUEUEADDRESS`](#sbv2-near-aggregator-create-queueaddress)
+* [`sbv2 near aggregator create copy QUEUEADDRESS`](#sbv2-near-aggregator-create-copy-queueaddress)
+* [`sbv2 near aggregator job add [AGGREGATORADDRESS]`](#sbv2-near-aggregator-job-add-aggregatoraddress)
+* [`sbv2 near aggregator permission create [AGGREGATORADDRESS]`](#sbv2-near-aggregator-permission-create-aggregatoraddress)
+* [`sbv2 near aggregator remove job [AGGREGATORADDRESS]`](#sbv2-near-aggregator-remove-job-aggregatoraddress)
+* [`sbv2 near aggregator se QUEUEADDRESS`](#sbv2-near-aggregator-se-queueaddress)
+* [`sbv2 near aggregator set AGGREGATORADDRESS`](#sbv2-near-aggregator-set-aggregatoraddress)
+* [`sbv2 near aggregator up AGGREGATORDEFINITIONPATH`](#sbv2-near-aggregator-up-aggregatordefinitionpath)
+* [`sbv2 near aggregator update [AGGREGATORADDRESS]`](#sbv2-near-aggregator-update-aggregatoraddress)
+* [`sbv2 near crank create [QUEUEADDRESS]`](#sbv2-near-crank-create-queueaddress)
+* [`sbv2 near crank pop [CRANKADDRESS]`](#sbv2-near-crank-pop-crankaddress)
+* [`sbv2 near crank push [CRANKADDRESS]`](#sbv2-near-crank-push-crankaddress)
+* [`sbv2 near create aggregator QUEUEADDRESS`](#sbv2-near-create-aggregator-queueaddress)
+* [`sbv2 near create aggregator permission [AGGREGATORADDRESS]`](#sbv2-near-create-aggregator-permission-aggregatoraddress)
+* [`sbv2 near create crank [QUEUEADDRESS]`](#sbv2-near-create-crank-queueaddress)
+* [`sbv2 near create escrow`](#sbv2-near-create-escrow)
+* [`sbv2 near create job JOBDEFINITION`](#sbv2-near-create-job-jobdefinition)
+* [`sbv2 near create oracle [QUEUEADDRESS]`](#sbv2-near-create-oracle-queueaddress)
+* [`sbv2 near create oracle permission [ORACLEADDRESS]`](#sbv2-near-create-oracle-permission-oracleaddress)
+* [`sbv2 near create queue`](#sbv2-near-create-queue)
+* [`sbv2 near escrow create`](#sbv2-near-escrow-create)
+* [`sbv2 near job create JOBDEFINITION`](#sbv2-near-job-create-jobdefinition)
+* [`sbv2 near list queue QUEUEADDRESS`](#sbv2-near-list-queue-queueaddress)
+* [`sbv2 near oracle create [QUEUEADDRESS]`](#sbv2-near-oracle-create-queueaddress)
+* [`sbv2 near oracle permission create [ORACLEADDRESS]`](#sbv2-near-oracle-permission-create-oracleaddress)
+* [`sbv2 near permission create`](#sbv2-near-permission-create)
+* [`sbv2 near pop crank [CRANKADDRESS]`](#sbv2-near-pop-crank-crankaddress)
+* [`sbv2 near print ACCOUNTTYPE ADDRESS`](#sbv2-near-print-accounttype-address)
+* [`sbv2 near push crank [CRANKADDRESS]`](#sbv2-near-push-crank-crankaddress)
+* [`sbv2 near queue create`](#sbv2-near-queue-create)
+* [`sbv2 near queue list QUEUEADDRESS`](#sbv2-near-queue-list-queueaddress)
+* [`sbv2 near set aggregator AGGREGATORADDRESS`](#sbv2-near-set-aggregator-aggregatoraddress)
+* [`sbv2 near update aggregator [AGGREGATORADDRESS]`](#sbv2-near-update-aggregator-aggregatoraddress)
+
+## `sbv2 near aggregator add job [AGGREGATORADDRESS]`
+
+add a job to an aggregator
+
+```
+USAGE
+  $ sbv2 near aggregator add job [AGGREGATORADDRESS] --accountName <value> [-h] [-v] [-s] [--networkId
+    testnet|mainnet|betanet|localnet] [--programId <value>] [-u <value>] [--nearCredentialsDir <value>] [--json] [-a
+    <value>] [--name <value> | --jobKey <value>] [--metadata <value> | ] [--jobDefinition <value> | ] [--jobWeight
+    <value>]
+
+ARGUMENTS
+  AGGREGATORADDRESS  address of the aggregator in Uint8 or Base58 encoding
+
+FLAGS
+  -a, --authority=<value>       alternate keypair that is the authority for the aggregator
+  -h, --help                    Show CLI help.
+  -s, --silent                  suppress cli prompts
+  -u, --rpcUrl=<value>          alternate RPC url
+  -v, --verbose                 log everything
+  --accountName=<value>         (required) Named account to load from your nearCredentialsDir
+  --jobDefinition=<value>       filesystem path of job json definition file
+  --jobKey=<value>              public key of an existing job account to add to an aggregator
+  --jobWeight=<value>           [default: 1] job weight
+  --metadata=<value>            metadata of the job account
+  --name=<value>                name of the job account
+  --nearCredentialsDir=<value>  [default: /Users/gally/.near-credentials] Alternative directory for near credentials.
+                                Defaults to ~/.near-credentials
+  --networkId=<option>          [default: testnet] Near network ID to connect to
+                                <options: testnet|mainnet|betanet|localnet>
+  --programId=<value>           [default: switchboard-v2.testnet] Switchboard programId on the selected Near networkId
+
+GLOBAL FLAGS
+  --json  Format output as json.
+
+DESCRIPTION
+  add a job to an aggregator
+
+ALIASES
+  $ sbv2 near aggregator job add
+```
+
+## `sbv2 near aggregator create QUEUEADDRESS`
+
+create a near aggregator for a given queue
+
+```
+USAGE
+  $ sbv2 near aggregator create [QUEUEADDRESS] --accountName <value> --updateInterval <value> [-h] [-v] [-s] [--networkId
+    testnet|mainnet|betanet|localnet] [--programId <value>] [-u <value>] [--nearCredentialsDir <value>] [--json] [-a
+    <value>] [--crankAddress <value>] [--name <value>] [--metadata <value>] [--forceReportPeriod <value>] [--batchSize
+    <value>] [--minJobs <value>] [--minOracles <value>] [--varianceThreshold <value>] [-j <value>] [--rewardEscrow
+    <value>] [--historyLimit <value>] [--enable]
+
+ARGUMENTS
+  QUEUEADDRESS  address of the queue in Uint8 or Base58 encoding
+
+FLAGS
+  -a, --authority=<value>       alternate named account that will be the authority for the oracle
+  -h, --help                    Show CLI help.
+  -j, --job=<value>...          filesystem path to job definition file
+  -s, --silent                  suppress cli prompts
+  -u, --rpcUrl=<value>          alternate RPC url
+  -v, --verbose                 log everything
+  --accountName=<value>         (required) Named account to load from your nearCredentialsDir
+  --batchSize=<value>           number of oracles requested for each open round call
+  --crankAddress=<value>        optional, address of the crank to add the aggregator to
+  --enable                      if required and queue authority is provided, enable permissions
+  --forceReportPeriod=<value>   Number of seconds for which, even if the variance threshold is not passed, accept new
+                                responses from oracles.
+  --historyLimit=<value>        [default: 1000] number of samples to store in aggregator's history
+  --metadata=<value>            metadata of the crank for easier identification
+  --minJobs=<value>             number of jobs that must respond before an oracle responds
+  --minOracles=<value>          number of oracles that must respond before a value is accepted on-chain
+  --name=<value>                name of the crank for easier identification
+  --nearCredentialsDir=<value>  [default: /Users/gally/.near-credentials] Alternative directory for near credentials.
+                                Defaults to ~/.near-credentials
+  --networkId=<option>          [default: testnet] Near network ID to connect to
+                                <options: testnet|mainnet|betanet|localnet>
+  --programId=<value>           [default: switchboard-v2.testnet] Switchboard programId on the selected Near networkId
+  --rewardEscrow=<value>        where to send rewards. defaults to user's escrow account
+  --updateInterval=<value>      (required) set an aggregator's minimum update delay
+  --varianceThreshold=<value>   [default: 0] percentage change between a previous accepted result and the next round
+                                before an oracle reports a value on-chain. Used to conserve lease cost during low
+                                volatility
+
+GLOBAL FLAGS
+  --json  Format output as json.
+
+DESCRIPTION
+  create a near aggregator for a given queue
+
+ALIASES
+  $ sbv2 near create aggregator
+```
+
+## `sbv2 near aggregator create copy QUEUEADDRESS`
+
+create a near aggregator for a given queue
+
+```
+USAGE
+  $ sbv2 near aggregator create copy [QUEUEADDRESS] --accountName <value> --updateInterval <value> [-h] [-v] [-s] [--networkId
+    testnet|mainnet|betanet|localnet] [--programId <value>] [-u <value>] [--nearCredentialsDir <value>] [--json] [-a
+    <value>] [--crankAddress <value>] [--name <value>] [--metadata <value>] [--forceReportPeriod <value>] [--batchSize
+    <value>] [--minJobs <value>] [--minOracles <value>] [--varianceThreshold <value>] [-j <value>] [--rewardEscrow
+    <value>] [--historyLimit <value>] [--enable]
+
+ARGUMENTS
+  QUEUEADDRESS  address of the queue in Uint8 or Base58 encoding
+
+FLAGS
+  -a, --authority=<value>       alternate named account that will be the authority for the oracle
+  -h, --help                    Show CLI help.
+  -j, --job=<value>...          filesystem path to job definition file
+  -s, --silent                  suppress cli prompts
+  -u, --rpcUrl=<value>          alternate RPC url
+  -v, --verbose                 log everything
+  --accountName=<value>         (required) Named account to load from your nearCredentialsDir
+  --batchSize=<value>           number of oracles requested for each open round call
+  --crankAddress=<value>        optional, address of the crank to add the aggregator to
+  --enable                      if required and queue authority is provided, enable permissions
+  --forceReportPeriod=<value>   Number of seconds for which, even if the variance threshold is not passed, accept new
+                                responses from oracles.
+  --historyLimit=<value>        [default: 1000] number of samples to store in aggregator's history
+  --metadata=<value>            metadata of the crank for easier identification
+  --minJobs=<value>             number of jobs that must respond before an oracle responds
+  --minOracles=<value>          number of oracles that must respond before a value is accepted on-chain
+  --name=<value>                name of the crank for easier identification
+  --nearCredentialsDir=<value>  [default: /Users/gally/.near-credentials] Alternative directory for near credentials.
+                                Defaults to ~/.near-credentials
+  --networkId=<option>          [default: testnet] Near network ID to connect to
+                                <options: testnet|mainnet|betanet|localnet>
+  --programId=<value>           [default: switchboard-v2.testnet] Switchboard programId on the selected Near networkId
+  --rewardEscrow=<value>        where to send rewards. defaults to user's escrow account
+  --updateInterval=<value>      (required) set an aggregator's minimum update delay
+  --varianceThreshold=<value>   [default: 0] percentage change between a previous accepted result and the next round
+                                before an oracle reports a value on-chain. Used to conserve lease cost during low
+                                volatility
+
+GLOBAL FLAGS
+  --json  Format output as json.
+
+DESCRIPTION
+  create a near aggregator for a given queue
+
+ALIASES
+  $ sbv2 near create aggregator
+```
+
+## `sbv2 near aggregator job add [AGGREGATORADDRESS]`
+
+add a job to an aggregator
+
+```
+USAGE
+  $ sbv2 near aggregator job add [AGGREGATORADDRESS] --accountName <value> [-h] [-v] [-s] [--networkId
+    testnet|mainnet|betanet|localnet] [--programId <value>] [-u <value>] [--nearCredentialsDir <value>] [--json] [-a
+    <value>] [--name <value> | --jobKey <value>] [--metadata <value> | ] [--jobDefinition <value> | ] [--jobWeight
+    <value>]
+
+ARGUMENTS
+  AGGREGATORADDRESS  address of the aggregator in Uint8 or Base58 encoding
+
+FLAGS
+  -a, --authority=<value>       alternate keypair that is the authority for the aggregator
+  -h, --help                    Show CLI help.
+  -s, --silent                  suppress cli prompts
+  -u, --rpcUrl=<value>          alternate RPC url
+  -v, --verbose                 log everything
+  --accountName=<value>         (required) Named account to load from your nearCredentialsDir
+  --jobDefinition=<value>       filesystem path of job json definition file
+  --jobKey=<value>              public key of an existing job account to add to an aggregator
+  --jobWeight=<value>           [default: 1] job weight
+  --metadata=<value>            metadata of the job account
+  --name=<value>                name of the job account
+  --nearCredentialsDir=<value>  [default: /Users/gally/.near-credentials] Alternative directory for near credentials.
+                                Defaults to ~/.near-credentials
+  --networkId=<option>          [default: testnet] Near network ID to connect to
+                                <options: testnet|mainnet|betanet|localnet>
+  --programId=<value>           [default: switchboard-v2.testnet] Switchboard programId on the selected Near networkId
+
+GLOBAL FLAGS
+  --json  Format output as json.
+
+DESCRIPTION
+  add a job to an aggregator
+
+ALIASES
+  $ sbv2 near aggregator job add
+```
+
+## `sbv2 near aggregator permission create [AGGREGATORADDRESS]`
+
+create a permission account for a near aggregator
+
+```
+USAGE
+  $ sbv2 near aggregator permission create [AGGREGATORADDRESS] --accountName <value> [-h] [-v] [-s] [--networkId
+    testnet|mainnet|betanet|localnet] [--programId <value>] [-u <value>] [--nearCredentialsDir <value>] [--json]
+
+ARGUMENTS
+  AGGREGATORADDRESS  address of the aggregator in Uint8 or Base58 encoding
+
+FLAGS
+  -h, --help                    Show CLI help.
+  -s, --silent                  suppress cli prompts
+  -u, --rpcUrl=<value>          alternate RPC url
+  -v, --verbose                 log everything
+  --accountName=<value>         (required) Named account to load from your nearCredentialsDir
+  --nearCredentialsDir=<value>  [default: /Users/gally/.near-credentials] Alternative directory for near credentials.
+                                Defaults to ~/.near-credentials
+  --networkId=<option>          [default: testnet] Near network ID to connect to
+                                <options: testnet|mainnet|betanet|localnet>
+  --programId=<value>           [default: switchboard-v2.testnet] Switchboard programId on the selected Near networkId
+
+GLOBAL FLAGS
+  --json  Format output as json.
+
+DESCRIPTION
+  create a permission account for a near aggregator
+
+ALIASES
+  $ sbv2 near create aggregator permission
+```
+
+## `sbv2 near aggregator remove job [AGGREGATORADDRESS]`
+
+remove a job to an aggregator
+
+```
+USAGE
+  $ sbv2 near aggregator remove job [AGGREGATORADDRESS] --accountName <value> [-h] [-v] [-s] [--networkId
+    testnet|mainnet|betanet|localnet] [--programId <value>] [-u <value>] [--nearCredentialsDir <value>] [--json] [-a
+    <value>] [-j <value>]
+
+ARGUMENTS
+  AGGREGATORADDRESS  address of the aggregator in Uint8 or Base58 encoding
+
+FLAGS
+  -a, --authority=<value>       alternate keypair that is the authority for the aggregator
+  -h, --help                    Show CLI help.
+  -j, --jobAddress=<value>...   public key of an existing job account to remove from an aggregator
+  -s, --silent                  suppress cli prompts
+  -u, --rpcUrl=<value>          alternate RPC url
+  -v, --verbose                 log everything
+  --accountName=<value>         (required) Named account to load from your nearCredentialsDir
+  --nearCredentialsDir=<value>  [default: /Users/gally/.near-credentials] Alternative directory for near credentials.
+                                Defaults to ~/.near-credentials
+  --networkId=<option>          [default: testnet] Near network ID to connect to
+                                <options: testnet|mainnet|betanet|localnet>
+  --programId=<value>           [default: switchboard-v2.testnet] Switchboard programId on the selected Near networkId
+
+GLOBAL FLAGS
+  --json  Format output as json.
+
+DESCRIPTION
+  remove a job to an aggregator
+
+ALIASES
+  $ sbv2 near aggregator job add
+```
+
+## `sbv2 near aggregator se QUEUEADDRESS`
+
+create a near aggregator for a given queue
+
+```
+USAGE
+  $ sbv2 near aggregator se [QUEUEADDRESS] --accountName <value> --updateInterval <value> [-h] [-v] [-s] [--networkId
+    testnet|mainnet|betanet|localnet] [--programId <value>] [-u <value>] [--nearCredentialsDir <value>] [--json] [-a
+    <value>] [--crankAddress <value>] [--name <value>] [--metadata <value>] [--forceReportPeriod <value>] [--batchSize
+    <value>] [--minJobs <value>] [--minOracles <value>] [--varianceThreshold <value>] [-j <value>] [--rewardEscrow
+    <value>] [--historyLimit <value>] [--enable]
+
+ARGUMENTS
+  QUEUEADDRESS  address of the queue in Uint8 or Base58 encoding
+
+FLAGS
+  -a, --authority=<value>       alternate named account that will be the authority for the oracle
+  -h, --help                    Show CLI help.
+  -j, --job=<value>...          filesystem path to job definition file
+  -s, --silent                  suppress cli prompts
+  -u, --rpcUrl=<value>          alternate RPC url
+  -v, --verbose                 log everything
+  --accountName=<value>         (required) Named account to load from your nearCredentialsDir
+  --batchSize=<value>           number of oracles requested for each open round call
+  --crankAddress=<value>        optional, address of the crank to add the aggregator to
+  --enable                      if required and queue authority is provided, enable permissions
+  --forceReportPeriod=<value>   Number of seconds for which, even if the variance threshold is not passed, accept new
+                                responses from oracles.
+  --historyLimit=<value>        [default: 1000] number of samples to store in aggregator's history
+  --metadata=<value>            metadata of the crank for easier identification
+  --minJobs=<value>             number of jobs that must respond before an oracle responds
+  --minOracles=<value>          number of oracles that must respond before a value is accepted on-chain
+  --name=<value>                name of the crank for easier identification
+  --nearCredentialsDir=<value>  [default: /Users/gally/.near-credentials] Alternative directory for near credentials.
+                                Defaults to ~/.near-credentials
+  --networkId=<option>          [default: testnet] Near network ID to connect to
+                                <options: testnet|mainnet|betanet|localnet>
+  --programId=<value>           [default: switchboard-v2.testnet] Switchboard programId on the selected Near networkId
+  --rewardEscrow=<value>        where to send rewards. defaults to user's escrow account
+  --updateInterval=<value>      (required) set an aggregator's minimum update delay
+  --varianceThreshold=<value>   [default: 0] percentage change between a previous accepted result and the next round
+                                before an oracle reports a value on-chain. Used to conserve lease cost during low
+                                volatility
+
+GLOBAL FLAGS
+  --json  Format output as json.
+
+DESCRIPTION
+  create a near aggregator for a given queue
+
+ALIASES
+  $ sbv2 near create aggregator
+```
+
+## `sbv2 near aggregator set AGGREGATORADDRESS`
+
+set a near aggregator's config
+
+```
+USAGE
+  $ sbv2 near aggregator set [AGGREGATORADDRESS] --accountName <value> --updateInterval <value> [-h] [-v] [-s]
+    [--networkId testnet|mainnet|betanet|localnet] [--programId <value>] [-u <value>] [--nearCredentialsDir <value>]
+    [--json] [-a <value>] [--crankAddress <value>] [--name <value>] [--metadata <value>] [--forceReportPeriod <value>]
+    [--batchSize <value>] [--minJobs <value>] [--minOracles <value>] [--varianceThreshold <value>] [-j <value>]
+    [--rewardEscrow <value>] [--historyLimit <value>] [--enable]
+
+ARGUMENTS
+  AGGREGATORADDRESS  address of the aggregator in Uint8 or Base58 encoding
+
+FLAGS
+  -a, --authority=<value>       alternate named account that will be the authority for the oracle
+  -h, --help                    Show CLI help.
+  -j, --job=<value>...          filesystem path to job definition file
+  -s, --silent                  suppress cli prompts
+  -u, --rpcUrl=<value>          alternate RPC url
+  -v, --verbose                 log everything
+  --accountName=<value>         (required) Named account to load from your nearCredentialsDir
+  --batchSize=<value>           number of oracles requested for each open round call
+  --crankAddress=<value>        optional, address of the crank to add the aggregator to
+  --enable                      if required and queue authority is provided, enable permissions
+  --forceReportPeriod=<value>   Number of seconds for which, even if the variance threshold is not passed, accept new
+                                responses from oracles.
+  --historyLimit=<value>        [default: 1000] number of samples to store in aggregator's history
+  --metadata=<value>            metadata of the crank for easier identification
+  --minJobs=<value>             number of jobs that must respond before an oracle responds
+  --minOracles=<value>          number of oracles that must respond before a value is accepted on-chain
+  --name=<value>                name of the crank for easier identification
+  --nearCredentialsDir=<value>  [default: /Users/gally/.near-credentials] Alternative directory for near credentials.
+                                Defaults to ~/.near-credentials
+  --networkId=<option>          [default: testnet] Near network ID to connect to
+                                <options: testnet|mainnet|betanet|localnet>
+  --programId=<value>           [default: switchboard-v2.testnet] Switchboard programId on the selected Near networkId
+  --rewardEscrow=<value>        where to send rewards. defaults to user's escrow account
+  --updateInterval=<value>      (required) set an aggregator's minimum update delay
+  --varianceThreshold=<value>   [default: 0] percentage change between a previous accepted result and the next round
+                                before an oracle reports a value on-chain. Used to conserve lease cost during low
+                                volatility
+
+GLOBAL FLAGS
+  --json  Format output as json.
+
+DESCRIPTION
+  set a near aggregator's config
+
+ALIASES
+  $ sbv2 near set aggregator
+```
+
+## `sbv2 near aggregator up AGGREGATORDEFINITIONPATH`
+
+anneal an aggregator and sync settings and target lease amount
+
+```
+USAGE
+  $ sbv2 near aggregator up [AGGREGATORDEFINITIONPATH] --accountName <value> [-h] [-v] [-s] [--networkId
+    testnet|mainnet|betanet|localnet] [--programId <value>] [-u <value>] [--nearCredentialsDir <value>] [--json] [-a
+    <value>]
+
+ARGUMENTS
+  AGGREGATORDEFINITIONPATH  file path to aggregator containing the desired settings
+
+FLAGS
+  -a, --authority=<value>       alternate named account that is the authority for the oracle
+  -h, --help                    Show CLI help.
+  -s, --silent                  suppress cli prompts
+  -u, --rpcUrl=<value>          alternate RPC url
+  -v, --verbose                 log everything
+  --accountName=<value>         (required) Named account to load from your nearCredentialsDir
+  --nearCredentialsDir=<value>  [default: /Users/gally/.near-credentials] Alternative directory for near credentials.
+                                Defaults to ~/.near-credentials
+  --networkId=<option>          [default: testnet] Near network ID to connect to
+                                <options: testnet|mainnet|betanet|localnet>
+  --programId=<value>           [default: switchboard-v2.testnet] Switchboard programId on the selected Near networkId
+
+GLOBAL FLAGS
+  --json  Format output as json.
+
+DESCRIPTION
+  anneal an aggregator and sync settings and target lease amount
+```
+
+## `sbv2 near aggregator update [AGGREGATORADDRESS]`
+
+request a new value on-chain for an aggregator
+
+```
+USAGE
+  $ sbv2 near aggregator update [AGGREGATORADDRESS] --accountName <value> [-h] [-v] [-s] [--networkId
+    testnet|mainnet|betanet|localnet] [--programId <value>] [-u <value>] [--nearCredentialsDir <value>] [--json]
+
+ARGUMENTS
+  AGGREGATORADDRESS  address of the aggregator in Uint8 or Base58 encoding
+
+FLAGS
+  -h, --help                    Show CLI help.
+  -s, --silent                  suppress cli prompts
+  -u, --rpcUrl=<value>          alternate RPC url
+  -v, --verbose                 log everything
+  --accountName=<value>         (required) Named account to load from your nearCredentialsDir
+  --nearCredentialsDir=<value>  [default: /Users/gally/.near-credentials] Alternative directory for near credentials.
+                                Defaults to ~/.near-credentials
+  --networkId=<option>          [default: testnet] Near network ID to connect to
+                                <options: testnet|mainnet|betanet|localnet>
+  --programId=<value>           [default: switchboard-v2.testnet] Switchboard programId on the selected Near networkId
+
+GLOBAL FLAGS
+  --json  Format output as json.
+
+DESCRIPTION
+  request a new value on-chain for an aggregator
+
+ALIASES
+  $ sbv2 near update aggregator
+```
+
+## `sbv2 near crank create [QUEUEADDRESS]`
+
+create a new crank
+
+```
+USAGE
+  $ sbv2 near crank create [QUEUEADDRESS] --accountName <value> [-h] [-v] [-s] [--networkId
+    testnet|mainnet|betanet|localnet] [--programId <value>] [-u <value>] [--nearCredentialsDir <value>] [--json] [--name
+    <value>] [--metadata <value>] [--maxRows <value>]
+
+ARGUMENTS
+  QUEUEADDRESS  address of the queue in Uint8 or Base58 encoding
+
+FLAGS
+  -h, --help                    Show CLI help.
+  -s, --silent                  suppress cli prompts
+  -u, --rpcUrl=<value>          alternate RPC url
+  -v, --verbose                 log everything
+  --accountName=<value>         (required) Named account to load from your nearCredentialsDir
+  --maxRows=<value>             [default: 100] maximum number of rows on the crank
+  --metadata=<value>            metadata of the crank for easier identification
+  --name=<value>                name of the crank for easier identification
+  --nearCredentialsDir=<value>  [default: /Users/gally/.near-credentials] Alternative directory for near credentials.
+                                Defaults to ~/.near-credentials
+  --networkId=<option>          [default: testnet] Near network ID to connect to
+                                <options: testnet|mainnet|betanet|localnet>
+  --programId=<value>           [default: switchboard-v2.testnet] Switchboard programId on the selected Near networkId
+
+GLOBAL FLAGS
+  --json  Format output as json.
+
+DESCRIPTION
+  create a new crank
+
+ALIASES
+  $ sbv2 near create crank
+```
+
+## `sbv2 near crank pop [CRANKADDRESS]`
+
+pop the crank
+
+```
+USAGE
+  $ sbv2 near crank pop [CRANKADDRESS] --accountName <value> [-h] [-v] [-s] [--networkId
+    testnet|mainnet|betanet|localnet] [--programId <value>] [-u <value>] [--nearCredentialsDir <value>] [--json]
+
+ARGUMENTS
+  CRANKADDRESS  address of the crank in Uint8 or Base58 encoding
+
+FLAGS
+  -h, --help                    Show CLI help.
+  -s, --silent                  suppress cli prompts
+  -u, --rpcUrl=<value>          alternate RPC url
+  -v, --verbose                 log everything
+  --accountName=<value>         (required) Named account to load from your nearCredentialsDir
+  --nearCredentialsDir=<value>  [default: /Users/gally/.near-credentials] Alternative directory for near credentials.
+                                Defaults to ~/.near-credentials
+  --networkId=<option>          [default: testnet] Near network ID to connect to
+                                <options: testnet|mainnet|betanet|localnet>
+  --programId=<value>           [default: switchboard-v2.testnet] Switchboard programId on the selected Near networkId
+
+GLOBAL FLAGS
+  --json  Format output as json.
+
+DESCRIPTION
+  pop the crank
+
+ALIASES
+  $ sbv2 near pop crank
+```
+
+## `sbv2 near crank push [CRANKADDRESS]`
+
+push an aggregator onto the crank
+
+```
+USAGE
+  $ sbv2 near crank push [CRANKADDRESS] --accountName <value> -a <value> [-h] [-v] [-s] [--networkId
+    testnet|mainnet|betanet|localnet] [--programId <value>] [-u <value>] [--nearCredentialsDir <value>] [--json]
+
+ARGUMENTS
+  CRANKADDRESS  address of the crank in Uint8 or Base58 encoding
+
+FLAGS
+  -a, --aggregatorAddress=<value>  (required) address of the aggregator in Uint8 or Base58 encoding
+  -h, --help                       Show CLI help.
+  -s, --silent                     suppress cli prompts
+  -u, --rpcUrl=<value>             alternate RPC url
+  -v, --verbose                    log everything
+  --accountName=<value>            (required) Named account to load from your nearCredentialsDir
+  --nearCredentialsDir=<value>     [default: /Users/gally/.near-credentials] Alternative directory for near credentials.
+                                   Defaults to ~/.near-credentials
+  --networkId=<option>             [default: testnet] Near network ID to connect to
+                                   <options: testnet|mainnet|betanet|localnet>
+  --programId=<value>              [default: switchboard-v2.testnet] Switchboard programId on the selected Near
+                                   networkId
+
+GLOBAL FLAGS
+  --json  Format output as json.
+
+DESCRIPTION
+  push an aggregator onto the crank
+
+ALIASES
+  $ sbv2 near push crank
+```
+
+## `sbv2 near create aggregator QUEUEADDRESS`
+
+create a near aggregator for a given queue
+
+```
+USAGE
+  $ sbv2 near create aggregator [QUEUEADDRESS] --accountName <value> --updateInterval <value> [-h] [-v] [-s] [--networkId
+    testnet|mainnet|betanet|localnet] [--programId <value>] [-u <value>] [--nearCredentialsDir <value>] [--json] [-a
+    <value>] [--crankAddress <value>] [--name <value>] [--metadata <value>] [--forceReportPeriod <value>] [--batchSize
+    <value>] [--minJobs <value>] [--minOracles <value>] [--varianceThreshold <value>] [-j <value>] [--rewardEscrow
+    <value>] [--historyLimit <value>] [--enable]
+
+ARGUMENTS
+  QUEUEADDRESS  address of the queue in Uint8 or Base58 encoding
+
+FLAGS
+  -a, --authority=<value>       alternate named account that will be the authority for the oracle
+  -h, --help                    Show CLI help.
+  -j, --job=<value>...          filesystem path to job definition file
+  -s, --silent                  suppress cli prompts
+  -u, --rpcUrl=<value>          alternate RPC url
+  -v, --verbose                 log everything
+  --accountName=<value>         (required) Named account to load from your nearCredentialsDir
+  --batchSize=<value>           number of oracles requested for each open round call
+  --crankAddress=<value>        optional, address of the crank to add the aggregator to
+  --enable                      if required and queue authority is provided, enable permissions
+  --forceReportPeriod=<value>   Number of seconds for which, even if the variance threshold is not passed, accept new
+                                responses from oracles.
+  --historyLimit=<value>        [default: 1000] number of samples to store in aggregator's history
+  --metadata=<value>            metadata of the crank for easier identification
+  --minJobs=<value>             number of jobs that must respond before an oracle responds
+  --minOracles=<value>          number of oracles that must respond before a value is accepted on-chain
+  --name=<value>                name of the crank for easier identification
+  --nearCredentialsDir=<value>  [default: /Users/gally/.near-credentials] Alternative directory for near credentials.
+                                Defaults to ~/.near-credentials
+  --networkId=<option>          [default: testnet] Near network ID to connect to
+                                <options: testnet|mainnet|betanet|localnet>
+  --programId=<value>           [default: switchboard-v2.testnet] Switchboard programId on the selected Near networkId
+  --rewardEscrow=<value>        where to send rewards. defaults to user's escrow account
+  --updateInterval=<value>      (required) set an aggregator's minimum update delay
+  --varianceThreshold=<value>   [default: 0] percentage change between a previous accepted result and the next round
+                                before an oracle reports a value on-chain. Used to conserve lease cost during low
+                                volatility
+
+GLOBAL FLAGS
+  --json  Format output as json.
+
+DESCRIPTION
+  create a near aggregator for a given queue
+
+ALIASES
+  $ sbv2 near create aggregator
+```
+
+## `sbv2 near create aggregator permission [AGGREGATORADDRESS]`
+
+create a permission account for a near aggregator
+
+```
+USAGE
+  $ sbv2 near create aggregator permission [AGGREGATORADDRESS] --accountName <value> [-h] [-v] [-s] [--networkId
+    testnet|mainnet|betanet|localnet] [--programId <value>] [-u <value>] [--nearCredentialsDir <value>] [--json]
+
+ARGUMENTS
+  AGGREGATORADDRESS  address of the aggregator in Uint8 or Base58 encoding
+
+FLAGS
+  -h, --help                    Show CLI help.
+  -s, --silent                  suppress cli prompts
+  -u, --rpcUrl=<value>          alternate RPC url
+  -v, --verbose                 log everything
+  --accountName=<value>         (required) Named account to load from your nearCredentialsDir
+  --nearCredentialsDir=<value>  [default: /Users/gally/.near-credentials] Alternative directory for near credentials.
+                                Defaults to ~/.near-credentials
+  --networkId=<option>          [default: testnet] Near network ID to connect to
+                                <options: testnet|mainnet|betanet|localnet>
+  --programId=<value>           [default: switchboard-v2.testnet] Switchboard programId on the selected Near networkId
+
+GLOBAL FLAGS
+  --json  Format output as json.
+
+DESCRIPTION
+  create a permission account for a near aggregator
+
+ALIASES
+  $ sbv2 near create aggregator permission
+```
+
+## `sbv2 near create crank [QUEUEADDRESS]`
+
+create a new crank
+
+```
+USAGE
+  $ sbv2 near create crank [QUEUEADDRESS] --accountName <value> [-h] [-v] [-s] [--networkId
+    testnet|mainnet|betanet|localnet] [--programId <value>] [-u <value>] [--nearCredentialsDir <value>] [--json] [--name
+    <value>] [--metadata <value>] [--maxRows <value>]
+
+ARGUMENTS
+  QUEUEADDRESS  address of the queue in Uint8 or Base58 encoding
+
+FLAGS
+  -h, --help                    Show CLI help.
+  -s, --silent                  suppress cli prompts
+  -u, --rpcUrl=<value>          alternate RPC url
+  -v, --verbose                 log everything
+  --accountName=<value>         (required) Named account to load from your nearCredentialsDir
+  --maxRows=<value>             [default: 100] maximum number of rows on the crank
+  --metadata=<value>            metadata of the crank for easier identification
+  --name=<value>                name of the crank for easier identification
+  --nearCredentialsDir=<value>  [default: /Users/gally/.near-credentials] Alternative directory for near credentials.
+                                Defaults to ~/.near-credentials
+  --networkId=<option>          [default: testnet] Near network ID to connect to
+                                <options: testnet|mainnet|betanet|localnet>
+  --programId=<value>           [default: switchboard-v2.testnet] Switchboard programId on the selected Near networkId
+
+GLOBAL FLAGS
+  --json  Format output as json.
+
+DESCRIPTION
+  create a new crank
+
+ALIASES
+  $ sbv2 near create crank
+```
+
+## `sbv2 near create escrow`
+
+create an escrow token account
+
+```
+USAGE
+  $ sbv2 near create escrow --accountName <value> [-h] [-v] [-s] [--networkId testnet|mainnet|betanet|localnet]
+    [--programId <value>] [-u <value>] [--nearCredentialsDir <value>] [--json] [-a <value>] [--mint <value>]
+
+FLAGS
+  -a, --authority=<value>       alternate named account that will be the authority for the oracle
+  -h, --help                    Show CLI help.
+  -s, --silent                  suppress cli prompts
+  -u, --rpcUrl=<value>          alternate RPC url
+  -v, --verbose                 log everything
+  --accountName=<value>         (required) Named account to load from your nearCredentialsDir
+  --mint=<value>                [default: wrap.test] token mint to create escrow account for
+  --nearCredentialsDir=<value>  [default: /Users/gally/.near-credentials] Alternative directory for near credentials.
+                                Defaults to ~/.near-credentials
+  --networkId=<option>          [default: testnet] Near network ID to connect to
+                                <options: testnet|mainnet|betanet|localnet>
+  --programId=<value>           [default: switchboard-v2.testnet] Switchboard programId on the selected Near networkId
+
+GLOBAL FLAGS
+  --json  Format output as json.
+
+DESCRIPTION
+  create an escrow token account
+
+ALIASES
+  $ sbv2 near create escrow
+```
+
+## `sbv2 near create job JOBDEFINITION`
+
+create a job on near
+
+```
+USAGE
+  $ sbv2 near create job [JOBDEFINITION] --accountName <value> [-h] [-v] [-s] [--networkId
+    testnet|mainnet|betanet|localnet] [--programId <value>] [-u <value>] [--nearCredentialsDir <value>] [--json] [-a
+    <value>] [--name <value>] [--metadata <value>]
+
+ARGUMENTS
+  JOBDEFINITION  filesystem path to job definition
+
+FLAGS
+  -a, --authority=<value>       alternate named account that will be the authority for the job account
+  -h, --help                    Show CLI help.
+  -s, --silent                  suppress cli prompts
+  -u, --rpcUrl=<value>          alternate RPC url
+  -v, --verbose                 log everything
+  --accountName=<value>         (required) Named account to load from your nearCredentialsDir
+  --metadata=<value>            metadata of the job for easier identification
+  --name=<value>                name of the job for easier identification
+  --nearCredentialsDir=<value>  [default: /Users/gally/.near-credentials] Alternative directory for near credentials.
+                                Defaults to ~/.near-credentials
+  --networkId=<option>          [default: testnet] Near network ID to connect to
+                                <options: testnet|mainnet|betanet|localnet>
+  --programId=<value>           [default: switchboard-v2.testnet] Switchboard programId on the selected Near networkId
+
+GLOBAL FLAGS
+  --json  Format output as json.
+
+DESCRIPTION
+  create a job on near
+
+ALIASES
+  $ sbv2 near create job
+```
+
+## `sbv2 near create oracle [QUEUEADDRESS]`
+
+create a near oracle for a given queue
+
+```
+USAGE
+  $ sbv2 near create oracle [QUEUEADDRESS] --accountName <value> [-h] [-v] [-s] [--networkId
+    testnet|mainnet|betanet|localnet] [--programId <value>] [-u <value>] [--nearCredentialsDir <value>] [--json] [-a
+    <value>] [--name <value>] [--metadata <value>]
+
+ARGUMENTS
+  QUEUEADDRESS  address of the queue in Uint8 or Base58 encoding
+
+FLAGS
+  -a, --authority=<value>       alternate named account that will be the authority for the oracle
+  -h, --help                    Show CLI help.
+  -s, --silent                  suppress cli prompts
+  -u, --rpcUrl=<value>          alternate RPC url
+  -v, --verbose                 log everything
+  --accountName=<value>         (required) Named account to load from your nearCredentialsDir
+  --metadata=<value>            metadata of the oracle for easier identification
+  --name=<value>                name of the oracle for easier identification
+  --nearCredentialsDir=<value>  [default: /Users/gally/.near-credentials] Alternative directory for near credentials.
+                                Defaults to ~/.near-credentials
+  --networkId=<option>          [default: testnet] Near network ID to connect to
+                                <options: testnet|mainnet|betanet|localnet>
+  --programId=<value>           [default: switchboard-v2.testnet] Switchboard programId on the selected Near networkId
+
+GLOBAL FLAGS
+  --json  Format output as json.
+
+DESCRIPTION
+  create a near oracle for a given queue
+
+ALIASES
+  $ sbv2 near create oracle
+```
+
+## `sbv2 near create oracle permission [ORACLEADDRESS]`
+
+create a permission account for a near oracle
+
+```
+USAGE
+  $ sbv2 near create oracle permission [ORACLEADDRESS] --accountName <value> [-h] [-v] [-s] [--networkId
+    testnet|mainnet|betanet|localnet] [--programId <value>] [-u <value>] [--nearCredentialsDir <value>] [--json]
+
+ARGUMENTS
+  ORACLEADDRESS  address of the oracle in Uint8 or Base58 encoding
+
+FLAGS
+  -h, --help                    Show CLI help.
+  -s, --silent                  suppress cli prompts
+  -u, --rpcUrl=<value>          alternate RPC url
+  -v, --verbose                 log everything
+  --accountName=<value>         (required) Named account to load from your nearCredentialsDir
+  --nearCredentialsDir=<value>  [default: /Users/gally/.near-credentials] Alternative directory for near credentials.
+                                Defaults to ~/.near-credentials
+  --networkId=<option>          [default: testnet] Near network ID to connect to
+                                <options: testnet|mainnet|betanet|localnet>
+  --programId=<value>           [default: switchboard-v2.testnet] Switchboard programId on the selected Near networkId
+
+GLOBAL FLAGS
+  --json  Format output as json.
+
+DESCRIPTION
+  create a permission account for a near oracle
+
+ALIASES
+  $ sbv2 near create oracle permission
+```
+
+## `sbv2 near create queue`
+
+create a new oracle queue
+
+```
+USAGE
+  $ sbv2 near create queue --accountName <value> [-h] [-v] [-s] [--networkId testnet|mainnet|betanet|localnet]
+    [--programId <value>] [-u <value>] [--nearCredentialsDir <value>] [--json] [-a <value>] [--name <value>] [--metadata
+    <value>] [--minStake <value>] [-r <value>] [--oracleTimeout <value>] [--queueSize <value>] [--slashingEnabled]
+    [--unpermissionedFeeds] [--unpermissionedVrf] [--enableBufferRelayers]
+
+FLAGS
+  -a, --authority=<value>       alternate named account that will be the authority for the queue
+  -h, --help                    Show CLI help.
+  -r, --reward=<value>          oracle rewards for successfully responding to an update request
+  -s, --silent                  suppress cli prompts
+  -u, --rpcUrl=<value>          alternate RPC url
+  -v, --verbose                 log everything
+  --accountName=<value>         (required) Named account to load from your nearCredentialsDir
+  --enableBufferRelayers        enable oracles to fulfill buffer relayer requests
+  --metadata=<value>            metadata of the queue for easier identification
+  --minStake=<value>            minimum stake required by an oracle to join the queue
+  --name=<value>                name of the queue for easier identification
+  --nearCredentialsDir=<value>  [default: /Users/gally/.near-credentials] Alternative directory for near credentials.
+                                Defaults to ~/.near-credentials
+  --networkId=<option>          [default: testnet] Near network ID to connect to
+                                <options: testnet|mainnet|betanet|localnet>
+  --oracleTimeout=<value>       [default: 180] number of oracles to add to the queue
+  --programId=<value>           [default: switchboard-v2.testnet] Switchboard programId on the selected Near networkId
+  --queueSize=<value>           [default: 100] maximum number of oracles the queue can support
+  --slashingEnabled             permit slashing malicous oracles
+  --unpermissionedFeeds         permit unpermissioned feeds
+  --unpermissionedVrf           permit unpermissioned VRF accounts
+
+GLOBAL FLAGS
+  --json  Format output as json.
+
+DESCRIPTION
+  create a new oracle queue
+
+ALIASES
+  $ sbv2 near create queue
+```
+
+## `sbv2 near escrow create`
+
+create an escrow token account
+
+```
+USAGE
+  $ sbv2 near escrow create --accountName <value> [-h] [-v] [-s] [--networkId testnet|mainnet|betanet|localnet]
+    [--programId <value>] [-u <value>] [--nearCredentialsDir <value>] [--json] [-a <value>] [--mint <value>]
+
+FLAGS
+  -a, --authority=<value>       alternate named account that will be the authority for the oracle
+  -h, --help                    Show CLI help.
+  -s, --silent                  suppress cli prompts
+  -u, --rpcUrl=<value>          alternate RPC url
+  -v, --verbose                 log everything
+  --accountName=<value>         (required) Named account to load from your nearCredentialsDir
+  --mint=<value>                [default: wrap.test] token mint to create escrow account for
+  --nearCredentialsDir=<value>  [default: /Users/gally/.near-credentials] Alternative directory for near credentials.
+                                Defaults to ~/.near-credentials
+  --networkId=<option>          [default: testnet] Near network ID to connect to
+                                <options: testnet|mainnet|betanet|localnet>
+  --programId=<value>           [default: switchboard-v2.testnet] Switchboard programId on the selected Near networkId
+
+GLOBAL FLAGS
+  --json  Format output as json.
+
+DESCRIPTION
+  create an escrow token account
+
+ALIASES
+  $ sbv2 near create escrow
+```
+
+## `sbv2 near job create JOBDEFINITION`
+
+create a job on near
+
+```
+USAGE
+  $ sbv2 near job create [JOBDEFINITION] --accountName <value> [-h] [-v] [-s] [--networkId
+    testnet|mainnet|betanet|localnet] [--programId <value>] [-u <value>] [--nearCredentialsDir <value>] [--json] [-a
+    <value>] [--name <value>] [--metadata <value>]
+
+ARGUMENTS
+  JOBDEFINITION  filesystem path to job definition
+
+FLAGS
+  -a, --authority=<value>       alternate named account that will be the authority for the job account
+  -h, --help                    Show CLI help.
+  -s, --silent                  suppress cli prompts
+  -u, --rpcUrl=<value>          alternate RPC url
+  -v, --verbose                 log everything
+  --accountName=<value>         (required) Named account to load from your nearCredentialsDir
+  --metadata=<value>            metadata of the job for easier identification
+  --name=<value>                name of the job for easier identification
+  --nearCredentialsDir=<value>  [default: /Users/gally/.near-credentials] Alternative directory for near credentials.
+                                Defaults to ~/.near-credentials
+  --networkId=<option>          [default: testnet] Near network ID to connect to
+                                <options: testnet|mainnet|betanet|localnet>
+  --programId=<value>           [default: switchboard-v2.testnet] Switchboard programId on the selected Near networkId
+
+GLOBAL FLAGS
+  --json  Format output as json.
+
+DESCRIPTION
+  create a job on near
+
+ALIASES
+  $ sbv2 near create job
+```
+
+## `sbv2 near list queue QUEUEADDRESS`
+
+list aggregators for a given queue
+
+```
+USAGE
+  $ sbv2 near list queue [QUEUEADDRESS] [-h] [-v] [-s] [--networkId testnet|mainnet|betanet|localnet] [--programId
+    <value>] [-u <value>] [--nearCredentialsDir <value>] [--json]
+
+ARGUMENTS
+  QUEUEADDRESS  address of the queue in Uint8 or Base58 encoding
+
+FLAGS
+  -h, --help                    Show CLI help.
+  -s, --silent                  suppress cli prompts
+  -u, --rpcUrl=<value>          alternate RPC url
+  -v, --verbose                 log everything
+  --nearCredentialsDir=<value>  [default: /Users/gally/.near-credentials] Alternative directory for near credentials.
+                                Defaults to ~/.near-credentials
+  --networkId=<option>          [default: testnet] Near network ID to connect to
+                                <options: testnet|mainnet|betanet|localnet>
+  --programId=<value>           [default: switchboard-v2.testnet] Switchboard programId on the selected Near networkId
+
+GLOBAL FLAGS
+  --json  Format output as json.
+
+DESCRIPTION
+  list aggregators for a given queue
+
+ALIASES
+  $ sbv2 near list queue
+```
+
+## `sbv2 near oracle create [QUEUEADDRESS]`
+
+create a near oracle for a given queue
+
+```
+USAGE
+  $ sbv2 near oracle create [QUEUEADDRESS] --accountName <value> [-h] [-v] [-s] [--networkId
+    testnet|mainnet|betanet|localnet] [--programId <value>] [-u <value>] [--nearCredentialsDir <value>] [--json] [-a
+    <value>] [--name <value>] [--metadata <value>]
+
+ARGUMENTS
+  QUEUEADDRESS  address of the queue in Uint8 or Base58 encoding
+
+FLAGS
+  -a, --authority=<value>       alternate named account that will be the authority for the oracle
+  -h, --help                    Show CLI help.
+  -s, --silent                  suppress cli prompts
+  -u, --rpcUrl=<value>          alternate RPC url
+  -v, --verbose                 log everything
+  --accountName=<value>         (required) Named account to load from your nearCredentialsDir
+  --metadata=<value>            metadata of the oracle for easier identification
+  --name=<value>                name of the oracle for easier identification
+  --nearCredentialsDir=<value>  [default: /Users/gally/.near-credentials] Alternative directory for near credentials.
+                                Defaults to ~/.near-credentials
+  --networkId=<option>          [default: testnet] Near network ID to connect to
+                                <options: testnet|mainnet|betanet|localnet>
+  --programId=<value>           [default: switchboard-v2.testnet] Switchboard programId on the selected Near networkId
+
+GLOBAL FLAGS
+  --json  Format output as json.
+
+DESCRIPTION
+  create a near oracle for a given queue
+
+ALIASES
+  $ sbv2 near create oracle
+```
+
+## `sbv2 near oracle permission create [ORACLEADDRESS]`
+
+create a permission account for a near oracle
+
+```
+USAGE
+  $ sbv2 near oracle permission create [ORACLEADDRESS] --accountName <value> [-h] [-v] [-s] [--networkId
+    testnet|mainnet|betanet|localnet] [--programId <value>] [-u <value>] [--nearCredentialsDir <value>] [--json]
+
+ARGUMENTS
+  ORACLEADDRESS  address of the oracle in Uint8 or Base58 encoding
+
+FLAGS
+  -h, --help                    Show CLI help.
+  -s, --silent                  suppress cli prompts
+  -u, --rpcUrl=<value>          alternate RPC url
+  -v, --verbose                 log everything
+  --accountName=<value>         (required) Named account to load from your nearCredentialsDir
+  --nearCredentialsDir=<value>  [default: /Users/gally/.near-credentials] Alternative directory for near credentials.
+                                Defaults to ~/.near-credentials
+  --networkId=<option>          [default: testnet] Near network ID to connect to
+                                <options: testnet|mainnet|betanet|localnet>
+  --programId=<value>           [default: switchboard-v2.testnet] Switchboard programId on the selected Near networkId
+
+GLOBAL FLAGS
+  --json  Format output as json.
+
+DESCRIPTION
+  create a permission account for a near oracle
+
+ALIASES
+  $ sbv2 near create oracle permission
+```
+
+## `sbv2 near permission create`
+
+create a permission account
+
+```
+USAGE
+  $ sbv2 near permission create --accountName <value> --granter <value> --grantee <value> [-h] [-v] [-s] [--networkId
+    testnet|mainnet|betanet|localnet] [--programId <value>] [-u <value>] [--nearCredentialsDir <value>] [--json] [-a
+    <value>] [--enable]
+
+FLAGS
+  -a, --authority=<value>       alternate account that is the granters authority
+  -h, --help                    Show CLI help.
+  -s, --silent                  suppress cli prompts
+  -u, --rpcUrl=<value>          alternate RPC url
+  -v, --verbose                 log everything
+  --accountName=<value>         (required) Named account to load from your nearCredentialsDir
+  --enable                      enable permissions
+  --grantee=<value>             (required) account that will be granted permissions, typically an Oracle or Aggregator
+  --granter=<value>             (required) account that will grant permissions, typically the OracleQueue
+  --nearCredentialsDir=<value>  [default: /Users/gally/.near-credentials] Alternative directory for near credentials.
+                                Defaults to ~/.near-credentials
+  --networkId=<option>          [default: testnet] Near network ID to connect to
+                                <options: testnet|mainnet|betanet|localnet>
+  --programId=<value>           [default: switchboard-v2.testnet] Switchboard programId on the selected Near networkId
+
+GLOBAL FLAGS
+  --json  Format output as json.
+
+DESCRIPTION
+  create a permission account
+
+ALIASES
+  $ sbv2 near create oracle permission
+```
+
+## `sbv2 near pop crank [CRANKADDRESS]`
+
+pop the crank
+
+```
+USAGE
+  $ sbv2 near pop crank [CRANKADDRESS] --accountName <value> [-h] [-v] [-s] [--networkId
+    testnet|mainnet|betanet|localnet] [--programId <value>] [-u <value>] [--nearCredentialsDir <value>] [--json]
+
+ARGUMENTS
+  CRANKADDRESS  address of the crank in Uint8 or Base58 encoding
+
+FLAGS
+  -h, --help                    Show CLI help.
+  -s, --silent                  suppress cli prompts
+  -u, --rpcUrl=<value>          alternate RPC url
+  -v, --verbose                 log everything
+  --accountName=<value>         (required) Named account to load from your nearCredentialsDir
+  --nearCredentialsDir=<value>  [default: /Users/gally/.near-credentials] Alternative directory for near credentials.
+                                Defaults to ~/.near-credentials
+  --networkId=<option>          [default: testnet] Near network ID to connect to
+                                <options: testnet|mainnet|betanet|localnet>
+  --programId=<value>           [default: switchboard-v2.testnet] Switchboard programId on the selected Near networkId
+
+GLOBAL FLAGS
+  --json  Format output as json.
+
+DESCRIPTION
+  pop the crank
+
+ALIASES
+  $ sbv2 near pop crank
+```
+
+## `sbv2 near print ACCOUNTTYPE ADDRESS`
+
+print a near switchboard account
+
+```
+USAGE
+  $ sbv2 near print [ACCOUNTTYPE] [ADDRESS] [-h] [-v] [-s] [--networkId testnet|mainnet|betanet|localnet]
+    [--programId <value>] [-u <value>] [--nearCredentialsDir <value>] [--json] [--all]
+
+ARGUMENTS
+  ACCOUNTTYPE  (queue|aggregator|crank|oracle|permission|lease|job) account type to print
+  ADDRESS      address of the account to print in Uint8 or Base58 encoding
+
+FLAGS
+  -h, --help                    Show CLI help.
+  -s, --silent                  suppress cli prompts
+  -u, --rpcUrl=<value>          alternate RPC url
+  -v, --verbose                 log everything
+  --all                         print all account attributes including jobs, permissions, and leases
+  --nearCredentialsDir=<value>  [default: /Users/gally/.near-credentials] Alternative directory for near credentials.
+                                Defaults to ~/.near-credentials
+  --networkId=<option>          [default: testnet] Near network ID to connect to
+                                <options: testnet|mainnet|betanet|localnet>
+  --programId=<value>           [default: switchboard-v2.testnet] Switchboard programId on the selected Near networkId
+
+GLOBAL FLAGS
+  --json  Format output as json.
+
+DESCRIPTION
+  print a near switchboard account
+
+ALIASES
+  $ sbv2 near print
+```
+
+## `sbv2 near push crank [CRANKADDRESS]`
+
+push an aggregator onto the crank
+
+```
+USAGE
+  $ sbv2 near push crank [CRANKADDRESS] --accountName <value> -a <value> [-h] [-v] [-s] [--networkId
+    testnet|mainnet|betanet|localnet] [--programId <value>] [-u <value>] [--nearCredentialsDir <value>] [--json]
+
+ARGUMENTS
+  CRANKADDRESS  address of the crank in Uint8 or Base58 encoding
+
+FLAGS
+  -a, --aggregatorAddress=<value>  (required) address of the aggregator in Uint8 or Base58 encoding
+  -h, --help                       Show CLI help.
+  -s, --silent                     suppress cli prompts
+  -u, --rpcUrl=<value>             alternate RPC url
+  -v, --verbose                    log everything
+  --accountName=<value>            (required) Named account to load from your nearCredentialsDir
+  --nearCredentialsDir=<value>     [default: /Users/gally/.near-credentials] Alternative directory for near credentials.
+                                   Defaults to ~/.near-credentials
+  --networkId=<option>             [default: testnet] Near network ID to connect to
+                                   <options: testnet|mainnet|betanet|localnet>
+  --programId=<value>              [default: switchboard-v2.testnet] Switchboard programId on the selected Near
+                                   networkId
+
+GLOBAL FLAGS
+  --json  Format output as json.
+
+DESCRIPTION
+  push an aggregator onto the crank
+
+ALIASES
+  $ sbv2 near push crank
+```
+
+## `sbv2 near queue create`
+
+create a new oracle queue
+
+```
+USAGE
+  $ sbv2 near queue create --accountName <value> [-h] [-v] [-s] [--networkId testnet|mainnet|betanet|localnet]
+    [--programId <value>] [-u <value>] [--nearCredentialsDir <value>] [--json] [-a <value>] [--name <value>] [--metadata
+    <value>] [--minStake <value>] [-r <value>] [--oracleTimeout <value>] [--queueSize <value>] [--slashingEnabled]
+    [--unpermissionedFeeds] [--unpermissionedVrf] [--enableBufferRelayers]
+
+FLAGS
+  -a, --authority=<value>       alternate named account that will be the authority for the queue
+  -h, --help                    Show CLI help.
+  -r, --reward=<value>          oracle rewards for successfully responding to an update request
+  -s, --silent                  suppress cli prompts
+  -u, --rpcUrl=<value>          alternate RPC url
+  -v, --verbose                 log everything
+  --accountName=<value>         (required) Named account to load from your nearCredentialsDir
+  --enableBufferRelayers        enable oracles to fulfill buffer relayer requests
+  --metadata=<value>            metadata of the queue for easier identification
+  --minStake=<value>            minimum stake required by an oracle to join the queue
+  --name=<value>                name of the queue for easier identification
+  --nearCredentialsDir=<value>  [default: /Users/gally/.near-credentials] Alternative directory for near credentials.
+                                Defaults to ~/.near-credentials
+  --networkId=<option>          [default: testnet] Near network ID to connect to
+                                <options: testnet|mainnet|betanet|localnet>
+  --oracleTimeout=<value>       [default: 180] number of oracles to add to the queue
+  --programId=<value>           [default: switchboard-v2.testnet] Switchboard programId on the selected Near networkId
+  --queueSize=<value>           [default: 100] maximum number of oracles the queue can support
+  --slashingEnabled             permit slashing malicous oracles
+  --unpermissionedFeeds         permit unpermissioned feeds
+  --unpermissionedVrf           permit unpermissioned VRF accounts
+
+GLOBAL FLAGS
+  --json  Format output as json.
+
+DESCRIPTION
+  create a new oracle queue
+
+ALIASES
+  $ sbv2 near create queue
+```
+
+## `sbv2 near queue list QUEUEADDRESS`
+
+list aggregators for a given queue
+
+```
+USAGE
+  $ sbv2 near queue list [QUEUEADDRESS] [-h] [-v] [-s] [--networkId testnet|mainnet|betanet|localnet] [--programId
+    <value>] [-u <value>] [--nearCredentialsDir <value>] [--json]
+
+ARGUMENTS
+  QUEUEADDRESS  address of the queue in Uint8 or Base58 encoding
+
+FLAGS
+  -h, --help                    Show CLI help.
+  -s, --silent                  suppress cli prompts
+  -u, --rpcUrl=<value>          alternate RPC url
+  -v, --verbose                 log everything
+  --nearCredentialsDir=<value>  [default: /Users/gally/.near-credentials] Alternative directory for near credentials.
+                                Defaults to ~/.near-credentials
+  --networkId=<option>          [default: testnet] Near network ID to connect to
+                                <options: testnet|mainnet|betanet|localnet>
+  --programId=<value>           [default: switchboard-v2.testnet] Switchboard programId on the selected Near networkId
+
+GLOBAL FLAGS
+  --json  Format output as json.
+
+DESCRIPTION
+  list aggregators for a given queue
+
+ALIASES
+  $ sbv2 near list queue
+```
+
+## `sbv2 near set aggregator AGGREGATORADDRESS`
+
+set a near aggregator's config
+
+```
+USAGE
+  $ sbv2 near set aggregator [AGGREGATORADDRESS] --accountName <value> --updateInterval <value> [-h] [-v] [-s]
+    [--networkId testnet|mainnet|betanet|localnet] [--programId <value>] [-u <value>] [--nearCredentialsDir <value>]
+    [--json] [-a <value>] [--crankAddress <value>] [--name <value>] [--metadata <value>] [--forceReportPeriod <value>]
+    [--batchSize <value>] [--minJobs <value>] [--minOracles <value>] [--varianceThreshold <value>] [-j <value>]
+    [--rewardEscrow <value>] [--historyLimit <value>] [--enable]
+
+ARGUMENTS
+  AGGREGATORADDRESS  address of the aggregator in Uint8 or Base58 encoding
+
+FLAGS
+  -a, --authority=<value>       alternate named account that will be the authority for the oracle
+  -h, --help                    Show CLI help.
+  -j, --job=<value>...          filesystem path to job definition file
+  -s, --silent                  suppress cli prompts
+  -u, --rpcUrl=<value>          alternate RPC url
+  -v, --verbose                 log everything
+  --accountName=<value>         (required) Named account to load from your nearCredentialsDir
+  --batchSize=<value>           number of oracles requested for each open round call
+  --crankAddress=<value>        optional, address of the crank to add the aggregator to
+  --enable                      if required and queue authority is provided, enable permissions
+  --forceReportPeriod=<value>   Number of seconds for which, even if the variance threshold is not passed, accept new
+                                responses from oracles.
+  --historyLimit=<value>        [default: 1000] number of samples to store in aggregator's history
+  --metadata=<value>            metadata of the crank for easier identification
+  --minJobs=<value>             number of jobs that must respond before an oracle responds
+  --minOracles=<value>          number of oracles that must respond before a value is accepted on-chain
+  --name=<value>                name of the crank for easier identification
+  --nearCredentialsDir=<value>  [default: /Users/gally/.near-credentials] Alternative directory for near credentials.
+                                Defaults to ~/.near-credentials
+  --networkId=<option>          [default: testnet] Near network ID to connect to
+                                <options: testnet|mainnet|betanet|localnet>
+  --programId=<value>           [default: switchboard-v2.testnet] Switchboard programId on the selected Near networkId
+  --rewardEscrow=<value>        where to send rewards. defaults to user's escrow account
+  --updateInterval=<value>      (required) set an aggregator's minimum update delay
+  --varianceThreshold=<value>   [default: 0] percentage change between a previous accepted result and the next round
+                                before an oracle reports a value on-chain. Used to conserve lease cost during low
+                                volatility
+
+GLOBAL FLAGS
+  --json  Format output as json.
+
+DESCRIPTION
+  set a near aggregator's config
+
+ALIASES
+  $ sbv2 near set aggregator
+```
+
+## `sbv2 near update aggregator [AGGREGATORADDRESS]`
+
+request a new value on-chain for an aggregator
+
+```
+USAGE
+  $ sbv2 near update aggregator [AGGREGATORADDRESS] --accountName <value> [-h] [-v] [-s] [--networkId
+    testnet|mainnet|betanet|localnet] [--programId <value>] [-u <value>] [--nearCredentialsDir <value>] [--json]
+
+ARGUMENTS
+  AGGREGATORADDRESS  address of the aggregator in Uint8 or Base58 encoding
+
+FLAGS
+  -h, --help                    Show CLI help.
+  -s, --silent                  suppress cli prompts
+  -u, --rpcUrl=<value>          alternate RPC url
+  -v, --verbose                 log everything
+  --accountName=<value>         (required) Named account to load from your nearCredentialsDir
+  --nearCredentialsDir=<value>  [default: /Users/gally/.near-credentials] Alternative directory for near credentials.
+                                Defaults to ~/.near-credentials
+  --networkId=<option>          [default: testnet] Near network ID to connect to
+                                <options: testnet|mainnet|betanet|localnet>
+  --programId=<value>           [default: switchboard-v2.testnet] Switchboard programId on the selected Near networkId
+
+GLOBAL FLAGS
+  --json  Format output as json.
+
+DESCRIPTION
+  request a new value on-chain for an aggregator
+
+ALIASES
+  $ sbv2 near update aggregator
+```
