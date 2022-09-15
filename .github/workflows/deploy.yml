@@ -35,7 +35,7 @@ jobs:
       #   run: npm install
 
       # Install @switchboard-xyz/common dependencies
-      - uses: actions/setup-node@v2
+      - uses: actions/setup-node@v3
         with:
           node-version: 16.x
           cache: yarn
@@ -45,7 +45,7 @@ jobs:
         run: |
           yarn install
       # Install Aptos SDK dependencies
-      - uses: actions/setup-node@v2
+      - uses: actions/setup-node@v3
         with:
           node-version: 16.x
           cache: yarn
@@ -55,7 +55,7 @@ jobs:
         run: |
           yarn install
       # Install Near SDK dependencies
-      - uses: actions/setup-node@v2
+      - uses: actions/setup-node@v3
         with:
           node-version: 16.x
           cache: yarn
@@ -65,7 +65,7 @@ jobs:
         run: |
           yarn install
       # Install Solana SDK dependencies
-      - uses: actions/setup-node@v2
+      - uses: actions/setup-node@v3
         with:
           node-version: 16.x
           cache: yarn
@@ -75,7 +75,7 @@ jobs:
         run: |
           yarn install
       # Build docusaurus site
-      - uses: actions/setup-node@v2
+      - uses: actions/setup-node@v3
         with:
           node-version: 16.x
           cache: yarn
