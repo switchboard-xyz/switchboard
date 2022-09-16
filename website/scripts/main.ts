@@ -41,7 +41,7 @@ const projectRoot = path.join(__dirname, "..", "..");
   );
   generateGenericApiTypedocs(
     projectRoot,
-    ["sdks", "solana", "libraries", "ts"],
+    ["sdks", "solana", "javascript", "solana.js"],
     ["@switchboard-xyz", "solana.js"]
   );
 
@@ -50,7 +50,7 @@ const projectRoot = path.join(__dirname, "..", "..");
   );
   generateGenericApiTypedocs(
     projectRoot,
-    ["sdks", "solana", "libraries", "sbv2-lite"],
+    ["sdks", "solana", "javascript", "sbv2-lite"],
     ["@switchboard-xyz", "sbv2-lite"]
   );
 
@@ -59,7 +59,7 @@ const projectRoot = path.join(__dirname, "..", "..");
   );
   generateGenericApiTypedocs(
     projectRoot,
-    ["sdks", "solana", "libraries", "sbv2-utils"],
+    ["sdks", "solana", "javascript", "sbv2-utils"],
     ["@switchboard-xyz", "sbv2-utils"]
   );
 
