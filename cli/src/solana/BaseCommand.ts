@@ -31,6 +31,11 @@ export abstract class SolanaBaseCommand extends BaseCommand {
     programId: Flags.string({
       description: "alternative Switchboard program ID to interact with",
     }),
+    commitment: Flags.string({
+      description: "transaction commitment level to use",
+      default: "confirmed",
+      options: ["confirmed", "finalized", "processed"],
+    }),
   };
 
   public hasSigner = false;
@@ -57,7 +62,7 @@ export abstract class SolanaBaseCommand extends BaseCommand {
 
     this.rpcUrl = this.getRpcUrl(this.cluster, (flags as any).rpcUrl);
     this.connection = new Connection(this.rpcUrl, {
-      commitment: "confirmed",
+      commitment: (flags as any).commitment ?? "confirmed",
     });
 
     // TODO: Load connection params from config

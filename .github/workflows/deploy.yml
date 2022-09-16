@@ -3,71 +3,48 @@ name: Deploy to GitHub Pages
 on:
   push:
     branches: [main]
-    paths: [website/**]
+    paths: [website/**, .github/workflows/**]
 
 jobs:
   deploy:
     name: Deploy to GitHub Pages
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - name: Checkout repository and submodules
+        uses: actions/checkout@v2
+        with:
+          submodules: recursive
 
       - uses: actions/setup-node@v3
         with:
-          node-version: 16.x
+          node-version: 16
           cache: yarn
           cache-dependency-path: "**/yarn.lock"
 
-      # Install @switchboard-xyz/common dependencies
-      # - uses: actions/setup-node@v3
-      #   with:
-      #     node-version: 16.x
-      #     cache: yarn
-      #     cache-dependency-path: "./javascript/common/yarn.lock"
       - name: Install @switchboard-xyz/common dependencies
         working-directory: javascript/common
         run: |
-          yarn install
-      # Install Aptos SDK dependencies
-      # - uses: actions/setup-node@v3
-      #   with:
-      #     node-version: 16.x
-      #     cache: yarn
-      #     cache-dependency-path: "./aptos/sdk/yarn.lock"
+          yarn install --frozen-lockfile
+
       - name: Install Aptos SDK dependencies
         working-directory: aptos/sdk
         run: |
-          yarn install
-      # Install Near SDK dependencies
-      # - uses: actions/setup-node@v3
-      #   with:
-      #     node-version: 16.x
-      #     cache: yarn
-      #     cache-dependency-path: "./near/sdk/client/yarn.lock"
+          yarn install --frozen-lockfile
+
       - name: Install Near SDK dependencies
         working-directory: near/sdk/client
         run: |
-          yarn install
-      # Install Solana SDK dependencies
-      # - uses: actions/setup-node@v3
-      #   with:
-      #     node-version: 16.x
-      #     cache: yarn
-      #     cache-dependency-path: "./solana/sdk/yarn.lock"
+          yarn install --frozen-lockfile
+
       - name: Install Solana SDK dependencies
         working-directory: solana/sdk
         run: |
-          yarn install
-      # Build docusaurus site
-      # - uses: actions/setup-node@v3
-      #   with:
-      #     node-version: 16.x
-      #     cache: yarn
-      #     cache-dependency-path: "./website/yarn.lock"
+          yarn install --frozen-lockfile
+
       - name: Build website
         working-directory: website
         run: |
-          yarn install
+          yarn install --frozen-lockfile
           yarn build:all
       # Popular action to deploy to GitHub Pages:
       # Docs: https://github.com/peaceiris/actions-gh-pages#%EF%B8%8F-docusaurus

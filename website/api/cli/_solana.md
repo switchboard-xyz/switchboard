@@ -79,8 +79,8 @@ add a job to an aggregator
 
 ```
 USAGE
-  $ sbv2 solana aggregator add job [AGGREGATORKEY] [-h] [-v] [-s] [--mainnetBeta] [-u <value>] [--programId <value>] [-k
-    <value>] [--jobDefinition <value> | --jobKey <value>] [-a <value>]
+  $ sbv2 solana aggregator add job [AGGREGATORKEY] [-h] [-v] [-s] [--mainnetBeta] [-u <value>] [--programId <value>]
+    [--commitment confirmed|finalized|processed] [-k <value>] [--jobDefinition <value> | --jobKey <value>] [-a <value>]
 
 ARGUMENTS
   AGGREGATORKEY  public key of the aggregator account
@@ -93,6 +93,8 @@ FLAGS
   -s, --silent             suppress cli prompts
   -u, --rpcUrl=<value>     alternate RPC url
   -v, --verbose            log everything
+  --commitment=<option>    [default: confirmed] transaction commitment level to use
+                           <options: confirmed|finalized|processed>
   --jobDefinition=<value>  filesystem path of job json definition file
   --jobKey=<value>         public key of an existing job account to add to an aggregator
   --mainnetBeta            WARNING: use mainnet-beta solana cluster
@@ -111,10 +113,10 @@ create an aggregator account
 
 ```
 USAGE
-  $ sbv2 solana aggregator create [QUEUEKEY] [-h] [-v] [-s] [--mainnetBeta] [-u <value>] [--programId <value>] [-k <value>]
-    [-a <value>] [--crankKey <value>] [--enable] [--queueAuthority <value>] [-n <value>] [--forceReportPeriod <value>]
-    [--batchSize <value>] [--minJobs <value>] [--minOracles <value>] [--updateInterval <value>] [--varianceThreshold
-    <value>] [-j <value>]
+  $ sbv2 solana aggregator create [QUEUEKEY] [-h] [-v] [-s] [--mainnetBeta] [-u <value>] [--programId <value>] [--commitment
+    confirmed|finalized|processed] [-k <value>] [-a <value>] [--crankKey <value>] [--enable] [--queueAuthority <value>]
+    [-n <value>] [--forceReportPeriod <value>] [--batchSize <value>] [--minJobs <value>] [--minOracles <value>]
+    [--updateInterval <value>] [--varianceThreshold <value>] [-j <value>]
 
 ARGUMENTS
   QUEUEKEY  public key of the oracle queue account to create aggregator for
@@ -130,6 +132,8 @@ FLAGS
   -u, --rpcUrl=<value>         alternate RPC url
   -v, --verbose                log everything
   --batchSize=<value>          number of oracles requested for each open round call
+  --commitment=<option>        [default: confirmed] transaction commitment level to use
+                               <options: confirmed|finalized|processed>
   --crankKey=<value>           public key of the crank to join
   --enable                     set permissions to PERMIT_ORACLE_QUEUE_USAGE
   --forceReportPeriod=<value>  Number of seconds for which, even if the variance threshold is not passed, accept new
@@ -154,9 +158,9 @@ copy an aggregator account to a new oracle queue
 ```
 USAGE
   $ sbv2 solana aggregator create copy [AGGREGATORSOURCE] --queueKey <value> [-h] [-v] [-s] [--mainnetBeta] [-u <value>]
-    [--programId <value>] [-k <value>] [-a <value>] [--minOracles <value>] [--batchSize <value>] [--minJobs <value>]
-    [--minUpdateDelay <value>] [--forceReportPeriod <value>] [--varianceThreshold <value>] [--crankKey <value>]
-    [--enable] [--queueAuthority <value>] [--copyJobs]
+    [--programId <value>] [--commitment confirmed|finalized|processed] [-k <value>] [-a <value>] [--minOracles <value>]
+    [--batchSize <value>] [--minJobs <value>] [--minUpdateDelay <value>] [--forceReportPeriod <value>]
+    [--varianceThreshold <value>] [--crankKey <value>] [--enable] [--queueAuthority <value>] [--copyJobs]
 
 ARGUMENTS
   AGGREGATORSOURCE  public key of the aggregator account to copy
@@ -170,6 +174,8 @@ FLAGS
   -u, --rpcUrl=<value>         alternate RPC url
   -v, --verbose                log everything
   --batchSize=<value>          override source aggregator's oracleRequestBatchSize
+  --commitment=<option>        [default: confirmed] transaction commitment level to use
+                               <options: confirmed|finalized|processed>
   --copyJobs                   create copy of job accounts instead of referincing existing job account
   --crankKey=<value>           public key of the crank to push aggregator to
   --enable                     set permissions to PERMIT_ORACLE_QUEUE_USAGE
@@ -200,8 +206,8 @@ create an aggregator from a json file
 
 ```
 USAGE
-  $ sbv2 solana aggregator create json [DEFINITIONFILE] [-h] [-v] [-s] [--mainnetBeta] [-u <value>] [--programId <value>] [-k
-    <value>] [-q <value>] [-a <value>]
+  $ sbv2 solana aggregator create json [DEFINITIONFILE] [-h] [-v] [-s] [--mainnetBeta] [-u <value>] [--programId <value>]
+    [--commitment confirmed|finalized|processed] [-k <value>] [-q <value>] [-a <value>]
 
 ARGUMENTS
   DEFINITIONFILE  filesystem path of queue definition json file
@@ -215,6 +221,8 @@ FLAGS
   -s, --silent             suppress cli prompts
   -u, --rpcUrl=<value>     alternate RPC url
   -v, --verbose            log everything
+  --commitment=<option>    [default: confirmed] transaction commitment level to use
+                           <options: confirmed|finalized|processed>
   --mainnetBeta            WARNING: use mainnet-beta solana cluster
   --programId=<value>      alternative Switchboard program ID to interact with
 
@@ -234,8 +242,8 @@ lock an aggregator's configuration and prevent further changes
 
 ```
 USAGE
-  $ sbv2 solana aggregator lock [AGGREGATORKEY] [-h] [-v] [-s] [--mainnetBeta] [-u <value>] [--programId <value>] [-k
-    <value>] [-a <value>]
+  $ sbv2 solana aggregator lock [AGGREGATORKEY] [-h] [-v] [-s] [--mainnetBeta] [-u <value>] [--programId <value>]
+    [--commitment confirmed|finalized|processed] [-k <value>] [-a <value>]
 
 ARGUMENTS
   AGGREGATORKEY  public key of the aggregator account
@@ -248,6 +256,8 @@ FLAGS
   -s, --silent             suppress cli prompts
   -u, --rpcUrl=<value>     alternate RPC url
   -v, --verbose            log everything
+  --commitment=<option>    [default: confirmed] transaction commitment level to use
+                           <options: confirmed|finalized|processed>
   --mainnetBeta            WARNING: use mainnet-beta solana cluster
   --programId=<value>      alternative Switchboard program ID to interact with
 
@@ -261,8 +271,8 @@ create a permission account for an aggregator
 
 ```
 USAGE
-  $ sbv2 solana aggregator permission create [AGGREGATORKEY] [-h] [-v] [-s] [--mainnetBeta] [-u <value>] [--programId <value>] [-k
-    <value>]
+  $ sbv2 solana aggregator permission create [AGGREGATORKEY] [-h] [-v] [-s] [--mainnetBeta] [-u <value>] [--programId <value>]
+    [--commitment confirmed|finalized|processed] [-k <value>]
 
 ARGUMENTS
   AGGREGATORKEY  public key of the aggregator account
@@ -274,6 +284,8 @@ FLAGS
   -s, --silent           suppress cli prompts
   -u, --rpcUrl=<value>   alternate RPC url
   -v, --verbose          log everything
+  --commitment=<option>  [default: confirmed] transaction commitment level to use
+                         <options: confirmed|finalized|processed>
   --mainnetBeta          WARNING: use mainnet-beta solana cluster
   --programId=<value>    alternative Switchboard program ID to interact with
 
@@ -287,8 +299,8 @@ Print the deserialized Switchboard aggregator account
 
 ```
 USAGE
-  $ sbv2 solana aggregator print [AGGREGATORKEY] [-h] [-v] [-s] [--mainnetBeta] [-u <value>] [--programId <value>] [--json]
-    [--jobs] [-o]
+  $ sbv2 solana aggregator print [AGGREGATORKEY] [-h] [-v] [-s] [--mainnetBeta] [-u <value>] [--programId <value>]
+    [--commitment confirmed|finalized|processed] [--json] [--jobs] [-o]
 
 ARGUMENTS
   AGGREGATORKEY  public key of the aggregator account to deserialize
@@ -299,6 +311,8 @@ FLAGS
   -s, --silent             suppress cli prompts
   -u, --rpcUrl=<value>     alternate RPC url
   -v, --verbose            log everything
+  --commitment=<option>    [default: confirmed] transaction commitment level to use
+                           <options: confirmed|finalized|processed>
   --jobs                   output job definitions
   --mainnetBeta            WARNING: use mainnet-beta solana cluster
   --programId=<value>      alternative Switchboard program ID to interact with
@@ -323,7 +337,7 @@ remove a switchboard job account from an aggregator
 ```
 USAGE
   $ sbv2 solana aggregator remove job [AGGREGATORKEY] [JOBKEY] [-h] [-v] [-s] [--mainnetBeta] [-u <value>] [--programId <value>]
-    [-k <value>] [-a <value>]
+    [--commitment confirmed|finalized|processed] [-k <value>] [-a <value>]
 
 ARGUMENTS
   AGGREGATORKEY  public key of the aggregator account
@@ -337,6 +351,8 @@ FLAGS
   -s, --silent             suppress cli prompts
   -u, --rpcUrl=<value>     alternate RPC url
   -v, --verbose            log everything
+  --commitment=<option>    [default: confirmed] transaction commitment level to use
+                           <options: confirmed|finalized|processed>
   --mainnetBeta            WARNING: use mainnet-beta solana cluster
   --programId=<value>      alternative Switchboard program ID to interact with
 
@@ -354,7 +370,7 @@ request a new aggregator result from a set of oracles
 ```
 USAGE
   $ sbv2 solana aggregator save history [AGGREGATORKEY] -f <value> [-h] [-v] [-s] [--mainnetBeta] [-u <value>] [--programId <value>]
-    [--force] [--json] [--csv]
+    [--commitment confirmed|finalized|processed] [--force] [--json] [--csv]
 
 ARGUMENTS
   AGGREGATORKEY  public key of the aggregator account to deserialize
@@ -365,6 +381,8 @@ FLAGS
   -s, --silent              suppress cli prompts
   -u, --rpcUrl=<value>      alternate RPC url
   -v, --verbose             log everything
+  --commitment=<option>     [default: confirmed] transaction commitment level to use
+                            <options: confirmed|finalized|processed>
   --csv                     output aggregator accounts in csv format
   --force                   overwrite output file if exists
   --json                    output aggregator accounts in json format
@@ -384,9 +402,9 @@ set an aggregator's config
 
 ```
 USAGE
-  $ sbv2 solana aggregator set [AGGREGATORKEY] [-h] [-v] [-s] [--mainnetBeta] [-u <value>] [--programId <value>] [-k
-    <value>] [-a <value>] [--forceReportPeriod <value>] [--minJobs <value>] [--minOracles <value>] [--newQueue <value>]
-    [--updateInterval <value>] [--varianceThreshold <value>]
+  $ sbv2 solana aggregator set [AGGREGATORKEY] [-h] [-v] [-s] [--mainnetBeta] [-u <value>] [--programId <value>]
+    [--commitment confirmed|finalized|processed] [-k <value>] [-a <value>] [--forceReportPeriod <value>] [--minJobs
+    <value>] [--minOracles <value>] [--newQueue <value>] [--updateInterval <value>] [--varianceThreshold <value>]
 
 ARGUMENTS
   AGGREGATORKEY  public key of the aggregator
@@ -399,6 +417,8 @@ FLAGS
   -s, --silent                 suppress cli prompts
   -u, --rpcUrl=<value>         alternate RPC url
   -v, --verbose                log everything
+  --commitment=<option>        [default: confirmed] transaction commitment level to use
+                               <options: confirmed|finalized|processed>
   --forceReportPeriod=<value>  Number of seconds for which, even if the variance threshold is not passed, accept new
                                responses from oracles.
   --mainnetBeta                WARNING: use mainnet-beta solana cluster
@@ -427,7 +447,7 @@ set an aggregator's authority
 ```
 USAGE
   $ sbv2 solana aggregator set authority [AGGREGATORKEY] [NEWAUTHORITY] [-h] [-v] [-s] [--mainnetBeta] [-u <value>] [--programId
-    <value>] [-k <value>] [-a <value>]
+    <value>] [--commitment confirmed|finalized|processed] [-k <value>] [-a <value>]
 
 ARGUMENTS
   AGGREGATORKEY  public key of the aggregator account
@@ -441,6 +461,8 @@ FLAGS
   -s, --silent                    suppress cli prompts
   -u, --rpcUrl=<value>            alternate RPC url
   -v, --verbose                   log everything
+  --commitment=<option>           [default: confirmed] transaction commitment level to use
+                                  <options: confirmed|finalized|processed>
   --mainnetBeta                   WARNING: use mainnet-beta solana cluster
   --programId=<value>             alternative Switchboard program ID to interact with
 
@@ -455,7 +477,7 @@ set an aggregator's batch size
 ```
 USAGE
   $ sbv2 solana aggregator set batchSize [AGGREGATORKEY] [BATCHSIZE] [-h] [-v] [-s] [--mainnetBeta] [-u <value>] [--programId
-    <value>] [-k <value>] [-a <value>]
+    <value>] [--commitment confirmed|finalized|processed] [-k <value>] [-a <value>]
 
 ARGUMENTS
   AGGREGATORKEY  public key of the aggregator account
@@ -469,6 +491,8 @@ FLAGS
   -s, --silent             suppress cli prompts
   -u, --rpcUrl=<value>     alternate RPC url
   -v, --verbose            log everything
+  --commitment=<option>    [default: confirmed] transaction commitment level to use
+                           <options: confirmed|finalized|processed>
   --mainnetBeta            WARNING: use mainnet-beta solana cluster
   --programId=<value>      alternative Switchboard program ID to interact with
 
@@ -483,7 +507,7 @@ set an aggregator's force report period
 ```
 USAGE
   $ sbv2 solana aggregator set forceReportPeriod [AGGREGATORKEY] [FORCEREPORTPERIOD] [-h] [-v] [-s] [--mainnetBeta] [-u <value>] [--programId
-    <value>] [-k <value>] [-a <value>]
+    <value>] [--commitment confirmed|finalized|processed] [-k <value>] [-a <value>]
 
 ARGUMENTS
   AGGREGATORKEY      public key of the aggregator
@@ -498,6 +522,8 @@ FLAGS
   -s, --silent             suppress cli prompts
   -u, --rpcUrl=<value>     alternate RPC url
   -v, --verbose            log everything
+  --commitment=<option>    [default: confirmed] transaction commitment level to use
+                           <options: confirmed|finalized|processed>
   --mainnetBeta            WARNING: use mainnet-beta solana cluster
   --programId=<value>      alternative Switchboard program ID to interact with
 
@@ -517,8 +543,8 @@ set an aggregator's history buffer account to record the last N accepted results
 
 ```
 USAGE
-  $ sbv2 solana aggregator set history [AGGREGATORKEY] [SIZE] [-h] [-v] [-s] [--mainnetBeta] [-u <value>] [--programId <value>] [-k
-    <value>] [-a <value>]
+  $ sbv2 solana aggregator set history [AGGREGATORKEY] [SIZE] [-h] [-v] [-s] [--mainnetBeta] [-u <value>] [--programId <value>]
+    [--commitment confirmed|finalized|processed] [-k <value>] [-a <value>]
 
 ARGUMENTS
   AGGREGATORKEY  public key of the aggregator to add to a crank
@@ -532,6 +558,8 @@ FLAGS
   -s, --silent             suppress cli prompts
   -u, --rpcUrl=<value>     alternate RPC url
   -v, --verbose            log everything
+  --commitment=<option>    [default: confirmed] transaction commitment level to use
+                           <options: confirmed|finalized|processed>
   --mainnetBeta            WARNING: use mainnet-beta solana cluster
   --programId=<value>      alternative Switchboard program ID to interact with
 
@@ -552,7 +580,7 @@ set an aggregator's minimum number of jobs before an oracle responds
 ```
 USAGE
   $ sbv2 solana aggregator set minJobs [AGGREGATORKEY] [MINJOBRESULTS] [-h] [-v] [-s] [--mainnetBeta] [-u <value>] [--programId
-    <value>] [-k <value>] [-a <value>]
+    <value>] [--commitment confirmed|finalized|processed] [-k <value>] [-a <value>]
 
 ARGUMENTS
   AGGREGATORKEY  public key of the aggregator account
@@ -566,6 +594,8 @@ FLAGS
   -s, --silent             suppress cli prompts
   -u, --rpcUrl=<value>     alternate RPC url
   -v, --verbose            log everything
+  --commitment=<option>    [default: confirmed] transaction commitment level to use
+                           <options: confirmed|finalized|processed>
   --mainnetBeta            WARNING: use mainnet-beta solana cluster
   --programId=<value>      alternative Switchboard program ID to interact with
 
@@ -580,7 +610,7 @@ set an aggregator's minimum number of oracles that must respond before a result 
 ```
 USAGE
   $ sbv2 solana aggregator set minOracles [AGGREGATORKEY] [MINORACLERESULTS] [-h] [-v] [-s] [--mainnetBeta] [-u <value>] [--programId
-    <value>] [-k <value>] [-a <value>]
+    <value>] [--commitment confirmed|finalized|processed] [-k <value>] [-a <value>]
 
 ARGUMENTS
   AGGREGATORKEY     public key of the aggregator account
@@ -594,6 +624,8 @@ FLAGS
   -s, --silent             suppress cli prompts
   -u, --rpcUrl=<value>     alternate RPC url
   -v, --verbose            log everything
+  --commitment=<option>    [default: confirmed] transaction commitment level to use
+                           <options: confirmed|finalized|processed>
   --mainnetBeta            WARNING: use mainnet-beta solana cluster
   --programId=<value>      alternative Switchboard program ID to interact with
 
@@ -608,7 +640,7 @@ set an aggregator's oracle queue
 ```
 USAGE
   $ sbv2 solana aggregator set queue [AGGREGATORKEY] [QUEUEKEY] [-h] [-v] [-s] [--mainnetBeta] [-u <value>] [--programId <value>]
-    [-k <value>] [-a <value>]
+    [--commitment confirmed|finalized|processed] [-k <value>] [-a <value>]
 
 ARGUMENTS
   AGGREGATORKEY  public key of the aggregator
@@ -622,6 +654,8 @@ FLAGS
   -s, --silent             suppress cli prompts
   -u, --rpcUrl=<value>     alternate RPC url
   -v, --verbose            log everything
+  --commitment=<option>    [default: confirmed] transaction commitment level to use
+                           <options: confirmed|finalized|processed>
   --mainnetBeta            WARNING: use mainnet-beta solana cluster
   --programId=<value>      alternative Switchboard program ID to interact with
 
@@ -636,7 +670,7 @@ set an aggregator's minimum update delay
 ```
 USAGE
   $ sbv2 solana aggregator set updateInterval [AGGREGATORKEY] [UPDATEINTERVAL] [-h] [-v] [-s] [--mainnetBeta] [-u <value>] [--programId
-    <value>] [-k <value>] [-a <value>]
+    <value>] [--commitment confirmed|finalized|processed] [-k <value>] [-a <value>]
 
 ARGUMENTS
   AGGREGATORKEY   public key of the aggregator account
@@ -650,6 +684,8 @@ FLAGS
   -s, --silent             suppress cli prompts
   -u, --rpcUrl=<value>     alternate RPC url
   -v, --verbose            log everything
+  --commitment=<option>    [default: confirmed] transaction commitment level to use
+                           <options: confirmed|finalized|processed>
   --mainnetBeta            WARNING: use mainnet-beta solana cluster
   --programId=<value>      alternative Switchboard program ID to interact with
 
@@ -667,7 +703,7 @@ set an aggregator's variance threshold
 ```
 USAGE
   $ sbv2 solana aggregator set varianceThreshold [AGGREGATORKEY] [VARIANCETHRESHOLD] [-h] [-v] [-s] [--mainnetBeta] [-u <value>] [--programId
-    <value>] [-k <value>] [-a <value>]
+    <value>] [--commitment confirmed|finalized|processed] [-k <value>] [-a <value>]
 
 ARGUMENTS
   AGGREGATORKEY      public key of the aggregator
@@ -682,6 +718,8 @@ FLAGS
   -s, --silent             suppress cli prompts
   -u, --rpcUrl=<value>     alternate RPC url
   -v, --verbose            log everything
+  --commitment=<option>    [default: confirmed] transaction commitment level to use
+                           <options: confirmed|finalized|processed>
   --mainnetBeta            WARNING: use mainnet-beta solana cluster
   --programId=<value>      alternative Switchboard program ID to interact with
 
@@ -701,8 +739,8 @@ request a new aggregator result from a set of oracles
 
 ```
 USAGE
-  $ sbv2 solana aggregator update [AGGREGATORKEY] [-h] [-v] [-s] [--mainnetBeta] [-u <value>] [--programId <value>] [-k
-    <value>]
+  $ sbv2 solana aggregator update [AGGREGATORKEY] [-h] [-v] [-s] [--mainnetBeta] [-u <value>] [--programId <value>]
+    [--commitment confirmed|finalized|processed] [-k <value>]
 
 ARGUMENTS
   AGGREGATORKEY  public key of the aggregator account to deserialize
@@ -714,6 +752,8 @@ FLAGS
   -s, --silent           suppress cli prompts
   -u, --rpcUrl=<value>   alternate RPC url
   -v, --verbose          log everything
+  --commitment=<option>  [default: confirmed] transaction commitment level to use
+                         <options: confirmed|finalized|processed>
   --mainnetBeta          WARNING: use mainnet-beta solana cluster
   --programId=<value>    alternative Switchboard program ID to interact with
 
@@ -730,8 +770,9 @@ run anchor test and a switchboard oracle in parallel
 
 ```
 USAGE
-  $ sbv2 solana anchor test [-h] [-v] [-s] [--mainnetBeta] [-u <value>] [--programId <value>] [-k <value>] [-d <value>]
-    [--oracleKey <value>] [--nodeImage <value>] [--arm] [-t <value>]
+  $ sbv2 solana anchor test [-h] [-v] [-s] [--mainnetBeta] [-u <value>] [--programId <value>] [--commitment
+    confirmed|finalized|processed] [-k <value>] [-d <value>] [--oracleKey <value>] [--nodeImage <value>] [--arm] [-t
+    <value>]
 
 FLAGS
   -d, --switchboardDir=<value>  directory with switchboard.env to load a switchboard environment
@@ -743,6 +784,8 @@ FLAGS
   -u, --rpcUrl=<value>          alternate RPC url
   -v, --verbose                 log everything
   --arm                         apple silicon needs to use a docker image for linux/arm64
+  --commitment=<option>         [default: confirmed] transaction commitment level to use
+                                <options: confirmed|finalized|processed>
   --mainnetBeta                 WARNING: use mainnet-beta solana cluster
   --nodeImage=<value>           [default: dev-v2-08-14-22a-mc-beta] public key of the oracle to start-up
   --oracleKey=<value>           public key of the oracle to start-up
@@ -758,8 +801,9 @@ create a buffer relayer account
 
 ```
 USAGE
-  $ sbv2 solana buffer create [QUEUEKEY] [-h] [-v] [-s] [--mainnetBeta] [-u <value>] [--programId <value>] [-k <value>]
-    [-a <value>] [-n <value>] [--minUpdateDelaySeconds <value>] [--jobDefinition <value> | --jobKey <value>]
+  $ sbv2 solana buffer create [QUEUEKEY] [-h] [-v] [-s] [--mainnetBeta] [-u <value>] [--programId <value>] [--commitment
+    confirmed|finalized|processed] [-k <value>] [-a <value>] [-n <value>] [--minUpdateDelaySeconds <value>]
+    [--jobDefinition <value> | --jobKey <value>]
 
 ARGUMENTS
   QUEUEKEY  oracle queue to create BufferRelayer account on
@@ -773,6 +817,8 @@ FLAGS
   -s, --silent                     suppress cli prompts
   -u, --rpcUrl=<value>             alternate RPC url
   -v, --verbose                    log everything
+  --commitment=<option>            [default: confirmed] transaction commitment level to use
+                                   <options: confirmed|finalized|processed>
   --jobDefinition=<value>          filesystem path to job definition
   --jobKey=<value>                 public key of existing job account
   --mainnetBeta                    WARNING: use mainnet-beta solana cluster
@@ -790,19 +836,21 @@ Print the deserialized Switchboard buffer relayer account
 ```
 USAGE
   $ sbv2 solana buffer print [BUFFERRELAYERKEY] [-h] [-v] [-s] [--mainnetBeta] [-u <value>] [--programId <value>]
-  [--job]
+    [--commitment confirmed|finalized|processed] [--job]
 
 ARGUMENTS
   BUFFERRELAYERKEY  public key of the buffer relayer account to deserialize
 
 FLAGS
-  -h, --help            Show CLI help.
-  -s, --silent          suppress cli prompts
-  -u, --rpcUrl=<value>  alternate RPC url
-  -v, --verbose         log everything
-  --job                 output job definitions
-  --mainnetBeta         WARNING: use mainnet-beta solana cluster
-  --programId=<value>   alternative Switchboard program ID to interact with
+  -h, --help             Show CLI help.
+  -s, --silent           suppress cli prompts
+  -u, --rpcUrl=<value>   alternate RPC url
+  -v, --verbose          log everything
+  --commitment=<option>  [default: confirmed] transaction commitment level to use
+                         <options: confirmed|finalized|processed>
+  --job                  output job definitions
+  --mainnetBeta          WARNING: use mainnet-beta solana cluster
+  --programId=<value>    alternative Switchboard program ID to interact with
 
 DESCRIPTION
   Print the deserialized Switchboard buffer relayer account
@@ -820,8 +868,8 @@ add a crank to an existing oracle queue
 
 ```
 USAGE
-  $ sbv2 solana crank create [QUEUEKEY] [-h] [-v] [-s] [--mainnetBeta] [-u <value>] [--programId <value>] [-k <value>]
-    [-n <value>] [-r <value>] [--queueAuthority <value>]
+  $ sbv2 solana crank create [QUEUEKEY] [-h] [-v] [-s] [--mainnetBeta] [-u <value>] [--programId <value>] [--commitment
+    confirmed|finalized|processed] [-k <value>] [-n <value>] [-r <value>] [--queueAuthority <value>]
 
 ARGUMENTS
   QUEUEKEY  public key of the oracle queue to create a crank on
@@ -835,6 +883,8 @@ FLAGS
   -s, --silent              suppress cli prompts
   -u, --rpcUrl=<value>      alternate RPC url
   -v, --verbose             log everything
+  --commitment=<option>     [default: confirmed] transaction commitment level to use
+                            <options: confirmed|finalized|processed>
   --mainnetBeta             WARNING: use mainnet-beta solana cluster
   --programId=<value>       alternative Switchboard program ID to interact with
   --queueAuthority=<value>  alternative keypair to use for queue authority
@@ -852,8 +902,8 @@ list the pubkeys currently on the crank
 
 ```
 USAGE
-  $ sbv2 solana crank list [CRANKKEY] [-h] [-v] [-s] [--mainnetBeta] [-u <value>] [--programId <value>] [-k <value>]
-    [--force] [-f <value>]
+  $ sbv2 solana crank list [CRANKKEY] [-h] [-v] [-s] [--mainnetBeta] [-u <value>] [--programId <value>] [--commitment
+    confirmed|finalized|processed] [-k <value>] [--force] [-f <value>]
 
 ARGUMENTS
   CRANKKEY  public key of the crank
@@ -866,6 +916,8 @@ FLAGS
   -s, --silent              suppress cli prompts
   -u, --rpcUrl=<value>      alternate RPC url
   -v, --verbose             log everything
+  --commitment=<option>     [default: confirmed] transaction commitment level to use
+                            <options: confirmed|finalized|processed>
   --force                   overwrite output file if exists
   --mainnetBeta             WARNING: use mainnet-beta solana cluster
   --programId=<value>       alternative Switchboard program ID to interact with
@@ -880,7 +932,8 @@ pop the crank
 
 ```
 USAGE
-  $ sbv2 solana crank pop [CRANKKEY] [-h] [-v] [-s] [--mainnetBeta] [-u <value>] [--programId <value>] [-k <value>]
+  $ sbv2 solana crank pop [CRANKKEY] [-h] [-v] [-s] [--mainnetBeta] [-u <value>] [--programId <value>] [--commitment
+    confirmed|finalized|processed] [-k <value>]
 
 ARGUMENTS
   CRANKKEY  public key of the crank
@@ -892,6 +945,8 @@ FLAGS
   -s, --silent           suppress cli prompts
   -u, --rpcUrl=<value>   alternate RPC url
   -v, --verbose          log everything
+  --commitment=<option>  [default: confirmed] transaction commitment level to use
+                         <options: confirmed|finalized|processed>
   --mainnetBeta          WARNING: use mainnet-beta solana cluster
   --programId=<value>    alternative Switchboard program ID to interact with
 
@@ -905,18 +960,21 @@ print deserialized switchboard crank account
 
 ```
 USAGE
-  $ sbv2 solana crank print [CRANKKEY] [-h] [-v] [-s] [--mainnetBeta] [-u <value>] [--programId <value>]
+  $ sbv2 solana crank print [CRANKKEY] [-h] [-v] [-s] [--mainnetBeta] [-u <value>] [--programId <value>] [--commitment
+    confirmed|finalized|processed]
 
 ARGUMENTS
   CRANKKEY  public key of the crank account to deserialize
 
 FLAGS
-  -h, --help            Show CLI help.
-  -s, --silent          suppress cli prompts
-  -u, --rpcUrl=<value>  alternate RPC url
-  -v, --verbose         log everything
-  --mainnetBeta         WARNING: use mainnet-beta solana cluster
-  --programId=<value>   alternative Switchboard program ID to interact with
+  -h, --help             Show CLI help.
+  -s, --silent           suppress cli prompts
+  -u, --rpcUrl=<value>   alternate RPC url
+  -v, --verbose          log everything
+  --commitment=<option>  [default: confirmed] transaction commitment level to use
+                         <options: confirmed|finalized|processed>
+  --mainnetBeta          WARNING: use mainnet-beta solana cluster
+  --programId=<value>    alternative Switchboard program ID to interact with
 
 DESCRIPTION
   print deserialized switchboard crank account
@@ -935,7 +993,7 @@ push an aggregator onto a crank
 ```
 USAGE
   $ sbv2 solana crank push [CRANKKEY] [AGGREGATORKEY] [-h] [-v] [-s] [--mainnetBeta] [-u <value>] [--programId <value>]
-    [-k <value>]
+    [--commitment confirmed|finalized|processed] [-k <value>]
 
 ARGUMENTS
   CRANKKEY       public key of the crank
@@ -948,6 +1006,8 @@ FLAGS
   -s, --silent           suppress cli prompts
   -u, --rpcUrl=<value>   alternate RPC url
   -v, --verbose          log everything
+  --commitment=<option>  [default: confirmed] transaction commitment level to use
+                         <options: confirmed|finalized|processed>
   --mainnetBeta          WARNING: use mainnet-beta solana cluster
   --programId=<value>    alternative Switchboard program ID to interact with
 
@@ -965,7 +1025,8 @@ turn the crank and get rewarded if aggregator updates available
 
 ```
 USAGE
-  $ sbv2 solana crank turn [CRANKKEY] [-h] [-v] [-s] [--mainnetBeta] [-u <value>] [--programId <value>] [-k <value>]
+  $ sbv2 solana crank turn [CRANKKEY] [-h] [-v] [-s] [--mainnetBeta] [-u <value>] [--programId <value>] [--commitment
+    confirmed|finalized|processed] [-k <value>]
 
 ARGUMENTS
   CRANKKEY  public key of the crank to turn
@@ -977,6 +1038,8 @@ FLAGS
   -s, --silent           suppress cli prompts
   -u, --rpcUrl=<value>   alternate RPC url
   -v, --verbose          log everything
+  --commitment=<option>  [default: confirmed] transaction commitment level to use
+                         <options: confirmed|finalized|processed>
   --mainnetBeta          WARNING: use mainnet-beta solana cluster
   --programId=<value>    alternative Switchboard program ID to interact with
 
@@ -993,8 +1056,8 @@ create a job account
 
 ```
 USAGE
-  $ sbv2 solana job create [JOBDEFINITION] [-h] [-v] [-s] [--mainnetBeta] [-u <value>] [--programId <value>] [-k
-    <value>] [-a <value>] [-n <value>]
+  $ sbv2 solana job create [JOBDEFINITION] [-h] [-v] [-s] [--mainnetBeta] [-u <value>] [--programId <value>]
+    [--commitment confirmed|finalized|processed] [-k <value>] [-a <value>] [-n <value>]
 
 ARGUMENTS
   JOBDEFINITION  filesystem path to job definition
@@ -1008,6 +1071,8 @@ FLAGS
   -s, --silent             suppress cli prompts
   -u, --rpcUrl=<value>     alternate RPC url
   -v, --verbose            log everything
+  --commitment=<option>    [default: confirmed] transaction commitment level to use
+                           <options: confirmed|finalized|processed>
   --mainnetBeta            WARNING: use mainnet-beta solana cluster
   --programId=<value>      alternative Switchboard program ID to interact with
 
@@ -1021,18 +1086,21 @@ Print the deserialized Switchboard job account
 
 ```
 USAGE
-  $ sbv2 solana job print [JOBKEY] [-h] [-v] [-s] [--mainnetBeta] [-u <value>] [--programId <value>]
+  $ sbv2 solana job print [JOBKEY] [-h] [-v] [-s] [--mainnetBeta] [-u <value>] [--programId <value>] [--commitment
+    confirmed|finalized|processed]
 
 ARGUMENTS
   JOBKEY  public key of the job account to deserialize
 
 FLAGS
-  -h, --help            Show CLI help.
-  -s, --silent          suppress cli prompts
-  -u, --rpcUrl=<value>  alternate RPC url
-  -v, --verbose         log everything
-  --mainnetBeta         WARNING: use mainnet-beta solana cluster
-  --programId=<value>   alternative Switchboard program ID to interact with
+  -h, --help             Show CLI help.
+  -s, --silent           suppress cli prompts
+  -u, --rpcUrl=<value>   alternate RPC url
+  -v, --verbose          log everything
+  --commitment=<option>  [default: confirmed] transaction commitment level to use
+                         <options: confirmed|finalized|processed>
+  --mainnetBeta          WARNING: use mainnet-beta solana cluster
+  --programId=<value>    alternative Switchboard program ID to interact with
 
 DESCRIPTION
   Print the deserialized Switchboard job account
@@ -1050,8 +1118,8 @@ fund and re-enable an aggregator lease
 
 ```
 USAGE
-  $ sbv2 solana lease create [AGGREGATORKEY] [-h] [-v] [-s] [--mainnetBeta] [-u <value>] [--programId <value>] [-k
-    <value>] [--amount <value>]
+  $ sbv2 solana lease create [AGGREGATORKEY] [-h] [-v] [-s] [--mainnetBeta] [-u <value>] [--programId <value>]
+    [--commitment confirmed|finalized|processed] [-k <value>] [--amount <value>]
 
 ARGUMENTS
   AGGREGATORKEY  public key of the aggregator to extend a lease for
@@ -1065,6 +1133,8 @@ FLAGS
   -v, --verbose          log everything
   --amount=<value>       token amount to load into the lease escrow. If decimals provided, amount will be normalized to
                          raw tokenAmount
+  --commitment=<option>  [default: confirmed] transaction commitment level to use
+                         <options: confirmed|finalized|processed>
   --mainnetBeta          WARNING: use mainnet-beta solana cluster
   --programId=<value>    alternative Switchboard program ID to interact with
 
@@ -1085,7 +1155,7 @@ fund and re-enable an aggregator lease
 ```
 USAGE
   $ sbv2 solana lease extend [AGGREGATORKEY] --amount <value> [-h] [-v] [-s] [--mainnetBeta] [-u <value>] [--programId
-    <value>] [-k <value>]
+    <value>] [--commitment confirmed|finalized|processed] [-k <value>]
 
 ARGUMENTS
   AGGREGATORKEY  public key of the aggregator to extend a lease for
@@ -1099,6 +1169,8 @@ FLAGS
   -v, --verbose          log everything
   --amount=<value>       (required) token amount to load into the lease escrow. If decimals provided, amount will be
                          normalized to raw tokenAmount
+  --commitment=<option>  [default: confirmed] transaction commitment level to use
+                         <options: confirmed|finalized|processed>
   --mainnetBeta          WARNING: use mainnet-beta solana cluster
   --programId=<value>    alternative Switchboard program ID to interact with
 
@@ -1119,7 +1191,7 @@ withdraw funds from an aggregator lease
 ```
 USAGE
   $ sbv2 solana lease withdraw [AGGREGATORKEY] --amount <value> [-h] [-v] [-s] [--mainnetBeta] [-u <value>] [--programId
-    <value>] [-k <value>] [--withdrawAddress <value>] [-a <value>]
+    <value>] [--commitment confirmed|finalized|processed] [-k <value>] [--withdrawAddress <value>] [-a <value>]
 
 ARGUMENTS
   AGGREGATORKEY  public key of the aggregator to extend a lease for
@@ -1134,6 +1206,8 @@ FLAGS
   -v, --verbose              log everything
   --amount=<value>           (required) token amount to withdraw from lease account. If decimals provided, amount will
                              be normalized to raw tokenAmount
+  --commitment=<option>      [default: confirmed] transaction commitment level to use
+                             <options: confirmed|finalized|processed>
   --mainnetBeta              WARNING: use mainnet-beta solana cluster
   --programId=<value>        alternative Switchboard program ID to interact with
   --withdrawAddress=<value>  tokenAccount to withdraw to. If not provided, payer associated token account will be used
@@ -1154,8 +1228,8 @@ create a localnet switchboard environment
 
 ```
 USAGE
-  $ sbv2 solana localnet env [-h] [-v] [-s] [--mainnetBeta] [-u <value>] [--programId <value>] [-k <value>] [--force] [-o
-    <value>]
+  $ sbv2 solana localnet env [-h] [-v] [-s] [--mainnetBeta] [-u <value>] [--programId <value>] [--commitment
+    confirmed|finalized|processed] [-k <value>] [--force] [-o <value>]
 
 FLAGS
   -h, --help               Show CLI help.
@@ -1165,6 +1239,8 @@ FLAGS
   -s, --silent             suppress cli prompts
   -u, --rpcUrl=<value>     alternate RPC url
   -v, --verbose            log everything
+  --commitment=<option>    [default: confirmed] transaction commitment level to use
+                           <options: confirmed|finalized|processed>
   --force                  overwrite output file if existing
   --mainnetBeta            WARNING: use mainnet-beta solana cluster
   --programId=<value>      alternative Switchboard program ID to interact with
@@ -1179,18 +1255,21 @@ check an oracles token balance
 
 ```
 USAGE
-  $ sbv2 solana oracle balance [ORACLEKEY] [-h] [-v] [-s] [--mainnetBeta] [-u <value>] [--programId <value>]
+  $ sbv2 solana oracle balance [ORACLEKEY] [-h] [-v] [-s] [--mainnetBeta] [-u <value>] [--programId <value>] [--commitment
+    confirmed|finalized|processed]
 
 ARGUMENTS
   ORACLEKEY  public key of the oracle to check token balance
 
 FLAGS
-  -h, --help            Show CLI help.
-  -s, --silent          suppress cli prompts
-  -u, --rpcUrl=<value>  alternate RPC url
-  -v, --verbose         log everything
-  --mainnetBeta         WARNING: use mainnet-beta solana cluster
-  --programId=<value>   alternative Switchboard program ID to interact with
+  -h, --help             Show CLI help.
+  -s, --silent           suppress cli prompts
+  -u, --rpcUrl=<value>   alternate RPC url
+  -v, --verbose          log everything
+  --commitment=<option>  [default: confirmed] transaction commitment level to use
+                         <options: confirmed|finalized|processed>
+  --mainnetBeta          WARNING: use mainnet-beta solana cluster
+  --programId=<value>    alternative Switchboard program ID to interact with
 
 DESCRIPTION
   check an oracles token balance
@@ -1205,8 +1284,8 @@ create a new oracle account for a given queue
 
 ```
 USAGE
-  $ sbv2 solana oracle create [QUEUEKEY] [-h] [-v] [-s] [--mainnetBeta] [-u <value>] [--programId <value>] [-k <value>]
-    [-n <value>] [-a <value>] [--enable] [--queueAuthority <value>]
+  $ sbv2 solana oracle create [QUEUEKEY] [-h] [-v] [-s] [--mainnetBeta] [-u <value>] [--programId <value>] [--commitment
+    confirmed|finalized|processed] [-k <value>] [-n <value>] [-a <value>] [--enable] [--queueAuthority <value>]
 
 ARGUMENTS
   QUEUEKEY  public key of the oracle queue to join
@@ -1220,6 +1299,8 @@ FLAGS
   -s, --silent              suppress cli prompts
   -u, --rpcUrl=<value>      alternate RPC url
   -v, --verbose             log everything
+  --commitment=<option>     [default: confirmed] transaction commitment level to use
+                            <options: confirmed|finalized|processed>
   --enable                  enable oracle heartbeat permissions
   --mainnetBeta             WARNING: use mainnet-beta solana cluster
   --programId=<value>       alternative Switchboard program ID to interact with
@@ -1243,7 +1324,7 @@ deposit tokens into an oracle's token wallet
 ```
 USAGE
   $ sbv2 solana oracle deposit [ORACLEKEY] --amount <value> [-h] [-v] [-s] [--mainnetBeta] [-u <value>] [--programId
-    <value>] [-k <value>]
+    <value>] [--commitment confirmed|finalized|processed] [-k <value>]
 
 ARGUMENTS
   ORACLEKEY  public key of the oracle to deposit funds into
@@ -1257,6 +1338,8 @@ FLAGS
   -v, --verbose          log everything
   --amount=<value>       (required) token amount to load into the oracle escrow. If decimals provided, amount will be
                          normalized to raw tokenAmount
+  --commitment=<option>  [default: confirmed] transaction commitment level to use
+                         <options: confirmed|finalized|processed>
   --mainnetBeta          WARNING: use mainnet-beta solana cluster
   --programId=<value>    alternative Switchboard program ID to interact with
 
@@ -1273,18 +1356,21 @@ view an oracles nonce accounts
 
 ```
 USAGE
-  $ sbv2 solana oracle nonce [ORACLEKEY] [-h] [-v] [-s] [--mainnetBeta] [-u <value>] [--programId <value>]
+  $ sbv2 solana oracle nonce [ORACLEKEY] [-h] [-v] [-s] [--mainnetBeta] [-u <value>] [--programId <value>] [--commitment
+    confirmed|finalized|processed]
 
 ARGUMENTS
   ORACLEKEY  public key of the oracle to check token balance
 
 FLAGS
-  -h, --help            Show CLI help.
-  -s, --silent          suppress cli prompts
-  -u, --rpcUrl=<value>  alternate RPC url
-  -v, --verbose         log everything
-  --mainnetBeta         WARNING: use mainnet-beta solana cluster
-  --programId=<value>   alternative Switchboard program ID to interact with
+  -h, --help             Show CLI help.
+  -s, --silent           suppress cli prompts
+  -u, --rpcUrl=<value>   alternate RPC url
+  -v, --verbose          log everything
+  --commitment=<option>  [default: confirmed] transaction commitment level to use
+                         <options: confirmed|finalized|processed>
+  --mainnetBeta          WARNING: use mainnet-beta solana cluster
+  --programId=<value>    alternative Switchboard program ID to interact with
 
 DESCRIPTION
   view an oracles nonce accounts
@@ -1296,8 +1382,8 @@ create a permission account for an oracle
 
 ```
 USAGE
-  $ sbv2 solana oracle permission create [ORACLEKEY] [-h] [-v] [-s] [--mainnetBeta] [-u <value>] [--programId <value>]
-  [-k <value>]
+  $ sbv2 solana oracle permission create [ORACLEKEY] [-h] [-v] [-s] [--mainnetBeta] [-u <value>] [--programId <value>] [--commitment
+    confirmed|finalized|processed] [-k <value>]
 
 ARGUMENTS
   ORACLEKEY  public key of the oracle account
@@ -1309,6 +1395,8 @@ FLAGS
   -s, --silent           suppress cli prompts
   -u, --rpcUrl=<value>   alternate RPC url
   -v, --verbose          log everything
+  --commitment=<option>  [default: confirmed] transaction commitment level to use
+                         <options: confirmed|finalized|processed>
   --mainnetBeta          WARNING: use mainnet-beta solana cluster
   --programId=<value>    alternative Switchboard program ID to interact with
 
@@ -1322,18 +1410,21 @@ Print the deserialized Switchboard oracle account
 
 ```
 USAGE
-  $ sbv2 solana oracle print [ORACLEKEY] [-h] [-v] [-s] [--mainnetBeta] [-u <value>] [--programId <value>]
+  $ sbv2 solana oracle print [ORACLEKEY] [-h] [-v] [-s] [--mainnetBeta] [-u <value>] [--programId <value>] [--commitment
+    confirmed|finalized|processed]
 
 ARGUMENTS
   ORACLEKEY  public key of the oracle account to deserialize
 
 FLAGS
-  -h, --help            Show CLI help.
-  -s, --silent          suppress cli prompts
-  -u, --rpcUrl=<value>  alternate RPC url
-  -v, --verbose         log everything
-  --mainnetBeta         WARNING: use mainnet-beta solana cluster
-  --programId=<value>   alternative Switchboard program ID to interact with
+  -h, --help             Show CLI help.
+  -s, --silent           suppress cli prompts
+  -u, --rpcUrl=<value>   alternate RPC url
+  -v, --verbose          log everything
+  --commitment=<option>  [default: confirmed] transaction commitment level to use
+                         <options: confirmed|finalized|processed>
+  --mainnetBeta          WARNING: use mainnet-beta solana cluster
+  --programId=<value>    alternative Switchboard program ID to interact with
 
 DESCRIPTION
   Print the deserialized Switchboard oracle account
@@ -1352,7 +1443,7 @@ withdraw tokens from an oracle's token wallet
 ```
 USAGE
   $ sbv2 solana oracle withdraw [ORACLEKEY] --amount <value> [-h] [-v] [-s] [--mainnetBeta] [-u <value>] [--programId
-    <value>] [-k <value>] [-f] [-w <value>] [-a <value>]
+    <value>] [--commitment confirmed|finalized|processed] [-k <value>] [-f] [-w <value>] [-a <value>]
 
 ARGUMENTS
   ORACLEKEY  public key of the oracle to withdraw from
@@ -1370,6 +1461,8 @@ FLAGS
                                  destination is oracle authority's token wallet
   --amount=<value>               (required) token amount to withdraw from oracle escrow. If decimals provided, amount
                                  will be normalized to raw tokenAmount
+  --commitment=<option>          [default: confirmed] transaction commitment level to use
+                                 <options: confirmed|finalized|processed>
   --mainnetBeta                  WARNING: use mainnet-beta solana cluster
   --programId=<value>            alternative Switchboard program ID to interact with
 
@@ -1388,8 +1481,8 @@ create a permission account
 
 ```
 USAGE
-  $ sbv2 solana permission create [GRANTER] [GRANTEE] [-h] [-v] [-s] [--mainnetBeta] [-u <value>] [--programId <value>] [-k
-    <value>]
+  $ sbv2 solana permission create [GRANTER] [GRANTEE] [-h] [-v] [-s] [--mainnetBeta] [-u <value>] [--programId <value>]
+    [--commitment confirmed|finalized|processed] [-k <value>]
 
 ARGUMENTS
   GRANTER  public key of the account granting permission
@@ -1402,6 +1495,8 @@ FLAGS
   -s, --silent           suppress cli prompts
   -u, --rpcUrl=<value>   alternate RPC url
   -v, --verbose          log everything
+  --commitment=<option>  [default: confirmed] transaction commitment level to use
+                         <options: confirmed|finalized|processed>
   --mainnetBeta          WARNING: use mainnet-beta solana cluster
   --programId=<value>    alternative Switchboard program ID to interact with
 
@@ -1416,17 +1511,20 @@ Print the deserialized Switchboard permission account
 ```
 USAGE
   $ sbv2 solana permission print [PERMISSIONKEY] [-h] [-v] [-s] [--mainnetBeta] [-u <value>] [--programId <value>]
+    [--commitment confirmed|finalized|processed]
 
 ARGUMENTS
   PERMISSIONKEY  public key of the permission account to deserialize
 
 FLAGS
-  -h, --help            Show CLI help.
-  -s, --silent          suppress cli prompts
-  -u, --rpcUrl=<value>  alternate RPC url
-  -v, --verbose         log everything
-  --mainnetBeta         WARNING: use mainnet-beta solana cluster
-  --programId=<value>   alternative Switchboard program ID to interact with
+  -h, --help             Show CLI help.
+  -s, --silent           suppress cli prompts
+  -u, --rpcUrl=<value>   alternate RPC url
+  -v, --verbose          log everything
+  --commitment=<option>  [default: confirmed] transaction commitment level to use
+                         <options: confirmed|finalized|processed>
+  --mainnetBeta          WARNING: use mainnet-beta solana cluster
+  --programId=<value>    alternative Switchboard program ID to interact with
 
 DESCRIPTION
   Print the deserialized Switchboard permission account
@@ -1444,8 +1542,8 @@ permit a grantee to use a granters resources
 
 ```
 USAGE
-  $ sbv2 solana permission set [PERMISSIONKEY] [-h] [-v] [-s] [--mainnetBeta] [-u <value>] [--programId <value>] [-k
-    <value>] [-a <value>] [--disable]
+  $ sbv2 solana permission set [PERMISSIONKEY] [-h] [-v] [-s] [--mainnetBeta] [-u <value>] [--programId <value>]
+    [--commitment confirmed|finalized|processed] [-k <value>] [-a <value>] [--disable]
 
 ARGUMENTS
   PERMISSIONKEY  public key of the permission account
@@ -1458,6 +1556,8 @@ FLAGS
   -s, --silent             suppress cli prompts
   -u, --rpcUrl=<value>     alternate RPC url
   -v, --verbose            log everything
+  --commitment=<option>    [default: confirmed] transaction commitment level to use
+                           <options: confirmed|finalized|processed>
   --disable                disable permissions
   --mainnetBeta            WARNING: use mainnet-beta solana cluster
   --programId=<value>      alternative Switchboard program ID to interact with
@@ -1494,8 +1594,8 @@ Print the deserialized Switchboard aggregator account
 
 ```
 USAGE
-  $ sbv2 solana print aggregator [AGGREGATORKEY] [-h] [-v] [-s] [--mainnetBeta] [-u <value>] [--programId <value>] [--json]
-    [--jobs] [-o]
+  $ sbv2 solana print aggregator [AGGREGATORKEY] [-h] [-v] [-s] [--mainnetBeta] [-u <value>] [--programId <value>]
+    [--commitment confirmed|finalized|processed] [--json] [--jobs] [-o]
 
 ARGUMENTS
   AGGREGATORKEY  public key of the aggregator account to deserialize
@@ -1506,6 +1606,8 @@ FLAGS
   -s, --silent             suppress cli prompts
   -u, --rpcUrl=<value>     alternate RPC url
   -v, --verbose            log everything
+  --commitment=<option>    [default: confirmed] transaction commitment level to use
+                           <options: confirmed|finalized|processed>
   --jobs                   output job definitions
   --mainnetBeta            WARNING: use mainnet-beta solana cluster
   --programId=<value>      alternative Switchboard program ID to interact with
@@ -1529,19 +1631,21 @@ Print the history buffer associated with an aggregator account
 
 ```
 USAGE
-  $ sbv2 solana print aggregator history [AGGREGATORKEY] [-h] [-v] [-s] [--mainnetBeta] [-u <value>] [--programId
-  <value>]
+  $ sbv2 solana print aggregator history [AGGREGATORKEY] [-h] [-v] [-s] [--mainnetBeta] [-u <value>] [--programId <value>]
+    [--commitment confirmed|finalized|processed]
 
 ARGUMENTS
   AGGREGATORKEY  public key of the aggregator account to fetch permission account and deserialize
 
 FLAGS
-  -h, --help            Show CLI help.
-  -s, --silent          suppress cli prompts
-  -u, --rpcUrl=<value>  alternate RPC url
-  -v, --verbose         log everything
-  --mainnetBeta         WARNING: use mainnet-beta solana cluster
-  --programId=<value>   alternative Switchboard program ID to interact with
+  -h, --help             Show CLI help.
+  -s, --silent           suppress cli prompts
+  -u, --rpcUrl=<value>   alternate RPC url
+  -v, --verbose          log everything
+  --commitment=<option>  [default: confirmed] transaction commitment level to use
+                         <options: confirmed|finalized|processed>
+  --mainnetBeta          WARNING: use mainnet-beta solana cluster
+  --programId=<value>    alternative Switchboard program ID to interact with
 
 DESCRIPTION
   Print the history buffer associated with an aggregator account
@@ -1561,17 +1665,20 @@ Print the lease account associated with a Switchboard aggregator account
 ```
 USAGE
   $ sbv2 solana print aggregator lease [AGGREGATORKEY] [-h] [-v] [-s] [--mainnetBeta] [-u <value>] [--programId <value>]
+    [--commitment confirmed|finalized|processed]
 
 ARGUMENTS
   AGGREGATORKEY  public key of the aggregator account to fetch permission account and deserialize
 
 FLAGS
-  -h, --help            Show CLI help.
-  -s, --silent          suppress cli prompts
-  -u, --rpcUrl=<value>  alternate RPC url
-  -v, --verbose         log everything
-  --mainnetBeta         WARNING: use mainnet-beta solana cluster
-  --programId=<value>   alternative Switchboard program ID to interact with
+  -h, --help             Show CLI help.
+  -s, --silent           suppress cli prompts
+  -u, --rpcUrl=<value>   alternate RPC url
+  -v, --verbose          log everything
+  --commitment=<option>  [default: confirmed] transaction commitment level to use
+                         <options: confirmed|finalized|processed>
+  --mainnetBeta          WARNING: use mainnet-beta solana cluster
+  --programId=<value>    alternative Switchboard program ID to interact with
 
 DESCRIPTION
   Print the lease account associated with a Switchboard aggregator account
@@ -1590,19 +1697,21 @@ Print the permission account associated with a Switchboard aggregator account
 
 ```
 USAGE
-  $ sbv2 solana print aggregator permission [AGGREGATORKEY] [-h] [-v] [-s] [--mainnetBeta] [-u <value>] [--programId
-  <value>]
+  $ sbv2 solana print aggregator permission [AGGREGATORKEY] [-h] [-v] [-s] [--mainnetBeta] [-u <value>] [--programId <value>]
+    [--commitment confirmed|finalized|processed]
 
 ARGUMENTS
   AGGREGATORKEY  public key of the aggregator account to fetch permission account and deserialize
 
 FLAGS
-  -h, --help            Show CLI help.
-  -s, --silent          suppress cli prompts
-  -u, --rpcUrl=<value>  alternate RPC url
-  -v, --verbose         log everything
-  --mainnetBeta         WARNING: use mainnet-beta solana cluster
-  --programId=<value>   alternative Switchboard program ID to interact with
+  -h, --help             Show CLI help.
+  -s, --silent           suppress cli prompts
+  -u, --rpcUrl=<value>   alternate RPC url
+  -v, --verbose          log everything
+  --commitment=<option>  [default: confirmed] transaction commitment level to use
+                         <options: confirmed|finalized|processed>
+  --mainnetBeta          WARNING: use mainnet-beta solana cluster
+  --programId=<value>    alternative Switchboard program ID to interact with
 
 DESCRIPTION
   Print the permission account associated with a Switchboard aggregator account
@@ -1622,19 +1731,21 @@ Print the deserialized Switchboard buffer relayer account
 ```
 USAGE
   $ sbv2 solana print buffer [BUFFERRELAYERKEY] [-h] [-v] [-s] [--mainnetBeta] [-u <value>] [--programId <value>]
-  [--job]
+    [--commitment confirmed|finalized|processed] [--job]
 
 ARGUMENTS
   BUFFERRELAYERKEY  public key of the buffer relayer account to deserialize
 
 FLAGS
-  -h, --help            Show CLI help.
-  -s, --silent          suppress cli prompts
-  -u, --rpcUrl=<value>  alternate RPC url
-  -v, --verbose         log everything
-  --job                 output job definitions
-  --mainnetBeta         WARNING: use mainnet-beta solana cluster
-  --programId=<value>   alternative Switchboard program ID to interact with
+  -h, --help             Show CLI help.
+  -s, --silent           suppress cli prompts
+  -u, --rpcUrl=<value>   alternate RPC url
+  -v, --verbose          log everything
+  --commitment=<option>  [default: confirmed] transaction commitment level to use
+                         <options: confirmed|finalized|processed>
+  --job                  output job definitions
+  --mainnetBeta          WARNING: use mainnet-beta solana cluster
+  --programId=<value>    alternative Switchboard program ID to interact with
 
 DESCRIPTION
   Print the deserialized Switchboard buffer relayer account
@@ -1652,18 +1763,21 @@ print deserialized switchboard crank account
 
 ```
 USAGE
-  $ sbv2 solana print crank [CRANKKEY] [-h] [-v] [-s] [--mainnetBeta] [-u <value>] [--programId <value>]
+  $ sbv2 solana print crank [CRANKKEY] [-h] [-v] [-s] [--mainnetBeta] [-u <value>] [--programId <value>] [--commitment
+    confirmed|finalized|processed]
 
 ARGUMENTS
   CRANKKEY  public key of the crank account to deserialize
 
 FLAGS
-  -h, --help            Show CLI help.
-  -s, --silent          suppress cli prompts
-  -u, --rpcUrl=<value>  alternate RPC url
-  -v, --verbose         log everything
-  --mainnetBeta         WARNING: use mainnet-beta solana cluster
-  --programId=<value>   alternative Switchboard program ID to interact with
+  -h, --help             Show CLI help.
+  -s, --silent           suppress cli prompts
+  -u, --rpcUrl=<value>   alternate RPC url
+  -v, --verbose          log everything
+  --commitment=<option>  [default: confirmed] transaction commitment level to use
+                         <options: confirmed|finalized|processed>
+  --mainnetBeta          WARNING: use mainnet-beta solana cluster
+  --programId=<value>    alternative Switchboard program ID to interact with
 
 DESCRIPTION
   print deserialized switchboard crank account
@@ -1681,18 +1795,21 @@ Print the deserialized Switchboard job account
 
 ```
 USAGE
-  $ sbv2 solana print job [JOBKEY] [-h] [-v] [-s] [--mainnetBeta] [-u <value>] [--programId <value>]
+  $ sbv2 solana print job [JOBKEY] [-h] [-v] [-s] [--mainnetBeta] [-u <value>] [--programId <value>] [--commitment
+    confirmed|finalized|processed]
 
 ARGUMENTS
   JOBKEY  public key of the job account to deserialize
 
 FLAGS
-  -h, --help            Show CLI help.
-  -s, --silent          suppress cli prompts
-  -u, --rpcUrl=<value>  alternate RPC url
-  -v, --verbose         log everything
-  --mainnetBeta         WARNING: use mainnet-beta solana cluster
-  --programId=<value>   alternative Switchboard program ID to interact with
+  -h, --help             Show CLI help.
+  -s, --silent           suppress cli prompts
+  -u, --rpcUrl=<value>   alternate RPC url
+  -v, --verbose          log everything
+  --commitment=<option>  [default: confirmed] transaction commitment level to use
+                         <options: confirmed|finalized|processed>
+  --mainnetBeta          WARNING: use mainnet-beta solana cluster
+  --programId=<value>    alternative Switchboard program ID to interact with
 
 DESCRIPTION
   Print the deserialized Switchboard job account
@@ -1710,18 +1827,21 @@ Print the deserialized Switchboard oracle account
 
 ```
 USAGE
-  $ sbv2 solana print oracle [ORACLEKEY] [-h] [-v] [-s] [--mainnetBeta] [-u <value>] [--programId <value>]
+  $ sbv2 solana print oracle [ORACLEKEY] [-h] [-v] [-s] [--mainnetBeta] [-u <value>] [--programId <value>] [--commitment
+    confirmed|finalized|processed]
 
 ARGUMENTS
   ORACLEKEY  public key of the oracle account to deserialize
 
 FLAGS
-  -h, --help            Show CLI help.
-  -s, --silent          suppress cli prompts
-  -u, --rpcUrl=<value>  alternate RPC url
-  -v, --verbose         log everything
-  --mainnetBeta         WARNING: use mainnet-beta solana cluster
-  --programId=<value>   alternative Switchboard program ID to interact with
+  -h, --help             Show CLI help.
+  -s, --silent           suppress cli prompts
+  -u, --rpcUrl=<value>   alternate RPC url
+  -v, --verbose          log everything
+  --commitment=<option>  [default: confirmed] transaction commitment level to use
+                         <options: confirmed|finalized|processed>
+  --mainnetBeta          WARNING: use mainnet-beta solana cluster
+  --programId=<value>    alternative Switchboard program ID to interact with
 
 DESCRIPTION
   Print the deserialized Switchboard oracle account
@@ -1739,18 +1859,21 @@ Print the permission account associated with a Switchboard oracle account
 
 ```
 USAGE
-  $ sbv2 solana print oracle permission [ORACLEKEY] [-h] [-v] [-s] [--mainnetBeta] [-u <value>] [--programId <value>]
+  $ sbv2 solana print oracle permission [ORACLEKEY] [-h] [-v] [-s] [--mainnetBeta] [-u <value>] [--programId <value>] [--commitment
+    confirmed|finalized|processed]
 
 ARGUMENTS
   ORACLEKEY  public key of the oracle account to fetch permission account and deserialize
 
 FLAGS
-  -h, --help            Show CLI help.
-  -s, --silent          suppress cli prompts
-  -u, --rpcUrl=<value>  alternate RPC url
-  -v, --verbose         log everything
-  --mainnetBeta         WARNING: use mainnet-beta solana cluster
-  --programId=<value>   alternative Switchboard program ID to interact with
+  -h, --help             Show CLI help.
+  -s, --silent           suppress cli prompts
+  -u, --rpcUrl=<value>   alternate RPC url
+  -v, --verbose          log everything
+  --commitment=<option>  [default: confirmed] transaction commitment level to use
+                         <options: confirmed|finalized|processed>
+  --mainnetBeta          WARNING: use mainnet-beta solana cluster
+  --programId=<value>    alternative Switchboard program ID to interact with
 
 DESCRIPTION
   Print the permission account associated with a Switchboard oracle account
@@ -1770,17 +1893,20 @@ Print the deserialized Switchboard permission account
 ```
 USAGE
   $ sbv2 solana print permission [PERMISSIONKEY] [-h] [-v] [-s] [--mainnetBeta] [-u <value>] [--programId <value>]
+    [--commitment confirmed|finalized|processed]
 
 ARGUMENTS
   PERMISSIONKEY  public key of the permission account to deserialize
 
 FLAGS
-  -h, --help            Show CLI help.
-  -s, --silent          suppress cli prompts
-  -u, --rpcUrl=<value>  alternate RPC url
-  -v, --verbose         log everything
-  --mainnetBeta         WARNING: use mainnet-beta solana cluster
-  --programId=<value>   alternative Switchboard program ID to interact with
+  -h, --help             Show CLI help.
+  -s, --silent           suppress cli prompts
+  -u, --rpcUrl=<value>   alternate RPC url
+  -v, --verbose          log everything
+  --commitment=<option>  [default: confirmed] transaction commitment level to use
+                         <options: confirmed|finalized|processed>
+  --mainnetBeta          WARNING: use mainnet-beta solana cluster
+  --programId=<value>    alternative Switchboard program ID to interact with
 
 DESCRIPTION
   Print the deserialized Switchboard permission account
@@ -1798,15 +1924,18 @@ print the deserialized switchboard program state account
 
 ```
 USAGE
-  $ sbv2 solana print program [-h] [-v] [-s] [--mainnetBeta] [-u <value>] [--programId <value>]
+  $ sbv2 solana print program [-h] [-v] [-s] [--mainnetBeta] [-u <value>] [--programId <value>] [--commitment
+    confirmed|finalized|processed]
 
 FLAGS
-  -h, --help            Show CLI help.
-  -s, --silent          suppress cli prompts
-  -u, --rpcUrl=<value>  alternate RPC url
-  -v, --verbose         log everything
-  --mainnetBeta         WARNING: use mainnet-beta solana cluster
-  --programId=<value>   alternative Switchboard program ID to interact with
+  -h, --help             Show CLI help.
+  -s, --silent           suppress cli prompts
+  -u, --rpcUrl=<value>   alternate RPC url
+  -v, --verbose          log everything
+  --commitment=<option>  [default: confirmed] transaction commitment level to use
+                         <options: confirmed|finalized|processed>
+  --mainnetBeta          WARNING: use mainnet-beta solana cluster
+  --programId=<value>    alternative Switchboard program ID to interact with
 
 DESCRIPTION
   print the deserialized switchboard program state account
@@ -1824,19 +1953,22 @@ Print the deserialized Switchboard oraclequeue account
 
 ```
 USAGE
-  $ sbv2 solana print queue [QUEUEKEY] [-h] [-v] [-s] [--mainnetBeta] [-u <value>] [--programId <value>] [--oracles]
+  $ sbv2 solana print queue [QUEUEKEY] [-h] [-v] [-s] [--mainnetBeta] [-u <value>] [--programId <value>] [--commitment
+    confirmed|finalized|processed] [--oracles]
 
 ARGUMENTS
   QUEUEKEY  public key of the oracle queue account to deserialize
 
 FLAGS
-  -h, --help            Show CLI help.
-  -s, --silent          suppress cli prompts
-  -u, --rpcUrl=<value>  alternate RPC url
-  -v, --verbose         log everything
-  --mainnetBeta         WARNING: use mainnet-beta solana cluster
-  --oracles             output oracles that are heartbeating on the queue
-  --programId=<value>   alternative Switchboard program ID to interact with
+  -h, --help             Show CLI help.
+  -s, --silent           suppress cli prompts
+  -u, --rpcUrl=<value>   alternate RPC url
+  -v, --verbose          log everything
+  --commitment=<option>  [default: confirmed] transaction commitment level to use
+                         <options: confirmed|finalized|processed>
+  --mainnetBeta          WARNING: use mainnet-beta solana cluster
+  --oracles              output oracles that are heartbeating on the queue
+  --programId=<value>    alternative Switchboard program ID to interact with
 
 DESCRIPTION
   Print the deserialized Switchboard oraclequeue account
@@ -1854,18 +1986,21 @@ Print the deserialized Switchboard VRF account
 
 ```
 USAGE
-  $ sbv2 solana print vrf [VRFKEY] [-h] [-v] [-s] [--mainnetBeta] [-u <value>] [--programId <value>] [--json]
+  $ sbv2 solana print vrf [VRFKEY] [-h] [-v] [-s] [--mainnetBeta] [-u <value>] [--programId <value>] [--commitment
+    confirmed|finalized|processed] [--json]
 
 ARGUMENTS
   VRFKEY  public key of the vrf account to deserialize
 
 FLAGS
-  -h, --help            Show CLI help.
-  -s, --silent          suppress cli prompts
-  -u, --rpcUrl=<value>  alternate RPC url
-  -v, --verbose         log everything
-  --mainnetBeta         WARNING: use mainnet-beta solana cluster
-  --programId=<value>   alternative Switchboard program ID to interact with
+  -h, --help             Show CLI help.
+  -s, --silent           suppress cli prompts
+  -u, --rpcUrl=<value>   alternate RPC url
+  -v, --verbose          log everything
+  --commitment=<option>  [default: confirmed] transaction commitment level to use
+                         <options: confirmed|finalized|processed>
+  --mainnetBeta          WARNING: use mainnet-beta solana cluster
+  --programId=<value>    alternative Switchboard program ID to interact with
 
 GLOBAL FLAGS
   --json  Format output as json.
@@ -1886,15 +2021,18 @@ print the deserialized switchboard program state account
 
 ```
 USAGE
-  $ sbv2 solana program print [-h] [-v] [-s] [--mainnetBeta] [-u <value>] [--programId <value>]
+  $ sbv2 solana program print [-h] [-v] [-s] [--mainnetBeta] [-u <value>] [--programId <value>] [--commitment
+    confirmed|finalized|processed]
 
 FLAGS
-  -h, --help            Show CLI help.
-  -s, --silent          suppress cli prompts
-  -u, --rpcUrl=<value>  alternate RPC url
-  -v, --verbose         log everything
-  --mainnetBeta         WARNING: use mainnet-beta solana cluster
-  --programId=<value>   alternative Switchboard program ID to interact with
+  -h, --help             Show CLI help.
+  -s, --silent           suppress cli prompts
+  -u, --rpcUrl=<value>   alternate RPC url
+  -v, --verbose          log everything
+  --commitment=<option>  [default: confirmed] transaction commitment level to use
+                         <options: confirmed|finalized|processed>
+  --mainnetBeta          WARNING: use mainnet-beta solana cluster
+  --programId=<value>    alternative Switchboard program ID to interact with
 
 DESCRIPTION
   print the deserialized switchboard program state account
@@ -1912,9 +2050,10 @@ create a custom queue
 
 ```
 USAGE
-  $ sbv2 solana queue create [-h] [-v] [-s] [--mainnetBeta] [-u <value>] [--programId <value>] [-k <value>] [--force] [-a
-    <value>] [-n <value>] [--minStake <value>] [-r <value>] [-c <value>] [--oracleTimeout <value>] [-o <value>]
-    [--queueSize <value>] [--unpermissionedFeeds] [--unpermissionedVrf] [--enableBufferRelayers] [-f <value>]
+  $ sbv2 solana queue create [-h] [-v] [-s] [--mainnetBeta] [-u <value>] [--programId <value>] [--commitment
+    confirmed|finalized|processed] [-k <value>] [--force] [-a <value>] [-n <value>] [--minStake <value>] [-r <value>]
+    [-c <value>] [--oracleTimeout <value>] [-o <value>] [--queueSize <value>] [--unpermissionedFeeds]
+    [--unpermissionedVrf] [--enableBufferRelayers] [-f <value>]
 
 FLAGS
   -a, --authority=<value>   keypair to delegate authority to for creating permissions targeted at the queue
@@ -1929,6 +2068,8 @@ FLAGS
   -s, --silent              suppress cli prompts
   -u, --rpcUrl=<value>      alternate RPC url
   -v, --verbose             log everything
+  --commitment=<option>     [default: confirmed] transaction commitment level to use
+                            <options: confirmed|finalized|processed>
   --enableBufferRelayers    enable oracles to fulfill buffer relayer requests
   --force                   overwrite output file if existing
   --mainnetBeta             WARNING: use mainnet-beta solana cluster
@@ -1952,19 +2093,22 @@ Print the deserialized Switchboard oraclequeue account
 
 ```
 USAGE
-  $ sbv2 solana queue print [QUEUEKEY] [-h] [-v] [-s] [--mainnetBeta] [-u <value>] [--programId <value>] [--oracles]
+  $ sbv2 solana queue print [QUEUEKEY] [-h] [-v] [-s] [--mainnetBeta] [-u <value>] [--programId <value>] [--commitment
+    confirmed|finalized|processed] [--oracles]
 
 ARGUMENTS
   QUEUEKEY  public key of the oracle queue account to deserialize
 
 FLAGS
-  -h, --help            Show CLI help.
-  -s, --silent          suppress cli prompts
-  -u, --rpcUrl=<value>  alternate RPC url
-  -v, --verbose         log everything
-  --mainnetBeta         WARNING: use mainnet-beta solana cluster
-  --oracles             output oracles that are heartbeating on the queue
-  --programId=<value>   alternative Switchboard program ID to interact with
+  -h, --help             Show CLI help.
+  -s, --silent           suppress cli prompts
+  -u, --rpcUrl=<value>   alternate RPC url
+  -v, --verbose          log everything
+  --commitment=<option>  [default: confirmed] transaction commitment level to use
+                         <options: confirmed|finalized|processed>
+  --mainnetBeta          WARNING: use mainnet-beta solana cluster
+  --oracles              output oracles that are heartbeating on the queue
+  --programId=<value>    alternative Switchboard program ID to interact with
 
 DESCRIPTION
   Print the deserialized Switchboard oraclequeue account
@@ -1982,8 +2126,8 @@ set an oracle queue's rewards
 
 ```
 USAGE
-  $ sbv2 solana queue set rewards [QUEUEKEY] [REWARDS] [-h] [-v] [-s] [--mainnetBeta] [-u <value>] [--programId <value>] [-k
-    <value>] [-a <value>]
+  $ sbv2 solana queue set rewards [QUEUEKEY] [REWARDS] [-h] [-v] [-s] [--mainnetBeta] [-u <value>] [--programId <value>]
+    [--commitment confirmed|finalized|processed] [-k <value>] [-a <value>]
 
 ARGUMENTS
   QUEUEKEY  public key of the oracle queue
@@ -1997,6 +2141,8 @@ FLAGS
   -s, --silent             suppress cli prompts
   -u, --rpcUrl=<value>     alternate RPC url
   -v, --verbose            log everything
+  --commitment=<option>    [default: confirmed] transaction commitment level to use
+                           <options: confirmed|finalized|processed>
   --mainnetBeta            WARNING: use mainnet-beta solana cluster
   --programId=<value>      alternative Switchboard program ID to interact with
 
@@ -2010,8 +2156,8 @@ set unpermissionedVrfEnabled
 
 ```
 USAGE
-  $ sbv2 solana queue set vrf [QUEUEKEY] [-h] [-v] [-s] [--mainnetBeta] [-u <value>] [--programId <value>] [-k <value>]
-    [-a <value>] [--disable]
+  $ sbv2 solana queue set vrf [QUEUEKEY] [-h] [-v] [-s] [--mainnetBeta] [-u <value>] [--programId <value>] [--commitment
+    confirmed|finalized|processed] [-k <value>] [-a <value>] [--disable]
 
 ARGUMENTS
   QUEUEKEY  public key of the oracle queue to create a crank on
@@ -2024,6 +2170,8 @@ FLAGS
   -s, --silent             suppress cli prompts
   -u, --rpcUrl=<value>     alternate RPC url
   -v, --verbose            log everything
+  --commitment=<option>    [default: confirmed] transaction commitment level to use
+                           <options: confirmed|finalized|processed>
   --disable                disable unpermissionedVrfEnabled
   --mainnetBeta            WARNING: use mainnet-beta solana cluster
   --programId=<value>      alternative Switchboard program ID to interact with
@@ -2038,9 +2186,9 @@ create a Switchboard VRF Account
 
 ```
 USAGE
-  $ sbv2 solana vrf create [QUEUEKEY] [-h] [-v] [-s] [--mainnetBeta] [-u <value>] [--programId <value>] [-k <value>]
-    [--vrfKeypair <value>] [--enable] [--authority <value>] [--queueAuthority <value>] [--callback <value> |
-    --accountMeta <value> | --callbackPid <value> | --ixData <value>]
+  $ sbv2 solana vrf create [QUEUEKEY] [-h] [-v] [-s] [--mainnetBeta] [-u <value>] [--programId <value>] [--commitment
+    confirmed|finalized|processed] [-k <value>] [--vrfKeypair <value>] [--enable] [--authority <value>]
+    [--queueAuthority <value>] [--callback <value> | --accountMeta <value> | --callbackPid <value> | --ixData <value>]
 
 ARGUMENTS
   QUEUEKEY  public key of the oracle queue to create VRF account for
@@ -2056,6 +2204,8 @@ FLAGS
   --authority=<value>       alternative keypair to use for VRF authority
   --callback=<value>        filesystem path to callback json
   --callbackPid=<value>     callback program ID
+  --commitment=<option>     [default: confirmed] transaction commitment level to use
+                            <options: confirmed|finalized|processed>
   --enable                  enable vrf permissions
   --ixData=<value>          serialized instruction data in bytes
   --mainnetBeta             WARNING: use mainnet-beta solana cluster
@@ -2081,7 +2231,8 @@ create a VRF account for the client example program
 ```
 USAGE
   $ sbv2 solana vrf create example [QUEUEKEY] --vrfPid <value> [-h] [-v] [-s] [--mainnetBeta] [-u <value>] [--programId
-    <value>] [-k <value>] [--vrfKeypair <value>] [--enable] [--queueAuthority <value>] [--maxResult <value>]
+    <value>] [--commitment confirmed|finalized|processed] [-k <value>] [--vrfKeypair <value>] [--enable]
+    [--queueAuthority <value>] [--maxResult <value>]
 
 ARGUMENTS
   QUEUEKEY  public key of the oracle queue to create VRF account for
@@ -2093,6 +2244,8 @@ FLAGS
   -s, --silent              suppress cli prompts
   -u, --rpcUrl=<value>      alternate RPC url
   -v, --verbose             log everything
+  --commitment=<option>     [default: confirmed] transaction commitment level to use
+                            <options: confirmed|finalized|processed>
   --enable                  enable vrf permissions
   --mainnetBeta             WARNING: use mainnet-beta solana cluster
   --maxResult=<value>       [default: 256000] the maximum VRF result
@@ -2114,18 +2267,21 @@ Print the deserialized Switchboard VRF account
 
 ```
 USAGE
-  $ sbv2 solana vrf print [VRFKEY] [-h] [-v] [-s] [--mainnetBeta] [-u <value>] [--programId <value>] [--json]
+  $ sbv2 solana vrf print [VRFKEY] [-h] [-v] [-s] [--mainnetBeta] [-u <value>] [--programId <value>] [--commitment
+    confirmed|finalized|processed] [--json]
 
 ARGUMENTS
   VRFKEY  public key of the vrf account to deserialize
 
 FLAGS
-  -h, --help            Show CLI help.
-  -s, --silent          suppress cli prompts
-  -u, --rpcUrl=<value>  alternate RPC url
-  -v, --verbose         log everything
-  --mainnetBeta         WARNING: use mainnet-beta solana cluster
-  --programId=<value>   alternative Switchboard program ID to interact with
+  -h, --help             Show CLI help.
+  -s, --silent           suppress cli prompts
+  -u, --rpcUrl=<value>   alternate RPC url
+  -v, --verbose          log everything
+  --commitment=<option>  [default: confirmed] transaction commitment level to use
+                         <options: confirmed|finalized|processed>
+  --mainnetBeta          WARNING: use mainnet-beta solana cluster
+  --programId=<value>    alternative Switchboard program ID to interact with
 
 GLOBAL FLAGS
   --json  Format output as json.
@@ -2146,8 +2302,8 @@ request a new value for a VRF
 
 ```
 USAGE
-  $ sbv2 solana vrf request [VRFKEY] [-h] [-v] [-s] [--mainnetBeta] [-u <value>] [--programId <value>] [-k <value>]
-    [--funderAuthority <value>] [--authority <value>]
+  $ sbv2 solana vrf request [VRFKEY] [-h] [-v] [-s] [--mainnetBeta] [-u <value>] [--programId <value>] [--commitment
+    confirmed|finalized|processed] [-k <value>] [--funderAuthority <value>] [--authority <value>]
 
 ARGUMENTS
   VRFKEY  public key of the VRF account to request randomness for
@@ -2160,6 +2316,8 @@ FLAGS
   -u, --rpcUrl=<value>       alternate RPC url
   -v, --verbose              log everything
   --authority=<value>        alternative keypair that is the VRF authority
+  --commitment=<option>      [default: confirmed] transaction commitment level to use
+                             <options: confirmed|finalized|processed>
   --funderAuthority=<value>  alternative keypair to pay for VRF request
   --mainnetBeta              WARNING: use mainnet-beta solana cluster
   --programId=<value>        alternative Switchboard program ID to interact with
@@ -2177,7 +2335,8 @@ if ready, verify a VRF proof
 
 ```
 USAGE
-  $ sbv2 solana vrf verify [VRFKEY] [-h] [-v] [-s] [--mainnetBeta] [-u <value>] [--programId <value>] [-k <value>]
+  $ sbv2 solana vrf verify [VRFKEY] [-h] [-v] [-s] [--mainnetBeta] [-u <value>] [--programId <value>] [--commitment
+    confirmed|finalized|processed] [-k <value>]
 
 ARGUMENTS
   VRFKEY  public key of the VRF account to request randomness for
@@ -2189,6 +2348,8 @@ FLAGS
   -s, --silent           suppress cli prompts
   -u, --rpcUrl=<value>   alternate RPC url
   -v, --verbose          log everything
+  --commitment=<option>  [default: confirmed] transaction commitment level to use
+                         <options: confirmed|finalized|processed>
   --mainnetBeta          WARNING: use mainnet-beta solana cluster
   --programId=<value>    alternative Switchboard program ID to interact with
 
@@ -2203,17 +2364,20 @@ watch an aggregator for a new value
 ```
 USAGE
   $ sbv2 solana watch aggregator [AGGREGATORKEY] [-h] [-v] [-s] [--mainnetBeta] [-u <value>] [--programId <value>]
+    [--commitment confirmed|finalized|processed]
 
 ARGUMENTS
   AGGREGATORKEY  public key of the aggregator account to deserialize
 
 FLAGS
-  -h, --help            Show CLI help.
-  -s, --silent          suppress cli prompts
-  -u, --rpcUrl=<value>  alternate RPC url
-  -v, --verbose         log everything
-  --mainnetBeta         WARNING: use mainnet-beta solana cluster
-  --programId=<value>   alternative Switchboard program ID to interact with
+  -h, --help             Show CLI help.
+  -s, --silent           suppress cli prompts
+  -u, --rpcUrl=<value>   alternate RPC url
+  -v, --verbose          log everything
+  --commitment=<option>  [default: confirmed] transaction commitment level to use
+                         <options: confirmed|finalized|processed>
+  --mainnetBeta          WARNING: use mainnet-beta solana cluster
+  --programId=<value>    alternative Switchboard program ID to interact with
 
 DESCRIPTION
   watch an aggregator for a new value
@@ -2231,18 +2395,21 @@ watch a vrf for a new value
 
 ```
 USAGE
-  $ sbv2 solana watch vrf [VRFKEY] [-h] [-v] [-s] [--mainnetBeta] [-u <value>] [--programId <value>]
+  $ sbv2 solana watch vrf [VRFKEY] [-h] [-v] [-s] [--mainnetBeta] [-u <value>] [--programId <value>] [--commitment
+    confirmed|finalized|processed]
 
 ARGUMENTS
   VRFKEY  public key of the vrf account to deserialize
 
 FLAGS
-  -h, --help            Show CLI help.
-  -s, --silent          suppress cli prompts
-  -u, --rpcUrl=<value>  alternate RPC url
-  -v, --verbose         log everything
-  --mainnetBeta         WARNING: use mainnet-beta solana cluster
-  --programId=<value>   alternative Switchboard program ID to interact with
+  -h, --help             Show CLI help.
+  -s, --silent           suppress cli prompts
+  -u, --rpcUrl=<value>   alternate RPC url
+  -v, --verbose          log everything
+  --commitment=<option>  [default: confirmed] transaction commitment level to use
+                         <options: confirmed|finalized|processed>
+  --mainnetBeta          WARNING: use mainnet-beta solana cluster
+  --programId=<value>    alternative Switchboard program ID to interact with
 
 DESCRIPTION
   watch a vrf for a new value
