@@ -186,6 +186,8 @@ const config = {
           alt: "Switchboard Logo",
           src: "img/logo.svg",
           srcDark: "img/logo_white.svg",
+          width: 72,
+          height: 72,
         },
         items: [
           {

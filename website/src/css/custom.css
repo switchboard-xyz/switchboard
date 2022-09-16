@@ -119,6 +119,10 @@ html[data-theme="dark"] .navbar {
   border-bottom: solid 1px #8998aa;
 }
 
+.navbar__title {
+  font-size: 1.6rem;
+}
+
 .navbar__inner {
   /* max-width: 1024px; */
   margin: auto;
