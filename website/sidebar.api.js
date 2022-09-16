@@ -60,22 +60,22 @@ module.exports = {
         {
           type: "link",
           label: "@switchboard-xyz/solana.js",
-          href: "https://switchboard-xyz.github.io/sbv2-core/api/api/@switchboard-xyz/solana.js",
+          href: "https://switchboard-xyz.github.io/sbv2-core/api/@switchboard-xyz/solana.js",
         },
         {
           type: "link",
           label: "@switchboard-xyz/sbv2-lite",
-          href: "https://switchboard-xyz.github.io/sbv2-core/api/api/@switchboard-xyz/sbv2-lite",
+          href: "https://switchboard-xyz.github.io/sbv2-core/api/@switchboard-xyz/sbv2-lite",
         },
         {
           type: "link",
           label: "@switchboard-xyz/sbv2-utils",
-          href: "https://switchboard-xyz.github.io/sbv2-core/api/api/@switchboard-xyz/sbv2-utils",
+          href: "https://switchboard-xyz.github.io/sbv2-core/api/@switchboard-xyz/sbv2-utils",
         },
         {
           type: "link",
           label: "switchboardpy",
-          href: "https://switchboard-xyz.github.io/sbv2-core/api/api/@switchboard-xyz/switchboardpy",
+          href: "https://switchboard-xyz.github.io/sbv2-core/api/@switchboard-xyz/switchboardpy",
         },
         {
           type: "link",
