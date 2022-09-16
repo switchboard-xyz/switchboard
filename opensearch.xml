@@ -4,8 +4,8 @@
   <ShortName>Switchboard</ShortName>
   <Description>Search Switchboard</Description>
   <InputEncoding>UTF-8</InputEncoding>
-  <Image width="16" height="16" type="image/x-icon">https://docs.switchboard.xyz/sbv2-core/img/favicon.ico</Image>
-  <Url type="text/html" method="get" template="https://docs.switchboard.xyz/sbv2-core/search?q={searchTerms}"/>
-  <Url type="application/opensearchdescription+xml" rel="self" template="https://docs.switchboard.xyz/sbv2-core/opensearch.xml" />
-  <moz:SearchForm>https://docs.switchboard.xyz/sbv2-core/</moz:SearchForm>
+  <Image width="16" height="16" type="image/x-icon">https://switchboard-xyz.github.io/sbv2-core/img/favicon.ico</Image>
+  <Url type="text/html" method="get" template="https://switchboard-xyz.github.io/sbv2-core/search?q={searchTerms}"/>
+  <Url type="application/opensearchdescription+xml" rel="self" template="https://switchboard-xyz.github.io/sbv2-core/opensearch.xml" />
+  <moz:SearchForm>https://switchboard-xyz.github.io/sbv2-core/</moz:SearchForm>
 </OpenSearchDescription>
