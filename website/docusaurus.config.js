@@ -207,17 +207,17 @@ const config = {
               // },
               {
                 label: " Aptos",
-                to: "/feeds/aptos",
+                to: "/feeds/aptos/",
                 className: "header-aptos-link",
               },
               {
                 label: " Near",
-                to: "/feeds/near",
+                to: "/feeds/near/",
                 className: "header-near-link",
               },
               {
                 label: " Solana",
-                to: "/feeds/solana",
+                to: "/feeds/solana/",
                 className: "header-solana-link",
               },
               {
@@ -231,7 +231,7 @@ const config = {
               // },
               {
                 label: "🛠️ Feed Definitons",
-                to: "/tasks",
+                to: "/tasks/",
               },
               {
                 label: "🔖 Examples",
@@ -248,11 +248,11 @@ const config = {
               // },
               {
                 label: "ℹ️ Best Practices",
-                to: "/feeds/best-practices",
+                to: "/feeds/best-practices/",
               },
               {
                 label: "📚 Publisher",
-                to: "/feeds/publisher",
+                to: "/feeds/publisher/",
               },
               {
                 label: "🔎 Explorer",
