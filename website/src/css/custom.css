@@ -80,11 +80,12 @@ html[data-theme="dark"] .navbar {
   max-width: 1024px;
 }
 
-@media (max-width: 996px) {
+/* IS THIS NEEDED ?!?! */
+/* @media (max-width: 996px) {
   .row .col.col.col {
     --ifm-col-width: 180px;
   }
-}
+} */
 
 .col.footer__col {
   max-width: 300px;
