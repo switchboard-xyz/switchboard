@@ -37,7 +37,17 @@ jobs:
           yarn install --frozen-lockfile
 
       - name: Install Solana SDK dependencies
-        working-directory: sdks/solana
+        working-directory: sdks/solana/javascript/solana.js
+        run: |
+          yarn install --frozen-lockfile
+
+      - name: Install sbv2-lite dependencies
+        working-directory: sdks/solana/javascript/sbv2-lite
+        run: |
+          yarn install --frozen-lockfile
+
+      - name: Install sbv2-utils dependencies
+        working-directory: sdks/solana/javascript/sbv2-utils
         run: |
           yarn install --frozen-lockfile
 
