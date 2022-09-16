@@ -3,27 +3,55 @@ name: Test deployment
 on:
   pull_request:
     branches: [main]
-    paths: [website/**]
 
 jobs:
-  test-deploy:
-    name: Test deployment
+  deploy:
+    name: Deploy to GitHub Pages
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2
+      - name: Checkout repository and submodules
+        uses: actions/checkout@v2
         with:
-          node-version: 16.x
+          submodules: recursive
+
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
           cache: yarn
-          cache-dependency-path: "./website/yarn.lock"
-      # - name: Setup npmrc
-      #   run:
-      #     echo "//registry.npmjs.org/:_authToken=${{secrets.NPM_AUTH_TOKEN}}" >
-      #     .npmrc
-      # - name: Setup yarnrc
-      #   run: echo "registry \"https://registry.npmjs.org\"" > .yarnrc
-      - name: Test build
+          cache-dependency-path: "**/yarn.lock"
+
+      - name: Install @switchboard-xyz/common dependencies
+        working-directory: javascript/common
+        run: |
+          yarn install --frozen-lockfile
+
+      - name: Install Aptos SDK dependencies
+        working-directory: sdks/aptos
+        run: |
+          yarn install --frozen-lockfile
+
+      - name: Install Near SDK dependencies
+        working-directory: sdks/near/client
+        run: |
+          yarn install --frozen-lockfile
+
+      - name: Install Solana SDK dependencies
+        working-directory: sdks/solana/javascript/solana.js
+        run: |
+          yarn install --frozen-lockfile
+
+      - name: Install sbv2-lite dependencies
+        working-directory: sdks/solana/javascript/sbv2-lite
+        run: |
+          yarn install --frozen-lockfile
+
+      - name: Install sbv2-utils dependencies
+        working-directory: sdks/solana/javascript/sbv2-utils
+        run: |
+          yarn install --frozen-lockfile
+
+      - name: Build website
         working-directory: website
         run: |
-          yarn install
+          yarn install --frozen-lockfile
           yarn build:all
