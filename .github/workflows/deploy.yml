@@ -27,17 +27,17 @@ jobs:
           yarn install --frozen-lockfile
 
       - name: Install Aptos SDK dependencies
-        working-directory: aptos/sdk
+        working-directory: sdks/aptos
         run: |
           yarn install --frozen-lockfile
 
       - name: Install Near SDK dependencies
-        working-directory: near/sdk/client
+        working-directory: sdks/near/client
         run: |
           yarn install --frozen-lockfile
 
       - name: Install Solana SDK dependencies
-        working-directory: solana/sdk
+        working-directory: sdks/solana
         run: |
           yarn install --frozen-lockfile
 
