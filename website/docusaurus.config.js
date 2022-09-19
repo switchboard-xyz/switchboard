@@ -31,7 +31,7 @@ const config = {
       ({
         docs: {
           routeBasePath: "/",
-          sidebarPath: require.resolve("./sidebars.js"),
+          sidebarPath: require.resolve("./sidebar.js"),
           remarkPlugins: [
             // [require("@docusaurus/remark-plugin-npm2yarn"), { sync: true }],
             require("remark-math"),
@@ -54,7 +54,11 @@ const config = {
           remarkPlugins: [require("@docusaurus/remark-plugin-npm2yarn")],
         },
         theme: {
-          customCss: [require.resolve("./src/css/custom.css")],
+          customCss: [
+            require.resolve("./src/css/custom.css"),
+            require.resolve("./src/css/sidebar.css"),
+            require.resolve("./src/css/navbar.css"),
+          ],
         },
       }),
     ],
@@ -68,93 +72,7 @@ const config = {
       crossorigin: "anonymous",
     },
   ],
-
-  plugins: [
-    "my-loaders",
-    [
-      "@docusaurus/plugin-content-docs",
-      {
-        id: "learn",
-        path: "learn",
-        routeBasePath: "learn",
-        sidebarPath: require.resolve("./sidebar.learn.js"),
-      },
-    ],
-    // Alot of bloat, need to find better way
-    [
-      "@docusaurus/plugin-content-docs",
-      {
-        id: "idl",
-        path: "idl",
-        routeBasePath: "idl",
-        sidebarPath: require.resolve("./sidebar.learn.js"),
-      },
-    ],
-    [
-      "@docusaurus/plugin-content-docs",
-      {
-        id: "aptos",
-        path: "./feeds/aptos",
-        routeBasePath: "feeds/aptos",
-        sidebarPath: require.resolve("./feeds/sidebar.aptos.js"),
-      },
-    ],
-    [
-      "@docusaurus/plugin-content-docs",
-      {
-        id: "near",
-        path: "./feeds/near",
-        routeBasePath: "feeds/near",
-        sidebarPath: require.resolve("./feeds/sidebar.near.js"),
-      },
-    ],
-    [
-      "@docusaurus/plugin-content-docs",
-      {
-        id: "solana",
-        path: "./feeds/solana",
-        routeBasePath: "feeds/solana",
-        sidebarPath: require.resolve("./feeds/sidebar.solana.js"),
-      },
-    ],
-    [
-      "@docusaurus/plugin-content-docs",
-      {
-        id: "randomness-solana",
-        path: "./randomness/solana",
-        routeBasePath: "randomness/solana",
-        sidebarPath: require.resolve("./randomness/sidebar.solana.js"),
-      },
-    ],
-    [
-      "@docusaurus/plugin-content-docs",
-      {
-        id: "oracle-operator",
-        path: "./oracle-operator",
-        routeBasePath: "oracles",
-        sidebarPath: require.resolve("./sidebar.oracle-operator.js"),
-      },
-    ],
-    [
-      "@docusaurus/plugin-content-docs",
-      {
-        id: "tasks",
-        path: "./tasks",
-        routeBasePath: "tasks",
-        sidebarPath: require.resolve("./sidebar.tasks.js"),
-      },
-    ],
-    [
-      "@docusaurus/plugin-content-docs",
-      {
-        id: "api",
-        path: "./api",
-        routeBasePath: "api",
-        sidebarPath: require.resolve("./sidebar.api.js"),
-      },
-    ],
-  ],
-
+  plugins: ["my-loaders"],
   themeConfig:
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
@@ -193,7 +111,7 @@ const config = {
           {
             label: "Getting Started",
             position: "left",
-            to: "/learn/",
+            to: "/about",
           },
           {
             type: "dropdown",
@@ -203,49 +121,16 @@ const config = {
               // {
               //   type: "html",
               //   className: "dropdown-heading",
-              //   value: "<b>Chains</b>",
+              //   value: "<b>Custom Feeds</b>",
               // },
               {
-                label: " Aptos",
-                to: "/feeds/aptos/",
-                className: "header-aptos-link",
-              },
-              {
-                label: " Near",
-                to: "/feeds/near/",
-                className: "header-near-link",
-              },
-              {
-                label: " Solana",
-                to: "/feeds/solana/",
-                className: "header-solana-link",
-              },
-              {
-                type: "html",
-                value: '<hr class="dropdown-separator">',
-              },
-              // {
-              //   type: "html",
-              //   className: "dropdown-heading",
-              //   value: "<b>Building Feeds</b>",
-              // },
-              {
-                label: "🛠️ Feed Definitons",
-                to: "/tasks/",
+                label: "🛠️ Build Custom Feeds",
+                to: "/feeds/tasks/",
               },
               {
                 label: "🔖 Examples",
-                to: "/tasks/examples/exchanges",
+                to: "/feeds/examples/exchanges",
               },
-              {
-                type: "html",
-                value: '<hr class="dropdown-separator">',
-              },
-              // {
-              //   type: "html",
-              //   className: "dropdown-heading",
-              //   value: "<b>Tools</b>",
-              // },
               {
                 label: "ℹ️ Best Practices",
                 to: "/feeds/best-practices/",
@@ -258,30 +143,54 @@ const config = {
                 label: "🔎 Explorer",
                 to: "https://switchboard.xyz/explorer",
               },
+              {
+                type: "html",
+                value: '<hr class="dropdown-separator">',
+              },
+              {
+                label: " Aptos",
+                to: "/aptos/feeds",
+                className: "header-aptos-link",
+              },
+              {
+                label: " Near",
+                to: "/near/feeds",
+                className: "header-near-link",
+              },
+              {
+                label: " Solana",
+                to: "/solana/feeds",
+                className: "header-solana-link",
+              },
+              // {
+              //   type: "html",
+              //   value: '<hr class="dropdown-separator">',
+              // },
+              // {
+              //   type: "html",
+              //   className: "dropdown-heading",
+              //   value: "<b>Building Feeds</b>",
+              // },
+
+              // {
+              //   type: "html",
+              //   className: "dropdown-heading",
+              //   value: "<b>Tools</b>",
+              // },
             ],
           },
           {
+            type: "dropdown",
             label: "Randomness",
             position: "left",
-            to: "/randomness/solana",
+            items: [
+              {
+                label: " Solana",
+                to: "/solana/randomness",
+                className: "header-solana-link",
+              },
+            ],
           },
-          // {
-          //   type: "dropdown",
-          //   label: "Randomness",
-          //   position: "left",
-          //   items: [
-          //     // {
-          //     //   type: "html",
-          //     //   className: "dropdown-heading",
-          //     //   value: "<b>Chains</b>",
-          //     // },
-          //     {
-          //       label: " Solana",
-          //       to: "/randomness/solana",
-          //       className: "header-solana-link",
-          //     },
-          //   ],
-          // },
           {
             label: "Oracle Operator",
             position: "left",

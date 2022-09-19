@@ -5,7 +5,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/switchboard-xyz/switchboard-v2",
+    "url": "git+https://github.com/switchboard-xyz/switchboard-v2.git",
     "directory": "website"
   },
   "homepage": "https://docs.switchboard.xyz",
@@ -88,5 +88,9 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "description": "This website is built using [Docusaurus 2](https://docusaurus.io/), a modern static website generator.",
+  "bugs": {
+    "url": "https://github.com/switchboard-xyz/switchboard-v2/issues"
   }
 }
