@@ -31,7 +31,7 @@ jobs:
           yarn install --frozen-lockfile
 
       - name: Install Near SDK dependencies
-        working-directory: sdks/near/client
+        working-directory: sdks/near/javascript
         run: |
           yarn install --frozen-lockfile
 
