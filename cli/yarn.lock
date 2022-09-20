@@ -2207,10 +2207,10 @@
     bn.js "^5.2.1"
     protobufjs "^6.11.3"
 
-"@switchboard-xyz/near.js@^2.0.13":
-  version "2.0.13"
-  resolved "https://registry.npmjs.org/@switchboard-xyz/near.js/-/near.js-2.0.13.tgz#4f892b1fbcdbbff3e935223027efb0836887ae71"
-  integrity sha512-LIc1P3E9QdfF6VkRC3qLjgwy/dgDKC1E6EUI1K0TNwgj/5iO7QYxjEwnMAPbE6Cjp9w4Y0Jj7V2hj28P5UHgtg==
+"@switchboard-xyz/near.js@^2.0.16":
+  version "2.0.16"
+  resolved "https://registry.npmjs.org/@switchboard-xyz/near.js/-/near.js-2.0.16.tgz#0f249c7c9853368b220ed9c9fc67173fab94fb52"
+  integrity sha512-CDuWd6d4tIiyq9ImJOFX+0CaeeuNE3SkMgB4O/orvlSXvoXAo6R78YDJMgIAPSuIuPMFgCDpg9oYv3UbWLs6Ew==
   dependencies:
     "@switchboard-xyz/common" "^2.0.0"
     big.js "^6.2.1"

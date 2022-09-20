@@ -1,6 +1,12 @@
 import { Flags } from "@oclif/core";
 import { NearWithSignerBaseCommand as BaseCommand } from "../../../near";
-import { isTxnSuccessful, QueueAccount } from "@switchboard-xyz/near.js";
+import {
+  AggregatorAccount,
+  isTxnSuccessful,
+  PermissionAccount,
+  QueueAccount,
+  SwitchboardDecimal,
+} from "@switchboard-xyz/near.js";
 import Big from "big.js";
 import { OracleJob } from "@switchboard-xyz/common";
 import { Action } from "near-api-js/lib/transaction";
@@ -54,11 +60,11 @@ export default class CreateAggregator extends BaseCommand {
         "percentage change between a previous accepted result and the next round before an oracle reports a value on-chain. Used to conserve lease cost during low volatility",
       default: "0",
     }),
-    job: Flags.string({
-      char: "j",
-      description: "filesystem path to job definition file",
-      multiple: true,
-    }),
+    // job: Flags.string({
+    //   char: "j",
+    //   description: "filesystem path to job definition file",
+    //   multiple: true,
+    // }),
     rewardEscrow: Flags.string({
       description: "where to send rewards. defaults to user's escrow account",
       required: false,
@@ -86,96 +92,128 @@ export default class CreateAggregator extends BaseCommand {
 
     const [queueAccount, queue] = await this.loadQueue(args.queueAddress);
 
+    this.logger.info(`loading escrow`);
     const escrow = await this.loadEscrow();
 
-    const jobDefinitions = flags.job
-      ? flags.job.map((jobDefinition) => {
-          try {
-            const jobAddress = this.parseAddress(jobDefinition);
-            return jobDefinition;
-          } catch {
-            const json = JSON.parse(
-              fs
-                .readFileSync(this.normalizePath(jobDefinition), "utf8")
-                .replace(/\/\*[\s\S]*?\*\/|([^\\:]|^)\/\/.*$/g, "")
-            );
-            if (!("tasks" in json)) {
-              throw new Error(
-                `Job definition contains no tasks! ${jobDefinition}`
-              );
-            }
-            const oracleJob = this.loadJobJson(jobDefinition);
-            const oracleJobJson = oracleJob.toJSON();
-            return {
-              authority:
-                "authority" in json
-                  ? json.authority
-                  : flags.authority ?? this.program.account.accountId,
-              name: "name" in json ? json.name : undefined,
-              metadata: "metadata" in json ? json.metadata : undefined,
-              expiration: "expiration" in json ? json.expiration : undefined,
-              tasks: oracleJobJson.tasks,
-            };
-          }
-        })
-      : [];
+    this.logger.info(`creating agg...`);
 
-    const { aggregator, permission, jobs, actions } =
-      await queueAccount.createAggregatorFromJSON({
-        crankAddress: flags.crankAddress,
-        rewardEscrow: escrow.address,
-        authority: flags.authority ?? this.program.account.accountId,
-        name: flags.name,
-        metadata: flags.metadata,
-        batchSize: flags.batchSize,
-        minOracleResults: flags.minOracles,
-        minJobResults: flags.minJobs,
-        minUpdateDelaySeconds: flags.updateInterval,
-        varianceThreshold: flags.varianceThreshold
-          ? new Big(flags.varianceThreshold)
-          : undefined,
-        forceReportPeriod: flags.forceReportPeriod,
-        historySize: flags.historyLimit,
-        enable: flags.enable,
-        jobs: jobDefinitions,
-      });
+    const aggregator = await AggregatorAccount.create(this.program, {
+      authority: flags.authority ?? this.program.account.accountId,
+      queue: queueAccount.address,
+      crank: flags.crankAddress
+        ? this.parseAddress(flags.crankAddress)
+        : undefined,
+      name: Buffer.from(flags.name ?? ""),
+      metadata: Buffer.from(flags.name ?? ""),
+      batchSize: flags.batchSize ?? 1,
+      minJobResults: flags.minJobs ?? 1,
+      minOracleResults: flags.minOracles ?? 1,
+      minUpdateDelaySeconds: flags.updateInterval ?? 30,
+      historyLimit: flags.historyLimit ?? 1000,
+      startAfter: 0,
+      forceReportPeriod: flags.forceReportPeriod ?? 0,
+      varianceThreshold: flags.varianceThreshold
+        ? SwitchboardDecimal.fromBig(new Big(flags.varianceThreshold))
+        : SwitchboardDecimal.fromBig(new Big(0)),
+      rewardEscrow: escrow.address,
+    });
 
-    this.logger.info(
-      `Aggregator Key (Uint8Array): [${aggregator.address
-        .map((e) => (e as any).toString())
-        .join(",")}]`
-    );
-    this.logger.info(
-      `Aggregator Key (Base58): ${this.encodeAddress(aggregator.address)}`
-    );
+    this.logger.info(`created agg`);
 
-    // this.logger.info(`About to send`);
-    // const txnQueue = new TxnQueue(this.program, batches);
-    // const txnReceipts = await txnQueue.send();
+    const permission = await PermissionAccount.create(this.program, {
+      authority: this.program.account.accountId,
+      granter: queueAccount.address,
+      grantee: aggregator.address,
+    });
 
-    const txnReceipts: FinalExecutionOutcome[] = [];
-    for await (const action of actions) {
-      const txnReceipt = await this.program.sendAction(action[1]);
-      if (!isTxnSuccessful(txnReceipt)) {
-        this.logger.error(JSON.stringify(txnReceipt, undefined, 2));
-        throw new Error(`Near transaction failed`);
-      }
-      txnReceipts.push(txnReceipt);
-      this.logger.debug(`Sent txn ${txnReceipts.length} / ${actions.length}`);
-    }
+    // const jobDefinitions = flags.job
+    //   ? flags.job.map((jobDefinition) => {
+    //       try {
+    //         const jobAddress = this.parseAddress(jobDefinition);
+    //         return jobDefinition;
+    //       } catch {
+    //         const json = JSON.parse(
+    //           fs
+    //             .readFileSync(this.normalizePath(jobDefinition), "utf8")
+    //             .replace(/\/\*[\s\S]*?\*\/|([^\\:]|^)\/\/.*$/g, "")
+    //         );
+    //         if (!("tasks" in json)) {
+    //           throw new Error(
+    //             `Job definition contains no tasks! ${jobDefinition}`
+    //           );
+    //         }
+    //         const oracleJob = this.loadJobJson(jobDefinition);
+    //         const oracleJobJson = oracleJob.toJSON();
+    //         return {
+    //           authority:
+    //             "authority" in json
+    //               ? json.authority
+    //               : flags.authority ?? this.program.account.accountId,
+    //           name: "name" in json ? json.name : undefined,
+    //           metadata: "metadata" in json ? json.metadata : undefined,
+    //           expiration: "expiration" in json ? json.expiration : undefined,
+    //           tasks: oracleJobJson.tasks,
+    //         };
+    //       }
+    //     })
+    //   : [];
 
-    const jobData = await Promise.all(
-      jobs.map(async (job) => {
-        const jobData = await job.loadData();
-        const oracleJob = OracleJob.decodeDelimited(jobData.data);
-        return {
-          address: job.address,
-          addressBase58: this.encodeAddress(job.address),
-          ...jobData,
-          tasks: oracleJob.tasks,
-        };
-      })
-    );
+    // const { aggregator, permission, jobs, actions } =
+    //   await queueAccount.createAggregatorFromJSON({
+    //     crankAddress: flags.crankAddress,
+    //     rewardEscrow: escrow.address,
+    //     authority: flags.authority ?? this.program.account.accountId,
+    //     name: flags.name,
+    //     metadata: flags.metadata,
+    //     batchSize: flags.batchSize,
+    //     minOracleResults: flags.minOracles,
+    //     minJobResults: flags.minJobs,
+    //     minUpdateDelaySeconds: flags.updateInterval,
+    //     varianceThreshold: flags.varianceThreshold
+    //       ? new Big(flags.varianceThreshold)
+    //       : undefined,
+    //     forceReportPeriod: flags.forceReportPeriod,
+    //     historySize: flags.historyLimit,
+    //     enable: flags.enable,
+    //     jobs: jobDefinitions,
+    //   });
+
+    // this.logger.info(
+    //   `Aggregator Key (Uint8Array): [${aggregator.address
+    //     .map((e) => (e as any).toString())
+    //     .join(",")}]`
+    // );
+    // this.logger.info(
+    //   `Aggregator Key (Base58): ${this.encodeAddress(aggregator.address)}`
+    // );
+
+    // // this.logger.info(`About to send`);
+    // // const txnQueue = new TxnQueue(this.program, batches);
+    // // const txnReceipts = await txnQueue.send();
+
+    // const txnReceipts: FinalExecutionOutcome[] = [];
+    // for await (const action of actions) {
+    //   const txnReceipt = await this.program.sendAction(action[1]);
+    //   if (!isTxnSuccessful(txnReceipt)) {
+    //     this.logger.error(JSON.stringify(txnReceipt, undefined, 2));
+    //     throw new Error(`Near transaction failed`);
+    //   }
+    //   txnReceipts.push(txnReceipt);
+    //   this.logger.debug(`Sent txn ${txnReceipts.length} / ${actions.length}`);
+    // }
+
+    // const jobData = await Promise.all(
+    //   jobs.map(async (job) => {
+    //     const jobData = await job.loadData();
+    //     const oracleJob = OracleJob.decodeDelimited(jobData.data);
+    //     return {
+    //       address: job.address,
+    //       addressBase58: this.encodeAddress(job.address),
+    //       ...jobData,
+    //       tasks: oracleJob.tasks,
+    //     };
+    //   })
+    // );
 
     const data = {
       address: aggregator.address,
@@ -186,7 +224,7 @@ export default class CreateAggregator extends BaseCommand {
         addressBase58: this.encodeAddress(permission.address),
         ...(await permission.loadData()),
       },
-      jobs: jobData,
+      // jobs: jobData,
     };
 
     if (flags.json) {

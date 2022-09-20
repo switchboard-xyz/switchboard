@@ -120,8 +120,8 @@ echo
 touch "$envFilename"
 # Write ENV variables
 {
-  printf "ESCROW_ADDRESS=\"%s\"\n" "$escrowAddress";
-  printf "ESCROW_ADDRESS_BYTES=\"%s\"\n\n" "$escrowBytes";
+  # printf "ESCROW_ADDRESS=\"%s\"\n" "$escrowAddress";
+  # printf "ESCROW_ADDRESS_BYTES=\"%s\"\n\n" "$escrowBytes";
   printf "QUEUE_ADDRESS=\"%s\"\n" "$queueAddress";
   printf "QUEUE_ADDRESS_BYTES=\"%s\"\n\n" "$queueBytes";
   printf "CRANK_ADDRESS=\"%s\"\n" "$crankAddress";
@@ -178,7 +178,6 @@ do
     --minJobs 3 \
     --minOracles 1 \
     --updateInterval "${update_interval}" \
-    --job scripts/feeds/btc/binanceCom.jsonc \
     --json
   )
   aggregatorAddress=$(echo "$aggregator" | jq -r '.addressBase58')

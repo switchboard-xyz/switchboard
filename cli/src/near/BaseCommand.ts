@@ -4,6 +4,7 @@ import { Account, connect } from "near-api-js";
 import { homedir } from "os";
 import {
   AggregatorAccount,
+  CrankAccount,
   loadNear,
   QueueAccount,
   SwitchboardPermission,
@@ -221,6 +222,16 @@ export abstract class NearBaseCommand extends BaseCommand {
 
   async loadQueue(address: string): Promise<[QueueAccount, any]> {
     const account = new QueueAccount({
+      program: this.program,
+      address: this.parseAddress(address),
+    });
+    const data = await account.loadData();
+
+    return [account, data];
+  }
+
+  async loadCrank(address: string): Promise<[CrankAccount, any]> {
+    const account = new CrankAccount({
       program: this.program,
       address: this.parseAddress(address),
     });
