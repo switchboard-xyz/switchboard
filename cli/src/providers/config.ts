@@ -19,7 +19,11 @@ export type NearConfigParameter =
 
 export type AptosConfigParameter =
   | "aptos-devnet-rpc"
-  | "aptos-devnet-default-account";
+  | "aptos-devnet-default-account"
+  | "aptos-testnet-rpc"
+  | "aptos-testnet-default-account"
+  | "aptos-mainnet-rpc"
+  | "aptos-mainnet-default-account";
 
 export type ConfigParameter =
   | SolanaConfigParameter
@@ -54,6 +58,8 @@ export interface IAptosNetworkConfig {
 
 export interface IAptosConfig {
   devnet?: IAptosNetworkConfig;
+  testnet?: IAptosNetworkConfig;
+  mainnet?: IAptosNetworkConfig;
 }
 
 export interface IChainConfigs {
@@ -76,6 +82,10 @@ export const DEFAULT_NEAR_MAINNET_RPC = "https://rpc.mainnet.near.org";
 
 export const DEFAULT_APTOS_DEVNET_RPC =
   "https://fullnode.devnet.aptoslabs.com/v1";
+export const DEFAULT_APTOS_TESTNET_RPC =
+  "https://fullnode.testnet.aptoslabs.com/v1";
+export const DEFAULT_APTOS_MAINNET_RPC =
+  "https://fullnode.mainnet.aptoslabs.com/v1";
 
 export const LATEST_CONFIG_VERSION: number = 1;
 
@@ -103,6 +113,12 @@ export class ConfigProvider {
   // aptos
   aptosDevnetRpc = DEFAULT_APTOS_DEVNET_RPC;
   aptosDevnetDefaultAccount?: string;
+
+  aptosTestnetRpc = DEFAULT_APTOS_TESTNET_RPC;
+  aptosTestnetDefaultAccount?: string;
+
+  aptosMainnetRpc = DEFAULT_APTOS_MAINNET_RPC;
+  aptosMainnetDefaultAccount?: string;
 
   constructor(configDir: string) {
     this.configDir = configDir;
@@ -160,6 +176,19 @@ export class ConfigProvider {
     if (config.aptos.devnet.defaultAccount) {
       this.aptosDevnetDefaultAccount = config.aptos.devnet.defaultAccount;
     }
+    if (config.aptos.testnet.rpcUrl) {
+      this.aptosTestnetRpc = config.aptos.testnet.rpcUrl;
+    }
+    if (config.aptos.testnet.defaultAccount) {
+      this.aptosTestnetDefaultAccount = config.aptos.testnet.defaultAccount;
+    }
+    if (config.aptos.mainnet.rpcUrl) {
+      this.aptosMainnetRpc = config.aptos.mainnet.rpcUrl;
+    }
+    if (config.aptos.mainnet.defaultAccount) {
+      this.aptosMainnetDefaultAccount = config.aptos.mainnet.defaultAccount;
+    }
+
     // ConfigProvider.write(config, configPath);
   }
 
@@ -220,9 +249,25 @@ export class ConfigProvider {
     };
   }
 
+  get aptosTestnet(): IAptosNetworkConfig {
+    return {
+      rpcUrl: this.aptosTestnetRpc,
+      defaultAccount: this.aptosTestnetDefaultAccount,
+    };
+  }
+
+  get aptosMainnet(): IAptosNetworkConfig {
+    return {
+      rpcUrl: this.aptosMainnetRpc,
+      defaultAccount: this.aptosMainnetDefaultAccount,
+    };
+  }
+
   get aptos(): IAptosConfig {
     return {
       devnet: this.aptosDevnet,
+      testnet: this.aptosTestnet,
+      mainnet: this.aptosMainnet,
     };
   }
 
@@ -278,6 +323,10 @@ export class ConfigProvider {
         switch (network) {
           case "devnet":
             return this.aptosDevnetRpc;
+          case "testnet":
+            return this.aptosTestnetRpc;
+          case "mainnet":
+            return this.aptosMainnetRpc;
         }
       }
     }
@@ -312,6 +361,10 @@ export class ConfigProvider {
         switch (network) {
           case "devnet":
             return this.aptosDevnetDefaultAccount;
+          case "testnet":
+            return this.aptosTestnetDefaultAccount;
+          case "mainnet":
+            return this.aptosMainnetDefaultAccount;
         }
       }
     }
@@ -357,6 +410,14 @@ export class ConfigProvider {
         switch (network) {
           case "devnet":
             this.aptosDevnetRpc = value || DEFAULT_APTOS_DEVNET_RPC;
+            this.save();
+            return;
+          case "testnet":
+            this.aptosTestnetRpc = value || DEFAULT_APTOS_TESTNET_RPC;
+            this.save();
+            return;
+          case "mainnet":
+            this.aptosMainnetRpc = value || DEFAULT_APTOS_MAINNET_RPC;
             this.save();
             return;
         }
@@ -406,6 +467,14 @@ export class ConfigProvider {
         switch (network) {
           case "devnet":
             this.aptosDevnetDefaultAccount = value || "";
+            this.save();
+            return;
+          case "testnet":
+            this.aptosTestnetDefaultAccount = value || "";
+            this.save();
+            return;
+          case "mainnet":
+            this.aptosMainnetDefaultAccount = value || "";
             this.save();
             return;
         }

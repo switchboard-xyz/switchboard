@@ -1,2 +1,1 @@
-export type AptosNetwork = "devnet";
-
+export type AptosNetwork = "devnet" | "testnet";

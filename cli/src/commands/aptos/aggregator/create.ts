@@ -19,9 +19,9 @@ export default class CreateAggregator extends BaseCommand {
       description:
         "alternate named account that will be the authority for the oracle",
     }),
-    // crankAddress: Flags.string({
-    //   description: "optional, address of the crank to add the aggregator to",
-    // }),
+    crankAddress: Flags.string({
+      description: "optional, address of the crank to add the aggregator to",
+    }),
     name: Flags.string({
       description: "name of the aggregator for easier identification",
     }),
@@ -128,6 +128,7 @@ export default class CreateAggregator extends BaseCommand {
         varianceThreshold: new Big(flags.varianceThreshold),
         forceReportPeriod: flags.forceReportPeriod,
         coinType: "0x1::aptos_coin::AptosCoin",
+        crankAddress: flags.crankAddress ?? "0x0",
       },
       this.programId
     );

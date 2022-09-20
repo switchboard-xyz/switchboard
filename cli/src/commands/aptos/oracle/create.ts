@@ -63,7 +63,6 @@ export default class CreateOracle extends BaseCommand {
         queue: args.queueHexString,
         name: flags.name || "",
         metadata: flags.metadata || "",
-        address: this.programId.toString(),
         coinType: "0x1::aptos_coin::AptosCoin",
       },
       this.programId

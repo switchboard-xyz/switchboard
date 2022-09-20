@@ -30,7 +30,7 @@ export abstract class AptosBaseCommand extends BaseCommand {
     ...BaseCommand.flags,
     networkId: Flags.string({
       description: "Aptos network to connect to",
-      options: ["devnet"],
+      options: ["devnet", "testnet"],
       default: "devnet",
     }),
     programId: Flags.string({
@@ -51,7 +51,7 @@ export abstract class AptosBaseCommand extends BaseCommand {
 
   public hasSigner = false;
 
-  public networkId: AptosNetwork = "devnet";
+  public networkId: AptosNetwork;
 
   public rpcUrl: string;
 
@@ -89,8 +89,8 @@ export abstract class AptosBaseCommand extends BaseCommand {
   }
 
   getNetworkId(networkIdFlag: string): AptosNetwork {
-    if (networkIdFlag !== "devnet") {
-      throw new Error(`--network must be 'devnet'`);
+    if (networkIdFlag !== "devnet" && networkIdFlag !== "testnet") {
+      throw new Error(`--network must be 'devnet' or 'testnet'`);
     }
 
     return networkIdFlag;
@@ -101,18 +101,13 @@ export abstract class AptosBaseCommand extends BaseCommand {
       return rpcUrlFlag;
     }
 
-    try {
-      const rpcUrl = this.ctx.getRpcUrl("aptos", networkId);
-      if (!rpcUrl) {
-        throw new Error(
-          `Failed to get Aptos RPC URL for network ${networkId}. Try providing the --rpcUrl flag`
-        );
-      }
-      return rpcUrl;
-    } catch (error) {
-      this.ctx.aptosDevnetRpc = "https://fullnode.devnet.aptoslabs.com/v1";
-      return this.ctx.aptosDevnetRpc;
+    const rpcUrl = this.ctx.getRpcUrl("aptos", networkId);
+    if (!rpcUrl) {
+      throw new Error(
+        `Failed to get Aptos RPC URL for network ${networkId}. Try providing the --rpcUrl flag`
+      );
     }
+    return rpcUrl;
   }
 
   normalizeAccountData(address: MaybeHexString, data: any) {
@@ -229,7 +224,7 @@ export abstract class AptosBaseCommand extends BaseCommand {
   }
 
   toUrl(signature: string) {
-    return `https://explorer.devnet.aptos.dev/txn/${signature}`;
+    return `https://explorer.${this.networkId}.aptos.dev/txn/${signature}`;
   }
 
   hexStringToBuffer(hexString: string): Buffer {

@@ -50,7 +50,6 @@ export default class CrankCreate extends BaseCommand {
       this.aptos,
       account,
       {
-        address: this.programId.toString(),
         queueAddress: HexString.ensure(args.queueHexString),
         coinType: "0x1::aptos_coin::AptosCoin",
       },
