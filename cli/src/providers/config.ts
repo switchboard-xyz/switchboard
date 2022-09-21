@@ -136,56 +136,56 @@ export class ConfigProvider {
     ).config;
 
     // solana
-    if (config.solana.devnet.rpcUrl) {
+    if (config.solana?.devnet?.rpcUrl) {
       this.solanaDevnetRpc = config.solana.devnet.rpcUrl;
     }
-    if (config.solana.devnet.defaultAccount) {
+    if (config.solana?.devnet?.defaultAccount) {
       this.solanaDevnetDefaultAccount = config.solana.devnet.defaultAccount;
     }
-    if (config.solana.mainnet.rpcUrl) {
+    if (config.solana?.mainnet?.rpcUrl) {
       this.solanaMainnetRpc = config.solana.mainnet.rpcUrl;
     }
-    if (config.solana.mainnet.defaultAccount) {
+    if (config.solana?.mainnet?.defaultAccount) {
       this.solanaMainnetDefaultAccount = config.solana.mainnet.defaultAccount;
     }
 
     // near
-    if (config.near.betanet.rpcUrl) {
+    if (config.near?.betanet?.rpcUrl) {
       this.nearBetanetRpc = config.near.betanet.rpcUrl;
     }
-    if (config.near.betanet.defaultAccount) {
+    if (config.near?.betanet?.defaultAccount) {
       this.nearBetanetDefaultAccount = config.near.betanet.defaultAccount;
     }
-    if (config.near.testnet.rpcUrl) {
+    if (config.near?.testnet?.rpcUrl) {
       this.nearTestnetRpc = config.near.testnet.rpcUrl;
     }
-    if (config.near.testnet.defaultAccount) {
+    if (config.near?.testnet?.defaultAccount) {
       this.nearTestnetDefaultAccount = config.near.testnet.defaultAccount;
     }
-    if (config.near.mainnet.rpcUrl) {
+    if (config.near?.mainnet?.rpcUrl) {
       this.nearMainnetRpc = config.near.mainnet.rpcUrl;
     }
-    if (config.near.mainnet.defaultAccount) {
+    if (config.near?.mainnet?.defaultAccount) {
       this.nearMainnetDefaultAccount = config.near.mainnet.defaultAccount;
     }
 
     // aptos
-    if (config.aptos.devnet.rpcUrl) {
+    if (config.aptos?.devnet?.rpcUrl) {
       this.aptosDevnetRpc = config.aptos.devnet.rpcUrl;
     }
-    if (config.aptos.devnet.defaultAccount) {
+    if (config.aptos?.devnet?.defaultAccount) {
       this.aptosDevnetDefaultAccount = config.aptos.devnet.defaultAccount;
     }
-    if (config.aptos.testnet.rpcUrl) {
+    if (config.aptos?.testnet?.rpcUrl) {
       this.aptosTestnetRpc = config.aptos.testnet.rpcUrl;
     }
-    if (config.aptos.testnet.defaultAccount) {
+    if (config.aptos?.testnet?.defaultAccount) {
       this.aptosTestnetDefaultAccount = config.aptos.testnet.defaultAccount;
     }
-    if (config.aptos.mainnet.rpcUrl) {
+    if (config.aptos?.mainnet?.rpcUrl) {
       this.aptosMainnetRpc = config.aptos.mainnet.rpcUrl;
     }
-    if (config.aptos.mainnet.defaultAccount) {
+    if (config.aptos?.mainnet?.defaultAccount) {
       this.aptosMainnetDefaultAccount = config.aptos.mainnet.defaultAccount;
     }
 
