@@ -58,10 +58,21 @@ export default class AggregatorSetUpdateInterval extends BaseCommand {
       aggregator.authority
     );
 
-    const txn = await aggregatorAccount.setUpdateInterval({
-      newInterval: Number.parseInt(args.updateInterval, 10),
-      authority,
+    const transaction = await aggregatorAccount.setConfigTxn({
+      // authority,
+      batchSize: aggregator.oracleRequestBatchSize,
+      minJobResults: aggregator.minJobResults,
+      minOracleResults: aggregator.minOracleResults,
+      minUpdateDelaySeconds: Number.parseInt(args.updateInterval, 10),
     });
+    const txn = (
+      await this.program.provider.sendAll([
+        {
+          tx: transaction,
+          signers: [authority],
+        },
+      ])
+    )[0];
 
     if (this.silent) {
       console.log(txn);

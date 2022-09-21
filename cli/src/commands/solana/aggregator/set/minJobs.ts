@@ -39,6 +39,7 @@ export default class AggregatorSetMinJobResults extends BaseCommand {
       publicKey: new PublicKey(args.aggregatorKey),
     });
     const aggregator = await aggregatorAccount.loadData();
+
     const authority = await this.loadAuthority(
       flags.authority,
       aggregator.authority
@@ -55,10 +56,21 @@ export default class AggregatorSetMinJobResults extends BaseCommand {
       );
     }
 
-    const txn = await aggregatorAccount.setMinJobs({
-      authority,
-      minJobResults,
+    const transaction = await aggregatorAccount.setConfigTxn({
+      // authority,
+      batchSize: aggregator.oracleRequestBatchSize,
+      minJobResults: minJobResults,
+      minOracleResults: aggregator.minOracleResults,
+      minUpdateDelaySeconds: aggregator.minUpdateDelaySeconds,
     });
+    const txn = (
+      await this.program.provider.sendAll([
+        {
+          tx: transaction,
+          signers: [authority],
+        },
+      ])
+    )[0];
 
     if (this.silent) {
       console.log(txn);

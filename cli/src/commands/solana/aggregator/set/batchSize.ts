@@ -55,10 +55,21 @@ export default class AggregatorSetBatchSize extends BaseCommand {
       aggregator.authority
     );
 
-    const txn = await aggregatorAccount.setBatchSize({
-      authority,
+    const transaction = await aggregatorAccount.setConfigTxn({
+      // authority,
       batchSize,
+      minJobResults: aggregator.minJobResults,
+      minOracleResults: aggregator.minOracleResults,
+      minUpdateDelaySeconds: aggregator.minUpdateDelaySeconds,
     });
+    const txn = (
+      await this.program.provider.sendAll([
+        {
+          tx: transaction,
+          signers: [authority],
+        },
+      ])
+    )[0];
 
     if (this.silent) {
       console.log(txn);

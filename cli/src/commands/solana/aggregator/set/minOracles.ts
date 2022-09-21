@@ -51,10 +51,21 @@ export default class AggregatorSetMinOracleResults extends BaseCommand {
       aggregator.authority
     );
 
-    const txn = await aggregatorAccount.setMinOracles({
-      authority,
-      minOracleResults,
+    const transaction = await aggregatorAccount.setConfigTxn({
+      // authority,
+      batchSize: aggregator.oracleRequestBatchSize,
+      minJobResults: aggregator.minJobResults,
+      minOracleResults: minOracleResults,
+      minUpdateDelaySeconds: aggregator.minUpdateDelaySeconds,
     });
+    const txn = (
+      await this.program.provider.sendAll([
+        {
+          tx: transaction,
+          signers: [authority],
+        },
+      ])
+    )[0];
 
     if (this.silent) {
       console.log(txn);

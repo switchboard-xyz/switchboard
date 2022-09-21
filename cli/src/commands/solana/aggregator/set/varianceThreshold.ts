@@ -48,10 +48,22 @@ export default class AggregatorSetVarianceThreshold extends BaseCommand {
       aggregator.authority
     );
 
-    const txn = await aggregatorAccount.setVarianceThreshold({
-      authority,
-      threshold: new Big(args.varianceThreshold),
+    const transaction = await aggregatorAccount.setConfigTxn({
+      // authority,
+      batchSize: aggregator.oracleRequestBatchSize,
+      minJobResults: aggregator.minJobResults,
+      minOracleResults: aggregator.minOracleResults,
+      minUpdateDelaySeconds: aggregator.minUpdateDelaySeconds,
+      varianceThreshold: Number.parseFloat(args.varianceThreshold),
     });
+    const txn = (
+      await this.program.provider.sendAll([
+        {
+          tx: transaction,
+          signers: [authority],
+        },
+      ])
+    )[0];
 
     if (this.silent) {
       console.log(txn);
