@@ -20,6 +20,7 @@ script_dir=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 declare -a feeds=(
   "$script_dir/feeds/btc"
   "$script_dir/feeds/eth"
+  "$script_dir/feeds/near"
   "$script_dir/feeds/sol"
   "$script_dir/feeds/usdc"
   "$script_dir/feeds/usdt"

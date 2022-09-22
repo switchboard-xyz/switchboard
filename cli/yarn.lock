@@ -2207,10 +2207,10 @@
     bn.js "^5.2.1"
     protobufjs "^6.11.3"
 
-"@switchboard-xyz/near.js@^2.0.16":
-  version "2.0.16"
-  resolved "https://registry.npmjs.org/@switchboard-xyz/near.js/-/near.js-2.0.16.tgz#0f249c7c9853368b220ed9c9fc67173fab94fb52"
-  integrity sha512-CDuWd6d4tIiyq9ImJOFX+0CaeeuNE3SkMgB4O/orvlSXvoXAo6R78YDJMgIAPSuIuPMFgCDpg9oYv3UbWLs6Ew==
+"@switchboard-xyz/near.js@^2.0.17":
+  version "2.0.17"
+  resolved "https://registry.npmjs.org/@switchboard-xyz/near.js/-/near.js-2.0.17.tgz#a1bbfc4e4090a0486a14f4b16b190348a531444a"
+  integrity sha512-VvpNhehIaJp1x0yl2W2LnOLpjLrx4B+reWvTp/+NPnPqFLrXyBLnFkRij9Vl6xoxjeLltzR65yg/HqckZtrdng==
   dependencies:
     "@switchboard-xyz/common" "^2.0.0"
     big.js "^6.2.1"
@@ -2219,6 +2219,7 @@
     events "^3.3.0"
     near-api-js "^1.0.0"
     near-lake-framework "^1.0.4"
+    near-units "^0.1.9"
     wait-for-event "^2.0.1"
 
 "@switchboard-xyz/sbv2-utils@^0.1.47":
@@ -6648,6 +6649,13 @@ near-lake-framework@^1.0.4:
   integrity sha512-OMHwDsD46ZqR6UjdaoIjUL01b9fIZ3klov2X3EDM9v/oinCdCoagjML3GJE1ZpbsBsT5WvxkeFFo6vqD83LjOw==
   dependencies:
     "@aws-sdk/client-s3" "^3.32.0"
+
+near-units@^0.1.9:
+  version "0.1.9"
+  resolved "https://registry.npmjs.org/near-units/-/near-units-0.1.9.tgz#4bf07da0b046e08e0b8785ad8e32d4df3a944b93"
+  integrity sha512-xiuBjpNsi+ywiu7P6iWRZdgFm7iCr/cfWlVO6+e5uaAqH4mE1rrurElyrL91llNDSnMwogd9XmlZOw5KbbHNsA==
+  dependencies:
+    bn.js "^5.2.0"
 
 negotiator@^0.6.2, negotiator@^0.6.3:
   version "0.6.3"
