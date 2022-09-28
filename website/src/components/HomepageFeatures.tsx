@@ -7,8 +7,8 @@ import React from "react";
 import { FeatureCard } from "./FeatureCard";
 import { FeatureList } from "./FeatureList";
 
-const StyledHeader = styled("div")(({ theme }) => ({
-  backgroundColor: "var(--ifm-navbar-background-color)",
+const StyledHeader = styled("div")<{ dark: number }>(({ dark, theme }) => ({
+  backgroundColor: dark ? "#303846" : "var(--ifm-navbar-background-color)",
   width: "100vw",
   height: "200px",
   display: "flex",
@@ -36,7 +36,7 @@ export function HomepageFeatures(): JSX.Element {
 
   return (
     <>
-      <StyledHeader>
+      <StyledHeader dark={colorMode === "dark" ? 1 : 0}>
         <div style={{ maxWidth: "1024px", margin: "auto" }}>
           <StyledHeaderTitle>
             Welcome to Switchboard Documentation
@@ -45,7 +45,7 @@ export function HomepageFeatures(): JSX.Element {
             variant="body2"
             sx={{
               fontFamily: "Poppins",
-              color: "var(--ifm-description-text-color)",
+              color: "var(--ifm-navbar-link-color)",
               fontSize: 16,
               lineHeight: 1.43,
             }}

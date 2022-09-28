@@ -6,9 +6,14 @@
  * work well for content-centric websites.
  */
 
-/* You can override the default Infima variables here. */
 :root {
-  --ifm-color-primary: #6e31aa;
+  --ifm-color-primary: #117083;
+  --ifm-color-primary-dark: #0f6576;
+  --ifm-color-primary-darker: #0e5f6f;
+  --ifm-color-primary-darkest: #0c4e5c;
+  --ifm-color-primary-light: #137b90;
+  --ifm-color-primary-lighter: #148197;
+  --ifm-color-primary-lightest: #1692aa;
   --ifm-code-font-size: 100%;
   --ifm-font-family-base: "Source Sans Pro";
   --ifm-link-hover-color: #0a2540;
@@ -16,12 +21,19 @@
   --ifm-pages-background-color: #f7f9fc;
 }
 
-html[data-theme="dark"] {
-  --ifm-color-primary: #8fa3f5;
+[data-theme="dark"] {
+  --ifm-color-primary: #97d6e2;
+  --ifm-color-primary-dark: #7acada;
+  --ifm-color-primary-darker: #6bc5d6;
+  --ifm-color-primary-darkest: #3fb3c9;
+  --ifm-color-primary-light: #b4e2ea;
+  --ifm-color-primary-lighter: #c3e7ee;
+  --ifm-color-primary-lightest: #eff9fb;
   --ifm-background-color: #1f354b;
   --ifm-color-emphasis-100: #182436;
   --ifm-link-hover-color: #fff;
-  --ifm-navbar-background-color: #0a2540;
+  /* --ifm-navbar-background-color: #0a2540; */
+  --ifm-navbar-background-color: var(--ifm-color-emphasis-100);
   --ifm-description-text-color: #dbdbdb;
   --ifm-pages-background-color: var(--ifm-background-color);
 }
@@ -31,9 +43,9 @@ html[data-theme="dark"] {
 }
 
 /* In dark mode, set background opacity of every other row */
-html[data-theme="dark"] .docs-doc-page tr:even {
+/* html[data-theme="dark"] .docs-doc-page tr:even {
   background-color: rgba(31, 53, 75, 0.75);
-}
+} */
 
 /* Make last column in table full width */
 td:last-child {
@@ -51,11 +63,7 @@ td:last-child {
   text-align: center;
 }
 
-html[data-theme="dark"] a {
-  font-weight: 800;
-}
-
-.docusaurus-highlight-code-line {
+html[data-theme="dark"] .docusaurus-highlight-code-line {
   background-color: rgba(0, 0, 0, 0.1);
   display: block;
   margin: 0 calc(-1 * var(--ifm-pre-padding));
@@ -67,7 +75,7 @@ html[data-theme="dark"] .docusaurus-highlight-code-line {
 }
 
 .footer--dark {
-  background-color: #0a2540;
+  /* background-color: #0a2540; */
   width: 100%;
   display: flex;
   padding-left: 40px;

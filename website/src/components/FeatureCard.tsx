@@ -71,7 +71,10 @@ export function FeatureCard({
         <div style={{ display: "flex", alignItems: "center" }}>
           <div
             style={{
-              backgroundColor: "var(--ifm-color-primary)",
+              backgroundColor:
+                colorMode === "dark"
+                  ? "var(--ifm-color-primary-darkest)"
+                  : "var(--ifm-color-primary)",
               borderRadius: "8px",
               height: 48,
               width: 48,
@@ -98,7 +101,7 @@ export function FeatureCard({
         <StyledDescription
           variant="body2"
           sx={{
-            color: "var(--ifm-description-text-color)",
+            color: "var(--ifm-navbar-link-color)",
           }}
         >
           {description}

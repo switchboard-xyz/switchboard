@@ -10,7 +10,7 @@ interface PublicKeyButtonProps {
 const PublicKeyButton = (props: PublicKeyButtonProps) => {
   let sx: any = {
     textTransform: "none",
-    color: "var(--ifm-color-primary)",
+    color: "var(--ifm-color-primary-light)",
     fontWeight: 800,
     margin: 0,
   };
@@ -36,7 +36,10 @@ const PublicKeyButton = (props: PublicKeyButtonProps) => {
         variant="text"
         size="small"
         startIcon={
-          <ContentCopyIcon sx={{ fill: "#4c6fff" }} fontSize="small" />
+          <ContentCopyIcon
+            sx={{ fill: "var(--ifm-color-primary-darkest)" }}
+            fontSize="small"
+          />
         }
         onClick={copyToClipboard}
       >
