@@ -10,12 +10,9 @@ const config = {
   tagline: "Community curated lightspeed data feeds on-chain",
   url:
     process.env.NODE_ENV === "production"
-      ? // ? "https://docs.switchboard.xyz"
-        "https://switchboard-xyz.github.io"
+      ? "https://docs.switchboard.xyz"
       : "http://localhost",
-  // TODO: Revert back to '/' after migrating to permanent domain
-  // baseUrl: "/sbv2-core/",
-  baseUrl: "/sbv2-core/",
+  baseUrl: "/",
   // onBrokenLinks: "throw",
   onBrokenLinks: "warn",
   onBrokenMarkdownLinks: "warn",
