@@ -9,10 +9,44 @@ title: switchboard-v2
 
 A Rust library to interact with Switchboard V2 accounts.
 
+:::tip
+
 ## Features
 
 By default the crate will default to mainnet. You must explicitly enable the
 `devnet` feature to use on devnet.
+
+```toml
+[dependencies]
+switchboard-v2 = { version = "^0.1.14", features = ["devnet"] }
+```
+
+:::
+
+## Quick Links
+
+import RoundedCardGroup from "/src/components/RoundedCard/RoundedCardGroup";
+import useBaseUrl from "@docusaurus/useBaseUrl";
+
+<RoundedCardGroup
+  cols={2}
+  items={[
+    {
+      to: "https://github.com/switchboard-xyz/switchboard-v2/tree/main/rust/switchboard-v2",
+      title: "Github",
+      description: "View the Github repo",
+      image: <img src={useBaseUrl("/img/icons/github/light.svg")} />,
+      imageDark: <img src={useBaseUrl("/img/icons/github/dark.svg")} />,
+    },
+    {
+      to: "https://docs.rs/switchboard-v2/latest/switchboard_v2/",
+      title: "Typedocs",
+      description: "View the Typedocs",
+      image: <img src={useBaseUrl("/img/icons/rust/crab.svg")} />,
+      imageDark: <img src={useBaseUrl("/img/icons/rust/crab.svg")} />,
+    },
+  ]}
+/>
 
 ## Usage
 

@@ -1,0 +1,21 @@
+import RoundedCardGroup from "/src/components/RoundedCard/RoundedCardGroup";
+import useBaseUrl from "@docusaurus/useBaseUrl";
+
+<RoundedCardGroup
+  items={[
+    {
+      to: "/aptos/program/testnet",
+      title: "Testnet",
+      description: "View the Testnet deployment accounts",
+      image: <img src={useBaseUrl("/img/icons/aptos/light.svg")} />,
+      imageDark: <img src={useBaseUrl("/img/icons/aptos/dark.svg")} />,
+    },
+    {
+      to: "/aptos/program/devnet",
+      title: "Devnet",
+      description: "View the Devnet deployment accounts",
+      image: <img src={useBaseUrl("/img/icons/aptos/light.svg")} />,
+      imageDark: <img src={useBaseUrl("/img/icons/aptos/dark.svg")} />,
+    },
+  ]}
+/>

@@ -1,28 +1,27 @@
-
 interact with switchboard on Aptos
 
-* [`sbv2 aptos account airdrop`](#sbv2-aptos-account-airdrop)
-* [`sbv2 aptos aggregator add job [AGGREGATORHEXSTRING]`](#sbv2-aptos-aggregator-add-job-aggregatorhexstring)
-* [`sbv2 aptos aggregator create [QUEUEHEXSTRING]`](#sbv2-aptos-aggregator-create-queuehexstring)
-* [`sbv2 aptos aggregator job add [AGGREGATORHEXSTRING]`](#sbv2-aptos-aggregator-job-add-aggregatorhexstring)
-* [`sbv2 aptos aggregator update [AGGREGATORHEXSTRING]`](#sbv2-aptos-aggregator-update-aggregatorhexstring)
-* [`sbv2 aptos crank create [QUEUEHEXSTRING]`](#sbv2-aptos-crank-create-queuehexstring)
-* [`sbv2 aptos crank pop [CRANKHEXSTRING]`](#sbv2-aptos-crank-pop-crankhexstring)
-* [`sbv2 aptos crank push [CRANKHEXSTRING]`](#sbv2-aptos-crank-push-crankhexstring)
-* [`sbv2 aptos create aggregator [QUEUEHEXSTRING]`](#sbv2-aptos-create-aggregator-queuehexstring)
-* [`sbv2 aptos create crank [QUEUEHEXSTRING]`](#sbv2-aptos-create-crank-queuehexstring)
-* [`sbv2 aptos create job QUEUEHEXSTRING JOBDEFINITION`](#sbv2-aptos-create-job-queuehexstring-jobdefinition)
-* [`sbv2 aptos create oracle [QUEUEHEXSTRING]`](#sbv2-aptos-create-oracle-queuehexstring)
-* [`sbv2 aptos create queue`](#sbv2-aptos-create-queue)
-* [`sbv2 aptos job create QUEUEHEXSTRING JOBDEFINITION`](#sbv2-aptos-job-create-queuehexstring-jobdefinition)
-* [`sbv2 aptos oracle create [QUEUEHEXSTRING]`](#sbv2-aptos-oracle-create-queuehexstring)
-* [`sbv2 aptos pop crank [CRANKHEXSTRING]`](#sbv2-aptos-pop-crank-crankhexstring)
-* [`sbv2 aptos print ACCOUNTTYPE ADDRESS`](#sbv2-aptos-print-accounttype-address)
-* [`sbv2 aptos push crank [CRANKHEXSTRING]`](#sbv2-aptos-push-crank-crankhexstring)
-* [`sbv2 aptos queue create`](#sbv2-aptos-queue-create)
-* [`sbv2 aptos update aggregator [AGGREGATORHEXSTRING]`](#sbv2-aptos-update-aggregator-aggregatorhexstring)
+- [`sbv2 aptos account airdrop`](#sbv2-aptos-account-airdrop)
+- [`sbv2 aptos aggregator add job [AGGREGATORHEXSTRING]`](#sbv2-aptos-aggregator-add-job-aggregatorhexstring)
+- [`sbv2 aptos aggregator create [QUEUEHEXSTRING]`](#sbv2-aptos-aggregator-create-queuehexstring)
+- [`sbv2 aptos aggregator job add [AGGREGATORHEXSTRING]`](#sbv2-aptos-aggregator-job-add-aggregatorhexstring)
+- [`sbv2 aptos aggregator update [AGGREGATORHEXSTRING]`](#sbv2-aptos-aggregator-update-aggregatorhexstring)
+- [`sbv2 aptos crank create [QUEUEHEXSTRING]`](#sbv2-aptos-crank-create-queuehexstring)
+- [`sbv2 aptos crank pop [CRANKHEXSTRING]`](#sbv2-aptos-crank-pop-crankhexstring)
+- [`sbv2 aptos crank push [CRANKHEXSTRING]`](#sbv2-aptos-crank-push-crankhexstring)
+- [`sbv2 aptos create aggregator [QUEUEHEXSTRING]`](#sbv2-aptos-create-aggregator-queuehexstring)
+- [`sbv2 aptos create crank [QUEUEHEXSTRING]`](#sbv2-aptos-create-crank-queuehexstring)
+- [`sbv2 aptos create job QUEUEHEXSTRING JOBDEFINITION`](#sbv2-aptos-create-job-queuehexstring-jobdefinition)
+- [`sbv2 aptos create oracle [QUEUEHEXSTRING]`](#sbv2-aptos-create-oracle-queuehexstring)
+- [`sbv2 aptos create queue`](#sbv2-aptos-create-queue)
+- [`sbv2 aptos job create QUEUEHEXSTRING JOBDEFINITION`](#sbv2-aptos-job-create-queuehexstring-jobdefinition)
+- [`sbv2 aptos oracle create [QUEUEHEXSTRING]`](#sbv2-aptos-oracle-create-queuehexstring)
+- [`sbv2 aptos pop crank [CRANKHEXSTRING]`](#sbv2-aptos-pop-crank-crankhexstring)
+- [`sbv2 aptos print ACCOUNTTYPE ADDRESS`](#sbv2-aptos-print-accounttype-address)
+- [`sbv2 aptos push crank [CRANKHEXSTRING]`](#sbv2-aptos-push-crank-crankhexstring)
+- [`sbv2 aptos queue create`](#sbv2-aptos-queue-create)
+- [`sbv2 aptos update aggregator [AGGREGATORHEXSTRING]`](#sbv2-aptos-update-aggregator-aggregatorhexstring)
 
-## `sbv2 aptos account airdrop`
+### sbv2 aptos account airdrop
 
 request an airdrop
 
@@ -52,7 +51,7 @@ DESCRIPTION
   request an airdrop
 ```
 
-## `sbv2 aptos aggregator add job [AGGREGATORHEXSTRING]`
+### `sbv2 aptos aggregator add job [AGGREGATORHEXSTRING]`
 
 add a job to an aggregator
 
@@ -93,7 +92,7 @@ ALIASES
   $ sbv2 aptos aggregator job add
 ```
 
-## `sbv2 aptos aggregator create [QUEUEHEXSTRING]`
+### `sbv2 aptos aggregator create [QUEUEHEXSTRING]`
 
 create an aptos aggregator for a given queue
 
@@ -147,7 +146,7 @@ ALIASES
   $ sbv2 aptos create aggregator
 ```
 
-## `sbv2 aptos aggregator job add [AGGREGATORHEXSTRING]`
+### `sbv2 aptos aggregator job add [AGGREGATORHEXSTRING]`
 
 add a job to an aggregator
 
@@ -188,7 +187,7 @@ ALIASES
   $ sbv2 aptos aggregator job add
 ```
 
-## `sbv2 aptos aggregator update [AGGREGATORHEXSTRING]`
+### `sbv2 aptos aggregator update [AGGREGATORHEXSTRING]`
 
 request a new value on-chain for an aggregator
 
@@ -222,7 +221,7 @@ ALIASES
   $ sbv2 aptos update aggregator
 ```
 
-## `sbv2 aptos crank create [QUEUEHEXSTRING]`
+### `sbv2 aptos crank create [QUEUEHEXSTRING]`
 
 create a new crank
 
@@ -261,7 +260,7 @@ ALIASES
   $ sbv2 aptos create crank
 ```
 
-## `sbv2 aptos crank pop [CRANKHEXSTRING]`
+### `sbv2 aptos crank pop [CRANKHEXSTRING]`
 
 pop the crank
 
@@ -298,7 +297,7 @@ ALIASES
   $ sbv2 aptos pop crank
 ```
 
-## `sbv2 aptos crank push [CRANKHEXSTRING]`
+### `sbv2 aptos crank push [CRANKHEXSTRING]`
 
 push an aggregator onto the crank
 
@@ -336,7 +335,7 @@ ALIASES
   $ sbv2 aptos push crank
 ```
 
-## `sbv2 aptos create aggregator [QUEUEHEXSTRING]`
+### `sbv2 aptos create aggregator [QUEUEHEXSTRING]`
 
 create an aptos aggregator for a given queue
 
@@ -390,7 +389,7 @@ ALIASES
   $ sbv2 aptos create aggregator
 ```
 
-## `sbv2 aptos create crank [QUEUEHEXSTRING]`
+### `sbv2 aptos create crank [QUEUEHEXSTRING]`
 
 create a new crank
 
@@ -429,7 +428,7 @@ ALIASES
   $ sbv2 aptos create crank
 ```
 
-## `sbv2 aptos create job QUEUEHEXSTRING JOBDEFINITION`
+### `sbv2 aptos create job QUEUEHEXSTRING JOBDEFINITION`
 
 create a new job
 
@@ -473,7 +472,7 @@ ALIASES
   $ sbv2 aptos create job
 ```
 
-## `sbv2 aptos create oracle [QUEUEHEXSTRING]`
+### `sbv2 aptos create oracle [QUEUEHEXSTRING]`
 
 create a oracle for a given queue
 
@@ -515,7 +514,7 @@ ALIASES
   $ sbv2 aptos create oracle
 ```
 
-## `sbv2 aptos create queue`
+### `sbv2 aptos create queue`
 
 create a new oracle queue
 
@@ -564,7 +563,7 @@ ALIASES
   $ sbv2 aptos create queue
 ```
 
-## `sbv2 aptos job create QUEUEHEXSTRING JOBDEFINITION`
+### `sbv2 aptos job create QUEUEHEXSTRING JOBDEFINITION`
 
 create a new job
 
@@ -608,7 +607,7 @@ ALIASES
   $ sbv2 aptos create job
 ```
 
-## `sbv2 aptos oracle create [QUEUEHEXSTRING]`
+### `sbv2 aptos oracle create [QUEUEHEXSTRING]`
 
 create a oracle for a given queue
 
@@ -650,7 +649,7 @@ ALIASES
   $ sbv2 aptos create oracle
 ```
 
-## `sbv2 aptos pop crank [CRANKHEXSTRING]`
+### `sbv2 aptos pop crank [CRANKHEXSTRING]`
 
 pop the crank
 
@@ -687,7 +686,7 @@ ALIASES
   $ sbv2 aptos pop crank
 ```
 
-## `sbv2 aptos print ACCOUNTTYPE ADDRESS`
+### `sbv2 aptos print ACCOUNTTYPE ADDRESS`
 
 print an aptos account
 
@@ -722,7 +721,7 @@ ALIASES
   $ sbv2 aptos print
 ```
 
-## `sbv2 aptos push crank [CRANKHEXSTRING]`
+### `sbv2 aptos push crank [CRANKHEXSTRING]`
 
 push an aggregator onto the crank
 
@@ -760,7 +759,7 @@ ALIASES
   $ sbv2 aptos push crank
 ```
 
-## `sbv2 aptos queue create`
+### `sbv2 aptos queue create`
 
 create a new oracle queue
 
@@ -809,7 +808,7 @@ ALIASES
   $ sbv2 aptos create queue
 ```
 
-## `sbv2 aptos update aggregator [AGGREGATORHEXSTRING]`
+### `sbv2 aptos update aggregator [AGGREGATORHEXSTRING]`
 
 request a new value on-chain for an aggregator
 

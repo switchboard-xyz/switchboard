@@ -11,6 +11,8 @@ import AggregatorCreate from "/docs/dev/cli/solana/aggregator/create.md";
 import AggregatorAddJob from "/docs/dev/cli/solana/aggregator/add_job.md";
 import AggregatorRemoveJob from "/docs/dev/cli/solana/aggregator/remove_job.md";
 
+# Sbv2 solana
+
 ## Install
 
 ```bash npm2yarn
@@ -29,98 +31,8 @@ sbv2 config set solana mainnet-beta rpc https://ssc-dao.genesysgo.net/
 sbv2 config set solana mainnet-beta default-account "~/.config/solana/id.json"
 ```
 
-## Print an Account
+## Commands
 
-<details>
-<summary>
+import SolanaCli from "/api/cli/_solana.md";
 
-### sbv2 solana print
-
-</summary>
-
-<Print />
-
-</details>
-
-## Create a Queue
-
-<details>
-<summary>
-
-### sbv2 solana queue create
-
-</summary>
-
-<QueueCreate />
-
-</details>
-
-## Create an Oracle
-
-<!-- with permissions -->
-
-<details>
-<summary>
-
-### sbv2 solana oracle create
-
-</summary>
-
-<OracleCreate />
-
-</details>
-
-## Create a Data Feed
-
-<!-- Add/Remove jobs -->
-
-<details>
-<summary>
-
-### sbv2 solana aggregator create
-
-</summary>
-
-<AggregatorCreate />
-
-</details>
-
-## Create a Job
-
-<details>
-<summary>
-
-### sbv2 solana job create
-
-</summary>
-
-<JobCreate />
-
-</details>
-
-## Add Job to Feed
-
-<details>
-<summary>
-
-### sbv2 solana aggregator job add
-
-</summary>
-
-<AggregatorAddJob />
-
-</details>
-
-## Remove Job to Feed
-
-<details>
-<summary>
-
-### sbv2 near aggregator job remove
-
-</summary>
-
-<AggregatorRemoveJob />
-
-</details>
-```
+<SolanaCli />

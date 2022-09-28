@@ -8,8 +8,9 @@ import TabItem from "@theme/TabItem";
 
 You may wish to run a localnet version of Switchboard to watch how your program
 reacts to data feed updates. The following will walk through how to create your
-own Oracle Queue and Oracle and output some helper scripts to quickly load the
-environment in your tests.
+own Oracle Queue and Oracle on devnet, then output some helper scripts to
+quickly load the environment in your localnet cluster to run integration tests
+against your program.
 
 ## Setup Switchboard Test Environment
 
@@ -20,9 +21,7 @@ as the authority
   <TabItem value="CLI" label="CLI" default>
 
 ```shell
-sbv2 localnet:env \
-    --keypair "../payer-keypair.json" \
-    --outputDir ".switchboard"
+sbv2 solana localnet env --keypair "../payer-keypair.json"
 ```
 
   </TabItem>
@@ -151,17 +150,3 @@ const aggregatorAccount: AggregatorAccount = await switchboard.createStaticFeed(
 
   </TabItem>
 </Tabs>
-Footer
-© 2022 GitHub, Inc.
-Footer navigation
-Terms
-Privacy
-Security
-Status
-Docs
-Contact GitHub
-Pricing
-API
-Training
-Blog
-About

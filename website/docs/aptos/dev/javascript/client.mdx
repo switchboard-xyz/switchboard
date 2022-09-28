@@ -4,22 +4,49 @@ slug: .
 title: "@switchboard-xyz/aptos.js"
 ---
 
-[![GitHub](https://img.shields.io/badge/--181717?logo=github&logoColor=ffffff)](https://github.com/switchboard-xyz/aptos-sdk)&nbsp;
+[![GitHub](https://img.shields.io/badge/--181717?logo=github&logoColor=ffffff)](https://github.com/switchboard-xyz/sbv2-aptos)&nbsp;
 [![twitter](https://badgen.net/twitter/follow/switchboardxyz)](https://twitter.com/switchboardxyz)&nbsp;&nbsp;
+[![npm version](https://badge.fury.io/js/@switchboard-xyz%2Faptos.js.svg)](https://badge.fury.io/js/@switchboard-xyz%2Faptos.js)
 
 A library of utility functions to interact with Switchboard Modules on Aptos
 
+## Quick Links
+
+import RoundedCardGroup from "/src/components/RoundedCard/RoundedCardGroup";
+import useBaseUrl from "@docusaurus/useBaseUrl";
+
+<RoundedCardGroup
+  cols={2}
+  items={[
+    {
+      to: "https://github.com/switchboard-xyz/sbv2-aptos",
+      title: "Github",
+      description: "View the Github repo",
+      image: <img src={useBaseUrl("/img/icons/github/light.svg")} />,
+      imageDark: <img src={useBaseUrl("/img/icons/github/dark.svg")} />,
+    },
+    {
+      to: "https://docs.switchboard.xyz/api/@switchboard-xyz/aptos.js/",
+      title: "Typedocs",
+      description: "View the Typedocs",
+      image: <img src={useBaseUrl("/img/icons/typedoc/logo.svg")} />,
+      imageDark: <img src={useBaseUrl("/img/icons/typedoc/logo.svg")} />,
+    },
+  ]}
+/>
+
 ## Live Deployment:
 
-We're currently on Aptos Testnet at address
-`0xb27f7bbf7caf2368b08032d005e8beab151a885054cdca55c4cc644f0a308d2b`. For the
-simplest way to create and manage Switchboard feeds on Aptos, check out our
-[publisher](https://app.switchboard.xyz).
+We're currently deployed on Aptos Testnet and Aptos Devnet.
+
+import AptosNetworks from "/docs/_common/_aptos_networks.mdx";
+
+<AptosNetworks />
 
 ## Install
 
-```
-npm i --save @switchboard-xyz/aptos.js
+```bash npm2yarn
+npm install --save @switchboard-xyz/aptos.js
 ```
 
 ## Creating Feeds
@@ -173,7 +200,7 @@ Switchboard = { git = "https://github.com/switchboard-xyz/aptos-sdk.git", subdir
 
 ### Reading Feeds
 
-```move
+```rust
 use switchboard::aggregator;
 use switchboard::math::{Self, SwitchboardDecimal};
 
