@@ -5,7 +5,7 @@ import path from "path";
 function generateTypedoc(entryPoint: string, relativeOutputPath: string) {
   if (
     shell.exec(
-      `typedoc --entryPoints ${entryPoint} --out ${relativeOutputPath} --githubPages --cleanOutputDir`
+      `yarn install && yarn build && typedoc ${entryPoint} --out ${relativeOutputPath} --githubPages --cleanOutputDir`
     ).code !== 0
   ) {
     shell.echo(

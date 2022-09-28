@@ -4,7 +4,8 @@
   "compilerOptions": {
     "baseUrl": ".",
     "esModuleInterop": true,
-    "sourceMap": true
+    "sourceMap": true,
+    "types": ["node"]
   },
   "include": ["src/**/*", "src/**/*.json", "scripts/**/*"],
   "exclude": ["static", "public", "node_modules"],
