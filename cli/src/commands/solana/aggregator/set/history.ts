@@ -9,7 +9,7 @@ export default class AggregatorSetHistoryBuffer extends BaseCommand {
   static description =
     "set an aggregator's history buffer account to record the last N accepted results";
 
-  static aliases = ["aggregator:add:history"];
+  static aliases = ["solana:aggregator:add:history"];
 
   static flags = {
     ...BaseCommand.flags,

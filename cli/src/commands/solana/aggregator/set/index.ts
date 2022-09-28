@@ -15,7 +15,7 @@ import { CHECK_ICON } from "../../../../utils";
 export default class AggregatorSet extends BaseCommand {
   static description = "set an aggregator's config";
 
-  static aliases = ["set:aggregator"];
+  static aliases = ["solana:set:aggregator"];
 
   static flags = {
     ...BaseCommand.flags,

@@ -7,8 +7,8 @@ import React from "react";
 import { FeatureCard } from "./FeatureCard";
 import { FeatureList } from "./FeatureList";
 
-const StyledHeader = styled("div")<{ dark: number }>(({ theme, dark }) => ({
-  backgroundColor: dark ? theme.palette.footer.background : theme.palette.white,
+const StyledHeader = styled("div")(({ theme }) => ({
+  backgroundColor: "var(--ifm-navbar-background-color)",
   width: "100vw",
   height: "200px",
   display: "flex",
@@ -18,17 +18,14 @@ const StyledHeader = styled("div")<{ dark: number }>(({ theme, dark }) => ({
   paddingLeft: "40px",
 }));
 
-const StyledHeaderTitle = styled(Typography)<{ dark: number }>(
-  ({ dark, theme }) => ({
-    marginBottom: "12px",
-    fontWeight: 600,
-    fontFamily: "Poppins",
-    color: dark ? theme.palette.white : "#171725",
-    fontSize: 25,
-    letterSpacing: "0.12px",
-  })
-);
-
+const StyledHeaderTitle = styled(Typography)(({ theme }) => ({
+  marginBottom: "12px",
+  fontWeight: 600,
+  fontFamily: "Poppins",
+  color: "var(--ifm-navbar-link-color)",
+  fontSize: 25,
+  letterSpacing: "0.12px",
+}));
 
 export function HomepageFeatures(): JSX.Element {
   const theme = useTheme();
@@ -39,16 +36,16 @@ export function HomepageFeatures(): JSX.Element {
 
   return (
     <>
-      <StyledHeader dark={colorMode === "dark" ? 1 : 0}>
+      <StyledHeader>
         <div style={{ maxWidth: "1024px", margin: "auto" }}>
-          <StyledHeaderTitle dark={colorMode === "dark" ? 1 : 0}>
+          <StyledHeaderTitle>
             Welcome to Switchboard Documentation
           </StyledHeaderTitle>
           <Typography
             variant="body2"
             sx={{
               fontFamily: "Poppins",
-              color: "#92929d",
+              color: "var(--ifm-description-text-color)",
               fontSize: 16,
               lineHeight: 1.43,
             }}

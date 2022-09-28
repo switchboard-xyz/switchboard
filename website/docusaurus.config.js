@@ -33,7 +33,7 @@ const config = {
           routeBasePath: "/",
           sidebarPath: require.resolve("./sidebar.js"),
           remarkPlugins: [
-            // [require("@docusaurus/remark-plugin-npm2yarn"), { sync: true }],
+            [require("@docusaurus/remark-plugin-npm2yarn"), { sync: true }],
             require("remark-math"),
           ],
           rehypePlugins: [
@@ -84,18 +84,26 @@ const config = {
         apiKey: "bc1bca7d93098a0d241c000cd8e900aa",
         indexName: "switchboard",
       },
-      announcementBar: {
-        id: "announcementBar-2", // Increment on change
-        content: `⭐️ If you like Switchboard, give us a star on <a target="_blank" rel="noopener noreferrer" href="https://github.com/switchboard-xyz/sbv2-core">GitHub</a> and follow us on <a target="_blank" rel="noopener noreferrer" href="https://twitter.com/switchboardxyz">Twitter ${TwitterSvg}</a>`,
-      },
+      // announcementBar: {
+      //   id: "announcementBar-2", // Increment on change
+      //   content: `⭐️ If you like Switchboard, give us a star on <a target="_blank" rel="noopener noreferrer" href="https://github.com/switchboard-xyz/sbv2-core">GitHub</a> and follow us on <a target="_blank" rel="noopener noreferrer" href="https://twitter.com/switchboardxyz">Twitter ${TwitterSvg}</a>`,
+      // },
       colorMode: {
         disableSwitch: false,
         respectPrefersColorScheme: true,
       },
       // Only for code blocks
       prism: {
-        theme: require("prism-react-renderer/themes/nightOwl"),
-        additionalLanguages: ["rust", "toml", "docker", "bash", "yaml"],
+        theme: require("prism-react-renderer/themes/vsDark"),
+        darkTheme: require("prism-react-renderer/themes/vsDark"),
+        additionalLanguages: [
+          "rust",
+          "toml",
+          "docker",
+          "bash",
+          "yaml",
+          "asciidoc",
+        ],
       },
       navbar: {
         title: "Switchboard",
@@ -109,6 +117,10 @@ const config = {
         },
         items: [
           {
+            type: "custom-supportedChainsNavbarItem",
+            position: "left",
+          },
+          {
             label: "Getting Started",
             position: "left",
             to: "/about",
@@ -117,23 +129,23 @@ const config = {
             type: "dropdown",
             label: "Data Feeds",
             position: "left",
+            to: "/feeds/about",
             items: [
-              // {
-              //   type: "html",
-              //   className: "dropdown-heading",
-              //   value: "<b>Custom Feeds</b>",
-              // },
+              {
+                label: "ℹ️ What are Data Feeds?",
+                to: "/feeds/about",
+              },
               {
                 label: "🛠️ Build Custom Feeds",
                 to: "/feeds/tasks/",
               },
               {
-                label: "🔖 Examples",
-                to: "/feeds/examples/exchanges",
+                label: "✅ Best Practices",
+                to: "/feeds/best-practices/",
               },
               {
-                label: "ℹ️ Best Practices",
-                to: "/feeds/best-practices/",
+                label: "🔖 Examples",
+                to: "/feeds/examples/exchanges",
               },
               {
                 label: "📚 Publisher",
@@ -146,6 +158,11 @@ const config = {
               {
                 type: "html",
                 value: '<hr class="dropdown-separator">',
+              },
+              {
+                type: "html",
+                className: "dropdown-heading",
+                value: "<b>Integrate</b>",
               },
               {
                 label: " Aptos",
@@ -162,28 +179,27 @@ const config = {
                 to: "/solana/feeds",
                 className: "header-solana-link",
               },
-              // {
-              //   type: "html",
-              //   value: '<hr class="dropdown-separator">',
-              // },
-              // {
-              //   type: "html",
-              //   className: "dropdown-heading",
-              //   value: "<b>Building Feeds</b>",
-              // },
-
-              // {
-              //   type: "html",
-              //   className: "dropdown-heading",
-              //   value: "<b>Tools</b>",
-              // },
             ],
           },
           {
             type: "dropdown",
             label: "Randomness",
             position: "left",
+            to: "/randomness/about",
             items: [
+              {
+                label: "ℹ️ What is Randomness?",
+                to: "/randomness/about",
+              },
+              {
+                type: "html",
+                value: '<hr class="dropdown-separator">',
+              },
+              {
+                type: "html",
+                className: "dropdown-heading",
+                value: "<b>Integrate</b>",
+              },
               {
                 label: " Solana",
                 to: "/solana/randomness",
@@ -191,82 +207,64 @@ const config = {
               },
             ],
           },
+          // {
+          //   label: "Oracle Operator",
+          //   position: "left",
+          //   to: "/oracles/",
+          // },
           {
-            label: "Oracle Operator",
+            type: "dropdown",
+            label: "Operator",
             position: "left",
-            to: "/oracles/",
+            to: "operator/about",
+            items: [
+              {
+                label: "⚛️ Oracle",
+                to: "/oracles",
+              },
+              {
+                label: "☸️ Crank",
+                to: "/crank",
+              },
+            ],
           },
           {
-            label: "APIs",
-            position: "left",
-            to: "/api/",
+            type: "doc",
+            label: "Develop",
+            docId: "dev/overview",
           },
           // {
           //   type: "dropdown",
-          //   label: "APIs",
+          //   label: "Develop",
           //   position: "left",
           //   items: [
           //     {
-          //       type: "html",
-          //       className: "dropdown-heading",
-          //       value: "<b>Common</b>",
+          //       label: " Aptos",
+          //       to: "/aptos/feeds",
+          //       className: "header-aptos-link",
           //     },
           //     {
-          //       label: " @switchboard-xyz/common",
-          //       to: "/feeds",
-          //       className: "header-typescript-link",
+          //       label: " Near",
+          //       to: "/near/feeds",
+          //       className: "header-near-link",
           //     },
           //     {
-          //       label: " @switchboard-xyz/cli",
-          //       to: "/api/cli",
-          //       className: "header-typescript-link",
-          //     },
-          //     {
-          //       type: "html",
-          //       className: "dropdown-heading",
-          //       value: "<b>Aptos</b>",
-          //     },
-          //     {
-          //       label: " @switchboard-xyz/aptos.js",
-          //       to: "/feeds",
-          //       className: "header-typescript-link",
-          //     },
-          //     {
-          //       type: "html",
-          //       className: "dropdown-heading",
-          //       value: "<b>Near</b>",
-          //     },
-          //     {
-          //       label: " @switchboard-xyz/near.js",
-          //       to: "/feeds",
-          //       className: "header-typescript-link",
-          //     },
-          //     {
-          //       type: "html",
-          //       className: "dropdown-heading",
-          //       value: "<b>Solana</b>",
-          //     },
-          //     {
-          //       label: " @switchboard-xyz/switchboard-v2",
-          //       to: "/feeds",
-          //       className: "header-typescript-link",
-          //     },
-          //     {
-          //       label: " switchboard-v2",
-          //       to: "/feeds",
-          //       className: "header-rust-link",
+          //       label: " Solana",
+          //       to: "/solana/feeds",
+          //       className: "header-solana-link",
           //     },
           //   ],
           // },
-          {
-            label: "Blog",
-            position: "right",
-            to: "https://switchboardxyz.medium.com/",
-          },
-          {
-            type: "localeDropdown",
-            position: "right",
-          },
+          // vertical rule
+          // {
+          //   label: "Blog",
+          //   position: "right",
+          //   to: "https://switchboardxyz.medium.com/",
+          // },
+          // {
+          //   type: "localeDropdown",
+          //   position: "right",
+          // },
           {
             href: "https://github.com/switchboard-xyz",
             position: "right",
@@ -286,61 +284,61 @@ const config = {
       footer: {
         style: "dark",
         links: [
-          {
-            title: "DOCS",
-            items: [
-              {
-                label: "Developer Resources",
-                to: "/developers",
-              },
-              {
-                label: "Rust API Docs",
-                href: "https://docs.rs/switchboard-v2/latest/switchboard_v2/",
-              },
-              {
-                label: "Client API Docs",
-                href: "https://docs.switchboard.xyz/api/ts",
-              },
-            ],
-          },
-          {
-            title: "COMMUNITY",
-            items: [
-              {
-                label: "Discord",
-                href: "https://discord.com/invite/sNeGymrabT",
-              },
-              {
-                label: "Twitter",
-                href: "https://twitter.com/switchboardxyz",
-              },
-              {
-                label: "Telegram",
-                href: "https://t.me/switchboardxyz",
-              },
-              {
-                label: "LinkedIn",
-                href: "https://www.linkedin.com/company/switchboardxyz",
-              },
-            ],
-          },
-          {
-            title: "MORE",
-            items: [
-              {
-                label: "Medium",
-                href: "https://switchboardxyz.medium.com/",
-              },
-              {
-                label: "Jobs",
-                href: "https://app.trinethire.com/companies/35264-switchboard-technology-labs/jobs",
-              },
-              {
-                label: "GitHub",
-                href: "https://github.com/switchboard-xyz",
-              },
-            ],
-          },
+          // {
+          //   title: "DOCS",
+          //   items: [
+          //     {
+          //       label: "Developer Resources",
+          //       to: "/developers",
+          //     },
+          //     {
+          //       label: "Rust API Docs",
+          //       href: "https://docs.rs/switchboard-v2/latest/switchboard_v2/",
+          //     },
+          //     {
+          //       label: "Client API Docs",
+          //       href: "https://docs.switchboard.xyz/api/ts",
+          //     },
+          //   ],
+          // },
+          // {
+          //   title: "COMMUNITY",
+          //   items: [
+          //     {
+          //       label: "Discord",
+          //       href: "https://discord.com/invite/sNeGymrabT",
+          //     },
+          //     {
+          //       label: "Twitter",
+          //       href: "https://twitter.com/switchboardxyz",
+          //     },
+          //     {
+          //       label: "Telegram",
+          //       href: "https://t.me/switchboardxyz",
+          //     },
+          //     {
+          //       label: "LinkedIn",
+          //       href: "https://www.linkedin.com/company/switchboardxyz",
+          //     },
+          //   ],
+          // },
+          // {
+          //   title: "MORE",
+          //   items: [
+          //     {
+          //       label: "Medium",
+          //       href: "https://switchboardxyz.medium.com/",
+          //     },
+          //     {
+          //       label: "Jobs",
+          //       href: "https://app.trinethire.com/companies/35264-switchboard-technology-labs/jobs",
+          //     },
+          //     {
+          //       label: "GitHub",
+          //       href: "https://github.com/switchboard-xyz",
+          //     },
+          //   ],
+          // },
         ],
       },
     }),

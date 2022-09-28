@@ -1,8 +1,34 @@
 ---
-sidebar_position: 5
-id: create
+sidebar_position: 10
 ---
 
 # Create a Feed
 
-TODO:
+import CodeBlock from "@theme/CodeBlock";
+import CreateFeedCodeSnippet from "!!raw-loader!../../solana/code/javascript/create-feed";
+import CreateFeedPreviewCodeSnippet from "!!raw-loader!../../solana/code/javascript/create-feed.preview";
+import Tabs from "@theme/Tabs";
+import TabItem from "@theme/TabItem";
+
+Switchboard allows you to create permissionless data feeds using
+
+- [The Publisher](/feeds/publisher)
+- [Javascript](#javascript)
+- [Command Line](#command-line)
+
+## Javascript
+
+<Tabs>
+  <TabItem value="preview" label="Preview">
+    <CodeBlock language="ts">{CreateFeedPreviewCodeSnippet}</CodeBlock>
+  </TabItem>
+  <TabItem value="full" label="Full">
+    <CodeBlock language="ts">{CreateFeedCodeSnippet}</CodeBlock>
+  </TabItem>
+</Tabs>
+
+## Command Line
+
+```bash
+sbv2 solana aggregator create
+```

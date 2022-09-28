@@ -1,3 +1,5 @@
-| Field | Type   | Description |
-| ----- | ------ | ----------- |
-| bytes | u8[32] |             |
+
+
+| Field | Type | Description |
+|--|--|--|
+| bytes |  u8[32] |  |

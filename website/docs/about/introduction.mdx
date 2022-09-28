@@ -6,24 +6,19 @@ slug: .
 
 # Introduction
 
-> Switchboard is a community-driven, decentralized oracle network built on
-> Solana that allows anyone to publish on-chain data for smart contract
-> developers to reliably build upon.
+> Switchboard is a multi-chain oracle network that allows anyone to publish
+> general purpose data feeds on-chain
 
-Switchboard is a community governed protocol — if additional on-chain data is
-needed, you will be able to publish it yourself after reading through these
-docs.
-
-Solana was chosen for its sub-second transaction speed, allowing faster refresh
-rates of on-chain data to help support it’s thriving developer ecosystem.
-Developing an oracle solution in this high-availability environment poses its
-own set of challenges that the Switchboard team is excited to solve!
-
-Switchboard gets its name from the early days of phone networks, when operators
+Switchboard gets its name from the early days of phone networks, where operators
 would shuffle telephone lines around a switchboard to complete a circuit and
 forward a dialer’s call to the next hop in the circuit. Similarly, Switchboard
-is responsible for how external data gets updated and routed through the Solana
+is responsible for how external data gets updated and routed through a
 blockchain until it reaches its appropriate destination.
+
+At a high level, Switchboard is a proxy between the internet and a blockchain
+allowing data feeds to be matched with off-chain compute resources, thus
+allowing the feeds to periodically request updates and reward oracles for
+answering honestly.
 
 ## What is an Oracle
 
@@ -52,7 +47,3 @@ today, such as:
 
 Oracles can be used for a variety of data sets as long as there is a reliable
 way to source the information.
-
-<!-- TODO: Add quick links to popular pages like architecture, running an oracle, developer resources -->
-
-<!-- TODO: XXXXXXX -->

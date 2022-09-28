@@ -1,0 +1,83 @@
+## sbv2 solana aggregator
+ - [sbv2 solana aggregator add crank](/sbv2-core/dev/cli/solana/aggregator/add_crank)
+ - [sbv2 solana aggregator add job](/sbv2-core/dev/cli/solana/aggregator/add_job)
+ - [sbv2 solana aggregator create](/sbv2-core/dev/cli/solana/aggregator/create)
+ - [sbv2 solana aggregator create copy](/sbv2-core/dev/cli/solana/aggregator/create_copy)
+ - [sbv2 solana aggregator create json](/sbv2-core/dev/cli/solana/aggregator/create_json)
+ - [sbv2 solana aggregator history print](/sbv2-core/dev/cli/solana/aggregator/history_print)
+ - [sbv2 solana aggregator lease print](/sbv2-core/dev/cli/solana/aggregator/lease_print)
+ - [sbv2 solana aggregator lease withdraw](/sbv2-core/dev/cli/solana/aggregator/lease_withdraw)
+ - [sbv2 solana aggregator permission create](/sbv2-core/dev/cli/solana/aggregator/permission_create)
+ - [sbv2 solana aggregator permission print](/sbv2-core/dev/cli/solana/aggregator/permission_print)
+ - [sbv2 solana aggregator print](/sbv2-core/dev/cli/solana/aggregator/print)
+ - [sbv2 solana aggregator print history](/sbv2-core/dev/cli/solana/aggregator/print_history)
+ - [sbv2 solana aggregator print lease](/sbv2-core/dev/cli/solana/aggregator/print_lease)
+ - [sbv2 solana aggregator print permission](/sbv2-core/dev/cli/solana/aggregator/print_permission)
+ - [sbv2 solana aggregator remove job](/sbv2-core/dev/cli/solana/aggregator/remove_job)
+ - [sbv2 solana aggregator save history](/sbv2-core/dev/cli/solana/aggregator/save_history)
+ - [sbv2 solana aggregator update](/sbv2-core/dev/cli/solana/aggregator/update)
+ - [sbv2 solana aggregator watch](/sbv2-core/dev/cli/solana/aggregator/watch)
+## sbv2 solana anchor
+ - [sbv2 solana anchor test](/sbv2-core/dev/cli/solana/anchor/test)
+## sbv2 solana buffer
+ - [sbv2 solana buffer create](/sbv2-core/dev/cli/solana/buffer/create)
+ - [sbv2 solana buffer print](/sbv2-core/dev/cli/solana/buffer/print)
+## sbv2 solana crank
+ - [sbv2 solana crank add aggregator](/sbv2-core/dev/cli/solana/crank/add_aggregator)
+ - [sbv2 solana crank create](/sbv2-core/dev/cli/solana/crank/create)
+ - [sbv2 solana crank list](/sbv2-core/dev/cli/solana/crank/list)
+ - [sbv2 solana crank pop](/sbv2-core/dev/cli/solana/crank/pop)
+ - [sbv2 solana crank print](/sbv2-core/dev/cli/solana/crank/print)
+ - [sbv2 solana crank push](/sbv2-core/dev/cli/solana/crank/push)
+ - [sbv2 solana crank turn](/sbv2-core/dev/cli/solana/crank/turn)
+## sbv2 solana job
+ - [sbv2 solana job create](/sbv2-core/dev/cli/solana/job/create)
+ - [sbv2 solana job print](/sbv2-core/dev/cli/solana/job/print)
+## sbv2 solana json
+ - [sbv2 solana json create aggregator](/sbv2-core/dev/cli/solana/json/create_aggregator)
+## sbv2 solana lease
+ - [sbv2 solana lease withdraw](/sbv2-core/dev/cli/solana/lease/withdraw)
+## sbv2 solana localnet
+ - [sbv2 solana localnet env](/sbv2-core/dev/cli/solana/localnet/env)
+## sbv2 solana oracle
+ - [sbv2 solana oracle balance](/sbv2-core/dev/cli/solana/oracle/balance)
+ - [sbv2 solana oracle create](/sbv2-core/dev/cli/solana/oracle/create)
+ - [sbv2 solana oracle nonce](/sbv2-core/dev/cli/solana/oracle/nonce)
+ - [sbv2 solana oracle permission create](/sbv2-core/dev/cli/solana/oracle/permission_create)
+ - [sbv2 solana oracle permission print](/sbv2-core/dev/cli/solana/oracle/permission_print)
+ - [sbv2 solana oracle print](/sbv2-core/dev/cli/solana/oracle/print)
+ - [sbv2 solana oracle print permission](/sbv2-core/dev/cli/solana/oracle/print_permission)
+## sbv2 solana permission
+ - [sbv2 solana permission create](/sbv2-core/dev/cli/solana/permission/create)
+ - [sbv2 solana permission print](/sbv2-core/dev/cli/solana/permission/print)
+ - [sbv2 solana permission set](/sbv2-core/dev/cli/solana/permission/set)
+## sbv2 solana print
+ - [sbv2 solana print index](/sbv2-core/dev/cli/solana/print/)
+ - [sbv2 solana print aggregator](/sbv2-core/dev/cli/solana/print/aggregator)
+ - [sbv2 solana print aggregator history](/sbv2-core/dev/cli/solana/print/aggregator_history)
+ - [sbv2 solana print aggregator lease](/sbv2-core/dev/cli/solana/print/aggregator_lease)
+ - [sbv2 solana print aggregator permission](/sbv2-core/dev/cli/solana/print/aggregator_permission)
+ - [sbv2 solana print buffer](/sbv2-core/dev/cli/solana/print/buffer)
+ - [sbv2 solana print crank](/sbv2-core/dev/cli/solana/print/crank)
+ - [sbv2 solana print job](/sbv2-core/dev/cli/solana/print/job)
+ - [sbv2 solana print oracle](/sbv2-core/dev/cli/solana/print/oracle)
+ - [sbv2 solana print oracle permission](/sbv2-core/dev/cli/solana/print/oracle_permission)
+ - [sbv2 solana print permission](/sbv2-core/dev/cli/solana/print/permission)
+ - [sbv2 solana print program](/sbv2-core/dev/cli/solana/print/program)
+ - [sbv2 solana print queue](/sbv2-core/dev/cli/solana/print/queue)
+ - [sbv2 solana print vrf](/sbv2-core/dev/cli/solana/print/vrf)
+## sbv2 solana program
+ - [sbv2 solana program print](/sbv2-core/dev/cli/solana/program/print)
+## sbv2 solana queue
+ - [sbv2 solana queue create](/sbv2-core/dev/cli/solana/queue/create)
+ - [sbv2 solana queue print](/sbv2-core/dev/cli/solana/queue/print)
+ - [sbv2 solana queue set vrf](/sbv2-core/dev/cli/solana/queue/set_vrf)
+## sbv2 solana vrf
+ - [sbv2 solana vrf create](/sbv2-core/dev/cli/solana/vrf/create)
+ - [sbv2 solana vrf create example](/sbv2-core/dev/cli/solana/vrf/create_example)
+ - [sbv2 solana vrf print](/sbv2-core/dev/cli/solana/vrf/print)
+ - [sbv2 solana vrf request](/sbv2-core/dev/cli/solana/vrf/request)
+ - [sbv2 solana vrf watch](/sbv2-core/dev/cli/solana/vrf/watch)
+## sbv2 solana watch
+ - [sbv2 solana watch aggregator](/sbv2-core/dev/cli/solana/watch/aggregator)
+ - [sbv2 solana watch vrf](/sbv2-core/dev/cli/solana/watch/vrf)

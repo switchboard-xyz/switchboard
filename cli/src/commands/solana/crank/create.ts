@@ -14,7 +14,7 @@ import { CHECK_ICON } from "../../../utils";
 export default class QueueAddCrank extends BaseCommand {
   static description = "add a crank to an existing oracle queue";
 
-  static alias = ["queue:add:crank"];
+  static alias = ["solana:queue:add:crank"];
 
   static flags = {
     ...BaseCommand.flags,

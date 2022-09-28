@@ -33,9 +33,7 @@ import { SolanaWithSignerBaseCommand as BaseCommand } from "../../../solana";
 import {} from "../../../utils";
 
 export default class QueueCreate extends BaseCommand {
-  static description = "create a custom queue";
-
-  static aliases = ["custom:queue"];
+  static description = "create a personal oracle queue";
 
   static flags = {
     ...BaseCommand.flags,

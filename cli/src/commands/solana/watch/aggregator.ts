@@ -25,7 +25,7 @@ export default class WatchAggregator extends BaseCommand {
     },
   ];
 
-  static aliases = ["aggregator:watch"];
+  static aliases = ["solana:aggregator:watch"];
 
   static examples = [
     "$ sbv2 watch:aggregator J7j9xX8JP2B2ErvUzuqGAKBGeggsxPyFXj5MqZcYDxfa",

@@ -10,7 +10,10 @@ import { CHECK_ICON } from "../../../utils";
 export default class CrankPush extends BaseCommand {
   static description = "push an aggregator onto a crank";
 
-  static aliases = ["aggregator:add:crank", "crank:add:aggregator"];
+  static aliases = [
+    "solana:aggregator:add:crank",
+    "solana:crank:add:aggregator",
+  ];
 
   static flags = {
     ...BaseCommand.flags,

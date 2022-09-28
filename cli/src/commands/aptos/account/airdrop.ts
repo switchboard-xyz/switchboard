@@ -7,8 +7,6 @@ export default class AccountAirdrop extends BaseCommand {
 
   static description = "request an airdrop";
 
-  static aliases = ["aptos:airdrop"];
-
   static flags = {
     ...BaseCommand.flags,
     amount: Flags.integer({

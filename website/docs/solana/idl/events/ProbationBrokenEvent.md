@@ -1,5 +1,7 @@
-| Name        | Type      | Description |
-| ----------- | --------- | ----------- |
-| feedPubkey  | publicKey |             |
-| queuePubkey | publicKey |             |
-| timestamp   | i64       |             |
+
+
+| Name | Type | Description |
+|--|--|--|
+| feedPubkey | publicKey |  |
+| queuePubkey | publicKey |  |
+| timestamp | i64 |  |

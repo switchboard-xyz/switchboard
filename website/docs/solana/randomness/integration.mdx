@@ -65,7 +65,7 @@ VRF crank, which is typically the oracle.
 ### Update Request
 
 - The `vrf.authority` calls
-  [vrfRequestRandomness](/idl/instructions/vrfRequestRandomness)
+  [vrfRequestRandomness](/solana/idl/instructions/vrfRequestRandomness)
 - sbv2 program checks if the request is valid by:
   - The previous `vrf.status` is equal to **_StatusNone_**,
     **_StatusCallbackSuccess_**, or **_StatusVerifyFailure_**
@@ -77,19 +77,21 @@ VRF crank, which is typically the oracle.
   transfers it to `vrf.escrow`
 - sbv2 program increments `vrf.counter`
 - sbv2 program emits
-  [VrfRequestRandomnessEvent](/idl/events/VrfRequestRandomnessEvent)
+  [VrfRequestRandomnessEvent](/solana/idl/events/VrfRequestRandomnessEvent)
 
 ## Oracle Execution
 
 - Oracle watches the chain for a
-  [VrfRequestRandomnessEvent](/idl/events/VrfRequestRandomnessEvent) with the
-  oracle's public key assigned to the update request
+  [VrfRequestRandomnessEvent](/solana/idl/events/VrfRequestRandomnessEvent) with
+  the oracle's public key assigned to the update request
 - Oracle calculates the VRF proof and submits a
-  [vrfProveAndVerify](/idl/instructions/vrfProveAndVerify) instruction on-chain
+  [vrfProveAndVerify](/solana/idl/instructions/vrfProveAndVerify) instruction
+  on-chain
   - Oracle receives 1 / 277 of the reward
 - sbv2 program sets the current `vrf.status` to **_StatusVerifying_**
-- Oracle submits 276 × [vrfProveAndVerify](/idl/instructions/vrfProveAndVerify)
-  instructions on-chain
+- Oracle submits 276 ×
+  [vrfProveAndVerify](/solana/idl/instructions/vrfProveAndVerify) instructions
+  on-chain
   - Invoker receives 1 / 277 of the reward per each successful instruction
 - If proof verification fails,
   - sbv2 program sets `vrf.status` to **_StatusVerifyFailure_**

@@ -7,19 +7,19 @@ export type FeatureItem = {
 
 export const FeatureList: FeatureItem[] = [
   {
-    title: "Introduction",
+    title: "Getting Started",
     image: "/img/icons/info.png",
     description:
       "Learn about Switchboard and how it enables the community to dictate what data lives on-chain.",
-    linkTo: "/learn",
+    linkTo: "/about",
   },
   {
-    title: "Architecture",
+    title: "Network",
     image: "/img/icons/arc.png",
     description:
       "Learn about Switchboard Oracle Queues and how they allocate oracle resources on-chain.",
 
-    linkTo: "/learn/queues",
+    linkTo: "/about/network",
   },
   {
     title: "Oracle",
@@ -32,14 +32,13 @@ export const FeatureList: FeatureItem[] = [
     title: "Data Feeds",
     image: "/img/icons/sol.png",
     description: "Learn how Switchboard data feeds work.",
-
-    linkTo: "/tasks",
+    linkTo: "/feeds/tasks",
   },
   {
     title: "Develop",
     image: "/img/icons/developers.png",
     description: "Learn how to develop with Switchboard and use the APIs.",
-    linkTo: "/api",
+    linkTo: "/dev",
   },
   {
     title: "Publish",

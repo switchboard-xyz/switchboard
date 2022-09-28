@@ -11,7 +11,10 @@ export default class AggregatorHistoryPrint extends BaseCommand {
   static description =
     "Print the history buffer associated with an aggregator account";
 
-  static aliases = ["aggregator:history:print", "aggregator:print:history"];
+  static aliases = [
+    "solana:aggregator:history:print",
+    "solana:aggregator:print:history",
+  ];
 
   static flags = {
     ...BaseCommand.flags,

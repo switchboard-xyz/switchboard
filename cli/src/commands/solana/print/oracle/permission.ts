@@ -11,7 +11,10 @@ export default class OraclePermissionPrint extends BaseCommand {
   static description =
     "Print the permission account associated with a Switchboard oracle account";
 
-  static aliases = ["oracle:permission:print", "oracle:print:permission"];
+  static aliases = [
+    "solana:oracle:permission:print",
+    "solana:oracle:print:permission",
+  ];
 
   static flags = {
     ...BaseCommand.flags,

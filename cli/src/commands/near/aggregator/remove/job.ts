@@ -7,7 +7,7 @@ import { FinalExecutionOutcome } from "near-api-js/lib/providers";
 export default class AggregatorRemoveJob extends BaseCommand {
   static description = "remove a job to an aggregator";
 
-  static aliases = ["near:aggregator:job:add"];
+  static aliases = ["near:aggregator:job:remove"];
 
   static flags = {
     ...BaseCommand.flags,
@@ -53,8 +53,9 @@ export default class AggregatorRemoveJob extends BaseCommand {
       });
       await jobAccount.loadData();
       const jobAddressBase58 = base58.encode(jobAccount.address);
-      const jobIdx = (aggregatorData.jobs as Array<number[]>).findIndex(
-        (jobAddress: number[]) => base58.encode(jobAddress) === jobAddressBase58
+      const jobIdx = (aggregatorData.jobs as Array<Uint8Array>).findIndex(
+        (jobAddress: Uint8Array) =>
+          base58.encode(jobAddress) === jobAddressBase58
       );
       if (jobIdx === -1) {
         throw new Error(

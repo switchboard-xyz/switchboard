@@ -13,7 +13,7 @@ const StyledCard = styled(Card)<{ dark: number }>(({ theme, dark }) => ({
   justifyContent: "flex-start",
   alignItems: "stretch",
   textAlign: "left",
-  backgroundColor: dark ? theme.palette.footer.background : theme.palette.white,
+  backgroundColor: "var(--ifm-navbar-background-color)",
   position: "relative",
   borderRadius: "13.2px",
   boxShadow: `0 6px 7px 5px rgba(${dark ? "107 107 107" : "86, 86, 86"}, 0.03)`,
@@ -71,7 +71,7 @@ export function FeatureCard({
         <div style={{ display: "flex", alignItems: "center" }}>
           <div
             style={{
-              backgroundColor: "#4c6fff",
+              backgroundColor: "var(--ifm-color-primary)",
               borderRadius: "8px",
               height: 48,
               width: 48,
@@ -89,8 +89,8 @@ export function FeatureCard({
           </div>
           <StyledTitle
             sx={{
-              color: colorMode === "dark" ? "#dbdbdb" : "#0b3863",
-            }} /* sx={{ color: isDarkTheme ? "#dbdbdb" : "#0b3863" }} */
+              color: "var(--ifm-navbar-link-color)",
+            }}
           >
             {title}
           </StyledTitle>
@@ -98,9 +98,8 @@ export function FeatureCard({
         <StyledDescription
           variant="body2"
           sx={{
-            color: colorMode === "dark" ? "#dbdbdb" : "#313e79",
+            color: "var(--ifm-description-text-color)",
           }}
-          /* sx={{ color: isDarkTheme ? "#dbdbdb" : "#313e79" }} */
         >
           {description}
         </StyledDescription>

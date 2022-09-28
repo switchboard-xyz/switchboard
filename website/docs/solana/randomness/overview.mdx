@@ -1,0 +1,45 @@
+---
+sidebar_position: 1
+slug: .
+title: Overview
+description:
+  Learn how to use Switchboard's Verifiable Random Functions on Solana
+keywords: [Switchboard, Solana, VRF, randomness, verifiable, proof]
+---
+
+import MarkdownImage from "/src/components/MarkdownImage";
+import RandomnessInstructions from "/docs/solana/idl/_randomness_instructions.mdx";
+import {
+  Typography,
+  IconButton,
+  Box,
+  CardActionArea,
+  Card,
+  CardContent,
+} from "@mui/material";
+import Link from "@docusaurus/Link";
+import GitHubIcon from "@mui/icons-material/GitHub";
+import VrfAccountData from "/docs/solana/idl/accounts/VrfAccountData.md";
+import VrfInit from "/docs/solana/idl/instructions/vrfInit.md";
+import vrfProveAndVerify from "/docs/solana/idl/instructions/vrfProveAndVerify.md";
+import VrfRequestRandomness from "/docs/solana/idl/instructions/vrfRequestRandomness.md";
+
+import CallbackZC from "/docs/solana/idl/types/CallbackZC.md";
+
+:::caution
+
+While Switchboard V2's oracle network is fully audited, the VRF implementation
+is currently unaudited software. Please use at your own risk.
+
+:::
+
+Switchboard's VRF implementation uses the oracle authority secret key to publish
+the VRF proof on-chain. The on-chain proof verification is very computationally
+expensive and requires 276 instructions on-chain to fully verify. Once the proof
+is submitted on-chain anyone can turn the VRF crank to produce the pseduorandom
+result, although for simplicity and speed the Switchboard oracle that submitted
+the proof also submits the verification instructions.
+
+The final proof verification instruction invokes the VRF Account's specified
+callback, which allows developers to integrate pseduorandomness into their
+applications and be confident they are consuming the latest pseduorandom result.

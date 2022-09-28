@@ -30,6 +30,7 @@ target
 *-error.log
 *-debug.log
 .aptos
+.DS_Store
 
 # Docusaurus
 public

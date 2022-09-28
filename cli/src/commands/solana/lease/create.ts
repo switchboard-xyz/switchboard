@@ -18,7 +18,7 @@ import { CHECK_ICON } from "../../../utils";
 export default class LeaseCreate extends BaseCommand {
   static description = "fund and re-enable an aggregator lease";
 
-  static aliases = ["aggregator:lease:create"];
+  static aliases = ["solana:aggregator:lease:create"];
 
   static flags = {
     ...BaseCommand.flags,

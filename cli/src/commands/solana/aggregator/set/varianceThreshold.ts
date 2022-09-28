@@ -9,7 +9,7 @@ import { CHECK_ICON } from "../../../../utils";
 export default class AggregatorSetVarianceThreshold extends BaseCommand {
   static description = "set an aggregator's variance threshold";
 
-  static aliases = ["aggregator:set:variance"];
+  static aliases = ["solana:aggregator:set:variance"];
 
   static flags = {
     ...BaseCommand.flags,

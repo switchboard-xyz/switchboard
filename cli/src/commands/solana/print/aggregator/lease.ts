@@ -11,7 +11,10 @@ export default class AggregatorLeasePrint extends BaseCommand {
   static description =
     "Print the lease account associated with a Switchboard aggregator account";
 
-  static aliases = ["aggregator:lease:print", "aggregator:print:lease"];
+  static aliases = [
+    "solana:aggregator:lease:print",
+    "solana:aggregator:print:lease",
+  ];
 
   static flags = {
     ...BaseCommand.flags,

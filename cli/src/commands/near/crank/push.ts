@@ -1,12 +1,6 @@
 import { Flags } from "@oclif/core";
 import { NearWithSignerBaseCommand as BaseCommand } from "../../../near";
-import {
-  AggregatorAccount,
-  CrankAccount,
-  EscrowAccount,
-  PID,
-  QueueAccount,
-} from "@switchboard-xyz/near.js";
+import { AggregatorAccount, CrankAccount } from "@switchboard-xyz/near.js";
 
 export default class CrankPush extends BaseCommand {
   static enableJsonFlag = true;

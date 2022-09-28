@@ -6,6 +6,7 @@ import {
   QueueAccount,
 } from "@switchboard-xyz/near.js";
 import { FinalExecutionOutcome } from "near-api-js/lib/providers";
+import { BN } from "bn.js";
 
 export const parseTxn = (
   txnReceipt: FinalExecutionOutcome
@@ -76,14 +77,14 @@ export default class CrankPop extends BaseCommand {
     // });
     // const queueData = await queueAccount.loadData();
 
-    const rows = crankData.data as { uuid: number[]; next_timestamp: number }[];
+    const rows = crankData.data;
     if (!rows || rows.length === 0) {
       return;
     }
 
     const now = Math.floor(Date.now() / 1000);
     const actions = rows
-      .filter((r) => r.next_timestamp <= now)
+      .filter((r) => r.nextTimestamp.lte(new BN(now)))
       .map((i) =>
         crankAccount.popAction({
           rewardRecipient: escrowAccount.address,

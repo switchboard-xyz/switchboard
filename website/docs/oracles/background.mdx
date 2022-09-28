@@ -1,0 +1,98 @@
+---
+sidebar_position: 1
+slug: .
+title: Background
+---
+
+# Background
+
+A Switchboard oracle is a Node.js container that sits between a blockchain and
+the internet and waits for update requests from an oracle queue. An oracle queue
+assigns updates to oracles in a round robin fashion.
+
+Switchboard oracles on all supported chains **MUST** have a mainnet Solana RPC
+in order to run the task runner. This is used to support legacy task types for
+fetching on-chain Solana data.
+
+An oracle belongs to a specific oracle queue and must be granted permissions
+from the queue authority before heartbeating to signal readiness on-chain. An
+oracle must also maintain the minimum stake amount, set by the queue, or it will
+be booted from the queue.
+
+An oracle account is a program derived address (PDA) between the oracle queue
+it’s being initialized for, as well as the oracles staking wallet. Before an
+oracle is granted permissions to use a queue, it must transfer the minimum stake
+amount, set by the queue, to its staking wallet.
+
+## Latest Oracle Version
+
+You can find the docker image on dockerhub under
+[switchboardlabs/node](https://hub.docker.com/r/switchboardlabs/node).
+
+The current latest oracle version is:
+
+`dev-v2-09-13-22`
+
+[DockerHub - dev-v2-09-13-22](https://hub.docker.com/layers/switchboardlabs/node/dev-v2-09-13-22/images/sha256-046d5e40fd2e7a508e17b37e5c632f96b1ed0750241a9d2598c8d2d3d554a05b?context=explore)
+
+## Staking
+
+An oracle is required to transfer `queue.minStake` tokens to its staking wallet,
+`oracle.tokenAccount`, before being granted queue permissions. The minStake acts
+as an insurance policy to entice honest oracle behavior.
+
+## Heartbeat
+
+An oracle is required to heartbeat on-chain in order to join the queue and be
+assigned update request. An oracle must heartbeat before the queue's specified
+`queue.oracleTimeout` or it will be removed from the queue by the queue's
+garbage collector.
+
+## Metrics
+
+The oracle also tracks its performance, `oracle.metrics`.
+
+| Field                   | Type | Description                                                                                                |
+| ----------------------- | ---- | ---------------------------------------------------------------------------------------------------------- |
+| consecutiveSuccess      | u64  | Number of consecutive successful update request                                                            |
+| consecutiveError        | u64  | Number of consecutive update request that resulted in an error                                             |
+| consecutiveDisagreement | u64  | Number of consecutive update request that resulted in a disagreement with the accepted median result       |
+| consecutiveLateResponse | u64  | Number of consecutive update request that were posted on-chain late and not included in an accepted result |
+| consecutiveFailure      | u64  | Number of consecutive update request that resulted in a failure                                            |
+| totalSuccess            | u128 | Total number of successful update request                                                                  |
+| totalError              | u128 | Total number of update request that resulted in an error                                                   |
+| totalDisagreement       | u128 | Total number of update request that resulted in a disagreement with the accepted median result             |
+| totalLateResponse       | u128 | Total number of update request that were posted on-chain late and not included in an accepted result       |
+
+## Cost & Reward Estimations
+
+An oracle is required to submit an SaveResult transaction each time it updates a
+feed, which incurs a cost of 5000 lamports. This fee is set by the Solana
+network and is subject to change.
+
+$T_{perUpdate}=T_{queueReward} - T_{transactionCost}$
+
+where,
+
+- `T` is the raw token amount in base units (_Ex: lamports, tGas, or satoshis_)
+
+To estimate an oracles cost basis, you will need to know a queue's capacity
+(Oracles, Feeds, VRFs) and the average number of update request an oracle is
+assigned over a given time period.
+
+You will also need to factor in the oracle's heartbeat cost, which is 5000
+lamports each. The number of heartbeats is dependent on its
+`queue.oracleTimeout`, which determines how often an oracle is required to
+heartbeat.
+
+## Hardware Requirements
+
+A Switchboard oracle should be hosted in a highly available environment with
+some level of redundancy and fail over to prevent outages, although oracles are
+not deducted for being offline.
+
+At the very minimum a node should have:
+
+- 4gb RAM
+- 3.0 Ghz CPU
+- 100+ Mbps connection

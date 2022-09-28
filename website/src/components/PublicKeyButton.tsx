@@ -10,7 +10,7 @@ interface PublicKeyButtonProps {
 const PublicKeyButton = (props: PublicKeyButtonProps) => {
   let sx: any = {
     textTransform: "none",
-    color: "#4c6fff",
+    color: "var(--ifm-color-primary)",
     fontWeight: 800,
     margin: 0,
   };

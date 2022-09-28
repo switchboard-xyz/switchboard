@@ -12,12 +12,17 @@
   --ifm-code-font-size: 100%;
   --ifm-font-family-base: "Source Sans Pro";
   --ifm-link-hover-color: #0a2540;
+  --ifm-description-text-color: #313e79;
+  --ifm-pages-background-color: #f7f9fc;
 }
 
 html[data-theme="dark"] {
   --ifm-background-color: #1f354b;
   --ifm-color-emphasis-100: #182436;
   --ifm-link-hover-color: #fff;
+  --ifm-navbar-background-color: #0a2540;
+  --ifm-description-text-color: #dbdbdb;
+  --ifm-pages-background-color: var(--ifm-background-color);
 }
 
 .alert--info {
@@ -60,9 +65,6 @@ html[data-theme="dark"] .docusaurus-highlight-code-line {
   background-color: rgba(0, 0, 0, 0.3);
 }
 
-html[data-theme="dark"] .navbar {
-  background-color: #0a2540;
-}
 .footer--dark {
   background-color: #0a2540;
   width: 100%;
@@ -140,7 +142,7 @@ html[data-theme="dark"] .navbar {
 }
 
 .devicons {
-  color: #4c6fff;
+  color: var(--ifm-color-primary);
 }
 
 .nowrap {
@@ -148,7 +150,7 @@ html[data-theme="dark"] .navbar {
 }
 
 html[data-theme="dark"] .devicons {
-  color: #4c6fff;
+  color: var(--ifm-color-primary);
 }
 
 .instruction-icon {
@@ -165,4 +167,10 @@ a.link__nocolorvisited,
 a.link__nocolor:link,
 a.link__nocolor:active {
   color: inherit;
+}
+
+.vertical-rule {
+  border-left: 2px solid var(--ifm-color-primary);
+  margin: 0;
+  padding: 0;
 }

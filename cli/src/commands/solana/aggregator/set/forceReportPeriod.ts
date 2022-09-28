@@ -8,7 +8,7 @@ import { CHECK_ICON } from "../../../../utils";
 export default class AggregatorSetForceReportPeriod extends BaseCommand {
   static description = "set an aggregator's force report period";
 
-  static aliases = ["aggregator:set:forceReport"];
+  static aliases = ["solana:aggregator:set:forceReport"];
 
   static flags = {
     ...BaseCommand.flags,

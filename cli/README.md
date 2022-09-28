@@ -21,26 +21,11 @@ node bin/dev print GvDMxPzN1sCj7L26YDK2HnMRXEQmQ2aemov8YBtPS7vR
 **Commands**
 
 <!-- commands -->
-* [`sbv2 aggregator add crank [CRANKKEY] [AGGREGATORKEY]`](#sbv2-aggregator-add-crank-crankkey-aggregatorkey)
-* [`sbv2 aggregator add history [AGGREGATORKEY] [SIZE]`](#sbv2-aggregator-add-history-aggregatorkey-size)
-* [`sbv2 aggregator history print [AGGREGATORKEY]`](#sbv2-aggregator-history-print-aggregatorkey)
-* [`sbv2 aggregator lease create [AGGREGATORKEY]`](#sbv2-aggregator-lease-create-aggregatorkey)
-* [`sbv2 aggregator lease extend [AGGREGATORKEY]`](#sbv2-aggregator-lease-extend-aggregatorkey)
-* [`sbv2 aggregator lease print [AGGREGATORKEY]`](#sbv2-aggregator-lease-print-aggregatorkey)
-* [`sbv2 aggregator lease withdraw [AGGREGATORKEY]`](#sbv2-aggregator-lease-withdraw-aggregatorkey)
-* [`sbv2 aggregator permission print [AGGREGATORKEY]`](#sbv2-aggregator-permission-print-aggregatorkey)
-* [`sbv2 aggregator print history [AGGREGATORKEY]`](#sbv2-aggregator-print-history-aggregatorkey)
-* [`sbv2 aggregator print lease [AGGREGATORKEY]`](#sbv2-aggregator-print-lease-aggregatorkey)
-* [`sbv2 aggregator print permission [AGGREGATORKEY]`](#sbv2-aggregator-print-permission-aggregatorkey)
-* [`sbv2 aggregator set forceReport [AGGREGATORKEY] [FORCEREPORTPERIOD]`](#sbv2-aggregator-set-forcereport-aggregatorkey-forcereportperiod)
-* [`sbv2 aggregator set variance [AGGREGATORKEY] [VARIANCETHRESHOLD]`](#sbv2-aggregator-set-variance-aggregatorkey-variancethreshold)
-* [`sbv2 aggregator watch [AGGREGATORKEY]`](#sbv2-aggregator-watch-aggregatorkey)
 * [`sbv2 aptos account airdrop`](#sbv2-aptos-account-airdrop)
 * [`sbv2 aptos aggregator add job [AGGREGATORHEXSTRING]`](#sbv2-aptos-aggregator-add-job-aggregatorhexstring)
 * [`sbv2 aptos aggregator create [QUEUEHEXSTRING]`](#sbv2-aptos-aggregator-create-queuehexstring)
 * [`sbv2 aptos aggregator job add [AGGREGATORHEXSTRING]`](#sbv2-aptos-aggregator-job-add-aggregatorhexstring)
 * [`sbv2 aptos aggregator update [AGGREGATORHEXSTRING]`](#sbv2-aptos-aggregator-update-aggregatorhexstring)
-* [`sbv2 aptos airdrop`](#sbv2-aptos-airdrop)
 * [`sbv2 aptos crank create [QUEUEHEXSTRING]`](#sbv2-aptos-crank-create-queuehexstring)
 * [`sbv2 aptos crank pop [CRANKHEXSTRING]`](#sbv2-aptos-crank-pop-crankhexstring)
 * [`sbv2 aptos crank push [CRANKHEXSTRING]`](#sbv2-aptos-crank-push-crankhexstring)
@@ -58,14 +43,12 @@ node bin/dev print GvDMxPzN1sCj7L26YDK2HnMRXEQmQ2aemov8YBtPS7vR
 * [`sbv2 aptos update aggregator [AGGREGATORHEXSTRING]`](#sbv2-aptos-update-aggregator-aggregatorhexstring)
 * [`sbv2 config print`](#sbv2-config-print)
 * [`sbv2 config set CHAIN NETWORK PARAMETER [VALUE]`](#sbv2-config-set-chain-network-parameter-value)
-* [`sbv2 crank add aggregator [CRANKKEY] [AGGREGATORKEY]`](#sbv2-crank-add-aggregator-crankkey-aggregatorkey)
-* [`sbv2 custom queue`](#sbv2-custom-queue)
 * [`sbv2 help [COMMAND]`](#sbv2-help-command)
-* [`sbv2 json create aggregator [DEFINITIONFILE]`](#sbv2-json-create-aggregator-definitionfile)
 * [`sbv2 near aggregator add job [AGGREGATORADDRESS]`](#sbv2-near-aggregator-add-job-aggregatoraddress)
 * [`sbv2 near aggregator create QUEUEADDRESS`](#sbv2-near-aggregator-create-queueaddress)
 * [`sbv2 near aggregator fetch`](#sbv2-near-aggregator-fetch)
 * [`sbv2 near aggregator job add [AGGREGATORADDRESS]`](#sbv2-near-aggregator-job-add-aggregatoraddress)
+* [`sbv2 near aggregator job remove [AGGREGATORADDRESS]`](#sbv2-near-aggregator-job-remove-aggregatoraddress)
 * [`sbv2 near aggregator permission create [AGGREGATORADDRESS]`](#sbv2-near-aggregator-permission-create-aggregatoraddress)
 * [`sbv2 near aggregator remove job [AGGREGATORADDRESS]`](#sbv2-near-aggregator-remove-job-aggregatoraddress)
 * [`sbv2 near aggregator set AGGREGATORADDRESS`](#sbv2-near-aggregator-set-aggregatoraddress)
@@ -98,32 +81,44 @@ node bin/dev print GvDMxPzN1sCj7L26YDK2HnMRXEQmQ2aemov8YBtPS7vR
 * [`sbv2 near queue list QUEUEADDRESS`](#sbv2-near-queue-list-queueaddress)
 * [`sbv2 near set aggregator AGGREGATORADDRESS`](#sbv2-near-set-aggregator-aggregatoraddress)
 * [`sbv2 near update aggregator [AGGREGATORADDRESS]`](#sbv2-near-update-aggregator-aggregatoraddress)
-* [`sbv2 oracle permission print [ORACLEKEY]`](#sbv2-oracle-permission-print-oraclekey)
-* [`sbv2 oracle print permission [ORACLEKEY]`](#sbv2-oracle-print-permission-oraclekey)
-* [`sbv2 set aggregator [AGGREGATORKEY]`](#sbv2-set-aggregator-aggregatorkey)
+* [`sbv2 solana aggregator add crank [CRANKKEY] [AGGREGATORKEY]`](#sbv2-solana-aggregator-add-crank-crankkey-aggregatorkey)
+* [`sbv2 solana aggregator add history [AGGREGATORKEY] [SIZE]`](#sbv2-solana-aggregator-add-history-aggregatorkey-size)
 * [`sbv2 solana aggregator add job [AGGREGATORKEY]`](#sbv2-solana-aggregator-add-job-aggregatorkey)
 * [`sbv2 solana aggregator create [QUEUEKEY]`](#sbv2-solana-aggregator-create-queuekey)
 * [`sbv2 solana aggregator create copy [AGGREGATORSOURCE]`](#sbv2-solana-aggregator-create-copy-aggregatorsource)
 * [`sbv2 solana aggregator create json [DEFINITIONFILE]`](#sbv2-solana-aggregator-create-json-definitionfile)
+* [`sbv2 solana aggregator history print [AGGREGATORKEY]`](#sbv2-solana-aggregator-history-print-aggregatorkey)
+* [`sbv2 solana aggregator lease create [AGGREGATORKEY]`](#sbv2-solana-aggregator-lease-create-aggregatorkey)
+* [`sbv2 solana aggregator lease extend [AGGREGATORKEY]`](#sbv2-solana-aggregator-lease-extend-aggregatorkey)
+* [`sbv2 solana aggregator lease print [AGGREGATORKEY]`](#sbv2-solana-aggregator-lease-print-aggregatorkey)
+* [`sbv2 solana aggregator lease withdraw [AGGREGATORKEY]`](#sbv2-solana-aggregator-lease-withdraw-aggregatorkey)
 * [`sbv2 solana aggregator lock [AGGREGATORKEY]`](#sbv2-solana-aggregator-lock-aggregatorkey)
 * [`sbv2 solana aggregator permission create [AGGREGATORKEY]`](#sbv2-solana-aggregator-permission-create-aggregatorkey)
+* [`sbv2 solana aggregator permission print [AGGREGATORKEY]`](#sbv2-solana-aggregator-permission-print-aggregatorkey)
 * [`sbv2 solana aggregator print [AGGREGATORKEY]`](#sbv2-solana-aggregator-print-aggregatorkey)
+* [`sbv2 solana aggregator print history [AGGREGATORKEY]`](#sbv2-solana-aggregator-print-history-aggregatorkey)
+* [`sbv2 solana aggregator print lease [AGGREGATORKEY]`](#sbv2-solana-aggregator-print-lease-aggregatorkey)
+* [`sbv2 solana aggregator print permission [AGGREGATORKEY]`](#sbv2-solana-aggregator-print-permission-aggregatorkey)
 * [`sbv2 solana aggregator remove job [AGGREGATORKEY] [JOBKEY]`](#sbv2-solana-aggregator-remove-job-aggregatorkey-jobkey)
 * [`sbv2 solana aggregator save history [AGGREGATORKEY]`](#sbv2-solana-aggregator-save-history-aggregatorkey)
 * [`sbv2 solana aggregator set [AGGREGATORKEY]`](#sbv2-solana-aggregator-set-aggregatorkey)
 * [`sbv2 solana aggregator set authority [AGGREGATORKEY] [NEWAUTHORITY]`](#sbv2-solana-aggregator-set-authority-aggregatorkey-newauthority)
 * [`sbv2 solana aggregator set batchSize [AGGREGATORKEY] BATCHSIZE`](#sbv2-solana-aggregator-set-batchsize-aggregatorkey-batchsize)
+* [`sbv2 solana aggregator set forceReport [AGGREGATORKEY] [FORCEREPORTPERIOD]`](#sbv2-solana-aggregator-set-forcereport-aggregatorkey-forcereportperiod)
 * [`sbv2 solana aggregator set forceReportPeriod [AGGREGATORKEY] [FORCEREPORTPERIOD]`](#sbv2-solana-aggregator-set-forcereportperiod-aggregatorkey-forcereportperiod)
 * [`sbv2 solana aggregator set history [AGGREGATORKEY] [SIZE]`](#sbv2-solana-aggregator-set-history-aggregatorkey-size)
 * [`sbv2 solana aggregator set minJobs [AGGREGATORKEY] [MINJOBRESULTS]`](#sbv2-solana-aggregator-set-minjobs-aggregatorkey-minjobresults)
 * [`sbv2 solana aggregator set minOracles [AGGREGATORKEY] [MINORACLERESULTS]`](#sbv2-solana-aggregator-set-minoracles-aggregatorkey-minoracleresults)
 * [`sbv2 solana aggregator set queue [AGGREGATORKEY] [QUEUEKEY]`](#sbv2-solana-aggregator-set-queue-aggregatorkey-queuekey)
 * [`sbv2 solana aggregator set updateInterval [AGGREGATORKEY] [UPDATEINTERVAL]`](#sbv2-solana-aggregator-set-updateinterval-aggregatorkey-updateinterval)
+* [`sbv2 solana aggregator set variance [AGGREGATORKEY] [VARIANCETHRESHOLD]`](#sbv2-solana-aggregator-set-variance-aggregatorkey-variancethreshold)
 * [`sbv2 solana aggregator set varianceThreshold [AGGREGATORKEY] [VARIANCETHRESHOLD]`](#sbv2-solana-aggregator-set-variancethreshold-aggregatorkey-variancethreshold)
 * [`sbv2 solana aggregator update [AGGREGATORKEY]`](#sbv2-solana-aggregator-update-aggregatorkey)
+* [`sbv2 solana aggregator watch [AGGREGATORKEY]`](#sbv2-solana-aggregator-watch-aggregatorkey)
 * [`sbv2 solana anchor test`](#sbv2-solana-anchor-test)
 * [`sbv2 solana buffer create [QUEUEKEY]`](#sbv2-solana-buffer-create-queuekey)
 * [`sbv2 solana buffer print [BUFFERRELAYERKEY]`](#sbv2-solana-buffer-print-bufferrelayerkey)
+* [`sbv2 solana crank add aggregator [CRANKKEY] [AGGREGATORKEY]`](#sbv2-solana-crank-add-aggregator-crankkey-aggregatorkey)
 * [`sbv2 solana crank create [QUEUEKEY]`](#sbv2-solana-crank-create-queuekey)
 * [`sbv2 solana crank list [CRANKKEY]`](#sbv2-solana-crank-list-crankkey)
 * [`sbv2 solana crank pop [CRANKKEY]`](#sbv2-solana-crank-pop-crankkey)
@@ -132,6 +127,7 @@ node bin/dev print GvDMxPzN1sCj7L26YDK2HnMRXEQmQ2aemov8YBtPS7vR
 * [`sbv2 solana crank turn [CRANKKEY]`](#sbv2-solana-crank-turn-crankkey)
 * [`sbv2 solana job create JOBDEFINITION`](#sbv2-solana-job-create-jobdefinition)
 * [`sbv2 solana job print [JOBKEY]`](#sbv2-solana-job-print-jobkey)
+* [`sbv2 solana json create aggregator [DEFINITIONFILE]`](#sbv2-solana-json-create-aggregator-definitionfile)
 * [`sbv2 solana lease create [AGGREGATORKEY]`](#sbv2-solana-lease-create-aggregatorkey)
 * [`sbv2 solana lease extend [AGGREGATORKEY]`](#sbv2-solana-lease-extend-aggregatorkey)
 * [`sbv2 solana lease withdraw [AGGREGATORKEY]`](#sbv2-solana-lease-withdraw-aggregatorkey)
@@ -141,7 +137,9 @@ node bin/dev print GvDMxPzN1sCj7L26YDK2HnMRXEQmQ2aemov8YBtPS7vR
 * [`sbv2 solana oracle deposit [ORACLEKEY]`](#sbv2-solana-oracle-deposit-oraclekey)
 * [`sbv2 solana oracle nonce [ORACLEKEY]`](#sbv2-solana-oracle-nonce-oraclekey)
 * [`sbv2 solana oracle permission create [ORACLEKEY]`](#sbv2-solana-oracle-permission-create-oraclekey)
+* [`sbv2 solana oracle permission print [ORACLEKEY]`](#sbv2-solana-oracle-permission-print-oraclekey)
 * [`sbv2 solana oracle print [ORACLEKEY]`](#sbv2-solana-oracle-print-oraclekey)
+* [`sbv2 solana oracle print permission [ORACLEKEY]`](#sbv2-solana-oracle-print-permission-oraclekey)
 * [`sbv2 solana oracle withdraw [ORACLEKEY]`](#sbv2-solana-oracle-withdraw-oraclekey)
 * [`sbv2 solana permission create [GRANTER] [GRANTEE]`](#sbv2-solana-permission-create-granter-grantee)
 * [`sbv2 solana permission print [PERMISSIONKEY]`](#sbv2-solana-permission-print-permissionkey)
@@ -165,499 +163,17 @@ node bin/dev print GvDMxPzN1sCj7L26YDK2HnMRXEQmQ2aemov8YBtPS7vR
 * [`sbv2 solana queue print [QUEUEKEY]`](#sbv2-solana-queue-print-queuekey)
 * [`sbv2 solana queue set rewards [QUEUEKEY] [REWARDS]`](#sbv2-solana-queue-set-rewards-queuekey-rewards)
 * [`sbv2 solana queue set vrf [QUEUEKEY]`](#sbv2-solana-queue-set-vrf-queuekey)
+* [`sbv2 solana set aggregator [AGGREGATORKEY]`](#sbv2-solana-set-aggregator-aggregatorkey)
 * [`sbv2 solana vrf create [QUEUEKEY]`](#sbv2-solana-vrf-create-queuekey)
 * [`sbv2 solana vrf create example [QUEUEKEY]`](#sbv2-solana-vrf-create-example-queuekey)
 * [`sbv2 solana vrf print [VRFKEY]`](#sbv2-solana-vrf-print-vrfkey)
 * [`sbv2 solana vrf request [VRFKEY]`](#sbv2-solana-vrf-request-vrfkey)
 * [`sbv2 solana vrf verify [VRFKEY]`](#sbv2-solana-vrf-verify-vrfkey)
+* [`sbv2 solana vrf watch [VRFKEY]`](#sbv2-solana-vrf-watch-vrfkey)
 * [`sbv2 solana watch aggregator [AGGREGATORKEY]`](#sbv2-solana-watch-aggregator-aggregatorkey)
 * [`sbv2 solana watch vrf [VRFKEY]`](#sbv2-solana-watch-vrf-vrfkey)
 * [`sbv2 update [CHANNEL]`](#sbv2-update-channel)
 * [`sbv2 version`](#sbv2-version)
-* [`sbv2 vrf watch [VRFKEY]`](#sbv2-vrf-watch-vrfkey)
-
-## `sbv2 aggregator add crank [CRANKKEY] [AGGREGATORKEY]`
-
-push an aggregator onto a crank
-
-```
-USAGE
-  $ sbv2 aggregator add crank [CRANKKEY] [AGGREGATORKEY] [-h] [-v] [-s] [--mainnetBeta] [-u <value>] [--programId <value>]
-    [--commitment confirmed|finalized|processed] [-k <value>]
-
-ARGUMENTS
-  CRANKKEY       public key of the crank
-  AGGREGATORKEY  public key of the aggregator
-
-FLAGS
-  -h, --help             Show CLI help.
-  -k, --keypair=<value>  keypair that will pay for onchain transactions. defaults to new account authority if no
-                         alternate authority provided
-  -s, --silent           suppress cli prompts
-  -u, --rpcUrl=<value>   alternate RPC url
-  -v, --verbose          log everything
-  --commitment=<option>  [default: confirmed] transaction commitment level to use
-                         <options: confirmed|finalized|processed>
-  --mainnetBeta          WARNING: use mainnet-beta solana cluster
-  --programId=<value>    alternative Switchboard program ID to interact with
-
-DESCRIPTION
-  push an aggregator onto a crank
-
-ALIASES
-  $ sbv2 aggregator add crank
-  $ sbv2 crank add aggregator
-```
-
-## `sbv2 aggregator add history [AGGREGATORKEY] [SIZE]`
-
-set an aggregator's history buffer account to record the last N accepted results
-
-```
-USAGE
-  $ sbv2 aggregator add history [AGGREGATORKEY] [SIZE] [-h] [-v] [-s] [--mainnetBeta] [-u <value>] [--programId <value>]
-    [--commitment confirmed|finalized|processed] [-k <value>] [-a <value>]
-
-ARGUMENTS
-  AGGREGATORKEY  public key of the aggregator to add to a crank
-  SIZE           size of history buffer
-
-FLAGS
-  -a, --authority=<value>  alternate keypair that is the authority for the aggregator
-  -h, --help               Show CLI help.
-  -k, --keypair=<value>    keypair that will pay for onchain transactions. defaults to new account authority if no
-                           alternate authority provided
-  -s, --silent             suppress cli prompts
-  -u, --rpcUrl=<value>     alternate RPC url
-  -v, --verbose            log everything
-  --commitment=<option>    [default: confirmed] transaction commitment level to use
-                           <options: confirmed|finalized|processed>
-  --mainnetBeta            WARNING: use mainnet-beta solana cluster
-  --programId=<value>      alternative Switchboard program ID to interact with
-
-DESCRIPTION
-  set an aggregator's history buffer account to record the last N accepted results
-
-ALIASES
-  $ sbv2 aggregator add history
-
-EXAMPLES
-  $ sbv2 aggregator:set:history GvDMxPzN1sCj7L26YDK2HnMRXEQmQ2aemov8YBtPS7vR 10000 --keypair ../payer-keypair.json
-```
-
-## `sbv2 aggregator history print [AGGREGATORKEY]`
-
-Print the history buffer associated with an aggregator account
-
-```
-USAGE
-  $ sbv2 aggregator history print [AGGREGATORKEY] [-h] [-v] [-s] [--mainnetBeta] [-u <value>] [--programId <value>]
-    [--commitment confirmed|finalized|processed]
-
-ARGUMENTS
-  AGGREGATORKEY  public key of the aggregator account to fetch permission account and deserialize
-
-FLAGS
-  -h, --help             Show CLI help.
-  -s, --silent           suppress cli prompts
-  -u, --rpcUrl=<value>   alternate RPC url
-  -v, --verbose          log everything
-  --commitment=<option>  [default: confirmed] transaction commitment level to use
-                         <options: confirmed|finalized|processed>
-  --mainnetBeta          WARNING: use mainnet-beta solana cluster
-  --programId=<value>    alternative Switchboard program ID to interact with
-
-DESCRIPTION
-  Print the history buffer associated with an aggregator account
-
-ALIASES
-  $ sbv2 aggregator history print
-  $ sbv2 aggregator print history
-
-EXAMPLES
-  $ sbv2 aggregator:print:history 9CmLriMhykZ8xAoNTSHjHbk6SkuMhie1NCZn9P6LCuZ4
-```
-
-## `sbv2 aggregator lease create [AGGREGATORKEY]`
-
-fund and re-enable an aggregator lease
-
-```
-USAGE
-  $ sbv2 aggregator lease create [AGGREGATORKEY] [-h] [-v] [-s] [--mainnetBeta] [-u <value>] [--programId <value>]
-    [--commitment confirmed|finalized|processed] [-k <value>] [--amount <value>]
-
-ARGUMENTS
-  AGGREGATORKEY  public key of the aggregator to extend a lease for
-
-FLAGS
-  -h, --help             Show CLI help.
-  -k, --keypair=<value>  keypair that will pay for onchain transactions. defaults to new account authority if no
-                         alternate authority provided
-  -s, --silent           suppress cli prompts
-  -u, --rpcUrl=<value>   alternate RPC url
-  -v, --verbose          log everything
-  --amount=<value>       token amount to load into the lease escrow. If decimals provided, amount will be normalized to
-                         raw tokenAmount
-  --commitment=<option>  [default: confirmed] transaction commitment level to use
-                         <options: confirmed|finalized|processed>
-  --mainnetBeta          WARNING: use mainnet-beta solana cluster
-  --programId=<value>    alternative Switchboard program ID to interact with
-
-DESCRIPTION
-  fund and re-enable an aggregator lease
-
-ALIASES
-  $ sbv2 aggregator lease create
-
-EXAMPLES
-  $ sbv2 lease:create GvDMxPzN1sCj7L26YDK2HnMRXEQmQ2aemov8YBtPS7vR --amount 1.5 --keypair ../payer-keypair.json
-```
-
-## `sbv2 aggregator lease extend [AGGREGATORKEY]`
-
-fund and re-enable an aggregator lease
-
-```
-USAGE
-  $ sbv2 aggregator lease extend [AGGREGATORKEY] --amount <value> [-h] [-v] [-s] [--mainnetBeta] [-u <value>] [--programId
-    <value>] [--commitment confirmed|finalized|processed] [-k <value>]
-
-ARGUMENTS
-  AGGREGATORKEY  public key of the aggregator to extend a lease for
-
-FLAGS
-  -h, --help             Show CLI help.
-  -k, --keypair=<value>  keypair that will pay for onchain transactions. defaults to new account authority if no
-                         alternate authority provided
-  -s, --silent           suppress cli prompts
-  -u, --rpcUrl=<value>   alternate RPC url
-  -v, --verbose          log everything
-  --amount=<value>       (required) token amount to load into the lease escrow. If decimals provided, amount will be
-                         normalized to raw tokenAmount
-  --commitment=<option>  [default: confirmed] transaction commitment level to use
-                         <options: confirmed|finalized|processed>
-  --mainnetBeta          WARNING: use mainnet-beta solana cluster
-  --programId=<value>    alternative Switchboard program ID to interact with
-
-DESCRIPTION
-  fund and re-enable an aggregator lease
-
-ALIASES
-  $ sbv2 aggregator lease extend
-
-EXAMPLES
-  $ sbv2 aggregator:lease:extend GvDMxPzN1sCj7L26YDK2HnMRXEQmQ2aemov8YBtPS7vR --amount 1.1 --keypair ../payer-keypair.json
-```
-
-## `sbv2 aggregator lease print [AGGREGATORKEY]`
-
-Print the lease account associated with a Switchboard aggregator account
-
-```
-USAGE
-  $ sbv2 aggregator lease print [AGGREGATORKEY] [-h] [-v] [-s] [--mainnetBeta] [-u <value>] [--programId <value>]
-    [--commitment confirmed|finalized|processed]
-
-ARGUMENTS
-  AGGREGATORKEY  public key of the aggregator account to fetch permission account and deserialize
-
-FLAGS
-  -h, --help             Show CLI help.
-  -s, --silent           suppress cli prompts
-  -u, --rpcUrl=<value>   alternate RPC url
-  -v, --verbose          log everything
-  --commitment=<option>  [default: confirmed] transaction commitment level to use
-                         <options: confirmed|finalized|processed>
-  --mainnetBeta          WARNING: use mainnet-beta solana cluster
-  --programId=<value>    alternative Switchboard program ID to interact with
-
-DESCRIPTION
-  Print the lease account associated with a Switchboard aggregator account
-
-ALIASES
-  $ sbv2 aggregator lease print
-  $ sbv2 aggregator print lease
-
-EXAMPLES
-  $ sbv2 aggregator:lease:print 8SXvChNYFhRq4EZuZvnhjrB3jJRQCv4k3P4W6hesH3Ee
-```
-
-## `sbv2 aggregator lease withdraw [AGGREGATORKEY]`
-
-withdraw funds from an aggregator lease
-
-```
-USAGE
-  $ sbv2 aggregator lease withdraw [AGGREGATORKEY] --amount <value> [-h] [-v] [-s] [--mainnetBeta] [-u <value>] [--programId
-    <value>] [--commitment confirmed|finalized|processed] [-k <value>] [--withdrawAddress <value>] [-a <value>]
-
-ARGUMENTS
-  AGGREGATORKEY  public key of the aggregator to extend a lease for
-
-FLAGS
-  -a, --authority=<value>    keypair delegated as the authority for managing the oracle account
-  -h, --help                 Show CLI help.
-  -k, --keypair=<value>      keypair that will pay for onchain transactions. defaults to new account authority if no
-                             alternate authority provided
-  -s, --silent               suppress cli prompts
-  -u, --rpcUrl=<value>       alternate RPC url
-  -v, --verbose              log everything
-  --amount=<value>           (required) token amount to withdraw from lease account. If decimals provided, amount will
-                             be normalized to raw tokenAmount
-  --commitment=<option>      [default: confirmed] transaction commitment level to use
-                             <options: confirmed|finalized|processed>
-  --mainnetBeta              WARNING: use mainnet-beta solana cluster
-  --programId=<value>        alternative Switchboard program ID to interact with
-  --withdrawAddress=<value>  tokenAccount to withdraw to. If not provided, payer associated token account will be used
-
-DESCRIPTION
-  withdraw funds from an aggregator lease
-
-ALIASES
-  $ sbv2 aggregator lease withdraw
-
-EXAMPLES
-  $ sbv2 aggregator:lease:withdraw GvDMxPzN1sCj7L26YDK2HnMRXEQmQ2aemov8YBtPS7vR --amount 1.1 --keypair ../payer-keypair.json
-```
-
-## `sbv2 aggregator permission print [AGGREGATORKEY]`
-
-Print the permission account associated with a Switchboard aggregator account
-
-```
-USAGE
-  $ sbv2 aggregator permission print [AGGREGATORKEY] [-h] [-v] [-s] [--mainnetBeta] [-u <value>] [--programId <value>]
-    [--commitment confirmed|finalized|processed]
-
-ARGUMENTS
-  AGGREGATORKEY  public key of the aggregator account to fetch permission account and deserialize
-
-FLAGS
-  -h, --help             Show CLI help.
-  -s, --silent           suppress cli prompts
-  -u, --rpcUrl=<value>   alternate RPC url
-  -v, --verbose          log everything
-  --commitment=<option>  [default: confirmed] transaction commitment level to use
-                         <options: confirmed|finalized|processed>
-  --mainnetBeta          WARNING: use mainnet-beta solana cluster
-  --programId=<value>    alternative Switchboard program ID to interact with
-
-DESCRIPTION
-  Print the permission account associated with a Switchboard aggregator account
-
-ALIASES
-  $ sbv2 aggregator permission print
-  $ sbv2 aggregator print permission
-
-EXAMPLES
-  $ sbv2 aggregator:permission:print 9CmLriMhykZ8xAoNTSHjHbk6SkuMhie1NCZn9P6LCuZ4
-```
-
-## `sbv2 aggregator print history [AGGREGATORKEY]`
-
-Print the history buffer associated with an aggregator account
-
-```
-USAGE
-  $ sbv2 aggregator print history [AGGREGATORKEY] [-h] [-v] [-s] [--mainnetBeta] [-u <value>] [--programId <value>]
-    [--commitment confirmed|finalized|processed]
-
-ARGUMENTS
-  AGGREGATORKEY  public key of the aggregator account to fetch permission account and deserialize
-
-FLAGS
-  -h, --help             Show CLI help.
-  -s, --silent           suppress cli prompts
-  -u, --rpcUrl=<value>   alternate RPC url
-  -v, --verbose          log everything
-  --commitment=<option>  [default: confirmed] transaction commitment level to use
-                         <options: confirmed|finalized|processed>
-  --mainnetBeta          WARNING: use mainnet-beta solana cluster
-  --programId=<value>    alternative Switchboard program ID to interact with
-
-DESCRIPTION
-  Print the history buffer associated with an aggregator account
-
-ALIASES
-  $ sbv2 aggregator history print
-  $ sbv2 aggregator print history
-
-EXAMPLES
-  $ sbv2 aggregator:print:history 9CmLriMhykZ8xAoNTSHjHbk6SkuMhie1NCZn9P6LCuZ4
-```
-
-## `sbv2 aggregator print lease [AGGREGATORKEY]`
-
-Print the lease account associated with a Switchboard aggregator account
-
-```
-USAGE
-  $ sbv2 aggregator print lease [AGGREGATORKEY] [-h] [-v] [-s] [--mainnetBeta] [-u <value>] [--programId <value>]
-    [--commitment confirmed|finalized|processed]
-
-ARGUMENTS
-  AGGREGATORKEY  public key of the aggregator account to fetch permission account and deserialize
-
-FLAGS
-  -h, --help             Show CLI help.
-  -s, --silent           suppress cli prompts
-  -u, --rpcUrl=<value>   alternate RPC url
-  -v, --verbose          log everything
-  --commitment=<option>  [default: confirmed] transaction commitment level to use
-                         <options: confirmed|finalized|processed>
-  --mainnetBeta          WARNING: use mainnet-beta solana cluster
-  --programId=<value>    alternative Switchboard program ID to interact with
-
-DESCRIPTION
-  Print the lease account associated with a Switchboard aggregator account
-
-ALIASES
-  $ sbv2 aggregator lease print
-  $ sbv2 aggregator print lease
-
-EXAMPLES
-  $ sbv2 aggregator:lease:print 8SXvChNYFhRq4EZuZvnhjrB3jJRQCv4k3P4W6hesH3Ee
-```
-
-## `sbv2 aggregator print permission [AGGREGATORKEY]`
-
-Print the permission account associated with a Switchboard aggregator account
-
-```
-USAGE
-  $ sbv2 aggregator print permission [AGGREGATORKEY] [-h] [-v] [-s] [--mainnetBeta] [-u <value>] [--programId <value>]
-    [--commitment confirmed|finalized|processed]
-
-ARGUMENTS
-  AGGREGATORKEY  public key of the aggregator account to fetch permission account and deserialize
-
-FLAGS
-  -h, --help             Show CLI help.
-  -s, --silent           suppress cli prompts
-  -u, --rpcUrl=<value>   alternate RPC url
-  -v, --verbose          log everything
-  --commitment=<option>  [default: confirmed] transaction commitment level to use
-                         <options: confirmed|finalized|processed>
-  --mainnetBeta          WARNING: use mainnet-beta solana cluster
-  --programId=<value>    alternative Switchboard program ID to interact with
-
-DESCRIPTION
-  Print the permission account associated with a Switchboard aggregator account
-
-ALIASES
-  $ sbv2 aggregator permission print
-  $ sbv2 aggregator print permission
-
-EXAMPLES
-  $ sbv2 aggregator:permission:print 9CmLriMhykZ8xAoNTSHjHbk6SkuMhie1NCZn9P6LCuZ4
-```
-
-## `sbv2 aggregator set forceReport [AGGREGATORKEY] [FORCEREPORTPERIOD]`
-
-set an aggregator's force report period
-
-```
-USAGE
-  $ sbv2 aggregator set forceReport [AGGREGATORKEY] [FORCEREPORTPERIOD] [-h] [-v] [-s] [--mainnetBeta] [-u <value>] [--programId
-    <value>] [--commitment confirmed|finalized|processed] [-k <value>] [-a <value>]
-
-ARGUMENTS
-  AGGREGATORKEY      public key of the aggregator
-  FORCEREPORTPERIOD  Number of seconds for which, even if the variance threshold is not passed, accept new responses
-                     from oracles.
-
-FLAGS
-  -a, --authority=<value>  alternate keypair that is the authority for the aggregator
-  -h, --help               Show CLI help.
-  -k, --keypair=<value>    keypair that will pay for onchain transactions. defaults to new account authority if no
-                           alternate authority provided
-  -s, --silent             suppress cli prompts
-  -u, --rpcUrl=<value>     alternate RPC url
-  -v, --verbose            log everything
-  --commitment=<option>    [default: confirmed] transaction commitment level to use
-                           <options: confirmed|finalized|processed>
-  --mainnetBeta            WARNING: use mainnet-beta solana cluster
-  --programId=<value>      alternative Switchboard program ID to interact with
-
-DESCRIPTION
-  set an aggregator's force report period
-
-ALIASES
-  $ sbv2 aggregator set forceReport
-
-EXAMPLES
-  $ sbv2 aggregator:set:forceReportPeriod GvDMxPzN1sCj7L26YDK2HnMRXEQmQ2aemov8YBtPS7vR 300 --keypair ../payer-keypair.json
-```
-
-## `sbv2 aggregator set variance [AGGREGATORKEY] [VARIANCETHRESHOLD]`
-
-set an aggregator's variance threshold
-
-```
-USAGE
-  $ sbv2 aggregator set variance [AGGREGATORKEY] [VARIANCETHRESHOLD] [-h] [-v] [-s] [--mainnetBeta] [-u <value>] [--programId
-    <value>] [--commitment confirmed|finalized|processed] [-k <value>] [-a <value>]
-
-ARGUMENTS
-  AGGREGATORKEY      public key of the aggregator
-  VARIANCETHRESHOLD  percentage change between a previous accepted result and the next round before an oracle reports a
-                     value on-chain. Used to conserve lease cost during low volatility
-
-FLAGS
-  -a, --authority=<value>  alternate keypair that is the authority for the aggregator
-  -h, --help               Show CLI help.
-  -k, --keypair=<value>    keypair that will pay for onchain transactions. defaults to new account authority if no
-                           alternate authority provided
-  -s, --silent             suppress cli prompts
-  -u, --rpcUrl=<value>     alternate RPC url
-  -v, --verbose            log everything
-  --commitment=<option>    [default: confirmed] transaction commitment level to use
-                           <options: confirmed|finalized|processed>
-  --mainnetBeta            WARNING: use mainnet-beta solana cluster
-  --programId=<value>      alternative Switchboard program ID to interact with
-
-DESCRIPTION
-  set an aggregator's variance threshold
-
-ALIASES
-  $ sbv2 aggregator set variance
-
-EXAMPLES
-  $ sbv2 aggregator:set:varianceThreshold GvDMxPzN1sCj7L26YDK2HnMRXEQmQ2aemov8YBtPS7vR 0.1 --keypair ../payer-keypair.json
-```
-
-## `sbv2 aggregator watch [AGGREGATORKEY]`
-
-watch an aggregator for a new value
-
-```
-USAGE
-  $ sbv2 aggregator watch [AGGREGATORKEY] [-h] [-v] [-s] [--mainnetBeta] [-u <value>] [--programId <value>]
-    [--commitment confirmed|finalized|processed]
-
-ARGUMENTS
-  AGGREGATORKEY  public key of the aggregator account to deserialize
-
-FLAGS
-  -h, --help             Show CLI help.
-  -s, --silent           suppress cli prompts
-  -u, --rpcUrl=<value>   alternate RPC url
-  -v, --verbose          log everything
-  --commitment=<option>  [default: confirmed] transaction commitment level to use
-                         <options: confirmed|finalized|processed>
-  --mainnetBeta          WARNING: use mainnet-beta solana cluster
-  --programId=<value>    alternative Switchboard program ID to interact with
-
-DESCRIPTION
-  watch an aggregator for a new value
-
-ALIASES
-  $ sbv2 aggregator watch
-
-EXAMPLES
-  $ sbv2 watch:aggregator J7j9xX8JP2B2ErvUzuqGAKBGeggsxPyFXj5MqZcYDxfa
-```
 
 ## `sbv2 aptos account airdrop`
 
@@ -677,9 +193,9 @@ FLAGS
   --address=<value>       (required) HexString address of account to fund
   --networkId=<option>    [default: devnet] Aptos network to connect to
                           <options: devnet|testnet>
-  --programId=<value>     [default: 0x14611263909398572be034debb2e61b6751cafbeaddd994b9a1250cb76b99d38] Switchboard
+  --programId=<value>     [default: 0xb27f7bbf7caf2368b08032d005e8beab151a885054cdca55c4cc644f0a308d2b] Switchboard
                           programId on the selected Aptos network
-  --stateAddress=<value>  [default: 0x14611263909398572be034debb2e61b6751cafbeaddd994b9a1250cb76b99d38] Switchboard
+  --stateAddress=<value>  [default: 0xb27f7bbf7caf2368b08032d005e8beab151a885054cdca55c4cc644f0a308d2b] Switchboard
                           state address
 
 GLOBAL FLAGS
@@ -687,9 +203,6 @@ GLOBAL FLAGS
 
 DESCRIPTION
   request an airdrop
-
-ALIASES
-  $ sbv2 aptos airdrop
 ```
 
 ## `sbv2 aptos aggregator add job [AGGREGATORHEXSTRING]`
@@ -721,9 +234,9 @@ FLAGS
                            <options: devnet|testnet>
   --profileName=<value>    [default: default] If --keypair is pointing to a yaml file, provide an optional profile to
                            load. If none provided, default will be used
-  --programId=<value>      [default: 0x14611263909398572be034debb2e61b6751cafbeaddd994b9a1250cb76b99d38] Switchboard
+  --programId=<value>      [default: 0xb27f7bbf7caf2368b08032d005e8beab151a885054cdca55c4cc644f0a308d2b] Switchboard
                            programId on the selected Aptos network
-  --stateAddress=<value>   [default: 0x14611263909398572be034debb2e61b6751cafbeaddd994b9a1250cb76b99d38] Switchboard
+  --stateAddress=<value>   [default: 0xb27f7bbf7caf2368b08032d005e8beab151a885054cdca55c4cc644f0a308d2b] Switchboard
                            state address
 
 DESCRIPTION
@@ -768,9 +281,9 @@ FLAGS
   --new                        create account at new AptosAccount with authority set to --account
   --profileName=<value>        [default: default] If --keypair is pointing to a yaml file, provide an optional profile
                                to load. If none provided, default will be used
-  --programId=<value>          [default: 0x14611263909398572be034debb2e61b6751cafbeaddd994b9a1250cb76b99d38] Switchboard
+  --programId=<value>          [default: 0xb27f7bbf7caf2368b08032d005e8beab151a885054cdca55c4cc644f0a308d2b] Switchboard
                                programId on the selected Aptos network
-  --stateAddress=<value>       [default: 0x14611263909398572be034debb2e61b6751cafbeaddd994b9a1250cb76b99d38] Switchboard
+  --stateAddress=<value>       [default: 0xb27f7bbf7caf2368b08032d005e8beab151a885054cdca55c4cc644f0a308d2b] Switchboard
                                state address
   --updateInterval=<value>     (required) set an aggregator's minimum update delay
   --varianceThreshold=<value>  [default: 0] percentage change between a previous accepted result and the next round
@@ -816,9 +329,9 @@ FLAGS
                            <options: devnet|testnet>
   --profileName=<value>    [default: default] If --keypair is pointing to a yaml file, provide an optional profile to
                            load. If none provided, default will be used
-  --programId=<value>      [default: 0x14611263909398572be034debb2e61b6751cafbeaddd994b9a1250cb76b99d38] Switchboard
+  --programId=<value>      [default: 0xb27f7bbf7caf2368b08032d005e8beab151a885054cdca55c4cc644f0a308d2b] Switchboard
                            programId on the selected Aptos network
-  --stateAddress=<value>   [default: 0x14611263909398572be034debb2e61b6751cafbeaddd994b9a1250cb76b99d38] Switchboard
+  --stateAddress=<value>   [default: 0xb27f7bbf7caf2368b08032d005e8beab151a885054cdca55c4cc644f0a308d2b] Switchboard
                            state address
 
 DESCRIPTION
@@ -850,9 +363,9 @@ FLAGS
                           <options: devnet|testnet>
   --profileName=<value>   [default: default] If --keypair is pointing to a yaml file, provide an optional profile to
                           load. If none provided, default will be used
-  --programId=<value>     [default: 0x14611263909398572be034debb2e61b6751cafbeaddd994b9a1250cb76b99d38] Switchboard
+  --programId=<value>     [default: 0xb27f7bbf7caf2368b08032d005e8beab151a885054cdca55c4cc644f0a308d2b] Switchboard
                           programId on the selected Aptos network
-  --stateAddress=<value>  [default: 0x14611263909398572be034debb2e61b6751cafbeaddd994b9a1250cb76b99d38] Switchboard
+  --stateAddress=<value>  [default: 0xb27f7bbf7caf2368b08032d005e8beab151a885054cdca55c4cc644f0a308d2b] Switchboard
                           state address
 
 DESCRIPTION
@@ -860,39 +373,6 @@ DESCRIPTION
 
 ALIASES
   $ sbv2 aptos update aggregator
-```
-
-## `sbv2 aptos airdrop`
-
-request an airdrop
-
-```
-USAGE
-  $ sbv2 aptos airdrop --address <value> [-h] [-v] [-s] [--networkId devnet|testnet] [--programId <value>]
-    [--stateAddress <value>] [-u <value>] [--json] [-n <value>]
-
-FLAGS
-  -h, --help              Show CLI help.
-  -n, --amount=<value>    [default: 50000] number of airdrops to request, 10_000 coins each
-  -s, --silent            suppress cli prompts
-  -u, --rpcUrl=<value>    alternate RPC url
-  -v, --verbose           log everything
-  --address=<value>       (required) HexString address of account to fund
-  --networkId=<option>    [default: devnet] Aptos network to connect to
-                          <options: devnet|testnet>
-  --programId=<value>     [default: 0x14611263909398572be034debb2e61b6751cafbeaddd994b9a1250cb76b99d38] Switchboard
-                          programId on the selected Aptos network
-  --stateAddress=<value>  [default: 0x14611263909398572be034debb2e61b6751cafbeaddd994b9a1250cb76b99d38] Switchboard
-                          state address
-
-GLOBAL FLAGS
-  --json  Format output as json.
-
-DESCRIPTION
-  request an airdrop
-
-ALIASES
-  $ sbv2 aptos airdrop
 ```
 
 ## `sbv2 aptos crank create [QUEUEHEXSTRING]`
@@ -922,9 +402,9 @@ FLAGS
   --new                   create account at new AptosAccount with authority set to --account
   --profileName=<value>   [default: default] If --keypair is pointing to a yaml file, provide an optional profile to
                           load. If none provided, default will be used
-  --programId=<value>     [default: 0x14611263909398572be034debb2e61b6751cafbeaddd994b9a1250cb76b99d38] Switchboard
+  --programId=<value>     [default: 0xb27f7bbf7caf2368b08032d005e8beab151a885054cdca55c4cc644f0a308d2b] Switchboard
                           programId on the selected Aptos network
-  --stateAddress=<value>  [default: 0x14611263909398572be034debb2e61b6751cafbeaddd994b9a1250cb76b99d38] Switchboard
+  --stateAddress=<value>  [default: 0xb27f7bbf7caf2368b08032d005e8beab151a885054cdca55c4cc644f0a308d2b] Switchboard
                           state address
 
 DESCRIPTION
@@ -956,9 +436,9 @@ FLAGS
                           <options: devnet|testnet>
   --profileName=<value>   [default: default] If --keypair is pointing to a yaml file, provide an optional profile to
                           load. If none provided, default will be used
-  --programId=<value>     [default: 0x14611263909398572be034debb2e61b6751cafbeaddd994b9a1250cb76b99d38] Switchboard
+  --programId=<value>     [default: 0xb27f7bbf7caf2368b08032d005e8beab151a885054cdca55c4cc644f0a308d2b] Switchboard
                           programId on the selected Aptos network
-  --stateAddress=<value>  [default: 0x14611263909398572be034debb2e61b6751cafbeaddd994b9a1250cb76b99d38] Switchboard
+  --stateAddress=<value>  [default: 0xb27f7bbf7caf2368b08032d005e8beab151a885054cdca55c4cc644f0a308d2b] Switchboard
                           state address
 
 GLOBAL FLAGS
@@ -994,9 +474,9 @@ FLAGS
                                      <options: devnet|testnet>
   --profileName=<value>              [default: default] If --keypair is pointing to a yaml file, provide an optional
                                      profile to load. If none provided, default will be used
-  --programId=<value>                [default: 0x14611263909398572be034debb2e61b6751cafbeaddd994b9a1250cb76b99d38]
+  --programId=<value>                [default: 0xb27f7bbf7caf2368b08032d005e8beab151a885054cdca55c4cc644f0a308d2b]
                                      Switchboard programId on the selected Aptos network
-  --stateAddress=<value>             [default: 0x14611263909398572be034debb2e61b6751cafbeaddd994b9a1250cb76b99d38]
+  --stateAddress=<value>             [default: 0xb27f7bbf7caf2368b08032d005e8beab151a885054cdca55c4cc644f0a308d2b]
                                      Switchboard state address
 
 GLOBAL FLAGS
@@ -1044,9 +524,9 @@ FLAGS
   --new                        create account at new AptosAccount with authority set to --account
   --profileName=<value>        [default: default] If --keypair is pointing to a yaml file, provide an optional profile
                                to load. If none provided, default will be used
-  --programId=<value>          [default: 0x14611263909398572be034debb2e61b6751cafbeaddd994b9a1250cb76b99d38] Switchboard
+  --programId=<value>          [default: 0xb27f7bbf7caf2368b08032d005e8beab151a885054cdca55c4cc644f0a308d2b] Switchboard
                                programId on the selected Aptos network
-  --stateAddress=<value>       [default: 0x14611263909398572be034debb2e61b6751cafbeaddd994b9a1250cb76b99d38] Switchboard
+  --stateAddress=<value>       [default: 0xb27f7bbf7caf2368b08032d005e8beab151a885054cdca55c4cc644f0a308d2b] Switchboard
                                state address
   --updateInterval=<value>     (required) set an aggregator's minimum update delay
   --varianceThreshold=<value>  [default: 0] percentage change between a previous accepted result and the next round
@@ -1090,9 +570,9 @@ FLAGS
   --new                   create account at new AptosAccount with authority set to --account
   --profileName=<value>   [default: default] If --keypair is pointing to a yaml file, provide an optional profile to
                           load. If none provided, default will be used
-  --programId=<value>     [default: 0x14611263909398572be034debb2e61b6751cafbeaddd994b9a1250cb76b99d38] Switchboard
+  --programId=<value>     [default: 0xb27f7bbf7caf2368b08032d005e8beab151a885054cdca55c4cc644f0a308d2b] Switchboard
                           programId on the selected Aptos network
-  --stateAddress=<value>  [default: 0x14611263909398572be034debb2e61b6751cafbeaddd994b9a1250cb76b99d38] Switchboard
+  --stateAddress=<value>  [default: 0xb27f7bbf7caf2368b08032d005e8beab151a885054cdca55c4cc644f0a308d2b] Switchboard
                           state address
 
 DESCRIPTION
@@ -1130,9 +610,9 @@ FLAGS
   --new                    create account at new AptosAccount with authority set to --account
   --profileName=<value>    [default: default] If --keypair is pointing to a yaml file, provide an optional profile to
                            load. If none provided, default will be used
-  --programId=<value>      [default: 0x14611263909398572be034debb2e61b6751cafbeaddd994b9a1250cb76b99d38] Switchboard
+  --programId=<value>      [default: 0xb27f7bbf7caf2368b08032d005e8beab151a885054cdca55c4cc644f0a308d2b] Switchboard
                            programId on the selected Aptos network
-  --stateAddress=<value>   [default: 0x14611263909398572be034debb2e61b6751cafbeaddd994b9a1250cb76b99d38] Switchboard
+  --stateAddress=<value>   [default: 0xb27f7bbf7caf2368b08032d005e8beab151a885054cdca55c4cc644f0a308d2b] Switchboard
                            state address
   --weight=<value>         [default: 1] job weight to assign
 
@@ -1173,9 +653,9 @@ FLAGS
   --new                    create account at new AptosAccount with authority set to --account
   --profileName=<value>    [default: default] If --keypair is pointing to a yaml file, provide an optional profile to
                            load. If none provided, default will be used
-  --programId=<value>      [default: 0x14611263909398572be034debb2e61b6751cafbeaddd994b9a1250cb76b99d38] Switchboard
+  --programId=<value>      [default: 0xb27f7bbf7caf2368b08032d005e8beab151a885054cdca55c4cc644f0a308d2b] Switchboard
                            programId on the selected Aptos network
-  --stateAddress=<value>   [default: 0x14611263909398572be034debb2e61b6751cafbeaddd994b9a1250cb76b99d38] Switchboard
+  --stateAddress=<value>   [default: 0xb27f7bbf7caf2368b08032d005e8beab151a885054cdca55c4cc644f0a308d2b] Switchboard
                            state address
 
 GLOBAL FLAGS
@@ -1218,11 +698,11 @@ FLAGS
   --oracleTimeout=<value>  [default: 180] number of oracles to add to the queue
   --profileName=<value>    [default: default] If --keypair is pointing to a yaml file, provide an optional profile to
                            load. If none provided, default will be used
-  --programId=<value>      [default: 0x14611263909398572be034debb2e61b6751cafbeaddd994b9a1250cb76b99d38] Switchboard
+  --programId=<value>      [default: 0xb27f7bbf7caf2368b08032d005e8beab151a885054cdca55c4cc644f0a308d2b] Switchboard
                            programId on the selected Aptos network
   --queueSize=<value>      [default: 100] maximum number of oracles the queue can support
   --slashingEnabled        permit slashing malicous oracles
-  --stateAddress=<value>   [default: 0x14611263909398572be034debb2e61b6751cafbeaddd994b9a1250cb76b99d38] Switchboard
+  --stateAddress=<value>   [default: 0xb27f7bbf7caf2368b08032d005e8beab151a885054cdca55c4cc644f0a308d2b] Switchboard
                            state address
   --unpermissionedFeeds    permit unpermissioned feeds
   --unpermissionedVrf      permit unpermissioned VRF accounts
@@ -1265,9 +745,9 @@ FLAGS
   --new                    create account at new AptosAccount with authority set to --account
   --profileName=<value>    [default: default] If --keypair is pointing to a yaml file, provide an optional profile to
                            load. If none provided, default will be used
-  --programId=<value>      [default: 0x14611263909398572be034debb2e61b6751cafbeaddd994b9a1250cb76b99d38] Switchboard
+  --programId=<value>      [default: 0xb27f7bbf7caf2368b08032d005e8beab151a885054cdca55c4cc644f0a308d2b] Switchboard
                            programId on the selected Aptos network
-  --stateAddress=<value>   [default: 0x14611263909398572be034debb2e61b6751cafbeaddd994b9a1250cb76b99d38] Switchboard
+  --stateAddress=<value>   [default: 0xb27f7bbf7caf2368b08032d005e8beab151a885054cdca55c4cc644f0a308d2b] Switchboard
                            state address
   --weight=<value>         [default: 1] job weight to assign
 
@@ -1308,9 +788,9 @@ FLAGS
   --new                    create account at new AptosAccount with authority set to --account
   --profileName=<value>    [default: default] If --keypair is pointing to a yaml file, provide an optional profile to
                            load. If none provided, default will be used
-  --programId=<value>      [default: 0x14611263909398572be034debb2e61b6751cafbeaddd994b9a1250cb76b99d38] Switchboard
+  --programId=<value>      [default: 0xb27f7bbf7caf2368b08032d005e8beab151a885054cdca55c4cc644f0a308d2b] Switchboard
                            programId on the selected Aptos network
-  --stateAddress=<value>   [default: 0x14611263909398572be034debb2e61b6751cafbeaddd994b9a1250cb76b99d38] Switchboard
+  --stateAddress=<value>   [default: 0xb27f7bbf7caf2368b08032d005e8beab151a885054cdca55c4cc644f0a308d2b] Switchboard
                            state address
 
 GLOBAL FLAGS
@@ -1345,9 +825,9 @@ FLAGS
                           <options: devnet|testnet>
   --profileName=<value>   [default: default] If --keypair is pointing to a yaml file, provide an optional profile to
                           load. If none provided, default will be used
-  --programId=<value>     [default: 0x14611263909398572be034debb2e61b6751cafbeaddd994b9a1250cb76b99d38] Switchboard
+  --programId=<value>     [default: 0xb27f7bbf7caf2368b08032d005e8beab151a885054cdca55c4cc644f0a308d2b] Switchboard
                           programId on the selected Aptos network
-  --stateAddress=<value>  [default: 0x14611263909398572be034debb2e61b6751cafbeaddd994b9a1250cb76b99d38] Switchboard
+  --stateAddress=<value>  [default: 0xb27f7bbf7caf2368b08032d005e8beab151a885054cdca55c4cc644f0a308d2b] Switchboard
                           state address
 
 GLOBAL FLAGS
@@ -1380,9 +860,9 @@ FLAGS
   -v, --verbose           log everything
   --networkId=<option>    [default: devnet] Aptos network to connect to
                           <options: devnet|testnet>
-  --programId=<value>     [default: 0x14611263909398572be034debb2e61b6751cafbeaddd994b9a1250cb76b99d38] Switchboard
+  --programId=<value>     [default: 0xb27f7bbf7caf2368b08032d005e8beab151a885054cdca55c4cc644f0a308d2b] Switchboard
                           programId on the selected Aptos network
-  --stateAddress=<value>  [default: 0x14611263909398572be034debb2e61b6751cafbeaddd994b9a1250cb76b99d38] Switchboard
+  --stateAddress=<value>  [default: 0xb27f7bbf7caf2368b08032d005e8beab151a885054cdca55c4cc644f0a308d2b] Switchboard
                           state address
 
 GLOBAL FLAGS
@@ -1418,9 +898,9 @@ FLAGS
                                      <options: devnet|testnet>
   --profileName=<value>              [default: default] If --keypair is pointing to a yaml file, provide an optional
                                      profile to load. If none provided, default will be used
-  --programId=<value>                [default: 0x14611263909398572be034debb2e61b6751cafbeaddd994b9a1250cb76b99d38]
+  --programId=<value>                [default: 0xb27f7bbf7caf2368b08032d005e8beab151a885054cdca55c4cc644f0a308d2b]
                                      Switchboard programId on the selected Aptos network
-  --stateAddress=<value>             [default: 0x14611263909398572be034debb2e61b6751cafbeaddd994b9a1250cb76b99d38]
+  --stateAddress=<value>             [default: 0xb27f7bbf7caf2368b08032d005e8beab151a885054cdca55c4cc644f0a308d2b]
                                      Switchboard state address
 
 GLOBAL FLAGS
@@ -1463,11 +943,11 @@ FLAGS
   --oracleTimeout=<value>  [default: 180] number of oracles to add to the queue
   --profileName=<value>    [default: default] If --keypair is pointing to a yaml file, provide an optional profile to
                            load. If none provided, default will be used
-  --programId=<value>      [default: 0x14611263909398572be034debb2e61b6751cafbeaddd994b9a1250cb76b99d38] Switchboard
+  --programId=<value>      [default: 0xb27f7bbf7caf2368b08032d005e8beab151a885054cdca55c4cc644f0a308d2b] Switchboard
                            programId on the selected Aptos network
   --queueSize=<value>      [default: 100] maximum number of oracles the queue can support
   --slashingEnabled        permit slashing malicous oracles
-  --stateAddress=<value>   [default: 0x14611263909398572be034debb2e61b6751cafbeaddd994b9a1250cb76b99d38] Switchboard
+  --stateAddress=<value>   [default: 0xb27f7bbf7caf2368b08032d005e8beab151a885054cdca55c4cc644f0a308d2b] Switchboard
                            state address
   --unpermissionedFeeds    permit unpermissioned feeds
   --unpermissionedVrf      permit unpermissioned VRF accounts
@@ -1504,9 +984,9 @@ FLAGS
                           <options: devnet|testnet>
   --profileName=<value>   [default: default] If --keypair is pointing to a yaml file, provide an optional profile to
                           load. If none provided, default will be used
-  --programId=<value>     [default: 0x14611263909398572be034debb2e61b6751cafbeaddd994b9a1250cb76b99d38] Switchboard
+  --programId=<value>     [default: 0xb27f7bbf7caf2368b08032d005e8beab151a885054cdca55c4cc644f0a308d2b] Switchboard
                           programId on the selected Aptos network
-  --stateAddress=<value>  [default: 0x14611263909398572be034debb2e61b6751cafbeaddd994b9a1250cb76b99d38] Switchboard
+  --stateAddress=<value>  [default: 0xb27f7bbf7caf2368b08032d005e8beab151a885054cdca55c4cc644f0a308d2b] Switchboard
                           state address
 
 DESCRIPTION
@@ -1563,82 +1043,6 @@ DESCRIPTION
   set a configuration option
 ```
 
-## `sbv2 crank add aggregator [CRANKKEY] [AGGREGATORKEY]`
-
-push an aggregator onto a crank
-
-```
-USAGE
-  $ sbv2 crank add aggregator [CRANKKEY] [AGGREGATORKEY] [-h] [-v] [-s] [--mainnetBeta] [-u <value>] [--programId <value>]
-    [--commitment confirmed|finalized|processed] [-k <value>]
-
-ARGUMENTS
-  CRANKKEY       public key of the crank
-  AGGREGATORKEY  public key of the aggregator
-
-FLAGS
-  -h, --help             Show CLI help.
-  -k, --keypair=<value>  keypair that will pay for onchain transactions. defaults to new account authority if no
-                         alternate authority provided
-  -s, --silent           suppress cli prompts
-  -u, --rpcUrl=<value>   alternate RPC url
-  -v, --verbose          log everything
-  --commitment=<option>  [default: confirmed] transaction commitment level to use
-                         <options: confirmed|finalized|processed>
-  --mainnetBeta          WARNING: use mainnet-beta solana cluster
-  --programId=<value>    alternative Switchboard program ID to interact with
-
-DESCRIPTION
-  push an aggregator onto a crank
-
-ALIASES
-  $ sbv2 aggregator add crank
-  $ sbv2 crank add aggregator
-```
-
-## `sbv2 custom queue`
-
-create a custom queue
-
-```
-USAGE
-  $ sbv2 custom queue [-h] [-v] [-s] [--mainnetBeta] [-u <value>] [--programId <value>] [--commitment
-    confirmed|finalized|processed] [-k <value>] [--force] [-a <value>] [-n <value>] [--minStake <value>] [-r <value>]
-    [-c <value>] [--oracleTimeout <value>] [-o <value>] [--queueSize <value>] [--unpermissionedFeeds]
-    [--unpermissionedVrf] [--enableBufferRelayers] [-f <value>]
-
-FLAGS
-  -a, --authority=<value>   keypair to delegate authority to for creating permissions targeted at the queue
-  -c, --crankSize=<value>   [default: 100] size of the crank
-  -f, --outputFile=<value>  output queue schema to a json file
-  -h, --help                Show CLI help.
-  -k, --keypair=<value>     keypair that will pay for onchain transactions. defaults to new account authority if no
-                            alternate authority provided
-  -n, --name=<value>        [default: Custom Queue] name of the queue for easier identification
-  -o, --numOracles=<value>  number of oracles to add to the queue
-  -r, --reward=<value>      [default: 0] oracle rewards for successfully responding to an update request
-  -s, --silent              suppress cli prompts
-  -u, --rpcUrl=<value>      alternate RPC url
-  -v, --verbose             log everything
-  --commitment=<option>     [default: confirmed] transaction commitment level to use
-                            <options: confirmed|finalized|processed>
-  --enableBufferRelayers    enable oracles to fulfill buffer relayer requests
-  --force                   overwrite output file if existing
-  --mainnetBeta             WARNING: use mainnet-beta solana cluster
-  --minStake=<value>        [default: 0] minimum stake required by an oracle to join the queue
-  --oracleTimeout=<value>   [default: 180] number of oracles to add to the queue
-  --programId=<value>       alternative Switchboard program ID to interact with
-  --queueSize=<value>       [default: 100] maximum number of oracles the queue can support
-  --unpermissionedFeeds     permit unpermissioned feeds
-  --unpermissionedVrf       permit unpermissioned VRF accounts
-
-DESCRIPTION
-  create a custom queue
-
-ALIASES
-  $ sbv2 custom queue
-```
-
 ## `sbv2 help [COMMAND]`
 
 Display help for sbv2.
@@ -1658,42 +1062,6 @@ DESCRIPTION
 ```
 
 _See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v5.1.12/src/commands/help.ts)_
-
-## `sbv2 json create aggregator [DEFINITIONFILE]`
-
-create an aggregator from a json file
-
-```
-USAGE
-  $ sbv2 json create aggregator [DEFINITIONFILE] [-h] [-v] [-s] [--mainnetBeta] [-u <value>] [--programId <value>]
-    [--commitment confirmed|finalized|processed] [-k <value>] [-q <value>] [-a <value>]
-
-ARGUMENTS
-  DEFINITIONFILE  filesystem path of queue definition json file
-
-FLAGS
-  -a, --authority=<value>  alternate keypair that will be the authority for the aggregator
-  -h, --help               Show CLI help.
-  -k, --keypair=<value>    keypair that will pay for onchain transactions. defaults to new account authority if no
-                           alternate authority provided
-  -q, --queueKey=<value>   public key of the oracle queue to create aggregator for
-  -s, --silent             suppress cli prompts
-  -u, --rpcUrl=<value>     alternate RPC url
-  -v, --verbose            log everything
-  --commitment=<option>    [default: confirmed] transaction commitment level to use
-                           <options: confirmed|finalized|processed>
-  --mainnetBeta            WARNING: use mainnet-beta solana cluster
-  --programId=<value>      alternative Switchboard program ID to interact with
-
-DESCRIPTION
-  create an aggregator from a json file
-
-ALIASES
-  $ sbv2 json create aggregator
-
-EXAMPLES
-  $ sbv2 aggregator:create:json examples/aggregator.json --keypair ../payer-keypair.json --queueKey GhYg3R1V6DmJbwuc57qZeoYG6gUuvCotUF1zU3WCj98U --outputFile aggregator.schema.json
-```
 
 ## `sbv2 near aggregator add job [AGGREGATORADDRESS]`
 
@@ -1863,6 +1231,43 @@ ALIASES
   $ sbv2 near aggregator job add
 ```
 
+## `sbv2 near aggregator job remove [AGGREGATORADDRESS]`
+
+remove a job to an aggregator
+
+```
+USAGE
+  $ sbv2 near aggregator job remove [AGGREGATORADDRESS] --accountName <value> [-h] [-v] [-s] [--networkId
+    testnet|mainnet|betanet|localnet] [--programId <value>] [-u <value>] [--nearCredentialsDir <value>] [--json] [-a
+    <value>] [-j <value>]
+
+ARGUMENTS
+  AGGREGATORADDRESS  address of the aggregator in Uint8 or Base58 encoding
+
+FLAGS
+  -a, --authority=<value>       alternate keypair that is the authority for the aggregator
+  -h, --help                    Show CLI help.
+  -j, --jobAddress=<value>...   public key of an existing job account to remove from an aggregator
+  -s, --silent                  suppress cli prompts
+  -u, --rpcUrl=<value>          alternate RPC url
+  -v, --verbose                 log everything
+  --accountName=<value>         (required) Named account to load from your nearCredentialsDir
+  --nearCredentialsDir=<value>  [default: /Users/gally/.near-credentials] Alternative directory for near credentials.
+                                Defaults to ~/.near-credentials
+  --networkId=<option>          [default: testnet] Near network ID to connect to
+                                <options: testnet|mainnet|betanet|localnet>
+  --programId=<value>           [default: switchboard-v2.testnet] Switchboard programId on the selected Near networkId
+
+GLOBAL FLAGS
+  --json  Format output as json.
+
+DESCRIPTION
+  remove a job to an aggregator
+
+ALIASES
+  $ sbv2 near aggregator job remove
+```
+
 ## `sbv2 near aggregator permission create [AGGREGATORADDRESS]`
 
 create a permission account for a near aggregator
@@ -1931,7 +1336,7 @@ DESCRIPTION
   remove a job to an aggregator
 
 ALIASES
-  $ sbv2 near aggregator job add
+  $ sbv2 near aggregator job remove
 ```
 
 ## `sbv2 near aggregator set AGGREGATORADDRESS`
@@ -3054,114 +2459,73 @@ ALIASES
   $ sbv2 near update aggregator
 ```
 
-## `sbv2 oracle permission print [ORACLEKEY]`
+## `sbv2 solana aggregator add crank [CRANKKEY] [AGGREGATORKEY]`
 
-Print the permission account associated with a Switchboard oracle account
-
-```
-USAGE
-  $ sbv2 oracle permission print [ORACLEKEY] [-h] [-v] [-s] [--mainnetBeta] [-u <value>] [--programId <value>] [--commitment
-    confirmed|finalized|processed]
-
-ARGUMENTS
-  ORACLEKEY  public key of the oracle account to fetch permission account and deserialize
-
-FLAGS
-  -h, --help             Show CLI help.
-  -s, --silent           suppress cli prompts
-  -u, --rpcUrl=<value>   alternate RPC url
-  -v, --verbose          log everything
-  --commitment=<option>  [default: confirmed] transaction commitment level to use
-                         <options: confirmed|finalized|processed>
-  --mainnetBeta          WARNING: use mainnet-beta solana cluster
-  --programId=<value>    alternative Switchboard program ID to interact with
-
-DESCRIPTION
-  Print the permission account associated with a Switchboard oracle account
-
-ALIASES
-  $ sbv2 oracle permission print
-  $ sbv2 oracle print permission
-
-EXAMPLES
-  $ sbv2 oracle:permission:print 9CmLriMhykZ8xAoNTSHjHbk6SkuMhie1NCZn9P6LCuZ4
-```
-
-## `sbv2 oracle print permission [ORACLEKEY]`
-
-Print the permission account associated with a Switchboard oracle account
+push an aggregator onto a crank
 
 ```
 USAGE
-  $ sbv2 oracle print permission [ORACLEKEY] [-h] [-v] [-s] [--mainnetBeta] [-u <value>] [--programId <value>] [--commitment
-    confirmed|finalized|processed]
+  $ sbv2 solana aggregator add crank [CRANKKEY] [AGGREGATORKEY] [-h] [-v] [-s] [--mainnetBeta] [-u <value>] [--programId <value>]
+    [--commitment confirmed|finalized|processed] [-k <value>]
 
 ARGUMENTS
-  ORACLEKEY  public key of the oracle account to fetch permission account and deserialize
-
-FLAGS
-  -h, --help             Show CLI help.
-  -s, --silent           suppress cli prompts
-  -u, --rpcUrl=<value>   alternate RPC url
-  -v, --verbose          log everything
-  --commitment=<option>  [default: confirmed] transaction commitment level to use
-                         <options: confirmed|finalized|processed>
-  --mainnetBeta          WARNING: use mainnet-beta solana cluster
-  --programId=<value>    alternative Switchboard program ID to interact with
-
-DESCRIPTION
-  Print the permission account associated with a Switchboard oracle account
-
-ALIASES
-  $ sbv2 oracle permission print
-  $ sbv2 oracle print permission
-
-EXAMPLES
-  $ sbv2 oracle:permission:print 9CmLriMhykZ8xAoNTSHjHbk6SkuMhie1NCZn9P6LCuZ4
-```
-
-## `sbv2 set aggregator [AGGREGATORKEY]`
-
-set an aggregator's config
-
-```
-USAGE
-  $ sbv2 set aggregator [AGGREGATORKEY] [-h] [-v] [-s] [--mainnetBeta] [-u <value>] [--programId <value>]
-    [--commitment confirmed|finalized|processed] [-k <value>] [-a <value>] [--forceReportPeriod <value>] [--minJobs
-    <value>] [--minOracles <value>] [--newQueue <value>] [--updateInterval <value>] [--varianceThreshold <value>]
-
-ARGUMENTS
+  CRANKKEY       public key of the crank
   AGGREGATORKEY  public key of the aggregator
 
 FLAGS
-  -a, --authority=<value>      alternate keypair that is the authority for the aggregator
-  -h, --help                   Show CLI help.
-  -k, --keypair=<value>        keypair that will pay for onchain transactions. defaults to new account authority if no
-                               alternate authority provided
-  -s, --silent                 suppress cli prompts
-  -u, --rpcUrl=<value>         alternate RPC url
-  -v, --verbose                log everything
-  --commitment=<option>        [default: confirmed] transaction commitment level to use
-                               <options: confirmed|finalized|processed>
-  --forceReportPeriod=<value>  Number of seconds for which, even if the variance threshold is not passed, accept new
-                               responses from oracles.
-  --mainnetBeta                WARNING: use mainnet-beta solana cluster
-  --minJobs=<value>            number of jobs that must respond before an oracle responds
-  --minOracles=<value>         number of oracles that must respond before a value is accepted on-chain
-  --newQueue=<value>           public key of the new oracle queue
-  --programId=<value>          alternative Switchboard program ID to interact with
-  --updateInterval=<value>     set an aggregator's minimum update delay
-  --varianceThreshold=<value>  percentage change between a previous accepted result and the next round before an oracle
-                               reports a value on-chain. Used to conserve lease cost during low volatility
+  -h, --help             Show CLI help.
+  -k, --keypair=<value>  keypair that will pay for onchain transactions. defaults to new account authority if no
+                         alternate authority provided
+  -s, --silent           suppress cli prompts
+  -u, --rpcUrl=<value>   alternate RPC url
+  -v, --verbose          log everything
+  --commitment=<option>  [default: confirmed] transaction commitment level to use
+                         <options: confirmed|finalized|processed>
+  --mainnetBeta          WARNING: use mainnet-beta solana cluster
+  --programId=<value>    alternative Switchboard program ID to interact with
 
 DESCRIPTION
-  set an aggregator's config
+  push an aggregator onto a crank
 
 ALIASES
-  $ sbv2 set aggregator
+  $ sbv2 solana aggregator add crank
+  $ sbv2 solana crank add aggregator
+```
+
+## `sbv2 solana aggregator add history [AGGREGATORKEY] [SIZE]`
+
+set an aggregator's history buffer account to record the last N accepted results
+
+```
+USAGE
+  $ sbv2 solana aggregator add history [AGGREGATORKEY] [SIZE] [-h] [-v] [-s] [--mainnetBeta] [-u <value>] [--programId <value>]
+    [--commitment confirmed|finalized|processed] [-k <value>] [-a <value>]
+
+ARGUMENTS
+  AGGREGATORKEY  public key of the aggregator to add to a crank
+  SIZE           size of history buffer
+
+FLAGS
+  -a, --authority=<value>  alternate keypair that is the authority for the aggregator
+  -h, --help               Show CLI help.
+  -k, --keypair=<value>    keypair that will pay for onchain transactions. defaults to new account authority if no
+                           alternate authority provided
+  -s, --silent             suppress cli prompts
+  -u, --rpcUrl=<value>     alternate RPC url
+  -v, --verbose            log everything
+  --commitment=<option>    [default: confirmed] transaction commitment level to use
+                           <options: confirmed|finalized|processed>
+  --mainnetBeta            WARNING: use mainnet-beta solana cluster
+  --programId=<value>      alternative Switchboard program ID to interact with
+
+DESCRIPTION
+  set an aggregator's history buffer account to record the last N accepted results
+
+ALIASES
+  $ sbv2 solana aggregator add history
 
 EXAMPLES
-  $ sbv2 aggregator:set GvDMxPzN1sCj7L26YDK2HnMRXEQmQ2aemov8YBtPS7vR --updateInterval 300 --minOracles 3 --keypair ../payer-keypair.json
+  $ sbv2 aggregator:set:history GvDMxPzN1sCj7L26YDK2HnMRXEQmQ2aemov8YBtPS7vR 10000 --keypair ../payer-keypair.json
 ```
 
 ## `sbv2 solana aggregator add job [AGGREGATORKEY]`
@@ -3321,10 +2685,186 @@ DESCRIPTION
   create an aggregator from a json file
 
 ALIASES
-  $ sbv2 json create aggregator
+  $ sbv2 solana json create aggregator
 
 EXAMPLES
   $ sbv2 aggregator:create:json examples/aggregator.json --keypair ../payer-keypair.json --queueKey GhYg3R1V6DmJbwuc57qZeoYG6gUuvCotUF1zU3WCj98U --outputFile aggregator.schema.json
+```
+
+## `sbv2 solana aggregator history print [AGGREGATORKEY]`
+
+Print the history buffer associated with an aggregator account
+
+```
+USAGE
+  $ sbv2 solana aggregator history print [AGGREGATORKEY] [-h] [-v] [-s] [--mainnetBeta] [-u <value>] [--programId <value>]
+    [--commitment confirmed|finalized|processed]
+
+ARGUMENTS
+  AGGREGATORKEY  public key of the aggregator account to fetch permission account and deserialize
+
+FLAGS
+  -h, --help             Show CLI help.
+  -s, --silent           suppress cli prompts
+  -u, --rpcUrl=<value>   alternate RPC url
+  -v, --verbose          log everything
+  --commitment=<option>  [default: confirmed] transaction commitment level to use
+                         <options: confirmed|finalized|processed>
+  --mainnetBeta          WARNING: use mainnet-beta solana cluster
+  --programId=<value>    alternative Switchboard program ID to interact with
+
+DESCRIPTION
+  Print the history buffer associated with an aggregator account
+
+ALIASES
+  $ sbv2 solana aggregator history print
+  $ sbv2 solana aggregator print history
+
+EXAMPLES
+  $ sbv2 aggregator:print:history 9CmLriMhykZ8xAoNTSHjHbk6SkuMhie1NCZn9P6LCuZ4
+```
+
+## `sbv2 solana aggregator lease create [AGGREGATORKEY]`
+
+fund and re-enable an aggregator lease
+
+```
+USAGE
+  $ sbv2 solana aggregator lease create [AGGREGATORKEY] [-h] [-v] [-s] [--mainnetBeta] [-u <value>] [--programId <value>]
+    [--commitment confirmed|finalized|processed] [-k <value>] [--amount <value>]
+
+ARGUMENTS
+  AGGREGATORKEY  public key of the aggregator to extend a lease for
+
+FLAGS
+  -h, --help             Show CLI help.
+  -k, --keypair=<value>  keypair that will pay for onchain transactions. defaults to new account authority if no
+                         alternate authority provided
+  -s, --silent           suppress cli prompts
+  -u, --rpcUrl=<value>   alternate RPC url
+  -v, --verbose          log everything
+  --amount=<value>       token amount to load into the lease escrow. If decimals provided, amount will be normalized to
+                         raw tokenAmount
+  --commitment=<option>  [default: confirmed] transaction commitment level to use
+                         <options: confirmed|finalized|processed>
+  --mainnetBeta          WARNING: use mainnet-beta solana cluster
+  --programId=<value>    alternative Switchboard program ID to interact with
+
+DESCRIPTION
+  fund and re-enable an aggregator lease
+
+ALIASES
+  $ sbv2 solana aggregator lease create
+
+EXAMPLES
+  $ sbv2 lease:create GvDMxPzN1sCj7L26YDK2HnMRXEQmQ2aemov8YBtPS7vR --amount 1.5 --keypair ../payer-keypair.json
+```
+
+## `sbv2 solana aggregator lease extend [AGGREGATORKEY]`
+
+fund and re-enable an aggregator lease
+
+```
+USAGE
+  $ sbv2 solana aggregator lease extend [AGGREGATORKEY] --amount <value> [-h] [-v] [-s] [--mainnetBeta] [-u <value>] [--programId
+    <value>] [--commitment confirmed|finalized|processed] [-k <value>]
+
+ARGUMENTS
+  AGGREGATORKEY  public key of the aggregator to extend a lease for
+
+FLAGS
+  -h, --help             Show CLI help.
+  -k, --keypair=<value>  keypair that will pay for onchain transactions. defaults to new account authority if no
+                         alternate authority provided
+  -s, --silent           suppress cli prompts
+  -u, --rpcUrl=<value>   alternate RPC url
+  -v, --verbose          log everything
+  --amount=<value>       (required) token amount to load into the lease escrow. If decimals provided, amount will be
+                         normalized to raw tokenAmount
+  --commitment=<option>  [default: confirmed] transaction commitment level to use
+                         <options: confirmed|finalized|processed>
+  --mainnetBeta          WARNING: use mainnet-beta solana cluster
+  --programId=<value>    alternative Switchboard program ID to interact with
+
+DESCRIPTION
+  fund and re-enable an aggregator lease
+
+ALIASES
+  $ sbv2 solana aggregator lease extend
+
+EXAMPLES
+  $ sbv2 aggregator:lease:extend GvDMxPzN1sCj7L26YDK2HnMRXEQmQ2aemov8YBtPS7vR --amount 1.1 --keypair ../payer-keypair.json
+```
+
+## `sbv2 solana aggregator lease print [AGGREGATORKEY]`
+
+Print the lease account associated with a Switchboard aggregator account
+
+```
+USAGE
+  $ sbv2 solana aggregator lease print [AGGREGATORKEY] [-h] [-v] [-s] [--mainnetBeta] [-u <value>] [--programId <value>]
+    [--commitment confirmed|finalized|processed]
+
+ARGUMENTS
+  AGGREGATORKEY  public key of the aggregator account to fetch permission account and deserialize
+
+FLAGS
+  -h, --help             Show CLI help.
+  -s, --silent           suppress cli prompts
+  -u, --rpcUrl=<value>   alternate RPC url
+  -v, --verbose          log everything
+  --commitment=<option>  [default: confirmed] transaction commitment level to use
+                         <options: confirmed|finalized|processed>
+  --mainnetBeta          WARNING: use mainnet-beta solana cluster
+  --programId=<value>    alternative Switchboard program ID to interact with
+
+DESCRIPTION
+  Print the lease account associated with a Switchboard aggregator account
+
+ALIASES
+  $ sbv2 solana aggregator lease print
+  $ sbv2 solana aggregator print lease
+
+EXAMPLES
+  $ sbv2 aggregator:lease:print 8SXvChNYFhRq4EZuZvnhjrB3jJRQCv4k3P4W6hesH3Ee
+```
+
+## `sbv2 solana aggregator lease withdraw [AGGREGATORKEY]`
+
+withdraw funds from an aggregator lease
+
+```
+USAGE
+  $ sbv2 solana aggregator lease withdraw [AGGREGATORKEY] --amount <value> [-h] [-v] [-s] [--mainnetBeta] [-u <value>] [--programId
+    <value>] [--commitment confirmed|finalized|processed] [-k <value>] [--withdrawAddress <value>] [-a <value>]
+
+ARGUMENTS
+  AGGREGATORKEY  public key of the aggregator to extend a lease for
+
+FLAGS
+  -a, --authority=<value>    keypair delegated as the authority for managing the oracle account
+  -h, --help                 Show CLI help.
+  -k, --keypair=<value>      keypair that will pay for onchain transactions. defaults to new account authority if no
+                             alternate authority provided
+  -s, --silent               suppress cli prompts
+  -u, --rpcUrl=<value>       alternate RPC url
+  -v, --verbose              log everything
+  --amount=<value>           (required) token amount to withdraw from lease account. If decimals provided, amount will
+                             be normalized to raw tokenAmount
+  --commitment=<option>      [default: confirmed] transaction commitment level to use
+                             <options: confirmed|finalized|processed>
+  --mainnetBeta              WARNING: use mainnet-beta solana cluster
+  --programId=<value>        alternative Switchboard program ID to interact with
+  --withdrawAddress=<value>  tokenAccount to withdraw to. If not provided, payer associated token account will be used
+
+DESCRIPTION
+  withdraw funds from an aggregator lease
+
+ALIASES
+  $ sbv2 solana aggregator lease withdraw
+
+EXAMPLES
+  $ sbv2 aggregator:lease:withdraw GvDMxPzN1sCj7L26YDK2HnMRXEQmQ2aemov8YBtPS7vR --amount 1.1 --keypair ../payer-keypair.json
 ```
 
 ## `sbv2 solana aggregator lock [AGGREGATORKEY]`
@@ -3384,6 +2924,39 @@ DESCRIPTION
   create a permission account for an aggregator
 ```
 
+## `sbv2 solana aggregator permission print [AGGREGATORKEY]`
+
+Print the permission account associated with a Switchboard aggregator account
+
+```
+USAGE
+  $ sbv2 solana aggregator permission print [AGGREGATORKEY] [-h] [-v] [-s] [--mainnetBeta] [-u <value>] [--programId <value>]
+    [--commitment confirmed|finalized|processed]
+
+ARGUMENTS
+  AGGREGATORKEY  public key of the aggregator account to fetch permission account and deserialize
+
+FLAGS
+  -h, --help             Show CLI help.
+  -s, --silent           suppress cli prompts
+  -u, --rpcUrl=<value>   alternate RPC url
+  -v, --verbose          log everything
+  --commitment=<option>  [default: confirmed] transaction commitment level to use
+                         <options: confirmed|finalized|processed>
+  --mainnetBeta          WARNING: use mainnet-beta solana cluster
+  --programId=<value>    alternative Switchboard program ID to interact with
+
+DESCRIPTION
+  Print the permission account associated with a Switchboard aggregator account
+
+ALIASES
+  $ sbv2 solana aggregator permission print
+  $ sbv2 solana aggregator print permission
+
+EXAMPLES
+  $ sbv2 aggregator:permission:print 9CmLriMhykZ8xAoNTSHjHbk6SkuMhie1NCZn9P6LCuZ4
+```
+
 ## `sbv2 solana aggregator print [AGGREGATORKEY]`
 
 Print the deserialized Switchboard aggregator account
@@ -3419,6 +2992,105 @@ ALIASES
 
 EXAMPLES
   $ sbv2 aggregator:print GvDMxPzN1sCj7L26YDK2HnMRXEQmQ2aemov8YBtPS7vR
+```
+
+## `sbv2 solana aggregator print history [AGGREGATORKEY]`
+
+Print the history buffer associated with an aggregator account
+
+```
+USAGE
+  $ sbv2 solana aggregator print history [AGGREGATORKEY] [-h] [-v] [-s] [--mainnetBeta] [-u <value>] [--programId <value>]
+    [--commitment confirmed|finalized|processed]
+
+ARGUMENTS
+  AGGREGATORKEY  public key of the aggregator account to fetch permission account and deserialize
+
+FLAGS
+  -h, --help             Show CLI help.
+  -s, --silent           suppress cli prompts
+  -u, --rpcUrl=<value>   alternate RPC url
+  -v, --verbose          log everything
+  --commitment=<option>  [default: confirmed] transaction commitment level to use
+                         <options: confirmed|finalized|processed>
+  --mainnetBeta          WARNING: use mainnet-beta solana cluster
+  --programId=<value>    alternative Switchboard program ID to interact with
+
+DESCRIPTION
+  Print the history buffer associated with an aggregator account
+
+ALIASES
+  $ sbv2 solana aggregator history print
+  $ sbv2 solana aggregator print history
+
+EXAMPLES
+  $ sbv2 aggregator:print:history 9CmLriMhykZ8xAoNTSHjHbk6SkuMhie1NCZn9P6LCuZ4
+```
+
+## `sbv2 solana aggregator print lease [AGGREGATORKEY]`
+
+Print the lease account associated with a Switchboard aggregator account
+
+```
+USAGE
+  $ sbv2 solana aggregator print lease [AGGREGATORKEY] [-h] [-v] [-s] [--mainnetBeta] [-u <value>] [--programId <value>]
+    [--commitment confirmed|finalized|processed]
+
+ARGUMENTS
+  AGGREGATORKEY  public key of the aggregator account to fetch permission account and deserialize
+
+FLAGS
+  -h, --help             Show CLI help.
+  -s, --silent           suppress cli prompts
+  -u, --rpcUrl=<value>   alternate RPC url
+  -v, --verbose          log everything
+  --commitment=<option>  [default: confirmed] transaction commitment level to use
+                         <options: confirmed|finalized|processed>
+  --mainnetBeta          WARNING: use mainnet-beta solana cluster
+  --programId=<value>    alternative Switchboard program ID to interact with
+
+DESCRIPTION
+  Print the lease account associated with a Switchboard aggregator account
+
+ALIASES
+  $ sbv2 solana aggregator lease print
+  $ sbv2 solana aggregator print lease
+
+EXAMPLES
+  $ sbv2 aggregator:lease:print 8SXvChNYFhRq4EZuZvnhjrB3jJRQCv4k3P4W6hesH3Ee
+```
+
+## `sbv2 solana aggregator print permission [AGGREGATORKEY]`
+
+Print the permission account associated with a Switchboard aggregator account
+
+```
+USAGE
+  $ sbv2 solana aggregator print permission [AGGREGATORKEY] [-h] [-v] [-s] [--mainnetBeta] [-u <value>] [--programId <value>]
+    [--commitment confirmed|finalized|processed]
+
+ARGUMENTS
+  AGGREGATORKEY  public key of the aggregator account to fetch permission account and deserialize
+
+FLAGS
+  -h, --help             Show CLI help.
+  -s, --silent           suppress cli prompts
+  -u, --rpcUrl=<value>   alternate RPC url
+  -v, --verbose          log everything
+  --commitment=<option>  [default: confirmed] transaction commitment level to use
+                         <options: confirmed|finalized|processed>
+  --mainnetBeta          WARNING: use mainnet-beta solana cluster
+  --programId=<value>    alternative Switchboard program ID to interact with
+
+DESCRIPTION
+  Print the permission account associated with a Switchboard aggregator account
+
+ALIASES
+  $ sbv2 solana aggregator permission print
+  $ sbv2 solana aggregator print permission
+
+EXAMPLES
+  $ sbv2 aggregator:permission:print 9CmLriMhykZ8xAoNTSHjHbk6SkuMhie1NCZn9P6LCuZ4
 ```
 
 ## `sbv2 solana aggregator remove job [AGGREGATORKEY] [JOBKEY]`
@@ -3525,7 +3197,7 @@ DESCRIPTION
   set an aggregator's config
 
 ALIASES
-  $ sbv2 set aggregator
+  $ sbv2 solana set aggregator
 
 EXAMPLES
   $ sbv2 aggregator:set GvDMxPzN1sCj7L26YDK2HnMRXEQmQ2aemov8YBtPS7vR --updateInterval 300 --minOracles 3 --keypair ../payer-keypair.json
@@ -3591,6 +3263,43 @@ DESCRIPTION
   set an aggregator's batch size
 ```
 
+## `sbv2 solana aggregator set forceReport [AGGREGATORKEY] [FORCEREPORTPERIOD]`
+
+set an aggregator's force report period
+
+```
+USAGE
+  $ sbv2 solana aggregator set forceReport [AGGREGATORKEY] [FORCEREPORTPERIOD] [-h] [-v] [-s] [--mainnetBeta] [-u <value>] [--programId
+    <value>] [--commitment confirmed|finalized|processed] [-k <value>] [-a <value>]
+
+ARGUMENTS
+  AGGREGATORKEY      public key of the aggregator
+  FORCEREPORTPERIOD  Number of seconds for which, even if the variance threshold is not passed, accept new responses
+                     from oracles.
+
+FLAGS
+  -a, --authority=<value>  alternate keypair that is the authority for the aggregator
+  -h, --help               Show CLI help.
+  -k, --keypair=<value>    keypair that will pay for onchain transactions. defaults to new account authority if no
+                           alternate authority provided
+  -s, --silent             suppress cli prompts
+  -u, --rpcUrl=<value>     alternate RPC url
+  -v, --verbose            log everything
+  --commitment=<option>    [default: confirmed] transaction commitment level to use
+                           <options: confirmed|finalized|processed>
+  --mainnetBeta            WARNING: use mainnet-beta solana cluster
+  --programId=<value>      alternative Switchboard program ID to interact with
+
+DESCRIPTION
+  set an aggregator's force report period
+
+ALIASES
+  $ sbv2 solana aggregator set forceReport
+
+EXAMPLES
+  $ sbv2 aggregator:set:forceReportPeriod GvDMxPzN1sCj7L26YDK2HnMRXEQmQ2aemov8YBtPS7vR 300 --keypair ../payer-keypair.json
+```
+
 ## `sbv2 solana aggregator set forceReportPeriod [AGGREGATORKEY] [FORCEREPORTPERIOD]`
 
 set an aggregator's force report period
@@ -3622,7 +3331,7 @@ DESCRIPTION
   set an aggregator's force report period
 
 ALIASES
-  $ sbv2 aggregator set forceReport
+  $ sbv2 solana aggregator set forceReport
 
 EXAMPLES
   $ sbv2 aggregator:set:forceReportPeriod GvDMxPzN1sCj7L26YDK2HnMRXEQmQ2aemov8YBtPS7vR 300 --keypair ../payer-keypair.json
@@ -3658,7 +3367,7 @@ DESCRIPTION
   set an aggregator's history buffer account to record the last N accepted results
 
 ALIASES
-  $ sbv2 aggregator add history
+  $ sbv2 solana aggregator add history
 
 EXAMPLES
   $ sbv2 aggregator:set:history GvDMxPzN1sCj7L26YDK2HnMRXEQmQ2aemov8YBtPS7vR 10000 --keypair ../payer-keypair.json
@@ -3787,6 +3496,43 @@ EXAMPLES
   $ sbv2 aggregator:set:updateInterval GvDMxPzN1sCj7L26YDK2HnMRXEQmQ2aemov8YBtPS7vR 60 --keypair ../payer-keypair.json
 ```
 
+## `sbv2 solana aggregator set variance [AGGREGATORKEY] [VARIANCETHRESHOLD]`
+
+set an aggregator's variance threshold
+
+```
+USAGE
+  $ sbv2 solana aggregator set variance [AGGREGATORKEY] [VARIANCETHRESHOLD] [-h] [-v] [-s] [--mainnetBeta] [-u <value>] [--programId
+    <value>] [--commitment confirmed|finalized|processed] [-k <value>] [-a <value>]
+
+ARGUMENTS
+  AGGREGATORKEY      public key of the aggregator
+  VARIANCETHRESHOLD  percentage change between a previous accepted result and the next round before an oracle reports a
+                     value on-chain. Used to conserve lease cost during low volatility
+
+FLAGS
+  -a, --authority=<value>  alternate keypair that is the authority for the aggregator
+  -h, --help               Show CLI help.
+  -k, --keypair=<value>    keypair that will pay for onchain transactions. defaults to new account authority if no
+                           alternate authority provided
+  -s, --silent             suppress cli prompts
+  -u, --rpcUrl=<value>     alternate RPC url
+  -v, --verbose            log everything
+  --commitment=<option>    [default: confirmed] transaction commitment level to use
+                           <options: confirmed|finalized|processed>
+  --mainnetBeta            WARNING: use mainnet-beta solana cluster
+  --programId=<value>      alternative Switchboard program ID to interact with
+
+DESCRIPTION
+  set an aggregator's variance threshold
+
+ALIASES
+  $ sbv2 solana aggregator set variance
+
+EXAMPLES
+  $ sbv2 aggregator:set:varianceThreshold GvDMxPzN1sCj7L26YDK2HnMRXEQmQ2aemov8YBtPS7vR 0.1 --keypair ../payer-keypair.json
+```
+
 ## `sbv2 solana aggregator set varianceThreshold [AGGREGATORKEY] [VARIANCETHRESHOLD]`
 
 set an aggregator's variance threshold
@@ -3818,7 +3564,7 @@ DESCRIPTION
   set an aggregator's variance threshold
 
 ALIASES
-  $ sbv2 aggregator set variance
+  $ sbv2 solana aggregator set variance
 
 EXAMPLES
   $ sbv2 aggregator:set:varianceThreshold GvDMxPzN1sCj7L26YDK2HnMRXEQmQ2aemov8YBtPS7vR 0.1 --keypair ../payer-keypair.json
@@ -3853,6 +3599,38 @@ DESCRIPTION
 
 EXAMPLES
   $ sbv2 aggregator:update J7j9xX8JP2B2ErvUzuqGAKBGeggsxPyFXj5MqZcYDxfa --keypair ../payer-keypair.json
+```
+
+## `sbv2 solana aggregator watch [AGGREGATORKEY]`
+
+watch an aggregator for a new value
+
+```
+USAGE
+  $ sbv2 solana aggregator watch [AGGREGATORKEY] [-h] [-v] [-s] [--mainnetBeta] [-u <value>] [--programId <value>]
+    [--commitment confirmed|finalized|processed]
+
+ARGUMENTS
+  AGGREGATORKEY  public key of the aggregator account to deserialize
+
+FLAGS
+  -h, --help             Show CLI help.
+  -s, --silent           suppress cli prompts
+  -u, --rpcUrl=<value>   alternate RPC url
+  -v, --verbose          log everything
+  --commitment=<option>  [default: confirmed] transaction commitment level to use
+                         <options: confirmed|finalized|processed>
+  --mainnetBeta          WARNING: use mainnet-beta solana cluster
+  --programId=<value>    alternative Switchboard program ID to interact with
+
+DESCRIPTION
+  watch an aggregator for a new value
+
+ALIASES
+  $ sbv2 solana aggregator watch
+
+EXAMPLES
+  $ sbv2 watch:aggregator J7j9xX8JP2B2ErvUzuqGAKBGeggsxPyFXj5MqZcYDxfa
 ```
 
 ## `sbv2 solana anchor test`
@@ -3951,6 +3729,39 @@ ALIASES
 
 EXAMPLES
   $ sbv2 buffer:print 23GvzENjwgqqaLejsAtAWgTkSzWjSMo2LUYTAETT8URp
+```
+
+## `sbv2 solana crank add aggregator [CRANKKEY] [AGGREGATORKEY]`
+
+push an aggregator onto a crank
+
+```
+USAGE
+  $ sbv2 solana crank add aggregator [CRANKKEY] [AGGREGATORKEY] [-h] [-v] [-s] [--mainnetBeta] [-u <value>] [--programId <value>]
+    [--commitment confirmed|finalized|processed] [-k <value>]
+
+ARGUMENTS
+  CRANKKEY       public key of the crank
+  AGGREGATORKEY  public key of the aggregator
+
+FLAGS
+  -h, --help             Show CLI help.
+  -k, --keypair=<value>  keypair that will pay for onchain transactions. defaults to new account authority if no
+                         alternate authority provided
+  -s, --silent           suppress cli prompts
+  -u, --rpcUrl=<value>   alternate RPC url
+  -v, --verbose          log everything
+  --commitment=<option>  [default: confirmed] transaction commitment level to use
+                         <options: confirmed|finalized|processed>
+  --mainnetBeta          WARNING: use mainnet-beta solana cluster
+  --programId=<value>    alternative Switchboard program ID to interact with
+
+DESCRIPTION
+  push an aggregator onto a crank
+
+ALIASES
+  $ sbv2 solana aggregator add crank
+  $ sbv2 solana crank add aggregator
 ```
 
 ## `sbv2 solana crank create [QUEUEKEY]`
@@ -4106,8 +3917,8 @@ DESCRIPTION
   push an aggregator onto a crank
 
 ALIASES
-  $ sbv2 aggregator add crank
-  $ sbv2 crank add aggregator
+  $ sbv2 solana aggregator add crank
+  $ sbv2 solana crank add aggregator
 ```
 
 ## `sbv2 solana crank turn [CRANKKEY]`
@@ -4203,6 +4014,42 @@ EXAMPLES
   $ sbv2 job:print SzTvFZLz3hwjZFMwVWzuEnr1oUF6qyvXwXCvsqf7qeA
 ```
 
+## `sbv2 solana json create aggregator [DEFINITIONFILE]`
+
+create an aggregator from a json file
+
+```
+USAGE
+  $ sbv2 solana json create aggregator [DEFINITIONFILE] [-h] [-v] [-s] [--mainnetBeta] [-u <value>] [--programId <value>]
+    [--commitment confirmed|finalized|processed] [-k <value>] [-q <value>] [-a <value>]
+
+ARGUMENTS
+  DEFINITIONFILE  filesystem path of queue definition json file
+
+FLAGS
+  -a, --authority=<value>  alternate keypair that will be the authority for the aggregator
+  -h, --help               Show CLI help.
+  -k, --keypair=<value>    keypair that will pay for onchain transactions. defaults to new account authority if no
+                           alternate authority provided
+  -q, --queueKey=<value>   public key of the oracle queue to create aggregator for
+  -s, --silent             suppress cli prompts
+  -u, --rpcUrl=<value>     alternate RPC url
+  -v, --verbose            log everything
+  --commitment=<option>    [default: confirmed] transaction commitment level to use
+                           <options: confirmed|finalized|processed>
+  --mainnetBeta            WARNING: use mainnet-beta solana cluster
+  --programId=<value>      alternative Switchboard program ID to interact with
+
+DESCRIPTION
+  create an aggregator from a json file
+
+ALIASES
+  $ sbv2 solana json create aggregator
+
+EXAMPLES
+  $ sbv2 aggregator:create:json examples/aggregator.json --keypair ../payer-keypair.json --queueKey GhYg3R1V6DmJbwuc57qZeoYG6gUuvCotUF1zU3WCj98U --outputFile aggregator.schema.json
+```
+
 ## `sbv2 solana lease create [AGGREGATORKEY]`
 
 fund and re-enable an aggregator lease
@@ -4233,7 +4080,7 @@ DESCRIPTION
   fund and re-enable an aggregator lease
 
 ALIASES
-  $ sbv2 aggregator lease create
+  $ sbv2 solana aggregator lease create
 
 EXAMPLES
   $ sbv2 lease:create GvDMxPzN1sCj7L26YDK2HnMRXEQmQ2aemov8YBtPS7vR --amount 1.5 --keypair ../payer-keypair.json
@@ -4269,7 +4116,7 @@ DESCRIPTION
   fund and re-enable an aggregator lease
 
 ALIASES
-  $ sbv2 aggregator lease extend
+  $ sbv2 solana aggregator lease extend
 
 EXAMPLES
   $ sbv2 aggregator:lease:extend GvDMxPzN1sCj7L26YDK2HnMRXEQmQ2aemov8YBtPS7vR --amount 1.1 --keypair ../payer-keypair.json
@@ -4307,7 +4154,7 @@ DESCRIPTION
   withdraw funds from an aggregator lease
 
 ALIASES
-  $ sbv2 aggregator lease withdraw
+  $ sbv2 solana aggregator lease withdraw
 
 EXAMPLES
   $ sbv2 aggregator:lease:withdraw GvDMxPzN1sCj7L26YDK2HnMRXEQmQ2aemov8YBtPS7vR --amount 1.1 --keypair ../payer-keypair.json
@@ -4495,6 +4342,39 @@ DESCRIPTION
   create a permission account for an oracle
 ```
 
+## `sbv2 solana oracle permission print [ORACLEKEY]`
+
+Print the permission account associated with a Switchboard oracle account
+
+```
+USAGE
+  $ sbv2 solana oracle permission print [ORACLEKEY] [-h] [-v] [-s] [--mainnetBeta] [-u <value>] [--programId <value>] [--commitment
+    confirmed|finalized|processed]
+
+ARGUMENTS
+  ORACLEKEY  public key of the oracle account to fetch permission account and deserialize
+
+FLAGS
+  -h, --help             Show CLI help.
+  -s, --silent           suppress cli prompts
+  -u, --rpcUrl=<value>   alternate RPC url
+  -v, --verbose          log everything
+  --commitment=<option>  [default: confirmed] transaction commitment level to use
+                         <options: confirmed|finalized|processed>
+  --mainnetBeta          WARNING: use mainnet-beta solana cluster
+  --programId=<value>    alternative Switchboard program ID to interact with
+
+DESCRIPTION
+  Print the permission account associated with a Switchboard oracle account
+
+ALIASES
+  $ sbv2 solana oracle permission print
+  $ sbv2 solana oracle print permission
+
+EXAMPLES
+  $ sbv2 oracle:permission:print 9CmLriMhykZ8xAoNTSHjHbk6SkuMhie1NCZn9P6LCuZ4
+```
+
 ## `sbv2 solana oracle print [ORACLEKEY]`
 
 Print the deserialized Switchboard oracle account
@@ -4525,6 +4405,39 @@ ALIASES
 
 EXAMPLES
   $ sbv2 oracle:print 9CmLriMhykZ8xAoNTSHjHbk6SkuMhie1NCZn9P6LCuZ4
+```
+
+## `sbv2 solana oracle print permission [ORACLEKEY]`
+
+Print the permission account associated with a Switchboard oracle account
+
+```
+USAGE
+  $ sbv2 solana oracle print permission [ORACLEKEY] [-h] [-v] [-s] [--mainnetBeta] [-u <value>] [--programId <value>] [--commitment
+    confirmed|finalized|processed]
+
+ARGUMENTS
+  ORACLEKEY  public key of the oracle account to fetch permission account and deserialize
+
+FLAGS
+  -h, --help             Show CLI help.
+  -s, --silent           suppress cli prompts
+  -u, --rpcUrl=<value>   alternate RPC url
+  -v, --verbose          log everything
+  --commitment=<option>  [default: confirmed] transaction commitment level to use
+                         <options: confirmed|finalized|processed>
+  --mainnetBeta          WARNING: use mainnet-beta solana cluster
+  --programId=<value>    alternative Switchboard program ID to interact with
+
+DESCRIPTION
+  Print the permission account associated with a Switchboard oracle account
+
+ALIASES
+  $ sbv2 solana oracle permission print
+  $ sbv2 solana oracle print permission
+
+EXAMPLES
+  $ sbv2 oracle:permission:print 9CmLriMhykZ8xAoNTSHjHbk6SkuMhie1NCZn9P6LCuZ4
 ```
 
 ## `sbv2 solana oracle withdraw [ORACLEKEY]`
@@ -4742,8 +4655,8 @@ DESCRIPTION
   Print the history buffer associated with an aggregator account
 
 ALIASES
-  $ sbv2 aggregator history print
-  $ sbv2 aggregator print history
+  $ sbv2 solana aggregator history print
+  $ sbv2 solana aggregator print history
 
 EXAMPLES
   $ sbv2 aggregator:print:history 9CmLriMhykZ8xAoNTSHjHbk6SkuMhie1NCZn9P6LCuZ4
@@ -4775,8 +4688,8 @@ DESCRIPTION
   Print the lease account associated with a Switchboard aggregator account
 
 ALIASES
-  $ sbv2 aggregator lease print
-  $ sbv2 aggregator print lease
+  $ sbv2 solana aggregator lease print
+  $ sbv2 solana aggregator print lease
 
 EXAMPLES
   $ sbv2 aggregator:lease:print 8SXvChNYFhRq4EZuZvnhjrB3jJRQCv4k3P4W6hesH3Ee
@@ -4808,8 +4721,8 @@ DESCRIPTION
   Print the permission account associated with a Switchboard aggregator account
 
 ALIASES
-  $ sbv2 aggregator permission print
-  $ sbv2 aggregator print permission
+  $ sbv2 solana aggregator permission print
+  $ sbv2 solana aggregator print permission
 
 EXAMPLES
   $ sbv2 aggregator:permission:print 9CmLriMhykZ8xAoNTSHjHbk6SkuMhie1NCZn9P6LCuZ4
@@ -4970,8 +4883,8 @@ DESCRIPTION
   Print the permission account associated with a Switchboard oracle account
 
 ALIASES
-  $ sbv2 oracle permission print
-  $ sbv2 oracle print permission
+  $ sbv2 solana oracle permission print
+  $ sbv2 solana oracle print permission
 
 EXAMPLES
   $ sbv2 oracle:permission:print 9CmLriMhykZ8xAoNTSHjHbk6SkuMhie1NCZn9P6LCuZ4
@@ -5137,7 +5050,7 @@ EXAMPLES
 
 ## `sbv2 solana queue create`
 
-create a custom queue
+create a personal oracle queue
 
 ```
 USAGE
@@ -5172,10 +5085,7 @@ FLAGS
   --unpermissionedVrf       permit unpermissioned VRF accounts
 
 DESCRIPTION
-  create a custom queue
-
-ALIASES
-  $ sbv2 custom queue
+  create a personal oracle queue
 ```
 
 ## `sbv2 solana queue print [QUEUEKEY]`
@@ -5269,6 +5179,50 @@ FLAGS
 
 DESCRIPTION
   set unpermissionedVrfEnabled
+```
+
+## `sbv2 solana set aggregator [AGGREGATORKEY]`
+
+set an aggregator's config
+
+```
+USAGE
+  $ sbv2 solana set aggregator [AGGREGATORKEY] [-h] [-v] [-s] [--mainnetBeta] [-u <value>] [--programId <value>]
+    [--commitment confirmed|finalized|processed] [-k <value>] [-a <value>] [--forceReportPeriod <value>] [--minJobs
+    <value>] [--minOracles <value>] [--newQueue <value>] [--updateInterval <value>] [--varianceThreshold <value>]
+
+ARGUMENTS
+  AGGREGATORKEY  public key of the aggregator
+
+FLAGS
+  -a, --authority=<value>      alternate keypair that is the authority for the aggregator
+  -h, --help                   Show CLI help.
+  -k, --keypair=<value>        keypair that will pay for onchain transactions. defaults to new account authority if no
+                               alternate authority provided
+  -s, --silent                 suppress cli prompts
+  -u, --rpcUrl=<value>         alternate RPC url
+  -v, --verbose                log everything
+  --commitment=<option>        [default: confirmed] transaction commitment level to use
+                               <options: confirmed|finalized|processed>
+  --forceReportPeriod=<value>  Number of seconds for which, even if the variance threshold is not passed, accept new
+                               responses from oracles.
+  --mainnetBeta                WARNING: use mainnet-beta solana cluster
+  --minJobs=<value>            number of jobs that must respond before an oracle responds
+  --minOracles=<value>         number of oracles that must respond before a value is accepted on-chain
+  --newQueue=<value>           public key of the new oracle queue
+  --programId=<value>          alternative Switchboard program ID to interact with
+  --updateInterval=<value>     set an aggregator's minimum update delay
+  --varianceThreshold=<value>  percentage change between a previous accepted result and the next round before an oracle
+                               reports a value on-chain. Used to conserve lease cost during low volatility
+
+DESCRIPTION
+  set an aggregator's config
+
+ALIASES
+  $ sbv2 solana set aggregator
+
+EXAMPLES
+  $ sbv2 aggregator:set GvDMxPzN1sCj7L26YDK2HnMRXEQmQ2aemov8YBtPS7vR --updateInterval 300 --minOracles 3 --keypair ../payer-keypair.json
 ```
 
 ## `sbv2 solana vrf create [QUEUEKEY]`
@@ -5448,6 +5402,38 @@ DESCRIPTION
   if ready, verify a VRF proof
 ```
 
+## `sbv2 solana vrf watch [VRFKEY]`
+
+watch a vrf for a new value
+
+```
+USAGE
+  $ sbv2 solana vrf watch [VRFKEY] [-h] [-v] [-s] [--mainnetBeta] [-u <value>] [--programId <value>] [--commitment
+    confirmed|finalized|processed]
+
+ARGUMENTS
+  VRFKEY  public key of the vrf account to deserialize
+
+FLAGS
+  -h, --help             Show CLI help.
+  -s, --silent           suppress cli prompts
+  -u, --rpcUrl=<value>   alternate RPC url
+  -v, --verbose          log everything
+  --commitment=<option>  [default: confirmed] transaction commitment level to use
+                         <options: confirmed|finalized|processed>
+  --mainnetBeta          WARNING: use mainnet-beta solana cluster
+  --programId=<value>    alternative Switchboard program ID to interact with
+
+DESCRIPTION
+  watch a vrf for a new value
+
+ALIASES
+  $ sbv2 solana vrf watch
+
+EXAMPLES
+  $ sbv2 vrf:aggregator J7j9xX8JP2B2ErvUzuqGAKBGeggsxPyFXj5MqZcYDxfa
+```
+
 ## `sbv2 solana watch aggregator [AGGREGATORKEY]`
 
 watch an aggregator for a new value
@@ -5474,7 +5460,7 @@ DESCRIPTION
   watch an aggregator for a new value
 
 ALIASES
-  $ sbv2 aggregator watch
+  $ sbv2 solana aggregator watch
 
 EXAMPLES
   $ sbv2 watch:aggregator J7j9xX8JP2B2ErvUzuqGAKBGeggsxPyFXj5MqZcYDxfa
@@ -5506,7 +5492,7 @@ DESCRIPTION
   watch a vrf for a new value
 
 ALIASES
-  $ sbv2 vrf watch
+  $ sbv2 solana vrf watch
 
 EXAMPLES
   $ sbv2 vrf:aggregator J7j9xX8JP2B2ErvUzuqGAKBGeggsxPyFXj5MqZcYDxfa
@@ -5568,36 +5554,4 @@ FLAG DESCRIPTIONS
 ```
 
 _See code: [@oclif/plugin-version](https://github.com/oclif/plugin-version/blob/v1.1.2/src/commands/version.ts)_
-
-## `sbv2 vrf watch [VRFKEY]`
-
-watch a vrf for a new value
-
-```
-USAGE
-  $ sbv2 vrf watch [VRFKEY] [-h] [-v] [-s] [--mainnetBeta] [-u <value>] [--programId <value>] [--commitment
-    confirmed|finalized|processed]
-
-ARGUMENTS
-  VRFKEY  public key of the vrf account to deserialize
-
-FLAGS
-  -h, --help             Show CLI help.
-  -s, --silent           suppress cli prompts
-  -u, --rpcUrl=<value>   alternate RPC url
-  -v, --verbose          log everything
-  --commitment=<option>  [default: confirmed] transaction commitment level to use
-                         <options: confirmed|finalized|processed>
-  --mainnetBeta          WARNING: use mainnet-beta solana cluster
-  --programId=<value>    alternative Switchboard program ID to interact with
-
-DESCRIPTION
-  watch a vrf for a new value
-
-ALIASES
-  $ sbv2 vrf watch
-
-EXAMPLES
-  $ sbv2 vrf:aggregator J7j9xX8JP2B2ErvUzuqGAKBGeggsxPyFXj5MqZcYDxfa
-```
 <!-- commandsstop -->

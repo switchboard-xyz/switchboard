@@ -2207,10 +2207,10 @@
     bn.js "^5.2.1"
     protobufjs "^6.11.3"
 
-"@switchboard-xyz/near.js@^2.0.17":
-  version "2.0.17"
-  resolved "https://registry.npmjs.org/@switchboard-xyz/near.js/-/near.js-2.0.17.tgz#a1bbfc4e4090a0486a14f4b16b190348a531444a"
-  integrity sha512-VvpNhehIaJp1x0yl2W2LnOLpjLrx4B+reWvTp/+NPnPqFLrXyBLnFkRij9Vl6xoxjeLltzR65yg/HqckZtrdng==
+"@switchboard-xyz/near.js@^2.0.18":
+  version "2.0.18"
+  resolved "https://registry.npmjs.org/@switchboard-xyz/near.js/-/near.js-2.0.18.tgz#3208aaa1b0468ed1878303da7dfb23f7534c0cc6"
+  integrity sha512-Ky9vWbDCb4lzR8qI/d9j8iZQjFiRTrPKyiOjEoPYVUv8mRQFmMwJpUzSnYTi1z742FwfQqIzydqIMW79Ho9MuQ==
   dependencies:
     "@switchboard-xyz/common" "^2.0.0"
     big.js "^6.2.1"
@@ -2222,10 +2222,10 @@
     near-units "^0.1.9"
     wait-for-event "^2.0.1"
 
-"@switchboard-xyz/sbv2-utils@^0.1.47":
-  version "0.1.47"
-  resolved "https://registry.npmjs.org/@switchboard-xyz/sbv2-utils/-/sbv2-utils-0.1.47.tgz#3a62fbb4fb4a402fbb320c19b17e7f8039df33b6"
-  integrity sha512-+IOLhWtwrPC4ef2MVXNHQuxUX7IetNNaNri1qyJR1bYn8EZucZAHG0k0NByuDdW87okX7rpI41UcEkwJ4hFP4g==
+"@switchboard-xyz/sbv2-utils@^0.1.48":
+  version "0.1.48"
+  resolved "https://registry.npmjs.org/@switchboard-xyz/sbv2-utils/-/sbv2-utils-0.1.48.tgz#576880ed617e5976189d4b6d308e36b896968119"
+  integrity sha512-Q/CoE5u+iBrLwlaD7Z7/DdRwCjgLa+RHaALqClvGkfvHVOOugEVjV+wjOEBDCX3dv+J+Hm/QfQGJ3WVAfnw4tw==
   dependencies:
     "@orca-so/sdk" "^1.2.24"
     "@project-serum/anchor" "^0.24.2"
@@ -2233,7 +2233,7 @@
     "@solana/spl-token-v2" "npm:@solana/spl-token@^0.2.0"
     "@solana/web3.js" "^1.43.5"
     "@switchboard-xyz/common" "^2.0.0"
-    "@switchboard-xyz/switchboard-v2" "^0.0.134"
+    "@switchboard-xyz/switchboard-v2" "^0.0.135"
     big.js "^6.2.1"
     bn.js "^5.2.1"
     chalk "4"
@@ -2242,10 +2242,10 @@
     mocha "^9.1.1"
     toml "^3.0.0"
 
-"@switchboard-xyz/switchboard-v2@^0.0.134":
-  version "0.0.134"
-  resolved "https://registry.npmjs.org/@switchboard-xyz/switchboard-v2/-/switchboard-v2-0.0.134.tgz#7ab0e2d34d9b315036ec3e3e71bea5f7e56bf22d"
-  integrity sha512-4FvpwFlU64HPx8TO0aMhp4yiqWGZfVlLEAytO2JufCQORgAhy+H8HcPgsGStjm+bw87rfXEKc8r8UlK+CLCRBg==
+"@switchboard-xyz/switchboard-v2@^0.0.135":
+  version "0.0.135"
+  resolved "https://registry.npmjs.org/@switchboard-xyz/switchboard-v2/-/switchboard-v2-0.0.135.tgz#51f33c69e7b3ed8180680d475d8e53c67426dd7e"
+  integrity sha512-ugaC6xYq5Xojok/g62HnealdrvF5v2YmJ6mxkYLL2zrAHQwVDSnFg052OLjthYusifum9kBvUFMPEwnU44UIbQ==
   dependencies:
     "@project-serum/anchor" "^0.24.2"
     "@solana/spl-governance" "^0.0.34"
@@ -2258,6 +2258,7 @@
     chan "^0.6.1"
     crypto-js "^4.0.0"
     glob "^8.0.3"
+    lodash "^4.17.21"
     long "^4.0.0"
     mocha "^9.1.1"
     node-fetch "^3.2.6"

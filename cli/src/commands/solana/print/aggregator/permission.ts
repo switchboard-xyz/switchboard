@@ -12,8 +12,8 @@ export default class AggregatorPermissionPrint extends BaseCommand {
     "Print the permission account associated with a Switchboard aggregator account";
 
   static aliases = [
-    "aggregator:permission:print",
-    "aggregator:print:permission",
+    "solana:aggregator:permission:print",
+    "solana:aggregator:print:permission",
   ];
 
   static flags = {

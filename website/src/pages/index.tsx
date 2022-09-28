@@ -8,16 +8,16 @@ import React from "react";
 import { HomepageFeatures } from "../components/HomepageFeatures";
 import theme from "../components/theme";
 
-const StyledMain = styled("main")<{ dark: number }>(({ theme, dark }) => ({
-  backgroundColor: dark ? "#1f354b" : theme.palette.pageBackground.secondary,
-  padding: "50px 32px 90px",
-  minHeight: "calc(100vh - 324px)", // 100vh - footer/padding
+const StyledMain = styled("main")(({ theme }) => ({
+  backgroundColor: "var(--ifm-pages-background-color)",
+  padding: "50px 32px 0px",
+  minHeight: "calc(100vh - 140px)", // 100vh - footer/padding
   width: "100vw",
   display: "flex",
   flexDirection: "column",
   alignItems: "center",
   [theme.breakpoints.down(966)]: {
-    padding: "50px 32px 90px",
+    padding: "50px 32px 0px",
   },
 }));
 
@@ -25,7 +25,7 @@ const Main = () => {
   const { colorMode } = useColorMode();
 
   return (
-    <StyledMain dark={colorMode === "dark" ? 1 : 0}>
+    <StyledMain>
       <HomepageFeatures />
       <Box sx={{ height: 20 }} />
     </StyledMain>

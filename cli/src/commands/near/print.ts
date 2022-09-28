@@ -72,7 +72,7 @@ export default class NearPrint extends BaseCommand {
           ...crankData,
           length: crankData.data.length,
           data: crankData.data.map(
-            (row) => `${row.next_timestamp}, ${base58.encode(row.uuid)}`
+            (row) => `${row.nextTimestamp}, ${base58.encode(row.uuid)}`
           ),
         };
         break;

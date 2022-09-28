@@ -36,12 +36,12 @@ export abstract class AptosBaseCommand extends BaseCommand {
     programId: Flags.string({
       description: "Switchboard programId on the selected Aptos network",
       default:
-        "0x14611263909398572be034debb2e61b6751cafbeaddd994b9a1250cb76b99d38",
+        "0xb27f7bbf7caf2368b08032d005e8beab151a885054cdca55c4cc644f0a308d2b",
     }),
     stateAddress: Flags.string({
       description: "Switchboard state address",
       default:
-        "0x14611263909398572be034debb2e61b6751cafbeaddd994b9a1250cb76b99d38",
+        "0xb27f7bbf7caf2368b08032d005e8beab151a885054cdca55c4cc644f0a308d2b",
     }),
     rpcUrl: Flags.string({
       char: "u",
@@ -75,7 +75,7 @@ export abstract class AptosBaseCommand extends BaseCommand {
     this.aptos = new AptosClient(this.rpcUrl);
     this.faucet = new FaucetClient(
       this.rpcUrl,
-      "https://faucet.devnet.aptoslabs.com"
+      `https://faucet.${this.networkId}.aptoslabs.com`
     );
 
     this.stateAddress = HexString.ensure((flags as any).stateAddress);

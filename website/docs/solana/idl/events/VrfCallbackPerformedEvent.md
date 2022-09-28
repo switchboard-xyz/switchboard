@@ -1,5 +1,7 @@
-| Name         | Type      | Description |
-| ------------ | --------- | ----------- |
-| vrfPubkey    | publicKey |             |
-| oraclePubkey | publicKey |             |
-| amount       | u64       |             |
+
+
+| Name | Type | Description |
+|--|--|--|
+| vrfPubkey | publicKey |  |
+| oraclePubkey | publicKey |  |
+| amount | u64 |  |

@@ -24,7 +24,7 @@ import {
 export default class JsonCreateAggregator extends BaseCommand {
   static description = "create an aggregator from a json file";
 
-  static aliases = ["json:create:aggregator"];
+  static aliases = ["solana:json:create:aggregator"];
 
   static flags = {
     ...BaseCommand.flags,

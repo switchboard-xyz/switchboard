@@ -48,6 +48,7 @@
     "hast-util-is-element": "1.1.0",
     "my-loaders": "file:plugins/my-loaders",
     "prism-react-renderer": "^1.2.1",
+    "raw-loader": "^4.0.2",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-icons": "^4.3.1",

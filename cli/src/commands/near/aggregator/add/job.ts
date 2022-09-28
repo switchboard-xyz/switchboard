@@ -87,7 +87,7 @@ export default class AggregatorAddJob extends BaseCommand {
 
     const newAggregatorData = await aggregatorAccount.loadData();
     const aggregatorJobs: [JobAccount, OracleJob][] = await Promise.all(
-      (newAggregatorData.jobs as Array<Array<number>>).map(
+      (newAggregatorData.jobs as Array<Uint8Array>).map(
         async (jobAddress) => {
           const jobAccount = new JobAccount({
             program: this.program,

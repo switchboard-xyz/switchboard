@@ -50,8 +50,8 @@ export default class QueueSetVrf extends BaseCommand {
       queue.authority
     );
 
-    const setVrfTxn = await this.queueAccount.setVrfSettings({
-      unpermissionedVrf: true,
+    const setVrfTxn = await this.queueAccount.setConfigTxn({
+      unpermissionedVrfEnabled: true,
       authority: this.queueAuthority ?? this.signer,
     });
 

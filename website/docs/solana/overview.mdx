@@ -1,0 +1,74 @@
+---
+sidebar_position: 1
+title: Overview
+slug: .
+---
+
+import RoundedCardGroup from "/src/components/RoundedCard/RoundedCardGroup";
+import useBaseUrl from "@docusaurus/useBaseUrl";
+
+## Networks
+
+<RoundedCardGroup
+  items={[
+    {
+      to: "/solana/program/mainnet",
+      title: "Mainnet",
+      description: "View the Mainnet deployment accounts",
+      image: <img src={useBaseUrl("/img/icons/solana/logo.svg")} />,
+    },
+    {
+      to: "/solana/program/devnet",
+      title: "Devnet",
+      description: "View the Devnet deployment accounts",
+      image: <img src={useBaseUrl("/img/icons/solana/logo.svg")} />,
+    },
+  ]}
+/>
+
+## Products
+
+<RoundedCardGroup
+  cols={3}
+  items={[
+    {
+      to: "/solana/feeds",
+      title: "Data Feeds",
+      description: "Learn about Switchboard's data feeds on Solana",
+      image: <img src={useBaseUrl("/img/icons/feeds/light.svg")} />,
+      imageDark: <img src={useBaseUrl("/img/icons/feeds/dark.svg")} />,
+    },
+    {
+      to: "/solana/randomness",
+      title: "Randomness",
+      description:
+        "Learn about Switchboard's Verifiable Random Function on Solana",
+      image: <img src={useBaseUrl("/img/icons/randomness/light.svg")} />,
+      imageDark: <img src={useBaseUrl("/img/icons/randomness/dark.svg")} />,
+    },
+    {
+      to: "/solana/buffer-relayers",
+      title: "Buffer Relayers",
+      description: "Learn about Switchboard's buffer relayers on Solana",
+      image: <img src={useBaseUrl("/img/icons/buffer-relayers/light.svg")} />,
+      imageDark: (
+        <img src={useBaseUrl("/img/icons/buffer-relayers/dark.svg")} />
+      ),
+    },
+  ]}
+/>
+
+## Resources
+
+<RoundedCardGroup
+  cols={2}
+  items={[
+    {
+      to: "/solana/dev",
+      title: "Developer Resources",
+      description: "Learn how to develop with Switchboard on Solana",
+      image: <img src={useBaseUrl("/img/icons/develop/light.svg")} />,
+      imageDark: <img src={useBaseUrl("/img/icons/develop/dark.svg")} />,
+    },
+  ]}
+/>

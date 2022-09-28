@@ -1,0 +1,60 @@
+---
+sidebar_position: 1
+title: Overview
+slug: .
+---
+
+import RoundedCardGroup from "/src/components/RoundedCard/RoundedCardGroup";
+import useBaseUrl from "@docusaurus/useBaseUrl";
+import { NearIcon } from "/src/components/icons/NearIcon";
+
+The Switchboard V2 Near implementation is still in beta.
+
+## Networks
+
+<RoundedCardGroup
+  items={[
+    {
+      to: "/near/program/mainnet",
+      title: "Mainnet",
+      description: "View the Mainnet deployment accounts",
+      image: <img src={useBaseUrl("/img/icons/near/light.svg")} />,
+      imageDark: <img src={useBaseUrl("/img/icons/near/dark.svg")} />,
+    },
+    {
+      to: "/near/program/testnet",
+      title: "Testnet",
+      description: "View the Testnet deployment accounts",
+      image: <img src={useBaseUrl("/img/icons/near/light.svg")} />,
+      imageDark: <img src={useBaseUrl("/img/icons/near/dark.svg")} />,
+    },
+  ]}
+/>
+
+## Products
+
+<RoundedCardGroup
+  items={[
+    {
+      to: "/near/feeds",
+      title: "Data Feeds",
+      description: "Learn about Switchboard's data feeds on Near",
+      image: <img src={useBaseUrl("/img/icons/feeds/light.svg")} />,
+      imageDark: <img src={useBaseUrl("/img/icons/feeds/dark.svg")} />,
+    },
+  ]}
+/>
+
+## Resources
+
+<RoundedCardGroup
+  items={[
+    {
+      to: "/near/dev",
+      title: "Developer Resources",
+      description: "Learn how to develop with Switchboard on Near",
+      image: <img src={useBaseUrl("/img/icons/develop/light.svg")} />,
+      imageDark: <img src={useBaseUrl("/img/icons/develop/dark.svg")} />,
+    },
+  ]}
+/>

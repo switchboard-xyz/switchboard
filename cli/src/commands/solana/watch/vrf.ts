@@ -19,7 +19,7 @@ export default class WatchVrf extends BaseCommand {
     },
   ];
 
-  static aliases = ["vrf:watch"];
+  static aliases = ["solana:vrf:watch"];
 
   static examples = [
     "$ sbv2 vrf:aggregator J7j9xX8JP2B2ErvUzuqGAKBGeggsxPyFXj5MqZcYDxfa",

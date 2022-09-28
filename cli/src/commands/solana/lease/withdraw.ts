@@ -17,7 +17,7 @@ import { CHECK_ICON, loadKeypair } from "../../../utils";
 export default class AggregatorLeaseWithdraw extends BaseCommand {
   static description = "withdraw funds from an aggregator lease";
 
-  static aliases = ["aggregator:lease:withdraw"];
+  static aliases = ["solana:aggregator:lease:withdraw"];
 
   static flags = {
     ...BaseCommand.flags,

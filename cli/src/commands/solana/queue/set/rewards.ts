@@ -1,6 +1,7 @@
 import { Flags } from "@oclif/core";
 import { PublicKey } from "@solana/web3.js";
 import { OracleQueueAccount } from "@switchboard-xyz/switchboard-v2";
+import { BN } from "bn.js";
 import chalk from "chalk";
 import { SolanaWithSignerBaseCommand as BaseCommand } from "../../../../solana";
 import { CHECK_ICON } from "../../../../utils";
@@ -46,8 +47,8 @@ export default class QueueSetRewards extends BaseCommand {
       queue.authority
     );
 
-    const txn = await queueAccount.setRewards({
-      rewards: args.rewards,
+    const txn = await queueAccount.setConfigTxn({
+      reward: new BN(args.rewards),
       authority,
     });
 
