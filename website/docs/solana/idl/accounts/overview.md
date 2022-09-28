@@ -1,7 +1,7 @@
 ---
 sidebar_position: 1
 title: Overview
-slug: /program/accounts
+slug: .
 ---
 
 - [AggregatorAccountData](/solana/idl/accounts/AggregatorAccountData)
@@ -12,7 +12,5 @@ slug: /program/accounts
 - [OracleAccountData](/solana/idl/accounts/OracleAccountData)
 - [OracleQueueAccountData](/solana/idl/accounts/OracleQueueAccountData)
 - [PermissionAccountData](/solana/idl/accounts/PermissionAccountData)
-- [RealmSpawnRecordAccountData](/solana/idl/accounts/RealmSpawnRecordAccountData)
 - [SbState](/solana/idl/accounts/SbState)
-- [TaskSpecRecord](/solana/idl/accounts/TaskSpecRecord)
 - [VrfAccountData](/solana/idl/accounts/VrfAccountData)

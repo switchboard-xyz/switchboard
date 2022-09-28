@@ -3,7 +3,7 @@
 This website is built using [Docusaurus 2](https://docusaurus.io/), a modern
 static website generator.
 
-Documentation: https://switchboard-xyz.github.io/sbv2-core/
+Documentation: https://switchboard-xyz.github.io/
 
 <!-- TODO: Update link -->
 

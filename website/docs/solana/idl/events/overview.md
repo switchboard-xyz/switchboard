@@ -1,7 +1,7 @@
 ---
 sidebar_position: 1
 title: Overview
-slug: /program/events
+slug: .
 ---
 
 - [AggregatorCrankEvictionEvent](/solana/idl/events/AggregatorCrankEvictionEvent)

@@ -1,7 +1,7 @@
 ---
 sidebar_position: 1
 title: Overview
-slug: /program/types
+slug: .
 ---
 
 - [AccountMetaBorsh](/solana/idl/types/AccountMetaBorsh)

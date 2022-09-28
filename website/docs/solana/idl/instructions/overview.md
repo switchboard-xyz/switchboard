@@ -1,7 +1,7 @@
 ---
 sidebar_position: 1
 title: Overview
-slug: /program/instructions
+slug: .
 ---
 
 - [aggregatorAddJob](/solana/idl/instructions/aggregatorAddJob)
