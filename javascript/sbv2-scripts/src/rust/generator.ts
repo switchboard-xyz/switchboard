@@ -216,7 +216,6 @@ export class ProgramStructs {
 
     const imports = [
       `import BN from "bn.js"; // eslint-disable-line @typescript-eslint/no-unused-vars`,
-      `import * as borsh from "borsh"; // eslint-disable-line @typescript-eslint/no-unused-vars`,
       `import * as types from "../types/index.js"; // eslint-disable-line @typescript-eslint/no-unused-vars`,
     ];
 

@@ -32,7 +32,7 @@ const projectRoot = path.join(__dirname, "..", "..");
   console.log(chalk.green(`Generating typedocs for @switchboard-xyz/near.js`));
   generateGenericApiTypedocs(
     projectRoot,
-    ["sdks", "near", "javascript"],
+    ["sdks", "near", "javascript", "near.js"],
     ["@switchboard-xyz", "near.js"]
   );
 
