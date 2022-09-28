@@ -7,7 +7,7 @@
   </thead>
   <tbody>
     <tr>
-      <td>FS_PAYER_SECRET_PATH</td>
+      <td>PAYER_SECRET_PATH</td>
       <td>
         <b>Type</b> - Filesystem Path
         <br />
