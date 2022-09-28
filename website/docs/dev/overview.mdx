@@ -2,4 +2,99 @@
 sidebar_position: 1
 slug: .
 title: Developer Resources
+hide_table_of_contents: true
 ---
+
+import RoundedCardGroup from "/src/components/RoundedCard/RoundedCardGroup";
+import { RustIcon } from "/src/components/icons/RustIcon";
+import useBaseUrl from "@docusaurus/useBaseUrl";
+
+## Typedocs
+
+### Typescript
+
+<RoundedCardGroup
+  cols={3}
+  items={[
+    {
+      to: "https://docs.switchboard.xyz/api/@switchboard-xyz/common",
+      title: "common",
+      description:
+        "Common type definitions used across chains such as the OracleJob protobuf",
+      image: <img src={useBaseUrl("/img/icons/switchboard/logo.svg")} />,
+      imageDark: <img src={useBaseUrl("/img/icons/switchboard/logo.svg")} />,
+    },
+    {
+      to: "https://docs.switchboard.xyz/api/@switchboard-xyz/sbv2-utils",
+      title: "sbv2-utils",
+      description: "Utility functions to interact with Switchboard on Solana",
+      image: <img src={useBaseUrl("/img/icons/switchboard/logo.svg")} />,
+      imageDark: <img src={useBaseUrl("/img/icons/switchboard/logo.svg")} />,
+    },
+    {
+      to: "/dev/cli",
+      title: "cli",
+      description: "Switchboard command line interface",
+      image: <img src={useBaseUrl("/img/icons/switchboard/logo.svg")} />,
+      imageDark: <img src={useBaseUrl("/img/icons/switchboard/logo.svg")} />,
+    },
+    {
+      to: "https://docs.switchboard.xyz/api/@switchboard-xyz/aptos.js",
+      title: "aptos.js",
+      description: "Aptos typescript client",
+      image: <img src={useBaseUrl("/img/icons/aptos/light.svg")} />,
+      imageDark: <img src={useBaseUrl("/img/icons/aptos/dark.svg")} />,
+    },
+    {
+      to: "https://docs.switchboard.xyz/api/@switchboard-xyz/near.js",
+      title: "near.js",
+      description: "Near typescript client",
+      image: <img src={useBaseUrl("/img/icons/near/light.svg")} />,
+      imageDark: <img src={useBaseUrl("/img/icons/near/dark.svg")} />,
+    },
+    {
+      to: "https://docs.switchboard.xyz/api/@switchboard-xyz/solana.js",
+      title: "switchboard-v2",
+      description: "Solana typescript client",
+      image: <img src={useBaseUrl("/img/icons/solana/logo.svg")} />,
+      imageDark: <img src={useBaseUrl("/img/icons/solana/logo.svg")} />,
+    },
+    {
+      to: "https://docs.switchboard.xyz/api/@switchboard-xyz/sbv2-lite",
+      title: "sbv2-lite",
+      description: 'Solana "lite" typescript client',
+      image: <img src={useBaseUrl("/img/icons/solana/logo.svg")} />,
+      imageDark: <img src={useBaseUrl("/img/icons/solana/logo.svg")} />,
+    },
+  ]}
+/>
+
+### <RustIcon />Rust
+
+<RoundedCardGroup
+  cols={2}
+  items={[
+    {
+      to: "https://docs.rs/switchboard-v2/latest/switchboard_v2",
+      title: "switchboard-v2",
+      description: "View the Solana rust client",
+      image: <img src={useBaseUrl("/img/icons/solana/logo.svg")} />,
+      imageDark: <img src={useBaseUrl("/img/icons/solana/logo.svg")} />,
+    },
+  ]}
+/>
+
+### Python
+
+<RoundedCardGroup
+  cols={2}
+  items={[
+    {
+      to: "https://docs.switchboard.xyz/api/switchboardpy",
+      title: "switchboardpy",
+      description: "Python client for Solana",
+      image: <img src={useBaseUrl("/img/icons/solana/logo.svg")} />,
+      imageDark: <img src={useBaseUrl("/img/icons/solana/logo.svg")} />,
+    },
+  ]}
+/>
