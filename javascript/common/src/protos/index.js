@@ -1785,6 +1785,258 @@
             return MaxTask;
         })();
     
+        OracleJob.MinTask = (function() {
+    
+            /**
+             * Properties of a MinTask.
+             * @memberof OracleJob
+             * @interface IMinTask
+             * @property {Array.<OracleJob.ITask>|null} [tasks] MinTask tasks
+             * @property {Array.<IOracleJob>|null} [jobs] MinTask jobs
+             */
+    
+            /**
+             * Constructs a new MinTask.
+             * @memberof OracleJob
+             * @classdesc Represents a MinTask.
+             * @implements IMinTask
+             * @constructor
+             * @param {OracleJob.IMinTask=} [properties] Properties to set
+             */
+            function MinTask(properties) {
+                this.tasks = [];
+                this.jobs = [];
+                if (properties)
+                    for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                        if (properties[keys[i]] != null)
+                            this[keys[i]] = properties[keys[i]];
+            }
+    
+            /**
+             * MinTask tasks.
+             * @member {Array.<OracleJob.ITask>} tasks
+             * @memberof OracleJob.MinTask
+             * @instance
+             */
+            MinTask.prototype.tasks = $util.emptyArray;
+    
+            /**
+             * MinTask jobs.
+             * @member {Array.<IOracleJob>} jobs
+             * @memberof OracleJob.MinTask
+             * @instance
+             */
+            MinTask.prototype.jobs = $util.emptyArray;
+    
+            /**
+             * Creates a new MinTask instance using the specified properties.
+             * @function create
+             * @memberof OracleJob.MinTask
+             * @static
+             * @param {OracleJob.IMinTask=} [properties] Properties to set
+             * @returns {OracleJob.MinTask} MinTask instance
+             */
+            MinTask.create = function create(properties) {
+                return new MinTask(properties);
+            };
+    
+            /**
+             * Encodes the specified MinTask message. Does not implicitly {@link OracleJob.MinTask.verify|verify} messages.
+             * @function encode
+             * @memberof OracleJob.MinTask
+             * @static
+             * @param {OracleJob.IMinTask} message MinTask message or plain object to encode
+             * @param {$protobuf.Writer} [writer] Writer to encode to
+             * @returns {$protobuf.Writer} Writer
+             */
+            MinTask.encode = function encode(message, writer) {
+                if (!writer)
+                    writer = $Writer.create();
+                if (message.tasks != null && message.tasks.length)
+                    for (var i = 0; i < message.tasks.length; ++i)
+                        $root.OracleJob.Task.encode(message.tasks[i], writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
+                if (message.jobs != null && message.jobs.length)
+                    for (var i = 0; i < message.jobs.length; ++i)
+                        $root.OracleJob.encode(message.jobs[i], writer.uint32(/* id 2, wireType 2 =*/18).fork()).ldelim();
+                return writer;
+            };
+    
+            /**
+             * Encodes the specified MinTask message, length delimited. Does not implicitly {@link OracleJob.MinTask.verify|verify} messages.
+             * @function encodeDelimited
+             * @memberof OracleJob.MinTask
+             * @static
+             * @param {OracleJob.IMinTask} message MinTask message or plain object to encode
+             * @param {$protobuf.Writer} [writer] Writer to encode to
+             * @returns {$protobuf.Writer} Writer
+             */
+            MinTask.encodeDelimited = function encodeDelimited(message, writer) {
+                return this.encode(message, writer).ldelim();
+            };
+    
+            /**
+             * Decodes a MinTask message from the specified reader or buffer.
+             * @function decode
+             * @memberof OracleJob.MinTask
+             * @static
+             * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+             * @param {number} [length] Message length if known beforehand
+             * @returns {OracleJob.MinTask} MinTask
+             * @throws {Error} If the payload is not a reader or valid buffer
+             * @throws {$protobuf.util.ProtocolError} If required fields are missing
+             */
+            MinTask.decode = function decode(reader, length) {
+                if (!(reader instanceof $Reader))
+                    reader = $Reader.create(reader);
+                var end = length === undefined ? reader.len : reader.pos + length, message = new $root.OracleJob.MinTask();
+                while (reader.pos < end) {
+                    var tag = reader.uint32();
+                    switch (tag >>> 3) {
+                    case 1:
+                        if (!(message.tasks && message.tasks.length))
+                            message.tasks = [];
+                        message.tasks.push($root.OracleJob.Task.decode(reader, reader.uint32()));
+                        break;
+                    case 2:
+                        if (!(message.jobs && message.jobs.length))
+                            message.jobs = [];
+                        message.jobs.push($root.OracleJob.decode(reader, reader.uint32()));
+                        break;
+                    default:
+                        reader.skipType(tag & 7);
+                        break;
+                    }
+                }
+                return message;
+            };
+    
+            /**
+             * Decodes a MinTask message from the specified reader or buffer, length delimited.
+             * @function decodeDelimited
+             * @memberof OracleJob.MinTask
+             * @static
+             * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+             * @returns {OracleJob.MinTask} MinTask
+             * @throws {Error} If the payload is not a reader or valid buffer
+             * @throws {$protobuf.util.ProtocolError} If required fields are missing
+             */
+            MinTask.decodeDelimited = function decodeDelimited(reader) {
+                if (!(reader instanceof $Reader))
+                    reader = new $Reader(reader);
+                return this.decode(reader, reader.uint32());
+            };
+    
+            /**
+             * Verifies a MinTask message.
+             * @function verify
+             * @memberof OracleJob.MinTask
+             * @static
+             * @param {Object.<string,*>} message Plain object to verify
+             * @returns {string|null} `null` if valid, otherwise the reason why it is not
+             */
+            MinTask.verify = function verify(message) {
+                if (typeof message !== "object" || message === null)
+                    return "object expected";
+                if (message.tasks != null && message.hasOwnProperty("tasks")) {
+                    if (!Array.isArray(message.tasks))
+                        return "tasks: array expected";
+                    for (var i = 0; i < message.tasks.length; ++i) {
+                        var error = $root.OracleJob.Task.verify(message.tasks[i]);
+                        if (error)
+                            return "tasks." + error;
+                    }
+                }
+                if (message.jobs != null && message.hasOwnProperty("jobs")) {
+                    if (!Array.isArray(message.jobs))
+                        return "jobs: array expected";
+                    for (var i = 0; i < message.jobs.length; ++i) {
+                        var error = $root.OracleJob.verify(message.jobs[i]);
+                        if (error)
+                            return "jobs." + error;
+                    }
+                }
+                return null;
+            };
+    
+            /**
+             * Creates a MinTask message from a plain object. Also converts values to their respective internal types.
+             * @function fromObject
+             * @memberof OracleJob.MinTask
+             * @static
+             * @param {Object.<string,*>} object Plain object
+             * @returns {OracleJob.MinTask} MinTask
+             */
+            MinTask.fromObject = function fromObject(object) {
+                if (object instanceof $root.OracleJob.MinTask)
+                    return object;
+                var message = new $root.OracleJob.MinTask();
+                if (object.tasks) {
+                    if (!Array.isArray(object.tasks))
+                        throw TypeError(".OracleJob.MinTask.tasks: array expected");
+                    message.tasks = [];
+                    for (var i = 0; i < object.tasks.length; ++i) {
+                        if (typeof object.tasks[i] !== "object")
+                            throw TypeError(".OracleJob.MinTask.tasks: object expected");
+                        message.tasks[i] = $root.OracleJob.Task.fromObject(object.tasks[i]);
+                    }
+                }
+                if (object.jobs) {
+                    if (!Array.isArray(object.jobs))
+                        throw TypeError(".OracleJob.MinTask.jobs: array expected");
+                    message.jobs = [];
+                    for (var i = 0; i < object.jobs.length; ++i) {
+                        if (typeof object.jobs[i] !== "object")
+                            throw TypeError(".OracleJob.MinTask.jobs: object expected");
+                        message.jobs[i] = $root.OracleJob.fromObject(object.jobs[i]);
+                    }
+                }
+                return message;
+            };
+    
+            /**
+             * Creates a plain object from a MinTask message. Also converts values to other types if specified.
+             * @function toObject
+             * @memberof OracleJob.MinTask
+             * @static
+             * @param {OracleJob.MinTask} message MinTask
+             * @param {$protobuf.IConversionOptions} [options] Conversion options
+             * @returns {Object.<string,*>} Plain object
+             */
+            MinTask.toObject = function toObject(message, options) {
+                if (!options)
+                    options = {};
+                var object = {};
+                if (options.arrays || options.defaults) {
+                    object.tasks = [];
+                    object.jobs = [];
+                }
+                if (message.tasks && message.tasks.length) {
+                    object.tasks = [];
+                    for (var j = 0; j < message.tasks.length; ++j)
+                        object.tasks[j] = $root.OracleJob.Task.toObject(message.tasks[j], options);
+                }
+                if (message.jobs && message.jobs.length) {
+                    object.jobs = [];
+                    for (var j = 0; j < message.jobs.length; ++j)
+                        object.jobs[j] = $root.OracleJob.toObject(message.jobs[j], options);
+                }
+                return object;
+            };
+    
+            /**
+             * Converts this MinTask to JSON.
+             * @function toJSON
+             * @memberof OracleJob.MinTask
+             * @instance
+             * @returns {Object.<string,*>} JSON object
+             */
+            MinTask.prototype.toJSON = function toJSON() {
+                return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+            };
+    
+            return MinTask;
+        })();
+    
         OracleJob.ValueTask = (function() {
     
             /**
