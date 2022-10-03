@@ -21,7 +21,7 @@
   --ifm-pages-background-color: #f7f9fc;
 }
 
-[data-theme="dark"] {
+[data-theme="dark"] :root {
   --ifm-color-primary: #97d6e2;
   --ifm-color-primary-dark: #7acada;
   --ifm-color-primary-darker: #6bc5d6;

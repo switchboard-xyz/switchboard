@@ -1,0 +1,25 @@
+---
+sidebar_position: 10
+title: IDK
+---
+
+Switchboard is an oracle protocol deployed on **_Aptos_**, **_Near_**, and
+**_Solana_**, and is responsible for how data is requested and routed through
+the chain. At a high level, Switchboard is a resource controller and controls
+how on-chain consumers can _"rent"_ off-chain resources to fulfill update
+requests.
+
+Switchboard's novel approach allows individual oracle networks to be created and
+managed individually. Each Switchboard network has its own oracle queue which is
+a round robin ordering of oracles watching the chain for update requests. When a
+Switchboard resource, such as a data feed or randomness account, requests a new
+value, the queue assigns a batch of oracles to the update requests and
+automatically disperses the queue's specified reward to the oracle when they
+respond within the quoroms majority. This allows DeFi protocols to tune their
+oracles to their desired cost vs security model.
+
+## Access Control
+
+## Oracle Assignment
+
+## Costs
