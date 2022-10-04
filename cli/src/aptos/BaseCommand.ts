@@ -20,6 +20,7 @@ import {
   OracleAccount,
   OracleQueueAccount,
   StateAccount,
+  SWITCHBOARD_DEVNET_ADDRESS,
 } from "@switchboard-xyz/aptos.js";
 import { OracleJob, SwitchboardDecimal } from "@switchboard-xyz/common";
 import { isBN } from "bn.js";
@@ -35,13 +36,11 @@ export abstract class AptosBaseCommand extends BaseCommand {
     }),
     programId: Flags.string({
       description: "Switchboard programId on the selected Aptos network",
-      default:
-        "0xb27f7bbf7caf2368b08032d005e8beab151a885054cdca55c4cc644f0a308d2b",
+      default: SWITCHBOARD_DEVNET_ADDRESS,
     }),
     stateAddress: Flags.string({
       description: "Switchboard state address",
-      default:
-        "0xb27f7bbf7caf2368b08032d005e8beab151a885054cdca55c4cc644f0a308d2b",
+      default: SWITCHBOARD_DEVNET_ADDRESS,
     }),
     rpcUrl: Flags.string({
       char: "u",

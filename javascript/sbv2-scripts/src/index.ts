@@ -25,4 +25,10 @@ program
   .description("Generate javascript type definitions from rust code")
   .action(actions.near);
 
+// sbv2-scripts aptos ../switchboard-aptos/switchboard/sources ../sbv2-aptos/src/generated
+program
+  .command("aptos <aptosSourceDir> <outputDirectory>")
+  .description("Generate javascript type definitions from move code")
+  .action(actions.aptos);
+
 program.parse();

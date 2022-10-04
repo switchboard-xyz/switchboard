@@ -1,7 +1,8 @@
 import fs from "fs";
 import path from "path";
 
-export const getAllRustFiles = (
+export const getAllFiles = (
+  extension: string,
   dirPath: string,
   arrayOfFiles: string[]
 ): string[] => {
@@ -11,9 +12,9 @@ export const getAllRustFiles = (
 
   files.forEach((file: string) => {
     if (fs.statSync(dirPath + "/" + file).isDirectory()) {
-      arrayOfFiles = getAllRustFiles(dirPath + "/" + file, arrayOfFiles);
+      arrayOfFiles = getAllFiles(extension, dirPath + "/" + file, arrayOfFiles);
     } else {
-      if (file.endsWith(".rs")) {
+      if (file.endsWith(`.${extension}`)) {
         arrayOfFiles.push(path.join(dirPath, "/", file));
       }
     }

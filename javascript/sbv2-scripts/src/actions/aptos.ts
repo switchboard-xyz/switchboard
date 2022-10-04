@@ -3,10 +3,10 @@ import path from "path";
 import fse from "fs-extra";
 import { execSync } from "child_process";
 import { getAllFiles, cleanupString } from "../utilts";
-import { SupportedField } from "../rust/fields";
-import { ProgramStructs } from "../rust/generator";
+import { SupportedField } from "../move/fields";
+import { ProgramStructs } from "../move/generator";
 
-export function near(nearSourceDir: string, outputDirectory: string) {
+export function aptos(nearSourceDir: string, outputDirectory: string) {
   console.log(`Finding input files ...`);
 
   const inputDirectory =
@@ -20,7 +20,7 @@ export function near(nearSourceDir: string, outputDirectory: string) {
     throw new Error(`Failed to find input directory ${inputDirectory}`);
   }
 
-  const sourceFiles = getAllFiles("rs", inputDirectory, []);
+  const sourceFiles = getAllFiles("move", inputDirectory, []);
   if (sourceFiles.length === 0) {
     throw new Error(`Failed to find source files in ${inputDirectory}`);
   }
