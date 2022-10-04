@@ -25,8 +25,8 @@ export class ProgramStruct {
       .join("\n")}\n}`;
   }
 
-  getBorshInterface(): string {
-    return `export interface ${this.name}Borsh {\n${this.fields
+  getSerdeInterface(): string {
+    return `export interface ${this.name}Serde {\n${this.fields
       .map((f) => `\t${f.rustName}: ${f.borshType};`)
       .join("\n\t")}\n}`;
   }
@@ -43,9 +43,9 @@ export class ProgramStruct {
       .join(",\n\t\t\t")}\n\t}\n}`;
   }
 
-  getToBorshJsonMethod(): string {
-    return `toBorsh() :${this.name}Borsh {\n\treturn {\n\t\t${this.fields
-      .map((f) => `${f.rustName}: ${f.toBorshMethod() ?? f.toJsonMethod()}`)
+  getToSerdeJsonMethod(): string {
+    return `toSerde() :${this.name}Serde {\n\treturn {\n\t\t${this.fields
+      .map((f) => `${f.rustName}: ${f.toSerdeMethod() ?? f.toJsonMethod()}`)
       .join(",\n\t\t\t")}\n}}`;
   }
 
@@ -57,11 +57,11 @@ export class ProgramStruct {
       .join(",\n\t\t\t")}\n})}`;
   }
 
-  getFromBorshJsonMethod(): string {
-    return `\nstatic fromBorsh(obj: ${this.name}Borsh) {\nreturn new ${
+  getFromSerdeJsonMethod(): string {
+    return `\nstatic fromSerde(obj: ${this.name}Serde) {\nreturn new ${
       this.name
     }({\n\t\t${this.fields
-      .map((f) => `${f.tsName}: ${f.fromBorshMethod()}`)
+      .map((f) => `${f.tsName}: ${f.fromSerdeMethod()}`)
       .join(",\n\t\t\t")}\n})}`;
   }
 
@@ -70,9 +70,9 @@ export class ProgramStruct {
       this.fields.map((f) => f.toReadonlyString()).join("\n\t"),
       this.getConstructor(),
       this.getToJsonMethod(),
-      this.getToBorshJsonMethod(),
+      this.getToSerdeJsonMethod(),
       this.getFromJsonMethod(),
-      this.getFromBorshJsonMethod(),
+      this.getFromSerdeJsonMethod(),
     ];
     return `export class ${this.name} implements I${
       this.name
@@ -90,7 +90,7 @@ export class ProgramStruct {
       "",
       this.getFieldsInterface(),
       this.getJsonInterface(),
-      this.getBorshInterface(),
+      this.getSerdeInterface(),
       this.getClassInterface(),
     ];
     return chunks.join("\n\n");

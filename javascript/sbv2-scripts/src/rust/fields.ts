@@ -64,9 +64,9 @@ export interface ISupportedField {
 
   _borshType: string;
   borshType: string;
-  // getBorshMethod(name: string): string;
-  toBorshMethod(prefix?: string): string;
-  fromBorshMethod(prefix?: string): string;
+  // getSerdeMethod(name: string): string;
+  toSerdeMethod(prefix?: string): string;
+  fromSerdeMethod(prefix?: string): string;
 
   isPrimitive: boolean;
   isUint8Array: boolean;
@@ -91,8 +91,8 @@ export abstract class SupportedField implements ISupportedField {
   }
 
   abstract _borshType: string;
-  abstract toBorshMethod(): string;
-  abstract fromBorshMethod(prefix?: string): string;
+  abstract toSerdeMethod(): string;
+  abstract fromSerdeMethod(prefix?: string): string;
   get borshType(): string {
     return this._borshType;
   }
@@ -220,11 +220,11 @@ export abstract class PrimitiveType extends SupportedField {
     return `${prefix ? prefix + "." : ""}${this.tsName}`;
   }
 
-  toBorshMethod(prefix = "this"): string {
+  toSerdeMethod(prefix = "this"): string {
     return `${prefix ? prefix + "." : ""}${this.tsName}`;
   }
 
-  fromBorshMethod(prefix = "obj"): string {
+  fromSerdeMethod(prefix = "obj"): string {
     return `${prefix ? prefix + "." : ""}${this.rustName}`;
   }
 }
@@ -275,10 +275,10 @@ export class BnField extends SupportedField {
     return `new BN(${prefix ? prefix + "." : ""}${this.tsName})`;
   }
 
-  toBorshMethod(prefix = "this") {
+  toSerdeMethod(prefix = "this") {
     return `${prefix ? prefix + "." : ""}${this.tsName}.toNumber()`;
   }
-  fromBorshMethod(prefix = "obj") {
+  fromSerdeMethod(prefix = "obj") {
     return `new BN(${prefix ? prefix + "." : ""}${this.rustName})`;
   }
 }
@@ -327,9 +327,9 @@ export class OptionalType<T extends ISupportedField> extends SupportedField {
     return `${name} ? ${innerMethod} : undefined`;
   }
 
-  toBorshMethod(prefix = "this"): string {
+  toSerdeMethod(prefix = "this"): string {
     const name = `${prefix ? prefix + "." : ""}${this.tsName}`;
-    const innerMethod = this.innerType.toBorshMethod();
+    const innerMethod = this.innerType.toSerdeMethod();
     if (this.innerType.isUint8Array) {
       return `${name} ? [...${name}] : null`;
     }
@@ -342,9 +342,9 @@ export class OptionalType<T extends ISupportedField> extends SupportedField {
     return `${name}${innerMethod ? " ? " + innerMethod : ""} : null`;
   }
 
-  fromBorshMethod(prefix = "obj"): string {
+  fromSerdeMethod(prefix = "obj"): string {
     const name = `${prefix ? prefix + "." : ""}${this.rustName}`;
-    const innerMethod = this.innerType.fromBorshMethod();
+    const innerMethod = this.innerType.fromSerdeMethod();
     if (this.innerType.isPrimitive) {
       return innerMethod;
     }
@@ -367,7 +367,7 @@ export class CustomStructField extends SupportedField {
     super(name);
     this._jsonType = `types.${customTypeName}JSON`;
     this._fieldType = `types.${customTypeName}`;
-    this._borshType = `types.${customTypeName}Borsh`;
+    this._borshType = `types.${customTypeName}Serde`;
   }
 
   toJsonMethod(prefix = "this"): string {
@@ -379,13 +379,13 @@ export class CustomStructField extends SupportedField {
     return `types.${this.customTypeName}.fromJSON(${name})`;
   }
 
-  toBorshMethod(prefix = "this"): string {
-    return `${prefix ? prefix + "." : ""}${this.tsName}.toBorsh()`;
+  toSerdeMethod(prefix = "this"): string {
+    return `${prefix ? prefix + "." : ""}${this.tsName}.toSerde()`;
   }
 
-  fromBorshMethod(prefix = "obj") {
+  fromSerdeMethod(prefix = "obj") {
     const name = `${prefix ? prefix + "." : ""}${this.rustName}`;
-    return `types.${this.customTypeName}.fromBorsh(${name})`;
+    return `types.${this.customTypeName}.fromSerde(${name})`;
   }
 }
 
@@ -418,7 +418,7 @@ export class ArrayField<T extends ISupportedField> extends SupportedField {
     return `${name}.map((item) => ${this.innerType.toJsonMethod("item")})`;
   }
 
-  toBorshMethod(prefix = "this"): string {
+  toSerdeMethod(prefix = "this"): string {
     const name = `${prefix ? prefix + "." : ""}${this.tsName}`;
     if (this.innerType.isPrimitive) {
       return `${name}.map((item) => item)`;
@@ -427,12 +427,12 @@ export class ArrayField<T extends ISupportedField> extends SupportedField {
       return `${name}.map((item) => [...item])`;
     }
     if (this.innerType.isCustom) {
-      return `${name}.map((item) => item.toBorsh())`;
+      return `${name}.map((item) => item.toSerde())`;
     }
     if (this.innerType.isBn) {
       return `${name}.map((item) => item.toNumber())`;
     }
-    return `${name}.map((item) => ${this.innerType.toBorshMethod("item")})`;
+    return `${name}.map((item) => ${this.innerType.toSerdeMethod("item")})`;
   }
 
   fromJsonMethod(prefix = "obj"): string {
@@ -456,7 +456,7 @@ export class ArrayField<T extends ISupportedField> extends SupportedField {
     )}))`;
   }
 
-  fromBorshMethod(prefix = "obj"): string {
+  fromSerdeMethod(prefix = "obj"): string {
     const name = `${prefix ? prefix + "." : ""}${this.rustName}`;
     if (this.innerType.isUint8Array) {
       return `${name}.map((item) => new Uint8Array(item))`;
@@ -467,12 +467,12 @@ export class ArrayField<T extends ISupportedField> extends SupportedField {
     if (this.innerType.isCustom) {
       return `${name}.map((item) => types.${
         (this.innerType as unknown as CustomStructField).customTypeName
-      }.fromBorsh(item))`;
+      }.fromSerde(item))`;
     }
     if (this.innerType.isPrimitive) {
       return `${name}.map((item) => item)`;
     }
-    return `Array.from(${name}.map((item) => ${this.innerType.fromBorshMethod(
+    return `Array.from(${name}.map((item) => ${this.innerType.fromSerdeMethod(
       "item"
     )}))`;
   }
@@ -498,7 +498,7 @@ export class Uint8ArrayType extends ArrayField<NumberField> {
     return `[...${name}]`;
   }
 
-  toBorshMethod(prefix = "this"): string {
+  toSerdeMethod(prefix = "this"): string {
     const name = `${prefix ? prefix + "." : ""}${this.tsName}`;
     return `[...${name}]`;
   }
@@ -508,7 +508,7 @@ export class Uint8ArrayType extends ArrayField<NumberField> {
     return `new Uint8Array(${name})`;
   }
 
-  fromBorshMethod(prefix = "obj"): string {
+  fromSerdeMethod(prefix = "obj"): string {
     const name = `${prefix ? prefix + "." : ""}${this.rustName}`;
     return `new Uint8Array(${name})`;
   }
@@ -534,7 +534,7 @@ export class MapType<
     return `Object.fromEntries(this.${this.tsName})`;
   }
 
-  toBorshMethod(prefix = "this"): string {
+  toSerdeMethod(prefix = "this"): string {
     const name = `${prefix ? prefix + "." : ""}${this.tsName}`;
     return this.toJsonMethod();
   }
@@ -559,22 +559,22 @@ export class MapType<
     )}]))`;
   }
 
-  fromBorshMethod(prefix = "obj"): string {
+  fromSerdeMethod(prefix = "obj"): string {
     const name = `${prefix ? prefix + "." : ""}${this.rustName}`;
     if (this.key.isUint8Array) {
       if (this.value.isCustom) {
         return `new Map(Array.from(${name}.entries()).map(([k,v]) => [new Uint8Array(k), types.${
           (this.value as unknown as CustomStructField).customTypeName
-        }.fromBorsh(v)]))`;
+        }.fromSerde(v)]))`;
       }
       if (this.value.isUint8Array) {
         return `new Map(Array.from(${name}.entries()).map(([k,v]) => [new Uint8Array(k), new Uint8Array(v)]))`;
       }
-      return `new Map(Array.from(${name}.entries()).map(([k,v]) => [new Uint8Array(k), ${this.value.fromBorshMethod(
+      return `new Map(Array.from(${name}.entries()).map(([k,v]) => [new Uint8Array(k), ${this.value.fromSerdeMethod(
         ""
       )}]))`;
     }
-    return `new Map(Array.from(${name}.entries()).map(([k,v]) => [k, ${this.value.fromBorshMethod(
+    return `new Map(Array.from(${name}.entries()).map(([k,v]) => [k, ${this.value.fromSerdeMethod(
       "v"
     )}]))`;
   }
