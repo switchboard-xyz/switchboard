@@ -137,7 +137,21 @@ console.log(
 await aggregator.openRound(user);
 ```
 
-### Listening to Updates
+## Reading Feeds
+
+```ts
+import { AggregatorAccount } from "@switchboard-xyz/aptos.js";
+
+const aggregatorAccount: AggregatorAccount = new AggregatorAccount(
+  client,
+  aggregator_address,
+  SWITCHBOARD_TESTNET_ADDRESS
+);
+
+console.log(await aggregatorAccount.loadData());
+```
+
+## Listening to Updates
 
 ```ts
 /**
@@ -167,72 +181,4 @@ const updatePoller = onAggregatorUpdate(client, async (e) => {
     console.log(`NEW RESULT:`, e.data);
   }
 });
-```
-
-### Reading Feeds
-
-```ts
-import { AggregatorAccount } from "@switchboard-xyz/aptos.js";
-
-const aggregatorAccount: AggregatorAccount = new AggregatorAccount(
-  client,
-  aggregator_address,
-  SWITCHBOARD_TESTNET_ADDRESS
-);
-
-console.log(await aggregatorAccount.loadData());
-```
-
-# Aptos
-
-### Move.toml
-
-```toml
-[addresses]
-switchboard = "0xb27f7bbf7caf2368b08032d005e8beab151a885054cdca55c4cc644f0a308d2b"
-
-[dependencies]
-MoveStdlib = { git = "https://github.com/aptos-labs/aptos-core.git", subdir = "aptos-move/framework/move-stdlib/", rev = "testnet" }
-AptosFramework = { git = "https://github.com/aptos-labs/aptos-core.git", subdir = "aptos-move/framework/aptos-framework/", rev = "testnet" }
-AptosStdlib = { git = "https://github.com/aptos-labs/aptos-core.git", subdir = "aptos-move/framework/aptos-stdlib/", rev = "testnet" }
-Switchboard = { git = "https://github.com/switchboard-xyz/aptos-sdk.git", subdir = "switchboard-move/switchboard/", rev = "main" }
-```
-
-### Reading Feeds
-
-```rust
-use switchboard::aggregator;
-use switchboard::math::{Self, SwitchboardDecimal};
-
-// store latest value
-struct AggregatorInfo has copy, drop, store, key {
-    aggregator_addr: address,
-    latest_result: u128,
-    latest_result_scaling_factor: u8,
-    latest_result_neg: bool,
-}
-
-// get latest value
-public fun save_latest_value(aggregator_addr: address) {
-    // get latest value
-    let latest_value = aggregator::latest_value(aggregator_addr);
-    let (value, scaling_factor, neg) = math::unpack(latest_value);
-    move_to(account, AggregatorInfo {
-        aggregator_addr: aggregator_addr,
-        latest_result: value,
-        latest_result_scaling_factor: scaling_factor,
-        latest_result_neg: neg,
-    });
-}
-
-// some testing that uses aggregator test utility functions
-#[test(account = @0x1)]
-public entry fun test_aggregator(account: &signer) {
-
-    // creates test aggregator with data
-    aggregator::new_test(account, 100, 0, false);
-
-    // print out value
-    std::debug::print(&aggregator::latest_value(signer::address_of(account)));
-}
 ```

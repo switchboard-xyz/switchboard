@@ -3,25 +3,33 @@ sidebar_position: 10
 title: Feed Parser
 ---
 
+## Quick Links
+
 import RoundedCardGroup from "/src/components/RoundedCard/RoundedCardGroup";
 import useBaseUrl from "@docusaurus/useBaseUrl";
-
-```bash
-git clone https://github.com/switchboard-xyz/sbv2-near
-cd sbv2-near/programs/feed-parser
-```
-
-## Quick Links
 
 <RoundedCardGroup
   cols={2}
   items={[
     {
-      to: "https://github.com/switchboard-xyz/sbv2-near/tree/main/programs/feed-parser",
+      to: "https://github.com/switchboard-xyz/sbv2-aptos/tree/type-gen/programs/feed-parser",
       title: "Github",
-      description: "View the repo",
+      description: "View the Github repo",
       image: <img src={useBaseUrl("/img/icons/github/light.svg")} />,
       imageDark: <img src={useBaseUrl("/img/icons/github/dark.svg")} />,
     },
   ]}
 />
+
+## Setup
+
+```bash
+git clone https://github.com/switchboard-xyz/sbv2-aptos
+cd sbv2-aptos/programs/feed-demo
+```
+
+## Run
+
+```bash
+aptos move compile --named-addresses switchboard_feed_parser=default
+```

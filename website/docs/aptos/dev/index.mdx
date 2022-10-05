@@ -10,19 +10,34 @@ import useBaseUrl from "@docusaurus/useBaseUrl";
 ## Clients
 
 <RoundedCardGroup
-  cols={3}
+  cols={2}
   items={[
     {
-      to: "/aptos/dev/rust/",
-      title: "Rust",
-      description: "View the sbv2-aptos crate",
-      image: <img src={useBaseUrl("/img/icons/rust/crab.svg")} />,
+      to: "/aptos/dev/move/",
+      title: "Move",
+      description: "View the switchboard move module for Aptos",
+      image: <img src={useBaseUrl("/img/icons/move/logo.png")} />,
     },
     {
       to: "/aptos/dev/javascript/",
       title: "Javascript",
       description: "View the @switchboard-xyz/aptos.js npm package",
       image: <img src={useBaseUrl("/img/icons/javascript/light.svg")} />,
+    },
+  ]}
+/>
+
+## On-Chain Example Programs
+
+<RoundedCardGroup
+  cols={2}
+  items={[
+    {
+      to: "/aptos/dev/examples/feed-parser",
+      title: "Feed Parser",
+      description:
+        "View an example program depicting how to read a Switchboard Data Feed on-chain",
+      image: <img src={useBaseUrl("/img/icons/move/logo.png")} />,
     },
   ]}
 />
