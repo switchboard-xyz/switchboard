@@ -6,45 +6,56 @@ slug: .
 
 # Introduction
 
-> Switchboard is a multi-chain permissionless oracle network for
-> general purpose data feeds such as price, sports, weather data
-> and verifiable random function (VRF).
+## Welcome to Switchboard's Documentation
 
+Switchboard is a multichain, permissionless oracle protocol for general purpose
+data feeds and verifiable random function (VRF).
+
+The documentation includes information and guides on the following:
+
++ [Switchboard architecture on the different chains](docs/about/network)
++ [Frequently Asked Questions](docs/about/faq)
++ [All about Data Feeds](docs/feeds/about)
++ [All about VRF](docs/randomness/about)
++ [Oracle operator](docs/operator/about)
++ [Developer resources](docs/dev)
+
+## Origin of Switchboard
 Switchboard gets its name from the early days of phone networks, where operators
-would shuffle telephone lines around a switchboard to complete a circuit and
-forward a dialer’s call to the next hop in the circuit. Similarly, Switchboard
-is responsible for how external data gets updated and routed through a
-blockchain until it reaches its appropriate destination.
+would shuffle telephone lines around a 'switchboard' to complete a circuit and
+forward a dialer’s call to the next hop in the circuit.
 
-At a high level, Switchboard is a proxy between the internet and a blockchain
-allowing data feeds to be matched with off-chain compute resources, thus
-allowing the feeds to periodically request updates and reward oracles for
-answering honestly.
+Similarly, Switchboard, our oracle network is responsible for how external data gets 
+updated and routed through a blockchain until it reaches its appropriate destination.
 
-## What is an Oracle
+## What is an Oracle?
 
-Smart contracts are the building blocks of web3 and can be thought of as the
-logic behind programmable money, although their use cases extend well beyond
-just monetary transactions. A smart contract encapsulates some pre-defined logic
-allowing anonymous participants to interact without a trusted intermediary. More
-complex smart contracts might rely on external data from the web but blockchains
-do not have the capability of directly relaying this information. Enter oracles.
+Blockchains do not have the capability of directly relaying information from off-chain
+to on-chain. Hence, enter oracles, a gateway between blockchain and real world data.
 
-Oracles are the gateway between a blockchain and the real world, providing the
-mechanisms to arrive at a reliable consensus for a single data point when given
-multiple sources. Oracles can then determine the most reliable value of the data
-point after examining the provided answer of each data source. In this way,
-oracles increase information integrity by removing the risk of a single point of
-failure or outlier.
+An oracle is not the data source, it is an infrastructure layer for querying, 
+verifying and authenticating external data sources; which is relayed to the 
+blockchain for a smart contract to read and carry out necessary course of 
+action for its intended product.
+
+## What makes Switchboard different?
+
+Switchboard is permissionless. From a developer's perspective, you customize, build
+and manage your own data feeds where all of which can be done from Switchboard's
+[Publisher](https://app.switchboard.xyz).
+
+> No friction, no contact, build permissionlessly.
 
 ## Use Cases
 
-Oracle services have many applicable uses in blockchain based applications
-today, such as:
+With the power of off-chain data being brought on-chain, Switchboard has plugged into 
+mulitple verticals to build blockchain based applications today, such as:
 
 - Determining the current price of an asset for collateralized lending
 - Determining the state of a tracking number to auto settle funds on arrival
 - Determining the current standings of the MLB for fantasy sports rankings
 
-Oracles can be used for a variety of data sets as long as there is a reliable
-way to source the information.
+_Find out more use cases and integrations [here](docs/faq#use-cases-and-integrations)_
+
+We are only scraping the surface of blockchain technology and we're excited to see
+the future use cases plugged in by Switchboard!
