@@ -1,0 +1,23 @@
+{
+  "name": "SOL/USDC",
+  "description": "Simulate the swap price from an input and output token mint using JupiterSwap. Optionally specify a baseAmount to account for greater slippage and more accurate route selection.",
+  "job": {
+    "tasks": [
+      {
+        "jupiterSwapTask": {
+          "inTokenAddress": "So11111111111111111111111111111111111111112",
+          "outTokenAddress": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+          "baseAmount": "100000",
+          /** Specify the output at each step */
+          "taskOutput": "3323865.12"
+        }
+      },
+      {
+        "divideTask": {
+          "big": "100000",
+          "taskOutput": "33.2386512"
+        }
+      }
+    ]
+  }
+}

@@ -1,8 +1,5 @@
 #!/usr/bin/env ts-node
 
-import fs from "fs";
-import path from "path";
-import chalk from "chalk";
 import * as actions from "./actions";
 
 import { Command } from "commander";
@@ -19,16 +16,16 @@ program
   .description("Generate markdown files from the CLI README.md")
   .action(actions.cli);
 
-// sbv2-scripts near ../near/contract/src ../sbv2-near/javascript/src/generated
+// sbv2-scripts near-types ../near/contract/src ../sbv2-near/javascript/near.js/src/generated
 program
-  .command("near <nearSourceDir> <outputDirectory>")
+  .command("near-types <nearSourceDir> <outputDirectory>")
   .description("Generate javascript type definitions from rust code")
-  .action(actions.near);
+  .action(actions.nearTypes);
 
-// sbv2-scripts aptos ../switchboard-aptos/switchboard/sources ../sbv2-aptos/src/generated
+// sbv2-scripts aptos-types ../switchboard-aptos/switchboard/sources ../sbv2-aptos/javascript/aptos.js/src/generated
 program
-  .command("aptos <aptosSourceDir> <outputDirectory>")
+  .command("aptos-types <aptosSourceDir> <outputDirectory>")
   .description("Generate javascript type definitions from move code")
-  .action(actions.aptos);
+  .action(actions.aptosTypes);
 
 program.parse();

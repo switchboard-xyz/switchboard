@@ -16,14 +16,15 @@ set -e
 stty sane # dont show backspace char during prompts
 
 script_dir=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
+project_dir="$(dirname "$script_dir")"
 
 declare -a feeds=(
-  "$script_dir/feeds/btc"
-  "$script_dir/feeds/eth"
-  "$script_dir/feeds/near"
-  "$script_dir/feeds/sol"
-  "$script_dir/feeds/usdc"
-  "$script_dir/feeds/usdt"
+  "$project_dir/directory/jobs/btc"
+  "$project_dir/directory/jobs/eth"
+  "$project_dir/directory/jobs/near"
+  "$project_dir/directory/jobs/sol"
+  "$project_dir/directory/jobs/usdc"
+  "$project_dir/directory/jobs/usdt"
 )
 
 authority=$1

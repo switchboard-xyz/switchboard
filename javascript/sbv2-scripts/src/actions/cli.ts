@@ -59,7 +59,7 @@ class CliCommand {
 
     const toc: string[] = [];
 
-    // toc.push(` - [sbv2 ${chain}](/sbv2-core/dev/cli/${chain})`);
+    // toc.push(` - [sbv2 ${chain}](/dev/cli/${chain})`);
 
     Object.entries(commands)
       .sort((a, b) => a[0].localeCompare(b[0]))
@@ -90,7 +90,7 @@ class CliCommand {
           toc.push(
             ` - [sbv2 ${chain} ${topic} ${
               c.cmd
-            }](/sbv2-core/dev/cli/${chain}/${topic}/${c.cmd
+            }](/dev/cli/${chain}/${topic}/${c.cmd
               .replace(" ", "_")
               .replace("index", "")})`
           );

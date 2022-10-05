@@ -1,0 +1,41 @@
+{
+  "programId": "SW1TCH7qEPTdLsDHRgPuMQjbQxKdH2aBStViMFnt64f",
+  "idlAddress": "",
+  "programDataAddress": "",
+  "programAuthority": "31Sof5r1xi7dfcaz4x9Kuwm8J9ueAdDduMcme59sP8gc",
+  "upgradeAuthority": "31Sof5r1xi7dfcaz4x9Kuwm8J9ueAdDduMcme59sP8gc",
+  "programStateAccount": "CyZuD7RPDcrqCGbNvLCyqk6Py9cEZTKmNKujfPi3ynDd",
+  "tokenVault": "J7nSEX8ADf3pVVicd6yKy2Skvg8iLePEmkLUisAAaioD",
+  "mint": "So11111111111111111111111111111111111111112",
+  "daoMint": "So11111111111111111111111111111111111111112",
+  "queues": [
+    {
+      "name": "permissioned",
+      "publicKey": "3HBb2DQqDfuMdzWxNk1Eo9RTMkFYmuEAd32RiLKn9pAn",
+      "authority": "31Sof5r1xi7dfcaz4x9Kuwm8J9ueAdDduMcme59sP8gc",
+      "mint": "So11111111111111111111111111111111111111112",
+      "oracleBuffer": "FZ3CAm8o5zf18Ua23jhrZJRYCMtGhFxFrTux8N5yrf2T",
+      "cranks": [
+        {
+          "name": "Crank #1",
+          "publicKey": "GdNVLWzcE6h9SPuSbmu69YzxAj8enim9t6mjzuqTXgLd",
+          "maxRows": 100
+        }
+      ]
+    },
+    {
+      "name": "permissionless",
+      "publicKey": "5JYwqvKkqp35w8Nq3ba4z1WYUeJQ1rB36V8XvaGp6zn1",
+      "authority": "31Sof5r1xi7dfcaz4x9Kuwm8J9ueAdDduMcme59sP8gc",
+      "mint": "So11111111111111111111111111111111111111112",
+      "oracleBuffer": "FozqXFMS1nQKfPqwVdChr7RJ3y7ccSux39zU682kNYjJ",
+      "cranks": [
+        {
+          "name": "Crank #1",
+          "publicKey": "BKtF8yyQsj3Ft6jb2nkfpEKzARZVdGgdEPs6mFmZNmbA",
+          "maxRows": 100
+        }
+      ]
+    }
+  ]
+}
