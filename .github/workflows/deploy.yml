@@ -31,6 +31,7 @@ jobs:
         working-directory: cli
         run: |
           yarn install --frozen-lockfile --network-timeout=1000000
+          yarn build
 
       - name: Generate CLI Docs
         working-directory: .
