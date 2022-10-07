@@ -24,7 +24,11 @@ export function cli(cliReadmePath: string, outputDirectory: string) {
       : path.join(process.cwd(), outputDirectory);
   const cliPath = path.dirname(cliReadme);
 
-  generatePartialTopicMarkdown(cliPath, outputDir);
+  try {
+    generatePartialTopicMarkdown(cliPath, outputDir);
+  } catch (error) {
+    console.error(error);
+  }
 
   const readme = generateFullReadme(cliPath);
 
