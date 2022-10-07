@@ -2229,6 +2229,24 @@
     typedoc "^0.23.15"
     wait-for-event "^2.0.1"
 
+"@switchboard-xyz/near.js@^2.0.27":
+  version "2.0.27"
+  resolved "https://registry.npmjs.org/@switchboard-xyz/near.js/-/near.js-2.0.27.tgz#6e7196982164ad30d55e05f264d6333089ec0d9c"
+  integrity sha512-9pI7MRVmeG5V+oE33zn2Mm1O5vzPbfLcA8uswrOZpP0pqBDHIkk4tqTwNvMLP9lECVL9Um1PcBxIyaDdvmU+Ew==
+  dependencies:
+    "@switchboard-xyz/common" "^2.0.0"
+    "@switchboard-xyz/near.js" "^2.0.21"
+    big.js "^6.2.1"
+    bn.js "^5.2.1"
+    bs58 "^5.0.0"
+    events "^3.3.0"
+    lodash "^4.17.21"
+    near-api-js "^1.0.0"
+    near-lake-framework "^1.0.4"
+    near-units "^0.1.9"
+    typedoc "^0.23.15"
+    wait-for-event "^2.0.1"
+
 "@switchboard-xyz/sbv2-utils@^0.1.48":
   version "0.1.48"
   resolved "https://registry.npmjs.org/@switchboard-xyz/sbv2-utils/-/sbv2-utils-0.1.48.tgz#576880ed617e5976189d4b6d308e36b896968119"
