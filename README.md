@@ -31,3 +31,13 @@ To link the CLI,
 ```bash
 cd cli && yarn link; cd ../;
 ```
+
+To link the sbv2-scripts binary,
+
+```bash
+cd javascript/sbv2-scripts
+yarn install
+yarn link
+```
+
+**NOTE:** Requires ts-node to be installed globally, `yarn global add ts-node`
