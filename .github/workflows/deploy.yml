@@ -27,6 +27,11 @@ jobs:
           yarn install --frozen-lockfile --network-timeout=1000000
           yarn link
 
+      - name: Install @switchboard-xyz/cli dependencies
+        working-directory: cli
+        run: |
+          yarn install --frozen-lockfile --network-timeout=1000000
+
       - name: Generate CLI Docs
         working-directory: .
         run: |
