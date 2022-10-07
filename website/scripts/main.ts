@@ -25,7 +25,7 @@ const projectRoot = path.join(__dirname, "..", "..");
   console.log(chalk.green(`Generating typedocs for @switchboard-xyz/aptos.js`));
   generateGenericApiTypedocs(
     projectRoot,
-    ["sdks", "aptos"],
+    ["sdks", "aptos", "javascript", "aptos.js"],
     ["@switchboard-xyz", "aptos.js"]
   );
 

@@ -11,7 +11,13 @@ import path from "path";
 
 export function generateCliDocs(projectRoot: string) {
   const cliPath = path.join(projectRoot, "cli");
-  const cliOutPath = path.join(projectRoot, "website", "api", "cli");
+  const cliOutPath = path.join(
+    projectRoot,
+    "website",
+    "docs",
+    "_common",
+    "cli"
+  );
   const cliOutRelPath = path.relative(cliPath, cliOutPath);
 
   // Generate Oclif documentation
