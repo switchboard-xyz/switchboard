@@ -4,6 +4,7 @@ import { CrankAccount, CrankRow } from "@switchboard-xyz/switchboard-v2";
 import * as fs from "fs";
 import * as path from "path";
 import { SolanaWithSignerBaseCommand as BaseCommand } from "../../../solana";
+import chalk from "chalk";
 
 export default class CrankList extends BaseCommand {
   static description = "list the pubkeys currently on the crank";
@@ -65,7 +66,16 @@ export default class CrankList extends BaseCommand {
     }
 
     if (!flags.silent) {
-      this.logger.log(pqKeys.join("\n"));
+      this.logger.log(
+        pqData
+          .map(
+            (row) =>
+              `${chalk.yellow(row.nextTimestamp.toNumber())}, ${chalk.blue(
+                row.pubkey.toString()
+              )}`
+          )
+          .join("\n")
+      );
     }
   }
 
