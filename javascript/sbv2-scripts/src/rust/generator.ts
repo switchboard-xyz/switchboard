@@ -194,6 +194,84 @@ export class ProgramStructs {
     return this.structs.size;
   }
 
+  writeErrorFile(errorStruct: ProgramStruct, outputFile: string) {
+    const errorTypes = errorStruct.fields.map((f) => f.rustName);
+
+    const importsCodeBlock = [
+      `import { FinalExecutionOutcome } from "near-api-js/lib/providers";`,
+      `import { Action } from "near-api-js/lib/transaction.js";`,
+    ].join("\n");
+
+    const enumCodeBlock = `export enum SwitchboardErrorEnum {\n\t${errorTypes
+      .map((e) => `${e} = "${e}",`)
+      .join(
+        "\n\t"
+      )}\n}\nexport const SwitchboardErrorTypes: string[] = Object.keys(\n\tSwitchboardErrorEnum\n);`;
+
+    const typeCodeBlock = `export type SwitchboardErrorType = ${errorTypes.join(
+      "\n\t|"
+    )};`;
+
+    const switchboardErrorCodeBlock = `export abstract class SwitchboardError extends Error {
+  readonly action?: Action;
+  readonly logs?: string[];
+  readonly txnReceipt: FinalExecutionOutcome;
+  
+  constructor(
+    readonly code: number,
+    readonly name: string,
+    txnReceipt: FinalExecutionOutcome,
+    readonly msg?: string,
+    action?: Action,
+    logs?: string[]
+  ) {
+    super(\`\${code}: \${name}\${msg ? " - " + msg : ""}\`);
+    this.action = action;
+    this.logs = logs;
+    this.txnReceipt = txnReceipt;
+  }
+
+  static fromErrorType(
+    errorType: string,
+    txnReceipt: FinalExecutionOutcome,
+    action?: Action,
+    logs?: string[]
+  ): SwitchboardError {
+    switch (errorType) {
+  ${errorTypes
+    .map((e) => `case "${e}": return new ${e}(txnReceipt, action, logs);`)
+    .join(
+      "\n"
+    )}\ndefault: return new Generic(txnReceipt, action, logs);\n}\n}\n}`;
+
+    const errorCodeBlocks = errorTypes.map(
+      (
+        errorName: string,
+        index: number
+      ) => `export class ${errorName} extends SwitchboardError {
+  static readonly code = ${6000 + index};
+
+  constructor(
+    readonly txnReceipt: FinalExecutionOutcome,
+    readonly action?: Action,
+    readonly logs?: string[]
+  ) {
+    super(${6000 + index}, "${errorName}", txnReceipt, undefined, action, logs);
+  }
+}`
+    );
+
+    const errorFileString = [
+      importsCodeBlock,
+      enumCodeBlock,
+      typeCodeBlock,
+      switchboardErrorCodeBlock,
+      errorCodeBlocks.join("\n\n"),
+    ].join("\n\n");
+
+    fs.writeFileSync(outputFile, errorFileString);
+  }
+
   write(outputDirectory: string) {
     // Array.from(this.structs.keys()).forEach((e) => console.log(e));
 
@@ -239,28 +317,7 @@ export class ProgramStructs {
 
       // very janky
       if (structName === "Error") {
-        const errorNames = struct.fields.map((f) => f.rustName);
-        const errors = struct.fields.map(
-          (f, i) => `
-  export class ${f.rustName} extends Error {
-    static readonly code = ${6000 + i};
-    readonly code = ${6000 + i};
-    readonly name = "${f.rustName}";
-    readonly msg = "${f.rustName}";
-  
-    constructor(readonly logs?: string[]) {
-      super("${6000 + i}: ${f.rustName}");
-    }
-  }
-          `
-        );
-        fs.writeFileSync(
-          typeFile,
-          `export type SwitchboardError = 
-    ${errorNames.map((e) => "| " + e).join("\n\t")};
-  ${errors.join("")}
-  `
-        );
+        this.writeErrorFile(struct, typeFile);
       } else {
         fs.writeFileSync(typeFile, imports.join("\n") + "\n");
         fs.appendFileSync(typeFile, struct.toString());

@@ -2,16 +2,10 @@ import { Flags } from "@oclif/core";
 import { NearWithSignerBaseCommand as BaseCommand } from "../../../near";
 import {
   AggregatorAccount,
-  isTxnSuccessful,
   PermissionAccount,
-  QueueAccount,
   SwitchboardDecimal,
 } from "@switchboard-xyz/near.js";
 import Big from "big.js";
-import { OracleJob } from "@switchboard-xyz/common";
-import { Action } from "near-api-js/lib/transaction";
-import fs from "fs";
-import { FinalExecutionOutcome } from "near-api-js/lib/providers";
 
 export default class CreateAggregator extends BaseCommand {
   static enableJsonFlag = true;

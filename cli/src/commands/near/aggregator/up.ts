@@ -87,6 +87,7 @@ function validateFeedJson(json: Record<string, any>) {
 
 export default class AggregatorUp extends BaseCommand {
   // static enableJsonFlag = true;
+  static hidden = true;
 
   static description =
     "anneal an aggregator and sync settings and target lease amount";
