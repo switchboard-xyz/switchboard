@@ -24,37 +24,42 @@ jobs:
       - name: Install @switchboard-xyz/common dependencies
         working-directory: javascript/common
         run: |
-          yarn install --frozen-lockfile
+          yarn install --frozen-lockfile --network-timeout=1000000
 
       - name: Install Aptos SDK dependencies
         working-directory: sdks/aptos
         run: |
-          yarn install --frozen-lockfile
+          yarn install --frozen-lockfile --network-timeout=1000000
 
       - name: Install Near SDK dependencies
         working-directory: sdks/near/javascript/near.js
         run: |
-          yarn install --frozen-lockfile
+          yarn install --frozen-lockfile --network-timeout=1000000
 
       - name: Install Solana SDK dependencies
         working-directory: sdks/solana/javascript/solana.js
         run: |
-          yarn install --frozen-lockfile
+          yarn install --frozen-lockfile --network-timeout=1000000
 
       - name: Install sbv2-lite dependencies
         working-directory: sdks/solana/javascript/sbv2-lite
         run: |
-          yarn install --frozen-lockfile
+          yarn install --frozen-lockfile --network-timeout=1000000
 
       - name: Install sbv2-utils dependencies
         working-directory: sdks/solana/javascript/sbv2-utils
         run: |
-          yarn install --frozen-lockfile
+          yarn install --frozen-lockfile --network-timeout=1000000
+
+      - name: Install cli dependencies
+        working-directory: cli
+        run: |
+          yarn install --frozen-lockfile --network-timeout=1000000
 
       - name: Build website
         working-directory: website
         run: |
-          yarn install --frozen-lockfile
+          yarn install --frozen-lockfile --network-timeout=1000000
           yarn build:all
       # Popular action to deploy to GitHub Pages:
       # Docs: https://github.com/peaceiris/actions-gh-pages#%EF%B8%8F-docusaurus
