@@ -35,7 +35,7 @@ jobs:
       - name: Generate CLI Docs
         working-directory: .
         run: |
-          yarn global add ts-node
+          yarn global add typescript ts-node @types/node
           sbv2-scripts cli ./cli/README.md ./website/docs/dev/cli
 
       - name: Install @switchboard-xyz/common dependencies

@@ -40,4 +40,5 @@ yarn install
 yarn link
 ```
 
-**NOTE:** Requires ts-node to be installed globally, `yarn global add ts-node`
+**NOTE:** Requires ts-node to be installed globally,
+`yarn global add typescript ts-node @types/node`

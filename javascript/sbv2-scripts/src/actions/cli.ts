@@ -3,6 +3,90 @@ import fs from "fs";
 import fse from "fs-extra";
 import path from "path";
 
+export function cli(cliReadmePath: string, outputDirectory: string) {
+  const cliReadme =
+    cliReadmePath.startsWith("/") ||
+    cliReadmePath.startsWith("C:") ||
+    cliReadmePath.startsWith("D:")
+      ? cliReadmePath
+      : path.join(process.cwd(), cliReadmePath);
+  if (!fs.existsSync(cliReadme)) {
+    throw new Error(`Failed to find CLI README.md at ${cliReadme}`);
+  }
+
+  console.log("Generating partial markdown files for the CLI ...");
+
+  const outputDir =
+    outputDirectory.startsWith("/") ||
+    outputDirectory.startsWith("C:") ||
+    outputDirectory.startsWith("D:")
+      ? outputDirectory
+      : path.join(process.cwd(), outputDirectory);
+  const cliPath = path.dirname(cliReadme);
+
+  generatePartialTopicMarkdown(cliPath, outputDir);
+
+  const readme = generateFullReadme(cliPath);
+
+  const commandsByChain = parseCommandsByChain(readme);
+
+  console.log(
+    `Config: ${commandsByChain.config.length}\nAptos: ${commandsByChain.aptos.length}\nNear: ${commandsByChain.near.length}\nSolana: ${commandsByChain.solana.length}`
+  );
+
+  CliCommand.writeByChain(
+    "config",
+    10,
+    commandsByChain["config"].reduce((all, c) => {
+      all[c.topic] = all[c.topic] || [];
+      all[c.topic].push(c);
+      return all;
+    }, Object.create(null)),
+    outputDir
+  );
+
+  CliCommand.writeByChain(
+    "aptos",
+    20,
+    commandsByChain["aptos"].reduce((all, c) => {
+      all[c.topic] = all[c.topic] || [];
+      all[c.topic].push(c);
+      return all;
+    }, Object.create(null)),
+    outputDir
+  );
+
+  CliCommand.writeByChain(
+    "near",
+    30,
+    commandsByChain["near"].reduce((all, c) => {
+      all[c.topic] = all[c.topic] || [];
+      all[c.topic].push(c);
+      return all;
+    }, Object.create(null)),
+    outputDir
+  );
+
+  CliCommand.writeByChain(
+    "solana",
+    40,
+    commandsByChain["solana"].reduce((all, c) => {
+      all[c.topic] = all[c.topic] || [];
+      all[c.topic].push(c);
+      return all;
+    }, Object.create(null)),
+    outputDir
+  );
+
+  // commands.forEach((c) => {
+  //   if (skipTopics.includes(c.chain)) {
+  //     return;
+  //   }
+  //   c.write(outputPath);
+  // });
+}
+
+/** Class to store a CLI command write to fs */
 class CliCommand {
   cmd: string;
 
@@ -118,83 +202,19 @@ class CliCommand {
   }
 }
 
-export function cli(cliReadmePath: string, outputDirectory: string) {
-  const cliReadme =
-    cliReadmePath.startsWith("/") ||
-    cliReadmePath.startsWith("C:") ||
-    cliReadmePath.startsWith("D:")
-      ? cliReadmePath
-      : path.join(process.cwd(), cliReadmePath);
-  if (!fs.existsSync(cliReadme)) {
-    throw new Error(`Failed to find CLI README.md at ${cliReadme}`);
-  }
-
-  console.log("Generating partial markdown files for the CLI ...");
-
-  const outputDir =
-    outputDirectory.startsWith("/") ||
-    outputDirectory.startsWith("C:") ||
-    outputDirectory.startsWith("D:")
-      ? outputDirectory
-      : path.join(process.cwd(), outputDirectory);
-
-  const cliPath = path.dirname(cliReadme);
-
-  const cliOutRelPath = path.relative(cliPath, outputDir);
-
-  const currentPath = shell.pwd().toString();
-  shell.cd(cliPath);
-
-  // Output partial markdown files by chain topic
-  if (
-    shell.exec(`npx oclif readme --multi --dir ${cliOutRelPath}`).code !== 0
-  ) {
-    shell.echo(`Error: Oclif failed to generate documentation`);
-    shell.exit(1);
-  }
-  const outputFiles = [
-    "aptos.md",
-    "config.md",
-    "help.md",
-    "near.md",
-    "solana.md",
-    "update.md",
-    "version.md",
-  ].map((f) => path.join(outputDir, f));
-  outputFiles.forEach((f) => {
-    // TODO: Update URL to release tag
-    // update github documentation links
-    shell.sed(
-      "-i",
-      `https://github.com/switchboard-xyz/sbv2-core/blob/.*/src`,
-      "https://github.com/switchboard-xyz/sbv2-core/tree/main/cli/src",
-      f
-    );
-
-    // remove first two lines
-    fs.writeFileSync(
-      f,
-      fs.readFileSync(f, "utf8").split("\n").slice(2).join("\n")
-    );
-
-    // add underscore to filename
-    fs.renameSync(f, path.join(path.dirname(f), "_" + path.basename(f)));
-  });
-
-  // Generate an updated README
-  if (shell.exec(`npx oclif readme`).code !== 0) {
-    shell.echo(`Error: Oclif failed to generate documentation`);
-    shell.exit(1);
-  }
-
-  shell.cd(currentPath);
-
+//////////////////////////////////////////////////////////
+// Parse CLI README.md and sort commands
+//////////////////////////////////////////////////////////
+function parseCommandsByChain(readme: string): {
+  config: CliCommand[];
+  aptos: CliCommand[];
+  near: CliCommand[];
+  solana: CliCommand[];
+} {
   const matches = Array.from(
-    fs
-      .readFileSync(cliReadme, "utf8")
-      .matchAll(
-        /`sbv2 (?<command>[A-z\s]*?)`\n{0,2}(?<description>[A-z\s]*?)?\n{0,2}```\n(?<docs>[\S\s]*?)\n```\n{0,2}(?<source>[A-z].*)?/gm
-      )
+    readme.matchAll(
+      /`sbv2 (?<command>[A-z\s]*?)`\n{0,2}(?<description>[A-z\s]*?)?\n{0,2}```\n(?<docs>[\S\s]*?)\n```\n{0,2}(?<source>[A-z].*)?/gm
+    )
   );
 
   if (!matches || matches.length === 0) {
@@ -246,58 +266,68 @@ export function cli(cliReadmePath: string, outputDirectory: string) {
     return all;
   }, Object.create(null));
 
-  console.log(
-    `Config: ${commandsByChain.config.length}\nAptos: ${commandsByChain.aptos.length}\nNear: ${commandsByChain.near.length}\nSolana: ${commandsByChain.solana.length}`
-  );
+  return commandsByChain;
+}
 
-  CliCommand.writeByChain(
-    "config",
-    10,
-    commandsByChain["config"].reduce((all, c) => {
-      all[c.topic] = all[c.topic] || [];
-      all[c.topic].push(c);
-      return all;
-    }, Object.create(null)),
-    outputDir
-  );
+//////////////////////////////////////////////////////////
+// Generate README.md with all commands to parse
+//////////////////////////////////////////////////////////
+function generateFullReadme(cliPath: string): string {
+  const currentPath = shell.pwd().toString();
 
-  CliCommand.writeByChain(
-    "aptos",
-    20,
-    commandsByChain["aptos"].reduce((all, c) => {
-      all[c.topic] = all[c.topic] || [];
-      all[c.topic].push(c);
-      return all;
-    }, Object.create(null)),
-    outputDir
-  );
+  shell.cd(cliPath);
+  if (shell.exec(`npx oclif readme`).code !== 0) {
+    shell.echo(`Error: Oclif failed to generate documentation`);
+    shell.exit(1);
+  }
 
-  CliCommand.writeByChain(
-    "near",
-    30,
-    commandsByChain["near"].reduce((all, c) => {
-      all[c.topic] = all[c.topic] || [];
-      all[c.topic].push(c);
-      return all;
-    }, Object.create(null)),
-    outputDir
-  );
+  const readme = fs.readFileSync(path.join(cliPath, "README.md"), "utf-8");
 
-  CliCommand.writeByChain(
-    "solana",
-    40,
-    commandsByChain["solana"].reduce((all, c) => {
-      all[c.topic] = all[c.topic] || [];
-      all[c.topic].push(c);
-      return all;
-    }, Object.create(null)),
-    outputDir
-  );
+  shell.cd(currentPath);
 
-  // commands.forEach((c) => {
-  //   if (skipTopics.includes(c.chain)) {
-  //     return;
-  //   }
-  //   c.write(outputPath);
-  // });
+  return readme;
+}
+
+//////////////////////////////////////////////////////////
+// Generate partial markdown files per topic (_solana.md)
+//////////////////////////////////////////////////////////
+function generatePartialTopicMarkdown(cliPath: string, outputDir: string) {
+  const currentPath = shell.pwd().toString();
+
+  shell.cd(cliPath);
+  const cliOutRelPath = path.relative(cliPath, outputDir);
+  if (
+    shell.exec(`npx oclif readme --multi --dir ${cliOutRelPath}`).code !== 0
+  ) {
+    shell.echo(`Error: Oclif failed to generate documentation`);
+    shell.exit(1);
+  }
+  const outputFiles = [
+    "aptos.md",
+    "config.md",
+    "help.md",
+    "near.md",
+    "solana.md",
+    "update.md",
+    "version.md",
+  ].map((f) => path.join(outputDir, f));
+  outputFiles.forEach((f) => {
+    // TODO: Update URL to release tag
+    // update github documentation links
+    shell.sed(
+      "-i",
+      `https://github.com/switchboard-xyz/sbv2-core/blob/.*/src`,
+      "https://github.com/switchboard-xyz/sbv2-core/tree/main/cli/src",
+      f
+    );
+    // remove first two lines
+    fs.writeFileSync(
+      f,
+      fs.readFileSync(f, "utf8").split("\n").slice(2).join("\n")
+    );
+    // add underscore to filename
+    fs.renameSync(f, path.join(path.dirname(f), "_" + path.basename(f)));
+  });
+
+  shell.cd(currentPath);
 }
