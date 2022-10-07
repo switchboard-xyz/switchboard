@@ -26,12 +26,12 @@ export function generateCliDocs(projectRoot: string) {
     shell.echo(`Error: Oclif failed to generate documentation`);
     shell.exit(1);
   }
-  // if (
-  //   shell.exec(`npx oclif readme --multi --dir ${cliOutRelPath}`).code !== 0
-  // ) {
-  //   shell.echo(`Error: Oclif failed to generate documentation`);
-  //   shell.exit(1);
-  // }
+  if (
+    shell.exec(`npx oclif readme --multi --dir ${cliOutRelPath}`).code !== 0
+  ) {
+    shell.echo(`Error: Oclif failed to generate documentation`);
+    shell.exit(1);
+  }
 
   shell.cd(cliOutPath);
 

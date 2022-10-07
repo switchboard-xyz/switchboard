@@ -119,6 +119,16 @@ class CliCommand {
 }
 
 export function cli(cliReadmePath: string, outputDirectory: string) {
+  const cliReadme =
+    cliReadmePath.startsWith("/") ||
+    cliReadmePath.startsWith("C:") ||
+    cliReadmePath.startsWith("D:")
+      ? cliReadmePath
+      : path.join(process.cwd(), cliReadmePath);
+  if (!fs.existsSync(cliReadme)) {
+    throw new Error(`Failed to find CLI README.md at ${cliReadme}`);
+  }
+
   console.log("Generating partial markdown files for the CLI ...");
 
   const outputDir =
@@ -128,24 +138,63 @@ export function cli(cliReadmePath: string, outputDirectory: string) {
       ? outputDirectory
       : path.join(process.cwd(), outputDirectory);
 
-  if (!fs.existsSync(cliReadmePath)) {
-    throw new Error(`Failed to find CLI README.md at ${cliReadmePath}`);
-  }
-  const readmeFilestring = fs.readFileSync(cliReadmePath, "utf8");
-  const cliPath = path.dirname(cliReadmePath);
+  const cliPath = path.dirname(cliReadme);
+
+  const cliOutRelPath = path.relative(cliPath, outputDir);
 
   const currentPath = shell.pwd().toString();
   shell.cd(cliPath);
+
+  // Output partial markdown files by chain topic
+  if (
+    shell.exec(`npx oclif readme --multi --dir ${cliOutRelPath}`).code !== 0
+  ) {
+    shell.echo(`Error: Oclif failed to generate documentation`);
+    shell.exit(1);
+  }
+  const outputFiles = [
+    "aptos.md",
+    "config.md",
+    "help.md",
+    "near.md",
+    "solana.md",
+    "update.md",
+    "version.md",
+  ].map((f) => path.join(outputDir, f));
+  outputFiles.forEach((f) => {
+    // TODO: Update URL to release tag
+    // update github documentation links
+    shell.sed(
+      "-i",
+      `https://github.com/switchboard-xyz/sbv2-core/blob/.*/src`,
+      "https://github.com/switchboard-xyz/sbv2-core/tree/main/cli/src",
+      f
+    );
+
+    // remove first two lines
+    fs.writeFileSync(
+      f,
+      fs.readFileSync(f, "utf8").split("\n").slice(2).join("\n")
+    );
+
+    // add underscore to filename
+    fs.renameSync(f, path.join(path.dirname(f), "_" + path.basename(f)));
+  });
+
+  // Generate an updated README
   if (shell.exec(`npx oclif readme`).code !== 0) {
     shell.echo(`Error: Oclif failed to generate documentation`);
     shell.exit(1);
   }
+
   shell.cd(currentPath);
 
   const matches = Array.from(
-    readmeFilestring.matchAll(
-      /`sbv2 (?<command>[A-z\s]*?)`\n{0,2}(?<description>[A-z\s]*?)?\n{0,2}```\n(?<docs>[\S\s]*?)\n```\n{0,2}(?<source>[A-z].*)?/gm
-    )
+    fs
+      .readFileSync(cliReadme, "utf8")
+      .matchAll(
+        /`sbv2 (?<command>[A-z\s]*?)`\n{0,2}(?<description>[A-z\s]*?)?\n{0,2}```\n(?<docs>[\S\s]*?)\n```\n{0,2}(?<source>[A-z].*)?/gm
+      )
   );
 
   if (!matches || matches.length === 0) {
