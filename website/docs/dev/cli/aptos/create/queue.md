@@ -30,11 +30,11 @@ FLAGS
   --oracleTimeout=<value>  [default: 180] number of oracles to add to the queue
   --profileName=<value>    [default: default] If --keypair is pointing to a yaml file, provide an optional profile to
                            load. If none provided, default will be used
-  --programId=<value>      [default: 0xb27f7bbf7caf2368b08032d005e8beab151a885054cdca55c4cc644f0a308d2b] Switchboard
+  --programId=<value>      [default: 0xc9b4bb0b1f7a343687c4f8bc6eea36dd2a3aa8d654e640050ab5b8635a6b9cbd] Switchboard
                            programId on the selected Aptos network
   --queueSize=<value>      [default: 100] maximum number of oracles the queue can support
   --slashingEnabled        permit slashing malicous oracles
-  --stateAddress=<value>   [default: 0xb27f7bbf7caf2368b08032d005e8beab151a885054cdca55c4cc644f0a308d2b] Switchboard
+  --stateAddress=<value>   [default: 0xc9b4bb0b1f7a343687c4f8bc6eea36dd2a3aa8d654e640050ab5b8635a6b9cbd] Switchboard
                            state address
   --unpermissionedFeeds    permit unpermissioned feeds
   --unpermissionedVrf      permit unpermissioned VRF accounts

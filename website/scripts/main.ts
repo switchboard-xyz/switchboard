@@ -63,6 +63,6 @@ const projectRoot = path.join(__dirname, "..", "..");
     ["@switchboard-xyz", "sbv2-utils"]
   );
 
-  console.log(chalk.green(`Generating documentation for @switchboard-xyz/cli`));
-  generateCliDocs(projectRoot);
+  // console.log(chalk.green(`Generating documentation for @switchboard-xyz/cli`));
+  // generateCliDocs(projectRoot);
 })();

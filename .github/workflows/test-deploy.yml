@@ -50,10 +50,11 @@ jobs:
         run: |
           yarn install --frozen-lockfile --network-timeout=1000000
 
-      - name: Install cli dependencies
-        working-directory: cli
+      - name: Install sbv2-scripts
+        working-directory: javascript/sbv2-scripts
         run: |
           yarn install --frozen-lockfile --network-timeout=1000000
+          yarn link
 
       - name: Build website
         working-directory: website

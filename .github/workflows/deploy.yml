@@ -21,6 +21,17 @@ jobs:
           cache: yarn
           cache-dependency-path: "**/yarn.lock"
 
+      - name: Install sbv2-scripts
+        working-directory: javascript/sbv2-scripts
+        run: |
+          yarn install --frozen-lockfile --network-timeout=1000000
+          yarn link
+
+      - name: Generate CLI Docs
+        working-directory: .
+        run: |
+          sbv2-scripts cli ./cli/README.md ./website/docs/dev/cli
+
       - name: Install @switchboard-xyz/common dependencies
         working-directory: javascript/common
         run: |
@@ -48,11 +59,6 @@ jobs:
 
       - name: Install sbv2-utils dependencies
         working-directory: sdks/solana/javascript/sbv2-utils
-        run: |
-          yarn install --frozen-lockfile --network-timeout=1000000
-
-      - name: Install cli dependencies
-        working-directory: cli
         run: |
           yarn install --frozen-lockfile --network-timeout=1000000
 

@@ -121,17 +121,26 @@ class CliCommand {
 export function cli(cliReadmePath: string, outputDirectory: string) {
   console.log("Generating partial markdown files for the CLI ...");
 
+  const outputDir =
+    outputDirectory.startsWith("/") ||
+    outputDirectory.startsWith("C:") ||
+    outputDirectory.startsWith("D:")
+      ? outputDirectory
+      : path.join(process.cwd(), outputDirectory);
+
   if (!fs.existsSync(cliReadmePath)) {
     throw new Error(`Failed to find CLI README.md at ${cliReadmePath}`);
   }
   const readmeFilestring = fs.readFileSync(cliReadmePath, "utf8");
   const cliPath = path.dirname(cliReadmePath);
 
+  const currentPath = shell.pwd().toString();
   shell.cd(cliPath);
   if (shell.exec(`npx oclif readme`).code !== 0) {
     shell.echo(`Error: Oclif failed to generate documentation`);
     shell.exit(1);
   }
+  shell.cd(currentPath);
 
   const matches = Array.from(
     readmeFilestring.matchAll(
@@ -200,7 +209,7 @@ export function cli(cliReadmePath: string, outputDirectory: string) {
       all[c.topic].push(c);
       return all;
     }, Object.create(null)),
-    outputDirectory
+    outputDir
   );
 
   CliCommand.writeByChain(
@@ -211,7 +220,7 @@ export function cli(cliReadmePath: string, outputDirectory: string) {
       all[c.topic].push(c);
       return all;
     }, Object.create(null)),
-    outputDirectory
+    outputDir
   );
 
   CliCommand.writeByChain(
@@ -222,7 +231,7 @@ export function cli(cliReadmePath: string, outputDirectory: string) {
       all[c.topic].push(c);
       return all;
     }, Object.create(null)),
-    outputDirectory
+    outputDir
   );
 
   CliCommand.writeByChain(
@@ -233,7 +242,7 @@ export function cli(cliReadmePath: string, outputDirectory: string) {
       all[c.topic].push(c);
       return all;
     }, Object.create(null)),
-    outputDirectory
+    outputDir
   );
 
   // commands.forEach((c) => {
