@@ -164,7 +164,7 @@ export abstract class SolanaBaseCommand extends BaseCommand {
   mainnetCheck(): void {
     if (this.cluster === "mainnet-beta") {
       throw new Error(
-        "switchboardv2-cli is still in beta, mainnet is disabled for this command."
+        "cli@^2 is still in beta, mainnet is disabled for this command."
       );
     }
   }

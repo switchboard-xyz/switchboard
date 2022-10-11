@@ -62,6 +62,7 @@ export default class QueueCreate extends BaseCommand {
       default: false,
     }),
     new: Flags.boolean({
+      default: false,
       description:
         "create account at new AptosAccount with authority set to --account",
     }),
@@ -73,8 +74,7 @@ export default class QueueCreate extends BaseCommand {
     let account: AptosAccount;
     if (flags.new) {
       account = new AptosAccount();
-      await this.faucet.fundAccount(account.address(), 5000);
-      await this.faucet.fundAccount(account.address(), 5000);
+      await this.faucet.fundAccount(account.address(), 10000000);
     } else {
       account = this.signer;
     }

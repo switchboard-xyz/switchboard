@@ -4,6 +4,8 @@ import { AptosAccount, HexString } from "aptos";
 import { CrankAccount, OracleQueueAccount } from "@switchboard-xyz/aptos.js";
 
 export default class CrankCreate extends BaseCommand {
+  static enableJsonFlag = true;
+
   static description = "create a new crank";
 
   static aliases = ["aptos:create:crank"];
@@ -41,7 +43,7 @@ export default class CrankCreate extends BaseCommand {
     let account: AptosAccount;
     if (flags.new) {
       account = new AptosAccount();
-      await this.faucet.fundAccount(account.address(), 5000);
+      await this.faucet.fundAccount(account.address(), 10000000);
     } else {
       account = this.signer;
     }

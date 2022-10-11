@@ -12,7 +12,7 @@ export default class AccountAirdrop extends BaseCommand {
     amount: Flags.integer({
       char: "n",
       description: "number of airdrops to request, 10_000 coins each",
-      default: 50000,
+      default: 1000000,
     }),
     address: Flags.string({
       description: "HexString address of account to fund",
