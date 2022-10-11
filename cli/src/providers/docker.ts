@@ -108,8 +108,6 @@ export class DockerOracle implements Required<IOracleConfig> {
       ""
     )}-${hash}`;
 
-    console.log(this.image);
-
     // get image args
     this.args = this.getArgs();
 
@@ -201,7 +199,6 @@ export class DockerOracle implements Required<IOracleConfig> {
   }
 
   private createOracle() {
-    console.log("docker", this.args.join(" "));
     this.dockerOracleProcess = spawn("docker", this.args, {
       shell: true,
       env: process.env,

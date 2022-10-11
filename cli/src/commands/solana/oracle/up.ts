@@ -1,16 +1,12 @@
 import { Flags } from "@oclif/core";
-import { AptosWithSignerBaseCommand as BaseCommand } from "../../../aptos";
-import {
-  OracleAccount,
-  SwitchboardDecimal,
-  toBase58,
-} from "@switchboard-xyz/near.js";
+import { SolanaWithSignerBaseCommand as BaseCommand } from "../../../solana";
+
 import { DockerOracle } from "../../../providers/docker";
 import path from "path";
 import { sleep } from "../../../utils";
 
-export default class AptosDockerOracle extends BaseCommand {
-  static description = "start an aptos docker oracle";
+export default class SolanaDockerOracle extends BaseCommand {
+  static description = "start a solana docker oracle";
 
   static flags = {
     ...BaseCommand.flags,
@@ -34,25 +30,25 @@ export default class AptosDockerOracle extends BaseCommand {
 
   static args = [
     {
-      name: "oracleHexString",
-      description: "HexString address of the oracle",
+      name: "oracleAddress",
+      description: "address of the oracle in Uint8 or Base58 encoding",
     },
   ];
 
   async run() {
-    const { flags, args } = await this.parse(AptosDockerOracle);
+    const { flags, args } = await this.parse(SolanaDockerOracle);
 
     const [oracleAccount, oracleData] = await this.loadOracle(
-      args.oracleHexString
+      args.oracleAddress
     );
 
     // TODO: Add mounts for AWS creds
     const docker = new DockerOracle(
       {
-        chain: "aptos",
-        network: flags.networkId as "testnet" | "devnet",
+        chain: "solana",
+        network: "devnet",
         rpcUrl: this.rpcUrl,
-        oracleKey: oracleAccount.address.toString(),
+        oracleKey: oracleAccount.publicKey.toBase58(),
         secretPath: this.normalizePath(flags.keypair),
       },
       flags.nodeImage,
@@ -65,6 +61,6 @@ export default class AptosDockerOracle extends BaseCommand {
   }
 
   async catch(error) {
-    super.catch(error, "Failed to start aptos oracle");
+    super.catch(error, "Failed to start solana oracle");
   }
 }

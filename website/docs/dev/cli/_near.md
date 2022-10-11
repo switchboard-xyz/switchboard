@@ -34,6 +34,7 @@ interact with switchboard on Near
 * [`sbv2 near oracle escrow [ORACLEADDRESS]`](#sbv2-near-oracle-escrow-oracleaddress)
 * [`sbv2 near oracle stake [ORACLEADDRESS]`](#sbv2-near-oracle-stake-oracleaddress)
 * [`sbv2 near oracle unstake [ORACLEADDRESS]`](#sbv2-near-oracle-unstake-oracleaddress)
+* [`sbv2 near oracle up [ORACLEADDRESS]`](#sbv2-near-oracle-up-oracleaddress)
 * [`sbv2 near permission create`](#sbv2-near-permission-create)
 * [`sbv2 near pop crank [CRANKADDRESS]`](#sbv2-near-pop-crank-crankaddress)
 * [`sbv2 near print ACCOUNTTYPE ADDRESS`](#sbv2-near-print-accounttype-address)
@@ -1245,6 +1246,41 @@ GLOBAL FLAGS
 
 DESCRIPTION
   deposit funds to an oracle's staking wallet
+```
+
+## `sbv2 near oracle up [ORACLEADDRESS]`
+
+start a near docker oracle
+
+```
+USAGE
+  $ sbv2 near oracle up [ORACLEADDRESS] --accountName <value> [-h] [-v] [-s] [--networkId
+    testnet|mainnet|betanet|localnet] [--programId <value>] [-u <value>] [--nearCredentialsDir <value>] [--json] [-d
+    <value>] [--nodeImage <value>] [--arm]
+
+ARGUMENTS
+  ORACLEADDRESS  address of the oracle in Uint8 or Base58 encoding
+
+FLAGS
+  -d, --switchboardDir=<value>  directory with switchboard.env to load a switchboard environment
+  -h, --help                    Show CLI help.
+  -s, --silent                  suppress docker logging
+  -u, --rpcUrl=<value>          alternate RPC url
+  -v, --verbose                 log everything
+  --accountName=<value>         (required) Named account to load from your nearCredentialsDir
+  --arm                         apple silicon needs to use a docker image for linux/arm64
+  --nearCredentialsDir=<value>  [default: /Users/gally/.near-credentials] Alternative directory for near credentials.
+                                Defaults to ~/.near-credentials
+  --networkId=<option>          [default: testnet] Near network ID to connect to
+                                <options: testnet|mainnet|betanet|localnet>
+  --nodeImage=<value>           [default: dev-v2-10-03-22a] public key of the oracle to start-up
+  --programId=<value>           [default: switchboard-v2.testnet] Switchboard programId on the selected Near networkId
+
+GLOBAL FLAGS
+  --json  Format output as json.
+
+DESCRIPTION
+  start a near docker oracle
 ```
 
 ## `sbv2 near permission create`

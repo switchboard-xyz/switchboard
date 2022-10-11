@@ -36,6 +36,7 @@
 ## sbv2 near oracle
  - [sbv2 near oracle create](/dev/cli/near/oracle/create)
  - [sbv2 near oracle escrow](/dev/cli/near/oracle/escrow)
+ - [sbv2 near oracle up](/dev/cli/near/oracle/up)
 ## sbv2 near permission
  - [sbv2 near permission create](/dev/cli/near/permission/create)
 ## sbv2 near pop

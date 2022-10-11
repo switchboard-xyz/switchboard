@@ -47,6 +47,7 @@
  - [sbv2 solana oracle permission print](/dev/cli/solana/oracle/permission_print)
  - [sbv2 solana oracle print](/dev/cli/solana/oracle/print)
  - [sbv2 solana oracle print permission](/dev/cli/solana/oracle/print_permission)
+ - [sbv2 solana oracle up](/dev/cli/solana/oracle/up)
 ## sbv2 solana permission
  - [sbv2 solana permission create](/dev/cli/solana/permission/create)
  - [sbv2 solana permission print](/dev/cli/solana/permission/print)

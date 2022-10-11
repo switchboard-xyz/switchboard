@@ -5,6 +5,7 @@ import { Cluster, Connection, Keypair, PublicKey } from "@solana/web3.js";
 import { BigUtils } from "@switchboard-xyz/sbv2-utils";
 import {
   AnchorWallet,
+  OracleAccount,
   programWallet,
   SBV2_DEVNET_PID,
   SBV2_MAINNET_PID,
@@ -249,5 +250,15 @@ export abstract class SolanaBaseCommand extends BaseCommand {
         .map((e) => (e as any).toString())
         .join("\n")}`
     );
+  }
+
+  async loadOracle(oracleAddress: string): Promise<[OracleAccount, any]> {
+    const account = new OracleAccount({
+      program: this.program,
+      publicKey: new PublicKey(oracleAddress),
+    });
+    const data = await account.loadData();
+
+    return [account, data];
   }
 }

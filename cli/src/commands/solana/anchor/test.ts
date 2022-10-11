@@ -29,7 +29,7 @@ export default class AnchorTest extends BaseCommand {
     }),
     nodeImage: Flags.string({
       description: "public key of the oracle to start-up",
-      default: "dev-v2-08-14-22a-mc-beta",
+      default: "dev-v2-10-03-22a",
     }),
     arm: Flags.boolean({
       description: "apple silicon needs to use a docker image for linux/arm64",

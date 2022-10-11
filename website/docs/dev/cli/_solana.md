@@ -60,6 +60,7 @@ interact with switchboard on Solana
 * [`sbv2 solana oracle permission print [ORACLEKEY]`](#sbv2-solana-oracle-permission-print-oraclekey)
 * [`sbv2 solana oracle print [ORACLEKEY]`](#sbv2-solana-oracle-print-oraclekey)
 * [`sbv2 solana oracle print permission [ORACLEKEY]`](#sbv2-solana-oracle-print-permission-oraclekey)
+* [`sbv2 solana oracle up [ORACLEADDRESS]`](#sbv2-solana-oracle-up-oracleaddress)
 * [`sbv2 solana oracle withdraw [ORACLEKEY]`](#sbv2-solana-oracle-withdraw-oraclekey)
 * [`sbv2 solana permission create [GRANTER] [GRANTEE]`](#sbv2-solana-permission-create-granter-grantee)
 * [`sbv2 solana permission print [PERMISSIONKEY]`](#sbv2-solana-permission-print-permissionkey)
@@ -1290,7 +1291,7 @@ FLAGS
   --commitment=<option>         [default: confirmed] transaction commitment level to use
                                 <options: confirmed|finalized|processed>
   --mainnetBeta                 WARNING: use mainnet-beta solana cluster
-  --nodeImage=<value>           [default: dev-v2-08-14-22a-mc-beta] public key of the oracle to start-up
+  --nodeImage=<value>           [default: dev-v2-10-03-22a] public key of the oracle to start-up
   --oracleKey=<value>           public key of the oracle to start-up
   --programId=<value>           alternative Switchboard program ID to interact with
 
@@ -2072,6 +2073,37 @@ ALIASES
 
 EXAMPLES
   $ sbv2 oracle:permission:print 9CmLriMhykZ8xAoNTSHjHbk6SkuMhie1NCZn9P6LCuZ4
+```
+
+## `sbv2 solana oracle up [ORACLEADDRESS]`
+
+start a solana docker oracle
+
+```
+USAGE
+  $ sbv2 solana oracle up [ORACLEADDRESS] [-h] [-v] [-s] [--mainnetBeta] [-u <value>] [--programId <value>]
+    [--commitment confirmed|finalized|processed] [-k <value>] [-d <value>] [--nodeImage <value>] [--arm]
+
+ARGUMENTS
+  ORACLEADDRESS  address of the oracle in Uint8 or Base58 encoding
+
+FLAGS
+  -d, --switchboardDir=<value>  directory with switchboard.env to load a switchboard environment
+  -h, --help                    Show CLI help.
+  -k, --keypair=<value>         keypair that will pay for onchain transactions. defaults to new account authority if no
+                                alternate authority provided
+  -s, --silent                  suppress docker logging
+  -u, --rpcUrl=<value>          alternate RPC url
+  -v, --verbose                 log everything
+  --arm                         apple silicon needs to use a docker image for linux/arm64
+  --commitment=<option>         [default: confirmed] transaction commitment level to use
+                                <options: confirmed|finalized|processed>
+  --mainnetBeta                 WARNING: use mainnet-beta solana cluster
+  --nodeImage=<value>           [default: dev-v2-10-03-22a] public key of the oracle to start-up
+  --programId=<value>           alternative Switchboard program ID to interact with
+
+DESCRIPTION
+  start a solana docker oracle
 ```
 
 ## `sbv2 solana oracle withdraw [ORACLEKEY]`

@@ -1,5 +1,5 @@
 import { Flags } from "@oclif/core";
-import { AptosWithSignerBaseCommand as BaseCommand } from "../../../aptos";
+import { NearWithSignerBaseCommand as BaseCommand } from "../../../near";
 import {
   OracleAccount,
   SwitchboardDecimal,
@@ -9,8 +9,8 @@ import { DockerOracle } from "../../../providers/docker";
 import path from "path";
 import { sleep } from "../../../utils";
 
-export default class AptosDockerOracle extends BaseCommand {
-  static description = "start an aptos docker oracle";
+export default class NearDockerOracle extends BaseCommand {
+  static description = "start a near docker oracle";
 
   static flags = {
     ...BaseCommand.flags,
@@ -34,26 +34,31 @@ export default class AptosDockerOracle extends BaseCommand {
 
   static args = [
     {
-      name: "oracleHexString",
-      description: "HexString address of the oracle",
+      name: "oracleAddress",
+      description: "address of the oracle in Uint8 or Base58 encoding",
     },
   ];
 
   async run() {
-    const { flags, args } = await this.parse(AptosDockerOracle);
+    const { flags, args } = await this.parse(NearDockerOracle);
 
     const [oracleAccount, oracleData] = await this.loadOracle(
-      args.oracleHexString
+      args.oracleAddress
     );
 
     // TODO: Add mounts for AWS creds
     const docker = new DockerOracle(
       {
-        chain: "aptos",
-        network: flags.networkId as "testnet" | "devnet",
+        chain: "near",
+        network: flags.networkId as "testnet" | "localnet",
         rpcUrl: this.rpcUrl,
-        oracleKey: oracleAccount.address.toString(),
-        secretPath: this.normalizePath(flags.keypair),
+        oracleKey: toBase58(oracleAccount.address),
+        secretPath: path.join(
+          flags.nearCredentialsDir,
+          flags.networkId,
+          flags.accountName + ".json"
+        ),
+        nearNamedAccount: flags.accountName,
       },
       flags.nodeImage,
       flags.arm ? "linux/arm64" : "linux/amd64",
@@ -65,6 +70,6 @@ export default class AptosDockerOracle extends BaseCommand {
   }
 
   async catch(error) {
-    super.catch(error, "Failed to start aptos oracle");
+    super.catch(error, "Failed to start near oracle");
   }
 }

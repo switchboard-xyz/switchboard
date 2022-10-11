@@ -21,7 +21,6 @@
  - [sbv2 aptos list crank](/dev/cli/aptos/list/crank)
 ## sbv2 aptos oracle
  - [sbv2 aptos oracle create](/dev/cli/aptos/oracle/create)
- - [sbv2 aptos oracle start](/dev/cli/aptos/oracle/start)
  - [sbv2 aptos oracle up](/dev/cli/aptos/oracle/up)
 ## sbv2 aptos pop
  - [sbv2 aptos pop crank](/dev/cli/aptos/pop/crank)
