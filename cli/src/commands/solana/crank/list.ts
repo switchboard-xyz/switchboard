@@ -5,6 +5,7 @@ import * as fs from "fs";
 import * as path from "path";
 import { SolanaWithSignerBaseCommand as BaseCommand } from "../../../solana";
 import chalk from "chalk";
+import { pqSort } from "../../../utils/crank";
 
 export default class CrankList extends BaseCommand {
   static description = "list the pubkeys currently on the crank";
@@ -45,38 +46,20 @@ export default class CrankList extends BaseCommand {
     const crank = await crankAccount.loadData();
     const pqData: CrankRow[] = crank.pqData;
 
+    const sorted: CrankRow[] = pqSort(pqData);
+
+    this.logger.log(
+      sorted
+        .map(
+          (row) =>
+            `${chalk.yellow(row.nextTimestamp.toNumber())}, ${chalk.blue(
+              row.pubkey.toString()
+            )}`
+        )
+        .join("\n")
+    );
+
     const pqKeys = pqData.map((row) => row.pubkey.toString());
-
-    if (outputFile) {
-      if (outputFile.endsWith(".txt")) {
-        fs.writeFileSync(outputFile, pqKeys.join("\n"));
-      } else {
-        fs.writeFileSync(
-          outputFile,
-          JSON.stringify(
-            {
-              crank: crankAccount.publicKey.toString(),
-              pubkeys: pqKeys,
-            },
-            undefined,
-            2
-          )
-        );
-      }
-    }
-
-    if (!flags.silent) {
-      this.logger.log(
-        pqData
-          .map(
-            (row) =>
-              `${chalk.yellow(row.nextTimestamp.toNumber())}, ${chalk.blue(
-                row.pubkey.toString()
-              )}`
-          )
-          .join("\n")
-      );
-    }
   }
 
   async catch(error) {
