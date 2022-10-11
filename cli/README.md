@@ -30,7 +30,6 @@ node bin/dev print GvDMxPzN1sCj7L26YDK2HnMRXEQmQ2aemov8YBtPS7vR
 * [`sbv2 aptos crank list [CRANKHEXSTRING]`](#sbv2-aptos-crank-list-crankhexstring)
 * [`sbv2 aptos crank pop [CRANKHEXSTRING]`](#sbv2-aptos-crank-pop-crankhexstring)
 * [`sbv2 aptos crank push [CRANKHEXSTRING]`](#sbv2-aptos-crank-push-crankhexstring)
-* [`sbv2 aptos crank sort [CRANKHEXSTRING]`](#sbv2-aptos-crank-sort-crankhexstring)
 * [`sbv2 aptos create aggregator [QUEUEHEXSTRING]`](#sbv2-aptos-create-aggregator-queuehexstring)
 * [`sbv2 aptos create crank [QUEUEHEXSTRING]`](#sbv2-aptos-create-crank-queuehexstring)
 * [`sbv2 aptos create job QUEUEHEXSTRING JOBDEFINITION`](#sbv2-aptos-create-job-queuehexstring-jobdefinition)
@@ -45,7 +44,6 @@ node bin/dev print GvDMxPzN1sCj7L26YDK2HnMRXEQmQ2aemov8YBtPS7vR
 * [`sbv2 aptos print ACCOUNTTYPE ADDRESS`](#sbv2-aptos-print-accounttype-address)
 * [`sbv2 aptos push crank [CRANKHEXSTRING]`](#sbv2-aptos-push-crank-crankhexstring)
 * [`sbv2 aptos queue create`](#sbv2-aptos-queue-create)
-* [`sbv2 aptos sort crank [CRANKHEXSTRING]`](#sbv2-aptos-sort-crank-crankhexstring)
 * [`sbv2 aptos update aggregator [AGGREGATORHEXSTRING]`](#sbv2-aptos-update-aggregator-aggregatorhexstring)
 * [`sbv2 config print`](#sbv2-config-print)
 * [`sbv2 config set CHAIN NETWORK PARAMETER [VALUE]`](#sbv2-config-set-chain-network-parameter-value)
@@ -83,7 +81,6 @@ node bin/dev print GvDMxPzN1sCj7L26YDK2HnMRXEQmQ2aemov8YBtPS7vR
 * [`sbv2 near oracle escrow [ORACLEADDRESS]`](#sbv2-near-oracle-escrow-oracleaddress)
 * [`sbv2 near oracle stake [ORACLEADDRESS]`](#sbv2-near-oracle-stake-oracleaddress)
 * [`sbv2 near oracle unstake [ORACLEADDRESS]`](#sbv2-near-oracle-unstake-oracleaddress)
-* [`sbv2 near oracle up [ORACLEADDRESS]`](#sbv2-near-oracle-up-oracleaddress)
 * [`sbv2 near permission create`](#sbv2-near-permission-create)
 * [`sbv2 near pop crank [CRANKADDRESS]`](#sbv2-near-pop-crank-crankaddress)
 * [`sbv2 near print ACCOUNTTYPE ADDRESS`](#sbv2-near-print-accounttype-address)
@@ -536,40 +533,6 @@ DESCRIPTION
 
 ALIASES
   $ sbv2 aptos push crank
-```
-
-## `sbv2 aptos crank sort [CRANKHEXSTRING]`
-
-sort the crank
-
-```
-USAGE
-  $ sbv2 aptos crank sort [CRANKHEXSTRING] [-h] [-v] [-s] [--networkId devnet|testnet] [--programId <value>]
-    [--stateAddress <value>] [-u <value>] [--json]
-
-ARGUMENTS
-  CRANKHEXSTRING  HexString address of the crank
-
-FLAGS
-  -h, --help              Show CLI help.
-  -s, --silent            suppress cli prompts
-  -u, --rpcUrl=<value>    alternate RPC url
-  -v, --verbose           log everything
-  --networkId=<option>    [default: devnet] Aptos network to connect to
-                          <options: devnet|testnet>
-  --programId=<value>     [default: 0xc9b4bb0b1f7a343687c4f8bc6eea36dd2a3aa8d654e640050ab5b8635a6b9cbd] Switchboard
-                          programId on the selected Aptos network
-  --stateAddress=<value>  [default: 0xc9b4bb0b1f7a343687c4f8bc6eea36dd2a3aa8d654e640050ab5b8635a6b9cbd] Switchboard
-                          state address
-
-GLOBAL FLAGS
-  --json  Format output as json.
-
-DESCRIPTION
-  sort the crank
-
-ALIASES
-  $ sbv2 aptos sort crank
 ```
 
 ## `sbv2 aptos create aggregator [QUEUEHEXSTRING]`
@@ -1147,40 +1110,6 @@ DESCRIPTION
 
 ALIASES
   $ sbv2 aptos create queue
-```
-
-## `sbv2 aptos sort crank [CRANKHEXSTRING]`
-
-sort the crank
-
-```
-USAGE
-  $ sbv2 aptos sort crank [CRANKHEXSTRING] [-h] [-v] [-s] [--networkId devnet|testnet] [--programId <value>]
-    [--stateAddress <value>] [-u <value>] [--json]
-
-ARGUMENTS
-  CRANKHEXSTRING  HexString address of the crank
-
-FLAGS
-  -h, --help              Show CLI help.
-  -s, --silent            suppress cli prompts
-  -u, --rpcUrl=<value>    alternate RPC url
-  -v, --verbose           log everything
-  --networkId=<option>    [default: devnet] Aptos network to connect to
-                          <options: devnet|testnet>
-  --programId=<value>     [default: 0xc9b4bb0b1f7a343687c4f8bc6eea36dd2a3aa8d654e640050ab5b8635a6b9cbd] Switchboard
-                          programId on the selected Aptos network
-  --stateAddress=<value>  [default: 0xc9b4bb0b1f7a343687c4f8bc6eea36dd2a3aa8d654e640050ab5b8635a6b9cbd] Switchboard
-                          state address
-
-GLOBAL FLAGS
-  --json  Format output as json.
-
-DESCRIPTION
-  sort the crank
-
-ALIASES
-  $ sbv2 aptos sort crank
 ```
 
 ## `sbv2 aptos update aggregator [AGGREGATORHEXSTRING]`
@@ -2483,32 +2412,6 @@ GLOBAL FLAGS
 
 DESCRIPTION
   deposit funds to an oracle's staking wallet
-```
-
-## `sbv2 near oracle up [ORACLEADDRESS]`
-
-```
-USAGE
-  $ sbv2 near oracle up [ORACLEADDRESS] --accountName <value> [-h] [-v] [-s] [--networkId
-    testnet|mainnet|betanet|localnet] [--programId <value>] [-u <value>] [--nearCredentialsDir <value>] [--json]
-
-ARGUMENTS
-  ORACLEADDRESS  address of the oracle in Uint8 or Base58 encoding
-
-FLAGS
-  -h, --help                    Show CLI help.
-  -s, --silent                  suppress cli prompts
-  -u, --rpcUrl=<value>          alternate RPC url
-  -v, --verbose                 log everything
-  --accountName=<value>         (required) Named account to load from your nearCredentialsDir
-  --nearCredentialsDir=<value>  [default: /Users/gally/.near-credentials] Alternative directory for near credentials.
-                                Defaults to ~/.near-credentials
-  --networkId=<option>          [default: testnet] Near network ID to connect to
-                                <options: testnet|mainnet|betanet|localnet>
-  --programId=<value>           [default: switchboard-v2.testnet] Switchboard programId on the selected Near networkId
-
-GLOBAL FLAGS
-  --json  Format output as json.
 ```
 
 ## `sbv2 near permission create`
