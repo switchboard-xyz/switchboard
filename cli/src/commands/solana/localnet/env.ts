@@ -65,10 +65,10 @@ export default class LocalnetEnvironment extends BaseCommand {
     );
     console.log(
       chalk.yellow(
-        `\tsbv2 anchor test \\
-  --keypair ${testEnvironment.payerKeypairPath} \\
+        `\tsbv2 solana anchor test \\
+  --keypair \"${testEnvironment.payerKeypairPath}\" \\
   --oracleKey ${testEnvironment.oracle} \\
-  --switchboardDir ${outputDir}`
+  --switchboardDir \"${outputDir}\"`
       )
     );
   }
