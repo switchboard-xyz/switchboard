@@ -29,6 +29,7 @@
  - [sbv2 solana crank pop](/dev/cli/solana/crank/pop)
  - [sbv2 solana crank print](/dev/cli/solana/crank/print)
  - [sbv2 solana crank push](/dev/cli/solana/crank/push)
+ - [sbv2 solana crank sort](/dev/cli/solana/crank/sort)
  - [sbv2 solana crank turn](/dev/cli/solana/crank/turn)
 ## sbv2 solana job
  - [sbv2 solana job create](/dev/cli/solana/job/create)

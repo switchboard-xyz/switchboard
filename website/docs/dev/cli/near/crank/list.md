@@ -1,12 +1,12 @@
 ---
 
-title: Crank
+title: List
 ---
 pop the crank
 
 ```asciidoc
 USAGE
-  $ sbv2 near pop crank [CRANKADDRESS] [-h] [-v] [-s] [--networkId testnet|mainnet|betanet|localnet] [--programId
+  $ sbv2 near crank list [CRANKADDRESS] [-h] [-v] [-s] [--networkId testnet|mainnet|betanet|localnet] [--programId
     <value>] [-u <value>] [--nearCredentialsDir <value>]
 
 ARGUMENTS

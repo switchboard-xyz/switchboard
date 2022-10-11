@@ -1,16 +1,13 @@
 ---
 
-title: Permission Create
+title: Escrow
 ---
-create a permission account for a near oracle
+print an escrow token account
 
 ```asciidoc
 USAGE
-  $ sbv2 near oracle permission create [ORACLEADDRESS] --accountName <value> [-h] [-v] [-s] [--networkId
-    testnet|mainnet|betanet|localnet] [--programId <value>] [-u <value>] [--nearCredentialsDir <value>] [--json]
-
-ARGUMENTS
-  ORACLEADDRESS  address of the oracle in Uint8 or Base58 encoding
+  $ sbv2 near print escrow --accountName <value> [-h] [-v] [-s] [--networkId testnet|mainnet|betanet|localnet]
+    [--programId <value>] [-u <value>] [--nearCredentialsDir <value>] [--json]
 
 FLAGS
   -h, --help                    Show CLI help.
@@ -28,8 +25,8 @@ GLOBAL FLAGS
   --json  Format output as json.
 
 DESCRIPTION
-  create a permission account for a near oracle
+  print an escrow token account
 
 ALIASES
-  $ sbv2 near create oracle permission
+  $ sbv2 near print escrow
 ```

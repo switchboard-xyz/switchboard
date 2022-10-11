@@ -44,6 +44,7 @@ interact with switchboard on Solana
 * [`sbv2 solana crank pop [CRANKKEY]`](#sbv2-solana-crank-pop-crankkey)
 * [`sbv2 solana crank print [CRANKKEY]`](#sbv2-solana-crank-print-crankkey)
 * [`sbv2 solana crank push [CRANKKEY] [AGGREGATORKEY]`](#sbv2-solana-crank-push-crankkey-aggregatorkey)
+* [`sbv2 solana crank sort [CRANKKEY]`](#sbv2-solana-crank-sort-crankkey)
 * [`sbv2 solana crank turn [CRANKKEY]`](#sbv2-solana-crank-turn-crankkey)
 * [`sbv2 solana job create JOBDEFINITION`](#sbv2-solana-job-create-jobdefinition)
 * [`sbv2 solana job print [JOBKEY]`](#sbv2-solana-job-print-jobkey)
@@ -1553,6 +1554,33 @@ DESCRIPTION
 ALIASES
   $ sbv2 solana aggregator add crank
   $ sbv2 solana crank add aggregator
+```
+
+## `sbv2 solana crank sort [CRANKKEY]`
+
+list the pubkeys currently on the crank
+
+```
+USAGE
+  $ sbv2 solana crank sort [CRANKKEY] [-h] [-v] [-s] [--mainnetBeta] [-u <value>] [--programId <value>] [--commitment
+    confirmed|finalized|processed] [--force]
+
+ARGUMENTS
+  CRANKKEY  public key of the crank
+
+FLAGS
+  -h, --help             Show CLI help.
+  -s, --silent           suppress cli prompts
+  -u, --rpcUrl=<value>   alternate RPC url
+  -v, --verbose          log everything
+  --commitment=<option>  [default: confirmed] transaction commitment level to use
+                         <options: confirmed|finalized|processed>
+  --force                overwrite output file if exists
+  --mainnetBeta          WARNING: use mainnet-beta solana cluster
+  --programId=<value>    alternative Switchboard program ID to interact with
+
+DESCRIPTION
+  list the pubkeys currently on the crank
 ```
 
 ## `sbv2 solana crank turn [CRANKKEY]`

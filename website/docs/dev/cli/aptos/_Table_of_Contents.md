@@ -6,6 +6,7 @@
  - [sbv2 aptos aggregator job add](/dev/cli/aptos/aggregator/job_add)
 ## sbv2 aptos crank
  - [sbv2 aptos crank create](/dev/cli/aptos/crank/create)
+ - [sbv2 aptos crank list](/dev/cli/aptos/crank/list)
  - [sbv2 aptos crank pop](/dev/cli/aptos/crank/pop)
  - [sbv2 aptos crank push](/dev/cli/aptos/crank/push)
 ## sbv2 aptos create
@@ -16,8 +17,12 @@
  - [sbv2 aptos create queue](/dev/cli/aptos/create/queue)
 ## sbv2 aptos job
  - [sbv2 aptos job create](/dev/cli/aptos/job/create)
+## sbv2 aptos list
+ - [sbv2 aptos list crank](/dev/cli/aptos/list/crank)
 ## sbv2 aptos oracle
  - [sbv2 aptos oracle create](/dev/cli/aptos/oracle/create)
+ - [sbv2 aptos oracle start](/dev/cli/aptos/oracle/start)
+ - [sbv2 aptos oracle up](/dev/cli/aptos/oracle/up)
 ## sbv2 aptos pop
  - [sbv2 aptos pop crank](/dev/cli/aptos/pop/crank)
 ## sbv2 aptos print

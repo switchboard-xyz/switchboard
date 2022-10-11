@@ -1,16 +1,16 @@
 ---
 
-title: Crank
+title: Escrow
 ---
-pop the crank
+view an aggregators escrow state
 
 ```asciidoc
 USAGE
-  $ sbv2 near pop crank [CRANKADDRESS] [-h] [-v] [-s] [--networkId testnet|mainnet|betanet|localnet] [--programId
-    <value>] [-u <value>] [--nearCredentialsDir <value>]
+  $ sbv2 near oracle escrow [ORACLEADDRESS] [-h] [-v] [-s] [--networkId testnet|mainnet|betanet|localnet] [--programId
+    <value>] [-u <value>] [--nearCredentialsDir <value>] [--json]
 
 ARGUMENTS
-  CRANKADDRESS  address of the crank in Uint8 or Base58 encoding
+  ORACLEADDRESS  address of the aggregator in Uint8 or Base58 encoding
 
 FLAGS
   -h, --help                    Show CLI help.
@@ -23,9 +23,9 @@ FLAGS
                                 <options: testnet|mainnet|betanet|localnet>
   --programId=<value>           [default: switchboard-v2.testnet] Switchboard programId on the selected Near networkId
 
-DESCRIPTION
-  pop the crank
+GLOBAL FLAGS
+  --json  Format output as json.
 
-ALIASES
-  $ sbv2 near pop crank
+DESCRIPTION
+  view an aggregators escrow state
 ```

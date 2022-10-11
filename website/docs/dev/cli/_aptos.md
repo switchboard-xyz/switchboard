@@ -7,6 +7,7 @@ interact with switchboard on Aptos
 * [`sbv2 aptos aggregator job add [AGGREGATORHEXSTRING]`](#sbv2-aptos-aggregator-job-add-aggregatorhexstring)
 * [`sbv2 aptos aggregator update [AGGREGATORHEXSTRING]`](#sbv2-aptos-aggregator-update-aggregatorhexstring)
 * [`sbv2 aptos crank create [QUEUEHEXSTRING]`](#sbv2-aptos-crank-create-queuehexstring)
+* [`sbv2 aptos crank list [CRANKHEXSTRING]`](#sbv2-aptos-crank-list-crankhexstring)
 * [`sbv2 aptos crank pop [CRANKHEXSTRING]`](#sbv2-aptos-crank-pop-crankhexstring)
 * [`sbv2 aptos crank push [CRANKHEXSTRING]`](#sbv2-aptos-crank-push-crankhexstring)
 * [`sbv2 aptos create aggregator [QUEUEHEXSTRING]`](#sbv2-aptos-create-aggregator-queuehexstring)
@@ -15,7 +16,10 @@ interact with switchboard on Aptos
 * [`sbv2 aptos create oracle [QUEUEHEXSTRING]`](#sbv2-aptos-create-oracle-queuehexstring)
 * [`sbv2 aptos create queue`](#sbv2-aptos-create-queue)
 * [`sbv2 aptos job create QUEUEHEXSTRING JOBDEFINITION`](#sbv2-aptos-job-create-queuehexstring-jobdefinition)
+* [`sbv2 aptos list crank [CRANKHEXSTRING]`](#sbv2-aptos-list-crank-crankhexstring)
 * [`sbv2 aptos oracle create [QUEUEHEXSTRING]`](#sbv2-aptos-oracle-create-queuehexstring)
+* [`sbv2 aptos oracle start [ORACLEHEXSTRING]`](#sbv2-aptos-oracle-start-oraclehexstring)
+* [`sbv2 aptos oracle up [ORACLEHEXSTRING]`](#sbv2-aptos-oracle-up-oraclehexstring)
 * [`sbv2 aptos pop crank [CRANKHEXSTRING]`](#sbv2-aptos-pop-crank-crankhexstring)
 * [`sbv2 aptos print ACCOUNTTYPE ADDRESS`](#sbv2-aptos-print-accounttype-address)
 * [`sbv2 aptos push crank [CRANKHEXSTRING]`](#sbv2-aptos-push-crank-crankhexstring)
@@ -259,6 +263,40 @@ DESCRIPTION
 
 ALIASES
   $ sbv2 aptos create crank
+```
+
+## `sbv2 aptos crank list [CRANKHEXSTRING]`
+
+sort the crank
+
+```
+USAGE
+  $ sbv2 aptos crank list [CRANKHEXSTRING] [-h] [-v] [-s] [--networkId devnet|testnet] [--programId <value>]
+    [--stateAddress <value>] [-u <value>] [--json]
+
+ARGUMENTS
+  CRANKHEXSTRING  HexString address of the crank
+
+FLAGS
+  -h, --help              Show CLI help.
+  -s, --silent            suppress cli prompts
+  -u, --rpcUrl=<value>    alternate RPC url
+  -v, --verbose           log everything
+  --networkId=<option>    [default: devnet] Aptos network to connect to
+                          <options: devnet|testnet>
+  --programId=<value>     [default: 0xc9b4bb0b1f7a343687c4f8bc6eea36dd2a3aa8d654e640050ab5b8635a6b9cbd] Switchboard
+                          programId on the selected Aptos network
+  --stateAddress=<value>  [default: 0xc9b4bb0b1f7a343687c4f8bc6eea36dd2a3aa8d654e640050ab5b8635a6b9cbd] Switchboard
+                          state address
+
+GLOBAL FLAGS
+  --json  Format output as json.
+
+DESCRIPTION
+  sort the crank
+
+ALIASES
+  $ sbv2 aptos list crank
 ```
 
 ## `sbv2 aptos crank pop [CRANKHEXSTRING]`
@@ -608,6 +646,40 @@ ALIASES
   $ sbv2 aptos create job
 ```
 
+## `sbv2 aptos list crank [CRANKHEXSTRING]`
+
+sort the crank
+
+```
+USAGE
+  $ sbv2 aptos list crank [CRANKHEXSTRING] [-h] [-v] [-s] [--networkId devnet|testnet] [--programId <value>]
+    [--stateAddress <value>] [-u <value>] [--json]
+
+ARGUMENTS
+  CRANKHEXSTRING  HexString address of the crank
+
+FLAGS
+  -h, --help              Show CLI help.
+  -s, --silent            suppress cli prompts
+  -u, --rpcUrl=<value>    alternate RPC url
+  -v, --verbose           log everything
+  --networkId=<option>    [default: devnet] Aptos network to connect to
+                          <options: devnet|testnet>
+  --programId=<value>     [default: 0xc9b4bb0b1f7a343687c4f8bc6eea36dd2a3aa8d654e640050ab5b8635a6b9cbd] Switchboard
+                          programId on the selected Aptos network
+  --stateAddress=<value>  [default: 0xc9b4bb0b1f7a343687c4f8bc6eea36dd2a3aa8d654e640050ab5b8635a6b9cbd] Switchboard
+                          state address
+
+GLOBAL FLAGS
+  --json  Format output as json.
+
+DESCRIPTION
+  sort the crank
+
+ALIASES
+  $ sbv2 aptos list crank
+```
+
 ## `sbv2 aptos oracle create [QUEUEHEXSTRING]`
 
 create a oracle for a given queue
@@ -648,6 +720,76 @@ DESCRIPTION
 
 ALIASES
   $ sbv2 aptos create oracle
+```
+
+## `sbv2 aptos oracle start [ORACLEHEXSTRING]`
+
+start an aptos oracle in docker
+
+```
+USAGE
+  $ sbv2 aptos oracle start [ORACLEHEXSTRING] --keypair <value> [-h] [-v] [-s] [--networkId devnet|testnet] [--programId
+    <value>] [--stateAddress <value>] [-u <value>] [--profileName <value>] [-a <value>]
+
+ARGUMENTS
+  ORACLEHEXSTRING  HexString address of the oracle
+
+FLAGS
+  -a, --authority=<value>  alternate named account that is the authority for the oracle
+  -h, --help               Show CLI help.
+  -s, --silent             suppress cli prompts
+  -u, --rpcUrl=<value>     alternate RPC url
+  -v, --verbose            log everything
+  --keypair=<value>        (required) Path to AptosAccount keypair or config.yaml file
+  --networkId=<option>     [default: devnet] Aptos network to connect to
+                           <options: devnet|testnet>
+  --profileName=<value>    [default: default] If --keypair is pointing to a yaml file, provide an optional profile to
+                           load. If none provided, default will be used
+  --programId=<value>      [default: 0xc9b4bb0b1f7a343687c4f8bc6eea36dd2a3aa8d654e640050ab5b8635a6b9cbd] Switchboard
+                           programId on the selected Aptos network
+  --stateAddress=<value>   [default: 0xc9b4bb0b1f7a343687c4f8bc6eea36dd2a3aa8d654e640050ab5b8635a6b9cbd] Switchboard
+                           state address
+
+DESCRIPTION
+  start an aptos oracle in docker
+
+ALIASES
+  $ sbv2 aptos oracle start
+```
+
+## `sbv2 aptos oracle up [ORACLEHEXSTRING]`
+
+start an aptos oracle in docker
+
+```
+USAGE
+  $ sbv2 aptos oracle up [ORACLEHEXSTRING] --keypair <value> [-h] [-v] [-s] [--networkId devnet|testnet] [--programId
+    <value>] [--stateAddress <value>] [-u <value>] [--profileName <value>] [-a <value>]
+
+ARGUMENTS
+  ORACLEHEXSTRING  HexString address of the oracle
+
+FLAGS
+  -a, --authority=<value>  alternate named account that is the authority for the oracle
+  -h, --help               Show CLI help.
+  -s, --silent             suppress cli prompts
+  -u, --rpcUrl=<value>     alternate RPC url
+  -v, --verbose            log everything
+  --keypair=<value>        (required) Path to AptosAccount keypair or config.yaml file
+  --networkId=<option>     [default: devnet] Aptos network to connect to
+                           <options: devnet|testnet>
+  --profileName=<value>    [default: default] If --keypair is pointing to a yaml file, provide an optional profile to
+                           load. If none provided, default will be used
+  --programId=<value>      [default: 0xc9b4bb0b1f7a343687c4f8bc6eea36dd2a3aa8d654e640050ab5b8635a6b9cbd] Switchboard
+                           programId on the selected Aptos network
+  --stateAddress=<value>   [default: 0xc9b4bb0b1f7a343687c4f8bc6eea36dd2a3aa8d654e640050ab5b8635a6b9cbd] Switchboard
+                           state address
+
+DESCRIPTION
+  start an aptos oracle in docker
+
+ALIASES
+  $ sbv2 aptos oracle start
 ```
 
 ## `sbv2 aptos pop crank [CRANKHEXSTRING]`
