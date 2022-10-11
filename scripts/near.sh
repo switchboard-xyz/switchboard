@@ -70,6 +70,7 @@ queue=$(sbv2 near queue create \
   --unpermissionedFeeds \
   --unpermissionedVrf \
   --enableBufferRelayers \
+  --reward 7500 \
   --json
 )
 queueAddress=$(echo "$queue" | jq -r '.addressBase58')

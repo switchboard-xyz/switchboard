@@ -1,6 +1,10 @@
 import { Flags } from "@oclif/core";
 import { NearWithSignerBaseCommand as BaseCommand } from "../../../near";
-import { OracleAccount } from "@switchboard-xyz/near.js";
+import {
+  OracleAccount,
+  PermissionAccount,
+  SwitchboardPermission,
+} from "@switchboard-xyz/near.js";
 
 export default class CreateOracle extends BaseCommand {
   static enableJsonFlag = true;
@@ -34,6 +38,8 @@ export default class CreateOracle extends BaseCommand {
   async run() {
     const { flags, args } = await this.parse(CreateOracle);
 
+    const [queueAccount, queueData] = await this.loadQueue(args.queueAddress);
+
     const oracleAccount = await OracleAccount.create(this.program, {
       authority: flags.authority || this.program.account.accountId,
       queue: this.parseAddress(args.queueAddress),
@@ -42,8 +48,32 @@ export default class CreateOracle extends BaseCommand {
     });
     const oracleData = await oracleAccount.loadData();
 
+    const permissionAccount = await PermissionAccount.create(this.program, {
+      authority: queueData.authority,
+      granter: queueAccount.address,
+      grantee: oracleAccount.address,
+    });
+
+    if (this.program.account.accountId === queueData.authority) {
+      await permissionAccount.set({
+        permission: SwitchboardPermission.PERMIT_ORACLE_HEARTBEAT,
+        enable: true,
+      });
+    }
+
+    const permissionData = await permissionAccount.loadData();
+
+    const escrowData = await oracleAccount.escrow.loadData();
+
     if (flags.json) {
-      return this.normalizeAccountData(oracleAccount.address, oracleData);
+      return this.normalizeAccountData(oracleAccount.address, {
+        ...oracleData.toJSON(),
+        escrow: escrowData.toJSON(),
+        permissions: this.normalizeAccountData(
+          permissionAccount.address,
+          permissionData.toJSON()
+        ),
+      });
     }
 
     this.logger.info(

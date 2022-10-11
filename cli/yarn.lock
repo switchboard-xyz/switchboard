@@ -2191,10 +2191,10 @@
     rpc-websockets "^7.5.0"
     superstruct "^0.14.2"
 
-"@switchboard-xyz/aptos.js@^2.3.7":
-  version "2.3.7"
-  resolved "https://registry.npmjs.org/@switchboard-xyz/aptos.js/-/aptos.js-2.3.7.tgz#9c16f3f9d352c92d8bdaa326d884195c4ed4d3a1"
-  integrity sha512-tjFrw7gNDDcHKs2RWYdtaTlhzOdVLfoJNY6XvvdqIPCMifBH7OeVm5/fMTz3oOkRIzvqBy6bRIw0AVFtdT3DPw==
+"@switchboard-xyz/aptos.js@^2.3.9":
+  version "2.3.9"
+  resolved "https://registry.npmjs.org/@switchboard-xyz/aptos.js/-/aptos.js-2.3.9.tgz#d79f395502275c20a4fbc274ad5f24b50e189217"
+  integrity sha512-mtuqQlG8rv3ytvYL/3frlcmdzgitYQr/Hy8NPejzQ2sFVohNwVAegQ0UvT9JeG8IqEQXf0XPQchHQe27Zl57qQ==
   dependencies:
     "@switchboard-xyz/common" "^2.0.0"
     aptos "^1.3.14"
@@ -2229,10 +2229,10 @@
     typedoc "^0.23.15"
     wait-for-event "^2.0.1"
 
-"@switchboard-xyz/near.js@^2.0.27":
-  version "2.0.27"
-  resolved "https://registry.npmjs.org/@switchboard-xyz/near.js/-/near.js-2.0.27.tgz#6e7196982164ad30d55e05f264d6333089ec0d9c"
-  integrity sha512-9pI7MRVmeG5V+oE33zn2Mm1O5vzPbfLcA8uswrOZpP0pqBDHIkk4tqTwNvMLP9lECVL9Um1PcBxIyaDdvmU+Ew==
+"@switchboard-xyz/near.js@^2.0.33":
+  version "2.0.33"
+  resolved "https://registry.npmjs.org/@switchboard-xyz/near.js/-/near.js-2.0.33.tgz#9afa8bc771c1a8a59c4b85eb59853324a30c6306"
+  integrity sha512-6u4iAG3jbWUg57DuRb6DaEJHRBW9Q71PjTegp7b47IU6qNWUcaq9njkOpdZOGGJ7jxmhY0YrH29DQiBtGVZYlQ==
   dependencies:
     "@switchboard-xyz/common" "^2.0.0"
     "@switchboard-xyz/near.js" "^2.0.21"

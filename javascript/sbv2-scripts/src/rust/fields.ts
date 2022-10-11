@@ -279,7 +279,9 @@ export class BnField extends SupportedField {
     return `${prefix ? prefix + "." : ""}${this.tsName}.toNumber()`;
   }
   fromSerdeMethod(prefix = "obj") {
-    return `new BN(${prefix ? prefix + "." : ""}${this.rustName})`;
+    return `new BN(${prefix ? prefix + "." : ""}${
+      this.rustName
+    }.toLocaleString("fullwide", { useGrouping: false }))`;
   }
 }
 

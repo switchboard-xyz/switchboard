@@ -8,6 +8,24 @@ hide_table_of_contents: true
 import RoundedCardGroup from "/src/components/RoundedCard/RoundedCardGroup";
 import { RustIcon } from "/src/components/icons/RustIcon";
 import useBaseUrl from "@docusaurus/useBaseUrl";
+import { Box } from "@mui/system";
+
+The [switchboard-xyz/sbv2-core](https://github.com/switchboard-xyz/sbv2-core)
+repo contains the chain agnostic code such as the CLI and OracleJob protobufs
+along with a git submodule for each chain specific SDK.
+
+To get started, clone the sbv2-core repo along with the submodules.
+
+<Box sx={{width: "75%"}}>
+
+```bash
+git clone --recurse-submodules https://github.com/switchboard-xyz/sbv2-core.git
+cd sbv2-core
+```
+
+</Box>
+
+
 
 ## Typedocs
 

@@ -6,10 +6,12 @@ import {
   AggregatorAccount,
   CrankAccount,
   loadNear,
+  OracleAccount,
   QueueAccount,
   SwitchboardPermission,
   SwitchboardProgram,
   TESTNET_PROGRAM_ID,
+  types,
 } from "@switchboard-xyz/near.js";
 import { CliBaseCommand as BaseCommand } from "../BaseCommand";
 import bs58 from "bs58";
@@ -220,7 +222,9 @@ export abstract class NearBaseCommand extends BaseCommand {
     return value;
   }
 
-  async loadQueue(address: string): Promise<[QueueAccount, any]> {
+  async loadQueue(
+    address: string
+  ): Promise<[QueueAccount, types.OracleQueueView]> {
     const account = new QueueAccount({
       program: this.program,
       address: this.parseAddress(address),
@@ -230,7 +234,7 @@ export abstract class NearBaseCommand extends BaseCommand {
     return [account, data];
   }
 
-  async loadCrank(address: string): Promise<[CrankAccount, any]> {
+  async loadCrank(address: string): Promise<[CrankAccount, types.CrankView]> {
     const account = new CrankAccount({
       program: this.program,
       address: this.parseAddress(address),
@@ -240,8 +244,20 @@ export abstract class NearBaseCommand extends BaseCommand {
     return [account, data];
   }
 
-  async loadAggregator(address: string): Promise<[AggregatorAccount, any]> {
+  async loadAggregator(
+    address: string
+  ): Promise<[AggregatorAccount, types.AggregatorView]> {
     const account = new AggregatorAccount({
+      program: this.program,
+      address: this.parseAddress(address),
+    });
+    const data = await account.loadData();
+
+    return [account, data];
+  }
+
+  async loadOracle(address: string): Promise<[OracleAccount, types.Oracle]> {
+    const account = new OracleAccount({
       program: this.program,
       address: this.parseAddress(address),
     });

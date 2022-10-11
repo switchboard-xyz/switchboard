@@ -1,6 +1,6 @@
 import { Flags } from "@oclif/core";
 import { NearWithSignerBaseCommand as BaseCommand } from "../../../near";
-import { QueueAccount } from "@switchboard-xyz/near.js";
+import { getWrappedMint, QueueAccount } from "@switchboard-xyz/near.js";
 
 export default class QueueCreate extends BaseCommand {
   static enableJsonFlag = true;
@@ -65,7 +65,7 @@ export default class QueueCreate extends BaseCommand {
       authority: flags.authority || this.program.account.accountId,
       name: Buffer.from(flags.name || ""),
       metadata: Buffer.from(flags.metadata || ""),
-      mint: "wrap.test",
+      mint: getWrappedMint(this.networkId),
       reward: flags.reward,
       minStake: flags.minStake,
       queueSize: flags.queueSize,
@@ -89,7 +89,7 @@ export default class QueueCreate extends BaseCommand {
     this.logger.info(
       `Queue Key (Base58): ${this.encodeAddress(queueAccount.address)}`
     );
-    this.logger.info(JSON.stringify(queueData, this.fs.jsonReplacers, 2));
+    this.logger.info(JSON.stringify(queueData, this.jsonReplacers, 2));
   }
 
   async catch(error) {
