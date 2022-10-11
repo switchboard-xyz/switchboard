@@ -154,7 +154,10 @@ export abstract class NearBaseCommand extends BaseCommand {
 
   // convert a near address to a Uint8Array
   // accepts [00,01,...] or Base58 econding
-  parseAddress(address: string): Uint8Array {
+  parseAddress(address: string | Array<number>): Uint8Array {
+    if (Array.isArray(address)) {
+      return new Uint8Array([...address]);
+    }
     if (this.isBase58(address)) {
       return bs58.decode(address);
     } else {
@@ -223,7 +226,7 @@ export abstract class NearBaseCommand extends BaseCommand {
   }
 
   async loadQueue(
-    address: string
+    address: string | Array<number>
   ): Promise<[QueueAccount, types.OracleQueueView]> {
     const account = new QueueAccount({
       program: this.program,
@@ -234,7 +237,9 @@ export abstract class NearBaseCommand extends BaseCommand {
     return [account, data];
   }
 
-  async loadCrank(address: string): Promise<[CrankAccount, types.CrankView]> {
+  async loadCrank(
+    address: string | Array<number>
+  ): Promise<[CrankAccount, types.CrankView]> {
     const account = new CrankAccount({
       program: this.program,
       address: this.parseAddress(address),
@@ -245,7 +250,7 @@ export abstract class NearBaseCommand extends BaseCommand {
   }
 
   async loadAggregator(
-    address: string
+    address: string | Array<number>
   ): Promise<[AggregatorAccount, types.AggregatorView]> {
     const account = new AggregatorAccount({
       program: this.program,
@@ -256,7 +261,9 @@ export abstract class NearBaseCommand extends BaseCommand {
     return [account, data];
   }
 
-  async loadOracle(address: string): Promise<[OracleAccount, types.Oracle]> {
+  async loadOracle(
+    address: string | Array<number>
+  ): Promise<[OracleAccount, types.Oracle]> {
     const account = new OracleAccount({
       program: this.program,
       address: this.parseAddress(address),

@@ -85,11 +85,9 @@ export default class CreateAggregator extends BaseCommand {
     const { flags, args } = await this.parse(CreateAggregator);
 
     const [queueAccount, queue] = await this.loadQueue(args.queueAddress);
-
-    this.logger.info(`loading escrow`);
     const escrow = await this.loadEscrow();
+    
 
-    this.logger.info(`creating agg...`);
 
     const aggregator = await AggregatorAccount.create(this.program, {
       authority: flags.authority ?? this.program.account.accountId,
@@ -119,95 +117,7 @@ export default class CreateAggregator extends BaseCommand {
       granter: queueAccount.address,
       grantee: aggregator.address,
     });
-
-    // const jobDefinitions = flags.job
-    //   ? flags.job.map((jobDefinition) => {
-    //       try {
-    //         const jobAddress = this.parseAddress(jobDefinition);
-    //         return jobDefinition;
-    //       } catch {
-    //         const json = JSON.parse(
-    //           fs
-    //             .readFileSync(this.normalizePath(jobDefinition), "utf8")
-    //             .replace(/\/\*[\s\S]*?\*\/|([^\\:]|^)\/\/.*$/g, "")
-    //         );
-    //         if (!("tasks" in json)) {
-    //           throw new Error(
-    //             `Job definition contains no tasks! ${jobDefinition}`
-    //           );
-    //         }
-    //         const oracleJob = this.loadJobJson(jobDefinition);
-    //         const oracleJobJson = oracleJob.toJSON();
-    //         return {
-    //           authority:
-    //             "authority" in json
-    //               ? json.authority
-    //               : flags.authority ?? this.program.account.accountId,
-    //           name: "name" in json ? json.name : undefined,
-    //           metadata: "metadata" in json ? json.metadata : undefined,
-    //           expiration: "expiration" in json ? json.expiration : undefined,
-    //           tasks: oracleJobJson.tasks,
-    //         };
-    //       }
-    //     })
-    //   : [];
-
-    // const { aggregator, permission, jobs, actions } =
-    //   await queueAccount.createAggregatorFromJSON({
-    //     crankAddress: flags.crankAddress,
-    //     rewardEscrow: escrow.address,
-    //     authority: flags.authority ?? this.program.account.accountId,
-    //     name: flags.name,
-    //     metadata: flags.metadata,
-    //     batchSize: flags.batchSize,
-    //     minOracleResults: flags.minOracles,
-    //     minJobResults: flags.minJobs,
-    //     minUpdateDelaySeconds: flags.updateInterval,
-    //     varianceThreshold: flags.varianceThreshold
-    //       ? new Big(flags.varianceThreshold)
-    //       : undefined,
-    //     forceReportPeriod: flags.forceReportPeriod,
-    //     historySize: flags.historyLimit,
-    //     enable: flags.enable,
-    //     jobs: jobDefinitions,
-    //   });
-
-    // this.logger.info(
-    //   `Aggregator Key (Uint8Array): [${aggregator.address
-    //     .map((e) => (e as any).toString())
-    //     .join(",")}]`
-    // );
-    // this.logger.info(
-    //   `Aggregator Key (Base58): ${this.encodeAddress(aggregator.address)}`
-    // );
-
-    // // this.logger.info(`About to send`);
-    // // const txnQueue = new TxnQueue(this.program, batches);
-    // // const txnReceipts = await txnQueue.send();
-
-    // const txnReceipts: FinalExecutionOutcome[] = [];
-    // for await (const action of actions) {
-    //   const txnReceipt = await this.program.sendAction(action[1]);
-    //   if (!isTxnSuccessful(txnReceipt)) {
-    //     this.logger.error(JSON.stringify(txnReceipt, undefined, 2));
-    //     throw new Error(`Near transaction failed`);
-    //   }
-    //   txnReceipts.push(txnReceipt);
-    //   this.logger.debug(`Sent txn ${txnReceipts.length} / ${actions.length}`);
-    // }
-
-    // const jobData = await Promise.all(
-    //   jobs.map(async (job) => {
-    //     const jobData = await job.loadData();
-    //     const oracleJob = OracleJob.decodeDelimited(jobData.data);
-    //     return {
-    //       address: job.address,
-    //       addressBase58: this.encodeAddress(job.address),
-    //       ...jobData,
-    //       tasks: oracleJob.tasks,
-    //     };
-    //   })
-    // );
+    
 
     const data = {
       address: aggregator.address,

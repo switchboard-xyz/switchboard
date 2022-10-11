@@ -62,14 +62,14 @@ export default class NearPrint extends BaseCommand {
     switch (args.accountType) {
       case "queue": {
         const queue = new QueueAccount(params);
-        data = await queue.loadData();
+        data = (await queue.loadData()).toJSON();
         break;
       }
       case "crank": {
         const crank = new CrankAccount(params);
         const crankData = await crank.loadData();
         data = {
-          ...crankData,
+          ...crankData.toJSON(),
           length: crankData.data.length,
           data: crankData.data.map(
             (row) => `${row.nextTimestamp}, ${base58.encode(row.uuid)}`
@@ -79,7 +79,7 @@ export default class NearPrint extends BaseCommand {
       }
       case "oracle": {
         const oracle = new OracleAccount(params);
-        data = await oracle.loadData();
+        data = (await oracle.loadData()).toJSON();
         if (flags.all) {
           const queue = new QueueAccount({
             program: this.program,
@@ -99,11 +99,12 @@ export default class NearPrint extends BaseCommand {
             });
             const permissionData = await permission.loadData();
             data = {
-              ...data,
+              ...data.toJSON(),
+              escrow: (await oracle.escrow.loadData()).toJSON(),
               permission: {
                 address: permission.address,
                 addressBase58: this.encodeAddress(permission.address),
-                ...permissionData,
+                ...permissionData.toJSON(),
               },
             };
           } catch {}
@@ -113,7 +114,11 @@ export default class NearPrint extends BaseCommand {
       }
       case "aggregator": {
         const aggregator = new AggregatorAccount(params);
-        data = await aggregator.loadData();
+        data = {
+          ...(await aggregator.loadData()).toJSON(),
+          history: undefined,
+          escrow: (await aggregator.escrow.loadData()).toJSON(),
+        };
         if (flags.all) {
           const queue = new QueueAccount({
             program: this.program,
@@ -135,10 +140,11 @@ export default class NearPrint extends BaseCommand {
             data = {
               ...data,
               history: undefined,
+              escrow: (await aggregator.escrow.loadData()).toJSON(),
               permission: {
                 address: permission.address,
                 addressBase58: this.encodeAddress(permission.address),
-                ...permissionData,
+                ...permissionData.toJSON(),
               },
             };
           } catch {}
@@ -155,12 +161,15 @@ export default class NearPrint extends BaseCommand {
                 return {
                   address: jobAccount.address,
                   addressBase58: this.encodeAddress(jobAccount.address),
-                  ...jobData,
+                  ...jobData.toJSON(),
                   data: oracleJob.toJSON(),
                 };
               })
             );
-            data = { ...data, history: undefined, jobs: aggregatorJobData };
+            data = {
+              ...data,
+              jobs: aggregatorJobData,
+            };
           } catch {}
         }
         break;
@@ -174,7 +183,7 @@ export default class NearPrint extends BaseCommand {
         const job = new JobAccount(params);
         data = await job.loadData();
         data = {
-          ...data,
+          ...data.toJSON(),
           // data: oracleJob.toJSON(),
         };
         break;
