@@ -10894,6 +10894,7 @@
              * @property {OracleJob.ISolanaAccountDataFetchTask|null} [solanaAccountDataFetchTask] Task solanaAccountDataFetchTask
              * @property {OracleJob.IBufferLayoutParseTask|null} [bufferLayoutParseTask] Task bufferLayoutParseTask
              * @property {OracleJob.ICronParseTask|null} [cronParseTask] Task cronParseTask
+             * @property {OracleJob.IMinTask|null} [minTask] Task minTask
              */
     
             /**
@@ -11215,17 +11216,25 @@
              */
             Task.prototype.cronParseTask = null;
     
+            /**
+             * Task minTask.
+             * @member {OracleJob.IMinTask|null|undefined} minTask
+             * @memberof OracleJob.Task
+             * @instance
+             */
+            Task.prototype.minTask = null;
+    
             // OneOf field names bound to virtual getters and setters
             var $oneOfFields;
     
             /**
              * Task Task.
-             * @member {"httpTask"|"jsonParseTask"|"medianTask"|"meanTask"|"websocketTask"|"divideTask"|"multiplyTask"|"lpTokenPriceTask"|"lpExchangeRateTask"|"conditionalTask"|"valueTask"|"maxTask"|"regexExtractTask"|"xstepPriceTask"|"addTask"|"subtractTask"|"twapTask"|"serumSwapTask"|"powTask"|"lendingRateTask"|"mangoPerpMarketTask"|"jupiterSwapTask"|"perpMarketTask"|"oracleTask"|"anchorFetchTask"|"defiKingdomsTask"|"tpsTask"|"splStakePoolTask"|"splTokenParseTask"|"uniswapExchangeRateTask"|"sushiswapExchangeRateTask"|"pancakeswapExchangeRateTask"|"cacheTask"|"sysclockOffsetTask"|"marinadeStateTask"|"solanaAccountDataFetchTask"|"bufferLayoutParseTask"|"cronParseTask"|undefined} Task
+             * @member {"httpTask"|"jsonParseTask"|"medianTask"|"meanTask"|"websocketTask"|"divideTask"|"multiplyTask"|"lpTokenPriceTask"|"lpExchangeRateTask"|"conditionalTask"|"valueTask"|"maxTask"|"regexExtractTask"|"xstepPriceTask"|"addTask"|"subtractTask"|"twapTask"|"serumSwapTask"|"powTask"|"lendingRateTask"|"mangoPerpMarketTask"|"jupiterSwapTask"|"perpMarketTask"|"oracleTask"|"anchorFetchTask"|"defiKingdomsTask"|"tpsTask"|"splStakePoolTask"|"splTokenParseTask"|"uniswapExchangeRateTask"|"sushiswapExchangeRateTask"|"pancakeswapExchangeRateTask"|"cacheTask"|"sysclockOffsetTask"|"marinadeStateTask"|"solanaAccountDataFetchTask"|"bufferLayoutParseTask"|"cronParseTask"|"minTask"|undefined} Task
              * @memberof OracleJob.Task
              * @instance
              */
             Object.defineProperty(Task.prototype, "Task", {
-                get: $util.oneOfGetter($oneOfFields = ["httpTask", "jsonParseTask", "medianTask", "meanTask", "websocketTask", "divideTask", "multiplyTask", "lpTokenPriceTask", "lpExchangeRateTask", "conditionalTask", "valueTask", "maxTask", "regexExtractTask", "xstepPriceTask", "addTask", "subtractTask", "twapTask", "serumSwapTask", "powTask", "lendingRateTask", "mangoPerpMarketTask", "jupiterSwapTask", "perpMarketTask", "oracleTask", "anchorFetchTask", "defiKingdomsTask", "tpsTask", "splStakePoolTask", "splTokenParseTask", "uniswapExchangeRateTask", "sushiswapExchangeRateTask", "pancakeswapExchangeRateTask", "cacheTask", "sysclockOffsetTask", "marinadeStateTask", "solanaAccountDataFetchTask", "bufferLayoutParseTask", "cronParseTask"]),
+                get: $util.oneOfGetter($oneOfFields = ["httpTask", "jsonParseTask", "medianTask", "meanTask", "websocketTask", "divideTask", "multiplyTask", "lpTokenPriceTask", "lpExchangeRateTask", "conditionalTask", "valueTask", "maxTask", "regexExtractTask", "xstepPriceTask", "addTask", "subtractTask", "twapTask", "serumSwapTask", "powTask", "lendingRateTask", "mangoPerpMarketTask", "jupiterSwapTask", "perpMarketTask", "oracleTask", "anchorFetchTask", "defiKingdomsTask", "tpsTask", "splStakePoolTask", "splTokenParseTask", "uniswapExchangeRateTask", "sushiswapExchangeRateTask", "pancakeswapExchangeRateTask", "cacheTask", "sysclockOffsetTask", "marinadeStateTask", "solanaAccountDataFetchTask", "bufferLayoutParseTask", "cronParseTask", "minTask"]),
                 set: $util.oneOfSetter($oneOfFields)
             });
     
@@ -11329,6 +11338,8 @@
                     $root.OracleJob.BufferLayoutParseTask.encode(message.bufferLayoutParseTask, writer.uint32(/* id 38, wireType 2 =*/306).fork()).ldelim();
                 if (message.cronParseTask != null && Object.hasOwnProperty.call(message, "cronParseTask"))
                     $root.OracleJob.CronParseTask.encode(message.cronParseTask, writer.uint32(/* id 39, wireType 2 =*/314).fork()).ldelim();
+                if (message.minTask != null && Object.hasOwnProperty.call(message, "minTask"))
+                    $root.OracleJob.MinTask.encode(message.minTask, writer.uint32(/* id 40, wireType 2 =*/322).fork()).ldelim();
                 return writer;
             };
     
@@ -11476,6 +11487,9 @@
                         break;
                     case 39:
                         message.cronParseTask = $root.OracleJob.CronParseTask.decode(reader, reader.uint32());
+                        break;
+                    case 40:
+                        message.minTask = $root.OracleJob.MinTask.decode(reader, reader.uint32());
                         break;
                     default:
                         reader.skipType(tag & 7);
@@ -11891,6 +11905,16 @@
                             return "cronParseTask." + error;
                     }
                 }
+                if (message.minTask != null && message.hasOwnProperty("minTask")) {
+                    if (properties.Task === 1)
+                        return "Task: multiple values";
+                    properties.Task = 1;
+                    {
+                        var error = $root.OracleJob.MinTask.verify(message.minTask);
+                        if (error)
+                            return "minTask." + error;
+                    }
+                }
                 return null;
             };
     
@@ -12095,6 +12119,11 @@
                     if (typeof object.cronParseTask !== "object")
                         throw TypeError(".OracleJob.Task.cronParseTask: object expected");
                     message.cronParseTask = $root.OracleJob.CronParseTask.fromObject(object.cronParseTask);
+                }
+                if (object.minTask != null) {
+                    if (typeof object.minTask !== "object")
+                        throw TypeError(".OracleJob.Task.minTask: object expected");
+                    message.minTask = $root.OracleJob.MinTask.fromObject(object.minTask);
                 }
                 return message;
             };
@@ -12301,6 +12330,11 @@
                     object.cronParseTask = $root.OracleJob.CronParseTask.toObject(message.cronParseTask, options);
                     if (options.oneofs)
                         object.Task = "cronParseTask";
+                }
+                if (message.minTask != null && message.hasOwnProperty("minTask")) {
+                    object.minTask = $root.OracleJob.MinTask.toObject(message.minTask, options);
+                    if (options.oneofs)
+                        object.Task = "minTask";
                 }
                 return object;
             };

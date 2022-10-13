@@ -549,6 +549,7 @@ message OracleJob {
       SolanaAccountDataFetchTask solana_account_data_fetch_task = 37;
       BufferLayoutParseTask buffer_layout_parse_task = 38;
       CronParseTask cron_parse_task = 39;
+      MinTask minTask = 40;
     }
   }
   // The chain of tasks to perform for this OracleJob.

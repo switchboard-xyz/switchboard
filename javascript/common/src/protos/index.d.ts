@@ -4571,6 +4571,9 @@ export namespace OracleJob {
 
         /** Task cronParseTask */
         cronParseTask?: (OracleJob.ICronParseTask|null);
+
+        /** Task minTask */
+        minTask?: (OracleJob.IMinTask|null);
     }
 
     /** Represents a Task. */
@@ -4696,8 +4699,11 @@ export namespace OracleJob {
         /** Task cronParseTask. */
         public cronParseTask?: (OracleJob.ICronParseTask|null);
 
+        /** Task minTask. */
+        public minTask?: (OracleJob.IMinTask|null);
+
         /** Task Task. */
-        public Task?: ("httpTask"|"jsonParseTask"|"medianTask"|"meanTask"|"websocketTask"|"divideTask"|"multiplyTask"|"lpTokenPriceTask"|"lpExchangeRateTask"|"conditionalTask"|"valueTask"|"maxTask"|"regexExtractTask"|"xstepPriceTask"|"addTask"|"subtractTask"|"twapTask"|"serumSwapTask"|"powTask"|"lendingRateTask"|"mangoPerpMarketTask"|"jupiterSwapTask"|"perpMarketTask"|"oracleTask"|"anchorFetchTask"|"defiKingdomsTask"|"tpsTask"|"splStakePoolTask"|"splTokenParseTask"|"uniswapExchangeRateTask"|"sushiswapExchangeRateTask"|"pancakeswapExchangeRateTask"|"cacheTask"|"sysclockOffsetTask"|"marinadeStateTask"|"solanaAccountDataFetchTask"|"bufferLayoutParseTask"|"cronParseTask");
+        public Task?: ("httpTask"|"jsonParseTask"|"medianTask"|"meanTask"|"websocketTask"|"divideTask"|"multiplyTask"|"lpTokenPriceTask"|"lpExchangeRateTask"|"conditionalTask"|"valueTask"|"maxTask"|"regexExtractTask"|"xstepPriceTask"|"addTask"|"subtractTask"|"twapTask"|"serumSwapTask"|"powTask"|"lendingRateTask"|"mangoPerpMarketTask"|"jupiterSwapTask"|"perpMarketTask"|"oracleTask"|"anchorFetchTask"|"defiKingdomsTask"|"tpsTask"|"splStakePoolTask"|"splTokenParseTask"|"uniswapExchangeRateTask"|"sushiswapExchangeRateTask"|"pancakeswapExchangeRateTask"|"cacheTask"|"sysclockOffsetTask"|"marinadeStateTask"|"solanaAccountDataFetchTask"|"bufferLayoutParseTask"|"cronParseTask"|"minTask");
 
         /**
          * Creates a new Task instance using the specified properties.
