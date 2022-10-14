@@ -708,6 +708,102 @@ export namespace OracleJob {
         public toJSON(): { [k: string]: any };
     }
 
+    /** Properties of a MinTask. */
+    interface IMinTask {
+
+        /** MinTask tasks */
+        tasks?: (OracleJob.ITask[]|null);
+
+        /** MinTask jobs */
+        jobs?: (IOracleJob[]|null);
+    }
+
+    /** Represents a MinTask. */
+    class MinTask implements IMinTask {
+
+        /**
+         * Constructs a new MinTask.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: OracleJob.IMinTask);
+
+        /** MinTask tasks. */
+        public tasks: OracleJob.ITask[];
+
+        /** MinTask jobs. */
+        public jobs: IOracleJob[];
+
+        /**
+         * Creates a new MinTask instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns MinTask instance
+         */
+        public static create(properties?: OracleJob.IMinTask): OracleJob.MinTask;
+
+        /**
+         * Encodes the specified MinTask message. Does not implicitly {@link OracleJob.MinTask.verify|verify} messages.
+         * @param message MinTask message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: OracleJob.IMinTask, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Encodes the specified MinTask message, length delimited. Does not implicitly {@link OracleJob.MinTask.verify|verify} messages.
+         * @param message MinTask message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: OracleJob.IMinTask, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Decodes a MinTask message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns MinTask
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): OracleJob.MinTask;
+
+        /**
+         * Decodes a MinTask message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns MinTask
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): OracleJob.MinTask;
+
+        /**
+         * Verifies a MinTask message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a MinTask message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns MinTask
+         */
+        public static fromObject(object: { [k: string]: any }): OracleJob.MinTask;
+
+        /**
+         * Creates a plain object from a MinTask message. Also converts values to other types if specified.
+         * @param message MinTask
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: OracleJob.MinTask, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this MinTask to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
     /** Properties of a ValueTask. */
     interface IValueTask {
 
@@ -4475,6 +4571,9 @@ export namespace OracleJob {
 
         /** Task cronParseTask */
         cronParseTask?: (OracleJob.ICronParseTask|null);
+
+        /** Task minTask */
+        minTask?: (OracleJob.IMinTask|null);
     }
 
     /** Represents a Task. */
@@ -4600,8 +4699,11 @@ export namespace OracleJob {
         /** Task cronParseTask. */
         public cronParseTask?: (OracleJob.ICronParseTask|null);
 
+        /** Task minTask. */
+        public minTask?: (OracleJob.IMinTask|null);
+
         /** Task Task. */
-        public Task?: ("httpTask"|"jsonParseTask"|"medianTask"|"meanTask"|"websocketTask"|"divideTask"|"multiplyTask"|"lpTokenPriceTask"|"lpExchangeRateTask"|"conditionalTask"|"valueTask"|"maxTask"|"regexExtractTask"|"xstepPriceTask"|"addTask"|"subtractTask"|"twapTask"|"serumSwapTask"|"powTask"|"lendingRateTask"|"mangoPerpMarketTask"|"jupiterSwapTask"|"perpMarketTask"|"oracleTask"|"anchorFetchTask"|"defiKingdomsTask"|"tpsTask"|"splStakePoolTask"|"splTokenParseTask"|"uniswapExchangeRateTask"|"sushiswapExchangeRateTask"|"pancakeswapExchangeRateTask"|"cacheTask"|"sysclockOffsetTask"|"marinadeStateTask"|"solanaAccountDataFetchTask"|"bufferLayoutParseTask"|"cronParseTask");
+        public Task?: ("httpTask"|"jsonParseTask"|"medianTask"|"meanTask"|"websocketTask"|"divideTask"|"multiplyTask"|"lpTokenPriceTask"|"lpExchangeRateTask"|"conditionalTask"|"valueTask"|"maxTask"|"regexExtractTask"|"xstepPriceTask"|"addTask"|"subtractTask"|"twapTask"|"serumSwapTask"|"powTask"|"lendingRateTask"|"mangoPerpMarketTask"|"jupiterSwapTask"|"perpMarketTask"|"oracleTask"|"anchorFetchTask"|"defiKingdomsTask"|"tpsTask"|"splStakePoolTask"|"splTokenParseTask"|"uniswapExchangeRateTask"|"sushiswapExchangeRateTask"|"pancakeswapExchangeRateTask"|"cacheTask"|"sysclockOffsetTask"|"marinadeStateTask"|"solanaAccountDataFetchTask"|"bufferLayoutParseTask"|"cronParseTask"|"minTask");
 
         /**
          * Creates a new Task instance using the specified properties.

@@ -60,7 +60,6 @@ message OracleJob {
     // returns multiple numerical results.
     optional AggregationMethod aggregation_method = 2;
   }
-
   // Returns the median of all the results returned by the provided subtasks and subjobs. Nested tasks must return a Number.
   message MedianTask {
     // A list of subtasks to process and produce a list of result values.
@@ -80,6 +79,14 @@ message OracleJob {
 
   // Returns the maximum value of all the results returned by the provided subtasks and subjobs.
   message MaxTask {
+    // A list of subtasks to process and produce a list of result values.
+    repeated Task tasks = 1;
+    // A list of subjobs to process and produce a list of result values.
+    repeated OracleJob jobs = 2;
+  }
+
+   // Returns the minimum value of all the results returned by the provided subtasks and subjobs.
+  message MinTask {
     // A list of subtasks to process and produce a list of result values.
     repeated Task tasks = 1;
     // A list of subjobs to process and produce a list of result values.
@@ -542,6 +549,7 @@ message OracleJob {
       SolanaAccountDataFetchTask solana_account_data_fetch_task = 37;
       BufferLayoutParseTask buffer_layout_parse_task = 38;
       CronParseTask cron_parse_task = 39;
+      MinTask minTask = 40;
     }
   }
   // The chain of tasks to perform for this OracleJob.
