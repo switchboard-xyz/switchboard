@@ -272,22 +272,24 @@ export abstract class AptosBaseCommand extends BaseCommand {
     return super.jsonReplacers(key, value);
   }
 
-  deserializeJobData(jobData: string): OracleJob {
-    const hexString = jobData.startsWith("0x")
-      ? (jobData as string).slice(2)
-      : jobData;
+  deserializeJobData(jobData: Uint8Array): OracleJob {
+    // const hexString = jobData.startsWith("0x")
+    //   ? (jobData as string).slice(2)
+    //   : jobData;
 
     // console.log(`${jobData} => ${trimmedData}`);
     // const bytes = trimmedData.match(/.{2}/g).map(Number);
     // console.log(`Deserialized [${bytes}]`);
 
-    var numBytes = hexString.length / 2;
-    var byteArray = new Uint8Array(numBytes);
-    for (var i = 0; i < numBytes; i++) {
-      byteArray[i] = parseInt(hexString.substr(i * 2, 2), 16);
-    }
+    // var numBytes = hexString.length / 2;
+    // var byteArray = new Uint8Array(numBytes);
+    // for (var i = 0; i < numBytes; i++) {
+    //   byteArray[i] = parseInt(hexString.substr(i * 2, 2), 16);
+    // }
 
-    return OracleJob.decodeDelimited(Buffer.from(byteArray));
+    return OracleJob.decodeDelimited(
+      Buffer.from(Buffer.from(jobData).toString(), "base64")
+    );
   }
 
   async loadQueue(queueHexString: string): Promise<[OracleQueueAccount, any]> {
