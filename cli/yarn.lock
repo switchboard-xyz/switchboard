@@ -1431,15 +1431,15 @@
   resolved "https://registry.npmjs.org/@noble/ed25519/-/ed25519-1.7.1.tgz#6899660f6fbb97798a6fbd227227c4589a454724"
   integrity sha512-Rk4SkJFaXZiznFyC/t77Q0NKS4FL7TLJJsVG2V2oiEq3kJVeTdxysEe/yRWSpnWMe808XRDJ+VFh5pt/FN5plw==
 
-"@noble/hashes@1.1.2", "@noble/hashes@^1.1.2":
-  version "1.1.2"
-  resolved "https://registry.npmjs.org/@noble/hashes/-/hashes-1.1.2.tgz#e9e035b9b166ca0af657a7848eb2718f0f22f183"
-  integrity sha512-KYRCASVTv6aeUi1tsF8/vpyR7zpfs3FUzy2Jqm+MU+LmUKhQ0y2FpfwqkCcxSg2ua4GALJd8k2R76WxwZGbQpA==
-
-"@noble/hashes@~1.1.1":
+"@noble/hashes@1.1.3", "@noble/hashes@~1.1.1":
   version "1.1.3"
   resolved "https://registry.npmjs.org/@noble/hashes/-/hashes-1.1.3.tgz#360afc77610e0a61f3417e497dcf36862e4f8111"
   integrity sha512-CE0FCR57H2acVI5UOzIGSSIYxZ6v/HOhDR0Ro9VLyhnzLwx0o8W1mmgaqlEUx4049qJDlIBRztv5k+MM8vbO3A==
+
+"@noble/hashes@^1.1.2":
+  version "1.1.2"
+  resolved "https://registry.npmjs.org/@noble/hashes/-/hashes-1.1.2.tgz#e9e035b9b166ca0af657a7848eb2718f0f22f183"
+  integrity sha512-KYRCASVTv6aeUi1tsF8/vpyR7zpfs3FUzy2Jqm+MU+LmUKhQ0y2FpfwqkCcxSg2ua4GALJd8k2R76WxwZGbQpA==
 
 "@noble/secp256k1@^1.6.3":
   version "1.7.0"
@@ -2191,13 +2191,13 @@
     rpc-websockets "^7.5.0"
     superstruct "^0.14.2"
 
-"@switchboard-xyz/aptos.js@^2.4.0":
-  version "2.4.0"
-  resolved "https://registry.npmjs.org/@switchboard-xyz/aptos.js/-/aptos.js-2.4.0.tgz#0d8769f714802d0f65d3b0cd00959eaeff3815c8"
-  integrity sha512-3cWp5Hx1yAieZ7nEOHSKMa6HdunPjGvBUWT5c3fYOWRHQvGum7mG9grjn5XF+zwTSfm8JUahdDJhPLBpDWOWwQ==
+"@switchboard-xyz/aptos.js@^2.5.0":
+  version "2.5.0"
+  resolved "https://registry.npmjs.org/@switchboard-xyz/aptos.js/-/aptos.js-2.5.0.tgz#3e16827ec98ff9fed75d38f30ea6b0dc26dd0178"
+  integrity sha512-h9Zz6gcHW3zArl/4F+oRXf1Sqp1DG3wV0i4HwiuaOOQP18ge8tI1i79Bk5hRGmFYM12BcnKoYeP4lkst6wXZdg==
   dependencies:
     "@switchboard-xyz/common" "^2.0.0"
-    aptos "^1.3.14"
+    aptos "^1.3.16"
     big.js "^6.2.1"
     bn.js "^5.2.1"
     chalk "^5.0.1"
@@ -2824,12 +2824,12 @@ anymatch@~3.1.2:
   resolved "https://registry.npmjs.org/aproba/-/aproba-2.0.0.tgz#52520b8ae5b569215b354efc0caa3fe1e45a8adc"
   integrity sha512-lYe4Gx7QT+MKGbDsA+Z+he/Wtef0BiwDOlK/XkBrdfsh9J/jPPXbX0tE9x9cl27Tmu5gg3QUbUrQYa/y+KOHPQ==
 
-aptos@^1.3.14:
-  version "1.3.15"
-  resolved "https://registry.npmjs.org/aptos/-/aptos-1.3.15.tgz#700bb78c1f04de78d2518d2dd9d9e675aef0d8e2"
-  integrity sha512-kRjTHZctWM5m4K1tMDl7tZZpRu0+ceHFGpvyMw8ONrtbx9EvfcctFSv9DnSKSKGX0soivT0LhwDFIobd3jQQtw==
+aptos@^1.3.16:
+  version "1.3.16"
+  resolved "https://registry.npmjs.org/aptos/-/aptos-1.3.16.tgz#fb4d072c4975beece9c0ee4104ff2dd069fcc1ec"
+  integrity sha512-LxI4XctQ5VeL+HokjwuGPwsb1fcydLIn4agFXyhn7hSYosTLNRxQ3UIixyP4Fmv6qPBjQVu8hELVSlThQk/EjA==
   dependencies:
-    "@noble/hashes" "1.1.2"
+    "@noble/hashes" "1.1.3"
     "@scure/bip39" "1.1.0"
     axios "0.27.2"
     form-data "4.0.0"

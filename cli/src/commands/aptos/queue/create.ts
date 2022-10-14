@@ -17,12 +17,12 @@ export default class QueueCreate extends BaseCommand {
       description:
         "alternate account HexString that will be the authority for the queue",
     }),
-    // name: Flags.string({
-    //   description: "name of the queue for easier identification",
-    // }),
-    // metadata: Flags.string({
-    //   description: "metadata of the queue for easier identification",
-    // }),
+    name: Flags.string({
+      description: "name of the queue for easier identification",
+    }),
+    metadata: Flags.string({
+      description: "metadata of the queue for easier identification",
+    }),
     minStake: Flags.integer({
       description: "minimum stake required by an oracle to join the queue",
       default: 0,
@@ -83,8 +83,8 @@ export default class QueueCreate extends BaseCommand {
       this.aptos,
       account, // TODO: Use --self flag to publish account at signer address
       {
-        // name: flags.name ?? "",
-        // metadata: flags.metadata ?? "",
+        name: flags.name ?? "",
+        metadata: flags.metadata ?? "",
         authority: flags.authority
           ? this.parseAddress(flags.authority)
           : this.signer.address(), // not --new keypair cuz we didnt back it up
