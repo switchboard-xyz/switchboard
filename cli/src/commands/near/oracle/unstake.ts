@@ -1,10 +1,6 @@
 import { Flags } from "@oclif/core";
 import { NearWithSignerBaseCommand as BaseCommand } from "../../../near";
-import {
-  EscrowAccount,
-  OracleAccount,
-  SwitchboardDecimal,
-} from "@switchboard-xyz/near.js";
+import { EscrowAccount } from "@switchboard-xyz/near.js";
 
 export default class OracleUnstake extends BaseCommand {
   static enableJsonFlag = true;
@@ -37,10 +33,10 @@ export default class OracleUnstake extends BaseCommand {
       this.program
     );
 
-    const unstakeReceipt = await oracleAccount.unstake(
-      escrowAccount,
-      Number(flags.amount)
-    );
+    const unstakeReceipt = await oracleAccount.unstake({
+      destinationEscrow: escrowAccount,
+      amount: Number(flags.amount),
+    });
 
     if (flags.json) {
       return this.normalizeAccountData(oracleAccount.address, {

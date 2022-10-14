@@ -49,9 +49,9 @@ export default class AggregatorFund extends BaseCommand {
 
     if (escrowBalance.toNumber() < Number(flags.amount) + 0.05) {
       // wrap any needed funds and deposit into the program
-      const fundReceipt = await escrowAccount.fundUpTo(
-        Number(flags.amount) + 0.05
-      );
+      const fundReceipt = await escrowAccount.fundUpTo({
+        amount: Number(flags.amount),
+      });
       console.log("Wrapping Near", this.toUrl(fundReceipt.transaction.hash));
     }
 
