@@ -2191,10 +2191,10 @@
     rpc-websockets "^7.5.0"
     superstruct "^0.14.2"
 
-"@switchboard-xyz/aptos.js@^2.5.0":
-  version "2.5.0"
-  resolved "https://registry.npmjs.org/@switchboard-xyz/aptos.js/-/aptos.js-2.5.0.tgz#3e16827ec98ff9fed75d38f30ea6b0dc26dd0178"
-  integrity sha512-h9Zz6gcHW3zArl/4F+oRXf1Sqp1DG3wV0i4HwiuaOOQP18ge8tI1i79Bk5hRGmFYM12BcnKoYeP4lkst6wXZdg==
+"@switchboard-xyz/aptos.js@^2.5.5":
+  version "2.5.5"
+  resolved "https://registry.npmjs.org/@switchboard-xyz/aptos.js/-/aptos.js-2.5.5.tgz#a74163745f03f4b315a1323648e2d5cb02251db7"
+  integrity sha512-xC8Wj8sYBL26Obka21lVa2tmR8zF+WuXPRW8msTGyrq9B/09DG0Ipc3JA0XXRZAeI2lyCht1B72261BsLxfBZg==
   dependencies:
     "@switchboard-xyz/common" "^2.0.0"
     aptos "^1.3.16"
