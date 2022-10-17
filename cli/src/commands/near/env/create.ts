@@ -42,15 +42,15 @@ export default class EnvCreate extends BaseCommand {
     metadata: Flags.string({
       description: "metadata of the queue for easier identification",
     }),
-    minStake: Flags.integer({
+    minStake: Flags.string({
       description: "minimum stake required by an oracle to join the queue",
-      default: 0,
+      default: "0",
     }),
-    reward: Flags.integer({
+    reward: Flags.string({
       char: "r",
       description:
         "oracle rewards for successfully responding to an update request",
-      default: 0,
+      default: "0",
     }),
     oracleTimeout: Flags.integer({
       description: "number of oracles to add to the queue",
@@ -102,8 +102,8 @@ export default class EnvCreate extends BaseCommand {
         name: Buffer.from(flags.name || ""),
         metadata: Buffer.from(flags.metadata || ""),
         mint: this.program.mint.address,
-        reward: new BN(flags.reward ?? 0),
-        minStake: new BN(flags.minStake ?? 0),
+        reward: Number.parseInt(flags.reward ?? "0", 10),
+        minStake: Number.parseInt(flags.minStake ?? "0", 10),
         queueSize: flags.queueSize,
         oracleTimeout: flags.oracleTimeout,
         slashingEnabled: flags.slashingEnabled,
