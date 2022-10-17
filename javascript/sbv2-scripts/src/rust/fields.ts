@@ -39,7 +39,7 @@ export type ExportedTypes =
 
 export const FieldTypeAliases: Map<ExportedTypes, string[]> = new Map([
   ["bool", ["bool"]],
-  ["string", ["String", "accountid"]],
+  ["string", ["String", "AccountId"]],
   ["number", ["i8", "u8", "i16", "u16", "i32", "u32", "f32", "f64"]],
   [
     "uint8array",
@@ -78,6 +78,7 @@ export interface ISupportedField {
   isPrimitive: boolean;
   isUint8Array: boolean;
   isBn: boolean;
+  isBnWrapper: boolean;
   isCustom: boolean;
 }
 
@@ -132,7 +133,19 @@ export abstract class SupportedField implements ISupportedField {
   }
 
   get isBn(): boolean {
-    return !this.isPrimitive && this._fieldType.toLowerCase() === "bn";
+    return (
+      !this.isPrimitive &&
+      this._fieldType.toLowerCase() === "bn" &&
+      this._serdeType === "number"
+    );
+  }
+
+  get isBnWrapper(): boolean {
+    return (
+      !this.isPrimitive &&
+      this._fieldType.toLowerCase() === "bn" &&
+      this._serdeType === "string"
+    );
   }
 
   get isCustom(): boolean {
@@ -361,6 +374,9 @@ export class OptionalType<T extends ISupportedField> extends SupportedField {
     }
     if (this.innerType.isPrimitive) {
       return innerMethod;
+    }
+    if (this.innerType.isBnWrapper) {
+      return `${name}?.toString(10)`;
     }
     if (this.innerType.isBn) {
       return `${name}?.toNumber()`;
