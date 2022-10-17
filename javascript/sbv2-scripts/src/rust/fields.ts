@@ -29,17 +29,24 @@ export const toCamelCase = (str: string): string => {
 
 export type BuiltInField = BooleanType | NumberField | StringField;
 
-export type ExportedTypes = "bool" | "string" | "number" | "uint8array" | "bn";
+export type ExportedTypes =
+  | "bool"
+  | "string"
+  | "number"
+  | "uint8array"
+  | "bn"
+  | "bn_wrapper";
 
 export const FieldTypeAliases: Map<ExportedTypes, string[]> = new Map([
   ["bool", ["bool"]],
-  ["string", ["string", "accountid"]],
+  ["string", ["String", "accountid"]],
   ["number", ["i8", "u8", "i16", "u16", "i32", "u32", "f32", "f64"]],
   [
     "uint8array",
-    ["uint8array", "uuid", "address", "[u8;32]", "[u8; 32]", "vec<u8>"],
+    ["uint8array", "Uuid", "Address", "[u8;32]", "[u8; 32]", "Vec<u8>"],
   ],
   ["bn", ["i64", "u64", "i128", "u128", "i256", "u256"]],
+  ["bn_wrapper", ["U64", "I64", "U128", "I128", "U256", "I256"]],
 ]);
 
 export const FieldTypeMap: Map<string, ExportedTypes> = Array.from(
@@ -62,8 +69,8 @@ export interface ISupportedField {
   toJsonMethod(prefix?: string): string;
   fromJsonMethod(prefix?: string): string;
 
-  _borshType: string;
-  borshType: string;
+  _serdeType: string;
+  serdeType: string;
   // getSerdeMethod(name: string): string;
   toSerdeMethod(prefix?: string): string;
   fromSerdeMethod(prefix?: string): string;
@@ -90,11 +97,11 @@ export abstract class SupportedField implements ISupportedField {
     return this._jsonType;
   }
 
-  abstract _borshType: string;
+  abstract _serdeType: string;
   abstract toSerdeMethod(): string;
   abstract fromSerdeMethod(prefix?: string): string;
-  get borshType(): string {
-    return this._borshType;
+  get serdeType(): string {
+    return this._serdeType;
   }
 
   constructor(readonly _name: string) {
@@ -138,8 +145,8 @@ export abstract class SupportedField implements ISupportedField {
   }
 
   static getType(type: string): ExportedTypes {
-    if (FieldTypeMap.has(type.toLowerCase())) {
-      return FieldTypeMap.get(type.toLowerCase());
+    if (FieldTypeMap.has(type)) {
+      return FieldTypeMap.get(type);
     }
     throw new TypeError();
   }
@@ -156,6 +163,8 @@ export abstract class SupportedField implements ISupportedField {
           return new NumberField(rustName);
         case "bn":
           return new BnField(rustName);
+        case "bn_wrapper":
+          return new BnWrapperField(rustName);
         case "uint8array":
           return new Uint8ArrayType(rustName);
         default:
@@ -232,7 +241,7 @@ export abstract class PrimitiveType extends SupportedField {
 export class BooleanType extends PrimitiveType {
   _fieldType: string = "boolean";
   _jsonType: string = "boolean";
-  _borshType: string = "boolean";
+  _serdeType: string = "boolean";
 
   constructor(readonly name: string) {
     super(name);
@@ -242,7 +251,7 @@ export class BooleanType extends PrimitiveType {
 export class NumberField extends PrimitiveType {
   _fieldType: string = "number";
   _jsonType: string = "number";
-  _borshType: string = "number";
+  _serdeType: string = "number";
 
   constructor(readonly name: string) {
     super(name);
@@ -252,7 +261,7 @@ export class NumberField extends PrimitiveType {
 export class StringField extends PrimitiveType {
   _fieldType: string = "string";
   _jsonType: string = "string";
-  _borshType: string = "string";
+  _serdeType: string = "string";
 
   constructor(readonly name: string) {
     super(name);
@@ -262,7 +271,7 @@ export class StringField extends PrimitiveType {
 export class BnField extends SupportedField {
   _fieldType: string = "BN";
   _jsonType: string = "string";
-  _borshType: string = "number";
+  _serdeType: string = "number";
 
   constructor(readonly name: string) {
     super(name);
@@ -285,18 +294,33 @@ export class BnField extends SupportedField {
   }
 }
 
+export class BnWrapperField extends BnField {
+  _serdeType: string = "string";
+
+  constructor(readonly name: string) {
+    super(name);
+  }
+
+  toSerdeMethod(prefix = "this") {
+    return `${prefix ? prefix + "." : ""}${this.tsName}.toString(10)`;
+  }
+  fromSerdeMethod(prefix = "obj") {
+    return `new BN(${prefix ? prefix + "." : ""}${this.rustName})`;
+  }
+}
+
 /// Complex
 
 export class OptionalType<T extends ISupportedField> extends SupportedField {
   _jsonType: string;
   _fieldType: string;
-  _borshType: string;
+  _serdeType: string;
 
   constructor(readonly name: string, readonly innerType: T) {
     super(name);
     this._jsonType = `${innerType.jsonType} | undefined`;
     this._fieldType = `${innerType.fieldType} | undefined`;
-    this._borshType = `${innerType.borshType} | null`;
+    this._serdeType = `${innerType.serdeType} | null`;
   }
 
   toJsonMethod(prefix = "this"): string {
@@ -363,13 +387,13 @@ export class OptionalType<T extends ISupportedField> extends SupportedField {
 export class CustomStructField extends SupportedField {
   _jsonType: string;
   _fieldType: string;
-  _borshType: string;
+  _serdeType: string;
 
   constructor(readonly name: string, readonly customTypeName: string) {
     super(name);
     this._jsonType = `types.${customTypeName}JSON`;
     this._fieldType = `types.${customTypeName}`;
-    this._borshType = `types.${customTypeName}Serde`;
+    this._serdeType = `types.${customTypeName}Serde`;
   }
 
   toJsonMethod(prefix = "this"): string {
@@ -394,13 +418,13 @@ export class CustomStructField extends SupportedField {
 export class ArrayField<T extends ISupportedField> extends SupportedField {
   _jsonType: string;
   _fieldType: string;
-  _borshType: string;
+  _serdeType: string;
 
   constructor(readonly name: string, readonly innerType: T) {
     super(name);
     this._jsonType = `Array<${innerType.jsonType}>`;
     this._fieldType = `Array<${innerType.fieldType}>`;
-    this._borshType = `Array<${innerType.borshType}>`;
+    this._serdeType = `Array<${innerType.serdeType}>`;
   }
 
   toJsonMethod(prefix = "this"): string {
@@ -483,7 +507,7 @@ export class ArrayField<T extends ISupportedField> extends SupportedField {
 export class Uint8ArrayType extends ArrayField<NumberField> {
   _jsonType: string;
   _fieldType: string;
-  _borshType: string;
+  _serdeType: string;
 
   constructor(
     readonly name: string,
@@ -492,7 +516,7 @@ export class Uint8ArrayType extends ArrayField<NumberField> {
     super(name, innerType);
     this._jsonType = `Array<number>`;
     this._fieldType = `Uint8Array`;
-    this._borshType = `Array<number>`;
+    this._serdeType = `Array<number>`;
   }
 
   toJsonMethod(prefix = "this"): string {
@@ -522,13 +546,13 @@ export class MapType<
 > extends SupportedField {
   _jsonType: string;
   _fieldType: string;
-  _borshType: string;
+  _serdeType: string;
 
   constructor(readonly name: string, readonly key: T, readonly value: U) {
     super(name);
     this._jsonType = `Map<${key.jsonType}, ${value.jsonType}>`;
     this._fieldType = `Map<${key.fieldType}, ${value.fieldType}>`;
-    this._borshType = `Map<${key.borshType}, ${value.borshType}>`;
+    this._serdeType = `Map<${key.serdeType}, ${value.serdeType}>`;
   }
 
   toJsonMethod(prefix = "this"): string {

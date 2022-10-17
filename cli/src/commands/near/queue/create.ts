@@ -1,6 +1,7 @@
 import { Flags } from "@oclif/core";
 import { NearWithSignerBaseCommand as BaseCommand } from "../../../near";
 import { getWrappedMint, QueueAccount } from "@switchboard-xyz/near.js";
+import { BN } from "bn.js";
 
 export default class QueueCreate extends BaseCommand {
   static enableJsonFlag = true;
@@ -22,15 +23,15 @@ export default class QueueCreate extends BaseCommand {
     metadata: Flags.string({
       description: "metadata of the queue for easier identification",
     }),
-    minStake: Flags.integer({
+    minStake: Flags.string({
       description: "minimum stake required by an oracle to join the queue",
-      default: 0,
+      default: "0",
     }),
-    reward: Flags.integer({
+    reward: Flags.string({
       char: "r",
       description:
         "oracle rewards for successfully responding to an update request",
-      default: 0,
+      default: "0",
     }),
     oracleTimeout: Flags.integer({
       description: "number of oracles to add to the queue",
@@ -65,9 +66,9 @@ export default class QueueCreate extends BaseCommand {
       authority: flags.authority || this.program.account.accountId,
       name: Buffer.from(flags.name || ""),
       metadata: Buffer.from(flags.metadata || ""),
-      mint: getWrappedMint(this.networkId),
-      reward: flags.reward,
-      minStake: flags.minStake,
+      mint: this.program.mint.address,
+      reward: new BN(flags.reward ?? 0),
+      minStake: new BN(flags.minStake ?? 0),
       queueSize: flags.queueSize,
       oracleTimeout: flags.oracleTimeout,
       slashingEnabled: flags.slashingEnabled,

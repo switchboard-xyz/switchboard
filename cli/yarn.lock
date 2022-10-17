@@ -2229,10 +2229,10 @@
     typedoc "^0.23.15"
     wait-for-event "^2.0.1"
 
-"@switchboard-xyz/near.js@^2.0.36":
-  version "2.0.36"
-  resolved "https://registry.npmjs.org/@switchboard-xyz/near.js/-/near.js-2.0.36.tgz#48b5f918d0d9af2b47b7734815b5a77ceef31d29"
-  integrity sha512-iCLDrPNKf6o2pJ3MiRWROGH7JsBtVAce5KaUdlnCryFvPTtTl7AuK78EX7JBxf+4F8FUT/XPvqRptT/iDPIGtQ==
+"@switchboard-xyz/near.js@^2.0.45":
+  version "2.0.45"
+  resolved "https://registry.npmjs.org/@switchboard-xyz/near.js/-/near.js-2.0.45.tgz#95fdd499efe8412b16d70aff094b1ce011e5f9aa"
+  integrity sha512-4FsYqsjxHMwSiTkHHv5dW5SSqt1GMG1bACQG63AK2F2AysUqGZW7ITj44fw8mw8O+A0rFt+LnRMDt66aqeFySA==
   dependencies:
     "@switchboard-xyz/common" "^2.0.0"
     "@switchboard-xyz/near.js" "^2.0.21"
@@ -2244,7 +2244,7 @@
     near-api-js "^1.0.0"
     near-lake-framework "^1.0.4"
     near-units "^0.1.9"
-    typedoc "^0.23.15"
+    typedoc "^0.23.16"
     wait-for-event "^2.0.1"
 
 "@switchboard-xyz/sbv2-utils@^0.1.48":
@@ -8583,6 +8583,16 @@ typedoc@^0.23.15:
   version "0.23.15"
   resolved "https://registry.npmjs.org/typedoc/-/typedoc-0.23.15.tgz#6d995c47d34e5785dadffe0ebc28372bd019e5e5"
   integrity sha512-x9Zu+tTnwxb9YdVr+zvX7LYzyBl1nieOr6lrSHbHsA22/RJK2m4Y525WIg5Mj4jWCmfL47v6f4hUzY7EIuwS5w==
+  dependencies:
+    lunr "^2.3.9"
+    marked "^4.0.19"
+    minimatch "^5.1.0"
+    shiki "^0.11.1"
+
+typedoc@^0.23.16:
+  version "0.23.16"
+  resolved "https://registry.npmjs.org/typedoc/-/typedoc-0.23.16.tgz#09881ada725c2190ac5d3bb0edadcc5bfeda4bfe"
+  integrity sha512-rumYsCeNRXlyuZVzefD7050n7ptL2uudsCJg50dY0v/stKniqIlRpvx/F/6expC0/Q6Dbab+g/JpZuB7Sw90FA==
   dependencies:
     lunr "^2.3.9"
     marked "^4.0.19"

@@ -18,6 +18,7 @@ import { OracleJob } from "@switchboard-xyz/common";
 import Big from "big.js";
 import base58 from "bs58";
 import { FinalExecutionOutcome } from "near-api-js/lib/providers";
+import { BN } from "bn.js";
 
 export default class EnvCreate extends BaseCommand {
   static enableJsonFlag = true;
@@ -100,9 +101,9 @@ export default class EnvCreate extends BaseCommand {
         authority: flags.authority || this.program.account.accountId,
         name: Buffer.from(flags.name || ""),
         metadata: Buffer.from(flags.metadata || ""),
-        mint: "wrap.test",
-        reward: flags.reward,
-        minStake: flags.minStake,
+        mint: this.program.mint.address,
+        reward: new BN(flags.reward ?? 0),
+        minStake: new BN(flags.minStake ?? 0),
         queueSize: flags.queueSize,
         oracleTimeout: flags.oracleTimeout,
         slashingEnabled: flags.slashingEnabled,

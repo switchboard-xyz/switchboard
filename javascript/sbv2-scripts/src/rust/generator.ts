@@ -27,7 +27,7 @@ export class ProgramStruct {
 
   getSerdeInterface(): string {
     return `export interface ${this.name}Serde {\n${this.fields
-      .map((f) => `\t${f.rustName}: ${f.borshType};`)
+      .map((f) => `\t${f.rustName}: ${f.serdeType};`)
       .join("\n\t")}\n}`;
   }
 
