@@ -56,6 +56,8 @@ export interface ISupportedField {
   _fieldType: string;
   fieldType: string;
 
+  rawType: string;
+
   _jsonType: string;
   jsonType: string;
   toJsonMethod(prefix?: string): string;
@@ -96,7 +98,7 @@ export abstract class SupportedField implements ISupportedField {
     return this._moveStructType;
   }
 
-  constructor(readonly _name: string) {
+  constructor(readonly _name: string, readonly rawType: string) {
     this.rustName = cleanupString(this._name, false);
     this.tsName = cleanupString(this.rustName, true);
   }
@@ -152,15 +154,15 @@ export abstract class SupportedField implements ISupportedField {
       const t = SupportedField.getType(type);
       switch (t) {
         case "bool":
-          return new BooleanType(rustName);
+          return new BooleanType(rustName, type);
         case "string":
-          return new StringField(rustName);
+          return new StringField(rustName, type);
         case "number":
-          return new NumberField(rustName);
+          return new NumberField(rustName, type);
         case "bn":
-          return new BnField(rustName);
+          return new BnField(rustName, type);
         case "uint8array":
-          return new Uint8ArrayType(rustName);
+          return new Uint8ArrayType(rustName, type);
         default:
           throw new Error(`Failed to match ExportedType, ${t}`);
       }
@@ -169,7 +171,7 @@ export abstract class SupportedField implements ISupportedField {
         type.toLowerCase() === "hexstring" ||
         type.toLowerCase() === "address"
       ) {
-        return new HexStringField(rustName);
+        return new HexStringField(rustName, type);
       }
       // check if its a map
       const mapMatches = Array.from(
@@ -187,7 +189,7 @@ export abstract class SupportedField implements ISupportedField {
           rustName,
           mapMatch.groups["valKind"]
         );
-        return new MapType(rustName, mapKeyKind, mapValKind);
+        return new MapType(rustName, type, mapKeyKind, mapValKind);
       }
       // check if its a vector
       const vecMatches = Array.from(
@@ -196,7 +198,7 @@ export abstract class SupportedField implements ISupportedField {
       if (vecMatches && vecMatches.length) {
         const vecMatch = vecMatches.shift();
         const vecType = SupportedField.from(rustName, vecMatch.groups["kind"]);
-        return new ArrayField(rustName, vecType);
+        return new ArrayField(rustName, type, vecType);
       }
       // check if its optional
       const optionMatches = Array.from(
@@ -208,19 +210,19 @@ export abstract class SupportedField implements ISupportedField {
           rustName,
           optionMatch.groups["kind"]
         );
-        return new OptionalType(rustName, optionType);
+        return new OptionalType(rustName, type, optionType);
       }
 
       if (type === "Escrow<CoinType>") {
-        return new CustomStructField(rustName, "Escrow");
+        return new CustomStructField(rustName, type, "Escrow");
       }
 
       if (type === "Coin<CoinType>") {
-        return new CustomStructField(rustName, "Coin");
+        return new CustomStructField(rustName, type, "Coin");
       }
 
       // fallthrough, treat as custom type
-      return new CustomStructField(rustName, type);
+      return new CustomStructField(rustName, type, type);
     }
   }
 }
@@ -249,8 +251,8 @@ export class BooleanType extends PrimitiveType {
   _jsonType: string = "boolean";
   _moveStructType: string = "boolean";
 
-  constructor(readonly name: string) {
-    super(name);
+  constructor(readonly name: string, readonly rawType: string) {
+    super(name, rawType);
   }
 }
 
@@ -259,8 +261,8 @@ export class NumberField extends PrimitiveType {
   _jsonType: string = "number";
   _moveStructType: string = "number";
 
-  constructor(readonly name: string) {
-    super(name);
+  constructor(readonly name: string, readonly rawType: string) {
+    super(name, rawType);
   }
 }
 
@@ -269,8 +271,8 @@ export class StringField extends PrimitiveType {
   _jsonType: string = "string";
   _moveStructType: string = "string";
 
-  constructor(readonly name: string) {
-    super(name);
+  constructor(readonly name: string, readonly rawType: string) {
+    super(name, rawType);
   }
 }
 
@@ -279,8 +281,8 @@ export class BnField extends SupportedField {
   _jsonType: string = "string";
   _moveStructType: string = "string";
 
-  constructor(readonly name: string) {
-    super(name);
+  constructor(readonly name: string, readonly rawType: string) {
+    super(name, rawType);
   }
 
   toJsonMethod(prefix = "this") {
@@ -303,8 +305,8 @@ export class HexStringField extends SupportedField {
   _jsonType: string = "string";
   _moveStructType: string = "string";
 
-  constructor(readonly name: string) {
-    super(name);
+  constructor(readonly name: string, readonly rawType: string) {
+    super(name, rawType);
   }
 
   toJsonMethod(prefix = "this") {
@@ -329,8 +331,12 @@ export class OptionalType<T extends ISupportedField> extends SupportedField {
   _fieldType: string;
   _moveStructType: string;
 
-  constructor(readonly name: string, readonly innerType: T) {
-    super(name);
+  constructor(
+    readonly name: string,
+    readonly rawType: string,
+    readonly innerType: T
+  ) {
+    super(name, rawType);
     this._jsonType = `${innerType.jsonType} | undefined`;
     this._fieldType = `${innerType.fieldType} | undefined`;
     this._moveStructType = `${innerType.moveStructType} | null`;
@@ -414,8 +420,12 @@ export class CustomStructField extends SupportedField {
   _fieldType: string;
   _moveStructType: string;
 
-  constructor(readonly name: string, readonly customTypeName: string) {
-    super(name);
+  constructor(
+    readonly name: string,
+    readonly rawType: string,
+    readonly customTypeName: string
+  ) {
+    super(name, rawType);
     this._jsonType = `types.${customTypeName}JSON`;
     this._fieldType = `types.${customTypeName}`;
     this._moveStructType = `types.${customTypeName}MoveStruct`;
@@ -445,8 +455,12 @@ export class ArrayField<T extends ISupportedField> extends SupportedField {
   _fieldType: string;
   _moveStructType: string;
 
-  constructor(readonly name: string, readonly innerType: T) {
-    super(name);
+  constructor(
+    readonly name: string,
+    readonly rawType: string,
+    readonly innerType: T
+  ) {
+    super(name, rawType);
     this._jsonType = `Array<${innerType.jsonType}>`;
     this._fieldType = `Array<${innerType.fieldType}>`;
     this._moveStructType = `Array<${innerType.moveStructType}>`;
@@ -550,9 +564,10 @@ export class Uint8ArrayType extends ArrayField<NumberField> {
 
   constructor(
     readonly name: string,
-    readonly innerType = new NumberField(name)
+    readonly rawType: string,
+    readonly innerType = new NumberField(name, rawType)
   ) {
-    super(name, innerType);
+    super(name, rawType, innerType);
     this._jsonType = `Array<number>`;
     this._fieldType = `Uint8Array`;
     this._moveStructType = `string`;
@@ -588,8 +603,13 @@ export class MapType<
   _fieldType: string;
   _moveStructType: string;
 
-  constructor(readonly name: string, readonly key: T, readonly value: U) {
-    super(name);
+  constructor(
+    readonly name: string,
+    readonly rawType: string,
+    readonly key: T,
+    readonly value: U
+  ) {
+    super(name, rawType);
     this._jsonType = `Map<${key.jsonType}, ${value.jsonType}>`;
     this._fieldType = `Map<${key.fieldType}, ${value.fieldType}>`;
     this._moveStructType = `Map<${key.moveStructType}, ${value.moveStructType}>`;

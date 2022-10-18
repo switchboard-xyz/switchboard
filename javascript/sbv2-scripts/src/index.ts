@@ -28,4 +28,10 @@ program
   .description("Generate javascript type definitions from move code")
   .action(actions.aptosTypes);
 
+// sbv2-scripts aptos-idl ../switchboard-aptos/switchboard/sources
+program
+  .command("aptos-idl <aptosSourceDir>")
+  .description("Generate IDL from move code")
+  .action(actions.aptosIdl);
+
 program.parse();

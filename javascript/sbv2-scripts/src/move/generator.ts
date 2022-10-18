@@ -1,8 +1,31 @@
-import { SupportedField } from "./fields";
+import { CustomStructField, SupportedField } from "./fields";
 import fs from "fs";
 import path from "path";
 import fse from "fs-extra";
 import { cleanupString } from "../utilts";
+
+interface ErrorDescription {
+  name: string;
+  code: number;
+  value: string;
+  description: string;
+}
+
+interface FieldsDescription {
+  name: string;
+  type: string;
+  description: string;
+}
+interface TypeDescription {
+  name: string;
+  description: string;
+  fields: Array<FieldsDescription>;
+}
+
+interface TypeDescriptions {
+  types: Array<TypeDescription>;
+  errors: Array<ErrorDescription>;
+}
 
 export const IGNORE_STRUCTS = ["State", "EscrowManager"];
 
@@ -106,7 +129,7 @@ export class ProgramStruct {
 
 export class ProgramStructs {
   static structRegex = new RegExp(
-    /(?:struct)\s(?<name>[A-z]+)(?:\<phantom CoinType\>)?(?:\shas\s)?(?<traits>(?:[a-zA-Z0-9 ]+,)*[a-zA-Z0-9 ]+)\{(?<fields>[^}]+)\}/g
+    /(?:struct)\s(?<name>[A-z]+)(?:\<phantom (CoinType|T)?\>)?(?:\shas\s)?(?<traits>(?:[a-zA-Z0-9 ]+,)*[a-zA-Z0-9 ]+)\{(?<fields>[^}]+)\}/g
   );
   // static enumFieldRegex = new RegExp(/(?<enum>[A-z]+)\s*={1}\s(?<val>.*)/g);
   static enumFieldRegex = new RegExp(/(?<enum>[A-z]+)/g);
@@ -201,6 +224,194 @@ export class ProgramStructs {
 
   get size(): number {
     return this.structs.size;
+  }
+
+  writeMarkdown(outputDirectory: string) {
+    const typesWithLinks = [
+      "SwitchboardDecimal",
+      "AggregatorRound",
+      "AggregatorHistoryRow",
+      "OracleMetrics",
+      "SignerCapability",
+      "AggregatorOpenRoundParams",
+      "Coin",
+      "EscrowManagerItem",
+    ];
+    const hyperlinks = new Map<string, string>(
+      typesWithLinks.map((t) => [t, `[${t}](/aptos/idl/types/${t})`])
+    );
+    const remapper = new Map<string, string>([
+      ["address", "HexString"],
+      ["vector<address>", "vector<HexString>"],
+    ]);
+    // fse.emptyDirSync(outputDirectory);
+    fs.mkdirSync(outputDirectory, { recursive: true });
+
+    const getHyperlink = (type: string): string => {
+      if (hyperlinks.has(type)) {
+        return hyperlinks.get(type);
+      }
+      return type;
+    };
+
+    const convertType = (type: string): string => {
+      if (type.startsWith("vector<")) {
+        return convertVectorType(type);
+      }
+      if (type.startsWith("Option<")) {
+        // return convertOptionType(type);
+        const typeMatch = Array.from(type.matchAll(/\<(?<inner>.*)\>/g));
+        const inner = typeMatch[0].groups["inner"] ?? type;
+        return type.replace(
+          `Option<${inner}>`,
+          `Option<${getHyperlink(inner)}\\>`
+        );
+      }
+      return getHyperlink(type);
+    };
+
+    const convertVectorType = (type: string): string => {
+      if (!type.startsWith("vector<")) {
+        return type;
+      }
+      const typeMatch = Array.from(type.matchAll(/\<(?<inner>.*)\>/g));
+      const inner = typeMatch[0].groups["inner"] ?? type;
+      return convertType(
+        getHyperlink(inner) + "[]" + type.replace(`vector<${inner}>`, "")
+      );
+    };
+
+    // const convertOptionType = (type: string): string => {
+    //   if (!type.startsWith("Option<")) {
+    //     return type;
+    //   }
+    //   const typeMatch = Array.from(type.matchAll(/\<(?<inner>.*)\>/g));
+    //   const inner = typeMatch[0].groups["inner"] ?? type;
+    //   return convertType(
+    //     "(" + inner + " \\| undefined)" + type.replace(`Option<${inner}>`, "")
+    //   );
+    // };
+
+    const emptyTypeDescriptions = Array.from(this.structs.entries()).map(
+      (s): TypeDescription => {
+        const [name, struct] = s;
+        return {
+          name: name,
+          description: "",
+          fields: struct.fields.map((f): FieldsDescription => {
+            return {
+              name: f.tsName,
+              type: remapper.has(f.rawType)
+                ? remapper.get(f.rawType)
+                : f.rawType,
+              description: "",
+            };
+          }),
+        };
+      }
+    );
+
+    // look for descriptions json, if not generate it
+    let types: Array<TypeDescription> = [];
+    let existingDescriptions: Array<TypeDescription> = [];
+    let errorDescriptions: Array<ErrorDescription> = [];
+    const descriptionsJsonPath = path.join(
+      outputDirectory,
+      "..",
+      "descriptions.json"
+    );
+
+    if (!fs.existsSync(descriptionsJsonPath)) {
+      types = [...emptyTypeDescriptions];
+    } else {
+      // read in descriptions and update json if exists
+      const existingTypeDescriptions: TypeDescriptions = JSON.parse(
+        fs.readFileSync(descriptionsJsonPath, "utf-8")
+      );
+
+      if (
+        existingTypeDescriptions &&
+        "errors" in existingTypeDescriptions &&
+        existingTypeDescriptions.errors.length > 0
+      ) {
+        errorDescriptions.push(...existingTypeDescriptions.errors);
+      }
+
+      if (
+        existingTypeDescriptions &&
+        "types" in existingTypeDescriptions &&
+        existingTypeDescriptions.types.length > 0
+      ) {
+        existingDescriptions.push(...existingTypeDescriptions.types);
+      }
+
+      for (const type of emptyTypeDescriptions) {
+        // TODO: Need to deep merge fields in case some get added
+        // look for existing description, if not set to blank
+        const existingDescriptionIndex = existingDescriptions.findIndex(
+          (t) => t.name === type.name
+        );
+        types.push(
+          existingDescriptionIndex > -1
+            ? existingDescriptions.splice(existingDescriptionIndex, 1)[0]
+            : type
+        );
+      }
+    }
+
+    fs.writeFileSync(
+      descriptionsJsonPath,
+      JSON.stringify({ types, errors: errorDescriptions ?? [] }, undefined, 2)
+    );
+
+    for (const type of types) {
+      const fileName = path.join(outputDirectory, `_${type.name}.md`);
+      const tableHeader = `${
+        type.description ? type.description + "\n\n" : ""
+      }| Field  | Type  | Description |
+      | ------ | --------- | ------|`;
+
+      const rows = type.fields.map(
+        (f) => `| ${f.name} | ${convertType(f.type)} | ${f.description} |`
+      );
+      const fileString = tableHeader + "\n" + rows.join("\n");
+      fs.writeFileSync(fileName, fileString);
+    }
+
+    /// write errors
+    if (errorDescriptions && errorDescriptions.length) {
+      const errorFile = path.join(outputDirectory, "..", "errors.md");
+      const errorHeader: string = `---
+sidebar_position: 60
+title: Errors
+---
+
+## Switchboard Errors
+
+| Code | Hex    | Name                 | Description |
+| ---- | ------ | -------------------- | ----------- |\n`;
+      const rows = errorDescriptions.map(
+        (e) => `| ${e.code} | ${e.value} | ${e.name} |  ${e.description} |`
+      );
+      fs.writeFileSync(errorFile, errorHeader + rows.join("\n"));
+    }
+
+    //     for (const type of types) {
+    //       const outputFile = path.join(
+    //         outputDirectory,
+    //         "..",
+    //         "types",
+    //         `${type.name}.mdx`
+    //       );
+
+    //       fs.writeFileSync(
+    //         outputFile,
+    //         `import ${type.name} from "/docs/aptos/idl/_generated/_${type.name}.md";
+
+    // <${type.name} />
+    //       `
+    //       );
+    //     }
   }
 
   write(outputDirectory: string) {

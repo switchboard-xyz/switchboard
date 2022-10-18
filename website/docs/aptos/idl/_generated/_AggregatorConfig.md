@@ -1,0 +1,19 @@
+Resource storing the configuration for a Switchboard aggregator
+
+| Field                   | Type                                                      | Description                                                                                                                                |
+| ----------------------- | --------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------ |
+| queueAddr               | HexString                                                 | Address of the queue the aggregator belongs to.                                                                                            |
+| batchSize               | u64                                                       | Number of oracles assigned to an update request.                                                                                           |
+| minOracleResults        | u64                                                       | Minimum number of oracle responses required before a round is validated.                                                                   |
+| minUpdateDelaySeconds   | u64                                                       | Minimum number of seconds required between aggregator rounds.                                                                              |
+| historyLimit            | u64                                                       | The maximum number of historical samples that will be stored with the aggregator before being overwritten in a round-robin fashion.        |
+| varianceThreshold       | [SwitchboardDecimal](/aptos/idl/types/SwitchboardDecimal) | Change percentage required between a previous round and the current round. If variance percentage is not met, reject new oracle responses. |
+| forceReportPeriod       | u64                                                       | Number of seconds for which, even if the variance threshold is not passed, accept new responses from oracles.                              |
+| minJobResults           | u64                                                       | Minimum number of job results before an oracle accepts a result.                                                                           |
+| expiration              | u64                                                       | Timestamp when the feed is no longer needed.                                                                                               |
+| crankAddr               | HexString                                                 | Optional, address of the crank the aggregator is currently using. Event based feeds do not need a crank.                                   |
+| crankDisabled           | bool                                                      | Flag dictating whether pushing to a crank is disabled.                                                                                     |
+| crankRowCount           | u64                                                       | The current index of the aggregator on the crank.                                                                                          |
+| nextAllowedUpdateTime   | u64                                                       | Unix timestamp when the next update request will be available.                                                                             |
+| consecutiveFailureCount | u64                                                       | Counter for the number of consecutive failures before a feed is removed from a queue. If set to 0, failed feeds will remain on the queue.  |
+| startAfter              | u64                                                       | Unix timestamp when open round calls will be considered valid.                                                                             |
