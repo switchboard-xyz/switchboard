@@ -382,6 +382,32 @@ title: Errors
   write(outputDirectory: string) {
     // Array.from(this.structs.keys()).forEach((e) => console.log(e));
 
+    // load the IDL
+    const idlPath = path.join(
+      __dirname,
+      "..",
+      "..",
+      "..",
+      "..",
+      "website",
+      "docs",
+      "aptos",
+      "idl",
+      "IDL.json"
+    );
+    const idl = CustomIdl.getOrCreate(
+      idlPath,
+      Array.from(this.structs.entries()).map((s) => {
+        return {
+          name: s[1].name,
+          description: "",
+          fields: s[1].fields.map((f) => {
+            return { name: f.tsName, description: "", type: f.rawType };
+          }),
+        };
+      })
+    );
+
     fs.mkdirSync(outputDirectory, { recursive: true });
     fse.emptyDirSync(outputDirectory);
 
@@ -408,6 +434,70 @@ title: Errors
     const typeDir = path.join(outputDirectory, "types");
     if (!fs.existsSync(typeDir)) {
       fs.mkdirSync(typeDir);
+    }
+
+    // write the errors to a file
+    if (idl.errors && idl.errors.length > 0) {
+      const errors: { name: string; code: number; hexCode: string }[] =
+        idl.errors.map((e) => {
+          return {
+            name: e.name,
+            code: e.code,
+            hexCode: `0x${Number.parseInt(e.value).toString(16)}`,
+          };
+        });
+      const errorEnum = `export enum SwitchboardErrorEnum {\n\t${errors
+        .map((e) => `${e.name} = "${e.name}",`)
+        .join("\n\t")}\n}`;
+
+      const errorType = `export type SwitchboardErrorType = ${errors
+        .map((e) => e.name)
+        .join(" | ")};`;
+
+      const abstractClass = `export abstract class SwitchboardError extends Error {
+  readonly logs?: string[];
+
+  constructor(
+    readonly code: number,
+    readonly hexCode: string,
+    readonly name: string,
+    readonly msg?: string,
+    logs?: string[]
+  ) {
+    super(\`\${code}: \${name}\${msg ? " - " + msg : ""}\`);
+    this.logs = logs;
+  }
+
+  static fromErrorType(
+    errorType: SwitchboardErrorEnum,
+    logs?: string[]
+  ): SwitchboardError {
+    switch (errorType) {
+      ${errors
+        .map((e) => `case "${e.name}": return new ${e.name}(logs);`)
+        .join("\n")}
+      default:
+        return new Generic(logs);
+    }
+  }
+}`;
+      const errorBlocks = errors
+        .map(
+          (e) => `export class ${e.name} extends SwitchboardError {
+  static readonly code = ${e.code};
+  static readonly hexCode = "${e.hexCode}";
+
+  constructor(readonly logs?: string[]) {
+    super(${e.code}, "${e.hexCode}", "${e.name}", undefined, logs);
+  }
+}`
+        )
+        .join("\n\n");
+
+      fs.writeFileSync(
+        path.join(outputDirectory, "errors.ts"),
+        [errorEnum, errorType, abstractClass, errorBlocks].join("\n")
+      );
     }
 
     for (const [structName, struct] of this.structs.entries()) {
