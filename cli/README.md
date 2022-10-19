@@ -1142,7 +1142,7 @@ DESCRIPTION
   Display help for sbv2.
 ```
 
-_See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v5.1.12/src/commands/help.ts)_
+_See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v5.1.15/src/commands/help.ts)_
 
 ## `sbv2 near aggregator add job [AGGREGATORADDRESS]`
 
@@ -5913,7 +5913,7 @@ EXAMPLES
     $ sbv2 update --available
 ```
 
-_See code: [@oclif/plugin-update](https://github.com/oclif/plugin-update/blob/v3.0.0/src/commands/update.ts)_
+_See code: [@oclif/plugin-update](https://github.com/oclif/plugin-update/blob/v3.0.4/src/commands/update.ts)_
 
 ## `sbv2 version`
 
@@ -5933,5 +5933,5 @@ FLAG DESCRIPTIONS
     Additionally shows the architecture, node version, operating system, and versions of plugins that the CLI is using.
 ```
 
-_See code: [@oclif/plugin-version](https://github.com/oclif/plugin-version/blob/v1.1.2/src/commands/version.ts)_
+_See code: [@oclif/plugin-version](https://github.com/oclif/plugin-version/blob/v1.1.3/src/commands/version.ts)_
 <!-- commandsstop -->
