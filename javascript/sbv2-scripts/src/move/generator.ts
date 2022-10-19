@@ -236,6 +236,7 @@ export class ProgramStructs {
       "AggregatorOpenRoundParams",
       "Coin",
       "EscrowManagerItem",
+      "CrankRow",
     ];
     const hyperlinks = new Map<string, string>(
       typesWithLinks.map((t) => [t, `[${t}](/aptos/idl/types/${t})`])

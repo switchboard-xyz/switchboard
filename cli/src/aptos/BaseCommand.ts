@@ -31,7 +31,7 @@ export abstract class AptosBaseCommand extends BaseCommand {
     ...BaseCommand.flags,
     networkId: Flags.string({
       description: "Aptos network to connect to",
-      options: ["devnet", "testnet"],
+      options: ["devnet", "testnet", "mainnet"],
       default: "devnet",
     }),
     programId: Flags.string({
@@ -88,8 +88,12 @@ export abstract class AptosBaseCommand extends BaseCommand {
   }
 
   getNetworkId(networkIdFlag: string): AptosNetwork {
-    if (networkIdFlag !== "devnet" && networkIdFlag !== "testnet") {
-      throw new Error(`--network must be 'devnet' or 'testnet'`);
+    if (
+      networkIdFlag !== "devnet" &&
+      networkIdFlag !== "testnet" &&
+      networkIdFlag !== "mainnet"
+    ) {
+      throw new Error(`--network must be 'mainnet', 'devnet', or 'testnet'`);
     }
 
     return networkIdFlag;
