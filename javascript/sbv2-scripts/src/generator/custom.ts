@@ -1,7 +1,7 @@
 import { SupportedField } from "./types";
 
 export class CustomStructField extends SupportedField {
-  tsType: string = "HexString";
+  readonly tsType: string;
 
   constructor(
     readonly name: string,
@@ -9,6 +9,7 @@ export class CustomStructField extends SupportedField {
     readonly customTypeName: string
   ) {
     super(name, srcType);
+    this.tsType = `types.${customTypeName}`;
   }
 
   json = {
@@ -21,7 +22,7 @@ export class CustomStructField extends SupportedField {
       return `types.${this.customTypeName}.fromJSON(${name})`;
     },
     optional: {
-      type: "string | undefined",
+      type: `types.${this.customTypeName}JSON | undefined`,
       to: (prefix = "this") => {
         const name = `${prefix ? prefix + "." : ""}${this.camelCaseName}`;
         const innerMethod = `${prefix ? prefix + "." : ""}${
@@ -38,7 +39,7 @@ export class CustomStructField extends SupportedField {
   };
 
   src = {
-    type: "string",
+    type: `types.${this.customTypeName}JSON`,
     to: (prefix = "this") => {
       return `${prefix ? prefix + "." : ""}${
         this.camelCaseName
@@ -49,7 +50,7 @@ export class CustomStructField extends SupportedField {
       return `types.${this.customTypeName}.fromMoveStruct(${name})`;
     },
     optional: {
-      type: "string | undefined",
+      type: `types.${this.customTypeName}JSON | undefined`,
       to: (prefix = "this") => {
         const name = `${prefix ? prefix + "." : ""}${this.camelCaseName}`;
         const innerMethod = `${prefix ? prefix + "." : ""}${
