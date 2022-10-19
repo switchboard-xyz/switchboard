@@ -35,11 +35,9 @@ export default class AggregatorSetUpdateInterval extends BaseCommand {
   async run() {
     const { args, flags } = await this.parse(AggregatorSetUpdateInterval);
 
-    const aggregatorAccount = new AggregatorAccount({
-      program: this.program,
-      publicKey: new PublicKey(args.aggregatorKey),
-    });
-    const aggregator = await aggregatorAccount.loadData();
+    const [aggregatorAccount, aggregator] = await this.loadAggregator(
+      args.aggregatorKey
+    );
 
     if (aggregator.minUpdateDelaySeconds === args.updateInterval) {
       throw new Error(

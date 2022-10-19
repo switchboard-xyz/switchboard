@@ -44,11 +44,10 @@ export default class AggregatorAddJob extends BaseCommand {
   async run() {
     const { args, flags } = await this.parse(AggregatorAddJob);
 
-    const aggregatorAccount = new AggregatorAccount({
-      program: this.program,
-      publicKey: new PublicKey(args.aggregatorKey),
-    });
-    const aggregatorData = await aggregatorAccount.loadData();
+    const [aggregatorAccount, aggregatorData] = await this.loadAggregator(
+      args.aggregatorKey
+    );
+
     const authority = await this.loadAuthority(
       flags.authority,
       aggregatorData.authority

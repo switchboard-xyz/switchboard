@@ -33,16 +33,11 @@ export default class AggregatorSetQueue extends BaseCommand {
   async run() {
     const { args, flags } = await this.parse(AggregatorSetQueue);
 
-    const aggregatorAccount = new AggregatorAccount({
-      program: this.program,
-      publicKey: new PublicKey(args.aggregatorKey),
-    });
-    const aggregator = await aggregatorAccount.loadData();
+    const [aggregatorAccount, aggregator] = await this.loadAggregator(
+      args.aggregatorKey
+    );
 
-    const oracleQueue = new OracleQueueAccount({
-      program: this.program,
-      publicKey: new PublicKey(args.queueKey),
-    });
+    const [oracleQueue, queue] = await this.loadQueue(args.aggregatorKey);
 
     const authority = await this.loadAuthority(
       flags.authority,

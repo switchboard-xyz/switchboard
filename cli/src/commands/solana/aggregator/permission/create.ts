@@ -26,11 +26,9 @@ export default class AggregatorPermissionCreate extends BaseCommand {
   async run() {
     const { args } = await this.parse(AggregatorPermissionCreate);
 
-    const aggregatorAccount = new AggregatorAccount({
-      program: this.program,
-      publicKey: new PublicKey(args.aggregatorKey),
-    });
-    const aggregator = await aggregatorAccount.loadData();
+    const [aggregatorAccount, aggregator] = await this.loadAggregator(
+      args.aggregatorKey
+    );
 
     // assuming granter is an oracle queue, will need to fix
     const queueAccount = new OracleQueueAccount({

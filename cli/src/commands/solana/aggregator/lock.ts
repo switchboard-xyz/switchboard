@@ -29,11 +29,10 @@ export default class AggregatorLock extends BaseCommand {
   async run() {
     const { args, flags } = await this.parse(AggregatorLock);
 
-    const aggregatorAccount = new AggregatorAccount({
-      program: this.program,
-      publicKey: new PublicKey(args.aggregatorKey),
-    });
-    const aggregator = await aggregatorAccount.loadData();
+    const [aggregatorAccount, aggregator] = await this.loadAggregator(
+      args.aggregatorKey
+    );
+
     const authority = await this.loadAuthority(
       flags.authority,
       aggregator.authority

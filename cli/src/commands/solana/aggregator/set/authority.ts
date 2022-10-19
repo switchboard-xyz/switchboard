@@ -34,11 +34,10 @@ export default class AggregatorSetAuthority extends BaseCommand {
 
     const newAuthority = await loadKeypair(args.newAuthority);
 
-    const aggregatorAccount = new AggregatorAccount({
-      program: this.program,
-      publicKey: new PublicKey(args.aggregatorKey),
-    });
-    const aggregator = await aggregatorAccount.loadData();
+    const [aggregatorAccount, aggregator] = await this.loadAggregator(
+      args.aggregatorKey
+    );
+
     const currentAuthority = await this.loadAuthority(
       flags.currentAuthority,
       aggregator.authority

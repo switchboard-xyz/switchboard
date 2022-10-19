@@ -30,17 +30,13 @@ export default class AggregatorUpdate extends BaseCommand {
   async run() {
     const { args } = await this.parse(AggregatorUpdate);
 
-    const aggregatorAccount = new AggregatorAccount({
-      program: this.program,
-      publicKey: new PublicKey(args.aggregatorKey),
-    });
-    const aggregator = await aggregatorAccount.loadData();
+    const [aggregatorAccount, aggregator] = await this.loadAggregator(
+      args.aggregatorKey
+    );
 
-    const oracleQueueAccount = new OracleQueueAccount({
-      program: this.program,
-      publicKey: aggregator.queuePubkey,
-    });
-    const queue = await oracleQueueAccount.loadData();
+    const [oracleQueueAccount, queue] = await this.loadQueue(
+      aggregator.queuePubkey.toBase58()
+    );
 
     const mint = await oracleQueueAccount.loadMint();
 

@@ -35,11 +35,9 @@ export default class AggregatorSetMinOracleResults extends BaseCommand {
   async run() {
     const { args, flags } = await this.parse(AggregatorSetMinOracleResults);
 
-    const aggregatorAccount = new AggregatorAccount({
-      program: this.program,
-      publicKey: new PublicKey(args.aggregatorKey),
-    });
-    const aggregator = await aggregatorAccount.loadData();
+    const [aggregatorAccount, aggregator] = await this.loadAggregator(
+      args.aggregatorKey
+    );
 
     const minOracleResults = Number.parseInt(args.minOracleResults, 10);
     if (minOracleResults <= 0 || minOracleResults > 16) {

@@ -38,11 +38,9 @@ export default class AggregatorSetBatchSize extends BaseCommand {
       throw new Error(`Invalid batch size (1 - 16), ${batchSize}`);
     }
 
-    const aggregatorAccount = new AggregatorAccount({
-      program: this.program,
-      publicKey: new PublicKey(args.aggregatorKey),
-    });
-    const aggregator = await aggregatorAccount.loadData();
+    const [aggregatorAccount, aggregator] = await this.loadAggregator(
+      args.aggregatorKey
+    );
 
     if (aggregator.minOracleResults > batchSize) {
       throw new Error(

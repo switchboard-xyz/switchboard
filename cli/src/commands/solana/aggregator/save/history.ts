@@ -23,11 +23,9 @@ export default class AggregatorUpdate extends OutputFileBaseCommand {
   async run() {
     const { args, flags } = await this.parse(AggregatorUpdate);
 
-    const aggregatorAccount = new AggregatorAccount({
-      program: this.program,
-      publicKey: new PublicKey(args.aggregatorKey),
-    });
-    const aggregator = await aggregatorAccount.loadData();
+    const [aggregatorAccount, aggregator] = await this.loadAggregator(
+      args.aggregatorKey
+    );
 
     const history = await aggregatorAccount.loadHistory();
 
