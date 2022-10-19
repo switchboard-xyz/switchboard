@@ -46,7 +46,7 @@
     },
     {
       "name": "AggregatorAddJobParams",
-      "description": "Parameters associated with adding a job to an aggregator.",
+      "description": "",
       "fields": [
         {
           "name": "aggregatorAddr",
@@ -67,7 +67,7 @@
     },
     {
       "name": "AggregatorLockParams",
-      "description": "Parameters associated with locking an aggregators config.",
+      "description": "",
       "fields": [
         {
           "name": "aggregatorAddr",
@@ -119,7 +119,7 @@
         {
           "name": "reward",
           "type": "u64",
-          "description": ""
+          "description": "Rewards to provide oracles and round openers on this queue."
         },
         {
           "name": "openRoundReward",
@@ -135,12 +135,12 @@
         {
           "name": "aggregatorAddr",
           "type": "HexString",
-          "description": ""
+          "description": "Address of aggregator that is removing a job."
         },
         {
           "name": "jobAddr",
           "type": "HexString",
-          "description": ""
+          "description": "Address of job account that is being removed from an aggregator."
         }
       ]
     },
@@ -162,12 +162,12 @@
         {
           "name": "crankAddr",
           "type": "HexString",
-          "description": ""
+          "description": "Address of the crank being popped."
         },
         {
           "name": "popIdx",
           "type": "u64",
-          "description": ""
+          "description": "Index of the element to pop on the crank."
         }
       ]
     },
@@ -178,12 +178,12 @@
         {
           "name": "crankAddr",
           "type": "HexString",
-          "description": ""
+          "description": "Address of crank for which aggregator will be pushed onto."
         },
         {
           "name": "aggregatorAddr",
           "type": "HexString",
-          "description": ""
+          "description": "Address of aggregator being added to a crank."
         }
       ]
     },
@@ -194,12 +194,12 @@
         {
           "name": "name",
           "type": "vector<u8>",
-          "description": ""
+          "description": "Name of the job stored on-chain."
         },
         {
           "name": "metadata",
           "type": "vector<u8>",
-          "description": ""
+          "description": "Metadata of the job to store on-chain.  "
         },
         {
           "name": "authority",
@@ -209,7 +209,7 @@
         {
           "name": "data",
           "type": "vector<u8>",
-          "description": ""
+          "description": "The serialized `OracleJob`."
         }
       ]
     },
@@ -220,12 +220,12 @@
         {
           "name": "aggregatorAddr",
           "type": "HexString",
-          "description": ""
+          "description": "Address of the aggregator that is receiving funds in it's lease account."
         },
         {
           "name": "loadAmount",
           "type": "u64",
-          "description": ""
+          "description": "Amount being added to an aggregator's lease."
         }
       ]
     },
@@ -236,7 +236,7 @@
         {
           "name": "aggregatorAddr",
           "type": "HexString",
-          "description": ""
+          "description": "Address of the aggregator to initialize a lease for."
         },
         {
           "name": "queueAddr",
@@ -246,12 +246,12 @@
         {
           "name": "withdrawAuthority",
           "type": "HexString",
-          "description": ""
+          "description": "The account delegated as the authority for withdrawing funds."
         },
         {
           "name": "initialAmount",
           "type": "u64",
-          "description": ""
+          "description": "Amount to load onto a lease during initialization."
         }
       ]
     },
@@ -262,7 +262,7 @@
         {
           "name": "aggregatorAddr",
           "type": "HexString",
-          "description": ""
+          "description": "Address of aggregator that is setting a lease authority for."
         },
         {
           "name": "queueAddr",
@@ -304,7 +304,7 @@
         {
           "name": "oracleAddr",
           "type": "HexString",
-          "description": ""
+          "description": "Address of oracle that is heartbeating on-chain to signal readiness."
         }
       ]
     },
@@ -315,17 +315,17 @@
         {
           "name": "name",
           "type": "vector<u8>",
-          "description": ""
+          "description": "Name of the oracle to store on-chain."
         },
         {
           "name": "metadata",
           "type": "vector<u8>",
-          "description": ""
+          "description": "Metadata of the oracle to store on-chain."
         },
         {
           "name": "oracleAuthority",
           "type": "HexString",
-          "description": ""
+          "description": "Account delegated as the authority."
         },
         {
           "name": "queueAddr",
@@ -341,27 +341,27 @@
         {
           "name": "oracleAddr",
           "type": "HexString",
-          "description": ""
+          "description": "Address of oracle that is changing it's config."
         },
         {
           "name": "name",
           "type": "vector<u8>",
-          "description": ""
+          "description": "Name of the oracle stored on-chain."
         },
         {
           "name": "metadata",
           "type": "vector<u8>",
-          "description": ""
+          "description": "Metadata of the oracle to store on-chain."
         },
         {
           "name": "oracleAuthority",
           "type": "HexString",
-          "description": ""
+          "description": "Account that is the authority for the oracle."
         },
         {
           "name": "queueAddr",
           "type": "HexString",
-          "description": "Address of the oracle queue that the resource belongs to."
+          "description": "Address of the oracle queue that the resource will belong to."
         }
       ]
     },
@@ -377,12 +377,12 @@
         {
           "name": "name",
           "type": "vector<u8>",
-          "description": ""
+          "description": "Name of the oracle queue to store on-chain."
         },
         {
           "name": "metadata",
           "type": "vector<u8>",
-          "description": ""
+          "description": "Metadata of the oracle queue to store on-chain."
         },
         {
           "name": "oracleTimeout",
@@ -392,12 +392,12 @@
         {
           "name": "reward",
           "type": "u64",
-          "description": ""
+          "description": "Rewards to provide oracles and round openers on this queue."
         },
         {
           "name": "minStake",
           "type": "u64",
-          "description": ""
+          "description": "The minimum amount of stake oracles must present to remain on the queue."
         },
         {
           "name": "slashingEnabled",
@@ -508,12 +508,12 @@
         {
           "name": "reward",
           "type": "u64",
-          "description": ""
+          "description": "Rewards to provide oracles and round openers on this queue."
         },
         {
           "name": "minStake",
           "type": "u64",
-          "description": ""
+          "description": "The minimum amount of stake oracles must present to remain on the queue."
         },
         {
           "name": "slashingEnabled",
@@ -584,7 +584,7 @@
         {
           "name": "oracleAddr",
           "type": "HexString",
-          "description": ""
+          "description": "Address of oracle that will be receiving funds into it's token wallet."
         },
         {
           "name": "queueAddr",
@@ -594,7 +594,7 @@
         {
           "name": "loadAmount",
           "type": "u64",
-          "description": ""
+          "description": "Amount of funds to transfer into the oracle's token wallet."
         }
       ]
     },
@@ -605,7 +605,7 @@
         {
           "name": "oracleAddr",
           "type": "HexString",
-          "description": ""
+          "description": "Address of oracle that a token wallet is being initialized for."
         },
         {
           "name": "queueAddr",
@@ -615,7 +615,7 @@
         {
           "name": "withdrawAuthority",
           "type": "HexString",
-          "description": ""
+          "description": "Address of account that is delegated as the authority to approve withdraws."
         }
       ]
     },
@@ -626,7 +626,7 @@
         {
           "name": "oracleAddr",
           "type": "HexString",
-          "description": ""
+          "description": "Address of oracle that will remove funds from it's token wallet."
         },
         {
           "name": "queueAddr",
@@ -636,7 +636,7 @@
         {
           "name": "amount",
           "type": "u64",
-          "description": ""
+          "description": "Amount of funds to withdraw."
         }
       ]
     },
@@ -647,17 +647,17 @@
         {
           "name": "authority",
           "type": "HexString",
-          "description": "The account delegated as the authority for making changes."
+          "description": "The account delegated as the authority for the granter.."
         },
         {
           "name": "granter",
           "type": "HexString",
-          "description": ""
+          "description": "Address of account that will be granting permissions to the grantee."
         },
         {
           "name": "grantee",
           "type": "HexString",
-          "description": ""
+          "description": "Address of account that will be be granted permissions from the granter."
         }
       ]
     },
@@ -668,27 +668,27 @@
         {
           "name": "authority",
           "type": "HexString",
-          "description": "The account delegated as the authority for making changes."
+          "description": "The account delegated as the authority for the granter."
         },
         {
           "name": "granter",
           "type": "HexString",
-          "description": ""
+          "description": "Address of oracle queue that is granting permissions to use its resources."
         },
         {
           "name": "grantee",
           "type": "HexString",
-          "description": ""
+          "description": "Address of account that is being assigned permissions to use a granters resources."
         },
         {
           "name": "permission",
           "type": "u64",
-          "description": ""
+          "description": "Permissions being assigned to a resource. See [SwitchboardPermission](/aptos/idl/types/SwitchboardPermission) for enumerations and their descriptions."
         },
         {
           "name": "enable",
           "type": "bool",
-          "description": ""
+          "description": "Flag dictating whether permissions are being enabled or disabled."
         }
       ]
     },
@@ -825,27 +825,27 @@
         {
           "name": "oracleAddress",
           "type": "HexString",
-          "description": ""
+          "description": "Address of oracle that removed funds from their wallet."
         },
         {
           "name": "destinationWallet",
           "type": "HexString",
-          "description": ""
+          "description": "Wallet that received funds from the oracle's wallet."
         },
         {
           "name": "previousAmount",
           "type": "u64",
-          "description": ""
+          "description": "Amount before the withdraw."
         },
         {
           "name": "newAmount",
           "type": "u64",
-          "description": ""
+          "description": "Amount after the withdraw."
         },
         {
           "name": "timestamp",
           "type": "u64",
-          "description": ""
+          "description": "Unix timestamp of the withdraw."
         }
       ]
     },
@@ -1343,17 +1343,17 @@
         {
           "name": "addr",
           "type": "HexString",
-          "description": ""
+          "description": "Address of the aggregator resource."
         },
         {
           "name": "name",
           "type": "vector<u8>",
-          "description": ""
+          "description": "Name of the aggregator to store on-chain."
         },
         {
           "name": "metadata",
           "type": "vector<u8>",
-          "description": ""
+          "description": "Metadata of the aggregator to store on-chain."
         },
         {
           "name": "queueAddr",
@@ -1363,17 +1363,17 @@
         {
           "name": "crankAddr",
           "type": "HexString",
-          "description": ""
+          "description": "Optional, address of the crank that will periodically trigger `AggregatorOpenRound` calls to request an update from a batch of oracles."
         },
         {
           "name": "batchSize",
           "type": "u64",
-          "description": ""
+          "description": "Number of oracles assigned to an update request."
         },
         {
           "name": "minOracleResults",
           "type": "u64",
-          "description": ""
+          "description": "Minimum number of oracle responses required before a round is validated."
         },
         {
           "name": "minJobResults",
@@ -1383,12 +1383,12 @@
         {
           "name": "minUpdateDelaySeconds",
           "type": "u64",
-          "description": ""
+          "description": "Minimum number of seconds required between aggregator rounds."
         },
         {
           "name": "startAfter",
           "type": "u64",
-          "description": ""
+          "description": "Unix timestamp when open round calls will be considered valid."
         },
         {
           "name": "varianceThreshold",
@@ -1408,32 +1408,32 @@
         {
           "name": "disableCrank",
           "type": "bool",
-          "description": ""
+          "description": "Flag dictating whether pushing to a crank is disabled."
         },
         {
           "name": "historyLimit",
           "type": "u64",
-          "description": ""
+          "description": "The maximum number of historical samples that will be stored with the aggregator before being overwritten in a round-robin fashion."
         },
         {
           "name": "readCharge",
           "type": "u64",
-          "description": ""
+          "description": "The cost to read a data feed."
         },
         {
           "name": "rewardEscrow",
           "type": "HexString",
-          "description": ""
+          "description": "The account address that will receive any funds incurred from setting a `readCharge`."
         },
         {
           "name": "readWhitelist",
           "type": "vector<HexString>",
-          "description": ""
+          "description": "Optional, account addresses permitted to read a data feed."
         },
         {
           "name": "limitReadsToWhitelist",
           "type": "bool",
-          "description": ""
+          "description": "Flag dictating whether a feed permits public reads."
         },
         {
           "name": "authority",

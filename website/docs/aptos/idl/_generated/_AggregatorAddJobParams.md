@@ -1,5 +1,3 @@
-Parameters associated with adding a job to an aggregator.
-
 | Field          | Type      | Description                                                                               |
 | -------------- | --------- | ----------------------------------------------------------------------------------------- |
 | aggregatorAddr | HexString | Address of the aggregator that is adding a new job.                                       |

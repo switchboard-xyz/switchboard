@@ -1,4 +1,4 @@
-| Field     | Type      | Description |
-| --------- | --------- | ----------- |
-| crankAddr | HexString |             |
-| popIdx    | u64       |             |
+| Field     | Type      | Description                               |
+| --------- | --------- | ----------------------------------------- |
+| crankAddr | HexString | Address of the crank being popped.        |
+| popIdx    | u64       | Index of the element to pop on the crank. |
