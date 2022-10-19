@@ -38,6 +38,7 @@ node bin/dev print GvDMxPzN1sCj7L26YDK2HnMRXEQmQ2aemov8YBtPS7vR
 * [`sbv2 aptos job create QUEUEHEXSTRING JOBDEFINITION`](#sbv2-aptos-job-create-queuehexstring-jobdefinition)
 * [`sbv2 aptos list crank [CRANKHEXSTRING]`](#sbv2-aptos-list-crank-crankhexstring)
 * [`sbv2 aptos oracle create [QUEUEHEXSTRING]`](#sbv2-aptos-oracle-create-queuehexstring)
+* [`sbv2 aptos oracle metrics [ORACLEHEXSTRING]`](#sbv2-aptos-oracle-metrics-oraclehexstring)
 * [`sbv2 aptos oracle up [ORACLEHEXSTRING]`](#sbv2-aptos-oracle-up-oraclehexstring)
 * [`sbv2 aptos pop crank [CRANKHEXSTRING]`](#sbv2-aptos-pop-crank-crankhexstring)
 * [`sbv2 aptos print ACCOUNTTYPE ADDRESS`](#sbv2-aptos-print-accounttype-address)
@@ -130,6 +131,7 @@ node bin/dev print GvDMxPzN1sCj7L26YDK2HnMRXEQmQ2aemov8YBtPS7vR
 * [`sbv2 solana buffer create [QUEUEKEY]`](#sbv2-solana-buffer-create-queuekey)
 * [`sbv2 solana buffer print [BUFFERRELAYERKEY]`](#sbv2-solana-buffer-print-bufferrelayerkey)
 * [`sbv2 solana crank add aggregator [CRANKKEY] [AGGREGATORKEY]`](#sbv2-solana-crank-add-aggregator-crankkey-aggregatorkey)
+* [`sbv2 solana crank cmp [CRANKKEY1] [CRANKKEY2]`](#sbv2-solana-crank-cmp-crankkey1-crankkey2)
 * [`sbv2 solana crank create [QUEUEKEY]`](#sbv2-solana-crank-create-queuekey)
 * [`sbv2 solana crank list [CRANKKEY]`](#sbv2-solana-crank-list-crankkey)
 * [`sbv2 solana crank pop [CRANKKEY]`](#sbv2-solana-crank-pop-crankkey)
@@ -193,22 +195,19 @@ request an airdrop
 
 ```
 USAGE
-  $ sbv2 aptos account airdrop --address <value> [-h] [-v] [-s] [--networkId devnet|testnet] [--programId <value>]
-    [--stateAddress <value>] [-u <value>] [--json] [-n <value>]
+  $ sbv2 aptos account airdrop --address <value> [-h] [-v] [-s] [--networkId devnet|testnet|mainnet] [--programId <value>]
+    [-u <value>] [--json] [-n <value>]
 
 FLAGS
-  -h, --help              Show CLI help.
-  -n, --amount=<value>    [default: 50000] number of airdrops to request, 10_000 coins each
-  -s, --silent            suppress cli prompts
-  -u, --rpcUrl=<value>    alternate RPC url
-  -v, --verbose           log everything
-  --address=<value>       (required) HexString address of account to fund
-  --networkId=<option>    [default: devnet] Aptos network to connect to
-                          <options: devnet|testnet>
-  --programId=<value>     [default: 0xc9b4bb0b1f7a343687c4f8bc6eea36dd2a3aa8d654e640050ab5b8635a6b9cbd] Switchboard
-                          programId on the selected Aptos network
-  --stateAddress=<value>  [default: 0xc9b4bb0b1f7a343687c4f8bc6eea36dd2a3aa8d654e640050ab5b8635a6b9cbd] Switchboard
-                          state address
+  -h, --help            Show CLI help.
+  -n, --amount=<value>  [default: 1000000] number of airdrops to request, 10_000 coins each
+  -s, --silent          suppress cli prompts
+  -u, --rpcUrl=<value>  alternate RPC url
+  -v, --verbose         log everything
+  --address=<value>     (required) HexString address of account to fund
+  --networkId=<option>  [default: devnet] Aptos network to connect to
+                        <options: devnet|testnet|mainnet>
+  --programId=<value>   Switchboard programId on the selected Aptos network
 
 GLOBAL FLAGS
   --json  Format output as json.
@@ -223,9 +222,9 @@ add a job to an aggregator
 
 ```
 USAGE
-  $ sbv2 aptos aggregator add job [AGGREGATORHEXSTRING] --keypair <value> [-h] [-v] [-s] [--networkId devnet|testnet]
-    [--programId <value>] [--stateAddress <value>] [-u <value>] [--profileName <value>] [-a <value>] [--name <value> |
-    --jobKey <value>] [--metadata <value> | ] [--jobDefinition <value> | ] [--jobWeight <value>]
+  $ sbv2 aptos aggregator add job [AGGREGATORHEXSTRING] --keypair <value> [-h] [-v] [-s] [--networkId devnet|testnet|mainnet]
+    [--programId <value>] [-u <value>] [--profileName <value>] [-a <value>] [--name <value> | --jobKey <value>]
+    [--metadata <value> | ] [--jobDefinition <value> | ] [--jobWeight <value>]
 
 ARGUMENTS
   AGGREGATORHEXSTRING  HexString address of the aggregator
@@ -243,13 +242,10 @@ FLAGS
   --metadata=<value>       metadata of the job account
   --name=<value>           name of the job account
   --networkId=<option>     [default: devnet] Aptos network to connect to
-                           <options: devnet|testnet>
+                           <options: devnet|testnet|mainnet>
   --profileName=<value>    [default: default] If --keypair is pointing to a yaml file, provide an optional profile to
                            load. If none provided, default will be used
-  --programId=<value>      [default: 0xc9b4bb0b1f7a343687c4f8bc6eea36dd2a3aa8d654e640050ab5b8635a6b9cbd] Switchboard
-                           programId on the selected Aptos network
-  --stateAddress=<value>   [default: 0xc9b4bb0b1f7a343687c4f8bc6eea36dd2a3aa8d654e640050ab5b8635a6b9cbd] Switchboard
-                           state address
+  --programId=<value>      Switchboard programId on the selected Aptos network
 
 DESCRIPTION
   add a job to an aggregator
@@ -265,9 +261,9 @@ create an aptos aggregator for a given queue
 ```
 USAGE
   $ sbv2 aptos aggregator create [QUEUEHEXSTRING] --keypair <value> --updateInterval <value> [-h] [-v] [-s] [--networkId
-    devnet|testnet] [--programId <value>] [--stateAddress <value>] [-u <value>] [--profileName <value>] [--json] [-a
-    <value>] [--crankAddress <value>] [--name <value>] [--metadata <value>] [--forceReportPeriod <value>] [--batchSize
-    <value>] [--minJobs <value>] [--minOracles <value>] [--varianceThreshold <value>] [-j <value>] [--new]
+    devnet|testnet|mainnet] [--programId <value>] [-u <value>] [--profileName <value>] [--json] [-a <value>]
+    [--crankAddress <value>] [--name <value>] [--metadata <value>] [--forceReportPeriod <value>] [--batchSize <value>]
+    [--minJobs <value>] [--minOracles <value>] [--varianceThreshold <value>] [-j <value>] [--new]
 
 ARGUMENTS
   QUEUEHEXSTRING  HexString address of the queue
@@ -289,14 +285,11 @@ FLAGS
   --minOracles=<value>         number of oracles that must respond before a value is accepted on-chain
   --name=<value>               name of the aggregator for easier identification
   --networkId=<option>         [default: devnet] Aptos network to connect to
-                               <options: devnet|testnet>
+                               <options: devnet|testnet|mainnet>
   --new                        create account at new AptosAccount with authority set to --account
   --profileName=<value>        [default: default] If --keypair is pointing to a yaml file, provide an optional profile
                                to load. If none provided, default will be used
-  --programId=<value>          [default: 0xc9b4bb0b1f7a343687c4f8bc6eea36dd2a3aa8d654e640050ab5b8635a6b9cbd] Switchboard
-                               programId on the selected Aptos network
-  --stateAddress=<value>       [default: 0xc9b4bb0b1f7a343687c4f8bc6eea36dd2a3aa8d654e640050ab5b8635a6b9cbd] Switchboard
-                               state address
+  --programId=<value>          Switchboard programId on the selected Aptos network
   --updateInterval=<value>     (required) set an aggregator's minimum update delay
   --varianceThreshold=<value>  [default: 0] percentage change between a previous accepted result and the next round
                                before an oracle reports a value on-chain. Used to conserve lease cost during low
@@ -318,9 +311,9 @@ add a job to an aggregator
 
 ```
 USAGE
-  $ sbv2 aptos aggregator job add [AGGREGATORHEXSTRING] --keypair <value> [-h] [-v] [-s] [--networkId devnet|testnet]
-    [--programId <value>] [--stateAddress <value>] [-u <value>] [--profileName <value>] [-a <value>] [--name <value> |
-    --jobKey <value>] [--metadata <value> | ] [--jobDefinition <value> | ] [--jobWeight <value>]
+  $ sbv2 aptos aggregator job add [AGGREGATORHEXSTRING] --keypair <value> [-h] [-v] [-s] [--networkId devnet|testnet|mainnet]
+    [--programId <value>] [-u <value>] [--profileName <value>] [-a <value>] [--name <value> | --jobKey <value>]
+    [--metadata <value> | ] [--jobDefinition <value> | ] [--jobWeight <value>]
 
 ARGUMENTS
   AGGREGATORHEXSTRING  HexString address of the aggregator
@@ -338,13 +331,10 @@ FLAGS
   --metadata=<value>       metadata of the job account
   --name=<value>           name of the job account
   --networkId=<option>     [default: devnet] Aptos network to connect to
-                           <options: devnet|testnet>
+                           <options: devnet|testnet|mainnet>
   --profileName=<value>    [default: default] If --keypair is pointing to a yaml file, provide an optional profile to
                            load. If none provided, default will be used
-  --programId=<value>      [default: 0xc9b4bb0b1f7a343687c4f8bc6eea36dd2a3aa8d654e640050ab5b8635a6b9cbd] Switchboard
-                           programId on the selected Aptos network
-  --stateAddress=<value>   [default: 0xc9b4bb0b1f7a343687c4f8bc6eea36dd2a3aa8d654e640050ab5b8635a6b9cbd] Switchboard
-                           state address
+  --programId=<value>      Switchboard programId on the selected Aptos network
 
 DESCRIPTION
   add a job to an aggregator
@@ -359,26 +349,23 @@ request a new value on-chain for an aggregator
 
 ```
 USAGE
-  $ sbv2 aptos aggregator update [AGGREGATORHEXSTRING] --keypair <value> [-h] [-v] [-s] [--networkId devnet|testnet]
-    [--programId <value>] [--stateAddress <value>] [-u <value>] [--profileName <value>]
+  $ sbv2 aptos aggregator update [AGGREGATORHEXSTRING] --keypair <value> [-h] [-v] [-s] [--networkId devnet|testnet|mainnet]
+    [--programId <value>] [-u <value>] [--profileName <value>]
 
 ARGUMENTS
   AGGREGATORHEXSTRING  HexString address of the aggregator
 
 FLAGS
-  -h, --help              Show CLI help.
-  -s, --silent            suppress cli prompts
-  -u, --rpcUrl=<value>    alternate RPC url
-  -v, --verbose           log everything
-  --keypair=<value>       (required) Path to AptosAccount keypair or config.yaml file
-  --networkId=<option>    [default: devnet] Aptos network to connect to
-                          <options: devnet|testnet>
-  --profileName=<value>   [default: default] If --keypair is pointing to a yaml file, provide an optional profile to
-                          load. If none provided, default will be used
-  --programId=<value>     [default: 0xc9b4bb0b1f7a343687c4f8bc6eea36dd2a3aa8d654e640050ab5b8635a6b9cbd] Switchboard
-                          programId on the selected Aptos network
-  --stateAddress=<value>  [default: 0xc9b4bb0b1f7a343687c4f8bc6eea36dd2a3aa8d654e640050ab5b8635a6b9cbd] Switchboard
-                          state address
+  -h, --help             Show CLI help.
+  -s, --silent           suppress cli prompts
+  -u, --rpcUrl=<value>   alternate RPC url
+  -v, --verbose          log everything
+  --keypair=<value>      (required) Path to AptosAccount keypair or config.yaml file
+  --networkId=<option>   [default: devnet] Aptos network to connect to
+                         <options: devnet|testnet|mainnet>
+  --profileName=<value>  [default: default] If --keypair is pointing to a yaml file, provide an optional profile to
+                         load. If none provided, default will be used
+  --programId=<value>    Switchboard programId on the selected Aptos network
 
 DESCRIPTION
   request a new value on-chain for an aggregator
@@ -393,31 +380,31 @@ create a new crank
 
 ```
 USAGE
-  $ sbv2 aptos crank create [QUEUEHEXSTRING] --keypair <value> [-h] [-v] [-s] [--networkId devnet|testnet] [--programId
-    <value>] [--stateAddress <value>] [-u <value>] [--profileName <value>] [--name <value>] [--metadata <value>]
-    [--maxRows <value>] [--new]
+  $ sbv2 aptos crank create [QUEUEHEXSTRING] --keypair <value> [-h] [-v] [-s] [--networkId devnet|testnet|mainnet]
+    [--programId <value>] [-u <value>] [--profileName <value>] [--json] [--name <value>] [--metadata <value>] [--maxRows
+    <value>] [--new]
 
 ARGUMENTS
   QUEUEHEXSTRING  HexString of the oracle queue to create a crank for
 
 FLAGS
-  -h, --help              Show CLI help.
-  -s, --silent            suppress cli prompts
-  -u, --rpcUrl=<value>    alternate RPC url
-  -v, --verbose           log everything
-  --keypair=<value>       (required) Path to AptosAccount keypair or config.yaml file
-  --maxRows=<value>       [default: 100] maximum number of rows on the crank
-  --metadata=<value>      metadata of the queue for easier identification
-  --name=<value>          name of the queue for easier identification
-  --networkId=<option>    [default: devnet] Aptos network to connect to
-                          <options: devnet|testnet>
-  --new                   create account at new AptosAccount with authority set to --account
-  --profileName=<value>   [default: default] If --keypair is pointing to a yaml file, provide an optional profile to
-                          load. If none provided, default will be used
-  --programId=<value>     [default: 0xc9b4bb0b1f7a343687c4f8bc6eea36dd2a3aa8d654e640050ab5b8635a6b9cbd] Switchboard
-                          programId on the selected Aptos network
-  --stateAddress=<value>  [default: 0xc9b4bb0b1f7a343687c4f8bc6eea36dd2a3aa8d654e640050ab5b8635a6b9cbd] Switchboard
-                          state address
+  -h, --help             Show CLI help.
+  -s, --silent           suppress cli prompts
+  -u, --rpcUrl=<value>   alternate RPC url
+  -v, --verbose          log everything
+  --keypair=<value>      (required) Path to AptosAccount keypair or config.yaml file
+  --maxRows=<value>      [default: 100] maximum number of rows on the crank
+  --metadata=<value>     metadata of the queue for easier identification
+  --name=<value>         name of the queue for easier identification
+  --networkId=<option>   [default: devnet] Aptos network to connect to
+                         <options: devnet|testnet|mainnet>
+  --new                  create account at new AptosAccount with authority set to --account
+  --profileName=<value>  [default: default] If --keypair is pointing to a yaml file, provide an optional profile to
+                         load. If none provided, default will be used
+  --programId=<value>    Switchboard programId on the selected Aptos network
+
+GLOBAL FLAGS
+  --json  Format output as json.
 
 DESCRIPTION
   create a new crank
@@ -432,23 +419,20 @@ sort the crank
 
 ```
 USAGE
-  $ sbv2 aptos crank list [CRANKHEXSTRING] [-h] [-v] [-s] [--networkId devnet|testnet] [--programId <value>]
-    [--stateAddress <value>] [-u <value>] [--json]
+  $ sbv2 aptos crank list [CRANKHEXSTRING] [-h] [-v] [-s] [--networkId devnet|testnet|mainnet] [--programId <value>]
+    [-u <value>] [--json]
 
 ARGUMENTS
   CRANKHEXSTRING  HexString address of the crank
 
 FLAGS
-  -h, --help              Show CLI help.
-  -s, --silent            suppress cli prompts
-  -u, --rpcUrl=<value>    alternate RPC url
-  -v, --verbose           log everything
-  --networkId=<option>    [default: devnet] Aptos network to connect to
-                          <options: devnet|testnet>
-  --programId=<value>     [default: 0xc9b4bb0b1f7a343687c4f8bc6eea36dd2a3aa8d654e640050ab5b8635a6b9cbd] Switchboard
-                          programId on the selected Aptos network
-  --stateAddress=<value>  [default: 0xc9b4bb0b1f7a343687c4f8bc6eea36dd2a3aa8d654e640050ab5b8635a6b9cbd] Switchboard
-                          state address
+  -h, --help            Show CLI help.
+  -s, --silent          suppress cli prompts
+  -u, --rpcUrl=<value>  alternate RPC url
+  -v, --verbose         log everything
+  --networkId=<option>  [default: devnet] Aptos network to connect to
+                        <options: devnet|testnet|mainnet>
+  --programId=<value>   Switchboard programId on the selected Aptos network
 
 GLOBAL FLAGS
   --json  Format output as json.
@@ -466,26 +450,23 @@ pop the crank
 
 ```
 USAGE
-  $ sbv2 aptos crank pop [CRANKHEXSTRING] --keypair <value> [-h] [-v] [-s] [--networkId devnet|testnet] [--programId
-    <value>] [--stateAddress <value>] [-u <value>] [--profileName <value>] [--json]
+  $ sbv2 aptos crank pop [CRANKHEXSTRING] --keypair <value> [-h] [-v] [-s] [--networkId devnet|testnet|mainnet]
+    [--programId <value>] [-u <value>] [--profileName <value>] [--json]
 
 ARGUMENTS
   CRANKHEXSTRING  HexString address of the crank
 
 FLAGS
-  -h, --help              Show CLI help.
-  -s, --silent            suppress cli prompts
-  -u, --rpcUrl=<value>    alternate RPC url
-  -v, --verbose           log everything
-  --keypair=<value>       (required) Path to AptosAccount keypair or config.yaml file
-  --networkId=<option>    [default: devnet] Aptos network to connect to
-                          <options: devnet|testnet>
-  --profileName=<value>   [default: default] If --keypair is pointing to a yaml file, provide an optional profile to
-                          load. If none provided, default will be used
-  --programId=<value>     [default: 0xc9b4bb0b1f7a343687c4f8bc6eea36dd2a3aa8d654e640050ab5b8635a6b9cbd] Switchboard
-                          programId on the selected Aptos network
-  --stateAddress=<value>  [default: 0xc9b4bb0b1f7a343687c4f8bc6eea36dd2a3aa8d654e640050ab5b8635a6b9cbd] Switchboard
-                          state address
+  -h, --help             Show CLI help.
+  -s, --silent           suppress cli prompts
+  -u, --rpcUrl=<value>   alternate RPC url
+  -v, --verbose          log everything
+  --keypair=<value>      (required) Path to AptosAccount keypair or config.yaml file
+  --networkId=<option>   [default: devnet] Aptos network to connect to
+                         <options: devnet|testnet|mainnet>
+  --profileName=<value>  [default: default] If --keypair is pointing to a yaml file, provide an optional profile to
+                         load. If none provided, default will be used
+  --programId=<value>    Switchboard programId on the selected Aptos network
 
 GLOBAL FLAGS
   --json  Format output as json.
@@ -503,8 +484,8 @@ push an aggregator onto the crank
 
 ```
 USAGE
-  $ sbv2 aptos crank push [CRANKHEXSTRING] --keypair <value> -a <value> [-h] [-v] [-s] [--networkId devnet|testnet]
-    [--programId <value>] [--stateAddress <value>] [-u <value>] [--profileName <value>] [--json]
+  $ sbv2 aptos crank push [CRANKHEXSTRING] --keypair <value> -a <value> [-h] [-v] [-s] [--networkId
+    devnet|testnet|mainnet] [--programId <value>] [-u <value>] [--profileName <value>] [--json]
 
 ARGUMENTS
   CRANKHEXSTRING  HexString address of the crank
@@ -517,13 +498,10 @@ FLAGS
   -v, --verbose                      log everything
   --keypair=<value>                  (required) Path to AptosAccount keypair or config.yaml file
   --networkId=<option>               [default: devnet] Aptos network to connect to
-                                     <options: devnet|testnet>
+                                     <options: devnet|testnet|mainnet>
   --profileName=<value>              [default: default] If --keypair is pointing to a yaml file, provide an optional
                                      profile to load. If none provided, default will be used
-  --programId=<value>                [default: 0xc9b4bb0b1f7a343687c4f8bc6eea36dd2a3aa8d654e640050ab5b8635a6b9cbd]
-                                     Switchboard programId on the selected Aptos network
-  --stateAddress=<value>             [default: 0xc9b4bb0b1f7a343687c4f8bc6eea36dd2a3aa8d654e640050ab5b8635a6b9cbd]
-                                     Switchboard state address
+  --programId=<value>                Switchboard programId on the selected Aptos network
 
 GLOBAL FLAGS
   --json  Format output as json.
@@ -542,9 +520,9 @@ create an aptos aggregator for a given queue
 ```
 USAGE
   $ sbv2 aptos create aggregator [QUEUEHEXSTRING] --keypair <value> --updateInterval <value> [-h] [-v] [-s] [--networkId
-    devnet|testnet] [--programId <value>] [--stateAddress <value>] [-u <value>] [--profileName <value>] [--json] [-a
-    <value>] [--crankAddress <value>] [--name <value>] [--metadata <value>] [--forceReportPeriod <value>] [--batchSize
-    <value>] [--minJobs <value>] [--minOracles <value>] [--varianceThreshold <value>] [-j <value>] [--new]
+    devnet|testnet|mainnet] [--programId <value>] [-u <value>] [--profileName <value>] [--json] [-a <value>]
+    [--crankAddress <value>] [--name <value>] [--metadata <value>] [--forceReportPeriod <value>] [--batchSize <value>]
+    [--minJobs <value>] [--minOracles <value>] [--varianceThreshold <value>] [-j <value>] [--new]
 
 ARGUMENTS
   QUEUEHEXSTRING  HexString address of the queue
@@ -566,14 +544,11 @@ FLAGS
   --minOracles=<value>         number of oracles that must respond before a value is accepted on-chain
   --name=<value>               name of the aggregator for easier identification
   --networkId=<option>         [default: devnet] Aptos network to connect to
-                               <options: devnet|testnet>
+                               <options: devnet|testnet|mainnet>
   --new                        create account at new AptosAccount with authority set to --account
   --profileName=<value>        [default: default] If --keypair is pointing to a yaml file, provide an optional profile
                                to load. If none provided, default will be used
-  --programId=<value>          [default: 0xc9b4bb0b1f7a343687c4f8bc6eea36dd2a3aa8d654e640050ab5b8635a6b9cbd] Switchboard
-                               programId on the selected Aptos network
-  --stateAddress=<value>       [default: 0xc9b4bb0b1f7a343687c4f8bc6eea36dd2a3aa8d654e640050ab5b8635a6b9cbd] Switchboard
-                               state address
+  --programId=<value>          Switchboard programId on the selected Aptos network
   --updateInterval=<value>     (required) set an aggregator's minimum update delay
   --varianceThreshold=<value>  [default: 0] percentage change between a previous accepted result and the next round
                                before an oracle reports a value on-chain. Used to conserve lease cost during low
@@ -595,31 +570,31 @@ create a new crank
 
 ```
 USAGE
-  $ sbv2 aptos create crank [QUEUEHEXSTRING] --keypair <value> [-h] [-v] [-s] [--networkId devnet|testnet] [--programId
-    <value>] [--stateAddress <value>] [-u <value>] [--profileName <value>] [--name <value>] [--metadata <value>]
-    [--maxRows <value>] [--new]
+  $ sbv2 aptos create crank [QUEUEHEXSTRING] --keypair <value> [-h] [-v] [-s] [--networkId devnet|testnet|mainnet]
+    [--programId <value>] [-u <value>] [--profileName <value>] [--json] [--name <value>] [--metadata <value>] [--maxRows
+    <value>] [--new]
 
 ARGUMENTS
   QUEUEHEXSTRING  HexString of the oracle queue to create a crank for
 
 FLAGS
-  -h, --help              Show CLI help.
-  -s, --silent            suppress cli prompts
-  -u, --rpcUrl=<value>    alternate RPC url
-  -v, --verbose           log everything
-  --keypair=<value>       (required) Path to AptosAccount keypair or config.yaml file
-  --maxRows=<value>       [default: 100] maximum number of rows on the crank
-  --metadata=<value>      metadata of the queue for easier identification
-  --name=<value>          name of the queue for easier identification
-  --networkId=<option>    [default: devnet] Aptos network to connect to
-                          <options: devnet|testnet>
-  --new                   create account at new AptosAccount with authority set to --account
-  --profileName=<value>   [default: default] If --keypair is pointing to a yaml file, provide an optional profile to
-                          load. If none provided, default will be used
-  --programId=<value>     [default: 0xc9b4bb0b1f7a343687c4f8bc6eea36dd2a3aa8d654e640050ab5b8635a6b9cbd] Switchboard
-                          programId on the selected Aptos network
-  --stateAddress=<value>  [default: 0xc9b4bb0b1f7a343687c4f8bc6eea36dd2a3aa8d654e640050ab5b8635a6b9cbd] Switchboard
-                          state address
+  -h, --help             Show CLI help.
+  -s, --silent           suppress cli prompts
+  -u, --rpcUrl=<value>   alternate RPC url
+  -v, --verbose          log everything
+  --keypair=<value>      (required) Path to AptosAccount keypair or config.yaml file
+  --maxRows=<value>      [default: 100] maximum number of rows on the crank
+  --metadata=<value>     metadata of the queue for easier identification
+  --name=<value>         name of the queue for easier identification
+  --networkId=<option>   [default: devnet] Aptos network to connect to
+                         <options: devnet|testnet|mainnet>
+  --new                  create account at new AptosAccount with authority set to --account
+  --profileName=<value>  [default: default] If --keypair is pointing to a yaml file, provide an optional profile to
+                         load. If none provided, default will be used
+  --programId=<value>    Switchboard programId on the selected Aptos network
+
+GLOBAL FLAGS
+  --json  Format output as json.
 
 DESCRIPTION
   create a new crank
@@ -635,8 +610,8 @@ create a new job
 ```
 USAGE
   $ sbv2 aptos create job [QUEUEHEXSTRING] [JOBDEFINITION] --keypair <value> [-h] [-v] [-s] [--networkId
-    devnet|testnet] [--programId <value>] [--stateAddress <value>] [-u <value>] [--profileName <value>] [--json] [-a
-    <value>] [--name <value>] [--metadata <value>] [--new] [--weight <value>]
+    devnet|testnet|mainnet] [--programId <value>] [-u <value>] [--profileName <value>] [--json] [-a <value>] [--name
+    <value>] [--metadata <value>] [--new] [--weight <value>]
 
 ARGUMENTS
   QUEUEHEXSTRING  HexString address of the queue
@@ -652,14 +627,11 @@ FLAGS
   --metadata=<value>       metadata of the job for easier identification
   --name=<value>           name of the job for easier identification
   --networkId=<option>     [default: devnet] Aptos network to connect to
-                           <options: devnet|testnet>
+                           <options: devnet|testnet|mainnet>
   --new                    create account at new AptosAccount with authority set to --account
   --profileName=<value>    [default: default] If --keypair is pointing to a yaml file, provide an optional profile to
                            load. If none provided, default will be used
-  --programId=<value>      [default: 0xc9b4bb0b1f7a343687c4f8bc6eea36dd2a3aa8d654e640050ab5b8635a6b9cbd] Switchboard
-                           programId on the selected Aptos network
-  --stateAddress=<value>   [default: 0xc9b4bb0b1f7a343687c4f8bc6eea36dd2a3aa8d654e640050ab5b8635a6b9cbd] Switchboard
-                           state address
+  --programId=<value>      Switchboard programId on the selected Aptos network
   --weight=<value>         [default: 1] job weight to assign
 
 GLOBAL FLAGS
@@ -678,9 +650,9 @@ create a oracle for a given queue
 
 ```
 USAGE
-  $ sbv2 aptos create oracle [QUEUEHEXSTRING] --keypair <value> [-h] [-v] [-s] [--networkId devnet|testnet] [--programId
-    <value>] [--stateAddress <value>] [-u <value>] [--profileName <value>] [--json] [-a <value>] [--name <value>]
-    [--metadata <value>] [--new]
+  $ sbv2 aptos create oracle [QUEUEHEXSTRING] --keypair <value> [-h] [-v] [-s] [--networkId devnet|testnet|mainnet]
+    [--programId <value>] [-u <value>] [--profileName <value>] [--json] [-a <value>] [--name <value>] [--metadata
+    <value>] [--new]
 
 ARGUMENTS
   QUEUEHEXSTRING  HexString address of the queue
@@ -695,14 +667,11 @@ FLAGS
   --metadata=<value>       metadata of the oracle for easier identification
   --name=<value>           name of the oracle for easier identification
   --networkId=<option>     [default: devnet] Aptos network to connect to
-                           <options: devnet|testnet>
+                           <options: devnet|testnet|mainnet>
   --new                    create account at new AptosAccount with authority set to --account
   --profileName=<value>    [default: default] If --keypair is pointing to a yaml file, provide an optional profile to
                            load. If none provided, default will be used
-  --programId=<value>      [default: 0xc9b4bb0b1f7a343687c4f8bc6eea36dd2a3aa8d654e640050ab5b8635a6b9cbd] Switchboard
-                           programId on the selected Aptos network
-  --stateAddress=<value>   [default: 0xc9b4bb0b1f7a343687c4f8bc6eea36dd2a3aa8d654e640050ab5b8635a6b9cbd] Switchboard
-                           state address
+  --programId=<value>      Switchboard programId on the selected Aptos network
 
 GLOBAL FLAGS
   --json  Format output as json.
@@ -720,10 +689,10 @@ create a new oracle queue
 
 ```
 USAGE
-  $ sbv2 aptos create queue --keypair <value> [-h] [-v] [-s] [--networkId devnet|testnet] [--programId <value>]
-    [--stateAddress <value>] [-u <value>] [--profileName <value>] [--json] [-a <value>] [--name <value>] [--metadata
-    <value>] [--minStake <value>] [-r <value>] [--oracleTimeout <value>] [--queueSize <value>] [--slashingEnabled]
-    [--unpermissionedFeeds] [--unpermissionedVrf] [--enableBufferRelayers] [--lockLeaseFunding] [--new]
+  $ sbv2 aptos create queue --keypair <value> [-h] [-v] [-s] [--networkId devnet|testnet|mainnet] [--programId <value>]
+    [-u <value>] [--profileName <value>] [--json] [-a <value>] [--name <value>] [--metadata <value>] [--minStake
+    <value>] [-r <value>] [--oracleTimeout <value>] [--queueSize <value>] [--slashingEnabled] [--unpermissionedFeeds]
+    [--unpermissionedVrf] [--enableBufferRelayers] [--lockLeaseFunding] [--new]
 
 FLAGS
   -a, --authority=<value>  alternate account HexString that will be the authority for the queue
@@ -739,17 +708,14 @@ FLAGS
   --minStake=<value>       minimum stake required by an oracle to join the queue
   --name=<value>           name of the queue for easier identification
   --networkId=<option>     [default: devnet] Aptos network to connect to
-                           <options: devnet|testnet>
+                           <options: devnet|testnet|mainnet>
   --new                    create account at new AptosAccount with authority set to --account
   --oracleTimeout=<value>  [default: 180] number of oracles to add to the queue
   --profileName=<value>    [default: default] If --keypair is pointing to a yaml file, provide an optional profile to
                            load. If none provided, default will be used
-  --programId=<value>      [default: 0xc9b4bb0b1f7a343687c4f8bc6eea36dd2a3aa8d654e640050ab5b8635a6b9cbd] Switchboard
-                           programId on the selected Aptos network
+  --programId=<value>      Switchboard programId on the selected Aptos network
   --queueSize=<value>      [default: 100] maximum number of oracles the queue can support
   --slashingEnabled        permit slashing malicous oracles
-  --stateAddress=<value>   [default: 0xc9b4bb0b1f7a343687c4f8bc6eea36dd2a3aa8d654e640050ab5b8635a6b9cbd] Switchboard
-                           state address
   --unpermissionedFeeds    permit unpermissioned feeds
   --unpermissionedVrf      permit unpermissioned VRF accounts
 
@@ -770,8 +736,8 @@ create a new job
 ```
 USAGE
   $ sbv2 aptos job create [QUEUEHEXSTRING] [JOBDEFINITION] --keypair <value> [-h] [-v] [-s] [--networkId
-    devnet|testnet] [--programId <value>] [--stateAddress <value>] [-u <value>] [--profileName <value>] [--json] [-a
-    <value>] [--name <value>] [--metadata <value>] [--new] [--weight <value>]
+    devnet|testnet|mainnet] [--programId <value>] [-u <value>] [--profileName <value>] [--json] [-a <value>] [--name
+    <value>] [--metadata <value>] [--new] [--weight <value>]
 
 ARGUMENTS
   QUEUEHEXSTRING  HexString address of the queue
@@ -787,14 +753,11 @@ FLAGS
   --metadata=<value>       metadata of the job for easier identification
   --name=<value>           name of the job for easier identification
   --networkId=<option>     [default: devnet] Aptos network to connect to
-                           <options: devnet|testnet>
+                           <options: devnet|testnet|mainnet>
   --new                    create account at new AptosAccount with authority set to --account
   --profileName=<value>    [default: default] If --keypair is pointing to a yaml file, provide an optional profile to
                            load. If none provided, default will be used
-  --programId=<value>      [default: 0xc9b4bb0b1f7a343687c4f8bc6eea36dd2a3aa8d654e640050ab5b8635a6b9cbd] Switchboard
-                           programId on the selected Aptos network
-  --stateAddress=<value>   [default: 0xc9b4bb0b1f7a343687c4f8bc6eea36dd2a3aa8d654e640050ab5b8635a6b9cbd] Switchboard
-                           state address
+  --programId=<value>      Switchboard programId on the selected Aptos network
   --weight=<value>         [default: 1] job weight to assign
 
 GLOBAL FLAGS
@@ -813,23 +776,20 @@ sort the crank
 
 ```
 USAGE
-  $ sbv2 aptos list crank [CRANKHEXSTRING] [-h] [-v] [-s] [--networkId devnet|testnet] [--programId <value>]
-    [--stateAddress <value>] [-u <value>] [--json]
+  $ sbv2 aptos list crank [CRANKHEXSTRING] [-h] [-v] [-s] [--networkId devnet|testnet|mainnet] [--programId <value>]
+    [-u <value>] [--json]
 
 ARGUMENTS
   CRANKHEXSTRING  HexString address of the crank
 
 FLAGS
-  -h, --help              Show CLI help.
-  -s, --silent            suppress cli prompts
-  -u, --rpcUrl=<value>    alternate RPC url
-  -v, --verbose           log everything
-  --networkId=<option>    [default: devnet] Aptos network to connect to
-                          <options: devnet|testnet>
-  --programId=<value>     [default: 0xc9b4bb0b1f7a343687c4f8bc6eea36dd2a3aa8d654e640050ab5b8635a6b9cbd] Switchboard
-                          programId on the selected Aptos network
-  --stateAddress=<value>  [default: 0xc9b4bb0b1f7a343687c4f8bc6eea36dd2a3aa8d654e640050ab5b8635a6b9cbd] Switchboard
-                          state address
+  -h, --help            Show CLI help.
+  -s, --silent          suppress cli prompts
+  -u, --rpcUrl=<value>  alternate RPC url
+  -v, --verbose         log everything
+  --networkId=<option>  [default: devnet] Aptos network to connect to
+                        <options: devnet|testnet|mainnet>
+  --programId=<value>   Switchboard programId on the selected Aptos network
 
 GLOBAL FLAGS
   --json  Format output as json.
@@ -847,9 +807,9 @@ create a oracle for a given queue
 
 ```
 USAGE
-  $ sbv2 aptos oracle create [QUEUEHEXSTRING] --keypair <value> [-h] [-v] [-s] [--networkId devnet|testnet] [--programId
-    <value>] [--stateAddress <value>] [-u <value>] [--profileName <value>] [--json] [-a <value>] [--name <value>]
-    [--metadata <value>] [--new]
+  $ sbv2 aptos oracle create [QUEUEHEXSTRING] --keypair <value> [-h] [-v] [-s] [--networkId devnet|testnet|mainnet]
+    [--programId <value>] [-u <value>] [--profileName <value>] [--json] [-a <value>] [--name <value>] [--metadata
+    <value>] [--new]
 
 ARGUMENTS
   QUEUEHEXSTRING  HexString address of the queue
@@ -864,14 +824,11 @@ FLAGS
   --metadata=<value>       metadata of the oracle for easier identification
   --name=<value>           name of the oracle for easier identification
   --networkId=<option>     [default: devnet] Aptos network to connect to
-                           <options: devnet|testnet>
+                           <options: devnet|testnet|mainnet>
   --new                    create account at new AptosAccount with authority set to --account
   --profileName=<value>    [default: default] If --keypair is pointing to a yaml file, provide an optional profile to
                            load. If none provided, default will be used
-  --programId=<value>      [default: 0xc9b4bb0b1f7a343687c4f8bc6eea36dd2a3aa8d654e640050ab5b8635a6b9cbd] Switchboard
-                           programId on the selected Aptos network
-  --stateAddress=<value>   [default: 0xc9b4bb0b1f7a343687c4f8bc6eea36dd2a3aa8d654e640050ab5b8635a6b9cbd] Switchboard
-                           state address
+  --programId=<value>      Switchboard programId on the selected Aptos network
 
 GLOBAL FLAGS
   --json  Format output as json.
@@ -883,14 +840,42 @@ ALIASES
   $ sbv2 aptos create oracle
 ```
 
+## `sbv2 aptos oracle metrics [ORACLEHEXSTRING]`
+
+list oracle metrics
+
+```
+USAGE
+  $ sbv2 aptos oracle metrics [ORACLEHEXSTRING] [-h] [-v] [-s] [--networkId devnet|testnet|mainnet] [--programId <value>]
+    [-u <value>] [--json]
+
+ARGUMENTS
+  ORACLEHEXSTRING  HexString address of the crank
+
+FLAGS
+  -h, --help            Show CLI help.
+  -s, --silent          suppress cli prompts
+  -u, --rpcUrl=<value>  alternate RPC url
+  -v, --verbose         log everything
+  --networkId=<option>  [default: devnet] Aptos network to connect to
+                        <options: devnet|testnet|mainnet>
+  --programId=<value>   Switchboard programId on the selected Aptos network
+
+GLOBAL FLAGS
+  --json  Format output as json.
+
+DESCRIPTION
+  list oracle metrics
+```
+
 ## `sbv2 aptos oracle up [ORACLEHEXSTRING]`
 
 start an aptos docker oracle
 
 ```
 USAGE
-  $ sbv2 aptos oracle up [ORACLEHEXSTRING] --keypair <value> [-h] [-v] [-s] [--networkId devnet|testnet] [--programId
-    <value>] [--stateAddress <value>] [-u <value>] [--profileName <value>] [-d <value>] [--nodeImage <value>] [--arm]
+  $ sbv2 aptos oracle up [ORACLEHEXSTRING] --keypair <value> [-h] [-v] [-s] [--networkId devnet|testnet|mainnet]
+    [--programId <value>] [-u <value>] [--profileName <value>] [-d <value>] [--nodeImage <value>] [--arm]
 
 ARGUMENTS
   ORACLEHEXSTRING  HexString address of the oracle
@@ -904,14 +889,11 @@ FLAGS
   --arm                         apple silicon needs to use a docker image for linux/arm64
   --keypair=<value>             (required) Path to AptosAccount keypair or config.yaml file
   --networkId=<option>          [default: devnet] Aptos network to connect to
-                                <options: devnet|testnet>
+                                <options: devnet|testnet|mainnet>
   --nodeImage=<value>           [default: dev-v2-10-03-22a] public key of the oracle to start-up
   --profileName=<value>         [default: default] If --keypair is pointing to a yaml file, provide an optional profile
                                 to load. If none provided, default will be used
-  --programId=<value>           [default: 0xc9b4bb0b1f7a343687c4f8bc6eea36dd2a3aa8d654e640050ab5b8635a6b9cbd]
-                                Switchboard programId on the selected Aptos network
-  --stateAddress=<value>        [default: 0xc9b4bb0b1f7a343687c4f8bc6eea36dd2a3aa8d654e640050ab5b8635a6b9cbd]
-                                Switchboard state address
+  --programId=<value>           Switchboard programId on the selected Aptos network
 
 DESCRIPTION
   start an aptos docker oracle
@@ -923,26 +905,23 @@ pop the crank
 
 ```
 USAGE
-  $ sbv2 aptos pop crank [CRANKHEXSTRING] --keypair <value> [-h] [-v] [-s] [--networkId devnet|testnet] [--programId
-    <value>] [--stateAddress <value>] [-u <value>] [--profileName <value>] [--json]
+  $ sbv2 aptos pop crank [CRANKHEXSTRING] --keypair <value> [-h] [-v] [-s] [--networkId devnet|testnet|mainnet]
+    [--programId <value>] [-u <value>] [--profileName <value>] [--json]
 
 ARGUMENTS
   CRANKHEXSTRING  HexString address of the crank
 
 FLAGS
-  -h, --help              Show CLI help.
-  -s, --silent            suppress cli prompts
-  -u, --rpcUrl=<value>    alternate RPC url
-  -v, --verbose           log everything
-  --keypair=<value>       (required) Path to AptosAccount keypair or config.yaml file
-  --networkId=<option>    [default: devnet] Aptos network to connect to
-                          <options: devnet|testnet>
-  --profileName=<value>   [default: default] If --keypair is pointing to a yaml file, provide an optional profile to
-                          load. If none provided, default will be used
-  --programId=<value>     [default: 0xc9b4bb0b1f7a343687c4f8bc6eea36dd2a3aa8d654e640050ab5b8635a6b9cbd] Switchboard
-                          programId on the selected Aptos network
-  --stateAddress=<value>  [default: 0xc9b4bb0b1f7a343687c4f8bc6eea36dd2a3aa8d654e640050ab5b8635a6b9cbd] Switchboard
-                          state address
+  -h, --help             Show CLI help.
+  -s, --silent           suppress cli prompts
+  -u, --rpcUrl=<value>   alternate RPC url
+  -v, --verbose          log everything
+  --keypair=<value>      (required) Path to AptosAccount keypair or config.yaml file
+  --networkId=<option>   [default: devnet] Aptos network to connect to
+                         <options: devnet|testnet|mainnet>
+  --profileName=<value>  [default: default] If --keypair is pointing to a yaml file, provide an optional profile to
+                         load. If none provided, default will be used
+  --programId=<value>    Switchboard programId on the selected Aptos network
 
 GLOBAL FLAGS
   --json  Format output as json.
@@ -960,24 +939,21 @@ print an aptos account
 
 ```
 USAGE
-  $ sbv2 aptos print [ACCOUNTTYPE] [ADDRESS] [-h] [-v] [-s] [--networkId devnet|testnet] [--programId <value>]
-    [--stateAddress <value>] [-u <value>] [--json]
+  $ sbv2 aptos print [ACCOUNTTYPE] [ADDRESS] [-h] [-v] [-s] [--networkId devnet|testnet|mainnet] [--programId
+    <value>] [-u <value>] [--json]
 
 ARGUMENTS
   ACCOUNTTYPE  (queue|aggregator|crank|oracle|permission|lease|job|state) account type to print
   ADDRESS      HexString address of the account to print
 
 FLAGS
-  -h, --help              Show CLI help.
-  -s, --silent            suppress cli prompts
-  -u, --rpcUrl=<value>    alternate RPC url
-  -v, --verbose           log everything
-  --networkId=<option>    [default: devnet] Aptos network to connect to
-                          <options: devnet|testnet>
-  --programId=<value>     [default: 0xc9b4bb0b1f7a343687c4f8bc6eea36dd2a3aa8d654e640050ab5b8635a6b9cbd] Switchboard
-                          programId on the selected Aptos network
-  --stateAddress=<value>  [default: 0xc9b4bb0b1f7a343687c4f8bc6eea36dd2a3aa8d654e640050ab5b8635a6b9cbd] Switchboard
-                          state address
+  -h, --help            Show CLI help.
+  -s, --silent          suppress cli prompts
+  -u, --rpcUrl=<value>  alternate RPC url
+  -v, --verbose         log everything
+  --networkId=<option>  [default: devnet] Aptos network to connect to
+                        <options: devnet|testnet|mainnet>
+  --programId=<value>   Switchboard programId on the selected Aptos network
 
 GLOBAL FLAGS
   --json  Format output as json.
@@ -995,8 +971,8 @@ push an aggregator onto the crank
 
 ```
 USAGE
-  $ sbv2 aptos push crank [CRANKHEXSTRING] --keypair <value> -a <value> [-h] [-v] [-s] [--networkId devnet|testnet]
-    [--programId <value>] [--stateAddress <value>] [-u <value>] [--profileName <value>] [--json]
+  $ sbv2 aptos push crank [CRANKHEXSTRING] --keypair <value> -a <value> [-h] [-v] [-s] [--networkId
+    devnet|testnet|mainnet] [--programId <value>] [-u <value>] [--profileName <value>] [--json]
 
 ARGUMENTS
   CRANKHEXSTRING  HexString address of the crank
@@ -1009,13 +985,10 @@ FLAGS
   -v, --verbose                      log everything
   --keypair=<value>                  (required) Path to AptosAccount keypair or config.yaml file
   --networkId=<option>               [default: devnet] Aptos network to connect to
-                                     <options: devnet|testnet>
+                                     <options: devnet|testnet|mainnet>
   --profileName=<value>              [default: default] If --keypair is pointing to a yaml file, provide an optional
                                      profile to load. If none provided, default will be used
-  --programId=<value>                [default: 0xc9b4bb0b1f7a343687c4f8bc6eea36dd2a3aa8d654e640050ab5b8635a6b9cbd]
-                                     Switchboard programId on the selected Aptos network
-  --stateAddress=<value>             [default: 0xc9b4bb0b1f7a343687c4f8bc6eea36dd2a3aa8d654e640050ab5b8635a6b9cbd]
-                                     Switchboard state address
+  --programId=<value>                Switchboard programId on the selected Aptos network
 
 GLOBAL FLAGS
   --json  Format output as json.
@@ -1033,10 +1006,10 @@ create a new oracle queue
 
 ```
 USAGE
-  $ sbv2 aptos queue create --keypair <value> [-h] [-v] [-s] [--networkId devnet|testnet] [--programId <value>]
-    [--stateAddress <value>] [-u <value>] [--profileName <value>] [--json] [-a <value>] [--name <value>] [--metadata
-    <value>] [--minStake <value>] [-r <value>] [--oracleTimeout <value>] [--queueSize <value>] [--slashingEnabled]
-    [--unpermissionedFeeds] [--unpermissionedVrf] [--enableBufferRelayers] [--lockLeaseFunding] [--new]
+  $ sbv2 aptos queue create --keypair <value> [-h] [-v] [-s] [--networkId devnet|testnet|mainnet] [--programId <value>]
+    [-u <value>] [--profileName <value>] [--json] [-a <value>] [--name <value>] [--metadata <value>] [--minStake
+    <value>] [-r <value>] [--oracleTimeout <value>] [--queueSize <value>] [--slashingEnabled] [--unpermissionedFeeds]
+    [--unpermissionedVrf] [--enableBufferRelayers] [--lockLeaseFunding] [--new]
 
 FLAGS
   -a, --authority=<value>  alternate account HexString that will be the authority for the queue
@@ -1052,17 +1025,14 @@ FLAGS
   --minStake=<value>       minimum stake required by an oracle to join the queue
   --name=<value>           name of the queue for easier identification
   --networkId=<option>     [default: devnet] Aptos network to connect to
-                           <options: devnet|testnet>
+                           <options: devnet|testnet|mainnet>
   --new                    create account at new AptosAccount with authority set to --account
   --oracleTimeout=<value>  [default: 180] number of oracles to add to the queue
   --profileName=<value>    [default: default] If --keypair is pointing to a yaml file, provide an optional profile to
                            load. If none provided, default will be used
-  --programId=<value>      [default: 0xc9b4bb0b1f7a343687c4f8bc6eea36dd2a3aa8d654e640050ab5b8635a6b9cbd] Switchboard
-                           programId on the selected Aptos network
+  --programId=<value>      Switchboard programId on the selected Aptos network
   --queueSize=<value>      [default: 100] maximum number of oracles the queue can support
   --slashingEnabled        permit slashing malicous oracles
-  --stateAddress=<value>   [default: 0xc9b4bb0b1f7a343687c4f8bc6eea36dd2a3aa8d654e640050ab5b8635a6b9cbd] Switchboard
-                           state address
   --unpermissionedFeeds    permit unpermissioned feeds
   --unpermissionedVrf      permit unpermissioned VRF accounts
 
@@ -1082,26 +1052,23 @@ request a new value on-chain for an aggregator
 
 ```
 USAGE
-  $ sbv2 aptos update aggregator [AGGREGATORHEXSTRING] --keypair <value> [-h] [-v] [-s] [--networkId devnet|testnet]
-    [--programId <value>] [--stateAddress <value>] [-u <value>] [--profileName <value>]
+  $ sbv2 aptos update aggregator [AGGREGATORHEXSTRING] --keypair <value> [-h] [-v] [-s] [--networkId devnet|testnet|mainnet]
+    [--programId <value>] [-u <value>] [--profileName <value>]
 
 ARGUMENTS
   AGGREGATORHEXSTRING  HexString address of the aggregator
 
 FLAGS
-  -h, --help              Show CLI help.
-  -s, --silent            suppress cli prompts
-  -u, --rpcUrl=<value>    alternate RPC url
-  -v, --verbose           log everything
-  --keypair=<value>       (required) Path to AptosAccount keypair or config.yaml file
-  --networkId=<option>    [default: devnet] Aptos network to connect to
-                          <options: devnet|testnet>
-  --profileName=<value>   [default: default] If --keypair is pointing to a yaml file, provide an optional profile to
-                          load. If none provided, default will be used
-  --programId=<value>     [default: 0xc9b4bb0b1f7a343687c4f8bc6eea36dd2a3aa8d654e640050ab5b8635a6b9cbd] Switchboard
-                          programId on the selected Aptos network
-  --stateAddress=<value>  [default: 0xc9b4bb0b1f7a343687c4f8bc6eea36dd2a3aa8d654e640050ab5b8635a6b9cbd] Switchboard
-                          state address
+  -h, --help             Show CLI help.
+  -s, --silent           suppress cli prompts
+  -u, --rpcUrl=<value>   alternate RPC url
+  -v, --verbose          log everything
+  --keypair=<value>      (required) Path to AptosAccount keypair or config.yaml file
+  --networkId=<option>   [default: devnet] Aptos network to connect to
+                         <options: devnet|testnet|mainnet>
+  --profileName=<value>  [default: default] If --keypair is pointing to a yaml file, provide an optional profile to
+                         load. If none provided, default will be used
+  --programId=<value>    Switchboard programId on the selected Aptos network
 
 DESCRIPTION
   request a new value on-chain for an aggregator
@@ -2020,14 +1987,14 @@ USAGE
 FLAGS
   -a, --authority=<value>       alternate named account that will be the authority for the queue
   -h, --help                    Show CLI help.
-  -r, --reward=<value>          oracle rewards for successfully responding to an update request
+  -r, --reward=<value>          [default: 0] oracle rewards for successfully responding to an update request
   -s, --silent                  suppress cli prompts
   -u, --rpcUrl=<value>          alternate RPC url
   -v, --verbose                 log everything
   --accountName=<value>         (required) Named account to load from your nearCredentialsDir
   --enableBufferRelayers        enable oracles to fulfill buffer relayer requests
   --metadata=<value>            metadata of the queue for easier identification
-  --minStake=<value>            minimum stake required by an oracle to join the queue
+  --minStake=<value>            [default: 0] minimum stake required by an oracle to join the queue
   --name=<value>                name of the queue for easier identification
   --nearCredentialsDir=<value>  [default: /Users/gally/.near-credentials] Alternative directory for near credentials.
                                 Defaults to ~/.near-credentials
@@ -2628,14 +2595,14 @@ USAGE
 FLAGS
   -a, --authority=<value>       alternate named account that will be the authority for the queue
   -h, --help                    Show CLI help.
-  -r, --reward=<value>          oracle rewards for successfully responding to an update request
+  -r, --reward=<value>          [default: 0] oracle rewards for successfully responding to an update request
   -s, --silent                  suppress cli prompts
   -u, --rpcUrl=<value>          alternate RPC url
   -v, --verbose                 log everything
   --accountName=<value>         (required) Named account to load from your nearCredentialsDir
   --enableBufferRelayers        enable oracles to fulfill buffer relayer requests
   --metadata=<value>            metadata of the queue for easier identification
-  --minStake=<value>            minimum stake required by an oracle to join the queue
+  --minStake=<value>            [default: 0] minimum stake required by an oracle to join the queue
   --name=<value>                name of the queue for easier identification
   --nearCredentialsDir=<value>  [default: /Users/gally/.near-credentials] Alternative directory for near credentials.
                                 Defaults to ~/.near-credentials
@@ -4115,6 +4082,35 @@ DESCRIPTION
 ALIASES
   $ sbv2 solana aggregator add crank
   $ sbv2 solana crank add aggregator
+```
+
+## `sbv2 solana crank cmp [CRANKKEY1] [CRANKKEY2]`
+
+write the crank account definitions to a JSON file
+
+```
+USAGE
+  $ sbv2 solana crank cmp [CRANKKEY1] [CRANKKEY2] -f <value> [-h] [-v] [-s] [--mainnetBeta] [-u <value>] [--programId
+    <value>] [--commitment confirmed|finalized|processed] [--force]
+
+ARGUMENTS
+  CRANKKEY1  public key of the crank
+  CRANKKEY2  public key of the crank
+
+FLAGS
+  -f, --outputFile=<value>  (required) output file to save aggregator pubkeys to
+  -h, --help                Show CLI help.
+  -s, --silent              suppress cli prompts
+  -u, --rpcUrl=<value>      alternate RPC url
+  -v, --verbose             log everything
+  --commitment=<option>     [default: confirmed] transaction commitment level to use
+                            <options: confirmed|finalized|processed>
+  --force                   overwrite output file if exists
+  --mainnetBeta             WARNING: use mainnet-beta solana cluster
+  --programId=<value>       alternative Switchboard program ID to interact with
+
+DESCRIPTION
+  write the crank account definitions to a JSON file
 ```
 
 ## `sbv2 solana crank create [QUEUEKEY]`
