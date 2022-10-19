@@ -43,7 +43,20 @@ export class CustomIdl implements ICustomIdl {
       date: this.date,
       scripts: this.scripts,
       events: this.events,
-      types: this.types,
+      // Do this to control the order of outputted fields in the JSON object
+      types: this.types.map((t) => {
+        return {
+          name: t.name,
+          description: t.description,
+          fields: t.fields.map((f) => {
+            return {
+              name: f.name,
+              description: f.description,
+              type: f.type,
+            };
+          }),
+        };
+      }),
       errors: this.errors,
     };
   }
@@ -66,8 +79,8 @@ export class CustomIdl implements ICustomIdl {
         fields: s.fields.map((f): IFieldsDescription => {
           return {
             name: f.name,
-            type: typeRemapper.has(f.type) ? typeRemapper.get(f.type) : f.type,
             description: "",
+            type: typeRemapper.has(f.type) ? typeRemapper.get(f.type) : f.type,
           };
         }),
       };

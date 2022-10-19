@@ -1,5 +1,6 @@
 export interface IProgramStruct {
   name: string;
+  description: string;
   fields: IFieldsDescription[];
 }
 

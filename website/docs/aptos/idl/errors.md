@@ -5,43 +5,43 @@ title: Errors
 
 ## Switchboard Errors
 
-| Code | Hex    | Name                              | Description |
-| ---- | ------ | --------------------------------- | ----------- |
-| 0    | 720896 | Generic                           |             |
-| 1    | 393217 | StateNotFound                     |             |
-| 2    | 393218 | QueueNotFound                     |             |
-| 3    | 393219 | OracleNotFound                    |             |
-| 4    | 393220 | JobNotFound                       |             |
-| 5    | 393221 | CrankNotFound                     |             |
-| 6    | 393222 | AggregatorNotFound                |             |
-| 7    | 393223 | LeaseNotFound                     |             |
-| 8    | 393224 | OracleWalletNotFound              |             |
-| 9    | 524297 | StateAlreadyExists                |             |
-| 10   | 524298 | QueueAlreadyExists                |             |
-| 11   |        | OracleAlreadyExists               |             |
-| 12   |        | JobAlreadyExists                  |             |
-| 13   |        | CrankAlreadyExists                |             |
-| 14   | 524302 | AggregatorAlreadyExists           |             |
-| 15   | 524303 | LeaseAlreadyExists                |             |
-| 16   | 524304 | OracleWalletAlreadyExists         |             |
-| 17   | 327697 | InvalidAuthority                  |             |
-| 18   | 327698 | PermissionDenied                  |             |
-| 19   | 327699 | CrankDisabled                     |             |
-| 20   | 65556  | OracleMismatch                    |             |
-| 21   | 65557  | JobsChecksumMismatch              |             |
-| 22   | 65558  | OracleAlreadyResponded            |             |
-| 23   | 65559  | InvalidArgument                   |             |
-| 24   | 196632 | CrankNotReady                     |             |
-| 25   | 196633 | CrankEmpty                        |             |
-| 26   | 196634 | LeaseInactive                     |             |
-| 27   | 196635 | AggregatorLocked                  |             |
-| 28   | 589852 | InsufficientCoin                  |             |
-| 29   | 589853 | LeaseInsufficientCoin             |             |
-| 30   | 589854 | OracleWalletInsufficientCoin      |             |
-| 31   | 65567  | AggregatorInvalidBatchSize        |             |
-| 32   | 65568  | AggregatorInvalidMinOracleResults |             |
-| 33   | 65569  | AggregatorInvalidUpdateDelay      |             |
-| 34   | 65570  | AggregatorIllegalRoundOpenCall    |             |
-| 35   | 65571  | AggregatorQueueNotReady           |             |
-| 36   | 524324 | ResourceAlreadyExists             |             |
-| 37   | 524325 | PermissionAlreadyExists           |             |
+| Code | Hex     | Name                              | Description |
+| ---- | ------- | --------------------------------- | ----------- |
+| 0    | 0xb0000 | Generic                           |             |
+| 1    | 0x60001 | StateNotFound                     |             |
+| 2    | 0x60002 | QueueNotFound                     |             |
+| 3    | 0x60003 | OracleNotFound                    |             |
+| 4    | 0x60004 | JobNotFound                       |             |
+| 5    | 0x60005 | CrankNotFound                     |             |
+| 6    | 0x60006 | AggregatorNotFound                |             |
+| 7    | 0x60007 | LeaseNotFound                     |             |
+| 8    | 0x60008 | OracleWalletNotFound              |             |
+| 9    | 0x80009 | StateAlreadyExists                |             |
+| 10   | 0x8000a | QueueAlreadyExists                |             |
+| 11   | 0x8000b | OracleAlreadyExists               |             |
+| 12   | 0x8000c | JobAlreadyExists                  |             |
+| 13   | 0x8000d | CrankAlreadyExists                |             |
+| 14   | 0x8000e | AggregatorAlreadyExists           |             |
+| 15   | 0x8000f | LeaseAlreadyExists                |             |
+| 16   | 0x80010 | OracleWalletAlreadyExists         |             |
+| 17   | 0x50011 | InvalidAuthority                  |             |
+| 18   | 0x50012 | PermissionDenied                  |             |
+| 19   | 0x50013 | CrankDisabled                     |             |
+| 20   | 0x10014 | OracleMismatch                    |             |
+| 21   | 0x10015 | JobsChecksumMismatch              |             |
+| 22   | 0x10016 | OracleAlreadyResponded            |             |
+| 23   | 0x10017 | InvalidArgument                   |             |
+| 24   | 0x30018 | CrankNotReady                     |             |
+| 25   | 0x30019 | CrankEmpty                        |             |
+| 26   | 0x3001a | LeaseInactive                     |             |
+| 27   | 0x3001b | AggregatorLocked                  |             |
+| 28   | 0x9001c | InsufficientCoin                  |             |
+| 29   | 0x9001d | LeaseInsufficientCoin             |             |
+| 30   | 0x9001e | OracleWalletInsufficientCoin      |             |
+| 31   | 0x1001f | AggregatorInvalidBatchSize        |             |
+| 32   | 0x10020 | AggregatorInvalidMinOracleResults |             |
+| 33   | 0x10021 | AggregatorInvalidUpdateDelay      |             |
+| 34   | 0x10022 | AggregatorIllegalRoundOpenCall    |             |
+| 35   | 0x10023 | AggregatorQueueNotReady           |             |
+| 36   | 0x80024 | ResourceAlreadyExists             |             |
+| 37   | 0x80025 | PermissionAlreadyExists           |             |

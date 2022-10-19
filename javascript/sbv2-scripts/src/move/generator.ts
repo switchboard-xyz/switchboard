@@ -3,6 +3,7 @@ import fs from "fs";
 import path from "path";
 import fse from "fs-extra";
 import { cleanupString } from "../utilts";
+import { CustomIdl } from "../idl";
 
 interface MoveIdl {
   name: string;
@@ -310,90 +311,22 @@ export class ProgramStructs {
       );
     };
 
-    // const convertOptionType = (type: string): string => {
-    //   if (!type.startsWith("Option<")) {
-    //     return type;
-    //   }
-    //   const typeMatch = Array.from(type.matchAll(/\<(?<inner>.*)\>/g));
-    //   const inner = typeMatch[0].groups["inner"] ?? type;
-    //   return convertType(
-    //     "(" + inner + " \\| undefined)" + type.replace(`Option<${inner}>`, "")
-    //   );
-    // };
-
-    const emptyTypeDescriptions = Array.from(this.structs.entries()).map(
-      (s): ITypeDescription => {
-        const [name, struct] = s;
+    const idlPath = path.join(outputDirectory, "..", "IDL.json");
+    const idl = CustomIdl.getOrCreate(
+      idlPath,
+      Array.from(this.structs.entries()).map((s) => {
         return {
-          name: name,
+          name: s[1].name,
           description: "",
-          fields: struct.fields.map((f): IFieldsDescription => {
-            return {
-              name: f.tsName,
-              type: remapper.has(f.rawType)
-                ? remapper.get(f.rawType)
-                : f.rawType,
-              description: "",
-            };
+          fields: s[1].fields.map((f) => {
+            return { name: f.tsName, description: "", type: f.rawType };
           }),
         };
-      }
+      })
     );
+    idl.write(idlPath);
 
-    // look for descriptions json, if not generate it
-    let types: Array<ITypeDescription> = [];
-    let existingDescriptions: Array<ITypeDescription> = [];
-    let errorDescriptions: Array<IErrorDescription> = [];
-    const descriptionsJsonPath = path.join(
-      outputDirectory,
-      "..",
-      "descriptions.json"
-    );
-
-    if (!fs.existsSync(descriptionsJsonPath)) {
-      types = [...emptyTypeDescriptions];
-    } else {
-      // read in descriptions and update json if exists
-      const existingTypeDescriptions: TypeDescriptions = JSON.parse(
-        fs.readFileSync(descriptionsJsonPath, "utf-8")
-      );
-
-      if (
-        existingTypeDescriptions &&
-        "errors" in existingTypeDescriptions &&
-        existingTypeDescriptions.errors.length > 0
-      ) {
-        errorDescriptions.push(...existingTypeDescriptions.errors);
-      }
-
-      if (
-        existingTypeDescriptions &&
-        "types" in existingTypeDescriptions &&
-        existingTypeDescriptions.types.length > 0
-      ) {
-        existingDescriptions.push(...existingTypeDescriptions.types);
-      }
-
-      for (const type of emptyTypeDescriptions) {
-        // TODO: Need to deep merge fields in case some get added
-        // look for existing description, if not set to blank
-        const existingDescriptionIndex = existingDescriptions.findIndex(
-          (t) => t.name === type.name
-        );
-        types.push(
-          existingDescriptionIndex > -1
-            ? existingDescriptions.splice(existingDescriptionIndex, 1)[0]
-            : type
-        );
-      }
-    }
-
-    fs.writeFileSync(
-      descriptionsJsonPath,
-      JSON.stringify({ types, errors: errorDescriptions ?? [] }, undefined, 2)
-    );
-
-    for (const type of types) {
+    for (const type of idl.types) {
       const fileName = path.join(outputDirectory, `_${type.name}.md`);
       const tableHeader = `${
         type.description ? type.description + "\n\n" : ""
@@ -408,7 +341,7 @@ export class ProgramStructs {
     }
 
     /// write errors
-    if (errorDescriptions && errorDescriptions.length) {
+    if (idl.errors && idl.errors.length) {
       const errorFile = path.join(outputDirectory, "..", "errors.md");
       const errorHeader: string = `---
 sidebar_position: 60
@@ -419,8 +352,11 @@ title: Errors
 
 | Code | Hex    | Name                 | Description |
 | ---- | ------ | -------------------- | ----------- |\n`;
-      const rows = errorDescriptions.map(
-        (e) => `| ${e.code} | ${e.value} | ${e.name} |  ${e.description} |`
+      const rows = idl.errors.map(
+        (e) =>
+          `| ${e.code} | 0x${
+            e.value ? Number.parseInt(e.value).toString(16) : ""
+          } | ${e.name} |  ${e.description} |`
       );
       fs.writeFileSync(errorFile, errorHeader + rows.join("\n"));
     }
