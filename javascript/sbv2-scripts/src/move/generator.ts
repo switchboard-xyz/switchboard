@@ -4,32 +4,60 @@ import path from "path";
 import fse from "fs-extra";
 import { cleanupString } from "../utilts";
 
-interface ErrorDescription {
+interface MoveIdl {
   name: string;
-  code: number;
-  value: string;
+  chain: string;
+  date: string;
+  // manually maps to generated types
+  scripts: Array<IScriptDescription>;
+  events: Array<IEventDescription>;
+  errors: Array<IErrorDescription>;
+  // gets auto-generated
+  types: Array<ITypeDescription>;
+}
+
+interface IDescription {
+  name: string;
   description: string;
 }
 
-interface FieldsDescription {
-  name: string;
-  type: string;
-  description: string;
+interface IScriptDescription extends IDescription {
+  script: string;
+  params: string;
 }
-interface TypeDescription {
-  name: string;
-  description: string;
-  fields: Array<FieldsDescription>;
+
+interface IEventDescription extends IDescription {
+  type: string;
+}
+
+interface IErrorDescription extends IDescription {
+  code: number;
+  value: string;
+}
+
+interface IFieldsDescription extends IDescription {
+  type: string;
+}
+
+interface ITypeDescription extends IDescription {
+  fields: Array<IFieldsDescription>;
 }
 
 interface TypeDescriptions {
-  types: Array<TypeDescription>;
-  errors: Array<ErrorDescription>;
+  types: Array<ITypeDescription>;
+  errors: Array<IErrorDescription>;
+}
+
+export interface IProgramStruct {
+  name: string;
+  fields: SupportedField[];
+  traits: string;
+  match?: any;
 }
 
 export const IGNORE_STRUCTS = ["State", "EscrowManager"];
 
-export class ProgramStruct {
+export class ProgramStruct implements IProgramStruct {
   constructor(
     readonly name: string,
     readonly fields: SupportedField[],
@@ -294,12 +322,12 @@ export class ProgramStructs {
     // };
 
     const emptyTypeDescriptions = Array.from(this.structs.entries()).map(
-      (s): TypeDescription => {
+      (s): ITypeDescription => {
         const [name, struct] = s;
         return {
           name: name,
           description: "",
-          fields: struct.fields.map((f): FieldsDescription => {
+          fields: struct.fields.map((f): IFieldsDescription => {
             return {
               name: f.tsName,
               type: remapper.has(f.rawType)
@@ -313,9 +341,9 @@ export class ProgramStructs {
     );
 
     // look for descriptions json, if not generate it
-    let types: Array<TypeDescription> = [];
-    let existingDescriptions: Array<TypeDescription> = [];
-    let errorDescriptions: Array<ErrorDescription> = [];
+    let types: Array<ITypeDescription> = [];
+    let existingDescriptions: Array<ITypeDescription> = [];
+    let errorDescriptions: Array<IErrorDescription> = [];
     const descriptionsJsonPath = path.join(
       outputDirectory,
       "..",
@@ -423,10 +451,10 @@ title: Errors
 
     fs.writeFileSync(
       path.join(outputDirectory, "programId.ts"),
-      `export const PROGRAM_ID = "0xc9b4bb0b1f7a343687c4f8bc6eea36dd2a3aa8d654e640050ab5b8635a6b9cbd";
-  export const MAINNET_PROGRAM_ID = PROGRAM_ID;
-  export const TESTNET_PROGRAM_ID = "0xc9b4bb0b1f7a343687c4f8bc6eea36dd2a3aa8d654e640050ab5b8635a6b9cbd";
-  export const DEVNET_PROGRAM_ID = "0xc9b4bb0b1f7a343687c4f8bc6eea36dd2a3aa8d654e640050ab5b8635a6b9cbd";
+      `export const PROGRAM_ID = MAINNET_PROGRAM_ID;
+  export const MAINNET_PROGRAM_ID = "0x7d7e436f0b2aafde60774efb26ccc432cf881b677aca7faaf2a01879bd19fb8";
+  export const TESTNET_PROGRAM_ID = "0x34e2eead0aefbc3d0af13c0522be94b002658f4bef8e0740a21086d22236ad77";
+  export const DEVNET_PROGRAM_ID = "0x34e2eead0aefbc3d0af13c0522be94b002658f4bef8e0740a21086d22236ad77";
         `
     );
 

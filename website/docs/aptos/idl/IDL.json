@@ -1,0 +1,2395 @@
+{
+  "name": "Switchboard V2 - Aptos",
+  "chain": "Aptos",
+  "date": "October 19, 2022, 10:00AM UTC",
+  "scripts": [
+    {
+      "name": "AggregatorAddJob",
+      "description": "",
+      "script": "${SWITCHBOARD_PROGRAM_ID}::aggregator_add_job_action::run",
+      "params": "AggregatorAddJobParams"
+    },
+    {
+      "name": "AggregatorInit",
+      "description": "",
+      "script": "${SWITCHBOARD_PROGRAM_ID}::aggregator_init_action::run",
+      "params": "AggregatorInitParams"
+    },
+    {
+      "name": "AggregatorLock",
+      "description": "",
+      "script": "${SWITCHBOARD_PROGRAM_ID}::aggregator_lock_action::run",
+      "params": "AggregatorLockParams"
+    },
+    {
+      "name": "AggregatorOpenRound",
+      "description": "Call OpenRound on an aggregator and request a new value from a batch of oracles.",
+      "script": "${SWITCHBOARD_PROGRAM_ID}::aggregator_open_round_action::run",
+      "params": "AggregatorOpenRoundParams"
+    },
+    {
+      "name": "AggregatorRemoveJob",
+      "description": "",
+      "script": "${SWITCHBOARD_PROGRAM_ID}::aggregator_remove_job_action::run",
+      "params": "AggregatorRemoveJobParams"
+    },
+    {
+      "name": "AggregatorSetConfigs",
+      "description": "",
+      "script": "${SWITCHBOARD_PROGRAM_ID}::aggregator_set_configs_action::run",
+      "params": "AggregatorConfigParams"
+    },
+    {
+      "name": "CrankInit",
+      "description": "",
+      "script": "${SWITCHBOARD_PROGRAM_ID}::crank_init_action::run",
+      "params": "CrankInitParams"
+    },
+    {
+      "name": "CrankPop",
+      "description": "",
+      "script": "${SWITCHBOARD_PROGRAM_ID}::crank_pop_action::run",
+      "params": "CrankPopParams"
+    },
+    {
+      "name": "CrankPush",
+      "description": "",
+      "script": "${SWITCHBOARD_PROGRAM_ID}::crank_push_action::run",
+      "params": "CrankPushParams"
+    },
+    {
+      "name": "JobInit",
+      "description": "",
+      "script": "${SWITCHBOARD_PROGRAM_ID}::job_init_action::run",
+      "params": "JobConfigParams"
+    },
+    {
+      "name": "LeaseExtend",
+      "description": "",
+      "script": "${SWITCHBOARD_PROGRAM_ID}::lease_extend_action::run",
+      "params": "LeaseExtendParams"
+    },
+    {
+      "name": "LeaseInit",
+      "description": "",
+      "script": "${SWITCHBOARD_PROGRAM_ID}::lease_init_action::run",
+      "params": "LeaseInitParams"
+    },
+    {
+      "name": "LeaseSetAuthority",
+      "description": "",
+      "script": "${SWITCHBOARD_PROGRAM_ID}::lease_set_authority_action::run",
+      "params": "LeaseSetAuthorityParams"
+    },
+    {
+      "name": "LeaseWithdraw",
+      "description": "",
+      "script": "${SWITCHBOARD_PROGRAM_ID}::lease_withdraw_action::run",
+      "params": "LeaseWithdrawParams"
+    },
+    {
+      "name": "OracleHeartbeat",
+      "description": "",
+      "script": "${SWITCHBOARD_PROGRAM_ID}::oracle_heartbeat_action::run",
+      "params": "OracleHeartbeatParams"
+    },
+    {
+      "name": "OracleInit",
+      "description": "",
+      "script": "${SWITCHBOARD_PROGRAM_ID}::oracle_init_action::run",
+      "params": "OracleInitParams"
+    },
+    {
+      "name": "OracleQueueInit",
+      "description": "",
+      "script": "${SWITCHBOARD_PROGRAM_ID}::oracle_queue_init_action::run",
+      "params": "OracleQueueInitParams"
+    },
+    {
+      "name": "OracleQueueSetConfigs",
+      "description": "",
+      "script": "${SWITCHBOARD_PROGRAM_ID}::oracle_queue_set_configs_action::run",
+      "params": "OracleQueueSetConfigsParams"
+    },
+    {
+      "name": "OracleSetConfigs",
+      "description": "",
+      "script": "${SWITCHBOARD_PROGRAM_ID}::oracle_set_configs_action::run",
+      "params": "OracleSetConfigsParams"
+    },
+    {
+      "name": "OracleWalletContribute",
+      "description": "",
+      "script": "${SWITCHBOARD_PROGRAM_ID}::oracle_wallet_contribute_action::run",
+      "params": "OracleWalletContributeParams"
+    },
+    {
+      "name": "OracleWalletInit",
+      "description": "",
+      "script": "${SWITCHBOARD_PROGRAM_ID}::oracle_wallet_init_action::run",
+      "params": "OracleWalletInitParams"
+    },
+    {
+      "name": "OracleWalletWithdraw",
+      "description": "",
+      "script": "${SWITCHBOARD_PROGRAM_ID}::oracle_wallet_withdraw_action::run",
+      "params": "OracleWalletWithdrawParams"
+    },
+    {
+      "name": "PermissionInit",
+      "description": "",
+      "script": "${SWITCHBOARD_PROGRAM_ID}::permission_init_action::run",
+      "params": "PermissionInitParams"
+    },
+    {
+      "name": "PermissionSet",
+      "description": "",
+      "script": "${SWITCHBOARD_PROGRAM_ID}::permission_set_action::run",
+      "params": "PermissionSetParams"
+    }
+  ],
+  "events": [
+    {
+      "name": "AggregatorCrankEviction",
+      "description": "",
+      "type": "AggregatorCrankEvictionEvent"
+    },
+    {
+      "name": "AggregatorInit",
+      "description": "",
+      "type": "AggregatorInitEvent"
+    },
+    {
+      "name": "AggregatorOpenRound",
+      "description": "",
+      "type": "AggregatorOpenRoundEvent"
+    },
+    {
+      "name": "AggregatorSaveResult",
+      "description": "",
+      "type": "AggregatorSaveResultEvent"
+    },
+    {
+      "name": "AggregatorUpdate",
+      "description": "",
+      "type": "AggregatorUpdateEvent"
+    },
+    {
+      "name": "CrankLeaseInsufficientFunds",
+      "description": "",
+      "type": "CrankLeaseInsufficientFundsEvent"
+    },
+    {
+      "name": "CrankPopExpectedFailure",
+      "description": "",
+      "type": "CrankPopExpectedFailureEvent"
+    },
+    {
+      "name": "FeedPermissionRevoked",
+      "description": "",
+      "type": "FeedPermissionRevokedEvent"
+    },
+    {
+      "name": "GarbageCollectFailure",
+      "description": "",
+      "type": "GarbageCollectFailureEvent"
+    },
+    {
+      "name": "LeaseFund",
+      "description": "",
+      "type": "LeaseFundEvent"
+    },
+    {
+      "name": "LeaseWithdraw",
+      "description": "",
+      "type": "LeaseWithdrawEvent"
+    },
+    {
+      "name": "OracleBooted",
+      "description": "",
+      "type": "OracleBootedEvent"
+    },
+    {
+      "name": "OracleReward",
+      "description": "",
+      "type": "OracleRewardEvent"
+    },
+    {
+      "name": "OracleSlash",
+      "description": "",
+      "type": "OracleSlashEvent"
+    },
+    {
+      "name": "OracleWithdraw",
+      "description": "",
+      "type": "OracleWithdrawEvent"
+    },
+    {
+      "name": "ProbationBroken",
+      "description": "",
+      "type": "ProbationBrokenEvent"
+    }
+  ],
+  "errors": [
+    {
+      "name": "Generic",
+      "code": 0,
+      "value": "720896",
+      "description": ""
+    },
+    {
+      "name": "StateNotFound",
+      "code": 1,
+      "value": "393217",
+      "description": ""
+    },
+    {
+      "name": "QueueNotFound",
+      "code": 2,
+      "value": "393218",
+      "description": ""
+    },
+    {
+      "name": "OracleNotFound",
+      "code": 3,
+      "value": "393219",
+      "description": ""
+    },
+    {
+      "name": "JobNotFound",
+      "code": 4,
+      "value": "393220",
+      "description": ""
+    },
+    {
+      "name": "CrankNotFound",
+      "code": 5,
+      "value": "393221",
+      "description": ""
+    },
+    {
+      "name": "AggregatorNotFound",
+      "code": 6,
+      "value": "393222",
+      "description": ""
+    },
+    {
+      "name": "LeaseNotFound",
+      "code": 7,
+      "value": "393223",
+      "description": ""
+    },
+    {
+      "name": "OracleWalletNotFound",
+      "code": 8,
+      "value": "393224",
+      "description": ""
+    },
+    {
+      "name": "StateAlreadyExists",
+      "code": 9,
+      "value": "524297",
+      "description": ""
+    },
+    {
+      "name": "QueueAlreadyExists",
+      "code": 10,
+      "value": "524298",
+      "description": ""
+    },
+    {
+      "name": "OracleAlreadyExists",
+      "code": 11,
+      "value": "",
+      "description": ""
+    },
+    {
+      "name": "JobAlreadyExists",
+      "code": 12,
+      "value": "",
+      "description": ""
+    },
+    {
+      "name": "CrankAlreadyExists",
+      "code": 13,
+      "value": "",
+      "description": ""
+    },
+    {
+      "name": "AggregatorAlreadyExists",
+      "code": 14,
+      "value": "524302",
+      "description": ""
+    },
+    {
+      "name": "LeaseAlreadyExists",
+      "code": 15,
+      "value": "524303",
+      "description": ""
+    },
+    {
+      "name": "OracleWalletAlreadyExists",
+      "code": 16,
+      "value": "524304",
+      "description": ""
+    },
+    {
+      "name": "InvalidAuthority",
+      "code": 17,
+      "value": "327697",
+      "description": ""
+    },
+    {
+      "name": "PermissionDenied",
+      "code": 18,
+      "value": "327698",
+      "description": ""
+    },
+    {
+      "name": "CrankDisabled",
+      "code": 19,
+      "value": "327699",
+      "description": ""
+    },
+    {
+      "name": "OracleMismatch",
+      "code": 20,
+      "value": "65556",
+      "description": ""
+    },
+    {
+      "name": "JobsChecksumMismatch",
+      "code": 21,
+      "value": "65557",
+      "description": ""
+    },
+    {
+      "name": "OracleAlreadyResponded",
+      "code": 22,
+      "value": "65558",
+      "description": ""
+    },
+    {
+      "name": "InvalidArgument",
+      "code": 23,
+      "value": "65559",
+      "description": ""
+    },
+    {
+      "name": "CrankNotReady",
+      "code": 24,
+      "value": "196632",
+      "description": ""
+    },
+    {
+      "name": "CrankEmpty",
+      "code": 25,
+      "value": "196633",
+      "description": ""
+    },
+    {
+      "name": "LeaseInactive",
+      "code": 26,
+      "value": "196634",
+      "description": ""
+    },
+    {
+      "name": "AggregatorLocked",
+      "code": 27,
+      "value": "196635",
+      "description": ""
+    },
+    {
+      "name": "InsufficientCoin",
+      "code": 28,
+      "value": "589852",
+      "description": ""
+    },
+    {
+      "name": "LeaseInsufficientCoin",
+      "code": 29,
+      "value": "589853",
+      "description": ""
+    },
+    {
+      "name": "OracleWalletInsufficientCoin",
+      "code": 30,
+      "value": "589854",
+      "description": ""
+    },
+    {
+      "name": "AggregatorInvalidBatchSize",
+      "code": 31,
+      "value": "65567",
+      "description": ""
+    },
+    {
+      "name": "AggregatorInvalidMinOracleResults",
+      "code": 32,
+      "value": "65568",
+      "description": ""
+    },
+    {
+      "name": "AggregatorInvalidUpdateDelay",
+      "code": 33,
+      "value": "65569",
+      "description": ""
+    },
+    {
+      "name": "AggregatorIllegalRoundOpenCall",
+      "code": 34,
+      "value": "65570",
+      "description": ""
+    },
+    {
+      "name": "AggregatorQueueNotReady",
+      "code": 35,
+      "value": "65571",
+      "description": ""
+    },
+    {
+      "name": "ResourceAlreadyExists",
+      "code": 36,
+      "value": "524324",
+      "description": ""
+    },
+    {
+      "name": "PermissionAlreadyExists",
+      "code": 37,
+      "value": "524325",
+      "description": ""
+    }
+  ],
+  "types": [
+    {
+      "name": "SignerCapability",
+      "description": "",
+      "fields": [
+        {
+          "name": "account",
+          "type": "HexString",
+          "description": "The signer capability corresponding to the account that the resource is on."
+        }
+      ]
+    },
+    {
+      "name": "Coin",
+      "description": "",
+      "fields": [
+        {
+          "name": "value",
+          "type": "u64",
+          "description": ""
+        }
+      ]
+    },
+    {
+      "name": "EscrowManagerItem",
+      "description": "",
+      "fields": [
+        {
+          "name": "handle",
+          "type": "HexString",
+          "description": ""
+        }
+      ]
+    },
+    {
+      "name": "EscrowManager",
+      "description": "",
+      "fields": [
+        {
+          "name": "escrows",
+          "type": "EscrowManagerItem",
+          "description": ""
+        }
+      ]
+    },
+    {
+      "name": "AggregatorAddJobParams",
+      "description": "",
+      "fields": [
+        {
+          "name": "aggregatorAddr",
+          "type": "HexString",
+          "description": "Address of the aggregator that is adding a new job."
+        },
+        {
+          "name": "jobAddr",
+          "type": "HexString",
+          "description": "Address of the job that is being added to an aggregator."
+        },
+        {
+          "name": "weight",
+          "type": "u8",
+          "description": "The job weight used when an oracle calculated the weighted median for its final response."
+        }
+      ]
+    },
+    {
+      "name": "AggregatorLockParams",
+      "description": "",
+      "fields": [
+        {
+          "name": "aggregatorAddr",
+          "type": "HexString",
+          "description": "Address of the aggregator that is being locked."
+        }
+      ]
+    },
+    {
+      "name": "AggregatorOpenRoundParams",
+      "description": "Call OpenRound on an aggregator and request a new value from a batch of oracles.",
+      "fields": [
+        {
+          "name": "aggregatorAddr",
+          "type": "HexString",
+          "description": "Address of the aggregator that is requesting a new value."
+        },
+        {
+          "name": "jitter",
+          "type": "u64",
+          "description": "Pseudorandom value added to next aggregator update time."
+        }
+      ]
+    },
+    {
+      "name": "AggregatorOpenRoundActuateParams",
+      "description": "",
+      "fields": [
+        {
+          "name": "openRoundParams",
+          "type": "AggregatorOpenRoundParams",
+          "description": ""
+        },
+        {
+          "name": "queueAddr",
+          "type": "HexString",
+          "description": "Address of the oracle queue that the resource belongs to."
+        },
+        {
+          "name": "batchSize",
+          "type": "u64",
+          "description": "Number of oracles assigned to an update request."
+        },
+        {
+          "name": "jobKeys",
+          "type": "vector<HexString>",
+          "description": ""
+        },
+        {
+          "name": "reward",
+          "type": "u64",
+          "description": "Rewards to provide oracles and round openers on this queue."
+        },
+        {
+          "name": "openRoundReward",
+          "type": "u64",
+          "description": ""
+        }
+      ]
+    },
+    {
+      "name": "AggregatorRemoveJobParams",
+      "description": "",
+      "fields": [
+        {
+          "name": "aggregatorAddr",
+          "type": "HexString",
+          "description": "Address of aggregator that is removing a job."
+        },
+        {
+          "name": "jobAddr",
+          "type": "HexString",
+          "description": "Address of job account that is being removed from an aggregator."
+        }
+      ]
+    },
+    {
+      "name": "CrankInitParams",
+      "description": "",
+      "fields": [
+        {
+          "name": "queueAddr",
+          "type": "HexString",
+          "description": "Address of the oracle queue that the resource belongs to."
+        }
+      ]
+    },
+    {
+      "name": "CrankPopParams",
+      "description": "",
+      "fields": [
+        {
+          "name": "crankAddr",
+          "type": "HexString",
+          "description": "Address of the crank being popped."
+        },
+        {
+          "name": "popIdx",
+          "type": "u64",
+          "description": "Index of the element to pop on the crank."
+        }
+      ]
+    },
+    {
+      "name": "CrankPushParams",
+      "description": "",
+      "fields": [
+        {
+          "name": "crankAddr",
+          "type": "HexString",
+          "description": "Address of crank for which aggregator will be pushed onto."
+        },
+        {
+          "name": "aggregatorAddr",
+          "type": "HexString",
+          "description": "Address of aggregator being added to a crank."
+        }
+      ]
+    },
+    {
+      "name": "JobConfigParams",
+      "description": "",
+      "fields": [
+        {
+          "name": "name",
+          "type": "vector<u8>",
+          "description": "Name of the job stored on-chain."
+        },
+        {
+          "name": "metadata",
+          "type": "vector<u8>",
+          "description": "Metadata of the job to store on-chain.  "
+        },
+        {
+          "name": "authority",
+          "type": "HexString",
+          "description": "The account delegated as the authority for making changes."
+        },
+        {
+          "name": "data",
+          "type": "vector<u8>",
+          "description": "The serialized `OracleJob`."
+        }
+      ]
+    },
+    {
+      "name": "LeaseExtendParams",
+      "description": "",
+      "fields": [
+        {
+          "name": "aggregatorAddr",
+          "type": "HexString",
+          "description": "Address of the aggregator that is receiving funds in it's lease account."
+        },
+        {
+          "name": "loadAmount",
+          "type": "u64",
+          "description": "Amount being added to an aggregator's lease."
+        }
+      ]
+    },
+    {
+      "name": "LeaseInitParams",
+      "description": "",
+      "fields": [
+        {
+          "name": "aggregatorAddr",
+          "type": "HexString",
+          "description": "Address of the aggregator to initialize a lease for."
+        },
+        {
+          "name": "queueAddr",
+          "type": "HexString",
+          "description": "Address of the oracle queue that the resource belongs to."
+        },
+        {
+          "name": "withdrawAuthority",
+          "type": "HexString",
+          "description": "The account delegated as the authority for withdrawing funds."
+        },
+        {
+          "name": "initialAmount",
+          "type": "u64",
+          "description": "Amount to load onto a lease during initialization."
+        }
+      ]
+    },
+    {
+      "name": "LeaseSetAuthorityparams",
+      "description": "",
+      "fields": [
+        {
+          "name": "aggregatorAddr",
+          "type": "HexString",
+          "description": "Address of aggregator that is setting a lease authority for."
+        },
+        {
+          "name": "queueAddr",
+          "type": "HexString",
+          "description": "Address of the oracle queue that the resource belongs to."
+        },
+        {
+          "name": "authority",
+          "type": "HexString",
+          "description": "The account delegated as the authority for making changes."
+        }
+      ]
+    },
+    {
+      "name": "LeaseWithdrawParams",
+      "description": "",
+      "fields": [
+        {
+          "name": "aggregatorAddr",
+          "type": "HexString",
+          "description": ""
+        },
+        {
+          "name": "queueAddr",
+          "type": "HexString",
+          "description": "Address of the oracle queue that the resource belongs to."
+        },
+        {
+          "name": "amount",
+          "type": "u64",
+          "description": ""
+        }
+      ]
+    },
+    {
+      "name": "OracleHeartbeatParams",
+      "description": "",
+      "fields": [
+        {
+          "name": "oracleAddr",
+          "type": "HexString",
+          "description": "Address of oracle that is heartbeating on-chain to signal readiness."
+        }
+      ]
+    },
+    {
+      "name": "OracleInitParams",
+      "description": "",
+      "fields": [
+        {
+          "name": "name",
+          "type": "vector<u8>",
+          "description": "Name of the oracle to store on-chain."
+        },
+        {
+          "name": "metadata",
+          "type": "vector<u8>",
+          "description": "Metadata of the oracle to store on-chain."
+        },
+        {
+          "name": "oracleAuthority",
+          "type": "HexString",
+          "description": "Account delegated as the authority."
+        },
+        {
+          "name": "queueAddr",
+          "type": "HexString",
+          "description": "Address of the oracle queue that the resource belongs to."
+        }
+      ]
+    },
+    {
+      "name": "OracleSetConfigsParams",
+      "description": "",
+      "fields": [
+        {
+          "name": "oracleAddr",
+          "type": "HexString",
+          "description": "Address of oracle that is changing it's config."
+        },
+        {
+          "name": "name",
+          "type": "vector<u8>",
+          "description": "Name of the oracle stored on-chain."
+        },
+        {
+          "name": "metadata",
+          "type": "vector<u8>",
+          "description": "Metadata of the oracle to store on-chain."
+        },
+        {
+          "name": "oracleAuthority",
+          "type": "HexString",
+          "description": "Account that is the authority for the oracle."
+        },
+        {
+          "name": "queueAddr",
+          "type": "HexString",
+          "description": "Address of the oracle queue that the resource will belong to."
+        }
+      ]
+    },
+    {
+      "name": "OracleQueueInitParams",
+      "description": "",
+      "fields": [
+        {
+          "name": "authority",
+          "type": "HexString",
+          "description": "The account delegated as the authority for making changes."
+        },
+        {
+          "name": "name",
+          "type": "vector<u8>",
+          "description": "Name of the oracle queue to store on-chain."
+        },
+        {
+          "name": "metadata",
+          "type": "vector<u8>",
+          "description": "Metadata of the oracle queue to store on-chain."
+        },
+        {
+          "name": "oracleTimeout",
+          "type": "u64",
+          "description": "Time period we should remove an oracle after if no response."
+        },
+        {
+          "name": "reward",
+          "type": "u64",
+          "description": "Rewards to provide oracles and round openers on this queue."
+        },
+        {
+          "name": "minStake",
+          "type": "u64",
+          "description": "The minimum amount of stake oracles must present to remain on the queue."
+        },
+        {
+          "name": "slashingEnabled",
+          "type": "bool",
+          "description": "Flag dictating whether slashing is enabled on this queue."
+        },
+        {
+          "name": "varianceToleranceMultiplier",
+          "type": "SwitchboardDecimal",
+          "description": "The tolerated variance amount oracle results can have from the accepted round result before being slashed."
+        },
+        {
+          "name": "feedProbationPeriod",
+          "type": "u64",
+          "description": "After a feed lease is funded or re-funded, it must consecutively succeed N amount of times or its authorization to use the queue is auto-revoked."
+        },
+        {
+          "name": "consecutiveFeedFailureLimit",
+          "type": "u64",
+          "description": "Consecutive failure limit for a feed before feed permission is revoked."
+        },
+        {
+          "name": "consecutiveOracleFailureLimit",
+          "type": "u64",
+          "description": "Consecutive failure limit for an oracle before oracle permission is revoked."
+        },
+        {
+          "name": "unpermissionedFeedsEnabled",
+          "type": "bool",
+          "description": "Enabling this setting means data feeds do not need explicit permission to join the queue and request new values from its oracles."
+        },
+        {
+          "name": "unpermissionedVrfEnabled",
+          "type": "bool",
+          "description": "Not used on Aptos currently."
+        },
+        {
+          "name": "lockLeaseFunding",
+          "type": "bool",
+          "description": "Prevent new leases from being funded n this queue. Useful to turn down a queue for migrations, since authority is always immutable."
+        },
+        {
+          "name": "enableBufferRelayers",
+          "type": "bool",
+          "description": "Not used on Aptos currently."
+        },
+        {
+          "name": "maxSize",
+          "type": "u64",
+          "description": "Maximum number of oracles a queue can support."
+        },
+        {
+          "name": "data",
+          "type": "vector<HexString>",
+          "description": "Array of oracle addresses that are currently heartbeating on-chain."
+        },
+        {
+          "name": "saveConfirmationReward",
+          "type": "u64",
+          "description": ""
+        },
+        {
+          "name": "saveReward",
+          "type": "u64",
+          "description": ""
+        },
+        {
+          "name": "openRoundReward",
+          "type": "u64",
+          "description": ""
+        },
+        {
+          "name": "slashingPenalty",
+          "type": "u64",
+          "description": ""
+        }
+      ]
+    },
+    {
+      "name": "OracleQueueSetConfigsParams",
+      "description": "",
+      "fields": [
+        {
+          "name": "addr",
+          "type": "HexString",
+          "description": "Address of oracle queue that is modifying it's config."
+        },
+        {
+          "name": "name",
+          "type": "vector<u8>",
+          "description": "Name of the oracle queue to store on-chain."
+        },
+        {
+          "name": "metadata",
+          "type": "vector<u8>",
+          "description": "Metadata of the oracle queue to store on-chain."
+        },
+        {
+          "name": "authority",
+          "type": "HexString",
+          "description": "The account delegated as the authority for making changes."
+        },
+        {
+          "name": "oracleTimeout",
+          "type": "u64",
+          "description": "Time period we should remove an oracle after if no response."
+        },
+        {
+          "name": "reward",
+          "type": "u64",
+          "description": "Rewards to provide oracles and round openers on this queue."
+        },
+        {
+          "name": "minStake",
+          "type": "u64",
+          "description": "The minimum amount of stake oracles must present to remain on the queue."
+        },
+        {
+          "name": "slashingEnabled",
+          "type": "bool",
+          "description": "Flag dictating whether slashing is enabled on this queue."
+        },
+        {
+          "name": "varianceToleranceMultiplier",
+          "type": "SwitchboardDecimal",
+          "description": "The tolerated variance amount oracle results can have from the accepted round result before being slashed."
+        },
+        {
+          "name": "feedProbationPeriod",
+          "type": "u64",
+          "description": "After a feed lease is funded or re-funded, it must consecutively succeed N amount of times or its authorization to use the queue is auto-revoked."
+        },
+        {
+          "name": "consecutiveFeedFailureLimit",
+          "type": "u64",
+          "description": ""
+        },
+        {
+          "name": "consecutiveOracleFailureLimit",
+          "type": "u64",
+          "description": ""
+        },
+        {
+          "name": "unpermissionedFeedsEnabled",
+          "type": "bool",
+          "description": ""
+        },
+        {
+          "name": "lockLeaseFunding",
+          "type": "bool",
+          "description": ""
+        },
+        {
+          "name": "maxSize",
+          "type": "u64",
+          "description": ""
+        },
+        {
+          "name": "saveConfirmationReward",
+          "type": "u64",
+          "description": ""
+        },
+        {
+          "name": "saveReward",
+          "type": "u64",
+          "description": ""
+        },
+        {
+          "name": "openRoundReward",
+          "type": "u64",
+          "description": ""
+        },
+        {
+          "name": "slashingPenalty",
+          "type": "u64",
+          "description": ""
+        }
+      ]
+    },
+    {
+      "name": "OracleWalletContributeParams",
+      "description": "",
+      "fields": [
+        {
+          "name": "oracleAddr",
+          "type": "HexString",
+          "description": "Address of oracle that will be receiving funds into it's token wallet."
+        },
+        {
+          "name": "queueAddr",
+          "type": "HexString",
+          "description": "Address of the oracle queue that the resource belongs to."
+        },
+        {
+          "name": "loadAmount",
+          "type": "u64",
+          "description": "Amount of funds to transfer into the oracle's token wallet."
+        }
+      ]
+    },
+    {
+      "name": "OracleWalletInitParams",
+      "description": "",
+      "fields": [
+        {
+          "name": "oracleAddr",
+          "type": "HexString",
+          "description": "Address of oracle that a token wallet is being initialized for."
+        },
+        {
+          "name": "queueAddr",
+          "type": "HexString",
+          "description": "Address of the oracle queue that the resource belongs to."
+        },
+        {
+          "name": "withdrawAuthority",
+          "type": "HexString",
+          "description": "Address of account that is delegated as the authority to approve withdraws."
+        }
+      ]
+    },
+    {
+      "name": "OracleWalletWithdrawParams",
+      "description": "",
+      "fields": [
+        {
+          "name": "oracleAddr",
+          "type": "HexString",
+          "description": "Address of oracle that will remove funds from it's token wallet."
+        },
+        {
+          "name": "queueAddr",
+          "type": "HexString",
+          "description": "Address of the oracle queue that the resource belongs to."
+        },
+        {
+          "name": "amount",
+          "type": "u64",
+          "description": "Amount of funds to withdraw."
+        }
+      ]
+    },
+    {
+      "name": "PermissionInitParams",
+      "description": "",
+      "fields": [
+        {
+          "name": "authority",
+          "type": "HexString",
+          "description": "The account delegated as the authority for the granter.."
+        },
+        {
+          "name": "granter",
+          "type": "HexString",
+          "description": "Address of account that will be granting permissions to the grantee."
+        },
+        {
+          "name": "grantee",
+          "type": "HexString",
+          "description": "Address of account that will be be granted permissions from the granter."
+        }
+      ]
+    },
+    {
+      "name": "PermissionSetParams",
+      "description": "",
+      "fields": [
+        {
+          "name": "authority",
+          "type": "HexString",
+          "description": "The account delegated as the authority for the granter."
+        },
+        {
+          "name": "granter",
+          "type": "HexString",
+          "description": "Address of oracle queue that is granting permissions to use its resources."
+        },
+        {
+          "name": "grantee",
+          "type": "HexString",
+          "description": "Address of account that is being assigned permissions to use a granters resources."
+        },
+        {
+          "name": "permission",
+          "type": "u64",
+          "description": "Permissions being assigned to a resource. See [SwitchboardPermission](/aptos/idl/types/SwitchboardPermission) for enumerations and their descriptions."
+        },
+        {
+          "name": "enable",
+          "type": "bool",
+          "description": "Flag dictating whether permissions are being enabled or disabled."
+        }
+      ]
+    },
+    {
+      "name": "AggregatorInitEvent",
+      "description": "",
+      "fields": [
+        {
+          "name": "aggregatorAddress",
+          "type": "HexString",
+          "description": ""
+        }
+      ]
+    },
+    {
+      "name": "AggregatorUpdateEvent",
+      "description": "",
+      "fields": [
+        {
+          "name": "aggregatorAddress",
+          "type": "HexString",
+          "description": ""
+        },
+        {
+          "name": "oldValue",
+          "type": "SwitchboardDecimal",
+          "description": ""
+        },
+        {
+          "name": "newValue",
+          "type": "SwitchboardDecimal",
+          "description": ""
+        }
+      ]
+    },
+    {
+      "name": "AggregatorSaveResultEvent",
+      "description": "",
+      "fields": [
+        {
+          "name": "aggregatorAddress",
+          "type": "HexString",
+          "description": ""
+        },
+        {
+          "name": "oracleKey",
+          "type": "HexString",
+          "description": ""
+        },
+        {
+          "name": "value",
+          "type": "SwitchboardDecimal",
+          "description": ""
+        }
+      ]
+    },
+    {
+      "name": "AggregatorOpenRoundEvent",
+      "description": "",
+      "fields": [
+        {
+          "name": "aggregatorAddress",
+          "type": "HexString",
+          "description": ""
+        },
+        {
+          "name": "oracleKeys",
+          "type": "vector<HexString>",
+          "description": ""
+        },
+        {
+          "name": "jobKeys",
+          "type": "vector<HexString>",
+          "description": ""
+        }
+      ]
+    },
+    {
+      "name": "AggregatorCrankEvictionEvent",
+      "description": "",
+      "fields": [
+        {
+          "name": "crankAddress",
+          "type": "HexString",
+          "description": ""
+        },
+        {
+          "name": "aggregatorAddress",
+          "type": "HexString",
+          "description": ""
+        },
+        {
+          "name": "reason",
+          "type": "u64",
+          "description": ""
+        },
+        {
+          "name": "timestamp",
+          "type": "u64",
+          "description": ""
+        }
+      ]
+    },
+    {
+      "name": "OracleRewardEvent",
+      "description": "",
+      "fields": [
+        {
+          "name": "aggregatorAddress",
+          "type": "HexString",
+          "description": ""
+        },
+        {
+          "name": "oracleAddress",
+          "type": "HexString",
+          "description": ""
+        },
+        {
+          "name": "amount",
+          "type": "u64",
+          "description": ""
+        },
+        {
+          "name": "timestamp",
+          "type": "u64",
+          "description": ""
+        }
+      ]
+    },
+    {
+      "name": "OracleWithdrawEvent",
+      "description": "",
+      "fields": [
+        {
+          "name": "oracleAddress",
+          "type": "HexString",
+          "description": "Address of oracle that removed funds from their wallet."
+        },
+        {
+          "name": "destinationWallet",
+          "type": "HexString",
+          "description": "Wallet that received funds from the oracle's wallet."
+        },
+        {
+          "name": "previousAmount",
+          "type": "u64",
+          "description": "Amount before the withdraw."
+        },
+        {
+          "name": "newAmount",
+          "type": "u64",
+          "description": "Amount after the withdraw."
+        },
+        {
+          "name": "timestamp",
+          "type": "u64",
+          "description": "Unix timestamp of the withdraw."
+        }
+      ]
+    },
+    {
+      "name": "OracleSlashEvent",
+      "description": "",
+      "fields": [
+        {
+          "name": "aggregatorAddress",
+          "type": "HexString",
+          "description": ""
+        },
+        {
+          "name": "oracleAddress",
+          "type": "HexString",
+          "description": ""
+        },
+        {
+          "name": "amount",
+          "type": "u64",
+          "description": ""
+        },
+        {
+          "name": "timestamp",
+          "type": "u64",
+          "description": ""
+        }
+      ]
+    },
+    {
+      "name": "LeaseWithdrawEvent",
+      "description": "",
+      "fields": [
+        {
+          "name": "leaseAddress",
+          "type": "HexString",
+          "description": ""
+        },
+        {
+          "name": "destinationWallet",
+          "type": "HexString",
+          "description": ""
+        },
+        {
+          "name": "previousAmount",
+          "type": "u64",
+          "description": ""
+        },
+        {
+          "name": "newAmount",
+          "type": "u64",
+          "description": ""
+        },
+        {
+          "name": "timestamp",
+          "type": "u64",
+          "description": ""
+        }
+      ]
+    },
+    {
+      "name": "LeaseFundEvent",
+      "description": "",
+      "fields": [
+        {
+          "name": "leaseAddress",
+          "type": "HexString",
+          "description": ""
+        },
+        {
+          "name": "funder",
+          "type": "HexString",
+          "description": ""
+        },
+        {
+          "name": "amount",
+          "type": "u64",
+          "description": ""
+        },
+        {
+          "name": "timestamp",
+          "type": "u64",
+          "description": ""
+        }
+      ]
+    },
+    {
+      "name": "ProbationBrokenEvent",
+      "description": "",
+      "fields": [
+        {
+          "name": "aggregatorAddress",
+          "type": "HexString",
+          "description": ""
+        },
+        {
+          "name": "queueAddress",
+          "type": "HexString",
+          "description": ""
+        },
+        {
+          "name": "timestamp",
+          "type": "u64",
+          "description": ""
+        }
+      ]
+    },
+    {
+      "name": "FeedPermissionRevokedEvent",
+      "description": "",
+      "fields": [
+        {
+          "name": "aggregatorAddress",
+          "type": "HexString",
+          "description": ""
+        },
+        {
+          "name": "timestamp",
+          "type": "u64",
+          "description": ""
+        }
+      ]
+    },
+    {
+      "name": "GarbageCollectFailureEvent",
+      "description": "",
+      "fields": [
+        {
+          "name": "queueAddress",
+          "type": "HexString",
+          "description": ""
+        }
+      ]
+    },
+    {
+      "name": "OracleBootedEvent",
+      "description": "",
+      "fields": [
+        {
+          "name": "queueAddress",
+          "type": "HexString",
+          "description": ""
+        },
+        {
+          "name": "oracleAddress",
+          "type": "HexString",
+          "description": ""
+        }
+      ]
+    },
+    {
+      "name": "CrankLeaseInsufficientFundsEvent",
+      "description": "",
+      "fields": [
+        {
+          "name": "aggregatorAddress",
+          "type": "HexString",
+          "description": ""
+        }
+      ]
+    },
+    {
+      "name": "CrankPopExpectedFailureEvent",
+      "description": "",
+      "fields": [
+        {
+          "name": "aggregatorAddress",
+          "type": "HexString",
+          "description": ""
+        }
+      ]
+    },
+    {
+      "name": "AggregatorRound",
+      "description": "",
+      "fields": [
+        {
+          "name": "id",
+          "type": "u128",
+          "description": "Maintains the current update count."
+        },
+        {
+          "name": "roundOpenTimestamp",
+          "type": "u64",
+          "description": "Maintains the time that the round was opened at."
+        },
+        {
+          "name": "roundOpenBlockHeight",
+          "type": "u64",
+          "description": "Maintain the blockheight at the time that the round was opened."
+        },
+        {
+          "name": "result",
+          "type": "SwitchboardDecimal",
+          "description": "Maintains the current median of all successful round responses."
+        },
+        {
+          "name": "stdDeviation",
+          "type": "SwitchboardDecimal",
+          "description": "Standard deviation of the accepted results in the round."
+        },
+        {
+          "name": "minResponse",
+          "type": "SwitchboardDecimal",
+          "description": "Maintains the minimum node response this round."
+        },
+        {
+          "name": "maxResponse",
+          "type": "SwitchboardDecimal",
+          "description": "Maintains the maximum node response this round."
+        },
+        {
+          "name": "oracleKeys",
+          "type": "vector<HexString>",
+          "description": "Pubkeys of the oracles fulfilling this round."
+        },
+        {
+          "name": "medians",
+          "type": "vector<Option<SwitchboardDecimal>>",
+          "description": "Represents all successful node responses this round. `NaN` if empty."
+        },
+        {
+          "name": "currentPayout",
+          "type": "vector<SwitchboardDecimal>",
+          "description": "Current rewards/slashes oracles have received this round."
+        },
+        {
+          "name": "errorsFulfilled",
+          "type": "vector<bool>",
+          "description": "Maintains whether the oracle assigned at the specific index failed to fulfill a round response."
+        },
+        {
+          "name": "numSuccess",
+          "type": "u64",
+          "description": "Maintains the number of successful responses received from nodes. Nodes can submit one successful response per round."
+        },
+        {
+          "name": "numError",
+          "type": "u64",
+          "description": "Maintains the number of failed responses from the oracles."
+        },
+        {
+          "name": "isClosed",
+          "type": "bool",
+          "description": "Maintains whether or not the round is closed."
+        },
+        {
+          "name": "roundConfirmedTimestamp",
+          "type": "u64",
+          "description": "Maintains the round close timestamp."
+        }
+      ]
+    },
+    {
+      "name": "Aggregator",
+      "description": "Resource storing the top level fields for a Switchboard aggregator",
+      "fields": [
+        {
+          "name": "signerCap",
+          "type": "SignerCapability",
+          "description": "The signer capability corresponding to the account that the resource is on."
+        },
+        {
+          "name": "authority",
+          "type": "HexString",
+          "description": " The account delegated as the authority for making account changes or withdrawing funds from a lease."
+        },
+        {
+          "name": "name",
+          "type": "vector<u8>",
+          "description": "Name of the aggregator to store on-chain.   "
+        },
+        {
+          "name": "metadata",
+          "type": "vector<u8>",
+          "description": "Metadata of the aggregator to store on-chain.  "
+        },
+        {
+          "name": "createdAt",
+          "type": "u64",
+          "description": "Unix timestamp when the aggregator was created."
+        },
+        {
+          "name": "isLocked",
+          "type": "bool",
+          "description": "Flag for whether an aggregators configuration is locked for editing."
+        },
+        {
+          "name": "_ebuf",
+          "type": "vector<u8>",
+          "description": "Reserved."
+        },
+        {
+          "name": "features",
+          "type": "vector<bool>",
+          "description": ""
+        }
+      ]
+    },
+    {
+      "name": "AggregatorConfig",
+      "description": "Resource storing the configuration for a Switchboard aggregator",
+      "fields": [
+        {
+          "name": "queueAddr",
+          "type": "HexString",
+          "description": "Address of the queue the aggregator belongs to."
+        },
+        {
+          "name": "batchSize",
+          "type": "u64",
+          "description": "Number of oracles assigned to an update request."
+        },
+        {
+          "name": "minOracleResults",
+          "type": "u64",
+          "description": "Minimum number of oracle responses required before a round is validated."
+        },
+        {
+          "name": "minUpdateDelaySeconds",
+          "type": "u64",
+          "description": "Minimum number of seconds required between aggregator rounds."
+        },
+        {
+          "name": "historyLimit",
+          "type": "u64",
+          "description": "The maximum number of historical samples that will be stored with the aggregator before being overwritten in a round-robin fashion."
+        },
+        {
+          "name": "varianceThreshold",
+          "type": "SwitchboardDecimal",
+          "description": "Change percentage required between a previous round and the current round. If variance percentage is not met, reject new oracle responses."
+        },
+        {
+          "name": "forceReportPeriod",
+          "type": "u64",
+          "description": "Number of seconds for which, even if the variance threshold is not passed, accept new responses from oracles. "
+        },
+        {
+          "name": "minJobResults",
+          "type": "u64",
+          "description": "Minimum number of job results before an oracle accepts a result."
+        },
+        {
+          "name": "expiration",
+          "type": "u64",
+          "description": "Timestamp when the feed is no longer needed."
+        },
+        {
+          "name": "crankAddr",
+          "type": "HexString",
+          "description": "Optional, address of the crank the aggregator is currently using. Event based feeds do not need a crank."
+        },
+        {
+          "name": "crankDisabled",
+          "type": "bool",
+          "description": "Flag dictating whether pushing to a crank is disabled."
+        },
+        {
+          "name": "crankRowCount",
+          "type": "u64",
+          "description": "The current index of the aggregator on the crank."
+        },
+        {
+          "name": "nextAllowedUpdateTime",
+          "type": "u64",
+          "description": "Unix timestamp when the next update request will be available."
+        },
+        {
+          "name": "consecutiveFailureCount",
+          "type": "u64",
+          "description": "Counter for the number of consecutive failures before a feed is removed from a queue. If set to 0, failed feeds will remain on the queue."
+        },
+        {
+          "name": "startAfter",
+          "type": "u64",
+          "description": "Unix timestamp when open round calls will be considered valid."
+        }
+      ]
+    },
+    {
+      "name": "AggregatorResultsConfig",
+      "description": "",
+      "fields": [
+        {
+          "name": "varianceThreshold",
+          "type": "SwitchboardDecimal",
+          "description": "Change percentage required between a previous round and the current round. If variance percentage is not met, reject new oracle responses."
+        },
+        {
+          "name": "forceReportPeriod",
+          "type": "u64",
+          "description": "Number of seconds for which, even if the variance threshold is not passed, accept new responses from oracles. "
+        },
+        {
+          "name": "minJobResults",
+          "type": "u64",
+          "description": "Minimum number of job results before an oracle accepts a result."
+        },
+        {
+          "name": "expiration",
+          "type": "u64",
+          "description": "Timestamp when the feed is no longer needed."
+        }
+      ]
+    },
+    {
+      "name": "AggregatorReadConfig",
+      "description": "",
+      "fields": [
+        {
+          "name": "readCharge",
+          "type": "u64",
+          "description": "The cost to read a data feed."
+        },
+        {
+          "name": "rewardEscrow",
+          "type": "HexString",
+          "description": "The account address that will receive any funds incurred from setting a `readCharge`."
+        },
+        {
+          "name": "readWhitelist",
+          "type": "vector<HexString>",
+          "description": "Optional, account addresses permitted to read a data feed."
+        },
+        {
+          "name": "limitReadsToWhitelist",
+          "type": "bool",
+          "description": "Flag dictating whether a feed permits public reads."
+        }
+      ]
+    },
+    {
+      "name": "AggregatorJobData",
+      "description": "",
+      "fields": [
+        {
+          "name": "jobKeys",
+          "type": "vector<HexString>",
+          "description": ""
+        },
+        {
+          "name": "jobWeights",
+          "type": "vector<u8>",
+          "description": ""
+        },
+        {
+          "name": "jobsChecksum",
+          "type": "vector<u8>",
+          "description": ""
+        }
+      ]
+    },
+    {
+      "name": "AggregatorHistoryData",
+      "description": "Resource storing the historic samples for a Switchboard aggregator.",
+      "fields": [
+        {
+          "name": "history",
+          "type": "vector<AggregatorHistoryRow>",
+          "description": "Array of historical samples for confirmed values."
+        },
+        {
+          "name": "historyWriteIdx",
+          "type": "u64",
+          "description": "Tracks the current array index to write new samples on-chain."
+        }
+      ]
+    },
+    {
+      "name": "AggregatorHistoryRow",
+      "description": "",
+      "fields": [
+        {
+          "name": "value",
+          "type": "SwitchboardDecimal",
+          "description": "The result of the sample."
+        },
+        {
+          "name": "timestamp",
+          "type": "u64",
+          "description": "The unix timestamp when the sample was requested from a batch of oracles."
+        },
+        {
+          "name": "roundId",
+          "type": "u128",
+          "description": "The round ID when the sample was recorded."
+        }
+      ]
+    },
+    {
+      "name": "AggregatorConfigParams",
+      "description": "",
+      "fields": [
+        {
+          "name": "addr",
+          "type": "HexString",
+          "description": "Address of the aggregator resource."
+        },
+        {
+          "name": "name",
+          "type": "vector<u8>",
+          "description": "Name of the aggregator to store on-chain."
+        },
+        {
+          "name": "metadata",
+          "type": "vector<u8>",
+          "description": "Metadata of the aggregator to store on-chain."
+        },
+        {
+          "name": "queueAddr",
+          "type": "HexString",
+          "description": "Address of the oracle queue that the resource belongs to."
+        },
+        {
+          "name": "crankAddr",
+          "type": "HexString",
+          "description": "Optional, address of the crank that will periodically trigger `AggregatorOpenRound` calls to request an update from a batch of oracles."
+        },
+        {
+          "name": "batchSize",
+          "type": "u64",
+          "description": "Number of oracles assigned to an update request."
+        },
+        {
+          "name": "minOracleResults",
+          "type": "u64",
+          "description": "Minimum number of oracle responses required before a round is validated."
+        },
+        {
+          "name": "minJobResults",
+          "type": "u64",
+          "description": "Minimum number of job results before an oracle accepts a result."
+        },
+        {
+          "name": "minUpdateDelaySeconds",
+          "type": "u64",
+          "description": "Minimum number of seconds required between aggregator rounds."
+        },
+        {
+          "name": "startAfter",
+          "type": "u64",
+          "description": "Unix timestamp when open round calls will be considered valid."
+        },
+        {
+          "name": "varianceThreshold",
+          "type": "SwitchboardDecimal",
+          "description": "Change percentage required between a previous round and the current round. If variance percentage is not met, reject new oracle responses."
+        },
+        {
+          "name": "forceReportPeriod",
+          "type": "u64",
+          "description": "Number of seconds for which, even if the variance threshold is not passed, accept new responses from oracles. "
+        },
+        {
+          "name": "expiration",
+          "type": "u64",
+          "description": "Timestamp when the feed is no longer needed."
+        },
+        {
+          "name": "disableCrank",
+          "type": "bool",
+          "description": "Flag dictating whether pushing to a crank is disabled."
+        },
+        {
+          "name": "historyLimit",
+          "type": "u64",
+          "description": "The maximum number of historical samples that will be stored with the aggregator before being overwritten in a round-robin fashion."
+        },
+        {
+          "name": "readCharge",
+          "type": "u64",
+          "description": "The cost to read a data feed."
+        },
+        {
+          "name": "rewardEscrow",
+          "type": "HexString",
+          "description": "The account address that will receive any funds incurred from setting a `readCharge`."
+        },
+        {
+          "name": "readWhitelist",
+          "type": "vector<HexString>",
+          "description": "Optional, account addresses permitted to read a data feed."
+        },
+        {
+          "name": "limitReadsToWhitelist",
+          "type": "bool",
+          "description": "Flag dictating whether a feed permits public reads."
+        },
+        {
+          "name": "authority",
+          "type": "HexString",
+          "description": "The account delegated as the authority for making changes."
+        }
+      ]
+    },
+    {
+      "name": "CrankRow",
+      "description": "",
+      "fields": [
+        {
+          "name": "aggregatorAddr",
+          "type": "HexString",
+          "description": ""
+        },
+        {
+          "name": "timestamp",
+          "type": "u64",
+          "description": ""
+        }
+      ]
+    },
+    {
+      "name": "Crank",
+      "description": "",
+      "fields": [
+        {
+          "name": "heap",
+          "type": "vector<CrankRow>",
+          "description": "The array of elements stored on the crank."
+        },
+        {
+          "name": "queueAddr",
+          "type": "HexString",
+          "description": "Address of the oracle queue that the resource belongs to."
+        },
+        {
+          "name": "createdAt",
+          "type": "u64",
+          "description": "Unix timestamp when the resource was created."
+        },
+        {
+          "name": "jitterModifier",
+          "type": "u64",
+          "description": ""
+        },
+        {
+          "name": "features",
+          "type": "vector<bool>",
+          "description": ""
+        },
+        {
+          "name": "_ebuf",
+          "type": "vector<u8>",
+          "description": "Reserved."
+        }
+      ]
+    },
+    {
+      "name": "Escrow",
+      "description": "",
+      "fields": [
+        {
+          "name": "createdAt",
+          "type": "u64",
+          "description": "Unix timestamp when the resource was created."
+        },
+        {
+          "name": "authority",
+          "type": "HexString",
+          "description": "The account delegated as the authority for making changes."
+        },
+        {
+          "name": "escrow",
+          "type": "Coin",
+          "description": ""
+        },
+        {
+          "name": "features",
+          "type": "vector<bool>",
+          "description": ""
+        },
+        {
+          "name": "_ebuf",
+          "type": "vector<u8>",
+          "description": "Reserved."
+        }
+      ]
+    },
+    {
+      "name": "Job",
+      "description": "",
+      "fields": [
+        {
+          "name": "addr",
+          "type": "HexString",
+          "description": "Address of the job account resource."
+        },
+        {
+          "name": "name",
+          "type": "vector<u8>",
+          "description": "Name of the job to store on-chain. "
+        },
+        {
+          "name": "metadata",
+          "type": "vector<u8>",
+          "description": "Metadata of the job to store on-chain. "
+        },
+        {
+          "name": "authority",
+          "type": "HexString",
+          "description": "The account delegated as the authority for making changes."
+        },
+        {
+          "name": "expiration",
+          "type": "u64",
+          "description": "Timestamp when the feed is no longer needed."
+        },
+        {
+          "name": "hash",
+          "type": "vector<u8>",
+          "description": "Hash of the job account to prevent malicous RPC nodes from providing an incorrect job definition."
+        },
+        {
+          "name": "data",
+          "type": "vector<u8>",
+          "description": "The serialized `OracleJob`."
+        },
+        {
+          "name": "referenceCount",
+          "type": "u64",
+          "description": "The number of aggregators currently referencing this job."
+        },
+        {
+          "name": "totalSpent",
+          "type": "u64",
+          "description": "The total amount spent on leases associated with this job."
+        },
+        {
+          "name": "createdAt",
+          "type": "u64",
+          "description": "Unix timestamp when the resource was created."
+        },
+        {
+          "name": "variables",
+          "type": "vector<vector<u8>>",
+          "description": ""
+        },
+        {
+          "name": "features",
+          "type": "vector<bool>",
+          "description": ""
+        },
+        {
+          "name": "_ebuf",
+          "type": "vector<u8>",
+          "description": "Reserved."
+        }
+      ]
+    },
+    {
+      "name": "OracleConfig",
+      "description": "",
+      "fields": [
+        {
+          "name": "authority",
+          "type": "HexString",
+          "description": "The account delegated as the authority for making changes."
+        },
+        {
+          "name": "queueAddr",
+          "type": "HexString",
+          "description": "Address of the oracle queue that the resource belongs to."
+        }
+      ]
+    },
+    {
+      "name": "OracleData",
+      "description": "",
+      "fields": [
+        {
+          "name": "numRows",
+          "type": "u8",
+          "description": ""
+        },
+        {
+          "name": "lastHeartbeat",
+          "type": "u64",
+          "description": ""
+        }
+      ]
+    },
+    {
+      "name": "Oracle",
+      "description": "",
+      "fields": [
+        {
+          "name": "name",
+          "type": "vector<u8>",
+          "description": "Name of the oracle stored on-chain."
+        },
+        {
+          "name": "metadata",
+          "type": "vector<u8>",
+          "description": "Optional, metadata for the oracle stored on-chain."
+        },
+        {
+          "name": "signerCap",
+          "type": "SignerCapability",
+          "description": "The signer capability corresponding to the account that the resource is on."
+        },
+        {
+          "name": "features",
+          "type": "vector<bool>",
+          "description": ""
+        },
+        {
+          "name": "createdAt",
+          "type": "u64",
+          "description": "Unix timestamp when the resource was created."
+        },
+        {
+          "name": "_ebuf",
+          "type": "vector<u8>",
+          "description": "Reserved."
+        }
+      ]
+    },
+    {
+      "name": "OracleMetrics",
+      "description": "",
+      "fields": [
+        {
+          "name": "consecutiveSuccess",
+          "type": "u64",
+          "description": "Number of consecutive successful update request."
+        },
+        {
+          "name": "consecutiveError",
+          "type": "u64",
+          "description": "Number of consecutive update request that resulted in an error"
+        },
+        {
+          "name": "consecutiveDisagreement",
+          "type": "u64",
+          "description": "Number of consecutive update request that resulted in a disagreement with the accepted median result."
+        },
+        {
+          "name": "consecutiveLateResponse",
+          "type": "u64",
+          "description": "Number of consecutive update request that were posted on-chain late and not included in an accepted result."
+        },
+        {
+          "name": "consecutiveFailure",
+          "type": "u64",
+          "description": "Number of consecutive update request that resulted in a failure."
+        },
+        {
+          "name": "totalSuccess",
+          "type": "u128",
+          "description": "Total number of successful update request."
+        },
+        {
+          "name": "totalError",
+          "type": "u128",
+          "description": "Total number of update request that resulted in an error."
+        },
+        {
+          "name": "totalDisagreement",
+          "type": "u128",
+          "description": "Total number of update request that resulted in a disagreement with the accepted median result."
+        },
+        {
+          "name": "totalLateResponse",
+          "type": "u128",
+          "description": "Total number of update request that were posted on-chain late and not included in an accepted result."
+        }
+      ]
+    },
+    {
+      "name": "OracleQueueData",
+      "description": "",
+      "fields": [
+        {
+          "name": "data",
+          "type": "vector<HexString>",
+          "description": "Array of oracle addresses that are currently heartbeating on-chain."
+        },
+        {
+          "name": "currIdx",
+          "type": "u64",
+          "description": "Current index of the oracle rotation."
+        },
+        {
+          "name": "gcIdx",
+          "type": "u64",
+          "description": "Garbage collection index."
+        }
+      ]
+    },
+    {
+      "name": "OracleQueueConfig",
+      "description": "",
+      "fields": [
+        {
+          "name": "authority",
+          "type": "HexString",
+          "description": "The account delegated as the authority for making changes."
+        },
+        {
+          "name": "reward",
+          "type": "u64",
+          "description": "Rewards to provide oracles and round openers on this queue."
+        },
+        {
+          "name": "openRoundReward",
+          "type": "u64",
+          "description": ""
+        },
+        {
+          "name": "saveReward",
+          "type": "u64",
+          "description": ""
+        },
+        {
+          "name": "saveConfirmationReward",
+          "type": "u64",
+          "description": ""
+        },
+        {
+          "name": "slashingPenalty",
+          "type": "u64",
+          "description": ""
+        },
+        {
+          "name": "slashingEnabled",
+          "type": "bool",
+          "description": "Flag dictating whether slashing is enabled on this queue."
+        },
+        {
+          "name": "unpermissionedFeedsEnabled",
+          "type": "bool",
+          "description": "Enabling this setting means data feeds do not need explicit permission to join the queue and request new values from its oracles."
+        },
+        {
+          "name": "varianceToleranceMultiplier",
+          "type": "SwitchboardDecimal",
+          "description": "The tolerated variance amount oracle results can have from the accepted round result before being slashed."
+        },
+        {
+          "name": "oracleTimeout",
+          "type": "u64",
+          "description": "Time period we should remove an oracle after if no response."
+        }
+      ]
+    },
+    {
+      "name": "OracleQueue",
+      "description": "",
+      "fields": [
+        {
+          "name": "name",
+          "type": "vector<u8>",
+          "description": "Name of the queue to store on-chain."
+        },
+        {
+          "name": "metadata",
+          "type": "vector<u8>",
+          "description": "Metadata of the queue to store on-chain."
+        },
+        {
+          "name": "feedProbationPeriod",
+          "type": "u64",
+          "description": "After a feed lease is funded or re-funded, it must consecutively succeed N amount of times or its authorization to use the queue is auto-revoked."
+        },
+        {
+          "name": "consecutiveFeedFailureLimit",
+          "type": "u64",
+          "description": "Consecutive failure limit for a feed before feed permission is revoked."
+        },
+        {
+          "name": "consecutiveOracleFailureLimit",
+          "type": "u64",
+          "description": "Consecutive failure limit for an oracle before oracle permission is revoked."
+        },
+        {
+          "name": "unpermissionedVrfEnabled",
+          "type": "bool",
+          "description": "Not used on Aptos currently."
+        },
+        {
+          "name": "lockLeaseFunding",
+          "type": "bool",
+          "description": "Prevent new leases from being funded n this queue. Useful to turn down a queue for migrations, since authority is always immutable."
+        },
+        {
+          "name": "enableBufferRelayers",
+          "type": "bool",
+          "description": "Not used on Aptos currently."
+        },
+        {
+          "name": "minStake",
+          "type": "u64",
+          "description": "The minimum amount of stake oracles must present to remain on the queue."
+        },
+        {
+          "name": "maxSize",
+          "type": "u64",
+          "description": "Maximum number of oracles a queue can support."
+        },
+        {
+          "name": "createdAt",
+          "type": "u64",
+          "description": "Unix timestamp when the resource was created."
+        },
+        {
+          "name": "features",
+          "type": "vector<bool>",
+          "description": ""
+        },
+        {
+          "name": "_ebuf",
+          "type": "vector<u8>",
+          "description": "Reserved."
+        }
+      ]
+    },
+    {
+      "name": "Permission",
+      "description": "",
+      "fields": [
+        {
+          "name": "authority",
+          "type": "HexString",
+          "description": "The account delegated as the authority for making changes."
+        },
+        {
+          "name": "permissions",
+          "type": "BitVector",
+          "description": "The SwitchboardPermission enumeration assigned by the `granter` to the `grantee`."
+        },
+        {
+          "name": "granter",
+          "type": "HexString",
+          "description": "Address of the account that is granting permissions to use its resources."
+        },
+        {
+          "name": "grantee",
+          "type": "HexString",
+          "description": "Address of the account that is being granted permissions to use a granter's resources."
+        },
+        {
+          "name": "createdAt",
+          "type": "u64",
+          "description": "Unix timestamp when the resource was created."
+        },
+        {
+          "name": "updatedAt",
+          "type": "u64",
+          "description": "Unix timestamp when the permissions were last updated."
+        },
+        {
+          "name": "features",
+          "type": "vector<bool>",
+          "description": ""
+        },
+        {
+          "name": "_ebuf",
+          "type": "vector<u8>",
+          "description": "Reserved."
+        }
+      ]
+    },
+    {
+      "name": "SwitchboardDecimal",
+      "description": "A struct representing a floating point number on-chain.",
+      "fields": [
+        {
+          "name": "value",
+          "type": "u128",
+          "description": "The part of a floating-point number that represents the significant digits of that number, and that is multiplied by the base, 10, raised to the power of scale to give the actual value of the number."
+        },
+        {
+          "name": "dec",
+          "type": "u8",
+          "description": "The number of decimal places to move to the left to yield the actual value."
+        },
+        {
+          "name": "neg",
+          "type": "bool",
+          "description": "Flag dictating whether the value is negative."
+        }
+      ]
+    }
+  ]
+}
