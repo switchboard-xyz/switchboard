@@ -16,17 +16,23 @@ import {
   AggregatorAccount,
   AptosDecimal,
   CrankAccount,
+  DEVNET_PROGRAM_ID,
   JobAccount,
+  MAINNET_PROGRAM_ID,
   OracleAccount,
   OracleQueueAccount,
   StateAccount,
-  SWITCHBOARD_DEVNET_ADDRESS,
+  TESTNET_PROGRAM_ID,
 } from "@switchboard-xyz/aptos.js";
 import { OracleJob, SwitchboardDecimal } from "@switchboard-xyz/common";
 import { isBN } from "bn.js";
 import Big from "big.js";
+import { IBaseChain } from "../types/chain";
 
-export abstract class AptosBaseCommand extends BaseCommand {
+export abstract class AptosBaseCommand
+  extends BaseCommand
+  implements IBaseChain
+{
   static flags = {
     ...BaseCommand.flags,
     networkId: Flags.string({
@@ -36,11 +42,6 @@ export abstract class AptosBaseCommand extends BaseCommand {
     }),
     programId: Flags.string({
       description: "Switchboard programId on the selected Aptos network",
-      default: SWITCHBOARD_DEVNET_ADDRESS,
-    }),
-    stateAddress: Flags.string({
-      description: "Switchboard state address",
-      default: SWITCHBOARD_DEVNET_ADDRESS,
     }),
     rpcUrl: Flags.string({
       char: "u",
@@ -67,17 +68,19 @@ export abstract class AptosBaseCommand extends BaseCommand {
     const { flags } = await this.parse((<Input<any>>this.constructor) as any);
     BaseCommand.flags = flags as any;
 
-    this.networkId = this.getNetworkId((flags as any).networkId);
+    this.networkId = this.getNetwork((flags as any).networkId);
     this.rpcUrl = this.getRpcUrl(this.networkId, (flags as any).rpcUrl);
-    this.programId = HexString.ensure((flags as any).programId);
+    this.programId = this.getProgramId(
+      this.networkId,
+      (flags as any).programId
+    );
+    this.stateAddress = this.programId;
 
     this.aptos = new AptosClient(this.rpcUrl);
     this.faucet = new FaucetClient(
       this.rpcUrl,
       `https://faucet.${this.networkId}.aptoslabs.com`
     );
-
-    this.stateAddress = HexString.ensure((flags as any).stateAddress);
 
     this.logConfig({
       network: this.networkId,
@@ -87,7 +90,7 @@ export abstract class AptosBaseCommand extends BaseCommand {
     });
   }
 
-  getNetworkId(networkIdFlag: string): AptosNetwork {
+  getNetwork(networkIdFlag: string): AptosNetwork {
     if (
       networkIdFlag !== "devnet" &&
       networkIdFlag !== "testnet" &&
@@ -97,6 +100,24 @@ export abstract class AptosBaseCommand extends BaseCommand {
     }
 
     return networkIdFlag;
+  }
+
+  getProgramId(networkId: string, programId?: string): HexString {
+    if (programId) {
+      return HexString.ensure(programId);
+    }
+    switch (networkId) {
+      case "mainnet":
+        return HexString.ensure(MAINNET_PROGRAM_ID);
+      case "testnet":
+        return HexString.ensure(TESTNET_PROGRAM_ID);
+      case "devnet":
+        return HexString.ensure(DEVNET_PROGRAM_ID);
+      default:
+        throw new Error(
+          `Failed to find Aptos ProgramID. Try passing in --programID instead`
+        );
+    }
   }
 
   getRpcUrl(networkId: AptosNetwork, rpcUrlFlag?: string): string {
@@ -226,8 +247,9 @@ export abstract class AptosBaseCommand extends BaseCommand {
     );
   }
 
+  // TODO: Allow setting custom URL in configs
   toUrl(signature: string) {
-    return `https://explorer.${this.networkId}.aptos.dev/txn/${signature}`;
+    return `https://explorer.aptoslabs.com/txn/${signature}?network=${this.networkId}`;
   }
 
   hexStringToBuffer(hexString: string): Buffer {

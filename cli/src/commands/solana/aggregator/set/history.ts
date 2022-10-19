@@ -59,9 +59,7 @@ export default class AggregatorSetHistoryBuffer extends BaseCommand {
           `${CHECK_ICON}Added a history buffer of size ${size} to aggregator successfully`
         )}`
       );
-      this.logger.log(
-        `https://explorer.solana.com/tx/${txn}?cluster=${this.cluster}`
-      );
+      this.logger.log(this.toUrl(txn));
     }
   }
 

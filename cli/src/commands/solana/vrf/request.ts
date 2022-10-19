@@ -107,8 +107,6 @@ export default class VrfRequest extends BaseCommand {
 
     await sleep(1000);
 
-    this.logger.log(
-      `https://explorer.solana.com/tx/${signature}?cluster=${this.cluster}`
-    );
+    this.logger.log(this.toUrl(signature));
   }
 }

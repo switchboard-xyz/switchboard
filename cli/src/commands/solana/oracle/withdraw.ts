@@ -138,23 +138,21 @@ export default class OracleWithdraw extends BaseCommand {
       );
     }
 
-    const txn = await oracleAccount.withdraw({
+    const signature = await oracleAccount.withdraw({
       amount,
       oracleAuthority: authority,
       withdrawAccount,
     });
 
     if (this.silent) {
-      console.log(txn);
+      console.log(signature);
     } else {
       this.logger.log(
         `${chalk.green(
           `${CHECK_ICON}Withdrew ${amount} tokens from oracle account`
         )}`
       );
-      this.logger.log(
-        `https://explorer.solana.com/tx/${txn}?cluster=${this.cluster}`
-      );
+      this.logger.log(this.toUrl(signature));
       const finalTokenBalance = (
         await this.program.provider.connection.getTokenAccountBalance(
           oracle.tokenAccount

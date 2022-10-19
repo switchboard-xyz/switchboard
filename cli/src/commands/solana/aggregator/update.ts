@@ -49,22 +49,20 @@ export default class AggregatorUpdate extends BaseCommand {
       mint
     );
 
-    const aggregatorUpdateTxn = await aggregatorAccount.openRound({
+    const txn = await aggregatorAccount.openRound({
       oracleQueueAccount,
       payoutWallet,
     });
 
     if (this.silent) {
-      console.log(aggregatorUpdateTxn);
+      console.log(txn);
     } else {
       this.logger.log(
         `${chalk.green(
           `${CHECK_ICON}Aggregator update request sent to oracles`
         )}`
       );
-      this.logger.log(
-        `https://explorer.solana.com/tx/${aggregatorUpdateTxn}?cluster=${this.cluster}`
-      );
+      this.logger.log(this.toUrl(txn));
     }
   }
 

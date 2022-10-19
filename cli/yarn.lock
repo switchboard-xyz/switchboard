@@ -2191,11 +2191,26 @@
     rpc-websockets "^7.5.0"
     superstruct "^0.14.2"
 
-"@switchboard-xyz/aptos.js@^2.5.9":
-  version "2.5.9"
-  resolved "https://registry.npmjs.org/@switchboard-xyz/aptos.js/-/aptos.js-2.5.9.tgz#f75b565a7dac17c3056c871e9a7617ae3dbaaa37"
-  integrity sha512-eGs/aftrK7784Dmp7bi5irHdZvBqdPuvipj9ZS6DEqHhw9a9wIMwMLkF7o1DSOcnQ3qzc/HyDfODguQ2msh0Sw==
+"@switchboard-xyz/aptos.js@^2.5.15":
+  version "2.5.16"
+  resolved "https://registry.npmjs.org/@switchboard-xyz/aptos.js/-/aptos.js-2.5.16.tgz#a314edff4cbf93380ff1958b08007bcc5e986c09"
+  integrity sha512-ZIs4BTf932oEpCs3gNzHgiGyhT8r34QFyNBnenVnIu/AmFNux2O+Q628g69rhH6pawvezqEX4cAbUj2HKDp3IA==
   dependencies:
+    "@switchboard-xyz/aptos.js" "^2.5.15"
+    "@switchboard-xyz/common" "^2.0.0"
+    aptos "^1.3.16"
+    big.js "^6.2.1"
+    bn.js "^5.2.1"
+    chalk "^5.0.1"
+    js-sha3 "^0.8.0"
+    node-fetch "^2.1.6"
+
+"@switchboard-xyz/aptos.js@^2.5.17":
+  version "2.5.17"
+  resolved "https://registry.npmjs.org/@switchboard-xyz/aptos.js/-/aptos.js-2.5.17.tgz#519f51e4ece4540b3250d32bf2b3217c8b6abe41"
+  integrity sha512-ErES0N/uQB3dvQ0r8hc8ClbxEPNWhgpX9f/0/WRsdm8BT4yuI2B30hY6fnutpgW6SiD1sWYQRjKbCxaSer8jRw==
+  dependencies:
+    "@switchboard-xyz/aptos.js" "^2.5.15"
     "@switchboard-xyz/common" "^2.0.0"
     aptos "^1.3.16"
     big.js "^6.2.1"
@@ -2229,10 +2244,10 @@
     typedoc "^0.23.15"
     wait-for-event "^2.0.1"
 
-"@switchboard-xyz/near.js@^2.0.46":
-  version "2.0.46"
-  resolved "https://registry.npmjs.org/@switchboard-xyz/near.js/-/near.js-2.0.46.tgz#3b753f87884aa936e8950a298732238c001c8d0b"
-  integrity sha512-pxN1DsEvYqBS8Ha9SzcZG8bStUhNAKjtexkZen09hFKB7gJkjR9ZDif/xwrNx/xTNKFXeZ/jIl4QxDY0jRUwlg==
+"@switchboard-xyz/near.js@^2.0.48":
+  version "2.0.48"
+  resolved "https://registry.npmjs.org/@switchboard-xyz/near.js/-/near.js-2.0.48.tgz#04770d34f08c67c9e8da5e89c0f17f395ffc7273"
+  integrity sha512-6Ca3Rr14S9vaB2Dtt3XqiTxaNYq3YClbG5iXgrTX7GMwfo3QtacyaNRKjmiuKWHZM8naHbpX1H6GewhVV6qvfg==
   dependencies:
     "@switchboard-xyz/common" "^2.0.0"
     "@switchboard-xyz/near.js" "^2.0.21"

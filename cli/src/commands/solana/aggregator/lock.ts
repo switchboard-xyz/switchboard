@@ -47,9 +47,7 @@ export default class AggregatorLock extends BaseCommand {
       this.logger.log(
         `${chalk.green(`${CHECK_ICON}Aggregator locked successfully\r\n`)}`
       );
-      this.logger.log(
-        `https://explorer.solana.com/tx/${txn}?cluster=${this.cluster}`
-      );
+      this.logger.log(this.toUrl(txn));
     }
   }
 

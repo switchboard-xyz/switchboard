@@ -51,9 +51,7 @@ export default class CrankPush extends BaseCommand {
       this.logger.log(
         `${chalk.green(`${CHECK_ICON}Aggregator pushed to crank successfully`)}`
       );
-      this.logger.log(
-        `https://explorer.solana.com/tx/${txn}?cluster=${this.cluster}`
-      );
+      this.logger.log(this.toUrl(txn));
     }
   }
 

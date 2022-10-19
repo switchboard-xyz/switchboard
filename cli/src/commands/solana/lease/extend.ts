@@ -127,9 +127,7 @@ export default class LeaseExtend extends BaseCommand {
           `${CHECK_ICON} Deposited ${amount} tokens into aggregator lease`
         )}`
       );
-      this.logger.log(
-        `https://explorer.solana.com/tx/${txn}?cluster=${this.cluster}`
-      );
+      this.logger.log(this.toUrl(txn));
     }
   }
 

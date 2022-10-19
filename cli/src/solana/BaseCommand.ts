@@ -4,8 +4,12 @@ import * as anchor from "@project-serum/anchor";
 import { Cluster, Connection, Keypair, PublicKey } from "@solana/web3.js";
 import { BigUtils } from "@switchboard-xyz/sbv2-utils";
 import {
+  AggregatorAccount,
   AnchorWallet,
+  CrankAccount,
+  JobAccount,
   OracleAccount,
+  OracleQueueAccount,
   programWallet,
   SBV2_DEVNET_PID,
   SBV2_MAINNET_PID,
@@ -16,10 +20,15 @@ import { AuthorityMismatch } from "../types";
 import { loadKeypair } from "../utils";
 import { CliBaseCommand as BaseCommand } from "../BaseCommand";
 import { AwsProvider, FsProvider, GcpProvider } from "../providers";
+import { IBaseChain } from "../types/chain";
+import { OracleJob } from "@switchboard-xyz/common";
 
 export type SolanaNetwork = Cluster | "localnet";
 
-export abstract class SolanaBaseCommand extends BaseCommand {
+export abstract class SolanaBaseCommand
+  extends BaseCommand
+  implements IBaseChain
+{
   static flags = {
     ...BaseCommand.flags,
     mainnetBeta: Flags.boolean({
@@ -41,7 +50,7 @@ export abstract class SolanaBaseCommand extends BaseCommand {
 
   public hasSigner = false;
 
-  public cluster: SolanaNetwork;
+  public network: SolanaNetwork;
 
   public rpcUrl: string;
 
@@ -56,24 +65,28 @@ export abstract class SolanaBaseCommand extends BaseCommand {
     const { flags } = await this.parse((<Input<any>>this.constructor) as any);
     BaseCommand.flags = flags as any;
 
-    this.cluster = this.getCluster(
+    this.network = this.getNetwork(
       (flags as any).mainnetBeta ? "mainnet-beta" : "devnet"
     );
-    this.programId = this.getProgramId(this.cluster, (flags as any).programId);
+    this.programId = this.getProgramId(this.network, (flags as any).programId);
 
-    this.rpcUrl = this.getRpcUrl(this.cluster, (flags as any).rpcUrl);
+    this.rpcUrl = this.getRpcUrl(this.network, (flags as any).rpcUrl);
     this.connection = new Connection(this.rpcUrl, {
       commitment: (flags as any).commitment ?? "confirmed",
     });
 
     // TODO: Load connection params from config
     this.logConfig({
-      cluster: this.cluster,
+      cluster: this.network,
       rpc: this.rpcUrl,
     });
   }
 
-  getCluster(clusterFlag: string): SolanaNetwork {
+  toUrl(signature: string) {
+    return `https://explorer.solana.com/tx/${signature}?cluster=${this.network}`;
+  }
+
+  getNetwork(clusterFlag: string): SolanaNetwork {
     if (
       clusterFlag !== "testnet" &&
       clusterFlag !== "mainnet-beta" &&
@@ -162,7 +175,7 @@ export abstract class SolanaBaseCommand extends BaseCommand {
   }
 
   mainnetCheck(): void {
-    if (this.cluster === "mainnet-beta") {
+    if (this.network === "mainnet-beta") {
       throw new Error(
         "cli@^2 is still in beta, mainnet is disabled for this command."
       );
@@ -252,13 +265,59 @@ export abstract class SolanaBaseCommand extends BaseCommand {
     );
   }
 
-  async loadOracle(oracleAddress: string): Promise<[OracleAccount, any]> {
-    const account = new OracleAccount({
+  deserializeJobData(jobData: Uint8Array): OracleJob {
+    return OracleJob.decodeDelimited(jobData);
+  }
+
+  async loadQueue(address: string): Promise<[OracleQueueAccount, any]> {
+    const account = new OracleQueueAccount({
       program: this.program,
-      publicKey: new PublicKey(oracleAddress),
+      publicKey: new PublicKey(address),
     });
     const data = await account.loadData();
 
     return [account, data];
+  }
+
+  async loadAggregator(address: string): Promise<[AggregatorAccount, any]> {
+    const account = new AggregatorAccount({
+      program: this.program,
+      publicKey: new PublicKey(address),
+    });
+    const data = await account.loadData();
+
+    return [account, data];
+  }
+
+  async loadCrank(address: string): Promise<[CrankAccount, any]> {
+    const account = new CrankAccount({
+      program: this.program,
+      publicKey: new PublicKey(address),
+    });
+    const data = await account.loadData();
+
+    return [account, data];
+  }
+
+  async loadOracle(address: string): Promise<[OracleAccount, any]> {
+    const account = new OracleAccount({
+      program: this.program,
+      publicKey: new PublicKey(address),
+    });
+    const data = await account.loadData();
+
+    return [account, data];
+  }
+
+  async loadJob(address: string): Promise<[JobAccount, any, OracleJob]> {
+    const account = new JobAccount({
+      program: this.program,
+      publicKey: new PublicKey(address),
+    });
+    const data = await account.loadData();
+
+    const oracleJob = this.deserializeJobData(data.data);
+
+    return [account, data, oracleJob];
   }
 }

@@ -77,9 +77,7 @@ export default class AggregatorSetBatchSize extends BaseCommand {
       this.logger.log(
         `${chalk.green(`${CHECK_ICON}Aggregator batch size set successfully`)}`
       );
-      this.logger.log(
-        `https://explorer.solana.com/tx/${txn}?cluster=${this.cluster}`
-      );
+      this.logger.log(this.toUrl(txn));
     }
   }
 

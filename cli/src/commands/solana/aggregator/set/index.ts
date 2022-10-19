@@ -220,9 +220,7 @@ export default class AggregatorSet extends BaseCommand {
           `${CHECK_ICON}Aggregator force report period set successfully`
         )}`
       );
-      this.logger.log(
-        `https://explorer.solana.com/tx/${signature}?cluster=${this.cluster}`
-      );
+      this.logger.log(this.toUrl(signature));
     }
   }
 

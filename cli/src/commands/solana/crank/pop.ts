@@ -57,9 +57,7 @@ export default class CrankPop extends BaseCommand {
       console.log(txn);
     } else {
       this.logger.log(`${chalk.green(`${CHECK_ICON}Crank pop successful`)}`);
-      this.logger.log(
-        `https://explorer.solana.com/tx/${txn}?cluster=${this.cluster}`
-      );
+      this.logger.log(this.toUrl(txn));
     }
   }
 

@@ -69,9 +69,7 @@ export default class AggregatorSetQueue extends BaseCommand {
           `${CHECK_ICON}Aggregator oracle queue set successfully`
         )}`
       );
-      this.logger.log(
-        `https://explorer.solana.com/tx/${txn}?cluster=${this.cluster}`
-      );
+      this.logger.log(this.toUrl(txn));
     }
   }
 

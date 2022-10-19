@@ -82,9 +82,7 @@ export default class AggregatorSetUpdateInterval extends BaseCommand {
           `${CHECK_ICON}Aggregator minimum update delay set successfully`
         )}`
       );
-      this.logger.log(
-        `https://explorer.solana.com/tx/${txn}?cluster=${this.cluster}`
-      );
+      this.logger.log(this.toUrl(txn));
     }
   }
 

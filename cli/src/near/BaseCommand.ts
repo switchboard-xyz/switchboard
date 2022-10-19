@@ -5,7 +5,9 @@ import { homedir } from "os";
 import {
   AggregatorAccount,
   CrankAccount,
+  JobAccount,
   loadNear,
+  MAINNET_PROGRAM_ID,
   OracleAccount,
   QueueAccount,
   SwitchboardPermission,
@@ -18,7 +20,8 @@ import bs58 from "bs58";
 import { NearNetwork } from ".";
 import { isBN } from "bn.js";
 import Big from "big.js";
-import { SwitchboardDecimal } from "@switchboard-xyz/common";
+import { OracleJob, SwitchboardDecimal } from "@switchboard-xyz/common";
+import { IBaseChain } from "../types/chain";
 
 export const toUtf8 = (buf: any): string => {
   buf = buf ?? "";
@@ -27,7 +30,10 @@ export const toUtf8 = (buf: any): string => {
     .replace(/\u0000/g, "");
 };
 
-export abstract class NearBaseCommand extends BaseCommand {
+export abstract class NearBaseCommand
+  extends BaseCommand
+  implements IBaseChain
+{
   static flags = {
     ...BaseCommand.flags,
     networkId: Flags.string({
@@ -66,7 +72,7 @@ export abstract class NearBaseCommand extends BaseCommand {
     const { flags } = await this.parse((<Input<any>>this.constructor) as any);
     BaseCommand.flags = flags as any;
 
-    this.networkId = this.getNetworkId((flags as any).networkId);
+    this.networkId = this.getNetwork((flags as any).networkId);
     this.rpcUrl = this.getRpcUrl(this.networkId, (flags as any).rpcUrl);
     this.programId = (flags as any).programId;
 
@@ -85,7 +91,7 @@ export abstract class NearBaseCommand extends BaseCommand {
     return `https://explorer.${this.networkId}.near.org/transactions/${txnHash}`;
   }
 
-  getNetworkId(networkIdFlag: string): NearNetwork {
+  getNetwork(networkIdFlag: string): NearNetwork {
     if (
       networkIdFlag !== "testnet" &&
       networkIdFlag !== "mainnet" &&
@@ -112,6 +118,26 @@ export abstract class NearBaseCommand extends BaseCommand {
       );
     }
     return rpcUrl;
+  }
+
+  getProgramId(networkId: string, programId?: string): string {
+    if (programId) {
+      return programId;
+    }
+    switch (networkId) {
+      case "mainnet":
+        return MAINNET_PROGRAM_ID;
+      case "testnet":
+        return TESTNET_PROGRAM_ID;
+      default:
+        throw new Error(
+          `Failed to find Aptos ProgramID. Try passing in --programID instead`
+        );
+    }
+  }
+
+  deserializeJobData(jobData: Uint8Array): OracleJob {
+    return OracleJob.decodeDelimited(jobData);
   }
 
   normalizeAccountData(address: Uint8Array, data: any): Record<string, any> {
@@ -271,5 +297,19 @@ export abstract class NearBaseCommand extends BaseCommand {
     const data = await account.loadData();
 
     return [account, data];
+  }
+
+  async loadJob(
+    address: string | Array<number>
+  ): Promise<[JobAccount, types.Job, OracleJob]> {
+    const account = new JobAccount({
+      program: this.program,
+      address: this.parseAddress(address),
+    });
+    const data = await account.loadData();
+
+    const oracleJob = this.deserializeJobData(data.data);
+
+    return [account, data, oracleJob];
   }
 }

@@ -143,9 +143,7 @@ export default class AggregatorLeaseWithdraw extends BaseCommand {
           `${CHECK_ICON} Withdrew ${amount} tokens from aggregator lease`
         )}`
       );
-      this.logger.log(
-        `https://explorer.solana.com/tx/${txn}?cluster=${this.cluster}`
-      );
+      this.logger.log(this.toUrl(txn));
     }
   }
 

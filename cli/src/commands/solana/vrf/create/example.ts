@@ -76,7 +76,7 @@ export default class VrfCreateExample extends BaseCommand {
     );
     if (!vrfExampleIdl) {
       throw new Error(
-        `failed to read VRF Example program idl for ${this.cluster} ${vrfProgramId}`
+        `failed to read VRF Example program idl for ${this.network} ${vrfProgramId}`
       );
     }
 
@@ -240,9 +240,7 @@ export default class VrfCreateExample extends BaseCommand {
 
     await sleep(2000);
 
-    this.logger.log(
-      `https://explorer.solana.com/tx/${signature}?cluster=${this.cluster}`
-    );
+    this.logger.log(this.toUrl(signature));
     this.logger.log(
       await prettyPrintVrf(
         new VrfAccount({

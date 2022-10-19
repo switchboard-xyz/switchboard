@@ -24,7 +24,7 @@ export abstract class SolanaWithSignerBaseCommand extends SolanaBaseCommand {
 
     const keypairPath =
       (flags as any).keypair ||
-      this.ctx.getDefaultAccount("solana", this.cluster);
+      this.ctx.getDefaultAccount("solana", this.network);
 
     if (!keypairPath || keypairPath === undefined) {
       throw new Error(`Command requires '--keypair' flag to be provided`);

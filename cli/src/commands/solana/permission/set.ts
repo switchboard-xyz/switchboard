@@ -84,21 +84,19 @@ export default class PermissionSet extends BaseCommand {
     }
 
     // set the permission
-    const txn = await permissionAccount.set({
+    const signature = await permissionAccount.set({
       authority,
       enable: !flags.disable,
       permission: assignedPermission,
     });
 
     if (this.silent) {
-      console.log(txn);
+      console.log(signature);
     } else {
       this.logger.log(
         `${chalk.green(`${CHECK_ICON}Permissions set successfully`)}`
       );
-      this.logger.log(
-        `https://explorer.solana.com/tx/${txn}?cluster=${this.cluster}`
-      );
+      this.logger.log(this.toUrl(signature));
     }
   }
 

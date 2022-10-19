@@ -109,9 +109,7 @@ export default class OracleDeposit extends BaseCommand {
           `${CHECK_ICON}Deposited ${amount} tokens into oracle account`
         )}`
       );
-      this.logger.log(
-        `https://explorer.solana.com/tx/${txn}?cluster=${this.cluster}`
-      );
+      this.logger.log(this.toUrl(txn));
       const finalTokenBalance = (
         await this.program.provider.connection.getTokenAccountBalance(
           oracle.tokenAccount
