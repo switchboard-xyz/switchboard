@@ -33,7 +33,7 @@ export abstract class AptosWithSignerBaseCommand extends BaseCommand {
       (flags as any).profileName
     );
 
-    await this.faucet.fundAccount(this.signer.address(), 10000);
+    // await this.faucet.fundAccount(this.signer.address(), 10000);
 
     this.logConfig({ signer: this.signer.address().toString() }, false);
   }

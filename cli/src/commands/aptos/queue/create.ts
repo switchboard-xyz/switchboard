@@ -74,7 +74,7 @@ export default class QueueCreate extends BaseCommand {
     let account: AptosAccount;
     if (flags.new) {
       account = new AptosAccount();
-      await this.faucet.fundAccount(account.address(), 10000000);
+      // await this.faucet.fundAccount(account.address(), 10000000);
     } else {
       account = this.signer;
     }

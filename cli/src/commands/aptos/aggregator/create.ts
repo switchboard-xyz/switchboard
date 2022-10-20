@@ -79,7 +79,7 @@ export default class CreateAggregator extends BaseCommand {
       ? await Promise.all(
           flags.job.map(async (jobDefinition) => {
             const jobPayer = new AptosAccount();
-            await this.faucet.fundAccount(jobPayer.address(), 10000);
+            // await this.faucet.fundAccount(jobPayer.address(), 10000);
             const oracleJob = this.loadJobJson(jobDefinition);
             const oracleJobData = Buffer.from(
               OracleJob.encodeDelimited(oracleJob).finish()
@@ -107,7 +107,7 @@ export default class CreateAggregator extends BaseCommand {
     let account: AptosAccount;
     if (flags.new) {
       account = new AptosAccount();
-      await this.faucet.fundAccount(account.address(), 10000);
+      // await this.faucet.fundAccount(account.address(), 10000);
     } else {
       account = this.signer;
     }

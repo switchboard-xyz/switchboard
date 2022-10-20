@@ -13,6 +13,7 @@ import YAML from "yaml";
 import fs from "fs";
 import { AptosNetwork } from ".";
 import {
+  types,
   AggregatorAccount,
   AptosDecimal,
   CrankAccount,
@@ -59,7 +60,7 @@ export abstract class AptosBaseCommand
 
   public aptos: AptosClient;
 
-  public faucet: FaucetClient;
+  // public faucet: FaucetClient;
 
   public stateAddress: HexString;
 
@@ -77,10 +78,10 @@ export abstract class AptosBaseCommand
     this.stateAddress = this.programId;
 
     this.aptos = new AptosClient(this.rpcUrl);
-    this.faucet = new FaucetClient(
-      this.rpcUrl,
-      `https://faucet.${this.networkId}.aptoslabs.com`
-    );
+    // this.faucet = new FaucetClient(
+    //   this.rpcUrl,
+    //   `https://faucet.${this.networkId}.aptoslabs.com`
+    // );
 
     this.logConfig({
       network: this.networkId,
@@ -318,7 +319,9 @@ export abstract class AptosBaseCommand
     );
   }
 
-  async loadQueue(queueHexString: string): Promise<[OracleQueueAccount, any]> {
+  async loadQueue(
+    queueHexString: string
+  ): Promise<[OracleQueueAccount, types.OracleQueue]> {
     const account = new OracleQueueAccount(
       this.aptos,
       this.parseAddress(queueHexString),
@@ -331,7 +334,7 @@ export abstract class AptosBaseCommand
 
   async loadAggregator(
     aggregatorHexString: string
-  ): Promise<[AggregatorAccount, any]> {
+  ): Promise<[AggregatorAccount, types.Aggregator]> {
     const account = new AggregatorAccount(
       this.aptos,
       this.parseAddress(aggregatorHexString),
@@ -342,7 +345,9 @@ export abstract class AptosBaseCommand
     return [account, data];
   }
 
-  async loadCrank(crankHexString: string): Promise<[CrankAccount, any]> {
+  async loadCrank(
+    crankHexString: string
+  ): Promise<[CrankAccount, types.Crank]> {
     const account = new CrankAccount(
       this.aptos,
       this.parseAddress(crankHexString),
@@ -353,7 +358,9 @@ export abstract class AptosBaseCommand
     return [account, data];
   }
 
-  async loadOracle(oracleHexString: string): Promise<[OracleAccount, any]> {
+  async loadOracle(
+    oracleHexString: string
+  ): Promise<[OracleAccount, types.Oracle]> {
     const account = new OracleAccount(
       this.aptos,
       this.parseAddress(oracleHexString),
@@ -364,7 +371,9 @@ export abstract class AptosBaseCommand
     return [account, data];
   }
 
-  async loadJob(jobHexString: string): Promise<[JobAccount, any, OracleJob]> {
+  async loadJob(
+    jobHexString: string
+  ): Promise<[JobAccount, types.Job, OracleJob]> {
     const account = new JobAccount(
       this.aptos,
       this.parseAddress(jobHexString),

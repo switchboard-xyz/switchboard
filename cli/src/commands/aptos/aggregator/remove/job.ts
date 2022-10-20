@@ -2,6 +2,7 @@ import { Flags } from "@oclif/core";
 import { AptosWithSignerBaseCommand as BaseCommand } from "../../../../aptos";
 import base58 from "bs58";
 import { AggregatorAccount, JobAccount } from "@switchboard-xyz/aptos.js";
+import { HexString } from "aptos";
 
 export default class AggregatorRemoveJob extends BaseCommand {
   static hidden = true;
@@ -40,7 +41,7 @@ export default class AggregatorRemoveJob extends BaseCommand {
 
     const authority = await this.getAuthority(
       flags.authority,
-      aggregatorData.authority
+      aggregatorData.authority.toString()
     );
 
     for (const jobKey of flags.jobAddress) {
@@ -51,9 +52,9 @@ export default class AggregatorRemoveJob extends BaseCommand {
       );
       await jobAccount.loadData();
 
-      const jobIdx = (aggregatorData.jobs as Array<string>).findIndex(
-        (jobAddress: string) =>
-          jobKey.toLowerCase() === jobAddress.toLowerCase()
+      const jobIdx = (aggregatorData.jobKeys as Array<HexString>).findIndex(
+        (jobAddress: HexString) =>
+          jobKey.toLowerCase() === jobAddress.toString().toLowerCase()
       );
       if (jobIdx === -1) {
         throw new Error(

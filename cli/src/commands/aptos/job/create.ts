@@ -62,7 +62,7 @@ export default class JobCreate extends BaseCommand {
     let account: AptosAccount;
     if (flags.new) {
       account = new AptosAccount();
-      await this.faucet.fundAccount(account.address(), 5000);
+      // await this.faucet.fundAccount(account.address(), 5000);
     } else {
       account = this.signer;
     }

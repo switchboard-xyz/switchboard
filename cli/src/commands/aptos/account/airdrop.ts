@@ -23,28 +23,28 @@ export default class AccountAirdrop extends BaseCommand {
   async run() {
     const { flags, args } = await this.parse(AccountAirdrop);
 
-    const sigs: string[] = await this.faucet.fundAccount(
-      HexString.ensure(flags.address),
-      flags.amount
-    );
+    // const sigs: string[] = await this.faucet.fundAccount(
+    //   HexString.ensure(flags.address),
+    //   flags.amount
+    // );
 
-    if (flags.json) {
-      return {
-        signatures: sigs,
-        urls: sigs.map((sig) => this.toUrl(sig)),
-      };
-    }
+    // if (flags.json) {
+    //   return {
+    //     signatures: sigs,
+    //     urls: sigs.map((sig) => this.toUrl(sig)),
+    //   };
+    // }
 
-    this.logger.info(
-      JSON.stringify(
-        {
-          signatures: sigs,
-          urls: sigs.map((sig) => this.toUrl(sig)),
-        },
-        this.jsonReplacers,
-        2
-      )
-    );
+    // this.logger.info(
+    //   JSON.stringify(
+    //     {
+    //       signatures: sigs,
+    //       urls: sigs.map((sig) => this.toUrl(sig)),
+    //     },
+    //     this.jsonReplacers,
+    //     2
+    //   )
+    // );
   }
 
   async catch(error) {
