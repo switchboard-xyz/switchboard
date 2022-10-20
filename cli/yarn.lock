@@ -2239,10 +2239,10 @@
     js-sha3 "^0.8.0"
     node-fetch "^2.1.6"
 
-"@switchboard-xyz/aptos.js@^2.5.17":
-  version "2.5.17"
-  resolved "https://registry.npmjs.org/@switchboard-xyz/aptos.js/-/aptos.js-2.5.17.tgz#519f51e4ece4540b3250d32bf2b3217c8b6abe41"
-  integrity sha512-ErES0N/uQB3dvQ0r8hc8ClbxEPNWhgpX9f/0/WRsdm8BT4yuI2B30hY6fnutpgW6SiD1sWYQRjKbCxaSer8jRw==
+"@switchboard-xyz/aptos.js@^2.5.18":
+  version "2.5.18"
+  resolved "https://registry.npmjs.org/@switchboard-xyz/aptos.js/-/aptos.js-2.5.18.tgz#163d6ba17bf0a73793ad51545a418cb4d28dd89c"
+  integrity sha512-Pc1ZKKffhpp36wBcundEARr/9lah6/B+pIrn5SdqeBkSGAUJPyso7PXq0XEy+kfzY1YJyw2YKsvQmrcdeAaf4g==
   dependencies:
     "@switchboard-xyz/aptos.js" "^2.5.15"
     "@switchboard-xyz/common" "^2.0.0"
