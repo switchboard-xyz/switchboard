@@ -310,6 +310,14 @@ message OracleJob {
     optional string out_token_address = 2;
     // The amount of tokens to swap.
     optional double base_amount = 3;
+    // A list of Jupiter AMM labels to allow or deny (e.g. 'Raydium', 'Orca')
+    message FilterList {
+      repeated string labels = 1;
+    }
+    oneof RoutesFilters {
+      FilterList allow_list = 4;
+      FilterList deny_list = 5;
+    }
   }
 
   // Fetch the current price of a perpetual market.
