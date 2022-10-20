@@ -2543,6 +2543,12 @@ export namespace OracleJob {
 
         /** JupiterSwapTask baseAmount */
         baseAmount?: (number|null);
+
+        /** JupiterSwapTask allowList */
+        allowList?: (OracleJob.JupiterSwapTask.IFilterList|null);
+
+        /** JupiterSwapTask denyList */
+        denyList?: (OracleJob.JupiterSwapTask.IFilterList|null);
     }
 
     /** Represents a JupiterSwapTask. */
@@ -2562,6 +2568,15 @@ export namespace OracleJob {
 
         /** JupiterSwapTask baseAmount. */
         public baseAmount: number;
+
+        /** JupiterSwapTask allowList. */
+        public allowList?: (OracleJob.JupiterSwapTask.IFilterList|null);
+
+        /** JupiterSwapTask denyList. */
+        public denyList?: (OracleJob.JupiterSwapTask.IFilterList|null);
+
+        /** JupiterSwapTask RoutesFilters. */
+        public RoutesFilters?: ("allowList"|"denyList");
 
         /**
          * Creates a new JupiterSwapTask instance using the specified properties.
@@ -2632,6 +2647,99 @@ export namespace OracleJob {
          * @returns JSON object
          */
         public toJSON(): { [k: string]: any };
+    }
+
+    namespace JupiterSwapTask {
+
+        /** Properties of a FilterList. */
+        interface IFilterList {
+
+            /** FilterList labels */
+            labels?: (string[]|null);
+        }
+
+        /** Represents a FilterList. */
+        class FilterList implements IFilterList {
+
+            /**
+             * Constructs a new FilterList.
+             * @param [properties] Properties to set
+             */
+            constructor(properties?: OracleJob.JupiterSwapTask.IFilterList);
+
+            /** FilterList labels. */
+            public labels: string[];
+
+            /**
+             * Creates a new FilterList instance using the specified properties.
+             * @param [properties] Properties to set
+             * @returns FilterList instance
+             */
+            public static create(properties?: OracleJob.JupiterSwapTask.IFilterList): OracleJob.JupiterSwapTask.FilterList;
+
+            /**
+             * Encodes the specified FilterList message. Does not implicitly {@link OracleJob.JupiterSwapTask.FilterList.verify|verify} messages.
+             * @param message FilterList message or plain object to encode
+             * @param [writer] Writer to encode to
+             * @returns Writer
+             */
+            public static encode(message: OracleJob.JupiterSwapTask.IFilterList, writer?: $protobuf.Writer): $protobuf.Writer;
+
+            /**
+             * Encodes the specified FilterList message, length delimited. Does not implicitly {@link OracleJob.JupiterSwapTask.FilterList.verify|verify} messages.
+             * @param message FilterList message or plain object to encode
+             * @param [writer] Writer to encode to
+             * @returns Writer
+             */
+            public static encodeDelimited(message: OracleJob.JupiterSwapTask.IFilterList, writer?: $protobuf.Writer): $protobuf.Writer;
+
+            /**
+             * Decodes a FilterList message from the specified reader or buffer.
+             * @param reader Reader or buffer to decode from
+             * @param [length] Message length if known beforehand
+             * @returns FilterList
+             * @throws {Error} If the payload is not a reader or valid buffer
+             * @throws {$protobuf.util.ProtocolError} If required fields are missing
+             */
+            public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): OracleJob.JupiterSwapTask.FilterList;
+
+            /**
+             * Decodes a FilterList message from the specified reader or buffer, length delimited.
+             * @param reader Reader or buffer to decode from
+             * @returns FilterList
+             * @throws {Error} If the payload is not a reader or valid buffer
+             * @throws {$protobuf.util.ProtocolError} If required fields are missing
+             */
+            public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): OracleJob.JupiterSwapTask.FilterList;
+
+            /**
+             * Verifies a FilterList message.
+             * @param message Plain object to verify
+             * @returns `null` if valid, otherwise the reason why it is not
+             */
+            public static verify(message: { [k: string]: any }): (string|null);
+
+            /**
+             * Creates a FilterList message from a plain object. Also converts values to their respective internal types.
+             * @param object Plain object
+             * @returns FilterList
+             */
+            public static fromObject(object: { [k: string]: any }): OracleJob.JupiterSwapTask.FilterList;
+
+            /**
+             * Creates a plain object from a FilterList message. Also converts values to other types if specified.
+             * @param message FilterList
+             * @param [options] Conversion options
+             * @returns Plain object
+             */
+            public static toObject(message: OracleJob.JupiterSwapTask.FilterList, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+            /**
+             * Converts this FilterList to JSON.
+             * @returns JSON object
+             */
+            public toJSON(): { [k: string]: any };
+        }
     }
 
     /** Properties of a PerpMarketTask. */

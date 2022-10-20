@@ -6425,6 +6425,8 @@
              * @property {string|null} [inTokenAddress] JupiterSwapTask inTokenAddress
              * @property {string|null} [outTokenAddress] JupiterSwapTask outTokenAddress
              * @property {number|null} [baseAmount] JupiterSwapTask baseAmount
+             * @property {OracleJob.JupiterSwapTask.IFilterList|null} [allowList] JupiterSwapTask allowList
+             * @property {OracleJob.JupiterSwapTask.IFilterList|null} [denyList] JupiterSwapTask denyList
              */
     
             /**
@@ -6467,6 +6469,36 @@
             JupiterSwapTask.prototype.baseAmount = 0;
     
             /**
+             * JupiterSwapTask allowList.
+             * @member {OracleJob.JupiterSwapTask.IFilterList|null|undefined} allowList
+             * @memberof OracleJob.JupiterSwapTask
+             * @instance
+             */
+            JupiterSwapTask.prototype.allowList = null;
+    
+            /**
+             * JupiterSwapTask denyList.
+             * @member {OracleJob.JupiterSwapTask.IFilterList|null|undefined} denyList
+             * @memberof OracleJob.JupiterSwapTask
+             * @instance
+             */
+            JupiterSwapTask.prototype.denyList = null;
+    
+            // OneOf field names bound to virtual getters and setters
+            var $oneOfFields;
+    
+            /**
+             * JupiterSwapTask RoutesFilters.
+             * @member {"allowList"|"denyList"|undefined} RoutesFilters
+             * @memberof OracleJob.JupiterSwapTask
+             * @instance
+             */
+            Object.defineProperty(JupiterSwapTask.prototype, "RoutesFilters", {
+                get: $util.oneOfGetter($oneOfFields = ["allowList", "denyList"]),
+                set: $util.oneOfSetter($oneOfFields)
+            });
+    
+            /**
              * Creates a new JupiterSwapTask instance using the specified properties.
              * @function create
              * @memberof OracleJob.JupiterSwapTask
@@ -6496,6 +6528,10 @@
                     writer.uint32(/* id 2, wireType 2 =*/18).string(message.outTokenAddress);
                 if (message.baseAmount != null && Object.hasOwnProperty.call(message, "baseAmount"))
                     writer.uint32(/* id 3, wireType 1 =*/25).double(message.baseAmount);
+                if (message.allowList != null && Object.hasOwnProperty.call(message, "allowList"))
+                    $root.OracleJob.JupiterSwapTask.FilterList.encode(message.allowList, writer.uint32(/* id 4, wireType 2 =*/34).fork()).ldelim();
+                if (message.denyList != null && Object.hasOwnProperty.call(message, "denyList"))
+                    $root.OracleJob.JupiterSwapTask.FilterList.encode(message.denyList, writer.uint32(/* id 5, wireType 2 =*/42).fork()).ldelim();
                 return writer;
             };
     
@@ -6539,6 +6575,12 @@
                     case 3:
                         message.baseAmount = reader.double();
                         break;
+                    case 4:
+                        message.allowList = $root.OracleJob.JupiterSwapTask.FilterList.decode(reader, reader.uint32());
+                        break;
+                    case 5:
+                        message.denyList = $root.OracleJob.JupiterSwapTask.FilterList.decode(reader, reader.uint32());
+                        break;
                     default:
                         reader.skipType(tag & 7);
                         break;
@@ -6574,6 +6616,7 @@
             JupiterSwapTask.verify = function verify(message) {
                 if (typeof message !== "object" || message === null)
                     return "object expected";
+                var properties = {};
                 if (message.inTokenAddress != null && message.hasOwnProperty("inTokenAddress"))
                     if (!$util.isString(message.inTokenAddress))
                         return "inTokenAddress: string expected";
@@ -6583,6 +6626,24 @@
                 if (message.baseAmount != null && message.hasOwnProperty("baseAmount"))
                     if (typeof message.baseAmount !== "number")
                         return "baseAmount: number expected";
+                if (message.allowList != null && message.hasOwnProperty("allowList")) {
+                    properties.RoutesFilters = 1;
+                    {
+                        var error = $root.OracleJob.JupiterSwapTask.FilterList.verify(message.allowList);
+                        if (error)
+                            return "allowList." + error;
+                    }
+                }
+                if (message.denyList != null && message.hasOwnProperty("denyList")) {
+                    if (properties.RoutesFilters === 1)
+                        return "RoutesFilters: multiple values";
+                    properties.RoutesFilters = 1;
+                    {
+                        var error = $root.OracleJob.JupiterSwapTask.FilterList.verify(message.denyList);
+                        if (error)
+                            return "denyList." + error;
+                    }
+                }
                 return null;
             };
     
@@ -6604,6 +6665,16 @@
                     message.outTokenAddress = String(object.outTokenAddress);
                 if (object.baseAmount != null)
                     message.baseAmount = Number(object.baseAmount);
+                if (object.allowList != null) {
+                    if (typeof object.allowList !== "object")
+                        throw TypeError(".OracleJob.JupiterSwapTask.allowList: object expected");
+                    message.allowList = $root.OracleJob.JupiterSwapTask.FilterList.fromObject(object.allowList);
+                }
+                if (object.denyList != null) {
+                    if (typeof object.denyList !== "object")
+                        throw TypeError(".OracleJob.JupiterSwapTask.denyList: object expected");
+                    message.denyList = $root.OracleJob.JupiterSwapTask.FilterList.fromObject(object.denyList);
+                }
                 return message;
             };
     
@@ -6631,6 +6702,16 @@
                     object.outTokenAddress = message.outTokenAddress;
                 if (message.baseAmount != null && message.hasOwnProperty("baseAmount"))
                     object.baseAmount = options.json && !isFinite(message.baseAmount) ? String(message.baseAmount) : message.baseAmount;
+                if (message.allowList != null && message.hasOwnProperty("allowList")) {
+                    object.allowList = $root.OracleJob.JupiterSwapTask.FilterList.toObject(message.allowList, options);
+                    if (options.oneofs)
+                        object.RoutesFilters = "allowList";
+                }
+                if (message.denyList != null && message.hasOwnProperty("denyList")) {
+                    object.denyList = $root.OracleJob.JupiterSwapTask.FilterList.toObject(message.denyList, options);
+                    if (options.oneofs)
+                        object.RoutesFilters = "denyList";
+                }
                 return object;
             };
     
@@ -6644,6 +6725,209 @@
             JupiterSwapTask.prototype.toJSON = function toJSON() {
                 return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
             };
+    
+            JupiterSwapTask.FilterList = (function() {
+    
+                /**
+                 * Properties of a FilterList.
+                 * @memberof OracleJob.JupiterSwapTask
+                 * @interface IFilterList
+                 * @property {Array.<string>|null} [labels] FilterList labels
+                 */
+    
+                /**
+                 * Constructs a new FilterList.
+                 * @memberof OracleJob.JupiterSwapTask
+                 * @classdesc Represents a FilterList.
+                 * @implements IFilterList
+                 * @constructor
+                 * @param {OracleJob.JupiterSwapTask.IFilterList=} [properties] Properties to set
+                 */
+                function FilterList(properties) {
+                    this.labels = [];
+                    if (properties)
+                        for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                            if (properties[keys[i]] != null)
+                                this[keys[i]] = properties[keys[i]];
+                }
+    
+                /**
+                 * FilterList labels.
+                 * @member {Array.<string>} labels
+                 * @memberof OracleJob.JupiterSwapTask.FilterList
+                 * @instance
+                 */
+                FilterList.prototype.labels = $util.emptyArray;
+    
+                /**
+                 * Creates a new FilterList instance using the specified properties.
+                 * @function create
+                 * @memberof OracleJob.JupiterSwapTask.FilterList
+                 * @static
+                 * @param {OracleJob.JupiterSwapTask.IFilterList=} [properties] Properties to set
+                 * @returns {OracleJob.JupiterSwapTask.FilterList} FilterList instance
+                 */
+                FilterList.create = function create(properties) {
+                    return new FilterList(properties);
+                };
+    
+                /**
+                 * Encodes the specified FilterList message. Does not implicitly {@link OracleJob.JupiterSwapTask.FilterList.verify|verify} messages.
+                 * @function encode
+                 * @memberof OracleJob.JupiterSwapTask.FilterList
+                 * @static
+                 * @param {OracleJob.JupiterSwapTask.IFilterList} message FilterList message or plain object to encode
+                 * @param {$protobuf.Writer} [writer] Writer to encode to
+                 * @returns {$protobuf.Writer} Writer
+                 */
+                FilterList.encode = function encode(message, writer) {
+                    if (!writer)
+                        writer = $Writer.create();
+                    if (message.labels != null && message.labels.length)
+                        for (var i = 0; i < message.labels.length; ++i)
+                            writer.uint32(/* id 1, wireType 2 =*/10).string(message.labels[i]);
+                    return writer;
+                };
+    
+                /**
+                 * Encodes the specified FilterList message, length delimited. Does not implicitly {@link OracleJob.JupiterSwapTask.FilterList.verify|verify} messages.
+                 * @function encodeDelimited
+                 * @memberof OracleJob.JupiterSwapTask.FilterList
+                 * @static
+                 * @param {OracleJob.JupiterSwapTask.IFilterList} message FilterList message or plain object to encode
+                 * @param {$protobuf.Writer} [writer] Writer to encode to
+                 * @returns {$protobuf.Writer} Writer
+                 */
+                FilterList.encodeDelimited = function encodeDelimited(message, writer) {
+                    return this.encode(message, writer).ldelim();
+                };
+    
+                /**
+                 * Decodes a FilterList message from the specified reader or buffer.
+                 * @function decode
+                 * @memberof OracleJob.JupiterSwapTask.FilterList
+                 * @static
+                 * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                 * @param {number} [length] Message length if known beforehand
+                 * @returns {OracleJob.JupiterSwapTask.FilterList} FilterList
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                FilterList.decode = function decode(reader, length) {
+                    if (!(reader instanceof $Reader))
+                        reader = $Reader.create(reader);
+                    var end = length === undefined ? reader.len : reader.pos + length, message = new $root.OracleJob.JupiterSwapTask.FilterList();
+                    while (reader.pos < end) {
+                        var tag = reader.uint32();
+                        switch (tag >>> 3) {
+                        case 1:
+                            if (!(message.labels && message.labels.length))
+                                message.labels = [];
+                            message.labels.push(reader.string());
+                            break;
+                        default:
+                            reader.skipType(tag & 7);
+                            break;
+                        }
+                    }
+                    return message;
+                };
+    
+                /**
+                 * Decodes a FilterList message from the specified reader or buffer, length delimited.
+                 * @function decodeDelimited
+                 * @memberof OracleJob.JupiterSwapTask.FilterList
+                 * @static
+                 * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                 * @returns {OracleJob.JupiterSwapTask.FilterList} FilterList
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                FilterList.decodeDelimited = function decodeDelimited(reader) {
+                    if (!(reader instanceof $Reader))
+                        reader = new $Reader(reader);
+                    return this.decode(reader, reader.uint32());
+                };
+    
+                /**
+                 * Verifies a FilterList message.
+                 * @function verify
+                 * @memberof OracleJob.JupiterSwapTask.FilterList
+                 * @static
+                 * @param {Object.<string,*>} message Plain object to verify
+                 * @returns {string|null} `null` if valid, otherwise the reason why it is not
+                 */
+                FilterList.verify = function verify(message) {
+                    if (typeof message !== "object" || message === null)
+                        return "object expected";
+                    if (message.labels != null && message.hasOwnProperty("labels")) {
+                        if (!Array.isArray(message.labels))
+                            return "labels: array expected";
+                        for (var i = 0; i < message.labels.length; ++i)
+                            if (!$util.isString(message.labels[i]))
+                                return "labels: string[] expected";
+                    }
+                    return null;
+                };
+    
+                /**
+                 * Creates a FilterList message from a plain object. Also converts values to their respective internal types.
+                 * @function fromObject
+                 * @memberof OracleJob.JupiterSwapTask.FilterList
+                 * @static
+                 * @param {Object.<string,*>} object Plain object
+                 * @returns {OracleJob.JupiterSwapTask.FilterList} FilterList
+                 */
+                FilterList.fromObject = function fromObject(object) {
+                    if (object instanceof $root.OracleJob.JupiterSwapTask.FilterList)
+                        return object;
+                    var message = new $root.OracleJob.JupiterSwapTask.FilterList();
+                    if (object.labels) {
+                        if (!Array.isArray(object.labels))
+                            throw TypeError(".OracleJob.JupiterSwapTask.FilterList.labels: array expected");
+                        message.labels = [];
+                        for (var i = 0; i < object.labels.length; ++i)
+                            message.labels[i] = String(object.labels[i]);
+                    }
+                    return message;
+                };
+    
+                /**
+                 * Creates a plain object from a FilterList message. Also converts values to other types if specified.
+                 * @function toObject
+                 * @memberof OracleJob.JupiterSwapTask.FilterList
+                 * @static
+                 * @param {OracleJob.JupiterSwapTask.FilterList} message FilterList
+                 * @param {$protobuf.IConversionOptions} [options] Conversion options
+                 * @returns {Object.<string,*>} Plain object
+                 */
+                FilterList.toObject = function toObject(message, options) {
+                    if (!options)
+                        options = {};
+                    var object = {};
+                    if (options.arrays || options.defaults)
+                        object.labels = [];
+                    if (message.labels && message.labels.length) {
+                        object.labels = [];
+                        for (var j = 0; j < message.labels.length; ++j)
+                            object.labels[j] = message.labels[j];
+                    }
+                    return object;
+                };
+    
+                /**
+                 * Converts this FilterList to JSON.
+                 * @function toJSON
+                 * @memberof OracleJob.JupiterSwapTask.FilterList
+                 * @instance
+                 * @returns {Object.<string,*>} JSON object
+                 */
+                FilterList.prototype.toJSON = function toJSON() {
+                    return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+                };
+    
+                return FilterList;
+            })();
     
             return JupiterSwapTask;
         })();
