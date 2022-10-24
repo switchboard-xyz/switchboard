@@ -38,12 +38,11 @@ export abstract class NearBaseCommand
     ...BaseCommand.flags,
     networkId: Flags.string({
       description: "Near network ID to connect to",
-      options: ["testnet", "mainnet", "betanet", "localnet"],
+      options: ["testnet", "mainnet", "localnet"],
       default: "testnet",
     }),
     programId: Flags.string({
       description: "Switchboard programId on the selected Near networkId",
-      default: TESTNET_PROGRAM_ID,
     }),
     rpcUrl: Flags.string({
       char: "u",
@@ -74,7 +73,10 @@ export abstract class NearBaseCommand
 
     this.networkId = this.getNetwork((flags as any).networkId);
     this.rpcUrl = this.getRpcUrl(this.networkId, (flags as any).rpcUrl);
-    this.programId = (flags as any).programId;
+    this.programId = this.getProgramId(
+      this.networkId,
+      (flags as any).programId
+    );
 
     this.program = await SwitchboardProgram.loadReadOnly(
       this.networkId,
@@ -95,12 +97,9 @@ export abstract class NearBaseCommand
     if (
       networkIdFlag !== "testnet" &&
       networkIdFlag !== "mainnet" &&
-      networkIdFlag !== "betanet" &&
       networkIdFlag !== "localnet"
     ) {
-      throw new Error(
-        `--networkId must be 'testnet', 'mainnet', 'betanet', or 'local'`
-      );
+      throw new Error(`--networkId must be 'testnet', 'mainnet', or 'local'`);
     }
 
     return networkIdFlag;

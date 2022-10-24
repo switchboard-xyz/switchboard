@@ -1,9 +1,11 @@
 #!/bin/bash
 
 # This script will build a NEAR queue environment with a set of feeds pushed onto the crank
-# Arg1 Authority  (Ex: gallynaut.testnet)
-# Arg2 Queue Name (Ex: MyQueue, defaults to 'Near Queue')
-# Arg3 Update Interval (Ex: 15, defaults to 10 seconds)
+function display_help {
+  printf "\nDescription:\nCommand line script to create a Near Switchboard environment\n\nUsage:\n%s [-a accountId] [-c testnet|mainnet] [-n name] [-m minStake] [-r reward] [-s queueSize] [-u updateInterval]\n\nOptions:\n" "./scripts/near.sh "
+  echo "-a accountId, named account used as the payer and authority"
+  printf "\n\nExample:\n\t./scripts/near.sh -a sbv2-authority.testnet -c testnet -n 'Near Queue' -m 0 -r 0.000075 -s 250 -u 10 \n"
+}
 
 Color_Off='\033[0m'  
 Red='\033[0;31m'          # Red
@@ -22,29 +24,70 @@ declare -a feeds=(
   "$project_dir/directory/jobs/btc"
   "$project_dir/directory/jobs/eth"
   "$project_dir/directory/jobs/near"
-  "$project_dir/directory/jobs/sol"
   "$project_dir/directory/jobs/usdc"
-  "$project_dir/directory/jobs/usdt"
+  # "$project_dir/directory/jobs/sol"
+  # "$project_dir/directory/jobs/usdt"
 )
 
-authority=$1
-if [[ -z "${authority}" ]]; then
-  read -rp "Enter the name of the near account to sign transactions: " authority
-fi
-echo -e "${Blue}Authority:${Color_Off} $authority"
+network_id="testnet"
+account_id="sbv2-authority.testnet"
+
+queue_name="Near Queue"
+min_stake="0"
+reward="0"
+queue_size="100"
+update_interval="10"
+num_oracles=1
+
+while getopts 'a:c:n:m:r:s:u:o:' OPTION; do
+  case "$OPTION" in
+    a)
+      account_id="$OPTARG"
+      ;;
+    c)
+      network_id="$OPTARG"
+      if [[ "$network_id" != "testnet" && "$network_id" != "mainnet" ]]; then
+        echo "invalid Network ID ($CLUSTER) - [testnet or mainnet]"
+        exit 1
+      fi
+      ;;
+    n)
+      queue_name="$OPTARG"
+      ;;
+    m)
+      min_stake="$OPTARG"
+      ;;
+    r)
+      reward="$OPTARG"
+      ;;
+    s)
+      queue_size="$OPTARG"
+      ;;
+    u)
+      update_interval="$OPTARG"
+      ;;
+    o)
+      num_oracles="$OPTARG"
+      ;;
+    ?)
+      display_help
+      exit 1
+      ;;
+  esac
+done
+shift "$(($OPTIND -1))"
+
+echo -e "${Blue}Account ID:${Color_Off} $account_id"
+echo -e "${Blue}Network:${Color_Off} $network_id"
+echo -e "${Blue}Queue Name:${Color_Off} $queue_name"
+echo -e "${Blue}Min Stake:${Color_Off} $min_stake"
+echo -e "${Blue}Reward:${Color_Off} $reward"
+echo -e "${Blue}Size:${Color_Off} $queue_size"
+echo -e "${Blue}Update Interval:${Color_Off} $update_interval"
+echo -e "${Blue}Num Oracles:${Color_Off} $num_oracles"
 echo
 
-queue_name=$2
-if [[ -z "${queue_name}" ]]; then
-  queue_name="Near Queue"
-fi
-
-update_interval=$3
-if [[ -z "${update_interval}" ]]; then
-  update_interval=10
-fi
-
-envFilename="near.${queue_name// /_}.env"
+envFilename="near.${network_id// /_}.${queue_name// /_}.env"
 if test -f "$envFilename"; then
     echo "$envFilename exists."
     exit 1
@@ -52,7 +95,7 @@ fi
 
 # Create Escrow
 escrow=$(sbv2 near escrow create \
-  --accountName "$authority" \
+  --accountName "$account_id" \
   --json
 )
 escrowAddress=$(echo "$escrow" | jq -r '.addressBase58')
@@ -63,14 +106,16 @@ echo
 
 # Create Queue
 queue=$(sbv2 near queue create \
-  --accountName "$authority" \
+  --networkId "$network_id" \
+  --accountName "$account_id" \
   --name "$queue_name" \
   --metadata "$queue_name" \
-  --slashingEnabled \
   --unpermissionedFeeds \
   --unpermissionedVrf \
   --enableBufferRelayers \
-  --reward 0.000075 \
+  --reward "$reward" \
+  --minStake "$min_stake" \
+  --queueSize "$queue_size" \
   --json
 )
 queueAddress=$(echo "$queue" | jq -r '.addressBase58')
@@ -81,7 +126,8 @@ echo
 
 # Create Crank
 crank=$(sbv2 near crank create "$queueAddress" \
-  --accountName "$authority" \
+  --networkId "$network_id" \
+  --accountName "$account_id" \
   --name "Crank #1" \
   --metadata "$queue_name, Crank #1" \
   --maxRows 250 \
@@ -93,47 +139,55 @@ echo -e "${Green}✓ Create Crank:${Color_Off} $crankAddress"
 echo -e "${Blue}Bytes:${Color_Off} $crankBytes"
 echo
 
-# Create Oracle
-oracle=$(sbv2 near oracle create "$queueAddress" \
-  --accountName "$authority" \
-  --name "Oracle #1" \
-  --metadata "$queue_name, Oracle #1" \
-  --json
- )
-oracleAddress=$(echo "$oracle" | jq -r '.addressBase58')
-oracleBytes=$(echo "$oracle" | jq -r '.address')
-echo -e "${Green}✓ Create Oracle:${Color_Off} $oracleAddress"
-echo -e "${Blue}Bytes:${Color_Off} $oracleBytes"
-echo
-
-# Create Oracle Permissions
-oraclePermission=$(sbv2 near permission create \
-  --accountName "$authority" \
-  --granter "$queueAddress" \
-  --grantee "$oracleAddress" \
-  --enable \
-  --json
-)
-oraclePermissionAddress=$(echo "$oraclePermission" | jq -r '.addressBase58')
-oraclePermissionBytes=$(echo "$oraclePermission" | jq -r '.address')
-echo -e "${Green}✓ Create Oracle Permission:${Color_Off} $oraclePermissionAddress"
-echo -e "${Blue}Bytes:${Color_Off} $oraclePermissionBytes"
-echo
-
+# Save initial queue and crank values
 touch "$envFilename"
-# Write ENV variables
 {
-  # printf "ESCROW_ADDRESS=\"%s\"\n" "$escrowAddress";
-  # printf "ESCROW_ADDRESS_BYTES=\"%s\"\n\n" "$escrowBytes";
+  printf "NETWORK_ID=\"%s\"\n" "$network_id";
+  printf "AUTHORITY=\"%s\"\n\n" "$account_id";
   printf "QUEUE_ADDRESS=\"%s\"\n" "$queueAddress";
   printf "QUEUE_ADDRESS_BYTES=\"%s\"\n\n" "$queueBytes";
   printf "CRANK_ADDRESS=\"%s\"\n" "$crankAddress";
   printf "CRANK_ADDRESS_BYTES=\"%s\"\n\n" "$crankBytes";
-  printf "ORACLE_ADDRESS=\"%s\"\n" "$oracleAddress";
-  printf "ORACLE_ADDRESS_BYTES=\"%s\"\n\n" "$oracleBytes";
-  printf "ORACLE_PERMISSION_ADDRESS=\"%s\"\n" "$oraclePermissionAddress";
-  printf "ORACLE_PERMISSION_ADDRESS_BYTES=\"%s\"\n\n" "$oraclePermissionBytes";
   } >> "$envFilename"
+
+# Create oracles
+for (( i=1;i<=$num_oracles;i++ ))
+do
+  # Create Oracle
+  oracle=$(sbv2 near oracle create "$queueAddress" \
+    --networkId "$network_id" \
+    --accountName "$account_id" \
+    --name "Oracle #$i" \
+    --metadata "$queue_name, Oracle #$i" \
+    --json
+  )
+  oracleAddress=$(echo "$oracle" | jq -r '.addressBase58')
+  oracleBytes=$(echo "$oracle" | jq -r '.address')
+  echo -e "${Green}✓ Create Oracle #$i:${Color_Off} $oracleAddress"
+  echo -e "${Blue}Bytes #$i:${Color_Off} $oracleBytes"
+  echo
+
+  # Create Oracle Permissions
+  oraclePermission=$(sbv2 near permission create \
+    --networkId "$network_id" \
+    --accountName "$account_id" \
+    --granter "$queueAddress" \
+    --grantee "$oracleAddress" \
+    --enable \
+    --json
+  )
+  oraclePermissionAddress=$(echo "$oraclePermission" | jq -r '.addressBase58')
+  oraclePermissionBytes=$(echo "$oraclePermission" | jq -r '.address')
+  echo -e "${Green}✓ Create Oracle #$i Permission:${Color_Off} $oraclePermissionAddress"
+  echo -e "${Blue}Bytes #$i:${Color_Off} $oraclePermissionBytes"
+  echo
+  {
+    printf "ORACLE_%s_ADDRESS=\"%s\"\n" "$i" "$oracleAddress";
+    printf "ORACLE_%s_ADDRESS_BYTES=\"%s\"\n\n" "$i" "$oracleBytes";
+    printf "ORACLE_%s_PERMISSION_ADDRESS=\"%s\"\n" "$i" "$oraclePermissionAddress";
+    printf "ORACLE_%s_PERMISSION_ADDRESS_BYTES=\"%s\"\n\n" "$i" "$oraclePermissionBytes";
+    } >> "$envFilename"
+done
 
 #   # Create Aggregator
 # btc=$(sbv2 near aggregator create "$queueAddress" \
@@ -164,7 +218,7 @@ touch "$envFilename"
 # echo -e "${Green}✓ Create BTC Aggregator:${Color_Off} $btcAddress"
 # echo -e "${Blue}Bytes:${Color_Off} $btcBytes"
 
-## CREATE FEEDS
+# Create Feeds
 for feed in "${feeds[@]}"
 do
   feedFilename=$(basename -- "$feed")
@@ -173,14 +227,15 @@ do
 
   # Create Aggregator
   aggregator=$(sbv2 near aggregator create "$queueAddress" \
-    --accountName "$authority" \
+    --networkId "$network_id" \
+    --accountName "$account_id" \
     --name "$feedNameUpper / USD" \
     --metadata "$feedNameUpper / USD" \
     --crankAddress "$crankAddress" \
     --batchSize 1 \
     --minJobs 3 \
     --minOracles 1 \
-    --updateInterval "${update_interval}" \
+    --updateInterval "$update_interval" \
     --json
   )
   aggregatorAddress=$(echo "$aggregator" | jq -r '.addressBase58')
@@ -191,7 +246,8 @@ do
 
   # Create Aggregator Permissions
   aggregatorPermission=$(sbv2 near permission create \
-    --accountName "$authority" \
+    --networkId "$network_id" \
+    --accountName "$account_id" \
     --granter "$queueAddress" \
     --grantee "$aggregatorAddress" \
     --enable \
@@ -218,7 +274,8 @@ do
     jobNameUpper=$(echo "$jobName" | tr '[:lower:]' '[:upper:]')
     echo -e "${Blue}Creating Job:${Color_Off} $jobName"
     job=$(sbv2 near job create "$job_definition" \
-      --accountName "$authority" \
+      --networkId "$network_id" \
+      --accountName "$account_id" \
       --name "$jobName - $feedNameUpper / USD" \
       --metadata "$jobName - $feedNameUpper / USD" \
       --json
@@ -229,7 +286,8 @@ do
     echo -e "${Blue}Bytes:${Color_Off} $jobBytes"
 
     sbv2 near aggregator add job "$aggregatorAddress" \
-      --accountName "$authority" \
+      --networkId "$network_id" \
+      --accountName "$account_id" \
       --jobKey "$jobAddress" \
       --jobWeight 1 &> /dev/null && echo -e "${Green}✓ JobAccount ${Purple}($jobName)${Green} added to aggregator successfully${Color_Off}" || echo -e "${Red}✗ Failed to add JobAccount ${Purple}($jobName)${Red} to aggregator${Color_Off}"
 
@@ -242,7 +300,8 @@ do
   done
 
   sbv2 near crank push "$crankAddress" \
-    --accountName "$authority" \
+    --networkId "$network_id" \
+    --accountName "$account_id" \
     -a "$aggregatorAddress" \
     &> /dev/null && echo -e "${Green}✓ $feedNameUpper AggregatorAccount pushed to crank successfully${Color_Off}\n" || echo -e "${Red}✗ Failed to push $feedNameUpper AggregatorAccount to crank${Color_Off}\n"
 done
