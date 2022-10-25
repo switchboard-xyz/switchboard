@@ -232,7 +232,6 @@ export default class EnvCreate extends BaseCommand {
             minUpdateDelaySeconds: feedDefinition.minUpdateDelaySeconds || 30,
             startAfter: 0,
             rewardEscrow: escrow.address,
-            historyLimit: 1000,
             varianceThreshold: feedDefinition.varianceThreshold
               ? SwitchboardDecimal.fromBig(
                   new Big(feedDefinition.varianceThreshold)

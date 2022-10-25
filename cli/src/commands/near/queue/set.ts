@@ -1,9 +1,7 @@
 import { Flags } from "@oclif/core";
 import { NearWithSignerBaseCommand as BaseCommand } from "../../../near";
-import { getWrappedMint, QueueAccount } from "@switchboard-xyz/near.js";
-import { BN } from "bn.js";
 
-export default class QueueCreate extends BaseCommand {
+export default class QueueSet extends BaseCommand {
   static enableJsonFlag = true;
 
   static description = "create a new oracle queue";
@@ -19,81 +17,83 @@ export default class QueueCreate extends BaseCommand {
     }),
     name: Flags.string({
       description: "name of the queue for easier identification",
+      required: false,
     }),
     metadata: Flags.string({
       description: "metadata of the queue for easier identification",
+      required: false,
     }),
     minStake: Flags.string({
       description: "minimum stake required by an oracle to join the queue",
-      default: "0",
+      required: false,
     }),
     reward: Flags.string({
       char: "r",
       description:
         "oracle rewards for successfully responding to an update request",
-      default: "0",
+      required: false,
     }),
     oracleTimeout: Flags.integer({
       description: "number of oracles to add to the queue",
-      default: 180,
-    }),
-    queueSize: Flags.integer({
-      description: "maximum number of oracles the queue can support",
-      default: 100,
+      required: false,
     }),
     slashingEnabled: Flags.boolean({
       description: "permit slashing malicous oracles",
-      default: false,
+      required: false,
     }),
     unpermissionedFeeds: Flags.boolean({
       description: "permit unpermissioned feeds",
-      default: false,
+      required: false,
     }),
     unpermissionedVrf: Flags.boolean({
       description: "permit unpermissioned VRF accounts",
-      default: false,
+      required: false,
     }),
     enableBufferRelayers: Flags.boolean({
       description: "enable oracles to fulfill buffer relayer requests",
-      default: false,
+      required: false,
     }),
   };
 
-  async run() {
-    const { flags, args } = await this.parse(QueueCreate);
+  static args = [
+    {
+      name: "queueAddress",
+      description: "address of the queue in Uint8 or Base58 encoding",
+      required: true,
+    },
+  ];
 
-    const queueAccount = await QueueAccount.create(this.program, {
+  async run() {
+    const { flags, args } = await this.parse(QueueSet);
+
+    const [queue, initialQueueData] = await this.loadQueue(args.queueAddress);
+
+    // TODO: Check authority matches
+
+    const txnReceipt = await queue.setConfigs({
       authority: flags.authority || this.program.account.accountId,
-      name: Buffer.from(flags.name || ""),
-      metadata: Buffer.from(flags.metadata || ""),
-      mint: this.program.mint.address,
-      reward: Number.parseFloat(flags.reward ?? "0"),
-      minStake: Number.parseFloat(flags.minStake ?? "0"),
-      queueSize: flags.queueSize,
-      oracleTimeout: flags.oracleTimeout,
-      slashingEnabled: flags.slashingEnabled,
-      unpermissionedFeeds: flags.unpermissionedFeeds,
-      unpermissionedVrf: flags.unpermissionedVrf,
-      enableBufferRelayers: flags.enableBufferRelayers,
+      name: flags.name ? Buffer.from(flags.name) : undefined,
+      metadata: flags.metadata ? Buffer.from(flags.metadata) : undefined,
+      reward: flags.reward ? Number.parseFloat(flags.reward) : undefined,
+      minStake: flags.minStake ? Number.parseFloat(flags.minStake) : undefined,
+      oracleTimeout: flags.oracleTimeout ?? undefined,
+      slashingEnabled: flags.slashingEnabled ?? undefined,
+      unpermissionedFeeds: flags.unpermissionedFeeds ?? undefined,
+      unpermissionedVrf: flags.unpermissionedVrf ?? undefined,
+      enableBufferRelayers: flags.enableBufferRelayers ?? undefined,
     });
-    const queueData = await queueAccount.loadData();
+
+    const queueData = await queue.loadData();
 
     if (flags.json) {
-      return this.normalizeAccountData(queueAccount.address, queueData);
+      return this.normalizeAccountData(queue.address, queueData);
     }
 
-    this.logger.info(
-      `Queue Key (Uint8Array): [${queueAccount.address
-        .map((e) => (e as any).toString())
-        .join(",")}]`
-    );
-    this.logger.info(
-      `Queue Key (Base58): ${this.encodeAddress(queueAccount.address)}`
-    );
+    this.logger.info(this.toUrl(txnReceipt.transaction.hash));
     this.logger.info(JSON.stringify(queueData, this.jsonReplacers, 2));
   }
 
   async catch(error) {
-    super.catch(error, "Failed to create near oracle queue");
+    super.catch(error, "Failed to set near oracle queue config");
   }
 }

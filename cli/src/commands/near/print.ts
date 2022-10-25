@@ -116,7 +116,7 @@ export default class NearPrint extends BaseCommand {
         const aggregator = new AggregatorAccount(params);
         data = {
           ...(await aggregator.loadData()).toJSON(),
-          history: undefined,
+          // history: undefined,
           escrow: (await aggregator.escrow.loadData()).toJSON(),
         };
         if (flags.all) {
@@ -139,7 +139,7 @@ export default class NearPrint extends BaseCommand {
             const permissionData = await permission.loadData();
             data = {
               ...data,
-              history: undefined,
+              // history: undefined,
               escrow: (await aggregator.escrow.loadData()).toJSON(),
               permission: {
                 address: permission.address,

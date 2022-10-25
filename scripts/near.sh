@@ -95,6 +95,7 @@ fi
 
 # Create Escrow
 escrow=$(sbv2 near escrow create \
+  --networkId "$network_id" \
   --accountName "$account_id" \
   --json
 )
@@ -232,10 +233,11 @@ do
     --name "$feedNameUpper / USD" \
     --metadata "$feedNameUpper / USD" \
     --crankAddress "$crankAddress" \
-    --batchSize 1 \
-    --minJobs 3 \
-    --minOracles 1 \
+    --batchSize "$num_oracles" \
+    --minOracles "$num_oracles" \
     --updateInterval "$update_interval" \
+    --varianceThreshold "1.0" \
+    --forceReportPeriod "300" \
     --json
   )
   aggregatorAddress=$(echo "$aggregator" | jq -r '.addressBase58')
@@ -307,9 +309,9 @@ do
 done
 
 echo -e "${Purple}Printing queue ...${Color_Off}"
-sbv2 near print queue "$queueAddress" --json --all
+sbv2 near print queue "$queueAddress" --networkId "$network_id" --json --all
 echo
 
 echo -e "${Purple}Printing oracle ...${Color_Off}"
-sbv2 near print oracle "$oracleAddress" --json --all
+sbv2 near print oracle "$oracleAddress" --networkId "$network_id" --json --all
 echo

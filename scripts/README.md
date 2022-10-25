@@ -30,3 +30,4 @@ Example:
         Update Interval: 10
         Num Oracles: 3
 ```
+./scripts/near.sh -a sbv2-authority.near -c mainnet -n 'Permissionless Queue' -m 0 -r 0.000075 -s 250 -u 10 -o 3

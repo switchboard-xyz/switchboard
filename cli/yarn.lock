@@ -2278,10 +2278,10 @@
     typedoc "^0.23.15"
     wait-for-event "^2.0.1"
 
-"@switchboard-xyz/near.js@^2.0.48":
-  version "2.0.48"
-  resolved "https://registry.npmjs.org/@switchboard-xyz/near.js/-/near.js-2.0.48.tgz#04770d34f08c67c9e8da5e89c0f17f395ffc7273"
-  integrity sha512-6Ca3Rr14S9vaB2Dtt3XqiTxaNYq3YClbG5iXgrTX7GMwfo3QtacyaNRKjmiuKWHZM8naHbpX1H6GewhVV6qvfg==
+"@switchboard-xyz/near.js@^2.0.58":
+  version "2.0.58"
+  resolved "https://registry.npmjs.org/@switchboard-xyz/near.js/-/near.js-2.0.58.tgz#3d9807b6ae51c0a79658a394a280d77dd6048270"
+  integrity sha512-Gl10uukzeJCkK6zhW1TOQkvOzlp1aUXkOsSrTaPUF779DYO79WIC6gWwIkoZkRP/sti3ZQSnOs1tu35FkEgFAA==
   dependencies:
     "@switchboard-xyz/common" "^2.0.0"
     "@switchboard-xyz/near.js" "^2.0.21"
@@ -2295,6 +2295,7 @@
     near-units "^0.1.9"
     typedoc "^0.23.16"
     wait-for-event "^2.0.1"
+    ws "^8.10.0"
 
 "@switchboard-xyz/sbv2-utils@^0.1.48":
   version "0.1.48"
@@ -8907,6 +8908,11 @@ ws@^7.0.0, ws@^7.4.5:
   version "7.5.9"
   resolved "https://registry.npmjs.org/ws/-/ws-7.5.9.tgz#54fa7db29f4c7cec68b1ddd3a89de099942bb591"
   integrity sha512-F+P9Jil7UiSKSkppIiD94dN07AwvFixvLIj1Og1Rl9GGMuNipJnV9JzjD6XuqmAeiswGvUmNLjr5cFuXwNS77Q==
+
+ws@^8.10.0:
+  version "8.10.0"
+  resolved "https://registry.npmjs.org/ws/-/ws-8.10.0.tgz#00a28c09dfb76eae4eb45c3b565f771d6951aa51"
+  integrity sha512-+s49uSmZpvtAsd2h37vIPy1RBusaLawVe8of+GyEPsaJTCMpj/2v8NpeK1SHXjBlQ95lQTmQofOJnFiLoaN3yw==
 
 ws@^8.5.0:
   version "8.8.1"

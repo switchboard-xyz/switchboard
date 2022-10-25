@@ -63,10 +63,6 @@ export default class CreateAggregator extends BaseCommand {
       description: "where to send rewards. defaults to user's escrow account",
       required: false,
     }),
-    historyLimit: Flags.integer({
-      description: "number of samples to store in aggregator's history",
-      default: 1000,
-    }),
     enable: Flags.boolean({
       description:
         "if required and queue authority is provided, enable permissions",
@@ -86,8 +82,6 @@ export default class CreateAggregator extends BaseCommand {
 
     const [queueAccount, queue] = await this.loadQueue(args.queueAddress);
     const escrow = await this.loadEscrow();
-    
-
 
     const aggregator = await AggregatorAccount.create(this.program, {
       authority: flags.authority ?? this.program.account.accountId,
@@ -101,7 +95,6 @@ export default class CreateAggregator extends BaseCommand {
       minJobResults: flags.minJobs ?? 1,
       minOracleResults: flags.minOracles ?? 1,
       minUpdateDelaySeconds: flags.updateInterval ?? 30,
-      historyLimit: flags.historyLimit ?? 1000,
       startAfter: 0,
       forceReportPeriod: flags.forceReportPeriod ?? 0,
       varianceThreshold: flags.varianceThreshold
@@ -117,7 +110,6 @@ export default class CreateAggregator extends BaseCommand {
       granter: queueAccount.address,
       grantee: aggregator.address,
     });
-    
 
     const data = {
       address: aggregator.address,
