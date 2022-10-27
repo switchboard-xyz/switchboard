@@ -56,7 +56,7 @@ export class DockerOracle implements Required<IOracleConfig> {
 
   constructor(
     readonly config: IOracleConfig,
-    readonly nodeImage: string = "dev-v2-10-03-22a",
+    readonly nodeImage: string = "dev-v2-10-18-22",
     readonly platform: "linux/arm64" | "linux/amd64" = "linux/amd64",
     readonly switchboardDir = path.join(process.cwd(), ".switchboard"),
     readonly silent = false

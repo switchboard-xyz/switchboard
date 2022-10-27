@@ -21,7 +21,7 @@ export default class AptosDockerOracle extends BaseCommand {
     }),
     nodeImage: Flags.string({
       description: "public key of the oracle to start-up",
-      default: "dev-v2-10-03-22a",
+      default: "dev-v2-10-18-22",
     }),
     arm: Flags.boolean({
       description: "apple silicon needs to use a docker image for linux/arm64",

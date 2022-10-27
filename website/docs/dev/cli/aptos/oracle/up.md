@@ -1,7 +1,7 @@
 ---
-
 title: Up
 ---
+
 start an aptos docker oracle
 
 ```asciidoc
@@ -22,7 +22,7 @@ FLAGS
   --keypair=<value>             (required) Path to AptosAccount keypair or config.yaml file
   --networkId=<option>          [default: devnet] Aptos network to connect to
                                 <options: devnet|testnet>
-  --nodeImage=<value>           [default: dev-v2-10-03-22a] public key of the oracle to start-up
+  --nodeImage=<value>           [default: dev-v2-10-18-22] public key of the oracle to start-up
   --profileName=<value>         [default: default] If --keypair is pointing to a yaml file, provide an optional profile
                                 to load. If none provided, default will be used
   --programId=<value>           [default: 0xc9b4bb0b1f7a343687c4f8bc6eea36dd2a3aa8d654e640050ab5b8635a6b9cbd]

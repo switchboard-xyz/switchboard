@@ -1,7 +1,7 @@
 ---
-
 title: Up
 ---
+
 start a near docker oracle
 
 ```asciidoc
@@ -25,7 +25,7 @@ FLAGS
                                 Defaults to ~/.near-credentials
   --networkId=<option>          [default: testnet] Near network ID to connect to
                                 <options: testnet|mainnet|betanet|localnet>
-  --nodeImage=<value>           [default: dev-v2-10-03-22a] public key of the oracle to start-up
+  --nodeImage=<value>           [default: dev-v2-10-18-22] public key of the oracle to start-up
   --programId=<value>           [default: switchboard-v2.testnet] Switchboard programId on the selected Near networkId
 
 GLOBAL FLAGS

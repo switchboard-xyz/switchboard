@@ -1,7 +1,7 @@
 ---
-
 title: Up
 ---
+
 start a solana docker oracle
 
 ```asciidoc
@@ -24,7 +24,7 @@ FLAGS
   --commitment=<option>         [default: confirmed] transaction commitment level to use
                                 <options: confirmed|finalized|processed>
   --mainnetBeta                 WARNING: use mainnet-beta solana cluster
-  --nodeImage=<value>           [default: dev-v2-10-03-22a] public key of the oracle to start-up
+  --nodeImage=<value>           [default: dev-v2-10-18-22] public key of the oracle to start-up
   --programId=<value>           alternative Switchboard program ID to interact with
 
 DESCRIPTION
