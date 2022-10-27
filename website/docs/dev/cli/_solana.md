@@ -1,97 +1,99 @@
+
 interact with switchboard on Solana
 
-- [`sbv2 solana aggregator add crank [CRANKKEY] [AGGREGATORKEY]`](#sbv2-solana-aggregator-add-crank-crankkey-aggregatorkey)
-- [`sbv2 solana aggregator add history [AGGREGATORKEY] [SIZE]`](#sbv2-solana-aggregator-add-history-aggregatorkey-size)
-- [`sbv2 solana aggregator add job [AGGREGATORKEY]`](#sbv2-solana-aggregator-add-job-aggregatorkey)
-- [`sbv2 solana aggregator create [QUEUEKEY]`](#sbv2-solana-aggregator-create-queuekey)
-- [`sbv2 solana aggregator create copy [AGGREGATORSOURCE]`](#sbv2-solana-aggregator-create-copy-aggregatorsource)
-- [`sbv2 solana aggregator create json [DEFINITIONFILE]`](#sbv2-solana-aggregator-create-json-definitionfile)
-- [`sbv2 solana aggregator history print [AGGREGATORKEY]`](#sbv2-solana-aggregator-history-print-aggregatorkey)
-- [`sbv2 solana aggregator lease create [AGGREGATORKEY]`](#sbv2-solana-aggregator-lease-create-aggregatorkey)
-- [`sbv2 solana aggregator lease extend [AGGREGATORKEY]`](#sbv2-solana-aggregator-lease-extend-aggregatorkey)
-- [`sbv2 solana aggregator lease print [AGGREGATORKEY]`](#sbv2-solana-aggregator-lease-print-aggregatorkey)
-- [`sbv2 solana aggregator lease withdraw [AGGREGATORKEY]`](#sbv2-solana-aggregator-lease-withdraw-aggregatorkey)
-- [`sbv2 solana aggregator lock [AGGREGATORKEY]`](#sbv2-solana-aggregator-lock-aggregatorkey)
-- [`sbv2 solana aggregator permission create [AGGREGATORKEY]`](#sbv2-solana-aggregator-permission-create-aggregatorkey)
-- [`sbv2 solana aggregator permission print [AGGREGATORKEY]`](#sbv2-solana-aggregator-permission-print-aggregatorkey)
-- [`sbv2 solana aggregator print [AGGREGATORKEY]`](#sbv2-solana-aggregator-print-aggregatorkey)
-- [`sbv2 solana aggregator print history [AGGREGATORKEY]`](#sbv2-solana-aggregator-print-history-aggregatorkey)
-- [`sbv2 solana aggregator print lease [AGGREGATORKEY]`](#sbv2-solana-aggregator-print-lease-aggregatorkey)
-- [`sbv2 solana aggregator print permission [AGGREGATORKEY]`](#sbv2-solana-aggregator-print-permission-aggregatorkey)
-- [`sbv2 solana aggregator remove job [AGGREGATORKEY] [JOBKEY]`](#sbv2-solana-aggregator-remove-job-aggregatorkey-jobkey)
-- [`sbv2 solana aggregator save history [AGGREGATORKEY]`](#sbv2-solana-aggregator-save-history-aggregatorkey)
-- [`sbv2 solana aggregator set [AGGREGATORKEY]`](#sbv2-solana-aggregator-set-aggregatorkey)
-- [`sbv2 solana aggregator set authority [AGGREGATORKEY] [NEWAUTHORITY]`](#sbv2-solana-aggregator-set-authority-aggregatorkey-newauthority)
-- [`sbv2 solana aggregator set batchSize [AGGREGATORKEY] BATCHSIZE`](#sbv2-solana-aggregator-set-batchsize-aggregatorkey-batchsize)
-- [`sbv2 solana aggregator set forceReport [AGGREGATORKEY] [FORCEREPORTPERIOD]`](#sbv2-solana-aggregator-set-forcereport-aggregatorkey-forcereportperiod)
-- [`sbv2 solana aggregator set forceReportPeriod [AGGREGATORKEY] [FORCEREPORTPERIOD]`](#sbv2-solana-aggregator-set-forcereportperiod-aggregatorkey-forcereportperiod)
-- [`sbv2 solana aggregator set history [AGGREGATORKEY] [SIZE]`](#sbv2-solana-aggregator-set-history-aggregatorkey-size)
-- [`sbv2 solana aggregator set minJobs [AGGREGATORKEY] [MINJOBRESULTS]`](#sbv2-solana-aggregator-set-minjobs-aggregatorkey-minjobresults)
-- [`sbv2 solana aggregator set minOracles [AGGREGATORKEY] [MINORACLERESULTS]`](#sbv2-solana-aggregator-set-minoracles-aggregatorkey-minoracleresults)
-- [`sbv2 solana aggregator set queue [AGGREGATORKEY] [QUEUEKEY]`](#sbv2-solana-aggregator-set-queue-aggregatorkey-queuekey)
-- [`sbv2 solana aggregator set updateInterval [AGGREGATORKEY] [UPDATEINTERVAL]`](#sbv2-solana-aggregator-set-updateinterval-aggregatorkey-updateinterval)
-- [`sbv2 solana aggregator set variance [AGGREGATORKEY] [VARIANCETHRESHOLD]`](#sbv2-solana-aggregator-set-variance-aggregatorkey-variancethreshold)
-- [`sbv2 solana aggregator set varianceThreshold [AGGREGATORKEY] [VARIANCETHRESHOLD]`](#sbv2-solana-aggregator-set-variancethreshold-aggregatorkey-variancethreshold)
-- [`sbv2 solana aggregator update [AGGREGATORKEY]`](#sbv2-solana-aggregator-update-aggregatorkey)
-- [`sbv2 solana aggregator watch [AGGREGATORKEY]`](#sbv2-solana-aggregator-watch-aggregatorkey)
-- [`sbv2 solana anchor test`](#sbv2-solana-anchor-test)
-- [`sbv2 solana buffer create [QUEUEKEY]`](#sbv2-solana-buffer-create-queuekey)
-- [`sbv2 solana buffer print [BUFFERRELAYERKEY]`](#sbv2-solana-buffer-print-bufferrelayerkey)
-- [`sbv2 solana crank add aggregator [CRANKKEY] [AGGREGATORKEY]`](#sbv2-solana-crank-add-aggregator-crankkey-aggregatorkey)
-- [`sbv2 solana crank create [QUEUEKEY]`](#sbv2-solana-crank-create-queuekey)
-- [`sbv2 solana crank list [CRANKKEY]`](#sbv2-solana-crank-list-crankkey)
-- [`sbv2 solana crank pop [CRANKKEY]`](#sbv2-solana-crank-pop-crankkey)
-- [`sbv2 solana crank print [CRANKKEY]`](#sbv2-solana-crank-print-crankkey)
-- [`sbv2 solana crank push [CRANKKEY] [AGGREGATORKEY]`](#sbv2-solana-crank-push-crankkey-aggregatorkey)
-- [`sbv2 solana crank turn [CRANKKEY]`](#sbv2-solana-crank-turn-crankkey)
-- [`sbv2 solana job create JOBDEFINITION`](#sbv2-solana-job-create-jobdefinition)
-- [`sbv2 solana job print [JOBKEY]`](#sbv2-solana-job-print-jobkey)
-- [`sbv2 solana json create aggregator [DEFINITIONFILE]`](#sbv2-solana-json-create-aggregator-definitionfile)
-- [`sbv2 solana lease create [AGGREGATORKEY]`](#sbv2-solana-lease-create-aggregatorkey)
-- [`sbv2 solana lease extend [AGGREGATORKEY]`](#sbv2-solana-lease-extend-aggregatorkey)
-- [`sbv2 solana lease withdraw [AGGREGATORKEY]`](#sbv2-solana-lease-withdraw-aggregatorkey)
-- [`sbv2 solana localnet env`](#sbv2-solana-localnet-env)
-- [`sbv2 solana oracle balance [ORACLEKEY]`](#sbv2-solana-oracle-balance-oraclekey)
-- [`sbv2 solana oracle create [QUEUEKEY]`](#sbv2-solana-oracle-create-queuekey)
-- [`sbv2 solana oracle deposit [ORACLEKEY]`](#sbv2-solana-oracle-deposit-oraclekey)
-- [`sbv2 solana oracle nonce [ORACLEKEY]`](#sbv2-solana-oracle-nonce-oraclekey)
-- [`sbv2 solana oracle permission create [ORACLEKEY]`](#sbv2-solana-oracle-permission-create-oraclekey)
-- [`sbv2 solana oracle permission print [ORACLEKEY]`](#sbv2-solana-oracle-permission-print-oraclekey)
-- [`sbv2 solana oracle print [ORACLEKEY]`](#sbv2-solana-oracle-print-oraclekey)
-- [`sbv2 solana oracle print permission [ORACLEKEY]`](#sbv2-solana-oracle-print-permission-oraclekey)
-- [`sbv2 solana oracle up [ORACLEADDRESS]`](#sbv2-solana-oracle-up-oracleaddress)
-- [`sbv2 solana oracle withdraw [ORACLEKEY]`](#sbv2-solana-oracle-withdraw-oraclekey)
-- [`sbv2 solana permission create [GRANTER] [GRANTEE]`](#sbv2-solana-permission-create-granter-grantee)
-- [`sbv2 solana permission print [PERMISSIONKEY]`](#sbv2-solana-permission-print-permissionkey)
-- [`sbv2 solana permission set [PERMISSIONKEY]`](#sbv2-solana-permission-set-permissionkey)
-- [`sbv2 solana print [PUBLICKEY]`](#sbv2-solana-print-publickey)
-- [`sbv2 solana print aggregator [AGGREGATORKEY]`](#sbv2-solana-print-aggregator-aggregatorkey)
-- [`sbv2 solana print aggregator history [AGGREGATORKEY]`](#sbv2-solana-print-aggregator-history-aggregatorkey)
-- [`sbv2 solana print aggregator lease [AGGREGATORKEY]`](#sbv2-solana-print-aggregator-lease-aggregatorkey)
-- [`sbv2 solana print aggregator permission [AGGREGATORKEY]`](#sbv2-solana-print-aggregator-permission-aggregatorkey)
-- [`sbv2 solana print buffer [BUFFERRELAYERKEY]`](#sbv2-solana-print-buffer-bufferrelayerkey)
-- [`sbv2 solana print crank [CRANKKEY]`](#sbv2-solana-print-crank-crankkey)
-- [`sbv2 solana print job [JOBKEY]`](#sbv2-solana-print-job-jobkey)
-- [`sbv2 solana print oracle [ORACLEKEY]`](#sbv2-solana-print-oracle-oraclekey)
-- [`sbv2 solana print oracle permission [ORACLEKEY]`](#sbv2-solana-print-oracle-permission-oraclekey)
-- [`sbv2 solana print permission [PERMISSIONKEY]`](#sbv2-solana-print-permission-permissionkey)
-- [`sbv2 solana print program`](#sbv2-solana-print-program)
-- [`sbv2 solana print queue [QUEUEKEY]`](#sbv2-solana-print-queue-queuekey)
-- [`sbv2 solana print vrf [VRFKEY]`](#sbv2-solana-print-vrf-vrfkey)
-- [`sbv2 solana program print`](#sbv2-solana-program-print)
-- [`sbv2 solana queue create`](#sbv2-solana-queue-create)
-- [`sbv2 solana queue print [QUEUEKEY]`](#sbv2-solana-queue-print-queuekey)
-- [`sbv2 solana queue set rewards [QUEUEKEY] [REWARDS]`](#sbv2-solana-queue-set-rewards-queuekey-rewards)
-- [`sbv2 solana queue set vrf [QUEUEKEY]`](#sbv2-solana-queue-set-vrf-queuekey)
-- [`sbv2 solana set aggregator [AGGREGATORKEY]`](#sbv2-solana-set-aggregator-aggregatorkey)
-- [`sbv2 solana vrf create [QUEUEKEY]`](#sbv2-solana-vrf-create-queuekey)
-- [`sbv2 solana vrf create example [QUEUEKEY]`](#sbv2-solana-vrf-create-example-queuekey)
-- [`sbv2 solana vrf print [VRFKEY]`](#sbv2-solana-vrf-print-vrfkey)
-- [`sbv2 solana vrf request [VRFKEY]`](#sbv2-solana-vrf-request-vrfkey)
-- [`sbv2 solana vrf verify [VRFKEY]`](#sbv2-solana-vrf-verify-vrfkey)
-- [`sbv2 solana vrf watch [VRFKEY]`](#sbv2-solana-vrf-watch-vrfkey)
-- [`sbv2 solana watch aggregator [AGGREGATORKEY]`](#sbv2-solana-watch-aggregator-aggregatorkey)
-- [`sbv2 solana watch vrf [VRFKEY]`](#sbv2-solana-watch-vrf-vrfkey)
+* [`sbv2 solana aggregator add crank [CRANKKEY] [AGGREGATORKEY]`](#sbv2-solana-aggregator-add-crank-crankkey-aggregatorkey)
+* [`sbv2 solana aggregator add history [AGGREGATORKEY] [SIZE]`](#sbv2-solana-aggregator-add-history-aggregatorkey-size)
+* [`sbv2 solana aggregator add job [AGGREGATORKEY]`](#sbv2-solana-aggregator-add-job-aggregatorkey)
+* [`sbv2 solana aggregator create [QUEUEKEY]`](#sbv2-solana-aggregator-create-queuekey)
+* [`sbv2 solana aggregator create copy [AGGREGATORSOURCE]`](#sbv2-solana-aggregator-create-copy-aggregatorsource)
+* [`sbv2 solana aggregator create json [DEFINITIONFILE]`](#sbv2-solana-aggregator-create-json-definitionfile)
+* [`sbv2 solana aggregator history print [AGGREGATORKEY]`](#sbv2-solana-aggregator-history-print-aggregatorkey)
+* [`sbv2 solana aggregator lease create [AGGREGATORKEY]`](#sbv2-solana-aggregator-lease-create-aggregatorkey)
+* [`sbv2 solana aggregator lease extend [AGGREGATORKEY]`](#sbv2-solana-aggregator-lease-extend-aggregatorkey)
+* [`sbv2 solana aggregator lease print [AGGREGATORKEY]`](#sbv2-solana-aggregator-lease-print-aggregatorkey)
+* [`sbv2 solana aggregator lease withdraw [AGGREGATORKEY]`](#sbv2-solana-aggregator-lease-withdraw-aggregatorkey)
+* [`sbv2 solana aggregator lock [AGGREGATORKEY]`](#sbv2-solana-aggregator-lock-aggregatorkey)
+* [`sbv2 solana aggregator permission create [AGGREGATORKEY]`](#sbv2-solana-aggregator-permission-create-aggregatorkey)
+* [`sbv2 solana aggregator permission print [AGGREGATORKEY]`](#sbv2-solana-aggregator-permission-print-aggregatorkey)
+* [`sbv2 solana aggregator print [AGGREGATORKEY]`](#sbv2-solana-aggregator-print-aggregatorkey)
+* [`sbv2 solana aggregator print history [AGGREGATORKEY]`](#sbv2-solana-aggregator-print-history-aggregatorkey)
+* [`sbv2 solana aggregator print lease [AGGREGATORKEY]`](#sbv2-solana-aggregator-print-lease-aggregatorkey)
+* [`sbv2 solana aggregator print permission [AGGREGATORKEY]`](#sbv2-solana-aggregator-print-permission-aggregatorkey)
+* [`sbv2 solana aggregator remove job [AGGREGATORKEY] [JOBKEY]`](#sbv2-solana-aggregator-remove-job-aggregatorkey-jobkey)
+* [`sbv2 solana aggregator save history [AGGREGATORKEY]`](#sbv2-solana-aggregator-save-history-aggregatorkey)
+* [`sbv2 solana aggregator set [AGGREGATORKEY]`](#sbv2-solana-aggregator-set-aggregatorkey)
+* [`sbv2 solana aggregator set authority [AGGREGATORKEY] [NEWAUTHORITY]`](#sbv2-solana-aggregator-set-authority-aggregatorkey-newauthority)
+* [`sbv2 solana aggregator set batchSize [AGGREGATORKEY] BATCHSIZE`](#sbv2-solana-aggregator-set-batchsize-aggregatorkey-batchsize)
+* [`sbv2 solana aggregator set forceReport [AGGREGATORKEY] [FORCEREPORTPERIOD]`](#sbv2-solana-aggregator-set-forcereport-aggregatorkey-forcereportperiod)
+* [`sbv2 solana aggregator set forceReportPeriod [AGGREGATORKEY] [FORCEREPORTPERIOD]`](#sbv2-solana-aggregator-set-forcereportperiod-aggregatorkey-forcereportperiod)
+* [`sbv2 solana aggregator set history [AGGREGATORKEY] [SIZE]`](#sbv2-solana-aggregator-set-history-aggregatorkey-size)
+* [`sbv2 solana aggregator set minJobs [AGGREGATORKEY] [MINJOBRESULTS]`](#sbv2-solana-aggregator-set-minjobs-aggregatorkey-minjobresults)
+* [`sbv2 solana aggregator set minOracles [AGGREGATORKEY] [MINORACLERESULTS]`](#sbv2-solana-aggregator-set-minoracles-aggregatorkey-minoracleresults)
+* [`sbv2 solana aggregator set queue [AGGREGATORKEY] [QUEUEKEY]`](#sbv2-solana-aggregator-set-queue-aggregatorkey-queuekey)
+* [`sbv2 solana aggregator set updateInterval [AGGREGATORKEY] [UPDATEINTERVAL]`](#sbv2-solana-aggregator-set-updateinterval-aggregatorkey-updateinterval)
+* [`sbv2 solana aggregator set variance [AGGREGATORKEY] [VARIANCETHRESHOLD]`](#sbv2-solana-aggregator-set-variance-aggregatorkey-variancethreshold)
+* [`sbv2 solana aggregator set varianceThreshold [AGGREGATORKEY] [VARIANCETHRESHOLD]`](#sbv2-solana-aggregator-set-variancethreshold-aggregatorkey-variancethreshold)
+* [`sbv2 solana aggregator update [AGGREGATORKEY]`](#sbv2-solana-aggregator-update-aggregatorkey)
+* [`sbv2 solana aggregator watch [AGGREGATORKEY]`](#sbv2-solana-aggregator-watch-aggregatorkey)
+* [`sbv2 solana anchor test`](#sbv2-solana-anchor-test)
+* [`sbv2 solana buffer create [QUEUEKEY]`](#sbv2-solana-buffer-create-queuekey)
+* [`sbv2 solana buffer print [BUFFERRELAYERKEY]`](#sbv2-solana-buffer-print-bufferrelayerkey)
+* [`sbv2 solana crank add aggregator [CRANKKEY] [AGGREGATORKEY]`](#sbv2-solana-crank-add-aggregator-crankkey-aggregatorkey)
+* [`sbv2 solana crank cmp [CRANKKEY1] [CRANKKEY2]`](#sbv2-solana-crank-cmp-crankkey1-crankkey2)
+* [`sbv2 solana crank create [QUEUEKEY]`](#sbv2-solana-crank-create-queuekey)
+* [`sbv2 solana crank list [CRANKKEY]`](#sbv2-solana-crank-list-crankkey)
+* [`sbv2 solana crank pop [CRANKKEY]`](#sbv2-solana-crank-pop-crankkey)
+* [`sbv2 solana crank print [CRANKKEY]`](#sbv2-solana-crank-print-crankkey)
+* [`sbv2 solana crank push [CRANKKEY] [AGGREGATORKEY]`](#sbv2-solana-crank-push-crankkey-aggregatorkey)
+* [`sbv2 solana crank turn [CRANKKEY]`](#sbv2-solana-crank-turn-crankkey)
+* [`sbv2 solana job create JOBDEFINITION`](#sbv2-solana-job-create-jobdefinition)
+* [`sbv2 solana job print [JOBKEY]`](#sbv2-solana-job-print-jobkey)
+* [`sbv2 solana json create aggregator [DEFINITIONFILE]`](#sbv2-solana-json-create-aggregator-definitionfile)
+* [`sbv2 solana lease create [AGGREGATORKEY]`](#sbv2-solana-lease-create-aggregatorkey)
+* [`sbv2 solana lease extend [AGGREGATORKEY]`](#sbv2-solana-lease-extend-aggregatorkey)
+* [`sbv2 solana lease withdraw [AGGREGATORKEY]`](#sbv2-solana-lease-withdraw-aggregatorkey)
+* [`sbv2 solana localnet env`](#sbv2-solana-localnet-env)
+* [`sbv2 solana oracle balance [ORACLEKEY]`](#sbv2-solana-oracle-balance-oraclekey)
+* [`sbv2 solana oracle create [QUEUEKEY]`](#sbv2-solana-oracle-create-queuekey)
+* [`sbv2 solana oracle deposit [ORACLEKEY]`](#sbv2-solana-oracle-deposit-oraclekey)
+* [`sbv2 solana oracle nonce [ORACLEKEY]`](#sbv2-solana-oracle-nonce-oraclekey)
+* [`sbv2 solana oracle permission create [ORACLEKEY]`](#sbv2-solana-oracle-permission-create-oraclekey)
+* [`sbv2 solana oracle permission print [ORACLEKEY]`](#sbv2-solana-oracle-permission-print-oraclekey)
+* [`sbv2 solana oracle print [ORACLEKEY]`](#sbv2-solana-oracle-print-oraclekey)
+* [`sbv2 solana oracle print permission [ORACLEKEY]`](#sbv2-solana-oracle-print-permission-oraclekey)
+* [`sbv2 solana oracle up [ORACLEADDRESS]`](#sbv2-solana-oracle-up-oracleaddress)
+* [`sbv2 solana oracle withdraw [ORACLEKEY]`](#sbv2-solana-oracle-withdraw-oraclekey)
+* [`sbv2 solana permission create [GRANTER] [GRANTEE]`](#sbv2-solana-permission-create-granter-grantee)
+* [`sbv2 solana permission print [PERMISSIONKEY]`](#sbv2-solana-permission-print-permissionkey)
+* [`sbv2 solana permission set [PERMISSIONKEY]`](#sbv2-solana-permission-set-permissionkey)
+* [`sbv2 solana print [PUBLICKEY]`](#sbv2-solana-print-publickey)
+* [`sbv2 solana print aggregator [AGGREGATORKEY]`](#sbv2-solana-print-aggregator-aggregatorkey)
+* [`sbv2 solana print aggregator history [AGGREGATORKEY]`](#sbv2-solana-print-aggregator-history-aggregatorkey)
+* [`sbv2 solana print aggregator lease [AGGREGATORKEY]`](#sbv2-solana-print-aggregator-lease-aggregatorkey)
+* [`sbv2 solana print aggregator permission [AGGREGATORKEY]`](#sbv2-solana-print-aggregator-permission-aggregatorkey)
+* [`sbv2 solana print buffer [BUFFERRELAYERKEY]`](#sbv2-solana-print-buffer-bufferrelayerkey)
+* [`sbv2 solana print crank [CRANKKEY]`](#sbv2-solana-print-crank-crankkey)
+* [`sbv2 solana print job [JOBKEY]`](#sbv2-solana-print-job-jobkey)
+* [`sbv2 solana print oracle [ORACLEKEY]`](#sbv2-solana-print-oracle-oraclekey)
+* [`sbv2 solana print oracle permission [ORACLEKEY]`](#sbv2-solana-print-oracle-permission-oraclekey)
+* [`sbv2 solana print permission [PERMISSIONKEY]`](#sbv2-solana-print-permission-permissionkey)
+* [`sbv2 solana print program`](#sbv2-solana-print-program)
+* [`sbv2 solana print queue [QUEUEKEY]`](#sbv2-solana-print-queue-queuekey)
+* [`sbv2 solana print vrf [VRFKEY]`](#sbv2-solana-print-vrf-vrfkey)
+* [`sbv2 solana program print`](#sbv2-solana-program-print)
+* [`sbv2 solana queue create`](#sbv2-solana-queue-create)
+* [`sbv2 solana queue print [QUEUEKEY]`](#sbv2-solana-queue-print-queuekey)
+* [`sbv2 solana queue set rewards [QUEUEKEY] [REWARDS]`](#sbv2-solana-queue-set-rewards-queuekey-rewards)
+* [`sbv2 solana queue set vrf [QUEUEKEY]`](#sbv2-solana-queue-set-vrf-queuekey)
+* [`sbv2 solana set aggregator [AGGREGATORKEY]`](#sbv2-solana-set-aggregator-aggregatorkey)
+* [`sbv2 solana vrf create [QUEUEKEY]`](#sbv2-solana-vrf-create-queuekey)
+* [`sbv2 solana vrf create example [QUEUEKEY]`](#sbv2-solana-vrf-create-example-queuekey)
+* [`sbv2 solana vrf print [VRFKEY]`](#sbv2-solana-vrf-print-vrfkey)
+* [`sbv2 solana vrf request [VRFKEY]`](#sbv2-solana-vrf-request-vrfkey)
+* [`sbv2 solana vrf verify [VRFKEY]`](#sbv2-solana-vrf-verify-vrfkey)
+* [`sbv2 solana vrf watch [VRFKEY]`](#sbv2-solana-vrf-watch-vrfkey)
+* [`sbv2 solana watch aggregator [AGGREGATORKEY]`](#sbv2-solana-watch-aggregator-aggregatorkey)
+* [`sbv2 solana watch vrf [VRFKEY]`](#sbv2-solana-watch-vrf-vrfkey)
 
 ## `sbv2 solana aggregator add crank [CRANKKEY] [AGGREGATORKEY]`
 
@@ -1039,8 +1041,7 @@ DESCRIPTION
 
 ## `sbv2 solana aggregator set minOracles [AGGREGATORKEY] [MINORACLERESULTS]`
 
-set an aggregator's minimum number of oracles that must respond before a result
-is accepted on-chain
+set an aggregator's minimum number of oracles that must respond before a result is accepted on-chain
 
 ```
 USAGE
@@ -1397,6 +1398,35 @@ DESCRIPTION
 ALIASES
   $ sbv2 solana aggregator add crank
   $ sbv2 solana crank add aggregator
+```
+
+## `sbv2 solana crank cmp [CRANKKEY1] [CRANKKEY2]`
+
+write the crank account definitions to a JSON file
+
+```
+USAGE
+  $ sbv2 solana crank cmp [CRANKKEY1] [CRANKKEY2] -f <value> [-h] [-v] [-s] [--mainnetBeta] [-u <value>] [--programId
+    <value>] [--commitment confirmed|finalized|processed] [--force]
+
+ARGUMENTS
+  CRANKKEY1  public key of the crank
+  CRANKKEY2  public key of the crank
+
+FLAGS
+  -f, --outputFile=<value>  (required) output file to save aggregator pubkeys to
+  -h, --help                Show CLI help.
+  -s, --silent              suppress cli prompts
+  -u, --rpcUrl=<value>      alternate RPC url
+  -v, --verbose             log everything
+  --commitment=<option>     [default: confirmed] transaction commitment level to use
+                            <options: confirmed|finalized|processed>
+  --force                   overwrite output file if exists
+  --mainnetBeta             WARNING: use mainnet-beta solana cluster
+  --programId=<value>       alternative Switchboard program ID to interact with
+
+DESCRIPTION
+  write the crank account definitions to a JSON file
 ```
 
 ## `sbv2 solana crank create [QUEUEKEY]`

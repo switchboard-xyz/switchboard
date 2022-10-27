@@ -1,7 +1,7 @@
 ---
+
 title: Test
 ---
-
 run anchor test and a switchboard oracle in parallel
 
 ```asciidoc

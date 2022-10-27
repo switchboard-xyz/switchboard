@@ -21,7 +21,11 @@
  - [sbv2 aptos list crank](/dev/cli/aptos/list/crank)
 ## sbv2 aptos oracle
  - [sbv2 aptos oracle create](/dev/cli/aptos/oracle/create)
+ - [sbv2 aptos oracle metrics](/dev/cli/aptos/oracle/metrics)
  - [sbv2 aptos oracle up](/dev/cli/aptos/oracle/up)
+## sbv2 aptos permission
+ - [sbv2 aptos permission create](/dev/cli/aptos/permission/create)
+ - [sbv2 aptos permission set](/dev/cli/aptos/permission/set)
 ## sbv2 aptos pop
  - [sbv2 aptos pop crank](/dev/cli/aptos/pop/crank)
 ## sbv2 aptos print

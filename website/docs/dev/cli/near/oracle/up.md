@@ -1,14 +1,14 @@
 ---
+
 title: Up
 ---
-
 start a near docker oracle
 
 ```asciidoc
 USAGE
-  $ sbv2 near oracle up [ORACLEADDRESS] --accountName <value> [-h] [-v] [-s] [--networkId
-    testnet|mainnet|betanet|localnet] [--programId <value>] [-u <value>] [--nearCredentialsDir <value>] [--json] [-d
-    <value>] [--nodeImage <value>] [--arm]
+  $ sbv2 near oracle up [ORACLEADDRESS] --accountName <value> [-h] [-v] [-s] [--networkId testnet|mainnet|localnet]
+    [--programId <value>] [-u <value>] [--nearCredentialsDir <value>] [--json] [-d <value>] [--nodeImage <value>]
+    [--arm]
 
 ARGUMENTS
   ORACLEADDRESS  address of the oracle in Uint8 or Base58 encoding
@@ -24,9 +24,9 @@ FLAGS
   --nearCredentialsDir=<value>  [default: /Users/gally/.near-credentials] Alternative directory for near credentials.
                                 Defaults to ~/.near-credentials
   --networkId=<option>          [default: testnet] Near network ID to connect to
-                                <options: testnet|mainnet|betanet|localnet>
+                                <options: testnet|mainnet|localnet>
   --nodeImage=<value>           [default: dev-v2-10-18-22] public key of the oracle to start-up
-  --programId=<value>           [default: switchboard-v2.testnet] Switchboard programId on the selected Near networkId
+  --programId=<value>           Switchboard programId on the selected Near networkId
 
 GLOBAL FLAGS
   --json  Format output as json.

@@ -1,13 +1,17 @@
 ---
 
-title: Print
+title: Add History
 ---
-print an escrow token account
+add rows to a history vector
 
 ```asciidoc
 USAGE
-  $ sbv2 near escrow print --accountName <value> [-h] [-v] [-s] [--networkId testnet|mainnet|localnet] [--programId
-    <value>] [-u <value>] [--nearCredentialsDir <value>] [--json]
+  $ sbv2 near aggregator add history [AGGREGATORADDRESS] --accountName <value> [-h] [-v] [-s] [--networkId
+    testnet|mainnet|localnet] [--programId <value>] [-u <value>] [--nearCredentialsDir <value>] [--json] [--numRows
+    <value>]
+
+ARGUMENTS
+  AGGREGATORADDRESS  address of the aggregator in Uint8 or Base58 encoding
 
 FLAGS
   -h, --help                    Show CLI help.
@@ -19,14 +23,15 @@ FLAGS
                                 Defaults to ~/.near-credentials
   --networkId=<option>          [default: testnet] Near network ID to connect to
                                 <options: testnet|mainnet|localnet>
+  --numRows=<value>             [default: 1000] number of rows to add to the aggregator
   --programId=<value>           Switchboard programId on the selected Near networkId
 
 GLOBAL FLAGS
   --json  Format output as json.
 
 DESCRIPTION
-  print an escrow token account
+  add rows to a history vector
 
 ALIASES
-  $ sbv2 near print escrow
+  $ sbv2 near aggregator history add
 ```

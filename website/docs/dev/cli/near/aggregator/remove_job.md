@@ -7,8 +7,8 @@ remove a job to an aggregator
 ```asciidoc
 USAGE
   $ sbv2 near aggregator remove job [AGGREGATORADDRESS] --accountName <value> [-h] [-v] [-s] [--networkId
-    testnet|mainnet|betanet|localnet] [--programId <value>] [-u <value>] [--nearCredentialsDir <value>] [--json] [-a
-    <value>] [-j <value>]
+    testnet|mainnet|localnet] [--programId <value>] [-u <value>] [--nearCredentialsDir <value>] [--json] [-a <value>]
+    [-j <value>]
 
 ARGUMENTS
   AGGREGATORADDRESS  address of the aggregator in Uint8 or Base58 encoding
@@ -24,8 +24,8 @@ FLAGS
   --nearCredentialsDir=<value>  [default: /Users/gally/.near-credentials] Alternative directory for near credentials.
                                 Defaults to ~/.near-credentials
   --networkId=<option>          [default: testnet] Near network ID to connect to
-                                <options: testnet|mainnet|betanet|localnet>
-  --programId=<value>           [default: switchboard-v2.testnet] Switchboard programId on the selected Near networkId
+                                <options: testnet|mainnet|localnet>
+  --programId=<value>           Switchboard programId on the selected Near networkId
 
 GLOBAL FLAGS
   --json  Format output as json.

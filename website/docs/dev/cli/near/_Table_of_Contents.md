@@ -1,9 +1,11 @@
 ## sbv2 near aggregator
+ - [sbv2 near aggregator add history](/dev/cli/near/aggregator/add_history)
  - [sbv2 near aggregator add job](/dev/cli/near/aggregator/add_job)
  - [sbv2 near aggregator create](/dev/cli/near/aggregator/create)
  - [sbv2 near aggregator escrow](/dev/cli/near/aggregator/escrow)
  - [sbv2 near aggregator fetch](/dev/cli/near/aggregator/fetch)
  - [sbv2 near aggregator fund](/dev/cli/near/aggregator/fund)
+ - [sbv2 near aggregator history add](/dev/cli/near/aggregator/history_add)
  - [sbv2 near aggregator job add](/dev/cli/near/aggregator/job_add)
  - [sbv2 near aggregator job remove](/dev/cli/near/aggregator/job_remove)
  - [sbv2 near aggregator permission create](/dev/cli/near/aggregator/permission_create)
@@ -51,3 +53,4 @@
  - [sbv2 near queue create](/dev/cli/near/queue/create)
  - [sbv2 near queue feeds](/dev/cli/near/queue/feeds)
  - [sbv2 near queue list](/dev/cli/near/queue/list)
+ - [sbv2 near queue set](/dev/cli/near/queue/set)
