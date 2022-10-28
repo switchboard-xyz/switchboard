@@ -5,9 +5,9 @@ import { SwitchboardDecimal } from "@switchboard-xyz/switchboard-v2";
 import Big from "big.js";
 import fs from "fs";
 import path from "path";
-import { SolanaBaseCommand } from "./solana/BaseCommand";
+import { CliBaseCommand } from "./BaseCommand";
 
-abstract class OutputFileBaseCommand extends SolanaBaseCommand {
+export abstract class OutputFileBaseCommand extends CliBaseCommand {
   outputBasePath: string;
 
   // outputTxtFile?: string;
@@ -17,7 +17,7 @@ abstract class OutputFileBaseCommand extends SolanaBaseCommand {
   outputCsvFile?: string;
 
   static flags = {
-    ...SolanaBaseCommand.flags,
+    ...CliBaseCommand.flags,
     force: Flags.boolean({ description: "overwrite output file if exists" }),
     outputFile: Flags.string({
       char: "f",
@@ -38,9 +38,7 @@ abstract class OutputFileBaseCommand extends SolanaBaseCommand {
   async init() {
     await super.init();
     const { flags } = await this.parse((<Input<any>>this.constructor) as any);
-    SolanaBaseCommand.flags = flags as any;
-
-    this.program = await this.loadProgram();
+    CliBaseCommand.flags = flags as any;
 
     const parsedPath = path.parse(
       (flags as any).outputFile.startsWith("/") ||

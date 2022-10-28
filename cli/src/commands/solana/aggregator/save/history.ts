@@ -23,30 +23,32 @@ export default class AggregatorUpdate extends OutputFileBaseCommand {
   async run() {
     const { args, flags } = await this.parse(AggregatorUpdate);
 
-    const [aggregatorAccount, aggregator] = await this.loadAggregator(
-      args.aggregatorKey
-    );
+    // const aggregatorAccount = new Swi
 
-    const history = await aggregatorAccount.loadHistory();
+    // const [aggregatorAccount, aggregator] = await this.loadAggregator(
+    //   args.aggregatorKey
+    // );
 
-    this.save(
-      history.map((r) => {
-        return {
-          timestamp: Number.parseInt(r.timestamp.toString(10)),
-          datetime: `"${new Date(
-            r.timestamp.toNumber() * 1000
-          ).toUTCString()}"`,
-          value: r.value,
-        };
-      }),
-      ["timestamp", "datetime", "value"]
-    );
+    // const history = await aggregatorAccount.loadHistory();
 
-    if (this.silent) {
-      return;
-    } else {
-      this.logger.log(`Files saved`);
-    }
+    // this.save(
+    //   history.map((r) => {
+    //     return {
+    //       timestamp: Number.parseInt(r.timestamp.toString(10)),
+    //       datetime: `"${new Date(
+    //         r.timestamp.toNumber() * 1000
+    //       ).toUTCString()}"`,
+    //       value: r.value,
+    //     };
+    //   }),
+    //   ["timestamp", "datetime", "value"]
+    // );
+
+    // if (this.silent) {
+    //   return;
+    // } else {
+    //   this.logger.log(`Files saved`);
+    // }
   }
 
   async catch(error) {
