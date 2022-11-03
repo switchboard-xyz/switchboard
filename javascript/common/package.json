@@ -2,7 +2,7 @@
   "name": "@switchboard-xyz/common",
   "author": "",
   "license": "MIT",
-  "version": "2.1.1",
+  "version": "2.1.2",
   "description": "common type definitions and utils for interacting with switchboard",
   "files": [
     "lib",
@@ -25,10 +25,10 @@
     "build:cjs": "tsc -p tsconfig.cjs.json && yarn build:cjs:protos",
     "build:esm": "tsc && yarn build:esm:protos",
     "build:protos": "shx mkdir -p src/protos; pbjs --root sbv2Protos -t static-module -o src/protos/index.js ./protos/*.proto && pbts -o src/protos/index.d.ts src/protos/index.js; ",
-    "build:cjs:protos": "shx rm -rf lib/cjs/protos; shx mkdir -p lib/cjs/protos; pbjs --root sbv2Protos -t static-module -o lib/cjs/protos/index.js ./protos/*.proto && pbts -o lib/cjs/protos/index.d.ts lib/cjs/protos/index.js",
+    "build:cjs:protos": "syarnhx rm -rf lib/cjs/protos; shx mkdir -p lib/cjs/protos; pbjs --root sbv2Protos -t static-module -o lib/cjs/protos/index.js ./protos/*.proto && pbts -o lib/cjs/protos/index.d.ts lib/cjs/protos/index.js",
     "build:esm:protos": "shx rm -rf lib/esm/protos; shx mkdir -p lib/esm/protos; pbjs --root sbv2Protos -t static-module --es6 -w \"es6\" -o lib/esm/protos/index.js ./protos/*.proto && pbts -o lib/esm/protos/index.d.ts lib/esm/protos/index.js && shx --silent sed  -i 'protobufjs/minimal' 'protobufjs/minimal.js' lib/esm/protos/index.js && shx --silent sed -i 'import \\* as' 'import' lib/esm/protos/index.js",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "prepublish": "yarn build"
+    "prepublishOnly": "yarn build"
   },
   "dependencies": {
     "big.js": "^6.2.1",
