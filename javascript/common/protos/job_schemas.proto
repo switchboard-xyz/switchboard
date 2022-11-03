@@ -517,6 +517,50 @@ message OracleJob {
     optional BufferParseType type = 3;
   }
 
+  message HistoryFunctionTask {
+    enum Method {
+      METHOD_MIN = 0;
+      METHOD_MAX = 1;
+    }
+    optional Method method = 1;
+    optional string aggregator_address = 2;
+    optional uint32 period = 3;
+  }
+
+  message VwapTask {
+    optional string price_aggregator_address = 1;
+    optional string volume_aggregator_address = 2;
+    optional uint32 period = 3;
+  }
+
+  message EwmaTask {
+    optional string aggregator_address = 1;
+    optional int32 period = 2;
+    optional double lambda = 3;
+  }
+
+  message ComparisonTask {
+    enum Operation {
+      OPERATION_EQ = 0;
+      OPERATION_GT = 1;
+      OPERATION_LT = 2;
+    }
+    optional Operation op = 1;
+    optional OracleJob lhs = 2;
+    optional OracleJob rhs = 3;
+    optional OracleJob onTrue = 4;
+    optional OracleJob onFalse = 5;
+    optional OracleJob onFailure = 6;
+  }
+
+  message RoundTask {
+    enum Method {
+      METHOD_ROUND_UP = 0;
+      METHOD_ROUND_DOWN = 1;
+    }
+    optional Method method = 1;
+  }
+
   message Task {
     oneof Task {
       HttpTask http_task = 1;
@@ -557,7 +601,12 @@ message OracleJob {
       SolanaAccountDataFetchTask solana_account_data_fetch_task = 37;
       BufferLayoutParseTask buffer_layout_parse_task = 38;
       CronParseTask cron_parse_task = 39;
-      MinTask minTask = 40;
+      MinTask min_task = 40;
+      HistoryFunctionTask history_function_task = 41;
+      VwapTask vwap_task = 42;
+      EwmaTask ewma_task = 43;
+      ComparisonTask comparison_task = 44;
+      RoundTask round_task = 45;
     }
   }
   // The chain of tasks to perform for this OracleJob.

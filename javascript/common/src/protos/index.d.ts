@@ -1,4 +1,5 @@
 import * as $protobuf from "protobufjs";
+import Long = require("long");
 /** Properties of an OracleJob. */
 export interface IOracleJob {
 
@@ -87,6 +88,13 @@ export class OracleJob implements IOracleJob {
      * @returns JSON object
      */
     public toJSON(): { [k: string]: any };
+
+    /**
+     * Gets the default type url for OracleJob
+     * @param [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+     * @returns The default type url
+     */
+    public static getTypeUrl(typeUrlPrefix?: string): string;
 }
 
 export namespace OracleJob {
@@ -197,6 +205,13 @@ export namespace OracleJob {
          * @returns JSON object
          */
         public toJSON(): { [k: string]: any };
+
+        /**
+         * Gets the default type url for HttpTask
+         * @param [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+         * @returns The default type url
+         */
+        public static getTypeUrl(typeUrlPrefix?: string): string;
     }
 
     namespace HttpTask {
@@ -302,6 +317,13 @@ export namespace OracleJob {
              * @returns JSON object
              */
             public toJSON(): { [k: string]: any };
+
+            /**
+             * Gets the default type url for Header
+             * @param [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+             * @returns The default type url
+             */
+            public static getTypeUrl(typeUrlPrefix?: string): string;
         }
     }
 
@@ -399,6 +421,13 @@ export namespace OracleJob {
          * @returns JSON object
          */
         public toJSON(): { [k: string]: any };
+
+        /**
+         * Gets the default type url for JsonParseTask
+         * @param [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+         * @returns The default type url
+         */
+        public static getTypeUrl(typeUrlPrefix?: string): string;
     }
 
     namespace JsonParseTask {
@@ -514,6 +543,13 @@ export namespace OracleJob {
          * @returns JSON object
          */
         public toJSON(): { [k: string]: any };
+
+        /**
+         * Gets the default type url for MedianTask
+         * @param [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+         * @returns The default type url
+         */
+        public static getTypeUrl(typeUrlPrefix?: string): string;
     }
 
     /** Properties of a MeanTask. */
@@ -610,6 +646,13 @@ export namespace OracleJob {
          * @returns JSON object
          */
         public toJSON(): { [k: string]: any };
+
+        /**
+         * Gets the default type url for MeanTask
+         * @param [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+         * @returns The default type url
+         */
+        public static getTypeUrl(typeUrlPrefix?: string): string;
     }
 
     /** Properties of a MaxTask. */
@@ -706,6 +749,13 @@ export namespace OracleJob {
          * @returns JSON object
          */
         public toJSON(): { [k: string]: any };
+
+        /**
+         * Gets the default type url for MaxTask
+         * @param [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+         * @returns The default type url
+         */
+        public static getTypeUrl(typeUrlPrefix?: string): string;
     }
 
     /** Properties of a MinTask. */
@@ -802,6 +852,13 @@ export namespace OracleJob {
          * @returns JSON object
          */
         public toJSON(): { [k: string]: any };
+
+        /**
+         * Gets the default type url for MinTask
+         * @param [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+         * @returns The default type url
+         */
+        public static getTypeUrl(typeUrlPrefix?: string): string;
     }
 
     /** Properties of a ValueTask. */
@@ -907,6 +964,13 @@ export namespace OracleJob {
          * @returns JSON object
          */
         public toJSON(): { [k: string]: any };
+
+        /**
+         * Gets the default type url for ValueTask
+         * @param [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+         * @returns The default type url
+         */
+        public static getTypeUrl(typeUrlPrefix?: string): string;
     }
 
     /** Properties of a WebsocketTask. */
@@ -1015,6 +1079,13 @@ export namespace OracleJob {
          * @returns JSON object
          */
         public toJSON(): { [k: string]: any };
+
+        /**
+         * Gets the default type url for WebsocketTask
+         * @param [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+         * @returns The default type url
+         */
+        public static getTypeUrl(typeUrlPrefix?: string): string;
     }
 
     /** Properties of a ConditionalTask. */
@@ -1111,6 +1182,13 @@ export namespace OracleJob {
          * @returns JSON object
          */
         public toJSON(): { [k: string]: any };
+
+        /**
+         * Gets the default type url for ConditionalTask
+         * @param [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+         * @returns The default type url
+         */
+        public static getTypeUrl(typeUrlPrefix?: string): string;
     }
 
     /** Properties of a DivideTask. */
@@ -1222,6 +1300,13 @@ export namespace OracleJob {
          * @returns JSON object
          */
         public toJSON(): { [k: string]: any };
+
+        /**
+         * Gets the default type url for DivideTask
+         * @param [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+         * @returns The default type url
+         */
+        public static getTypeUrl(typeUrlPrefix?: string): string;
     }
 
     /** Properties of a MultiplyTask. */
@@ -1333,6 +1418,13 @@ export namespace OracleJob {
          * @returns JSON object
          */
         public toJSON(): { [k: string]: any };
+
+        /**
+         * Gets the default type url for MultiplyTask
+         * @param [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+         * @returns The default type url
+         */
+        public static getTypeUrl(typeUrlPrefix?: string): string;
     }
 
     /** Properties of an AddTask. */
@@ -1444,6 +1536,13 @@ export namespace OracleJob {
          * @returns JSON object
          */
         public toJSON(): { [k: string]: any };
+
+        /**
+         * Gets the default type url for AddTask
+         * @param [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+         * @returns The default type url
+         */
+        public static getTypeUrl(typeUrlPrefix?: string): string;
     }
 
     /** Properties of a SubtractTask. */
@@ -1555,6 +1654,13 @@ export namespace OracleJob {
          * @returns JSON object
          */
         public toJSON(): { [k: string]: any };
+
+        /**
+         * Gets the default type url for SubtractTask
+         * @param [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+         * @returns The default type url
+         */
+        public static getTypeUrl(typeUrlPrefix?: string): string;
     }
 
     /** Properties of a LpTokenPriceTask. */
@@ -1684,6 +1790,13 @@ export namespace OracleJob {
          * @returns JSON object
          */
         public toJSON(): { [k: string]: any };
+
+        /**
+         * Gets the default type url for LpTokenPriceTask
+         * @param [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+         * @returns The default type url
+         */
+        public static getTypeUrl(typeUrlPrefix?: string): string;
     }
 
     /** Properties of a LpExchangeRateTask. */
@@ -1819,6 +1932,13 @@ export namespace OracleJob {
          * @returns JSON object
          */
         public toJSON(): { [k: string]: any };
+
+        /**
+         * Gets the default type url for LpExchangeRateTask
+         * @param [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+         * @returns The default type url
+         */
+        public static getTypeUrl(typeUrlPrefix?: string): string;
     }
 
     /** Properties of a RegexExtractTask. */
@@ -1915,6 +2035,13 @@ export namespace OracleJob {
          * @returns JSON object
          */
         public toJSON(): { [k: string]: any };
+
+        /**
+         * Gets the default type url for RegexExtractTask
+         * @param [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+         * @returns The default type url
+         */
+        public static getTypeUrl(typeUrlPrefix?: string): string;
     }
 
     /** Properties of a XStepPriceTask. */
@@ -2014,6 +2141,13 @@ export namespace OracleJob {
          * @returns JSON object
          */
         public toJSON(): { [k: string]: any };
+
+        /**
+         * Gets the default type url for XStepPriceTask
+         * @param [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+         * @returns The default type url
+         */
+        public static getTypeUrl(typeUrlPrefix?: string): string;
     }
 
     /** Properties of a TwapTask. */
@@ -2134,6 +2268,13 @@ export namespace OracleJob {
          * @returns JSON object
          */
         public toJSON(): { [k: string]: any };
+
+        /**
+         * Gets the default type url for TwapTask
+         * @param [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+         * @returns The default type url
+         */
+        public static getTypeUrl(typeUrlPrefix?: string): string;
     }
 
     /** Properties of a SerumSwapTask. */
@@ -2224,6 +2365,13 @@ export namespace OracleJob {
          * @returns JSON object
          */
         public toJSON(): { [k: string]: any };
+
+        /**
+         * Gets the default type url for SerumSwapTask
+         * @param [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+         * @returns The default type url
+         */
+        public static getTypeUrl(typeUrlPrefix?: string): string;
     }
 
     /** Properties of a PowTask. */
@@ -2329,6 +2477,13 @@ export namespace OracleJob {
          * @returns JSON object
          */
         public toJSON(): { [k: string]: any };
+
+        /**
+         * Gets the default type url for PowTask
+         * @param [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+         * @returns The default type url
+         */
+        public static getTypeUrl(typeUrlPrefix?: string): string;
     }
 
     /** Properties of a LendingRateTask. */
@@ -2431,6 +2586,13 @@ export namespace OracleJob {
          * @returns JSON object
          */
         public toJSON(): { [k: string]: any };
+
+        /**
+         * Gets the default type url for LendingRateTask
+         * @param [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+         * @returns The default type url
+         */
+        public static getTypeUrl(typeUrlPrefix?: string): string;
     }
 
     namespace LendingRateTask {
@@ -2530,6 +2692,13 @@ export namespace OracleJob {
          * @returns JSON object
          */
         public toJSON(): { [k: string]: any };
+
+        /**
+         * Gets the default type url for MangoPerpMarketTask
+         * @param [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+         * @returns The default type url
+         */
+        public static getTypeUrl(typeUrlPrefix?: string): string;
     }
 
     /** Properties of a JupiterSwapTask. */
@@ -2647,6 +2816,13 @@ export namespace OracleJob {
          * @returns JSON object
          */
         public toJSON(): { [k: string]: any };
+
+        /**
+         * Gets the default type url for JupiterSwapTask
+         * @param [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+         * @returns The default type url
+         */
+        public static getTypeUrl(typeUrlPrefix?: string): string;
     }
 
     namespace JupiterSwapTask {
@@ -2739,6 +2915,13 @@ export namespace OracleJob {
              * @returns JSON object
              */
             public toJSON(): { [k: string]: any };
+
+            /**
+             * Gets the default type url for FilterList
+             * @param [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+             * @returns The default type url
+             */
+            public static getTypeUrl(typeUrlPrefix?: string): string;
         }
     }
 
@@ -2851,6 +3034,13 @@ export namespace OracleJob {
          * @returns JSON object
          */
         public toJSON(): { [k: string]: any };
+
+        /**
+         * Gets the default type url for PerpMarketTask
+         * @param [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+         * @returns The default type url
+         */
+        public static getTypeUrl(typeUrlPrefix?: string): string;
     }
 
     /** Properties of an OracleTask. */
@@ -2962,6 +3152,13 @@ export namespace OracleJob {
          * @returns JSON object
          */
         public toJSON(): { [k: string]: any };
+
+        /**
+         * Gets the default type url for OracleTask
+         * @param [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+         * @returns The default type url
+         */
+        public static getTypeUrl(typeUrlPrefix?: string): string;
     }
 
     /** Properties of an AnchorFetchTask. */
@@ -3058,6 +3255,13 @@ export namespace OracleJob {
          * @returns JSON object
          */
         public toJSON(): { [k: string]: any };
+
+        /**
+         * Gets the default type url for AnchorFetchTask
+         * @param [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+         * @returns The default type url
+         */
+        public static getTypeUrl(typeUrlPrefix?: string): string;
     }
 
     /** Properties of a TpsTask. */
@@ -3142,6 +3346,13 @@ export namespace OracleJob {
          * @returns JSON object
          */
         public toJSON(): { [k: string]: any };
+
+        /**
+         * Gets the default type url for TpsTask
+         * @param [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+         * @returns The default type url
+         */
+        public static getTypeUrl(typeUrlPrefix?: string): string;
     }
 
     /** Properties of a SplStakePoolTask. */
@@ -3232,6 +3443,13 @@ export namespace OracleJob {
          * @returns JSON object
          */
         public toJSON(): { [k: string]: any };
+
+        /**
+         * Gets the default type url for SplStakePoolTask
+         * @param [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+         * @returns The default type url
+         */
+        public static getTypeUrl(typeUrlPrefix?: string): string;
     }
 
     /** Properties of a SplTokenParseTask. */
@@ -3331,6 +3549,13 @@ export namespace OracleJob {
          * @returns JSON object
          */
         public toJSON(): { [k: string]: any };
+
+        /**
+         * Gets the default type url for SplTokenParseTask
+         * @param [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+         * @returns The default type url
+         */
+        public static getTypeUrl(typeUrlPrefix?: string): string;
     }
 
     /** Properties of a DefiKingdomsTask. */
@@ -3433,6 +3658,13 @@ export namespace OracleJob {
          * @returns JSON object
          */
         public toJSON(): { [k: string]: any };
+
+        /**
+         * Gets the default type url for DefiKingdomsTask
+         * @param [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+         * @returns The default type url
+         */
+        public static getTypeUrl(typeUrlPrefix?: string): string;
     }
 
     namespace DefiKingdomsTask {
@@ -3531,6 +3763,13 @@ export namespace OracleJob {
              * @returns JSON object
              */
             public toJSON(): { [k: string]: any };
+
+            /**
+             * Gets the default type url for Token
+             * @param [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+             * @returns The default type url
+             */
+            public static getTypeUrl(typeUrlPrefix?: string): string;
         }
     }
 
@@ -3646,6 +3885,13 @@ export namespace OracleJob {
          * @returns JSON object
          */
         public toJSON(): { [k: string]: any };
+
+        /**
+         * Gets the default type url for UniswapExchangeRateTask
+         * @param [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+         * @returns The default type url
+         */
+        public static getTypeUrl(typeUrlPrefix?: string): string;
     }
 
     /** Properties of a SushiswapExchangeRateTask. */
@@ -3760,6 +4006,13 @@ export namespace OracleJob {
          * @returns JSON object
          */
         public toJSON(): { [k: string]: any };
+
+        /**
+         * Gets the default type url for SushiswapExchangeRateTask
+         * @param [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+         * @returns The default type url
+         */
+        public static getTypeUrl(typeUrlPrefix?: string): string;
     }
 
     /** Properties of a PancakeswapExchangeRateTask. */
@@ -3874,6 +4127,13 @@ export namespace OracleJob {
          * @returns JSON object
          */
         public toJSON(): { [k: string]: any };
+
+        /**
+         * Gets the default type url for PancakeswapExchangeRateTask
+         * @param [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+         * @returns The default type url
+         */
+        public static getTypeUrl(typeUrlPrefix?: string): string;
     }
 
     /** Properties of a CacheTask. */
@@ -3964,6 +4224,13 @@ export namespace OracleJob {
          * @returns JSON object
          */
         public toJSON(): { [k: string]: any };
+
+        /**
+         * Gets the default type url for CacheTask
+         * @param [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+         * @returns The default type url
+         */
+        public static getTypeUrl(typeUrlPrefix?: string): string;
     }
 
     namespace CacheTask {
@@ -4062,6 +4329,13 @@ export namespace OracleJob {
              * @returns JSON object
              */
             public toJSON(): { [k: string]: any };
+
+            /**
+             * Gets the default type url for CacheItem
+             * @param [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+             * @returns The default type url
+             */
+            public static getTypeUrl(typeUrlPrefix?: string): string;
         }
     }
 
@@ -4147,6 +4421,13 @@ export namespace OracleJob {
          * @returns JSON object
          */
         public toJSON(): { [k: string]: any };
+
+        /**
+         * Gets the default type url for SysclockOffsetTask
+         * @param [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+         * @returns The default type url
+         */
+        public static getTypeUrl(typeUrlPrefix?: string): string;
     }
 
     /** Properties of a MarinadeStateTask. */
@@ -4231,6 +4512,13 @@ export namespace OracleJob {
          * @returns JSON object
          */
         public toJSON(): { [k: string]: any };
+
+        /**
+         * Gets the default type url for MarinadeStateTask
+         * @param [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+         * @returns The default type url
+         */
+        public static getTypeUrl(typeUrlPrefix?: string): string;
     }
 
     /** Properties of a SolanaAccountDataFetchTask. */
@@ -4321,6 +4609,13 @@ export namespace OracleJob {
          * @returns JSON object
          */
         public toJSON(): { [k: string]: any };
+
+        /**
+         * Gets the default type url for SolanaAccountDataFetchTask
+         * @param [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+         * @returns The default type url
+         */
+        public static getTypeUrl(typeUrlPrefix?: string): string;
     }
 
     /** Properties of a CronParseTask. */
@@ -4423,6 +4718,13 @@ export namespace OracleJob {
          * @returns JSON object
          */
         public toJSON(): { [k: string]: any };
+
+        /**
+         * Gets the default type url for CronParseTask
+         * @param [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+         * @returns The default type url
+         */
+        public static getTypeUrl(typeUrlPrefix?: string): string;
     }
 
     namespace CronParseTask {
@@ -4534,6 +4836,13 @@ export namespace OracleJob {
          * @returns JSON object
          */
         public toJSON(): { [k: string]: any };
+
+        /**
+         * Gets the default type url for BufferLayoutParseTask
+         * @param [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+         * @returns The default type url
+         */
+        public static getTypeUrl(typeUrlPrefix?: string): string;
     }
 
     namespace BufferLayoutParseTask {
@@ -4560,6 +4869,585 @@ export namespace OracleJob {
             f64 = 12,
             u128 = 13,
             i128 = 14
+        }
+    }
+
+    /** Properties of a HistoryFunctionTask. */
+    interface IHistoryFunctionTask {
+
+        /** HistoryFunctionTask method */
+        method?: (OracleJob.HistoryFunctionTask.Method|null);
+
+        /** HistoryFunctionTask aggregatorAddress */
+        aggregatorAddress?: (string|null);
+
+        /** HistoryFunctionTask period */
+        period?: (number|null);
+    }
+
+    /** Represents a HistoryFunctionTask. */
+    class HistoryFunctionTask implements IHistoryFunctionTask {
+
+        /**
+         * Constructs a new HistoryFunctionTask.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: OracleJob.IHistoryFunctionTask);
+
+        /** HistoryFunctionTask method. */
+        public method: OracleJob.HistoryFunctionTask.Method;
+
+        /** HistoryFunctionTask aggregatorAddress. */
+        public aggregatorAddress: string;
+
+        /** HistoryFunctionTask period. */
+        public period: number;
+
+        /**
+         * Creates a new HistoryFunctionTask instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns HistoryFunctionTask instance
+         */
+        public static create(properties?: OracleJob.IHistoryFunctionTask): OracleJob.HistoryFunctionTask;
+
+        /**
+         * Encodes the specified HistoryFunctionTask message. Does not implicitly {@link OracleJob.HistoryFunctionTask.verify|verify} messages.
+         * @param message HistoryFunctionTask message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: OracleJob.IHistoryFunctionTask, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Encodes the specified HistoryFunctionTask message, length delimited. Does not implicitly {@link OracleJob.HistoryFunctionTask.verify|verify} messages.
+         * @param message HistoryFunctionTask message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: OracleJob.IHistoryFunctionTask, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Decodes a HistoryFunctionTask message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns HistoryFunctionTask
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): OracleJob.HistoryFunctionTask;
+
+        /**
+         * Decodes a HistoryFunctionTask message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns HistoryFunctionTask
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): OracleJob.HistoryFunctionTask;
+
+        /**
+         * Verifies a HistoryFunctionTask message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a HistoryFunctionTask message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns HistoryFunctionTask
+         */
+        public static fromObject(object: { [k: string]: any }): OracleJob.HistoryFunctionTask;
+
+        /**
+         * Creates a plain object from a HistoryFunctionTask message. Also converts values to other types if specified.
+         * @param message HistoryFunctionTask
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: OracleJob.HistoryFunctionTask, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this HistoryFunctionTask to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+
+        /**
+         * Gets the default type url for HistoryFunctionTask
+         * @param [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+         * @returns The default type url
+         */
+        public static getTypeUrl(typeUrlPrefix?: string): string;
+    }
+
+    namespace HistoryFunctionTask {
+
+        /** Method enum. */
+        enum Method {
+            METHOD_MIN = 0,
+            METHOD_MAX = 1
+        }
+    }
+
+    /** Properties of a VwapTask. */
+    interface IVwapTask {
+
+        /** VwapTask priceAggregatorAddress */
+        priceAggregatorAddress?: (string|null);
+
+        /** VwapTask volumeAggregatorAddress */
+        volumeAggregatorAddress?: (string|null);
+
+        /** VwapTask period */
+        period?: (number|null);
+    }
+
+    /** Represents a VwapTask. */
+    class VwapTask implements IVwapTask {
+
+        /**
+         * Constructs a new VwapTask.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: OracleJob.IVwapTask);
+
+        /** VwapTask priceAggregatorAddress. */
+        public priceAggregatorAddress: string;
+
+        /** VwapTask volumeAggregatorAddress. */
+        public volumeAggregatorAddress: string;
+
+        /** VwapTask period. */
+        public period: number;
+
+        /**
+         * Creates a new VwapTask instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns VwapTask instance
+         */
+        public static create(properties?: OracleJob.IVwapTask): OracleJob.VwapTask;
+
+        /**
+         * Encodes the specified VwapTask message. Does not implicitly {@link OracleJob.VwapTask.verify|verify} messages.
+         * @param message VwapTask message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: OracleJob.IVwapTask, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Encodes the specified VwapTask message, length delimited. Does not implicitly {@link OracleJob.VwapTask.verify|verify} messages.
+         * @param message VwapTask message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: OracleJob.IVwapTask, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Decodes a VwapTask message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns VwapTask
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): OracleJob.VwapTask;
+
+        /**
+         * Decodes a VwapTask message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns VwapTask
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): OracleJob.VwapTask;
+
+        /**
+         * Verifies a VwapTask message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a VwapTask message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns VwapTask
+         */
+        public static fromObject(object: { [k: string]: any }): OracleJob.VwapTask;
+
+        /**
+         * Creates a plain object from a VwapTask message. Also converts values to other types if specified.
+         * @param message VwapTask
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: OracleJob.VwapTask, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this VwapTask to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+
+        /**
+         * Gets the default type url for VwapTask
+         * @param [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+         * @returns The default type url
+         */
+        public static getTypeUrl(typeUrlPrefix?: string): string;
+    }
+
+    /** Properties of an EwmaTask. */
+    interface IEwmaTask {
+
+        /** EwmaTask aggregatorAddress */
+        aggregatorAddress?: (string|null);
+
+        /** EwmaTask period */
+        period?: (number|null);
+
+        /** EwmaTask lambda */
+        lambda?: (number|null);
+    }
+
+    /** Represents an EwmaTask. */
+    class EwmaTask implements IEwmaTask {
+
+        /**
+         * Constructs a new EwmaTask.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: OracleJob.IEwmaTask);
+
+        /** EwmaTask aggregatorAddress. */
+        public aggregatorAddress: string;
+
+        /** EwmaTask period. */
+        public period: number;
+
+        /** EwmaTask lambda. */
+        public lambda: number;
+
+        /**
+         * Creates a new EwmaTask instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns EwmaTask instance
+         */
+        public static create(properties?: OracleJob.IEwmaTask): OracleJob.EwmaTask;
+
+        /**
+         * Encodes the specified EwmaTask message. Does not implicitly {@link OracleJob.EwmaTask.verify|verify} messages.
+         * @param message EwmaTask message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: OracleJob.IEwmaTask, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Encodes the specified EwmaTask message, length delimited. Does not implicitly {@link OracleJob.EwmaTask.verify|verify} messages.
+         * @param message EwmaTask message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: OracleJob.IEwmaTask, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Decodes an EwmaTask message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns EwmaTask
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): OracleJob.EwmaTask;
+
+        /**
+         * Decodes an EwmaTask message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns EwmaTask
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): OracleJob.EwmaTask;
+
+        /**
+         * Verifies an EwmaTask message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates an EwmaTask message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns EwmaTask
+         */
+        public static fromObject(object: { [k: string]: any }): OracleJob.EwmaTask;
+
+        /**
+         * Creates a plain object from an EwmaTask message. Also converts values to other types if specified.
+         * @param message EwmaTask
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: OracleJob.EwmaTask, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this EwmaTask to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+
+        /**
+         * Gets the default type url for EwmaTask
+         * @param [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+         * @returns The default type url
+         */
+        public static getTypeUrl(typeUrlPrefix?: string): string;
+    }
+
+    /** Properties of a ComparisonTask. */
+    interface IComparisonTask {
+
+        /** ComparisonTask op */
+        op?: (OracleJob.ComparisonTask.Operation|null);
+
+        /** ComparisonTask lhs */
+        lhs?: (IOracleJob|null);
+
+        /** ComparisonTask rhs */
+        rhs?: (IOracleJob|null);
+
+        /** ComparisonTask onTrue */
+        onTrue?: (IOracleJob|null);
+
+        /** ComparisonTask onFalse */
+        onFalse?: (IOracleJob|null);
+
+        /** ComparisonTask onFailure */
+        onFailure?: (IOracleJob|null);
+    }
+
+    /** Represents a ComparisonTask. */
+    class ComparisonTask implements IComparisonTask {
+
+        /**
+         * Constructs a new ComparisonTask.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: OracleJob.IComparisonTask);
+
+        /** ComparisonTask op. */
+        public op: OracleJob.ComparisonTask.Operation;
+
+        /** ComparisonTask lhs. */
+        public lhs?: (IOracleJob|null);
+
+        /** ComparisonTask rhs. */
+        public rhs?: (IOracleJob|null);
+
+        /** ComparisonTask onTrue. */
+        public onTrue?: (IOracleJob|null);
+
+        /** ComparisonTask onFalse. */
+        public onFalse?: (IOracleJob|null);
+
+        /** ComparisonTask onFailure. */
+        public onFailure?: (IOracleJob|null);
+
+        /**
+         * Creates a new ComparisonTask instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns ComparisonTask instance
+         */
+        public static create(properties?: OracleJob.IComparisonTask): OracleJob.ComparisonTask;
+
+        /**
+         * Encodes the specified ComparisonTask message. Does not implicitly {@link OracleJob.ComparisonTask.verify|verify} messages.
+         * @param message ComparisonTask message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: OracleJob.IComparisonTask, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Encodes the specified ComparisonTask message, length delimited. Does not implicitly {@link OracleJob.ComparisonTask.verify|verify} messages.
+         * @param message ComparisonTask message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: OracleJob.IComparisonTask, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Decodes a ComparisonTask message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns ComparisonTask
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): OracleJob.ComparisonTask;
+
+        /**
+         * Decodes a ComparisonTask message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns ComparisonTask
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): OracleJob.ComparisonTask;
+
+        /**
+         * Verifies a ComparisonTask message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a ComparisonTask message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns ComparisonTask
+         */
+        public static fromObject(object: { [k: string]: any }): OracleJob.ComparisonTask;
+
+        /**
+         * Creates a plain object from a ComparisonTask message. Also converts values to other types if specified.
+         * @param message ComparisonTask
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: OracleJob.ComparisonTask, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this ComparisonTask to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+
+        /**
+         * Gets the default type url for ComparisonTask
+         * @param [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+         * @returns The default type url
+         */
+        public static getTypeUrl(typeUrlPrefix?: string): string;
+    }
+
+    namespace ComparisonTask {
+
+        /** Operation enum. */
+        enum Operation {
+            OPERATION_EQ = 0,
+            OPERATION_GT = 1,
+            OPERATION_LT = 2
+        }
+    }
+
+    /** Properties of a RoundTask. */
+    interface IRoundTask {
+
+        /** RoundTask method */
+        method?: (OracleJob.RoundTask.Method|null);
+    }
+
+    /** Represents a RoundTask. */
+    class RoundTask implements IRoundTask {
+
+        /**
+         * Constructs a new RoundTask.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: OracleJob.IRoundTask);
+
+        /** RoundTask method. */
+        public method: OracleJob.RoundTask.Method;
+
+        /**
+         * Creates a new RoundTask instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns RoundTask instance
+         */
+        public static create(properties?: OracleJob.IRoundTask): OracleJob.RoundTask;
+
+        /**
+         * Encodes the specified RoundTask message. Does not implicitly {@link OracleJob.RoundTask.verify|verify} messages.
+         * @param message RoundTask message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: OracleJob.IRoundTask, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Encodes the specified RoundTask message, length delimited. Does not implicitly {@link OracleJob.RoundTask.verify|verify} messages.
+         * @param message RoundTask message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: OracleJob.IRoundTask, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Decodes a RoundTask message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns RoundTask
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): OracleJob.RoundTask;
+
+        /**
+         * Decodes a RoundTask message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns RoundTask
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): OracleJob.RoundTask;
+
+        /**
+         * Verifies a RoundTask message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a RoundTask message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns RoundTask
+         */
+        public static fromObject(object: { [k: string]: any }): OracleJob.RoundTask;
+
+        /**
+         * Creates a plain object from a RoundTask message. Also converts values to other types if specified.
+         * @param message RoundTask
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: OracleJob.RoundTask, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this RoundTask to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+
+        /**
+         * Gets the default type url for RoundTask
+         * @param [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+         * @returns The default type url
+         */
+        public static getTypeUrl(typeUrlPrefix?: string): string;
+    }
+
+    namespace RoundTask {
+
+        /** Method enum. */
+        enum Method {
+            METHOD_ROUND_UP = 0,
+            METHOD_ROUND_DOWN = 1
         }
     }
 
@@ -4682,6 +5570,21 @@ export namespace OracleJob {
 
         /** Task minTask */
         minTask?: (OracleJob.IMinTask|null);
+
+        /** Task historyFunctionTask */
+        historyFunctionTask?: (OracleJob.IHistoryFunctionTask|null);
+
+        /** Task vwapTask */
+        vwapTask?: (OracleJob.IVwapTask|null);
+
+        /** Task ewmaTask */
+        ewmaTask?: (OracleJob.IEwmaTask|null);
+
+        /** Task comparisonTask */
+        comparisonTask?: (OracleJob.IComparisonTask|null);
+
+        /** Task roundTask */
+        roundTask?: (OracleJob.IRoundTask|null);
     }
 
     /** Represents a Task. */
@@ -4810,8 +5713,23 @@ export namespace OracleJob {
         /** Task minTask. */
         public minTask?: (OracleJob.IMinTask|null);
 
+        /** Task historyFunctionTask. */
+        public historyFunctionTask?: (OracleJob.IHistoryFunctionTask|null);
+
+        /** Task vwapTask. */
+        public vwapTask?: (OracleJob.IVwapTask|null);
+
+        /** Task ewmaTask. */
+        public ewmaTask?: (OracleJob.IEwmaTask|null);
+
+        /** Task comparisonTask. */
+        public comparisonTask?: (OracleJob.IComparisonTask|null);
+
+        /** Task roundTask. */
+        public roundTask?: (OracleJob.IRoundTask|null);
+
         /** Task Task. */
-        public Task?: ("httpTask"|"jsonParseTask"|"medianTask"|"meanTask"|"websocketTask"|"divideTask"|"multiplyTask"|"lpTokenPriceTask"|"lpExchangeRateTask"|"conditionalTask"|"valueTask"|"maxTask"|"regexExtractTask"|"xstepPriceTask"|"addTask"|"subtractTask"|"twapTask"|"serumSwapTask"|"powTask"|"lendingRateTask"|"mangoPerpMarketTask"|"jupiterSwapTask"|"perpMarketTask"|"oracleTask"|"anchorFetchTask"|"defiKingdomsTask"|"tpsTask"|"splStakePoolTask"|"splTokenParseTask"|"uniswapExchangeRateTask"|"sushiswapExchangeRateTask"|"pancakeswapExchangeRateTask"|"cacheTask"|"sysclockOffsetTask"|"marinadeStateTask"|"solanaAccountDataFetchTask"|"bufferLayoutParseTask"|"cronParseTask"|"minTask");
+        public Task?: ("httpTask"|"jsonParseTask"|"medianTask"|"meanTask"|"websocketTask"|"divideTask"|"multiplyTask"|"lpTokenPriceTask"|"lpExchangeRateTask"|"conditionalTask"|"valueTask"|"maxTask"|"regexExtractTask"|"xstepPriceTask"|"addTask"|"subtractTask"|"twapTask"|"serumSwapTask"|"powTask"|"lendingRateTask"|"mangoPerpMarketTask"|"jupiterSwapTask"|"perpMarketTask"|"oracleTask"|"anchorFetchTask"|"defiKingdomsTask"|"tpsTask"|"splStakePoolTask"|"splTokenParseTask"|"uniswapExchangeRateTask"|"sushiswapExchangeRateTask"|"pancakeswapExchangeRateTask"|"cacheTask"|"sysclockOffsetTask"|"marinadeStateTask"|"solanaAccountDataFetchTask"|"bufferLayoutParseTask"|"cronParseTask"|"minTask"|"historyFunctionTask"|"vwapTask"|"ewmaTask"|"comparisonTask"|"roundTask");
 
         /**
          * Creates a new Task instance using the specified properties.
@@ -4882,5 +5800,12 @@ export namespace OracleJob {
          * @returns JSON object
          */
         public toJSON(): { [k: string]: any };
+
+        /**
+         * Gets the default type url for Task
+         * @param [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+         * @returns The default type url
+         */
+        public static getTypeUrl(typeUrlPrefix?: string): string;
     }
 }
