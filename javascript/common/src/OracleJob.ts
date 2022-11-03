@@ -11,7 +11,6 @@ protobuf.util.toJSONOptions = {
   json: true,
 };
 
-export * from "./SwitchboardDecimal.js";
 export * from "./protos/index.js";
 
 /**

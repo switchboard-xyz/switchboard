@@ -110,11 +110,12 @@
             while (reader.pos < end) {
                 var tag = reader.uint32();
                 switch (tag >>> 3) {
-                case 1:
-                    if (!(message.tasks && message.tasks.length))
-                        message.tasks = [];
-                    message.tasks.push($root.OracleJob.Task.decode(reader, reader.uint32()));
-                    break;
+                case 1: {
+                        if (!(message.tasks && message.tasks.length))
+                            message.tasks = [];
+                        message.tasks.push($root.OracleJob.Task.decode(reader, reader.uint32()));
+                        break;
+                    }
                 default:
                     reader.skipType(tag & 7);
                     break;
@@ -219,6 +220,21 @@
          */
         OracleJob.prototype.toJSON = function toJSON() {
             return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+    
+        /**
+         * Gets the default type url for OracleJob
+         * @function getTypeUrl
+         * @memberof OracleJob
+         * @static
+         * @param {string} [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+         * @returns {string} The default type url
+         */
+        OracleJob.getTypeUrl = function getTypeUrl(typeUrlPrefix) {
+            if (typeUrlPrefix === undefined) {
+                typeUrlPrefix = "type.googleapis.com";
+            }
+            return typeUrlPrefix + "/OracleJob";
         };
     
         OracleJob.HttpTask = (function() {
@@ -348,20 +364,24 @@
                 while (reader.pos < end) {
                     var tag = reader.uint32();
                     switch (tag >>> 3) {
-                    case 1:
-                        message.url = reader.string();
-                        break;
-                    case 2:
-                        message.method = reader.int32();
-                        break;
-                    case 3:
-                        if (!(message.headers && message.headers.length))
-                            message.headers = [];
-                        message.headers.push($root.OracleJob.HttpTask.Header.decode(reader, reader.uint32()));
-                        break;
-                    case 4:
-                        message.body = reader.string();
-                        break;
+                    case 1: {
+                            message.url = reader.string();
+                            break;
+                        }
+                    case 2: {
+                            message.method = reader.int32();
+                            break;
+                        }
+                    case 3: {
+                            if (!(message.headers && message.headers.length))
+                                message.headers = [];
+                            message.headers.push($root.OracleJob.HttpTask.Header.decode(reader, reader.uint32()));
+                            break;
+                        }
+                    case 4: {
+                            message.body = reader.string();
+                            break;
+                        }
                     default:
                         reader.skipType(tag & 7);
                         break;
@@ -439,6 +459,12 @@
                 if (object.url != null)
                     message.url = String(object.url);
                 switch (object.method) {
+                default:
+                    if (typeof object.method === "number") {
+                        message.method = object.method;
+                        break;
+                    }
+                    break;
                 case "METHOD_UNKOWN":
                 case 0:
                     message.method = 0;
@@ -490,7 +516,7 @@
                 if (message.url != null && message.hasOwnProperty("url"))
                     object.url = message.url;
                 if (message.method != null && message.hasOwnProperty("method"))
-                    object.method = options.enums === String ? $root.OracleJob.HttpTask.Method[message.method] : message.method;
+                    object.method = options.enums === String ? $root.OracleJob.HttpTask.Method[message.method] === undefined ? message.method : $root.OracleJob.HttpTask.Method[message.method] : message.method;
                 if (message.headers && message.headers.length) {
                     object.headers = [];
                     for (var j = 0; j < message.headers.length; ++j)
@@ -510,6 +536,21 @@
              */
             HttpTask.prototype.toJSON = function toJSON() {
                 return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+            };
+    
+            /**
+             * Gets the default type url for HttpTask
+             * @function getTypeUrl
+             * @memberof OracleJob.HttpTask
+             * @static
+             * @param {string} [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+             * @returns {string} The default type url
+             */
+            HttpTask.getTypeUrl = function getTypeUrl(typeUrlPrefix) {
+                if (typeUrlPrefix === undefined) {
+                    typeUrlPrefix = "type.googleapis.com";
+                }
+                return typeUrlPrefix + "/OracleJob.HttpTask";
             };
     
             /**
@@ -631,12 +672,14 @@
                     while (reader.pos < end) {
                         var tag = reader.uint32();
                         switch (tag >>> 3) {
-                        case 1:
-                            message.key = reader.string();
-                            break;
-                        case 2:
-                            message.value = reader.string();
-                            break;
+                        case 1: {
+                                message.key = reader.string();
+                                break;
+                            }
+                        case 2: {
+                                message.value = reader.string();
+                                break;
+                            }
                         default:
                             reader.skipType(tag & 7);
                             break;
@@ -733,6 +776,21 @@
                  */
                 Header.prototype.toJSON = function toJSON() {
                     return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+                };
+    
+                /**
+                 * Gets the default type url for Header
+                 * @function getTypeUrl
+                 * @memberof OracleJob.HttpTask.Header
+                 * @static
+                 * @param {string} [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+                 * @returns {string} The default type url
+                 */
+                Header.getTypeUrl = function getTypeUrl(typeUrlPrefix) {
+                    if (typeUrlPrefix === undefined) {
+                        typeUrlPrefix = "type.googleapis.com";
+                    }
+                    return typeUrlPrefix + "/OracleJob.HttpTask.Header";
                 };
     
                 return Header;
@@ -844,12 +902,14 @@
                 while (reader.pos < end) {
                     var tag = reader.uint32();
                     switch (tag >>> 3) {
-                    case 1:
-                        message.path = reader.string();
-                        break;
-                    case 2:
-                        message.aggregationMethod = reader.int32();
-                        break;
+                    case 1: {
+                            message.path = reader.string();
+                            break;
+                        }
+                    case 2: {
+                            message.aggregationMethod = reader.int32();
+                            break;
+                        }
                     default:
                         reader.skipType(tag & 7);
                         break;
@@ -918,6 +978,12 @@
                 if (object.path != null)
                     message.path = String(object.path);
                 switch (object.aggregationMethod) {
+                default:
+                    if (typeof object.aggregationMethod === "number") {
+                        message.aggregationMethod = object.aggregationMethod;
+                        break;
+                    }
+                    break;
                 case "NONE":
                 case 0:
                     message.aggregationMethod = 0;
@@ -966,7 +1032,7 @@
                 if (message.path != null && message.hasOwnProperty("path"))
                     object.path = message.path;
                 if (message.aggregationMethod != null && message.hasOwnProperty("aggregationMethod"))
-                    object.aggregationMethod = options.enums === String ? $root.OracleJob.JsonParseTask.AggregationMethod[message.aggregationMethod] : message.aggregationMethod;
+                    object.aggregationMethod = options.enums === String ? $root.OracleJob.JsonParseTask.AggregationMethod[message.aggregationMethod] === undefined ? message.aggregationMethod : $root.OracleJob.JsonParseTask.AggregationMethod[message.aggregationMethod] : message.aggregationMethod;
                 return object;
             };
     
@@ -979,6 +1045,21 @@
              */
             JsonParseTask.prototype.toJSON = function toJSON() {
                 return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+            };
+    
+            /**
+             * Gets the default type url for JsonParseTask
+             * @function getTypeUrl
+             * @memberof OracleJob.JsonParseTask
+             * @static
+             * @param {string} [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+             * @returns {string} The default type url
+             */
+            JsonParseTask.getTypeUrl = function getTypeUrl(typeUrlPrefix) {
+                if (typeUrlPrefix === undefined) {
+                    typeUrlPrefix = "type.googleapis.com";
+                }
+                return typeUrlPrefix + "/OracleJob.JsonParseTask";
             };
     
             /**
@@ -1124,19 +1205,22 @@
                 while (reader.pos < end) {
                     var tag = reader.uint32();
                     switch (tag >>> 3) {
-                    case 1:
-                        if (!(message.tasks && message.tasks.length))
-                            message.tasks = [];
-                        message.tasks.push($root.OracleJob.Task.decode(reader, reader.uint32()));
-                        break;
-                    case 2:
-                        if (!(message.jobs && message.jobs.length))
-                            message.jobs = [];
-                        message.jobs.push($root.OracleJob.decode(reader, reader.uint32()));
-                        break;
-                    case 3:
-                        message.minSuccessfulRequired = reader.int32();
-                        break;
+                    case 1: {
+                            if (!(message.tasks && message.tasks.length))
+                                message.tasks = [];
+                            message.tasks.push($root.OracleJob.Task.decode(reader, reader.uint32()));
+                            break;
+                        }
+                    case 2: {
+                            if (!(message.jobs && message.jobs.length))
+                                message.jobs = [];
+                            message.jobs.push($root.OracleJob.decode(reader, reader.uint32()));
+                            break;
+                        }
+                    case 3: {
+                            message.minSuccessfulRequired = reader.int32();
+                            break;
+                        }
                     default:
                         reader.skipType(tag & 7);
                         break;
@@ -1278,6 +1362,21 @@
                 return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
             };
     
+            /**
+             * Gets the default type url for MedianTask
+             * @function getTypeUrl
+             * @memberof OracleJob.MedianTask
+             * @static
+             * @param {string} [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+             * @returns {string} The default type url
+             */
+            MedianTask.getTypeUrl = function getTypeUrl(typeUrlPrefix) {
+                if (typeUrlPrefix === undefined) {
+                    typeUrlPrefix = "type.googleapis.com";
+                }
+                return typeUrlPrefix + "/OracleJob.MedianTask";
+            };
+    
             return MedianTask;
         })();
     
@@ -1388,16 +1487,18 @@
                 while (reader.pos < end) {
                     var tag = reader.uint32();
                     switch (tag >>> 3) {
-                    case 1:
-                        if (!(message.tasks && message.tasks.length))
-                            message.tasks = [];
-                        message.tasks.push($root.OracleJob.Task.decode(reader, reader.uint32()));
-                        break;
-                    case 2:
-                        if (!(message.jobs && message.jobs.length))
-                            message.jobs = [];
-                        message.jobs.push($root.OracleJob.decode(reader, reader.uint32()));
-                        break;
+                    case 1: {
+                            if (!(message.tasks && message.tasks.length))
+                                message.tasks = [];
+                            message.tasks.push($root.OracleJob.Task.decode(reader, reader.uint32()));
+                            break;
+                        }
+                    case 2: {
+                            if (!(message.jobs && message.jobs.length))
+                                message.jobs = [];
+                            message.jobs.push($root.OracleJob.decode(reader, reader.uint32()));
+                            break;
+                        }
                     default:
                         reader.skipType(tag & 7);
                         break;
@@ -1530,6 +1631,21 @@
                 return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
             };
     
+            /**
+             * Gets the default type url for MeanTask
+             * @function getTypeUrl
+             * @memberof OracleJob.MeanTask
+             * @static
+             * @param {string} [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+             * @returns {string} The default type url
+             */
+            MeanTask.getTypeUrl = function getTypeUrl(typeUrlPrefix) {
+                if (typeUrlPrefix === undefined) {
+                    typeUrlPrefix = "type.googleapis.com";
+                }
+                return typeUrlPrefix + "/OracleJob.MeanTask";
+            };
+    
             return MeanTask;
         })();
     
@@ -1640,16 +1756,18 @@
                 while (reader.pos < end) {
                     var tag = reader.uint32();
                     switch (tag >>> 3) {
-                    case 1:
-                        if (!(message.tasks && message.tasks.length))
-                            message.tasks = [];
-                        message.tasks.push($root.OracleJob.Task.decode(reader, reader.uint32()));
-                        break;
-                    case 2:
-                        if (!(message.jobs && message.jobs.length))
-                            message.jobs = [];
-                        message.jobs.push($root.OracleJob.decode(reader, reader.uint32()));
-                        break;
+                    case 1: {
+                            if (!(message.tasks && message.tasks.length))
+                                message.tasks = [];
+                            message.tasks.push($root.OracleJob.Task.decode(reader, reader.uint32()));
+                            break;
+                        }
+                    case 2: {
+                            if (!(message.jobs && message.jobs.length))
+                                message.jobs = [];
+                            message.jobs.push($root.OracleJob.decode(reader, reader.uint32()));
+                            break;
+                        }
                     default:
                         reader.skipType(tag & 7);
                         break;
@@ -1782,6 +1900,21 @@
                 return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
             };
     
+            /**
+             * Gets the default type url for MaxTask
+             * @function getTypeUrl
+             * @memberof OracleJob.MaxTask
+             * @static
+             * @param {string} [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+             * @returns {string} The default type url
+             */
+            MaxTask.getTypeUrl = function getTypeUrl(typeUrlPrefix) {
+                if (typeUrlPrefix === undefined) {
+                    typeUrlPrefix = "type.googleapis.com";
+                }
+                return typeUrlPrefix + "/OracleJob.MaxTask";
+            };
+    
             return MaxTask;
         })();
     
@@ -1892,16 +2025,18 @@
                 while (reader.pos < end) {
                     var tag = reader.uint32();
                     switch (tag >>> 3) {
-                    case 1:
-                        if (!(message.tasks && message.tasks.length))
-                            message.tasks = [];
-                        message.tasks.push($root.OracleJob.Task.decode(reader, reader.uint32()));
-                        break;
-                    case 2:
-                        if (!(message.jobs && message.jobs.length))
-                            message.jobs = [];
-                        message.jobs.push($root.OracleJob.decode(reader, reader.uint32()));
-                        break;
+                    case 1: {
+                            if (!(message.tasks && message.tasks.length))
+                                message.tasks = [];
+                            message.tasks.push($root.OracleJob.Task.decode(reader, reader.uint32()));
+                            break;
+                        }
+                    case 2: {
+                            if (!(message.jobs && message.jobs.length))
+                                message.jobs = [];
+                            message.jobs.push($root.OracleJob.decode(reader, reader.uint32()));
+                            break;
+                        }
                     default:
                         reader.skipType(tag & 7);
                         break;
@@ -2032,6 +2167,21 @@
              */
             MinTask.prototype.toJSON = function toJSON() {
                 return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+            };
+    
+            /**
+             * Gets the default type url for MinTask
+             * @function getTypeUrl
+             * @memberof OracleJob.MinTask
+             * @static
+             * @param {string} [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+             * @returns {string} The default type url
+             */
+            MinTask.getTypeUrl = function getTypeUrl(typeUrlPrefix) {
+                if (typeUrlPrefix === undefined) {
+                    typeUrlPrefix = "type.googleapis.com";
+                }
+                return typeUrlPrefix + "/OracleJob.MinTask";
             };
     
             return MinTask;
@@ -2165,15 +2315,18 @@
                 while (reader.pos < end) {
                     var tag = reader.uint32();
                     switch (tag >>> 3) {
-                    case 1:
-                        message.value = reader.double();
-                        break;
-                    case 2:
-                        message.aggregatorPubkey = reader.string();
-                        break;
-                    case 3:
-                        message.big = reader.string();
-                        break;
+                    case 1: {
+                            message.value = reader.double();
+                            break;
+                        }
+                    case 2: {
+                            message.aggregatorPubkey = reader.string();
+                            break;
+                        }
+                    case 3: {
+                            message.big = reader.string();
+                            break;
+                        }
                     default:
                         reader.skipType(tag & 7);
                         break;
@@ -2293,6 +2446,21 @@
              */
             ValueTask.prototype.toJSON = function toJSON() {
                 return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+            };
+    
+            /**
+             * Gets the default type url for ValueTask
+             * @function getTypeUrl
+             * @memberof OracleJob.ValueTask
+             * @static
+             * @param {string} [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+             * @returns {string} The default type url
+             */
+            ValueTask.getTypeUrl = function getTypeUrl(typeUrlPrefix) {
+                if (typeUrlPrefix === undefined) {
+                    typeUrlPrefix = "type.googleapis.com";
+                }
+                return typeUrlPrefix + "/OracleJob.ValueTask";
             };
     
             return ValueTask;
@@ -2423,18 +2591,22 @@
                 while (reader.pos < end) {
                     var tag = reader.uint32();
                     switch (tag >>> 3) {
-                    case 1:
-                        message.url = reader.string();
-                        break;
-                    case 2:
-                        message.subscription = reader.string();
-                        break;
-                    case 3:
-                        message.maxDataAgeSeconds = reader.int32();
-                        break;
-                    case 4:
-                        message.filter = reader.string();
-                        break;
+                    case 1: {
+                            message.url = reader.string();
+                            break;
+                        }
+                    case 2: {
+                            message.subscription = reader.string();
+                            break;
+                        }
+                    case 3: {
+                            message.maxDataAgeSeconds = reader.int32();
+                            break;
+                        }
+                    case 4: {
+                            message.filter = reader.string();
+                            break;
+                        }
                     default:
                         reader.skipType(tag & 7);
                         break;
@@ -2549,6 +2721,21 @@
                 return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
             };
     
+            /**
+             * Gets the default type url for WebsocketTask
+             * @function getTypeUrl
+             * @memberof OracleJob.WebsocketTask
+             * @static
+             * @param {string} [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+             * @returns {string} The default type url
+             */
+            WebsocketTask.getTypeUrl = function getTypeUrl(typeUrlPrefix) {
+                if (typeUrlPrefix === undefined) {
+                    typeUrlPrefix = "type.googleapis.com";
+                }
+                return typeUrlPrefix + "/OracleJob.WebsocketTask";
+            };
+    
             return WebsocketTask;
         })();
     
@@ -2659,16 +2846,18 @@
                 while (reader.pos < end) {
                     var tag = reader.uint32();
                     switch (tag >>> 3) {
-                    case 1:
-                        if (!(message.attempt && message.attempt.length))
-                            message.attempt = [];
-                        message.attempt.push($root.OracleJob.Task.decode(reader, reader.uint32()));
-                        break;
-                    case 2:
-                        if (!(message.onFailure && message.onFailure.length))
-                            message.onFailure = [];
-                        message.onFailure.push($root.OracleJob.Task.decode(reader, reader.uint32()));
-                        break;
+                    case 1: {
+                            if (!(message.attempt && message.attempt.length))
+                                message.attempt = [];
+                            message.attempt.push($root.OracleJob.Task.decode(reader, reader.uint32()));
+                            break;
+                        }
+                    case 2: {
+                            if (!(message.onFailure && message.onFailure.length))
+                                message.onFailure = [];
+                            message.onFailure.push($root.OracleJob.Task.decode(reader, reader.uint32()));
+                            break;
+                        }
                     default:
                         reader.skipType(tag & 7);
                         break;
@@ -2799,6 +2988,21 @@
              */
             ConditionalTask.prototype.toJSON = function toJSON() {
                 return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+            };
+    
+            /**
+             * Gets the default type url for ConditionalTask
+             * @function getTypeUrl
+             * @memberof OracleJob.ConditionalTask
+             * @static
+             * @param {string} [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+             * @returns {string} The default type url
+             */
+            ConditionalTask.getTypeUrl = function getTypeUrl(typeUrlPrefix) {
+                if (typeUrlPrefix === undefined) {
+                    typeUrlPrefix = "type.googleapis.com";
+                }
+                return typeUrlPrefix + "/OracleJob.ConditionalTask";
             };
     
             return ConditionalTask;
@@ -2943,18 +3147,22 @@
                 while (reader.pos < end) {
                     var tag = reader.uint32();
                     switch (tag >>> 3) {
-                    case 1:
-                        message.scalar = reader.double();
-                        break;
-                    case 2:
-                        message.aggregatorPubkey = reader.string();
-                        break;
-                    case 3:
-                        message.job = $root.OracleJob.decode(reader, reader.uint32());
-                        break;
-                    case 4:
-                        message.big = reader.string();
-                        break;
+                    case 1: {
+                            message.scalar = reader.double();
+                            break;
+                        }
+                    case 2: {
+                            message.aggregatorPubkey = reader.string();
+                            break;
+                        }
+                    case 3: {
+                            message.job = $root.OracleJob.decode(reader, reader.uint32());
+                            break;
+                        }
+                    case 4: {
+                            message.big = reader.string();
+                            break;
+                        }
                     default:
                         reader.skipType(tag & 7);
                         break;
@@ -3094,6 +3302,21 @@
              */
             DivideTask.prototype.toJSON = function toJSON() {
                 return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+            };
+    
+            /**
+             * Gets the default type url for DivideTask
+             * @function getTypeUrl
+             * @memberof OracleJob.DivideTask
+             * @static
+             * @param {string} [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+             * @returns {string} The default type url
+             */
+            DivideTask.getTypeUrl = function getTypeUrl(typeUrlPrefix) {
+                if (typeUrlPrefix === undefined) {
+                    typeUrlPrefix = "type.googleapis.com";
+                }
+                return typeUrlPrefix + "/OracleJob.DivideTask";
             };
     
             return DivideTask;
@@ -3238,18 +3461,22 @@
                 while (reader.pos < end) {
                     var tag = reader.uint32();
                     switch (tag >>> 3) {
-                    case 1:
-                        message.scalar = reader.double();
-                        break;
-                    case 2:
-                        message.aggregatorPubkey = reader.string();
-                        break;
-                    case 3:
-                        message.job = $root.OracleJob.decode(reader, reader.uint32());
-                        break;
-                    case 4:
-                        message.big = reader.string();
-                        break;
+                    case 1: {
+                            message.scalar = reader.double();
+                            break;
+                        }
+                    case 2: {
+                            message.aggregatorPubkey = reader.string();
+                            break;
+                        }
+                    case 3: {
+                            message.job = $root.OracleJob.decode(reader, reader.uint32());
+                            break;
+                        }
+                    case 4: {
+                            message.big = reader.string();
+                            break;
+                        }
                     default:
                         reader.skipType(tag & 7);
                         break;
@@ -3389,6 +3616,21 @@
              */
             MultiplyTask.prototype.toJSON = function toJSON() {
                 return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+            };
+    
+            /**
+             * Gets the default type url for MultiplyTask
+             * @function getTypeUrl
+             * @memberof OracleJob.MultiplyTask
+             * @static
+             * @param {string} [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+             * @returns {string} The default type url
+             */
+            MultiplyTask.getTypeUrl = function getTypeUrl(typeUrlPrefix) {
+                if (typeUrlPrefix === undefined) {
+                    typeUrlPrefix = "type.googleapis.com";
+                }
+                return typeUrlPrefix + "/OracleJob.MultiplyTask";
             };
     
             return MultiplyTask;
@@ -3533,18 +3775,22 @@
                 while (reader.pos < end) {
                     var tag = reader.uint32();
                     switch (tag >>> 3) {
-                    case 1:
-                        message.scalar = reader.double();
-                        break;
-                    case 2:
-                        message.aggregatorPubkey = reader.string();
-                        break;
-                    case 3:
-                        message.job = $root.OracleJob.decode(reader, reader.uint32());
-                        break;
-                    case 4:
-                        message.big = reader.string();
-                        break;
+                    case 1: {
+                            message.scalar = reader.double();
+                            break;
+                        }
+                    case 2: {
+                            message.aggregatorPubkey = reader.string();
+                            break;
+                        }
+                    case 3: {
+                            message.job = $root.OracleJob.decode(reader, reader.uint32());
+                            break;
+                        }
+                    case 4: {
+                            message.big = reader.string();
+                            break;
+                        }
                     default:
                         reader.skipType(tag & 7);
                         break;
@@ -3684,6 +3930,21 @@
              */
             AddTask.prototype.toJSON = function toJSON() {
                 return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+            };
+    
+            /**
+             * Gets the default type url for AddTask
+             * @function getTypeUrl
+             * @memberof OracleJob.AddTask
+             * @static
+             * @param {string} [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+             * @returns {string} The default type url
+             */
+            AddTask.getTypeUrl = function getTypeUrl(typeUrlPrefix) {
+                if (typeUrlPrefix === undefined) {
+                    typeUrlPrefix = "type.googleapis.com";
+                }
+                return typeUrlPrefix + "/OracleJob.AddTask";
             };
     
             return AddTask;
@@ -3828,18 +4089,22 @@
                 while (reader.pos < end) {
                     var tag = reader.uint32();
                     switch (tag >>> 3) {
-                    case 1:
-                        message.scalar = reader.double();
-                        break;
-                    case 2:
-                        message.aggregatorPubkey = reader.string();
-                        break;
-                    case 3:
-                        message.job = $root.OracleJob.decode(reader, reader.uint32());
-                        break;
-                    case 4:
-                        message.big = reader.string();
-                        break;
+                    case 1: {
+                            message.scalar = reader.double();
+                            break;
+                        }
+                    case 2: {
+                            message.aggregatorPubkey = reader.string();
+                            break;
+                        }
+                    case 3: {
+                            message.job = $root.OracleJob.decode(reader, reader.uint32());
+                            break;
+                        }
+                    case 4: {
+                            message.big = reader.string();
+                            break;
+                        }
                     default:
                         reader.skipType(tag & 7);
                         break;
@@ -3979,6 +4244,21 @@
              */
             SubtractTask.prototype.toJSON = function toJSON() {
                 return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+            };
+    
+            /**
+             * Gets the default type url for SubtractTask
+             * @function getTypeUrl
+             * @memberof OracleJob.SubtractTask
+             * @static
+             * @param {string} [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+             * @returns {string} The default type url
+             */
+            SubtractTask.getTypeUrl = function getTypeUrl(typeUrlPrefix) {
+                if (typeUrlPrefix === undefined) {
+                    typeUrlPrefix = "type.googleapis.com";
+                }
+                return typeUrlPrefix + "/OracleJob.SubtractTask";
             };
     
             return SubtractTask;
@@ -4160,31 +4440,38 @@
                 while (reader.pos < end) {
                     var tag = reader.uint32();
                     switch (tag >>> 3) {
-                    case 1:
-                        message.mercurialPoolAddress = reader.string();
-                        break;
-                    case 2:
-                        message.saberPoolAddress = reader.string();
-                        break;
-                    case 3:
-                        message.orcaPoolAddress = reader.string();
-                        break;
-                    case 4:
-                        message.raydiumPoolAddress = reader.string();
-                        break;
-                    case 5:
-                        if (!(message.priceFeedAddresses && message.priceFeedAddresses.length))
-                            message.priceFeedAddresses = [];
-                        message.priceFeedAddresses.push(reader.string());
-                        break;
-                    case 6:
-                        if (!(message.priceFeedJobs && message.priceFeedJobs.length))
-                            message.priceFeedJobs = [];
-                        message.priceFeedJobs.push($root.OracleJob.decode(reader, reader.uint32()));
-                        break;
-                    case 7:
-                        message.useFairPrice = reader.bool();
-                        break;
+                    case 1: {
+                            message.mercurialPoolAddress = reader.string();
+                            break;
+                        }
+                    case 2: {
+                            message.saberPoolAddress = reader.string();
+                            break;
+                        }
+                    case 3: {
+                            message.orcaPoolAddress = reader.string();
+                            break;
+                        }
+                    case 4: {
+                            message.raydiumPoolAddress = reader.string();
+                            break;
+                        }
+                    case 5: {
+                            if (!(message.priceFeedAddresses && message.priceFeedAddresses.length))
+                                message.priceFeedAddresses = [];
+                            message.priceFeedAddresses.push(reader.string());
+                            break;
+                        }
+                    case 6: {
+                            if (!(message.priceFeedJobs && message.priceFeedJobs.length))
+                                message.priceFeedJobs = [];
+                            message.priceFeedJobs.push($root.OracleJob.decode(reader, reader.uint32()));
+                            break;
+                        }
+                    case 7: {
+                            message.useFairPrice = reader.bool();
+                            break;
+                        }
                     default:
                         reader.skipType(tag & 7);
                         break;
@@ -4376,6 +4663,21 @@
                 return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
             };
     
+            /**
+             * Gets the default type url for LpTokenPriceTask
+             * @function getTypeUrl
+             * @memberof OracleJob.LpTokenPriceTask
+             * @static
+             * @param {string} [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+             * @returns {string} The default type url
+             */
+            LpTokenPriceTask.getTypeUrl = function getTypeUrl(typeUrlPrefix) {
+                if (typeUrlPrefix === undefined) {
+                    typeUrlPrefix = "type.googleapis.com";
+                }
+                return typeUrlPrefix + "/OracleJob.LpTokenPriceTask";
+            };
+    
             return LpTokenPriceTask;
         })();
     
@@ -4562,30 +4864,38 @@
                 while (reader.pos < end) {
                     var tag = reader.uint32();
                     switch (tag >>> 3) {
-                    case 1:
-                        message.inTokenAddress = reader.string();
-                        break;
-                    case 2:
-                        message.outTokenAddress = reader.string();
-                        break;
-                    case 3:
-                        message.mercurialPoolAddress = reader.string();
-                        break;
-                    case 4:
-                        message.saberPoolAddress = reader.string();
-                        break;
-                    case 5:
-                        message.orcaPoolTokenMintAddress = reader.string();
-                        break;
-                    case 6:
-                        message.raydiumPoolAddress = reader.string();
-                        break;
-                    case 7:
-                        message.orcaPoolAddress = reader.string();
-                        break;
-                    case 8:
-                        message.portReserveAddress = reader.string();
-                        break;
+                    case 1: {
+                            message.inTokenAddress = reader.string();
+                            break;
+                        }
+                    case 2: {
+                            message.outTokenAddress = reader.string();
+                            break;
+                        }
+                    case 3: {
+                            message.mercurialPoolAddress = reader.string();
+                            break;
+                        }
+                    case 4: {
+                            message.saberPoolAddress = reader.string();
+                            break;
+                        }
+                    case 5: {
+                            message.orcaPoolTokenMintAddress = reader.string();
+                            break;
+                        }
+                    case 6: {
+                            message.raydiumPoolAddress = reader.string();
+                            break;
+                        }
+                    case 7: {
+                            message.orcaPoolAddress = reader.string();
+                            break;
+                        }
+                    case 8: {
+                            message.portReserveAddress = reader.string();
+                            break;
+                        }
                     default:
                         reader.skipType(tag & 7);
                         break;
@@ -4767,6 +5077,21 @@
                 return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
             };
     
+            /**
+             * Gets the default type url for LpExchangeRateTask
+             * @function getTypeUrl
+             * @memberof OracleJob.LpExchangeRateTask
+             * @static
+             * @param {string} [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+             * @returns {string} The default type url
+             */
+            LpExchangeRateTask.getTypeUrl = function getTypeUrl(typeUrlPrefix) {
+                if (typeUrlPrefix === undefined) {
+                    typeUrlPrefix = "type.googleapis.com";
+                }
+                return typeUrlPrefix + "/OracleJob.LpExchangeRateTask";
+            };
+    
             return LpExchangeRateTask;
         })();
     
@@ -4873,12 +5198,14 @@
                 while (reader.pos < end) {
                     var tag = reader.uint32();
                     switch (tag >>> 3) {
-                    case 1:
-                        message.pattern = reader.string();
-                        break;
-                    case 2:
-                        message.groupNumber = reader.int32();
-                        break;
+                    case 1: {
+                            message.pattern = reader.string();
+                            break;
+                        }
+                    case 2: {
+                            message.groupNumber = reader.int32();
+                            break;
+                        }
                     default:
                         reader.skipType(tag & 7);
                         break;
@@ -4975,6 +5302,21 @@
              */
             RegexExtractTask.prototype.toJSON = function toJSON() {
                 return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+            };
+    
+            /**
+             * Gets the default type url for RegexExtractTask
+             * @function getTypeUrl
+             * @memberof OracleJob.RegexExtractTask
+             * @static
+             * @param {string} [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+             * @returns {string} The default type url
+             */
+            RegexExtractTask.getTypeUrl = function getTypeUrl(typeUrlPrefix) {
+                if (typeUrlPrefix === undefined) {
+                    typeUrlPrefix = "type.googleapis.com";
+                }
+                return typeUrlPrefix + "/OracleJob.RegexExtractTask";
             };
     
             return RegexExtractTask;
@@ -5097,12 +5439,14 @@
                 while (reader.pos < end) {
                     var tag = reader.uint32();
                     switch (tag >>> 3) {
-                    case 1:
-                        message.stepJob = $root.OracleJob.MedianTask.decode(reader, reader.uint32());
-                        break;
-                    case 2:
-                        message.stepAggregatorPubkey = reader.string();
-                        break;
+                    case 1: {
+                            message.stepJob = $root.OracleJob.MedianTask.decode(reader, reader.uint32());
+                            break;
+                        }
+                    case 2: {
+                            message.stepAggregatorPubkey = reader.string();
+                            break;
+                        }
                     default:
                         reader.skipType(tag & 7);
                         break;
@@ -5214,6 +5558,21 @@
              */
             XStepPriceTask.prototype.toJSON = function toJSON() {
                 return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+            };
+    
+            /**
+             * Gets the default type url for XStepPriceTask
+             * @function getTypeUrl
+             * @memberof OracleJob.XStepPriceTask
+             * @static
+             * @param {string} [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+             * @returns {string} The default type url
+             */
+            XStepPriceTask.getTypeUrl = function getTypeUrl(typeUrlPrefix) {
+                if (typeUrlPrefix === undefined) {
+                    typeUrlPrefix = "type.googleapis.com";
+                }
+                return typeUrlPrefix + "/OracleJob.XStepPriceTask";
             };
     
             return XStepPriceTask;
@@ -5366,24 +5725,30 @@
                 while (reader.pos < end) {
                     var tag = reader.uint32();
                     switch (tag >>> 3) {
-                    case 1:
-                        message.aggregatorPubkey = reader.string();
-                        break;
-                    case 2:
-                        message.period = reader.int32();
-                        break;
-                    case 3:
-                        message.weightByPropagationTime = reader.bool();
-                        break;
-                    case 4:
-                        message.minSamples = reader.uint32();
-                        break;
-                    case 5:
-                        message.endingUnixTimestamp = reader.int32();
-                        break;
-                    case 6:
-                        message.endingUnixTimestampTask = $root.OracleJob.CronParseTask.decode(reader, reader.uint32());
-                        break;
+                    case 1: {
+                            message.aggregatorPubkey = reader.string();
+                            break;
+                        }
+                    case 2: {
+                            message.period = reader.int32();
+                            break;
+                        }
+                    case 3: {
+                            message.weightByPropagationTime = reader.bool();
+                            break;
+                        }
+                    case 4: {
+                            message.minSamples = reader.uint32();
+                            break;
+                        }
+                    case 5: {
+                            message.endingUnixTimestamp = reader.int32();
+                            break;
+                        }
+                    case 6: {
+                            message.endingUnixTimestampTask = $root.OracleJob.CronParseTask.decode(reader, reader.uint32());
+                            break;
+                        }
                     default:
                         reader.skipType(tag & 7);
                         break;
@@ -5519,6 +5884,21 @@
                 return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
             };
     
+            /**
+             * Gets the default type url for TwapTask
+             * @function getTypeUrl
+             * @memberof OracleJob.TwapTask
+             * @static
+             * @param {string} [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+             * @returns {string} The default type url
+             */
+            TwapTask.getTypeUrl = function getTypeUrl(typeUrlPrefix) {
+                if (typeUrlPrefix === undefined) {
+                    typeUrlPrefix = "type.googleapis.com";
+                }
+                return typeUrlPrefix + "/OracleJob.TwapTask";
+            };
+    
             return TwapTask;
         })();
     
@@ -5614,9 +5994,10 @@
                 while (reader.pos < end) {
                     var tag = reader.uint32();
                     switch (tag >>> 3) {
-                    case 1:
-                        message.serumPoolAddress = reader.string();
-                        break;
+                    case 1: {
+                            message.serumPoolAddress = reader.string();
+                            break;
+                        }
                     default:
                         reader.skipType(tag & 7);
                         break;
@@ -5704,6 +6085,21 @@
              */
             SerumSwapTask.prototype.toJSON = function toJSON() {
                 return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+            };
+    
+            /**
+             * Gets the default type url for SerumSwapTask
+             * @function getTypeUrl
+             * @memberof OracleJob.SerumSwapTask
+             * @static
+             * @param {string} [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+             * @returns {string} The default type url
+             */
+            SerumSwapTask.getTypeUrl = function getTypeUrl(typeUrlPrefix) {
+                if (typeUrlPrefix === undefined) {
+                    typeUrlPrefix = "type.googleapis.com";
+                }
+                return typeUrlPrefix + "/OracleJob.SerumSwapTask";
             };
     
             return SerumSwapTask;
@@ -5837,15 +6233,18 @@
                 while (reader.pos < end) {
                     var tag = reader.uint32();
                     switch (tag >>> 3) {
-                    case 1:
-                        message.scalar = reader.double();
-                        break;
-                    case 2:
-                        message.aggregatorPubkey = reader.string();
-                        break;
-                    case 3:
-                        message.big = reader.string();
-                        break;
+                    case 1: {
+                            message.scalar = reader.double();
+                            break;
+                        }
+                    case 2: {
+                            message.aggregatorPubkey = reader.string();
+                            break;
+                        }
+                    case 3: {
+                            message.big = reader.string();
+                            break;
+                        }
                     default:
                         reader.skipType(tag & 7);
                         break;
@@ -5967,6 +6366,21 @@
                 return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
             };
     
+            /**
+             * Gets the default type url for PowTask
+             * @function getTypeUrl
+             * @memberof OracleJob.PowTask
+             * @static
+             * @param {string} [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+             * @returns {string} The default type url
+             */
+            PowTask.getTypeUrl = function getTypeUrl(typeUrlPrefix) {
+                if (typeUrlPrefix === undefined) {
+                    typeUrlPrefix = "type.googleapis.com";
+                }
+                return typeUrlPrefix + "/OracleJob.PowTask";
+            };
+    
             return PowTask;
         })();
     
@@ -6084,15 +6498,18 @@
                 while (reader.pos < end) {
                     var tag = reader.uint32();
                     switch (tag >>> 3) {
-                    case 1:
-                        message.protocol = reader.string();
-                        break;
-                    case 2:
-                        message.assetMint = reader.string();
-                        break;
-                    case 3:
-                        message.field = reader.int32();
-                        break;
+                    case 1: {
+                            message.protocol = reader.string();
+                            break;
+                        }
+                    case 2: {
+                            message.assetMint = reader.string();
+                            break;
+                        }
+                    case 3: {
+                            message.field = reader.int32();
+                            break;
+                        }
                     default:
                         reader.skipType(tag & 7);
                         break;
@@ -6162,6 +6579,12 @@
                 if (object.assetMint != null)
                     message.assetMint = String(object.assetMint);
                 switch (object.field) {
+                default:
+                    if (typeof object.field === "number") {
+                        message.field = object.field;
+                        break;
+                    }
+                    break;
                 case "FIELD_DEPOSIT_RATE":
                 case 0:
                     message.field = 0;
@@ -6197,7 +6620,7 @@
                 if (message.assetMint != null && message.hasOwnProperty("assetMint"))
                     object.assetMint = message.assetMint;
                 if (message.field != null && message.hasOwnProperty("field"))
-                    object.field = options.enums === String ? $root.OracleJob.LendingRateTask.Field[message.field] : message.field;
+                    object.field = options.enums === String ? $root.OracleJob.LendingRateTask.Field[message.field] === undefined ? message.field : $root.OracleJob.LendingRateTask.Field[message.field] : message.field;
                 return object;
             };
     
@@ -6210,6 +6633,21 @@
              */
             LendingRateTask.prototype.toJSON = function toJSON() {
                 return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+            };
+    
+            /**
+             * Gets the default type url for LendingRateTask
+             * @function getTypeUrl
+             * @memberof OracleJob.LendingRateTask
+             * @static
+             * @param {string} [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+             * @returns {string} The default type url
+             */
+            LendingRateTask.getTypeUrl = function getTypeUrl(typeUrlPrefix) {
+                if (typeUrlPrefix === undefined) {
+                    typeUrlPrefix = "type.googleapis.com";
+                }
+                return typeUrlPrefix + "/OracleJob.LendingRateTask";
             };
     
             /**
@@ -6321,9 +6759,10 @@
                 while (reader.pos < end) {
                     var tag = reader.uint32();
                     switch (tag >>> 3) {
-                    case 1:
-                        message.perpMarketAddress = reader.string();
-                        break;
+                    case 1: {
+                            message.perpMarketAddress = reader.string();
+                            break;
+                        }
                     default:
                         reader.skipType(tag & 7);
                         break;
@@ -6411,6 +6850,21 @@
              */
             MangoPerpMarketTask.prototype.toJSON = function toJSON() {
                 return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+            };
+    
+            /**
+             * Gets the default type url for MangoPerpMarketTask
+             * @function getTypeUrl
+             * @memberof OracleJob.MangoPerpMarketTask
+             * @static
+             * @param {string} [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+             * @returns {string} The default type url
+             */
+            MangoPerpMarketTask.getTypeUrl = function getTypeUrl(typeUrlPrefix) {
+                if (typeUrlPrefix === undefined) {
+                    typeUrlPrefix = "type.googleapis.com";
+                }
+                return typeUrlPrefix + "/OracleJob.MangoPerpMarketTask";
             };
     
             return MangoPerpMarketTask;
@@ -6566,21 +7020,26 @@
                 while (reader.pos < end) {
                     var tag = reader.uint32();
                     switch (tag >>> 3) {
-                    case 1:
-                        message.inTokenAddress = reader.string();
-                        break;
-                    case 2:
-                        message.outTokenAddress = reader.string();
-                        break;
-                    case 3:
-                        message.baseAmount = reader.double();
-                        break;
-                    case 4:
-                        message.allowList = $root.OracleJob.JupiterSwapTask.FilterList.decode(reader, reader.uint32());
-                        break;
-                    case 5:
-                        message.denyList = $root.OracleJob.JupiterSwapTask.FilterList.decode(reader, reader.uint32());
-                        break;
+                    case 1: {
+                            message.inTokenAddress = reader.string();
+                            break;
+                        }
+                    case 2: {
+                            message.outTokenAddress = reader.string();
+                            break;
+                        }
+                    case 3: {
+                            message.baseAmount = reader.double();
+                            break;
+                        }
+                    case 4: {
+                            message.allowList = $root.OracleJob.JupiterSwapTask.FilterList.decode(reader, reader.uint32());
+                            break;
+                        }
+                    case 5: {
+                            message.denyList = $root.OracleJob.JupiterSwapTask.FilterList.decode(reader, reader.uint32());
+                            break;
+                        }
                     default:
                         reader.skipType(tag & 7);
                         break;
@@ -6726,6 +7185,21 @@
                 return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
             };
     
+            /**
+             * Gets the default type url for JupiterSwapTask
+             * @function getTypeUrl
+             * @memberof OracleJob.JupiterSwapTask
+             * @static
+             * @param {string} [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+             * @returns {string} The default type url
+             */
+            JupiterSwapTask.getTypeUrl = function getTypeUrl(typeUrlPrefix) {
+                if (typeUrlPrefix === undefined) {
+                    typeUrlPrefix = "type.googleapis.com";
+                }
+                return typeUrlPrefix + "/OracleJob.JupiterSwapTask";
+            };
+    
             JupiterSwapTask.FilterList = (function() {
     
                 /**
@@ -6820,11 +7294,12 @@
                     while (reader.pos < end) {
                         var tag = reader.uint32();
                         switch (tag >>> 3) {
-                        case 1:
-                            if (!(message.labels && message.labels.length))
-                                message.labels = [];
-                            message.labels.push(reader.string());
-                            break;
+                        case 1: {
+                                if (!(message.labels && message.labels.length))
+                                    message.labels = [];
+                                message.labels.push(reader.string());
+                                break;
+                            }
                         default:
                             reader.skipType(tag & 7);
                             break;
@@ -6924,6 +7399,21 @@
                  */
                 FilterList.prototype.toJSON = function toJSON() {
                     return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+                };
+    
+                /**
+                 * Gets the default type url for FilterList
+                 * @function getTypeUrl
+                 * @memberof OracleJob.JupiterSwapTask.FilterList
+                 * @static
+                 * @param {string} [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+                 * @returns {string} The default type url
+                 */
+                FilterList.getTypeUrl = function getTypeUrl(typeUrlPrefix) {
+                    if (typeUrlPrefix === undefined) {
+                        typeUrlPrefix = "type.googleapis.com";
+                    }
+                    return typeUrlPrefix + "/OracleJob.JupiterSwapTask.FilterList";
                 };
     
                 return FilterList;
@@ -7071,18 +7561,22 @@
                 while (reader.pos < end) {
                     var tag = reader.uint32();
                     switch (tag >>> 3) {
-                    case 1:
-                        message.mangoMarketAddress = reader.string();
-                        break;
-                    case 2:
-                        message.driftMarketAddress = reader.string();
-                        break;
-                    case 3:
-                        message.zetaMarketAddress = reader.string();
-                        break;
-                    case 4:
-                        message.zoMarketAddress = reader.string();
-                        break;
+                    case 1: {
+                            message.mangoMarketAddress = reader.string();
+                            break;
+                        }
+                    case 2: {
+                            message.driftMarketAddress = reader.string();
+                            break;
+                        }
+                    case 3: {
+                            message.zetaMarketAddress = reader.string();
+                            break;
+                        }
+                    case 4: {
+                            message.zoMarketAddress = reader.string();
+                            break;
+                        }
                     default:
                         reader.skipType(tag & 7);
                         break;
@@ -7216,6 +7710,21 @@
              */
             PerpMarketTask.prototype.toJSON = function toJSON() {
                 return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+            };
+    
+            /**
+             * Gets the default type url for PerpMarketTask
+             * @function getTypeUrl
+             * @memberof OracleJob.PerpMarketTask
+             * @static
+             * @param {string} [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+             * @returns {string} The default type url
+             */
+            PerpMarketTask.getTypeUrl = function getTypeUrl(typeUrlPrefix) {
+                if (typeUrlPrefix === undefined) {
+                    typeUrlPrefix = "type.googleapis.com";
+                }
+                return typeUrlPrefix + "/OracleJob.PerpMarketTask";
             };
     
             return PerpMarketTask;
@@ -7360,18 +7869,22 @@
                 while (reader.pos < end) {
                     var tag = reader.uint32();
                     switch (tag >>> 3) {
-                    case 1:
-                        message.switchboardAddress = reader.string();
-                        break;
-                    case 2:
-                        message.pythAddress = reader.string();
-                        break;
-                    case 3:
-                        message.chainlinkAddress = reader.string();
-                        break;
-                    case 4:
-                        message.pythAllowedConfidenceInterval = reader.double();
-                        break;
+                    case 1: {
+                            message.switchboardAddress = reader.string();
+                            break;
+                        }
+                    case 2: {
+                            message.pythAddress = reader.string();
+                            break;
+                        }
+                    case 3: {
+                            message.chainlinkAddress = reader.string();
+                            break;
+                        }
+                    case 4: {
+                            message.pythAllowedConfidenceInterval = reader.double();
+                            break;
+                        }
                     default:
                         reader.skipType(tag & 7);
                         break;
@@ -7502,6 +8015,21 @@
                 return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
             };
     
+            /**
+             * Gets the default type url for OracleTask
+             * @function getTypeUrl
+             * @memberof OracleJob.OracleTask
+             * @static
+             * @param {string} [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+             * @returns {string} The default type url
+             */
+            OracleTask.getTypeUrl = function getTypeUrl(typeUrlPrefix) {
+                if (typeUrlPrefix === undefined) {
+                    typeUrlPrefix = "type.googleapis.com";
+                }
+                return typeUrlPrefix + "/OracleJob.OracleTask";
+            };
+    
             return OracleTask;
         })();
     
@@ -7608,12 +8136,14 @@
                 while (reader.pos < end) {
                     var tag = reader.uint32();
                     switch (tag >>> 3) {
-                    case 1:
-                        message.programId = reader.string();
-                        break;
-                    case 2:
-                        message.accountAddress = reader.string();
-                        break;
+                    case 1: {
+                            message.programId = reader.string();
+                            break;
+                        }
+                    case 2: {
+                            message.accountAddress = reader.string();
+                            break;
+                        }
                     default:
                         reader.skipType(tag & 7);
                         break;
@@ -7710,6 +8240,21 @@
              */
             AnchorFetchTask.prototype.toJSON = function toJSON() {
                 return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+            };
+    
+            /**
+             * Gets the default type url for AnchorFetchTask
+             * @function getTypeUrl
+             * @memberof OracleJob.AnchorFetchTask
+             * @static
+             * @param {string} [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+             * @returns {string} The default type url
+             */
+            AnchorFetchTask.getTypeUrl = function getTypeUrl(typeUrlPrefix) {
+                if (typeUrlPrefix === undefined) {
+                    typeUrlPrefix = "type.googleapis.com";
+                }
+                return typeUrlPrefix + "/OracleJob.AnchorFetchTask";
             };
     
             return AnchorFetchTask;
@@ -7872,6 +8417,21 @@
                 return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
             };
     
+            /**
+             * Gets the default type url for TpsTask
+             * @function getTypeUrl
+             * @memberof OracleJob.TpsTask
+             * @static
+             * @param {string} [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+             * @returns {string} The default type url
+             */
+            TpsTask.getTypeUrl = function getTypeUrl(typeUrlPrefix) {
+                if (typeUrlPrefix === undefined) {
+                    typeUrlPrefix = "type.googleapis.com";
+                }
+                return typeUrlPrefix + "/OracleJob.TpsTask";
+            };
+    
             return TpsTask;
         })();
     
@@ -7967,9 +8527,10 @@
                 while (reader.pos < end) {
                     var tag = reader.uint32();
                     switch (tag >>> 3) {
-                    case 1:
-                        message.pubkey = reader.string();
-                        break;
+                    case 1: {
+                            message.pubkey = reader.string();
+                            break;
+                        }
                     default:
                         reader.skipType(tag & 7);
                         break;
@@ -8057,6 +8618,21 @@
              */
             SplStakePoolTask.prototype.toJSON = function toJSON() {
                 return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+            };
+    
+            /**
+             * Gets the default type url for SplStakePoolTask
+             * @function getTypeUrl
+             * @memberof OracleJob.SplStakePoolTask
+             * @static
+             * @param {string} [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+             * @returns {string} The default type url
+             */
+            SplStakePoolTask.getTypeUrl = function getTypeUrl(typeUrlPrefix) {
+                if (typeUrlPrefix === undefined) {
+                    typeUrlPrefix = "type.googleapis.com";
+                }
+                return typeUrlPrefix + "/OracleJob.SplStakePoolTask";
             };
     
             return SplStakePoolTask;
@@ -8179,12 +8755,14 @@
                 while (reader.pos < end) {
                     var tag = reader.uint32();
                     switch (tag >>> 3) {
-                    case 1:
-                        message.tokenAccountAddress = reader.string();
-                        break;
-                    case 2:
-                        message.mintAddress = reader.string();
-                        break;
+                    case 1: {
+                            message.tokenAccountAddress = reader.string();
+                            break;
+                        }
+                    case 2: {
+                            message.mintAddress = reader.string();
+                            break;
+                        }
                     default:
                         reader.skipType(tag & 7);
                         break;
@@ -8290,6 +8868,21 @@
              */
             SplTokenParseTask.prototype.toJSON = function toJSON() {
                 return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+            };
+    
+            /**
+             * Gets the default type url for SplTokenParseTask
+             * @function getTypeUrl
+             * @memberof OracleJob.SplTokenParseTask
+             * @static
+             * @param {string} [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+             * @returns {string} The default type url
+             */
+            SplTokenParseTask.getTypeUrl = function getTypeUrl(typeUrlPrefix) {
+                if (typeUrlPrefix === undefined) {
+                    typeUrlPrefix = "type.googleapis.com";
+                }
+                return typeUrlPrefix + "/OracleJob.SplTokenParseTask";
             };
     
             return SplTokenParseTask;
@@ -8409,15 +9002,18 @@
                 while (reader.pos < end) {
                     var tag = reader.uint32();
                     switch (tag >>> 3) {
-                    case 1:
-                        message.provider = reader.string();
-                        break;
-                    case 2:
-                        message.inToken = $root.OracleJob.DefiKingdomsTask.Token.decode(reader, reader.uint32());
-                        break;
-                    case 3:
-                        message.outToken = $root.OracleJob.DefiKingdomsTask.Token.decode(reader, reader.uint32());
-                        break;
+                    case 1: {
+                            message.provider = reader.string();
+                            break;
+                        }
+                    case 2: {
+                            message.inToken = $root.OracleJob.DefiKingdomsTask.Token.decode(reader, reader.uint32());
+                            break;
+                        }
+                    case 3: {
+                            message.outToken = $root.OracleJob.DefiKingdomsTask.Token.decode(reader, reader.uint32());
+                            break;
+                        }
                     default:
                         reader.skipType(tag & 7);
                         break;
@@ -8534,6 +9130,21 @@
                 return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
             };
     
+            /**
+             * Gets the default type url for DefiKingdomsTask
+             * @function getTypeUrl
+             * @memberof OracleJob.DefiKingdomsTask
+             * @static
+             * @param {string} [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+             * @returns {string} The default type url
+             */
+            DefiKingdomsTask.getTypeUrl = function getTypeUrl(typeUrlPrefix) {
+                if (typeUrlPrefix === undefined) {
+                    typeUrlPrefix = "type.googleapis.com";
+                }
+                return typeUrlPrefix + "/OracleJob.DefiKingdomsTask";
+            };
+    
             DefiKingdomsTask.Token = (function() {
     
                 /**
@@ -8637,12 +9248,14 @@
                     while (reader.pos < end) {
                         var tag = reader.uint32();
                         switch (tag >>> 3) {
-                        case 1:
-                            message.address = reader.string();
-                            break;
-                        case 2:
-                            message.decimals = reader.int32();
-                            break;
+                        case 1: {
+                                message.address = reader.string();
+                                break;
+                            }
+                        case 2: {
+                                message.decimals = reader.int32();
+                                break;
+                            }
                         default:
                             reader.skipType(tag & 7);
                             break;
@@ -8739,6 +9352,21 @@
                  */
                 Token.prototype.toJSON = function toJSON() {
                     return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+                };
+    
+                /**
+                 * Gets the default type url for Token
+                 * @function getTypeUrl
+                 * @memberof OracleJob.DefiKingdomsTask.Token
+                 * @static
+                 * @param {string} [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+                 * @returns {string} The default type url
+                 */
+                Token.getTypeUrl = function getTypeUrl(typeUrlPrefix) {
+                    if (typeUrlPrefix === undefined) {
+                        typeUrlPrefix = "type.googleapis.com";
+                    }
+                    return typeUrlPrefix + "/OracleJob.DefiKingdomsTask.Token";
                 };
     
                 return Token;
@@ -8883,21 +9511,26 @@
                 while (reader.pos < end) {
                     var tag = reader.uint32();
                     switch (tag >>> 3) {
-                    case 1:
-                        message.inTokenAddress = reader.string();
-                        break;
-                    case 2:
-                        message.outTokenAddress = reader.string();
-                        break;
-                    case 3:
-                        message.inTokenAmount = reader.double();
-                        break;
-                    case 4:
-                        message.slippage = reader.double();
-                        break;
-                    case 5:
-                        message.provider = reader.string();
-                        break;
+                    case 1: {
+                            message.inTokenAddress = reader.string();
+                            break;
+                        }
+                    case 2: {
+                            message.outTokenAddress = reader.string();
+                            break;
+                        }
+                    case 3: {
+                            message.inTokenAmount = reader.double();
+                            break;
+                        }
+                    case 4: {
+                            message.slippage = reader.double();
+                            break;
+                        }
+                    case 5: {
+                            message.provider = reader.string();
+                            break;
+                        }
                     default:
                         reader.skipType(tag & 7);
                         break;
@@ -9018,6 +9651,21 @@
              */
             UniswapExchangeRateTask.prototype.toJSON = function toJSON() {
                 return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+            };
+    
+            /**
+             * Gets the default type url for UniswapExchangeRateTask
+             * @function getTypeUrl
+             * @memberof OracleJob.UniswapExchangeRateTask
+             * @static
+             * @param {string} [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+             * @returns {string} The default type url
+             */
+            UniswapExchangeRateTask.getTypeUrl = function getTypeUrl(typeUrlPrefix) {
+                if (typeUrlPrefix === undefined) {
+                    typeUrlPrefix = "type.googleapis.com";
+                }
+                return typeUrlPrefix + "/OracleJob.UniswapExchangeRateTask";
             };
     
             return UniswapExchangeRateTask;
@@ -9159,21 +9807,26 @@
                 while (reader.pos < end) {
                     var tag = reader.uint32();
                     switch (tag >>> 3) {
-                    case 1:
-                        message.inTokenAddress = reader.string();
-                        break;
-                    case 2:
-                        message.outTokenAddress = reader.string();
-                        break;
-                    case 3:
-                        message.inTokenAmount = reader.double();
-                        break;
-                    case 4:
-                        message.slippage = reader.double();
-                        break;
-                    case 5:
-                        message.provider = reader.string();
-                        break;
+                    case 1: {
+                            message.inTokenAddress = reader.string();
+                            break;
+                        }
+                    case 2: {
+                            message.outTokenAddress = reader.string();
+                            break;
+                        }
+                    case 3: {
+                            message.inTokenAmount = reader.double();
+                            break;
+                        }
+                    case 4: {
+                            message.slippage = reader.double();
+                            break;
+                        }
+                    case 5: {
+                            message.provider = reader.string();
+                            break;
+                        }
                     default:
                         reader.skipType(tag & 7);
                         break;
@@ -9294,6 +9947,21 @@
              */
             SushiswapExchangeRateTask.prototype.toJSON = function toJSON() {
                 return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+            };
+    
+            /**
+             * Gets the default type url for SushiswapExchangeRateTask
+             * @function getTypeUrl
+             * @memberof OracleJob.SushiswapExchangeRateTask
+             * @static
+             * @param {string} [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+             * @returns {string} The default type url
+             */
+            SushiswapExchangeRateTask.getTypeUrl = function getTypeUrl(typeUrlPrefix) {
+                if (typeUrlPrefix === undefined) {
+                    typeUrlPrefix = "type.googleapis.com";
+                }
+                return typeUrlPrefix + "/OracleJob.SushiswapExchangeRateTask";
             };
     
             return SushiswapExchangeRateTask;
@@ -9435,21 +10103,26 @@
                 while (reader.pos < end) {
                     var tag = reader.uint32();
                     switch (tag >>> 3) {
-                    case 1:
-                        message.inTokenAddress = reader.string();
-                        break;
-                    case 2:
-                        message.outTokenAddress = reader.string();
-                        break;
-                    case 3:
-                        message.inTokenAmount = reader.double();
-                        break;
-                    case 4:
-                        message.slippage = reader.double();
-                        break;
-                    case 5:
-                        message.provider = reader.string();
-                        break;
+                    case 1: {
+                            message.inTokenAddress = reader.string();
+                            break;
+                        }
+                    case 2: {
+                            message.outTokenAddress = reader.string();
+                            break;
+                        }
+                    case 3: {
+                            message.inTokenAmount = reader.double();
+                            break;
+                        }
+                    case 4: {
+                            message.slippage = reader.double();
+                            break;
+                        }
+                    case 5: {
+                            message.provider = reader.string();
+                            break;
+                        }
                     default:
                         reader.skipType(tag & 7);
                         break;
@@ -9572,6 +10245,21 @@
                 return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
             };
     
+            /**
+             * Gets the default type url for PancakeswapExchangeRateTask
+             * @function getTypeUrl
+             * @memberof OracleJob.PancakeswapExchangeRateTask
+             * @static
+             * @param {string} [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+             * @returns {string} The default type url
+             */
+            PancakeswapExchangeRateTask.getTypeUrl = function getTypeUrl(typeUrlPrefix) {
+                if (typeUrlPrefix === undefined) {
+                    typeUrlPrefix = "type.googleapis.com";
+                }
+                return typeUrlPrefix + "/OracleJob.PancakeswapExchangeRateTask";
+            };
+    
             return PancakeswapExchangeRateTask;
         })();
     
@@ -9669,11 +10357,12 @@
                 while (reader.pos < end) {
                     var tag = reader.uint32();
                     switch (tag >>> 3) {
-                    case 1:
-                        if (!(message.cacheItems && message.cacheItems.length))
-                            message.cacheItems = [];
-                        message.cacheItems.push($root.OracleJob.CacheTask.CacheItem.decode(reader, reader.uint32()));
-                        break;
+                    case 1: {
+                            if (!(message.cacheItems && message.cacheItems.length))
+                                message.cacheItems = [];
+                            message.cacheItems.push($root.OracleJob.CacheTask.CacheItem.decode(reader, reader.uint32()));
+                            break;
+                        }
                     default:
                         reader.skipType(tag & 7);
                         break;
@@ -9780,6 +10469,21 @@
                 return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
             };
     
+            /**
+             * Gets the default type url for CacheTask
+             * @function getTypeUrl
+             * @memberof OracleJob.CacheTask
+             * @static
+             * @param {string} [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+             * @returns {string} The default type url
+             */
+            CacheTask.getTypeUrl = function getTypeUrl(typeUrlPrefix) {
+                if (typeUrlPrefix === undefined) {
+                    typeUrlPrefix = "type.googleapis.com";
+                }
+                return typeUrlPrefix + "/OracleJob.CacheTask";
+            };
+    
             CacheTask.CacheItem = (function() {
     
                 /**
@@ -9883,12 +10587,14 @@
                     while (reader.pos < end) {
                         var tag = reader.uint32();
                         switch (tag >>> 3) {
-                        case 1:
-                            message.variableName = reader.string();
-                            break;
-                        case 2:
-                            message.job = $root.OracleJob.decode(reader, reader.uint32());
-                            break;
+                        case 1: {
+                                message.variableName = reader.string();
+                                break;
+                            }
+                        case 2: {
+                                message.job = $root.OracleJob.decode(reader, reader.uint32());
+                                break;
+                            }
                         default:
                             reader.skipType(tag & 7);
                             break;
@@ -9990,6 +10696,21 @@
                  */
                 CacheItem.prototype.toJSON = function toJSON() {
                     return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+                };
+    
+                /**
+                 * Gets the default type url for CacheItem
+                 * @function getTypeUrl
+                 * @memberof OracleJob.CacheTask.CacheItem
+                 * @static
+                 * @param {string} [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+                 * @returns {string} The default type url
+                 */
+                CacheItem.getTypeUrl = function getTypeUrl(typeUrlPrefix) {
+                    if (typeUrlPrefix === undefined) {
+                        typeUrlPrefix = "type.googleapis.com";
+                    }
+                    return typeUrlPrefix + "/OracleJob.CacheTask.CacheItem";
                 };
     
                 return CacheItem;
@@ -10155,6 +10876,21 @@
                 return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
             };
     
+            /**
+             * Gets the default type url for SysclockOffsetTask
+             * @function getTypeUrl
+             * @memberof OracleJob.SysclockOffsetTask
+             * @static
+             * @param {string} [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+             * @returns {string} The default type url
+             */
+            SysclockOffsetTask.getTypeUrl = function getTypeUrl(typeUrlPrefix) {
+                if (typeUrlPrefix === undefined) {
+                    typeUrlPrefix = "type.googleapis.com";
+                }
+                return typeUrlPrefix + "/OracleJob.SysclockOffsetTask";
+            };
+    
             return SysclockOffsetTask;
         })();
     
@@ -10315,6 +11051,21 @@
                 return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
             };
     
+            /**
+             * Gets the default type url for MarinadeStateTask
+             * @function getTypeUrl
+             * @memberof OracleJob.MarinadeStateTask
+             * @static
+             * @param {string} [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+             * @returns {string} The default type url
+             */
+            MarinadeStateTask.getTypeUrl = function getTypeUrl(typeUrlPrefix) {
+                if (typeUrlPrefix === undefined) {
+                    typeUrlPrefix = "type.googleapis.com";
+                }
+                return typeUrlPrefix + "/OracleJob.MarinadeStateTask";
+            };
+    
             return MarinadeStateTask;
         })();
     
@@ -10410,9 +11161,10 @@
                 while (reader.pos < end) {
                     var tag = reader.uint32();
                     switch (tag >>> 3) {
-                    case 1:
-                        message.pubkey = reader.string();
-                        break;
+                    case 1: {
+                            message.pubkey = reader.string();
+                            break;
+                        }
                     default:
                         reader.skipType(tag & 7);
                         break;
@@ -10500,6 +11252,21 @@
              */
             SolanaAccountDataFetchTask.prototype.toJSON = function toJSON() {
                 return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+            };
+    
+            /**
+             * Gets the default type url for SolanaAccountDataFetchTask
+             * @function getTypeUrl
+             * @memberof OracleJob.SolanaAccountDataFetchTask
+             * @static
+             * @param {string} [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+             * @returns {string} The default type url
+             */
+            SolanaAccountDataFetchTask.getTypeUrl = function getTypeUrl(typeUrlPrefix) {
+                if (typeUrlPrefix === undefined) {
+                    typeUrlPrefix = "type.googleapis.com";
+                }
+                return typeUrlPrefix + "/OracleJob.SolanaAccountDataFetchTask";
             };
     
             return SolanaAccountDataFetchTask;
@@ -10619,15 +11386,18 @@
                 while (reader.pos < end) {
                     var tag = reader.uint32();
                     switch (tag >>> 3) {
-                    case 1:
-                        message.cronPattern = reader.string();
-                        break;
-                    case 2:
-                        message.clockOffset = reader.int32();
-                        break;
-                    case 3:
-                        message.clock = reader.int32();
-                        break;
+                    case 1: {
+                            message.cronPattern = reader.string();
+                            break;
+                        }
+                    case 2: {
+                            message.clockOffset = reader.int32();
+                            break;
+                        }
+                    case 3: {
+                            message.clock = reader.int32();
+                            break;
+                        }
                     default:
                         reader.skipType(tag & 7);
                         break;
@@ -10697,6 +11467,12 @@
                 if (object.clockOffset != null)
                     message.clockOffset = object.clockOffset | 0;
                 switch (object.clock) {
+                default:
+                    if (typeof object.clock === "number") {
+                        message.clock = object.clock;
+                        break;
+                    }
+                    break;
                 case "ORACLE":
                 case 0:
                     message.clock = 0;
@@ -10732,7 +11508,7 @@
                 if (message.clockOffset != null && message.hasOwnProperty("clockOffset"))
                     object.clockOffset = message.clockOffset;
                 if (message.clock != null && message.hasOwnProperty("clock"))
-                    object.clock = options.enums === String ? $root.OracleJob.CronParseTask.ClockType[message.clock] : message.clock;
+                    object.clock = options.enums === String ? $root.OracleJob.CronParseTask.ClockType[message.clock] === undefined ? message.clock : $root.OracleJob.CronParseTask.ClockType[message.clock] : message.clock;
                 return object;
             };
     
@@ -10745,6 +11521,21 @@
              */
             CronParseTask.prototype.toJSON = function toJSON() {
                 return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+            };
+    
+            /**
+             * Gets the default type url for CronParseTask
+             * @function getTypeUrl
+             * @memberof OracleJob.CronParseTask
+             * @static
+             * @param {string} [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+             * @returns {string} The default type url
+             */
+            CronParseTask.getTypeUrl = function getTypeUrl(typeUrlPrefix) {
+                if (typeUrlPrefix === undefined) {
+                    typeUrlPrefix = "type.googleapis.com";
+                }
+                return typeUrlPrefix + "/OracleJob.CronParseTask";
             };
     
             /**
@@ -10878,15 +11669,18 @@
                 while (reader.pos < end) {
                     var tag = reader.uint32();
                     switch (tag >>> 3) {
-                    case 1:
-                        message.offset = reader.uint32();
-                        break;
-                    case 2:
-                        message.endian = reader.int32();
-                        break;
-                    case 3:
-                        message.type = reader.int32();
-                        break;
+                    case 1: {
+                            message.offset = reader.uint32();
+                            break;
+                        }
+                    case 2: {
+                            message.endian = reader.int32();
+                            break;
+                        }
+                    case 3: {
+                            message.type = reader.int32();
+                            break;
+                        }
                     default:
                         reader.skipType(tag & 7);
                         break;
@@ -10971,6 +11765,12 @@
                 if (object.offset != null)
                     message.offset = object.offset >>> 0;
                 switch (object.endian) {
+                default:
+                    if (typeof object.endian === "number") {
+                        message.endian = object.endian;
+                        break;
+                    }
+                    break;
                 case "LITTLE_ENDIAN":
                 case 0:
                     message.endian = 0;
@@ -10981,6 +11781,12 @@
                     break;
                 }
                 switch (object.type) {
+                default:
+                    if (typeof object.type === "number") {
+                        message.type = object.type;
+                        break;
+                    }
+                    break;
                 case "pubkey":
                 case 1:
                     message.type = 1;
@@ -11062,9 +11868,9 @@
                 if (message.offset != null && message.hasOwnProperty("offset"))
                     object.offset = message.offset;
                 if (message.endian != null && message.hasOwnProperty("endian"))
-                    object.endian = options.enums === String ? $root.OracleJob.BufferLayoutParseTask.Endian[message.endian] : message.endian;
+                    object.endian = options.enums === String ? $root.OracleJob.BufferLayoutParseTask.Endian[message.endian] === undefined ? message.endian : $root.OracleJob.BufferLayoutParseTask.Endian[message.endian] : message.endian;
                 if (message.type != null && message.hasOwnProperty("type"))
-                    object.type = options.enums === String ? $root.OracleJob.BufferLayoutParseTask.BufferParseType[message.type] : message.type;
+                    object.type = options.enums === String ? $root.OracleJob.BufferLayoutParseTask.BufferParseType[message.type] === undefined ? message.type : $root.OracleJob.BufferLayoutParseTask.BufferParseType[message.type] : message.type;
                 return object;
             };
     
@@ -11077,6 +11883,21 @@
              */
             BufferLayoutParseTask.prototype.toJSON = function toJSON() {
                 return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+            };
+    
+            /**
+             * Gets the default type url for BufferLayoutParseTask
+             * @function getTypeUrl
+             * @memberof OracleJob.BufferLayoutParseTask
+             * @static
+             * @param {string} [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+             * @returns {string} The default type url
+             */
+            BufferLayoutParseTask.getTypeUrl = function getTypeUrl(typeUrlPrefix) {
+                if (typeUrlPrefix === undefined) {
+                    typeUrlPrefix = "type.googleapis.com";
+                }
+                return typeUrlPrefix + "/OracleJob.BufferLayoutParseTask";
             };
     
             /**
@@ -11134,6 +11955,1409 @@
             return BufferLayoutParseTask;
         })();
     
+        OracleJob.HistoryFunctionTask = (function() {
+    
+            /**
+             * Properties of a HistoryFunctionTask.
+             * @memberof OracleJob
+             * @interface IHistoryFunctionTask
+             * @property {OracleJob.HistoryFunctionTask.Method|null} [method] HistoryFunctionTask method
+             * @property {string|null} [aggregatorAddress] HistoryFunctionTask aggregatorAddress
+             * @property {number|null} [period] HistoryFunctionTask period
+             */
+    
+            /**
+             * Constructs a new HistoryFunctionTask.
+             * @memberof OracleJob
+             * @classdesc Represents a HistoryFunctionTask.
+             * @implements IHistoryFunctionTask
+             * @constructor
+             * @param {OracleJob.IHistoryFunctionTask=} [properties] Properties to set
+             */
+            function HistoryFunctionTask(properties) {
+                if (properties)
+                    for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                        if (properties[keys[i]] != null)
+                            this[keys[i]] = properties[keys[i]];
+            }
+    
+            /**
+             * HistoryFunctionTask method.
+             * @member {OracleJob.HistoryFunctionTask.Method} method
+             * @memberof OracleJob.HistoryFunctionTask
+             * @instance
+             */
+            HistoryFunctionTask.prototype.method = 0;
+    
+            /**
+             * HistoryFunctionTask aggregatorAddress.
+             * @member {string} aggregatorAddress
+             * @memberof OracleJob.HistoryFunctionTask
+             * @instance
+             */
+            HistoryFunctionTask.prototype.aggregatorAddress = "";
+    
+            /**
+             * HistoryFunctionTask period.
+             * @member {number} period
+             * @memberof OracleJob.HistoryFunctionTask
+             * @instance
+             */
+            HistoryFunctionTask.prototype.period = 0;
+    
+            /**
+             * Creates a new HistoryFunctionTask instance using the specified properties.
+             * @function create
+             * @memberof OracleJob.HistoryFunctionTask
+             * @static
+             * @param {OracleJob.IHistoryFunctionTask=} [properties] Properties to set
+             * @returns {OracleJob.HistoryFunctionTask} HistoryFunctionTask instance
+             */
+            HistoryFunctionTask.create = function create(properties) {
+                return new HistoryFunctionTask(properties);
+            };
+    
+            /**
+             * Encodes the specified HistoryFunctionTask message. Does not implicitly {@link OracleJob.HistoryFunctionTask.verify|verify} messages.
+             * @function encode
+             * @memberof OracleJob.HistoryFunctionTask
+             * @static
+             * @param {OracleJob.IHistoryFunctionTask} message HistoryFunctionTask message or plain object to encode
+             * @param {$protobuf.Writer} [writer] Writer to encode to
+             * @returns {$protobuf.Writer} Writer
+             */
+            HistoryFunctionTask.encode = function encode(message, writer) {
+                if (!writer)
+                    writer = $Writer.create();
+                if (message.method != null && Object.hasOwnProperty.call(message, "method"))
+                    writer.uint32(/* id 1, wireType 0 =*/8).int32(message.method);
+                if (message.aggregatorAddress != null && Object.hasOwnProperty.call(message, "aggregatorAddress"))
+                    writer.uint32(/* id 2, wireType 2 =*/18).string(message.aggregatorAddress);
+                if (message.period != null && Object.hasOwnProperty.call(message, "period"))
+                    writer.uint32(/* id 3, wireType 0 =*/24).uint32(message.period);
+                return writer;
+            };
+    
+            /**
+             * Encodes the specified HistoryFunctionTask message, length delimited. Does not implicitly {@link OracleJob.HistoryFunctionTask.verify|verify} messages.
+             * @function encodeDelimited
+             * @memberof OracleJob.HistoryFunctionTask
+             * @static
+             * @param {OracleJob.IHistoryFunctionTask} message HistoryFunctionTask message or plain object to encode
+             * @param {$protobuf.Writer} [writer] Writer to encode to
+             * @returns {$protobuf.Writer} Writer
+             */
+            HistoryFunctionTask.encodeDelimited = function encodeDelimited(message, writer) {
+                return this.encode(message, writer).ldelim();
+            };
+    
+            /**
+             * Decodes a HistoryFunctionTask message from the specified reader or buffer.
+             * @function decode
+             * @memberof OracleJob.HistoryFunctionTask
+             * @static
+             * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+             * @param {number} [length] Message length if known beforehand
+             * @returns {OracleJob.HistoryFunctionTask} HistoryFunctionTask
+             * @throws {Error} If the payload is not a reader or valid buffer
+             * @throws {$protobuf.util.ProtocolError} If required fields are missing
+             */
+            HistoryFunctionTask.decode = function decode(reader, length) {
+                if (!(reader instanceof $Reader))
+                    reader = $Reader.create(reader);
+                var end = length === undefined ? reader.len : reader.pos + length, message = new $root.OracleJob.HistoryFunctionTask();
+                while (reader.pos < end) {
+                    var tag = reader.uint32();
+                    switch (tag >>> 3) {
+                    case 1: {
+                            message.method = reader.int32();
+                            break;
+                        }
+                    case 2: {
+                            message.aggregatorAddress = reader.string();
+                            break;
+                        }
+                    case 3: {
+                            message.period = reader.uint32();
+                            break;
+                        }
+                    default:
+                        reader.skipType(tag & 7);
+                        break;
+                    }
+                }
+                return message;
+            };
+    
+            /**
+             * Decodes a HistoryFunctionTask message from the specified reader or buffer, length delimited.
+             * @function decodeDelimited
+             * @memberof OracleJob.HistoryFunctionTask
+             * @static
+             * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+             * @returns {OracleJob.HistoryFunctionTask} HistoryFunctionTask
+             * @throws {Error} If the payload is not a reader or valid buffer
+             * @throws {$protobuf.util.ProtocolError} If required fields are missing
+             */
+            HistoryFunctionTask.decodeDelimited = function decodeDelimited(reader) {
+                if (!(reader instanceof $Reader))
+                    reader = new $Reader(reader);
+                return this.decode(reader, reader.uint32());
+            };
+    
+            /**
+             * Verifies a HistoryFunctionTask message.
+             * @function verify
+             * @memberof OracleJob.HistoryFunctionTask
+             * @static
+             * @param {Object.<string,*>} message Plain object to verify
+             * @returns {string|null} `null` if valid, otherwise the reason why it is not
+             */
+            HistoryFunctionTask.verify = function verify(message) {
+                if (typeof message !== "object" || message === null)
+                    return "object expected";
+                if (message.method != null && message.hasOwnProperty("method"))
+                    switch (message.method) {
+                    default:
+                        return "method: enum value expected";
+                    case 0:
+                    case 1:
+                        break;
+                    }
+                if (message.aggregatorAddress != null && message.hasOwnProperty("aggregatorAddress"))
+                    if (!$util.isString(message.aggregatorAddress))
+                        return "aggregatorAddress: string expected";
+                if (message.period != null && message.hasOwnProperty("period"))
+                    if (!$util.isInteger(message.period))
+                        return "period: integer expected";
+                return null;
+            };
+    
+            /**
+             * Creates a HistoryFunctionTask message from a plain object. Also converts values to their respective internal types.
+             * @function fromObject
+             * @memberof OracleJob.HistoryFunctionTask
+             * @static
+             * @param {Object.<string,*>} object Plain object
+             * @returns {OracleJob.HistoryFunctionTask} HistoryFunctionTask
+             */
+            HistoryFunctionTask.fromObject = function fromObject(object) {
+                if (object instanceof $root.OracleJob.HistoryFunctionTask)
+                    return object;
+                var message = new $root.OracleJob.HistoryFunctionTask();
+                switch (object.method) {
+                default:
+                    if (typeof object.method === "number") {
+                        message.method = object.method;
+                        break;
+                    }
+                    break;
+                case "METHOD_MIN":
+                case 0:
+                    message.method = 0;
+                    break;
+                case "METHOD_MAX":
+                case 1:
+                    message.method = 1;
+                    break;
+                }
+                if (object.aggregatorAddress != null)
+                    message.aggregatorAddress = String(object.aggregatorAddress);
+                if (object.period != null)
+                    message.period = object.period >>> 0;
+                return message;
+            };
+    
+            /**
+             * Creates a plain object from a HistoryFunctionTask message. Also converts values to other types if specified.
+             * @function toObject
+             * @memberof OracleJob.HistoryFunctionTask
+             * @static
+             * @param {OracleJob.HistoryFunctionTask} message HistoryFunctionTask
+             * @param {$protobuf.IConversionOptions} [options] Conversion options
+             * @returns {Object.<string,*>} Plain object
+             */
+            HistoryFunctionTask.toObject = function toObject(message, options) {
+                if (!options)
+                    options = {};
+                var object = {};
+                if (options.defaults) {
+                    object.method = options.enums === String ? "METHOD_MIN" : 0;
+                    object.aggregatorAddress = "";
+                    object.period = 0;
+                }
+                if (message.method != null && message.hasOwnProperty("method"))
+                    object.method = options.enums === String ? $root.OracleJob.HistoryFunctionTask.Method[message.method] === undefined ? message.method : $root.OracleJob.HistoryFunctionTask.Method[message.method] : message.method;
+                if (message.aggregatorAddress != null && message.hasOwnProperty("aggregatorAddress"))
+                    object.aggregatorAddress = message.aggregatorAddress;
+                if (message.period != null && message.hasOwnProperty("period"))
+                    object.period = message.period;
+                return object;
+            };
+    
+            /**
+             * Converts this HistoryFunctionTask to JSON.
+             * @function toJSON
+             * @memberof OracleJob.HistoryFunctionTask
+             * @instance
+             * @returns {Object.<string,*>} JSON object
+             */
+            HistoryFunctionTask.prototype.toJSON = function toJSON() {
+                return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+            };
+    
+            /**
+             * Gets the default type url for HistoryFunctionTask
+             * @function getTypeUrl
+             * @memberof OracleJob.HistoryFunctionTask
+             * @static
+             * @param {string} [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+             * @returns {string} The default type url
+             */
+            HistoryFunctionTask.getTypeUrl = function getTypeUrl(typeUrlPrefix) {
+                if (typeUrlPrefix === undefined) {
+                    typeUrlPrefix = "type.googleapis.com";
+                }
+                return typeUrlPrefix + "/OracleJob.HistoryFunctionTask";
+            };
+    
+            /**
+             * Method enum.
+             * @name OracleJob.HistoryFunctionTask.Method
+             * @enum {number}
+             * @property {number} METHOD_MIN=0 METHOD_MIN value
+             * @property {number} METHOD_MAX=1 METHOD_MAX value
+             */
+            HistoryFunctionTask.Method = (function() {
+                var valuesById = {}, values = Object.create(valuesById);
+                values[valuesById[0] = "METHOD_MIN"] = 0;
+                values[valuesById[1] = "METHOD_MAX"] = 1;
+                return values;
+            })();
+    
+            return HistoryFunctionTask;
+        })();
+    
+        OracleJob.VwapTask = (function() {
+    
+            /**
+             * Properties of a VwapTask.
+             * @memberof OracleJob
+             * @interface IVwapTask
+             * @property {string|null} [priceAggregatorAddress] VwapTask priceAggregatorAddress
+             * @property {string|null} [volumeAggregatorAddress] VwapTask volumeAggregatorAddress
+             * @property {number|null} [period] VwapTask period
+             */
+    
+            /**
+             * Constructs a new VwapTask.
+             * @memberof OracleJob
+             * @classdesc Represents a VwapTask.
+             * @implements IVwapTask
+             * @constructor
+             * @param {OracleJob.IVwapTask=} [properties] Properties to set
+             */
+            function VwapTask(properties) {
+                if (properties)
+                    for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                        if (properties[keys[i]] != null)
+                            this[keys[i]] = properties[keys[i]];
+            }
+    
+            /**
+             * VwapTask priceAggregatorAddress.
+             * @member {string} priceAggregatorAddress
+             * @memberof OracleJob.VwapTask
+             * @instance
+             */
+            VwapTask.prototype.priceAggregatorAddress = "";
+    
+            /**
+             * VwapTask volumeAggregatorAddress.
+             * @member {string} volumeAggregatorAddress
+             * @memberof OracleJob.VwapTask
+             * @instance
+             */
+            VwapTask.prototype.volumeAggregatorAddress = "";
+    
+            /**
+             * VwapTask period.
+             * @member {number} period
+             * @memberof OracleJob.VwapTask
+             * @instance
+             */
+            VwapTask.prototype.period = 0;
+    
+            /**
+             * Creates a new VwapTask instance using the specified properties.
+             * @function create
+             * @memberof OracleJob.VwapTask
+             * @static
+             * @param {OracleJob.IVwapTask=} [properties] Properties to set
+             * @returns {OracleJob.VwapTask} VwapTask instance
+             */
+            VwapTask.create = function create(properties) {
+                return new VwapTask(properties);
+            };
+    
+            /**
+             * Encodes the specified VwapTask message. Does not implicitly {@link OracleJob.VwapTask.verify|verify} messages.
+             * @function encode
+             * @memberof OracleJob.VwapTask
+             * @static
+             * @param {OracleJob.IVwapTask} message VwapTask message or plain object to encode
+             * @param {$protobuf.Writer} [writer] Writer to encode to
+             * @returns {$protobuf.Writer} Writer
+             */
+            VwapTask.encode = function encode(message, writer) {
+                if (!writer)
+                    writer = $Writer.create();
+                if (message.priceAggregatorAddress != null && Object.hasOwnProperty.call(message, "priceAggregatorAddress"))
+                    writer.uint32(/* id 1, wireType 2 =*/10).string(message.priceAggregatorAddress);
+                if (message.volumeAggregatorAddress != null && Object.hasOwnProperty.call(message, "volumeAggregatorAddress"))
+                    writer.uint32(/* id 2, wireType 2 =*/18).string(message.volumeAggregatorAddress);
+                if (message.period != null && Object.hasOwnProperty.call(message, "period"))
+                    writer.uint32(/* id 3, wireType 0 =*/24).uint32(message.period);
+                return writer;
+            };
+    
+            /**
+             * Encodes the specified VwapTask message, length delimited. Does not implicitly {@link OracleJob.VwapTask.verify|verify} messages.
+             * @function encodeDelimited
+             * @memberof OracleJob.VwapTask
+             * @static
+             * @param {OracleJob.IVwapTask} message VwapTask message or plain object to encode
+             * @param {$protobuf.Writer} [writer] Writer to encode to
+             * @returns {$protobuf.Writer} Writer
+             */
+            VwapTask.encodeDelimited = function encodeDelimited(message, writer) {
+                return this.encode(message, writer).ldelim();
+            };
+    
+            /**
+             * Decodes a VwapTask message from the specified reader or buffer.
+             * @function decode
+             * @memberof OracleJob.VwapTask
+             * @static
+             * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+             * @param {number} [length] Message length if known beforehand
+             * @returns {OracleJob.VwapTask} VwapTask
+             * @throws {Error} If the payload is not a reader or valid buffer
+             * @throws {$protobuf.util.ProtocolError} If required fields are missing
+             */
+            VwapTask.decode = function decode(reader, length) {
+                if (!(reader instanceof $Reader))
+                    reader = $Reader.create(reader);
+                var end = length === undefined ? reader.len : reader.pos + length, message = new $root.OracleJob.VwapTask();
+                while (reader.pos < end) {
+                    var tag = reader.uint32();
+                    switch (tag >>> 3) {
+                    case 1: {
+                            message.priceAggregatorAddress = reader.string();
+                            break;
+                        }
+                    case 2: {
+                            message.volumeAggregatorAddress = reader.string();
+                            break;
+                        }
+                    case 3: {
+                            message.period = reader.uint32();
+                            break;
+                        }
+                    default:
+                        reader.skipType(tag & 7);
+                        break;
+                    }
+                }
+                return message;
+            };
+    
+            /**
+             * Decodes a VwapTask message from the specified reader or buffer, length delimited.
+             * @function decodeDelimited
+             * @memberof OracleJob.VwapTask
+             * @static
+             * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+             * @returns {OracleJob.VwapTask} VwapTask
+             * @throws {Error} If the payload is not a reader or valid buffer
+             * @throws {$protobuf.util.ProtocolError} If required fields are missing
+             */
+            VwapTask.decodeDelimited = function decodeDelimited(reader) {
+                if (!(reader instanceof $Reader))
+                    reader = new $Reader(reader);
+                return this.decode(reader, reader.uint32());
+            };
+    
+            /**
+             * Verifies a VwapTask message.
+             * @function verify
+             * @memberof OracleJob.VwapTask
+             * @static
+             * @param {Object.<string,*>} message Plain object to verify
+             * @returns {string|null} `null` if valid, otherwise the reason why it is not
+             */
+            VwapTask.verify = function verify(message) {
+                if (typeof message !== "object" || message === null)
+                    return "object expected";
+                if (message.priceAggregatorAddress != null && message.hasOwnProperty("priceAggregatorAddress"))
+                    if (!$util.isString(message.priceAggregatorAddress))
+                        return "priceAggregatorAddress: string expected";
+                if (message.volumeAggregatorAddress != null && message.hasOwnProperty("volumeAggregatorAddress"))
+                    if (!$util.isString(message.volumeAggregatorAddress))
+                        return "volumeAggregatorAddress: string expected";
+                if (message.period != null && message.hasOwnProperty("period"))
+                    if (!$util.isInteger(message.period))
+                        return "period: integer expected";
+                return null;
+            };
+    
+            /**
+             * Creates a VwapTask message from a plain object. Also converts values to their respective internal types.
+             * @function fromObject
+             * @memberof OracleJob.VwapTask
+             * @static
+             * @param {Object.<string,*>} object Plain object
+             * @returns {OracleJob.VwapTask} VwapTask
+             */
+            VwapTask.fromObject = function fromObject(object) {
+                if (object instanceof $root.OracleJob.VwapTask)
+                    return object;
+                var message = new $root.OracleJob.VwapTask();
+                if (object.priceAggregatorAddress != null)
+                    message.priceAggregatorAddress = String(object.priceAggregatorAddress);
+                if (object.volumeAggregatorAddress != null)
+                    message.volumeAggregatorAddress = String(object.volumeAggregatorAddress);
+                if (object.period != null)
+                    message.period = object.period >>> 0;
+                return message;
+            };
+    
+            /**
+             * Creates a plain object from a VwapTask message. Also converts values to other types if specified.
+             * @function toObject
+             * @memberof OracleJob.VwapTask
+             * @static
+             * @param {OracleJob.VwapTask} message VwapTask
+             * @param {$protobuf.IConversionOptions} [options] Conversion options
+             * @returns {Object.<string,*>} Plain object
+             */
+            VwapTask.toObject = function toObject(message, options) {
+                if (!options)
+                    options = {};
+                var object = {};
+                if (options.defaults) {
+                    object.priceAggregatorAddress = "";
+                    object.volumeAggregatorAddress = "";
+                    object.period = 0;
+                }
+                if (message.priceAggregatorAddress != null && message.hasOwnProperty("priceAggregatorAddress"))
+                    object.priceAggregatorAddress = message.priceAggregatorAddress;
+                if (message.volumeAggregatorAddress != null && message.hasOwnProperty("volumeAggregatorAddress"))
+                    object.volumeAggregatorAddress = message.volumeAggregatorAddress;
+                if (message.period != null && message.hasOwnProperty("period"))
+                    object.period = message.period;
+                return object;
+            };
+    
+            /**
+             * Converts this VwapTask to JSON.
+             * @function toJSON
+             * @memberof OracleJob.VwapTask
+             * @instance
+             * @returns {Object.<string,*>} JSON object
+             */
+            VwapTask.prototype.toJSON = function toJSON() {
+                return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+            };
+    
+            /**
+             * Gets the default type url for VwapTask
+             * @function getTypeUrl
+             * @memberof OracleJob.VwapTask
+             * @static
+             * @param {string} [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+             * @returns {string} The default type url
+             */
+            VwapTask.getTypeUrl = function getTypeUrl(typeUrlPrefix) {
+                if (typeUrlPrefix === undefined) {
+                    typeUrlPrefix = "type.googleapis.com";
+                }
+                return typeUrlPrefix + "/OracleJob.VwapTask";
+            };
+    
+            return VwapTask;
+        })();
+    
+        OracleJob.EwmaTask = (function() {
+    
+            /**
+             * Properties of an EwmaTask.
+             * @memberof OracleJob
+             * @interface IEwmaTask
+             * @property {string|null} [aggregatorAddress] EwmaTask aggregatorAddress
+             * @property {number|null} [period] EwmaTask period
+             * @property {number|null} [lambda] EwmaTask lambda
+             */
+    
+            /**
+             * Constructs a new EwmaTask.
+             * @memberof OracleJob
+             * @classdesc Represents an EwmaTask.
+             * @implements IEwmaTask
+             * @constructor
+             * @param {OracleJob.IEwmaTask=} [properties] Properties to set
+             */
+            function EwmaTask(properties) {
+                if (properties)
+                    for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                        if (properties[keys[i]] != null)
+                            this[keys[i]] = properties[keys[i]];
+            }
+    
+            /**
+             * EwmaTask aggregatorAddress.
+             * @member {string} aggregatorAddress
+             * @memberof OracleJob.EwmaTask
+             * @instance
+             */
+            EwmaTask.prototype.aggregatorAddress = "";
+    
+            /**
+             * EwmaTask period.
+             * @member {number} period
+             * @memberof OracleJob.EwmaTask
+             * @instance
+             */
+            EwmaTask.prototype.period = 0;
+    
+            /**
+             * EwmaTask lambda.
+             * @member {number} lambda
+             * @memberof OracleJob.EwmaTask
+             * @instance
+             */
+            EwmaTask.prototype.lambda = 0;
+    
+            /**
+             * Creates a new EwmaTask instance using the specified properties.
+             * @function create
+             * @memberof OracleJob.EwmaTask
+             * @static
+             * @param {OracleJob.IEwmaTask=} [properties] Properties to set
+             * @returns {OracleJob.EwmaTask} EwmaTask instance
+             */
+            EwmaTask.create = function create(properties) {
+                return new EwmaTask(properties);
+            };
+    
+            /**
+             * Encodes the specified EwmaTask message. Does not implicitly {@link OracleJob.EwmaTask.verify|verify} messages.
+             * @function encode
+             * @memberof OracleJob.EwmaTask
+             * @static
+             * @param {OracleJob.IEwmaTask} message EwmaTask message or plain object to encode
+             * @param {$protobuf.Writer} [writer] Writer to encode to
+             * @returns {$protobuf.Writer} Writer
+             */
+            EwmaTask.encode = function encode(message, writer) {
+                if (!writer)
+                    writer = $Writer.create();
+                if (message.aggregatorAddress != null && Object.hasOwnProperty.call(message, "aggregatorAddress"))
+                    writer.uint32(/* id 1, wireType 2 =*/10).string(message.aggregatorAddress);
+                if (message.period != null && Object.hasOwnProperty.call(message, "period"))
+                    writer.uint32(/* id 2, wireType 0 =*/16).int32(message.period);
+                if (message.lambda != null && Object.hasOwnProperty.call(message, "lambda"))
+                    writer.uint32(/* id 3, wireType 1 =*/25).double(message.lambda);
+                return writer;
+            };
+    
+            /**
+             * Encodes the specified EwmaTask message, length delimited. Does not implicitly {@link OracleJob.EwmaTask.verify|verify} messages.
+             * @function encodeDelimited
+             * @memberof OracleJob.EwmaTask
+             * @static
+             * @param {OracleJob.IEwmaTask} message EwmaTask message or plain object to encode
+             * @param {$protobuf.Writer} [writer] Writer to encode to
+             * @returns {$protobuf.Writer} Writer
+             */
+            EwmaTask.encodeDelimited = function encodeDelimited(message, writer) {
+                return this.encode(message, writer).ldelim();
+            };
+    
+            /**
+             * Decodes an EwmaTask message from the specified reader or buffer.
+             * @function decode
+             * @memberof OracleJob.EwmaTask
+             * @static
+             * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+             * @param {number} [length] Message length if known beforehand
+             * @returns {OracleJob.EwmaTask} EwmaTask
+             * @throws {Error} If the payload is not a reader or valid buffer
+             * @throws {$protobuf.util.ProtocolError} If required fields are missing
+             */
+            EwmaTask.decode = function decode(reader, length) {
+                if (!(reader instanceof $Reader))
+                    reader = $Reader.create(reader);
+                var end = length === undefined ? reader.len : reader.pos + length, message = new $root.OracleJob.EwmaTask();
+                while (reader.pos < end) {
+                    var tag = reader.uint32();
+                    switch (tag >>> 3) {
+                    case 1: {
+                            message.aggregatorAddress = reader.string();
+                            break;
+                        }
+                    case 2: {
+                            message.period = reader.int32();
+                            break;
+                        }
+                    case 3: {
+                            message.lambda = reader.double();
+                            break;
+                        }
+                    default:
+                        reader.skipType(tag & 7);
+                        break;
+                    }
+                }
+                return message;
+            };
+    
+            /**
+             * Decodes an EwmaTask message from the specified reader or buffer, length delimited.
+             * @function decodeDelimited
+             * @memberof OracleJob.EwmaTask
+             * @static
+             * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+             * @returns {OracleJob.EwmaTask} EwmaTask
+             * @throws {Error} If the payload is not a reader or valid buffer
+             * @throws {$protobuf.util.ProtocolError} If required fields are missing
+             */
+            EwmaTask.decodeDelimited = function decodeDelimited(reader) {
+                if (!(reader instanceof $Reader))
+                    reader = new $Reader(reader);
+                return this.decode(reader, reader.uint32());
+            };
+    
+            /**
+             * Verifies an EwmaTask message.
+             * @function verify
+             * @memberof OracleJob.EwmaTask
+             * @static
+             * @param {Object.<string,*>} message Plain object to verify
+             * @returns {string|null} `null` if valid, otherwise the reason why it is not
+             */
+            EwmaTask.verify = function verify(message) {
+                if (typeof message !== "object" || message === null)
+                    return "object expected";
+                if (message.aggregatorAddress != null && message.hasOwnProperty("aggregatorAddress"))
+                    if (!$util.isString(message.aggregatorAddress))
+                        return "aggregatorAddress: string expected";
+                if (message.period != null && message.hasOwnProperty("period"))
+                    if (!$util.isInteger(message.period))
+                        return "period: integer expected";
+                if (message.lambda != null && message.hasOwnProperty("lambda"))
+                    if (typeof message.lambda !== "number")
+                        return "lambda: number expected";
+                return null;
+            };
+    
+            /**
+             * Creates an EwmaTask message from a plain object. Also converts values to their respective internal types.
+             * @function fromObject
+             * @memberof OracleJob.EwmaTask
+             * @static
+             * @param {Object.<string,*>} object Plain object
+             * @returns {OracleJob.EwmaTask} EwmaTask
+             */
+            EwmaTask.fromObject = function fromObject(object) {
+                if (object instanceof $root.OracleJob.EwmaTask)
+                    return object;
+                var message = new $root.OracleJob.EwmaTask();
+                if (object.aggregatorAddress != null)
+                    message.aggregatorAddress = String(object.aggregatorAddress);
+                if (object.period != null)
+                    message.period = object.period | 0;
+                if (object.lambda != null)
+                    message.lambda = Number(object.lambda);
+                return message;
+            };
+    
+            /**
+             * Creates a plain object from an EwmaTask message. Also converts values to other types if specified.
+             * @function toObject
+             * @memberof OracleJob.EwmaTask
+             * @static
+             * @param {OracleJob.EwmaTask} message EwmaTask
+             * @param {$protobuf.IConversionOptions} [options] Conversion options
+             * @returns {Object.<string,*>} Plain object
+             */
+            EwmaTask.toObject = function toObject(message, options) {
+                if (!options)
+                    options = {};
+                var object = {};
+                if (options.defaults) {
+                    object.aggregatorAddress = "";
+                    object.period = 0;
+                    object.lambda = 0;
+                }
+                if (message.aggregatorAddress != null && message.hasOwnProperty("aggregatorAddress"))
+                    object.aggregatorAddress = message.aggregatorAddress;
+                if (message.period != null && message.hasOwnProperty("period"))
+                    object.period = message.period;
+                if (message.lambda != null && message.hasOwnProperty("lambda"))
+                    object.lambda = options.json && !isFinite(message.lambda) ? String(message.lambda) : message.lambda;
+                return object;
+            };
+    
+            /**
+             * Converts this EwmaTask to JSON.
+             * @function toJSON
+             * @memberof OracleJob.EwmaTask
+             * @instance
+             * @returns {Object.<string,*>} JSON object
+             */
+            EwmaTask.prototype.toJSON = function toJSON() {
+                return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+            };
+    
+            /**
+             * Gets the default type url for EwmaTask
+             * @function getTypeUrl
+             * @memberof OracleJob.EwmaTask
+             * @static
+             * @param {string} [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+             * @returns {string} The default type url
+             */
+            EwmaTask.getTypeUrl = function getTypeUrl(typeUrlPrefix) {
+                if (typeUrlPrefix === undefined) {
+                    typeUrlPrefix = "type.googleapis.com";
+                }
+                return typeUrlPrefix + "/OracleJob.EwmaTask";
+            };
+    
+            return EwmaTask;
+        })();
+    
+        OracleJob.ComparisonTask = (function() {
+    
+            /**
+             * Properties of a ComparisonTask.
+             * @memberof OracleJob
+             * @interface IComparisonTask
+             * @property {OracleJob.ComparisonTask.Operation|null} [op] ComparisonTask op
+             * @property {IOracleJob|null} [lhs] ComparisonTask lhs
+             * @property {IOracleJob|null} [rhs] ComparisonTask rhs
+             * @property {IOracleJob|null} [onTrue] ComparisonTask onTrue
+             * @property {IOracleJob|null} [onFalse] ComparisonTask onFalse
+             * @property {IOracleJob|null} [onFailure] ComparisonTask onFailure
+             */
+    
+            /**
+             * Constructs a new ComparisonTask.
+             * @memberof OracleJob
+             * @classdesc Represents a ComparisonTask.
+             * @implements IComparisonTask
+             * @constructor
+             * @param {OracleJob.IComparisonTask=} [properties] Properties to set
+             */
+            function ComparisonTask(properties) {
+                if (properties)
+                    for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                        if (properties[keys[i]] != null)
+                            this[keys[i]] = properties[keys[i]];
+            }
+    
+            /**
+             * ComparisonTask op.
+             * @member {OracleJob.ComparisonTask.Operation} op
+             * @memberof OracleJob.ComparisonTask
+             * @instance
+             */
+            ComparisonTask.prototype.op = 0;
+    
+            /**
+             * ComparisonTask lhs.
+             * @member {IOracleJob|null|undefined} lhs
+             * @memberof OracleJob.ComparisonTask
+             * @instance
+             */
+            ComparisonTask.prototype.lhs = null;
+    
+            /**
+             * ComparisonTask rhs.
+             * @member {IOracleJob|null|undefined} rhs
+             * @memberof OracleJob.ComparisonTask
+             * @instance
+             */
+            ComparisonTask.prototype.rhs = null;
+    
+            /**
+             * ComparisonTask onTrue.
+             * @member {IOracleJob|null|undefined} onTrue
+             * @memberof OracleJob.ComparisonTask
+             * @instance
+             */
+            ComparisonTask.prototype.onTrue = null;
+    
+            /**
+             * ComparisonTask onFalse.
+             * @member {IOracleJob|null|undefined} onFalse
+             * @memberof OracleJob.ComparisonTask
+             * @instance
+             */
+            ComparisonTask.prototype.onFalse = null;
+    
+            /**
+             * ComparisonTask onFailure.
+             * @member {IOracleJob|null|undefined} onFailure
+             * @memberof OracleJob.ComparisonTask
+             * @instance
+             */
+            ComparisonTask.prototype.onFailure = null;
+    
+            /**
+             * Creates a new ComparisonTask instance using the specified properties.
+             * @function create
+             * @memberof OracleJob.ComparisonTask
+             * @static
+             * @param {OracleJob.IComparisonTask=} [properties] Properties to set
+             * @returns {OracleJob.ComparisonTask} ComparisonTask instance
+             */
+            ComparisonTask.create = function create(properties) {
+                return new ComparisonTask(properties);
+            };
+    
+            /**
+             * Encodes the specified ComparisonTask message. Does not implicitly {@link OracleJob.ComparisonTask.verify|verify} messages.
+             * @function encode
+             * @memberof OracleJob.ComparisonTask
+             * @static
+             * @param {OracleJob.IComparisonTask} message ComparisonTask message or plain object to encode
+             * @param {$protobuf.Writer} [writer] Writer to encode to
+             * @returns {$protobuf.Writer} Writer
+             */
+            ComparisonTask.encode = function encode(message, writer) {
+                if (!writer)
+                    writer = $Writer.create();
+                if (message.op != null && Object.hasOwnProperty.call(message, "op"))
+                    writer.uint32(/* id 1, wireType 0 =*/8).int32(message.op);
+                if (message.lhs != null && Object.hasOwnProperty.call(message, "lhs"))
+                    $root.OracleJob.encode(message.lhs, writer.uint32(/* id 2, wireType 2 =*/18).fork()).ldelim();
+                if (message.rhs != null && Object.hasOwnProperty.call(message, "rhs"))
+                    $root.OracleJob.encode(message.rhs, writer.uint32(/* id 3, wireType 2 =*/26).fork()).ldelim();
+                if (message.onTrue != null && Object.hasOwnProperty.call(message, "onTrue"))
+                    $root.OracleJob.encode(message.onTrue, writer.uint32(/* id 4, wireType 2 =*/34).fork()).ldelim();
+                if (message.onFalse != null && Object.hasOwnProperty.call(message, "onFalse"))
+                    $root.OracleJob.encode(message.onFalse, writer.uint32(/* id 5, wireType 2 =*/42).fork()).ldelim();
+                if (message.onFailure != null && Object.hasOwnProperty.call(message, "onFailure"))
+                    $root.OracleJob.encode(message.onFailure, writer.uint32(/* id 6, wireType 2 =*/50).fork()).ldelim();
+                return writer;
+            };
+    
+            /**
+             * Encodes the specified ComparisonTask message, length delimited. Does not implicitly {@link OracleJob.ComparisonTask.verify|verify} messages.
+             * @function encodeDelimited
+             * @memberof OracleJob.ComparisonTask
+             * @static
+             * @param {OracleJob.IComparisonTask} message ComparisonTask message or plain object to encode
+             * @param {$protobuf.Writer} [writer] Writer to encode to
+             * @returns {$protobuf.Writer} Writer
+             */
+            ComparisonTask.encodeDelimited = function encodeDelimited(message, writer) {
+                return this.encode(message, writer).ldelim();
+            };
+    
+            /**
+             * Decodes a ComparisonTask message from the specified reader or buffer.
+             * @function decode
+             * @memberof OracleJob.ComparisonTask
+             * @static
+             * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+             * @param {number} [length] Message length if known beforehand
+             * @returns {OracleJob.ComparisonTask} ComparisonTask
+             * @throws {Error} If the payload is not a reader or valid buffer
+             * @throws {$protobuf.util.ProtocolError} If required fields are missing
+             */
+            ComparisonTask.decode = function decode(reader, length) {
+                if (!(reader instanceof $Reader))
+                    reader = $Reader.create(reader);
+                var end = length === undefined ? reader.len : reader.pos + length, message = new $root.OracleJob.ComparisonTask();
+                while (reader.pos < end) {
+                    var tag = reader.uint32();
+                    switch (tag >>> 3) {
+                    case 1: {
+                            message.op = reader.int32();
+                            break;
+                        }
+                    case 2: {
+                            message.lhs = $root.OracleJob.decode(reader, reader.uint32());
+                            break;
+                        }
+                    case 3: {
+                            message.rhs = $root.OracleJob.decode(reader, reader.uint32());
+                            break;
+                        }
+                    case 4: {
+                            message.onTrue = $root.OracleJob.decode(reader, reader.uint32());
+                            break;
+                        }
+                    case 5: {
+                            message.onFalse = $root.OracleJob.decode(reader, reader.uint32());
+                            break;
+                        }
+                    case 6: {
+                            message.onFailure = $root.OracleJob.decode(reader, reader.uint32());
+                            break;
+                        }
+                    default:
+                        reader.skipType(tag & 7);
+                        break;
+                    }
+                }
+                return message;
+            };
+    
+            /**
+             * Decodes a ComparisonTask message from the specified reader or buffer, length delimited.
+             * @function decodeDelimited
+             * @memberof OracleJob.ComparisonTask
+             * @static
+             * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+             * @returns {OracleJob.ComparisonTask} ComparisonTask
+             * @throws {Error} If the payload is not a reader or valid buffer
+             * @throws {$protobuf.util.ProtocolError} If required fields are missing
+             */
+            ComparisonTask.decodeDelimited = function decodeDelimited(reader) {
+                if (!(reader instanceof $Reader))
+                    reader = new $Reader(reader);
+                return this.decode(reader, reader.uint32());
+            };
+    
+            /**
+             * Verifies a ComparisonTask message.
+             * @function verify
+             * @memberof OracleJob.ComparisonTask
+             * @static
+             * @param {Object.<string,*>} message Plain object to verify
+             * @returns {string|null} `null` if valid, otherwise the reason why it is not
+             */
+            ComparisonTask.verify = function verify(message) {
+                if (typeof message !== "object" || message === null)
+                    return "object expected";
+                if (message.op != null && message.hasOwnProperty("op"))
+                    switch (message.op) {
+                    default:
+                        return "op: enum value expected";
+                    case 0:
+                    case 1:
+                    case 2:
+                        break;
+                    }
+                if (message.lhs != null && message.hasOwnProperty("lhs")) {
+                    var error = $root.OracleJob.verify(message.lhs);
+                    if (error)
+                        return "lhs." + error;
+                }
+                if (message.rhs != null && message.hasOwnProperty("rhs")) {
+                    var error = $root.OracleJob.verify(message.rhs);
+                    if (error)
+                        return "rhs." + error;
+                }
+                if (message.onTrue != null && message.hasOwnProperty("onTrue")) {
+                    var error = $root.OracleJob.verify(message.onTrue);
+                    if (error)
+                        return "onTrue." + error;
+                }
+                if (message.onFalse != null && message.hasOwnProperty("onFalse")) {
+                    var error = $root.OracleJob.verify(message.onFalse);
+                    if (error)
+                        return "onFalse." + error;
+                }
+                if (message.onFailure != null && message.hasOwnProperty("onFailure")) {
+                    var error = $root.OracleJob.verify(message.onFailure);
+                    if (error)
+                        return "onFailure." + error;
+                }
+                return null;
+            };
+    
+            /**
+             * Creates a ComparisonTask message from a plain object. Also converts values to their respective internal types.
+             * @function fromObject
+             * @memberof OracleJob.ComparisonTask
+             * @static
+             * @param {Object.<string,*>} object Plain object
+             * @returns {OracleJob.ComparisonTask} ComparisonTask
+             */
+            ComparisonTask.fromObject = function fromObject(object) {
+                if (object instanceof $root.OracleJob.ComparisonTask)
+                    return object;
+                var message = new $root.OracleJob.ComparisonTask();
+                switch (object.op) {
+                default:
+                    if (typeof object.op === "number") {
+                        message.op = object.op;
+                        break;
+                    }
+                    break;
+                case "OPERATION_EQ":
+                case 0:
+                    message.op = 0;
+                    break;
+                case "OPERATION_GT":
+                case 1:
+                    message.op = 1;
+                    break;
+                case "OPERATION_LT":
+                case 2:
+                    message.op = 2;
+                    break;
+                }
+                if (object.lhs != null) {
+                    if (typeof object.lhs !== "object")
+                        throw TypeError(".OracleJob.ComparisonTask.lhs: object expected");
+                    message.lhs = $root.OracleJob.fromObject(object.lhs);
+                }
+                if (object.rhs != null) {
+                    if (typeof object.rhs !== "object")
+                        throw TypeError(".OracleJob.ComparisonTask.rhs: object expected");
+                    message.rhs = $root.OracleJob.fromObject(object.rhs);
+                }
+                if (object.onTrue != null) {
+                    if (typeof object.onTrue !== "object")
+                        throw TypeError(".OracleJob.ComparisonTask.onTrue: object expected");
+                    message.onTrue = $root.OracleJob.fromObject(object.onTrue);
+                }
+                if (object.onFalse != null) {
+                    if (typeof object.onFalse !== "object")
+                        throw TypeError(".OracleJob.ComparisonTask.onFalse: object expected");
+                    message.onFalse = $root.OracleJob.fromObject(object.onFalse);
+                }
+                if (object.onFailure != null) {
+                    if (typeof object.onFailure !== "object")
+                        throw TypeError(".OracleJob.ComparisonTask.onFailure: object expected");
+                    message.onFailure = $root.OracleJob.fromObject(object.onFailure);
+                }
+                return message;
+            };
+    
+            /**
+             * Creates a plain object from a ComparisonTask message. Also converts values to other types if specified.
+             * @function toObject
+             * @memberof OracleJob.ComparisonTask
+             * @static
+             * @param {OracleJob.ComparisonTask} message ComparisonTask
+             * @param {$protobuf.IConversionOptions} [options] Conversion options
+             * @returns {Object.<string,*>} Plain object
+             */
+            ComparisonTask.toObject = function toObject(message, options) {
+                if (!options)
+                    options = {};
+                var object = {};
+                if (options.defaults) {
+                    object.op = options.enums === String ? "OPERATION_EQ" : 0;
+                    object.lhs = null;
+                    object.rhs = null;
+                    object.onTrue = null;
+                    object.onFalse = null;
+                    object.onFailure = null;
+                }
+                if (message.op != null && message.hasOwnProperty("op"))
+                    object.op = options.enums === String ? $root.OracleJob.ComparisonTask.Operation[message.op] === undefined ? message.op : $root.OracleJob.ComparisonTask.Operation[message.op] : message.op;
+                if (message.lhs != null && message.hasOwnProperty("lhs"))
+                    object.lhs = $root.OracleJob.toObject(message.lhs, options);
+                if (message.rhs != null && message.hasOwnProperty("rhs"))
+                    object.rhs = $root.OracleJob.toObject(message.rhs, options);
+                if (message.onTrue != null && message.hasOwnProperty("onTrue"))
+                    object.onTrue = $root.OracleJob.toObject(message.onTrue, options);
+                if (message.onFalse != null && message.hasOwnProperty("onFalse"))
+                    object.onFalse = $root.OracleJob.toObject(message.onFalse, options);
+                if (message.onFailure != null && message.hasOwnProperty("onFailure"))
+                    object.onFailure = $root.OracleJob.toObject(message.onFailure, options);
+                return object;
+            };
+    
+            /**
+             * Converts this ComparisonTask to JSON.
+             * @function toJSON
+             * @memberof OracleJob.ComparisonTask
+             * @instance
+             * @returns {Object.<string,*>} JSON object
+             */
+            ComparisonTask.prototype.toJSON = function toJSON() {
+                return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+            };
+    
+            /**
+             * Gets the default type url for ComparisonTask
+             * @function getTypeUrl
+             * @memberof OracleJob.ComparisonTask
+             * @static
+             * @param {string} [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+             * @returns {string} The default type url
+             */
+            ComparisonTask.getTypeUrl = function getTypeUrl(typeUrlPrefix) {
+                if (typeUrlPrefix === undefined) {
+                    typeUrlPrefix = "type.googleapis.com";
+                }
+                return typeUrlPrefix + "/OracleJob.ComparisonTask";
+            };
+    
+            /**
+             * Operation enum.
+             * @name OracleJob.ComparisonTask.Operation
+             * @enum {number}
+             * @property {number} OPERATION_EQ=0 OPERATION_EQ value
+             * @property {number} OPERATION_GT=1 OPERATION_GT value
+             * @property {number} OPERATION_LT=2 OPERATION_LT value
+             */
+            ComparisonTask.Operation = (function() {
+                var valuesById = {}, values = Object.create(valuesById);
+                values[valuesById[0] = "OPERATION_EQ"] = 0;
+                values[valuesById[1] = "OPERATION_GT"] = 1;
+                values[valuesById[2] = "OPERATION_LT"] = 2;
+                return values;
+            })();
+    
+            return ComparisonTask;
+        })();
+    
+        OracleJob.RoundTask = (function() {
+    
+            /**
+             * Properties of a RoundTask.
+             * @memberof OracleJob
+             * @interface IRoundTask
+             * @property {OracleJob.RoundTask.Method|null} [method] RoundTask method
+             */
+    
+            /**
+             * Constructs a new RoundTask.
+             * @memberof OracleJob
+             * @classdesc Represents a RoundTask.
+             * @implements IRoundTask
+             * @constructor
+             * @param {OracleJob.IRoundTask=} [properties] Properties to set
+             */
+            function RoundTask(properties) {
+                if (properties)
+                    for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                        if (properties[keys[i]] != null)
+                            this[keys[i]] = properties[keys[i]];
+            }
+    
+            /**
+             * RoundTask method.
+             * @member {OracleJob.RoundTask.Method} method
+             * @memberof OracleJob.RoundTask
+             * @instance
+             */
+            RoundTask.prototype.method = 0;
+    
+            /**
+             * Creates a new RoundTask instance using the specified properties.
+             * @function create
+             * @memberof OracleJob.RoundTask
+             * @static
+             * @param {OracleJob.IRoundTask=} [properties] Properties to set
+             * @returns {OracleJob.RoundTask} RoundTask instance
+             */
+            RoundTask.create = function create(properties) {
+                return new RoundTask(properties);
+            };
+    
+            /**
+             * Encodes the specified RoundTask message. Does not implicitly {@link OracleJob.RoundTask.verify|verify} messages.
+             * @function encode
+             * @memberof OracleJob.RoundTask
+             * @static
+             * @param {OracleJob.IRoundTask} message RoundTask message or plain object to encode
+             * @param {$protobuf.Writer} [writer] Writer to encode to
+             * @returns {$protobuf.Writer} Writer
+             */
+            RoundTask.encode = function encode(message, writer) {
+                if (!writer)
+                    writer = $Writer.create();
+                if (message.method != null && Object.hasOwnProperty.call(message, "method"))
+                    writer.uint32(/* id 1, wireType 0 =*/8).int32(message.method);
+                return writer;
+            };
+    
+            /**
+             * Encodes the specified RoundTask message, length delimited. Does not implicitly {@link OracleJob.RoundTask.verify|verify} messages.
+             * @function encodeDelimited
+             * @memberof OracleJob.RoundTask
+             * @static
+             * @param {OracleJob.IRoundTask} message RoundTask message or plain object to encode
+             * @param {$protobuf.Writer} [writer] Writer to encode to
+             * @returns {$protobuf.Writer} Writer
+             */
+            RoundTask.encodeDelimited = function encodeDelimited(message, writer) {
+                return this.encode(message, writer).ldelim();
+            };
+    
+            /**
+             * Decodes a RoundTask message from the specified reader or buffer.
+             * @function decode
+             * @memberof OracleJob.RoundTask
+             * @static
+             * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+             * @param {number} [length] Message length if known beforehand
+             * @returns {OracleJob.RoundTask} RoundTask
+             * @throws {Error} If the payload is not a reader or valid buffer
+             * @throws {$protobuf.util.ProtocolError} If required fields are missing
+             */
+            RoundTask.decode = function decode(reader, length) {
+                if (!(reader instanceof $Reader))
+                    reader = $Reader.create(reader);
+                var end = length === undefined ? reader.len : reader.pos + length, message = new $root.OracleJob.RoundTask();
+                while (reader.pos < end) {
+                    var tag = reader.uint32();
+                    switch (tag >>> 3) {
+                    case 1: {
+                            message.method = reader.int32();
+                            break;
+                        }
+                    default:
+                        reader.skipType(tag & 7);
+                        break;
+                    }
+                }
+                return message;
+            };
+    
+            /**
+             * Decodes a RoundTask message from the specified reader or buffer, length delimited.
+             * @function decodeDelimited
+             * @memberof OracleJob.RoundTask
+             * @static
+             * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+             * @returns {OracleJob.RoundTask} RoundTask
+             * @throws {Error} If the payload is not a reader or valid buffer
+             * @throws {$protobuf.util.ProtocolError} If required fields are missing
+             */
+            RoundTask.decodeDelimited = function decodeDelimited(reader) {
+                if (!(reader instanceof $Reader))
+                    reader = new $Reader(reader);
+                return this.decode(reader, reader.uint32());
+            };
+    
+            /**
+             * Verifies a RoundTask message.
+             * @function verify
+             * @memberof OracleJob.RoundTask
+             * @static
+             * @param {Object.<string,*>} message Plain object to verify
+             * @returns {string|null} `null` if valid, otherwise the reason why it is not
+             */
+            RoundTask.verify = function verify(message) {
+                if (typeof message !== "object" || message === null)
+                    return "object expected";
+                if (message.method != null && message.hasOwnProperty("method"))
+                    switch (message.method) {
+                    default:
+                        return "method: enum value expected";
+                    case 0:
+                    case 1:
+                        break;
+                    }
+                return null;
+            };
+    
+            /**
+             * Creates a RoundTask message from a plain object. Also converts values to their respective internal types.
+             * @function fromObject
+             * @memberof OracleJob.RoundTask
+             * @static
+             * @param {Object.<string,*>} object Plain object
+             * @returns {OracleJob.RoundTask} RoundTask
+             */
+            RoundTask.fromObject = function fromObject(object) {
+                if (object instanceof $root.OracleJob.RoundTask)
+                    return object;
+                var message = new $root.OracleJob.RoundTask();
+                switch (object.method) {
+                default:
+                    if (typeof object.method === "number") {
+                        message.method = object.method;
+                        break;
+                    }
+                    break;
+                case "METHOD_ROUND_UP":
+                case 0:
+                    message.method = 0;
+                    break;
+                case "METHOD_ROUND_DOWN":
+                case 1:
+                    message.method = 1;
+                    break;
+                }
+                return message;
+            };
+    
+            /**
+             * Creates a plain object from a RoundTask message. Also converts values to other types if specified.
+             * @function toObject
+             * @memberof OracleJob.RoundTask
+             * @static
+             * @param {OracleJob.RoundTask} message RoundTask
+             * @param {$protobuf.IConversionOptions} [options] Conversion options
+             * @returns {Object.<string,*>} Plain object
+             */
+            RoundTask.toObject = function toObject(message, options) {
+                if (!options)
+                    options = {};
+                var object = {};
+                if (options.defaults)
+                    object.method = options.enums === String ? "METHOD_ROUND_UP" : 0;
+                if (message.method != null && message.hasOwnProperty("method"))
+                    object.method = options.enums === String ? $root.OracleJob.RoundTask.Method[message.method] === undefined ? message.method : $root.OracleJob.RoundTask.Method[message.method] : message.method;
+                return object;
+            };
+    
+            /**
+             * Converts this RoundTask to JSON.
+             * @function toJSON
+             * @memberof OracleJob.RoundTask
+             * @instance
+             * @returns {Object.<string,*>} JSON object
+             */
+            RoundTask.prototype.toJSON = function toJSON() {
+                return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+            };
+    
+            /**
+             * Gets the default type url for RoundTask
+             * @function getTypeUrl
+             * @memberof OracleJob.RoundTask
+             * @static
+             * @param {string} [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+             * @returns {string} The default type url
+             */
+            RoundTask.getTypeUrl = function getTypeUrl(typeUrlPrefix) {
+                if (typeUrlPrefix === undefined) {
+                    typeUrlPrefix = "type.googleapis.com";
+                }
+                return typeUrlPrefix + "/OracleJob.RoundTask";
+            };
+    
+            /**
+             * Method enum.
+             * @name OracleJob.RoundTask.Method
+             * @enum {number}
+             * @property {number} METHOD_ROUND_UP=0 METHOD_ROUND_UP value
+             * @property {number} METHOD_ROUND_DOWN=1 METHOD_ROUND_DOWN value
+             */
+            RoundTask.Method = (function() {
+                var valuesById = {}, values = Object.create(valuesById);
+                values[valuesById[0] = "METHOD_ROUND_UP"] = 0;
+                values[valuesById[1] = "METHOD_ROUND_DOWN"] = 1;
+                return values;
+            })();
+    
+            return RoundTask;
+        })();
+    
         OracleJob.Task = (function() {
     
             /**
@@ -11179,6 +13403,11 @@
              * @property {OracleJob.IBufferLayoutParseTask|null} [bufferLayoutParseTask] Task bufferLayoutParseTask
              * @property {OracleJob.ICronParseTask|null} [cronParseTask] Task cronParseTask
              * @property {OracleJob.IMinTask|null} [minTask] Task minTask
+             * @property {OracleJob.IHistoryFunctionTask|null} [historyFunctionTask] Task historyFunctionTask
+             * @property {OracleJob.IVwapTask|null} [vwapTask] Task vwapTask
+             * @property {OracleJob.IEwmaTask|null} [ewmaTask] Task ewmaTask
+             * @property {OracleJob.IComparisonTask|null} [comparisonTask] Task comparisonTask
+             * @property {OracleJob.IRoundTask|null} [roundTask] Task roundTask
              */
     
             /**
@@ -11508,17 +13737,57 @@
              */
             Task.prototype.minTask = null;
     
+            /**
+             * Task historyFunctionTask.
+             * @member {OracleJob.IHistoryFunctionTask|null|undefined} historyFunctionTask
+             * @memberof OracleJob.Task
+             * @instance
+             */
+            Task.prototype.historyFunctionTask = null;
+    
+            /**
+             * Task vwapTask.
+             * @member {OracleJob.IVwapTask|null|undefined} vwapTask
+             * @memberof OracleJob.Task
+             * @instance
+             */
+            Task.prototype.vwapTask = null;
+    
+            /**
+             * Task ewmaTask.
+             * @member {OracleJob.IEwmaTask|null|undefined} ewmaTask
+             * @memberof OracleJob.Task
+             * @instance
+             */
+            Task.prototype.ewmaTask = null;
+    
+            /**
+             * Task comparisonTask.
+             * @member {OracleJob.IComparisonTask|null|undefined} comparisonTask
+             * @memberof OracleJob.Task
+             * @instance
+             */
+            Task.prototype.comparisonTask = null;
+    
+            /**
+             * Task roundTask.
+             * @member {OracleJob.IRoundTask|null|undefined} roundTask
+             * @memberof OracleJob.Task
+             * @instance
+             */
+            Task.prototype.roundTask = null;
+    
             // OneOf field names bound to virtual getters and setters
             var $oneOfFields;
     
             /**
              * Task Task.
-             * @member {"httpTask"|"jsonParseTask"|"medianTask"|"meanTask"|"websocketTask"|"divideTask"|"multiplyTask"|"lpTokenPriceTask"|"lpExchangeRateTask"|"conditionalTask"|"valueTask"|"maxTask"|"regexExtractTask"|"xstepPriceTask"|"addTask"|"subtractTask"|"twapTask"|"serumSwapTask"|"powTask"|"lendingRateTask"|"mangoPerpMarketTask"|"jupiterSwapTask"|"perpMarketTask"|"oracleTask"|"anchorFetchTask"|"defiKingdomsTask"|"tpsTask"|"splStakePoolTask"|"splTokenParseTask"|"uniswapExchangeRateTask"|"sushiswapExchangeRateTask"|"pancakeswapExchangeRateTask"|"cacheTask"|"sysclockOffsetTask"|"marinadeStateTask"|"solanaAccountDataFetchTask"|"bufferLayoutParseTask"|"cronParseTask"|"minTask"|undefined} Task
+             * @member {"httpTask"|"jsonParseTask"|"medianTask"|"meanTask"|"websocketTask"|"divideTask"|"multiplyTask"|"lpTokenPriceTask"|"lpExchangeRateTask"|"conditionalTask"|"valueTask"|"maxTask"|"regexExtractTask"|"xstepPriceTask"|"addTask"|"subtractTask"|"twapTask"|"serumSwapTask"|"powTask"|"lendingRateTask"|"mangoPerpMarketTask"|"jupiterSwapTask"|"perpMarketTask"|"oracleTask"|"anchorFetchTask"|"defiKingdomsTask"|"tpsTask"|"splStakePoolTask"|"splTokenParseTask"|"uniswapExchangeRateTask"|"sushiswapExchangeRateTask"|"pancakeswapExchangeRateTask"|"cacheTask"|"sysclockOffsetTask"|"marinadeStateTask"|"solanaAccountDataFetchTask"|"bufferLayoutParseTask"|"cronParseTask"|"minTask"|"historyFunctionTask"|"vwapTask"|"ewmaTask"|"comparisonTask"|"roundTask"|undefined} Task
              * @memberof OracleJob.Task
              * @instance
              */
             Object.defineProperty(Task.prototype, "Task", {
-                get: $util.oneOfGetter($oneOfFields = ["httpTask", "jsonParseTask", "medianTask", "meanTask", "websocketTask", "divideTask", "multiplyTask", "lpTokenPriceTask", "lpExchangeRateTask", "conditionalTask", "valueTask", "maxTask", "regexExtractTask", "xstepPriceTask", "addTask", "subtractTask", "twapTask", "serumSwapTask", "powTask", "lendingRateTask", "mangoPerpMarketTask", "jupiterSwapTask", "perpMarketTask", "oracleTask", "anchorFetchTask", "defiKingdomsTask", "tpsTask", "splStakePoolTask", "splTokenParseTask", "uniswapExchangeRateTask", "sushiswapExchangeRateTask", "pancakeswapExchangeRateTask", "cacheTask", "sysclockOffsetTask", "marinadeStateTask", "solanaAccountDataFetchTask", "bufferLayoutParseTask", "cronParseTask", "minTask"]),
+                get: $util.oneOfGetter($oneOfFields = ["httpTask", "jsonParseTask", "medianTask", "meanTask", "websocketTask", "divideTask", "multiplyTask", "lpTokenPriceTask", "lpExchangeRateTask", "conditionalTask", "valueTask", "maxTask", "regexExtractTask", "xstepPriceTask", "addTask", "subtractTask", "twapTask", "serumSwapTask", "powTask", "lendingRateTask", "mangoPerpMarketTask", "jupiterSwapTask", "perpMarketTask", "oracleTask", "anchorFetchTask", "defiKingdomsTask", "tpsTask", "splStakePoolTask", "splTokenParseTask", "uniswapExchangeRateTask", "sushiswapExchangeRateTask", "pancakeswapExchangeRateTask", "cacheTask", "sysclockOffsetTask", "marinadeStateTask", "solanaAccountDataFetchTask", "bufferLayoutParseTask", "cronParseTask", "minTask", "historyFunctionTask", "vwapTask", "ewmaTask", "comparisonTask", "roundTask"]),
                 set: $util.oneOfSetter($oneOfFields)
             });
     
@@ -11624,6 +13893,16 @@
                     $root.OracleJob.CronParseTask.encode(message.cronParseTask, writer.uint32(/* id 39, wireType 2 =*/314).fork()).ldelim();
                 if (message.minTask != null && Object.hasOwnProperty.call(message, "minTask"))
                     $root.OracleJob.MinTask.encode(message.minTask, writer.uint32(/* id 40, wireType 2 =*/322).fork()).ldelim();
+                if (message.historyFunctionTask != null && Object.hasOwnProperty.call(message, "historyFunctionTask"))
+                    $root.OracleJob.HistoryFunctionTask.encode(message.historyFunctionTask, writer.uint32(/* id 41, wireType 2 =*/330).fork()).ldelim();
+                if (message.vwapTask != null && Object.hasOwnProperty.call(message, "vwapTask"))
+                    $root.OracleJob.VwapTask.encode(message.vwapTask, writer.uint32(/* id 42, wireType 2 =*/338).fork()).ldelim();
+                if (message.ewmaTask != null && Object.hasOwnProperty.call(message, "ewmaTask"))
+                    $root.OracleJob.EwmaTask.encode(message.ewmaTask, writer.uint32(/* id 43, wireType 2 =*/346).fork()).ldelim();
+                if (message.comparisonTask != null && Object.hasOwnProperty.call(message, "comparisonTask"))
+                    $root.OracleJob.ComparisonTask.encode(message.comparisonTask, writer.uint32(/* id 44, wireType 2 =*/354).fork()).ldelim();
+                if (message.roundTask != null && Object.hasOwnProperty.call(message, "roundTask"))
+                    $root.OracleJob.RoundTask.encode(message.roundTask, writer.uint32(/* id 45, wireType 2 =*/362).fork()).ldelim();
                 return writer;
             };
     
@@ -11658,123 +13937,182 @@
                 while (reader.pos < end) {
                     var tag = reader.uint32();
                     switch (tag >>> 3) {
-                    case 1:
-                        message.httpTask = $root.OracleJob.HttpTask.decode(reader, reader.uint32());
-                        break;
-                    case 2:
-                        message.jsonParseTask = $root.OracleJob.JsonParseTask.decode(reader, reader.uint32());
-                        break;
-                    case 4:
-                        message.medianTask = $root.OracleJob.MedianTask.decode(reader, reader.uint32());
-                        break;
-                    case 5:
-                        message.meanTask = $root.OracleJob.MeanTask.decode(reader, reader.uint32());
-                        break;
-                    case 6:
-                        message.websocketTask = $root.OracleJob.WebsocketTask.decode(reader, reader.uint32());
-                        break;
-                    case 7:
-                        message.divideTask = $root.OracleJob.DivideTask.decode(reader, reader.uint32());
-                        break;
-                    case 8:
-                        message.multiplyTask = $root.OracleJob.MultiplyTask.decode(reader, reader.uint32());
-                        break;
-                    case 9:
-                        message.lpTokenPriceTask = $root.OracleJob.LpTokenPriceTask.decode(reader, reader.uint32());
-                        break;
-                    case 10:
-                        message.lpExchangeRateTask = $root.OracleJob.LpExchangeRateTask.decode(reader, reader.uint32());
-                        break;
-                    case 11:
-                        message.conditionalTask = $root.OracleJob.ConditionalTask.decode(reader, reader.uint32());
-                        break;
-                    case 12:
-                        message.valueTask = $root.OracleJob.ValueTask.decode(reader, reader.uint32());
-                        break;
-                    case 13:
-                        message.maxTask = $root.OracleJob.MaxTask.decode(reader, reader.uint32());
-                        break;
-                    case 14:
-                        message.regexExtractTask = $root.OracleJob.RegexExtractTask.decode(reader, reader.uint32());
-                        break;
-                    case 15:
-                        message.xstepPriceTask = $root.OracleJob.XStepPriceTask.decode(reader, reader.uint32());
-                        break;
-                    case 16:
-                        message.addTask = $root.OracleJob.AddTask.decode(reader, reader.uint32());
-                        break;
-                    case 17:
-                        message.subtractTask = $root.OracleJob.SubtractTask.decode(reader, reader.uint32());
-                        break;
-                    case 18:
-                        message.twapTask = $root.OracleJob.TwapTask.decode(reader, reader.uint32());
-                        break;
-                    case 19:
-                        message.serumSwapTask = $root.OracleJob.SerumSwapTask.decode(reader, reader.uint32());
-                        break;
-                    case 20:
-                        message.powTask = $root.OracleJob.PowTask.decode(reader, reader.uint32());
-                        break;
-                    case 21:
-                        message.lendingRateTask = $root.OracleJob.LendingRateTask.decode(reader, reader.uint32());
-                        break;
-                    case 22:
-                        message.mangoPerpMarketTask = $root.OracleJob.MangoPerpMarketTask.decode(reader, reader.uint32());
-                        break;
-                    case 23:
-                        message.jupiterSwapTask = $root.OracleJob.JupiterSwapTask.decode(reader, reader.uint32());
-                        break;
-                    case 24:
-                        message.perpMarketTask = $root.OracleJob.PerpMarketTask.decode(reader, reader.uint32());
-                        break;
-                    case 25:
-                        message.oracleTask = $root.OracleJob.OracleTask.decode(reader, reader.uint32());
-                        break;
-                    case 26:
-                        message.anchorFetchTask = $root.OracleJob.AnchorFetchTask.decode(reader, reader.uint32());
-                        break;
-                    case 27:
-                        message.defiKingdomsTask = $root.OracleJob.DefiKingdomsTask.decode(reader, reader.uint32());
-                        break;
-                    case 28:
-                        message.tpsTask = $root.OracleJob.TpsTask.decode(reader, reader.uint32());
-                        break;
-                    case 29:
-                        message.splStakePoolTask = $root.OracleJob.SplStakePoolTask.decode(reader, reader.uint32());
-                        break;
-                    case 30:
-                        message.splTokenParseTask = $root.OracleJob.SplTokenParseTask.decode(reader, reader.uint32());
-                        break;
-                    case 31:
-                        message.uniswapExchangeRateTask = $root.OracleJob.UniswapExchangeRateTask.decode(reader, reader.uint32());
-                        break;
-                    case 32:
-                        message.sushiswapExchangeRateTask = $root.OracleJob.SushiswapExchangeRateTask.decode(reader, reader.uint32());
-                        break;
-                    case 33:
-                        message.pancakeswapExchangeRateTask = $root.OracleJob.PancakeswapExchangeRateTask.decode(reader, reader.uint32());
-                        break;
-                    case 34:
-                        message.cacheTask = $root.OracleJob.CacheTask.decode(reader, reader.uint32());
-                        break;
-                    case 35:
-                        message.sysclockOffsetTask = $root.OracleJob.SysclockOffsetTask.decode(reader, reader.uint32());
-                        break;
-                    case 36:
-                        message.marinadeStateTask = $root.OracleJob.MarinadeStateTask.decode(reader, reader.uint32());
-                        break;
-                    case 37:
-                        message.solanaAccountDataFetchTask = $root.OracleJob.SolanaAccountDataFetchTask.decode(reader, reader.uint32());
-                        break;
-                    case 38:
-                        message.bufferLayoutParseTask = $root.OracleJob.BufferLayoutParseTask.decode(reader, reader.uint32());
-                        break;
-                    case 39:
-                        message.cronParseTask = $root.OracleJob.CronParseTask.decode(reader, reader.uint32());
-                        break;
-                    case 40:
-                        message.minTask = $root.OracleJob.MinTask.decode(reader, reader.uint32());
-                        break;
+                    case 1: {
+                            message.httpTask = $root.OracleJob.HttpTask.decode(reader, reader.uint32());
+                            break;
+                        }
+                    case 2: {
+                            message.jsonParseTask = $root.OracleJob.JsonParseTask.decode(reader, reader.uint32());
+                            break;
+                        }
+                    case 4: {
+                            message.medianTask = $root.OracleJob.MedianTask.decode(reader, reader.uint32());
+                            break;
+                        }
+                    case 5: {
+                            message.meanTask = $root.OracleJob.MeanTask.decode(reader, reader.uint32());
+                            break;
+                        }
+                    case 6: {
+                            message.websocketTask = $root.OracleJob.WebsocketTask.decode(reader, reader.uint32());
+                            break;
+                        }
+                    case 7: {
+                            message.divideTask = $root.OracleJob.DivideTask.decode(reader, reader.uint32());
+                            break;
+                        }
+                    case 8: {
+                            message.multiplyTask = $root.OracleJob.MultiplyTask.decode(reader, reader.uint32());
+                            break;
+                        }
+                    case 9: {
+                            message.lpTokenPriceTask = $root.OracleJob.LpTokenPriceTask.decode(reader, reader.uint32());
+                            break;
+                        }
+                    case 10: {
+                            message.lpExchangeRateTask = $root.OracleJob.LpExchangeRateTask.decode(reader, reader.uint32());
+                            break;
+                        }
+                    case 11: {
+                            message.conditionalTask = $root.OracleJob.ConditionalTask.decode(reader, reader.uint32());
+                            break;
+                        }
+                    case 12: {
+                            message.valueTask = $root.OracleJob.ValueTask.decode(reader, reader.uint32());
+                            break;
+                        }
+                    case 13: {
+                            message.maxTask = $root.OracleJob.MaxTask.decode(reader, reader.uint32());
+                            break;
+                        }
+                    case 14: {
+                            message.regexExtractTask = $root.OracleJob.RegexExtractTask.decode(reader, reader.uint32());
+                            break;
+                        }
+                    case 15: {
+                            message.xstepPriceTask = $root.OracleJob.XStepPriceTask.decode(reader, reader.uint32());
+                            break;
+                        }
+                    case 16: {
+                            message.addTask = $root.OracleJob.AddTask.decode(reader, reader.uint32());
+                            break;
+                        }
+                    case 17: {
+                            message.subtractTask = $root.OracleJob.SubtractTask.decode(reader, reader.uint32());
+                            break;
+                        }
+                    case 18: {
+                            message.twapTask = $root.OracleJob.TwapTask.decode(reader, reader.uint32());
+                            break;
+                        }
+                    case 19: {
+                            message.serumSwapTask = $root.OracleJob.SerumSwapTask.decode(reader, reader.uint32());
+                            break;
+                        }
+                    case 20: {
+                            message.powTask = $root.OracleJob.PowTask.decode(reader, reader.uint32());
+                            break;
+                        }
+                    case 21: {
+                            message.lendingRateTask = $root.OracleJob.LendingRateTask.decode(reader, reader.uint32());
+                            break;
+                        }
+                    case 22: {
+                            message.mangoPerpMarketTask = $root.OracleJob.MangoPerpMarketTask.decode(reader, reader.uint32());
+                            break;
+                        }
+                    case 23: {
+                            message.jupiterSwapTask = $root.OracleJob.JupiterSwapTask.decode(reader, reader.uint32());
+                            break;
+                        }
+                    case 24: {
+                            message.perpMarketTask = $root.OracleJob.PerpMarketTask.decode(reader, reader.uint32());
+                            break;
+                        }
+                    case 25: {
+                            message.oracleTask = $root.OracleJob.OracleTask.decode(reader, reader.uint32());
+                            break;
+                        }
+                    case 26: {
+                            message.anchorFetchTask = $root.OracleJob.AnchorFetchTask.decode(reader, reader.uint32());
+                            break;
+                        }
+                    case 27: {
+                            message.defiKingdomsTask = $root.OracleJob.DefiKingdomsTask.decode(reader, reader.uint32());
+                            break;
+                        }
+                    case 28: {
+                            message.tpsTask = $root.OracleJob.TpsTask.decode(reader, reader.uint32());
+                            break;
+                        }
+                    case 29: {
+                            message.splStakePoolTask = $root.OracleJob.SplStakePoolTask.decode(reader, reader.uint32());
+                            break;
+                        }
+                    case 30: {
+                            message.splTokenParseTask = $root.OracleJob.SplTokenParseTask.decode(reader, reader.uint32());
+                            break;
+                        }
+                    case 31: {
+                            message.uniswapExchangeRateTask = $root.OracleJob.UniswapExchangeRateTask.decode(reader, reader.uint32());
+                            break;
+                        }
+                    case 32: {
+                            message.sushiswapExchangeRateTask = $root.OracleJob.SushiswapExchangeRateTask.decode(reader, reader.uint32());
+                            break;
+                        }
+                    case 33: {
+                            message.pancakeswapExchangeRateTask = $root.OracleJob.PancakeswapExchangeRateTask.decode(reader, reader.uint32());
+                            break;
+                        }
+                    case 34: {
+                            message.cacheTask = $root.OracleJob.CacheTask.decode(reader, reader.uint32());
+                            break;
+                        }
+                    case 35: {
+                            message.sysclockOffsetTask = $root.OracleJob.SysclockOffsetTask.decode(reader, reader.uint32());
+                            break;
+                        }
+                    case 36: {
+                            message.marinadeStateTask = $root.OracleJob.MarinadeStateTask.decode(reader, reader.uint32());
+                            break;
+                        }
+                    case 37: {
+                            message.solanaAccountDataFetchTask = $root.OracleJob.SolanaAccountDataFetchTask.decode(reader, reader.uint32());
+                            break;
+                        }
+                    case 38: {
+                            message.bufferLayoutParseTask = $root.OracleJob.BufferLayoutParseTask.decode(reader, reader.uint32());
+                            break;
+                        }
+                    case 39: {
+                            message.cronParseTask = $root.OracleJob.CronParseTask.decode(reader, reader.uint32());
+                            break;
+                        }
+                    case 40: {
+                            message.minTask = $root.OracleJob.MinTask.decode(reader, reader.uint32());
+                            break;
+                        }
+                    case 41: {
+                            message.historyFunctionTask = $root.OracleJob.HistoryFunctionTask.decode(reader, reader.uint32());
+                            break;
+                        }
+                    case 42: {
+                            message.vwapTask = $root.OracleJob.VwapTask.decode(reader, reader.uint32());
+                            break;
+                        }
+                    case 43: {
+                            message.ewmaTask = $root.OracleJob.EwmaTask.decode(reader, reader.uint32());
+                            break;
+                        }
+                    case 44: {
+                            message.comparisonTask = $root.OracleJob.ComparisonTask.decode(reader, reader.uint32());
+                            break;
+                        }
+                    case 45: {
+                            message.roundTask = $root.OracleJob.RoundTask.decode(reader, reader.uint32());
+                            break;
+                        }
                     default:
                         reader.skipType(tag & 7);
                         break;
@@ -12199,6 +14537,56 @@
                             return "minTask." + error;
                     }
                 }
+                if (message.historyFunctionTask != null && message.hasOwnProperty("historyFunctionTask")) {
+                    if (properties.Task === 1)
+                        return "Task: multiple values";
+                    properties.Task = 1;
+                    {
+                        var error = $root.OracleJob.HistoryFunctionTask.verify(message.historyFunctionTask);
+                        if (error)
+                            return "historyFunctionTask." + error;
+                    }
+                }
+                if (message.vwapTask != null && message.hasOwnProperty("vwapTask")) {
+                    if (properties.Task === 1)
+                        return "Task: multiple values";
+                    properties.Task = 1;
+                    {
+                        var error = $root.OracleJob.VwapTask.verify(message.vwapTask);
+                        if (error)
+                            return "vwapTask." + error;
+                    }
+                }
+                if (message.ewmaTask != null && message.hasOwnProperty("ewmaTask")) {
+                    if (properties.Task === 1)
+                        return "Task: multiple values";
+                    properties.Task = 1;
+                    {
+                        var error = $root.OracleJob.EwmaTask.verify(message.ewmaTask);
+                        if (error)
+                            return "ewmaTask." + error;
+                    }
+                }
+                if (message.comparisonTask != null && message.hasOwnProperty("comparisonTask")) {
+                    if (properties.Task === 1)
+                        return "Task: multiple values";
+                    properties.Task = 1;
+                    {
+                        var error = $root.OracleJob.ComparisonTask.verify(message.comparisonTask);
+                        if (error)
+                            return "comparisonTask." + error;
+                    }
+                }
+                if (message.roundTask != null && message.hasOwnProperty("roundTask")) {
+                    if (properties.Task === 1)
+                        return "Task: multiple values";
+                    properties.Task = 1;
+                    {
+                        var error = $root.OracleJob.RoundTask.verify(message.roundTask);
+                        if (error)
+                            return "roundTask." + error;
+                    }
+                }
                 return null;
             };
     
@@ -12408,6 +14796,31 @@
                     if (typeof object.minTask !== "object")
                         throw TypeError(".OracleJob.Task.minTask: object expected");
                     message.minTask = $root.OracleJob.MinTask.fromObject(object.minTask);
+                }
+                if (object.historyFunctionTask != null) {
+                    if (typeof object.historyFunctionTask !== "object")
+                        throw TypeError(".OracleJob.Task.historyFunctionTask: object expected");
+                    message.historyFunctionTask = $root.OracleJob.HistoryFunctionTask.fromObject(object.historyFunctionTask);
+                }
+                if (object.vwapTask != null) {
+                    if (typeof object.vwapTask !== "object")
+                        throw TypeError(".OracleJob.Task.vwapTask: object expected");
+                    message.vwapTask = $root.OracleJob.VwapTask.fromObject(object.vwapTask);
+                }
+                if (object.ewmaTask != null) {
+                    if (typeof object.ewmaTask !== "object")
+                        throw TypeError(".OracleJob.Task.ewmaTask: object expected");
+                    message.ewmaTask = $root.OracleJob.EwmaTask.fromObject(object.ewmaTask);
+                }
+                if (object.comparisonTask != null) {
+                    if (typeof object.comparisonTask !== "object")
+                        throw TypeError(".OracleJob.Task.comparisonTask: object expected");
+                    message.comparisonTask = $root.OracleJob.ComparisonTask.fromObject(object.comparisonTask);
+                }
+                if (object.roundTask != null) {
+                    if (typeof object.roundTask !== "object")
+                        throw TypeError(".OracleJob.Task.roundTask: object expected");
+                    message.roundTask = $root.OracleJob.RoundTask.fromObject(object.roundTask);
                 }
                 return message;
             };
@@ -12620,6 +15033,31 @@
                     if (options.oneofs)
                         object.Task = "minTask";
                 }
+                if (message.historyFunctionTask != null && message.hasOwnProperty("historyFunctionTask")) {
+                    object.historyFunctionTask = $root.OracleJob.HistoryFunctionTask.toObject(message.historyFunctionTask, options);
+                    if (options.oneofs)
+                        object.Task = "historyFunctionTask";
+                }
+                if (message.vwapTask != null && message.hasOwnProperty("vwapTask")) {
+                    object.vwapTask = $root.OracleJob.VwapTask.toObject(message.vwapTask, options);
+                    if (options.oneofs)
+                        object.Task = "vwapTask";
+                }
+                if (message.ewmaTask != null && message.hasOwnProperty("ewmaTask")) {
+                    object.ewmaTask = $root.OracleJob.EwmaTask.toObject(message.ewmaTask, options);
+                    if (options.oneofs)
+                        object.Task = "ewmaTask";
+                }
+                if (message.comparisonTask != null && message.hasOwnProperty("comparisonTask")) {
+                    object.comparisonTask = $root.OracleJob.ComparisonTask.toObject(message.comparisonTask, options);
+                    if (options.oneofs)
+                        object.Task = "comparisonTask";
+                }
+                if (message.roundTask != null && message.hasOwnProperty("roundTask")) {
+                    object.roundTask = $root.OracleJob.RoundTask.toObject(message.roundTask, options);
+                    if (options.oneofs)
+                        object.Task = "roundTask";
+                }
                 return object;
             };
     
@@ -12632,6 +15070,21 @@
              */
             Task.prototype.toJSON = function toJSON() {
                 return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+            };
+    
+            /**
+             * Gets the default type url for Task
+             * @function getTypeUrl
+             * @memberof OracleJob.Task
+             * @static
+             * @param {string} [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+             * @returns {string} The default type url
+             */
+            Task.getTypeUrl = function getTypeUrl(typeUrlPrefix) {
+                if (typeUrlPrefix === undefined) {
+                    typeUrlPrefix = "type.googleapis.com";
+                }
+                return typeUrlPrefix + "/OracleJob.Task";
             };
     
             return Task;
