@@ -98,6 +98,7 @@ node bin/dev print GvDMxPzN1sCj7L26YDK2HnMRXEQmQ2aemov8YBtPS7vR
 * [`sbv2 near queue set QUEUEADDRESS`](#sbv2-near-queue-set-queueaddress)
 * [`sbv2 near set aggregator AGGREGATORADDRESS`](#sbv2-near-set-aggregator-aggregatoraddress)
 * [`sbv2 near update aggregator [AGGREGATORADDRESS]`](#sbv2-near-update-aggregator-aggregatoraddress)
+* [`sbv2 oracle logs NETWORK SEARCHSTRING`](#sbv2-oracle-logs-network-searchstring)
 * [`sbv2 solana aggregator add crank [CRANKKEY] [AGGREGATORKEY]`](#sbv2-solana-aggregator-add-crank-crankkey-aggregatorkey)
 * [`sbv2 solana aggregator add history [AGGREGATORKEY] [SIZE]`](#sbv2-solana-aggregator-add-history-aggregatorkey-size)
 * [`sbv2 solana aggregator add job [AGGREGATORKEY]`](#sbv2-solana-aggregator-add-job-aggregatorkey)
@@ -2934,6 +2935,31 @@ ALIASES
   $ sbv2 near update aggregator
 ```
 
+## `sbv2 oracle logs NETWORK SEARCHSTRING`
+
+fetch logs for a switchboard oracle
+
+```
+USAGE
+  $ sbv2 oracle logs [NETWORK] [SEARCHSTRING] -f <value> [-h] [-v] [-s] [--force] [--json] [--csv]
+
+ARGUMENTS
+  NETWORK       (solana-devnet|solana-mainnet) network to parse logs for
+  SEARCHSTRING  string to search for in the oracle logs
+
+FLAGS
+  -f, --outputFile=<value>  (required) output file to save aggregator pubkeys to
+  -h, --help                Show CLI help.
+  -s, --silent              suppress cli prompts
+  -v, --verbose             log everything
+  --csv                     output aggregator accounts in csv format
+  --force                   overwrite output file if exists
+  --json                    output aggregator accounts in json format
+
+DESCRIPTION
+  fetch logs for a switchboard oracle
+```
+
 ## `sbv2 solana aggregator add crank [CRANKKEY] [AGGREGATORKEY]`
 
 push an aggregator onto a crank
@@ -3607,8 +3633,7 @@ request a new aggregator result from a set of oracles
 
 ```
 USAGE
-  $ sbv2 solana aggregator save history [AGGREGATORKEY] -f <value> [-h] [-v] [-s] [--mainnetBeta] [-u <value>] [--programId <value>]
-    [--commitment confirmed|finalized|processed] [--force] [--json] [--csv]
+  $ sbv2 solana aggregator save history [AGGREGATORKEY] -f <value> [-h] [-v] [-s] [--force] [--json] [--csv]
 
 ARGUMENTS
   AGGREGATORKEY  public key of the aggregator account to deserialize
@@ -3617,15 +3642,10 @@ FLAGS
   -f, --outputFile=<value>  (required) output file to save aggregator pubkeys to
   -h, --help                Show CLI help.
   -s, --silent              suppress cli prompts
-  -u, --rpcUrl=<value>      alternate RPC url
   -v, --verbose             log everything
-  --commitment=<option>     [default: confirmed] transaction commitment level to use
-                            <options: confirmed|finalized|processed>
   --csv                     output aggregator accounts in csv format
   --force                   overwrite output file if exists
   --json                    output aggregator accounts in json format
-  --mainnetBeta             WARNING: use mainnet-beta solana cluster
-  --programId=<value>       alternative Switchboard program ID to interact with
 
 DESCRIPTION
   request a new aggregator result from a set of oracles
