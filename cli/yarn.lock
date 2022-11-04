@@ -2254,13 +2254,31 @@
     node-fetch "^2.1.6"
 
 "@switchboard-xyz/common@^2.0.0":
-  version "2.0.0"
-  resolved "https://registry.npmjs.org/@switchboard-xyz/common/-/common-2.0.0.tgz#8c3551b3611c4a2348c46879c0ab2ea188a1f753"
-  integrity sha512-hC7J7NShGQHjWaCU7+w6tEtZ3KljxMIKJe5IaxPxD+cgdxhx58UMjngyevaCcle33aPyFZ/tbpm0tU2ZqzqZtQ==
+  version "2.0.4"
+  resolved "https://registry.npmjs.org/@switchboard-xyz/common/-/common-2.0.4.tgz#d4e719c819212629b8bb7c268ee6020eba368382"
+  integrity sha512-a68hrXhHx9w85+Ps2k7UFN8q4iU16EqrAqQYQfclhDyyE236QZznKdXGGTkCrlxwEP3wJCWl94DVlFBEWXRiOQ==
   dependencies:
     big.js "^6.2.1"
     bn.js "^5.2.1"
     protobufjs "^6.11.3"
+
+"@switchboard-xyz/common@^2.1.0":
+  version "2.1.0"
+  resolved "https://registry.npmjs.org/@switchboard-xyz/common/-/common-2.1.0.tgz#4dd5483ee0c3f37e583ba51e61b17a70bdb39d3d"
+  integrity sha512-m7N3GyqHYI4/jI5BsnIgam+JmQnCB8TeaVHoKVW5BD1m67P9zcVikgl1YlROSBQbS5xNB+0xI8ZWV4dOajyx5A==
+  dependencies:
+    big.js "^6.2.1"
+    bn.js "^5.2.1"
+    protobufjs "^7.1.2"
+
+"@switchboard-xyz/common@^2.1.3":
+  version "2.1.3"
+  resolved "https://registry.npmjs.org/@switchboard-xyz/common/-/common-2.1.3.tgz#ce50fd579841543c56d37550f5613d985d804514"
+  integrity sha512-u6jQAZbsB1buFPhvW4Ybw9gpDmn59ETPlPAL7BxUtLZ88A/PzFyA7a5CTQZHn8cvsP2jBlLmPm1uHwLM/3lPiA==
+  dependencies:
+    big.js "^6.2.1"
+    bn.js "^5.2.1"
+    protobufjs "^7.1.2"
 
 "@switchboard-xyz/near.js@^2.0.21":
   version "2.0.21"
@@ -2278,10 +2296,10 @@
     typedoc "^0.23.15"
     wait-for-event "^2.0.1"
 
-"@switchboard-xyz/near.js@^2.0.58":
-  version "2.0.58"
-  resolved "https://registry.npmjs.org/@switchboard-xyz/near.js/-/near.js-2.0.58.tgz#3d9807b6ae51c0a79658a394a280d77dd6048270"
-  integrity sha512-Gl10uukzeJCkK6zhW1TOQkvOzlp1aUXkOsSrTaPUF779DYO79WIC6gWwIkoZkRP/sti3ZQSnOs1tu35FkEgFAA==
+"@switchboard-xyz/near.js@^2.0.74":
+  version "2.0.74"
+  resolved "https://registry.npmjs.org/@switchboard-xyz/near.js/-/near.js-2.0.74.tgz#ba25d5bb0573e0cb95cbdc87b9daf9163b30c74c"
+  integrity sha512-PTxLZ1M2sBA1OKiwXT4OdbKvOnJ+lfe4x/VALSC1INbPgddW1mRnXOAtAOhilBH7RJ0NTZu1Kxyu7dWRhmdPdw==
   dependencies:
     "@switchboard-xyz/common" "^2.0.0"
     "@switchboard-xyz/near.js" "^2.0.21"
@@ -2289,26 +2307,28 @@
     bn.js "^5.2.1"
     bs58 "^5.0.0"
     events "^3.3.0"
+    isomorphic-ws "^5.0.0"
     lodash "^4.17.21"
     near-api-js "^1.0.0"
     near-lake-framework "^1.0.4"
     near-units "^0.1.9"
+    reconnecting-websocket "^4.4.0"
     typedoc "^0.23.16"
     wait-for-event "^2.0.1"
     ws "^8.10.0"
 
-"@switchboard-xyz/sbv2-utils@^0.1.48":
-  version "0.1.48"
-  resolved "https://registry.npmjs.org/@switchboard-xyz/sbv2-utils/-/sbv2-utils-0.1.48.tgz#576880ed617e5976189d4b6d308e36b896968119"
-  integrity sha512-Q/CoE5u+iBrLwlaD7Z7/DdRwCjgLa+RHaALqClvGkfvHVOOugEVjV+wjOEBDCX3dv+J+Hm/QfQGJ3WVAfnw4tw==
+"@switchboard-xyz/sbv2-utils@^0.1.51":
+  version "0.1.51"
+  resolved "https://registry.npmjs.org/@switchboard-xyz/sbv2-utils/-/sbv2-utils-0.1.51.tgz#f5a131fc3d8eda065b0aeb67d35ae45310608648"
+  integrity sha512-L3bdeS6N1J4vyijjIfKLNxXUKMyRaj01/Z8WIE4lATV/NVipkL5cgwN0fEN/SsIBTr45QkVxQ3/2/EPouEweKA==
   dependencies:
     "@orca-so/sdk" "^1.2.24"
     "@project-serum/anchor" "^0.24.2"
     "@saberhq/token-utils" "^1.13.32"
     "@solana/spl-token-v2" "npm:@solana/spl-token@^0.2.0"
     "@solana/web3.js" "^1.43.5"
-    "@switchboard-xyz/common" "^2.0.0"
-    "@switchboard-xyz/switchboard-v2" "^0.0.135"
+    "@switchboard-xyz/common" "^2.1.0"
+    "@switchboard-xyz/switchboard-v2" "^0.0.142"
     big.js "^6.2.1"
     bn.js "^5.2.1"
     chalk "4"
@@ -2317,18 +2337,39 @@
     mocha "^9.1.1"
     toml "^3.0.0"
 
-"@switchboard-xyz/switchboard-v2@^0.0.135":
-  version "0.0.135"
-  resolved "https://registry.npmjs.org/@switchboard-xyz/switchboard-v2/-/switchboard-v2-0.0.135.tgz#51f33c69e7b3ed8180680d475d8e53c67426dd7e"
-  integrity sha512-ugaC6xYq5Xojok/g62HnealdrvF5v2YmJ6mxkYLL2zrAHQwVDSnFg052OLjthYusifum9kBvUFMPEwnU44UIbQ==
+"@switchboard-xyz/switchboard-v2@^0.0.142":
+  version "0.0.142"
+  resolved "https://registry.npmjs.org/@switchboard-xyz/switchboard-v2/-/switchboard-v2-0.0.142.tgz#f5c64f13343d12923f4e80f2591d08466cc8d763"
+  integrity sha512-+M7GrpT3zotdvP1qQikYJutb+EOaa807UmZNx1CKinfih/puvFacdTzu1sZjSdADVF4YUHblBBLSUL+fwE8eFg==
   dependencies:
     "@project-serum/anchor" "^0.24.2"
     "@solana/spl-governance" "^0.0.34"
     "@solana/spl-token-v2" "npm:@solana/spl-token@^0.2.0"
     "@solana/web3.js" "^1.44.3"
-    "@switchboard-xyz/common" "^2.0.0"
+    "@switchboard-xyz/common" "^2.1.0"
     assert "^2.0.0"
-    big.js "^6.2.0"
+    big.js "^6.2.1"
+    bs58 "^5.0.0"
+    chan "^0.6.1"
+    crypto-js "^4.0.0"
+    glob "^8.0.3"
+    lodash "^4.17.21"
+    long "^4.0.0"
+    mocha "^9.1.1"
+    node-fetch "^3.2.6"
+
+"@switchboard-xyz/switchboard-v2@^0.0.144":
+  version "0.0.144"
+  resolved "https://registry.npmjs.org/@switchboard-xyz/switchboard-v2/-/switchboard-v2-0.0.144.tgz#f6eb0395fb0d42e22cf9a0c45c1d1df965a2afe6"
+  integrity sha512-oChfyYE2cBGqKMZbWRzOiJDdCz+jUtKadxD6gsVjG6qoHdwFYBN3HDqMyYtj78l2XWBKGfF0FCHhOnV0DipXMw==
+  dependencies:
+    "@project-serum/anchor" "^0.24.2"
+    "@solana/spl-governance" "^0.0.34"
+    "@solana/spl-token-v2" "npm:@solana/spl-token@^0.2.0"
+    "@solana/web3.js" "^1.44.3"
+    "@switchboard-xyz/common" "^2.1.3"
+    assert "^2.0.0"
+    big.js "^6.2.1"
     bs58 "^5.0.0"
     chan "^0.6.1"
     crypto-js "^4.0.0"
@@ -2467,10 +2508,15 @@
   resolved "https://registry.npmjs.org/@types/node/-/node-18.7.18.tgz#633184f55c322e4fb08612307c274ee6d5ed3154"
   integrity sha512-m+6nTEOadJZuTPkKR/SYK3A2d7FZrgElol9UP1Kae90VVU4a6mxnPuLiIW1m4Cq4gZ/nWb9GrdVXJCoCazDAbg==
 
-"@types/node@>=12.12.47", "@types/node@>=13.7.0":
+"@types/node@>=12.12.47":
   version "18.7.13"
   resolved "https://registry.npmjs.org/@types/node/-/node-18.7.13.tgz#23e6c5168333480d454243378b69e861ab5c011a"
   integrity sha512-46yIhxSe5xEaJZXWdIBP7GU4HDTG8/eo0qd9atdiL+lFpA03y8KS+lkTN834TWJj5767GbWv4n/P6efyTFt1Dw==
+
+"@types/node@>=13.7.0":
+  version "18.11.9"
+  resolved "https://registry.npmjs.org/@types/node/-/node-18.11.9.tgz#02d013de7058cea16d36168ef2fc653464cfbad4"
+  integrity sha512-CRpX21/kGdzjOpFsZSkcrXMGIBWMGNIHXXBVFSH+ggkftxg+XYP20TESbh+zFvFj3EQOl5byk0HTRn1IL6hbqg==
 
 "@types/node@^12.12.54":
   version "12.20.55"
@@ -5858,6 +5904,11 @@ isomorphic-ws@^4.0.1:
   resolved "https://registry.npmjs.org/isomorphic-ws/-/isomorphic-ws-4.0.1.tgz#55fd4cd6c5e6491e76dc125938dd863f5cd4f2dc"
   integrity sha512-BhBvN2MBpWTaSHdWRb/bwdZJ1WaehQ2L1KngkCkfLUGF0mAWAT1sQUQacEmQ0jXkFw/czDXPNQSL5u2/Krsz1w==
 
+isomorphic-ws@^5.0.0:
+  version "5.0.0"
+  resolved "https://registry.npmjs.org/isomorphic-ws/-/isomorphic-ws-5.0.0.tgz#e5529148912ecb9b451b46ed44d53dae1ce04bbf"
+  integrity sha512-muId7Zzn9ywDsyXgTIafTry2sV3nySZeUDe6YedVd1Hvuuep5AsIlqK+XefWpYTyJG5e503F2xIuT2lcU6rCSw==
+
 jake@^10.8.5:
   version "10.8.5"
   resolved "https://registry.npmjs.org/jake/-/jake-10.8.5.tgz#f2183d2c59382cb274226034543b9c03b8164c46"
@@ -7445,6 +7496,24 @@ protobufjs@^7.0.0:
     "@types/node" ">=13.7.0"
     long "^5.0.0"
 
+protobufjs@^7.1.2:
+  version "7.1.2"
+  resolved "https://registry.npmjs.org/protobufjs/-/protobufjs-7.1.2.tgz#a0cf6aeaf82f5625bffcf5a38b7cd2a7de05890c"
+  integrity sha512-4ZPTPkXCdel3+L81yw3dG6+Kq3umdWKh7Dc7GW/CpNk4SX3hK58iPCWeCyhVTDrbkNeKrYNZ7EojM5WDaEWTLQ==
+  dependencies:
+    "@protobufjs/aspromise" "^1.1.2"
+    "@protobufjs/base64" "^1.1.2"
+    "@protobufjs/codegen" "^2.0.4"
+    "@protobufjs/eventemitter" "^1.1.0"
+    "@protobufjs/fetch" "^1.1.0"
+    "@protobufjs/float" "^1.0.2"
+    "@protobufjs/inquire" "^1.1.0"
+    "@protobufjs/path" "^1.1.2"
+    "@protobufjs/pool" "^1.1.0"
+    "@protobufjs/utf8" "^1.1.0"
+    "@types/node" ">=13.7.0"
+    long "^5.0.0"
+
 ps-tree@1.2.0:
   version "1.2.0"
   resolved "https://registry.npmjs.org/ps-tree/-/ps-tree-1.2.0.tgz#5e7425b89508736cdd4f2224d028f7bb3f722ebd"
@@ -7597,6 +7666,11 @@ rechoir@^0.6.2:
   integrity sha512-HFM8rkZ+i3zrV+4LQjwQ0W+ez98pApMGM3HUrN04j3CqzPOzl9nmP15Y8YXNm8QHGv/eacOVEjqhmWpkRV0NAw==
   dependencies:
     resolve "^1.1.6"
+
+reconnecting-websocket@^4.4.0:
+  version "4.4.0"
+  resolved "https://registry.npmjs.org/reconnecting-websocket/-/reconnecting-websocket-4.4.0.tgz#3b0e5b96ef119e78a03135865b8bb0af1b948783"
+  integrity sha512-D2E33ceRPga0NvTDhJmphEgJ7FUYF0v4lr1ki0csq06OdlxKfugGzN0dSkxM/NfqCxYELK4KcaTOUOjTV6Dcng==
 
 redeyed@~2.1.0:
   version "2.1.1"

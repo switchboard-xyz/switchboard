@@ -76,6 +76,7 @@ export default class LeaseExtend extends BaseCommand {
     const lease = await leaseAccount.loadData();
     const escrow: PublicKey = lease.escrow;
 
+    // TODO: Auto-wrap funds if not enough balance
     const initialLeaseBalance =
       await this.program.provider.connection.getTokenAccountBalance(escrow);
 
