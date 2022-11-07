@@ -2225,26 +2225,12 @@
     rpc-websockets "^7.5.0"
     superstruct "^0.14.2"
 
-"@switchboard-xyz/aptos.js@^2.5.15":
-  version "2.5.16"
-  resolved "https://registry.npmjs.org/@switchboard-xyz/aptos.js/-/aptos.js-2.5.16.tgz#a314edff4cbf93380ff1958b08007bcc5e986c09"
-  integrity sha512-ZIs4BTf932oEpCs3gNzHgiGyhT8r34QFyNBnenVnIu/AmFNux2O+Q628g69rhH6pawvezqEX4cAbUj2HKDp3IA==
+"@switchboard-xyz/aptos.js@^2.5.22", "@switchboard-xyz/aptos.js@^2.5.26":
+  version "2.5.26"
+  resolved "https://registry.npmjs.org/@switchboard-xyz/aptos.js/-/aptos.js-2.5.26.tgz#786595eb065c448e3a904550b7c5e2992e87703f"
+  integrity sha512-/oY67sc5uvbujfQqB1Lh7nFOgZnk2kO6j0Pn8jrOYpjWhIiZG31XXauzDe+6jQPWWsbssTI0j+XcsuMYccV0ig==
   dependencies:
-    "@switchboard-xyz/aptos.js" "^2.5.15"
-    "@switchboard-xyz/common" "^2.0.0"
-    aptos "^1.3.16"
-    big.js "^6.2.1"
-    bn.js "^5.2.1"
-    chalk "^5.0.1"
-    js-sha3 "^0.8.0"
-    node-fetch "^2.1.6"
-
-"@switchboard-xyz/aptos.js@^2.5.18":
-  version "2.5.18"
-  resolved "https://registry.npmjs.org/@switchboard-xyz/aptos.js/-/aptos.js-2.5.18.tgz#163d6ba17bf0a73793ad51545a418cb4d28dd89c"
-  integrity sha512-Pc1ZKKffhpp36wBcundEARr/9lah6/B+pIrn5SdqeBkSGAUJPyso7PXq0XEy+kfzY1YJyw2YKsvQmrcdeAaf4g==
-  dependencies:
-    "@switchboard-xyz/aptos.js" "^2.5.15"
+    "@switchboard-xyz/aptos.js" "^2.5.22"
     "@switchboard-xyz/common" "^2.0.0"
     aptos "^1.3.16"
     big.js "^6.2.1"

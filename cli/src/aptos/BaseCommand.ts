@@ -39,7 +39,7 @@ export abstract class AptosBaseCommand
     networkId: Flags.string({
       description: "Aptos network to connect to",
       options: ["devnet", "testnet", "mainnet"],
-      default: "devnet",
+      default: "testnet",
     }),
     programId: Flags.string({
       description: "Switchboard programId on the selected Aptos network",
@@ -116,7 +116,7 @@ export abstract class AptosBaseCommand
         return HexString.ensure(DEVNET_PROGRAM_ID);
       default:
         throw new Error(
-          `Failed to find Aptos ProgramID. Try passing in --programID instead`
+          `Failed to find Aptos ProgramID. Try passing in --programId instead`
         );
     }
   }

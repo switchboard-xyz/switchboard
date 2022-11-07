@@ -18,10 +18,6 @@ export default class AggregatorPrint extends BaseCommand {
 
   static flags = {
     ...BaseCommand.flags,
-    jobs: Flags.boolean({
-      description: "output job definitions",
-      default: false,
-    }),
     oraclePubkeysData: Flags.boolean({
       char: "o",
       description: "print the assigned oracles for the current round",
@@ -47,76 +43,78 @@ export default class AggregatorPrint extends BaseCommand {
       publicKey: new PublicKey(args.aggregatorKey),
     });
     const aggregator = await aggregatorAccount.loadData();
+    const jobs = await aggregatorAccount.loadJobs();
 
-    if (flags.json) {
-      const parsedAggregator = {
-        ...aggregator,
-        name: buffer2string(aggregator.name),
-        metadata: buffer2string(aggregator.metadata),
-        reserved1: undefined,
-        jobPubkeysData: aggregator.jobPubkeysData.slice(
+    const data = {
+      ...aggregator,
+      name: buffer2string(aggregator.name),
+      metadata: buffer2string(aggregator.metadata),
+      reserved1: undefined,
+      jobPubkeysData: aggregator.jobPubkeysData.slice(
+        0,
+        aggregator.jobPubkeysSize
+      ),
+      jobWeights: aggregator.jobWeights.slice(0, aggregator.jobPubkeysSize),
+      // jobHashes: aggregator.jobHashes.slice(0, aggregator.jobPubkeysSize),
+      jobHashes: undefined,
+      jobsChecksum: undefined,
+      currentRound: {
+        ...aggregator.currentRound,
+        mediansData: aggregator.currentRound.mediansData.slice(
           0,
-          aggregator.jobPubkeysSize
+          aggregator.oracleRequestBatchSize
         ),
-        jobWeights: aggregator.jobWeights.slice(0, aggregator.jobPubkeysSize),
-        // jobHashes: aggregator.jobHashes.slice(0, aggregator.jobPubkeysSize),
-        jobHashes: undefined,
-        jobsChecksum: undefined,
-        currentRound: {
-          ...aggregator.currentRound,
-          mediansData: aggregator.currentRound.mediansData.slice(
+        currentPayout: aggregator.currentRound.currentPayout.slice(
+          0,
+          aggregator.oracleRequestBatchSize
+        ),
+        mediansFulfilled: aggregator.currentRound.mediansFulfilled.slice(
+          0,
+          aggregator.oracleRequestBatchSize
+        ),
+        errorsFulfilled: aggregator.currentRound.errorsFulfilled.slice(
+          0,
+          aggregator.oracleRequestBatchSize
+        ),
+        oraclePubkeysData: aggregator.currentRound.oraclePubkeysData.filter(
+          (pubkey) => !PublicKey.default.equals(pubkey)
+        ),
+      },
+      latestConfirmedRound: {
+        ...aggregator.latestConfirmedRound,
+        mediansData: aggregator.latestConfirmedRound.mediansData.slice(
+          0,
+          aggregator.oracleRequestBatchSize
+        ),
+        currentPayout: aggregator.latestConfirmedRound.currentPayout.slice(
+          0,
+          aggregator.oracleRequestBatchSize
+        ),
+        mediansFulfilled:
+          aggregator.latestConfirmedRound.mediansFulfilled.slice(
             0,
             aggregator.oracleRequestBatchSize
           ),
-          currentPayout: aggregator.currentRound.currentPayout.slice(
-            0,
-            aggregator.oracleRequestBatchSize
-          ),
-          mediansFulfilled: aggregator.currentRound.mediansFulfilled.slice(
-            0,
-            aggregator.oracleRequestBatchSize
-          ),
-          errorsFulfilled: aggregator.currentRound.errorsFulfilled.slice(
-            0,
-            aggregator.oracleRequestBatchSize
-          ),
-          oraclePubkeysData: aggregator.currentRound.oraclePubkeysData.filter(
+        errorsFulfilled: aggregator.latestConfirmedRound.errorsFulfilled.slice(
+          0,
+          aggregator.oracleRequestBatchSize
+        ),
+        oraclePubkeysData:
+          aggregator.latestConfirmedRound.oraclePubkeysData.filter(
             (pubkey) => !PublicKey.default.equals(pubkey)
           ),
-        },
-        latestConfirmedRound: {
-          ...aggregator.latestConfirmedRound,
-          mediansData: aggregator.latestConfirmedRound.mediansData.slice(
-            0,
-            aggregator.oracleRequestBatchSize
-          ),
-          currentPayout: aggregator.latestConfirmedRound.currentPayout.slice(
-            0,
-            aggregator.oracleRequestBatchSize
-          ),
-          mediansFulfilled:
-            aggregator.latestConfirmedRound.mediansFulfilled.slice(
-              0,
-              aggregator.oracleRequestBatchSize
-            ),
-          errorsFulfilled:
-            aggregator.latestConfirmedRound.errorsFulfilled.slice(
-              0,
-              aggregator.oracleRequestBatchSize
-            ),
-          oraclePubkeysData:
-            aggregator.latestConfirmedRound.oraclePubkeysData.filter(
-              (pubkey) => !PublicKey.default.equals(pubkey)
-            ),
-        },
-      };
-      return JSON.parse(JSON.stringify(parsedAggregator, jsonReplacers));
+      },
+      jobs,
+    };
+
+    if (flags.json) {
+      return JSON.parse(JSON.stringify(data, jsonReplacers));
     }
 
     this.logger.log(
       await prettyPrintAggregator(
         aggregatorAccount,
-        aggregator,
+        data,
         true,
         true,
         flags.jobs
