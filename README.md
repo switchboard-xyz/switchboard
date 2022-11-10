@@ -42,3 +42,11 @@ yarn link
 
 **NOTE:** Requires ts-node to be installed globally,
 `yarn global add typescript ts-node @types/node`
+
+
+For upgrading task types:
+```
+cd javascript/common
+npm run build
+yarn publish
+```
