@@ -239,7 +239,10 @@ export class DockerOracle implements Required<IOracleConfig> {
 
   stop() {
     this.isActive = false;
-    this.dockerOracleProcess.kill(0);
+    const r = this.dockerOracleProcess.kill(1);
+    if (!r) {
+      throw new Error(`Failed to stop docker oracle`);
+    }
   }
 
   saveLogs(logs: string[], nodeImage: string): string | null {

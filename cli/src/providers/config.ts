@@ -73,8 +73,8 @@ export interface IConfig {
   config: IChainConfigs;
 }
 
-export const DEFAULT_SOLANA_DEVNET_RPC = "https://devnet.genesysgo.net";
-export const DEFAULT_SOLANA_MAINNET_RPC = "https://ssc-dao.genesysgo.net/";
+export const DEFAULT_SOLANA_DEVNET_RPC = "https://api.devnet.solana.com";
+export const DEFAULT_SOLANA_MAINNET_RPC = "https://api.mainnet-beta.solana.com";
 
 export const DEFAULT_NEAR_BETANET_RPC = "https://rpc.betanet.near.org";
 export const DEFAULT_NEAR_TESTNET_RPC = "https://rpc.testnet.near.org";

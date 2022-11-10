@@ -27,9 +27,9 @@ export default class AggregatorSet extends BaseCommand {
       description:
         "Number of seconds for which, even if the variance threshold is not passed, accept new responses from oracles.",
     }),
-    // batchSize: Flags.string({
-    //   description: "number of oracles requested for each open round call",
-    // }),
+    batchSize: Flags.integer({
+      description: "number of oracles requested for each open round call",
+    }),
     minJobs: Flags.string({
       description: "number of jobs that must respond before an oracle responds",
     }),

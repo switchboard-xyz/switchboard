@@ -22,6 +22,10 @@ export abstract class SolanaWithSignerBaseCommand extends SolanaBaseCommand {
     const { flags } = await this.parse((<Input<any>>this.constructor) as any);
     SolanaBaseCommand.flags = flags as any;
 
+    if (!flags.keypair) {
+      throw new Error(`Must provide --keypair arguement to use this command`);
+    }
+
     const keypairPath =
       (flags as any).keypair ||
       this.ctx.getDefaultAccount("solana", this.network);

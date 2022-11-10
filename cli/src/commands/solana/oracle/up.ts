@@ -17,7 +17,7 @@ export default class SolanaDockerOracle extends BaseCommand {
     }),
     nodeImage: Flags.string({
       description: "public key of the oracle to start-up",
-      default: "dev-v2-10-18-22",
+      default: "dev-v2-RC_11_10_22__19_19",
     }),
     arm: Flags.boolean({
       description: "apple silicon needs to use a docker image for linux/arm64",
@@ -26,12 +26,18 @@ export default class SolanaDockerOracle extends BaseCommand {
       char: "s",
       description: "suppress docker logging",
     }),
+    timeout: Flags.integer({
+      char: "t",
+      description: "number of seconds before ending the docker process",
+      default: 120,
+    }),
   };
 
   static args = [
     {
       name: "oracleAddress",
       description: "address of the oracle in Uint8 or Base58 encoding",
+      required: true,
     },
   ];
 
@@ -41,6 +47,8 @@ export default class SolanaDockerOracle extends BaseCommand {
     const [oracleAccount, oracleData] = await this.loadOracle(
       args.oracleAddress
     );
+
+    // TODO: Check if docker is running
 
     // TODO: Add mounts for AWS creds
     const docker = new DockerOracle(
@@ -55,9 +63,11 @@ export default class SolanaDockerOracle extends BaseCommand {
       flags.arm ? "linux/arm64" : "linux/amd64",
       flags.switchboardDir,
       flags.silent
-    ).start();
+    );
 
-    await sleep(120000);
+    docker.start();
+    await sleep(flags.timeout * 1000);
+    docker.stop();
   }
 
   async catch(error) {

@@ -7,12 +7,12 @@ import { sleep, SwitchboardTestContext } from "@switchboard-xyz/sbv2-utils";
 import { ChildProcess, exec, spawn } from "child_process";
 import fs from "fs";
 import path from "path";
+import { DockerOracle } from "../../../providers/docker";
 import { SolanaWithSignerBaseCommand as BaseCommand } from "../../../solana";
 
 export default class AnchorTest extends BaseCommand {
   static description = "run anchor test and a switchboard oracle in parallel";
 
-  dockerOracleProcess?: ChildProcess;
   anchorChildProcess?: ChildProcess;
 
   timestamp: number = Date.now();
@@ -45,146 +45,6 @@ export default class AnchorTest extends BaseCommand {
     }),
   };
 
-  saveLogs(logs: string[], nodeImage: string): string | null {
-    if (!fs.existsSync(".switchboard")) {
-      fs.mkdirSync(".switchboard");
-    }
-    const fileName = path.join(
-      ".switchboard",
-      `docker.${nodeImage}.${Math.floor(this.timestamp / 1000)}.log`
-    );
-    const filteredLogs = logs.filter((l) => Boolean);
-    if (filteredLogs.length > 0) {
-      fs.writeFileSync(fileName, filteredLogs.join(""));
-      return fileName;
-    }
-
-    return null;
-  }
-
-  startDockerOracle(
-    nodeImage: string,
-    platform: string,
-    oracleKey: PublicKey,
-    keypairPath: string,
-    silent = false,
-    allLogs: string[] = []
-  ) {
-    this.dockerOracleProcess = spawn(
-      "docker",
-      ["start", "--attach", `sbv2-localnet-${nodeImage}`],
-      {
-        shell: true,
-        env: process.env,
-        stdio: silent ? null : ["inherit", "pipe", "pipe"],
-      }
-    );
-
-    this.dockerOracleProcess.stdout.on("data", (data) => {
-      allLogs.push(data.toString());
-      // logs.push(`\x1b[34m${data.toString()}\x1b[0m`);
-      if (!silent) {
-        console.log(`\x1b[34m${data.toString()}\x1b[0m`);
-      }
-    });
-
-    this.dockerOracleProcess.stderr.on("error", (error) => {
-      allLogs.push(error.toString());
-      // logs.push(`\x1b[31m${error.toString()}\x1b[0m`);
-      if (!silent) {
-        console.error(`\x1b[31m${error.toString()}\x1b[0m`);
-      }
-    });
-
-    this.dockerOracleProcess.on("close", (code) => {
-      this.saveLogs(allLogs, nodeImage);
-      if (code === 0) {
-        this.startDockerOracle(
-          nodeImage,
-          platform,
-          oracleKey,
-          keypairPath,
-          silent,
-          allLogs
-        );
-      } else if (!silent) {
-        console.error(`\x1b[31mDocker image exited with code ${code}\x1b[0m`);
-      } else if (code !== 0 && code !== 1) {
-        console.error(`\x1b[31mDocker image exited with code ${code}\x1b[0m`);
-      }
-    });
-  }
-
-  createDockerOracle(
-    nodeImage: string,
-    platform: string,
-    oracleKey: PublicKey,
-    keypairPath: string,
-    silent = false,
-    allLogs = []
-  ) {
-    this.dockerOracleProcess = spawn(
-      "docker",
-      [
-        "run",
-        `--name sbv2-localnet-${nodeImage}`,
-        `--platform=${platform}`,
-        `-e ORACLE_KEY=${oracleKey}`,
-        `-e CLUSTER=localnet`,
-        `-e VERBOSE=1`,
-        `--mount type=bind,source=${keypairPath},target=/home/payer_secrets.json`,
-        `switchboardlabs/node:${nodeImage}`,
-      ],
-      {
-        shell: true,
-        env: process.env,
-        stdio: silent ? null : ["inherit", "pipe", "pipe"],
-      }
-    );
-
-    // let logs: string[] = [];
-
-    this.dockerOracleProcess.stdout.on("data", (data) => {
-      // logs.push(`\x1b[34m${data}\x1b[0m`);
-      console.log(`\x1b[34m${data}\x1b[0m`);
-      allLogs.push(data);
-    });
-
-    this.dockerOracleProcess.stderr.on("error", (error) => {
-      if (
-        !silent ||
-        !error
-          .toString()
-          .includes(
-            `The container name "/sbv2-localnet-${nodeImage}" is already in use by container`
-          )
-      ) {
-        // logs.push(`\x1b[31m${error.toString()}\x1b[0m`);
-        console.error(`\x1b[31m${error.toString()}\x1b[0m`);
-        allLogs.push(error.toString());
-      }
-    });
-
-    this.dockerOracleProcess.on("close", (code) => {
-      this.saveLogs(allLogs, nodeImage);
-      // if reboot from no RPC or if image already exists
-      if (code === 0 || code === 125) {
-        this.startDockerOracle(
-          nodeImage,
-          platform,
-          oracleKey,
-          keypairPath,
-          silent,
-          allLogs
-        );
-      } else if (!silent) {
-        console.error(`\x1b[31mDocker image exited with code ${code}\x1b[0m`);
-      } else if (code !== 0) {
-        console.error(`\x1b[31mDocker image exited with code ${code}\x1b[0m`);
-      }
-    });
-  }
-
   async run() {
     const { flags } = await this.parse(AnchorTest);
 
@@ -201,20 +61,26 @@ export default class AnchorTest extends BaseCommand {
 
     let isFinished = false;
 
-    const keypairPath =
-      flags.keypair.charAt(0) === "/" || flags.keypair.startsWith("C:")
-        ? flags.keypair
-        : path.join(process.cwd(), flags.keypair);
+    // const keypairPath =
+    //   flags.keypair.charAt(0) === "/" || flags.keypair.startsWith("C:")
+    //     ? flags.keypair
+    //     : path.join(process.cwd(), flags.keypair);
     const oracleKey = oraclePubkey;
 
-    // start docker oracle first
-    this.createDockerOracle(
+    const docker = new DockerOracle(
+      {
+        chain: "solana",
+        network: "devnet",
+        rpcUrl: this.rpcUrl,
+        oracleKey: oracleKey.toBase58(),
+        secretPath: this.normalizePath(flags.keypair),
+      },
       flags.nodeImage,
       flags.arm ? "linux/arm64" : "linux/amd64",
-      oracleKey,
-      keypairPath,
+      flags.switchboardDir,
       flags.silent
     );
+    docker.start();
 
     this.anchorChildProcess = spawn("anchor", ["test"], {
       shell: true,
@@ -225,32 +91,35 @@ export default class AnchorTest extends BaseCommand {
 
     this.anchorChildProcess.on("message", (data) => {
       if (data.toString().includes("✨  Done")) {
-        exec(`docker kill sbv2-localnet-${flags.nodeImage}`);
-        this.dockerOracleProcess.kill();
+        docker.stop();
         isFinished = true;
+        process.exit(0);
       }
     });
 
     this.anchorChildProcess.on("close", (code) => {
       // console.log(`anchor test process closing ...`);
-      exec(`docker stop sbv2-localnet-${flags.nodeImage}`);
+      docker.stop();
       isFinished = true;
+      process.exit(0);
     });
 
-    const refreshInterval = Math.ceil(flags.timeout / 20);
+    // const refreshInterval = Math.ceil(flags.timeout / 20);
 
-    let retryCount = 20;
-    while (retryCount > 0) {
-      if (isFinished) {
-        break;
-      }
-      await sleep(refreshInterval * 1000);
-      --retryCount;
-    }
+    // let retryCount = 20;
+    // while (retryCount > 0) {
+    //   if (isFinished) {
+    //     break;
+    //   }
+    //   await sleep(refreshInterval * 1000);
+    //   --retryCount;
+    // }
+
+    await sleep(flags.timeout * 1000);
 
     try {
       this.anchorChildProcess.kill();
-      this.dockerOracleProcess.kill();
+      docker.stop();
     } catch {}
   }
 
