@@ -159,7 +159,7 @@ node bin/dev print GvDMxPzN1sCj7L26YDK2HnMRXEQmQ2aemov8YBtPS7vR
 * [`sbv2 solana oracle permission print [ORACLEKEY]`](#sbv2-solana-oracle-permission-print-oraclekey)
 * [`sbv2 solana oracle print [ORACLEKEY]`](#sbv2-solana-oracle-print-oraclekey)
 * [`sbv2 solana oracle print permission [ORACLEKEY]`](#sbv2-solana-oracle-print-permission-oraclekey)
-* [`sbv2 solana oracle up [ORACLEADDRESS]`](#sbv2-solana-oracle-up-oracleaddress)
+* [`sbv2 solana oracle up ORACLEADDRESS`](#sbv2-solana-oracle-up-oracleaddress)
 * [`sbv2 solana oracle withdraw [ORACLEKEY]`](#sbv2-solana-oracle-withdraw-oraclekey)
 * [`sbv2 solana permission create [GRANTER] [GRANTEE]`](#sbv2-solana-permission-create-granter-grantee)
 * [`sbv2 solana permission print [PERMISSIONKEY]`](#sbv2-solana-permission-print-permissionkey)
@@ -1216,7 +1216,7 @@ DESCRIPTION
   Display help for sbv2.
 ```
 
-_See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v5.1.15/src/commands/help.ts)_
+_See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v5.1.18/src/commands/help.ts)_
 
 ## `sbv2 near aggregator add history [AGGREGATORADDRESS]`
 
@@ -3680,8 +3680,9 @@ set an aggregator's config
 ```
 USAGE
   $ sbv2 solana aggregator set [AGGREGATORKEY] [-h] [-v] [-s] [--mainnetBeta] [-u <value>] [--programId <value>]
-    [--commitment confirmed|finalized|processed] [-k <value>] [-a <value>] [--forceReportPeriod <value>] [--minJobs
-    <value>] [--minOracles <value>] [--newQueue <value>] [--updateInterval <value>] [--varianceThreshold <value>]
+    [--commitment confirmed|finalized|processed] [-k <value>] [-a <value>] [--forceReportPeriod <value>] [--batchSize
+    <value>] [--minJobs <value>] [--minOracles <value>] [--newQueue <value>] [--updateInterval <value>]
+    [--varianceThreshold <value>]
 
 ARGUMENTS
   AGGREGATORKEY  public key of the aggregator
@@ -3694,6 +3695,7 @@ FLAGS
   -s, --silent                 suppress cli prompts
   -u, --rpcUrl=<value>         alternate RPC url
   -v, --verbose                log everything
+  --batchSize=<value>          number of oracles requested for each open round call
   --commitment=<option>        [default: confirmed] transaction commitment level to use
                                <options: confirmed|finalized|processed>
   --forceReportPeriod=<value>  Number of seconds for which, even if the variance threshold is not passed, accept new
@@ -4983,14 +4985,14 @@ EXAMPLES
   $ sbv2 oracle:permission:print 9CmLriMhykZ8xAoNTSHjHbk6SkuMhie1NCZn9P6LCuZ4
 ```
 
-## `sbv2 solana oracle up [ORACLEADDRESS]`
+## `sbv2 solana oracle up ORACLEADDRESS`
 
 start a solana docker oracle
 
 ```
 USAGE
   $ sbv2 solana oracle up [ORACLEADDRESS] [-h] [-v] [-s] [--mainnetBeta] [-u <value>] [--programId <value>]
-    [--commitment confirmed|finalized|processed] [-k <value>] [-d <value>] [--nodeImage <value>] [--arm]
+    [--commitment confirmed|finalized|processed] [-k <value>] [-d <value>] [--nodeImage <value>] [--arm] [-t <value>]
 
 ARGUMENTS
   ORACLEADDRESS  address of the oracle in Uint8 or Base58 encoding
@@ -5001,6 +5003,7 @@ FLAGS
   -k, --keypair=<value>         keypair that will pay for onchain transactions. defaults to new account authority if no
                                 alternate authority provided
   -s, --silent                  suppress docker logging
+  -t, --timeout=<value>         [default: 120] number of seconds before ending the docker process
   -u, --rpcUrl=<value>          alternate RPC url
   -v, --verbose                 log everything
   --arm                         apple silicon needs to use a docker image for linux/arm64
@@ -5761,8 +5764,9 @@ set an aggregator's config
 ```
 USAGE
   $ sbv2 solana set aggregator [AGGREGATORKEY] [-h] [-v] [-s] [--mainnetBeta] [-u <value>] [--programId <value>]
-    [--commitment confirmed|finalized|processed] [-k <value>] [-a <value>] [--forceReportPeriod <value>] [--minJobs
-    <value>] [--minOracles <value>] [--newQueue <value>] [--updateInterval <value>] [--varianceThreshold <value>]
+    [--commitment confirmed|finalized|processed] [-k <value>] [-a <value>] [--forceReportPeriod <value>] [--batchSize
+    <value>] [--minJobs <value>] [--minOracles <value>] [--newQueue <value>] [--updateInterval <value>]
+    [--varianceThreshold <value>]
 
 ARGUMENTS
   AGGREGATORKEY  public key of the aggregator
@@ -5775,6 +5779,7 @@ FLAGS
   -s, --silent                 suppress cli prompts
   -u, --rpcUrl=<value>         alternate RPC url
   -v, --verbose                log everything
+  --batchSize=<value>          number of oracles requested for each open round call
   --commitment=<option>        [default: confirmed] transaction commitment level to use
                                <options: confirmed|finalized|processed>
   --forceReportPeriod=<value>  Number of seconds for which, even if the variance threshold is not passed, accept new
@@ -6106,7 +6111,7 @@ EXAMPLES
     $ sbv2 update --available
 ```
 
-_See code: [@oclif/plugin-update](https://github.com/oclif/plugin-update/blob/v3.0.4/src/commands/update.ts)_
+_See code: [@oclif/plugin-update](https://github.com/oclif/plugin-update/blob/v3.0.6/src/commands/update.ts)_
 
 ## `sbv2 version`
 
