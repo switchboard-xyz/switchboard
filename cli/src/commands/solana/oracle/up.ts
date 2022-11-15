@@ -4,6 +4,9 @@ import { SolanaWithSignerBaseCommand as BaseCommand } from "../../../solana";
 import { DockerOracle } from "../../../providers/docker";
 import path from "path";
 import { sleep } from "../../../utils";
+import { PublicKey } from "@solana/web3.js";
+import { SwitchboardTestContext } from "@switchboard-xyz/sbv2-utils";
+import { AnchorProvider } from "@project-serum/anchor";
 
 export default class SolanaDockerOracle extends BaseCommand {
   static description = "start a solana docker oracle";
@@ -15,6 +18,9 @@ export default class SolanaDockerOracle extends BaseCommand {
       description:
         "directory with switchboard.env to load a switchboard environment",
     }),
+    oracleKey: Flags.string({
+      description: "public key of the oracle to start-up",
+    }),
     nodeImage: Flags.string({
       description: "public key of the oracle to start-up",
       default: "dev-v2-RC_11_10_22__19_19",
@@ -22,31 +28,30 @@ export default class SolanaDockerOracle extends BaseCommand {
     arm: Flags.boolean({
       description: "apple silicon needs to use a docker image for linux/arm64",
     }),
-    silent: Flags.boolean({
-      char: "s",
-      description: "suppress docker logging",
-    }),
     timeout: Flags.integer({
       char: "t",
       description: "number of seconds before ending the docker process",
       default: 120,
     }),
+    silent: Flags.boolean({
+      char: "s",
+      description: "suppress docker logging",
+    }),
   };
 
-  static args = [
-    {
-      name: "oracleAddress",
-      description: "address of the oracle in Uint8 or Base58 encoding",
-      required: true,
-    },
-  ];
-
   async run() {
-    const { flags, args } = await this.parse(SolanaDockerOracle);
+    const { flags } = await this.parse(SolanaDockerOracle);
 
-    const [oracleAccount, oracleData] = await this.loadOracle(
-      args.oracleAddress
-    );
+    let oraclePubkey: PublicKey;
+    if (flags.oracleKey) {
+      oraclePubkey = new PublicKey(flags.oracleKey);
+    } else {
+      const switchboard = await SwitchboardTestContext.loadFromEnv(
+        this.program.provider as AnchorProvider,
+        flags.switchboardDir || undefined
+      );
+      oraclePubkey = switchboard.oracle.publicKey;
+    }
 
     // TODO: Check if docker is running
 
@@ -56,7 +61,7 @@ export default class SolanaDockerOracle extends BaseCommand {
         chain: "solana",
         network: "devnet",
         rpcUrl: this.rpcUrl,
-        oracleKey: oracleAccount.publicKey.toBase58(),
+        oracleKey: oraclePubkey.toBase58(),
         secretPath: this.normalizePath(flags.keypair),
       },
       flags.nodeImage,

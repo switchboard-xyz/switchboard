@@ -144,12 +144,41 @@ export default class MetricsAggregator extends BaseCommand {
       this.aggregatorAccounts
     );
 
+    const aggregators: Aggregator[] = [];
+
+    // output list of aggregators by a given task type
+    if (flags.task) {
+      // const aggregators: Aggregator[] = [];
+      for (const aggregator of allAggregators) {
+        // check aggregator job definitions for task type
+        for (const job of aggregator.jobs) {
+          if (job === undefined || job.tasks === undefined) {
+            continue;
+          }
+
+          const jobString = JSON.stringify(job.tasks).toLowerCase();
+          if (jobString.includes(flags.task.toLowerCase())) {
+            aggregators.push(aggregator);
+            break;
+          }
+        }
+      }
+    } else if (flags.queue) {
+      for (const aggregator of allAggregators) {
+        if (aggregator.queuePubkey.toString() === flags.queue) {
+          aggregators.push(aggregator);
+        }
+      }
+    } else {
+      aggregators.push(...allAggregators);
+    }
+
     if (flags.feedDirectory) {
       const feedDir = this.normalizeDirPath(flags.feedDirectory);
       fs.mkdirSync(feedDir, {
         recursive: true,
       });
-      for (const feed of allAggregators) {
+      for (const feed of aggregators) {
         const name =
           feed.name?.replace(/\//g, "_") || feed.publicKey.toString();
         fs.writeFileSync(
@@ -162,7 +191,7 @@ export default class MetricsAggregator extends BaseCommand {
     if (flags.jobDirectory) {
       const jobDirPath = this.normalizeDirPath(flags.jobDirectory);
       fs.mkdirSync(jobDirPath, { recursive: true });
-      for (const aggregator of allAggregators) {
+      for (const aggregator of aggregators) {
         for (const job of aggregator.jobs) {
           if (!job) {
             this.logger.debug(`Job is undefined`);
@@ -170,7 +199,9 @@ export default class MetricsAggregator extends BaseCommand {
           }
 
           if (!("tasks" in job)) {
-            this.logger.debug(`Job has no tasks - ${job.publicKey}`);
+            this.logger.debug(
+              `Job has no tasks - ${(job as any).publicKey as any}`
+            );
             continue;
           }
 
@@ -208,35 +239,6 @@ export default class MetricsAggregator extends BaseCommand {
           }
         }
       }
-    }
-
-    const aggregators: Aggregator[] = [];
-
-    // output list of aggregators by a given task type
-    if (flags.task) {
-      // const aggregators: Aggregator[] = [];
-      for (const aggregator of allAggregators) {
-        // check aggregator job definitions for task type
-        for (const job of aggregator.jobs) {
-          if (job === undefined || job.tasks === undefined) {
-            continue;
-          }
-
-          const jobString = JSON.stringify(job.tasks).toLowerCase();
-          if (jobString.includes(flags.task.toLowerCase())) {
-            aggregators.push(aggregator);
-            break;
-          }
-        }
-      }
-    } else if (flags.queue) {
-      for (const aggregator of allAggregators) {
-        if (aggregator.queuePubkey.toString() === flags.queue) {
-          aggregators.push(aggregator);
-        }
-      }
-    } else {
-      aggregators.push(...allAggregators);
     }
 
     writeAggregators(

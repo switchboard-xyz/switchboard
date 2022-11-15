@@ -38,6 +38,8 @@ export class DockerOracle implements Required<IOracleConfig> {
   // Required if chain is near
   nearNamedAccount: string;
 
+  ready = false;
+
   image: string;
   args: string[];
   allLogs: string[] = [];
@@ -113,6 +115,9 @@ export class DockerOracle implements Required<IOracleConfig> {
 
     // set callbacks
     this.onDataCallback = (data) => {
+      if (data.toString().includes("Using default performance monitoring")) {
+        this.ready = true;
+      }
       this.logs.push(data.toString());
       if (!this.silent) {
         console.log(`\x1b[34m${data.toString()}\x1b[0m`);
@@ -199,6 +204,7 @@ export class DockerOracle implements Required<IOracleConfig> {
   }
 
   private createOracle() {
+    this.ready = false;
     this.dockerOracleProcess = spawn("docker", this.args, {
       shell: true,
       env: process.env,
@@ -223,6 +229,7 @@ export class DockerOracle implements Required<IOracleConfig> {
   }
 
   private startOracle() {
+    this.ready = false;
     this.dockerOracleProcess = spawn(
       "docker",
       ["start", "--attach", this.image],

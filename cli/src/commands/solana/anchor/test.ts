@@ -5,8 +5,6 @@ import { AnchorProvider } from "@project-serum/anchor";
 import { PublicKey } from "@solana/web3.js";
 import { sleep, SwitchboardTestContext } from "@switchboard-xyz/sbv2-utils";
 import { ChildProcess, exec, spawn } from "child_process";
-import fs from "fs";
-import path from "path";
 import { DockerOracle } from "../../../providers/docker";
 import { SolanaWithSignerBaseCommand as BaseCommand } from "../../../solana";
 
@@ -29,15 +27,15 @@ export default class AnchorTest extends BaseCommand {
     }),
     nodeImage: Flags.string({
       description: "public key of the oracle to start-up",
-      default: "dev-v2-10-18-22",
+      default: "dev-v2-RC_11_10_22__19_19",
     }),
     arm: Flags.boolean({
       description: "apple silicon needs to use a docker image for linux/arm64",
     }),
     timeout: Flags.integer({
       char: "t",
+      description: "number of seconds before ending the docker process",
       default: 120,
-      description: "number of seconds before timing out",
     }),
     silent: Flags.boolean({
       char: "s",
@@ -80,7 +78,20 @@ export default class AnchorTest extends BaseCommand {
       flags.switchboardDir,
       flags.silent
     );
-    docker.start();
+
+    // let isReady = false;
+    // let retryCount = 30;
+    // while (retryCount > 0) {
+    //   if (docker.ready) {
+    //     isReady = true;
+    //     break;
+    //   }
+    //   await sleep(1 * 1000);
+    //   --retryCount;
+    // }
+    // if (!isReady) {
+    //   throw new Error(`Docker oracle failed to initialize in 30seconds`);
+    // }
 
     this.anchorChildProcess = spawn("anchor", ["test"], {
       shell: true,
@@ -104,16 +115,7 @@ export default class AnchorTest extends BaseCommand {
       process.exit(0);
     });
 
-    // const refreshInterval = Math.ceil(flags.timeout / 20);
-
-    // let retryCount = 20;
-    // while (retryCount > 0) {
-    //   if (isFinished) {
-    //     break;
-    //   }
-    //   await sleep(refreshInterval * 1000);
-    //   --retryCount;
-    // }
+    docker.start();
 
     await sleep(flags.timeout * 1000);
 

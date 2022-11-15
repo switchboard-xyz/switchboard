@@ -2076,37 +2076,37 @@
   resolved "https://registry.npmjs.org/@protobufjs/utf8/-/utf8-1.1.0.tgz#a777360b5b39a1a2e5106f8e858f2fd2d060c570"
   integrity sha512-Vvn3zZrhQZkkBE8LSuW3em98c0FwgO4nxzv6OdSxPKJIEKY2bGbHn+mhGIPerzI4twdxaP8/0+06HBpwf345Lw==
 
-"@saberhq/option-utils@^1.14.4":
-  version "1.14.4"
-  resolved "https://registry.npmjs.org/@saberhq/option-utils/-/option-utils-1.14.4.tgz#86c247b65d0f1bd56327d014666948044f771b1f"
-  integrity sha512-CHdKspiPu2iqtR9nBpdvFjHO5N3iGodO9TcoNZ9I3bWnV3iwMMEhiWx5Ik3FtG9o/RaF9HstWAUbR7Xz/v6SJw==
+"@saberhq/option-utils@^1.14.9":
+  version "1.14.9"
+  resolved "https://registry.npmjs.org/@saberhq/option-utils/-/option-utils-1.14.9.tgz#cf06a353589742419a3284478d6e640c7827bf46"
+  integrity sha512-8XnV27PaeVZJO7CoZqjSetIczl8qN1Q/3LGdMidftqo733pXaGF6QACeXAF4Z5h6k9dKTYdoqdErNew3Ah23GA==
   dependencies:
     tslib "^2.4.0"
 
-"@saberhq/solana-contrib@^1.14.4":
-  version "1.14.4"
-  resolved "https://registry.npmjs.org/@saberhq/solana-contrib/-/solana-contrib-1.14.4.tgz#d062cd0817e60ae190e81d08e2e026c183c15ecd"
-  integrity sha512-mV7nGecTaVB4opsC5fZT3fRcQHBQ7OyUYGCCHge6Q65rOTfajvVusm+LA2joalWUuYpxZuNH3rQZCY8WRNSpTQ==
+"@saberhq/solana-contrib@^1.14.9":
+  version "1.14.9"
+  resolved "https://registry.npmjs.org/@saberhq/solana-contrib/-/solana-contrib-1.14.9.tgz#ec82b69460035df995ab163f643de61c3b7bcc17"
+  integrity sha512-e09v3c62cZ2I7hcS7x4q1am4wd4v0VfiIEBZxWBpvTVCKmdbdpUWUKyecI88VHbyO9exBLGq1yxJZZsz0OPyUA==
   dependencies:
-    "@saberhq/option-utils" "^1.14.4"
+    "@saberhq/option-utils" "^1.14.9"
     "@solana/buffer-layout" "^4.0.0"
     "@types/promise-retry" "^1.1.3"
     "@types/retry" "^0.12.2"
     promise-retry "^2.0.1"
     retry "^0.13.1"
-    tiny-invariant "^1.2.0"
+    tiny-invariant "^1.3.1"
     tslib "^2.4.0"
 
 "@saberhq/token-utils@^1.13.32":
-  version "1.14.4"
-  resolved "https://registry.npmjs.org/@saberhq/token-utils/-/token-utils-1.14.4.tgz#8d812e72755e3fc8d398ace6a9b69a84b885eaac"
-  integrity sha512-+GJjiwVnAkdXucLLZae/aw4ruY1nRZ8lgEKctU0l1ikpYpRPdDRmk7WtbsJBeM5HDRdkx9qVlLwb6aDMshygTA==
+  version "1.14.9"
+  resolved "https://registry.npmjs.org/@saberhq/token-utils/-/token-utils-1.14.9.tgz#265cb24134c504b04d247b3b8b84b74b6eb8cd52"
+  integrity sha512-iIcWQYFV2UBQtfQJIsnq38eW04hSgQiJDpshyT7Z69k6FZlAaNC5yvQQnCI1k4K/z7IZpu5W8Pq8XD665UG+AA==
   dependencies:
-    "@saberhq/solana-contrib" "^1.14.4"
+    "@saberhq/solana-contrib" "^1.14.9"
     "@solana/buffer-layout" "^4.0.0"
     "@solana/spl-token" "^0.1.8"
-    "@ubeswap/token-math" "^5.2.0"
-    tiny-invariant "^1.2.0"
+    "@ubeswap/token-math" "^5.2.1"
+    tiny-invariant "^1.3.1"
     tslib "^2.4.0"
 
 "@scure/base@~1.1.0":
@@ -2234,7 +2234,7 @@
     tweetnacl "^1.0.0"
     ws "^7.0.0"
 
-"@solana/web3.js@^1.20.0", "@solana/web3.js@^1.21.0", "@solana/web3.js@^1.22.0", "@solana/web3.js@^1.24.1", "@solana/web3.js@^1.32.0", "@solana/web3.js@^1.36.0", "@solana/web3.js@^1.42.0", "@solana/web3.js@^1.44.3":
+"@solana/web3.js@^1.20.0", "@solana/web3.js@^1.21.0", "@solana/web3.js@^1.22.0", "@solana/web3.js@^1.24.1", "@solana/web3.js@^1.32.0", "@solana/web3.js@^1.36.0", "@solana/web3.js@^1.42.0":
   version "1.54.0"
   resolved "https://registry.npmjs.org/@solana/web3.js/-/web3.js-1.54.0.tgz#1124ea13a7006eac324a27b49c0c9924e3042476"
   integrity sha512-Bz0OKYF5UM2vwY6eSTgBBSAVNOk5icyIXbviO99OvX0i2gmRlfd3rocTXRQWHK/tupZ7PBVd6Vux34qpeOr8Yw==
@@ -2256,7 +2256,28 @@
     superstruct "^0.14.2"
     tweetnacl "^1.0.3"
 
-"@solana/web3.js@^1.43.5", "@solana/web3.js@^1.62.0":
+"@solana/web3.js@^1.43.5", "@solana/web3.js@^1.44.3":
+  version "1.66.2"
+  resolved "https://registry.npmjs.org/@solana/web3.js/-/web3.js-1.66.2.tgz#80b43c5868b846124fe3ebac7d3943930c3fa60c"
+  integrity sha512-RyaHMR2jGmaesnYP045VLeBGfR/gAW3cvZHzMFGg7bkO+WOYOYp1nEllf0/la4U4qsYGKCsO9eEevR5fhHiVHg==
+  dependencies:
+    "@babel/runtime" "^7.12.5"
+    "@noble/ed25519" "^1.7.0"
+    "@noble/hashes" "^1.1.2"
+    "@noble/secp256k1" "^1.6.3"
+    "@solana/buffer-layout" "^4.0.0"
+    bigint-buffer "^1.1.5"
+    bn.js "^5.0.0"
+    borsh "^0.7.0"
+    bs58 "^4.0.1"
+    buffer "6.0.1"
+    fast-stable-stringify "^1.0.0"
+    jayson "^3.4.4"
+    node-fetch "2"
+    rpc-websockets "^7.5.0"
+    superstruct "^0.14.2"
+
+"@solana/web3.js@^1.62.0":
   version "1.62.0"
   resolved "https://registry.npmjs.org/@solana/web3.js/-/web3.js-1.62.0.tgz#8fef9fd443217161ddc25e701f603222047bc520"
   integrity sha512-rHnqJR5ECooUp8egurP9Qi1SKI1Q3pbF2ZkaHbEmFsSjBsyEe+Qqxa5h+7ueylqApYyk0zawnxz83y4kdrlNIA==
@@ -2300,16 +2321,7 @@
     bn.js "^5.2.1"
     protobufjs "^6.11.3"
 
-"@switchboard-xyz/common@^2.1.0":
-  version "2.1.0"
-  resolved "https://registry.npmjs.org/@switchboard-xyz/common/-/common-2.1.0.tgz#4dd5483ee0c3f37e583ba51e61b17a70bdb39d3d"
-  integrity sha512-m7N3GyqHYI4/jI5BsnIgam+JmQnCB8TeaVHoKVW5BD1m67P9zcVikgl1YlROSBQbS5xNB+0xI8ZWV4dOajyx5A==
-  dependencies:
-    big.js "^6.2.1"
-    bn.js "^5.2.1"
-    protobufjs "^7.1.2"
-
-"@switchboard-xyz/common@^2.1.3":
+"@switchboard-xyz/common@^2.1.0", "@switchboard-xyz/common@^2.1.3":
   version "2.1.3"
   resolved "https://registry.npmjs.org/@switchboard-xyz/common/-/common-2.1.3.tgz#ce50fd579841543c56d37550f5613d985d804514"
   integrity sha512-u6jQAZbsB1buFPhvW4Ybw9gpDmn59ETPlPAL7BxUtLZ88A/PzFyA7a5CTQZHn8cvsP2jBlLmPm1uHwLM/3lPiA==
@@ -2396,10 +2408,10 @@
     mocha "^9.1.1"
     node-fetch "^3.2.6"
 
-"@switchboard-xyz/switchboard-v2@^0.0.144":
-  version "0.0.144"
-  resolved "https://registry.npmjs.org/@switchboard-xyz/switchboard-v2/-/switchboard-v2-0.0.144.tgz#f6eb0395fb0d42e22cf9a0c45c1d1df965a2afe6"
-  integrity sha512-oChfyYE2cBGqKMZbWRzOiJDdCz+jUtKadxD6gsVjG6qoHdwFYBN3HDqMyYtj78l2XWBKGfF0FCHhOnV0DipXMw==
+"@switchboard-xyz/switchboard-v2@^0.0.151":
+  version "0.0.151"
+  resolved "https://registry.npmjs.org/@switchboard-xyz/switchboard-v2/-/switchboard-v2-0.0.151.tgz#f6a4fecdeee898f914f397325cf2cd445e9dfb42"
+  integrity sha512-p1R/7pYXfSYKCC2GH6Uw8SaFLAOSfO8GVR0DFBqvSzU83AbVzWv2hSDykDS76GLY7a+TwpYgsVktmUycuSvLDA==
   dependencies:
     "@project-serum/anchor" "^0.24.2"
     "@solana/spl-governance" "^0.0.34"
@@ -2447,10 +2459,10 @@
   resolved "https://registry.npmjs.org/@tsconfig/node16/-/node16-1.0.3.tgz#472eaab5f15c1ffdd7f8628bd4c4f753995ec79e"
   integrity sha512-yOlFc+7UtL/89t2ZhjPvvB/DeAr3r+Dq58IgzsFkOAvVC6NMJXmCGjbptdXdR9qsX7pKcTL+s87FtYREi2dEEQ==
 
-"@types/big.js@^6.1.5":
-  version "6.1.5"
-  resolved "https://registry.npmjs.org/@types/big.js/-/big.js-6.1.5.tgz#ff06b43a4c0c4002522e0fd7fc28bb963722ab01"
-  integrity sha512-UiWyJ6TLWoHeHZ8VUyngzCOwJDVxTsPnqfAMR/85X93rkRk5A4T2U42BCx0wCmZdtMHGHN/utJ8ft5xWu0V1bA==
+"@types/big.js@^6.1.6":
+  version "6.1.6"
+  resolved "https://registry.npmjs.org/@types/big.js/-/big.js-6.1.6.tgz#3d417e758483d55345a03a087f7e0c87137ca444"
+  integrity sha512-0r9J+Zz9rYm2hOTwiMAVkm3XFQ4u5uTK37xrQMhc9bysn/sf/okzovWMYYIBMFTn/yrEZ11pusgLEaoarTlQbA==
 
 "@types/bn.js@^4.11.5":
   version "4.11.6"
@@ -2765,12 +2777,12 @@
     "@typescript-eslint/types" "5.35.1"
     eslint-visitor-keys "^3.3.0"
 
-"@ubeswap/token-math@^5.2.0":
-  version "5.2.0"
-  resolved "https://registry.npmjs.org/@ubeswap/token-math/-/token-math-5.2.0.tgz#11d8706761da08b491a18743f11dc41191d46791"
-  integrity sha512-SpNTx30ssrZB3BcjkSKIbJlNJewkfUgQXYx5NOY9YjUHpwFdEkgeM9uC0n6SV6JzmVelUXaRU7h7XnYKGUW7vg==
+"@ubeswap/token-math@^5.2.1":
+  version "5.2.1"
+  resolved "https://registry.npmjs.org/@ubeswap/token-math/-/token-math-5.2.1.tgz#66e70ba8d65b5fdb1b7459332fbdad4ddec32a64"
+  integrity sha512-wkIKDKIl6rml4CVK3fvjjLVk55Z8qEYTgjxZx7MnrTwECazyhiDuekb9WAaDPXcW5QNffCu8uv4Ba8wE96CJsg==
   dependencies:
-    "@types/big.js" "^6.1.5"
+    "@types/big.js" "^6.1.6"
     big.js "^6.2.1"
     decimal.js-light "^2.5.1"
     tiny-invariant "^1.2.0"
@@ -4123,9 +4135,9 @@ dotenv@8.2.0:
   integrity sha512-8sJ78ElpbDJBHNeBzUbUVLsqKdccaa/BXF1uPTw3GrvQTBgrQrtObr2mUrE38vzYd8cEv+m/JBfDLioYcfXoaw==
 
 dotenv@^16.0.1:
-  version "16.0.1"
-  resolved "https://registry.npmjs.org/dotenv/-/dotenv-16.0.1.tgz#8f8f9d94876c35dac989876a5d3a82a267fdce1d"
-  integrity sha512-1K6hR6wtk2FviQ4kEiSjFiH5rpzEVi8WW0x96aztHVMhEspNpc4DVOUTEHtEva5VThQ8IaBX1Pe4gSzpVVUsKQ==
+  version "16.0.3"
+  resolved "https://registry.npmjs.org/dotenv/-/dotenv-16.0.3.tgz#115aec42bac5053db3c456db30cc243a5a836a07"
+  integrity sha512-7GO6HghkA5fYG9TYnNxi14/7K9f5occMlp3zXAuSxn7CKCxt9xbNWG7yF8hTCSUchlfWSe3uLmlPfigevRItzQ==
 
 duplexer@~0.1.1:
   version "0.1.2"
@@ -6855,9 +6867,9 @@ node-fetch@2, node-fetch@2.6.7, node-fetch@^2.1.6, node-fetch@^2.2.0, node-fetch
     whatwg-url "^5.0.0"
 
 node-fetch@^3.2.6:
-  version "3.2.10"
-  resolved "https://registry.npmjs.org/node-fetch/-/node-fetch-3.2.10.tgz#e8347f94b54ae18b57c9c049ef641cef398a85c8"
-  integrity sha512-MhuzNwdURnZ1Cp4XTazr69K0BTizsBroX7Zx3UgDSVcZYKF/6p0CBe4EUb/hLqmzVhl0UpYfgRljQ4yxE+iCxA==
+  version "3.3.0"
+  resolved "https://registry.npmjs.org/node-fetch/-/node-fetch-3.3.0.tgz#37e71db4ecc257057af828d523a7243d651d91e4"
+  integrity sha512-BKwRP/O0UvoMKp7GNdwPlObhYGB5DQqwhEDQlNKuoqwVYSxkSZCSbHjnFFmUEtwSKRPU4kNK8PbDYYitwaE3QA==
   dependencies:
     data-uri-to-buffer "^4.0.0"
     fetch-blob "^3.1.4"
@@ -8500,6 +8512,11 @@ tiny-invariant@^1.0.6, tiny-invariant@^1.2.0:
   version "1.2.0"
   resolved "https://registry.npmjs.org/tiny-invariant/-/tiny-invariant-1.2.0.tgz#a1141f86b672a9148c72e978a19a73b9b94a15a9"
   integrity sha512-1Uhn/aqw5C6RI4KejVeTg6mIS7IqxnLJ8Mv2tV5rTc0qWobay7pDUz6Wi392Cnc8ak1H0F2cjoRzb2/AW4+Fvg==
+
+tiny-invariant@^1.3.1:
+  version "1.3.1"
+  resolved "https://registry.npmjs.org/tiny-invariant/-/tiny-invariant-1.3.1.tgz#8560808c916ef02ecfd55e66090df23a4b7aa642"
+  integrity sha512-AD5ih2NlSssTCwsMznbvwMZpJ1cbhkGd2uueNxzv2jDlEeZdU04JQfRnggJQ8DrcVBGjAsCKwFBbDlVNtEMlzw==
 
 tmp@^0.0.33:
   version "0.0.33"
