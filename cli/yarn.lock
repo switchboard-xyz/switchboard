@@ -2256,10 +2256,10 @@
     superstruct "^0.14.2"
     tweetnacl "^1.0.3"
 
-"@solana/web3.js@^1.43.5", "@solana/web3.js@^1.44.3":
-  version "1.66.2"
-  resolved "https://registry.npmjs.org/@solana/web3.js/-/web3.js-1.66.2.tgz#80b43c5868b846124fe3ebac7d3943930c3fa60c"
-  integrity sha512-RyaHMR2jGmaesnYP045VLeBGfR/gAW3cvZHzMFGg7bkO+WOYOYp1nEllf0/la4U4qsYGKCsO9eEevR5fhHiVHg==
+"@solana/web3.js@^1.62.0":
+  version "1.62.0"
+  resolved "https://registry.npmjs.org/@solana/web3.js/-/web3.js-1.62.0.tgz#8fef9fd443217161ddc25e701f603222047bc520"
+  integrity sha512-rHnqJR5ECooUp8egurP9Qi1SKI1Q3pbF2ZkaHbEmFsSjBsyEe+Qqxa5h+7ueylqApYyk0zawnxz83y4kdrlNIA==
   dependencies:
     "@babel/runtime" "^7.12.5"
     "@noble/ed25519" "^1.7.0"
@@ -2277,10 +2277,10 @@
     rpc-websockets "^7.5.0"
     superstruct "^0.14.2"
 
-"@solana/web3.js@^1.62.0":
-  version "1.62.0"
-  resolved "https://registry.npmjs.org/@solana/web3.js/-/web3.js-1.62.0.tgz#8fef9fd443217161ddc25e701f603222047bc520"
-  integrity sha512-rHnqJR5ECooUp8egurP9Qi1SKI1Q3pbF2ZkaHbEmFsSjBsyEe+Qqxa5h+7ueylqApYyk0zawnxz83y4kdrlNIA==
+"@solana/web3.js@^1.66.2":
+  version "1.66.2"
+  resolved "https://registry.npmjs.org/@solana/web3.js/-/web3.js-1.66.2.tgz#80b43c5868b846124fe3ebac7d3943930c3fa60c"
+  integrity sha512-RyaHMR2jGmaesnYP045VLeBGfR/gAW3cvZHzMFGg7bkO+WOYOYp1nEllf0/la4U4qsYGKCsO9eEevR5fhHiVHg==
   dependencies:
     "@babel/runtime" "^7.12.5"
     "@noble/ed25519" "^1.7.0"
@@ -2321,7 +2321,7 @@
     bn.js "^5.2.1"
     protobufjs "^6.11.3"
 
-"@switchboard-xyz/common@^2.1.0", "@switchboard-xyz/common@^2.1.3":
+"@switchboard-xyz/common@^2.1.3":
   version "2.1.3"
   resolved "https://registry.npmjs.org/@switchboard-xyz/common/-/common-2.1.3.tgz#ce50fd579841543c56d37550f5613d985d804514"
   integrity sha512-u6jQAZbsB1buFPhvW4Ybw9gpDmn59ETPlPAL7BxUtLZ88A/PzFyA7a5CTQZHn8cvsP2jBlLmPm1uHwLM/3lPiA==
@@ -2367,18 +2367,18 @@
     wait-for-event "^2.0.1"
     ws "^8.10.0"
 
-"@switchboard-xyz/sbv2-utils@^0.1.51":
-  version "0.1.51"
-  resolved "https://registry.npmjs.org/@switchboard-xyz/sbv2-utils/-/sbv2-utils-0.1.51.tgz#f5a131fc3d8eda065b0aeb67d35ae45310608648"
-  integrity sha512-L3bdeS6N1J4vyijjIfKLNxXUKMyRaj01/Z8WIE4lATV/NVipkL5cgwN0fEN/SsIBTr45QkVxQ3/2/EPouEweKA==
+"@switchboard-xyz/sbv2-utils@^0.1.52":
+  version "0.1.52"
+  resolved "https://registry.npmjs.org/@switchboard-xyz/sbv2-utils/-/sbv2-utils-0.1.52.tgz#737e3c1048461961d30393c60bf374204c8210a5"
+  integrity sha512-DttYo1LVEyv7XZ4d+47B0sQob9fseC9wgV0jbRBi2ZoPLADcdDBWQXrtZpZZxR7LRbRlw4NL3IYUp5Dtkfp+AA==
   dependencies:
     "@orca-so/sdk" "^1.2.24"
     "@project-serum/anchor" "^0.24.2"
     "@saberhq/token-utils" "^1.13.32"
     "@solana/spl-token-v2" "npm:@solana/spl-token@^0.2.0"
-    "@solana/web3.js" "^1.43.5"
-    "@switchboard-xyz/common" "^2.1.0"
-    "@switchboard-xyz/switchboard-v2" "^0.0.142"
+    "@solana/web3.js" "^1.66.2"
+    "@switchboard-xyz/common" "^2.1.3"
+    "@switchboard-xyz/switchboard-v2" "^0.0.158"
     big.js "^6.2.1"
     bn.js "^5.2.1"
     chalk "4"
@@ -2387,36 +2387,15 @@
     mocha "^9.1.1"
     toml "^3.0.0"
 
-"@switchboard-xyz/switchboard-v2@^0.0.142":
-  version "0.0.142"
-  resolved "https://registry.npmjs.org/@switchboard-xyz/switchboard-v2/-/switchboard-v2-0.0.142.tgz#f5c64f13343d12923f4e80f2591d08466cc8d763"
-  integrity sha512-+M7GrpT3zotdvP1qQikYJutb+EOaa807UmZNx1CKinfih/puvFacdTzu1sZjSdADVF4YUHblBBLSUL+fwE8eFg==
+"@switchboard-xyz/switchboard-v2@^0.0.158":
+  version "0.0.158"
+  resolved "https://registry.npmjs.org/@switchboard-xyz/switchboard-v2/-/switchboard-v2-0.0.158.tgz#f655268eebfb558339461b4ea144755063dbd127"
+  integrity sha512-YPchYNKTOCWtKpe+ZvfAOWtPHNyv/ABQqrPaiJHnQOYIlqtqk8eig5dZ8PTCbrkWRKgtc7s2naHhUhgn4M/S5Q==
   dependencies:
     "@project-serum/anchor" "^0.24.2"
     "@solana/spl-governance" "^0.0.34"
     "@solana/spl-token-v2" "npm:@solana/spl-token@^0.2.0"
-    "@solana/web3.js" "^1.44.3"
-    "@switchboard-xyz/common" "^2.1.0"
-    assert "^2.0.0"
-    big.js "^6.2.1"
-    bs58 "^5.0.0"
-    chan "^0.6.1"
-    crypto-js "^4.0.0"
-    glob "^8.0.3"
-    lodash "^4.17.21"
-    long "^4.0.0"
-    mocha "^9.1.1"
-    node-fetch "^3.2.6"
-
-"@switchboard-xyz/switchboard-v2@^0.0.151":
-  version "0.0.151"
-  resolved "https://registry.npmjs.org/@switchboard-xyz/switchboard-v2/-/switchboard-v2-0.0.151.tgz#f6a4fecdeee898f914f397325cf2cd445e9dfb42"
-  integrity sha512-p1R/7pYXfSYKCC2GH6Uw8SaFLAOSfO8GVR0DFBqvSzU83AbVzWv2hSDykDS76GLY7a+TwpYgsVktmUycuSvLDA==
-  dependencies:
-    "@project-serum/anchor" "^0.24.2"
-    "@solana/spl-governance" "^0.0.34"
-    "@solana/spl-token-v2" "npm:@solana/spl-token@^0.2.0"
-    "@solana/web3.js" "^1.44.3"
+    "@solana/web3.js" "^1.66.2"
     "@switchboard-xyz/common" "^2.1.3"
     assert "^2.0.0"
     big.js "^6.2.1"

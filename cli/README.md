@@ -131,6 +131,7 @@ node bin/dev print GvDMxPzN1sCj7L26YDK2HnMRXEQmQ2aemov8YBtPS7vR
 * [`sbv2 solana aggregator set updateInterval [AGGREGATORKEY] [UPDATEINTERVAL]`](#sbv2-solana-aggregator-set-updateinterval-aggregatorkey-updateinterval)
 * [`sbv2 solana aggregator set variance [AGGREGATORKEY] [VARIANCETHRESHOLD]`](#sbv2-solana-aggregator-set-variance-aggregatorkey-variancethreshold)
 * [`sbv2 solana aggregator set varianceThreshold [AGGREGATORKEY] [VARIANCETHRESHOLD]`](#sbv2-solana-aggregator-set-variancethreshold-aggregatorkey-variancethreshold)
+* [`sbv2 solana aggregator set weight [AGGREGATORKEY]`](#sbv2-solana-aggregator-set-weight-aggregatorkey)
 * [`sbv2 solana aggregator update [AGGREGATORKEY]`](#sbv2-solana-aggregator-update-aggregatorkey)
 * [`sbv2 solana aggregator watch [AGGREGATORKEY]`](#sbv2-solana-aggregator-watch-aggregatorkey)
 * [`sbv2 solana anchor test`](#sbv2-solana-anchor-test)
@@ -159,7 +160,7 @@ node bin/dev print GvDMxPzN1sCj7L26YDK2HnMRXEQmQ2aemov8YBtPS7vR
 * [`sbv2 solana oracle permission print [ORACLEKEY]`](#sbv2-solana-oracle-permission-print-oraclekey)
 * [`sbv2 solana oracle print [ORACLEKEY]`](#sbv2-solana-oracle-print-oraclekey)
 * [`sbv2 solana oracle print permission [ORACLEKEY]`](#sbv2-solana-oracle-print-permission-oraclekey)
-* [`sbv2 solana oracle up ORACLEADDRESS`](#sbv2-solana-oracle-up-oracleaddress)
+* [`sbv2 solana oracle up`](#sbv2-solana-oracle-up)
 * [`sbv2 solana oracle withdraw [ORACLEKEY]`](#sbv2-solana-oracle-withdraw-oraclekey)
 * [`sbv2 solana permission create [GRANTER] [GRANTEE]`](#sbv2-solana-permission-create-granter-grantee)
 * [`sbv2 solana permission print [PERMISSIONKEY]`](#sbv2-solana-permission-print-permissionkey)
@@ -4086,6 +4087,37 @@ EXAMPLES
   $ sbv2 aggregator:set:varianceThreshold GvDMxPzN1sCj7L26YDK2HnMRXEQmQ2aemov8YBtPS7vR 0.1 --keypair ../payer-keypair.json
 ```
 
+## `sbv2 solana aggregator set weight [AGGREGATORKEY]`
+
+set a weight for an aggregator's existing job
+
+```
+USAGE
+  $ sbv2 solana aggregator set weight [AGGREGATORKEY] [-h] [-v] [-s] [--mainnetBeta] [-u <value>] [--programId <value>]
+    [--commitment confirmed|finalized|processed] [-k <value>] [-j <value>] [-w <value>] [-a <value>]
+
+ARGUMENTS
+  AGGREGATORKEY  public key of the aggregator account
+
+FLAGS
+  -a, --authority=<value>  alternate keypair that is the authority for the aggregator
+  -h, --help               Show CLI help.
+  -j, --job=<value>        job account public key to assign a new weight for
+  -k, --keypair=<value>    keypair that will pay for onchain transactions. defaults to new account authority if no
+                           alternate authority provided
+  -s, --silent             suppress cli prompts
+  -u, --rpcUrl=<value>     alternate RPC url
+  -v, --verbose            log everything
+  -w, --weight=<value>     the job weight to assign
+  --commitment=<option>    [default: confirmed] transaction commitment level to use
+                           <options: confirmed|finalized|processed>
+  --mainnetBeta            WARNING: use mainnet-beta solana cluster
+  --programId=<value>      alternative Switchboard program ID to interact with
+
+DESCRIPTION
+  set a weight for an aggregator's existing job
+```
+
 ## `sbv2 solana aggregator update [AGGREGATORKEY]`
 
 request a new aggregator result from a set of oracles
@@ -4165,14 +4197,14 @@ FLAGS
   -k, --keypair=<value>         keypair that will pay for onchain transactions. defaults to new account authority if no
                                 alternate authority provided
   -s, --silent                  suppress docker logging
-  -t, --timeout=<value>         [default: 120] number of seconds before timing out
+  -t, --timeout=<value>         [default: 120] number of seconds before ending the docker process
   -u, --rpcUrl=<value>          alternate RPC url
   -v, --verbose                 log everything
   --arm                         apple silicon needs to use a docker image for linux/arm64
   --commitment=<option>         [default: confirmed] transaction commitment level to use
                                 <options: confirmed|finalized|processed>
   --mainnetBeta                 WARNING: use mainnet-beta solana cluster
-  --nodeImage=<value>           [default: dev-v2-10-18-22] public key of the oracle to start-up
+  --nodeImage=<value>           [default: dev-v2-RC_11_10_22__19_19] public key of the oracle to start-up
   --oracleKey=<value>           public key of the oracle to start-up
   --programId=<value>           alternative Switchboard program ID to interact with
 
@@ -4985,17 +5017,15 @@ EXAMPLES
   $ sbv2 oracle:permission:print 9CmLriMhykZ8xAoNTSHjHbk6SkuMhie1NCZn9P6LCuZ4
 ```
 
-## `sbv2 solana oracle up ORACLEADDRESS`
+## `sbv2 solana oracle up`
 
 start a solana docker oracle
 
 ```
 USAGE
-  $ sbv2 solana oracle up [ORACLEADDRESS] [-h] [-v] [-s] [--mainnetBeta] [-u <value>] [--programId <value>]
-    [--commitment confirmed|finalized|processed] [-k <value>] [-d <value>] [--nodeImage <value>] [--arm] [-t <value>]
-
-ARGUMENTS
-  ORACLEADDRESS  address of the oracle in Uint8 or Base58 encoding
+  $ sbv2 solana oracle up [-h] [-v] [-s] [--mainnetBeta] [-u <value>] [--programId <value>] [--commitment
+    confirmed|finalized|processed] [-k <value>] [-d <value>] [--oracleKey <value>] [--nodeImage <value>] [--arm] [-t
+    <value>]
 
 FLAGS
   -d, --switchboardDir=<value>  directory with switchboard.env to load a switchboard environment
@@ -5010,7 +5040,8 @@ FLAGS
   --commitment=<option>         [default: confirmed] transaction commitment level to use
                                 <options: confirmed|finalized|processed>
   --mainnetBeta                 WARNING: use mainnet-beta solana cluster
-  --nodeImage=<value>           [default: dev-v2-10-18-22] public key of the oracle to start-up
+  --nodeImage=<value>           [default: dev-v2-RC_11_10_22__19_19] public key of the oracle to start-up
+  --oracleKey=<value>           public key of the oracle to start-up
   --programId=<value>           alternative Switchboard program ID to interact with
 
 DESCRIPTION
