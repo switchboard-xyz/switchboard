@@ -555,8 +555,11 @@ message OracleJob {
       string rhs_value = 5;
     }
     optional OracleJob on_true = 6;
-    optional OracleJob on_false = 7;
-    optional OracleJob on_failure = 8;
+    optional string on_true_value = 7;
+    optional OracleJob on_false = 8;
+    optional string on_false_value = 9;
+    optional OracleJob on_failure = 10;
+    optional string on_false_value = 11;
   }
 
   message RoundTask {
