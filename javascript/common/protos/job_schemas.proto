@@ -546,11 +546,17 @@ message OracleJob {
       OPERATION_LT = 2;
     }
     optional Operation op = 1;
-    optional OracleJob lhs = 2;
-    optional OracleJob rhs = 3;
-    optional OracleJob onTrue = 4;
-    optional OracleJob onFalse = 5;
-    optional OracleJob onFailure = 6;
+    oneof LHS {
+      OracleJob lhs = 2;
+      string lhs_value = 3;
+    }
+    oneof RHS {
+      OracleJob rhs = 4;
+      string rhs_value = 5;
+    }
+    optional OracleJob on_true = 6;
+    optional OracleJob on_false = 7;
+    optional OracleJob on_failure = 8;
   }
 
   message RoundTask {
@@ -559,6 +565,17 @@ message OracleJob {
       METHOD_ROUND_DOWN = 1;
     }
     optional Method method = 1;
+  }
+
+  message BoundTask {
+    optional OracleJob lower_bound = 1;
+    optional string lower_bound_value = 2;
+    optional OracleJob upper_bound = 3;
+    optional string upper_bound_value = 4;
+    optional OracleJob on_exceeds_upper_bound = 5;
+    optional string on_exceeds_upper_bound_value = 6;
+    optional OracleJob on_exceeds_lower_bound = 7;
+    optional string on_exceeds_lower_bound_value = 8;
   }
 
   message Task {
@@ -607,6 +624,7 @@ message OracleJob {
       EwmaTask ewma_task = 43;
       ComparisonTask comparison_task = 44;
       RoundTask round_task = 45;
+      BoundTask bound_task = 46;
     }
   }
   // The chain of tasks to perform for this OracleJob.

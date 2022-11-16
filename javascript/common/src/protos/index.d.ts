@@ -5217,8 +5217,14 @@ export namespace OracleJob {
         /** ComparisonTask lhs */
         lhs?: (IOracleJob|null);
 
+        /** ComparisonTask lhsValue */
+        lhsValue?: (string|null);
+
         /** ComparisonTask rhs */
         rhs?: (IOracleJob|null);
+
+        /** ComparisonTask rhsValue */
+        rhsValue?: (string|null);
 
         /** ComparisonTask onTrue */
         onTrue?: (IOracleJob|null);
@@ -5245,8 +5251,14 @@ export namespace OracleJob {
         /** ComparisonTask lhs. */
         public lhs?: (IOracleJob|null);
 
+        /** ComparisonTask lhsValue. */
+        public lhsValue?: (string|null);
+
         /** ComparisonTask rhs. */
         public rhs?: (IOracleJob|null);
+
+        /** ComparisonTask rhsValue. */
+        public rhsValue?: (string|null);
 
         /** ComparisonTask onTrue. */
         public onTrue?: (IOracleJob|null);
@@ -5256,6 +5268,12 @@ export namespace OracleJob {
 
         /** ComparisonTask onFailure. */
         public onFailure?: (IOracleJob|null);
+
+        /** ComparisonTask LHS. */
+        public LHS?: ("lhs"|"lhsValue");
+
+        /** ComparisonTask RHS. */
+        public RHS?: ("rhs"|"rhsValue");
 
         /**
          * Creates a new ComparisonTask instance using the specified properties.
@@ -5451,6 +5469,145 @@ export namespace OracleJob {
         }
     }
 
+    /** Properties of a BoundTask. */
+    interface IBoundTask {
+
+        /** BoundTask lowerBound */
+        lowerBound?: (IOracleJob|null);
+
+        /** BoundTask lowerBoundValue */
+        lowerBoundValue?: (string|null);
+
+        /** BoundTask upperBound */
+        upperBound?: (IOracleJob|null);
+
+        /** BoundTask upperBoundValue */
+        upperBoundValue?: (string|null);
+
+        /** BoundTask onExceedsUpperBound */
+        onExceedsUpperBound?: (IOracleJob|null);
+
+        /** BoundTask onExceedsUpperBoundValue */
+        onExceedsUpperBoundValue?: (string|null);
+
+        /** BoundTask onExceedsLowerBound */
+        onExceedsLowerBound?: (IOracleJob|null);
+
+        /** BoundTask onExceedsLowerBoundValue */
+        onExceedsLowerBoundValue?: (string|null);
+    }
+
+    /** Represents a BoundTask. */
+    class BoundTask implements IBoundTask {
+
+        /**
+         * Constructs a new BoundTask.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: OracleJob.IBoundTask);
+
+        /** BoundTask lowerBound. */
+        public lowerBound?: (IOracleJob|null);
+
+        /** BoundTask lowerBoundValue. */
+        public lowerBoundValue: string;
+
+        /** BoundTask upperBound. */
+        public upperBound?: (IOracleJob|null);
+
+        /** BoundTask upperBoundValue. */
+        public upperBoundValue: string;
+
+        /** BoundTask onExceedsUpperBound. */
+        public onExceedsUpperBound?: (IOracleJob|null);
+
+        /** BoundTask onExceedsUpperBoundValue. */
+        public onExceedsUpperBoundValue: string;
+
+        /** BoundTask onExceedsLowerBound. */
+        public onExceedsLowerBound?: (IOracleJob|null);
+
+        /** BoundTask onExceedsLowerBoundValue. */
+        public onExceedsLowerBoundValue: string;
+
+        /**
+         * Creates a new BoundTask instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns BoundTask instance
+         */
+        public static create(properties?: OracleJob.IBoundTask): OracleJob.BoundTask;
+
+        /**
+         * Encodes the specified BoundTask message. Does not implicitly {@link OracleJob.BoundTask.verify|verify} messages.
+         * @param message BoundTask message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: OracleJob.IBoundTask, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Encodes the specified BoundTask message, length delimited. Does not implicitly {@link OracleJob.BoundTask.verify|verify} messages.
+         * @param message BoundTask message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: OracleJob.IBoundTask, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Decodes a BoundTask message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns BoundTask
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): OracleJob.BoundTask;
+
+        /**
+         * Decodes a BoundTask message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns BoundTask
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): OracleJob.BoundTask;
+
+        /**
+         * Verifies a BoundTask message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a BoundTask message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns BoundTask
+         */
+        public static fromObject(object: { [k: string]: any }): OracleJob.BoundTask;
+
+        /**
+         * Creates a plain object from a BoundTask message. Also converts values to other types if specified.
+         * @param message BoundTask
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: OracleJob.BoundTask, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this BoundTask to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+
+        /**
+         * Gets the default type url for BoundTask
+         * @param [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+         * @returns The default type url
+         */
+        public static getTypeUrl(typeUrlPrefix?: string): string;
+    }
+
     /** Properties of a Task. */
     interface ITask {
 
@@ -5585,6 +5742,9 @@ export namespace OracleJob {
 
         /** Task roundTask */
         roundTask?: (OracleJob.IRoundTask|null);
+
+        /** Task boundTask */
+        boundTask?: (OracleJob.IBoundTask|null);
     }
 
     /** Represents a Task. */
@@ -5728,8 +5888,11 @@ export namespace OracleJob {
         /** Task roundTask. */
         public roundTask?: (OracleJob.IRoundTask|null);
 
+        /** Task boundTask. */
+        public boundTask?: (OracleJob.IBoundTask|null);
+
         /** Task Task. */
-        public Task?: ("httpTask"|"jsonParseTask"|"medianTask"|"meanTask"|"websocketTask"|"divideTask"|"multiplyTask"|"lpTokenPriceTask"|"lpExchangeRateTask"|"conditionalTask"|"valueTask"|"maxTask"|"regexExtractTask"|"xstepPriceTask"|"addTask"|"subtractTask"|"twapTask"|"serumSwapTask"|"powTask"|"lendingRateTask"|"mangoPerpMarketTask"|"jupiterSwapTask"|"perpMarketTask"|"oracleTask"|"anchorFetchTask"|"defiKingdomsTask"|"tpsTask"|"splStakePoolTask"|"splTokenParseTask"|"uniswapExchangeRateTask"|"sushiswapExchangeRateTask"|"pancakeswapExchangeRateTask"|"cacheTask"|"sysclockOffsetTask"|"marinadeStateTask"|"solanaAccountDataFetchTask"|"bufferLayoutParseTask"|"cronParseTask"|"minTask"|"historyFunctionTask"|"vwapTask"|"ewmaTask"|"comparisonTask"|"roundTask");
+        public Task?: ("httpTask"|"jsonParseTask"|"medianTask"|"meanTask"|"websocketTask"|"divideTask"|"multiplyTask"|"lpTokenPriceTask"|"lpExchangeRateTask"|"conditionalTask"|"valueTask"|"maxTask"|"regexExtractTask"|"xstepPriceTask"|"addTask"|"subtractTask"|"twapTask"|"serumSwapTask"|"powTask"|"lendingRateTask"|"mangoPerpMarketTask"|"jupiterSwapTask"|"perpMarketTask"|"oracleTask"|"anchorFetchTask"|"defiKingdomsTask"|"tpsTask"|"splStakePoolTask"|"splTokenParseTask"|"uniswapExchangeRateTask"|"sushiswapExchangeRateTask"|"pancakeswapExchangeRateTask"|"cacheTask"|"sysclockOffsetTask"|"marinadeStateTask"|"solanaAccountDataFetchTask"|"bufferLayoutParseTask"|"cronParseTask"|"minTask"|"historyFunctionTask"|"vwapTask"|"ewmaTask"|"comparisonTask"|"roundTask"|"boundTask");
 
         /**
          * Creates a new Task instance using the specified properties.

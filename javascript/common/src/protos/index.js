@@ -12746,7 +12746,9 @@
              * @interface IComparisonTask
              * @property {OracleJob.ComparisonTask.Operation|null} [op] ComparisonTask op
              * @property {IOracleJob|null} [lhs] ComparisonTask lhs
+             * @property {string|null} [lhsValue] ComparisonTask lhsValue
              * @property {IOracleJob|null} [rhs] ComparisonTask rhs
+             * @property {string|null} [rhsValue] ComparisonTask rhsValue
              * @property {IOracleJob|null} [onTrue] ComparisonTask onTrue
              * @property {IOracleJob|null} [onFalse] ComparisonTask onFalse
              * @property {IOracleJob|null} [onFailure] ComparisonTask onFailure
@@ -12784,12 +12786,28 @@
             ComparisonTask.prototype.lhs = null;
     
             /**
+             * ComparisonTask lhsValue.
+             * @member {string|null|undefined} lhsValue
+             * @memberof OracleJob.ComparisonTask
+             * @instance
+             */
+            ComparisonTask.prototype.lhsValue = null;
+    
+            /**
              * ComparisonTask rhs.
              * @member {IOracleJob|null|undefined} rhs
              * @memberof OracleJob.ComparisonTask
              * @instance
              */
             ComparisonTask.prototype.rhs = null;
+    
+            /**
+             * ComparisonTask rhsValue.
+             * @member {string|null|undefined} rhsValue
+             * @memberof OracleJob.ComparisonTask
+             * @instance
+             */
+            ComparisonTask.prototype.rhsValue = null;
     
             /**
              * ComparisonTask onTrue.
@@ -12814,6 +12832,31 @@
              * @instance
              */
             ComparisonTask.prototype.onFailure = null;
+    
+            // OneOf field names bound to virtual getters and setters
+            var $oneOfFields;
+    
+            /**
+             * ComparisonTask LHS.
+             * @member {"lhs"|"lhsValue"|undefined} LHS
+             * @memberof OracleJob.ComparisonTask
+             * @instance
+             */
+            Object.defineProperty(ComparisonTask.prototype, "LHS", {
+                get: $util.oneOfGetter($oneOfFields = ["lhs", "lhsValue"]),
+                set: $util.oneOfSetter($oneOfFields)
+            });
+    
+            /**
+             * ComparisonTask RHS.
+             * @member {"rhs"|"rhsValue"|undefined} RHS
+             * @memberof OracleJob.ComparisonTask
+             * @instance
+             */
+            Object.defineProperty(ComparisonTask.prototype, "RHS", {
+                get: $util.oneOfGetter($oneOfFields = ["rhs", "rhsValue"]),
+                set: $util.oneOfSetter($oneOfFields)
+            });
     
             /**
              * Creates a new ComparisonTask instance using the specified properties.
@@ -12843,14 +12886,18 @@
                     writer.uint32(/* id 1, wireType 0 =*/8).int32(message.op);
                 if (message.lhs != null && Object.hasOwnProperty.call(message, "lhs"))
                     $root.OracleJob.encode(message.lhs, writer.uint32(/* id 2, wireType 2 =*/18).fork()).ldelim();
+                if (message.lhsValue != null && Object.hasOwnProperty.call(message, "lhsValue"))
+                    writer.uint32(/* id 3, wireType 2 =*/26).string(message.lhsValue);
                 if (message.rhs != null && Object.hasOwnProperty.call(message, "rhs"))
-                    $root.OracleJob.encode(message.rhs, writer.uint32(/* id 3, wireType 2 =*/26).fork()).ldelim();
+                    $root.OracleJob.encode(message.rhs, writer.uint32(/* id 4, wireType 2 =*/34).fork()).ldelim();
+                if (message.rhsValue != null && Object.hasOwnProperty.call(message, "rhsValue"))
+                    writer.uint32(/* id 5, wireType 2 =*/42).string(message.rhsValue);
                 if (message.onTrue != null && Object.hasOwnProperty.call(message, "onTrue"))
-                    $root.OracleJob.encode(message.onTrue, writer.uint32(/* id 4, wireType 2 =*/34).fork()).ldelim();
+                    $root.OracleJob.encode(message.onTrue, writer.uint32(/* id 6, wireType 2 =*/50).fork()).ldelim();
                 if (message.onFalse != null && Object.hasOwnProperty.call(message, "onFalse"))
-                    $root.OracleJob.encode(message.onFalse, writer.uint32(/* id 5, wireType 2 =*/42).fork()).ldelim();
+                    $root.OracleJob.encode(message.onFalse, writer.uint32(/* id 7, wireType 2 =*/58).fork()).ldelim();
                 if (message.onFailure != null && Object.hasOwnProperty.call(message, "onFailure"))
-                    $root.OracleJob.encode(message.onFailure, writer.uint32(/* id 6, wireType 2 =*/50).fork()).ldelim();
+                    $root.OracleJob.encode(message.onFailure, writer.uint32(/* id 8, wireType 2 =*/66).fork()).ldelim();
                 return writer;
             };
     
@@ -12894,18 +12941,26 @@
                             break;
                         }
                     case 3: {
-                            message.rhs = $root.OracleJob.decode(reader, reader.uint32());
+                            message.lhsValue = reader.string();
                             break;
                         }
                     case 4: {
-                            message.onTrue = $root.OracleJob.decode(reader, reader.uint32());
+                            message.rhs = $root.OracleJob.decode(reader, reader.uint32());
                             break;
                         }
                     case 5: {
-                            message.onFalse = $root.OracleJob.decode(reader, reader.uint32());
+                            message.rhsValue = reader.string();
                             break;
                         }
                     case 6: {
+                            message.onTrue = $root.OracleJob.decode(reader, reader.uint32());
+                            break;
+                        }
+                    case 7: {
+                            message.onFalse = $root.OracleJob.decode(reader, reader.uint32());
+                            break;
+                        }
+                    case 8: {
                             message.onFailure = $root.OracleJob.decode(reader, reader.uint32());
                             break;
                         }
@@ -12944,6 +12999,7 @@
             ComparisonTask.verify = function verify(message) {
                 if (typeof message !== "object" || message === null)
                     return "object expected";
+                var properties = {};
                 if (message.op != null && message.hasOwnProperty("op"))
                     switch (message.op) {
                     default:
@@ -12954,14 +13010,34 @@
                         break;
                     }
                 if (message.lhs != null && message.hasOwnProperty("lhs")) {
-                    var error = $root.OracleJob.verify(message.lhs);
-                    if (error)
-                        return "lhs." + error;
+                    properties.LHS = 1;
+                    {
+                        var error = $root.OracleJob.verify(message.lhs);
+                        if (error)
+                            return "lhs." + error;
+                    }
+                }
+                if (message.lhsValue != null && message.hasOwnProperty("lhsValue")) {
+                    if (properties.LHS === 1)
+                        return "LHS: multiple values";
+                    properties.LHS = 1;
+                    if (!$util.isString(message.lhsValue))
+                        return "lhsValue: string expected";
                 }
                 if (message.rhs != null && message.hasOwnProperty("rhs")) {
-                    var error = $root.OracleJob.verify(message.rhs);
-                    if (error)
-                        return "rhs." + error;
+                    properties.RHS = 1;
+                    {
+                        var error = $root.OracleJob.verify(message.rhs);
+                        if (error)
+                            return "rhs." + error;
+                    }
+                }
+                if (message.rhsValue != null && message.hasOwnProperty("rhsValue")) {
+                    if (properties.RHS === 1)
+                        return "RHS: multiple values";
+                    properties.RHS = 1;
+                    if (!$util.isString(message.rhsValue))
+                        return "rhsValue: string expected";
                 }
                 if (message.onTrue != null && message.hasOwnProperty("onTrue")) {
                     var error = $root.OracleJob.verify(message.onTrue);
@@ -13018,11 +13094,15 @@
                         throw TypeError(".OracleJob.ComparisonTask.lhs: object expected");
                     message.lhs = $root.OracleJob.fromObject(object.lhs);
                 }
+                if (object.lhsValue != null)
+                    message.lhsValue = String(object.lhsValue);
                 if (object.rhs != null) {
                     if (typeof object.rhs !== "object")
                         throw TypeError(".OracleJob.ComparisonTask.rhs: object expected");
                     message.rhs = $root.OracleJob.fromObject(object.rhs);
                 }
+                if (object.rhsValue != null)
+                    message.rhsValue = String(object.rhsValue);
                 if (object.onTrue != null) {
                     if (typeof object.onTrue !== "object")
                         throw TypeError(".OracleJob.ComparisonTask.onTrue: object expected");
@@ -13056,18 +13136,32 @@
                 var object = {};
                 if (options.defaults) {
                     object.op = options.enums === String ? "OPERATION_EQ" : 0;
-                    object.lhs = null;
-                    object.rhs = null;
                     object.onTrue = null;
                     object.onFalse = null;
                     object.onFailure = null;
                 }
                 if (message.op != null && message.hasOwnProperty("op"))
                     object.op = options.enums === String ? $root.OracleJob.ComparisonTask.Operation[message.op] === undefined ? message.op : $root.OracleJob.ComparisonTask.Operation[message.op] : message.op;
-                if (message.lhs != null && message.hasOwnProperty("lhs"))
+                if (message.lhs != null && message.hasOwnProperty("lhs")) {
                     object.lhs = $root.OracleJob.toObject(message.lhs, options);
-                if (message.rhs != null && message.hasOwnProperty("rhs"))
+                    if (options.oneofs)
+                        object.LHS = "lhs";
+                }
+                if (message.lhsValue != null && message.hasOwnProperty("lhsValue")) {
+                    object.lhsValue = message.lhsValue;
+                    if (options.oneofs)
+                        object.LHS = "lhsValue";
+                }
+                if (message.rhs != null && message.hasOwnProperty("rhs")) {
                     object.rhs = $root.OracleJob.toObject(message.rhs, options);
+                    if (options.oneofs)
+                        object.RHS = "rhs";
+                }
+                if (message.rhsValue != null && message.hasOwnProperty("rhsValue")) {
+                    object.rhsValue = message.rhsValue;
+                    if (options.oneofs)
+                        object.RHS = "rhsValue";
+                }
                 if (message.onTrue != null && message.hasOwnProperty("onTrue"))
                     object.onTrue = $root.OracleJob.toObject(message.onTrue, options);
                 if (message.onFalse != null && message.hasOwnProperty("onFalse"))
@@ -13358,6 +13452,391 @@
             return RoundTask;
         })();
     
+        OracleJob.BoundTask = (function() {
+    
+            /**
+             * Properties of a BoundTask.
+             * @memberof OracleJob
+             * @interface IBoundTask
+             * @property {IOracleJob|null} [lowerBound] BoundTask lowerBound
+             * @property {string|null} [lowerBoundValue] BoundTask lowerBoundValue
+             * @property {IOracleJob|null} [upperBound] BoundTask upperBound
+             * @property {string|null} [upperBoundValue] BoundTask upperBoundValue
+             * @property {IOracleJob|null} [onExceedsUpperBound] BoundTask onExceedsUpperBound
+             * @property {string|null} [onExceedsUpperBoundValue] BoundTask onExceedsUpperBoundValue
+             * @property {IOracleJob|null} [onExceedsLowerBound] BoundTask onExceedsLowerBound
+             * @property {string|null} [onExceedsLowerBoundValue] BoundTask onExceedsLowerBoundValue
+             */
+    
+            /**
+             * Constructs a new BoundTask.
+             * @memberof OracleJob
+             * @classdesc Represents a BoundTask.
+             * @implements IBoundTask
+             * @constructor
+             * @param {OracleJob.IBoundTask=} [properties] Properties to set
+             */
+            function BoundTask(properties) {
+                if (properties)
+                    for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                        if (properties[keys[i]] != null)
+                            this[keys[i]] = properties[keys[i]];
+            }
+    
+            /**
+             * BoundTask lowerBound.
+             * @member {IOracleJob|null|undefined} lowerBound
+             * @memberof OracleJob.BoundTask
+             * @instance
+             */
+            BoundTask.prototype.lowerBound = null;
+    
+            /**
+             * BoundTask lowerBoundValue.
+             * @member {string} lowerBoundValue
+             * @memberof OracleJob.BoundTask
+             * @instance
+             */
+            BoundTask.prototype.lowerBoundValue = "";
+    
+            /**
+             * BoundTask upperBound.
+             * @member {IOracleJob|null|undefined} upperBound
+             * @memberof OracleJob.BoundTask
+             * @instance
+             */
+            BoundTask.prototype.upperBound = null;
+    
+            /**
+             * BoundTask upperBoundValue.
+             * @member {string} upperBoundValue
+             * @memberof OracleJob.BoundTask
+             * @instance
+             */
+            BoundTask.prototype.upperBoundValue = "";
+    
+            /**
+             * BoundTask onExceedsUpperBound.
+             * @member {IOracleJob|null|undefined} onExceedsUpperBound
+             * @memberof OracleJob.BoundTask
+             * @instance
+             */
+            BoundTask.prototype.onExceedsUpperBound = null;
+    
+            /**
+             * BoundTask onExceedsUpperBoundValue.
+             * @member {string} onExceedsUpperBoundValue
+             * @memberof OracleJob.BoundTask
+             * @instance
+             */
+            BoundTask.prototype.onExceedsUpperBoundValue = "";
+    
+            /**
+             * BoundTask onExceedsLowerBound.
+             * @member {IOracleJob|null|undefined} onExceedsLowerBound
+             * @memberof OracleJob.BoundTask
+             * @instance
+             */
+            BoundTask.prototype.onExceedsLowerBound = null;
+    
+            /**
+             * BoundTask onExceedsLowerBoundValue.
+             * @member {string} onExceedsLowerBoundValue
+             * @memberof OracleJob.BoundTask
+             * @instance
+             */
+            BoundTask.prototype.onExceedsLowerBoundValue = "";
+    
+            /**
+             * Creates a new BoundTask instance using the specified properties.
+             * @function create
+             * @memberof OracleJob.BoundTask
+             * @static
+             * @param {OracleJob.IBoundTask=} [properties] Properties to set
+             * @returns {OracleJob.BoundTask} BoundTask instance
+             */
+            BoundTask.create = function create(properties) {
+                return new BoundTask(properties);
+            };
+    
+            /**
+             * Encodes the specified BoundTask message. Does not implicitly {@link OracleJob.BoundTask.verify|verify} messages.
+             * @function encode
+             * @memberof OracleJob.BoundTask
+             * @static
+             * @param {OracleJob.IBoundTask} message BoundTask message or plain object to encode
+             * @param {$protobuf.Writer} [writer] Writer to encode to
+             * @returns {$protobuf.Writer} Writer
+             */
+            BoundTask.encode = function encode(message, writer) {
+                if (!writer)
+                    writer = $Writer.create();
+                if (message.lowerBound != null && Object.hasOwnProperty.call(message, "lowerBound"))
+                    $root.OracleJob.encode(message.lowerBound, writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
+                if (message.lowerBoundValue != null && Object.hasOwnProperty.call(message, "lowerBoundValue"))
+                    writer.uint32(/* id 2, wireType 2 =*/18).string(message.lowerBoundValue);
+                if (message.upperBound != null && Object.hasOwnProperty.call(message, "upperBound"))
+                    $root.OracleJob.encode(message.upperBound, writer.uint32(/* id 3, wireType 2 =*/26).fork()).ldelim();
+                if (message.upperBoundValue != null && Object.hasOwnProperty.call(message, "upperBoundValue"))
+                    writer.uint32(/* id 4, wireType 2 =*/34).string(message.upperBoundValue);
+                if (message.onExceedsUpperBound != null && Object.hasOwnProperty.call(message, "onExceedsUpperBound"))
+                    $root.OracleJob.encode(message.onExceedsUpperBound, writer.uint32(/* id 5, wireType 2 =*/42).fork()).ldelim();
+                if (message.onExceedsUpperBoundValue != null && Object.hasOwnProperty.call(message, "onExceedsUpperBoundValue"))
+                    writer.uint32(/* id 6, wireType 2 =*/50).string(message.onExceedsUpperBoundValue);
+                if (message.onExceedsLowerBound != null && Object.hasOwnProperty.call(message, "onExceedsLowerBound"))
+                    $root.OracleJob.encode(message.onExceedsLowerBound, writer.uint32(/* id 7, wireType 2 =*/58).fork()).ldelim();
+                if (message.onExceedsLowerBoundValue != null && Object.hasOwnProperty.call(message, "onExceedsLowerBoundValue"))
+                    writer.uint32(/* id 8, wireType 2 =*/66).string(message.onExceedsLowerBoundValue);
+                return writer;
+            };
+    
+            /**
+             * Encodes the specified BoundTask message, length delimited. Does not implicitly {@link OracleJob.BoundTask.verify|verify} messages.
+             * @function encodeDelimited
+             * @memberof OracleJob.BoundTask
+             * @static
+             * @param {OracleJob.IBoundTask} message BoundTask message or plain object to encode
+             * @param {$protobuf.Writer} [writer] Writer to encode to
+             * @returns {$protobuf.Writer} Writer
+             */
+            BoundTask.encodeDelimited = function encodeDelimited(message, writer) {
+                return this.encode(message, writer).ldelim();
+            };
+    
+            /**
+             * Decodes a BoundTask message from the specified reader or buffer.
+             * @function decode
+             * @memberof OracleJob.BoundTask
+             * @static
+             * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+             * @param {number} [length] Message length if known beforehand
+             * @returns {OracleJob.BoundTask} BoundTask
+             * @throws {Error} If the payload is not a reader or valid buffer
+             * @throws {$protobuf.util.ProtocolError} If required fields are missing
+             */
+            BoundTask.decode = function decode(reader, length) {
+                if (!(reader instanceof $Reader))
+                    reader = $Reader.create(reader);
+                var end = length === undefined ? reader.len : reader.pos + length, message = new $root.OracleJob.BoundTask();
+                while (reader.pos < end) {
+                    var tag = reader.uint32();
+                    switch (tag >>> 3) {
+                    case 1: {
+                            message.lowerBound = $root.OracleJob.decode(reader, reader.uint32());
+                            break;
+                        }
+                    case 2: {
+                            message.lowerBoundValue = reader.string();
+                            break;
+                        }
+                    case 3: {
+                            message.upperBound = $root.OracleJob.decode(reader, reader.uint32());
+                            break;
+                        }
+                    case 4: {
+                            message.upperBoundValue = reader.string();
+                            break;
+                        }
+                    case 5: {
+                            message.onExceedsUpperBound = $root.OracleJob.decode(reader, reader.uint32());
+                            break;
+                        }
+                    case 6: {
+                            message.onExceedsUpperBoundValue = reader.string();
+                            break;
+                        }
+                    case 7: {
+                            message.onExceedsLowerBound = $root.OracleJob.decode(reader, reader.uint32());
+                            break;
+                        }
+                    case 8: {
+                            message.onExceedsLowerBoundValue = reader.string();
+                            break;
+                        }
+                    default:
+                        reader.skipType(tag & 7);
+                        break;
+                    }
+                }
+                return message;
+            };
+    
+            /**
+             * Decodes a BoundTask message from the specified reader or buffer, length delimited.
+             * @function decodeDelimited
+             * @memberof OracleJob.BoundTask
+             * @static
+             * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+             * @returns {OracleJob.BoundTask} BoundTask
+             * @throws {Error} If the payload is not a reader or valid buffer
+             * @throws {$protobuf.util.ProtocolError} If required fields are missing
+             */
+            BoundTask.decodeDelimited = function decodeDelimited(reader) {
+                if (!(reader instanceof $Reader))
+                    reader = new $Reader(reader);
+                return this.decode(reader, reader.uint32());
+            };
+    
+            /**
+             * Verifies a BoundTask message.
+             * @function verify
+             * @memberof OracleJob.BoundTask
+             * @static
+             * @param {Object.<string,*>} message Plain object to verify
+             * @returns {string|null} `null` if valid, otherwise the reason why it is not
+             */
+            BoundTask.verify = function verify(message) {
+                if (typeof message !== "object" || message === null)
+                    return "object expected";
+                if (message.lowerBound != null && message.hasOwnProperty("lowerBound")) {
+                    var error = $root.OracleJob.verify(message.lowerBound);
+                    if (error)
+                        return "lowerBound." + error;
+                }
+                if (message.lowerBoundValue != null && message.hasOwnProperty("lowerBoundValue"))
+                    if (!$util.isString(message.lowerBoundValue))
+                        return "lowerBoundValue: string expected";
+                if (message.upperBound != null && message.hasOwnProperty("upperBound")) {
+                    var error = $root.OracleJob.verify(message.upperBound);
+                    if (error)
+                        return "upperBound." + error;
+                }
+                if (message.upperBoundValue != null && message.hasOwnProperty("upperBoundValue"))
+                    if (!$util.isString(message.upperBoundValue))
+                        return "upperBoundValue: string expected";
+                if (message.onExceedsUpperBound != null && message.hasOwnProperty("onExceedsUpperBound")) {
+                    var error = $root.OracleJob.verify(message.onExceedsUpperBound);
+                    if (error)
+                        return "onExceedsUpperBound." + error;
+                }
+                if (message.onExceedsUpperBoundValue != null && message.hasOwnProperty("onExceedsUpperBoundValue"))
+                    if (!$util.isString(message.onExceedsUpperBoundValue))
+                        return "onExceedsUpperBoundValue: string expected";
+                if (message.onExceedsLowerBound != null && message.hasOwnProperty("onExceedsLowerBound")) {
+                    var error = $root.OracleJob.verify(message.onExceedsLowerBound);
+                    if (error)
+                        return "onExceedsLowerBound." + error;
+                }
+                if (message.onExceedsLowerBoundValue != null && message.hasOwnProperty("onExceedsLowerBoundValue"))
+                    if (!$util.isString(message.onExceedsLowerBoundValue))
+                        return "onExceedsLowerBoundValue: string expected";
+                return null;
+            };
+    
+            /**
+             * Creates a BoundTask message from a plain object. Also converts values to their respective internal types.
+             * @function fromObject
+             * @memberof OracleJob.BoundTask
+             * @static
+             * @param {Object.<string,*>} object Plain object
+             * @returns {OracleJob.BoundTask} BoundTask
+             */
+            BoundTask.fromObject = function fromObject(object) {
+                if (object instanceof $root.OracleJob.BoundTask)
+                    return object;
+                var message = new $root.OracleJob.BoundTask();
+                if (object.lowerBound != null) {
+                    if (typeof object.lowerBound !== "object")
+                        throw TypeError(".OracleJob.BoundTask.lowerBound: object expected");
+                    message.lowerBound = $root.OracleJob.fromObject(object.lowerBound);
+                }
+                if (object.lowerBoundValue != null)
+                    message.lowerBoundValue = String(object.lowerBoundValue);
+                if (object.upperBound != null) {
+                    if (typeof object.upperBound !== "object")
+                        throw TypeError(".OracleJob.BoundTask.upperBound: object expected");
+                    message.upperBound = $root.OracleJob.fromObject(object.upperBound);
+                }
+                if (object.upperBoundValue != null)
+                    message.upperBoundValue = String(object.upperBoundValue);
+                if (object.onExceedsUpperBound != null) {
+                    if (typeof object.onExceedsUpperBound !== "object")
+                        throw TypeError(".OracleJob.BoundTask.onExceedsUpperBound: object expected");
+                    message.onExceedsUpperBound = $root.OracleJob.fromObject(object.onExceedsUpperBound);
+                }
+                if (object.onExceedsUpperBoundValue != null)
+                    message.onExceedsUpperBoundValue = String(object.onExceedsUpperBoundValue);
+                if (object.onExceedsLowerBound != null) {
+                    if (typeof object.onExceedsLowerBound !== "object")
+                        throw TypeError(".OracleJob.BoundTask.onExceedsLowerBound: object expected");
+                    message.onExceedsLowerBound = $root.OracleJob.fromObject(object.onExceedsLowerBound);
+                }
+                if (object.onExceedsLowerBoundValue != null)
+                    message.onExceedsLowerBoundValue = String(object.onExceedsLowerBoundValue);
+                return message;
+            };
+    
+            /**
+             * Creates a plain object from a BoundTask message. Also converts values to other types if specified.
+             * @function toObject
+             * @memberof OracleJob.BoundTask
+             * @static
+             * @param {OracleJob.BoundTask} message BoundTask
+             * @param {$protobuf.IConversionOptions} [options] Conversion options
+             * @returns {Object.<string,*>} Plain object
+             */
+            BoundTask.toObject = function toObject(message, options) {
+                if (!options)
+                    options = {};
+                var object = {};
+                if (options.defaults) {
+                    object.lowerBound = null;
+                    object.lowerBoundValue = "";
+                    object.upperBound = null;
+                    object.upperBoundValue = "";
+                    object.onExceedsUpperBound = null;
+                    object.onExceedsUpperBoundValue = "";
+                    object.onExceedsLowerBound = null;
+                    object.onExceedsLowerBoundValue = "";
+                }
+                if (message.lowerBound != null && message.hasOwnProperty("lowerBound"))
+                    object.lowerBound = $root.OracleJob.toObject(message.lowerBound, options);
+                if (message.lowerBoundValue != null && message.hasOwnProperty("lowerBoundValue"))
+                    object.lowerBoundValue = message.lowerBoundValue;
+                if (message.upperBound != null && message.hasOwnProperty("upperBound"))
+                    object.upperBound = $root.OracleJob.toObject(message.upperBound, options);
+                if (message.upperBoundValue != null && message.hasOwnProperty("upperBoundValue"))
+                    object.upperBoundValue = message.upperBoundValue;
+                if (message.onExceedsUpperBound != null && message.hasOwnProperty("onExceedsUpperBound"))
+                    object.onExceedsUpperBound = $root.OracleJob.toObject(message.onExceedsUpperBound, options);
+                if (message.onExceedsUpperBoundValue != null && message.hasOwnProperty("onExceedsUpperBoundValue"))
+                    object.onExceedsUpperBoundValue = message.onExceedsUpperBoundValue;
+                if (message.onExceedsLowerBound != null && message.hasOwnProperty("onExceedsLowerBound"))
+                    object.onExceedsLowerBound = $root.OracleJob.toObject(message.onExceedsLowerBound, options);
+                if (message.onExceedsLowerBoundValue != null && message.hasOwnProperty("onExceedsLowerBoundValue"))
+                    object.onExceedsLowerBoundValue = message.onExceedsLowerBoundValue;
+                return object;
+            };
+    
+            /**
+             * Converts this BoundTask to JSON.
+             * @function toJSON
+             * @memberof OracleJob.BoundTask
+             * @instance
+             * @returns {Object.<string,*>} JSON object
+             */
+            BoundTask.prototype.toJSON = function toJSON() {
+                return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+            };
+    
+            /**
+             * Gets the default type url for BoundTask
+             * @function getTypeUrl
+             * @memberof OracleJob.BoundTask
+             * @static
+             * @param {string} [typeUrlPrefix] your custom typeUrlPrefix(default "type.googleapis.com")
+             * @returns {string} The default type url
+             */
+            BoundTask.getTypeUrl = function getTypeUrl(typeUrlPrefix) {
+                if (typeUrlPrefix === undefined) {
+                    typeUrlPrefix = "type.googleapis.com";
+                }
+                return typeUrlPrefix + "/OracleJob.BoundTask";
+            };
+    
+            return BoundTask;
+        })();
+    
         OracleJob.Task = (function() {
     
             /**
@@ -13408,6 +13887,7 @@
              * @property {OracleJob.IEwmaTask|null} [ewmaTask] Task ewmaTask
              * @property {OracleJob.IComparisonTask|null} [comparisonTask] Task comparisonTask
              * @property {OracleJob.IRoundTask|null} [roundTask] Task roundTask
+             * @property {OracleJob.IBoundTask|null} [boundTask] Task boundTask
              */
     
             /**
@@ -13777,17 +14257,25 @@
              */
             Task.prototype.roundTask = null;
     
+            /**
+             * Task boundTask.
+             * @member {OracleJob.IBoundTask|null|undefined} boundTask
+             * @memberof OracleJob.Task
+             * @instance
+             */
+            Task.prototype.boundTask = null;
+    
             // OneOf field names bound to virtual getters and setters
             var $oneOfFields;
     
             /**
              * Task Task.
-             * @member {"httpTask"|"jsonParseTask"|"medianTask"|"meanTask"|"websocketTask"|"divideTask"|"multiplyTask"|"lpTokenPriceTask"|"lpExchangeRateTask"|"conditionalTask"|"valueTask"|"maxTask"|"regexExtractTask"|"xstepPriceTask"|"addTask"|"subtractTask"|"twapTask"|"serumSwapTask"|"powTask"|"lendingRateTask"|"mangoPerpMarketTask"|"jupiterSwapTask"|"perpMarketTask"|"oracleTask"|"anchorFetchTask"|"defiKingdomsTask"|"tpsTask"|"splStakePoolTask"|"splTokenParseTask"|"uniswapExchangeRateTask"|"sushiswapExchangeRateTask"|"pancakeswapExchangeRateTask"|"cacheTask"|"sysclockOffsetTask"|"marinadeStateTask"|"solanaAccountDataFetchTask"|"bufferLayoutParseTask"|"cronParseTask"|"minTask"|"historyFunctionTask"|"vwapTask"|"ewmaTask"|"comparisonTask"|"roundTask"|undefined} Task
+             * @member {"httpTask"|"jsonParseTask"|"medianTask"|"meanTask"|"websocketTask"|"divideTask"|"multiplyTask"|"lpTokenPriceTask"|"lpExchangeRateTask"|"conditionalTask"|"valueTask"|"maxTask"|"regexExtractTask"|"xstepPriceTask"|"addTask"|"subtractTask"|"twapTask"|"serumSwapTask"|"powTask"|"lendingRateTask"|"mangoPerpMarketTask"|"jupiterSwapTask"|"perpMarketTask"|"oracleTask"|"anchorFetchTask"|"defiKingdomsTask"|"tpsTask"|"splStakePoolTask"|"splTokenParseTask"|"uniswapExchangeRateTask"|"sushiswapExchangeRateTask"|"pancakeswapExchangeRateTask"|"cacheTask"|"sysclockOffsetTask"|"marinadeStateTask"|"solanaAccountDataFetchTask"|"bufferLayoutParseTask"|"cronParseTask"|"minTask"|"historyFunctionTask"|"vwapTask"|"ewmaTask"|"comparisonTask"|"roundTask"|"boundTask"|undefined} Task
              * @memberof OracleJob.Task
              * @instance
              */
             Object.defineProperty(Task.prototype, "Task", {
-                get: $util.oneOfGetter($oneOfFields = ["httpTask", "jsonParseTask", "medianTask", "meanTask", "websocketTask", "divideTask", "multiplyTask", "lpTokenPriceTask", "lpExchangeRateTask", "conditionalTask", "valueTask", "maxTask", "regexExtractTask", "xstepPriceTask", "addTask", "subtractTask", "twapTask", "serumSwapTask", "powTask", "lendingRateTask", "mangoPerpMarketTask", "jupiterSwapTask", "perpMarketTask", "oracleTask", "anchorFetchTask", "defiKingdomsTask", "tpsTask", "splStakePoolTask", "splTokenParseTask", "uniswapExchangeRateTask", "sushiswapExchangeRateTask", "pancakeswapExchangeRateTask", "cacheTask", "sysclockOffsetTask", "marinadeStateTask", "solanaAccountDataFetchTask", "bufferLayoutParseTask", "cronParseTask", "minTask", "historyFunctionTask", "vwapTask", "ewmaTask", "comparisonTask", "roundTask"]),
+                get: $util.oneOfGetter($oneOfFields = ["httpTask", "jsonParseTask", "medianTask", "meanTask", "websocketTask", "divideTask", "multiplyTask", "lpTokenPriceTask", "lpExchangeRateTask", "conditionalTask", "valueTask", "maxTask", "regexExtractTask", "xstepPriceTask", "addTask", "subtractTask", "twapTask", "serumSwapTask", "powTask", "lendingRateTask", "mangoPerpMarketTask", "jupiterSwapTask", "perpMarketTask", "oracleTask", "anchorFetchTask", "defiKingdomsTask", "tpsTask", "splStakePoolTask", "splTokenParseTask", "uniswapExchangeRateTask", "sushiswapExchangeRateTask", "pancakeswapExchangeRateTask", "cacheTask", "sysclockOffsetTask", "marinadeStateTask", "solanaAccountDataFetchTask", "bufferLayoutParseTask", "cronParseTask", "minTask", "historyFunctionTask", "vwapTask", "ewmaTask", "comparisonTask", "roundTask", "boundTask"]),
                 set: $util.oneOfSetter($oneOfFields)
             });
     
@@ -13903,6 +14391,8 @@
                     $root.OracleJob.ComparisonTask.encode(message.comparisonTask, writer.uint32(/* id 44, wireType 2 =*/354).fork()).ldelim();
                 if (message.roundTask != null && Object.hasOwnProperty.call(message, "roundTask"))
                     $root.OracleJob.RoundTask.encode(message.roundTask, writer.uint32(/* id 45, wireType 2 =*/362).fork()).ldelim();
+                if (message.boundTask != null && Object.hasOwnProperty.call(message, "boundTask"))
+                    $root.OracleJob.BoundTask.encode(message.boundTask, writer.uint32(/* id 46, wireType 2 =*/370).fork()).ldelim();
                 return writer;
             };
     
@@ -14111,6 +14601,10 @@
                         }
                     case 45: {
                             message.roundTask = $root.OracleJob.RoundTask.decode(reader, reader.uint32());
+                            break;
+                        }
+                    case 46: {
+                            message.boundTask = $root.OracleJob.BoundTask.decode(reader, reader.uint32());
                             break;
                         }
                     default:
@@ -14587,6 +15081,16 @@
                             return "roundTask." + error;
                     }
                 }
+                if (message.boundTask != null && message.hasOwnProperty("boundTask")) {
+                    if (properties.Task === 1)
+                        return "Task: multiple values";
+                    properties.Task = 1;
+                    {
+                        var error = $root.OracleJob.BoundTask.verify(message.boundTask);
+                        if (error)
+                            return "boundTask." + error;
+                    }
+                }
                 return null;
             };
     
@@ -14821,6 +15325,11 @@
                     if (typeof object.roundTask !== "object")
                         throw TypeError(".OracleJob.Task.roundTask: object expected");
                     message.roundTask = $root.OracleJob.RoundTask.fromObject(object.roundTask);
+                }
+                if (object.boundTask != null) {
+                    if (typeof object.boundTask !== "object")
+                        throw TypeError(".OracleJob.Task.boundTask: object expected");
+                    message.boundTask = $root.OracleJob.BoundTask.fromObject(object.boundTask);
                 }
                 return message;
             };
@@ -15057,6 +15566,11 @@
                     object.roundTask = $root.OracleJob.RoundTask.toObject(message.roundTask, options);
                     if (options.oneofs)
                         object.Task = "roundTask";
+                }
+                if (message.boundTask != null && message.hasOwnProperty("boundTask")) {
+                    object.boundTask = $root.OracleJob.BoundTask.toObject(message.boundTask, options);
+                    if (options.oneofs)
+                        object.Task = "boundTask";
                 }
                 return object;
             };
