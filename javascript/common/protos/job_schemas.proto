@@ -559,7 +559,7 @@ message OracleJob {
     optional OracleJob on_false = 8;
     optional string on_false_value = 9;
     optional OracleJob on_failure = 10;
-    optional string on_false_value = 11;
+    optional string on_failure_value = 11;
   }
 
   message RoundTask {

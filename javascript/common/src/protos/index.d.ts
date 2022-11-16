@@ -5229,11 +5229,20 @@ export namespace OracleJob {
         /** ComparisonTask onTrue */
         onTrue?: (IOracleJob|null);
 
+        /** ComparisonTask onTrueValue */
+        onTrueValue?: (string|null);
+
         /** ComparisonTask onFalse */
         onFalse?: (IOracleJob|null);
 
+        /** ComparisonTask onFalseValue */
+        onFalseValue?: (string|null);
+
         /** ComparisonTask onFailure */
         onFailure?: (IOracleJob|null);
+
+        /** ComparisonTask onFailureValue */
+        onFailureValue?: (string|null);
     }
 
     /** Represents a ComparisonTask. */
@@ -5263,11 +5272,20 @@ export namespace OracleJob {
         /** ComparisonTask onTrue. */
         public onTrue?: (IOracleJob|null);
 
+        /** ComparisonTask onTrueValue. */
+        public onTrueValue: string;
+
         /** ComparisonTask onFalse. */
         public onFalse?: (IOracleJob|null);
 
+        /** ComparisonTask onFalseValue. */
+        public onFalseValue: string;
+
         /** ComparisonTask onFailure. */
         public onFailure?: (IOracleJob|null);
+
+        /** ComparisonTask onFailureValue. */
+        public onFailureValue: string;
 
         /** ComparisonTask LHS. */
         public LHS?: ("lhs"|"lhsValue");

@@ -12750,8 +12750,11 @@
              * @property {IOracleJob|null} [rhs] ComparisonTask rhs
              * @property {string|null} [rhsValue] ComparisonTask rhsValue
              * @property {IOracleJob|null} [onTrue] ComparisonTask onTrue
+             * @property {string|null} [onTrueValue] ComparisonTask onTrueValue
              * @property {IOracleJob|null} [onFalse] ComparisonTask onFalse
+             * @property {string|null} [onFalseValue] ComparisonTask onFalseValue
              * @property {IOracleJob|null} [onFailure] ComparisonTask onFailure
+             * @property {string|null} [onFailureValue] ComparisonTask onFailureValue
              */
     
             /**
@@ -12818,6 +12821,14 @@
             ComparisonTask.prototype.onTrue = null;
     
             /**
+             * ComparisonTask onTrueValue.
+             * @member {string} onTrueValue
+             * @memberof OracleJob.ComparisonTask
+             * @instance
+             */
+            ComparisonTask.prototype.onTrueValue = "";
+    
+            /**
              * ComparisonTask onFalse.
              * @member {IOracleJob|null|undefined} onFalse
              * @memberof OracleJob.ComparisonTask
@@ -12826,12 +12837,28 @@
             ComparisonTask.prototype.onFalse = null;
     
             /**
+             * ComparisonTask onFalseValue.
+             * @member {string} onFalseValue
+             * @memberof OracleJob.ComparisonTask
+             * @instance
+             */
+            ComparisonTask.prototype.onFalseValue = "";
+    
+            /**
              * ComparisonTask onFailure.
              * @member {IOracleJob|null|undefined} onFailure
              * @memberof OracleJob.ComparisonTask
              * @instance
              */
             ComparisonTask.prototype.onFailure = null;
+    
+            /**
+             * ComparisonTask onFailureValue.
+             * @member {string} onFailureValue
+             * @memberof OracleJob.ComparisonTask
+             * @instance
+             */
+            ComparisonTask.prototype.onFailureValue = "";
     
             // OneOf field names bound to virtual getters and setters
             var $oneOfFields;
@@ -12894,10 +12921,16 @@
                     writer.uint32(/* id 5, wireType 2 =*/42).string(message.rhsValue);
                 if (message.onTrue != null && Object.hasOwnProperty.call(message, "onTrue"))
                     $root.OracleJob.encode(message.onTrue, writer.uint32(/* id 6, wireType 2 =*/50).fork()).ldelim();
+                if (message.onTrueValue != null && Object.hasOwnProperty.call(message, "onTrueValue"))
+                    writer.uint32(/* id 7, wireType 2 =*/58).string(message.onTrueValue);
                 if (message.onFalse != null && Object.hasOwnProperty.call(message, "onFalse"))
-                    $root.OracleJob.encode(message.onFalse, writer.uint32(/* id 7, wireType 2 =*/58).fork()).ldelim();
+                    $root.OracleJob.encode(message.onFalse, writer.uint32(/* id 8, wireType 2 =*/66).fork()).ldelim();
+                if (message.onFalseValue != null && Object.hasOwnProperty.call(message, "onFalseValue"))
+                    writer.uint32(/* id 9, wireType 2 =*/74).string(message.onFalseValue);
                 if (message.onFailure != null && Object.hasOwnProperty.call(message, "onFailure"))
-                    $root.OracleJob.encode(message.onFailure, writer.uint32(/* id 8, wireType 2 =*/66).fork()).ldelim();
+                    $root.OracleJob.encode(message.onFailure, writer.uint32(/* id 10, wireType 2 =*/82).fork()).ldelim();
+                if (message.onFailureValue != null && Object.hasOwnProperty.call(message, "onFailureValue"))
+                    writer.uint32(/* id 11, wireType 2 =*/90).string(message.onFailureValue);
                 return writer;
             };
     
@@ -12957,11 +12990,23 @@
                             break;
                         }
                     case 7: {
-                            message.onFalse = $root.OracleJob.decode(reader, reader.uint32());
+                            message.onTrueValue = reader.string();
                             break;
                         }
                     case 8: {
+                            message.onFalse = $root.OracleJob.decode(reader, reader.uint32());
+                            break;
+                        }
+                    case 9: {
+                            message.onFalseValue = reader.string();
+                            break;
+                        }
+                    case 10: {
                             message.onFailure = $root.OracleJob.decode(reader, reader.uint32());
+                            break;
+                        }
+                    case 11: {
+                            message.onFailureValue = reader.string();
                             break;
                         }
                     default:
@@ -13044,16 +13089,25 @@
                     if (error)
                         return "onTrue." + error;
                 }
+                if (message.onTrueValue != null && message.hasOwnProperty("onTrueValue"))
+                    if (!$util.isString(message.onTrueValue))
+                        return "onTrueValue: string expected";
                 if (message.onFalse != null && message.hasOwnProperty("onFalse")) {
                     var error = $root.OracleJob.verify(message.onFalse);
                     if (error)
                         return "onFalse." + error;
                 }
+                if (message.onFalseValue != null && message.hasOwnProperty("onFalseValue"))
+                    if (!$util.isString(message.onFalseValue))
+                        return "onFalseValue: string expected";
                 if (message.onFailure != null && message.hasOwnProperty("onFailure")) {
                     var error = $root.OracleJob.verify(message.onFailure);
                     if (error)
                         return "onFailure." + error;
                 }
+                if (message.onFailureValue != null && message.hasOwnProperty("onFailureValue"))
+                    if (!$util.isString(message.onFailureValue))
+                        return "onFailureValue: string expected";
                 return null;
             };
     
@@ -13108,16 +13162,22 @@
                         throw TypeError(".OracleJob.ComparisonTask.onTrue: object expected");
                     message.onTrue = $root.OracleJob.fromObject(object.onTrue);
                 }
+                if (object.onTrueValue != null)
+                    message.onTrueValue = String(object.onTrueValue);
                 if (object.onFalse != null) {
                     if (typeof object.onFalse !== "object")
                         throw TypeError(".OracleJob.ComparisonTask.onFalse: object expected");
                     message.onFalse = $root.OracleJob.fromObject(object.onFalse);
                 }
+                if (object.onFalseValue != null)
+                    message.onFalseValue = String(object.onFalseValue);
                 if (object.onFailure != null) {
                     if (typeof object.onFailure !== "object")
                         throw TypeError(".OracleJob.ComparisonTask.onFailure: object expected");
                     message.onFailure = $root.OracleJob.fromObject(object.onFailure);
                 }
+                if (object.onFailureValue != null)
+                    message.onFailureValue = String(object.onFailureValue);
                 return message;
             };
     
@@ -13137,8 +13197,11 @@
                 if (options.defaults) {
                     object.op = options.enums === String ? "OPERATION_EQ" : 0;
                     object.onTrue = null;
+                    object.onTrueValue = "";
                     object.onFalse = null;
+                    object.onFalseValue = "";
                     object.onFailure = null;
+                    object.onFailureValue = "";
                 }
                 if (message.op != null && message.hasOwnProperty("op"))
                     object.op = options.enums === String ? $root.OracleJob.ComparisonTask.Operation[message.op] === undefined ? message.op : $root.OracleJob.ComparisonTask.Operation[message.op] : message.op;
@@ -13164,10 +13227,16 @@
                 }
                 if (message.onTrue != null && message.hasOwnProperty("onTrue"))
                     object.onTrue = $root.OracleJob.toObject(message.onTrue, options);
+                if (message.onTrueValue != null && message.hasOwnProperty("onTrueValue"))
+                    object.onTrueValue = message.onTrueValue;
                 if (message.onFalse != null && message.hasOwnProperty("onFalse"))
                     object.onFalse = $root.OracleJob.toObject(message.onFalse, options);
+                if (message.onFalseValue != null && message.hasOwnProperty("onFalseValue"))
+                    object.onFalseValue = message.onFalseValue;
                 if (message.onFailure != null && message.hasOwnProperty("onFailure"))
                     object.onFailure = $root.OracleJob.toObject(message.onFailure, options);
+                if (message.onFailureValue != null && message.hasOwnProperty("onFailureValue"))
+                    object.onFailureValue = message.onFailureValue;
                 return object;
             };
     
