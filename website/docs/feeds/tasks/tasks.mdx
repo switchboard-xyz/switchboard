@@ -107,19 +107,70 @@ Fetch the account data in a stringified buffer format.
 
 Fetch the simulated price for a swap on JupiterSwap.
 
-| Field             | Type              | Label    | Description                   |
-| ----------------- | ----------------- | -------- | ----------------------------- |
-| in_token_address  | [string](#string) | optional | The input token address.      |
-| out_token_address | [string](#string) | optional | The output token address.     |
-| base_amount       | [double](#double) | optional | The amount of tokens to swap. |
+| Field             | Type                      | Label    | Description                   |
+| ----------------- | ------------------------- | -------- | ----------------------------- |
+| in_token_address  | [string](#string)         | optional | The input token address.      |
+| out_token_address | [string](#string)         | optional | The output token address.     |
+| base_amount       | [double](#double)         | optional | The amount of tokens to swap. |
+| allow_list        | [FilterList](#FilterList) | optional |                               |
+| deny_list         | [FilterList](#FilterList) | optional |                               |
+
+#### FilterList
+
+A list of Jupiter AMM labels to allow or deny (e.g. &#39;Raydium&#39;,
+&#39;Orca&#39;)
+
+| Field  | Type              | Label    | Description |
+| ------ | ----------------- | -------- | ----------- |
+| labels | [string](#string) | repeated |             |
+
+:::info
+
+**Note:** Jupiter currently supports the following AMMs which can be inputted
+into the `allow_list` or `deny_list` property to change the route selection:
+
+- Aldrin
+- Crema
+- Cropper
+- Cykura
+- DeltaFi
+- GooseFX
+- Invariant
+- Lifinity
+- Lifinity V2
+- Marinade
+- Mercurial
+- Meteora
+- Raydium
+- Saber
+- Serum
+- Orca
+- Step
+- Penguin
+- Saros
+- Stepn
+- Orca (Whirlpools)
+- Sencha
+- Saber (Decimals)
+- Dradex
+- Balansol
+- Unknown
+
+:::
 
 ### 🛠SerumSwapTask
 
-Fetch the latest swap price on Serum&#39;s orderbook
+Fetch the latest swap price on Serum&#39;s orderbook.
 
 | Field              | Type              | Label    | Description                            |
 | ------------------ | ----------------- | -------- | -------------------------------------- |
 | serum_pool_address | [string](#string) | optional | The serum pool to fetch swap price for |
+
+:::info
+
+**Update (11/17/2022):** This task now points to the community fork of Serum.
+
+:::
 
 ### 🛠UniswapExchangeRateTask
 
@@ -324,6 +375,22 @@ Return the deserialized value from a stringified buffer.
 
 ## 📦Logic
 
+### 🛠BoundTask
+
+Bound a final result to a min or max. If an `onExceeds` field is not provided
+then the job will fail if the result is outside the bounds.
+
+| Field                        | Type                    | Label    | Description |
+| ---------------------------- | ----------------------- | -------- | ----------- |
+| lower_bound                  | [OracleJob](#OracleJob) | optional |             |
+| lower_bound_value            | [string](#string)       | optional |             |
+| upper_bound                  | [OracleJob](#OracleJob) | optional |             |
+| upper_bound_value            | [string](#string)       | optional |             |
+| on_exceeds_upper_bound       | [OracleJob](#OracleJob) | optional |             |
+| on_exceeds_upper_bound_value | [string](#string)       | optional |             |
+| on_exceeds_lower_bound       | [OracleJob](#OracleJob) | optional |             |
+| on_exceeds_lower_bound_value | [string](#string)       | optional |             |
+
 ### 🛠ConditionalTask
 
 This task will run the `attempt` subtasks in an effort to produce a valid
@@ -334,6 +401,32 @@ numerical result. If `attempt` fails to produce an acceptable result,
 | ---------- | ---- | -------- | ----------------------------------------------------------------------------------------------------- |
 | attempt    | Task | repeated | A list of subtasks to process in an attempt to produce a valid numerical result.                      |
 | on_failure | Task | repeated | A list of subtasks that will be run if `attempt` subtasks are unable to produce an acceptable result. |
+
+### 🛠ComparisonTask
+
+Perform a numerical comparison on two values
+
+| Field            | Type                                                  | Label    | Description |
+| ---------------- | ----------------------------------------------------- | -------- | ----------- |
+| op               | [ComparisonTask.Operation](#ComparisonTask-Operation) | optional |             |
+| lhs              | [OracleJob](#OracleJob)                               | optional |             |
+| lhs_value        | [string](#string)                                     | optional |             |
+| rhs              | [OracleJob](#OracleJob)                               | optional |             |
+| rhs_value        | [string](#string)                                     | optional |             |
+| on_true          | [OracleJob](#OracleJob)                               | optional |             |
+| on_true_value    | [string](#string)                                     | optional |             |
+| on_false         | [OracleJob](#OracleJob)                               | optional |             |
+| on_false_value   | [string](#string)                                     | optional |             |
+| on_failure       | [OracleJob](#OracleJob)                               | optional |             |
+| on_failure_value | [string](#string)                                     | optional |             |
+
+#### ComparisonTask.Operation
+
+| Name         | Number | Description |
+| ------------ | ------ | ----------- |
+| OPERATION_EQ | 0      |             |
+| OPERATION_GT | 1      |             |
+| OPERATION_LT | 2      |             |
 
 ## 📦Utils
 
@@ -357,7 +450,7 @@ Execute a job and store the result in a variable to reference later.
 Return the difference between an oracle&#39;s clock and the current timestamp at
 `SYSVAR_CLOCK_PUBKEY`.
 
-### CronParseTask
+### 🛠CronParseTask
 
 Return a timestamp from a crontab instruction.
 
@@ -380,7 +473,9 @@ The type of clock.
 
 Fetch the current transactions per second.
 
-## 📦Math
+## 📦Historical
+
+Task types which parse historical data from an on-chain history buffer
 
 ### 🛠TwapTask
 
@@ -394,6 +489,45 @@ Takes a twap over a set period for a certain aggregator.
 | min_samples                | [uint32](#uint32)               | optional | Minimum number of samples in the history to calculate a valid result |
 | ending_unix_timestamp      | [int32](#int32)                 | optional | Ending unix timestamp to collect values up to                        |
 | ending_unix_timestamp_task | [CronParseTask](#CronParseTask) | optional | Execute the task to get the ending unix timestamp                    |
+
+### 🛠EwmaTask
+
+**NOT LIVE, IN DEVELOPMENT**.
+
+| Field              | Type              | Label    | Description |
+| ------------------ | ----------------- | -------- | ----------- |
+| aggregator_address | [string](#string) | optional |             |
+| period             | [int32](#int32)   | optional |             |
+| lambda             | [double](#double) | optional |             |
+
+### 🛠HistoryFunctionTask
+
+**NOT LIVE, IN DEVELOPMENT**.
+
+| Field              | Type                                                      | Label    | Description |
+| ------------------ | --------------------------------------------------------- | -------- | ----------- |
+| method             | [HistoryFunctionTask.Method](#HistoryFunctionTask-Method) | optional |             |
+| aggregator_address | [string](#string)                                         | optional |             |
+| period             | [uint32](#uint32)                                         | optional |             |
+
+#### HistoryFunctionTask.Method
+
+| Name       | Number | Description |
+| ---------- | ------ | ----------- |
+| METHOD_MIN | 0      |             |
+| METHOD_MAX | 1      |             |
+
+### 🛠VwapTask
+
+**NOT LIVE, IN DEVELOPMENT**.
+
+| Field                     | Type              | Label    | Description |
+| ------------------------- | ----------------- | -------- | ----------- |
+| price_aggregator_address  | [string](#string) | optional |             |
+| volume_aggregator_address | [string](#string) | optional |             |
+| period                    | [uint32](#uint32) | optional |             |
+
+## 📦Math
 
 ### 🛠MaxTask
 
@@ -492,3 +626,16 @@ Returns a specified value.
 | value             | [double](#double) | optional | The value that will be returned from this task.            |
 | aggregator_pubkey | [string](#string) | optional | Specifies an aggregatorr to pull the value of.             |
 | big               | [string](#string) | optional | A stringified big.js. `Accepts variable expansion syntax.` |
+
+### 🛠RoundTask
+
+| Field  | Type                                  | Label    | Description |
+| ------ | ------------------------------------- | -------- | ----------- |
+| method | [RoundTask.Method](#RoundTask-Method) | optional |             |
+
+#### RoundTask.Method
+
+| Name              | Number | Description |
+| ----------------- | ------ | ----------- |
+| METHOD_ROUND_UP   | 0      |             |
+| METHOD_ROUND_DOWN | 1      |             |
