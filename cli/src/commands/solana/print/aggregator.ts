@@ -112,13 +112,7 @@ export default class AggregatorPrint extends BaseCommand {
     }
 
     this.logger.log(
-      await prettyPrintAggregator(
-        aggregatorAccount,
-        data,
-        true,
-        true,
-        flags.jobs
-      )
+      await prettyPrintAggregator(aggregatorAccount, data, true, true, true)
     );
 
     if (flags.oraclePubkeysData) {
