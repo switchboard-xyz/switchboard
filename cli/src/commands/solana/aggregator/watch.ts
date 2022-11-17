@@ -1,10 +1,9 @@
 import { Flags } from "@oclif/core";
 import { BorshAccountsCoder } from "@project-serum/anchor";
-import { PublicKey } from "@solana/web3.js";
 import { sleep } from "@switchboard-xyz/sbv2-utils";
 import { AggregatorAccount } from "@switchboard-xyz/switchboard-v2";
-import Big from "big.js";
-import chalk from "chalk";
+import fs from "fs";
+import path from "path";
 import { SolanaWithoutSignerBaseCommand as BaseCommand } from "../../../solana";
 import { CHECK_ICON } from "../../../utils";
 
@@ -59,16 +58,39 @@ export default class AggregatorWatch extends BaseCommand {
         )!;
         items.set(timestamp.toNumber(), value.toString());
         printResults(items);
+        writeResults(items, flags.outfile);
       }
     );
 
     printResults(items);
 
     await sleep((flags.timeout ?? 120) * 1000);
+    await this.program.provider.connection.removeAccountChangeListener(ws);
+
+    writeResults(items, flags.outfile);
+
+    this.logger.info(
+      `${CHECK_ICON} Results saved to file successfully, ${flags.outfile}`
+    );
   }
 
   async catch(error) {
     super.catch(error, "failed to lock aggregator configuration");
+  }
+}
+
+function writeResults(items: Map<number, string>, outfile?: string) {
+  if (outfile) {
+    const outpath =
+      outfile.startsWith("/") || outfile.startsWith("C:")
+        ? outfile
+        : path.join(process.cwd(), outfile);
+    fs.writeFileSync(
+      outpath,
+      `timestamp,value\n${Array.from(items.entries())
+        .map((i) => i.join(","))
+        .join("\n")}`
+    );
   }
 }
 
