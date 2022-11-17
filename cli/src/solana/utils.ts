@@ -5,6 +5,7 @@ import {
   programWallet,
   SBV2_DEVNET_PID,
   SBV2_MAINNET_PID,
+  SwitchboardProgram,
 } from "@switchboard-xyz/switchboard-v2";
 import { NoPayerKeypairProvided } from "../types";
 import { TransactionInstruction, TransactionSignature } from "@solana/web3.js";
@@ -29,7 +30,7 @@ export const loadAnchor = async (
   cluster: string,
   connection: Connection,
   authority?: Keypair
-): Promise<anchor.Program> => {
+): Promise<SwitchboardProgram> => {
   let PID: PublicKey;
   switch (cluster) {
     case "devnet": {
@@ -67,13 +68,13 @@ export const loadAnchor = async (
   // );
 
   const program = new anchor.Program(anchorIdl, programId, provider);
-  return program;
+  return program as unknown as SwitchboardProgram;
 };
 
 export const getNewProgram = (
-  program: anchor.Program,
+  program: SwitchboardProgram,
   keypair: Keypair
-): anchor.Program => {
+): SwitchboardProgram => {
   const wallet = new anchor.Wallet(keypair);
   const provider = new anchor.AnchorProvider(
     program.provider.connection,
@@ -88,22 +89,26 @@ export const getNewProgram = (
   const anchorIdl = program.idl;
   if (!anchorIdl) throw new Error(`failed to read idl for ${programId}`);
 
-  return new anchor.Program(anchorIdl, programId, provider);
+  return new anchor.Program(
+    anchorIdl,
+    programId,
+    provider
+  ) as unknown as SwitchboardProgram;
 };
 
-export const programHasPayer = (program: anchor.Program): boolean => {
+export const programHasPayer = (program: SwitchboardProgram): boolean => {
   const payer = programWallet(program);
   return !payer.publicKey.equals(
     Keypair.fromSeed(new Uint8Array(32).fill(1)).publicKey
   );
 };
 
-export const getProgramPayer = (program: anchor.Program): Keypair => {
+export const getProgramPayer = (program: SwitchboardProgram): Keypair => {
   if (programHasPayer(program)) return programWallet(program);
   throw new NoPayerKeypairProvided();
 };
 
-export const verifyProgramHasPayer = (program: anchor.Program): void => {
+export const verifyProgramHasPayer = (program: SwitchboardProgram): void => {
   if (programHasPayer(program)) return;
   throw new NoPayerKeypairProvided();
 };
@@ -166,7 +171,7 @@ export const SWITCHBOARD_DISCRIMINATOR_MAP = new Map<
 
 // should also check if pubkey is a token account
 export const findAccountType = async (
-  program: anchor.Program,
+  program: SwitchboardProgram,
   publicKey: PublicKey
 ): Promise<SwitchboardAccountType> => {
   const account = await program.provider.connection.getAccountInfo(publicKey);
@@ -189,7 +194,7 @@ export const findAccountType = async (
 };
 
 export const loadSwitchboardAccount = async (
-  program: anchor.Program,
+  program: SwitchboardProgram,
   publicKey: PublicKey
 ): Promise<[SwitchboardAccountType, SwitchboardAccount]> => {
   const accountType = await findAccountType(program, publicKey);
@@ -236,7 +241,7 @@ export const loadSwitchboardAccount = async (
 };
 
 export async function packAndSend(
-  program: anchor.Program,
+  program: SwitchboardProgram,
   ixnsBatch: (TransactionInstruction | TransactionInstruction[])[],
   ixnsBatch2: (TransactionInstruction | TransactionInstruction[])[],
   signers: Keypair[],

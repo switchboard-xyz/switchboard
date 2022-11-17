@@ -12,6 +12,7 @@ import {
   SwitchboardDecimal,
   SwitchboardPermission,
   SwitchboardPermissionValue,
+  SwitchboardProgram,
 } from "@switchboard-xyz/switchboard-v2";
 import Big from "big.js";
 import { isBN } from "bn.js";
@@ -244,7 +245,7 @@ export function anchorBNtoDateTimeString(ts: anchor.BN): string {
 }
 
 export const isJobAccount = async (
-  program: anchor.Program,
+  program: SwitchboardProgram,
   publicKey: PublicKey
 ): Promise<JobAccount | undefined> => {
   try {
@@ -257,7 +258,7 @@ export const isJobAccount = async (
 };
 
 export const isAggregatorAccount = async (
-  program: anchor.Program,
+  program: SwitchboardProgram,
   publicKey: PublicKey
 ): Promise<AggregatorAccount | undefined> => {
   try {
@@ -270,7 +271,7 @@ export const isAggregatorAccount = async (
 };
 
 export const isOracleAccount = async (
-  program: anchor.Program,
+  program: SwitchboardProgram,
   publicKey: PublicKey
 ): Promise<OracleAccount | undefined> => {
   try {
@@ -283,7 +284,7 @@ export const isOracleAccount = async (
 };
 
 export const isCrankAccount = async (
-  program: anchor.Program,
+  program: SwitchboardProgram,
   publicKey: PublicKey
 ): Promise<CrankAccount | undefined> => {
   try {
@@ -296,7 +297,7 @@ export const isCrankAccount = async (
 };
 
 export const isOracleQueueAccount = async (
-  program: anchor.Program,
+  program: SwitchboardProgram,
   publicKey: PublicKey
 ): Promise<OracleQueueAccount | undefined> => {
   try {
@@ -309,7 +310,7 @@ export const isOracleQueueAccount = async (
 };
 
 export const isPermissionAccount = async (
-  program: anchor.Program,
+  program: SwitchboardProgram,
   publicKey: PublicKey
 ): Promise<PermissionAccount | undefined> => {
   try {
@@ -322,7 +323,7 @@ export const isPermissionAccount = async (
 };
 
 export const isLeaseAccount = async (
-  program: anchor.Program,
+  program: SwitchboardProgram,
   publicKey: PublicKey
 ): Promise<LeaseAccount | undefined> => {
   try {
@@ -335,7 +336,7 @@ export const isLeaseAccount = async (
 };
 
 export const isProgramStateAccount = async (
-  program: anchor.Program,
+  program: SwitchboardProgram,
   publicKey: PublicKey
 ): Promise<ProgramStateAccount | undefined> => {
   try {
@@ -349,7 +350,7 @@ export const isProgramStateAccount = async (
 
 // // should also check if pubkey is a token account
 // export const findAccountType = async (
-//   program: anchor.Program,
+//   program: SwitchboardProgram,
 //   publicKey: PublicKey
 // ): Promise<SwitchboardAccountType> => {
 //   const account = await program.provider.connection.getAccountInfo(publicKey);

@@ -2,25 +2,21 @@ import { Flags } from "@oclif/core";
 import * as anchor from "@project-serum/anchor";
 import * as spl from "@solana/spl-token-v2";
 import {
-  AccountInfo,
   Keypair,
   PublicKey,
   SystemProgram,
   TransactionInstruction,
 } from "@solana/web3.js";
 import { OracleJob } from "@switchboard-xyz/common";
-import {
-  packAndSend,
-  prettyPrintAggregator,
-  promiseWithTimeout,
-  sleep,
-} from "@switchboard-xyz/sbv2-utils";
+import { prettyPrintAggregator, sleep } from "@switchboard-xyz/sbv2-utils";
 import {
   AggregatorAccount,
   CrankAccount,
   JobAccount,
   LeaseAccount,
   OracleQueueAccount,
+  packInstructions,
+  packTransactions,
   PermissionAccount,
   ProgramStateAccount,
   programWallet,
@@ -30,6 +26,7 @@ import Big from "big.js";
 import fs from "fs";
 import path from "path";
 import { SolanaWithSignerBaseCommand as BaseCommand } from "../../../../solana";
+import _ from "lodash";
 
 // TODO: Finish
 export default class AggregatorCreate extends BaseCommand {
@@ -110,12 +107,7 @@ export default class AggregatorCreate extends BaseCommand {
       this.program.provider.connection,
       payerKeypair,
       mint.address,
-      payerKeypair.publicKey,
-      undefined,
-      undefined,
-      undefined,
-      spl.TOKEN_PROGRAM_ID,
-      spl.ASSOCIATED_TOKEN_PROGRAM_ID
+      payerKeypair.publicKey
     );
 
     const createAccountInstructions: (
@@ -157,37 +149,29 @@ export default class AggregatorCreate extends BaseCommand {
                 ).finish()
               );
 
-              const size = 280 + data.length;
+              console.log("len", data.byteLength);
 
-              const allocateAccountIxn = SystemProgram.createAccount({
-                fromPubkey: payerKeypair.publicKey,
-                newAccountPubkey: jobKeypair.publicKey,
-                space: size,
-                lamports:
-                  await this.program.provider.connection.getMinimumBalanceForRentExemption(
-                    size
-                  ),
-                programId: this.program.programId,
-              });
+              const size = 280 + data.length;
 
               const createJobIxn = await this.program.methods
                 .jobInit({
                   name: Buffer.from("").slice(0, 32),
-                  data: data,
-                  variables: new Array<Buffer>(),
-                  authorWallet: payerKeypair.publicKey,
+                  expiration: new anchor.BN(0),
                   stateBump,
+                  data: data,
+                  size: data.byteLength,
                 })
                 .accounts({
                   job: jobKeypair.publicKey,
-                  authorWallet: tokenWallet.address,
                   authority: feedAuthority.publicKey,
                   programState: programStateAccount.publicKey,
+                  payer: this.signer.publicKey,
+                  systemProgram: SystemProgram.programId,
                 })
-                .signers([feedAuthority])
+                .signers([feedAuthority, jobKeypair])
                 .instruction();
 
-              return [[allocateAccountIxn, createJobIxn], jobKeypair];
+              return [[createJobIxn], jobKeypair];
             }
           )
         )
@@ -244,6 +228,9 @@ export default class AggregatorCreate extends BaseCommand {
               ? SwitchboardDecimal.fromBig(new Big(flags.varianceThreshold))
               : SwitchboardDecimal.fromBig(new Big(0)),
             forceReportPeriod: new anchor.BN(flags.forceReportPeriod ?? 0),
+            expiration: new anchor.BN(0),
+            startAfter: new anchor.BN(0),
+            disableCrank: false,
             stateBump,
           })
           .accounts({
@@ -377,37 +364,60 @@ export default class AggregatorCreate extends BaseCommand {
       })
     );
 
-    const createAccountSignatures = packAndSend(
-      this.program,
-      [createJobIxn, createAccountInstructions, addJobIxns],
-      [...createJobSigners, ...createAccountSigners],
+    const ixns = _.flattenDeep([
+      createJobIxn,
+      createAccountInstructions,
+      addJobIxns,
+    ]).filter(Boolean);
+
+    // console.log(JSON.stringify(ixns, undefined, 2));
+    console.log(ixns.length);
+
+    const packedTxns = packInstructions(ixns)
+      .filter(Boolean)
+      .filter((t) => t.instructions.length);
+
+    const signedTransactions = await packTransactions(
+      this.program.provider.connection,
+      packedTxns,
+      _.flatMapDeep([...createJobSigners, ...createAccountSigners]),
       payerKeypair.publicKey
     ).catch((error) => {
       throw error;
     });
 
-    let aggInitWs: number;
-    const aggInitPromise = new Promise((resolve: (result: any) => void) => {
-      aggInitWs = this.program.provider.connection.onAccountChange(
-        aggregatorKeypair.publicKey,
-        (accountInfo: AccountInfo<Buffer>, slot) => {
-          const aggData = new anchor.BorshAccountsCoder(
-            this.program.idl
-          ).decode("AggregatorAccountData", accountInfo.data);
-          resolve(aggData);
-        }
+    const sigs: string[] = [];
+    for await (const txn of signedTransactions) {
+      const sig = await this.program.provider.connection.sendRawTransaction(
+        txn.serialize()
       );
-    });
+      sigs.push(sig);
+      this.logger.info(this.toUrl(sig));
+      await sleep(1000);
+    }
 
-    const result = await promiseWithTimeout(45_000, aggInitPromise).finally(
-      () => {
-        try {
-          this.program.provider.connection.removeAccountChangeListener(
-            aggInitWs
-          );
-        } catch {}
-      }
-    );
+    // let aggInitWs: number;
+    // const aggInitPromise = new Promise((resolve: (result: any) => void) => {
+    //   aggInitWs = this.program.provider.connection.onAccountChange(
+    //     aggregatorKeypair.publicKey,
+    //     (accountInfo: AccountInfo<Buffer>, slot) => {
+    //       const aggData = new anchor.BorshAccountsCoder(
+    //         this.program.idl
+    //       ).decode("AggregatorAccountData", accountInfo.data);
+    //       resolve(aggData);
+    //     }
+    //   );
+    // });
+
+    // const result = await promiseWithTimeout(45_000, aggInitPromise).finally(
+    //   () => {
+    //     try {
+    //       this.program.provider.connection.removeAccountChangeListener(
+    //         aggInitWs
+    //       );
+    //     } catch {}
+    //   }
+    // );
 
     if (this.silent) {
       console.log(aggregatorAccount.publicKey.toString());
@@ -415,8 +425,16 @@ export default class AggregatorCreate extends BaseCommand {
 
     await sleep(2500);
 
+    const aggregator = await aggregatorAccount.loadData();
+
     this.logger.info(
-      await prettyPrintAggregator(aggregatorAccount, result, true, true, true)
+      await prettyPrintAggregator(
+        aggregatorAccount,
+        aggregator,
+        true,
+        true,
+        true
+      )
     );
   }
 

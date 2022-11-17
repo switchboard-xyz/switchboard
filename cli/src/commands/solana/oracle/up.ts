@@ -47,7 +47,7 @@ export default class SolanaDockerOracle extends BaseCommand {
       oraclePubkey = new PublicKey(flags.oracleKey);
     } else {
       const switchboard = await SwitchboardTestContext.loadFromEnv(
-        this.program.provider as AnchorProvider,
+        this.program.provider as any,
         flags.switchboardDir || undefined
       );
       oraclePubkey = switchboard.oracle.publicKey;

@@ -27,6 +27,7 @@ import {
   OracleQueueAccount,
   PermissionAccount,
   ProgramStateAccount,
+  SwitchboardProgram,
   VrfAccount,
 } from "@switchboard-xyz/switchboard-v2";
 import chalk from "chalk";
@@ -41,8 +42,8 @@ import { FAILED_ICON } from "../utils";
 import { loadAnchor } from "./utils";
 
 export interface ClusterConfigs {
-  devnet: anchor.Program;
-  mainnet: anchor.Program;
+  devnet: SwitchboardProgram;
+  mainnet: SwitchboardProgram;
 }
 
 export abstract class SolanaMultiNetworkBaseCommand extends Command {
@@ -102,7 +103,7 @@ export abstract class SolanaMultiNetworkBaseCommand extends Command {
   }
 
   private async printAccount(
-    program: anchor.Program,
+    program: SwitchboardProgram,
     publicKey: PublicKey,
     accountType: SwitchboardAccountType
   ) {

@@ -8,11 +8,13 @@ import {
   AnchorWallet,
   CrankAccount,
   JobAccount,
+  loadSwitchboardProgram,
   OracleAccount,
   OracleQueueAccount,
   programWallet,
   SBV2_DEVNET_PID,
   SBV2_MAINNET_PID,
+  SwitchboardProgram,
 } from "@switchboard-xyz/switchboard-v2";
 import Big from "big.js";
 import chalk from "chalk";
@@ -58,7 +60,9 @@ export abstract class SolanaBaseCommand
 
   public connection: Connection;
 
-  public program: anchor.Program;
+  public program: SwitchboardProgram;
+
+  public commitment: "confirmed" | "finalized" | "processed";
 
   async init() {
     await super.init();
@@ -71,6 +75,7 @@ export abstract class SolanaBaseCommand
     this.programId = this.getProgramId(this.network, (flags as any).programId);
 
     this.rpcUrl = this.getRpcUrl(this.network, (flags as any).rpcUrl);
+    this.commitment = (flags as any).commitment ?? "confirmed";
     this.connection = new Connection(this.rpcUrl, {
       commitment: (flags as any).commitment ?? "confirmed",
     });
@@ -128,7 +133,7 @@ export abstract class SolanaBaseCommand
 
   async loadProgram(
     signer: Keypair = Keypair.fromSeed(new Uint8Array(32).fill(1))
-  ): Promise<anchor.Program> {
+  ): Promise<SwitchboardProgram> {
     if (!this.connection) {
       throw new Error(
         `Need to load the connection before loading the Anchor program`
@@ -142,7 +147,7 @@ export abstract class SolanaBaseCommand
 
     const wallet = new AnchorWallet(signer);
     const provider = new anchor.AnchorProvider(this.connection, wallet, {
-      commitment: "confirmed",
+      commitment: this.commitment ?? "confirmed",
       // preflightCommitment: "finalized",
     });
 
@@ -151,10 +156,23 @@ export abstract class SolanaBaseCommand
       throw new Error(`failed to read idl for ${this.programId}`);
     }
 
-    const program = new anchor.Program(anchorIdl, this.programId, provider);
+    return new anchor.Program(
+      anchorIdl,
+      this.programId,
+      provider
+    ) as unknown as SwitchboardProgram;
 
-    this.program = program;
-    return program;
+    // const program = await loadSwitchboardProgram(
+    //   this.network as any,
+    //   this.connection,
+    //   signer,
+    //   {
+    //     commitment: this.commitment,
+    //   }
+    // );
+
+    // this.program = program;
+    // return program;
   }
 
   /** Load an authority from a CLI flag and optionally check if it matches the expected account authority */

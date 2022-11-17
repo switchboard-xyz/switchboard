@@ -4,7 +4,10 @@ import { Flags } from "@oclif/core";
 import * as anchor from "@project-serum/anchor";
 import { AccountInfo, PublicKey } from "@solana/web3.js";
 import { buffer2string } from "@switchboard-xyz/sbv2-utils";
-import { SwitchboardDecimal } from "@switchboard-xyz/switchboard-v2";
+import {
+  SwitchboardDecimal,
+  SwitchboardProgram,
+} from "@switchboard-xyz/switchboard-v2";
 import Big from "big.js";
 import bs58 from "bs58";
 import fs from "fs";
@@ -322,7 +325,7 @@ function writeAggregators(
 
 async function buildAggregators(
   logger: LogProvider,
-  program: anchor.Program,
+  program: SwitchboardProgram,
   aggregatorAccounts: { pubkey: PublicKey; account: AccountInfo<Buffer> }[]
 ): Promise<Aggregator[]> {
   const accountCoder = new anchor.BorshAccountsCoder(program.idl);
@@ -373,7 +376,7 @@ async function buildAggregators(
 
 async function buildJobMap(
   logger: LogProvider,
-  program: anchor.Program,
+  program: SwitchboardProgram,
   pubkeys: PublicKey[],
   max = 300
 ): Promise<Map<string, Job>> {
