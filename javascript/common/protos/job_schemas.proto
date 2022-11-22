@@ -568,6 +568,7 @@ message OracleJob {
       METHOD_ROUND_DOWN = 1;
     }
     optional Method method = 1;
+    optional int32 decimals = 2;
   }
 
   message BoundTask {

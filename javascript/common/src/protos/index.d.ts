@@ -5386,6 +5386,9 @@ export namespace OracleJob {
 
         /** RoundTask method */
         method?: (OracleJob.RoundTask.Method|null);
+
+        /** RoundTask decimals */
+        decimals?: (number|null);
     }
 
     /** Represents a RoundTask. */
@@ -5399,6 +5402,9 @@ export namespace OracleJob {
 
         /** RoundTask method. */
         public method: OracleJob.RoundTask.Method;
+
+        /** RoundTask decimals. */
+        public decimals: number;
 
         /**
          * Creates a new RoundTask instance using the specified properties.

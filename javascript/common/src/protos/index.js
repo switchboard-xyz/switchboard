@@ -13292,6 +13292,7 @@
              * @memberof OracleJob
              * @interface IRoundTask
              * @property {OracleJob.RoundTask.Method|null} [method] RoundTask method
+             * @property {number|null} [decimals] RoundTask decimals
              */
     
             /**
@@ -13316,6 +13317,14 @@
              * @instance
              */
             RoundTask.prototype.method = 0;
+    
+            /**
+             * RoundTask decimals.
+             * @member {number} decimals
+             * @memberof OracleJob.RoundTask
+             * @instance
+             */
+            RoundTask.prototype.decimals = 0;
     
             /**
              * Creates a new RoundTask instance using the specified properties.
@@ -13343,6 +13352,8 @@
                     writer = $Writer.create();
                 if (message.method != null && Object.hasOwnProperty.call(message, "method"))
                     writer.uint32(/* id 1, wireType 0 =*/8).int32(message.method);
+                if (message.decimals != null && Object.hasOwnProperty.call(message, "decimals"))
+                    writer.uint32(/* id 2, wireType 0 =*/16).int32(message.decimals);
                 return writer;
             };
     
@@ -13379,6 +13390,10 @@
                     switch (tag >>> 3) {
                     case 1: {
                             message.method = reader.int32();
+                            break;
+                        }
+                    case 2: {
+                            message.decimals = reader.int32();
                             break;
                         }
                     default:
@@ -13424,6 +13439,9 @@
                     case 1:
                         break;
                     }
+                if (message.decimals != null && message.hasOwnProperty("decimals"))
+                    if (!$util.isInteger(message.decimals))
+                        return "decimals: integer expected";
                 return null;
             };
     
@@ -13455,6 +13473,8 @@
                     message.method = 1;
                     break;
                 }
+                if (object.decimals != null)
+                    message.decimals = object.decimals | 0;
                 return message;
             };
     
@@ -13471,10 +13491,14 @@
                 if (!options)
                     options = {};
                 var object = {};
-                if (options.defaults)
+                if (options.defaults) {
                     object.method = options.enums === String ? "METHOD_ROUND_UP" : 0;
+                    object.decimals = 0;
+                }
                 if (message.method != null && message.hasOwnProperty("method"))
                     object.method = options.enums === String ? $root.OracleJob.RoundTask.Method[message.method] === undefined ? message.method : $root.OracleJob.RoundTask.Method[message.method] : message.method;
+                if (message.decimals != null && message.hasOwnProperty("decimals"))
+                    object.decimals = message.decimals;
                 return object;
             };
     
