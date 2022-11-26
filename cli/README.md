@@ -3091,8 +3091,8 @@ create an aggregator account
 ```
 USAGE
   $ sbv2 solana aggregator create [QUEUEKEY] [-h] [-v] [-s] [--mainnetBeta] [-u <value>] [--programId <value>] [--commitment
-    confirmed|finalized|processed] [-k <value>] [-a <value>] [--crankKey <value>] [--enable] [--queueAuthority <value>]
-    [-n <value>] [--forceReportPeriod <value>] [--batchSize <value>] [--minJobs <value>] [--minOracles <value>]
+    confirmed|finalized|processed] [--keypair <value>] [-a <value>] [--crankKey <value>] [--enable] [--queueAuthority
+    <value>] [-n <value>] [--forceReportPeriod <value>] [--batchSize <value>] [--minJobs <value>] [--minOracles <value>]
     [--updateInterval <value>] [--varianceThreshold <value>] [-j <value>]
 
 ARGUMENTS
@@ -3102,8 +3102,6 @@ FLAGS
   -a, --authority=<value>      alternate keypair that is the authority for the aggregator
   -h, --help                   Show CLI help.
   -j, --job=<value>...         filesystem path to job definition file
-  -k, --keypair=<value>        keypair that will pay for onchain transactions. defaults to new account authority if no
-                               alternate authority provided
   -n, --name=<value>           name of the aggregator
   -s, --silent                 suppress cli prompts
   -u, --rpcUrl=<value>         alternate RPC url
@@ -3115,6 +3113,7 @@ FLAGS
   --enable                     set permissions to PERMIT_ORACLE_QUEUE_USAGE
   --forceReportPeriod=<value>  Number of seconds for which, even if the variance threshold is not passed, accept new
                                responses from oracles.
+  --keypair=<value>            keypair to use for aggregator account
   --mainnetBeta                WARNING: use mainnet-beta solana cluster
   --minJobs=<value>            number of jobs that must respond before an oracle responds
   --minOracles=<value>         number of oracles that must respond before a value is accepted on-chain
@@ -4151,19 +4150,21 @@ EXAMPLES
 
 ## `sbv2 solana aggregator watch [AGGREGATORKEY]`
 
-watch an aggregator for a new value
+watch an aggregator account and stream the results
 
 ```
 USAGE
   $ sbv2 solana aggregator watch [AGGREGATORKEY] [-h] [-v] [-s] [--mainnetBeta] [-u <value>] [--programId <value>]
-    [--commitment confirmed|finalized|processed]
+    [--commitment confirmed|finalized|processed] [-t <value>] [-f <value>]
 
 ARGUMENTS
-  AGGREGATORKEY  public key of the aggregator account to deserialize
+  AGGREGATORKEY  public key of the aggregator account
 
 FLAGS
+  -f, --outfile=<value>  save results to a file
   -h, --help             Show CLI help.
   -s, --silent           suppress cli prompts
+  -t, --timeout=<value>  time to watch feed for updates
   -u, --rpcUrl=<value>   alternate RPC url
   -v, --verbose          log everything
   --commitment=<option>  [default: confirmed] transaction commitment level to use
@@ -4172,13 +4173,7 @@ FLAGS
   --programId=<value>    alternative Switchboard program ID to interact with
 
 DESCRIPTION
-  watch an aggregator for a new value
-
-ALIASES
-  $ sbv2 solana aggregator watch
-
-EXAMPLES
-  $ sbv2 watch:aggregator J7j9xX8JP2B2ErvUzuqGAKBGeggsxPyFXj5MqZcYDxfa
+  watch an aggregator account and stream the results
 ```
 
 ## `sbv2 solana anchor test`
