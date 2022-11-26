@@ -77,7 +77,7 @@ export default class AggregatorCreate extends BaseCommand {
       description: "filesystem path to job definition file",
       multiple: true,
     }),
-    keypair: Flags.string({
+    aggregatorKeypair: Flags.string({
       description: "keypair to use for aggregator account",
     }),
   };
@@ -97,8 +97,8 @@ export default class AggregatorCreate extends BaseCommand {
     const feedAuthority = await this.loadAuthority(flags.authority);
     const queueAuthority = await this.loadAuthority(flags.queueAuthority);
 
-    const aggregatorKeypair = flags.keypair
-      ? await this.loadAuthority(flags.keypair)
+    const aggregatorKeypair = flags.aggregatorKeypair
+      ? await this.loadAuthority(flags.aggregatorKeypair)
       : Keypair.generate();
 
     const [programStateAccount, stateBump] = ProgramStateAccount.fromSeed(
