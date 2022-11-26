@@ -458,25 +458,35 @@ set a near aggregator's config
 ```
 USAGE
   $ sbv2 near aggregator set [AGGREGATORADDRESS] --accountName <value> [-h] [-v] [-s] [--networkId
-    testnet|mainnet|localnet] [--programId <value>] [-u <value>] [--nearCredentialsDir <value>] [--json]
-    [--forceReportPeriod <value>] [--updateInterval <value>] [--varianceThreshold <value>]
+    testnet|mainnet|localnet] [--programId <value>] [-u <value>] [--nearCredentialsDir <value>] [--json] [-a <value>]
+    [--crankAddress <value>] [--queueAddress <value>] [--name <value>] [--metadata <value>] [--forceReportPeriod
+    <value>] [--batchSize <value>] [--minJobs <value>] [--minOracles <value>] [--updateInterval <value>]
+    [--varianceThreshold <value>]
 
 ARGUMENTS
   AGGREGATORADDRESS  address of the aggregator in Uint8 or Base58 encoding
 
 FLAGS
+  -a, --authority=<value>       alternate named account that will be the authority for the oracle
   -h, --help                    Show CLI help.
   -s, --silent                  suppress cli prompts
   -u, --rpcUrl=<value>          alternate RPC url
   -v, --verbose                 log everything
   --accountName=<value>         (required) Named account to load from your nearCredentialsDir
+  --batchSize=<value>           number of oracles requested for each open round call
+  --crankAddress=<value>        optional, address of the crank to add the aggregator to
   --forceReportPeriod=<value>   Number of seconds for which, even if the variance threshold is not passed, accept new
                                 responses from oracles.
+  --metadata=<value>            metadata of the crank for easier identification
+  --minJobs=<value>             number of jobs that must respond before an oracle responds
+  --minOracles=<value>          number of oracles that must respond before a value is accepted on-chain
+  --name=<value>                name of the crank for easier identification
   --nearCredentialsDir=<value>  [default: /Users/gally/.near-credentials] Alternative directory for near credentials.
                                 Defaults to ~/.near-credentials
   --networkId=<option>          [default: testnet] Near network ID to connect to
                                 <options: testnet|mainnet|localnet>
   --programId=<value>           Switchboard programId on the selected Near networkId
+  --queueAddress=<value>        optional, address of the new queue to add the aggregator to
   --updateInterval=<value>      set an aggregator's minimum update delay
   --varianceThreshold=<value>   percentage change between a previous accepted result and the next round before an oracle
                                 reports a value on-chain. Used to conserve lease cost during low volatility
@@ -1700,25 +1710,35 @@ set a near aggregator's config
 ```
 USAGE
   $ sbv2 near set aggregator [AGGREGATORADDRESS] --accountName <value> [-h] [-v] [-s] [--networkId
-    testnet|mainnet|localnet] [--programId <value>] [-u <value>] [--nearCredentialsDir <value>] [--json]
-    [--forceReportPeriod <value>] [--updateInterval <value>] [--varianceThreshold <value>]
+    testnet|mainnet|localnet] [--programId <value>] [-u <value>] [--nearCredentialsDir <value>] [--json] [-a <value>]
+    [--crankAddress <value>] [--queueAddress <value>] [--name <value>] [--metadata <value>] [--forceReportPeriod
+    <value>] [--batchSize <value>] [--minJobs <value>] [--minOracles <value>] [--updateInterval <value>]
+    [--varianceThreshold <value>]
 
 ARGUMENTS
   AGGREGATORADDRESS  address of the aggregator in Uint8 or Base58 encoding
 
 FLAGS
+  -a, --authority=<value>       alternate named account that will be the authority for the oracle
   -h, --help                    Show CLI help.
   -s, --silent                  suppress cli prompts
   -u, --rpcUrl=<value>          alternate RPC url
   -v, --verbose                 log everything
   --accountName=<value>         (required) Named account to load from your nearCredentialsDir
+  --batchSize=<value>           number of oracles requested for each open round call
+  --crankAddress=<value>        optional, address of the crank to add the aggregator to
   --forceReportPeriod=<value>   Number of seconds for which, even if the variance threshold is not passed, accept new
                                 responses from oracles.
+  --metadata=<value>            metadata of the crank for easier identification
+  --minJobs=<value>             number of jobs that must respond before an oracle responds
+  --minOracles=<value>          number of oracles that must respond before a value is accepted on-chain
+  --name=<value>                name of the crank for easier identification
   --nearCredentialsDir=<value>  [default: /Users/gally/.near-credentials] Alternative directory for near credentials.
                                 Defaults to ~/.near-credentials
   --networkId=<option>          [default: testnet] Near network ID to connect to
                                 <options: testnet|mainnet|localnet>
   --programId=<value>           Switchboard programId on the selected Near networkId
+  --queueAddress=<value>        optional, address of the new queue to add the aggregator to
   --updateInterval=<value>      set an aggregator's minimum update delay
   --varianceThreshold=<value>   percentage change between a previous accepted result and the next round before an oracle
                                 reports a value on-chain. Used to conserve lease cost during low volatility

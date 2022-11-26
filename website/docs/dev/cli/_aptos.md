@@ -44,7 +44,7 @@ FLAGS
   -u, --rpcUrl=<value>  alternate RPC url
   -v, --verbose         log everything
   --address=<value>     (required) HexString address of account to fund
-  --networkId=<option>  [default: devnet] Aptos network to connect to
+  --networkId=<option>  [default: testnet] Aptos network to connect to
                         <options: devnet|testnet|mainnet>
   --programId=<value>   Switchboard programId on the selected Aptos network
 
@@ -80,7 +80,7 @@ FLAGS
   --keypair=<value>        (required) Path to AptosAccount keypair or config.yaml file
   --metadata=<value>       metadata of the job account
   --name=<value>           name of the job account
-  --networkId=<option>     [default: devnet] Aptos network to connect to
+  --networkId=<option>     [default: testnet] Aptos network to connect to
                            <options: devnet|testnet|mainnet>
   --profileName=<value>    [default: default] If --keypair is pointing to a yaml file, provide an optional profile to
                            load. If none provided, default will be used
@@ -123,7 +123,7 @@ FLAGS
   --minJobs=<value>            number of jobs that must respond before an oracle responds
   --minOracles=<value>         number of oracles that must respond before a value is accepted on-chain
   --name=<value>               name of the aggregator for easier identification
-  --networkId=<option>         [default: devnet] Aptos network to connect to
+  --networkId=<option>         [default: testnet] Aptos network to connect to
                                <options: devnet|testnet|mainnet>
   --new                        create account at new AptosAccount with authority set to --account
   --profileName=<value>        [default: default] If --keypair is pointing to a yaml file, provide an optional profile
@@ -169,7 +169,7 @@ FLAGS
   --keypair=<value>        (required) Path to AptosAccount keypair or config.yaml file
   --metadata=<value>       metadata of the job account
   --name=<value>           name of the job account
-  --networkId=<option>     [default: devnet] Aptos network to connect to
+  --networkId=<option>     [default: testnet] Aptos network to connect to
                            <options: devnet|testnet|mainnet>
   --profileName=<value>    [default: default] If --keypair is pointing to a yaml file, provide an optional profile to
                            load. If none provided, default will be used
@@ -200,7 +200,7 @@ FLAGS
   -u, --rpcUrl=<value>   alternate RPC url
   -v, --verbose          log everything
   --keypair=<value>      (required) Path to AptosAccount keypair or config.yaml file
-  --networkId=<option>   [default: devnet] Aptos network to connect to
+  --networkId=<option>   [default: testnet] Aptos network to connect to
                          <options: devnet|testnet|mainnet>
   --profileName=<value>  [default: default] If --keypair is pointing to a yaml file, provide an optional profile to
                          load. If none provided, default will be used
@@ -235,7 +235,7 @@ FLAGS
   --maxRows=<value>      [default: 100] maximum number of rows on the crank
   --metadata=<value>     metadata of the queue for easier identification
   --name=<value>         name of the queue for easier identification
-  --networkId=<option>   [default: devnet] Aptos network to connect to
+  --networkId=<option>   [default: testnet] Aptos network to connect to
                          <options: devnet|testnet|mainnet>
   --new                  create account at new AptosAccount with authority set to --account
   --profileName=<value>  [default: default] If --keypair is pointing to a yaml file, provide an optional profile to
@@ -269,7 +269,7 @@ FLAGS
   -s, --silent          suppress cli prompts
   -u, --rpcUrl=<value>  alternate RPC url
   -v, --verbose         log everything
-  --networkId=<option>  [default: devnet] Aptos network to connect to
+  --networkId=<option>  [default: testnet] Aptos network to connect to
                         <options: devnet|testnet|mainnet>
   --programId=<value>   Switchboard programId on the selected Aptos network
 
@@ -301,7 +301,7 @@ FLAGS
   -u, --rpcUrl=<value>   alternate RPC url
   -v, --verbose          log everything
   --keypair=<value>      (required) Path to AptosAccount keypair or config.yaml file
-  --networkId=<option>   [default: devnet] Aptos network to connect to
+  --networkId=<option>   [default: testnet] Aptos network to connect to
                          <options: devnet|testnet|mainnet>
   --profileName=<value>  [default: default] If --keypair is pointing to a yaml file, provide an optional profile to
                          load. If none provided, default will be used
@@ -336,7 +336,7 @@ FLAGS
   -u, --rpcUrl=<value>               alternate RPC url
   -v, --verbose                      log everything
   --keypair=<value>                  (required) Path to AptosAccount keypair or config.yaml file
-  --networkId=<option>               [default: devnet] Aptos network to connect to
+  --networkId=<option>               [default: testnet] Aptos network to connect to
                                      <options: devnet|testnet|mainnet>
   --profileName=<value>              [default: default] If --keypair is pointing to a yaml file, provide an optional
                                      profile to load. If none provided, default will be used
@@ -382,7 +382,7 @@ FLAGS
   --minJobs=<value>            number of jobs that must respond before an oracle responds
   --minOracles=<value>         number of oracles that must respond before a value is accepted on-chain
   --name=<value>               name of the aggregator for easier identification
-  --networkId=<option>         [default: devnet] Aptos network to connect to
+  --networkId=<option>         [default: testnet] Aptos network to connect to
                                <options: devnet|testnet|mainnet>
   --new                        create account at new AptosAccount with authority set to --account
   --profileName=<value>        [default: default] If --keypair is pointing to a yaml file, provide an optional profile
@@ -425,7 +425,7 @@ FLAGS
   --maxRows=<value>      [default: 100] maximum number of rows on the crank
   --metadata=<value>     metadata of the queue for easier identification
   --name=<value>         name of the queue for easier identification
-  --networkId=<option>   [default: devnet] Aptos network to connect to
+  --networkId=<option>   [default: testnet] Aptos network to connect to
                          <options: devnet|testnet|mainnet>
   --new                  create account at new AptosAccount with authority set to --account
   --profileName=<value>  [default: default] If --keypair is pointing to a yaml file, provide an optional profile to
@@ -465,7 +465,7 @@ FLAGS
   --keypair=<value>        (required) Path to AptosAccount keypair or config.yaml file
   --metadata=<value>       metadata of the job for easier identification
   --name=<value>           name of the job for easier identification
-  --networkId=<option>     [default: devnet] Aptos network to connect to
+  --networkId=<option>     [default: testnet] Aptos network to connect to
                            <options: devnet|testnet|mainnet>
   --new                    create account at new AptosAccount with authority set to --account
   --profileName=<value>    [default: default] If --keypair is pointing to a yaml file, provide an optional profile to
@@ -505,7 +505,7 @@ FLAGS
   --keypair=<value>        (required) Path to AptosAccount keypair or config.yaml file
   --metadata=<value>       metadata of the oracle for easier identification
   --name=<value>           name of the oracle for easier identification
-  --networkId=<option>     [default: devnet] Aptos network to connect to
+  --networkId=<option>     [default: testnet] Aptos network to connect to
                            <options: devnet|testnet|mainnet>
   --new                    create account at new AptosAccount with authority set to --account
   --profileName=<value>    [default: default] If --keypair is pointing to a yaml file, provide an optional profile to
@@ -546,7 +546,7 @@ FLAGS
   --metadata=<value>       metadata of the queue for easier identification
   --minStake=<value>       minimum stake required by an oracle to join the queue
   --name=<value>           name of the queue for easier identification
-  --networkId=<option>     [default: devnet] Aptos network to connect to
+  --networkId=<option>     [default: testnet] Aptos network to connect to
                            <options: devnet|testnet|mainnet>
   --new                    create account at new AptosAccount with authority set to --account
   --oracleTimeout=<value>  [default: 180] number of oracles to add to the queue
@@ -591,7 +591,7 @@ FLAGS
   --keypair=<value>        (required) Path to AptosAccount keypair or config.yaml file
   --metadata=<value>       metadata of the job for easier identification
   --name=<value>           name of the job for easier identification
-  --networkId=<option>     [default: devnet] Aptos network to connect to
+  --networkId=<option>     [default: testnet] Aptos network to connect to
                            <options: devnet|testnet|mainnet>
   --new                    create account at new AptosAccount with authority set to --account
   --profileName=<value>    [default: default] If --keypair is pointing to a yaml file, provide an optional profile to
@@ -626,7 +626,7 @@ FLAGS
   -s, --silent          suppress cli prompts
   -u, --rpcUrl=<value>  alternate RPC url
   -v, --verbose         log everything
-  --networkId=<option>  [default: devnet] Aptos network to connect to
+  --networkId=<option>  [default: testnet] Aptos network to connect to
                         <options: devnet|testnet|mainnet>
   --programId=<value>   Switchboard programId on the selected Aptos network
 
@@ -662,7 +662,7 @@ FLAGS
   --keypair=<value>        (required) Path to AptosAccount keypair or config.yaml file
   --metadata=<value>       metadata of the oracle for easier identification
   --name=<value>           name of the oracle for easier identification
-  --networkId=<option>     [default: devnet] Aptos network to connect to
+  --networkId=<option>     [default: testnet] Aptos network to connect to
                            <options: devnet|testnet|mainnet>
   --new                    create account at new AptosAccount with authority set to --account
   --profileName=<value>    [default: default] If --keypair is pointing to a yaml file, provide an optional profile to
@@ -696,7 +696,7 @@ FLAGS
   -s, --silent          suppress cli prompts
   -u, --rpcUrl=<value>  alternate RPC url
   -v, --verbose         log everything
-  --networkId=<option>  [default: devnet] Aptos network to connect to
+  --networkId=<option>  [default: testnet] Aptos network to connect to
                         <options: devnet|testnet|mainnet>
   --programId=<value>   Switchboard programId on the selected Aptos network
 
@@ -727,7 +727,7 @@ FLAGS
   -v, --verbose                 log everything
   --arm                         apple silicon needs to use a docker image for linux/arm64
   --keypair=<value>             (required) Path to AptosAccount keypair or config.yaml file
-  --networkId=<option>          [default: devnet] Aptos network to connect to
+  --networkId=<option>          [default: testnet] Aptos network to connect to
                                 <options: devnet|testnet|mainnet>
   --nodeImage=<value>           [default: dev-v2-10-18-22] public key of the oracle to start-up
   --profileName=<value>         [default: default] If --keypair is pointing to a yaml file, provide an optional profile
@@ -758,7 +758,7 @@ FLAGS
   --aggregator=<value>   HexString of  the aggregator address to create a permission for
   --enable               whether to enable the permissions after creation
   --keypair=<value>      (required) Path to AptosAccount keypair or config.yaml file
-  --networkId=<option>   [default: devnet] Aptos network to connect to
+  --networkId=<option>   [default: testnet] Aptos network to connect to
                          <options: devnet|testnet|mainnet>
   --oracle=<value>       HexString of  the aggregator address to create a permission for
   --profileName=<value>  [default: default] If --keypair is pointing to a yaml file, provide an optional profile to
@@ -792,7 +792,7 @@ FLAGS
   --aggregator=<value>   HexString of  the aggregator address to create a permission for
   --enable               whether to enable the permissions after creation
   --keypair=<value>      (required) Path to AptosAccount keypair or config.yaml file
-  --networkId=<option>   [default: devnet] Aptos network to connect to
+  --networkId=<option>   [default: testnet] Aptos network to connect to
                          <options: devnet|testnet|mainnet>
   --oracle=<value>       HexString of  the aggregator address to create a permission for
   --profileName=<value>  [default: default] If --keypair is pointing to a yaml file, provide an optional profile to
@@ -824,7 +824,7 @@ FLAGS
   -u, --rpcUrl=<value>   alternate RPC url
   -v, --verbose          log everything
   --keypair=<value>      (required) Path to AptosAccount keypair or config.yaml file
-  --networkId=<option>   [default: devnet] Aptos network to connect to
+  --networkId=<option>   [default: testnet] Aptos network to connect to
                          <options: devnet|testnet|mainnet>
   --profileName=<value>  [default: default] If --keypair is pointing to a yaml file, provide an optional profile to
                          load. If none provided, default will be used
@@ -858,7 +858,7 @@ FLAGS
   -s, --silent          suppress cli prompts
   -u, --rpcUrl=<value>  alternate RPC url
   -v, --verbose         log everything
-  --networkId=<option>  [default: devnet] Aptos network to connect to
+  --networkId=<option>  [default: testnet] Aptos network to connect to
                         <options: devnet|testnet|mainnet>
   --programId=<value>   Switchboard programId on the selected Aptos network
 
@@ -891,7 +891,7 @@ FLAGS
   -u, --rpcUrl=<value>               alternate RPC url
   -v, --verbose                      log everything
   --keypair=<value>                  (required) Path to AptosAccount keypair or config.yaml file
-  --networkId=<option>               [default: devnet] Aptos network to connect to
+  --networkId=<option>               [default: testnet] Aptos network to connect to
                                      <options: devnet|testnet|mainnet>
   --profileName=<value>              [default: default] If --keypair is pointing to a yaml file, provide an optional
                                      profile to load. If none provided, default will be used
@@ -931,7 +931,7 @@ FLAGS
   --metadata=<value>       metadata of the queue for easier identification
   --minStake=<value>       minimum stake required by an oracle to join the queue
   --name=<value>           name of the queue for easier identification
-  --networkId=<option>     [default: devnet] Aptos network to connect to
+  --networkId=<option>     [default: testnet] Aptos network to connect to
                            <options: devnet|testnet|mainnet>
   --new                    create account at new AptosAccount with authority set to --account
   --oracleTimeout=<value>  [default: 180] number of oracles to add to the queue
@@ -971,7 +971,7 @@ FLAGS
   -u, --rpcUrl=<value>   alternate RPC url
   -v, --verbose          log everything
   --keypair=<value>      (required) Path to AptosAccount keypair or config.yaml file
-  --networkId=<option>   [default: devnet] Aptos network to connect to
+  --networkId=<option>   [default: testnet] Aptos network to connect to
                          <options: devnet|testnet|mainnet>
   --profileName=<value>  [default: default] If --keypair is pointing to a yaml file, provide an optional profile to
                          load. If none provided, default will be used

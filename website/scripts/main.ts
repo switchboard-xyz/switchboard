@@ -37,11 +37,11 @@ const projectRoot = path.join(__dirname, "..", "..");
   );
 
   console.log(
-    chalk.green(`Generating typedocs for @switchboard-xyz/solana.js`)
+    chalk.green(`Generating typedocs for @switchboard-xyz/switchboard-v2`)
   );
   generateGenericApiTypedocs(
     projectRoot,
-    ["sdks", "solana", "javascript", "solana.js"],
+    ["sdks", "solana", "javascript", "switchboard-v2"],
     ["@switchboard-xyz", "solana.js"]
   );
 
@@ -63,6 +63,6 @@ const projectRoot = path.join(__dirname, "..", "..");
     ["@switchboard-xyz", "sbv2-utils"]
   );
 
-  // console.log(chalk.green(`Generating documentation for @switchboard-xyz/cli`));
-  // generateCliDocs(projectRoot);
+  console.log(chalk.green(`Generating documentation for @switchboard-xyz/cli`));
+  generateCliDocs(projectRoot);
 })();
