@@ -77,6 +77,9 @@ export default class AggregatorCreate extends BaseCommand {
       description: "filesystem path to job definition file",
       multiple: true,
     }),
+    keypair: Flags.string({
+      description: "keypair to use for aggregator account",
+    }),
   };
 
   static args = [
@@ -93,6 +96,10 @@ export default class AggregatorCreate extends BaseCommand {
     const payerKeypair = programWallet(this.program);
     const feedAuthority = await this.loadAuthority(flags.authority);
     const queueAuthority = await this.loadAuthority(flags.queueAuthority);
+
+    const aggregatorKeypair = flags.keypair
+      ? await this.loadAuthority(flags.keypair)
+      : Keypair.generate();
 
     const [programStateAccount, stateBump] = ProgramStateAccount.fromSeed(
       this.program
@@ -191,7 +198,7 @@ export default class AggregatorCreate extends BaseCommand {
       });
 
     // Create Aggregator Account
-    const aggregatorKeypair = anchor.web3.Keypair.generate();
+
     const aggregatorSize = this.program.account.aggregatorAccountData.size;
     const aggregatorAccount = new AggregatorAccount({
       program: this.program,
