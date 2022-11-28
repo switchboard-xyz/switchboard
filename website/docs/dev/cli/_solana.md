@@ -1300,8 +1300,8 @@ run anchor test and a switchboard oracle in parallel
 ```
 USAGE
   $ sbv2 solana anchor test [-h] [-v] [-s] [--mainnetBeta] [-u <value>] [--programId <value>] [--commitment
-    confirmed|finalized|processed] [-k <value>] [-d <value>] [--oracleKey <value>] [--nodeImage <value>] [--arm] [-t
-    <value>]
+    confirmed|finalized|processed] [-k <value>] [-d <value>] [--oracleKey <value>] [--cluster localnet|devnet]
+    [--nodeImage <value>] [--arm] [-t <value>]
 
 FLAGS
   -d, --switchboardDir=<value>  directory with switchboard.env to load a switchboard environment
@@ -1313,6 +1313,8 @@ FLAGS
   -u, --rpcUrl=<value>          alternate RPC url
   -v, --verbose                 log everything
   --arm                         apple silicon needs to use a docker image for linux/arm64
+  --cluster=<option>            [default: localnet] cluster
+                                <options: localnet|devnet>
   --commitment=<option>         [default: confirmed] transaction commitment level to use
                                 <options: confirmed|finalized|processed>
   --mainnetBeta                 WARNING: use mainnet-beta solana cluster

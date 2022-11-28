@@ -42,7 +42,7 @@ const projectRoot = path.join(__dirname, "..", "..");
   generateGenericApiTypedocs(
     projectRoot,
     ["sdks", "solana", "javascript", "switchboard-v2"],
-    ["@switchboard-xyz", "solana.js"]
+    ["@switchboard-xyz", "switchboard-v2"]
   );
 
   console.log(

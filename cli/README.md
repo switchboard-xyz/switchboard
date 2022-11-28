@@ -23,13 +23,13 @@ node bin/dev print GvDMxPzN1sCj7L26YDK2HnMRXEQmQ2aemov8YBtPS7vR
 <!-- commands -->
 # Command Topics
 
-* [`sbv2 aptos`](../website/docs/_common/cli/aptos.md) - interact with switchboard on Aptos
-* [`sbv2 config`](../website/docs/_common/cli/config.md) - manage the CLI configuration variables
-* [`sbv2 help`](../website/docs/_common/cli/help.md) - Display help for sbv2.
-* [`sbv2 near`](../website/docs/_common/cli/near.md) - interact with switchboard on Near
-* [`sbv2 oracle`](../website/docs/_common/cli/oracle.md) - fetch logs for a switchboard oracle
-* [`sbv2 solana`](../website/docs/_common/cli/solana.md) - interact with switchboard on Solana
-* [`sbv2 update`](../website/docs/_common/cli/update.md) - update the sbv2 CLI
-* [`sbv2 version`](../website/docs/_common/cli/version.md)
+* [`sbv2 aptos`](../website/docs/dev/cli/aptos.md) - interact with switchboard on Aptos
+* [`sbv2 config`](../website/docs/dev/cli/config.md) - manage the CLI configuration variables
+* [`sbv2 help`](../website/docs/dev/cli/help.md) - Display help for sbv2.
+* [`sbv2 near`](../website/docs/dev/cli/near.md) - interact with switchboard on Near
+* [`sbv2 oracle`](../website/docs/dev/cli/oracle.md) - fetch logs for a switchboard oracle
+* [`sbv2 solana`](../website/docs/dev/cli/solana.md) - interact with switchboard on Solana
+* [`sbv2 update`](../website/docs/dev/cli/update.md) - update the sbv2 CLI
+* [`sbv2 version`](../website/docs/dev/cli/version.md)
 
 <!-- commandsstop -->

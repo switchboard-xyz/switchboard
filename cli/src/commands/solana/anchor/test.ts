@@ -25,6 +25,11 @@ export default class AnchorTest extends BaseCommand {
     oracleKey: Flags.string({
       description: "public key of the oracle to start-up",
     }),
+    cluster: Flags.string({
+      description: "cluster",
+      default: "localnet",
+      options: ["localnet", "devnet"],
+    }),
     nodeImage: Flags.string({
       description: "public key of the oracle to start-up",
       default: "dev-v2-RC_11_10_22__19_19",
@@ -68,8 +73,11 @@ export default class AnchorTest extends BaseCommand {
     const docker = new DockerOracle(
       {
         chain: "solana",
-        network: "devnet",
-        rpcUrl: this.rpcUrl,
+        network: flags.cluster as "localnet" | "devnet",
+        rpcUrl:
+          flags.cluster === "localnet"
+            ? "http://host.docker.internal:8899"
+            : this.rpcUrl,
         oracleKey: oracleKey.toBase58(),
         secretPath: this.normalizePath(flags.keypair),
       },
