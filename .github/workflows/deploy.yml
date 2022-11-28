@@ -55,7 +55,7 @@ jobs:
           yarn install --frozen-lockfile --network-timeout=1000000
 
       - name: Install Solana SDK dependencies
-        working-directory: sdks/solana/javascript/solana.js
+        working-directory: sdks/solana/javascript/switchboard-v2
         run: |
           yarn install --frozen-lockfile --network-timeout=1000000
 
