@@ -22,7 +22,7 @@
 <ul class="tsd-hierarchy">
 <li><span class="target">VrfAccount</span></li></ul></section></li></ul></section><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/switchboard-xyz/switchboard-v2/blob/5d34a1d/javascript/solana.js/src/accounts/vrfAccount.ts#L40">src/accounts/vrfAccount.ts:40</a></li></ul></aside>
+<li>Defined in <a href="https://github.com/switchboard-xyz/switchboard-v2/blob/c8bc215/javascript/solana.js/src/accounts/vrfAccount.ts#L26">accounts/vrfAccount.ts:26</a></li></ul></aside>
 <section class="tsd-panel-group tsd-index-group">
 <section class="tsd-panel tsd-index-panel">
 <details class="tsd-index-content tsd-index-accordion" open><summary class="tsd-accordion-summary tsd-index-summary">
@@ -43,6 +43,12 @@
 <h3 class="tsd-index-heading">Methods</h3>
 <div class="tsd-index-list"><a href="VrfAccount.html#loadData" class="tsd-index-link tsd-kind-method tsd-parent-kind-class"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><rect fill="var(--color-icon-background)" stroke="#FF4DB8" stroke-width="1.5" x="1" y="1" width="22" height="22" rx="12" id="icon-2048-path"></rect><path d="M9.162 16V7.24H10.578L11.514 10.072C11.602 10.328 11.674 10.584 11.73 10.84C11.794 11.088 11.842 11.28 11.874 11.416C11.906 11.28 11.954 11.088 12.018 10.84C12.082 10.584 12.154 10.324 12.234 10.06L13.122 7.24H14.538V16H13.482V12.82C13.482 12.468 13.49 12.068 13.506 11.62C13.53 11.172 13.558 10.716 13.59 10.252C13.622 9.78 13.654 9.332 13.686 8.908C13.726 8.476 13.762 8.1 13.794 7.78L12.366 12.16H11.334L9.894 7.78C9.934 8.092 9.97 8.456 10.002 8.872C10.042 9.28 10.078 9.716 10.11 10.18C10.142 10.636 10.166 11.092 10.182 11.548C10.206 12.004 10.218 12.428 10.218 12.82V16H9.162Z" fill="var(--color-text)" id="icon-2048-text"></path></svg><span>load<wbr/>Data</span></a>
 <a href="VrfAccount.html#onChange" class="tsd-index-link tsd-kind-method tsd-parent-kind-class"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg><span>on<wbr/>Change</span></a>
+<a href="VrfAccount.html#proveAndVerify" class="tsd-index-link tsd-kind-method tsd-parent-kind-class"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg><span>prove<wbr/>And<wbr/>Verify</span></a>
+<a href="VrfAccount.html#proveAndVerifyInstructions" class="tsd-index-link tsd-kind-method tsd-parent-kind-class"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg><span>prove<wbr/>And<wbr/>Verify<wbr/>Instructions</span></a>
+<a href="VrfAccount.html#requestRandomness" class="tsd-index-link tsd-kind-method tsd-parent-kind-class"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg><span>request<wbr/>Randomness</span></a>
+<a href="VrfAccount.html#requestRandomnessInstruction" class="tsd-index-link tsd-kind-method tsd-parent-kind-class"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg><span>request<wbr/>Randomness<wbr/>Instruction</span></a>
+<a href="VrfAccount.html#setCallback" class="tsd-index-link tsd-kind-method tsd-parent-kind-class"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg><span>set<wbr/>Callback</span></a>
+<a href="VrfAccount.html#setCallbackInstruction" class="tsd-index-link tsd-kind-method tsd-parent-kind-class"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg><span>set<wbr/>Callback<wbr/>Instruction</span></a>
 <a href="VrfAccount.html#create" class="tsd-index-link tsd-kind-method tsd-parent-kind-class"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg><span>create</span></a>
 <a href="VrfAccount.html#createInstructions" class="tsd-index-link tsd-kind-method tsd-parent-kind-class"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg><span>create<wbr/>Instructions</span></a>
 </div></section></div></details></section></section>
@@ -69,7 +75,7 @@
 <h4 class="tsd-returns-title">Returns <a href="VrfAccount.html" class="tsd-signature-type" data-tsd-kind="Class">VrfAccount</a></h4><aside class="tsd-sources">
 <p>Inherited from <a href="Account.html">Account</a>.<a href="Account.html#constructor">constructor</a></p>
 <ul>
-<li>Defined in <a href="https://github.com/switchboard-xyz/switchboard-v2/blob/5d34a1d/javascript/solana.js/src/accounts/account.ts#L10">src/accounts/account.ts:10</a></li></ul></aside></li></ul></section></section>
+<li>Defined in <a href="https://github.com/switchboard-xyz/switchboard-v2/blob/c8bc215/javascript/solana.js/src/accounts/account.ts#L10">accounts/account.ts:10</a></li></ul></aside></li></ul></section></section>
 <section class="tsd-panel-group tsd-member-group">
 <h2>Properties</h2>
 <section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a id="program" class="tsd-anchor"></a>
@@ -77,13 +83,13 @@
 <div class="tsd-signature">program<span class="tsd-signature-symbol">:</span> <a href="SwitchboardProgram.html" class="tsd-signature-type" data-tsd-kind="Class">SwitchboardProgram</a></div><aside class="tsd-sources">
 <p>Inherited from <a href="Account.html">Account</a>.<a href="Account.html#program">program</a></p>
 <ul>
-<li>Defined in <a href="https://github.com/switchboard-xyz/switchboard-v2/blob/5d34a1d/javascript/solana.js/src/accounts/account.ts#L11">src/accounts/account.ts:11</a></li></ul></aside></section>
+<li>Defined in <a href="https://github.com/switchboard-xyz/switchboard-v2/blob/c8bc215/javascript/solana.js/src/accounts/account.ts#L11">accounts/account.ts:11</a></li></ul></aside></section>
 <section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a id="publicKey" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><code class="tsd-tag ts-flagReadonly">Readonly</code> <span>public<wbr/>Key</span><a href="#publicKey" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
 <div class="tsd-signature">public<wbr/>Key<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">PublicKey</span></div><aside class="tsd-sources">
 <p>Inherited from <a href="Account.html">Account</a>.<a href="Account.html#publicKey">publicKey</a></p>
 <ul>
-<li>Defined in <a href="https://github.com/switchboard-xyz/switchboard-v2/blob/5d34a1d/javascript/solana.js/src/accounts/account.ts#L12">src/accounts/account.ts:12</a></li></ul></aside></section>
+<li>Defined in <a href="https://github.com/switchboard-xyz/switchboard-v2/blob/c8bc215/javascript/solana.js/src/accounts/account.ts#L12">accounts/account.ts:12</a></li></ul></aside></section>
 <section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class"><a id="size" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><code class="tsd-tag ts-flagReadonly">Readonly</code> <span>size</span><a href="#size" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
 <div class="tsd-signature">size<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> = ...</span></div>
@@ -91,12 +97,12 @@
 </div><aside class="tsd-sources">
 <p>Overrides <a href="Account.html">Account</a>.<a href="Account.html#size">size</a></p>
 <ul>
-<li>Defined in <a href="https://github.com/switchboard-xyz/switchboard-v2/blob/5d34a1d/javascript/solana.js/src/accounts/vrfAccount.ts#L129">src/accounts/vrfAccount.ts:129</a></li></ul></aside></section>
+<li>Defined in <a href="https://github.com/switchboard-xyz/switchboard-v2/blob/c8bc215/javascript/solana.js/src/accounts/vrfAccount.ts#L32">accounts/vrfAccount.ts:32</a></li></ul></aside></section>
 <section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class"><a id="accountName" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><code class="tsd-tag ts-flagStatic">Static</code> <span>account<wbr/>Name</span><a href="#accountName" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
 <div class="tsd-signature">account<wbr/>Name<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> = &#39;VrfAccountData&#39;</span></div><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/switchboard-xyz/switchboard-v2/blob/5d34a1d/javascript/solana.js/src/accounts/vrfAccount.ts#L41">src/accounts/vrfAccount.ts:41</a></li></ul></aside></section></section>
+<li>Defined in <a href="https://github.com/switchboard-xyz/switchboard-v2/blob/c8bc215/javascript/solana.js/src/accounts/vrfAccount.ts#L27">accounts/vrfAccount.ts:27</a></li></ul></aside></section></section>
 <section class="tsd-panel-group tsd-member-group">
 <h2>Methods</h2>
 <section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class"><a id="loadData" class="tsd-anchor"></a>
@@ -109,20 +115,129 @@
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="types.VrfAccountData.html" class="tsd-signature-type" data-tsd-kind="Class">VrfAccountData</a><span class="tsd-signature-symbol">&gt;</span></h4><aside class="tsd-sources">
 <p>Overrides <a href="Account.html">Account</a>.<a href="Account.html#loadData">loadData</a></p>
 <ul>
-<li>Defined in <a href="https://github.com/switchboard-xyz/switchboard-v2/blob/5d34a1d/javascript/solana.js/src/accounts/vrfAccount.ts#L134">src/accounts/vrfAccount.ts:134</a></li></ul></aside></li></ul></section>
+<li>Defined in <a href="https://github.com/switchboard-xyz/switchboard-v2/blob/c8bc215/javascript/solana.js/src/accounts/vrfAccount.ts#L48">accounts/vrfAccount.ts:48</a></li></ul></aside></li></ul></section>
 <section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class"><a id="onChange" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>on<wbr/>Change</span><a href="#onChange" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
 <ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-<li class="tsd-signature tsd-anchor-link" id="onChange.onChange-1">on<wbr/>Change<span class="tsd-signature-symbol">(</span>callback<span class="tsd-signature-symbol">: </span><a href="../types/OnAccountChangeCallback.html" class="tsd-signature-type" data-tsd-kind="Type alias">OnAccountChangeCallback</a><span class="tsd-signature-symbol">&lt;</span><a href="types.VrfAccountData.html" class="tsd-signature-type" data-tsd-kind="Class">VrfAccountData</a><span class="tsd-signature-symbol">&gt;</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><a href="#onChange.onChange-1" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></li>
+<li class="tsd-signature tsd-anchor-link" id="onChange.onChange-1">on<wbr/>Change<span class="tsd-signature-symbol">(</span>callback<span class="tsd-signature-symbol">: </span><a href="../types/OnAccountChangeCallback.html" class="tsd-signature-type" data-tsd-kind="Type alias">OnAccountChangeCallback</a><span class="tsd-signature-symbol">&lt;</span><a href="types.VrfAccountData.html" class="tsd-signature-type" data-tsd-kind="Class">VrfAccountData</a><span class="tsd-signature-symbol">&gt;</span>, commitment<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">Commitment</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><a href="#onChange.onChange-1" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></li>
 <li class="tsd-description">
 <div class="tsd-parameters">
 <h4 class="tsd-parameters-title">Parameters</h4>
 <ul class="tsd-parameter-list">
 <li>
-<h5>callback: <a href="../types/OnAccountChangeCallback.html" class="tsd-signature-type" data-tsd-kind="Type alias">OnAccountChangeCallback</a><span class="tsd-signature-symbol">&lt;</span><a href="types.VrfAccountData.html" class="tsd-signature-type" data-tsd-kind="Class">VrfAccountData</a><span class="tsd-signature-symbol">&gt;</span></h5></li></ul></div>
+<h5>callback: <a href="../types/OnAccountChangeCallback.html" class="tsd-signature-type" data-tsd-kind="Type alias">OnAccountChangeCallback</a><span class="tsd-signature-symbol">&lt;</span><a href="types.VrfAccountData.html" class="tsd-signature-type" data-tsd-kind="Class">VrfAccountData</a><span class="tsd-signature-symbol">&gt;</span></h5></li>
+<li>
+<h5>commitment: <span class="tsd-signature-type">Commitment</span><span class="tsd-signature-symbol"> = &#39;confirmed&#39;</span></h5></li></ul></div>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span></h4><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/switchboard-xyz/switchboard-v2/blob/5d34a1d/javascript/solana.js/src/accounts/vrfAccount.ts#L140">src/accounts/vrfAccount.ts:140</a></li></ul></aside></li></ul></section>
+<li>Defined in <a href="https://github.com/switchboard-xyz/switchboard-v2/blob/c8bc215/javascript/solana.js/src/accounts/vrfAccount.ts#L34">accounts/vrfAccount.ts:34</a></li></ul></aside></li></ul></section>
+<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class"><a id="proveAndVerify" class="tsd-anchor"></a>
+<h3 class="tsd-anchor-link"><span>prove<wbr/>And<wbr/>Verify</span><a href="#proveAndVerify" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
+<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+<li class="tsd-signature tsd-anchor-link" id="proveAndVerify.proveAndVerify-1">prove<wbr/>And<wbr/>Verify<span class="tsd-signature-symbol">(</span>params<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">{ </span>oracleAuthority<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">PublicKey</span><span class="tsd-signature-symbol">; </span>oraclePubkey<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">PublicKey</span><span class="tsd-signature-symbol">; </span>oracleTokenWallet<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">PublicKey</span><span class="tsd-signature-symbol">; </span>proof<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>skipPreflight<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">; </span>vrf<span class="tsd-signature-symbol">?: </span><a href="types.VrfAccountData.html" class="tsd-signature-type" data-tsd-kind="Class">VrfAccountData</a><span class="tsd-signature-symbol"> }</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span><a href="#proveAndVerify.proveAndVerify-1" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></li>
+<li class="tsd-description">
+<div class="tsd-parameters">
+<h4 class="tsd-parameters-title">Parameters</h4>
+<ul class="tsd-parameter-list">
+<li>
+<h5>params: <span class="tsd-signature-symbol">{ </span>oracleAuthority<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">PublicKey</span><span class="tsd-signature-symbol">; </span>oraclePubkey<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">PublicKey</span><span class="tsd-signature-symbol">; </span>oracleTokenWallet<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">PublicKey</span><span class="tsd-signature-symbol">; </span>proof<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>skipPreflight<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">; </span>vrf<span class="tsd-signature-symbol">?: </span><a href="types.VrfAccountData.html" class="tsd-signature-type" data-tsd-kind="Class">VrfAccountData</a><span class="tsd-signature-symbol"> }</span></h5>
+<ul class="tsd-parameters">
+<li class="tsd-parameter">
+<h5><code class="tsd-tag ts-flagOptional">Optional</code> oracle<wbr/>Authority<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">PublicKey</span></h5></li>
+<li class="tsd-parameter">
+<h5><code class="tsd-tag ts-flagOptional">Optional</code> oracle<wbr/>Pubkey<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">PublicKey</span></h5></li>
+<li class="tsd-parameter">
+<h5><code class="tsd-tag ts-flagOptional">Optional</code> oracle<wbr/>Token<wbr/>Wallet<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">PublicKey</span></h5></li>
+<li class="tsd-parameter">
+<h5><code class="tsd-tag ts-flagOptional">Optional</code> proof<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">string</span></h5></li>
+<li class="tsd-parameter">
+<h5><code class="tsd-tag ts-flagOptional">Optional</code> skip<wbr/>Preflight<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">boolean</span></h5></li>
+<li class="tsd-parameter">
+<h5><code class="tsd-tag ts-flagOptional">Optional</code> vrf<span class="tsd-signature-symbol">?: </span><a href="types.VrfAccountData.html" class="tsd-signature-type" data-tsd-kind="Class">VrfAccountData</a></h5></li></ul></li></ul></div>
+<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></h4><aside class="tsd-sources">
+<ul>
+<li>Defined in <a href="https://github.com/switchboard-xyz/switchboard-v2/blob/c8bc215/javascript/solana.js/src/accounts/vrfAccount.ts#L270">accounts/vrfAccount.ts:270</a></li></ul></aside></li></ul></section>
+<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class"><a id="proveAndVerifyInstructions" class="tsd-anchor"></a>
+<h3 class="tsd-anchor-link"><span>prove<wbr/>And<wbr/>Verify<wbr/>Instructions</span><a href="#proveAndVerifyInstructions" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
+<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+<li class="tsd-signature tsd-anchor-link" id="proveAndVerifyInstructions.proveAndVerifyInstructions-1">prove<wbr/>And<wbr/>Verify<wbr/>Instructions<span class="tsd-signature-symbol">(</span>params<span class="tsd-signature-symbol">: </span><a href="../interfaces/VrfProveAndVerifyParams.html" class="tsd-signature-type" data-tsd-kind="Interface">VrfProveAndVerifyParams</a>, tryCount<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">TransactionInstruction</span><span class="tsd-signature-symbol">[]</span><a href="#proveAndVerifyInstructions.proveAndVerifyInstructions-1" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></li>
+<li class="tsd-description">
+<div class="tsd-parameters">
+<h4 class="tsd-parameters-title">Parameters</h4>
+<ul class="tsd-parameter-list">
+<li>
+<h5>params: <a href="../interfaces/VrfProveAndVerifyParams.html" class="tsd-signature-type" data-tsd-kind="Interface">VrfProveAndVerifyParams</a></h5></li>
+<li>
+<h5>tryCount: <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> = 278</span></h5></li></ul></div>
+<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">TransactionInstruction</span><span class="tsd-signature-symbol">[]</span></h4><aside class="tsd-sources">
+<ul>
+<li>Defined in <a href="https://github.com/switchboard-xyz/switchboard-v2/blob/c8bc215/javascript/solana.js/src/accounts/vrfAccount.ts#L194">accounts/vrfAccount.ts:194</a></li></ul></aside></li></ul></section>
+<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class"><a id="requestRandomness" class="tsd-anchor"></a>
+<h3 class="tsd-anchor-link"><span>request<wbr/>Randomness</span><a href="#requestRandomness" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
+<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+<li class="tsd-signature tsd-anchor-link" id="requestRandomness.requestRandomness-1">request<wbr/>Randomness<span class="tsd-signature-symbol">(</span>params<span class="tsd-signature-symbol">: </span><a href="../interfaces/VrfRequestRandomnessParams.html" class="tsd-signature-type" data-tsd-kind="Interface">VrfRequestRandomnessParams</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span><a href="#requestRandomness.requestRandomness-1" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></li>
+<li class="tsd-description">
+<div class="tsd-parameters">
+<h4 class="tsd-parameters-title">Parameters</h4>
+<ul class="tsd-parameter-list">
+<li>
+<h5>params: <a href="../interfaces/VrfRequestRandomnessParams.html" class="tsd-signature-type" data-tsd-kind="Interface">VrfRequestRandomnessParams</a></h5></li></ul></div>
+<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></h4><aside class="tsd-sources">
+<ul>
+<li>Defined in <a href="https://github.com/switchboard-xyz/switchboard-v2/blob/c8bc215/javascript/solana.js/src/accounts/vrfAccount.ts#L183">accounts/vrfAccount.ts:183</a></li></ul></aside></li></ul></section>
+<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class"><a id="requestRandomnessInstruction" class="tsd-anchor"></a>
+<h3 class="tsd-anchor-link"><span>request<wbr/>Randomness<wbr/>Instruction</span><a href="#requestRandomnessInstruction" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
+<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+<li class="tsd-signature tsd-anchor-link" id="requestRandomnessInstruction.requestRandomnessInstruction-1">request<wbr/>Randomness<wbr/>Instruction<span class="tsd-signature-symbol">(</span>payer<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">PublicKey</span>, params<span class="tsd-signature-symbol">: </span><a href="../interfaces/VrfRequestRandomnessParams.html" class="tsd-signature-type" data-tsd-kind="Interface">VrfRequestRandomnessParams</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="TransactionObject.html" class="tsd-signature-type" data-tsd-kind="Class">TransactionObject</a><span class="tsd-signature-symbol">&gt;</span><a href="#requestRandomnessInstruction.requestRandomnessInstruction-1" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></li>
+<li class="tsd-description">
+<div class="tsd-parameters">
+<h4 class="tsd-parameters-title">Parameters</h4>
+<ul class="tsd-parameter-list">
+<li>
+<h5>payer: <span class="tsd-signature-type">PublicKey</span></h5></li>
+<li>
+<h5>params: <a href="../interfaces/VrfRequestRandomnessParams.html" class="tsd-signature-type" data-tsd-kind="Interface">VrfRequestRandomnessParams</a></h5></li></ul></div>
+<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="TransactionObject.html" class="tsd-signature-type" data-tsd-kind="Class">TransactionObject</a><span class="tsd-signature-symbol">&gt;</span></h4><aside class="tsd-sources">
+<ul>
+<li>Defined in <a href="https://github.com/switchboard-xyz/switchboard-v2/blob/c8bc215/javascript/solana.js/src/accounts/vrfAccount.ts#L134">accounts/vrfAccount.ts:134</a></li></ul></aside></li></ul></section>
+<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class"><a id="setCallback" class="tsd-anchor"></a>
+<h3 class="tsd-anchor-link"><span>set<wbr/>Callback</span><a href="#setCallback" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
+<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+<li class="tsd-signature tsd-anchor-link" id="setCallback.setCallback-1">set<wbr/>Callback<span class="tsd-signature-symbol">(</span>params<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">{ </span>authority<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">PublicKey</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">Keypair</span><span class="tsd-signature-symbol">; </span>callback<span class="tsd-signature-symbol">: </span><a href="../interfaces/Callback.html" class="tsd-signature-type" data-tsd-kind="Interface">Callback</a><span class="tsd-signature-symbol"> }</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span><a href="#setCallback.setCallback-1" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></li>
+<li class="tsd-description">
+<div class="tsd-parameters">
+<h4 class="tsd-parameters-title">Parameters</h4>
+<ul class="tsd-parameter-list">
+<li>
+<h5>params: <span class="tsd-signature-symbol">{ </span>authority<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">PublicKey</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">Keypair</span><span class="tsd-signature-symbol">; </span>callback<span class="tsd-signature-symbol">: </span><a href="../interfaces/Callback.html" class="tsd-signature-type" data-tsd-kind="Interface">Callback</a><span class="tsd-signature-symbol"> }</span></h5>
+<ul class="tsd-parameters">
+<li class="tsd-parameter">
+<h5>authority<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">PublicKey</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">Keypair</span></h5></li>
+<li class="tsd-parameter">
+<h5>callback<span class="tsd-signature-symbol">: </span><a href="../interfaces/Callback.html" class="tsd-signature-type" data-tsd-kind="Interface">Callback</a></h5></li></ul></li></ul></div>
+<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">&gt;</span></h4><aside class="tsd-sources">
+<ul>
+<li>Defined in <a href="https://github.com/switchboard-xyz/switchboard-v2/blob/c8bc215/javascript/solana.js/src/accounts/vrfAccount.ts#L338">accounts/vrfAccount.ts:338</a></li></ul></aside></li></ul></section>
+<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class"><a id="setCallbackInstruction" class="tsd-anchor"></a>
+<h3 class="tsd-anchor-link"><span>set<wbr/>Callback<wbr/>Instruction</span><a href="#setCallbackInstruction" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
+<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+<li class="tsd-signature tsd-anchor-link" id="setCallbackInstruction.setCallbackInstruction-1">set<wbr/>Callback<wbr/>Instruction<span class="tsd-signature-symbol">(</span>payer<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">PublicKey</span>, params<span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">{ </span>authority<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">PublicKey</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">Keypair</span><span class="tsd-signature-symbol">; </span>callback<span class="tsd-signature-symbol">: </span><a href="../interfaces/Callback.html" class="tsd-signature-type" data-tsd-kind="Interface">Callback</a><span class="tsd-signature-symbol"> }</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="TransactionObject.html" class="tsd-signature-type" data-tsd-kind="Class">TransactionObject</a><a href="#setCallbackInstruction.setCallbackInstruction-1" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></li>
+<li class="tsd-description">
+<div class="tsd-parameters">
+<h4 class="tsd-parameters-title">Parameters</h4>
+<ul class="tsd-parameter-list">
+<li>
+<h5>payer: <span class="tsd-signature-type">PublicKey</span></h5></li>
+<li>
+<h5>params: <span class="tsd-signature-symbol">{ </span>authority<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">PublicKey</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">Keypair</span><span class="tsd-signature-symbol">; </span>callback<span class="tsd-signature-symbol">: </span><a href="../interfaces/Callback.html" class="tsd-signature-type" data-tsd-kind="Interface">Callback</a><span class="tsd-signature-symbol"> }</span></h5>
+<ul class="tsd-parameters">
+<li class="tsd-parameter">
+<h5>authority<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">PublicKey</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">Keypair</span></h5></li>
+<li class="tsd-parameter">
+<h5>callback<span class="tsd-signature-symbol">: </span><a href="../interfaces/Callback.html" class="tsd-signature-type" data-tsd-kind="Interface">Callback</a></h5></li></ul></li></ul></div>
+<h4 class="tsd-returns-title">Returns <a href="TransactionObject.html" class="tsd-signature-type" data-tsd-kind="Class">TransactionObject</a></h4><aside class="tsd-sources">
+<ul>
+<li>Defined in <a href="https://github.com/switchboard-xyz/switchboard-v2/blob/c8bc215/javascript/solana.js/src/accounts/vrfAccount.ts#L306">accounts/vrfAccount.ts:306</a></li></ul></aside></li></ul></section>
 <section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class"><a id="create" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><code class="tsd-tag ts-flagStatic">Static</code> <span>create</span><a href="#create" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
 <ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
@@ -140,7 +255,7 @@
 <h5>params: <a href="../interfaces/VrfInitParams.html" class="tsd-signature-type" data-tsd-kind="Interface">VrfInitParams</a></h5></li></ul></div>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">, </span><a href="VrfAccount.html" class="tsd-signature-type" data-tsd-kind="Class">VrfAccount</a><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">&gt;</span></h4><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/switchboard-xyz/switchboard-v2/blob/5d34a1d/javascript/solana.js/src/accounts/vrfAccount.ts#L48">src/accounts/vrfAccount.ts:48</a></li></ul></aside></li></ul></section>
+<li>Defined in <a href="https://github.com/switchboard-xyz/switchboard-v2/blob/c8bc215/javascript/solana.js/src/accounts/vrfAccount.ts#L121">accounts/vrfAccount.ts:121</a></li></ul></aside></li></ul></section>
 <section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class"><a id="createInstructions" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><code class="tsd-tag ts-flagStatic">Static</code> <span>create<wbr/>Instructions</span><a href="#createInstructions" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
 <ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
@@ -161,7 +276,7 @@
 <h5>params: <a href="../interfaces/VrfInitParams.html" class="tsd-signature-type" data-tsd-kind="Interface">VrfInitParams</a></h5></li></ul></div>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-symbol">[</span><a href="TransactionObject.html" class="tsd-signature-type" data-tsd-kind="Class">TransactionObject</a><span class="tsd-signature-symbol">, </span><a href="VrfAccount.html" class="tsd-signature-type" data-tsd-kind="Class">VrfAccount</a><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">&gt;</span></h4><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/switchboard-xyz/switchboard-v2/blob/5d34a1d/javascript/solana.js/src/accounts/vrfAccount.ts#L67">src/accounts/vrfAccount.ts:67</a></li></ul></aside></li></ul></section></section></div>
+<li>Defined in <a href="https://github.com/switchboard-xyz/switchboard-v2/blob/c8bc215/javascript/solana.js/src/accounts/vrfAccount.ts#L60">accounts/vrfAccount.ts:60</a></li></ul></aside></li></ul></section></section></div>
 <div class="col-4 col-menu menu-sticky-wrap menu-highlight">
 <div class="tsd-navigation settings">
 <details class="tsd-index-accordion"><summary class="tsd-accordion-summary">
@@ -185,6 +300,7 @@
 <ul>
 <li class="tsd-kind-namespace"><a href="../modules/types.html">types</a>
 <ul>
+<li class="tsd-kind-namespace tsd-parent-kind-namespace"><a href="../modules/types.AggregatorResolutionMode.html">Aggregator<wbr/>Resolution<wbr/>Mode</a></li>
 <li class="tsd-kind-namespace tsd-parent-kind-namespace"><a href="../modules/types.Error.html">Error</a></li>
 <li class="tsd-kind-namespace tsd-parent-kind-namespace"><a href="../modules/types.Lanes.html">Lanes</a></li>
 <li class="tsd-kind-namespace tsd-parent-kind-namespace"><a href="../modules/types.OracleResponseType.html">Oracle<wbr/>Response<wbr/>Type</a></li>
@@ -202,6 +318,12 @@
 <li class="tsd-kind-property tsd-parent-kind-class"><a href="VrfAccount.html#accountName" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-1024-path"></use><use href="#icon-1024-text"></use></svg>account<wbr/>Name</a></li>
 <li class="tsd-kind-method tsd-parent-kind-class"><a href="VrfAccount.html#loadData" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg>load<wbr/>Data</a></li>
 <li class="tsd-kind-method tsd-parent-kind-class"><a href="VrfAccount.html#onChange" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg>on<wbr/>Change</a></li>
+<li class="tsd-kind-method tsd-parent-kind-class"><a href="VrfAccount.html#proveAndVerify" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg>prove<wbr/>And<wbr/>Verify</a></li>
+<li class="tsd-kind-method tsd-parent-kind-class"><a href="VrfAccount.html#proveAndVerifyInstructions" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg>prove<wbr/>And<wbr/>Verify<wbr/>Instructions</a></li>
+<li class="tsd-kind-method tsd-parent-kind-class"><a href="VrfAccount.html#requestRandomness" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg>request<wbr/>Randomness</a></li>
+<li class="tsd-kind-method tsd-parent-kind-class"><a href="VrfAccount.html#requestRandomnessInstruction" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg>request<wbr/>Randomness<wbr/>Instruction</a></li>
+<li class="tsd-kind-method tsd-parent-kind-class"><a href="VrfAccount.html#setCallback" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg>set<wbr/>Callback</a></li>
+<li class="tsd-kind-method tsd-parent-kind-class"><a href="VrfAccount.html#setCallbackInstruction" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg>set<wbr/>Callback<wbr/>Instruction</a></li>
 <li class="tsd-kind-method tsd-parent-kind-class"><a href="VrfAccount.html#create" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg>create</a></li>
 <li class="tsd-kind-method tsd-parent-kind-class"><a href="VrfAccount.html#createInstructions" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg>create<wbr/>Instructions</a></li></ul></li></ul></nav></div></div>
 <div class="container tsd-generator">
