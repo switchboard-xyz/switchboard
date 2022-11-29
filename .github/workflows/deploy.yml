@@ -44,27 +44,32 @@ jobs:
         run: |
           yarn install --frozen-lockfile --network-timeout=1000000
 
-      - name: Install Aptos SDK dependencies
+      - name: Install @switchboard-xyz/aptos.js dependencies
         working-directory: sdks/aptos
         run: |
           yarn install --frozen-lockfile --network-timeout=1000000
 
-      - name: Install Near SDK dependencies
+      - name: Install @switchboard-xyz/near.js dependencies
         working-directory: sdks/near/javascript/near.js
         run: |
           yarn install --frozen-lockfile --network-timeout=1000000
 
-      - name: Install Solana SDK dependencies
+      - name: Install @switchboard-xyz/switchboard-v2 dependencies
         working-directory: sdks/solana/javascript/switchboard-v2
         run: |
           yarn install --frozen-lockfile --network-timeout=1000000
 
-      - name: Install sbv2-lite dependencies
+      - name: Install @switchboard-xyz/solana.js dependencies
+        working-directory: sdks/solana/javascript/solana.js
+        run: |
+          yarn install --frozen-lockfile --network-timeout=1000000
+
+      - name: Install @switchboard-xyz/sbv2-lite dependencies
         working-directory: sdks/solana/javascript/sbv2-lite
         run: |
           yarn install --frozen-lockfile --network-timeout=1000000
 
-      - name: Install sbv2-utils dependencies
+      - name: Install @switchboard-xyz/sbv2-utils dependencies
         working-directory: sdks/solana/javascript/sbv2-utils
         run: |
           yarn install --frozen-lockfile --network-timeout=1000000
