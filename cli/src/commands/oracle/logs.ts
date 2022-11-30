@@ -1,5 +1,3 @@
-import { chalkString } from "@switchboard-xyz/sbv2-utils";
-import chalk from "chalk";
 import { OutputFileBaseCommand } from "../../OutputFileBaseCommand";
 import fetch from "node-fetch";
 

@@ -28,11 +28,6 @@ export default class AggregatorCreate extends BaseCommand {
       description: "metadata of the aggregator",
       default: "",
     }),
-    forceReportPeriod: Flags.integer({
-      description:
-        "Number of seconds for which, even if the variance threshold is not passed, accept new responses from oracles.",
-      default: 0,
-    }),
     batchSize: Flags.integer({
       description: "number of oracles requested for each open round call",
       default: 1,
@@ -49,6 +44,11 @@ export default class AggregatorCreate extends BaseCommand {
     updateInterval: Flags.integer({
       description: "set an aggregator's minimum update delay",
       required: true,
+    }),
+    forceReportPeriod: Flags.integer({
+      description:
+        "Number of seconds for which, even if the variance threshold is not passed, accept new responses from oracles.",
+      default: 0,
     }),
     varianceThreshold: Flags.string({
       description:
@@ -140,12 +140,13 @@ export default class AggregatorCreate extends BaseCommand {
 
     const jobs: Array<{ pubkey: PublicKey; weight?: number } | JobInitParams> =
       [];
-    for await (const jobKey of flags.jobKey) {
+    for await (const jobKey of flags?.jobKey ?? []) {
       const [jobAccount, job] = await this.loadJob(jobKey);
       jobs.push({ pubkey: jobAccount.publicKey });
     }
-    for await (const jobDef of flags.job) {
-      const oracleJob = this.loadJobDefinition(jobDef);
+
+    for await (const jobDefinition of flags?.job ?? []) {
+      const oracleJob = this.loadJobDefinition(jobDefinition);
       jobs.push({
         data: OracleJob.encodeDelimited(oracleJob).finish(),
       });
@@ -181,6 +182,8 @@ export default class AggregatorCreate extends BaseCommand {
     if (flags.json) {
       return this.normalizeAccountData(aggregatorAccount.publicKey, accounts);
     }
+
+    // handle nicer logging here
   }
 
   async catch(error) {

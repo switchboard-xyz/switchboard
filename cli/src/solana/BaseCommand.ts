@@ -3,11 +3,11 @@ import { Input } from "@oclif/parser";
 import * as anchor from "@project-serum/anchor";
 import { Cluster, Connection, Keypair, PublicKey } from "@solana/web3.js";
 import { AuthorityMismatch } from "../types";
-import { loadKeypair } from "../utils";
+import { baseJsonReplacers, loadKeypair } from "../utils";
 import { CliBaseCommand as BaseCommand } from "../BaseCommand";
 import { AwsProvider, FsProvider, GcpProvider } from "../providers";
 import { IBaseChain } from "../types/chain";
-import { OracleJob, SwitchboardDecimal, toUtf8 } from "@switchboard-xyz/common";
+import { OracleJob } from "@switchboard-xyz/common";
 import {
   SBV2_MAINNET_PID,
   SBV2_DEVNET_PID,
@@ -21,9 +21,6 @@ import {
   PermissionAccount,
   LeaseAccount,
 } from "@switchboard-xyz/solana.js";
-import fs from "fs";
-import Big from "big.js";
-import { isBN } from "bn.js";
 
 export type SolanaNetwork = Cluster | "localnet";
 
@@ -121,6 +118,7 @@ export abstract class SolanaBaseCommand
         `Failed to get Solana RPC URL for cluster ${cluster}. Try providing the --rpcUrl flag`
       );
     }
+
     return rpcUrl;
   }
 
@@ -128,6 +126,7 @@ export abstract class SolanaBaseCommand
     if (programIdFlag) {
       return new PublicKey(programIdFlag);
     }
+
     if (cluster === "mainnet-beta") {
       return SBV2_MAINNET_PID;
     }
@@ -143,6 +142,7 @@ export abstract class SolanaBaseCommand
         `Need to load the connection before loading the Anchor program`
       );
     }
+
     if (!this.programId) {
       throw new Error(
         `Need to load the programId before loading the Anchor program`
@@ -204,6 +204,7 @@ export abstract class SolanaBaseCommand
     if (Number.isNaN(Number(value))) {
       throw new TypeError("tokenAmount must be an integer or decimal");
     }
+
     return this.program.mint.toTokenAmountBN(Number(value));
   }
 
@@ -214,7 +215,7 @@ export abstract class SolanaBaseCommand
         .trim()
         .replace(/\n/g, "")
         .replace(/\s/g, "");
-      const bytesRegex = /^\[(\s)?[0-9]+((\s)?,(\s)?[0-9]+){31,}\]/;
+      const bytesRegex = /^\[(\s)?\d+((\s)?,(\s)?\d+){31,}]/;
       if (bytesRegex.test(parsedFileString)) {
         return Keypair.fromSecretKey(
           new Uint8Array(JSON.parse(parsedFileString))
@@ -230,7 +231,7 @@ export abstract class SolanaBaseCommand
       throw new Error(`Failed to derive secret key from input file`);
     };
 
-    let errors: any[] = [];
+    const errors: any[] = [];
 
     // try loading keypair from filesystem
     try {
@@ -268,15 +269,9 @@ export abstract class SolanaBaseCommand
 
     throw new Error(
       `Failed to load Solana keypair ${keypairPath}\n${errors
-        .map((e) => (e as any).toString())
+        .map((error) => (error as any).toString())
         .join("\n")}`
     );
-  }
-
-  loadJobDefinition(jobDef: string): OracleJob {
-    const jobDefPath = this.normalizePath(jobDef);
-    const jobDefString = fs.readFileSync(jobDefPath, "utf-8");
-    return OracleJob.fromObject(JSON.parse(jobDefString));
   }
 
   deserializeJobData(jobData: Uint8Array): OracleJob {
@@ -364,14 +359,10 @@ export abstract class SolanaBaseCommand
     publicKey: PublicKey,
     data: Record<string, any>
   ): Record<string, any> {
-    const obj = {
+    const object = {
       publicKey: publicKey.toString(),
       ...data,
     };
-    return obj;
+    return JSON.parse(JSON.stringify(object, this.jsonReplacers, 2));
   }
-}
-
-interface toJSON {
-  toJSON: () => Record<string, any>;
 }

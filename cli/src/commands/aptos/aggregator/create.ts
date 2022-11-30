@@ -80,7 +80,7 @@ export default class CreateAggregator extends BaseCommand {
           flags.job.map(async (jobDefinition) => {
             const jobPayer = new AptosAccount();
             // await this.faucet.fundAccount(jobPayer.address(), 10000);
-            const oracleJob = this.loadJobJson(jobDefinition);
+            const oracleJob = this.loadJobDefinition(jobDefinition);
             const oracleJobData = Buffer.from(
               OracleJob.encodeDelimited(oracleJob).finish()
             );

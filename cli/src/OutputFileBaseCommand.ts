@@ -1,7 +1,7 @@
 import { Flags } from "@oclif/core";
 import { Input } from "@oclif/parser";
 import * as anchor from "@project-serum/anchor";
-import { SwitchboardDecimal } from "@switchboard-xyz/switchboard-v2";
+import { SwitchboardDecimal } from "@switchboard-xyz/common";
 import Big from "big.js";
 import fs from "fs";
 import path from "path";
