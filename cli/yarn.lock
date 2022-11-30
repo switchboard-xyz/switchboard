@@ -2232,6 +2232,15 @@
     buffer-layout "^1.2.0"
     dotenv "10.0.0"
 
+"@solana/spl-token@^0.3.5":
+  version "0.3.6"
+  resolved "https://registry.npmjs.org/@solana/spl-token/-/spl-token-0.3.6.tgz#35473ad2ed71fe91e5754a2ac72901e1b8b26a42"
+  integrity sha512-P9pTXjDIRvVbjr3J0mCnSamYqLnICeds7IoH1/Ro2R9OBuOHdp5pqKZoscfZ3UYrgnCWUc1bc9M2m/YPHjw+1g==
+  dependencies:
+    "@solana/buffer-layout" "^4.0.0"
+    "@solana/buffer-layout-utils" "^0.2.0"
+    buffer "^6.0.3"
+
 "@solana/web3.js@^0.86.1":
   version "0.86.4"
   resolved "https://registry.npmjs.org/@solana/web3.js/-/web3.js-0.86.4.tgz#69216d3928ca4727c25a1ea96c405e897156ac3b"
@@ -2281,6 +2290,27 @@
   version "1.62.0"
   resolved "https://registry.npmjs.org/@solana/web3.js/-/web3.js-1.62.0.tgz#8fef9fd443217161ddc25e701f603222047bc520"
   integrity sha512-rHnqJR5ECooUp8egurP9Qi1SKI1Q3pbF2ZkaHbEmFsSjBsyEe+Qqxa5h+7ueylqApYyk0zawnxz83y4kdrlNIA==
+  dependencies:
+    "@babel/runtime" "^7.12.5"
+    "@noble/ed25519" "^1.7.0"
+    "@noble/hashes" "^1.1.2"
+    "@noble/secp256k1" "^1.6.3"
+    "@solana/buffer-layout" "^4.0.0"
+    bigint-buffer "^1.1.5"
+    bn.js "^5.0.0"
+    borsh "^0.7.0"
+    bs58 "^4.0.1"
+    buffer "6.0.1"
+    fast-stable-stringify "^1.0.0"
+    jayson "^3.4.4"
+    node-fetch "2"
+    rpc-websockets "^7.5.0"
+    superstruct "^0.14.2"
+
+"@solana/web3.js@^1.66.1":
+  version "1.67.0"
+  resolved "https://registry.npmjs.org/@solana/web3.js/-/web3.js-1.67.0.tgz#bd67742cd9c176889fd1954080173dd7d0c224a2"
+  integrity sha512-t6tfRbYyuoyuik4D4B8eK6hPm//+5l7k+00YppFTGoxcix8b2bpE7iANLmvw+u5iZNMwG3VFV20xRdrqz8zhvQ==
   dependencies:
     "@babel/runtime" "^7.12.5"
     "@noble/ed25519" "^1.7.0"
@@ -2351,6 +2381,16 @@
     bn.js "^5.2.1"
     protobufjs "^6.11.3"
 
+"@switchboard-xyz/common@^2.0.3":
+  version "2.1.7"
+  resolved "https://registry.npmjs.org/@switchboard-xyz/common/-/common-2.1.7.tgz#44941febbbdbce7546c8a835764cb6c609650e88"
+  integrity sha512-ME2HnxMn/S2jCuUkanPZKtc3gaT5lq+Crr47DUx46ILldwBxsA9UL6LVv/Pknlp6JwkVxekhMCc+m6YSRER3pw==
+  dependencies:
+    big.js "^6.2.1"
+    bn.js "^5.2.1"
+    decimal.js "^10.4.2"
+    protobufjs "^7.1.2"
+
 "@switchboard-xyz/common@^2.1.3":
   version "2.1.3"
   resolved "https://registry.npmjs.org/@switchboard-xyz/common/-/common-2.1.3.tgz#ce50fd579841543c56d37550f5613d985d804514"
@@ -2416,6 +2456,19 @@
     dotenv "^16.0.1"
     mocha "^9.1.1"
     toml "^3.0.0"
+
+"@switchboard-xyz/solana.js@^2.0.6":
+  version "2.0.6"
+  resolved "https://registry.npmjs.org/@switchboard-xyz/solana.js/-/solana.js-2.0.6.tgz#9f40e1848b12d6e1aefea7921805cf78a493924c"
+  integrity sha512-efFW5oc45xCYazuueVe+5Yyp8Tz/9Qie4j20L5EQHHq8F9vB41fSL4AFDNswKL8G147ZCVco0fXYQDHWXxxDOA==
+  dependencies:
+    "@project-serum/anchor" "^0.25.0"
+    "@project-serum/borsh" "^0.2.5"
+    "@solana/spl-token" "^0.3.5"
+    "@solana/web3.js" "^1.66.1"
+    "@switchboard-xyz/common" "^2.0.3"
+    big.js "^6.2.1"
+    bn.js "^5.2.1"
 
 "@switchboard-xyz/switchboard-v2@^0.0.159":
   version "0.0.159"
@@ -3346,7 +3399,7 @@ buffer@6.0.1:
     base64-js "^1.3.1"
     ieee754 "^1.2.1"
 
-buffer@6.0.3, buffer@~6.0.3:
+buffer@6.0.3, buffer@^6.0.3, buffer@~6.0.3:
   version "6.0.3"
   resolved "https://registry.npmjs.org/buffer/-/buffer-6.0.3.tgz#2ace578459cc8fbe2a70aaa8f52ee63b6a74c6c6"
   integrity sha512-FTiCpNxtwiZZHEZbcbTIcZjERVICn9yq/pDFkTl95/AxzD1naBctN7YO68riM/gLSDY7sdrMby8hofADYuuqOA==
@@ -3964,6 +4017,11 @@ decimal.js@^10.2.1, decimal.js@^10.3.0, decimal.js@^10.3.1:
   version "10.4.0"
   resolved "https://registry.npmjs.org/decimal.js/-/decimal.js-10.4.0.tgz#97a7448873b01e92e5ff9117d89a7bca8e63e0fe"
   integrity sha512-Nv6ENEzyPQ6AItkGwLE2PGKinZZ9g59vSh2BeH6NqPu0OTKZ5ruJsVqh/orbAnqXc9pBbgXAIrc2EyaCj8NpGg==
+
+decimal.js@^10.4.2:
+  version "10.4.2"
+  resolved "https://registry.npmjs.org/decimal.js/-/decimal.js-10.4.2.tgz#0341651d1d997d86065a2ce3a441fbd0d8e8b98e"
+  integrity sha512-ic1yEvwT6GuvaYwBLLY6/aFFgjZdySKTE8en/fkU3QICTmRtgtSlFn0u0BXN06InZwtfCelR7j8LRiDI/02iGA==
 
 deep-eql@^3.0.1:
   version "3.0.1"
