@@ -111,21 +111,21 @@ export default class QueueCreate extends BaseCommand {
     const [txnSignature, queueAccount] = await QueueAccount.create(
       this.program,
       {
-        authority: authority ? authority.publicKey : undefined,
-        keypair: keypair,
-        queueSize: flags.size,
         name: flags.name,
         metadata: flags.metadata,
         reward: Number(flags.reward),
         minStake: Number(flags.minStake),
+        feedProbationPeriod: flags.feedProbationPeriod,
         oracleTimeout: flags.oracleTimeout,
         slashingEnabled: flags.slashingEnabled,
+        consecutiveFeedFailureLimit: flags.consecutiveFeedFailureLimit,
+        consecutiveOracleFailureLimit: flags.consecutiveOracleFailureLimit,
+        queueSize: flags.size,
         unpermissionedFeeds: !flags.permissionedFeeds,
         unpermissionedVrf: flags.unpermissionedVrf,
         enableBufferRelayers: flags.enableBufferRelayers,
-        feedProbationPeriod: flags.feedProbationPeriod,
-        consecutiveFeedFailureLimit: flags.consecutiveFeedFailureLimit,
-        consecutiveOracleFailureLimit: flags.consecutiveOracleFailureLimit,
+        authority: authority ? authority.publicKey : undefined,
+        mint: this.program.mint.address,
       }
     );
 
