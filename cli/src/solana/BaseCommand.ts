@@ -2,28 +2,28 @@ import { Flags } from "@oclif/core";
 import { Input } from "@oclif/parser";
 import * as anchor from "@project-serum/anchor";
 import { Cluster, Connection, Keypair, PublicKey } from "@solana/web3.js";
-import { BigUtils } from "@switchboard-xyz/sbv2-utils";
-import {
-  AggregatorAccount,
-  AnchorWallet,
-  CrankAccount,
-  JobAccount,
-  loadSwitchboardProgram,
-  OracleAccount,
-  OracleQueueAccount,
-  programWallet,
-  SBV2_DEVNET_PID,
-  SBV2_MAINNET_PID,
-  SwitchboardProgram,
-} from "@switchboard-xyz/switchboard-v2";
-import Big from "big.js";
-import chalk from "chalk";
 import { AuthorityMismatch } from "../types";
 import { loadKeypair } from "../utils";
 import { CliBaseCommand as BaseCommand } from "../BaseCommand";
 import { AwsProvider, FsProvider, GcpProvider } from "../providers";
 import { IBaseChain } from "../types/chain";
-import { OracleJob } from "@switchboard-xyz/common";
+import { OracleJob, SwitchboardDecimal, toUtf8 } from "@switchboard-xyz/common";
+import {
+  SBV2_MAINNET_PID,
+  SBV2_DEVNET_PID,
+  SwitchboardProgram,
+  QueueAccount,
+  AggregatorAccount,
+  CrankAccount,
+  OracleAccount,
+  JobAccount,
+  types,
+  PermissionAccount,
+  LeaseAccount,
+} from "@switchboard-xyz/solana.js";
+import fs from "fs";
+import Big from "big.js";
+import { isBN } from "bn.js";
 
 export type SolanaNetwork = Cluster | "localnet";
 
@@ -91,6 +91,10 @@ export abstract class SolanaBaseCommand
     return `https://explorer.solana.com/tx/${signature}?cluster=${this.network}`;
   }
 
+  toAccountUrl(account: string) {
+    return `https://explorer.solana.com/address/${account}?cluster=${this.network}`;
+  }
+
   getNetwork(clusterFlag: string): SolanaNetwork {
     if (
       clusterFlag !== "testnet" &&
@@ -145,34 +149,28 @@ export abstract class SolanaBaseCommand
       );
     }
 
-    const wallet = new AnchorWallet(signer);
-    const provider = new anchor.AnchorProvider(this.connection, wallet, {
-      commitment: this.commitment ?? "confirmed",
-      // preflightCommitment: "finalized",
-    });
+    const program = await SwitchboardProgram.load(
+      this.network,
+      this.connection,
+      signer,
+      this.programId
+    );
 
-    const anchorIdl = await anchor.Program.fetchIdl(this.programId, provider);
-    if (!anchorIdl) {
-      throw new Error(`failed to read idl for ${this.programId}`);
+    return program;
+  }
+
+  /** Load a keypair from a CLI flag and optionally check if it matches the expected account authority */
+  async loadKeypair(
+    keypairPath: string,
+    expectedPubkey?: PublicKey
+  ): Promise<Keypair> {
+    const keypair = await loadKeypair(keypairPath);
+
+    if (expectedPubkey && !expectedPubkey.equals(keypair.publicKey)) {
+      throw new AuthorityMismatch();
     }
 
-    return new anchor.Program(
-      anchorIdl,
-      this.programId,
-      provider
-    ) as unknown as SwitchboardProgram;
-
-    // const program = await loadSwitchboardProgram(
-    //   this.network as any,
-    //   this.connection,
-    //   signer,
-    //   {
-    //     commitment: this.commitment,
-    //   }
-    // );
-
-    // this.program = program;
-    // return program;
+    return keypair;
   }
 
   /** Load an authority from a CLI flag and optionally check if it matches the expected account authority */
@@ -183,7 +181,7 @@ export abstract class SolanaBaseCommand
     const authority: Keypair =
       typeof authorityPath === "string"
         ? await loadKeypair(authorityPath)
-        : programWallet(this.program);
+        : this.program.wallet.payer;
 
     if (expectedAuthority && !expectedAuthority.equals(authority.publicKey)) {
       throw new AuthorityMismatch();
@@ -206,15 +204,7 @@ export abstract class SolanaBaseCommand
     if (Number.isNaN(Number(value))) {
       throw new TypeError("tokenAmount must be an integer or decimal");
     }
-
-    if (value.split(".").length > 1) {
-      const float = new Big(value);
-      const scale = BigUtils.safePow(new Big(10), decimals);
-      const tokenAmount = BigUtils.safeMul(float, scale);
-      return new anchor.BN(tokenAmount.toFixed(0));
-    }
-
-    return new anchor.BN(value);
+    return this.program.mint.toTokenAmountBN(Number(value));
   }
 
   async getSigner(keypairPath: string): Promise<Keypair> {
@@ -283,59 +273,105 @@ export abstract class SolanaBaseCommand
     );
   }
 
+  loadJobDefinition(jobDef: string): OracleJob {
+    const jobDefPath = this.normalizePath(jobDef);
+    const jobDefString = fs.readFileSync(jobDefPath, "utf-8");
+    return OracleJob.fromObject(JSON.parse(jobDefString));
+  }
+
   deserializeJobData(jobData: Uint8Array): OracleJob {
     return OracleJob.decodeDelimited(jobData);
   }
 
-  async loadQueue(address: string): Promise<[OracleQueueAccount, any]> {
-    const account = new OracleQueueAccount({
-      program: this.program,
-      publicKey: new PublicKey(address),
-    });
+  async loadQueue(
+    address: string
+  ): Promise<[QueueAccount, types.OracleQueueAccountData]> {
+    const account = new QueueAccount(this.program, new PublicKey(address));
     const data = await account.loadData();
 
     return [account, data];
   }
 
-  async loadAggregator(address: string): Promise<[AggregatorAccount, any]> {
-    const account = new AggregatorAccount({
-      program: this.program,
-      publicKey: new PublicKey(address),
-    });
+  async loadAggregator(
+    address: string
+  ): Promise<[AggregatorAccount, types.AggregatorAccountData]> {
+    const account = new AggregatorAccount(this.program, new PublicKey(address));
     const data = await account.loadData();
 
     return [account, data];
   }
 
-  async loadCrank(address: string): Promise<[CrankAccount, any]> {
-    const account = new CrankAccount({
-      program: this.program,
-      publicKey: new PublicKey(address),
-    });
+  async loadCrank(
+    address: string
+  ): Promise<[CrankAccount, types.CrankAccountData]> {
+    const account = new CrankAccount(this.program, new PublicKey(address));
     const data = await account.loadData();
 
     return [account, data];
   }
 
-  async loadOracle(address: string): Promise<[OracleAccount, any]> {
-    const account = new OracleAccount({
-      program: this.program,
-      publicKey: new PublicKey(address),
-    });
+  async loadOracle(
+    address: string
+  ): Promise<[OracleAccount, types.OracleAccountData]> {
+    const account = new OracleAccount(this.program, new PublicKey(address));
     const data = await account.loadData();
 
     return [account, data];
   }
 
-  async loadJob(address: string): Promise<[JobAccount, any, OracleJob]> {
-    const account = new JobAccount({
-      program: this.program,
-      publicKey: new PublicKey(address),
-    });
+  async loadPermission(
+    granter: PublicKey,
+    grantee: PublicKey,
+    authority: PublicKey
+  ): Promise<[PermissionAccount, types.PermissionAccountData, number]> {
+    const [permissionAccount, permissionBump] = PermissionAccount.fromSeed(
+      this.program,
+      authority,
+      granter,
+      grantee
+    );
+    const data = await permissionAccount.loadData();
+
+    return [permissionAccount, data, permissionBump];
+  }
+
+  async loadLease(
+    queue: PublicKey,
+    aggregator: PublicKey
+  ): Promise<[LeaseAccount, types.LeaseAccountData, number]> {
+    const [leaseAccount, leaseBump] = LeaseAccount.fromSeed(
+      this.program,
+      queue,
+      aggregator
+    );
+    const data = await leaseAccount.loadData();
+
+    return [leaseAccount, data, leaseBump];
+  }
+
+  async loadJob(
+    address: string
+  ): Promise<[JobAccount, types.JobAccountData, OracleJob]> {
+    const account = new JobAccount(this.program, new PublicKey(address));
     const data = await account.loadData();
 
     const oracleJob = this.deserializeJobData(data.data);
 
     return [account, data, oracleJob];
   }
+
+  normalizeAccountData(
+    publicKey: PublicKey,
+    data: Record<string, any>
+  ): Record<string, any> {
+    const obj = {
+      publicKey: publicKey.toString(),
+      ...data,
+    };
+    return obj;
+  }
+}
+
+interface toJSON {
+  toJSON: () => Record<string, any>;
 }
