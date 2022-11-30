@@ -152,7 +152,7 @@ export default class AggregatorCreate extends BaseCommand {
       });
     }
 
-    const [txnSignature, aggregatorAccount] = await queueAccount.createFeed({
+    const [txnSignatures, aggregatorAccount] = await queueAccount.createFeed({
       // aggregator params
       authority: authority,
       keypair: keypair,
@@ -176,6 +176,10 @@ export default class AggregatorCreate extends BaseCommand {
       // job params
       jobs: jobs,
     });
+
+    for (const txnSignature of txnSignatures) {
+      console.info(this.toUrl(txnSignature));
+    }
 
     const accounts = await aggregatorAccount.loadAllAccounts();
 
