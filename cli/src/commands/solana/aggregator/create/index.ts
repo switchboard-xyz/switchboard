@@ -2,7 +2,7 @@ import { Flags } from "@oclif/core";
 import { Keypair, PublicKey } from "@solana/web3.js";
 import { OracleJob } from "@switchboard-xyz/common";
 import { JobInitParams } from "@switchboard-xyz/solana.js";
-import { SolanaWithSignerBaseCommand as BaseCommand } from "../../../solana";
+import { SolanaWithSignerBaseCommand as BaseCommand } from "../../../../solana";
 
 export default class AggregatorCreate extends BaseCommand {
   static enableJsonFlag = true;
@@ -104,20 +104,17 @@ export default class AggregatorCreate extends BaseCommand {
   async run() {
     const { args, flags } = await this.parse(AggregatorCreate);
 
+    if (!args.queueKey) {
+      throw new Error("you must provide a --queueKey to create aggregator for");
+    }
     const [queueAccount, queue] = await this.loadQueue(args.queueKey);
+    const queueAuthority = flags.queueAuthority
+      ? await this.loadAuthority(flags.queueAuthority, queue.authority)
+      : undefined;
 
-    let queueAuthority: Keypair;
-    if (flags.queueAuthority) {
-      queueAuthority = await this.loadAuthority(
-        flags.queueAuthority,
-        queue.authority
-      );
-    }
-
-    let authority: Keypair;
-    if (flags.authority) {
-      authority = await this.loadAuthority(flags.authority);
-    }
+    const authority = flags.authority
+      ? await this.loadAuthority(flags.authority)
+      : this.program.wallet.payer;
 
     let keypair: Keypair;
     if (flags.aggregatorKeypair) {
