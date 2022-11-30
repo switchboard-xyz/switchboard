@@ -29,7 +29,7 @@ update_interval="10"
 while getopts 'k:p:c:n:m:r:s:u:' OPTION; do
   case "$OPTION" in
     k)
-      keypair="$OPTARG"
+      payer="$OPTARG"
       ;;
     p)
       profile_name="$OPTARG"
@@ -37,8 +37,8 @@ while getopts 'k:p:c:n:m:r:s:u:' OPTION; do
       ;;
     c)
       network_id="$OPTARG"
-      if [[ "$network_id" != "devnet" && "$network_id" != "testnet" ]]; then
-        echo "invalid Network ID ($CLUSTER) - [devnet or testnet]"
+      if [[ "$network_id" != "devnet" && "$network_id" != "mainnet-beta" ]]; then
+        echo "invalid Network ID ($CLUSTER) - [devnet or mainnet-beta]"
         exit 1
       fi
       ;;
@@ -58,17 +58,14 @@ while getopts 'k:p:c:n:m:r:s:u:' OPTION; do
       update_interval="$OPTARG"
       ;;
     ?)
-      printf "\nDescription:\nCommand line script to create an Aptos Switchboard environment\n\nUsage:\n$(basename \$0) [-k keypairPath] [-p profileName] [-c devent|testnet] [-n name] [-m minStake] [-r reward] [-s queueSize] [-u updateInterval]\n\nOptions:\n"
-      echo "-k keypairPath, filesystem path to Aptos config.yaml"
-      echo "-p profileName, Aptos profile defaults to 'default'"
-      printf "\n\nExample:\n\t./scripts/aptos.sh -k ./.aptos/config.yaml -c devnet -n \"Aptos Queue\" -m 1337 -r 1337 -s 110 -u 11\n"
+      printf "\nDescription:\nCommand line script to create a Solana Switchboard environment\n\nUsage:\n$(basename \$0) [-k keypairPath] [-c devent|mainnet-beta] [-n name] [-m minStake] [-r reward] [-s queueSize] [-u updateInterval]\n\nOptions:\n"
+      echo "-k keypairPath, filesystem path to Solana keypair file"
+      printf "\n\nExample:\n\t./scripts/solana.sh -k ~/.config/solana/id.json -c devnet -n \"Solana Test Queue\" -m 1337 -r 1337 -s 110 -u 11\n"
       exit 1
       ;;
   esac
 done
 shift "$(($OPTIND -1))"
-
-
 
 declare -a feeds=(
   "$project_dir/directory/jobs/btc"
@@ -79,12 +76,11 @@ declare -a feeds=(
   "$project_dir/directory/jobs/usdt"
 )
 
-if [[ -z "${keypair}" ]]; then
-  read -rp "Enter the path of the aptos secretKey to sign transactions: " keypair
+if [[ -z "${payer}" ]]; then
+  read -rp "Enter the path of the solana keypair to sign transactions: " payer
 fi
 
-echo -e "${Blue}Keypair:${Color_Off} $keypair"
-echo -e "${Blue}Profile:${Color_Off} $profile_name"
+echo -e "${Blue}Payer:${Color_Off} $payer"
 echo -e "${Blue}Network:${Color_Off} $network_id"
 echo -e "${Blue}Queue Name:${Color_Off} $queue_name"
 echo -e "${Blue}Min Stake:${Color_Off} $min_stake"
@@ -99,23 +95,9 @@ if test -f "$envFilename"; then
     exit 1
 fi
 
-sbv2 solana aggregator create F8ce7MsckeZAbAGmxjJNetxYXQa9mKr9nnrC3qKubyYy \
-    --keypair ~/.config/solana/id.json \
-    --crankKey GN9jjCy2THzZxhYqZETmPM3my8vg4R5JyNkgULddUMa5 \
-    --name "My_Test_Feed" \
-    --updateInterval 10 \
-    --minOracles 1 \
-    --batchSize 1 \
-    --leaseAmount 1.337 \
-    --job ./directory/jobs/btc/binanceCom.jsonc \
-    --job ./directory/jobs/btc/kraken.jsonc \
-    --job ./directory/jobs/btc/bitfinex.jsonc \
-    --json \
-    --verbose > My_Test_Feed.json
-
-
+## Create Queue
 sbv2 solana queue create \
-    --keypair "$keypair" \
+    --keypair "$payer" \
     --size "$queue_size" \
     --name "$queue_name" \
     --reward "$reward" \
@@ -131,3 +113,22 @@ sbv2 solana queue create \
     --json \
     --verbose > My_Test_Queue.json
 # Read json file and get publicKey field
+
+## Create Oracle
+
+## Create Crank
+
+## Create Aggregator
+sbv2 solana aggregator create F8ce7MsckeZAbAGmxjJNetxYXQa9mKr9nnrC3qKubyYy \
+    --keypair "$payer" \
+    --crankKey GN9jjCy2THzZxhYqZETmPM3my8vg4R5JyNkgULddUMa5 \
+    --name "My_Test_Feed" \
+    --updateInterval 10 \
+    --minOracles 1 \
+    --batchSize 1 \
+    --leaseAmount 1.337 \
+    --job ./directory/jobs/btc/binanceCom.jsonc \
+    --job ./directory/jobs/btc/kraken.jsonc \
+    --job ./directory/jobs/btc/bitfinex.jsonc \
+    --json \
+    --verbose > My_Test_Feed.json
