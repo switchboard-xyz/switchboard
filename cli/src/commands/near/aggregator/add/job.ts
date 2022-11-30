@@ -60,7 +60,7 @@ export default class AggregatorAddJob extends BaseCommand {
 
     let jobAccount: JobAccount;
     if (flags.jobDefinition) {
-      const oracleJob = this.loadJobJson(flags.jobDefinition);
+      const oracleJob = this.loadJobDefinition(flags.jobDefinition);
 
       jobAccount = await JobAccount.create(this.program, {
         authority: flags.authority || this.program.account.accountId,
@@ -87,17 +87,15 @@ export default class AggregatorAddJob extends BaseCommand {
 
     const newAggregatorData = await aggregatorAccount.loadData();
     const aggregatorJobs: [JobAccount, OracleJob][] = await Promise.all(
-      (newAggregatorData.jobs as Array<Uint8Array>).map(
-        async (jobAddress) => {
-          const jobAccount = new JobAccount({
-            program: this.program,
-            address: new Uint8Array(jobAddress),
-          });
-          const jobData = await jobAccount.loadData();
-          const oracleJob = OracleJob.decodeDelimited(jobData.data);
-          return [jobAccount, oracleJob];
-        }
-      )
+      (newAggregatorData.jobs as Array<Uint8Array>).map(async (jobAddress) => {
+        const jobAccount = new JobAccount({
+          program: this.program,
+          address: new Uint8Array(jobAddress),
+        });
+        const jobData = await jobAccount.loadData();
+        const oracleJob = OracleJob.decodeDelimited(jobData.data);
+        return [jobAccount, oracleJob];
+      })
     );
 
     this.logger.info(`JobAccount added to aggregator successfully`);

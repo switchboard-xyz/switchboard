@@ -1,6 +1,6 @@
-import { chalkString } from "@switchboard-xyz/sbv2-utils";
 import chalk from "chalk";
 import { CliBaseCommand as BaseCommand } from "../../BaseCommand";
+import { chalkString } from "../../utils";
 
 export default class ConfigPrint extends BaseCommand {
   static enableJsonFlag = true;

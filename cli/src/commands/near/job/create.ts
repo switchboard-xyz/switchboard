@@ -36,7 +36,7 @@ export default class CreateJob extends BaseCommand {
   async run() {
     const { flags, args } = await this.parse(CreateJob);
 
-    const oracleJob = this.loadJobJson(args.jobDefinition);
+    const oracleJob = this.loadJobDefinition(args.jobDefinition);
     const data = Buffer.from(OracleJob.encodeDelimited(oracleJob).finish());
 
     const jobAccount = await JobAccount.create(this.program, {

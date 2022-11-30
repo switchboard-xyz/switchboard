@@ -55,7 +55,7 @@ export default class JobCreate extends BaseCommand {
   async run() {
     const { flags, args } = await this.parse(JobCreate);
 
-    const oracleJob = this.loadJobJson(args.jobDefinition);
+    const oracleJob = this.loadJobDefinition(args.jobDefinition);
 
     const [queue, queueData] = await this.loadQueue(args.queueHexString);
 

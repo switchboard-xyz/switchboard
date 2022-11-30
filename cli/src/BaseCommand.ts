@@ -11,8 +11,7 @@ import path from "path";
 import { baseJsonReplacers, FAILED_ICON } from "./utils";
 import bs58 from "bs58";
 import Big from "big.js";
-import { isBN } from "bn.js";
-import { OracleJob } from "@switchboard-xyz/common";
+import { OracleJob, toUtf8 } from "@switchboard-xyz/common";
 import {
   FsProvider,
   LogProvider,
@@ -20,7 +19,9 @@ import {
   ConfigProvider,
 } from "./providers";
 import { HexString } from "aptos";
-import { toUtf8 } from "./utils";
+import { PublicKey } from "@solana/web3.js";
+import { isBN } from "bn.js";
+import { SwitchboardDecimal } from "@switchboard-xyz/common";
 
 export abstract class CliBaseCommand extends Command {
   static flags = {
@@ -92,11 +93,11 @@ export abstract class CliBaseCommand extends Command {
     return normalizedPath;
   }
 
-  normalizeDirPath(dirPath: string): string {
+  normalizeDirPath(directoryPath: string): string {
     const normalizedPath =
-      dirPath.startsWith("/") || dirPath.startsWith("C:")
-        ? dirPath
-        : path.join(process.cwd(), dirPath);
+      directoryPath.startsWith("/") || directoryPath.startsWith("C:")
+        ? directoryPath
+        : path.join(process.cwd(), directoryPath);
 
     return normalizedPath;
   }
@@ -117,6 +118,7 @@ export abstract class CliBaseCommand extends Command {
     if (this.verbose) {
       console.error(error);
     }
+
     if (error.stack) {
       logger.error(error);
     } else {
@@ -130,6 +132,7 @@ export abstract class CliBaseCommand extends Command {
     if (writeHeader) {
       this.logger.debug(chalk.underline(chalk.blue("## Config".padEnd(16))));
     }
+
     const keySize = Math.max(12, ...Object.keys(c).map((k) => k.length));
     for (const [key, value] of Object.entries(c)) {
       this.logger.debug(
@@ -140,54 +143,21 @@ export abstract class CliBaseCommand extends Command {
     }
   }
 
-  // loadFeedJson(jsonDefinitionPath: string): {
-  //   authority: string;
-  //   name?: string;
-  //   metadata?: string;
-  //   queueAddress: string;
-  //   coinType: string;
-  //   batchSize: number;
-  //   minOracleResults: number;
-  //   minJobResults: number;
-  //   minUpdateDelaySeconds: number;
-  //   startAfter?: number;
-  //   varianceThreshold?: Big;
-  //   forceReportPeriod?: number;
-  //   expiration?: number;
-  //   disableCrank?: boolean;
-  //   historySize?: number;
-  //   readCharge?: number;
-  //   rewardEscrow?: string;
-  //   maxGasCost?: string;
-  // } {
-
-  // }
-
-  loadJobJson(jsonDefinitionPath: string): OracleJob {
+  loadJobDefinition(jsonDefinitionPath: string): OracleJob {
     const normalizedPath = this.normalizePath(jsonDefinitionPath);
 
     const oracleJob = OracleJob.fromObject(
       JSON.parse(
         fs
           .readFileSync(normalizedPath, "utf-8")
-          .replace(/\/\*[\s\S]*?\*\/|([^\\:]|^)\/\/.*$/g, "")
+          .replace(/\/\*[\S\s]*?\*\/|([^:\\]|^)\/\/.*$/g, "")
       )
     );
-
-    // const buffer = Buffer.from(OracleJob.encodeDelimited(oracleJob).finish());
-    // const bytes = new Uint8Array(buffer);
-    // const hex = buffer.toString("hex");
-    // const utf = buffer.toString();
-    // const utfBytes = new Uint8Array(Buffer.from(utf, "utf-8"));
-
-    // console.log(`OracleJob Bytes: [${[...bytes]}]`);
-    // console.log(`OracleJob Hex  : 0x${hex}`);
-    // console.log(`OracleJob Utf  : ${utf}`);
-    // console.log(`OracleJob UtfBytes: [${[...utfBytes]}]`);
 
     return oracleJob;
   }
 
+  // eslint-disable-next-line complexity
   jsonReplacers(key: any, value: any) {
     if (
       !value ||
@@ -196,19 +166,67 @@ export abstract class CliBaseCommand extends Command {
       typeof value === "boolean"
     ) {
       return value;
-    } else {
-      if (key === "name" || (key === "metadata" && Array.isArray(value))) {
-        return toUtf8(Buffer.from(value));
-      } else if (
-        (key === "address" || key === "queue") &&
-        Array.isArray(value)
-      ) {
-        return bs58.encode(value);
-      } else if (value instanceof Big) {
-        return value.toString();
-      } else if (value instanceof HexString) {
-        return value.toString();
+    }
+
+    if (
+      key === "ebuf" ||
+      key === "_ebuf" ||
+      key === "reserved" ||
+      key === "reserved1"
+    ) {
+      return;
+    }
+
+    if ((key === "name" || key === "metadata") && Array.isArray(value)) {
+      return toUtf8(value);
+    }
+
+    if ((key === "address" || key === "queue") && Array.isArray(value)) {
+      return bs58.encode(value);
+    }
+
+    if (Array.isArray(value) && value.length > 0) {
+      if (typeof value[0] === "number") {
+        if (value.every((item) => item === 0)) {
+          return [];
+        }
+
+        return `[${value.join(",")}]`;
       }
+
+      if (value[0] instanceof PublicKey) {
+        return value.filter(
+          (pubkey) => !(pubkey as PublicKey).equals(PublicKey.default)
+        );
+      }
+
+      try {
+        return value.map((element) => this.jsonReplacers(key, element));
+      } catch {}
+    }
+
+    if (
+      value instanceof SwitchboardDecimal ||
+      ("mantissa" in value && "scale" in value)
+    ) {
+      const big = SwitchboardDecimal.from(value).toBig();
+      return big.toString();
+    }
+
+    if (value instanceof Big) {
+      return value.toString();
+    }
+
+    if (isBN(value)) {
+      return value.toString();
+    }
+
+    if (value instanceof HexString) {
+      return value.toString();
+    }
+
+    if (value instanceof PublicKey) {
+      return value.toBase58();
     }
 
     return baseJsonReplacers(key, value);

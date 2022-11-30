@@ -54,7 +54,7 @@ export default class AggregatorAddJob extends BaseCommand {
 
     let jobAccount: JobAccount;
     if (flags.jobDefinition) {
-      const oracleJob = this.loadJobJson(flags.jobDefinition);
+      const oracleJob = this.loadJobDefinition(flags.jobDefinition);
 
       const account = new AptosAccount();
       // await this.faucet.fundAccount(account.address(), 5000);
