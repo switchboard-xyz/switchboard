@@ -65,7 +65,7 @@ export default class AggregatorAddJob extends BaseCommand {
               data,
               authority: authority.publicKey,
             })
-          )[1];
+          )[0];
         })()
       : // Add job by pubkey from an existing job account.
         (await this.loadJob(flags.jobKey))[0];
