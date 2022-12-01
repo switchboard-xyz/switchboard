@@ -112,7 +112,7 @@ export default class JsonCreateAggregator extends BaseCommand {
       ),
     }));
 
-    const [txnSignatures, aggregatorAccount] = await queueAccount.createFeed({
+    const [aggregatorAccount, signatures] = await queueAccount.createFeed({
       // aggregator params
       authority: authority,
       keypair: undefined, // An aggregatorKeypair will be generated for the new feed.
@@ -138,14 +138,10 @@ export default class JsonCreateAggregator extends BaseCommand {
       // job params
       jobs: jobs,
     });
-
-    for (const txnSignature of txnSignatures) {
-      console.info(this.toUrl(txnSignature));
-    }
-
-    const accounts = await aggregatorAccount.loadAllAccounts();
+    signatures.forEach((signature) => console.info(this.toUrl(signature)));
 
     if (flags.json) {
+      const accounts = await aggregatorAccount.loadAllAccounts();
       return this.normalizeAccountData(aggregatorAccount.publicKey, accounts);
     }
 

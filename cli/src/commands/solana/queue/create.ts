@@ -108,37 +108,32 @@ export default class QueueCreate extends BaseCommand {
       }
     }
 
-    const [txnSignature, queueAccount] = await QueueAccount.create(
-      this.program,
-      {
-        name: flags.name,
-        metadata: flags.metadata,
-        reward: Number(flags.reward),
-        minStake: Number(flags.minStake),
-        feedProbationPeriod: flags.feedProbationPeriod,
-        oracleTimeout: flags.oracleTimeout,
-        slashingEnabled: flags.slashingEnabled,
-        consecutiveFeedFailureLimit: flags.consecutiveFeedFailureLimit,
-        consecutiveOracleFailureLimit: flags.consecutiveOracleFailureLimit,
-        queueSize: flags.size,
-        unpermissionedFeeds: !flags.permissionedFeeds,
-        unpermissionedVrf: flags.unpermissionedVrf,
-        enableBufferRelayers: flags.enableBufferRelayers,
-        authority: authority ? authority.publicKey : undefined,
-      }
-    );
+    const [queueAccount, signature] = await QueueAccount.create(this.program, {
+      name: flags.name,
+      metadata: flags.metadata,
+      reward: Number(flags.reward),
+      minStake: Number(flags.minStake),
+      feedProbationPeriod: flags.feedProbationPeriod,
+      oracleTimeout: flags.oracleTimeout,
+      slashingEnabled: flags.slashingEnabled,
+      consecutiveFeedFailureLimit: flags.consecutiveFeedFailureLimit,
+      consecutiveOracleFailureLimit: flags.consecutiveOracleFailureLimit,
+      queueSize: flags.size,
+      unpermissionedFeeds: !flags.permissionedFeeds,
+      unpermissionedVrf: flags.unpermissionedVrf,
+      enableBufferRelayers: flags.enableBufferRelayers,
+      authority: authority ? authority.publicKey : undefined,
+    });
+    console.log("Transaction Signature:", this.toUrl(signature));
 
     if (flags.json) {
       return this.normalizeAccountData(
         queueAccount.publicKey,
         (await queueAccount.loadData()).toJSON()
       );
-    }
-    if (flags.silent) {
+    } else if (flags.silent) {
       return;
     }
-
-    console.info("Transaction Signature:", this.toUrl(txnSignature));
 
     // handle nicer logging here
     this.log(
