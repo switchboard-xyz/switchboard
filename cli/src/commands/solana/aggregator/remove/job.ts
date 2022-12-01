@@ -20,11 +20,13 @@ export default class AggregatorRemoveJob extends BaseCommand {
     {
       name: "aggregatorKey",
       description: "public key of the aggregator account",
+      required: true,
     },
     {
       name: "jobKey",
       description:
         "public key of an existing job account to remove from an aggregator",
+      required: true,
     },
   ];
 

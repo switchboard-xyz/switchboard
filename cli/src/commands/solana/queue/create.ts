@@ -125,7 +125,6 @@ export default class QueueCreate extends BaseCommand {
         unpermissionedVrf: flags.unpermissionedVrf,
         enableBufferRelayers: flags.enableBufferRelayers,
         authority: authority ? authority.publicKey : undefined,
-        mint: this.program.mint.address,
       }
     );
 
