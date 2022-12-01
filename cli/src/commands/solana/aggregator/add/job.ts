@@ -33,6 +33,7 @@ export default class AggregatorAddJob extends BaseCommand {
     {
       name: "aggregatorKey",
       description: "public key of the aggregator account",
+      required: true,
     },
   ];
 
@@ -41,9 +42,6 @@ export default class AggregatorAddJob extends BaseCommand {
   async run() {
     const { args, flags } = await this.parse(AggregatorAddJob);
 
-    if (!args.aggregatorKey) {
-      throw new Error("aggregatorKey argument not provided.");
-    }
     const [aggregatorAccount, aggregatorData] = await this.loadAggregator(
       args.aggregatorKey
     );
