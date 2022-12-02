@@ -1,12 +1,14 @@
 import { Flags } from "@oclif/core";
 import { OracleJob } from "@switchboard-xyz/common";
-import { JobAccount } from "@switchboard-xyz/solana.js";
+import { AggregatorAccount, JobAccount } from "@switchboard-xyz/solana.js";
 import chalk from "chalk";
 import { SolanaWithSignerBaseCommand as BaseCommand } from "../../../../solana";
 import { CHECK_ICON } from "../../../../utils";
 
 export default class AggregatorAddJob extends BaseCommand {
   static description = "add a job to an aggregator";
+
+  static examples = ["$ sbv2 solana aggregator add job"];
 
   static flags = {
     ...BaseCommand.flags,
@@ -33,12 +35,11 @@ export default class AggregatorAddJob extends BaseCommand {
     },
   ];
 
-  static examples = ["$ sbv2 solana:aggregator:add:job"];
-
   async run() {
     const { args, flags } = await this.parse(AggregatorAddJob);
 
-    const [aggregatorAccount, aggregatorData] = await this.loadAggregator(
+    const [aggregatorAccount, aggregatorData] = await AggregatorAccount.load(
+      this.program,
       args.aggregatorKey
     );
 
@@ -71,9 +72,12 @@ export default class AggregatorAddJob extends BaseCommand {
       weight: 1,
       authority,
     });
+
     if (this.silent) {
-      console.log(txn);
+      this.log(txn);
+      return;
     }
+
     this.logger.log(
       `${chalk.green(
         `${CHECK_ICON}Job successfully added to aggregator account`

@@ -1,12 +1,14 @@
 import { Flags } from "@oclif/core";
 import { PublicKey } from "@solana/web3.js";
-import { JobAccount } from "@switchboard-xyz/solana.js";
+import { AggregatorAccount, JobAccount } from "@switchboard-xyz/solana.js";
 import chalk from "chalk";
 import { SolanaWithSignerBaseCommand as BaseCommand } from "../../../../solana";
 import { CHECK_ICON } from "../../../../utils";
 
 export default class AggregatorRemoveJob extends BaseCommand {
   static description = "remove a switchboard job account from an aggregator";
+
+  // static examples = ["$ sbv2 solana aggregator remove job"];
 
   static flags = {
     ...BaseCommand.flags,
@@ -30,15 +32,15 @@ export default class AggregatorRemoveJob extends BaseCommand {
     },
   ];
 
-  static examples = ["$ sbv2 aggregator:remove:job"];
-
   async run() {
     const { args, flags } = await this.parse(AggregatorRemoveJob);
 
     if (!args.aggregatorKey) {
       throw new Error("aggregatorKey argument not provided.");
     }
-    const [aggregatorAccount, aggregator] = await this.loadAggregator(
+
+    const [aggregatorAccount, aggregator] = await AggregatorAccount.load(
+      this.program,
       args.aggregatorKey
     );
 
@@ -56,6 +58,7 @@ export default class AggregatorRemoveJob extends BaseCommand {
         `The specified job (${jobAccount.publicKey.toBase58()}) couldn't be located in this aggregator.`
       );
     }
+
     const txn = await aggregatorAccount.removeJob({
       job: jobAccount,
       jobIdx: jobIndex,
@@ -63,15 +66,17 @@ export default class AggregatorRemoveJob extends BaseCommand {
     });
 
     if (this.silent) {
-      console.log(txn);
-    } else {
-      this.logger.log(
-        `${chalk.green(
-          `${CHECK_ICON}Job succesfully removed from aggregator account\r\n`
-        )}`
-      );
-      this.logger.log(this.toUrl(txn));
+      this.log(txn);
+      return;
     }
+
+    this.logger.log(
+      `${chalk.green(
+        `${CHECK_ICON}Job succesfully removed from aggregator account\r\n`
+      )}`
+    );
+
+    this.logger.log(this.toUrl(txn));
   }
 
   async catch(error) {

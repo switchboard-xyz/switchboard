@@ -3,7 +3,7 @@ import { Input } from "@oclif/parser";
 import * as anchor from "@project-serum/anchor";
 import { Cluster, Connection, Keypair, PublicKey } from "@solana/web3.js";
 import { AuthorityMismatch } from "../types";
-import { baseJsonReplacers, loadKeypair } from "../utils";
+import { loadKeypair } from "../utils";
 import { CliBaseCommand as BaseCommand } from "../BaseCommand";
 import { AwsProvider, FsProvider, GcpProvider } from "../providers";
 import { IBaseChain } from "../types/chain";
@@ -32,6 +32,15 @@ export abstract class SolanaBaseCommand
     ...BaseCommand.flags,
     mainnetBeta: Flags.boolean({
       description: "WARNING: use mainnet-beta solana cluster",
+      required: false,
+      exclusive: ["cluster"],
+      default: false,
+    }),
+    cluster: Flags.string({
+      description: "the solana cluster to connect to",
+      options: ["devnet", "mainnet-beta", "mainnet", "localnet"],
+      required: false,
+      exclusive: ["mainnetBeta"],
     }),
     rpcUrl: Flags.string({
       char: "u",
@@ -67,7 +76,8 @@ export abstract class SolanaBaseCommand
     BaseCommand.flags = flags as any;
 
     this.network = this.getNetwork(
-      (flags as any).mainnetBeta ? "mainnet-beta" : "devnet"
+      (flags as any).cluster,
+      (flags as any).mainnetBeta
     );
     this.programId = this.getProgramId(this.network, (flags as any).programId);
 
@@ -92,19 +102,27 @@ export abstract class SolanaBaseCommand
     return `https://explorer.solana.com/address/${account}?cluster=${this.network}`;
   }
 
-  getNetwork(clusterFlag: string): SolanaNetwork {
-    if (
-      clusterFlag !== "testnet" &&
-      clusterFlag !== "mainnet-beta" &&
-      clusterFlag !== "devnet" &&
-      clusterFlag !== "localnet"
-    ) {
-      throw new Error(
-        `--networkId must be 'testnet', 'mainnet-beta', 'devnet', or 'localnet'`
-      );
+  getNetwork(clusterOption?: string, mainnetFlag?: string): SolanaNetwork {
+    if (clusterOption) {
+      switch (clusterOption) {
+        case "mainnet":
+        case "mainnet-beta": {
+          return "mainnet-beta";
+        }
+
+        case "devnet": {
+          return "devnet";
+        }
+
+        case "localnet": {
+          return "localnet";
+        }
+      }
     }
 
-    return clusterFlag;
+    if (mainnetFlag) {
+      return "mainnet-beta";
+    }
   }
 
   getRpcUrl(cluster: SolanaNetwork, rpcUrlFlag?: string): string {
@@ -279,73 +297,46 @@ export abstract class SolanaBaseCommand
   }
 
   async loadQueue(
-    address: string
+    address: PublicKey | string
   ): Promise<[QueueAccount, types.OracleQueueAccountData]> {
-    const account = new QueueAccount(this.program, new PublicKey(address));
-    const data = await account.loadData();
-
-    return [account, data];
+    return QueueAccount.load(this.program, address);
   }
 
   async loadAggregator(
-    address: string
+    address: PublicKey | string
   ): Promise<[AggregatorAccount, types.AggregatorAccountData]> {
-    const account = new AggregatorAccount(this.program, new PublicKey(address));
-    const data = await account.loadData();
-
-    return [account, data];
+    return AggregatorAccount.load(this.program, address);
   }
 
   async loadCrank(
-    address: string
+    address: PublicKey | string
   ): Promise<[CrankAccount, types.CrankAccountData]> {
-    const account = new CrankAccount(this.program, new PublicKey(address));
-    const data = await account.loadData();
-
-    return [account, data];
+    return CrankAccount.load(this.program, address);
   }
 
   async loadOracle(
-    address: string
+    address: PublicKey | string
   ): Promise<[OracleAccount, types.OracleAccountData]> {
-    const account = new OracleAccount(this.program, new PublicKey(address));
-    const data = await account.loadData();
-
-    return [account, data];
+    return OracleAccount.load(this.program, address);
   }
 
   async loadPermission(
-    granter: PublicKey,
-    grantee: PublicKey,
-    authority: PublicKey
+    granter: PublicKey | string,
+    grantee: PublicKey | string,
+    authority: PublicKey | string
   ): Promise<[PermissionAccount, types.PermissionAccountData, number]> {
-    const [permissionAccount, permissionBump] = PermissionAccount.fromSeed(
-      this.program,
-      authority,
-      granter,
-      grantee
-    );
-    const data = await permissionAccount.loadData();
-
-    return [permissionAccount, data, permissionBump];
+    return PermissionAccount.load(this.program, authority, granter, grantee);
   }
 
   async loadLease(
-    queue: PublicKey,
-    aggregator: PublicKey
+    queue: PublicKey | string,
+    aggregator: PublicKey | string
   ): Promise<[LeaseAccount, types.LeaseAccountData, number]> {
-    const [leaseAccount, leaseBump] = LeaseAccount.fromSeed(
-      this.program,
-      queue,
-      aggregator
-    );
-    const data = await leaseAccount.loadData();
-
-    return [leaseAccount, data, leaseBump];
+    return LeaseAccount.load(this.program, queue, aggregator);
   }
 
   async loadJob(
-    address: string
+    address: PublicKey | string
   ): Promise<[JobAccount, types.JobAccountData, OracleJob]> {
     const account = new JobAccount(this.program, new PublicKey(address));
     const data = await account.loadData();

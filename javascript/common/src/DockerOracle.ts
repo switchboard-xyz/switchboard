@@ -1,13 +1,11 @@
-import {
-  SWITCHBOARD_DEVNET_ADDRESS,
-  SWITCHBOARD_TESTNET_ADDRESS,
-} from "@switchboard-xyz/aptos.js";
 import { ChildProcessByStdio, spawn } from "child_process";
 import fs from "fs";
 import path from "path";
 import internal from "stream";
 import crypto from "crypto";
 import chalk from "chalk";
+
+export const LATEST_DOCKER_VERSION = "dev-v2-RC_11_10_22__19_19";
 
 export interface IOracleConfig {
   chain: "aptos" | "near" | "solana";
@@ -24,7 +22,7 @@ export interface IOracleConfig {
   nearNamedAccount?: string;
 }
 
-export class DockerOracle implements Required<IOracleConfig> {
+export class DockerOracle implements IOracleConfig {
   chain: "aptos" | "near" | "solana";
   network: "localnet" | "devnet" | "testnet" | "mainnet" | "mainnet-beta";
   rpcUrl: string;
@@ -58,7 +56,7 @@ export class DockerOracle implements Required<IOracleConfig> {
 
   constructor(
     readonly config: IOracleConfig,
-    readonly nodeImage: string = "dev-v2-10-18-22",
+    readonly nodeImage: string = LATEST_DOCKER_VERSION,
     readonly platform: "linux/arm64" | "linux/amd64" = "linux/amd64",
     readonly switchboardDirectory = path.join(process.cwd(), ".switchboard"),
     readonly silent = false
@@ -71,14 +69,7 @@ export class DockerOracle implements Required<IOracleConfig> {
     this.secretPath = config.secretPath;
     this.taskRunnerSolanaRpc =
       config.taskRunnerSolanaRpc ?? "https://api.mainnet-beta.solana.com";
-    this.aptosPid =
-      config.aptosPid ?? this.chain !== "aptos"
-        ? ""
-        : this.network === "devnet"
-        ? SWITCHBOARD_DEVNET_ADDRESS
-        : this.network === "testnet"
-        ? SWITCHBOARD_TESTNET_ADDRESS
-        : "http://localhost:8080";
+    this.aptosPid = config.aptosPid ?? "";
     this.nearNamedAccount = config.nearNamedAccount ?? "";
     if (this.chain === "near" && !this.nearNamedAccount) {
       throw new Error(

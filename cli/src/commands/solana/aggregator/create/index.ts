@@ -1,8 +1,10 @@
 import { Flags } from "@oclif/core";
 import { Keypair, PublicKey } from "@solana/web3.js";
 import { OracleJob } from "@switchboard-xyz/common";
-import { JobInitParams } from "@switchboard-xyz/solana.js";
+import { JobInitParams, QueueAccount } from "@switchboard-xyz/solana.js";
 import { SolanaWithSignerBaseCommand as BaseCommand } from "../../../../solana";
+import chalk from "chalk";
+import { CHECK_ICON } from "../../../../utils";
 
 export default class AggregatorCreate extends BaseCommand {
   static enableJsonFlag = true;
@@ -107,7 +109,11 @@ export default class AggregatorCreate extends BaseCommand {
     if (!args.queueKey) {
       throw new Error("you must provide a --queueKey to create aggregator for");
     }
-    const [queueAccount, queue] = await this.loadQueue(args.queueKey);
+
+    const [queueAccount, queue] = await QueueAccount.load(
+      this.program,
+      args.queueKey
+    );
     const queueAuthority = flags.queueAuthority
       ? await this.loadAuthority(flags.queueAuthority, queue.authority)
       : undefined;
@@ -163,14 +169,45 @@ export default class AggregatorCreate extends BaseCommand {
       // job params
       jobs: jobs,
     });
-    signatures.forEach((signature) => console.info(this.toUrl(signature)));
 
     if (flags.json) {
-      const accounts = await aggregatorAccount.loadAllAccounts();
+      const accounts = await aggregatorAccount.toAccountsJSON();
       return this.normalizeAccountData(aggregatorAccount.publicKey, accounts);
     }
 
-    // handle nicer logging here
+    if (this.silent) {
+      this.log(signatures.join("\n"));
+      return;
+    }
+
+    this.log(
+      `${chalk.green(
+        `${CHECK_ICON}Aggregator Account created successfully:`,
+        aggregatorAccount.publicKey.toBase58()
+      )}`
+    );
+
+    if (signatures.length === 1) {
+      this.log(this.toUrl(signatures[0]));
+    } else {
+      for (const [index, signature] of signatures.entries())
+        this.log(`Txn #${index}`, this.toUrl(signature));
+    }
+
+    const accounts = await aggregatorAccount.toAccountsJSON();
+    const parsedAccounts = this.normalizeAccountData(
+      aggregatorAccount.publicKey,
+      accounts
+    );
+
+    this.logProperty("Name", parsedAccounts.name);
+    this.logProperty("Metadata", parsedAccounts.metadata);
+    this.logProperty("Update Interval", accounts.minUpdateDelaySeconds);
+    this.logProperty("Batch Size", accounts.oracleRequestBatchSize);
+    this.logProperty("Min Responses", accounts.minOracleResults);
+    this.logProperty("Min Job Responses", accounts.minJobResults);
+
+    // TODO: Pretty print the rest of the permission & lease account properties
   }
 
   async catch(error) {

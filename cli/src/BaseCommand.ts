@@ -8,7 +8,7 @@ import { Input } from "@oclif/parser";
 import chalk from "chalk";
 import fs from "fs";
 import path from "path";
-import { baseJsonReplacers, FAILED_ICON } from "./utils";
+import { baseJsonReplacers, chalkString, FAILED_ICON } from "./utils";
 import bs58 from "bs58";
 import Big from "big.js";
 import { OracleJob, toUtf8 } from "@switchboard-xyz/common";
@@ -81,6 +81,10 @@ export abstract class CliBaseCommand extends Command {
     this.fs = new FsProvider(this.config.dataDir, this.logger);
   }
 
+  logProperty(property: string, value: any) {
+    this.log(chalkString(property, value));
+  }
+
   normalizePath(filePath: string): string {
     const normalizedPath =
       filePath.startsWith("/") || filePath.startsWith("C:")
@@ -100,6 +104,11 @@ export abstract class CliBaseCommand extends Command {
         : path.join(process.cwd(), directoryPath);
 
     return normalizedPath;
+  }
+
+  logError(message: string) {
+    const logger = this.logger ?? console;
+    logger.info(chalk.red(`${FAILED_ICON}${message}`));
   }
 
   async catch(error: any, message?: string) {

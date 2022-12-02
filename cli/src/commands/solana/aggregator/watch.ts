@@ -1,6 +1,5 @@
 import { Flags } from "@oclif/core";
-import { BorshAccountsCoder } from "@project-serum/anchor";
-import { types } from "@switchboard-xyz/solana.js";
+import { AggregatorAccount, types } from "@switchboard-xyz/solana.js";
 import fs from "fs";
 import path from "path";
 import { SolanaWithoutSignerBaseCommand as BaseCommand } from "../../../solana";
@@ -33,6 +32,7 @@ export default class AggregatorWatch extends BaseCommand {
     const { args, flags } = await this.parse(AggregatorWatch);
 
     const items: Map<number, string> = new Map();
+
     const handleValueUpdate = (data: types.AggregatorAccountData) => {
       const value = data.latestConfirmedRound.result.toString();
       const timestamp = data.latestConfirmedRound.roundOpenTimestamp.toNumber();
@@ -41,15 +41,19 @@ export default class AggregatorWatch extends BaseCommand {
       writeResults(items, flags.outfile);
     };
 
-    const [aggregatorAccount, aggregatorData] = await this.loadAggregator(
+    const [aggregatorAccount, aggregatorData] = await AggregatorAccount.load(
+      this.program,
       args.aggregatorKey
     );
+
     // Print initial value and subscribe to account changes to listen for more
     handleValueUpdate(aggregatorData);
     const ws = aggregatorAccount.onChange(handleValueUpdate);
+
     // Wait for timeout.
     await sleep((flags.timeout ?? 120) * 1000);
     await this.program.connection.removeAccountChangeListener(ws);
+
     // Write final results.
     writeResults(items, flags.outfile);
     this.logger.info(
@@ -58,7 +62,7 @@ export default class AggregatorWatch extends BaseCommand {
   }
 
   async catch(error) {
-    super.catch(error, "failed to lock aggregator configuration");
+    super.catch(error, "failed to watch aggregator's state");
   }
 }
 
@@ -70,8 +74,8 @@ function writeResults(items: Map<number, string>, outfile?: string) {
         : path.join(process.cwd(), outfile);
     fs.writeFileSync(
       outpath,
-      `timestamp,value\n${Array.from(items.entries())
-        .map((i) => i.join(","))
+      `timestamp,value\n${[...items.entries()]
+        .map((index) => index.join(","))
         .join("\n")}`
     );
   }
@@ -80,8 +84,8 @@ function writeResults(items: Map<number, string>, outfile?: string) {
 function printResults(items: Map<number, string>) {
   console.clear();
   console.table(
-    Array.from(items.entries()).map((i) => {
-      return { timestamp: i[0], value: i[1] };
+    [...items.entries()].map((index) => {
+      return { timestamp: index[0], value: index[1] };
     })
   );
 }

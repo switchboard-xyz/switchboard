@@ -1,5 +1,5 @@
 import { Flags } from "@oclif/core";
-import { PublicKey } from "@solana/web3.js";
+import { AggregatorAccount } from "@switchboard-xyz/solana.js";
 import chalk from "chalk";
 import { SolanaWithSignerBaseCommand as BaseCommand } from "../../../solana";
 import { CHECK_ICON } from "../../../utils";
@@ -27,7 +27,8 @@ export default class AggregatorLock extends BaseCommand {
   async run() {
     const { args, flags } = await this.parse(AggregatorLock);
 
-    const [aggregatorAccount, aggregatorData] = await this.loadAggregator(
+    const [aggregatorAccount, aggregatorData] = await AggregatorAccount.load(
+      this.program,
       args.aggregatorKey
     );
     const authority = await this.loadAuthority(
@@ -36,14 +37,17 @@ export default class AggregatorLock extends BaseCommand {
     );
 
     const signature = await aggregatorAccount.lock({ authority });
+
     if (this.silent) {
-      console.log(this.toUrl(signature));
-    } else {
-      this.logger.log(this.toUrl(signature));
-      this.logger.log(
-        `${chalk.green(`${CHECK_ICON}Aggregator locked successfully\r\n`)}`
-      );
+      this.log(signature);
+      return;
     }
+
+    this.logger.log(
+      `${chalk.green(`${CHECK_ICON}Aggregator locked successfully`)}`
+    );
+
+    this.logger.log(this.toUrl(signature));
   }
 
   async catch(error) {
