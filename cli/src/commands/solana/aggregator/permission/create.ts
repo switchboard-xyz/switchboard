@@ -29,7 +29,6 @@ export default class AggregatorPermissionCreate extends BaseCommand {
       aggregatorData.queuePubkey.toBase58()
     );
 
-    Promise.resolve().then(() => {});
     // Check if permission account already exists
     try {
       const [permissionAccount] = PermissionAccount.fromSeed(

@@ -1,18 +1,6 @@
 import { Flags } from "@oclif/core";
 import * as anchor from "@project-serum/anchor";
-import { PublicKey } from "@solana/web3.js";
 import { LeaseAccount } from "@switchboard-xyz/solana.js";
-import { BN } from "bn.js";
-// import {
-//   getOrCreateSwitchboardTokenAccount,
-//   prettyPrintLease,
-// } from "@switchboard-xyz/sbv2-utils";
-// import {
-//   AggregatorAccount,
-//   LeaseAccount,
-//   OracleQueueAccount,
-//   programWallet,
-// } from "@switchboard-xyz/switchboard-v2";
 import chalk from "chalk";
 import { SolanaWithSignerBaseCommand as BaseCommand } from "../../../solana";
 import { CHECK_ICON } from "../../../utils";
@@ -84,8 +72,7 @@ export default class LeaseCreate extends BaseCommand {
         loadAmount: amount,
         aggregatorAccount,
         queueAccount,
-        funder: funder,
-        mint: this.program.mint.address,
+        funderTokenAccount: funder,
         jobAuthorities: [],
       }
     );
