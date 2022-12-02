@@ -119,16 +119,6 @@ export default class AggregatorCreate extends BaseCommand {
     let keypair: Keypair;
     if (flags.aggregatorKeypair) {
       keypair = await this.loadKeypair(flags.aggregatorKeypair);
-      const keypairAccountInfo = await this.program.connection.getAccountInfo(
-        keypair.publicKey
-      );
-      if (keypairAccountInfo !== null) {
-        throw new Error(
-          `--aggregatorKeypair must point to a non-existant account, ${this.toAccountUrl(
-            keypair.publicKey.toBase58()
-          )}`
-        );
-      }
     }
 
     const tokenWallet = this.program.mint.getAssociatedAddress(

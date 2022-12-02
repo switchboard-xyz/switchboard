@@ -1,11 +1,7 @@
 import { Flags } from "@oclif/core";
-import * as anchor from "@project-serum/anchor";
-import { PublicKey } from "@solana/web3.js";
 import { OracleJob } from "@switchboard-xyz/common";
 import { JobAccount } from "@switchboard-xyz/solana.js";
 import chalk from "chalk";
-import fs from "fs";
-import path from "path";
 import { SolanaWithSignerBaseCommand as BaseCommand } from "../../../../solana";
 import { CHECK_ICON } from "../../../../utils";
 
