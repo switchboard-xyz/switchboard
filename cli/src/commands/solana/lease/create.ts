@@ -1,6 +1,10 @@
 import { Flags } from "@oclif/core";
 import * as anchor from "@project-serum/anchor";
-import { LeaseAccount } from "@switchboard-xyz/solana.js";
+import {
+  AggregatorAccount,
+  LeaseAccount,
+  QueueAccount,
+} from "@switchboard-xyz/solana.js";
 import chalk from "chalk";
 import { SolanaWithSignerBaseCommand as BaseCommand } from "../../../solana";
 import { CHECK_ICON } from "../../../utils";
@@ -8,7 +12,9 @@ import { CHECK_ICON } from "../../../utils";
 export default class LeaseCreate extends BaseCommand {
   static description = "fund and re-enable an aggregator lease";
 
-  static aliases = ["solana:aggregator:lease:create"];
+  static examples = [
+    "$ sbv2 solana lease create GvDMxPzN1sCj7L26YDK2HnMRXEQmQ2aemov8YBtPS7vR --amount 1.5 --keypair ../payer-keypair.json",
+  ];
 
   static flags = {
     ...BaseCommand.flags,
@@ -26,10 +32,6 @@ export default class LeaseCreate extends BaseCommand {
     },
   ];
 
-  static examples = [
-    "$ sbv2 lease:create GvDMxPzN1sCj7L26YDK2HnMRXEQmQ2aemov8YBtPS7vR --amount 1.5 --keypair ../payer-keypair.json",
-  ];
-
   async run() {
     const { args, flags } = await this.parse(LeaseCreate);
 
@@ -38,10 +40,12 @@ export default class LeaseCreate extends BaseCommand {
       throw new Error("amount to deposit must be greater than 0");
     }
 
-    const [aggregatorAccount, aggregatorData] = await this.loadAggregator(
+    const [aggregatorAccount, aggregatorData] = await AggregatorAccount.load(
+      this.program,
       args.aggregatorKey
     );
-    const [queueAccount, queueData] = await this.loadQueue(
+    const [queueAccount, queueData] = await QueueAccount.load(
+      this.program,
       aggregatorData.queuePubkey.toBase58()
     );
     const { leaseAccount } = aggregatorAccount.getAccounts({
@@ -61,8 +65,9 @@ export default class LeaseCreate extends BaseCommand {
         `not enough token balance to load lease\nLoadAmount: ${amount}\nBalance: ${funderBalance.toString()}`
       );
     }
+
     // Check that lease account doesnt already exist
-    const leaseData = await leaseAccount.loadData().catch(() => null);
+    const leaseData = await leaseAccount.loadData().catch(() => {});
     if (leaseData) throw new Error("lease account already exists");
 
     // create lease account
@@ -78,16 +83,17 @@ export default class LeaseCreate extends BaseCommand {
     );
 
     if (this.silent) {
-      console.log(this.toUrl(signature));
-    } else {
-      this.logger.log(
-        `${chalk.green(
-          `${CHECK_ICON}Lease Account created and funded successfully:`,
-          newLeaseAccount.publicKey.toBase58()
-        )}`
-      );
-      this.logger.log(this.toUrl(signature));
+      this.log(signature);
+      return;
     }
+
+    this.logger.log(
+      `${chalk.green(
+        `${CHECK_ICON}Lease Account created and funded successfully:`,
+        newLeaseAccount.publicKey.toBase58()
+      )}`
+    );
+    this.logger.log(this.toUrl(signature));
   }
 
   async catch(error) {

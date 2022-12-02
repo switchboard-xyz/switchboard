@@ -1,5 +1,8 @@
-import { PublicKey } from "@solana/web3.js";
-import { PermissionAccount } from "@switchboard-xyz/solana.js";
+import {
+  AggregatorAccount,
+  PermissionAccount,
+  QueueAccount,
+} from "@switchboard-xyz/solana.js";
 import chalk from "chalk";
 import { SolanaWithSignerBaseCommand as BaseCommand } from "../../../../solana";
 import { CHECK_ICON } from "../../../../utils";
@@ -22,47 +25,57 @@ export default class AggregatorPermissionCreate extends BaseCommand {
   async run() {
     const { args } = await this.parse(AggregatorPermissionCreate);
 
-    const [aggregatorAccount, aggregatorData] = await this.loadAggregator(
+    const [aggregatorAccount, aggregatorData] = await AggregatorAccount.load(
+      this.program,
       args.aggregatorKey
     );
-    const [queueAccount, queueData] = await this.loadQueue(
+    const [queueAccount, queueData] = await QueueAccount.load(
+      this.program,
       aggregatorData.queuePubkey.toBase58()
     );
 
-    // Check if permission account already exists
-    try {
-      const [permissionAccount] = PermissionAccount.fromSeed(
-        this.program,
-        queueData.authority,
-        queueAccount.publicKey,
-        aggregatorAccount.publicKey
-      );
-      // If `loadData` completes without throwing, the account already exists.
-      await permissionAccount.loadData();
-      throw new Error(
-        `Permission Account already exists: ${permissionAccount.publicKey}`
-      );
-    } catch {
-      const [permissionAccount, signature] = await PermissionAccount.create(
-        this.program,
-        {
-          granter: queueAccount.publicKey,
-          grantee: aggregatorAccount.publicKey,
-          authority: queueData.authority,
-        }
-      );
+    const [permissionAcct] = PermissionAccount.fromSeed(
+      this.program,
+      queueData.authority,
+      queueAccount.publicKey,
+      aggregatorAccount.publicKey
+    );
 
-      if (this.silent) {
-        console.log(this.toUrl(signature));
-      } else {
-        this.logger.log(this.toUrl(signature));
-        this.logger.log(
-          `${chalk.green(
-            `${CHECK_ICON}Job succesfully removed from aggregator account\r\n`
-          )}`
-        );
-      }
+    const permissionAccountInfo = await this.program.connection.getAccountInfo(
+      permissionAcct.publicKey
+    );
+
+    // check if permission account already exists
+    if (permissionAccountInfo !== null) {
+      this.log(
+        chalk.yellow("Warning:"),
+        `Permission Account already exists: ${permissionAcct.publicKey}`
+      );
+      return;
     }
+
+    const [permissionAccount, signature] = await PermissionAccount.create(
+      this.program,
+      {
+        granter: queueAccount.publicKey,
+        grantee: aggregatorAccount.publicKey,
+        authority: queueData.authority,
+      }
+    );
+
+    if (this.silent) {
+      this.log(signature);
+      return;
+    }
+
+    this.log(
+      `${chalk.green(
+        `${CHECK_ICON}Permission Account created successfully:`,
+        permissionAccount.publicKey.toBase58()
+      )}`
+    );
+
+    this.logger.log(this.toUrl(signature));
   }
 
   async catch(error) {

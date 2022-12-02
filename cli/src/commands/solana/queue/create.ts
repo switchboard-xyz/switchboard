@@ -1,6 +1,6 @@
 import { Flags } from "@oclif/core";
-import { Keypair, PublicKey } from "@solana/web3.js";
-import { JobInitParams, QueueAccount } from "@switchboard-xyz/solana.js";
+import { Keypair } from "@solana/web3.js";
+import { QueueAccount } from "@switchboard-xyz/solana.js";
 import { SolanaWithSignerBaseCommand as BaseCommand } from "../../../solana";
 import { CHECK_ICON } from "../../../utils";
 import chalk from "chalk";
@@ -36,12 +36,12 @@ export default class QueueCreate extends BaseCommand {
     }),
     reward: Flags.string({
       description:
-        "the reward payed out to oracles for responding to an update request on-chain, ex: 0.0000075",
+        "the reward payed out to oracles for responding to an update request on-chain, Ex: A reward of 0.0000075 with a feed with a batchSize of 4 would deduct (4 * 0.0000075) wSOL from an aggregators lease each round.",
       default: "0",
     }),
     minStake: Flags.string({
       description:
-        "the reward payed out to oracles for responding to an update request on-chain, ex: 0.0000075",
+        "the reward payed out to oracles for responding to an update request on-chain, Ex: 2 requires oracles to have 2 wSOL in their staking wallet before heartbeating",
       default: "0",
     }),
     oracleTimeout: Flags.integer({
@@ -124,15 +124,17 @@ export default class QueueCreate extends BaseCommand {
       enableBufferRelayers: flags.enableBufferRelayers,
       authority: authority ? authority.publicKey : undefined,
     });
-    console.log("Transaction Signature:", this.toUrl(signature));
+
+    if (this.silent) {
+      this.log(signature);
+      return;
+    }
 
     if (flags.json) {
       return this.normalizeAccountData(
         queueAccount.publicKey,
         (await queueAccount.loadData()).toJSON()
       );
-    } else if (flags.silent) {
-      return;
     }
 
     // handle nicer logging here
@@ -141,6 +143,8 @@ export default class QueueCreate extends BaseCommand {
         queueAccount.publicKey
       }`
     );
+
+    this.log("Transaction Signature:", this.toUrl(signature));
   }
 
   async catch(error) {

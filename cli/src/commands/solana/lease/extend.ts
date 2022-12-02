@@ -1,7 +1,11 @@
 import { Flags } from "@oclif/core";
 import * as anchor from "@project-serum/anchor";
 import { PublicKey } from "@solana/web3.js";
-import { AggregatorAccount, LeaseAccount } from "@switchboard-xyz/solana.js";
+import {
+  AggregatorAccount,
+  LeaseAccount,
+  QueueAccount,
+} from "@switchboard-xyz/solana.js";
 import chalk from "chalk";
 import { SolanaWithSignerBaseCommand as BaseCommand } from "../../../solana";
 import { chalkString, CHECK_ICON } from "../../../utils";
@@ -40,10 +44,12 @@ export default class LeaseExtend extends BaseCommand {
       throw new Error("amount to deposit must be greater than 0");
     }
 
-    const [aggregatorAccount, aggregatorData] = await this.loadAggregator(
+    const [aggregatorAccount, aggregatorData] = await AggregatorAccount.load(
+      this.program,
       args.aggregatorKey
     );
-    const [queueAccount] = await this.loadQueue(
+    const [queueAccount] = await QueueAccount.load(
+      this.program,
       aggregatorData.queuePubkey.toBase58()
     );
     const [leaseAccount] = LeaseAccount.fromSeed(
@@ -98,15 +104,14 @@ export default class LeaseExtend extends BaseCommand {
     }
 
     if (this.silent) {
-      console.log(this.toUrl(signature));
-    } else {
-      this.logger.log(
-        `${chalk.green(
-          `${CHECK_ICON}Deposited ${amount} into aggregator lease`
-        )}`
-      );
-      this.logger.log(this.toUrl(signature));
+      this.log(signature);
+      return;
     }
+
+    this.logger.log(
+      `${chalk.green(`${CHECK_ICON}Deposited ${amount} into aggregator lease`)}`
+    );
+    this.logger.log(this.toUrl(signature));
   }
 
   async catch(error) {

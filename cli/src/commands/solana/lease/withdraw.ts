@@ -1,10 +1,8 @@
 import { Flags } from "@oclif/core";
-import * as anchor from "@project-serum/anchor";
-import { PublicKey } from "@solana/web3.js";
-import { LeaseAccount } from "@switchboard-xyz/solana.js";
+import { AggregatorAccount, QueueAccount } from "@switchboard-xyz/solana.js";
 import chalk from "chalk";
 import { SolanaWithSignerBaseCommand as BaseCommand } from "../../../solana";
-import { chalkString, CHECK_ICON, loadKeypair } from "../../../utils";
+import { chalkString, CHECK_ICON } from "../../../utils";
 
 export default class AggregatorLeaseWithdraw extends BaseCommand {
   static description = "withdraw funds from an aggregator lease";
@@ -46,10 +44,12 @@ export default class AggregatorLeaseWithdraw extends BaseCommand {
     }
 
     // load aggregator & related accounts
-    const [aggregatorAccount, aggregatorData] = await this.loadAggregator(
+    const [aggregatorAccount, aggregatorData] = await AggregatorAccount.load(
+      this.program,
       args.aggregatorKey
     );
-    const [queueAccount, queueData] = await this.loadQueue(
+    const [queueAccount, queueData] = await QueueAccount.load(
+      this.program,
       aggregatorData.queuePubkey.toBase58()
     );
     const { leaseAccount } = aggregatorAccount.getAccounts({
@@ -110,15 +110,16 @@ export default class AggregatorLeaseWithdraw extends BaseCommand {
     }
 
     if (this.silent) {
-      console.log(this.toUrl(signature));
-    } else {
-      this.logger.log(
-        `${chalk.green(
-          `${CHECK_ICON}Withdrew ${amount} tokens from aggregator lease`
-        )}`
-      );
-      this.logger.log(this.toUrl(signature));
+      this.log(signature);
+      return;
     }
+
+    this.logger.log(
+      `${chalk.green(
+        `${CHECK_ICON}Withdrew ${amount} tokens from aggregator lease`
+      )}`
+    );
+    this.logger.log(this.toUrl(signature));
   }
 
   async catch(error) {

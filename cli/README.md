@@ -99,7 +99,24 @@ node bin/dev print GvDMxPzN1sCj7L26YDK2HnMRXEQmQ2aemov8YBtPS7vR
 * [`sbv2 near set aggregator AGGREGATORADDRESS`](#sbv2-near-set-aggregator-aggregatoraddress)
 * [`sbv2 near update aggregator [AGGREGATORADDRESS]`](#sbv2-near-update-aggregator-aggregatoraddress)
 * [`sbv2 oracle logs NETWORK SEARCHSTRING`](#sbv2-oracle-logs-network-searchstring)
+* [`sbv2 solana aggregator add job AGGREGATORKEY`](#sbv2-solana-aggregator-add-job-aggregatorkey)
 * [`sbv2 solana aggregator create [QUEUEKEY]`](#sbv2-solana-aggregator-create-queuekey)
+* [`sbv2 solana aggregator create json [DEFINITIONFILE]`](#sbv2-solana-aggregator-create-json-definitionfile)
+* [`sbv2 solana aggregator lease create [AGGREGATORKEY]`](#sbv2-solana-aggregator-lease-create-aggregatorkey)
+* [`sbv2 solana aggregator lease extend AGGREGATORKEY`](#sbv2-solana-aggregator-lease-extend-aggregatorkey)
+* [`sbv2 solana aggregator lease withdraw AGGREGATORKEY`](#sbv2-solana-aggregator-lease-withdraw-aggregatorkey)
+* [`sbv2 solana aggregator lock AGGREGATORKEY`](#sbv2-solana-aggregator-lock-aggregatorkey)
+* [`sbv2 solana aggregator permission create AGGREGATORKEY`](#sbv2-solana-aggregator-permission-create-aggregatorkey)
+* [`sbv2 solana aggregator remove job AGGREGATORKEY JOBKEY`](#sbv2-solana-aggregator-remove-job-aggregatorkey-jobkey)
+* [`sbv2 solana aggregator update [AGGREGATORKEY]`](#sbv2-solana-aggregator-update-aggregatorkey)
+* [`sbv2 solana aggregator watch AGGREGATORKEY`](#sbv2-solana-aggregator-watch-aggregatorkey)
+* [`sbv2 solana crank pop CRANKKEY`](#sbv2-solana-crank-pop-crankkey)
+* [`sbv2 solana json create aggregator [DEFINITIONFILE]`](#sbv2-solana-json-create-aggregator-definitionfile)
+* [`sbv2 solana lease create [AGGREGATORKEY]`](#sbv2-solana-lease-create-aggregatorkey)
+* [`sbv2 solana lease extend AGGREGATORKEY`](#sbv2-solana-lease-extend-aggregatorkey)
+* [`sbv2 solana lease withdraw AGGREGATORKEY`](#sbv2-solana-lease-withdraw-aggregatorkey)
+* [`sbv2 solana oracle up`](#sbv2-solana-oracle-up)
+* [`sbv2 solana queue create`](#sbv2-solana-queue-create)
 * [`sbv2 update [CHANNEL]`](#sbv2-update-channel)
 * [`sbv2 version`](#sbv2-version)
 
@@ -1124,7 +1141,7 @@ DESCRIPTION
   Display help for sbv2.
 ```
 
-_See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v5.1.18/src/commands/help.ts)_
+_See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v5.1.19/src/commands/help.ts)_
 
 ## `sbv2 near aggregator add history [AGGREGATORADDRESS]`
 
@@ -2888,6 +2905,40 @@ DESCRIPTION
   fetch logs for a switchboard oracle
 ```
 
+## `sbv2 solana aggregator add job AGGREGATORKEY`
+
+add a job to an aggregator
+
+```
+USAGE
+  $ sbv2 solana aggregator add job [AGGREGATORKEY] [-h] [-v] [-s] [--mainnetBeta] [-u <value>] [--programId <value>]
+    [--commitment confirmed|finalized|processed] [-k <value>] [--jobDefinition <value>] [--jobKey <value>] [-a <value>]
+
+ARGUMENTS
+  AGGREGATORKEY  public key of the aggregator account
+
+FLAGS
+  -a, --authority=<value>  alternate keypair that is the authority for the aggregator
+  -h, --help               Show CLI help.
+  -k, --keypair=<value>    keypair that will pay for onchain transactions. defaults to new account authority if no
+                           alternate authority provided
+  -s, --silent             suppress cli prompts
+  -u, --rpcUrl=<value>     alternate RPC url
+  -v, --verbose            log everything
+  --commitment=<option>    [default: confirmed] transaction commitment level to use
+                           <options: confirmed|finalized|processed>
+  --jobDefinition=<value>  filesystem path of job json definition file
+  --jobKey=<value>         public key of an existing job account to add to an aggregator
+  --mainnetBeta            WARNING: use mainnet-beta solana cluster
+  --programId=<value>      alternative Switchboard program ID to interact with
+
+DESCRIPTION
+  add a job to an aggregator
+
+EXAMPLES
+  $ sbv2 solana:aggregator:add:job
+```
+
 ## `sbv2 solana aggregator create [QUEUEKEY]`
 
 create an aggregator account
@@ -2896,8 +2947,8 @@ create an aggregator account
 USAGE
   $ sbv2 solana aggregator create [QUEUEKEY] --updateInterval <value> [-h] [-v] [-s] [--mainnetBeta] [-u <value>] [--programId
     <value>] [--commitment confirmed|finalized|processed] [-k <value>] [--json] [-a <value>] [--aggregatorKeypair
-    <value>] [--name <value>] [--metadata <value>] [--forceReportPeriod <value>] [--batchSize <value>] [--minJobs
-    <value>] [--minOracles <value>] [--varianceThreshold <value>] [--historyLimit <value>] [--crankKey <value> |
+    <value>] [--name <value>] [--metadata <value>] [--batchSize <value>] [--minJobs <value>] [--minOracles <value>]
+    [--forceReportPeriod <value>] [--varianceThreshold <value>] [--historyLimit <value>] [--crankKey <value> |
     --disableCrank] [--queueAuthority <value>] [--enable] [--leaseAmount <value>] [-j <value>] [--jobKey <value>]
 
 ARGUMENTS
@@ -2943,6 +2994,561 @@ DESCRIPTION
   create an aggregator account
 ```
 
+## `sbv2 solana aggregator create json [DEFINITIONFILE]`
+
+create an aggregator from a json file
+
+```
+USAGE
+  $ sbv2 solana aggregator create json [DEFINITIONFILE] [-h] [-v] [-s] [--mainnetBeta] [-u <value>] [--programId <value>]
+    [--commitment confirmed|finalized|processed] [-k <value>] [-q <value>] [-a <value>] [--leaseAmount <value>]
+
+ARGUMENTS
+  DEFINITIONFILE  filesystem path of queue definition json file
+
+FLAGS
+  -a, --authority=<value>  alternate keypair that will be the authority for the aggregator
+  -h, --help               Show CLI help.
+  -k, --keypair=<value>    keypair that will pay for onchain transactions. defaults to new account authority if no
+                           alternate authority provided
+  -q, --queueKey=<value>   public key of the oracle queue to create aggregator for
+  -s, --silent             suppress cli prompts
+  -u, --rpcUrl=<value>     alternate RPC url
+  -v, --verbose            log everything
+  --commitment=<option>    [default: confirmed] transaction commitment level to use
+                           <options: confirmed|finalized|processed>
+  --leaseAmount=<value>    [default: 0] amount of funds to deposit into the lease, ex: 1.5 would deposit 1.5 wSOL
+  --mainnetBeta            WARNING: use mainnet-beta solana cluster
+  --programId=<value>      alternative Switchboard program ID to interact with
+
+DESCRIPTION
+  create an aggregator from a json file
+
+ALIASES
+  $ sbv2 solana json create aggregator
+
+EXAMPLES
+  $ sbv2 solana:aggregator:create:json examples/aggregator.json --keypair ../payer-keypair.json --queueKey GhYg3R1V6DmJbwuc57qZeoYG6gUuvCotUF1zU3WCj98U --outputFile aggregator.schema.json
+```
+
+## `sbv2 solana aggregator lease create [AGGREGATORKEY]`
+
+fund and re-enable an aggregator lease
+
+```
+USAGE
+  $ sbv2 solana aggregator lease create [AGGREGATORKEY] [-h] [-v] [-s] [--mainnetBeta] [-u <value>] [--programId <value>]
+    [--commitment confirmed|finalized|processed] [-k <value>] [--amount <value>]
+
+ARGUMENTS
+  AGGREGATORKEY  public key of the aggregator to extend a lease for
+
+FLAGS
+  -h, --help             Show CLI help.
+  -k, --keypair=<value>  keypair that will pay for onchain transactions. defaults to new account authority if no
+                         alternate authority provided
+  -s, --silent           suppress cli prompts
+  -u, --rpcUrl=<value>   alternate RPC url
+  -v, --verbose          log everything
+  --amount=<value>       token amount to load into the lease escrow. If decimals provided, amount will be normalized to
+                         raw tokenAmount
+  --commitment=<option>  [default: confirmed] transaction commitment level to use
+                         <options: confirmed|finalized|processed>
+  --mainnetBeta          WARNING: use mainnet-beta solana cluster
+  --programId=<value>    alternative Switchboard program ID to interact with
+
+DESCRIPTION
+  fund and re-enable an aggregator lease
+
+ALIASES
+  $ sbv2 solana aggregator lease create
+
+EXAMPLES
+  $ sbv2 lease:create GvDMxPzN1sCj7L26YDK2HnMRXEQmQ2aemov8YBtPS7vR --amount 1.5 --keypair ../payer-keypair.json
+```
+
+## `sbv2 solana aggregator lease extend AGGREGATORKEY`
+
+fund and re-enable an aggregator lease
+
+```
+USAGE
+  $ sbv2 solana aggregator lease extend [AGGREGATORKEY] --amount <value> [-h] [-v] [-s] [--mainnetBeta] [-u <value>] [--programId
+    <value>] [--commitment confirmed|finalized|processed] [-k <value>]
+
+ARGUMENTS
+  AGGREGATORKEY  public key of the aggregator to extend a lease for
+
+FLAGS
+  -h, --help             Show CLI help.
+  -k, --keypair=<value>  keypair that will pay for onchain transactions. defaults to new account authority if no
+                         alternate authority provided
+  -s, --silent           suppress cli prompts
+  -u, --rpcUrl=<value>   alternate RPC url
+  -v, --verbose          log everything
+  --amount=<value>       (required) token amount to load into the lease escrow. If decimals provided, amount will be
+                         normalized to raw tokenAmount
+  --commitment=<option>  [default: confirmed] transaction commitment level to use
+                         <options: confirmed|finalized|processed>
+  --mainnetBeta          WARNING: use mainnet-beta solana cluster
+  --programId=<value>    alternative Switchboard program ID to interact with
+
+DESCRIPTION
+  fund and re-enable an aggregator lease
+
+ALIASES
+  $ sbv2 solana aggregator lease extend
+
+EXAMPLES
+  $ sbv2 aggregator:lease:extend GvDMxPzN1sCj7L26YDK2HnMRXEQmQ2aemov8YBtPS7vR --amount 1.1 --keypair ../payer-keypair.json
+```
+
+## `sbv2 solana aggregator lease withdraw AGGREGATORKEY`
+
+withdraw funds from an aggregator lease
+
+```
+USAGE
+  $ sbv2 solana aggregator lease withdraw [AGGREGATORKEY] --amount <value> [-h] [-v] [-s] [--mainnetBeta] [-u <value>] [--programId
+    <value>] [--commitment confirmed|finalized|processed] [-k <value>] [-a <value>]
+
+ARGUMENTS
+  AGGREGATORKEY  public key of the aggregator to extend a lease for
+
+FLAGS
+  -a, --authority=<value>  keypair delegated as the authority for managing the oracle account
+  -h, --help               Show CLI help.
+  -k, --keypair=<value>    keypair that will pay for onchain transactions. defaults to new account authority if no
+                           alternate authority provided
+  -s, --silent             suppress cli prompts
+  -u, --rpcUrl=<value>     alternate RPC url
+  -v, --verbose            log everything
+  --amount=<value>         (required) token amount to withdraw from lease account. If decimals provided, amount will be
+                           normalized to raw tokenAmount
+  --commitment=<option>    [default: confirmed] transaction commitment level to use
+                           <options: confirmed|finalized|processed>
+  --mainnetBeta            WARNING: use mainnet-beta solana cluster
+  --programId=<value>      alternative Switchboard program ID to interact with
+
+DESCRIPTION
+  withdraw funds from an aggregator lease
+
+ALIASES
+  $ sbv2 solana aggregator lease withdraw
+
+EXAMPLES
+  $ sbv2 aggregator:lease:withdraw GvDMxPzN1sCj7L26YDK2HnMRXEQmQ2aemov8YBtPS7vR --amount 1.1 --keypair ../payer-keypair.json
+```
+
+## `sbv2 solana aggregator lock AGGREGATORKEY`
+
+lock an aggregator's configuration and prevent further changes
+
+```
+USAGE
+  $ sbv2 solana aggregator lock [AGGREGATORKEY] [-h] [-v] [-s] [--mainnetBeta] [-u <value>] [--programId <value>]
+    [--commitment confirmed|finalized|processed] [-k <value>] [-a <value>]
+
+ARGUMENTS
+  AGGREGATORKEY  public key of the aggregator account
+
+FLAGS
+  -a, --authority=<value>  alternate keypair that is the authority for the aggregator
+  -h, --help               Show CLI help.
+  -k, --keypair=<value>    keypair that will pay for onchain transactions. defaults to new account authority if no
+                           alternate authority provided
+  -s, --silent             suppress cli prompts
+  -u, --rpcUrl=<value>     alternate RPC url
+  -v, --verbose            log everything
+  --commitment=<option>    [default: confirmed] transaction commitment level to use
+                           <options: confirmed|finalized|processed>
+  --mainnetBeta            WARNING: use mainnet-beta solana cluster
+  --programId=<value>      alternative Switchboard program ID to interact with
+
+DESCRIPTION
+  lock an aggregator's configuration and prevent further changes
+```
+
+## `sbv2 solana aggregator permission create AGGREGATORKEY`
+
+create a permission account for an aggregator
+
+```
+USAGE
+  $ sbv2 solana aggregator permission create [AGGREGATORKEY] [-h] [-v] [-s] [--mainnetBeta] [-u <value>] [--programId <value>]
+    [--commitment confirmed|finalized|processed] [-k <value>]
+
+ARGUMENTS
+  AGGREGATORKEY  public key of the aggregator account
+
+FLAGS
+  -h, --help             Show CLI help.
+  -k, --keypair=<value>  keypair that will pay for onchain transactions. defaults to new account authority if no
+                         alternate authority provided
+  -s, --silent           suppress cli prompts
+  -u, --rpcUrl=<value>   alternate RPC url
+  -v, --verbose          log everything
+  --commitment=<option>  [default: confirmed] transaction commitment level to use
+                         <options: confirmed|finalized|processed>
+  --mainnetBeta          WARNING: use mainnet-beta solana cluster
+  --programId=<value>    alternative Switchboard program ID to interact with
+
+DESCRIPTION
+  create a permission account for an aggregator
+```
+
+## `sbv2 solana aggregator remove job AGGREGATORKEY JOBKEY`
+
+remove a switchboard job account from an aggregator
+
+```
+USAGE
+  $ sbv2 solana aggregator remove job [AGGREGATORKEY] [JOBKEY] [-h] [-v] [-s] [--mainnetBeta] [-u <value>] [--programId <value>]
+    [--commitment confirmed|finalized|processed] [-k <value>] [-a <value>]
+
+ARGUMENTS
+  AGGREGATORKEY  public key of the aggregator account
+  JOBKEY         public key of an existing job account to remove from an aggregator
+
+FLAGS
+  -a, --authority=<value>  alternate keypair that is the authority for the aggregator
+  -h, --help               Show CLI help.
+  -k, --keypair=<value>    keypair that will pay for onchain transactions. defaults to new account authority if no
+                           alternate authority provided
+  -s, --silent             suppress cli prompts
+  -u, --rpcUrl=<value>     alternate RPC url
+  -v, --verbose            log everything
+  --commitment=<option>    [default: confirmed] transaction commitment level to use
+                           <options: confirmed|finalized|processed>
+  --mainnetBeta            WARNING: use mainnet-beta solana cluster
+  --programId=<value>      alternative Switchboard program ID to interact with
+
+DESCRIPTION
+  remove a switchboard job account from an aggregator
+
+EXAMPLES
+  $ sbv2 aggregator:remove:job
+```
+
+## `sbv2 solana aggregator update [AGGREGATORKEY]`
+
+request a new aggregator result from a set of oracles
+
+```
+USAGE
+  $ sbv2 solana aggregator update [AGGREGATORKEY] [-h] [-v] [-s] [--mainnetBeta] [-u <value>] [--programId <value>]
+    [--commitment confirmed|finalized|processed] [-k <value>]
+
+ARGUMENTS
+  AGGREGATORKEY  public key of the aggregator account to deserialize
+
+FLAGS
+  -h, --help             Show CLI help.
+  -k, --keypair=<value>  keypair that will pay for onchain transactions. defaults to new account authority if no
+                         alternate authority provided
+  -s, --silent           suppress cli prompts
+  -u, --rpcUrl=<value>   alternate RPC url
+  -v, --verbose          log everything
+  --commitment=<option>  [default: confirmed] transaction commitment level to use
+                         <options: confirmed|finalized|processed>
+  --mainnetBeta          WARNING: use mainnet-beta solana cluster
+  --programId=<value>    alternative Switchboard program ID to interact with
+
+DESCRIPTION
+  request a new aggregator result from a set of oracles
+
+EXAMPLES
+  $ sbv2 aggregator:update J7j9xX8JP2B2ErvUzuqGAKBGeggsxPyFXj5MqZcYDxfa --keypair ../payer-keypair.json
+```
+
+## `sbv2 solana aggregator watch AGGREGATORKEY`
+
+watch an aggregator account and stream the results
+
+```
+USAGE
+  $ sbv2 solana aggregator watch [AGGREGATORKEY] [-h] [-v] [-s] [--mainnetBeta] [-u <value>] [--programId <value>]
+    [--commitment confirmed|finalized|processed] [-t <value>] [-f <value>]
+
+ARGUMENTS
+  AGGREGATORKEY  public key of the aggregator account
+
+FLAGS
+  -f, --outfile=<value>  save results to a file
+  -h, --help             Show CLI help.
+  -s, --silent           suppress cli prompts
+  -t, --timeout=<value>  time to watch feed for updates
+  -u, --rpcUrl=<value>   alternate RPC url
+  -v, --verbose          log everything
+  --commitment=<option>  [default: confirmed] transaction commitment level to use
+                         <options: confirmed|finalized|processed>
+  --mainnetBeta          WARNING: use mainnet-beta solana cluster
+  --programId=<value>    alternative Switchboard program ID to interact with
+
+DESCRIPTION
+  watch an aggregator account and stream the results
+```
+
+## `sbv2 solana crank pop CRANKKEY`
+
+pop the crank
+
+```
+USAGE
+  $ sbv2 solana crank pop [CRANKKEY] [-h] [-v] [-s] [--mainnetBeta] [-u <value>] [--programId <value>] [--commitment
+    confirmed|finalized|processed] [-k <value>]
+
+ARGUMENTS
+  CRANKKEY  public key of the crank
+
+FLAGS
+  -h, --help             Show CLI help.
+  -k, --keypair=<value>  keypair that will pay for onchain transactions. defaults to new account authority if no
+                         alternate authority provided
+  -s, --silent           suppress cli prompts
+  -u, --rpcUrl=<value>   alternate RPC url
+  -v, --verbose          log everything
+  --commitment=<option>  [default: confirmed] transaction commitment level to use
+                         <options: confirmed|finalized|processed>
+  --mainnetBeta          WARNING: use mainnet-beta solana cluster
+  --programId=<value>    alternative Switchboard program ID to interact with
+
+DESCRIPTION
+  pop the crank
+```
+
+## `sbv2 solana json create aggregator [DEFINITIONFILE]`
+
+create an aggregator from a json file
+
+```
+USAGE
+  $ sbv2 solana json create aggregator [DEFINITIONFILE] [-h] [-v] [-s] [--mainnetBeta] [-u <value>] [--programId <value>]
+    [--commitment confirmed|finalized|processed] [-k <value>] [-q <value>] [-a <value>] [--leaseAmount <value>]
+
+ARGUMENTS
+  DEFINITIONFILE  filesystem path of queue definition json file
+
+FLAGS
+  -a, --authority=<value>  alternate keypair that will be the authority for the aggregator
+  -h, --help               Show CLI help.
+  -k, --keypair=<value>    keypair that will pay for onchain transactions. defaults to new account authority if no
+                           alternate authority provided
+  -q, --queueKey=<value>   public key of the oracle queue to create aggregator for
+  -s, --silent             suppress cli prompts
+  -u, --rpcUrl=<value>     alternate RPC url
+  -v, --verbose            log everything
+  --commitment=<option>    [default: confirmed] transaction commitment level to use
+                           <options: confirmed|finalized|processed>
+  --leaseAmount=<value>    [default: 0] amount of funds to deposit into the lease, ex: 1.5 would deposit 1.5 wSOL
+  --mainnetBeta            WARNING: use mainnet-beta solana cluster
+  --programId=<value>      alternative Switchboard program ID to interact with
+
+DESCRIPTION
+  create an aggregator from a json file
+
+ALIASES
+  $ sbv2 solana json create aggregator
+
+EXAMPLES
+  $ sbv2 solana:aggregator:create:json examples/aggregator.json --keypair ../payer-keypair.json --queueKey GhYg3R1V6DmJbwuc57qZeoYG6gUuvCotUF1zU3WCj98U --outputFile aggregator.schema.json
+```
+
+## `sbv2 solana lease create [AGGREGATORKEY]`
+
+fund and re-enable an aggregator lease
+
+```
+USAGE
+  $ sbv2 solana lease create [AGGREGATORKEY] [-h] [-v] [-s] [--mainnetBeta] [-u <value>] [--programId <value>]
+    [--commitment confirmed|finalized|processed] [-k <value>] [--amount <value>]
+
+ARGUMENTS
+  AGGREGATORKEY  public key of the aggregator to extend a lease for
+
+FLAGS
+  -h, --help             Show CLI help.
+  -k, --keypair=<value>  keypair that will pay for onchain transactions. defaults to new account authority if no
+                         alternate authority provided
+  -s, --silent           suppress cli prompts
+  -u, --rpcUrl=<value>   alternate RPC url
+  -v, --verbose          log everything
+  --amount=<value>       token amount to load into the lease escrow. If decimals provided, amount will be normalized to
+                         raw tokenAmount
+  --commitment=<option>  [default: confirmed] transaction commitment level to use
+                         <options: confirmed|finalized|processed>
+  --mainnetBeta          WARNING: use mainnet-beta solana cluster
+  --programId=<value>    alternative Switchboard program ID to interact with
+
+DESCRIPTION
+  fund and re-enable an aggregator lease
+
+ALIASES
+  $ sbv2 solana aggregator lease create
+
+EXAMPLES
+  $ sbv2 lease:create GvDMxPzN1sCj7L26YDK2HnMRXEQmQ2aemov8YBtPS7vR --amount 1.5 --keypair ../payer-keypair.json
+```
+
+## `sbv2 solana lease extend AGGREGATORKEY`
+
+fund and re-enable an aggregator lease
+
+```
+USAGE
+  $ sbv2 solana lease extend [AGGREGATORKEY] --amount <value> [-h] [-v] [-s] [--mainnetBeta] [-u <value>] [--programId
+    <value>] [--commitment confirmed|finalized|processed] [-k <value>]
+
+ARGUMENTS
+  AGGREGATORKEY  public key of the aggregator to extend a lease for
+
+FLAGS
+  -h, --help             Show CLI help.
+  -k, --keypair=<value>  keypair that will pay for onchain transactions. defaults to new account authority if no
+                         alternate authority provided
+  -s, --silent           suppress cli prompts
+  -u, --rpcUrl=<value>   alternate RPC url
+  -v, --verbose          log everything
+  --amount=<value>       (required) token amount to load into the lease escrow. If decimals provided, amount will be
+                         normalized to raw tokenAmount
+  --commitment=<option>  [default: confirmed] transaction commitment level to use
+                         <options: confirmed|finalized|processed>
+  --mainnetBeta          WARNING: use mainnet-beta solana cluster
+  --programId=<value>    alternative Switchboard program ID to interact with
+
+DESCRIPTION
+  fund and re-enable an aggregator lease
+
+ALIASES
+  $ sbv2 solana aggregator lease extend
+
+EXAMPLES
+  $ sbv2 aggregator:lease:extend GvDMxPzN1sCj7L26YDK2HnMRXEQmQ2aemov8YBtPS7vR --amount 1.1 --keypair ../payer-keypair.json
+```
+
+## `sbv2 solana lease withdraw AGGREGATORKEY`
+
+withdraw funds from an aggregator lease
+
+```
+USAGE
+  $ sbv2 solana lease withdraw [AGGREGATORKEY] --amount <value> [-h] [-v] [-s] [--mainnetBeta] [-u <value>] [--programId
+    <value>] [--commitment confirmed|finalized|processed] [-k <value>] [-a <value>]
+
+ARGUMENTS
+  AGGREGATORKEY  public key of the aggregator to extend a lease for
+
+FLAGS
+  -a, --authority=<value>  keypair delegated as the authority for managing the oracle account
+  -h, --help               Show CLI help.
+  -k, --keypair=<value>    keypair that will pay for onchain transactions. defaults to new account authority if no
+                           alternate authority provided
+  -s, --silent             suppress cli prompts
+  -u, --rpcUrl=<value>     alternate RPC url
+  -v, --verbose            log everything
+  --amount=<value>         (required) token amount to withdraw from lease account. If decimals provided, amount will be
+                           normalized to raw tokenAmount
+  --commitment=<option>    [default: confirmed] transaction commitment level to use
+                           <options: confirmed|finalized|processed>
+  --mainnetBeta            WARNING: use mainnet-beta solana cluster
+  --programId=<value>      alternative Switchboard program ID to interact with
+
+DESCRIPTION
+  withdraw funds from an aggregator lease
+
+ALIASES
+  $ sbv2 solana aggregator lease withdraw
+
+EXAMPLES
+  $ sbv2 aggregator:lease:withdraw GvDMxPzN1sCj7L26YDK2HnMRXEQmQ2aemov8YBtPS7vR --amount 1.1 --keypair ../payer-keypair.json
+```
+
+## `sbv2 solana oracle up`
+
+start a solana docker oracle
+
+```
+USAGE
+  $ sbv2 solana oracle up --oracleKey <value> [-h] [-v] [-s] [--mainnetBeta] [-u <value>] [--programId <value>]
+    [--commitment confirmed|finalized|processed] [-k <value>] [--nodeImage <value>] [--arm] [-t <value>]
+
+FLAGS
+  -h, --help             Show CLI help.
+  -k, --keypair=<value>  keypair that will pay for onchain transactions. defaults to new account authority if no
+                         alternate authority provided
+  -s, --silent           suppress docker logging
+  -t, --timeout=<value>  [default: 120] number of seconds before ending the docker process
+  -u, --rpcUrl=<value>   alternate RPC url
+  -v, --verbose          log everything
+  --arm                  apple silicon needs to use a docker image for linux/arm64
+  --commitment=<option>  [default: confirmed] transaction commitment level to use
+                         <options: confirmed|finalized|processed>
+  --mainnetBeta          WARNING: use mainnet-beta solana cluster
+  --nodeImage=<value>    [default: dev-v2-RC_11_10_22__19_19] public key of the oracle to start-up
+  --oracleKey=<value>    (required) public key of the oracle to start-up
+  --programId=<value>    alternative Switchboard program ID to interact with
+
+DESCRIPTION
+  start a solana docker oracle
+```
+
+## `sbv2 solana queue create`
+
+create an oracle queue
+
+```
+USAGE
+  $ sbv2 solana queue create [-h] [-v] [-s] [--mainnetBeta] [-u <value>] [--programId <value>] [--commitment
+    confirmed|finalized|processed] [-k <value>] [--json] [-a <value>] [--queueKeypair <value>] [--size <value>] [--name
+    <value>] [--metadata <value>] [--reward <value>] [--minStake <value>] [--oracleTimeout <value>] [--slashingEnabled]
+    [--permissionedFeeds] [--unpermissionedVrf] [--enableBufferRelayers] [--feedProbationPeriod <value>]
+    [--consecutiveFeedFailureLimit <value>] [--consecutiveOracleFailureLimit <value>]
+
+FLAGS
+  -a, --authority=<value>                  alternate keypair that is the authority for the queue and is required to
+                                           approve permissions
+  -h, --help                               Show CLI help.
+  -k, --keypair=<value>                    keypair that will pay for onchain transactions. defaults to new account
+                                           authority if no alternate authority provided
+  -s, --silent                             suppress cli prompts
+  -u, --rpcUrl=<value>                     alternate RPC url
+  -v, --verbose                            log everything
+  --commitment=<option>                    [default: confirmed] transaction commitment level to use
+                                           <options: confirmed|finalized|processed>
+  --consecutiveFeedFailureLimit=<value>    [default: 1000] consecutive failure limit for a feed before feed permission
+                                           is revoked.
+  --consecutiveOracleFailureLimit=<value>  [default: 1000] consecutive failure limit for an oracle before oracle
+                                           permission is revoked.
+  --enableBufferRelayers                   enabling this setting will allow buffer relayer accounts to call openRound.
+  --feedProbationPeriod=<value>            [default: 1000] After a feed lease is funded or re-funded, it must
+                                           consecutively succeed N amount of times or its authorization to use the queue
+                                           is auto-revoked.
+  --mainnetBeta                            WARNING: use mainnet-beta solana cluster
+  --metadata=<value>                       metadata of the aggregator
+  --minStake=<value>                       [default: 0] the reward payed out to oracles for responding to an update
+                                           request on-chain, ex: 0.0000075
+  --name=<value>                           name of the aggregator
+  --oracleTimeout=<value>                  [default: 180] time period (in seconds) we should remove an oracle after if
+                                           no response
+  --permissionedFeeds                      enabling this setting means data feeds need explicit permission to join the
+                                           queue.
+  --programId=<value>                      alternative Switchboard program ID to interact with
+  --queueKeypair=<value>                   keypair to use for the oracle queue account. This will be the account's
+                                           publicKey
+  --reward=<value>                         [default: 0] the reward payed out to oracles for responding to an update
+                                           request on-chain, ex: 0.0000075
+  --size=<value>                           [default: 100] set the size of the queue
+  --slashingEnabled                        whether slashing is enabled on this queue.
+  --unpermissionedVrf                      enabling this setting means data feeds do not need explicit permission to
+                                           request VRF proofs and verifications from this queue.
+
+GLOBAL FLAGS
+  --json  Format output as json.
+
+DESCRIPTION
+  create an oracle queue
+```
+
 ## `sbv2 update [CHANNEL]`
 
 update the sbv2 CLI
@@ -2978,7 +3584,7 @@ EXAMPLES
     $ sbv2 update --available
 ```
 
-_See code: [@oclif/plugin-update](https://github.com/oclif/plugin-update/blob/v3.0.6/src/commands/update.ts)_
+_See code: [@oclif/plugin-update](https://github.com/oclif/plugin-update/blob/v3.0.7/src/commands/update.ts)_
 
 ## `sbv2 version`
 

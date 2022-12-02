@@ -21,7 +21,7 @@ export default class AggregatorUpdate extends BaseCommand {
   ];
 
   static examples = [
-    "$ sbv2 aggregator:update J7j9xX8JP2B2ErvUzuqGAKBGeggsxPyFXj5MqZcYDxfa --keypair ../payer-keypair.json",
+    "$ sbv2 solana aggregator update J7j9xX8JP2B2ErvUzuqGAKBGeggsxPyFXj5MqZcYDxfa --keypair ../payer-keypair.json",
   ];
 
   async run() {
@@ -33,15 +33,15 @@ export default class AggregatorUpdate extends BaseCommand {
     ).openRound({});
 
     if (this.silent) {
-      console.log(txn);
-    } else {
-      this.logger.log(
-        `${chalk.green(
-          `${CHECK_ICON}Aggregator update request sent to oracles`
-        )}`
-      );
-      this.logger.log(this.toUrl(txn));
+      this.log(txn);
+      return;
     }
+
+    this.logger.log(
+      `${chalk.green(`${CHECK_ICON}Aggregator update request sent to oracles`)}`
+    );
+
+    this.logger.log(this.toUrl(txn));
   }
 
   async catch(error) {

@@ -52,3 +52,12 @@ export function serializeOracleJob(
     throw new Error(`failed to serialize oracle job: ${error}`);
   }
 }
+
+/**
+ * Deserialize an OracleJob from on-chain data
+ * @param [jobData] Serialized OracleJob data
+ * @returns {OracleJob}
+ */
+export function deserializeOracleJob(jobData: Buffer | Uint8Array): OracleJob {
+  return OracleJob.decodeDelimited(jobData);
+}

@@ -1,3 +1,4 @@
+import { CrankAccount } from "@switchboard-xyz/solana.js";
 import chalk from "chalk";
 import { SolanaWithSignerBaseCommand as BaseCommand } from "../../../solana";
 import { CHECK_ICON } from "../../../utils";
@@ -19,14 +20,18 @@ export default class CrankPop extends BaseCommand {
 
   async run() {
     const { args } = await this.parse(CrankPop);
-    const [crankAccount] = await this.loadCrank(args.crankKey);
-    const signature = await crankAccount.pop({});
-    console.log("Transaction Signature:", this.toUrl(signature));
 
-    if (!this.silent) {
-      this.logger.log(`${chalk.green(`${CHECK_ICON}Crank pop successful`)}`);
-      this.logger.log(this.toUrl(signature));
+    const [crankAccount] = await CrankAccount.load(this.program, args.crankKey);
+
+    const signature = await crankAccount.pop({});
+
+    if (this.silent) {
+      this.log(signature);
+      return;
     }
+
+    this.logger.log(`${chalk.green(`${CHECK_ICON}Crank pop successful`)}`);
+    this.logger.log(this.toUrl(signature));
   }
 
   async catch(error) {

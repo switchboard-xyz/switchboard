@@ -2,17 +2,23 @@
 import { Flags } from "@oclif/core";
 import { PublicKey } from "@solana/web3.js";
 import { OracleJob } from "@switchboard-xyz/common";
-import { JobInitParams } from "@switchboard-xyz/solana.js";
+import { JobInitParams, QueueAccount } from "@switchboard-xyz/solana.js";
 import * as fs from "fs";
 import * as path from "path";
 import { SolanaWithSignerBaseCommand as BaseCommand } from "../../../../solana";
-import { pubKeyConverter, pubKeyReviver } from "../../../../utils";
+import { pubKeyReviver } from "../../../../utils";
 import _ from "lodash";
 
 export default class JsonCreateAggregator extends BaseCommand {
+  static enableJsonFlag = true;
+
   static description = "create an aggregator from a json file";
 
   static aliases = ["solana:json:create:aggregator"];
+
+  static examples = [
+    "$ sbv2 solana aggregator create json examples/aggregator.json --keypair ../payer-keypair.json --queueKey GhYg3R1V6DmJbwuc57qZeoYG6gUuvCotUF1zU3WCj98U --outputFile aggregator.schema.json",
+  ];
 
   static flags = {
     ...BaseCommand.flags,
@@ -40,16 +46,13 @@ export default class JsonCreateAggregator extends BaseCommand {
     },
   ];
 
-  static examples = [
-    "$ sbv2 solana:aggregator:create:json examples/aggregator.json --keypair ../payer-keypair.json --queueKey GhYg3R1V6DmJbwuc57qZeoYG6gUuvCotUF1zU3WCj98U --outputFile aggregator.schema.json",
-  ];
-
   async run() {
     const { args, flags } = await this.parse(JsonCreateAggregator);
 
     if (!args.definitionFile) {
       throw new Error("No feed definition file not specified");
     }
+
     const definitionFile = args.definitionFile?.startsWith("/")
       ? args.definitionFile
       : path.join(process.cwd(), args.definitionFile);
@@ -66,7 +69,11 @@ export default class JsonCreateAggregator extends BaseCommand {
     if (!queueKey) {
       throw new Error("you must provide a --queueKey to create aggregator for");
     }
-    const [queueAccount, queue] = await this.loadQueue(queueKey);
+
+    const [queueAccount, queue] = await QueueAccount.load(
+      this.program,
+      queueKey
+    );
     const queueAuthority = flags.queueAuthority
       ? await this.loadAuthority(flags.queueAuthority, queue.authority)
       : undefined;
@@ -138,11 +145,22 @@ export default class JsonCreateAggregator extends BaseCommand {
       // job params
       jobs: jobs,
     });
-    signatures.forEach((signature) => console.info(this.toUrl(signature)));
+
+    if (flags.silent) {
+      this.log(signatures.join("\n"));
+      return;
+    }
 
     if (flags.json) {
-      const accounts = await aggregatorAccount.loadAllAccounts();
+      const accounts = await aggregatorAccount.toAccountsJSON();
       return this.normalizeAccountData(aggregatorAccount.publicKey, accounts);
+    }
+
+    if (signatures.length === 1) {
+      this.log(this.toUrl(signatures[0]));
+    } else {
+      for (const [index, oracleInitSignature] of signatures.entries())
+        this.log(`Txn #${index}`, this.toUrl(oracleInitSignature));
     }
 
     // handle nicer logging here

@@ -4,12 +4,12 @@ import { HexString } from "aptos";
 
 /** Interfaces each chain must support */
 export interface IBaseChain {
-  getRpcUrl(...args: any[]): string;
-  getNetwork(...args: any[]): string;
-  getProgramId(...args: any[]): HexString | string | PublicKey;
+  getRpcUrl(...arguments_: any[]): string;
+  getNetwork(...arguments_: any[]): string;
+  getProgramId(...arguments_: any[]): HexString | string | PublicKey;
   jsonReplacers?: (key: any, value: any) => any;
   deserializeJobData(jobData: Uint8Array): OracleJob;
-  toUrl(...args: any[]): string;
+  toUrl(...arguments_: any[]): string;
 
   loadQueue(address: string): Promise<[any, any]>;
   loadAggregator(address: string): Promise<[any, any]>;
