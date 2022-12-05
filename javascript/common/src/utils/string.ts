@@ -6,6 +6,7 @@ export const buf2String = (
 ): string =>
   Buffer.from(buf)
     .toString("utf8")
-    .replace(/\u0000/g, "");
+    .replace(/\u0000/g, "")
+    .replace(/\0/g, "");
 
 export const toUtf8 = buf2String;
