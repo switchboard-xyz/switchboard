@@ -11,7 +11,7 @@ export default class OracleCreate extends BaseCommand {
   static description = "create a new oracle account for a given queue";
 
   static examples = [
-    "$ sbv2 solana oracle create F8ce7MsckeZAbAGmxjJNetxYXQa9mKr9nnrC3qKubyYy --name oracle-1 --stakeAmount 1",
+    "$ sbv2 solana:oracle:create F8ce7MsckeZAbAGmxjJNetxYXQa9mKr9nnrC3qKubyYy --name oracle-1 --stakeAmount 1",
   ];
 
   static flags = {

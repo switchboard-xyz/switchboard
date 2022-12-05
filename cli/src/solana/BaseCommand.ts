@@ -123,6 +123,8 @@ export abstract class SolanaBaseCommand
     if (mainnetFlag) {
       return "mainnet-beta";
     }
+
+    return "devnet";
   }
 
   getRpcUrl(cluster: SolanaNetwork, rpcUrlFlag?: string): string {
