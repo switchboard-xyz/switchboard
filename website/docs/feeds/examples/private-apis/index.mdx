@@ -65,7 +65,7 @@ First, we will need to create our own queue. The following command will create a
 queue with a single oracle and crank.
 
 ```bash
-sbv2 queue:create \
+sbv2 solana:queue:create \
     --name "Private Queue" \
     --keypair ../payer-keypair.json \
     --authority ../payer-keypair.json \
@@ -161,7 +161,7 @@ take the inverse. The aggregator definition will look like this:
 Now we need to create an aggregator and add this job definition to it.
 
 ```bash
-sbv2 aggregator:create:json wheat.json \
+sbv2 solana:aggregator:create:json wheat.json \
     --keypair ../payer-keypair.json \
     --queueKey QUEUE_KEY_OUTPUTTED_ABOVE \
     --outputFile Wheat_Aggregator.json
@@ -170,13 +170,13 @@ sbv2 aggregator:create:json wheat.json \
 Now we can request an update from our running oracle
 
 ```bash
-sbv2 aggregator:update AGGREGATORKEY --keypair PAYERKEYPAIR
+sbv2 solana:aggregator:update AGGREGATORKEY --keypair PAYERKEYPAIR
 ```
 
 We should see the oracle respond to the job and update the on-chain value
 
 ```bash
-sbv2 aggregator:print AGGREGATORKEY
+sbv2 solana:aggregator:print AGGREGATORKEY
 ```
 
 ### Other Aggregator Definitions

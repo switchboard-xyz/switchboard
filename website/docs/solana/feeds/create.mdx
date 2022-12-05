@@ -30,5 +30,17 @@ Switchboard allows you to create permissionless data feeds using
 ## Command Line
 
 ```bash
-sbv2 solana aggregator create
+sbv2 solana:aggregator:create $QUEUE_PUBKEY \
+    --keypair ~/.config/solana/id.json \
+    --crankKey $CRANK_PUBKEY \
+    --name "My_Test_Feed" \
+    --updateInterval 10 \
+    --minOracles 1 \
+    --batchSize 1 \
+    --leaseAmount 1.337 \
+    --job ./directory/jobs/btc/binanceCom.jsonc \
+    --job ./directory/jobs/btc/kraken.jsonc \
+    --job ./directory/jobs/btc/bitfinex.jsonc \
+    --json \
+    --verbose
 ```
