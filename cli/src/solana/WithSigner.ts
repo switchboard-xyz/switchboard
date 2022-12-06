@@ -1,5 +1,5 @@
-import { Flags } from "@oclif/core";
-import { Input } from "@oclif/parser";
+import { Flags, CliUx } from "@oclif/core";
+import { flags, Input } from "@oclif/parser";
 import {
   Keypair,
   PublicKey,
@@ -11,6 +11,9 @@ import TransportNodeHid from "@ledgerhq/hw-transport-node-hid-singleton";
 import Solana from "@ledgerhq/hw-app-solana";
 import { TransactionObject } from "@switchboard-xyz/solana.js";
 import bs58 from "bs58";
+import chalk from "chalk";
+import { CHECK_ICON } from "../utils";
+import Listr from "listr";
 
 export abstract class SolanaWithSignerBaseCommand extends SolanaBaseCommand {
   static flags = {
@@ -90,24 +93,39 @@ export abstract class SolanaWithSignerBaseCommand extends SolanaBaseCommand {
     this.logConfig({ signer: this.payer.toString() }, false);
   }
 
+  private catchLedgerError(error: any) {
+    const errorString: string =
+      "toString" in error && typeof error.toString === "function"
+        ? error.toString()
+        : (error as any).toString();
+    if (errorString.includes("0x6985")) {
+      throw new Error(`User cancelled the transaction`);
+    }
+    throw error;
+  }
+
   public async signAndSend(
-    txn: TransactionObject
+    txn: TransactionObject,
+    silent = false,
+    title = "Send Transaction"
   ): Promise<TransactionSignature> {
+    // const txnSignatures = await this.signAndSendAll([txn], silent, title);
+    // return txnSignatures[0];
     switch (this.signerType) {
       case "keypair": {
         return await this.program.signAndSend(txn);
       }
       case "ledger": {
+        this.verifyTransaction(txn);
+
         const blockhash = await this.program.connection.getLatestBlockhash();
         const partiallySignedTxn = txn.sign(blockhash);
-        const feePayer = partiallySignedTxn.signatures[0].publicKey;
-        if (!feePayer.equals(this.payer)) {
-          throw new Error(
-            `Transaction payer does not match ledger, expected ${this.payer}, received ${feePayer}`
-          );
-        }
 
         try {
+          if (!silent) {
+            CliUx.ux.action.start("sign the transaction on your ledger ...");
+          }
+
           const signedTxn = await this.ledger
             .signTransaction(
               this.ledgerPath,
@@ -122,16 +140,15 @@ export abstract class SolanaWithSignerBaseCommand extends SolanaBaseCommand {
             this.program.connection,
             signedTxn.serialize()
           );
+
+          if (!silent) {
+            CliUx.ux.action.stop(
+              chalk.green(CHECK_ICON, "transaction confirmed!")
+            );
+          }
           return txnSignature;
         } catch (error) {
-          const errorString: string =
-            "toString" in error && typeof error.toString === "function"
-              ? error.toString()
-              : (error as any).toString();
-          if (errorString.includes("0x6985")) {
-            throw new Error(`User cancelled the transaction`);
-          }
-          throw error;
+          this.catchLedgerError(error);
         }
       }
       default: {
@@ -140,18 +157,134 @@ export abstract class SolanaWithSignerBaseCommand extends SolanaBaseCommand {
     }
   }
 
+  private verifyTransaction(txn: TransactionObject): void {
+    if (!txn.payer.equals(this.payer)) {
+      throw new Error(
+        `Transaction payer does not match ledger, expected ${this.payer}, received ${txn.payer}`
+      );
+    }
+  }
+
+  private verifyTransactions(txns: Array<TransactionObject>): void {
+    for (const txn of txns) {
+      this.verifyTransaction(txn);
+    }
+  }
+
   public async signAndSendAll(
-    txns: Array<TransactionObject>
+    txns: Array<TransactionObject>,
+    silent = false,
+    title = "Send Transactions"
   ): Promise<Array<TransactionSignature>> {
+    this.verifyTransactions(txns);
+
     switch (this.signerType) {
       case "keypair": {
         return await this.program.signAndSendAll(txns);
       }
       case "ledger": {
         const txnSignatures: Array<TransactionSignature> = [];
-        for await (const txn of txns) {
-          const txnSignature = await this.signAndSend(txn);
-          txnSignatures.push(txnSignature);
+
+        // const tasks = new Listr([
+        //   {
+        //     title: title,
+        //     task: () => {
+        //       return new Listr([
+        //         ...txns.map((txn, i) => {
+        //           return {
+        //             title: `Sending txn ${i + 1}/${txns.length}`,
+        //             task: () =>
+        //               new Promise(async (resolve, reject) => {
+        //                 try {
+        //                   {
+        //                     const blockhash =
+        //                       await this.program.connection.getLatestBlockhash();
+        //                     const partiallySignedTxn = txn.sign(blockhash);
+
+        //                     const signedTxn = await this.ledger
+        //                       .signTransaction(
+        //                         this.ledgerPath,
+        //                         partiallySignedTxn.serializeMessage()
+        //                       )
+        //                       .then((r) => {
+        //                         partiallySignedTxn.addSignature(
+        //                           this.payer,
+        //                           r.signature
+        //                         );
+        //                         return partiallySignedTxn;
+        //                       });
+
+        //                     const txnSignature =
+        //                       await sendAndConfirmRawTransaction(
+        //                         this.program.connection,
+        //                         signedTxn.serialize()
+        //                       );
+
+        //                     txnSignatures.push(txnSignature);
+        //                     resolve(txnSignature);
+        //                   }
+        //                 } catch (error) {
+        //                   reject(error);
+        //                 }
+        //               }),
+        //           };
+        //         }),
+        //       ]);
+        //     },
+        //   },
+        // ]);
+
+        // await tasks.run().catch((error) => {
+        //   this.catchLedgerError(error);
+        // });
+
+        for await (const [i, txn] of txns.entries()) {
+          const blockhash = await this.program.connection.getLatestBlockhash();
+          const partiallySignedTxn = txn.sign(blockhash);
+
+          try {
+            let status = `sign transaction #${i + 1}/${
+              txns.length
+            } on your ledger ...`;
+            if (!silent) {
+              CliUx.ux.action.start(status);
+            }
+
+            const signedTxn = await this.ledger
+              .signTransaction(
+                this.ledgerPath,
+                partiallySignedTxn.serializeMessage()
+              )
+              .then((r) => {
+                partiallySignedTxn.addSignature(this.payer, r.signature);
+                return partiallySignedTxn;
+              });
+
+            const newStatus = `transaction #${i + 1}/${
+              txns.length
+            } sending ...`;
+            if (!silent) {
+              CliUx.ux.action["_updateStatus"](status, newStatus);
+            }
+            status = newStatus;
+
+            const txnSignature = await sendAndConfirmRawTransaction(
+              this.program.connection,
+              signedTxn.serialize()
+            );
+
+            if (!silent) {
+              CliUx.ux.action.stop(
+                chalk.green(
+                  `${CHECK_ICON}transaction #${i + 1}/${txns.length} confirmed`
+                )
+              );
+            }
+
+            txnSignatures.push(txnSignature);
+          } catch (error) {
+            this.catchLedgerError(error);
+          }
         }
         return txnSignatures;
       }

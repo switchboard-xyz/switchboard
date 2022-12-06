@@ -150,16 +150,14 @@ export default class QueueCreate extends BaseCommand {
     );
     const signature = await this.signAndSend(txn);
 
+    if (flags.json) {
+      const accounts = await queueAccount.toAccountsJSON();
+      return this.normalizeAccountData(queueAccount.publicKey, accounts);
+    }
+
     if (this.silent) {
       this.log(signature);
       return;
-    }
-
-    if (flags.json) {
-      return this.normalizeAccountData(
-        queueAccount.publicKey,
-        (await queueAccount.loadData()).toJSON()
-      );
     }
 
     // handle nicer logging here
