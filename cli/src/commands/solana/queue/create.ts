@@ -126,7 +126,7 @@ export default class QueueCreate extends BaseCommand {
       }
     }
 
-    const [queueAccount, queueInitTxn] = await QueueAccount.createInstructions(
+    const [queueAccount, txn] = await QueueAccount.createInstructions(
       this.program,
       this.payer,
       {
@@ -148,10 +148,7 @@ export default class QueueCreate extends BaseCommand {
         dataBufferKeypair: dataBufferKeypair,
       }
     );
-
-    this.log(`Attempting to send txn ...`);
-
-    const signature = await this.signAndSend(queueInitTxn);
+    const signature = await this.signAndSend(txn);
 
     if (this.silent) {
       this.log(signature);

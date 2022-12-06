@@ -81,7 +81,7 @@ export default class QueueSet extends BaseCommand {
       authority = await this.loadAuthority(flags.authority, queue.authority);
     }
 
-    const txnSignature = await queueAccount.setConfig({
+    const txn = await queueAccount.setConfigInstruction(this.payer, {
       name: flags.name,
       metadata: flags.metadata,
       reward: Number(flags.reward),
@@ -97,9 +97,10 @@ export default class QueueSet extends BaseCommand {
       enableBufferRelayers: flags.enableBufferRelayers,
       authority: authority,
     });
+    const signature = await this.signAndSend(txn);
 
     if (this.silent) {
-      this.log(txnSignature);
+      this.log(signature);
       return;
     }
 
@@ -117,7 +118,7 @@ export default class QueueSet extends BaseCommand {
       }`
     );
 
-    this.log("Transaction Signature:", this.toUrl(txnSignature));
+    this.log("Transaction Signature:", this.toUrl(signature));
   }
 
   async catch(error) {

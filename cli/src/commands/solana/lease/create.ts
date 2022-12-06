@@ -71,8 +71,9 @@ export default class LeaseCreate extends BaseCommand {
     if (leaseData) throw new Error("lease account already exists");
 
     // create lease account
-    const [newLeaseAccount, signature] = await LeaseAccount.create(
+    const [newLeaseAccount, txn] = await LeaseAccount.createInstructions(
       this.program,
+      this.payer,
       {
         loadAmount: amount,
         aggregatorAccount,
@@ -81,6 +82,7 @@ export default class LeaseCreate extends BaseCommand {
         jobAuthorities: [],
       }
     );
+    const signature = await this.signAndSend(txn);
 
     if (this.silent) {
       this.log(signature);

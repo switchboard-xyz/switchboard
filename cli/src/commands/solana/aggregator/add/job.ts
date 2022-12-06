@@ -67,14 +67,15 @@ export default class AggregatorAddJob extends BaseCommand {
       : // Add job by pubkey from an existing job account.
         (await this.loadJob(flags.jobKey))[0];
 
-    const txn = await aggregatorAccount.addJob({
+    const txn = aggregatorAccount.addJobInstruction(this.payer, {
       job: jobAccount,
       weight: 1,
       authority,
     });
+    const signature = await this.signAndSend(txn);
 
     if (this.silent) {
-      this.log(txn);
+      this.log(signature);
       return;
     }
 
@@ -83,7 +84,7 @@ export default class AggregatorAddJob extends BaseCommand {
         `${CHECK_ICON}Job successfully added to aggregator account`
       )}`
     );
-    this.logger.log(this.toUrl(txn));
+    this.logger.log(this.toUrl(signature));
   }
 
   async catch(error) {

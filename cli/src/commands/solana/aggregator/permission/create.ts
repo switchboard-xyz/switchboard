@@ -54,14 +54,16 @@ export default class AggregatorPermissionCreate extends BaseCommand {
       return;
     }
 
-    const [permissionAccount, signature] = await PermissionAccount.create(
+    const [permissionAccount, txn] = PermissionAccount.createInstruction(
       this.program,
+      this.payer,
       {
         granter: queueAccount.publicKey,
         grantee: aggregatorAccount.publicKey,
         authority: queueData.authority,
       }
     );
+    const signature = await this.signAndSend(txn);
 
     if (this.silent) {
       this.log(signature);

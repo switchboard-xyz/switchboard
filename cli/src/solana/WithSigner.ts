@@ -93,23 +93,39 @@ export abstract class SolanaWithSignerBaseCommand extends SolanaBaseCommand {
       case "ledger": {
         const blockhash = await this.program.connection.getLatestBlockhash();
         const partiallySignedTxn = txn.sign(blockhash);
-        if (!partiallySignedTxn.signatures[0].publicKey.equals(this.payer)) {
-          throw new Error(`Missing payer`);
+        const feePayer = partiallySignedTxn.signatures[0].publicKey;
+        if (!feePayer.equals(this.payer)) {
+          throw new Error(
+            `Transaction payer does not match ledger, expected ${this.payer}, received ${feePayer}`
+          );
         }
-        console.log(`generating signature: ...`);
-        const { signature } = await this.ledger!.signTransaction(
-          DEFAULT_LEDGER_PATH,
-          partiallySignedTxn.serialize({ requireAllSignatures: false })
-        );
-        console.log(`adding signature: ${signature}`);
-        partiallySignedTxn.addSignature(this.payer, signature);
 
-        console.log(`sending`);
-        const txnSignature = await sendAndConfirmRawTransaction(
-          this.program.connection,
-          partiallySignedTxn.serialize()
-        );
-        return txnSignature;
+        try {
+          const signedTxn = await this.ledger
+            .signTransaction(
+              DEFAULT_LEDGER_PATH,
+              partiallySignedTxn.serializeMessage()
+            )
+            .then((r) => {
+              partiallySignedTxn.addSignature(this.payer, r.signature);
+              return partiallySignedTxn;
+            });
+
+          const txnSignature = await sendAndConfirmRawTransaction(
+            this.program.connection,
+            signedTxn.serialize()
+          );
+          return txnSignature;
+        } catch (error) {
+          const errorString: string =
+            "toString" in error && typeof error.toString === "function"
+              ? error.toString()
+              : (error as any).toString();
+          if (errorString.includes("0x6985")) {
+            throw new Error(`User cancelled the transaction`);
+          }
+          throw error;
+        }
       }
       default: {
         throw new Error(`Failed to match signerType to a txn signer handler`);

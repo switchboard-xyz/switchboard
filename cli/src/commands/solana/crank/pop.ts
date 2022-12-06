@@ -23,7 +23,8 @@ export default class CrankPop extends BaseCommand {
 
     const [crankAccount] = await CrankAccount.load(this.program, args.crankKey);
 
-    const signature = await crankAccount.pop({});
+    const txn = await crankAccount.popInstruction(this.payer, {});
+    const signature = await this.signAndSend(txn);
 
     if (this.silent) {
       this.log(signature);
