@@ -12,8 +12,6 @@ import Solana from "@ledgerhq/hw-app-solana";
 import { TransactionObject } from "@switchboard-xyz/solana.js";
 import bs58 from "bs58";
 
-const DEFAULT_LEDGER_PATH = "44'/501'";
-
 export abstract class SolanaWithSignerBaseCommand extends SolanaBaseCommand {
   static flags = {
     ...SolanaBaseCommand.flags,
@@ -27,6 +25,11 @@ export abstract class SolanaWithSignerBaseCommand extends SolanaBaseCommand {
       description: "enable ledger support",
       exclusive: ["keypair"],
     }),
+    ledgerPath: Flags.string({
+      description: "HID path to the ledger",
+      default: "44'/501'",
+      dependsOn: ["ledger"],
+    }),
   };
 
   public hasSigner = true;
@@ -34,6 +37,8 @@ export abstract class SolanaWithSignerBaseCommand extends SolanaBaseCommand {
   public signerType: "keypair" | "ledger";
 
   public ledger?: Solana;
+
+  public ledgerPath: string;
 
   public keypair?: Keypair;
 
@@ -44,6 +49,8 @@ export abstract class SolanaWithSignerBaseCommand extends SolanaBaseCommand {
     const { flags } = await this.parse((<Input<any>>this.constructor) as any);
     SolanaBaseCommand.flags = flags as any;
 
+    this.ledgerPath = (flags as any).ledgerPath ?? "44'/501'";
+
     if (flags.ledger) {
       this.signerType = "ledger";
 
@@ -51,7 +58,7 @@ export abstract class SolanaWithSignerBaseCommand extends SolanaBaseCommand {
       this.logConfig({ ledger: transport.deviceModel.productName }, false);
       this.ledger = new Solana(transport);
       this.payer = await this.ledger
-        .getAddress(DEFAULT_LEDGER_PATH, false)
+        .getAddress(this.ledgerPath, false)
         .then(
           ({ address }: { address: Buffer }): PublicKey =>
             new PublicKey(bs58.encode(new Uint8Array(address)))
@@ -103,7 +110,7 @@ export abstract class SolanaWithSignerBaseCommand extends SolanaBaseCommand {
         try {
           const signedTxn = await this.ledger
             .signTransaction(
-              DEFAULT_LEDGER_PATH,
+              this.ledgerPath,
               partiallySignedTxn.serializeMessage()
             )
             .then((r) => {
