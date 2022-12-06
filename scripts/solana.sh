@@ -97,7 +97,6 @@ fi
 
 ## Create Queue
 sbv2 solana queue create \
-    --keypair "$payer" \
     --size "$queue_size" \
     --name "$queue_name" \
     --reward "$reward" \
@@ -111,7 +110,25 @@ sbv2 solana queue create \
     --consecutiveFeedFailureLimit 500 \
     --consecutiveOracleFailureLimit 500 \
     --json \
-    --verbose > My_Test_Queue.json
+    --verbose \
+    --ledger
+
+
+sbv2 solana queue create \
+    --size 100 \
+    --name "TestQueue" \
+    --reward 0 \
+    --minStake 0 \
+    --oracleTimeout 300 \
+    --slashingEnabled \
+    --permissionedFeeds \
+    --unpermissionedVrf \
+    --enableBufferRelayers \
+    --feedProbationPeriod 100 \
+    --consecutiveFeedFailureLimit 500 \
+    --consecutiveOracleFailureLimit 500 \
+    --verbose \
+    --ledger
 # Read json file and get publicKey field
 
 ## Create Oracle
