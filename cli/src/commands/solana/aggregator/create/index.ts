@@ -170,7 +170,6 @@ export default class AggregatorCreate extends BaseCommand {
         // job params
         jobs: jobs,
       });
-    }
 
     const signatures = await this.signAndSendAll(aggregatorInitTxns);
 

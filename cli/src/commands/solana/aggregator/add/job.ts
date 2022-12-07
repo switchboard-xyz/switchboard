@@ -14,8 +14,6 @@ export default class AggregatorAddJob extends BaseCommand {
 
   static examples = ["$ sbv2 solana aggregator add job"];
 
-  static examples = ["$ sbv2 solana aggregator add job"];
-
   static flags = {
     ...BaseCommand.flags,
     jobDefinition: Flags.string({

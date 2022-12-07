@@ -13,7 +13,6 @@ import { TransactionObject } from "@switchboard-xyz/solana.js";
 import bs58 from "bs58";
 import chalk from "chalk";
 import { CHECK_ICON } from "../utils";
-import Listr from "listr";
 
 export abstract class SolanaWithSignerBaseCommand extends SolanaBaseCommand {
   static flags = {
