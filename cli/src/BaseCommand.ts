@@ -8,7 +8,12 @@ import { Input } from "@oclif/parser";
 import chalk from "chalk";
 import fs from "fs";
 import path from "path";
-import { baseJsonReplacers, chalkString, FAILED_ICON } from "./utils";
+import {
+  baseJsonReplacers,
+  chalkString,
+  FAILED_ICON,
+  normalizeFilePath,
+} from "./utils";
 import bs58 from "bs58";
 import Big from "big.js";
 import { OracleJob, toUtf8 } from "@switchboard-xyz/common";
@@ -86,15 +91,15 @@ export abstract class CliBaseCommand extends Command {
   }
 
   normalizePath(filePath: string): string {
-    const normalizedPath =
-      filePath.startsWith("/") || filePath.startsWith("C:")
-        ? filePath
-        : path.join(process.cwd(), filePath);
-    if (!fs.existsSync(normalizedPath)) {
-      throw new Error(`Failed to find file at ${normalizedPath}`);
+    return normalizeFilePath(filePath);
+  }
+
+  verifyFileExists(filePath: string): boolean {
+    if (fs.existsSync(filePath)) {
+      return true;
     }
 
-    return normalizedPath;
+    return false;
   }
 
   normalizeDirPath(directoryPath: string): string {

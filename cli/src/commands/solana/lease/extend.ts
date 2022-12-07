@@ -1,6 +1,5 @@
 import { Flags } from "@oclif/core";
 import * as anchor from "@project-serum/anchor";
-import { PublicKey } from "@solana/web3.js";
 import {
   AggregatorAccount,
   LeaseAccount,

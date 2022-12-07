@@ -1,7 +1,13 @@
 import { Flags } from "@oclif/core";
 import { Input } from "@oclif/parser";
 import * as anchor from "@project-serum/anchor";
-import { Cluster, Connection, Keypair, PublicKey } from "@solana/web3.js";
+import {
+  AccountInfo,
+  Cluster,
+  Connection,
+  Keypair,
+  PublicKey,
+} from "@solana/web3.js";
 import { AuthorityMismatch } from "../types";
 import { loadKeypair } from "../utils";
 import { CliBaseCommand as BaseCommand } from "../BaseCommand";
@@ -20,7 +26,24 @@ import {
   types,
   PermissionAccount,
   LeaseAccount,
+  AggregatorAccounts,
+  VrfAccounts,
+  VrfAccount,
+  SwitchboardAccountType,
 } from "@switchboard-xyz/solana.js";
+import {
+  prettyPrintAggregator,
+  prettyPrintAggregatorAccounts,
+  prettyPrintCrank,
+  prettyPrintJob,
+  prettyPrintJobs,
+  prettyPrintLease,
+  prettyPrintOracle,
+  prettyPrintPermissions,
+  prettyPrintQueue,
+  prettyPrintVrf,
+  prettyPrintVrfAccounts,
+} from "./utils";
 
 export type SolanaNetwork = Cluster | "localnet";
 
@@ -357,5 +380,202 @@ export abstract class SolanaBaseCommand
       ...data,
     };
     return JSON.parse(JSON.stringify(object, this.jsonReplacers, 2));
+  }
+
+  prettyPrintAggregator(
+    aggregator: types.AggregatorAccountData,
+    publicKey: PublicKey,
+    SPACING = 24
+  ) {
+    this.logger.info(prettyPrintAggregator(aggregator, publicKey, SPACING));
+  }
+
+  prettyPrintPermissions(
+    permission: types.PermissionAccountData,
+    publicKey: PublicKey,
+    SPACING = 24
+  ) {
+    this.logger.info(prettyPrintPermissions(permission, publicKey, SPACING));
+  }
+
+  prettyPrintLease(
+    lease: types.LeaseAccountData,
+    publicKey: PublicKey,
+    balance?: number,
+    SPACING = 24
+  ) {
+    this.logger.info(prettyPrintLease(lease, publicKey, balance, SPACING));
+  }
+
+  prettyPrintJob(
+    job: types.JobAccountData,
+    publicKey: PublicKey,
+    tasks: Array<OracleJob.ITask>,
+    label?: string,
+    SPACING = 24
+  ) {
+    this.logger.info(prettyPrintJob(job, publicKey, tasks, label, SPACING));
+  }
+
+  prettyPrintJobs(
+    jobs: Array<{
+      publicKey: PublicKey;
+      data: types.JobAccountData;
+      tasks: Array<OracleJob.ITask>;
+    }>,
+    SPACING = 24
+  ) {
+    this.logger.info(prettyPrintJobs(jobs, SPACING));
+  }
+
+  prettyPrintAggregatorAccounts(accounts: AggregatorAccounts, SPACING = 24) {
+    this.logger.info(prettyPrintAggregatorAccounts(accounts, SPACING));
+  }
+
+  prettyPrintOracle(
+    oracle: types.OracleAccountData,
+    publicKey: PublicKey,
+    balance?: number,
+    SPACING = 24
+  ) {
+    this.logger.info(prettyPrintOracle(oracle, publicKey, balance, SPACING));
+  }
+
+  prettyPrintQueue(
+    queue: types.OracleQueueAccountData,
+    publicKey: PublicKey,
+    SPACING = 24
+  ) {
+    this.logger.info(prettyPrintQueue(queue, publicKey, SPACING));
+  }
+
+  prettyPrintVrf(
+    vrf: types.VrfAccountData,
+    publicKey: PublicKey,
+    balance?: number,
+    SPACING = 24
+  ) {
+    this.logger.info(prettyPrintVrf(vrf, publicKey, balance, SPACING));
+  }
+
+  prettyPrintVrfAccounts(accounts: VrfAccounts, SPACING = 24) {
+    this.logger.info(prettyPrintVrfAccounts(accounts, SPACING));
+  }
+
+  prettyPrintCrank(
+    crank: types.CrankAccountData,
+    publicKey: PublicKey,
+    SPACING = 24
+  ) {
+    this.logger.info(prettyPrintCrank(crank, publicKey, SPACING));
+  }
+
+  async printAccount(
+    publicKey: PublicKey,
+    accountInfo: AccountInfo<Buffer>,
+    jsonFlag = false,
+    _accountType?: SwitchboardAccountType
+  ) {
+    const accountType =
+      _accountType ?? SwitchboardProgram.getAccountType(accountInfo);
+    if (!accountType) {
+      throw new Error(`Not a valid Switchboard account`);
+    }
+
+    switch (accountType) {
+      case "Aggregator": {
+        const account = new AggregatorAccount(this.program, publicKey);
+        const accounts = await account.fetchAccounts();
+
+        if (jsonFlag) {
+          return accounts;
+        }
+
+        this.logger.info(prettyPrintAggregatorAccounts(accounts));
+        return;
+      }
+      case "Job": {
+        const job = types.JobAccountData.decode(accountInfo.data);
+        const oracleJob = OracleJob.decodeDelimited(job.data);
+
+        if (jsonFlag) {
+          return {
+            publicKey: publicKey.toBase58(),
+            data: job.toJSON(),
+            tasks: oracleJob.tasks,
+          };
+        }
+
+        this.logger.info(prettyPrintJob(job, publicKey, oracleJob.tasks));
+        return;
+      }
+      case "Permission": {
+        const permission = types.PermissionAccountData.decode(accountInfo.data);
+
+        if (jsonFlag) {
+          return {
+            publicKey: publicKey.toBase58(),
+            data: permission.toJSON(),
+          };
+        }
+
+        this.logger.info(prettyPrintPermissions(permission, publicKey));
+        return;
+      }
+      case "Lease": {
+        const lease = types.LeaseAccountData.decode(accountInfo.data);
+        const leaseAccount = new LeaseAccount(this.program, publicKey);
+        const balance = await leaseAccount.getBalance(lease.escrow);
+
+        if (jsonFlag) {
+          return {
+            publicKey: publicKey.toBase58(),
+            data: lease.toJSON(),
+            balance: balance,
+          };
+        }
+
+        this.logger.info(prettyPrintLease(lease, publicKey));
+        return;
+      }
+      case "Queue": {
+        const queue = types.OracleQueueAccountData.decode(accountInfo.data);
+
+        if (jsonFlag) {
+          return {
+            publicKey: publicKey.toBase58(),
+            data: queue.toJSON(),
+          };
+        }
+
+        this.logger.info(prettyPrintQueue(queue, publicKey));
+        return;
+      }
+      case "Crank": {
+        const crank = types.CrankAccountData.decode(accountInfo.data);
+
+        if (jsonFlag) {
+          return {
+            publicKey: publicKey.toBase58(),
+            data: crank.toJSON(),
+          };
+        }
+
+        this.logger.info(prettyPrintCrank(crank, publicKey));
+        return;
+      }
+      case "Vrf": {
+        const vrf = types.VrfAccountData.decode(accountInfo.data);
+        const vrfAccount = new VrfAccount(this.program, publicKey);
+        const accounts = await vrfAccount.fetchAccounts(vrf);
+
+        if (jsonFlag) {
+          return accounts;
+        }
+
+        this.logger.info(prettyPrintVrfAccounts(accounts));
+        return;
+      }
+    }
   }
 }

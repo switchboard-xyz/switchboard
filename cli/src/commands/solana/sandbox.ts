@@ -29,6 +29,12 @@ export default class SandboxCommand extends BaseCommand {
   async run() {
     const { args, flags } = await this.parse(SandboxCommand);
 
+    const historyAccountInfo = await this.program.connection.getAccountInfo(
+      new PublicKey("7LLvRhMs73FqcLkA8jvEE1AM2mYZXTmqfUv8GAEurymx")
+    );
+
+    console.log(`[${historyAccountInfo.data.slice(0, 8)}]`);
+
     // const [aggregatorAccount, aggregator] = await this.loadAggregator(
     //   "5Uu6Lvyoanx2Q5vDMwuov6i8z5YSfz5cguqrHA7nsUqP"
     // );
