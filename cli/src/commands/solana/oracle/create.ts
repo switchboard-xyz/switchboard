@@ -69,14 +69,18 @@ export default class OracleCreate extends BaseCommand {
       );
     }
 
-    const [oracleAccount, signatures] = await queueAccount.createOracle({
-      name: flags.name,
-      metadata: flags.metadata,
-      authority: authority,
-      stakeAmount: stakeAmount,
-      enable: flags.enable ?? false,
-      queueAuthority: queueAuthority,
-    });
+    const [oracleAccount, txns] = await queueAccount.createOracleInstructions(
+      this.payer,
+      {
+        name: flags.name,
+        metadata: flags.metadata,
+        authority: authority,
+        stakeAmount: stakeAmount,
+        enable: flags.enable ?? false,
+        queueAuthority: queueAuthority,
+      }
+    );
+    const signatures = await this.signAndSendAll(txns);
 
     if (flags.silent) {
       this.log(signatures.join("\n"));

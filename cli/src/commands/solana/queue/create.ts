@@ -22,6 +22,9 @@ export default class QueueCreate extends BaseCommand {
       description:
         "keypair to use for the oracle queue account. This will be the account's publicKey",
     }),
+    dataBufferKeypair: Flags.string({
+      description: "keypair to use for the oracle queue data buffer account.",
+    }),
     size: Flags.integer({
       description: "set the size of the queue",
       default: 100,
@@ -108,33 +111,53 @@ export default class QueueCreate extends BaseCommand {
       }
     }
 
-    const [queueAccount, signature] = await QueueAccount.create(this.program, {
-      name: flags.name,
-      metadata: flags.metadata,
-      reward: Number(flags.reward),
-      minStake: Number(flags.minStake),
-      feedProbationPeriod: flags.feedProbationPeriod,
-      oracleTimeout: flags.oracleTimeout,
-      slashingEnabled: flags.slashingEnabled,
-      consecutiveFeedFailureLimit: flags.consecutiveFeedFailureLimit,
-      consecutiveOracleFailureLimit: flags.consecutiveOracleFailureLimit,
-      queueSize: flags.size,
-      unpermissionedFeeds: !flags.permissionedFeeds,
-      unpermissionedVrf: flags.unpermissionedVrf,
-      enableBufferRelayers: flags.enableBufferRelayers,
-      authority: authority ? authority.publicKey : undefined,
-    });
+    let dataBufferKeypair: Keypair;
+    if (flags.dataBufferKeypair) {
+      dataBufferKeypair = await this.loadKeypair(flags.dataBufferKeypair);
+      const keypairAccountInfo = await this.program.connection.getAccountInfo(
+        dataBufferKeypair.publicKey
+      );
+      if (keypairAccountInfo !== null) {
+        throw new Error(
+          `--dataBufferKeypair must point to a non-existant account, ${this.toAccountUrl(
+            dataBufferKeypair.publicKey.toBase58()
+          )}`
+        );
+      }
+    }
+
+    const [queueAccount, txn] = await QueueAccount.createInstructions(
+      this.program,
+      this.payer,
+      {
+        name: flags.name,
+        metadata: flags.metadata,
+        reward: Number(flags.reward),
+        minStake: Number(flags.minStake),
+        feedProbationPeriod: flags.feedProbationPeriod,
+        oracleTimeout: flags.oracleTimeout,
+        slashingEnabled: flags.slashingEnabled,
+        consecutiveFeedFailureLimit: flags.consecutiveFeedFailureLimit,
+        consecutiveOracleFailureLimit: flags.consecutiveOracleFailureLimit,
+        queueSize: flags.size,
+        unpermissionedFeeds: !flags.permissionedFeeds,
+        unpermissionedVrf: flags.unpermissionedVrf,
+        enableBufferRelayers: flags.enableBufferRelayers,
+        authority: authority ? authority.publicKey : undefined,
+        keypair: keypair,
+        dataBufferKeypair: dataBufferKeypair,
+      }
+    );
+    const signature = await this.signAndSend(txn);
+
+    if (flags.json) {
+      const accounts = await queueAccount.toAccountsJSON();
+      return this.normalizeAccountData(queueAccount.publicKey, accounts);
+    }
 
     if (this.silent) {
       this.log(signature);
       return;
-    }
-
-    if (flags.json) {
-      return this.normalizeAccountData(
-        queueAccount.publicKey,
-        (await queueAccount.loadData()).toJSON()
-      );
     }
 
     // handle nicer logging here

@@ -145,30 +145,34 @@ export default class AggregatorCreate extends BaseCommand {
       });
     }
 
-    const [aggregatorAccount, signatures] = await queueAccount.createFeed({
-      // aggregator params
-      authority: authority,
-      keypair: keypair,
-      name: flags.name,
-      metadata: flags.metadata,
-      batchSize: flags.batchSize,
-      minRequiredOracleResults: flags.minOracles,
-      minRequiredJobResults: flags.minJobs,
-      minUpdateDelaySeconds: flags.updateInterval,
-      varianceThreshold: Number(flags.varianceThreshold ?? "0"),
-      forceReportPeriod: flags.forceReportPeriod ?? 0,
-      historyLimit: flags.historyLimit,
-      // crank params
-      crankPubkey: flags.crankKey ? new PublicKey(flags.crankKey) : undefined,
-      // lease params
-      fundAmount: Number(flags.leaseAmount),
-      funderTokenAccount: tokenWallet,
-      // permission params
-      enable: flags.enable ?? false,
-      queueAuthority: queueAuthority,
-      // job params
-      jobs: jobs,
-    });
+    const [aggregatorAccount, aggregatorInitTxns] =
+      await queueAccount.createFeedInstructions(this.payer, {
+        // aggregator params
+        authority: authority,
+        keypair: keypair,
+        name: flags.name,
+        metadata: flags.metadata,
+        batchSize: flags.batchSize,
+        minRequiredOracleResults: flags.minOracles,
+        minRequiredJobResults: flags.minJobs,
+        minUpdateDelaySeconds: flags.updateInterval,
+        varianceThreshold: Number(flags.varianceThreshold ?? "0"),
+        forceReportPeriod: flags.forceReportPeriod ?? 0,
+        historyLimit: flags.historyLimit,
+        // crank params
+        crankPubkey: flags.crankKey ? new PublicKey(flags.crankKey) : undefined,
+        // lease params
+        fundAmount: Number(flags.leaseAmount),
+        funderTokenAccount: tokenWallet,
+        // permission params
+        enable: flags.enable ?? false,
+        queueAuthority: queueAuthority,
+        // job params
+        jobs: jobs,
+      });
+    }
+
+    const signatures = await this.signAndSendAll(aggregatorInitTxns);
 
     if (flags.json) {
       const accounts = await aggregatorAccount.toAccountsJSON();

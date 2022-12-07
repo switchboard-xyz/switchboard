@@ -36,7 +36,10 @@ export default class AggregatorLock extends BaseCommand {
       aggregatorData.authority
     );
 
-    const signature = await aggregatorAccount.lock({ authority });
+    const txn = aggregatorAccount.lockInstruction(this.payer, {
+      authority,
+    });
+    const signature = await this.signAndSend(txn);
 
     if (this.silent) {
       this.log(signature);

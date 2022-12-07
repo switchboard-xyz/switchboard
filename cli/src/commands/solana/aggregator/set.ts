@@ -84,7 +84,7 @@ export default class AggregatorSet extends BaseCommand {
       aggregatorData.queuePubkey
     );
 
-    const txnSignature = await aggregatorAccount.setConfig({
+    const txn = await aggregatorAccount.setConfigInstruction(this.payer, {
       authority,
       name: flags.name,
       metadata: flags.metadata,
@@ -108,9 +108,10 @@ export default class AggregatorSet extends BaseCommand {
       priorityFeeBumpPeriod: flags.priorityFeeBumpPeriod,
       maxPriorityFeeMultiplier: flags.maxPriorityFeeMultiplier,
     });
+    const signature = await this.signAndSend(txn);
 
     if (this.silent) {
-      this.log(txnSignature);
+      this.log(signature);
       return;
     }
 
@@ -119,7 +120,7 @@ export default class AggregatorSet extends BaseCommand {
       return this.normalizeAccountData(aggregatorAccount.publicKey, accounts);
     }
 
-    this.log(this.toUrl(txnSignature));
+    this.log(this.toUrl(signature));
   }
 
   async catch(error) {

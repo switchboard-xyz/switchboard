@@ -59,14 +59,15 @@ export default class AggregatorRemoveJob extends BaseCommand {
       );
     }
 
-    const txn = await aggregatorAccount.removeJob({
+    const txn = await aggregatorAccount.removeJobInstruction(this.payer, {
       job: jobAccount,
       jobIdx: jobIndex,
       authority,
     });
+    const signature = await this.signAndSend(txn);
 
     if (this.silent) {
-      this.log(txn);
+      this.log(signature);
       return;
     }
 
@@ -76,7 +77,7 @@ export default class AggregatorRemoveJob extends BaseCommand {
       )}`
     );
 
-    this.logger.log(this.toUrl(txn));
+    this.logger.log(this.toUrl(signature));
   }
 
   async catch(error) {

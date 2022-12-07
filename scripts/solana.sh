@@ -97,7 +97,6 @@ fi
 
 ## Create Queue
 sbv2 solana queue create \
-    --keypair "$payer" \
     --size "$queue_size" \
     --name "$queue_name" \
     --reward "$reward" \
@@ -111,7 +110,36 @@ sbv2 solana queue create \
     --consecutiveFeedFailureLimit 500 \
     --consecutiveOracleFailureLimit 500 \
     --json \
-    --verbose > My_Test_Queue.json
+    --verbose \
+    --ledger
+
+
+sbv2 solana queue create \
+    --size 100 \
+    --name "TestQueue" \
+    --reward 0 \
+    --minStake 0 \
+    --oracleTimeout 300 \
+    --slashingEnabled \
+    --permissionedFeeds \
+    --unpermissionedVrf \
+    --enableBufferRelayers \
+    --feedProbationPeriod 100 \
+    --consecutiveFeedFailureLimit 500 \
+    --consecutiveOracleFailureLimit 500 \
+    --verbose \
+    --ledger
+
+sbv2 solana queue set Epw38ZqcD7oYBVfCPTLzW33evyryTPbJpL6yu1vL1h37 --mainnetBeta \
+    --name "TestQueue2" \
+    --reward 0.1 \
+    --minStake 2.5 \
+    --oracleTimeout 90 \
+    --consecutiveFeedFailureLimit 1250 \
+    --consecutiveOracleFailureLimit 1250 \
+    --verbose \
+    --ledger \
+    --json > Epw38ZqcD7oYBVfCPTLzW33evyryTPbJpL6yu1vL1h37.json
 # Read json file and get publicKey field
 
 ## Create Oracle
@@ -131,4 +159,17 @@ sbv2 solana aggregator create F8ce7MsckeZAbAGmxjJNetxYXQa9mKr9nnrC3qKubyYy \
     --job ./directory/jobs/btc/kraken.jsonc \
     --job ./directory/jobs/btc/bitfinex.jsonc \
     --json \
+    --verbose > My_Test_Feed.json
+
+sbv2 solana aggregator create Epw38ZqcD7oYBVfCPTLzW33evyryTPbJpL6yu1vL1h37 --mainnetBeta \
+    --name "My_Test_Feed" \
+    --updateInterval 10 \
+    --minOracles 1 \
+    --batchSize 1 \
+    --leaseAmount 1.337 \
+    --job ./directory/jobs/btc/binanceCom.jsonc \
+    --job ./directory/jobs/btc/kraken.jsonc \
+    --job ./directory/jobs/btc/bitfinex.jsonc \
+    --json \
+    --ledger \
     --verbose > My_Test_Feed.json

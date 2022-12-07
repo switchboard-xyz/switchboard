@@ -8,6 +8,10 @@ import { CHECK_ICON } from "../../../utils";
 export default class AggregatorUpdate extends BaseCommand {
   static description = "request a new aggregator result from a set of oracles";
 
+  static examples = [
+    "$ sbv2 solana aggregator update J7j9xX8JP2B2ErvUzuqGAKBGeggsxPyFXj5MqZcYDxfa --keypair ../payer-keypair.json",
+  ];
+
   static flags = {
     ...BaseCommand.flags,
   };
@@ -20,20 +24,17 @@ export default class AggregatorUpdate extends BaseCommand {
     },
   ];
 
-  static examples = [
-    "$ sbv2 solana aggregator update J7j9xX8JP2B2ErvUzuqGAKBGeggsxPyFXj5MqZcYDxfa --keypair ../payer-keypair.json",
-  ];
-
   async run() {
     const { args } = await this.parse(AggregatorUpdate);
 
     const txn = await new AggregatorAccount(
       this.program,
       new PublicKey(args.aggregatorKey)
-    ).openRound({});
+    ).openRoundInstruction(this.payer, {});
+    const signature = await this.signAndSend(txn);
 
     if (this.silent) {
-      this.log(txn);
+      this.log(signature);
       return;
     }
 
@@ -41,7 +42,7 @@ export default class AggregatorUpdate extends BaseCommand {
       `${chalk.green(`${CHECK_ICON}Aggregator update request sent to oracles`)}`
     );
 
-    this.logger.log(this.toUrl(txn));
+    this.logger.log(this.toUrl(signature));
   }
 
   async catch(error) {

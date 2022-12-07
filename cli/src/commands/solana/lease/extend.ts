@@ -88,11 +88,12 @@ export default class LeaseExtend extends BaseCommand {
       );
     }
 
-    const signature = await leaseAccount.extend({
+    const txn = await leaseAccount.extendInstruction(this.payer, {
       loadAmount: amount,
       funder,
       funderAuthority: this.program.wallet.payer,
     });
+    const signature = await this.signAndSend(txn);
 
     if (!this.silent) {
       const newBalance = await this.program.connection.getTokenAccountBalance(

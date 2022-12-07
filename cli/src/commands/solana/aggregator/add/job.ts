@@ -1,12 +1,18 @@
 import { Flags } from "@oclif/core";
 import { OracleJob } from "@switchboard-xyz/common";
-import { AggregatorAccount, JobAccount } from "@switchboard-xyz/solana.js";
+import {
+  AggregatorAccount,
+  JobAccount,
+  TransactionObject,
+} from "@switchboard-xyz/solana.js";
 import chalk from "chalk";
 import { SolanaWithSignerBaseCommand as BaseCommand } from "../../../../solana";
 import { CHECK_ICON } from "../../../../utils";
 
 export default class AggregatorAddJob extends BaseCommand {
-  static description = "add a job to an aggregator";
+  static description = "add jobs to an aggregator";
+
+  static examples = ["$ sbv2 solana aggregator add job"];
 
   static examples = ["$ sbv2 solana aggregator add job"];
 
@@ -14,12 +20,12 @@ export default class AggregatorAddJob extends BaseCommand {
     ...BaseCommand.flags,
     jobDefinition: Flags.string({
       description: "filesystem path of job json definition file",
-      exactlyOne: ["jobKey", "jobDefinition"],
+      multiple: true,
     }),
     jobKey: Flags.string({
       description:
         "public key of an existing job account to add to an aggregator",
-      exactlyOne: ["jobKey", "jobDefinition"],
+      multiple: true,
     }),
     authority: Flags.string({
       char: "a",
@@ -48,45 +54,72 @@ export default class AggregatorAddJob extends BaseCommand {
       aggregatorData.authority
     );
 
-    const jobAccount: JobAccount = flags.jobDefinition
-      ? // Create a new job from a json file to add to this aggregator
-        await (async () => {
-          const data = Buffer.from(
-            OracleJob.encodeDelimited(
-              this.loadJobDefinition(flags.jobDefinition)
-            ).finish()
-          );
+    const txns: TransactionObject[] = [];
 
-          return (
-            await JobAccount.create(this.program, {
-              data,
-              authority: authority.publicKey,
-            })
-          )[0];
-        })()
-      : // Add job by pubkey from an existing job account.
-        (await this.loadJob(flags.jobKey))[0];
+    const jobs: Array<{ jobAccount: JobAccount; weight?: number }> = [];
 
-    const txn = await aggregatorAccount.addJob({
-      job: jobAccount,
-      weight: 1,
-      authority,
-    });
+    // load existing jobs
+    for await (const jobKey of flags?.jobKey ?? []) {
+      const [jobAccount, job] = await this.loadJob(jobKey);
+      jobs.push({ jobAccount });
+    }
+
+    // create new jobs
+    for await (const jobDefinition of flags?.jobDefinition ?? []) {
+      const oracleJob = this.loadJobDefinition(jobDefinition);
+      const data = OracleJob.encodeDelimited(oracleJob).finish();
+      const [jobAccount, jobInit] = JobAccount.createInstructions(
+        this.program,
+        this.payer,
+        {
+          data,
+          weight: 1,
+        }
+      );
+      txns.push(...jobInit);
+      jobs.push({
+        jobAccount,
+      });
+    }
+
+    // add jobs to aggregator
+    txns.push(
+      ...jobs.map(({ jobAccount, weight }) =>
+        aggregatorAccount.addJobInstruction(this.payer, {
+          job: jobAccount,
+          weight: weight ?? 1,
+          authority,
+        })
+      )
+    );
+
+    const signatures = await this.signAndSendAll(txns);
+
+    if (flags.json) {
+      const accounts = await aggregatorAccount.toAccountsJSON();
+      return this.normalizeAccountData(aggregatorAccount.publicKey, accounts);
+    }
 
     if (this.silent) {
-      this.log(txn);
+      this.log(signatures.join("\n"));
       return;
     }
 
     this.logger.log(
       `${chalk.green(
-        `${CHECK_ICON}Job successfully added to aggregator account`
+        `${CHECK_ICON}Job(s) successfully added to aggregator account`
       )}`
     );
-    this.logger.log(this.toUrl(txn));
+
+    if (signatures.length === 1) {
+      this.log(this.toUrl(signatures[0]));
+    } else {
+      for (const [index, signature] of signatures.entries())
+        this.log(`Txn #${index}`, this.toUrl(signature));
+    }
   }
 
   async catch(error) {
-    super.catch(error, "failed to add job to aggregator account");
+    super.catch(error, "failed to add jobs to aggregator account");
   }
 }

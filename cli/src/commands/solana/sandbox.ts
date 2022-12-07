@@ -28,8 +28,13 @@ export default class SandboxCommand extends BaseCommand {
   async run() {
     const { args, flags } = await this.parse(SandboxCommand);
 
-    const genesis = await this.program.connection.getGenesisHash();
-    console.log(genesis);
+    const [aggregatorAccount, aggregator] = await this.loadAggregator(
+      "5Uu6Lvyoanx2Q5vDMwuov6i8z5YSfz5cguqrHA7nsUqP"
+    );
+    console.log(aggregator.resolutionMode);
+
+    // const genesis = await this.program.connection.getGenesisHash();
+    // console.log(genesis);
   }
 
   async catch(error) {
