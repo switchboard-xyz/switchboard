@@ -41,6 +41,7 @@ import {
   prettyPrintOracle,
   prettyPrintPermissions,
   prettyPrintQueue,
+  prettyPrintSbstate,
   prettyPrintVrf,
   prettyPrintVrfAccounts,
 } from "./utils";
@@ -577,5 +578,12 @@ export abstract class SolanaBaseCommand
         return;
       }
     }
+  }
+  prettyPrintSbstate(
+    programState: types.SbState,
+    publicKey: PublicKey,
+    SPACING = 24
+  ) {
+    this.logger.info(prettyPrintSbstate(programState, publicKey, SPACING));
   }
 }

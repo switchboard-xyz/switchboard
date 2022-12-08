@@ -585,3 +585,20 @@ export function prettyPrintCrank(
 
   return output.join("\n");
 }
+
+export function prettyPrintSbstate(
+  programState: types.SbState,
+  publicKey: PublicKey,
+  SPACING = 24
+) {
+  let output: string[] = [];
+
+  output.push(chalk.underline(chalkString("## SbState", publicKey, SPACING)));
+
+  output.push(chalkString("authority", programState.authority, SPACING));
+  output.push(chalkString("tokenMint", programState.tokenMint, SPACING));
+  output.push(chalkString("tokenVault", programState.tokenVault, SPACING));
+  output.push(chalkString("daoMint", programState.daoMint, SPACING));
+
+  return output.join("\n");
+}
