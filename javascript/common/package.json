@@ -8,7 +8,8 @@
     "lib",
     "src",
     "protos",
-    "package.json"
+    "package.json",
+    "package-lock.json"
   ],
   "exports": {
     ".": {
@@ -40,7 +41,6 @@
   "devDependencies": {
     "@types/big.js": "^6.1.6",
     "@types/bn.js": "^5.1.1",
-    "@types/decimal.js": "^7.4.0",
     "@types/long": "^5.0.0",
     "@types/node": "^18.11.9",
     "protobufjs-cli": "^1.0.2",
