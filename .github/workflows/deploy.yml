@@ -3,7 +3,14 @@ name: Deploy to GitHub Pages
 on:
   push:
     branches: [main, docs]
-    paths: [website/**, .github/workflows/**, sdks/**]
+    paths:
+      [
+        website/**,
+        .github/workflows/**,
+        sdks/**,
+        javascript/common/**,
+        javascript/sbv2-scripts/**,
+      ]
 
 jobs:
   deploy:
