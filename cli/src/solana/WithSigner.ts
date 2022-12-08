@@ -19,17 +19,16 @@ export abstract class SolanaWithSignerBaseCommand extends SolanaBaseCommand {
     ...SolanaBaseCommand.flags,
     keypair: Flags.string({
       char: "k",
-      exclusive: ["ledger"],
+      required: false,
       description:
         "keypair that will pay for onchain transactions. defaults to new account authority if no alternate authority provided",
     }),
     ledger: Flags.boolean({
       description: "enable ledger support",
-      exclusive: ["keypair"],
+      exactlyOne: ["keypair"],
     }),
     ledgerPath: Flags.string({
       description: "HID path to the ledger",
-      default: "44'/501'",
       dependsOn: ["ledger"],
     }),
   };

@@ -18,7 +18,7 @@ export default class SolanaPrint extends BaseCommand {
     },
   ];
 
-  async run() {
+  async run(): Promise<any> {
     const { args, flags } = await this.parse(SolanaPrint);
 
     const pubkey = new PublicKey(args.pubkey);
@@ -30,7 +30,10 @@ export default class SolanaPrint extends BaseCommand {
       );
     }
 
-    return await this.printAccount(pubkey, accountInfo, flags.json);
+    const response = await this.printAccount(pubkey, accountInfo, flags.json);
+    if (flags.json && response) {
+      return response;
+    }
   }
 
   async catch(error) {

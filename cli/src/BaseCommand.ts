@@ -122,6 +122,10 @@ export abstract class CliBaseCommand extends Command {
       logger.info(chalk.red(`${FAILED_ICON}${message}`));
     }
 
+    if ("parse" in error) {
+      error.parse = undefined;
+    }
+
     throw error;
 
     if (error.message) {
