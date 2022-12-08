@@ -15,8 +15,7 @@ export default class ProgramInit extends BaseCommand {
     const { flags } = await this.parse(ProgramInit);
 
     const [programStateAccount, bump] = await ProgramStateAccount.getOrCreate(
-      this.program,
-      {}
+      this.program
     );
 
     const programState = await programStateAccount.loadData();

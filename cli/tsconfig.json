@@ -10,7 +10,8 @@
     "target": "es2019",
     "esModuleInterop": true,
     "skipLibCheck": true,
-    "strictPropertyInitialization": false
+    "strictPropertyInitialization": false,
+    "moduleResolution": "Node16"
   },
   "files": ["src/index.ts"],
   "include": ["src/**/*"],

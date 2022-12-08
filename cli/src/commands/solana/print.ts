@@ -1,4 +1,3 @@
-import { Flags } from "@oclif/core";
 import { PublicKey } from "@solana/web3.js";
 import { SolanaWithoutSignerBaseCommand as BaseCommand } from "../../solana";
 
