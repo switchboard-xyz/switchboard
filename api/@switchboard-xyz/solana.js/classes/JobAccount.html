@@ -26,7 +26,7 @@
 <ul class="tsd-hierarchy">
 <li><span class="target">JobAccount</span></li></ul></section></li></ul></section><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/switchboard-xyz/switchboard-v2/blob/9620ce3/javascript/solana.js/src/accounts/jobAccount.ts#L21">sdks/solana/javascript/solana.js/src/accounts/jobAccount.ts:21</a></li></ul></aside>
+<li>Defined in <a href="https://github.com/switchboard-xyz/switchboard-v2/blob/c5517eb/javascript/solana.js/src/accounts/jobAccount.ts#L22">sdks/solana/javascript/solana.js/src/accounts/jobAccount.ts:22</a></li></ul></aside>
 <section class="tsd-panel-group tsd-index-group">
 <section class="tsd-panel tsd-index-panel">
 <details class="tsd-index-content tsd-index-accordion" open><summary class="tsd-accordion-summary tsd-index-summary">
@@ -52,6 +52,7 @@
 <a href="JobAccount.html#createInstructions" class="tsd-index-link tsd-kind-method tsd-parent-kind-class"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg><span>create<wbr/>Instructions</span></a>
 <a href="JobAccount.html#decode-2" class="tsd-index-link tsd-kind-method tsd-parent-kind-class"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg><span>decode</span></a>
 <a href="JobAccount.html#decodeJob" class="tsd-index-link tsd-kind-method tsd-parent-kind-class"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg><span>decode<wbr/>Job</span></a>
+<a href="JobAccount.html#fetchMultiple" class="tsd-index-link tsd-kind-method tsd-parent-kind-class"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg><span>fetch<wbr/>Multiple</span></a>
 <a href="JobAccount.html#getMetadata" class="tsd-index-link tsd-kind-method tsd-parent-kind-class"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg><span>get<wbr/>Metadata</span></a>
 <a href="JobAccount.html#getName" class="tsd-index-link tsd-kind-method tsd-parent-kind-class"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg><span>get<wbr/>Name</span></a>
 <a href="JobAccount.html#load" class="tsd-index-link tsd-kind-method tsd-parent-kind-class"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg><span>load</span></a>
@@ -61,7 +62,7 @@
 <section class="tsd-panel tsd-member tsd-kind-constructor tsd-parent-kind-class tsd-is-inherited"><a id="constructor" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>constructor</span><a href="#constructor" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none" id="icon-anchor-a"></path><path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" id="icon-anchor-b"></path><path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" id="icon-anchor-c"></path></svg></a></h3>
 <ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class tsd-is-inherited">
-<li class="tsd-signature tsd-anchor-link" id="constructor.new_JobAccount">new <wbr/>Job<wbr/>Account<span class="tsd-signature-symbol">(</span>program<span class="tsd-signature-symbol">: </span><a href="SwitchboardProgram.html" class="tsd-signature-type" data-tsd-kind="Class">SwitchboardProgram</a>, publicKey<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">PublicKey</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="JobAccount.html" class="tsd-signature-type" data-tsd-kind="Class">JobAccount</a><a href="#constructor.new_JobAccount" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></li>
+<li class="tsd-signature tsd-anchor-link" id="constructor.new_JobAccount">new <wbr/>Job<wbr/>Account<span class="tsd-signature-symbol">(</span>program<span class="tsd-signature-symbol">: </span><a href="SwitchboardProgram.html" class="tsd-signature-type" data-tsd-kind="Class">SwitchboardProgram</a>, publicKey<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">PublicKey</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="JobAccount.html" class="tsd-signature-type" data-tsd-kind="Class">JobAccount</a><a href="#constructor.new_JobAccount" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></li>
 <li class="tsd-description">
 <div class="tsd-comment tsd-typography"><p>Account constructor</p>
 </div>
@@ -73,13 +74,13 @@
 <div class="tsd-comment tsd-typography"><p>SwitchboardProgram</p>
 </div></li>
 <li>
-<h5>publicKey: <span class="tsd-signature-type">PublicKey</span></h5>
+<h5>publicKey: <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">PublicKey</span></h5>
 <div class="tsd-comment tsd-typography"><p>PublicKey of the on-chain resource</p>
 </div></li></ul></div>
 <h4 class="tsd-returns-title">Returns <a href="JobAccount.html" class="tsd-signature-type" data-tsd-kind="Class">JobAccount</a></h4><aside class="tsd-sources">
 <p>Inherited from <a href="Account.html">Account</a>.<a href="Account.html#constructor">constructor</a></p>
 <ul>
-<li>Defined in <a href="https://github.com/switchboard-xyz/switchboard-v2/blob/9620ce3/javascript/solana.js/src/accounts/account.ts#L10">sdks/solana/javascript/solana.js/src/accounts/account.ts:10</a></li></ul></aside></li></ul></section></section>
+<li>Defined in <a href="https://github.com/switchboard-xyz/switchboard-v2/blob/c5517eb/javascript/solana.js/src/accounts/account.ts#L12">sdks/solana/javascript/solana.js/src/accounts/account.ts:12</a></li></ul></aside></li></ul></section></section>
 <section class="tsd-panel-group tsd-member-group">
 <h2>Properties</h2>
 <section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a id="program" class="tsd-anchor"></a>
@@ -87,13 +88,13 @@
 <div class="tsd-signature">program<span class="tsd-signature-symbol">:</span> <a href="SwitchboardProgram.html" class="tsd-signature-type" data-tsd-kind="Class">SwitchboardProgram</a></div><aside class="tsd-sources">
 <p>Inherited from <a href="Account.html">Account</a>.<a href="Account.html#program">program</a></p>
 <ul>
-<li>Defined in <a href="https://github.com/switchboard-xyz/switchboard-v2/blob/9620ce3/javascript/solana.js/src/accounts/account.ts#L11">sdks/solana/javascript/solana.js/src/accounts/account.ts:11</a></li></ul></aside></section>
+<li>Defined in <a href="https://github.com/switchboard-xyz/switchboard-v2/blob/c5517eb/javascript/solana.js/src/accounts/account.ts#L13">sdks/solana/javascript/solana.js/src/accounts/account.ts:13</a></li></ul></aside></section>
 <section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a id="publicKey" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><code class="tsd-tag ts-flagReadonly">Readonly</code> <span>public<wbr/>Key</span><a href="#publicKey" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
 <div class="tsd-signature">public<wbr/>Key<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">PublicKey</span></div><aside class="tsd-sources">
 <p>Inherited from <a href="Account.html">Account</a>.<a href="Account.html#publicKey">publicKey</a></p>
 <ul>
-<li>Defined in <a href="https://github.com/switchboard-xyz/switchboard-v2/blob/9620ce3/javascript/solana.js/src/accounts/account.ts#L12">sdks/solana/javascript/solana.js/src/accounts/account.ts:12</a></li></ul></aside></section>
+<li>Defined in <a href="https://github.com/switchboard-xyz/switchboard-v2/blob/c5517eb/javascript/solana.js/src/accounts/account.ts#L5">sdks/solana/javascript/solana.js/src/accounts/account.ts:5</a></li></ul></aside></section>
 <section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class"><a id="size" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>size</span><a href="#size" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
 <div class="tsd-signature">size<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> = ...</span></div>
@@ -101,12 +102,12 @@
 </div><aside class="tsd-sources">
 <p>Overrides <a href="Account.html">Account</a>.<a href="Account.html#size">size</a></p>
 <ul>
-<li>Defined in <a href="https://github.com/switchboard-xyz/switchboard-v2/blob/9620ce3/javascript/solana.js/src/accounts/jobAccount.ts#L36">sdks/solana/javascript/solana.js/src/accounts/jobAccount.ts:36</a></li></ul></aside></section>
+<li>Defined in <a href="https://github.com/switchboard-xyz/switchboard-v2/blob/c5517eb/javascript/solana.js/src/accounts/jobAccount.ts#L37">sdks/solana/javascript/solana.js/src/accounts/jobAccount.ts:37</a></li></ul></aside></section>
 <section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class"><a id="accountName" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><code class="tsd-tag ts-flagStatic">Static</code> <span>account<wbr/>Name</span><a href="#accountName" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
 <div class="tsd-signature">account<wbr/>Name<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> = &#39;JobAccountData&#39;</span></div><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/switchboard-xyz/switchboard-v2/blob/9620ce3/javascript/solana.js/src/accounts/jobAccount.ts#L22">sdks/solana/javascript/solana.js/src/accounts/jobAccount.ts:22</a></li></ul></aside></section></section>
+<li>Defined in <a href="https://github.com/switchboard-xyz/switchboard-v2/blob/c5517eb/javascript/solana.js/src/accounts/jobAccount.ts#L23">sdks/solana/javascript/solana.js/src/accounts/jobAccount.ts:23</a></li></ul></aside></section></section>
 <section class="tsd-panel-group tsd-member-group">
 <h2>Methods</h2>
 <section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class"><a id="decode" class="tsd-anchor"></a>
@@ -121,7 +122,7 @@
 <h5>data: <span class="tsd-signature-type">Buffer</span></h5></li></ul></div>
 <h4 class="tsd-returns-title">Returns <a href="types.JobAccountData.html" class="tsd-signature-type" data-tsd-kind="Class">JobAccountData</a></h4><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/switchboard-xyz/switchboard-v2/blob/9620ce3/javascript/solana.js/src/accounts/jobAccount.ts#L167">sdks/solana/javascript/solana.js/src/accounts/jobAccount.ts:167</a></li></ul></aside></li></ul></section>
+<li>Defined in <a href="https://github.com/switchboard-xyz/switchboard-v2/blob/c5517eb/javascript/solana.js/src/accounts/jobAccount.ts#L169">sdks/solana/javascript/solana.js/src/accounts/jobAccount.ts:169</a></li></ul></aside></li></ul></section>
 <section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class"><a id="loadData" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>load<wbr/>Data</span><a href="#loadData" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
 <ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
@@ -132,20 +133,20 @@
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="types.JobAccountData.html" class="tsd-signature-type" data-tsd-kind="Class">JobAccountData</a><span class="tsd-signature-symbol">&gt;</span></h4><aside class="tsd-sources">
 <p>Overrides <a href="Account.html">Account</a>.<a href="Account.html#loadData">loadData</a></p>
 <ul>
-<li>Defined in <a href="https://github.com/switchboard-xyz/switchboard-v2/blob/9620ce3/javascript/solana.js/src/accounts/jobAccount.ts#L54">sdks/solana/javascript/solana.js/src/accounts/jobAccount.ts:54</a></li></ul></aside></li></ul></section>
+<li>Defined in <a href="https://github.com/switchboard-xyz/switchboard-v2/blob/c5517eb/javascript/solana.js/src/accounts/jobAccount.ts#L55">sdks/solana/javascript/solana.js/src/accounts/jobAccount.ts:55</a></li></ul></aside></li></ul></section>
 <section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class"><a id="toAccountsJSON" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>to<wbr/>AccountsJSON</span><a href="#toAccountsJSON" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
 <ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-<li class="tsd-signature tsd-anchor-link" id="toAccountsJSON.toAccountsJSON-1">to<wbr/>AccountsJSON<span class="tsd-signature-symbol">(</span>_job<span class="tsd-signature-symbol">?: </span><a href="types.JobAccountData.html" class="tsd-signature-type" data-tsd-kind="Class">JobAccountData</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/types.JobAccountDataJSON.html" class="tsd-signature-type" data-tsd-kind="Interface">JobAccountDataJSON</a><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-symbol">{ </span>publicKey<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">PublicKey</span><span class="tsd-signature-symbol">; </span>tasks<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">ITask</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol"> }</span><span class="tsd-signature-symbol">&gt;</span><a href="#toAccountsJSON.toAccountsJSON-1" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></li>
+<li class="tsd-signature tsd-anchor-link" id="toAccountsJSON.toAccountsJSON-1">to<wbr/>AccountsJSON<span class="tsd-signature-symbol">(</span>_job<span class="tsd-signature-symbol">?: </span><a href="types.JobAccountData.html" class="tsd-signature-type" data-tsd-kind="Class">JobAccountData</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../types/JobAccountsJSON.html" class="tsd-signature-type" data-tsd-kind="Type alias">JobAccountsJSON</a><span class="tsd-signature-symbol">&gt;</span><a href="#toAccountsJSON.toAccountsJSON-1" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></li>
 <li class="tsd-description">
 <div class="tsd-parameters">
 <h4 class="tsd-parameters-title">Parameters</h4>
 <ul class="tsd-parameter-list">
 <li>
 <h5><code class="tsd-tag ts-flagOptional">Optional</code> _job: <a href="types.JobAccountData.html" class="tsd-signature-type" data-tsd-kind="Class">JobAccountData</a></h5></li></ul></div>
-<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../interfaces/types.JobAccountDataJSON.html" class="tsd-signature-type" data-tsd-kind="Interface">JobAccountDataJSON</a><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-symbol">{ </span>publicKey<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">PublicKey</span><span class="tsd-signature-symbol">; </span>tasks<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">ITask</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol"> }</span><span class="tsd-signature-symbol">&gt;</span></h4><aside class="tsd-sources">
+<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="../types/JobAccountsJSON.html" class="tsd-signature-type" data-tsd-kind="Type alias">JobAccountsJSON</a><span class="tsd-signature-symbol">&gt;</span></h4><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/switchboard-xyz/switchboard-v2/blob/9620ce3/javascript/solana.js/src/accounts/jobAccount.ts#L197">sdks/solana/javascript/solana.js/src/accounts/jobAccount.ts:197</a></li></ul></aside></li></ul></section>
+<li>Defined in <a href="https://github.com/switchboard-xyz/switchboard-v2/blob/c5517eb/javascript/solana.js/src/accounts/jobAccount.ts#L199">sdks/solana/javascript/solana.js/src/accounts/jobAccount.ts:199</a></li></ul></aside></li></ul></section>
 <section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class"><a id="create" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><code class="tsd-tag ts-flagStatic">Static</code> <span>create</span><a href="#create" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
 <ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
@@ -160,7 +161,7 @@
 <h5>params: <a href="../interfaces/JobInitParams.html" class="tsd-signature-type" data-tsd-kind="Interface">JobInitParams</a></h5></li></ul></div>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-symbol">[</span><a href="JobAccount.html" class="tsd-signature-type" data-tsd-kind="Class">JobAccount</a><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">&gt;</span></h4><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/switchboard-xyz/switchboard-v2/blob/9620ce3/javascript/solana.js/src/accounts/jobAccount.ts#L154">sdks/solana/javascript/solana.js/src/accounts/jobAccount.ts:154</a></li></ul></aside></li></ul></section>
+<li>Defined in <a href="https://github.com/switchboard-xyz/switchboard-v2/blob/c5517eb/javascript/solana.js/src/accounts/jobAccount.ts#L156">sdks/solana/javascript/solana.js/src/accounts/jobAccount.ts:156</a></li></ul></aside></li></ul></section>
 <section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class"><a id="createInstructions" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><code class="tsd-tag ts-flagStatic">Static</code> <span>create<wbr/>Instructions</span><a href="#createInstructions" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
 <ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
@@ -177,7 +178,7 @@
 <h5>params: <a href="../interfaces/JobInitParams.html" class="tsd-signature-type" data-tsd-kind="Interface">JobInitParams</a></h5></li></ul></div>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-symbol">[</span><a href="JobAccount.html" class="tsd-signature-type" data-tsd-kind="Class">JobAccount</a><span class="tsd-signature-symbol">, </span><a href="TransactionObject.html" class="tsd-signature-type" data-tsd-kind="Class">TransactionObject</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">]</span></h4><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/switchboard-xyz/switchboard-v2/blob/9620ce3/javascript/solana.js/src/accounts/jobAccount.ts#L60">sdks/solana/javascript/solana.js/src/accounts/jobAccount.ts:60</a></li></ul></aside></li></ul></section>
+<li>Defined in <a href="https://github.com/switchboard-xyz/switchboard-v2/blob/c5517eb/javascript/solana.js/src/accounts/jobAccount.ts#L62">sdks/solana/javascript/solana.js/src/accounts/jobAccount.ts:62</a></li></ul></aside></li></ul></section>
 <section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class"><a id="decode-2" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><code class="tsd-tag ts-flagStatic">Static</code> <span>decode</span><a href="#decode-2" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
 <ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
@@ -192,7 +193,7 @@
 <h5>accountInfo: <span class="tsd-signature-type">AccountInfo</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Buffer</span><span class="tsd-signature-symbol">&gt;</span></h5></li></ul></div>
 <h4 class="tsd-returns-title">Returns <a href="types.JobAccountData.html" class="tsd-signature-type" data-tsd-kind="Class">JobAccountData</a></h4><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/switchboard-xyz/switchboard-v2/blob/9620ce3/javascript/solana.js/src/accounts/jobAccount.ts#L178">sdks/solana/javascript/solana.js/src/accounts/jobAccount.ts:178</a></li></ul></aside></li></ul></section>
+<li>Defined in <a href="https://github.com/switchboard-xyz/switchboard-v2/blob/c5517eb/javascript/solana.js/src/accounts/jobAccount.ts#L180">sdks/solana/javascript/solana.js/src/accounts/jobAccount.ts:180</a></li></ul></aside></li></ul></section>
 <section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class"><a id="decodeJob" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><code class="tsd-tag ts-flagStatic">Static</code> <span>decode<wbr/>Job</span><a href="#decodeJob" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
 <ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
@@ -207,7 +208,24 @@
 <h5>accountInfo: <span class="tsd-signature-type">AccountInfo</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Buffer</span><span class="tsd-signature-symbol">&gt;</span></h5></li></ul></div>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">OracleJob</span></h4><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/switchboard-xyz/switchboard-v2/blob/9620ce3/javascript/solana.js/src/accounts/jobAccount.ts#L188">sdks/solana/javascript/solana.js/src/accounts/jobAccount.ts:188</a></li></ul></aside></li></ul></section>
+<li>Defined in <a href="https://github.com/switchboard-xyz/switchboard-v2/blob/c5517eb/javascript/solana.js/src/accounts/jobAccount.ts#L190">sdks/solana/javascript/solana.js/src/accounts/jobAccount.ts:190</a></li></ul></aside></li></ul></section>
+<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class"><a id="fetchMultiple" class="tsd-anchor"></a>
+<h3 class="tsd-anchor-link"><code class="tsd-tag ts-flagStatic">Static</code> <span>fetch<wbr/>Multiple</span><a href="#fetchMultiple" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
+<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+<li class="tsd-signature tsd-anchor-link" id="fetchMultiple.fetchMultiple-1">fetch<wbr/>Multiple<span class="tsd-signature-symbol">(</span>program<span class="tsd-signature-symbol">: </span><a href="SwitchboardProgram.html" class="tsd-signature-type" data-tsd-kind="Class">SwitchboardProgram</a>, publicKeys<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">PublicKey</span><span class="tsd-signature-symbol">[]</span>, commitment<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">Commitment</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-symbol">{ </span>account<span class="tsd-signature-symbol">: </span><a href="JobAccount.html" class="tsd-signature-type" data-tsd-kind="Class">JobAccount</a><span class="tsd-signature-symbol">; </span>data<span class="tsd-signature-symbol">: </span><a href="types.JobAccountData.html" class="tsd-signature-type" data-tsd-kind="Class">JobAccountData</a><span class="tsd-signature-symbol">; </span>job<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">OracleJob</span><span class="tsd-signature-symbol"> }</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span><a href="#fetchMultiple.fetchMultiple-1" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></li>
+<li class="tsd-description">
+<div class="tsd-parameters">
+<h4 class="tsd-parameters-title">Parameters</h4>
+<ul class="tsd-parameter-list">
+<li>
+<h5>program: <a href="SwitchboardProgram.html" class="tsd-signature-type" data-tsd-kind="Class">SwitchboardProgram</a></h5></li>
+<li>
+<h5>publicKeys: <span class="tsd-signature-type">PublicKey</span><span class="tsd-signature-symbol">[]</span></h5></li>
+<li>
+<h5>commitment: <span class="tsd-signature-type">Commitment</span><span class="tsd-signature-symbol"> = &#39;confirmed&#39;</span></h5></li></ul></div>
+<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-symbol">{ </span>account<span class="tsd-signature-symbol">: </span><a href="JobAccount.html" class="tsd-signature-type" data-tsd-kind="Class">JobAccount</a><span class="tsd-signature-symbol">; </span>data<span class="tsd-signature-symbol">: </span><a href="types.JobAccountData.html" class="tsd-signature-type" data-tsd-kind="Class">JobAccountData</a><span class="tsd-signature-symbol">; </span>job<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">OracleJob</span><span class="tsd-signature-symbol"> }</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></h4><aside class="tsd-sources">
+<ul>
+<li>Defined in <a href="https://github.com/switchboard-xyz/switchboard-v2/blob/c5517eb/javascript/solana.js/src/accounts/jobAccount.ts#L212">sdks/solana/javascript/solana.js/src/accounts/jobAccount.ts:212</a></li></ul></aside></li></ul></section>
 <section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class"><a id="getMetadata" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><code class="tsd-tag ts-flagStatic">Static</code> <span>get<wbr/>Metadata</span><a href="#getMetadata" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
 <ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
@@ -222,7 +240,7 @@
 <h5>job: <a href="types.JobAccountData.html" class="tsd-signature-type" data-tsd-kind="Class">JobAccountData</a></h5></li></ul></div>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/switchboard-xyz/switchboard-v2/blob/9620ce3/javascript/solana.js/src/accounts/jobAccount.ts#L31">sdks/solana/javascript/solana.js/src/accounts/jobAccount.ts:31</a></li></ul></aside></li></ul></section>
+<li>Defined in <a href="https://github.com/switchboard-xyz/switchboard-v2/blob/c5517eb/javascript/solana.js/src/accounts/jobAccount.ts#L32">sdks/solana/javascript/solana.js/src/accounts/jobAccount.ts:32</a></li></ul></aside></li></ul></section>
 <section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class"><a id="getName" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><code class="tsd-tag ts-flagStatic">Static</code> <span>get<wbr/>Name</span><a href="#getName" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
 <ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
@@ -237,7 +255,7 @@
 <h5>job: <a href="types.JobAccountData.html" class="tsd-signature-type" data-tsd-kind="Class">JobAccountData</a></h5></li></ul></div>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">string</span></h4><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/switchboard-xyz/switchboard-v2/blob/9620ce3/javascript/solana.js/src/accounts/jobAccount.ts#L27">sdks/solana/javascript/solana.js/src/accounts/jobAccount.ts:27</a></li></ul></aside></li></ul></section>
+<li>Defined in <a href="https://github.com/switchboard-xyz/switchboard-v2/blob/c5517eb/javascript/solana.js/src/accounts/jobAccount.ts#L28">sdks/solana/javascript/solana.js/src/accounts/jobAccount.ts:28</a></li></ul></aside></li></ul></section>
 <section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class"><a id="load" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><code class="tsd-tag ts-flagStatic">Static</code> <span>load</span><a href="#load" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
 <ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
@@ -254,7 +272,7 @@
 <h5>publicKey: <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">PublicKey</span></h5></li></ul></div>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-symbol">[</span><a href="JobAccount.html" class="tsd-signature-type" data-tsd-kind="Class">JobAccount</a><span class="tsd-signature-symbol">, </span><a href="types.JobAccountData.html" class="tsd-signature-type" data-tsd-kind="Class">JobAccountData</a><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">&gt;</span></h4><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/switchboard-xyz/switchboard-v2/blob/9620ce3/javascript/solana.js/src/accounts/jobAccount.ts#L39">sdks/solana/javascript/solana.js/src/accounts/jobAccount.ts:39</a></li></ul></aside></li></ul></section></section></div>
+<li>Defined in <a href="https://github.com/switchboard-xyz/switchboard-v2/blob/c5517eb/javascript/solana.js/src/accounts/jobAccount.ts#L40">sdks/solana/javascript/solana.js/src/accounts/jobAccount.ts:40</a></li></ul></aside></li></ul></section></section></div>
 <div class="col-4 col-menu menu-sticky-wrap menu-highlight">
 <div class="tsd-navigation settings">
 <details class="tsd-index-accordion"><summary class="tsd-accordion-summary">
@@ -301,6 +319,7 @@
 <li class="tsd-kind-method tsd-parent-kind-class"><a href="JobAccount.html#createInstructions" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg>create<wbr/>Instructions</a></li>
 <li class="tsd-kind-method tsd-parent-kind-class"><a href="JobAccount.html#decode-2" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg>decode</a></li>
 <li class="tsd-kind-method tsd-parent-kind-class"><a href="JobAccount.html#decodeJob" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg>decode<wbr/>Job</a></li>
+<li class="tsd-kind-method tsd-parent-kind-class"><a href="JobAccount.html#fetchMultiple" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg>fetch<wbr/>Multiple</a></li>
 <li class="tsd-kind-method tsd-parent-kind-class"><a href="JobAccount.html#getMetadata" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg>get<wbr/>Metadata</a></li>
 <li class="tsd-kind-method tsd-parent-kind-class"><a href="JobAccount.html#getName" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg>get<wbr/>Name</a></li>
 <li class="tsd-kind-method tsd-parent-kind-class"><a href="JobAccount.html#load" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg>load</a></li></ul></li></ul></nav></div></div>

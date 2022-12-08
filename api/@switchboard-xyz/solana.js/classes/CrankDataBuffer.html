@@ -26,7 +26,7 @@
 <ul class="tsd-hierarchy">
 <li><span class="target">CrankDataBuffer</span></li></ul></section></li></ul></section><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/switchboard-xyz/switchboard-v2/blob/9620ce3/javascript/solana.js/src/accounts/crankDataBuffer.ts#L13">sdks/solana/javascript/solana.js/src/accounts/crankDataBuffer.ts:13</a></li></ul></aside>
+<li>Defined in <a href="https://github.com/switchboard-xyz/switchboard-v2/blob/c5517eb/javascript/solana.js/src/accounts/crankDataBuffer.ts#L17">sdks/solana/javascript/solana.js/src/accounts/crankDataBuffer.ts:17</a></li></ul></aside>
 <section class="tsd-panel-group tsd-index-group">
 <section class="tsd-panel tsd-index-panel">
 <details class="tsd-index-content tsd-index-accordion" open><summary class="tsd-accordion-summary tsd-index-summary">
@@ -48,15 +48,16 @@
 <div class="tsd-index-list"><a href="CrankDataBuffer.html#loadData" class="tsd-index-link tsd-kind-method tsd-parent-kind-class"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><rect fill="var(--color-icon-background)" stroke="#FF4DB8" stroke-width="1.5" x="1" y="1" width="22" height="22" rx="12" id="icon-2048-path"></rect><path d="M9.162 16V7.24H10.578L11.514 10.072C11.602 10.328 11.674 10.584 11.73 10.84C11.794 11.088 11.842 11.28 11.874 11.416C11.906 11.28 11.954 11.088 12.018 10.84C12.082 10.584 12.154 10.324 12.234 10.06L13.122 7.24H14.538V16H13.482V12.82C13.482 12.468 13.49 12.068 13.506 11.62C13.53 11.172 13.558 10.716 13.59 10.252C13.622 9.78 13.654 9.332 13.686 8.908C13.726 8.476 13.762 8.1 13.794 7.78L12.366 12.16H11.334L9.894 7.78C9.934 8.092 9.97 8.456 10.002 8.872C10.042 9.28 10.078 9.716 10.11 10.18C10.142 10.636 10.166 11.092 10.182 11.548C10.206 12.004 10.218 12.428 10.218 12.82V16H9.162Z" fill="var(--color-text)" id="icon-2048-text"></path></svg><span>load<wbr/>Data</span></a>
 <a href="CrankDataBuffer.html#onChange" class="tsd-index-link tsd-kind-method tsd-parent-kind-class"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg><span>on<wbr/>Change</span></a>
 <a href="CrankDataBuffer.html#decode" class="tsd-index-link tsd-kind-method tsd-parent-kind-class"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg><span>decode</span></a>
+<a href="CrankDataBuffer.html#default" class="tsd-index-link tsd-kind-method tsd-parent-kind-class"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg><span>default</span></a>
 <a href="CrankDataBuffer.html#fromCrank" class="tsd-index-link tsd-kind-method tsd-parent-kind-class"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg><span>from<wbr/>Crank</span></a>
-<a href="CrankDataBuffer.html#getDataBufferSize" class="tsd-index-link tsd-kind-method tsd-parent-kind-class"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg><span>get<wbr/>Data<wbr/>Buffer<wbr/>Size</span></a>
+<a href="CrankDataBuffer.html#getAccountSize" class="tsd-index-link tsd-kind-method tsd-parent-kind-class"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg><span>get<wbr/>Account<wbr/>Size</span></a>
 </div></section></div></details></section></section>
 <section class="tsd-panel-group tsd-member-group">
 <h2>Constructors</h2>
 <section class="tsd-panel tsd-member tsd-kind-constructor tsd-parent-kind-class tsd-is-inherited"><a id="constructor" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>constructor</span><a href="#constructor" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none" id="icon-anchor-a"></path><path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" id="icon-anchor-b"></path><path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" id="icon-anchor-c"></path></svg></a></h3>
 <ul class="tsd-signatures tsd-kind-constructor tsd-parent-kind-class tsd-is-inherited">
-<li class="tsd-signature tsd-anchor-link" id="constructor.new_CrankDataBuffer">new <wbr/>Crank<wbr/>Data<wbr/>Buffer<span class="tsd-signature-symbol">(</span>program<span class="tsd-signature-symbol">: </span><a href="SwitchboardProgram.html" class="tsd-signature-type" data-tsd-kind="Class">SwitchboardProgram</a>, publicKey<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">PublicKey</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="CrankDataBuffer.html" class="tsd-signature-type" data-tsd-kind="Class">CrankDataBuffer</a><a href="#constructor.new_CrankDataBuffer" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></li>
+<li class="tsd-signature tsd-anchor-link" id="constructor.new_CrankDataBuffer">new <wbr/>Crank<wbr/>Data<wbr/>Buffer<span class="tsd-signature-symbol">(</span>program<span class="tsd-signature-symbol">: </span><a href="SwitchboardProgram.html" class="tsd-signature-type" data-tsd-kind="Class">SwitchboardProgram</a>, publicKey<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">PublicKey</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="CrankDataBuffer.html" class="tsd-signature-type" data-tsd-kind="Class">CrankDataBuffer</a><a href="#constructor.new_CrankDataBuffer" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></li>
 <li class="tsd-description">
 <div class="tsd-comment tsd-typography"><p>Account constructor</p>
 </div>
@@ -68,13 +69,13 @@
 <div class="tsd-comment tsd-typography"><p>SwitchboardProgram</p>
 </div></li>
 <li>
-<h5>publicKey: <span class="tsd-signature-type">PublicKey</span></h5>
+<h5>publicKey: <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">PublicKey</span></h5>
 <div class="tsd-comment tsd-typography"><p>PublicKey of the on-chain resource</p>
 </div></li></ul></div>
 <h4 class="tsd-returns-title">Returns <a href="CrankDataBuffer.html" class="tsd-signature-type" data-tsd-kind="Class">CrankDataBuffer</a></h4><aside class="tsd-sources">
 <p>Inherited from <a href="Account.html">Account</a>.<a href="Account.html#constructor">constructor</a></p>
 <ul>
-<li>Defined in <a href="https://github.com/switchboard-xyz/switchboard-v2/blob/9620ce3/javascript/solana.js/src/accounts/account.ts#L10">sdks/solana/javascript/solana.js/src/accounts/account.ts:10</a></li></ul></aside></li></ul></section></section>
+<li>Defined in <a href="https://github.com/switchboard-xyz/switchboard-v2/blob/c5517eb/javascript/solana.js/src/accounts/account.ts#L12">sdks/solana/javascript/solana.js/src/accounts/account.ts:12</a></li></ul></aside></li></ul></section></section>
 <section class="tsd-panel-group tsd-member-group">
 <h2>Properties</h2>
 <section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a id="program" class="tsd-anchor"></a>
@@ -82,24 +83,24 @@
 <div class="tsd-signature">program<span class="tsd-signature-symbol">:</span> <a href="SwitchboardProgram.html" class="tsd-signature-type" data-tsd-kind="Class">SwitchboardProgram</a></div><aside class="tsd-sources">
 <p>Inherited from <a href="Account.html">Account</a>.<a href="Account.html#program">program</a></p>
 <ul>
-<li>Defined in <a href="https://github.com/switchboard-xyz/switchboard-v2/blob/9620ce3/javascript/solana.js/src/accounts/account.ts#L11">sdks/solana/javascript/solana.js/src/accounts/account.ts:11</a></li></ul></aside></section>
+<li>Defined in <a href="https://github.com/switchboard-xyz/switchboard-v2/blob/c5517eb/javascript/solana.js/src/accounts/account.ts#L13">sdks/solana/javascript/solana.js/src/accounts/account.ts:13</a></li></ul></aside></section>
 <section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><a id="publicKey" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><code class="tsd-tag ts-flagReadonly">Readonly</code> <span>public<wbr/>Key</span><a href="#publicKey" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
 <div class="tsd-signature">public<wbr/>Key<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">PublicKey</span></div><aside class="tsd-sources">
 <p>Inherited from <a href="Account.html">Account</a>.<a href="Account.html#publicKey">publicKey</a></p>
 <ul>
-<li>Defined in <a href="https://github.com/switchboard-xyz/switchboard-v2/blob/9620ce3/javascript/solana.js/src/accounts/account.ts#L12">sdks/solana/javascript/solana.js/src/accounts/account.ts:12</a></li></ul></aside></section>
+<li>Defined in <a href="https://github.com/switchboard-xyz/switchboard-v2/blob/c5517eb/javascript/solana.js/src/accounts/account.ts#L5">sdks/solana/javascript/solana.js/src/accounts/account.ts:5</a></li></ul></aside></section>
 <section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class"><a id="size" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>size</span><a href="#size" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
-<div class="tsd-signature">size<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> = 0</span></div><aside class="tsd-sources">
+<div class="tsd-signature">size<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> = 40</span></div><aside class="tsd-sources">
 <p>Overrides <a href="Account.html">Account</a>.<a href="Account.html#size">size</a></p>
 <ul>
-<li>Defined in <a href="https://github.com/switchboard-xyz/switchboard-v2/blob/9620ce3/javascript/solana.js/src/accounts/crankDataBuffer.ts#L16">sdks/solana/javascript/solana.js/src/accounts/crankDataBuffer.ts:16</a></li></ul></aside></section>
+<li>Defined in <a href="https://github.com/switchboard-xyz/switchboard-v2/blob/c5517eb/javascript/solana.js/src/accounts/crankDataBuffer.ts#L20">sdks/solana/javascript/solana.js/src/accounts/crankDataBuffer.ts:20</a></li></ul></aside></section>
 <section class="tsd-panel tsd-member tsd-kind-property tsd-parent-kind-class"><a id="accountName" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><code class="tsd-tag ts-flagStatic">Static</code> <span>account<wbr/>Name</span><a href="#accountName" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
 <div class="tsd-signature">account<wbr/>Name<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> = &#39;CrankDataBuffer&#39;</span></div><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/switchboard-xyz/switchboard-v2/blob/9620ce3/javascript/solana.js/src/accounts/crankDataBuffer.ts#L14">sdks/solana/javascript/solana.js/src/accounts/crankDataBuffer.ts:14</a></li></ul></aside></section></section>
+<li>Defined in <a href="https://github.com/switchboard-xyz/switchboard-v2/blob/c5517eb/javascript/solana.js/src/accounts/crankDataBuffer.ts#L18">sdks/solana/javascript/solana.js/src/accounts/crankDataBuffer.ts:18</a></li></ul></aside></section></section>
 <section class="tsd-panel-group tsd-member-group">
 <h2>Methods</h2>
 <section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class"><a id="loadData" class="tsd-anchor"></a>
@@ -112,7 +113,7 @@
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Promise</span><span class="tsd-signature-symbol">&lt;</span><a href="types.CrankRow.html" class="tsd-signature-type" data-tsd-kind="Class">CrankRow</a><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">&gt;</span></h4><aside class="tsd-sources">
 <p>Overrides <a href="Account.html">Account</a>.<a href="Account.html#loadData">loadData</a></p>
 <ul>
-<li>Defined in <a href="https://github.com/switchboard-xyz/switchboard-v2/blob/9620ce3/javascript/solana.js/src/accounts/crankDataBuffer.ts#L43">sdks/solana/javascript/solana.js/src/accounts/crankDataBuffer.ts:43</a></li></ul></aside></li></ul></section>
+<li>Defined in <a href="https://github.com/switchboard-xyz/switchboard-v2/blob/c5517eb/javascript/solana.js/src/accounts/crankDataBuffer.ts#L47">sdks/solana/javascript/solana.js/src/accounts/crankDataBuffer.ts:47</a></li></ul></aside></li></ul></section>
 <section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class"><a id="onChange" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><span>on<wbr/>Change</span><a href="#onChange" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
 <ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
@@ -135,7 +136,7 @@
 </div></li></ul></div>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span></h4><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/switchboard-xyz/switchboard-v2/blob/9620ce3/javascript/solana.js/src/accounts/crankDataBuffer.ts#L24">sdks/solana/javascript/solana.js/src/accounts/crankDataBuffer.ts:24</a></li></ul></aside></li></ul></section>
+<li>Defined in <a href="https://github.com/switchboard-xyz/switchboard-v2/blob/c5517eb/javascript/solana.js/src/accounts/crankDataBuffer.ts#L28">sdks/solana/javascript/solana.js/src/accounts/crankDataBuffer.ts:28</a></li></ul></aside></li></ul></section>
 <section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class"><a id="decode" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><code class="tsd-tag ts-flagStatic">Static</code> <span>decode</span><a href="#decode" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
 <ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
@@ -148,7 +149,20 @@
 <h5>bufferAccountInfo: <span class="tsd-signature-type">AccountInfo</span><span class="tsd-signature-symbol">&lt;</span><span class="tsd-signature-type">Buffer</span><span class="tsd-signature-symbol">&gt;</span></h5></li></ul></div>
 <h4 class="tsd-returns-title">Returns <a href="types.CrankRow.html" class="tsd-signature-type" data-tsd-kind="Class">CrankRow</a><span class="tsd-signature-symbol">[]</span></h4><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/switchboard-xyz/switchboard-v2/blob/9620ce3/javascript/solana.js/src/accounts/crankDataBuffer.ts#L56">sdks/solana/javascript/solana.js/src/accounts/crankDataBuffer.ts:56</a></li></ul></aside></li></ul></section>
+<li>Defined in <a href="https://github.com/switchboard-xyz/switchboard-v2/blob/c5517eb/javascript/solana.js/src/accounts/crankDataBuffer.ts#L63">sdks/solana/javascript/solana.js/src/accounts/crankDataBuffer.ts:63</a></li></ul></aside></li></ul></section>
+<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class"><a id="default" class="tsd-anchor"></a>
+<h3 class="tsd-anchor-link"><code class="tsd-tag ts-flagStatic">Static</code> <span>default</span><a href="#default" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
+<ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
+<li class="tsd-signature tsd-anchor-link" id="default.default-1">default<span class="tsd-signature-symbol">(</span>size<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">Buffer</span><a href="#default.default-1" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></li>
+<li class="tsd-description">
+<div class="tsd-parameters">
+<h4 class="tsd-parameters-title">Parameters</h4>
+<ul class="tsd-parameter-list">
+<li>
+<h5>size: <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> = 100</span></h5></li></ul></div>
+<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">Buffer</span></h4><aside class="tsd-sources">
+<ul>
+<li>Defined in <a href="https://github.com/switchboard-xyz/switchboard-v2/blob/c5517eb/javascript/solana.js/src/accounts/crankDataBuffer.ts#L93">sdks/solana/javascript/solana.js/src/accounts/crankDataBuffer.ts:93</a></li></ul></aside></li></ul></section>
 <section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class"><a id="fromCrank" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><code class="tsd-tag ts-flagStatic">Static</code> <span>from<wbr/>Crank</span><a href="#fromCrank" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
 <ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
@@ -167,11 +181,11 @@
 <h5>crank: <a href="types.CrankAccountData.html" class="tsd-signature-type" data-tsd-kind="Class">CrankAccountData</a></h5></li></ul></div>
 <h4 class="tsd-returns-title">Returns <a href="CrankDataBuffer.html" class="tsd-signature-type" data-tsd-kind="Class">CrankDataBuffer</a></h4><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/switchboard-xyz/switchboard-v2/blob/9620ce3/javascript/solana.js/src/accounts/crankDataBuffer.ts#L91">sdks/solana/javascript/solana.js/src/accounts/crankDataBuffer.ts:91</a></li></ul></aside></li></ul></section>
-<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class"><a id="getDataBufferSize" class="tsd-anchor"></a>
-<h3 class="tsd-anchor-link"><code class="tsd-tag ts-flagStatic">Static</code> <span>get<wbr/>Data<wbr/>Buffer<wbr/>Size</span><a href="#getDataBufferSize" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
+<li>Defined in <a href="https://github.com/switchboard-xyz/switchboard-v2/blob/c5517eb/javascript/solana.js/src/accounts/crankDataBuffer.ts#L104">sdks/solana/javascript/solana.js/src/accounts/crankDataBuffer.ts:104</a></li></ul></aside></li></ul></section>
+<section class="tsd-panel tsd-member tsd-kind-method tsd-parent-kind-class"><a id="getAccountSize" class="tsd-anchor"></a>
+<h3 class="tsd-anchor-link"><code class="tsd-tag ts-flagStatic">Static</code> <span>get<wbr/>Account<wbr/>Size</span><a href="#getAccountSize" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></h3>
 <ul class="tsd-signatures tsd-kind-method tsd-parent-kind-class">
-<li class="tsd-signature tsd-anchor-link" id="getDataBufferSize.getDataBufferSize-1">get<wbr/>Data<wbr/>Buffer<wbr/>Size<span class="tsd-signature-symbol">(</span>size<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><a href="#getDataBufferSize.getDataBufferSize-1" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></li>
+<li class="tsd-signature tsd-anchor-link" id="getAccountSize.getAccountSize-1">get<wbr/>Account<wbr/>Size<span class="tsd-signature-symbol">(</span>size<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><a href="#getAccountSize.getAccountSize-1" aria-label="Permalink" class="tsd-anchor-icon"><svg class="icon icon-tabler icon-tabler-link" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><use href="#icon-anchor-a"></use><use href="#icon-anchor-b"></use><use href="#icon-anchor-c"></use></svg></a></li>
 <li class="tsd-description">
 <div class="tsd-parameters">
 <h4 class="tsd-parameters-title">Parameters</h4>
@@ -180,7 +194,7 @@
 <h5>size: <span class="tsd-signature-type">number</span></h5></li></ul></div>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span></h4><aside class="tsd-sources">
 <ul>
-<li>Defined in <a href="https://github.com/switchboard-xyz/switchboard-v2/blob/9620ce3/javascript/solana.js/src/accounts/crankDataBuffer.ts#L82">sdks/solana/javascript/solana.js/src/accounts/crankDataBuffer.ts:82</a></li></ul></aside></li></ul></section></section></div>
+<li>Defined in <a href="https://github.com/switchboard-xyz/switchboard-v2/blob/c5517eb/javascript/solana.js/src/accounts/crankDataBuffer.ts#L89">sdks/solana/javascript/solana.js/src/accounts/crankDataBuffer.ts:89</a></li></ul></aside></li></ul></section></section></div>
 <div class="col-4 col-menu menu-sticky-wrap menu-highlight">
 <div class="tsd-navigation settings">
 <details class="tsd-index-accordion"><summary class="tsd-accordion-summary">
@@ -223,8 +237,9 @@
 <li class="tsd-kind-method tsd-parent-kind-class"><a href="CrankDataBuffer.html#loadData" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg>load<wbr/>Data</a></li>
 <li class="tsd-kind-method tsd-parent-kind-class"><a href="CrankDataBuffer.html#onChange" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg>on<wbr/>Change</a></li>
 <li class="tsd-kind-method tsd-parent-kind-class"><a href="CrankDataBuffer.html#decode" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg>decode</a></li>
+<li class="tsd-kind-method tsd-parent-kind-class"><a href="CrankDataBuffer.html#default" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg>default</a></li>
 <li class="tsd-kind-method tsd-parent-kind-class"><a href="CrankDataBuffer.html#fromCrank" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg>from<wbr/>Crank</a></li>
-<li class="tsd-kind-method tsd-parent-kind-class"><a href="CrankDataBuffer.html#getDataBufferSize" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg>get<wbr/>Data<wbr/>Buffer<wbr/>Size</a></li></ul></li></ul></nav></div></div>
+<li class="tsd-kind-method tsd-parent-kind-class"><a href="CrankDataBuffer.html#getAccountSize" class="tsd-index-link"><svg class="tsd-kind-icon" width="24" height="24" viewBox="0 0 24 24"><use href="#icon-2048-path"></use><use href="#icon-2048-text"></use></svg>get<wbr/>Account<wbr/>Size</a></li></ul></li></ul></nav></div></div>
 <div class="container tsd-generator">
 <p>Generated using <a href="https://typedoc.org/" target="_blank">TypeDoc</a></p></div>
 <div class="overlay"></div><script src="../assets/main.js"></script></body></html>
