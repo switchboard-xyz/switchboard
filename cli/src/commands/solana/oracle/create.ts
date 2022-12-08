@@ -41,7 +41,7 @@ export default class OracleCreate extends BaseCommand {
   static args = [
     {
       name: "queueKey",
-      description: "public key of the oracle queue to create on oracle for",
+      description: "public key of the oracle queue to create an oracle for",
       required: true,
     },
   ];
