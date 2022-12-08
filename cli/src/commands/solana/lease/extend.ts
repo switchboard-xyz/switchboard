@@ -12,14 +12,17 @@ import { chalkString, CHECK_ICON } from "../../../utils";
 export default class LeaseExtend extends BaseCommand {
   static description = "fund and re-enable an aggregator lease";
 
-  static aliases = ["solana:aggregator:lease:extend"];
+  static aliases = [
+    "solana:aggregator:fund",
+    "solana:aggregator:deposit",
+    "solana:aggregator:extend",
+  ];
 
   static flags = {
     ...BaseCommand.flags,
     amount: Flags.string({
       required: true,
-      description:
-        "token amount to load into the lease escrow. If decimals provided, amount will be normalized to raw tokenAmount",
+      description: "amount to deposit into the lease escrow",
     }),
   };
 
@@ -32,7 +35,7 @@ export default class LeaseExtend extends BaseCommand {
   ];
 
   static examples = [
-    "$ sbv2 aggregator:lease:extend GvDMxPzN1sCj7L26YDK2HnMRXEQmQ2aemov8YBtPS7vR --amount 1.1 --keypair ../payer-keypair.json",
+    "$ sbv2 solana:aggregator:fund GvDMxPzN1sCj7L26YDK2HnMRXEQmQ2aemov8YBtPS7vR --amount 1.1 --keypair ../payer-keypair.json",
   ];
 
   async run() {
@@ -60,30 +63,22 @@ export default class LeaseExtend extends BaseCommand {
       throw new Error(`Failed to load lease account. Has it been created yet?`);
     });
 
-    // TODO: Auto-wrap funds if not enough balance
-    const initialLeaseBalance =
-      await this.program.connection.getTokenAccountBalance(lease.escrow);
+    const [funder, wrapFundsTxn] =
+      await this.program.mint.getOrCreateWrappedUserInstructions(this.payer, {
+        fundUpTo: amount,
+      });
 
-    const funder = this.program.mint.getAssociatedAddress(
-      this.program.walletPubkey
+    const initialLeaseBalance = await this.program.mint.getBalance(
+      lease.escrow
     );
 
     if (!this.silent) {
-      const initialFunderBalance =
-        await this.program.connection.getTokenAccountBalance(funder);
+      const initialFunderBalance = await this.program.mint.getBalance(funder);
       this.logger.log(
-        chalkString(
-          "Initial Lease Balance",
-          initialLeaseBalance.value.uiAmountString,
-          24
-        )
+        chalkString("Initial Lease Balance", initialLeaseBalance, 24)
       );
       this.logger.log(
-        chalkString(
-          "Initial Funder Balance",
-          initialFunderBalance.value.uiAmountString,
-          24
-        )
+        chalkString("Initial Funder Balance", initialFunderBalance, 24)
       );
     }
 
@@ -92,15 +87,11 @@ export default class LeaseExtend extends BaseCommand {
       funder,
       funderAuthority: this.program.wallet.payer,
     });
-    const signature = await this.signAndSend(txn);
+    const signature = await this.signAndSend(wrapFundsTxn.combine(txn));
 
     if (!this.silent) {
-      const newBalance = await this.program.connection.getTokenAccountBalance(
-        lease.escrow
-      );
-      this.logger.log(
-        chalkString("Final Lease Balance", newBalance.value.uiAmountString, 24)
-      );
+      const newBalance = await this.program.mint.getBalance(lease.escrow);
+      this.logger.log(chalkString("Final Lease Balance", newBalance, 24));
     }
 
     if (this.silent) {

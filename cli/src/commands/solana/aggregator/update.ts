@@ -19,7 +19,8 @@ export default class AggregatorUpdate extends BaseCommand {
   static args = [
     {
       name: "aggregatorKey",
-      description: "public key of the aggregator account to deserialize",
+      description:
+        "public key of the aggregator account to request an update for",
       require: true,
     },
   ];

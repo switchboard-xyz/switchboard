@@ -7,19 +7,18 @@ import { chalkString, CHECK_ICON } from "../../../utils";
 export default class AggregatorLeaseWithdraw extends BaseCommand {
   static description = "withdraw funds from an aggregator lease";
 
-  static aliases = ["solana:aggregator:lease:withdraw"];
+  static aliases = ["solana:aggregator:withdraw"];
 
   static flags = {
     ...BaseCommand.flags,
     amount: Flags.string({
       required: true,
-      description:
-        "token amount to withdraw from lease account. If decimals provided, amount will be normalized to raw tokenAmount",
+      description: "token amount to withdraw from lease account",
     }),
     authority: Flags.string({
       char: "a",
       description:
-        "keypair delegated as the authority for managing the oracle account",
+        "keypair delegated as the authority for managing the lease account",
     }),
   };
 
@@ -32,7 +31,7 @@ export default class AggregatorLeaseWithdraw extends BaseCommand {
   ];
 
   static examples = [
-    "$ sbv2 aggregator:lease:withdraw GvDMxPzN1sCj7L26YDK2HnMRXEQmQ2aemov8YBtPS7vR --amount 1.1 --keypair ../payer-keypair.json",
+    "$ sbv2 solana:aggregator:withdraw GvDMxPzN1sCj7L26YDK2HnMRXEQmQ2aemov8YBtPS7vR --amount 1.1 --keypair ../payer-keypair.json",
   ];
 
   async run() {
@@ -66,27 +65,18 @@ export default class AggregatorLeaseWithdraw extends BaseCommand {
       aggregatorData.authority
     );
 
-    const tokenWallet = this.program.mint.getAssociatedAddress(
-      this.program.walletPubkey
-    );
+    const [tokenWallet, userInitTxn] =
+      await this.program.mint.getOrCreateWrappedUserInstructions(this.payer, {
+        fundUpTo: 0,
+      });
     if (!this.silent) {
       const [withdrawerBalance, leaseBalance] = await Promise.all([
-        this.program.connection.getTokenAccountBalance(tokenWallet),
-        this.program.connection.getTokenAccountBalance(leaseData.escrow),
+        this.program.mint.getBalance(tokenWallet),
+        this.program.mint.getBalance(leaseData.escrow),
       ]);
+      this.logger.log(chalkString("Initial Lease Balance", leaseBalance, 24));
       this.logger.log(
-        chalkString(
-          "Initial Lease Balance",
-          leaseBalance.value.uiAmountString,
-          24
-        )
-      );
-      this.logger.log(
-        chalkString(
-          "Initial Withdrawer Balance",
-          withdrawerBalance.value.uiAmountString,
-          24
-        )
+        chalkString("Initial Withdrawer Balance", withdrawerBalance, 24)
       );
     }
 
@@ -95,19 +85,13 @@ export default class AggregatorLeaseWithdraw extends BaseCommand {
       withdrawAuthority: authority,
       withdrawWallet: tokenWallet,
     });
-    const signature = await this.signAndSend(txn);
+    const signature = await this.signAndSend(userInitTxn.combine(txn));
 
     if (!this.silent) {
       const [leaseBalance] = await Promise.all([
-        this.program.connection.getTokenAccountBalance(leaseData.escrow),
+        this.program.mint.getBalance(leaseData.escrow),
       ]);
-      this.logger.log(
-        chalkString(
-          "Final Lease Balance",
-          leaseBalance.value.uiAmountString,
-          24
-        )
-      );
+      this.logger.log(chalkString("Final Lease Balance", leaseBalance, 24));
     }
 
     if (this.silent) {
