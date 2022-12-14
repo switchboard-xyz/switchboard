@@ -11,7 +11,7 @@ import chalk from "chalk";
 
 export interface IOracleConfig {
   chain: "aptos" | "near" | "solana";
-  network: "localnet" | "devnet" | "testnet";
+  network: "localnet" | "devnet" | "testnet" | "mainnet" | "mainnet-beta";
   rpcUrl: string;
   oracleKey: string;
   secretPath: string;
@@ -26,7 +26,7 @@ export interface IOracleConfig {
 
 export class DockerOracle implements Required<IOracleConfig> {
   chain: "aptos" | "near" | "solana";
-  network: "localnet" | "devnet" | "testnet";
+  network: "localnet" | "devnet" | "testnet" | "mainnet" | "mainnet-beta";
   rpcUrl: string;
   oracleKey: string;
   secretPath: string;
@@ -60,7 +60,7 @@ export class DockerOracle implements Required<IOracleConfig> {
     readonly config: IOracleConfig,
     readonly nodeImage: string = "dev-v2-10-18-22",
     readonly platform: "linux/arm64" | "linux/amd64" = "linux/amd64",
-    readonly switchboardDir = path.join(process.cwd(), ".switchboard"),
+    readonly switchboardDirectory = path.join(process.cwd(), ".switchboard"),
     readonly silent = false
   ) {
     // set config
@@ -118,22 +118,26 @@ export class DockerOracle implements Required<IOracleConfig> {
       if (data.toString().includes("Using default performance monitoring")) {
         this.ready = true;
       }
+
       this.logs.push(data.toString());
       if (!this.silent) {
-        console.log(`\x1b[34m${data.toString()}\x1b[0m`);
+        console.log(`\u001B[34m${data.toString()}\u001B[0m`);
       }
     };
+
     this.onErrorCallback = (error) => {
       this.logs.push(error.toString());
       if (!this.silent) {
-        console.error(`\x1b[31m${error.toString()}\x1b[0m`);
+        console.error(`\u001B[31m${error.toString()}\u001B[0m`);
       }
     };
+
     this.onCloseCallback = (code) => {
       this.saveLogs(this.logs, this.nodeImage);
       if (!this.isActive) {
         return;
       }
+
       // if reboot from no RPC or if image already exists
       if (code === 0 || code === 125) {
         this.startOracle();
@@ -141,7 +145,9 @@ export class DockerOracle implements Required<IOracleConfig> {
         this.startOracle();
         console.error(chalk.red(`Docker image exited with code ${code}`));
       } else if (code !== 0 && code !== 1) {
-        console.error(`\x1b[31mDocker image exited with code ${code}\x1b[0m`);
+        console.error(
+          `\u001B[31mDocker image exited with code ${code}\u001B[0m`
+        );
       }
     };
   }
@@ -170,6 +176,7 @@ export class DockerOracle implements Required<IOracleConfig> {
         `switchboardlabs/node:${this.nodeImage}`,
       ].filter(Boolean);
     }
+
     if (this.chain === "near") {
       return [
         "run",
@@ -186,6 +193,7 @@ export class DockerOracle implements Required<IOracleConfig> {
         `switchboardlabs/node:${this.nodeImage}`,
       ].filter(Boolean);
     }
+
     if (this.chain === "solana") {
       return [
         "run",
@@ -208,7 +216,7 @@ export class DockerOracle implements Required<IOracleConfig> {
     this.dockerOracleProcess = spawn("docker", this.args, {
       shell: true,
       env: process.env,
-      stdio: this.silent ? null : ["inherit", "pipe", "pipe"],
+      stdio: this.silent ? undefined : ["inherit", "pipe", "pipe"],
     });
 
     this.dockerOracleProcess.stdout.on("data", this.onDataCallback);
@@ -222,7 +230,7 @@ export class DockerOracle implements Required<IOracleConfig> {
             `The container name "/sbv2-${this.nodeImage}" is already in use by container`
           )
       ) {
-        console.error(`\x1b[31m${error.toString()}\x1b[0m`);
+        console.error(`\u001B[31m${error.toString()}\u001B[0m`);
         this.logs.push(error.toString());
       }
     });
@@ -236,7 +244,7 @@ export class DockerOracle implements Required<IOracleConfig> {
       {
         shell: true,
         env: process.env,
-        stdio: this.silent ? null : ["inherit", "pipe", "pipe"],
+        stdio: this.silent ? undefined : ["inherit", "pipe", "pipe"],
       }
     );
     this.dockerOracleProcess.stdout.on("data", this.onDataCallback);
@@ -253,11 +261,12 @@ export class DockerOracle implements Required<IOracleConfig> {
   }
 
   saveLogs(logs: string[], nodeImage: string): string | null {
-    if (!fs.existsSync(this.switchboardDir)) {
-      fs.mkdirSync(this.switchboardDir);
+    if (!fs.existsSync(this.switchboardDirectory)) {
+      fs.mkdirSync(this.switchboardDirectory);
     }
+
     const fileName = path.join(
-      this.switchboardDir,
+      this.switchboardDirectory,
       `docker.${nodeImage}.${Math.floor(this.timestamp / 1000)}.log`
     );
     const filteredLogs = logs.filter((l) => Boolean);
@@ -266,6 +275,6 @@ export class DockerOracle implements Required<IOracleConfig> {
       return fileName;
     }
 
-    return null;
+    return undefined;
   }
 }

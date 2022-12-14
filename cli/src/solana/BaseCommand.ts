@@ -1,29 +1,50 @@
 import { Flags } from "@oclif/core";
 import { Input } from "@oclif/parser";
 import * as anchor from "@project-serum/anchor";
-import { Cluster, Connection, Keypair, PublicKey } from "@solana/web3.js";
-import { BigUtils } from "@switchboard-xyz/sbv2-utils";
 import {
-  AggregatorAccount,
-  AnchorWallet,
-  CrankAccount,
-  JobAccount,
-  loadSwitchboardProgram,
-  OracleAccount,
-  OracleQueueAccount,
-  programWallet,
-  SBV2_DEVNET_PID,
-  SBV2_MAINNET_PID,
-  SwitchboardProgram,
-} from "@switchboard-xyz/switchboard-v2";
-import Big from "big.js";
-import chalk from "chalk";
+  AccountInfo,
+  Cluster,
+  Connection,
+  Keypair,
+  PublicKey,
+} from "@solana/web3.js";
 import { AuthorityMismatch } from "../types";
 import { loadKeypair } from "../utils";
 import { CliBaseCommand as BaseCommand } from "../BaseCommand";
 import { AwsProvider, FsProvider, GcpProvider } from "../providers";
 import { IBaseChain } from "../types/chain";
 import { OracleJob } from "@switchboard-xyz/common";
+import {
+  SBV2_MAINNET_PID,
+  SBV2_DEVNET_PID,
+  SwitchboardProgram,
+  QueueAccount,
+  AggregatorAccount,
+  CrankAccount,
+  OracleAccount,
+  JobAccount,
+  types,
+  PermissionAccount,
+  LeaseAccount,
+  AggregatorAccounts,
+  VrfAccounts,
+  VrfAccount,
+  SwitchboardAccountType,
+} from "@switchboard-xyz/solana.js";
+import {
+  prettyPrintAggregator,
+  prettyPrintAggregatorAccounts,
+  prettyPrintCrank,
+  prettyPrintJob,
+  prettyPrintJobs,
+  prettyPrintLease,
+  prettyPrintOracle,
+  prettyPrintPermissions,
+  prettyPrintQueue,
+  prettyPrintSbstate,
+  prettyPrintVrf,
+  prettyPrintVrfAccounts,
+} from "./utils";
 
 export type SolanaNetwork = Cluster | "localnet";
 
@@ -35,6 +56,15 @@ export abstract class SolanaBaseCommand
     ...BaseCommand.flags,
     mainnetBeta: Flags.boolean({
       description: "WARNING: use mainnet-beta solana cluster",
+      required: false,
+      exclusive: ["cluster"],
+      default: false,
+    }),
+    cluster: Flags.string({
+      description: "the solana cluster to connect to",
+      options: ["devnet", "mainnet-beta", "mainnet", "localnet"],
+      required: false,
+      exclusive: ["mainnetBeta"],
     }),
     rpcUrl: Flags.string({
       char: "u",
@@ -70,7 +100,8 @@ export abstract class SolanaBaseCommand
     BaseCommand.flags = flags as any;
 
     this.network = this.getNetwork(
-      (flags as any).mainnetBeta ? "mainnet-beta" : "devnet"
+      (flags as any).cluster,
+      (flags as any).mainnetBeta
     );
     this.programId = this.getProgramId(this.network, (flags as any).programId);
 
@@ -91,19 +122,33 @@ export abstract class SolanaBaseCommand
     return `https://explorer.solana.com/tx/${signature}?cluster=${this.network}`;
   }
 
-  getNetwork(clusterFlag: string): SolanaNetwork {
-    if (
-      clusterFlag !== "testnet" &&
-      clusterFlag !== "mainnet-beta" &&
-      clusterFlag !== "devnet" &&
-      clusterFlag !== "localnet"
-    ) {
-      throw new Error(
-        `--networkId must be 'testnet', 'mainnet-beta', 'devnet', or 'localnet'`
-      );
+  toAccountUrl(account: string) {
+    return `https://explorer.solana.com/address/${account}?cluster=${this.network}`;
+  }
+
+  getNetwork(clusterOption?: string, mainnetFlag?: string): SolanaNetwork {
+    if (clusterOption) {
+      switch (clusterOption) {
+        case "mainnet":
+        case "mainnet-beta": {
+          return "mainnet-beta";
+        }
+
+        case "devnet": {
+          return "devnet";
+        }
+
+        case "localnet": {
+          return "localnet";
+        }
+      }
     }
 
-    return clusterFlag;
+    if (mainnetFlag) {
+      return "mainnet-beta";
+    }
+
+    return "devnet";
   }
 
   getRpcUrl(cluster: SolanaNetwork, rpcUrlFlag?: string): string {
@@ -117,6 +162,7 @@ export abstract class SolanaBaseCommand
         `Failed to get Solana RPC URL for cluster ${cluster}. Try providing the --rpcUrl flag`
       );
     }
+
     return rpcUrl;
   }
 
@@ -124,6 +170,7 @@ export abstract class SolanaBaseCommand
     if (programIdFlag) {
       return new PublicKey(programIdFlag);
     }
+
     if (cluster === "mainnet-beta") {
       return SBV2_MAINNET_PID;
     }
@@ -139,40 +186,35 @@ export abstract class SolanaBaseCommand
         `Need to load the connection before loading the Anchor program`
       );
     }
+
     if (!this.programId) {
       throw new Error(
         `Need to load the programId before loading the Anchor program`
       );
     }
 
-    const wallet = new AnchorWallet(signer);
-    const provider = new anchor.AnchorProvider(this.connection, wallet, {
-      commitment: this.commitment ?? "confirmed",
-      // preflightCommitment: "finalized",
-    });
+    const program = await SwitchboardProgram.load(
+      this.network,
+      this.connection,
+      signer,
+      this.programId
+    );
 
-    const anchorIdl = await anchor.Program.fetchIdl(this.programId, provider);
-    if (!anchorIdl) {
-      throw new Error(`failed to read idl for ${this.programId}`);
+    return program;
+  }
+
+  /** Load a keypair from a CLI flag and optionally check if it matches the expected account authority */
+  async loadKeypair(
+    keypairPath: string,
+    expectedPubkey?: PublicKey
+  ): Promise<Keypair> {
+    const keypair = await loadKeypair(keypairPath);
+
+    if (expectedPubkey && !expectedPubkey.equals(keypair.publicKey)) {
+      throw new AuthorityMismatch();
     }
 
-    return new anchor.Program(
-      anchorIdl,
-      this.programId,
-      provider
-    ) as unknown as SwitchboardProgram;
-
-    // const program = await loadSwitchboardProgram(
-    //   this.network as any,
-    //   this.connection,
-    //   signer,
-    //   {
-    //     commitment: this.commitment,
-    //   }
-    // );
-
-    // this.program = program;
-    // return program;
+    return keypair;
   }
 
   /** Load an authority from a CLI flag and optionally check if it matches the expected account authority */
@@ -183,7 +225,7 @@ export abstract class SolanaBaseCommand
     const authority: Keypair =
       typeof authorityPath === "string"
         ? await loadKeypair(authorityPath)
-        : programWallet(this.program);
+        : this.program.wallet.payer;
 
     if (expectedAuthority && !expectedAuthority.equals(authority.publicKey)) {
       throw new AuthorityMismatch();
@@ -207,14 +249,7 @@ export abstract class SolanaBaseCommand
       throw new TypeError("tokenAmount must be an integer or decimal");
     }
 
-    if (value.split(".").length > 1) {
-      const float = new Big(value);
-      const scale = BigUtils.safePow(new Big(10), decimals);
-      const tokenAmount = BigUtils.safeMul(float, scale);
-      return new anchor.BN(tokenAmount.toFixed(0));
-    }
-
-    return new anchor.BN(value);
+    return this.program.mint.toTokenAmountBN(Number(value));
   }
 
   async getSigner(keypairPath: string): Promise<Keypair> {
@@ -224,7 +259,7 @@ export abstract class SolanaBaseCommand
         .trim()
         .replace(/\n/g, "")
         .replace(/\s/g, "");
-      const bytesRegex = /^\[(\s)?[0-9]+((\s)?,(\s)?[0-9]+){31,}\]/;
+      const bytesRegex = /^\[(\s)?\d+((\s)?,(\s)?\d+){31,}]/;
       if (bytesRegex.test(parsedFileString)) {
         return Keypair.fromSecretKey(
           new Uint8Array(JSON.parse(parsedFileString))
@@ -240,7 +275,7 @@ export abstract class SolanaBaseCommand
       throw new Error(`Failed to derive secret key from input file`);
     };
 
-    let errors: any[] = [];
+    const errors: any[] = [];
 
     // try loading keypair from filesystem
     try {
@@ -278,7 +313,7 @@ export abstract class SolanaBaseCommand
 
     throw new Error(
       `Failed to load Solana keypair ${keypairPath}\n${errors
-        .map((e) => (e as any).toString())
+        .map((error) => (error as any).toString())
         .join("\n")}`
     );
   }
@@ -287,55 +322,274 @@ export abstract class SolanaBaseCommand
     return OracleJob.decodeDelimited(jobData);
   }
 
-  async loadQueue(address: string): Promise<[OracleQueueAccount, any]> {
-    const account = new OracleQueueAccount({
-      program: this.program,
-      publicKey: new PublicKey(address),
-    });
-    const data = await account.loadData();
-
-    return [account, data];
+  async loadQueue(
+    address: PublicKey | string
+  ): Promise<[QueueAccount, types.OracleQueueAccountData]> {
+    return QueueAccount.load(this.program, address);
   }
 
-  async loadAggregator(address: string): Promise<[AggregatorAccount, any]> {
-    const account = new AggregatorAccount({
-      program: this.program,
-      publicKey: new PublicKey(address),
-    });
-    const data = await account.loadData();
-
-    return [account, data];
+  async loadAggregator(
+    address: PublicKey | string
+  ): Promise<[AggregatorAccount, types.AggregatorAccountData]> {
+    return AggregatorAccount.load(this.program, address);
   }
 
-  async loadCrank(address: string): Promise<[CrankAccount, any]> {
-    const account = new CrankAccount({
-      program: this.program,
-      publicKey: new PublicKey(address),
-    });
-    const data = await account.loadData();
-
-    return [account, data];
+  async loadCrank(
+    address: PublicKey | string
+  ): Promise<[CrankAccount, types.CrankAccountData]> {
+    return CrankAccount.load(this.program, address);
   }
 
-  async loadOracle(address: string): Promise<[OracleAccount, any]> {
-    const account = new OracleAccount({
-      program: this.program,
-      publicKey: new PublicKey(address),
-    });
-    const data = await account.loadData();
-
-    return [account, data];
+  async loadOracle(
+    address: PublicKey | string
+  ): Promise<[OracleAccount, types.OracleAccountData]> {
+    return OracleAccount.load(this.program, address);
   }
 
-  async loadJob(address: string): Promise<[JobAccount, any, OracleJob]> {
-    const account = new JobAccount({
-      program: this.program,
-      publicKey: new PublicKey(address),
-    });
+  async loadPermission(
+    granter: PublicKey | string,
+    grantee: PublicKey | string,
+    authority: PublicKey | string
+  ): Promise<[PermissionAccount, types.PermissionAccountData, number]> {
+    return PermissionAccount.load(this.program, authority, granter, grantee);
+  }
+
+  async loadLease(
+    queue: PublicKey | string,
+    aggregator: PublicKey | string
+  ): Promise<[LeaseAccount, types.LeaseAccountData, number]> {
+    return LeaseAccount.load(this.program, queue, aggregator);
+  }
+
+  async loadJob(
+    address: PublicKey | string
+  ): Promise<[JobAccount, types.JobAccountData, OracleJob]> {
+    const account = new JobAccount(this.program, new PublicKey(address));
     const data = await account.loadData();
 
     const oracleJob = this.deserializeJobData(data.data);
 
     return [account, data, oracleJob];
+  }
+
+  normalizeAccountData(
+    publicKey: PublicKey,
+    data: Record<string, any>
+  ): Record<string, any> {
+    const object = {
+      publicKey: publicKey.toString(),
+      ...data,
+    };
+    return JSON.parse(JSON.stringify(object, this.jsonReplacers, 2));
+  }
+
+  prettyPrintAggregator(
+    aggregator: types.AggregatorAccountData,
+    publicKey: PublicKey,
+    SPACING = 24
+  ) {
+    this.logger.info(prettyPrintAggregator(aggregator, publicKey, SPACING));
+  }
+
+  prettyPrintPermissions(
+    permission: types.PermissionAccountData,
+    publicKey: PublicKey,
+    SPACING = 24
+  ) {
+    this.logger.info(prettyPrintPermissions(permission, publicKey, SPACING));
+  }
+
+  prettyPrintLease(
+    lease: types.LeaseAccountData,
+    publicKey: PublicKey,
+    balance?: number,
+    SPACING = 24
+  ) {
+    this.logger.info(prettyPrintLease(lease, publicKey, balance, SPACING));
+  }
+
+  prettyPrintJob(
+    job: types.JobAccountData,
+    publicKey: PublicKey,
+    tasks: Array<OracleJob.ITask>,
+    label?: string,
+    SPACING = 24
+  ) {
+    this.logger.info(prettyPrintJob(job, publicKey, tasks, label, SPACING));
+  }
+
+  prettyPrintJobs(
+    jobs: Array<{
+      publicKey: PublicKey;
+      data: types.JobAccountData;
+      tasks: Array<OracleJob.ITask>;
+    }>,
+    SPACING = 24
+  ) {
+    this.logger.info(prettyPrintJobs(jobs, SPACING));
+  }
+
+  prettyPrintAggregatorAccounts(accounts: AggregatorAccounts, SPACING = 24) {
+    this.logger.info(prettyPrintAggregatorAccounts(accounts, SPACING));
+  }
+
+  prettyPrintOracle(
+    oracle: types.OracleAccountData,
+    publicKey: PublicKey,
+    balance?: number,
+    SPACING = 24
+  ) {
+    this.logger.info(prettyPrintOracle(oracle, publicKey, balance, SPACING));
+  }
+
+  prettyPrintQueue(
+    queue: types.OracleQueueAccountData,
+    publicKey: PublicKey,
+    SPACING = 24
+  ) {
+    this.logger.info(prettyPrintQueue(queue, publicKey, SPACING));
+  }
+
+  prettyPrintVrf(
+    vrf: types.VrfAccountData,
+    publicKey: PublicKey,
+    balance?: number,
+    SPACING = 24
+  ) {
+    this.logger.info(prettyPrintVrf(vrf, publicKey, balance, SPACING));
+  }
+
+  prettyPrintVrfAccounts(accounts: VrfAccounts, SPACING = 24) {
+    this.logger.info(prettyPrintVrfAccounts(accounts, SPACING));
+  }
+
+  prettyPrintCrank(
+    crank: types.CrankAccountData,
+    publicKey: PublicKey,
+    SPACING = 24
+  ) {
+    this.logger.info(prettyPrintCrank(crank, publicKey, SPACING));
+  }
+
+  prettyPrintSbstate(
+    programState: types.SbState,
+    publicKey: PublicKey,
+    SPACING = 24
+  ) {
+    this.logger.info(prettyPrintSbstate(programState, publicKey, SPACING));
+  }
+
+  async printAccount(
+    publicKey: PublicKey,
+    accountInfo: AccountInfo<Buffer>,
+    jsonFlag?: boolean,
+    _accountType?: SwitchboardAccountType
+  ) {
+    const accountType =
+      _accountType ?? SwitchboardProgram.getAccountType(accountInfo);
+    if (!accountType) {
+      throw new Error(`Not a valid Switchboard account`);
+    }
+
+    switch (accountType) {
+      case "Aggregator": {
+        const account = new AggregatorAccount(this.program, publicKey);
+        const accounts = await account.fetchAccounts();
+
+        if (jsonFlag) {
+          return accounts;
+        }
+
+        this.logger.info(prettyPrintAggregatorAccounts(accounts));
+        return;
+      }
+
+      case "Job": {
+        const job = types.JobAccountData.decode(accountInfo.data);
+        const oracleJob = OracleJob.decodeDelimited(job.data);
+
+        if (jsonFlag) {
+          return {
+            publicKey: publicKey.toBase58(),
+            data: job.toJSON(),
+            tasks: oracleJob.tasks,
+          };
+        }
+
+        this.logger.info(prettyPrintJob(job, publicKey, oracleJob.tasks));
+        return;
+      }
+
+      case "Permission": {
+        const permission = types.PermissionAccountData.decode(accountInfo.data);
+
+        if (jsonFlag) {
+          return {
+            publicKey: publicKey.toBase58(),
+            data: permission.toJSON(),
+          };
+        }
+
+        this.logger.info(prettyPrintPermissions(permission, publicKey));
+        return;
+      }
+
+      case "Lease": {
+        const lease = types.LeaseAccountData.decode(accountInfo.data);
+        const leaseAccount = new LeaseAccount(this.program, publicKey);
+        const balance = await leaseAccount.fetchBalance(lease.escrow);
+
+        if (jsonFlag) {
+          return {
+            publicKey: publicKey.toBase58(),
+            data: lease.toJSON(),
+            balance: balance,
+          };
+        }
+
+        this.logger.info(prettyPrintLease(lease, publicKey));
+        return;
+      }
+
+      case "Queue": {
+        const queue = types.OracleQueueAccountData.decode(accountInfo.data);
+
+        if (jsonFlag) {
+          return {
+            publicKey: publicKey.toBase58(),
+            data: queue.toJSON(),
+          };
+        }
+
+        this.logger.info(prettyPrintQueue(queue, publicKey));
+        return;
+      }
+
+      case "Crank": {
+        const crank = types.CrankAccountData.decode(accountInfo.data);
+
+        if (jsonFlag) {
+          return {
+            publicKey: publicKey.toBase58(),
+            data: crank.toJSON(),
+          };
+        }
+
+        this.logger.info(prettyPrintCrank(crank, publicKey));
+        return;
+      }
+
+      case "Vrf": {
+        const vrf = types.VrfAccountData.decode(accountInfo.data);
+        const vrfAccount = new VrfAccount(this.program, publicKey);
+        const accounts = await vrfAccount.fetchAccounts(vrf);
+
+        if (jsonFlag) {
+          return accounts;
+        }
+
+        this.logger.info(prettyPrintVrfAccounts(accounts));
+      }
+    }
   }
 }

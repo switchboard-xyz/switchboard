@@ -1,16 +1,10 @@
 import { Flags } from "@oclif/core";
 import * as anchor from "@project-serum/anchor";
-import { PublicKey } from "@solana/web3.js";
-import {
-  getOrCreateSwitchboardTokenAccount,
-  prettyPrintLease,
-} from "@switchboard-xyz/sbv2-utils";
 import {
   AggregatorAccount,
   LeaseAccount,
-  OracleQueueAccount,
-  programWallet,
-} from "@switchboard-xyz/switchboard-v2";
+  QueueAccount,
+} from "@switchboard-xyz/solana.js";
 import chalk from "chalk";
 import { SolanaWithSignerBaseCommand as BaseCommand } from "../../../solana";
 import { CHECK_ICON } from "../../../utils";
@@ -18,7 +12,9 @@ import { CHECK_ICON } from "../../../utils";
 export default class LeaseCreate extends BaseCommand {
   static description = "fund and re-enable an aggregator lease";
 
-  static aliases = ["solana:aggregator:lease:create"];
+  static examples = [
+    "$ sbv2 solana lease create GvDMxPzN1sCj7L26YDK2HnMRXEQmQ2aemov8YBtPS7vR --amount 1.5 --keypair ../payer-keypair.json",
+  ];
 
   static flags = {
     ...BaseCommand.flags,
@@ -36,87 +32,70 @@ export default class LeaseCreate extends BaseCommand {
     },
   ];
 
-  static examples = [
-    "$ sbv2 lease:create GvDMxPzN1sCj7L26YDK2HnMRXEQmQ2aemov8YBtPS7vR --amount 1.5 --keypair ../payer-keypair.json",
-  ];
-
   async run() {
     const { args, flags } = await this.parse(LeaseCreate);
 
-    const payer = programWallet(this.program);
-
-    // verify and normalize load amount
-    let loadAmount = new anchor.BN(0);
-    if (flags.amount) {
-      loadAmount = this.getTokenAmount(flags.amount);
+    const amount = Number(flags.amount);
+    if (amount <= 0) {
+      throw new Error("amount to deposit must be greater than 0");
     }
 
-    if (loadAmount.lt(new anchor.BN(0))) {
-      throw new Error("amount to deposit must be greater than or equal to 0");
-    }
-
-    const aggregatorAccount = new AggregatorAccount({
-      program: this.program,
-      publicKey: new PublicKey(args.aggregatorKey),
-    });
-    const aggregator = await aggregatorAccount.loadData();
-
-    const oracleQueueAccount = new OracleQueueAccount({
-      program: this.program,
-      publicKey: aggregator.queuePubkey,
-    });
-    const mint = await oracleQueueAccount.loadMint();
-
-    // check funder has enough balance for the request
-    const funderTokenAddress = await getOrCreateSwitchboardTokenAccount(
+    const [aggregatorAccount, aggregatorData] = await AggregatorAccount.load(
       this.program,
-      mint,
-      payer
+      args.aggregatorKey
     );
-    const funderBalanceResponse =
-      await this.program.provider.connection.getTokenAccountBalance(
-        funderTokenAddress
-      );
-    const funderBalance = new anchor.BN(funderBalanceResponse.value.amount);
-    if (loadAmount.gt(funderBalance)) {
+    const [queueAccount, queueData] = await QueueAccount.load(
+      this.program,
+      aggregatorData.queuePubkey.toBase58()
+    );
+    const { leaseAccount } = aggregatorAccount.getAccounts({
+      queueAccount,
+      queueAuthority: queueData.authority,
+    });
+
+    // Check that funder account has a large enough balance
+    const funder = this.program.mint.getAssociatedAddress(
+      this.program.walletPubkey
+    );
+    const funderBalance = await this.program.connection
+      .getTokenAccountBalance(funder)
+      .then((balance) => new anchor.BN(balance.value.amount));
+    if (this.getTokenAmount(amount.toString()).gt(funderBalance)) {
       throw new Error(
-        `not enough token balance to load lease\nLoadAmount: ${loadAmount.toString()}\nBalance: ${funderBalance.toString()}`
+        `not enough token balance to load lease\nLoadAmount: ${amount}\nBalance: ${funderBalance.toString()}`
       );
     }
 
-    // verify lease account doesnt already exist
-    let [leaseAccount] = LeaseAccount.fromSeed(
-      this.program,
-      oracleQueueAccount,
-      aggregatorAccount
-    );
-    try {
-      const least = await leaseAccount.loadData();
-      throw new Error("lease account already exists");
-    } catch (error) {
-      if (error.message === "lease account already exists") {
-        throw error;
-      }
-    }
+    // Check that lease account doesnt already exist
+    const leaseData = await leaseAccount.loadData().catch(() => {});
+    if (leaseData) throw new Error("lease account already exists");
 
     // create lease account
-    leaseAccount = await LeaseAccount.create(this.program, {
-      aggregatorAccount,
-      oracleQueueAccount,
-      funderAuthority: payer,
-      withdrawAuthority: payer.publicKey,
-      funder: funderTokenAddress,
-      loadAmount,
-    });
+    const [newLeaseAccount, txn] = await LeaseAccount.createInstructions(
+      this.program,
+      this.payer,
+      {
+        fundAmount: amount,
+        aggregatorAccount,
+        queueAccount,
+        funderTokenWallet: funder,
+        jobAuthorities: [],
+      }
+    );
+    const signature = await this.signAndSend(txn);
 
     if (this.silent) {
-      console.log(leaseAccount.publicKey.toString());
-    } else {
-      this.logger.log(
-        `${chalk.green(`${CHECK_ICON}Lease Account created successfully`)}`
-      );
-      this.logger.log(await prettyPrintLease(leaseAccount));
+      this.log(signature);
+      return;
     }
+
+    this.logger.log(
+      `${chalk.green(
+        `${CHECK_ICON}Lease Account created and funded successfully:`,
+        newLeaseAccount.publicKey.toBase58()
+      )}`
+    );
+    this.logger.log(this.toUrl(signature));
   }
 
   async catch(error) {

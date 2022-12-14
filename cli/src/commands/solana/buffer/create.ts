@@ -1,17 +1,5 @@
 import { Flags } from "@oclif/core";
-import { PublicKey } from "@solana/web3.js";
-import { OracleJob } from "@switchboard-xyz/common";
-import { prettyPrintBufferRelayer } from "@switchboard-xyz/sbv2-utils";
-import {
-  BufferRelayerAccount,
-  JobAccount,
-  OracleQueueAccount,
-  programWallet,
-} from "@switchboard-xyz/switchboard-v2";
-import fs from "fs";
-import path from "path";
 import { SolanaWithSignerBaseCommand as BaseCommand } from "../../../solana";
-import {} from "../../../utils";
 
 export default class BufferCreate extends BaseCommand {
   static description = "create a buffer relayer account";
@@ -49,58 +37,8 @@ export default class BufferCreate extends BaseCommand {
 
   async run() {
     const { args, flags } = await this.parse(BufferCreate);
-    const payerKeypair = programWallet(this.program);
-    const authority = await this.loadAuthority(flags.authority);
 
-    let jobAccount: JobAccount;
-    if (flags.jobDefinition) {
-      const jobDefinitionPath = flags.jobDefinition.startsWith("/")
-        ? flags.jobDefinition
-        : path.join(process.cwd(), flags.jobDefinition);
-      if (!fs.existsSync(jobDefinitionPath)) {
-        throw new Error(
-          `jobDefinitionPath does not exist, ${jobDefinitionPath}`
-        );
-      }
-
-      const oracleJob = OracleJob.create(
-        JSON.parse(fs.readFileSync(jobDefinitionPath, "utf-8"))
-      );
-      jobAccount = await JobAccount.create(this.program, {
-        authority: authority.publicKey,
-        name: flags.name ? Buffer.from(flags.name) : Buffer.from(""),
-        data: Buffer.from(OracleJob.encodeDelimited(oracleJob).finish()),
-      });
-    } else if (flags.jobKey) {
-      jobAccount = new JobAccount({
-        program: this.program,
-        publicKey: new PublicKey(flags.jobKey),
-      });
-    } else {
-      throw new Error(`Need to provide --jobDefinition or --jobKey flag`);
-    }
-
-    const queueAccount = new OracleQueueAccount({
-      program: this.program,
-      publicKey: new PublicKey(args.queueKey),
-    });
-
-    const bufferRelayerAccount = await BufferRelayerAccount.create(
-      this.program,
-      {
-        authority: authority.publicKey,
-        name: flags.name ? Buffer.from(flags.name) : Buffer.from(""),
-        minUpdateDelaySeconds: flags.minUpdateDelaySeconds,
-        queueAccount,
-        jobAccount,
-      }
-    );
-    if (this.silent) {
-      this.logger.info(bufferRelayerAccount.publicKey.toString());
-      return;
-    }
-
-    this.logger.info(await prettyPrintBufferRelayer(bufferRelayerAccount));
+    throw new Error(`Not implemented currently`);
   }
 
   async catch(error) {

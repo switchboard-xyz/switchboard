@@ -4,10 +4,9 @@ import fs from "fs";
 import path from "path";
 import * as anchor from "@project-serum/anchor";
 import Big from "big.js";
-import { SwitchboardDecimal } from "@switchboard-xyz/switchboard-v2";
 import bs58 from "bs58";
 import { ILogProvider, DEFAULT_LOGGER } from "./logging";
-import { pubKeyConverter } from "../utils";
+import { SwitchboardDecimal } from "@switchboard-xyz/common";
 
 export const toUtf8 = (buf: any): string => {
   buf = buf ?? "";
@@ -65,7 +64,7 @@ export class FsProvider {
   }
 
   saveAccount(file: string, account: any): void {
-    fs.writeFileSync(file, JSON.stringify(account, pubKeyConverter, 2));
+    fs.writeFileSync(file, JSON.stringify(account, undefined, 2));
   }
 
   jsonReplacers(key: any, value: any) {

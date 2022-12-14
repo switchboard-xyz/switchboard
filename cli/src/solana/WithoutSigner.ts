@@ -1,4 +1,3 @@
-import { Flags } from "@oclif/core";
 import { Input } from "@oclif/parser";
 import { SolanaBaseCommand } from "./BaseCommand";
 

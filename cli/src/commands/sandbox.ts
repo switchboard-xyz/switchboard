@@ -1,6 +1,6 @@
 import { Flags } from "@oclif/core";
 import { BN } from "@project-serum/anchor";
-import { SwitchboardDecimal } from "@switchboard-xyz/switchboard-v2";
+import { SwitchboardDecimal } from "@switchboard-xyz/common";
 import { SolanaWithSignerBaseCommand as BaseCommand } from "../solana";
 
 export default class SandboxCommand extends BaseCommand {

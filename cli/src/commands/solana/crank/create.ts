@@ -1,122 +1,87 @@
 import { Flags } from "@oclif/core";
-import * as anchor from "@project-serum/anchor";
-import { PublicKey, SystemProgram } from "@solana/web3.js";
-import { prettyPrintCrank } from "@switchboard-xyz/sbv2-utils";
-import {
-  CrankAccount,
-  OracleQueueAccount,
-  programWallet,
-} from "@switchboard-xyz/switchboard-v2";
+import { QueueAccount } from "@switchboard-xyz/solana.js";
 import chalk from "chalk";
 import { SolanaWithSignerBaseCommand as BaseCommand } from "../../../solana";
 import { CHECK_ICON } from "../../../utils";
 
-export default class QueueAddCrank extends BaseCommand {
-  static description = "add a crank to an existing oracle queue";
+export default class CrankCreate extends BaseCommand {
+  static enableJsonFlag = true;
 
-  static alias = ["solana:queue:add:crank"];
+  static description = "create a new crank account";
+
+  // static examples = [
+  //   "$ sbv2 solana:oracle:create F8ce7MsckeZAbAGmxjJNetxYXQa9mKr9nnrC3qKubyYy --name oracle-1 --stakeAmount 1",
+  // ];
 
   static flags = {
     ...BaseCommand.flags,
     name: Flags.string({
       char: "n",
       description: "name of the crank for easier identification",
+      default: "",
     }),
-    maxRows: Flags.integer({
-      char: "r",
-      default: 100,
+    metadata: Flags.string({
+      description: "metadata of the crank for easier identification",
+      default: "",
+    }),
+    size: Flags.integer({
+      char: "s",
+      required: true,
       description: "maximum number of rows a crank can support",
-    }),
-    queueAuthority: Flags.string({
-      description: "alternative keypair to use for queue authority",
     }),
   };
 
   static args = [
     {
       name: "queueKey",
-      description: "public key of the oracle queue to create a crank on",
+      description: "public key of the oracle queue to create a crank for",
+      required: true,
     },
   ];
 
-  static examples = [
-    "$ sbv2 queue:add:crank 5aYuxRdcB9GpWrEXVMBQp2R5uf94uoBiFdMEBwcmHuU4 -k ../authority-keypair.json -n crank-1",
-    // "$ sbv2 queue:add:crank 5aYuxRdcB9GpWrEXVMBQp2R5uf94uoBiFdMEBwcmHuU4 -k ../payer-keypair.json -a ../authority-keypair.json",
-  ];
-
   async run() {
-    const { args, flags } = await this.parse(QueueAddCrank);
+    const { args, flags } = await this.parse(CrankCreate);
 
-    const payerKeypair = programWallet(this.program);
-
-    if (flags.maxRows < 0) {
-      throw new Error("max rows must be a positive number");
+    if (flags.size <= 0) {
+      throw new Error(`--size must be greater than 0`);
     }
 
-    const maxRows = flags.maxRows;
-
-    const queueAccount = new OracleQueueAccount({
-      program: this.program,
-      publicKey: new PublicKey(args.queueKey),
-    });
-    const queue = await queueAccount.loadData();
-
-    const queueAuthority = await this.loadAuthority(
-      flags.queueAuthority,
-      queue.authority
+    const [queueAccount, queue] = await QueueAccount.load(
+      this.program,
+      args.queueKey
     );
 
-    const crankKeypair = anchor.web3.Keypair.generate();
-    const bufferKeypair = anchor.web3.Keypair.generate();
-    const crankSize = this.program.account.crankAccountData.size;
-    const bufferSize = maxRows * 40 + 8;
-    const signature = await this.program.methods
-      .crankInit({
-        name: (flags.name ? Buffer.from(flags.name) : Buffer.from("")).slice(
-          0,
-          32
-        ),
-        metadata: Buffer.from("").slice(0, 64),
-        crankSize: maxRows,
-      })
-      .accounts({
-        crank: crankKeypair.publicKey,
-        queue: queueAccount.publicKey,
-        buffer: bufferKeypair.publicKey,
-        systemProgram: SystemProgram.programId,
-        payer: payerKeypair.publicKey,
-      })
-      .signers([crankKeypair, bufferKeypair])
-      .preInstructions([
-        anchor.web3.SystemProgram.createAccount({
-          fromPubkey: payerKeypair.publicKey,
-          newAccountPubkey: bufferKeypair.publicKey,
-          space: bufferSize,
-          lamports:
-            await this.program.provider.connection.getMinimumBalanceForRentExemption(
-              bufferSize
-            ),
-          programId: this.program.programId,
-        }),
-      ])
-      .rpc();
+    const [crankAccount, txn] = await queueAccount.createCrankInstructions(
+      this.payer,
+      {
+        name: flags.name,
+        metadata: flags.metadata,
+        maxRows: flags.size,
+      }
+    );
+    const signature = await this.signAndSend(txn);
 
-    const crankAccount = new CrankAccount({
-      program: this.program,
-      publicKey: crankKeypair.publicKey,
-    });
-
-    if (this.silent) {
-      console.log(crankKeypair.publicKey.toString());
-    } else {
-      this.logger.log(await prettyPrintCrank(crankAccount));
-      this.logger.log(
-        `${chalk.green(`${CHECK_ICON}Crank created successfully\r\n`)}`
-      );
+    if (flags.silent) {
+      this.log(signature);
+      return;
     }
+
+    if (flags.json) {
+      const accounts = await crankAccount.toAccountsJSON();
+      return this.normalizeAccountData(crankAccount.publicKey, accounts);
+    }
+
+    this.logger.log(
+      `${chalk.green(
+        `${CHECK_ICON}Crank created successfully`,
+        crankAccount.publicKey.toBase58()
+      )}`
+    );
+
+    this.log(this.toUrl(signature));
   }
 
   async catch(error) {
-    super.catch(error, "failed to create crank");
+    super.catch(error, "failed to create a crank account");
   }
 }

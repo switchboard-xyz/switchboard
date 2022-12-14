@@ -1,29 +1,17 @@
 import { Flags } from "@oclif/core";
-import * as spl from "@solana/spl-token-v2";
-import { PublicKey, SYSVAR_RECENT_BLOCKHASHES_PUBKEY } from "@solana/web3.js";
-import { getOrCreateSwitchboardTokenAccount } from "@switchboard-xyz/sbv2-utils";
-import {
-  OracleQueueAccount,
-  PermissionAccount,
-  ProgramStateAccount,
-  programWallet,
-  VrfAccount,
-} from "@switchboard-xyz/switchboard-v2";
+import { VrfAccount } from "@switchboard-xyz/solana.js";
+import chalk from "chalk";
 import { SolanaWithSignerBaseCommand as BaseCommand } from "../../../solana";
-import { loadKeypair, sleep } from "../../../utils";
+import { AggregatorIllegalRoundOpenCall } from "../../../types";
+import { CHECK_ICON } from "../../../utils";
 
 export default class VrfRequest extends BaseCommand {
-  static description = "request a new value for a VRF";
+  static description = "request a new vrf result from a set of oracles";
 
-  static examples = [
-    'sbv2 vrf:create 9WZ59yz95bd3XwJxDPVE2PjvVWmSy9WM1NgGD2Hqsohw --keypair ../payer-keypair.json -v --enable --queueAuthority queue-authority-keypair.json --callbackPid 6MLk7G54uHZ7JuzNxpBAVENANrgM9BZ51pKkzGwPYBCE --ixData "[145,72,9,94,61,97,126,106]" -a "{"pubkey": "HpQoFL5kxPp2JCFvjsVTvBd7navx4THLefUU68SXAyd6","isSigner": false,"isWritable": true}" -a "{"pubkey": "8VdBtS8ufkXMCa6Yr9E4KVCfX2inVZVwU4KGg2CL1q7P","isSigner": false,"isWritable": false}"',
-  ];
+  static examples = ["$ sbv2 solana vrf request"];
 
   static flags = {
     ...BaseCommand.flags,
-    funderAuthority: Flags.string({
-      description: "alternative keypair to pay for VRF request",
-    }),
     authority: Flags.string({
       description: "alternative keypair that is the VRF authority",
     }),
@@ -32,81 +20,51 @@ export default class VrfRequest extends BaseCommand {
   static args = [
     {
       name: "vrfKey",
-      description: "public key of the VRF account to request randomness for",
+      description: "public key of the vrf account to request randomness for",
+      require: true,
     },
   ];
 
   async run() {
     const { args, flags } = await this.parse(VrfRequest);
 
-    const payerKeypair = programWallet(this.program);
-
-    const vrfAccount = new VrfAccount({
-      program: this.program,
-      publicKey: new PublicKey(args.vrfKey),
-    });
-    const vrf = await vrfAccount.loadData();
-    const queueAccount = new OracleQueueAccount({
-      program: this.program,
-      publicKey: vrf.oracleQueue,
-    });
-    const queue = await queueAccount.loadData();
-    const mint = await queueAccount.loadMint();
-    const [programStateAccount, stateBump] = ProgramStateAccount.fromSeed(
-      this.program
-    );
-    const [permissionAccount, permissionBump] = PermissionAccount.fromSeed(
-      this.program,
-      queue.authority,
-      queueAccount.publicKey,
-      vrfAccount.publicKey
-    );
+    const [vrfAccount, vrf] = await VrfAccount.load(this.program, args.vrfKey);
 
     const authority = await this.loadAuthority(flags.authority, vrf.authority);
-    const funderAuthority = flags.funderAuthority
-      ? await loadKeypair(flags.funderAuthority)
-      : payerKeypair;
 
-    const funderTokenWallet = await getOrCreateSwitchboardTokenAccount(
-      this.program,
-      mint
-    );
+    const [payerTokenWallet, userInitTxn] =
+      await this.program.mint.getOrCreateWrappedUserInstructions(this.payer, {
+        fundUpTo: 0.002,
+      });
 
-    // const signature = await vrfAccount.requestRandomness({
-    //   authority,
-    //   payerAuthority: funderAuthority,
-    //   payer: funderTokenWallet,
-    // });
-
-    const signature = await this.program.methods
-      .vrfRequestRandomness({
-        stateBump,
-        permissionBump,
-      })
-      .accounts({
-        authority: authority.publicKey,
-        vrf: vrfAccount.publicKey,
-        oracleQueue: queueAccount.publicKey,
-        queueAuthority: queue.authority,
-        dataBuffer: queue.dataBuffer,
-        permission: permissionAccount.publicKey,
-        escrow: vrf.escrow,
-        payerWallet: funderTokenWallet,
-        payerAuthority: funderAuthority.publicKey,
-        recentBlockhashes: SYSVAR_RECENT_BLOCKHASHES_PUBKEY,
-        programState: programStateAccount.publicKey,
-        tokenProgram: spl.TOKEN_PROGRAM_ID,
-      })
-      .signers([authority, funderAuthority])
-      .rpc();
+    const txn = await vrfAccount.requestRandomnessInstruction(this.payer, {
+      authority,
+      vrf,
+      payerTokenWallet,
+    });
+    const signature = await this.signAndSend(userInitTxn.combine(txn));
 
     if (this.silent) {
-      console.log(signature);
+      this.log(signature);
       return;
     }
 
-    await sleep(1000);
+    this.logger.log(
+      `${chalk.green(`${CHECK_ICON}Verifiable randomness requested!`)}`
+    );
 
     this.logger.log(this.toUrl(signature));
+  }
+
+  async catch(error) {
+    if (
+      error instanceof AggregatorIllegalRoundOpenCall ||
+      error.toString().includes("0x177d")
+    ) {
+      this.logger.info(error.toString());
+      this.exit(0);
+    }
+
+    super.catch(error, "failed to request randomness");
   }
 }

@@ -1,7 +1,6 @@
 import fs from "fs";
 import path from "path";
 import chalk from "chalk";
-import { string } from "@oclif/core/lib/parser";
 
 export type SolanaConfigParameter =
   | "solana-devnet-rpc"
@@ -87,10 +86,10 @@ export const DEFAULT_APTOS_TESTNET_RPC =
 export const DEFAULT_APTOS_MAINNET_RPC =
   "https://fullnode.mainnet.aptoslabs.com/v1";
 
-export const LATEST_CONFIG_VERSION: number = 1;
+export const LATEST_CONFIG_VERSION = 1;
 
 export class ConfigProvider {
-  public configDir: string;
+  public configDirectory: string;
   // private _config: INetworkConfigs;
 
   // solana
@@ -120,9 +119,9 @@ export class ConfigProvider {
   aptosMainnetRpc = DEFAULT_APTOS_MAINNET_RPC;
   aptosMainnetDefaultAccount?: string;
 
-  constructor(configDir: string) {
-    this.configDir = configDir;
-    const configPath = path.join(configDir, "config.json");
+  constructor(configDirectory: string) {
+    this.configDirectory = configDirectory;
+    const configPath = path.join(configDirectory, "config.json");
 
     if (
       !fs.existsSync(configPath) ||
@@ -131,6 +130,7 @@ export class ConfigProvider {
       // write default here
       return;
     }
+
     const config: IChainConfigs = JSON.parse(
       fs.readFileSync(configPath, "utf-8")
     ).config;
@@ -139,12 +139,15 @@ export class ConfigProvider {
     if (config.solana?.devnet?.rpcUrl) {
       this.solanaDevnetRpc = config.solana.devnet.rpcUrl;
     }
+
     if (config.solana?.devnet?.defaultAccount) {
       this.solanaDevnetDefaultAccount = config.solana.devnet.defaultAccount;
     }
+
     if (config.solana?.mainnet?.rpcUrl) {
       this.solanaMainnetRpc = config.solana.mainnet.rpcUrl;
     }
+
     if (config.solana?.mainnet?.defaultAccount) {
       this.solanaMainnetDefaultAccount = config.solana.mainnet.defaultAccount;
     }
@@ -153,18 +156,23 @@ export class ConfigProvider {
     if (config.near?.betanet?.rpcUrl) {
       this.nearBetanetRpc = config.near.betanet.rpcUrl;
     }
+
     if (config.near?.betanet?.defaultAccount) {
       this.nearBetanetDefaultAccount = config.near.betanet.defaultAccount;
     }
+
     if (config.near?.testnet?.rpcUrl) {
       this.nearTestnetRpc = config.near.testnet.rpcUrl;
     }
+
     if (config.near?.testnet?.defaultAccount) {
       this.nearTestnetDefaultAccount = config.near.testnet.defaultAccount;
     }
+
     if (config.near?.mainnet?.rpcUrl) {
       this.nearMainnetRpc = config.near.mainnet.rpcUrl;
     }
+
     if (config.near?.mainnet?.defaultAccount) {
       this.nearMainnetDefaultAccount = config.near.mainnet.defaultAccount;
     }
@@ -173,18 +181,23 @@ export class ConfigProvider {
     if (config.aptos?.devnet?.rpcUrl) {
       this.aptosDevnetRpc = config.aptos.devnet.rpcUrl;
     }
+
     if (config.aptos?.devnet?.defaultAccount) {
       this.aptosDevnetDefaultAccount = config.aptos.devnet.defaultAccount;
     }
+
     if (config.aptos?.testnet?.rpcUrl) {
       this.aptosTestnetRpc = config.aptos.testnet.rpcUrl;
     }
+
     if (config.aptos?.testnet?.defaultAccount) {
       this.aptosTestnetDefaultAccount = config.aptos.testnet.defaultAccount;
     }
+
     if (config.aptos?.mainnet?.rpcUrl) {
       this.aptosMainnetRpc = config.aptos.mainnet.rpcUrl;
     }
+
     if (config.aptos?.mainnet?.defaultAccount) {
       this.aptosMainnetDefaultAccount = config.aptos.mainnet.defaultAccount;
     }
@@ -283,7 +296,7 @@ export class ConfigProvider {
   }
 
   get configPath(): string {
-    return path.join(this.configDir, "config.json");
+    return path.join(this.configDirectory, "config.json");
   }
 
   write() {
@@ -307,8 +320,14 @@ export class ConfigProvider {
           case "mainnet-beta":
           case "mainnet":
             return this.solanaMainnetRpc;
+
+          case "localnet":
+            return "http://localhost:8899";
         }
+
+        break;
       }
+
       case "near": {
         switch (network) {
           case "betanet":
@@ -318,7 +337,10 @@ export class ConfigProvider {
           case "mainnet":
             return this.nearMainnetRpc;
         }
+
+        break;
       }
+
       case "aptos": {
         switch (network) {
           case "devnet":
@@ -328,6 +350,8 @@ export class ConfigProvider {
           case "mainnet":
             return this.aptosMainnetRpc;
         }
+
+        break;
       }
     }
 
@@ -346,7 +370,10 @@ export class ConfigProvider {
           case "mainnet":
             return this.solanaMainnetDefaultAccount;
         }
+
+        break;
       }
+
       case "near": {
         switch (network) {
           case "betanet":
@@ -356,7 +383,10 @@ export class ConfigProvider {
           case "mainnet":
             return this.nearMainnetDefaultAccount;
         }
+
+        break;
       }
+
       case "aptos": {
         switch (network) {
           case "devnet":
@@ -366,6 +396,8 @@ export class ConfigProvider {
           case "mainnet":
             return this.aptosMainnetDefaultAccount;
         }
+
+        break;
       }
     }
 
@@ -389,7 +421,10 @@ export class ConfigProvider {
             this.save();
             return;
         }
+
+        break;
       }
+
       case "near": {
         switch (network) {
           case "betanet":
@@ -405,7 +440,10 @@ export class ConfigProvider {
             this.save();
             return;
         }
+
+        break;
       }
+
       case "aptos": {
         switch (network) {
           case "devnet":
@@ -421,6 +459,8 @@ export class ConfigProvider {
             this.save();
             return;
         }
+
+        break;
       }
     }
 
@@ -446,7 +486,10 @@ export class ConfigProvider {
             this.save();
             return;
         }
+
+        break;
       }
+
       case "near": {
         switch (network) {
           case "betanet":
@@ -462,7 +505,10 @@ export class ConfigProvider {
             this.save();
             return;
         }
+
+        break;
       }
+
       case "aptos": {
         switch (network) {
           case "devnet":
@@ -478,6 +524,8 @@ export class ConfigProvider {
             this.save();
             return;
         }
+
+        break;
       }
     }
 

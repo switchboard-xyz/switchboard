@@ -1,11 +1,9 @@
 import { Flags } from "@oclif/core";
-import { BorshAccountsCoder } from "@project-serum/anchor";
-import { sleep } from "@switchboard-xyz/sbv2-utils";
-import { AggregatorAccount } from "@switchboard-xyz/switchboard-v2";
+import { AggregatorAccount, types } from "@switchboard-xyz/solana.js";
 import fs from "fs";
 import path from "path";
 import { SolanaWithoutSignerBaseCommand as BaseCommand } from "../../../solana";
-import { CHECK_ICON } from "../../../utils";
+import { CHECK_ICON, sleep } from "../../../utils";
 
 export default class AggregatorWatch extends BaseCommand {
   static description = "watch an aggregator account and stream the results";
@@ -26,6 +24,7 @@ export default class AggregatorWatch extends BaseCommand {
     {
       name: "aggregatorKey",
       description: "public key of the aggregator account",
+      required: true,
     },
   ];
 
@@ -34,48 +33,36 @@ export default class AggregatorWatch extends BaseCommand {
 
     const items: Map<number, string> = new Map();
 
-    const [aggregatorAccount, aggregator] = await this.loadAggregator(
+    const handleValueUpdate = (data: types.AggregatorAccountData) => {
+      const value = data.latestConfirmedRound.result.toString();
+      const timestamp = data.latestConfirmedRound.roundOpenTimestamp.toNumber();
+      items.set(timestamp, value);
+      printResults(items);
+      writeResults(items, flags.outfile);
+    };
+
+    const [aggregatorAccount, aggregatorData] = await AggregatorAccount.load(
+      this.program,
       args.aggregatorKey
     );
-    const value = await aggregatorAccount.getLatestValue(aggregator);
-    const timestamp = await aggregatorAccount.getLatestFeedTimestamp(
-      aggregator
-    )!;
-    items.set(timestamp.toNumber(), value.toString());
 
-    const coder = new BorshAccountsCoder(this.program.idl);
+    // Print initial value and subscribe to account changes to listen for more
+    handleValueUpdate(aggregatorData);
+    const ws = aggregatorAccount.onChange(handleValueUpdate);
 
-    const ws = this.program.provider.connection.onAccountChange(
-      aggregatorAccount.publicKey,
-      async (accountInfo, context) => {
-        const aggregator = coder.decode(
-          AggregatorAccount.accountName,
-          accountInfo.data
-        );
-        const value = await aggregatorAccount.getLatestValue(aggregator);
-        const timestamp = await aggregatorAccount.getLatestFeedTimestamp(
-          aggregator
-        )!;
-        items.set(timestamp.toNumber(), value.toString());
-        printResults(items);
-        writeResults(items, flags.outfile);
-      }
-    );
-
-    printResults(items);
-
+    // Wait for timeout.
     await sleep((flags.timeout ?? 120) * 1000);
-    await this.program.provider.connection.removeAccountChangeListener(ws);
+    await this.program.connection.removeAccountChangeListener(ws);
 
+    // Write final results.
     writeResults(items, flags.outfile);
-
     this.logger.info(
       `${CHECK_ICON} Results saved to file successfully, ${flags.outfile}`
     );
   }
 
   async catch(error) {
-    super.catch(error, "failed to lock aggregator configuration");
+    super.catch(error, "failed to watch aggregator's state");
   }
 }
 
@@ -87,8 +74,8 @@ function writeResults(items: Map<number, string>, outfile?: string) {
         : path.join(process.cwd(), outfile);
     fs.writeFileSync(
       outpath,
-      `timestamp,value\n${Array.from(items.entries())
-        .map((i) => i.join(","))
+      `timestamp,value\n${[...items.entries()]
+        .map((index) => index.join(","))
         .join("\n")}`
     );
   }
@@ -97,11 +84,8 @@ function writeResults(items: Map<number, string>, outfile?: string) {
 function printResults(items: Map<number, string>) {
   console.clear();
   console.table(
-    Array.from(items.entries()).map((i) => {
-      return {
-        timestamp: i[0],
-        value: i[1],
-      };
+    [...items.entries()].map((index) => {
+      return { timestamp: index[0], value: index[1] };
     })
   );
 }

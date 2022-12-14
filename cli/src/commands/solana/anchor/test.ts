@@ -1,12 +1,13 @@
 /* eslint-disable unicorn/prevent-abbreviations */
 
 import { Flags } from "@oclif/core";
-import { AnchorProvider } from "@project-serum/anchor";
 import { PublicKey } from "@solana/web3.js";
-import { sleep, SwitchboardTestContext } from "@switchboard-xyz/sbv2-utils";
 import { ChildProcess, exec, spawn } from "child_process";
 import { DockerOracle } from "../../../providers/docker";
 import { SolanaWithSignerBaseCommand as BaseCommand } from "../../../solana";
+import { SwitchboardTestContext } from "@switchboard-xyz/solana.js/test";
+import { sleep } from "@switchboard-xyz/common";
+import { isBase58 } from "@switchboard-xyz/near.js";
 
 export default class AnchorTest extends BaseCommand {
   static description = "run anchor test and a switchboard oracle in parallel";
@@ -59,16 +60,17 @@ export default class AnchorTest extends BaseCommand {
         this.program.provider as any,
         flags.switchboardDir || undefined
       );
-      oraclePubkey = switchboard.oracle.publicKey;
+      if (process.env.ORACLE && isBase58(process.env.ORACLE)) {
+        oraclePubkey = new PublicKey(process.env.ORACLE);
+      }
+    }
+    if (!oraclePubkey) {
+      throw new Error(
+        `Failed to load oracle pubkey, try providing the --oracleKey flag`
+      );
     }
 
     let isFinished = false;
-
-    // const keypairPath =
-    //   flags.keypair.charAt(0) === "/" || flags.keypair.startsWith("C:")
-    //     ? flags.keypair
-    //     : path.join(process.cwd(), flags.keypair);
-    const oracleKey = oraclePubkey;
 
     const docker = new DockerOracle(
       {
@@ -78,7 +80,7 @@ export default class AnchorTest extends BaseCommand {
           flags.cluster === "localnet"
             ? "http://host.docker.internal:8899"
             : this.rpcUrl,
-        oracleKey: oracleKey.toBase58(),
+        oracleKey: oraclePubkey.toBase58(),
         secretPath: this.normalizePath(flags.keypair),
       },
       flags.nodeImage,

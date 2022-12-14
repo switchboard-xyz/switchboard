@@ -1,30 +1,24 @@
 /* eslint-disable complexity */
 import { Flags } from "@oclif/core";
-import * as anchor from "@project-serum/anchor";
 import { PublicKey } from "@solana/web3.js";
 import { OracleJob } from "@switchboard-xyz/common";
-import { prettyPrintAggregator } from "@switchboard-xyz/sbv2-utils";
-import {
-  AggregatorAccount,
-  JobAccount,
-  OracleQueueAccount,
-  programWallet,
-} from "@switchboard-xyz/switchboard-v2";
-import chalk from "chalk";
+import { JobInitParams, QueueAccount } from "@switchboard-xyz/solana.js";
 import * as fs from "fs";
 import * as path from "path";
 import { SolanaWithSignerBaseCommand as BaseCommand } from "../../../../solana";
-import {
-  CHECK_ICON,
-  loadKeypair,
-  pubKeyConverter,
-  pubKeyReviver,
-} from "../../../../utils";
+import { pubKeyReviver } from "../../../../utils";
+import _ from "lodash";
 
 export default class JsonCreateAggregator extends BaseCommand {
+  static enableJsonFlag = true;
+
   static description = "create an aggregator from a json file";
 
   static aliases = ["solana:json:create:aggregator"];
+
+  static examples = [
+    "$ sbv2 solana aggregator create json examples/aggregator.json --keypair ../payer-keypair.json --queueKey GhYg3R1V6DmJbwuc57qZeoYG6gUuvCotUF1zU3WCj98U --outputFile aggregator.schema.json",
+  ];
 
   static flags = {
     ...BaseCommand.flags,
@@ -37,6 +31,12 @@ export default class JsonCreateAggregator extends BaseCommand {
         "alternate keypair that will be the authority for the aggregator",
       char: "a",
     }),
+    // lease params
+    leaseAmount: Flags.string({
+      description:
+        "amount of funds to deposit into the lease, ex: 1.5 would deposit 1.5 wSOL",
+      default: "0",
+    }),
   };
 
   static args = [
@@ -46,20 +46,18 @@ export default class JsonCreateAggregator extends BaseCommand {
     },
   ];
 
-  static examples = [
-    "$ sbv2 aggregator:create:json examples/aggregator.json --keypair ../payer-keypair.json --queueKey GhYg3R1V6DmJbwuc57qZeoYG6gUuvCotUF1zU3WCj98U --outputFile aggregator.schema.json",
-  ];
-
   async run() {
     const { args, flags } = await this.parse(JsonCreateAggregator);
 
-    const payerKeypair = programWallet(this.program);
+    if (!args.definitionFile) {
+      throw new Error("No feed definition file not specified");
+    }
 
-    const definitionFile = args.definitionFile.startsWith("/")
+    const definitionFile = args.definitionFile?.startsWith("/")
       ? args.definitionFile
       : path.join(process.cwd(), args.definitionFile);
     if (!fs.existsSync(definitionFile)) {
-      throw new Error("input file does not exist");
+      throw new Error("Feed definition file does not exist");
     }
 
     const aggregatorDefinition: any = JSON.parse(
@@ -67,123 +65,105 @@ export default class JsonCreateAggregator extends BaseCommand {
       pubKeyReviver
     );
 
-    let authority = programWallet(this.program);
-    if (flags.authority) {
-      authority = await loadKeypair(flags.authority);
-    }
-
-    if (!aggregatorDefinition.queuePublicKey && !flags.queueKey) {
+    const queueKey = aggregatorDefinition.queuePublicKey || flags.queueKey;
+    if (!queueKey) {
       throw new Error("you must provide a --queueKey to create aggregator for");
     }
 
-    const queueAccount = new OracleQueueAccount({
-      program: this.program,
-      publicKey: aggregatorDefinition.queuePublicKey
-        ? new PublicKey(aggregatorDefinition.queuePublicKey)
-        : new PublicKey(flags.queueKey),
-    });
+    const [queueAccount, queue] = await QueueAccount.load(
+      this.program,
+      queueKey
+    );
+    const queueAuthority = flags.queueAuthority
+      ? await this.loadAuthority(flags.queueAuthority, queue.authority)
+      : undefined;
 
-    const authorWallet =
-      aggregatorDefinition.authorWalletPublicKey ?? payerKeypair.publicKey;
-    const authorityPubkey = authority.publicKey ?? payerKeypair.publicKey;
-    const batchSize = aggregatorDefinition.oracleRequestBatchSize ?? 3;
-    const expiration = aggregatorDefinition.expiration
-      ? new anchor.BN(aggregatorDefinition.expiration)
-      : new anchor.BN(0);
-    const forceReportPeriod = aggregatorDefinition.forceReportPeriod
-      ? new anchor.BN(aggregatorDefinition.forceReportPeriod)
-      : new anchor.BN(0);
-    const metadata = aggregatorDefinition.metadata
-      ? Buffer.from(aggregatorDefinition.metadata)
-      : Buffer.from("");
+    const authority = flags.authority
+      ? await this.loadAuthority(flags.authority)
+      : this.program.wallet.payer;
+
+    const tokenWallet = this.program.mint.getAssociatedAddress(
+      this.program.walletPubkey
+    );
+
+    const name = aggregatorDefinition.name ?? "";
+    const metadata = aggregatorDefinition.metadata ?? "";
+    const batchSize = aggregatorDefinition.oracleRequestBatchSize ?? 1;
+    const minRequiredOracleResults =
+      aggregatorDefinition.minRequiredOracleResults ?? 1;
     const minRequiredJobResults =
       aggregatorDefinition.minRequiredJobResults ?? 1;
-    const minRequiredOracleResults =
-      aggregatorDefinition.minRequiredOracleResults ?? 2;
     const minUpdateDelaySeconds =
       aggregatorDefinition.minUpdateDelaySeconds ?? 30;
-    const name = aggregatorDefinition.name
-      ? Buffer.from(aggregatorDefinition.name)
-      : Buffer.from("");
-    const startAfter = aggregatorDefinition.startAfter ?? 0;
-    const varianceThreshold = aggregatorDefinition.varianceThreshold ?? 0;
+    const varianceThreshold = Number(
+      aggregatorDefinition.varianceThreshold ?? 0
+    );
+    const forceReportPeriod = Number(
+      aggregatorDefinition.forceReportPeriod ?? 0
+    );
+    const historyLimit = Number(aggregatorDefinition.historyLimit ?? 0);
+    const expiration = Number(aggregatorDefinition.expiration ?? 0);
+    const startAfter = Number(aggregatorDefinition.startAfter ?? 0);
+    const crankKey = aggregatorDefinition.crankKey
+      ? new PublicKey(aggregatorDefinition.crankKey)
+      : undefined;
 
-    const aggregatorAccount = await AggregatorAccount.create(this.program, {
-      authorWallet,
-      authority: authorityPubkey,
-      batchSize,
-      expiration,
-      forceReportPeriod,
-      metadata,
-      minRequiredJobResults,
-      minRequiredOracleResults:
-        minRequiredOracleResults > batchSize
-          ? batchSize
-          : minRequiredOracleResults,
-      minUpdateDelaySeconds,
+    const aggregatorJobs = aggregatorDefinition.jobs;
+    const jobs = (
+      _.isArray(aggregatorJobs) ? aggregatorJobs : []
+    ).map<JobInitParams>((job: any) => ({
+      name: job.name ?? "",
+      authority: authority,
+      data: Buffer.from(
+        OracleJob.encodeDelimited(OracleJob.fromObject(job)).finish()
+      ),
+    }));
+
+    const [aggregatorAccount, signatures] = await queueAccount.createFeed({
+      // aggregator params
+      authority: authority,
+      keypair: undefined, // An aggregatorKeypair will be generated for the new feed.
       name,
-      queueAccount,
-      startAfter,
+      metadata,
+      batchSize,
+      minRequiredOracleResults,
+      minRequiredJobResults,
+      minUpdateDelaySeconds,
       varianceThreshold,
+      forceReportPeriod,
+      historyLimit,
+      expiration,
+      startAfter,
+      // crank params
+      crankPubkey: crankKey,
+      // lease params
+      fundAmount: Number(flags.leaseAmount),
+      funderTokenWallet: tokenWallet,
+      // permission params
+      enable: flags.enable ?? false,
+      queueAuthority: queueAuthority,
+      // job params
+      jobs: jobs,
     });
-    const aggregator = await aggregatorAccount.loadData();
 
-    const jobs: JobAccount[] = [];
-    if (aggregatorDefinition.jobs) {
-      for await (const job of aggregatorDefinition.jobs) {
-        const jobDefinition: any = JSON.parse(
-          JSON.stringify(job),
-          pubKeyConverter
-        );
-        const data = Buffer.from(
-          OracleJob.encodeDelimited(
-            OracleJob.create({
-              tasks: jobDefinition.tasks,
-            })
-          ).finish()
-        );
-
-        const account = await JobAccount.create(this.program, {
-          data,
-          name: jobDefinition.name
-            ? Buffer.from(jobDefinition.name)
-            : Buffer.from(""),
-          expiration: jobDefinition.expiration
-            ? new anchor.BN(jobDefinition.expiration)
-            : new anchor.BN(0),
-          authority:
-            jobDefinition.authorityWalletPublicKey ?? payerKeypair.publicKey,
-        });
-
-        jobs.push(account);
-      }
+    if (flags.silent) {
+      this.log(signatures.join("\n"));
+      return;
     }
 
-    for await (const job of jobs) {
-      await aggregatorAccount.addJob(job, authority);
+    if (flags.json) {
+      const accounts = await aggregatorAccount.toAccountsJSON();
+      return this.normalizeAccountData(aggregatorAccount.publicKey, accounts);
     }
 
-    if (!this.silent) {
-      this.logger.log(
-        await prettyPrintAggregator(
-          aggregatorAccount,
-          aggregator,
-          false,
-          false,
-          true
-        )
-      );
-    }
-
-    if (this.silent) {
-      console.log(aggregator.publicKey.toString());
+    if (signatures.length === 1) {
+      this.log(this.toUrl(signatures[0]));
     } else {
-      this.logger.info(
-        `${chalk.green(
-          `${CHECK_ICON}Aggregator created successfully from JSON file\r\n`
-        )}`
-      );
+      for (const [index, oracleInitSignature] of signatures.entries())
+        this.log(`Txn #${index}`, this.toUrl(oracleInitSignature));
     }
+
+    // handle nicer logging here
   }
 
   async catch(error) {

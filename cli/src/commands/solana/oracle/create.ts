@@ -1,29 +1,18 @@
 import { Flags } from "@oclif/core";
-import * as anchor from "@project-serum/anchor";
-import * as spl from "@solana/spl-token-v2";
-import {
-  Keypair,
-  PublicKey,
-  SystemProgram,
-  Transaction,
-} from "@solana/web3.js";
-import {
-  chalkString,
-  prettyPrintOracle,
-  programWallet,
-} from "@switchboard-xyz/sbv2-utils";
-import {
-  OracleAccount,
-  OracleQueueAccount,
-  PermissionAccount,
-  ProgramStateAccount,
-} from "@switchboard-xyz/switchboard-v2";
+import { Keypair } from "@solana/web3.js";
+import { QueueAccount } from "@switchboard-xyz/solana.js";
 import chalk from "chalk";
 import { SolanaWithSignerBaseCommand as BaseCommand } from "../../../solana";
-import { CHECK_ICON, loadKeypair } from "../../../utils";
+import { CHECK_ICON } from "../../../utils";
 
 export default class OracleCreate extends BaseCommand {
+  static enableJsonFlag = true;
+
   static description = "create a new oracle account for a given queue";
+
+  static examples = [
+    "$ sbv2 solana:oracle:create F8ce7MsckeZAbAGmxjJNetxYXQa9mKr9nnrC3qKubyYy --name oracle-1 --stakeAmount 1",
+  ];
 
   static flags = {
     ...BaseCommand.flags,
@@ -43,156 +32,82 @@ export default class OracleCreate extends BaseCommand {
     queueAuthority: Flags.string({
       description: "alternative keypair to use for queue authority",
     }),
+    stakeAmount: Flags.string({
+      required: false,
+      description: "token amount to load into the oracle's staking wallet.",
+    }),
   };
 
   static args = [
     {
       name: "queueKey",
-      description: "public key of the oracle queue to join",
+      description: "public key of the oracle queue to create an oracle for",
+      required: true,
     },
-  ];
-
-  static examples = [
-    "$ sbv2 oracle:create GhYg3R1V6DmJbwuc57qZeoYG6gUuvCotUF1zU3WCj98U --keypair ../payer-and-authority-keypair.json",
-    "$ sbv2 oracle:create GhYg3R1V6DmJbwuc57qZeoYG6gUuvCotUF1zU3WCj98U --name=oracle-1  --keypair ../payer-and-authority-keypair.json",
-    "$ sbv2 oracle:create GhYg3R1V6DmJbwuc57qZeoYG6gUuvCotUF1zU3WCj98U --keypair ../payer-keypair.json --authority ../oracle-keypair.json",
   ];
 
   async run() {
     const { args, flags } = await this.parse(OracleCreate);
 
-    const payerKeypair = programWallet(this.program);
-    const signers: Keypair[] = [payerKeypair];
+    const authority = await this.loadAuthority(flags.authority);
 
-    const authorityKeypair = await this.loadAuthority(flags.authority);
-    // if (!payerKeypair.publicKey.equals(authorityKeypair.publicKey)) {
-    //   signers.push(authorityKeypair);
-    // }
-
-    const queueAuthority: Keypair = flags.queueAuthority
-      ? await loadKeypair(flags.queueAuthority)
-      : payerKeypair;
-    if (!payerKeypair.publicKey.equals(queueAuthority.publicKey)) {
-      signers.push(queueAuthority);
+    const stakeAmount = Number(flags.stakeAmount);
+    if (stakeAmount < 0) {
+      throw new Error("amount to stake must be greater than 0");
     }
 
-    const queueAccount = new OracleQueueAccount({
-      program: this.program,
-      publicKey: new PublicKey(args.queueKey),
-    });
-    const queue = await queueAccount.loadData();
-    const mint = await queueAccount.loadMint();
-
-    const [programStateAccount, stateBump] = ProgramStateAccount.fromSeed(
-      this.program
-    );
-
-    const tokenWalletKeypair = anchor.web3.Keypair.generate();
-    signers.push(tokenWalletKeypair);
-    const [oracleAccount, oracleBump] = OracleAccount.fromSeed(
+    const [queueAccount, queue] = await QueueAccount.load(
       this.program,
-      queueAccount,
-      tokenWalletKeypair.publicKey
+      args.queueKey
     );
 
-    this.logger.debug(chalkString("Oracle", oracleAccount.publicKey));
-
-    const [permissionAccount, permissionBump] = PermissionAccount.fromSeed(
-      this.program,
-      queue.authority,
-      queueAccount.publicKey,
-      oracleAccount.publicKey
-    );
-    this.logger.debug(chalkString(`Permission`, permissionAccount.publicKey));
-
-    const createOracleTxn = new Transaction();
-    createOracleTxn.add(
-      SystemProgram.createAccount({
-        fromPubkey: payerKeypair.publicKey,
-        newAccountPubkey: tokenWalletKeypair.publicKey,
-        lamports:
-          await this.program.provider.connection.getMinimumBalanceForRentExemption(
-            spl.AccountLayout.span
-          ),
-        space: spl.AccountLayout.span,
-        programId: spl.TOKEN_PROGRAM_ID,
-      }),
-      spl.createInitializeAccountInstruction(
-        tokenWalletKeypair.publicKey,
-        mint.address,
-        programStateAccount.publicKey,
-        spl.TOKEN_PROGRAM_ID
-      ),
-      await this.program.methods
-        .oracleInit({
-          name: Buffer.from(flags.name ?? "").slice(0, 32),
-          metadata: Buffer.from("").slice(0, 128),
-          stateBump,
-          oracleBump,
-        })
-        .accounts({
-          oracle: oracleAccount.publicKey,
-          oracleAuthority: authorityKeypair.publicKey,
-          queue: queueAccount.publicKey,
-          wallet: tokenWalletKeypair.publicKey,
-          programState: programStateAccount.publicKey,
-          systemProgram: SystemProgram.programId,
-          payer: payerKeypair.publicKey,
-        })
-        .instruction(),
-      await this.program.methods
-        .permissionInit({})
-        .accounts({
-          permission: permissionAccount.publicKey,
-          authority: queue.authority,
-          granter: queueAccount.publicKey,
-          grantee: oracleAccount.publicKey,
-          payer: payerKeypair.publicKey,
-          systemProgram: SystemProgram.programId,
-        })
-        .instruction()
-    );
-
-    if (flags.enable) {
-      if (!queueAuthority.publicKey.equals(queue.authority)) {
-        throw new Error(
-          `Invalid queue authority, received ${queueAuthority.publicKey}, expected ${queue.authority}`
-        );
-      }
-
-      createOracleTxn.add(
-        await this.program.methods
-          .permissionSet({
-            // eslint-disable-next-line unicorn/no-null
-            permission: { permitOracleHeartbeat: null },
-            enable: true,
-          })
-          .accounts({
-            permission: permissionAccount.publicKey,
-            authority: queue.authority,
-          })
-          .instruction()
+    let queueAuthority: Keypair | undefined;
+    if (flags.queueAuthority) {
+      queueAuthority = await this.loadAuthority(
+        flags.queueAuthority,
+        queue.authority
       );
     }
 
-    const signature = await this.program.provider.sendAndConfirm(
-      createOracleTxn,
-      signers
+    const [oracleAccount, txns] = await queueAccount.createOracleInstructions(
+      this.payer,
+      {
+        name: flags.name,
+        metadata: flags.metadata,
+        authority: authority,
+        stakeAmount: stakeAmount,
+        enable: flags.enable ?? false,
+        queueAuthority: queueAuthority,
+      }
     );
-    const oracleData = await oracleAccount.loadData();
+    const signatures = await this.signAndSendAll(txns);
 
-    if (this.silent) {
-      console.log(oracleAccount.publicKey.toString());
+    if (flags.silent) {
+      this.log(signatures.join("\n"));
       return;
     }
 
+    if (flags.json) {
+      const accounts = await oracleAccount.toAccountsJSON();
+      return this.normalizeAccountData(oracleAccount.publicKey, accounts);
+    }
+
     this.logger.log(
-      `${chalk.green(`${CHECK_ICON}Oracle account created successfully`)}`
+      `${chalk.green(
+        `${CHECK_ICON}Oracle Account created successfully:`,
+        oracleAccount.publicKey.toBase58()
+      )}`
     );
-    this.logger.info(await prettyPrintOracle(oracleAccount, oracleData, true));
+
+    if (signatures.length === 1) {
+      this.log(this.toUrl(signatures[0]));
+    } else {
+      for (const [index, oracleInitSignature] of signatures.entries())
+        this.log(`Txn #${index}`, this.toUrl(oracleInitSignature));
+    }
   }
 
   async catch(error) {
-    super.catch(error, "failed to create oracle account");
+    super.catch(error, "failed to create an oracle account");
   }
 }

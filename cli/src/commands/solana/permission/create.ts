@@ -1,78 +1,128 @@
+import { Flags } from "@oclif/core";
 import { PublicKey } from "@solana/web3.js";
-import { prettyPrintPermissions } from "@switchboard-xyz/sbv2-utils";
 import {
-  OracleQueueAccount,
+  types,
   PermissionAccount,
-} from "@switchboard-xyz/switchboard-v2";
+  QueueAccount,
+  SwitchboardProgram,
+} from "@switchboard-xyz/solana.js";
 import chalk from "chalk";
 import { SolanaWithSignerBaseCommand as BaseCommand } from "../../../solana";
 import { CHECK_ICON } from "../../../utils";
 
 export default class PermissionCreate extends BaseCommand {
+  static enableJsonFlag = true;
+
   static description = "create a permission account";
+
+  // static examples = [
+  //   "$ sbv2 solana lease create GvDMxPzN1sCj7L26YDK2HnMRXEQmQ2aemov8YBtPS7vR --amount 1.5 --keypair ../payer-keypair.json",
+  // ];
 
   static flags = {
     ...BaseCommand.flags,
+    granter: Flags.string({
+      required: true,
+      description:
+        "publicKey of the resource that is granting permissions. This is typically the QueueAccount.",
+    }),
+    grantee: Flags.string({
+      required: true,
+      description:
+        "publicKey of the resource that is being granted permissions. This is typically an AggregatorAccount, BufferRelayerAccount, OracleAccount, or VrfAccount.",
+    }),
+    enable: Flags.boolean({
+      description:
+        "whether to enable permissions on the resource. --keypair or --authority must be provided",
+    }),
+    authority: Flags.string({
+      char: "a",
+      description: "alternate keypair that is the authority for the granter",
+    }),
   };
 
-  static args = [
-    {
-      name: "granter",
-      description: "public key of the account granting permission",
-    },
-    {
-      name: "grantee",
-      description: "public key of the account getting permissions",
-    },
-  ];
-
   async run() {
-    const { args } = await this.parse(PermissionCreate);
+    const { flags } = await this.parse(PermissionCreate);
 
-    const granter = new PublicKey(args.granter);
-    const grantee = new PublicKey(args.grantee);
+    const [queueAccount, queue] = await QueueAccount.load(
+      this.program,
+      flags.granter
+    );
 
-    // assuming granter is an oracle queue, will need to fix
-    const queueAccount = new OracleQueueAccount({
-      program: this.program,
-      publicKey: granter,
-    });
-    const queue = await queueAccount.loadData();
+    const authority = await this.loadAuthority(
+      flags.authority,
+      flags.enable ? queue.authority : undefined
+    );
 
-    // Check if permission account already exists
-    let permissionAccount: PermissionAccount;
-    try {
-      [permissionAccount] = PermissionAccount.fromSeed(
-        this.program,
-        queue.authority,
-        granter,
-        grantee
-      );
-      const permData = await permissionAccount.loadData();
-      if (!this.silent) {
-        this.logger.log(
-          `Permission Account already existed ${permissionAccount.publicKey}`
+    const granteeAccountInfo = await this.program.connection.getAccountInfo(
+      new PublicKey(flags.grantee)
+    );
+    const granteeAccountType =
+      SwitchboardProgram.getAccountType(granteeAccountInfo);
+
+    let permission: types.SwitchboardPermissionKind;
+    switch (granteeAccountType) {
+      case "Oracle": {
+        permission = new types.SwitchboardPermission.PermitOracleHeartbeat();
+        break;
+      }
+      case "Aggregator":
+      case "BufferRelayer": {
+        permission = new types.SwitchboardPermission.PermitOracleQueueUsage();
+        break;
+      }
+      case "Vrf": {
+        permission = new types.SwitchboardPermission.PermitVrfRequests();
+        break;
+      }
+      default: {
+        throw new Error(
+          `Unable to determine correct permissions to assign for resource type ${granteeAccountType}`
         );
       }
-    } catch {
-      permissionAccount = await PermissionAccount.create(this.program, {
-        granter: granter,
-        grantee: grantee,
-        authority: queue.authority,
+    }
+
+    const [permissionAccount, permissionInit] =
+      PermissionAccount.createInstruction(this.program, this.payer, {
+        grantee: new PublicKey(flags.grantee),
+        granter: queueAccount.publicKey,
+        authority: authority.publicKey,
       });
+
+    if (flags.enable) {
+      permissionInit.combine(
+        permissionAccount.setInstruction(this.payer, {
+          enable: true,
+          permission: permission,
+          queueAuthority: authority,
+        })
+      );
+    }
+
+    const signature = await this.signAndSend(permissionInit);
+
+    if (flags.json) {
+      return this.normalizeAccountData(
+        permissionAccount.publicKey,
+        (await permissionAccount.loadData()).toJSON()
+      );
     }
 
     if (this.silent) {
-      console.log(permissionAccount.publicKey.toString());
-    } else {
-      this.logger.log(
-        `${chalk.green(`${CHECK_ICON}Permission account created successfully`)}`
-      );
-      console.log(await prettyPrintPermissions(permissionAccount));
+      this.log(signature);
+      return;
     }
+
+    this.logger.log(
+      `${chalk.green(
+        `${CHECK_ICON}Permission account created successfully`,
+        permissionAccount.publicKey.toBase58()
+      )}`
+    );
+    this.logger.log(this.toUrl(signature));
   }
 
   async catch(error) {
-    super.catch(error, "failed to create permission account");
+    super.catch(error, "failed to create a permission account");
   }
 }

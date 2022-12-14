@@ -1,25 +1,17 @@
 import { Flags } from "@oclif/core";
 import { SolanaWithSignerBaseCommand as BaseCommand } from "../../../solana";
-
 import { DockerOracle } from "../../../providers/docker";
-import path from "path";
 import { sleep } from "../../../utils";
-import { PublicKey } from "@solana/web3.js";
-import { SwitchboardTestContext } from "@switchboard-xyz/sbv2-utils";
-import { AnchorProvider } from "@project-serum/anchor";
+import { execSync } from "child_process";
 
 export default class SolanaDockerOracle extends BaseCommand {
   static description = "start a solana docker oracle";
 
   static flags = {
     ...BaseCommand.flags,
-    switchboardDir: Flags.string({
-      char: "d",
-      description:
-        "directory with switchboard.env to load a switchboard environment",
-    }),
     oracleKey: Flags.string({
       description: "public key of the oracle to start-up",
+      required: true,
     }),
     nodeImage: Flags.string({
       description: "public key of the oracle to start-up",
@@ -42,26 +34,25 @@ export default class SolanaDockerOracle extends BaseCommand {
   async run() {
     const { flags } = await this.parse(SolanaDockerOracle);
 
-    let oraclePubkey: PublicKey;
-    if (flags.oracleKey) {
-      oraclePubkey = new PublicKey(flags.oracleKey);
-    } else {
-      const switchboard = await SwitchboardTestContext.loadFromEnv(
-        this.program.provider as any,
-        flags.switchboardDir || undefined
-      );
-      oraclePubkey = switchboard.oracle.publicKey;
+    if (this.network === "mainnet-beta") {
+      throw new Error(`This command should not be used for a mainnet oracle`);
     }
 
-    // TODO: Check if docker is running
+    try {
+      const stdout = execSync(`docker info`, { stdio: "pipe" });
+    } catch {
+      this.logError(
+        `You need to start the Docker daemon before running this command`
+      );
+      return;
+    }
 
-    // TODO: Add mounts for AWS creds
     const docker = new DockerOracle(
       {
         chain: "solana",
-        network: "devnet",
+        network: this.network,
         rpcUrl: this.rpcUrl,
-        oracleKey: oraclePubkey.toBase58(),
+        oracleKey: flags.oracleKey,
         secretPath: this.normalizePath(flags.keypair),
       },
       flags.nodeImage,

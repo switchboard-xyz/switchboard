@@ -1,6 +1,5 @@
 import { Flags } from "@oclif/core";
-import { PublicKey } from "@solana/web3.js";
-import { AggregatorAccount } from "@switchboard-xyz/switchboard-v2";
+import { AggregatorAccount } from "@switchboard-xyz/solana.js";
 import chalk from "chalk";
 import { SolanaWithSignerBaseCommand as BaseCommand } from "../../../solana";
 import { CHECK_ICON } from "../../../utils";
@@ -21,33 +20,37 @@ export default class AggregatorLock extends BaseCommand {
     {
       name: "aggregatorKey",
       description: "public key of the aggregator account",
+      required: true,
     },
   ];
-
-  //   static examples = ["$ sbv2 aggregator:set:authority"];
 
   async run() {
     const { args, flags } = await this.parse(AggregatorLock);
 
-    const [aggregatorAccount, aggregator] = await this.loadAggregator(
+    const [aggregatorAccount, aggregatorData] = await AggregatorAccount.load(
+      this.program,
       args.aggregatorKey
     );
-
     const authority = await this.loadAuthority(
       flags.authority,
-      aggregator.authority
+      aggregatorData.authority
     );
 
-    const txn = await aggregatorAccount.lock(authority);
+    const txn = aggregatorAccount.lockInstruction(this.payer, {
+      authority,
+    });
+    const signature = await this.signAndSend(txn);
 
     if (this.silent) {
-      console.log(txn);
-    } else {
-      this.logger.log(
-        `${chalk.green(`${CHECK_ICON}Aggregator locked successfully\r\n`)}`
-      );
-      this.logger.log(this.toUrl(txn));
+      this.log(signature);
+      return;
     }
+
+    this.logger.log(
+      `${chalk.green(`${CHECK_ICON}Aggregator locked successfully`)}`
+    );
+
+    this.logger.log(this.toUrl(signature));
   }
 
   async catch(error) {

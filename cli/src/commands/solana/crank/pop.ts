@@ -1,9 +1,4 @@
-import { PublicKey } from "@solana/web3.js";
-import { getOrCreateSwitchboardTokenAccount } from "@switchboard-xyz/sbv2-utils";
-import {
-  CrankAccount,
-  OracleQueueAccount,
-} from "@switchboard-xyz/switchboard-v2";
+import { CrankAccount } from "@switchboard-xyz/solana.js";
 import chalk from "chalk";
 import { SolanaWithSignerBaseCommand as BaseCommand } from "../../../solana";
 import { CHECK_ICON } from "../../../utils";
@@ -19,46 +14,25 @@ export default class CrankPop extends BaseCommand {
     {
       name: "crankKey",
       description: "public key of the crank",
+      required: true,
     },
   ];
 
   async run() {
     const { args } = await this.parse(CrankPop);
 
-    const crankAccount = new CrankAccount({
-      program: this.program,
-      publicKey: new PublicKey(args.crankKey),
-    });
-    const crank = await crankAccount.loadData();
+    const [crankAccount] = await CrankAccount.load(this.program, args.crankKey);
 
-    const oracleQueueAccount = new OracleQueueAccount({
-      program: this.program,
-      publicKey: crank.queuePubkey,
-    });
-    const queue = await oracleQueueAccount.loadData();
-
-    const mint = await oracleQueueAccount.loadMint();
-
-    const payoutWallet = await getOrCreateSwitchboardTokenAccount(
-      this.program,
-      mint
-    );
-
-    const txn = await crankAccount.pop({
-      payoutWallet,
-      queuePubkey: oracleQueueAccount.publicKey,
-      queueAuthority: queue.authority,
-      crank,
-      queue,
-      tokenMint: mint.address,
-    });
+    const txn = await crankAccount.popInstruction(this.payer, {});
+    const signature = await this.signAndSend(txn);
 
     if (this.silent) {
-      console.log(txn);
-    } else {
-      this.logger.log(`${chalk.green(`${CHECK_ICON}Crank pop successful`)}`);
-      this.logger.log(this.toUrl(txn));
+      this.log(signature);
+      return;
     }
+
+    this.logger.log(`${chalk.green(`${CHECK_ICON}Crank pop successful`)}`);
+    this.logger.log(this.toUrl(signature));
   }
 
   async catch(error) {

@@ -37,7 +37,7 @@ export function serializeOracleJob(
       throw new Error(`OracleJob is missing the 'tasks' property`);
     }
     if (job.tasks.length === 0) {
-      throw new Error(`OracleJob hos no tasks defined`);
+      throw new Error(`OracleJob has no tasks defined`);
     }
     jobObj = job;
   }
@@ -51,4 +51,13 @@ export function serializeOracleJob(
   } catch (error) {
     throw new Error(`failed to serialize oracle job: ${error}`);
   }
+}
+
+/**
+ * Deserialize an OracleJob from on-chain data
+ * @param [jobData] Serialized OracleJob data
+ * @returns {OracleJob}
+ */
+export function deserializeOracleJob(jobData: Buffer | Uint8Array): OracleJob {
+  return OracleJob.decodeDelimited(jobData);
 }

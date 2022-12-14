@@ -1,31 +1,28 @@
 import { Flags } from "@oclif/core";
 import * as anchor from "@project-serum/anchor";
-import { PublicKey } from "@solana/web3.js";
-import {
-  chalkString,
-  getOrCreateSwitchboardTokenAccount,
-} from "@switchboard-xyz/sbv2-utils";
 import {
   AggregatorAccount,
   LeaseAccount,
-  OracleQueueAccount,
-  programWallet,
-} from "@switchboard-xyz/switchboard-v2";
+  QueueAccount,
+} from "@switchboard-xyz/solana.js";
 import chalk from "chalk";
 import { SolanaWithSignerBaseCommand as BaseCommand } from "../../../solana";
-import { CHECK_ICON } from "../../../utils";
+import { chalkString, CHECK_ICON } from "../../../utils";
 
 export default class LeaseExtend extends BaseCommand {
   static description = "fund and re-enable an aggregator lease";
 
-  static aliases = ["solana:aggregator:lease:extend"];
+  static aliases = [
+    "solana:aggregator:fund",
+    "solana:aggregator:deposit",
+    "solana:aggregator:extend",
+  ];
 
   static flags = {
     ...BaseCommand.flags,
     amount: Flags.string({
       required: true,
-      description:
-        "token amount to load into the lease escrow. If decimals provided, amount will be normalized to raw tokenAmount",
+      description: "amount to deposit into the lease escrow",
     }),
   };
 
@@ -33,103 +30,81 @@ export default class LeaseExtend extends BaseCommand {
     {
       name: "aggregatorKey",
       description: "public key of the aggregator to extend a lease for",
+      required: true,
     },
   ];
 
   static examples = [
-    "$ sbv2 aggregator:lease:extend GvDMxPzN1sCj7L26YDK2HnMRXEQmQ2aemov8YBtPS7vR --amount 1.1 --keypair ../payer-keypair.json",
+    "$ sbv2 solana:aggregator:fund GvDMxPzN1sCj7L26YDK2HnMRXEQmQ2aemov8YBtPS7vR --amount 1.1 --keypair ../payer-keypair.json",
   ];
 
   async run() {
     const { args, flags } = await this.parse(LeaseExtend);
 
-    const payerKeypair = programWallet(this.program);
-
-    const amount = this.getTokenAmount(flags.amount);
-    if (amount.lte(new anchor.BN(0))) {
+    const amount = Number(flags.amount);
+    if (amount <= 0) {
       throw new Error("amount to deposit must be greater than 0");
     }
 
-    const aggregatorAccount = new AggregatorAccount({
-      program: this.program,
-      publicKey: new PublicKey(args.aggregatorKey),
-    });
-    const aggregator = await aggregatorAccount.loadData();
-
-    const queueAccount = new OracleQueueAccount({
-      program: this.program,
-      publicKey: aggregator.queuePubkey,
-    });
-    const mint = await queueAccount.loadMint();
-
+    const [aggregatorAccount, aggregatorData] = await AggregatorAccount.load(
+      this.program,
+      args.aggregatorKey
+    );
+    const [queueAccount] = await QueueAccount.load(
+      this.program,
+      aggregatorData.queuePubkey.toBase58()
+    );
     const [leaseAccount] = LeaseAccount.fromSeed(
       this.program,
-      queueAccount,
-      aggregatorAccount
+      queueAccount.publicKey,
+      aggregatorAccount.publicKey
     );
-    try {
-      const lease = await leaseAccount.loadData();
-    } catch {
+    const lease = await leaseAccount.loadData().catch(() => {
       throw new Error(`Failed to load lease account. Has it been created yet?`);
-    }
-
-    const lease = await leaseAccount.loadData();
-    const escrow: PublicKey = lease.escrow;
-
-    // TODO: Auto-wrap funds if not enough balance
-    const initialLeaseBalance =
-      await this.program.provider.connection.getTokenAccountBalance(escrow);
-
-    const funderTokenAddress = await getOrCreateSwitchboardTokenAccount(
-      this.program,
-      mint
-    );
-    const initialFunderBalance =
-      await this.program.provider.connection.getTokenAccountBalance(
-        funderTokenAddress
-      );
-
-    if (!this.silent) {
-      this.logger.log(
-        chalkString(
-          "Initial Lease Balance",
-          initialLeaseBalance.value.uiAmountString,
-          24
-        )
-      );
-      this.logger.log(
-        chalkString(
-          "Initial Funder Balance",
-          initialFunderBalance.value.uiAmountString,
-          24
-        )
-      );
-    }
-
-    const txn = await leaseAccount.extend({
-      loadAmount: amount,
-      funder: funderTokenAddress,
-      funderAuthority: payerKeypair,
     });
 
+    const [funderTokenWallet, wrapFundsTxn] =
+      await this.program.mint.getOrCreateWrappedUserInstructions(this.payer, {
+        fundUpTo: amount,
+      });
+
+    const initialLeaseBalance = await this.program.mint.fetchBalance(
+      lease.escrow
+    );
+
     if (!this.silent) {
-      const newBalance =
-        await this.program.provider.connection.getTokenAccountBalance(escrow);
-      this.logger.log(
-        chalkString("Final Lease Balance", newBalance.value.uiAmountString, 24)
+      const initialFunderBalance = await this.program.mint.fetchBalance(
+        funderTokenWallet
       );
+      this.logger.log(
+        chalkString("Initial Lease Balance", initialLeaseBalance, 24)
+      );
+      this.logger.log(
+        chalkString("Initial Funder Balance", initialFunderBalance, 24)
+      );
+    }
+
+    const txn = await leaseAccount.extendInstruction(this.payer, {
+      fundAmount: amount,
+      funderTokenWallet: funderTokenWallet,
+      funderAuthority: this.program.wallet.payer,
+    });
+    const signature = await this.signAndSend(wrapFundsTxn.combine(txn));
+
+    if (!this.silent) {
+      const newBalance = await this.program.mint.fetchBalance(lease.escrow);
+      this.logger.log(chalkString("Final Lease Balance", newBalance, 24));
     }
 
     if (this.silent) {
-      console.log(txn);
-    } else {
-      this.logger.log(
-        `${chalk.green(
-          `${CHECK_ICON} Deposited ${amount} tokens into aggregator lease`
-        )}`
-      );
-      this.logger.log(this.toUrl(txn));
+      this.log(signature);
+      return;
     }
+
+    this.logger.log(
+      `${chalk.green(`${CHECK_ICON}Deposited ${amount} into aggregator lease`)}`
+    );
+    this.logger.log(this.toUrl(signature));
   }
 
   async catch(error) {
