@@ -22,17 +22,17 @@ jobs:
         with:
           submodules: recursive
 
-      # - uses: actions/setup-node@v3
-      #   with:
-      #     node-version: 16
-      #     cache: yarn
-      #     cache-dependency-path: "**/yarn.lock"
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
+          cache: yarn
+          cache-dependency-path: "**/yarn.lock"
 
-      # - uses: actions/setup-node@v3
-      #   with:
-      #     node-version: 16
-      #     cache: npm
-      #     cache-dependency-path: "**/package-lock.json"
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
+          cache: npm
+          cache-dependency-path: "**/package-lock.json"
 
       - name: Install global deps
         working-directory: .
