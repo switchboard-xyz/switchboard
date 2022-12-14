@@ -158,11 +158,11 @@ class CliCommand {
         fse.emptyDirSync(topicDir);
         fs.mkdirSync(topicDir, { recursive: true });
 
+        const label = topic ? topic[0].toUpperCase() + topic.slice(1) : "/";
+
         fs.writeFileSync(
           path.join(topicDir, "_category_.json"),
-          `{"label": "${
-            (topic[0] ?? "").toUpperCase() + topic.slice(1)
-          }","position": ${i + 1}0}`
+          `{"label": "${label}","position": ${i + 1}0}`
         );
 
         //         fs.writeFileSync(

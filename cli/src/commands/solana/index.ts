@@ -1,6 +1,5 @@
 import { Flags } from "@oclif/core";
-import { BNtoDateTimeString, buf2String } from "@switchboard-xyz/common";
-import { AggregatorAccount, types } from "@switchboard-xyz/solana.js";
+import { types } from "@switchboard-xyz/solana.js";
 import { SolanaWithoutSignerBaseCommand as BaseCommand } from "../../solana";
 import { chalkString, normalizeFilePath } from "../../utils";
 import chalk from "chalk";
