@@ -10,7 +10,7 @@ function generateTypedoc(
   if (fileManager === "yarn") {
     if (
       shell.exec(
-        `yarn install && yarn build && typedoc ${entryPoint} --out ${relativeOutputPath} --githubPages --cleanOutputDir`
+        `yarn install && typedoc ${entryPoint} --out ${relativeOutputPath} --githubPages --cleanOutputDir`
       ).code !== 0
     ) {
       shell.echo(
@@ -21,7 +21,7 @@ function generateTypedoc(
   } else {
     if (
       shell.exec(
-        `npm install && npm run build && typedoc ${entryPoint} --out ${relativeOutputPath} --githubPages --cleanOutputDir`
+        `npm install && typedoc ${entryPoint} --out ${relativeOutputPath} --githubPages --cleanOutputDir`
       ).code !== 0
     ) {
       shell.echo(
