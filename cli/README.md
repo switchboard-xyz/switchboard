@@ -2959,7 +2959,7 @@ DESCRIPTION
   fetch the Switchboard program accounts on Solana
 ```
 
-_See code: [dist/commands/solana/index.ts](https://github.com/switchboard-xyz/sbv2-core/blob/v2.1.0/dist/commands/solana/index.ts)_
+_See code: [dist/commands/solana/index.ts](https://github.com/switchboard-xyz/sbv2-core/blob/v2.1.1/dist/commands/solana/index.ts)_
 
 ## `sbv2 solana aggregator add history AGGREGATORKEY`
 
