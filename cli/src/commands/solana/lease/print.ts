@@ -28,7 +28,7 @@ export default class LeasePrint extends BaseCommand {
       new PublicKey(args.leaseKey)
     );
     const lease = await leaseAccount.loadData();
-    const balance = await leaseAccount.getBalance(lease.escrow);
+    const balance = await leaseAccount.fetchBalance(lease.escrow);
 
     if (flags.json) {
       return this.normalizeAccountData(leaseAccount.publicKey, {

@@ -1,6 +1,10 @@
 import { Flags } from "@oclif/core";
 import { PublicKey } from "@solana/web3.js";
-import { AggregatorAccount, QueueAccount } from "@switchboard-xyz/solana.js";
+import {
+  AggregatorAccount,
+  CrankAccount,
+  QueueAccount,
+} from "@switchboard-xyz/solana.js";
 import chalk from "chalk";
 import { SolanaWithSignerBaseCommand as BaseCommand } from "../../../solana";
 import { AggregatorIllegalRoundOpenCall } from "../../../types";
@@ -25,6 +29,15 @@ export default class AggregatorTransfer extends BaseCommand {
     }),
     newCrank: Flags.string({
       description: "publicKey of the crank to transfer to",
+    }),
+    loadAmount: Flags.string({
+      description: "amount of funds to load into the new lease",
+    }),
+    enable: Flags.boolean({
+      description: "enable permissions on the new queue",
+    }),
+    queueAuthority: Flags.string({
+      description: "alternate keypair that is the authority for the queue",
     }),
   };
 
@@ -54,12 +67,24 @@ export default class AggregatorTransfer extends BaseCommand {
       flags.newQueue
     );
 
-    const transferTxns = await aggregatorAccount.transferInstruction(
+    const queueAuthority =
+      flags.enable && flags.queueAuthority
+        ? await this.loadAuthority(flags.queueAuthority, newQueue.authority)
+        : undefined;
+
+    const [transferTxns] = await aggregatorAccount.transferQueueInstructions(
       this.payer,
       {
         newQueue: newQueueAccount,
         authority,
-        crankPubkey: flags.newCrank ? new PublicKey(flags.newCrank) : undefined,
+        queueAuthority,
+        enable: flags.enable ?? false,
+        newCrank: flags.newCrank
+          ? new CrankAccount(this.program, new PublicKey(flags.newCrank))
+          : undefined,
+        fundAmount: flags.loadAmount
+          ? Number.parseFloat(flags.loadAmount)
+          : undefined,
       }
     );
 

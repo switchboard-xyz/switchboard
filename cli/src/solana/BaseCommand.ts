@@ -471,10 +471,18 @@ export abstract class SolanaBaseCommand
     this.logger.info(prettyPrintCrank(crank, publicKey, SPACING));
   }
 
+  prettyPrintSbstate(
+    programState: types.SbState,
+    publicKey: PublicKey,
+    SPACING = 24
+  ) {
+    this.logger.info(prettyPrintSbstate(programState, publicKey, SPACING));
+  }
+
   async printAccount(
     publicKey: PublicKey,
     accountInfo: AccountInfo<Buffer>,
-    jsonFlag = false,
+    jsonFlag?: boolean,
     _accountType?: SwitchboardAccountType
   ) {
     const accountType =
@@ -495,6 +503,7 @@ export abstract class SolanaBaseCommand
         this.logger.info(prettyPrintAggregatorAccounts(accounts));
         return;
       }
+
       case "Job": {
         const job = types.JobAccountData.decode(accountInfo.data);
         const oracleJob = OracleJob.decodeDelimited(job.data);
@@ -510,6 +519,7 @@ export abstract class SolanaBaseCommand
         this.logger.info(prettyPrintJob(job, publicKey, oracleJob.tasks));
         return;
       }
+
       case "Permission": {
         const permission = types.PermissionAccountData.decode(accountInfo.data);
 
@@ -523,10 +533,11 @@ export abstract class SolanaBaseCommand
         this.logger.info(prettyPrintPermissions(permission, publicKey));
         return;
       }
+
       case "Lease": {
         const lease = types.LeaseAccountData.decode(accountInfo.data);
         const leaseAccount = new LeaseAccount(this.program, publicKey);
-        const balance = await leaseAccount.getBalance(lease.escrow);
+        const balance = await leaseAccount.fetchBalance(lease.escrow);
 
         if (jsonFlag) {
           return {
@@ -539,6 +550,7 @@ export abstract class SolanaBaseCommand
         this.logger.info(prettyPrintLease(lease, publicKey));
         return;
       }
+
       case "Queue": {
         const queue = types.OracleQueueAccountData.decode(accountInfo.data);
 
@@ -552,6 +564,7 @@ export abstract class SolanaBaseCommand
         this.logger.info(prettyPrintQueue(queue, publicKey));
         return;
       }
+
       case "Crank": {
         const crank = types.CrankAccountData.decode(accountInfo.data);
 
@@ -565,6 +578,7 @@ export abstract class SolanaBaseCommand
         this.logger.info(prettyPrintCrank(crank, publicKey));
         return;
       }
+
       case "Vrf": {
         const vrf = types.VrfAccountData.decode(accountInfo.data);
         const vrfAccount = new VrfAccount(this.program, publicKey);
@@ -575,15 +589,7 @@ export abstract class SolanaBaseCommand
         }
 
         this.logger.info(prettyPrintVrfAccounts(accounts));
-        return;
       }
     }
-  }
-  prettyPrintSbstate(
-    programState: types.SbState,
-    publicKey: PublicKey,
-    SPACING = 24
-  ) {
-    this.logger.info(prettyPrintSbstate(programState, publicKey, SPACING));
   }
 }

@@ -89,6 +89,12 @@ export const loadKeypair = async (
   keypairPath: KeypairDescriptor
 ): Promise<Keypair> => {
   if (typeof keypairPath === "string") {
+    if (keypairPath.startsWith("[") && keypairPath.endsWith("]")) {
+      const walletKeypair = Keypair.fromSecretKey(
+        new Uint8Array(JSON.parse(keypairPath))
+      );
+      return walletKeypair;
+    }
     try {
       const keypair = loadKeypairFs(keypairPath);
       return keypair;

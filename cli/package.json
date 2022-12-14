@@ -32,7 +32,10 @@
     "prepack": "yarn build && oclif manifest && oclif readme",
     "test": "mocha --forbid-only \"test/**/*.test.ts\"",
     "version": "oclif readme && git add README.md",
-    "fmt": "prettier --write 'src/**/*.ts'"
+    "fmt": "prettier --write 'src/**/*.ts'",
+    "local:validator": "mkdir -p .anchor/test-ledger; solana-test-validator -q -r --ledger .anchor/test-ledger --mint $(solana-keygen pubkey ~/.config/solana/id.json) --bind-address 0.0.0.0 --url https://api.devnet.solana.com --rpc-port 8899  --clone 2TfB33aLaneQb5TNVwyDz3jSZXS6jdW2ARw1Dgf84XCG `# programId` --clone J4CArpsbrZqu1axqQ4AnrqREs3jwoyA1M5LMiQQmAzB9 `# programDataAddress` --clone CKwZcshn4XDvhaWVH9EXnk3iu19t6t5xP2Sy2pD6TRDp `# idlAddress` --clone BYM81n8HvTJuqZU1PmTVcwZ9G8uoji7FKM6EaPkwphPt `# programState` --clone FVLfR6C2ckZhbSwBzZY4CX7YBcddUSge5BNeGQv5eKhy `# switchboardVault`",
+    "localnet:up": "npm run local:validator & sleep 15 && npm run watch",
+    "localnet:down": "kill -9 $(pgrep command solana-test-validator) || exit 0"
   },
   "dependencies": {
     "@aws-sdk/client-secrets-manager": "^3.154.0",
@@ -52,7 +55,7 @@
     "@switchboard-xyz/aptos.js": "^2.5.31",
     "@switchboard-xyz/common": "^2.1.7",
     "@switchboard-xyz/near.js": "^2.0.74",
-    "@switchboard-xyz/solana.js": "^2.0.39",
+    "@switchboard-xyz/solana.js": "^2.0.45",
     "aptos": "^1.3.16",
     "aws-sdk": "^2.1167.0",
     "big.js": "^6.2.0",

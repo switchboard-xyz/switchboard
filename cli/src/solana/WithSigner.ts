@@ -1,6 +1,7 @@
 import { Flags, CliUx } from "@oclif/core";
 import { flags, Input } from "@oclif/parser";
 import {
+  ConfirmOptions,
   Keypair,
   PublicKey,
   sendAndConfirmRawTransaction,
@@ -68,7 +69,7 @@ export abstract class SolanaWithSignerBaseCommand extends SolanaBaseCommand {
       const ledgerConfig = await this.ledger.getAppConfiguration();
       if (
         !("blindSigningEnabled" in ledgerConfig) ||
-        !Boolean(ledgerConfig.blindSigningEnabled)
+        !ledgerConfig.blindSigningEnabled
       ) {
         // TODO: Add instructions link to ledger docs to enable this
         throw new Error(`Ledger requires bind signing to be enabled`);
@@ -99,11 +100,13 @@ export abstract class SolanaWithSignerBaseCommand extends SolanaBaseCommand {
     if (errorString.includes("0x6985")) {
       throw new Error(`User cancelled the transaction`);
     }
+
     throw error;
   }
 
   public async signAndSend(
     txn: TransactionObject,
+    options?: ConfirmOptions,
     silent = false,
     title = "Send Transaction"
   ): Promise<TransactionSignature> {
@@ -111,8 +114,10 @@ export abstract class SolanaWithSignerBaseCommand extends SolanaBaseCommand {
     // return txnSignatures[0];
     switch (this.signerType) {
       case "keypair": {
-        return await this.program.signAndSend(txn);
+        const signature = await this.program.signAndSend(txn, options);
+        return signature;
       }
+
       case "ledger": {
         this.verifyTransaction(txn);
 
@@ -136,7 +141,8 @@ export abstract class SolanaWithSignerBaseCommand extends SolanaBaseCommand {
 
           const txnSignature = await sendAndConfirmRawTransaction(
             this.program.connection,
-            signedTxn.serialize()
+            signedTxn.serialize(),
+            options
           );
 
           if (!silent) {
@@ -144,11 +150,15 @@ export abstract class SolanaWithSignerBaseCommand extends SolanaBaseCommand {
               chalk.green(CHECK_ICON, "transaction confirmed!")
             );
           }
+
           return txnSignature;
         } catch (error) {
           this.catchLedgerError(error);
         }
+
+        break;
       }
+
       default: {
         throw new Error(`Failed to match signerType to a txn signer handler`);
       }
@@ -171,6 +181,7 @@ export abstract class SolanaWithSignerBaseCommand extends SolanaBaseCommand {
 
   public async signAndSendAll(
     txns: Array<TransactionObject>,
+    options?: ConfirmOptions,
     silent = false,
     title = "Send Transactions"
   ): Promise<Array<TransactionSignature>> {
@@ -178,8 +189,10 @@ export abstract class SolanaWithSignerBaseCommand extends SolanaBaseCommand {
 
     switch (this.signerType) {
       case "keypair": {
-        return await this.program.signAndSendAll(txns);
+        const signatures = await this.program.signAndSendAll(txns, options);
+        return signatures;
       }
+
       case "ledger": {
         const txnSignatures: Array<TransactionSignature> = [];
 
@@ -236,12 +249,12 @@ export abstract class SolanaWithSignerBaseCommand extends SolanaBaseCommand {
         //   this.catchLedgerError(error);
         // });
 
-        for await (const [i, txn] of txns.entries()) {
+        for await (const [index, txn] of txns.entries()) {
           const blockhash = await this.program.connection.getLatestBlockhash();
           const partiallySignedTxn = txn.sign(blockhash);
 
           try {
-            let status = `sign transaction #${i + 1}/${
+            let status = `sign transaction #${index + 1}/${
               txns.length
             } on your ledger ...`;
             if (!silent) {
@@ -258,23 +271,27 @@ export abstract class SolanaWithSignerBaseCommand extends SolanaBaseCommand {
                 return partiallySignedTxn;
               });
 
-            const newStatus = `transaction #${i + 1}/${
+            const newStatus = `transaction #${index + 1}/${
               txns.length
             } sending ...`;
             if (!silent) {
-              CliUx.ux.action["_updateStatus"](status, newStatus);
+              (CliUx.ux.action as any)._updateStatus(status, newStatus);
             }
+
             status = newStatus;
 
             const txnSignature = await sendAndConfirmRawTransaction(
               this.program.connection,
-              signedTxn.serialize()
+              signedTxn.serialize(),
+              options
             );
 
             if (!silent) {
               CliUx.ux.action.stop(
                 chalk.green(
-                  `${CHECK_ICON}transaction #${i + 1}/${txns.length} confirmed`
+                  `${CHECK_ICON}transaction #${index + 1}/${
+                    txns.length
+                  } confirmed`
                 )
               );
             }
@@ -284,8 +301,10 @@ export abstract class SolanaWithSignerBaseCommand extends SolanaBaseCommand {
             this.catchLedgerError(error);
           }
         }
+
         return txnSignatures;
       }
+
       default: {
         throw new Error(`Failed to match signerType to a txn signer handler`);
       }

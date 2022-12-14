@@ -26,7 +26,7 @@ export default class OraclePrint extends BaseCommand {
       this.program,
       args.oracleKey
     );
-    const balance = await oracleAccount.getBalance(oracle.tokenAccount);
+    const balance = await oracleAccount.fetchBalance(oracle.tokenAccount);
 
     if (flags.json) {
       return this.normalizeAccountData(oracleAccount.publicKey, {

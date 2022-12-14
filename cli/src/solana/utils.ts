@@ -44,7 +44,7 @@ export function prettyPrintAggregator(
   publicKey: PublicKey,
   SPACING = 24
 ): string {
-  let output: string[] = [];
+  const output: string[] = [];
   output.push(
     chalk.underline(chalkString("## Aggregator", publicKey, SPACING))
   );
@@ -137,7 +137,7 @@ export function prettyPrintPermissions(
   publicKey: PublicKey,
   SPACING = 24
 ): string {
-  let output: string[] = [];
+  const output: string[] = [];
 
   output.push(
     chalk.underline(chalkString("## Permission", publicKey, SPACING))
@@ -149,14 +149,17 @@ export function prettyPrintPermissions(
       permissions = types.SwitchboardPermission.PermitOracleHeartbeat.kind;
       break;
     }
+
     case 2: {
       permissions = types.SwitchboardPermission.PermitOracleQueueUsage.kind;
       break;
     }
+
     case 3: {
       permissions = types.SwitchboardPermission.PermitVrfRequests.kind;
       break;
     }
+
     default: {
       permissions = "NONE";
       break;
@@ -183,13 +186,14 @@ export function prettyPrintLease(
   balance?: number,
   SPACING = 24
 ): string {
-  let output: string[] = [];
+  const output: string[] = [];
 
   output.push(chalk.underline(chalkString("## Lease", publicKey, SPACING)));
 
   if (balance && balance > 0) {
     output.push(chalkString("balance", balance, SPACING));
   }
+
   output.push(
     chalkString("withdrawAuthority", lease.withdrawAuthority, SPACING)
   );
@@ -213,7 +217,7 @@ export function prettyPrintJob(
   label?: string,
   SPACING = 24
 ): string {
-  let output: string[] = [];
+  const output: string[] = [];
 
   output.push(
     chalk.underline(
@@ -236,13 +240,7 @@ export function prettyPrintJob(
       SPACING
     )
   );
-  output.push(
-    chalkString(
-      "isInitializing",
-      job.isInitializing === 0 ? false : true,
-      SPACING
-    )
-  );
+  output.push(chalkString("isInitializing", job.isInitializing !== 0, SPACING));
   output.push(
     chalkString("tasks", JSON.stringify(tasks, undefined, 2), SPACING)
   );
@@ -258,11 +256,17 @@ export function prettyPrintJobs(
   }>,
   SPACING = 24
 ): string {
-  let output: string[] = [];
+  const output: string[] = [];
 
-  for (const [i, job] of jobs.entries()) {
+  for (const [index, job] of jobs.entries()) {
     output.push(
-      prettyPrintJob(job.data, job.publicKey, job.tasks, `#${i + 1}`, SPACING)
+      prettyPrintJob(
+        job.data,
+        job.publicKey,
+        job.tasks,
+        `#${index + 1}`,
+        SPACING
+      )
     );
   }
 
@@ -300,7 +304,7 @@ export function prettyPrintOracle(
   balance?: number,
   SPACING = 24
 ): string {
-  let output: string[] = [];
+  const output: string[] = [];
 
   output.push(chalk.underline(chalkString("## Oracle", publicKey, SPACING)));
 
@@ -312,6 +316,7 @@ export function prettyPrintOracle(
   if (balance && balance > 0) {
     output.push(chalkString("escrowBalance", balance, SPACING));
   }
+
   output.push(
     chalkString(
       "lastHeartbeat",
@@ -371,7 +376,7 @@ export function prettyPrintQueue(
   publicKey: PublicKey,
   SPACING = 24
 ): string {
-  let output: string[] = [];
+  const output: string[] = [];
 
   output.push(chalk.underline(chalkString("## Queue", publicKey, SPACING)));
 
@@ -441,7 +446,7 @@ export function prettyPrintVrf(
   balance?: number,
   SPACING = 24
 ): string {
-  let output: string[] = [];
+  const output: string[] = [];
 
   output.push(chalk.underline(chalkString("## VRF", publicKey, SPACING)));
 
@@ -459,6 +464,7 @@ export function prettyPrintVrf(
   if (balance && balance > 0) {
     output.push(chalkString("escrowBalance", balance, SPACING));
   }
+
   output.push(
     chalkString(
       "callback",
@@ -565,7 +571,7 @@ export function prettyPrintCrank(
   publicKey: PublicKey,
   SPACING = 24
 ): string {
-  let output: string[] = [];
+  const output: string[] = [];
 
   output.push(chalk.underline(chalkString("## Crank", publicKey, SPACING)));
 
@@ -591,7 +597,7 @@ export function prettyPrintSbstate(
   publicKey: PublicKey,
   SPACING = 24
 ) {
-  let output: string[] = [];
+  const output: string[] = [];
 
   output.push(chalk.underline(chalkString("## SbState", publicKey, SPACING)));
 

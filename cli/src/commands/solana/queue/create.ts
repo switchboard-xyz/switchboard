@@ -12,7 +12,7 @@ export default class QueueCreate extends BaseCommand {
 
   static flags = {
     ...BaseCommand.flags,
-    // aggregator flags
+    // queue flags
     authority: Flags.string({
       char: "a",
       description:

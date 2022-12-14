@@ -1,12 +1,33 @@
 import { Flags } from "@oclif/core";
+import * as anchor from "@project-serum/anchor";
 import { SolanaWithSignerBaseCommand as BaseCommand } from "../../../solana";
 import { DockerOracle } from "../../../providers/docker";
-import { sleep } from "../../../utils";
-import { execSync } from "child_process";
+import { CHECK_ICON, sleep } from "../../../utils";
+import {
+  ChildProcess,
+  ChildProcessWithoutNullStreams,
+  exec,
+  execSync,
+  spawn,
+} from "child_process";
+import { Connection, Keypair } from "@solana/web3.js";
+import chalk from "chalk";
+import {
+  AnchorWallet,
+  SBV2_DEVNET_PID,
+  SwitchboardNetwork,
+  SwitchboardProgram,
+} from "@switchboard-xyz/solana.js";
+import fs from "fs";
+import path from "path";
 
 export default class SolanaValidatorUp extends BaseCommand {
   static description =
     "start a local solana validator with a switchboard environment and oracle running alongside it";
+
+  solanaChildProcess: ChildProcess | undefined = undefined;
+
+  docker: DockerOracle | undefined = undefined;
 
   static flags = {
     ...BaseCommand.flags,
@@ -74,12 +95,20 @@ export default class SolanaValidatorUp extends BaseCommand {
     }),
   };
 
+  async endProcesses() {
+    try {
+      if (this.solanaChildProcess) {
+        this.solanaChildProcess.kill();
+      }
+
+      if (this.docker) {
+        this.docker.stop();
+      }
+    } catch {}
+  }
+
   async run() {
     const { flags } = await this.parse(SolanaValidatorUp);
-
-    if (this.network !== "localnet") {
-      throw new Error(`This command can only be run with a localnet cluster`);
-    }
 
     try {
       const stdout = execSync(`solana --version`, { stdio: "pipe" });
@@ -99,26 +128,111 @@ export default class SolanaValidatorUp extends BaseCommand {
       return;
     }
 
-    const docker = new DockerOracle(
+    this.logger.info(`Starting a localnet Solana validator ...`);
+
+    fs.mkdirSync(path.join(".switchboard", "test-ledger"), { recursive: true });
+
+    this.solanaChildProcess = exec(
+      `solana-test-validator -q -r --ledger .switchboard/test-ledger --mint ${this.program.walletPubkey} --bind-address 0.0.0.0 --url https://api.devnet.solana.com --rpc-port 8899 --clone 2TfB33aLaneQb5TNVwyDz3jSZXS6jdW2ARw1Dgf84XCG --clone J4CArpsbrZqu1axqQ4AnrqREs3jwoyA1M5LMiQQmAzB9 --clone CKwZcshn4XDvhaWVH9EXnk3iu19t6t5xP2Sy2pD6TRDp --clone BYM81n8HvTJuqZU1PmTVcwZ9G8uoji7FKM6EaPkwphPt --clone FVLfR6C2ckZhbSwBzZY4CX7YBcddUSge5BNeGQv5eKhy`,
+      (error, stdout, stderr) => {
+        // if (error) {
+        //   console.error(`exec error: ${error}`);
+        //   return;
+        // }
+        // console.log(`stdout: ${stdout}`);
+        // console.error(`stderr: ${stderr}`);
+      }
+    );
+    this.solanaChildProcess.on("exit", () => {
+      this.solanaChildProcess = undefined;
+    });
+
+    await sleep(10_000);
+
+    this.logger.info(
+      `${chalk.green(CHECK_ICON)} Started localnet Solana validator`
+    );
+
+    const queueKeypair = flags.queueKeypair
+      ? await this.loadKeypair(flags.queueKeypair)
+      : Keypair.generate();
+
+    const oracleStakingKeypair = flags.oracleStakingWalletKeypair
+      ? await this.loadKeypair(flags.oracleStakingWalletKeypair)
+      : Keypair.generate();
+
+    const anchorProgram = new anchor.Program(
+      this.program.idl,
+      SBV2_DEVNET_PID,
+      new anchor.AnchorProvider(
+        new Connection("http://localhost:8899"),
+        new AnchorWallet(this.program.wallet.payer),
+        {}
+      )
+    );
+
+    const program = new SwitchboardProgram(
+      anchorProgram,
+      "localnet",
+      this.program.mint
+    );
+
+    this.logger.info(`Creating a localnet Switchboard network`);
+
+    const [network] = await SwitchboardNetwork.create(program, {
+      keypair: queueKeypair,
+      name: "Queue-1",
+      reward: Number.parseFloat(flags.reward ?? "0"),
+      minStake: Number.parseFloat(flags.minStake ?? "0"),
+      oracleTimeout: flags.oracleTimeout,
+      slashingEnabled: flags.slashingEnabled,
+      unpermissionedFeeds: !flags.permissionedFeeds,
+      unpermissionedVrf: flags.unpermissionedVrf,
+      enableBufferRelayers: flags.enableBufferRelayers,
+      oracles: [
+        {
+          name: "Oracle-1",
+          stakingWalletKeypair: oracleStakingKeypair,
+        },
+      ],
+    });
+    if (network.oracles.length === 0) {
+      throw new Error(`Failed to create the Switchboard oracle`);
+    }
+
+    const oracle = network.oracles[0];
+
+    this.logger.info(`${chalk.green(CHECK_ICON)} Switchboard network created`);
+    this.logger.info(`Queue: ${network.queue.account.publicKey}`);
+    this.logger.info(`Oracle: ${oracle.account.publicKey}`);
+
+    this.docker = new DockerOracle(
       {
         chain: "solana",
-        network: this.network,
-        rpcUrl: this.rpcUrl,
-        oracleKey: flags.oracleKey,
+        network: "localnet",
+        rpcUrl: "http://host.docker.internal:8899",
+        oracleKey: oracle.account.publicKey.toBase58(),
         secretPath: this.normalizePath(flags.keypair),
       },
       flags.nodeImage,
       flags.arm ? "linux/arm64" : "linux/amd64",
-      flags.switchboardDir,
+      undefined,
       flags.silent
     );
 
-    docker.start();
+    this.docker.start();
+
+    // await logs for event listeners
+
     await sleep(flags.timeout * 1000);
-    docker.stop();
+
+    this.logger.info(`Solana oracle complete, exiting`);
+
+    await this.endProcesses();
   }
 
   async catch(error) {
+    await this.endProcesses();
     super.catch(
       error,
       "Failed to start a localnet solana validator with the switchboard environment pre-loaded"

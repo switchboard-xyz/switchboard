@@ -163,7 +163,7 @@ export default class AggregatorCreate extends BaseCommand {
         crankPubkey: flags.crankKey ? new PublicKey(flags.crankKey) : undefined,
         // lease params
         fundAmount: Number(flags.leaseAmount),
-        funderTokenAccount: tokenWallet,
+        funderTokenWallet: tokenWallet,
         // permission params
         enable: flags.enable ?? false,
         queueAuthority: queueAuthority,

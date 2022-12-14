@@ -75,10 +75,10 @@ export default class LeaseCreate extends BaseCommand {
       this.program,
       this.payer,
       {
-        loadAmount: amount,
+        fundAmount: amount,
         aggregatorAccount,
         queueAccount,
-        funderTokenAccount: funder,
+        funderTokenWallet: funder,
         jobAuthorities: [],
       }
     );

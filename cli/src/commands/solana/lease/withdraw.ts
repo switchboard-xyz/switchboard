@@ -71,8 +71,8 @@ export default class AggregatorLeaseWithdraw extends BaseCommand {
       });
     if (!this.silent) {
       const [withdrawerBalance, leaseBalance] = await Promise.all([
-        this.program.mint.getBalance(tokenWallet),
-        this.program.mint.getBalance(leaseData.escrow),
+        this.program.mint.fetchBalance(tokenWallet),
+        this.program.mint.fetchBalance(leaseData.escrow),
       ]);
       this.logger.log(chalkString("Initial Lease Balance", leaseBalance, 24));
       this.logger.log(
@@ -89,7 +89,7 @@ export default class AggregatorLeaseWithdraw extends BaseCommand {
 
     if (!this.silent) {
       const [leaseBalance] = await Promise.all([
-        this.program.mint.getBalance(leaseData.escrow),
+        this.program.mint.fetchBalance(leaseData.escrow),
       ]);
       this.logger.log(chalkString("Final Lease Balance", leaseBalance, 24));
     }
