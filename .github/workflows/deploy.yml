@@ -28,6 +28,12 @@ jobs:
           cache: yarn
           cache-dependency-path: "**/yarn.lock"
 
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
+          cache: npm
+          cache-dependency-path: "**/package-lock.json"
+
       - name: Install sbv2-scripts
         working-directory: javascript/sbv2-scripts
         run: |
