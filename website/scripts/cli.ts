@@ -16,13 +16,13 @@ export function generateCliDocs(projectRoot: string) {
 
   // Generate Oclif documentation
   shell.cd(cliPath);
-  if (shell.exec(`npx oclif readme`).code !== 0) {
-    shell.echo(`Error: Oclif failed to generate documentation`);
-    shell.exit(1);
-  }
   if (
     shell.exec(`npx oclif readme --multi --dir ${cliOutRelPath}`).code !== 0
   ) {
+    shell.echo(`Error: Oclif failed to generate documentation`);
+    shell.exit(1);
+  }
+  if (shell.exec(`npx oclif readme`).code !== 0) {
     shell.echo(`Error: Oclif failed to generate documentation`);
     shell.exit(1);
   }

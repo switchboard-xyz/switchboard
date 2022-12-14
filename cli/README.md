@@ -1169,7 +1169,7 @@ DESCRIPTION
   Display help for sbv2.
 ```
 
-_See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v5.1.19/src/commands/help.ts)_
+_See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v5.1.20/src/commands/help.ts)_
 
 ## `sbv2 near aggregator add history [AGGREGATORADDRESS]`
 
@@ -4743,7 +4743,7 @@ EXAMPLES
     $ sbv2 update --available
 ```
 
-_See code: [@oclif/plugin-update](https://github.com/oclif/plugin-update/blob/v3.0.7/src/commands/update.ts)_
+_See code: [@oclif/plugin-update](https://github.com/oclif/plugin-update/blob/v3.0.8/src/commands/update.ts)_
 
 ## `sbv2 version`
 

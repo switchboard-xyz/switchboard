@@ -6,8 +6,9 @@ remove a switchboard job account from an aggregator
 
 ```asciidoc
 USAGE
-  $ sbv2 solana aggregator remove job [AGGREGATORKEY] [JOBKEY] [-h] [-v] [-s] [--mainnetBeta] [-u <value>] [--programId <value>]
-    [--commitment confirmed|finalized|processed] [-k <value>] [-a <value>]
+  $ sbv2 solana aggregator remove job [AGGREGATORKEY] [JOBKEY] [-h] [-v] [-s] [--mainnetBeta | --cluster
+    devnet|mainnet-beta|mainnet|localnet] [-u <value>] [--programId <value>] [--commitment
+    confirmed|finalized|processed] [-k <value>] [--ledgerPath <value> --ledger] [-a <value>]
 
 ARGUMENTS
   AGGREGATORKEY  public key of the aggregator account
@@ -21,14 +22,15 @@ FLAGS
   -s, --silent             suppress cli prompts
   -u, --rpcUrl=<value>     alternate RPC url
   -v, --verbose            log everything
+  --cluster=<option>       the solana cluster to connect to
+                           <options: devnet|mainnet-beta|mainnet|localnet>
   --commitment=<option>    [default: confirmed] transaction commitment level to use
                            <options: confirmed|finalized|processed>
+  --ledger                 enable ledger support
+  --ledgerPath=<value>     HID path to the ledger
   --mainnetBeta            WARNING: use mainnet-beta solana cluster
   --programId=<value>      alternative Switchboard program ID to interact with
 
 DESCRIPTION
   remove a switchboard job account from an aggregator
-
-EXAMPLES
-  $ sbv2 aggregator:remove:job
 ```

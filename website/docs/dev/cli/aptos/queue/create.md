@@ -24,7 +24,7 @@ FLAGS
   --metadata=<value>       metadata of the queue for easier identification
   --minStake=<value>       minimum stake required by an oracle to join the queue
   --name=<value>           name of the queue for easier identification
-  --networkId=<option>     [default: devnet] Aptos network to connect to
+  --networkId=<option>     [default: testnet] Aptos network to connect to
                            <options: devnet|testnet|mainnet>
   --new                    create account at new AptosAccount with authority set to --account
   --oracleTimeout=<value>  [default: 180] number of oracles to add to the queue

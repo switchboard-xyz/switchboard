@@ -20,7 +20,7 @@ FLAGS
   --aggregator=<value>   HexString of  the aggregator address to create a permission for
   --enable               whether to enable the permissions after creation
   --keypair=<value>      (required) Path to AptosAccount keypair or config.yaml file
-  --networkId=<option>   [default: devnet] Aptos network to connect to
+  --networkId=<option>   [default: testnet] Aptos network to connect to
                          <options: devnet|testnet|mainnet>
   --oracle=<value>       HexString of  the aggregator address to create a permission for
   --profileName=<value>  [default: default] If --keypair is pointing to a yaml file, provide an optional profile to

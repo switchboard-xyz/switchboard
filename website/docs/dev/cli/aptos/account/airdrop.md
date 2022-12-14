@@ -16,7 +16,7 @@ FLAGS
   -u, --rpcUrl=<value>  alternate RPC url
   -v, --verbose         log everything
   --address=<value>     (required) HexString address of account to fund
-  --networkId=<option>  [default: devnet] Aptos network to connect to
+  --networkId=<option>  [default: testnet] Aptos network to connect to
                         <options: devnet|testnet|mainnet>
   --programId=<value>   Switchboard programId on the selected Aptos network
 

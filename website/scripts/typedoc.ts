@@ -2,16 +2,33 @@ import shell from "shelljs";
 import fs from "fs";
 import path from "path";
 
-function generateTypedoc(entryPoint: string, relativeOutputPath: string) {
-  if (
-    shell.exec(
-      `yarn install && yarn build && typedoc ${entryPoint} --out ${relativeOutputPath} --githubPages --cleanOutputDir`
-    ).code !== 0
-  ) {
-    shell.echo(
-      `Error: Typedoc failed to generate documentation for ${relativeOutputPath}`
-    );
-    shell.exit(1);
+function generateTypedoc(
+  entryPoint: string,
+  relativeOutputPath: string,
+  fileManager: "yarn" | "npm" = "yarn"
+) {
+  if (fileManager === "yarn") {
+    if (
+      shell.exec(
+        `yarn install && yarn build && typedoc ${entryPoint} --out ${relativeOutputPath} --githubPages --cleanOutputDir`
+      ).code !== 0
+    ) {
+      shell.echo(
+        `Error: Typedoc failed to generate documentation for ${relativeOutputPath}`
+      );
+      shell.exit(1);
+    }
+  } else {
+    if (
+      shell.exec(
+        `npm install && npm run build && typedoc ${entryPoint} --out ${relativeOutputPath} --githubPages --cleanOutputDir`
+      ).code !== 0
+    ) {
+      shell.echo(
+        `Error: Typedoc failed to generate documentation for ${relativeOutputPath}`
+      );
+      shell.exit(1);
+    }
   }
 }
 
@@ -19,6 +36,7 @@ export function generateGenericApiTypedocs(
   projectRoot: string,
   modulePaths: string[],
   outputPaths: string[],
+  fileManager: "yarn" | "npm" = "yarn",
   entry = "./src/index.ts"
 ) {
   const currentWorkingDir = process.cwd();
@@ -36,7 +54,7 @@ export function generateGenericApiTypedocs(
 
   shell.cd(sdkPath);
 
-  generateTypedoc(entry, sdkDocsRelativeOutputPath);
+  generateTypedoc(entry, sdkDocsRelativeOutputPath, fileManager);
 
   shell.cd(currentWorkingDir);
 }

@@ -20,7 +20,7 @@ FLAGS
   -v, --verbose                 log everything
   --arm                         apple silicon needs to use a docker image for linux/arm64
   --keypair=<value>             (required) Path to AptosAccount keypair or config.yaml file
-  --networkId=<option>          [default: devnet] Aptos network to connect to
+  --networkId=<option>          [default: testnet] Aptos network to connect to
                                 <options: devnet|testnet|mainnet>
   --nodeImage=<value>           [default: dev-v2-10-18-22] public key of the oracle to start-up
   --profileName=<value>         [default: default] If --keypair is pointing to a yaml file, provide an optional profile

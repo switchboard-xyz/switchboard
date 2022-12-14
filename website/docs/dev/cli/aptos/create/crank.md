@@ -22,7 +22,7 @@ FLAGS
   --maxRows=<value>      [default: 100] maximum number of rows on the crank
   --metadata=<value>     metadata of the queue for easier identification
   --name=<value>         name of the queue for easier identification
-  --networkId=<option>   [default: devnet] Aptos network to connect to
+  --networkId=<option>   [default: testnet] Aptos network to connect to
                          <options: devnet|testnet|mainnet>
   --new                  create account at new AptosAccount with authority set to --account
   --profileName=<value>  [default: default] If --keypair is pointing to a yaml file, provide an optional profile to

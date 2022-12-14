@@ -30,7 +30,7 @@ FLAGS
   --minJobs=<value>            number of jobs that must respond before an oracle responds
   --minOracles=<value>         number of oracles that must respond before a value is accepted on-chain
   --name=<value>               name of the aggregator for easier identification
-  --networkId=<option>         [default: devnet] Aptos network to connect to
+  --networkId=<option>         [default: testnet] Aptos network to connect to
                                <options: devnet|testnet|mainnet>
   --new                        create account at new AptosAccount with authority set to --account
   --profileName=<value>        [default: default] If --keypair is pointing to a yaml file, provide an optional profile

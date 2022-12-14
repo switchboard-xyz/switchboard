@@ -31,8 +31,8 @@ jobs:
       - name: Install sbv2-scripts
         working-directory: javascript/sbv2-scripts
         run: |
-          yarn install --frozen-lockfile --network-timeout=1000000
-          yarn link
+          npm install
+          npm link
 
       - name: Install @switchboard-xyz/cli dependencies
         working-directory: cli
@@ -49,7 +49,7 @@ jobs:
       - name: Install @switchboard-xyz/common dependencies
         working-directory: javascript/common
         run: |
-          yarn install --frozen-lockfile --network-timeout=1000000
+          npm install
 
       - name: Install @switchboard-xyz/aptos.js dependencies
         working-directory: sdks/aptos
@@ -64,22 +64,22 @@ jobs:
       - name: Install @switchboard-xyz/switchboard-v2 dependencies
         working-directory: sdks/solana/javascript/switchboard-v2
         run: |
-          yarn install --frozen-lockfile --network-timeout=1000000
+          npm install
 
       - name: Install @switchboard-xyz/solana.js dependencies
         working-directory: sdks/solana/javascript/solana.js
         run: |
-          yarn install --frozen-lockfile --network-timeout=1000000
+          npm install
 
       - name: Install @switchboard-xyz/sbv2-lite dependencies
         working-directory: sdks/solana/javascript/sbv2-lite
         run: |
-          yarn install --frozen-lockfile --network-timeout=1000000
+          npm install
 
       - name: Install @switchboard-xyz/sbv2-utils dependencies
         working-directory: sdks/solana/javascript/sbv2-utils
         run: |
-          yarn install --frozen-lockfile --network-timeout=1000000
+          npm install
 
       - name: Build website
         working-directory: website

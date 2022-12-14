@@ -2,32 +2,31 @@
 
 title: Print
 ---
-print deserialized switchboard crank account
+print a crank
 
 ```asciidoc
 USAGE
-  $ sbv2 solana crank print [CRANKKEY] [-h] [-v] [-s] [--mainnetBeta] [-u <value>] [--programId <value>] [--commitment
-    confirmed|finalized|processed]
+  $ sbv2 solana crank print [CRANKKEY] [-h] [-v] [-s] [--mainnetBeta | --cluster devnet|mainnet-beta|mainnet|localnet]
+    [-u <value>] [--programId <value>] [--commitment confirmed|finalized|processed] [--json]
 
 ARGUMENTS
-  CRANKKEY  public key of the crank account to deserialize
+  CRANKKEY  public key of the crank account
 
 FLAGS
   -h, --help             Show CLI help.
   -s, --silent           suppress cli prompts
   -u, --rpcUrl=<value>   alternate RPC url
   -v, --verbose          log everything
+  --cluster=<option>     the solana cluster to connect to
+                         <options: devnet|mainnet-beta|mainnet|localnet>
   --commitment=<option>  [default: confirmed] transaction commitment level to use
                          <options: confirmed|finalized|processed>
   --mainnetBeta          WARNING: use mainnet-beta solana cluster
   --programId=<value>    alternative Switchboard program ID to interact with
 
+GLOBAL FLAGS
+  --json  Format output as json.
+
 DESCRIPTION
-  print deserialized switchboard crank account
-
-ALIASES
-  $ sbv2 solana crank print
-
-EXAMPLES
-  $ sbv2 crank:print 85L2cFUvXaeGQ4HrzP8RJEVCL7WvRrXM2msvEmQ82AVr
+  print a crank
 ```

@@ -25,7 +25,7 @@ FLAGS
   --keypair=<value>        (required) Path to AptosAccount keypair or config.yaml file
   --metadata=<value>       metadata of the job account
   --name=<value>           name of the job account
-  --networkId=<option>     [default: devnet] Aptos network to connect to
+  --networkId=<option>     [default: testnet] Aptos network to connect to
                            <options: devnet|testnet|mainnet>
   --profileName=<value>    [default: default] If --keypair is pointing to a yaml file, provide an optional profile to
                            load. If none provided, default will be used

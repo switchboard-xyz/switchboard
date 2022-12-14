@@ -160,9 +160,9 @@ class CliCommand {
 
         fs.writeFileSync(
           path.join(topicDir, "_category_.json"),
-          `{"label": "${topic[0].toUpperCase() + topic.slice(1)}","position": ${
-            i + 1
-          }0}`
+          `{"label": "${
+            (topic[0] ?? "").toUpperCase() + topic.slice(1)
+          }","position": ${i + 1}0}`
         );
 
         //         fs.writeFileSync(

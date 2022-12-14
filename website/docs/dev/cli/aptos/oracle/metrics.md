@@ -17,7 +17,7 @@ FLAGS
   -s, --silent          suppress cli prompts
   -u, --rpcUrl=<value>  alternate RPC url
   -v, --verbose         log everything
-  --networkId=<option>  [default: devnet] Aptos network to connect to
+  --networkId=<option>  [default: testnet] Aptos network to connect to
                         <options: devnet|testnet|mainnet>
   --programId=<value>   Switchboard programId on the selected Aptos network
 

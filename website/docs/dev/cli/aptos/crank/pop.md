@@ -18,7 +18,7 @@ FLAGS
   -u, --rpcUrl=<value>   alternate RPC url
   -v, --verbose          log everything
   --keypair=<value>      (required) Path to AptosAccount keypair or config.yaml file
-  --networkId=<option>   [default: devnet] Aptos network to connect to
+  --networkId=<option>   [default: testnet] Aptos network to connect to
                          <options: devnet|testnet|mainnet>
   --profileName=<value>  [default: default] If --keypair is pointing to a yaml file, provide an optional profile to
                          load. If none provided, default will be used

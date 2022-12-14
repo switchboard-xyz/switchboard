@@ -19,7 +19,8 @@ const projectRoot = path.join(__dirname, "..", "..");
   generateGenericApiTypedocs(
     projectRoot,
     ["javascript", "common"],
-    ["@switchboard-xyz", "common"]
+    ["@switchboard-xyz", "common"],
+    "npm"
   );
 
   console.log(chalk.green(`Generating typedocs for @switchboard-xyz/aptos.js`));
@@ -42,7 +43,8 @@ const projectRoot = path.join(__dirname, "..", "..");
   generateGenericApiTypedocs(
     projectRoot,
     ["sdks", "solana", "javascript", "switchboard-v2"],
-    ["@switchboard-xyz", "switchboard-v2"]
+    ["@switchboard-xyz", "switchboard-v2"],
+    "npm"
   );
 
   console.log(
@@ -51,7 +53,8 @@ const projectRoot = path.join(__dirname, "..", "..");
   generateGenericApiTypedocs(
     projectRoot,
     ["sdks", "solana", "javascript", "solana.js"],
-    ["@switchboard-xyz", "solana.js"]
+    ["@switchboard-xyz", "solana.js"],
+    "npm"
   );
 
   console.log(
@@ -60,7 +63,8 @@ const projectRoot = path.join(__dirname, "..", "..");
   generateGenericApiTypedocs(
     projectRoot,
     ["sdks", "solana", "javascript", "sbv2-lite"],
-    ["@switchboard-xyz", "sbv2-lite"]
+    ["@switchboard-xyz", "sbv2-lite"],
+    "npm"
   );
 
   console.log(
@@ -69,7 +73,8 @@ const projectRoot = path.join(__dirname, "..", "..");
   generateGenericApiTypedocs(
     projectRoot,
     ["sdks", "solana", "javascript", "sbv2-utils"],
-    ["@switchboard-xyz", "sbv2-utils"]
+    ["@switchboard-xyz", "sbv2-utils"],
+    "npm"
   );
 
   console.log(chalk.green(`Generating documentation for @switchboard-xyz/cli`));
