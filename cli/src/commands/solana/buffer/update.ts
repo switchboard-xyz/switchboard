@@ -1,17 +1,20 @@
 import { PublicKey } from "@solana/web3.js";
-import { AggregatorAccount } from "@switchboard-xyz/solana.js";
+import {
+  AggregatorAccount,
+  BufferRelayerAccount,
+} from "@switchboard-xyz/solana.js";
 import chalk from "chalk";
 import { SolanaWithSignerBaseCommand as BaseCommand } from "../../../solana";
 import { AggregatorIllegalRoundOpenCall } from "../../../types";
 import { CHECK_ICON } from "../../../utils";
 
-export default class AggregatorUpdate extends BaseCommand {
-  static description = "request a new aggregator result from a set of oracles";
+export default class BufferRelayerUpdate extends BaseCommand {
+  static description = "request a new buffer relayer result";
 
-  static aliases = ["solana:aggregator:open-round"];
+  static aliases = ["solana:buffer:open-round"];
 
   static examples = [
-    "$ sbv2 solana aggregator update J7j9xX8JP2B2ErvUzuqGAKBGeggsxPyFXj5MqZcYDxfa --keypair ../payer-keypair.json",
+    "$ sbv2 solana buffer update J7j9xX8JP2B2ErvUzuqGAKBGeggsxPyFXj5MqZcYDxfa --keypair ../payer-keypair.json",
   ];
 
   static flags = {
@@ -20,7 +23,7 @@ export default class AggregatorUpdate extends BaseCommand {
 
   static args = [
     {
-      name: "aggregatorKey",
+      name: "bufferRelayerKey",
       description:
         "public key of the aggregator account to request an update for",
       require: true,
@@ -28,14 +31,26 @@ export default class AggregatorUpdate extends BaseCommand {
   ];
 
   async run() {
-    const { args } = await this.parse(AggregatorUpdate);
+    const { args } = await this.parse(BufferRelayerUpdate);
 
-    const [aggregatorAccount, aggregator] = await AggregatorAccount.load(
-      this.program,
-      args.aggregatorKey
+    const [bufferRelayerAccount, bufferRelayer] =
+      await BufferRelayerAccount.load(this.program, args.bufferRelayerKey);
+
+    const [payerTokenWallet, wrapTxn] =
+      await this.program.mint.getOrCreateWrappedUserInstructions(
+        this.payer,
+        { fundUpTo: 0.0002 } // TODO: Calculate the real value
+      );
+
+    const updateTxn = await bufferRelayerAccount.openRoundInstructions(
+      this.payer,
+      {
+        tokenWallet: payerTokenWallet,
+        bufferRelayer,
+      }
     );
 
-    const txn = await aggregatorAccount.openRoundInstruction(this.payer, {});
+    const txn = wrapTxn ? wrapTxn.combine(updateTxn) : updateTxn;
 
     const signature = await this.signAndSend(txn);
 

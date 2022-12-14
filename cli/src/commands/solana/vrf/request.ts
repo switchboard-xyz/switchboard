@@ -8,6 +8,8 @@ import { CHECK_ICON } from "../../../utils";
 export default class VrfRequest extends BaseCommand {
   static description = "request a new vrf result from a set of oracles";
 
+  static aliases = ["solana:vrf:update", "solana:vrf:open-round"];
+
   static examples = ["$ sbv2 solana vrf request"];
 
   static flags = {

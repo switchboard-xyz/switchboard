@@ -2761,10 +2761,10 @@
     wait-for-event "^2.0.1"
     ws "^8.10.0"
 
-"@switchboard-xyz/solana.js@^2.0.50":
-  version "2.0.50"
-  resolved "https://registry.npmjs.org/@switchboard-xyz/solana.js/-/solana.js-2.0.50.tgz#5dd8f14b2bd172f860ed924f62f0eece9bedc26c"
-  integrity sha512-L6UJY/LdEO/ezqa7sfmKrWUK8bO9r0QqRuSlpb/elxnPtFiIHwjf+JYe0crSPsp3EZpMphRClHTwM1a8DTixbA==
+"@switchboard-xyz/solana.js@^2.0.51":
+  version "2.0.51"
+  resolved "https://registry.npmjs.org/@switchboard-xyz/solana.js/-/solana.js-2.0.51.tgz#7bce2b5ad107750238b2fb50dc629ad350a09f65"
+  integrity sha512-kdeU2PZEcelJKqDStVH5aoM0upgblby8sATAJvqIOg30+VV1oMIRCt6NY0XBaMERvsUYv3pKgd5nODTFMAlVHg==
   dependencies:
     "@project-serum/anchor" "^0.25.0"
     "@project-serum/borsh" "^0.2.5"
