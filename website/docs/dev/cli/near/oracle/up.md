@@ -1,6 +1,6 @@
 ---
 
-title: Up
+title: UP
 ---
 start a near docker oracle
 

@@ -2,6 +2,8 @@ import { ProgramStateAccount } from "@switchboard-xyz/solana.js";
 import { SolanaWithSignerBaseCommand as BaseCommand } from "../../solana";
 
 export default class ProgramInit extends BaseCommand {
+  static hidden = true;
+
   static enableJsonFlag = true;
 
   static description = "get or create the program state";

@@ -1,6 +1,6 @@
 ---
 
-title: Up
+title: UP
 ---
 start an aptos docker oracle
 

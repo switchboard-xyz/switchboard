@@ -1,6 +1,6 @@
 ---
 
-title: Up
+title: UP
 ---
 start a local solana validator with a switchboard environment and oracle running alongside it
 

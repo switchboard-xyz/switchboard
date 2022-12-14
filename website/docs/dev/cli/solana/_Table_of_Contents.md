@@ -1,5 +1,3 @@
-## sbv2 solana 
- - [sbv2 solana  index](/dev/cli/solana//)
 ## sbv2 solana aggregator
  - [sbv2 solana aggregator add history](/dev/cli/solana/aggregator/add_history)
  - [sbv2 solana aggregator add job](/dev/cli/solana/aggregator/add_job)

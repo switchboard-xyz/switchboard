@@ -3,6 +3,11 @@ import fs from "fs";
 import fse from "fs-extra";
 import path from "path";
 
+const toTitleCase = (str: string) =>
+  str.length > 2
+    ? str[0].toUpperCase() + str.slice(1).toLowerCase()
+    : str.toUpperCase();
+
 export function cli(cliReadmePath: string, outputDirectory: string) {
   const cliReadme =
     cliReadmePath.startsWith("/") ||
@@ -140,9 +145,7 @@ class CliCommand {
 
     fs.writeFileSync(
       path.join(chainDir, "_category_.json"),
-      `{"label": "${
-        chain[0].toUpperCase() + chain.slice(1)
-      }","position": ${index}}`
+      `{"label": "${toTitleCase(chain)}","position": ${index}}`
     );
 
     const toc: string[] = [];
@@ -151,18 +154,18 @@ class CliCommand {
 
     Object.entries(commands)
       .sort((a, b) => a[0].localeCompare(b[0]))
-      .forEach((a, i) => {
+      .forEach(([topic, commands], i) => {
         // for each topic, write the commands, __category__.json, and overview table of contents
-        const topic = a[0];
+        if (!topic) {
+          return;
+        }
         const topicDir = path.join(chainDir, topic);
         fse.emptyDirSync(topicDir);
         fs.mkdirSync(topicDir, { recursive: true });
 
-        const label = topic ? topic[0].toUpperCase() + topic.slice(1) : "/";
-
         fs.writeFileSync(
           path.join(topicDir, "_category_.json"),
-          `{"label": "${label}","position": ${i + 1}0}`
+          `{"label": "${toTitleCase(topic)}","position": ${i + 1}0}`
         );
 
         //         fs.writeFileSync(
@@ -174,7 +177,7 @@ class CliCommand {
 
         toc.push(`## sbv2 ${chain} ${topic}`);
 
-        a[1].forEach((c, i) => {
+        commands.forEach((c, i) => {
           toc.push(
             ` - [sbv2 ${chain} ${topic} ${
               c.cmd
@@ -185,7 +188,7 @@ class CliCommand {
           const commandName = c.cmd
             .toLowerCase()
             .split(" ")
-            .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+            .map(toTitleCase)
             .join(" ");
 
           const fileName = path.join(

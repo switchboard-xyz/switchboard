@@ -3,7 +3,7 @@ import { BN } from "@project-serum/anchor";
 import { PublicKey } from "@solana/web3.js";
 import { SwitchboardDecimal } from "@switchboard-xyz/common";
 import { AggregatorAccount, types } from "@switchboard-xyz/solana.js";
-import { SolanaWithoutSignerBaseCommand as BaseCommand } from "../../solana";
+import { SolanaWithoutSignerBaseCommand as BaseCommand } from "../solana/index";
 
 export default class SandboxCommand extends BaseCommand {
   static description = "sandbox";

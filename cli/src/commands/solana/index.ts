@@ -29,6 +29,7 @@ function toArray<
 
 export default class Solana extends BaseCommand {
   // static enableJsonFlag = true; // string is too long
+  static hidden = true;
 
   static description = "fetch the Switchboard program accounts on Solana";
 
