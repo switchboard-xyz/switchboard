@@ -1,11 +1,6 @@
 import { Flags } from "@oclif/core";
 import { AptosWithSignerBaseCommand as BaseCommand } from "../../../aptos";
-import {
-  OracleAccount,
-  OracleQueueAccount,
-  Permission,
-} from "@switchboard-xyz/aptos.js";
-import { AptosAccount, HexString } from "aptos";
+import { createOracle, Permission } from "@switchboard-xyz/aptos.js";
 
 export default class CreateOracle extends BaseCommand {
   static enableJsonFlag = true;
@@ -45,17 +40,10 @@ export default class CreateOracle extends BaseCommand {
 
     const [queue, queueData] = await this.loadQueue(args.queueHexString);
 
-    let account: AptosAccount;
-    if (flags.new) {
-      account = new AptosAccount();
-      // await this.faucet.fundAccount(account.address(), 100000);
-    } else {
-      account = this.signer;
-    }
-
-    const [oracleAccount, sig1] = await OracleAccount.init(
+    const account = flags.new ? this.program.newAccount : this.signer;
+    const [oracleAccount, sig1] = await createOracle(
       this.aptos,
-      account,
+      this.signer,
       {
         authority: flags.authority
           ? this.parseAddress(flags.authority)
@@ -65,35 +53,23 @@ export default class CreateOracle extends BaseCommand {
         metadata: flags.metadata || "",
         coinType: "0x1::aptos_coin::AptosCoin",
       },
-      this.programId
+      this.programId.toString()
     );
+
     this.logger.info(`Oracle HexString: ${oracleAccount.address}`);
     this.logger.info(this.toUrl(sig1));
     const oracleData = await oracleAccount.loadData();
 
-    const [permissionAccount, sig2] = await Permission.init(
-      this.aptos,
-      account,
-      {
-        authority: queueData.authority,
-        granter: queue.address,
-        grantee: oracleAccount.address,
-      },
-      this.programId
-    );
-    this.logger.info(this.toUrl(sig1));
-
     if (flags.json) {
-      return this.normalizeAccountData(oracleAccount.address, {
+      return this.normalizeAccountData(oracleAccount.address.toString(), {
         ...oracleData,
         permission: undefined,
       });
     }
 
     this.logger.info(
-      this.normalizeAccountData(oracleAccount.address, oracleData)
+      this.normalizeAccountData(oracleAccount.address.toString(), oracleData)
     );
-    this.logger.info(this.toUrl(sig2));
   }
 
   async catch(error) {

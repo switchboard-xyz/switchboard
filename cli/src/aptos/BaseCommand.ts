@@ -1,13 +1,7 @@
 import { Flags } from "@oclif/core";
 import { Input } from "@oclif/parser";
 import { CliBaseCommand as BaseCommand } from "../BaseCommand";
-import {
-  AptosAccount,
-  AptosClient,
-  FaucetClient,
-  HexString,
-  MaybeHexString,
-} from "aptos";
+import { AptosAccount, AptosClient, HexString, MaybeHexString } from "aptos";
 import { AwsProvider, FsProvider, GcpProvider } from "../providers";
 import YAML from "yaml";
 import fs from "fs";
@@ -24,6 +18,8 @@ import {
   OracleQueueAccount,
   StateAccount,
   TESTNET_PROGRAM_ID,
+  SwitchboardProgram,
+  getProgramId,
 } from "@switchboard-xyz/aptos.js";
 import { OracleJob, SwitchboardDecimal } from "@switchboard-xyz/common";
 import { isBN } from "bn.js";
@@ -58,7 +54,9 @@ export abstract class AptosBaseCommand
 
   public programId: HexString;
 
-  public aptos: AptosClient;
+  public program: SwitchboardProgram;
+
+  // public aptos: AptosClient;
 
   // public faucet: FaucetClient;
 
@@ -71,13 +69,10 @@ export abstract class AptosBaseCommand
 
     this.networkId = this.getNetwork((flags as any).networkId);
     this.rpcUrl = this.getRpcUrl(this.networkId, (flags as any).rpcUrl);
-    this.programId = this.getProgramId(
-      this.networkId,
-      (flags as any).programId
-    );
+    this.programId = getProgramId(this.networkId, (flags as any).programId);
     this.stateAddress = this.programId;
 
-    this.aptos = new AptosClient(this.rpcUrl);
+    // this.aptos = new AptosClient(this.rpcUrl);
     // this.faucet = new FaucetClient(
     //   this.rpcUrl,
     //   `https://faucet.${this.networkId}.aptoslabs.com`
@@ -89,6 +84,10 @@ export abstract class AptosBaseCommand
       pid: this.programId.hex(),
       state: this.stateAddress.hex(),
     });
+  }
+
+  get aptos() {
+    return this.program.client;
   }
 
   getNetwork(networkIdFlag: string): AptosNetwork {
@@ -103,22 +102,8 @@ export abstract class AptosBaseCommand
     return networkIdFlag;
   }
 
-  getProgramId(networkId: string, programId?: string): HexString {
-    if (programId) {
-      return HexString.ensure(programId);
-    }
-    switch (networkId) {
-      case "mainnet":
-        return HexString.ensure(MAINNET_PROGRAM_ID);
-      case "testnet":
-        return HexString.ensure(TESTNET_PROGRAM_ID);
-      case "devnet":
-        return HexString.ensure(DEVNET_PROGRAM_ID);
-      default:
-        throw new Error(
-          `Failed to find Aptos ProgramID. Try passing in --programId instead`
-        );
-    }
+  getProgramId(networkId: AptosNetwork, programId?: string): HexString {
+    return getProgramId(networkId, programId);
   }
 
   getRpcUrl(networkId: AptosNetwork, rpcUrlFlag?: string): string {
@@ -135,7 +120,7 @@ export abstract class AptosBaseCommand
     return rpcUrl;
   }
 
-  normalizeAccountData(address: MaybeHexString, data: any) {
+  normalizeAccountData(address: MaybeHexString | string, data: any) {
     return JSON.parse(
       JSON.stringify(
         { address: address.toString(), ...data },
@@ -164,22 +149,26 @@ export abstract class AptosBaseCommand
         .replace(/\s/g, "");
       const bytesRegex = /^\[(\s)?[0-9]+((\s)?,(\s)?[0-9]+){31,}\]/g;
       if (bytesRegex.test(parsedFileString)) {
-        return new AptosAccount(new Uint8Array(JSON.parse(parsedFileString)));
+        return SwitchboardProgram.getAccount(
+          new Uint8Array(JSON.parse(parsedFileString))
+        ) as any;
       }
 
       // check if hex
       const hexRegex = /^(0x|0X)?[a-fA-F0-9]{64}/g;
       if (hexRegex.test(parsedFileString)) {
-        return new AptosAccount(this.hexStringToBytes(parsedFileString));
+        return SwitchboardProgram.getAccount(
+          this.hexStringToBytes(parsedFileString)
+        ) as any;
       }
 
       // check if base64 encoded
       const base64Regex =
         /^(?:[A-Za-z\d+\/]{4})*(?:[A-Za-z\d+\/]{3}=|[A-Za-z\d+\/]{2}==)?/g;
       if (base64Regex.test(parsedFileString)) {
-        return new AptosAccount(
+        return SwitchboardProgram.getAccount(
           new Uint8Array(Buffer.from(parsedFileString, "base64"))
-        );
+        ) as any;
       }
 
       throw new Error(`Failed to derive secret key from input file`);
@@ -323,9 +312,9 @@ export abstract class AptosBaseCommand
     queueHexString: string
   ): Promise<[OracleQueueAccount, types.OracleQueue]> {
     const account = new OracleQueueAccount(
-      this.aptos,
-      this.parseAddress(queueHexString),
-      this.programId
+      this.program.client,
+      this.parseAddress(queueHexString).toString(),
+      this.programId.toString()
     );
     const data = await account.loadData();
 
@@ -336,9 +325,9 @@ export abstract class AptosBaseCommand
     aggregatorHexString: string
   ): Promise<[AggregatorAccount, types.Aggregator]> {
     const account = new AggregatorAccount(
-      this.aptos,
-      this.parseAddress(aggregatorHexString),
-      this.programId
+      this.program.client,
+      this.parseAddress(aggregatorHexString).toString(),
+      this.programId.toString()
     );
     const data = await account.loadData();
 
@@ -349,9 +338,9 @@ export abstract class AptosBaseCommand
     crankHexString: string
   ): Promise<[CrankAccount, types.Crank]> {
     const account = new CrankAccount(
-      this.aptos,
-      this.parseAddress(crankHexString),
-      this.programId
+      this.program.client,
+      this.parseAddress(crankHexString).toString(),
+      this.programId.toString()
     );
     const data = await account.loadData();
 
@@ -362,10 +351,10 @@ export abstract class AptosBaseCommand
     oracleHexString: string
   ): Promise<[OracleAccount, types.Oracle]> {
     const account = new OracleAccount(
-      this.aptos,
-      this.parseAddress(oracleHexString),
-      this.programId
-    );
+      this.program.client,
+      this.parseAddress(oracleHexString).toString(),
+      this.programId.toString()
+    ) as any;
     const data = await account.loadData();
 
     return [account, data];
@@ -375,9 +364,9 @@ export abstract class AptosBaseCommand
     jobHexString: string
   ): Promise<[JobAccount, types.Job, OracleJob]> {
     const account = new JobAccount(
-      this.aptos,
-      this.parseAddress(jobHexString),
-      this.programId
+      this.program.client,
+      this.parseAddress(jobHexString).toString(),
+      this.programId.toString()
     );
     const data = await account.loadData();
 
@@ -388,10 +377,10 @@ export abstract class AptosBaseCommand
 
   async loadState(): Promise<[StateAccount, any]> {
     const account = new StateAccount(
-      this.aptos,
-      this.stateAddress,
-      new AptosAccount(),
-      this.programId
+      this.program.client,
+      this.stateAddress.toString(),
+      this.program.newAccount,
+      this.programId.toString()
     );
     const data = await account.loadData();
 

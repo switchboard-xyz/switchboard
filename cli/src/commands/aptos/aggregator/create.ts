@@ -2,7 +2,11 @@ import { Flags } from "@oclif/core";
 import { AptosWithSignerBaseCommand as BaseCommand } from "../../../aptos";
 import Big from "big.js";
 import { OracleJob } from "@switchboard-xyz/common";
-import { AggregatorAccount, JobAccount } from "@switchboard-xyz/aptos.js";
+import {
+  AggregatorAccount,
+  JobAccount,
+  SwitchboardProgram,
+} from "@switchboard-xyz/aptos.js";
 import { AptosAccount } from "aptos";
 
 export default class CreateAggregator extends BaseCommand {
@@ -78,7 +82,7 @@ export default class CreateAggregator extends BaseCommand {
     const jobs: [JobAccount, string][] = flags.job
       ? await Promise.all(
           flags.job.map(async (jobDefinition) => {
-            const jobPayer = new AptosAccount();
+            const jobPayer = SwitchboardProgram.getAccount();
             // await this.faucet.fundAccount(jobPayer.address(), 10000);
             const oracleJob = this.loadJobDefinition(jobDefinition);
             const oracleJobData = Buffer.from(
@@ -96,21 +100,14 @@ export default class CreateAggregator extends BaseCommand {
                   : this.signer.address(),
                 data: oracleJobData.toString("hex"),
               },
-              this.programId
+              this.programId.toString()
             );
 
             return jobAccount;
           })
         )
       : [];
-
-    let account: AptosAccount;
-    if (flags.new) {
-      account = new AptosAccount();
-      // await this.faucet.fundAccount(account.address(), 10000);
-    } else {
-      account = this.signer;
-    }
+    const account = flags.new ? this.program.newAccount : this.signer;
 
     const [aggregatorAccount, aggSig] = await AggregatorAccount.init(
       this.aptos,
@@ -130,7 +127,7 @@ export default class CreateAggregator extends BaseCommand {
         coinType: "0x1::aptos_coin::AptosCoin",
         crankAddress: flags.crankAddress ?? "0x0",
       },
-      this.programId
+      this.programId.toString()
     );
     const accountData = await aggregatorAccount.loadData();
 
@@ -170,7 +167,7 @@ export default class CreateAggregator extends BaseCommand {
     );
 
     if (flags.json) {
-      return this.normalizeAccountData(aggregatorAccount.address, {
+      return this.normalizeAccountData(aggregatorAccount.address.toString(), {
         ...accountData,
         jobs: fullJobsData,
       });
@@ -178,7 +175,7 @@ export default class CreateAggregator extends BaseCommand {
 
     this.logger.info(`Aggregator HexString: ${aggregatorAccount.address}`);
     this.logger.info(
-      this.normalizeAccountData(aggregatorAccount.address, {
+      this.normalizeAccountData(aggregatorAccount.address.toString(), {
         ...accountData,
         jobs: fullJobsData,
       })

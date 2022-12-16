@@ -46,11 +46,7 @@ export function pqPop<T extends ICrankRow>(crankData: Array<T>): T | null {
 
 export function pqSort<
   T extends ICrankRow &
-    (
-      | { pubkey: PublicKey }
-      | { uuid: Uint8Array }
-      | { aggregatorAddr: HexString }
-    )
+    ({ pubkey: PublicKey } | { uuid: Uint8Array } | { aggregatorAddr: string })
 >(pqData: Array<T>): Array<T> {
   const sorted: T[] = [];
 

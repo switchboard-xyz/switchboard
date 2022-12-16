@@ -6,6 +6,7 @@ import {
   JobAccount,
   OracleAccount,
   OracleQueueAccount,
+  SwitchboardProgram,
 } from "@switchboard-xyz/aptos.js";
 import { OracleJob } from "@switchboard-xyz/common";
 
@@ -59,13 +60,7 @@ export default class JobCreate extends BaseCommand {
 
     const [queue, queueData] = await this.loadQueue(args.queueHexString);
 
-    let account: AptosAccount;
-    if (flags.new) {
-      account = new AptosAccount();
-      // await this.faucet.fundAccount(account.address(), 5000);
-    } else {
-      account = this.signer;
-    }
+    const account = flags.new ? this.program.newAccount : this.signer;
 
     const [job, sig] = await JobAccount.init(
       this.aptos,
@@ -81,7 +76,7 @@ export default class JobCreate extends BaseCommand {
         ).toString(),
         weight: flags.weight || 1,
       },
-      this.programId
+      this.programId.toString()
     );
     const jobData = await job.loadData();
 

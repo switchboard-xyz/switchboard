@@ -1,7 +1,11 @@
 import { Flags } from "@oclif/core";
 import { AptosWithSignerBaseCommand as BaseCommand } from "../../../../aptos";
 import { OracleJob } from "@switchboard-xyz/common";
-import { AggregatorAccount, JobAccount } from "@switchboard-xyz/aptos.js";
+import {
+  AggregatorAccount,
+  JobAccount,
+  SwitchboardProgram,
+} from "@switchboard-xyz/aptos.js";
 import { AptosAccount } from "aptos";
 
 export default class AggregatorAddJob extends BaseCommand {
@@ -56,7 +60,7 @@ export default class AggregatorAddJob extends BaseCommand {
     if (flags.jobDefinition) {
       const oracleJob = this.loadJobDefinition(flags.jobDefinition);
 
-      const account = new AptosAccount();
+      const account = SwitchboardProgram.getAccount();
       // await this.faucet.fundAccount(account.address(), 5000);
 
       [jobAccount] = await JobAccount.init(
@@ -72,11 +76,15 @@ export default class AggregatorAddJob extends BaseCommand {
             OracleJob.encodeDelimited(oracleJob).finish()
           ).toString("hex"),
         },
-        this.programId
+        this.programId.toString()
       );
     } else if (flags.jobKey) {
       const jobAddress = this.parseAddress(flags.jobKey);
-      jobAccount = new JobAccount(this.aptos, jobAddress, this.programId);
+      jobAccount = new JobAccount(
+        this.aptos,
+        jobAddress.toString(),
+        this.programId.toString()
+      );
     } else {
       throw new Error(
         `Failed to read job account from --jobDefinition or --jobKey`
@@ -94,7 +102,7 @@ export default class AggregatorAddJob extends BaseCommand {
         const jobAccount = new JobAccount(
           this.aptos,
           jobAddress,
-          this.programId
+          this.programId.toString()
         );
         const jobData = await jobAccount.loadData();
         const oracleJob = OracleJob.decodeDelimited(jobData.data);
@@ -106,7 +114,7 @@ export default class AggregatorAddJob extends BaseCommand {
     this.logger.info(
       JSON.stringify(
         this.normalizeAccountData(
-          jobAccount.address,
+          jobAccount.address.toString(),
           await jobAccount.loadData()
         ),
         undefined,

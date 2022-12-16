@@ -26,9 +26,9 @@ export default class OracleMetrics extends BaseCommand {
     const { flags, args } = await this.parse(OracleMetrics);
 
     const oracleAccount = new OracleAccount(
-      this.aptos,
-      this.parseAddress(args.oracleHexString),
-      this.programId
+      this.program.client,
+      this.parseAddress(args.oracleHexString).toString(),
+      this.programId.toString()
     );
 
     const oracleTypes = new Set([

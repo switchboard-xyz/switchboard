@@ -2706,14 +2706,13 @@
     rpc-websockets "^7.5.0"
     superstruct "^0.14.2"
 
-"@switchboard-xyz/aptos.js@^2.5.28", "@switchboard-xyz/aptos.js@^2.5.31":
-  version "2.5.31"
-  resolved "https://registry.npmjs.org/@switchboard-xyz/aptos.js/-/aptos.js-2.5.31.tgz"
-  integrity sha512-J7jB98j1rEIuUnvDBGkTscl++3LCpKRJLzWv4cfC1xyf3fhiPu3Vwx4+18Czh5HXTbZm+lGXHOtdX3/YXHoEYg==
+"@switchboard-xyz/aptos.js@^2.5.32":
+  version "2.5.32"
+  resolved "https://registry.npmjs.org/@switchboard-xyz/aptos.js/-/aptos.js-2.5.32.tgz#e9e6a7d99fbb5b460406004d2d7d8dbe99b5c4a9"
+  integrity sha512-qNARurxATXuSeTvzXn8AFfVMDwS7Yz2K+O3uCww3DDVOgV96KtVcrdIbzs52Hb+TEho3+wo4R20peaCz15QizQ==
   dependencies:
-    "@switchboard-xyz/aptos.js" "^2.5.28"
     "@switchboard-xyz/common" "^2.0.0"
-    aptos "^1.3.16"
+    aptos "^1.4.0"
     big.js "^6.2.1"
     bn.js "^5.2.1"
     chalk "^5.0.1"
@@ -3294,10 +3293,10 @@ aproba@^1.0.3:
   resolved "https://registry.npmjs.org/aproba/-/aproba-2.0.0.tgz"
   integrity sha512-lYe4Gx7QT+MKGbDsA+Z+he/Wtef0BiwDOlK/XkBrdfsh9J/jPPXbX0tE9x9cl27Tmu5gg3QUbUrQYa/y+KOHPQ==
 
-aptos@^1.3.16:
-  version "1.3.16"
-  resolved "https://registry.npmjs.org/aptos/-/aptos-1.3.16.tgz"
-  integrity sha512-LxI4XctQ5VeL+HokjwuGPwsb1fcydLIn4agFXyhn7hSYosTLNRxQ3UIixyP4Fmv6qPBjQVu8hELVSlThQk/EjA==
+aptos@^1.4.0:
+  version "1.4.0"
+  resolved "https://registry.npmjs.org/aptos/-/aptos-1.4.0.tgz#983709ebf875f9069277a8d72b22b133812395d4"
+  integrity sha512-D1yBXeyhiBKgJnUQX8iDXckZMPFwdJ9YfUZtRcDhUoR7qLX4hfmLQYemvLqtJvyTCf/Nggfp66hXX1Z8FdlEiQ==
   dependencies:
     "@noble/hashes" "1.1.3"
     "@scure/bip39" "1.1.0"

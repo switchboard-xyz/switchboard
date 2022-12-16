@@ -53,12 +53,12 @@ export default class PermissionCreate extends BaseCommand {
       throw new Error(`Failed to find grantee of '--aggregator' or '--oracle'`);
     }
 
-    const permission = new Permission(this.aptos, this.programId);
+    const permission = new Permission(this.aptos, this.programId.toString());
 
-    const setSig = await permission.set(this.signer, {
+    const setSig = await permission.set(this.signer as any, {
       authority: queueData.authority,
       granter: queue.address,
-      grantee: HexString.ensure(grantee),
+      grantee: HexString.ensure(grantee).toString(),
       enable: true,
       permission: flags.oracle
         ? SwitchboardPermission.PERMIT_ORACLE_HEARTBEAT

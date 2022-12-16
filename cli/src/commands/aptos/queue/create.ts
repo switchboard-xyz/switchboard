@@ -80,14 +80,14 @@ export default class QueueCreate extends BaseCommand {
     }
 
     const [queue, sig] = await OracleQueueAccount.init(
-      this.aptos,
-      account, // TODO: Use --self flag to publish account at signer address
+      this.program.client,
+      account as any, // TODO: Use --self flag to publish account at signer address
       {
         name: flags.name ?? "",
         metadata: flags.metadata ?? "",
-        authority: flags.authority
+        authority: (flags.authority
           ? this.parseAddress(flags.authority)
-          : this.signer.address(), // not --new keypair cuz we didnt back it up
+          : this.signer.address()) as any, // not --new keypair cuz we didnt back it up
         oracleTimeout: flags.oracleTimeout,
         reward: flags.reward,
         minStake: flags.minStake,
@@ -104,16 +104,18 @@ export default class QueueCreate extends BaseCommand {
         maxSize: flags.queueSize,
         coinType: "0x1::aptos_coin::AptosCoin",
       },
-      this.programId
+      this.programId.toString()
     );
     const queueData = await queue.loadData();
 
     if (flags.json) {
-      return this.normalizeAccountData(queue.address, queueData);
+      return this.normalizeAccountData(queue.address.toString(), queueData);
     }
 
     this.logger.info(`Queue HexString: ${queue.address}`);
-    this.logger.info(this.normalizeAccountData(queue.address, queueData));
+    this.logger.info(
+      this.normalizeAccountData(queue.address.toString(), queueData)
+    );
     this.logger.info(this.toUrl(sig));
   }
 

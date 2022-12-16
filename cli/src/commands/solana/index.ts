@@ -1,9 +1,17 @@
 import { Flags } from "@oclif/core";
-import { types } from "@switchboard-xyz/solana.js";
+import * as anchor from "@project-serum/anchor";
+import {
+  AggregatorAccount,
+  LeaseAccount,
+  QueueAccount,
+  types,
+} from "@switchboard-xyz/solana.js";
 import { SolanaWithoutSignerBaseCommand as BaseCommand } from "../../solana";
 import { chalkString, normalizeFilePath } from "../../utils";
 import chalk from "chalk";
-import fs from "fs";
+import fs, { fstat } from "fs";
+import path from "path";
+import { PublicKey } from "@solana/web3.js";
 
 function toArray<
   T extends
@@ -39,6 +47,10 @@ export default class Solana extends BaseCommand {
       description: "file to save solana account definitions to",
       parse: async (rawPath) => normalizeFilePath(rawPath),
     }),
+    feedDir: Flags.string({
+      description: "directory to save feed definitions",
+      parse: async (rawPath) => normalizeFilePath(rawPath),
+    }),
   };
 
   async run() {
@@ -64,6 +76,97 @@ export default class Solana extends BaseCommand {
       queues: toArray(accounts.queues),
       vrfs: toArray(accounts.vrfs),
     };
+
+    // const escrowPubkeys = Array.from(accounts.leases.entries()).map(
+    //   (l) => l[1].escrow
+    // );
+    // const escrowAccountInfos = await anchor.utils.rpc
+    //   .getMultipleAccounts(this.program.connection, escrowPubkeys)
+    //   .then((values) => {
+    //     return values.reduce((map, leaseAccountInfo) => {
+    //       if (leaseAccountInfo.account.data) {
+    //         try {
+    //           const account = spl.AccountLayout.decode(
+    //             leaseAccountInfo.account.data
+    //           );
+
+    //         } catch (error) {}
+    //       }
+    //     }, new Map());
+    //   });
+
+    if (flags.feedDir) {
+      if (fs.existsSync(flags.feedDir)) {
+        throw new Error(`--feedDir already exists`);
+      }
+
+      const parsedAggregators = Array.from(accounts.aggregators.entries()).map(
+        ([aggregatorKey, aggregator]) => {
+          const jobPubkeys = aggregator.jobPubkeysData.slice(
+            0,
+            aggregator.jobPubkeysSize
+          );
+          const jobs = jobPubkeys
+            .map((jobKey) => {
+              if (accounts.jobs.has(jobKey.toBase58())) {
+                const job = accounts.jobs.get(jobKey.toBase58());
+                const oracleJob = this.deserializeJobData(job.data);
+                return {
+                  ...job.toJSON(),
+                  ...oracleJob.toJSON(),
+                };
+              }
+            })
+            .filter(Boolean) as Array<any>;
+
+          return {
+            publicKey: aggregatorKey,
+            ...aggregator,
+            jobs,
+          };
+        }
+      );
+
+      fs.mkdirSync(flags.feedDir, { recursive: true });
+
+      const goodAgg: Array<AggregatorAccount> = [];
+      for (const aggregator of parsedAggregators) {
+        const aggregatorJson = JSON.stringify(
+          aggregator,
+          this.jsonReplacers,
+          2
+        );
+        if (aggregatorJson.toLowerCase().includes("raydium")) {
+          goodAgg.push(
+            new AggregatorAccount(this.program, aggregator.publicKey)
+          );
+        }
+      }
+
+      for await (const aggregatorAccount of goodAgg) {
+        const aggPath = path.join(
+          flags.feedDir,
+          aggregatorAccount.publicKey.toBase58() + ".json"
+        );
+        // const aggregator = await aggregatorAccount.loadData();
+        // const queueAccount = new QueueAccount(
+        //   this.program,
+        //   aggregator.queuePubkey
+        // );
+        // const queue = accounts.queues.get(queueAccount.publicKey.toBase58())!;
+
+        try {
+          const aggregatorJson = await aggregatorAccount.toAccountsJSON();
+
+          if (aggregatorJson.lease.balance >= 0.1) {
+            fs.writeFileSync(
+              aggPath,
+              JSON.stringify(aggregatorJson, this.jsonReplacers, 2)
+            );
+          }
+        } catch {}
+      }
+    }
 
     if (flags.outputFile) {
       fs.writeFileSync(flags.outputFile, "");

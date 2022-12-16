@@ -50,23 +50,25 @@ export default class CrankCreate extends BaseCommand {
 
     const [crank, sig] = await CrankAccount.init(
       this.aptos,
-      account,
+      this.signer,
       {
-        queueAddress: HexString.ensure(args.queueHexString),
+        queueAddress: HexString.ensure(args.queueHexString).toString(),
         coinType: "0x1::aptos_coin::AptosCoin",
       },
-      this.programId
+      this.programId.toString()
     );
     const crankData = await crank.loadData();
 
     if (flags.json) {
-      return this.normalizeAccountData(crank.address, {
+      return this.normalizeAccountData(crank.address.toString(), {
         ...crankData,
       });
     }
 
     this.logger.info(`Crank Key: ${crank.address}`);
-    this.logger.info(this.normalizeAccountData(crank.address, crankData));
+    this.logger.info(
+      this.normalizeAccountData(crank.address.toString(), crankData)
+    );
   }
 
   async catch(error) {

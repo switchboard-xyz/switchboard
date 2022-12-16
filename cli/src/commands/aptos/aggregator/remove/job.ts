@@ -47,12 +47,12 @@ export default class AggregatorRemoveJob extends BaseCommand {
     for (const jobKey of flags.jobAddress) {
       const jobAccount = new JobAccount(
         this.aptos,
-        this.parseAddress(jobKey),
-        this.programId
+        this.parseAddress(jobKey).toString(),
+        this.programId.toString()
       );
       await jobAccount.loadData();
 
-      const jobIdx = (aggregatorData.jobKeys as Array<HexString>).findIndex(
+      const jobIdx = (aggregatorData.jobKeys as Array<any>).findIndex(
         (jobAddress: HexString) =>
           jobKey.toLowerCase() === jobAddress.toString().toLowerCase()
       );

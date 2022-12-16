@@ -59,9 +59,9 @@ export default class PermissionCreate extends BaseCommand {
       {
         authority: queueData.authority,
         granter: queue.address,
-        grantee: HexString.ensure(grantee),
+        grantee: HexString.ensure(grantee).toString(),
       },
-      this.programId
+      this.programId.toString()
     );
     this.logger.log(`Permission Init: ${this.toUrl(initSig)}`);
 
@@ -69,7 +69,7 @@ export default class PermissionCreate extends BaseCommand {
       const setSig = await permission.set(this.signer, {
         authority: queueData.authority,
         granter: queue.address,
-        grantee: HexString.ensure(grantee),
+        grantee: HexString.ensure(grantee).toString(),
         enable: true,
         permission: flags.oracle
           ? SwitchboardPermission.PERMIT_ORACLE_HEARTBEAT

@@ -28,11 +28,11 @@ export default class CrankList extends BaseCommand {
 
     const [crankAccount, crankData] = await this.loadCrank(args.crankHexString);
 
-    const pqData: { nextTimestamp: BN; aggregatorAddr: HexString }[] =
-      crankData.heap.map((v: { timestamp: BN; aggregatorAddr: HexString }) => {
+    const pqData: { nextTimestamp: BN; aggregatorAddr: string }[] =
+      crankData.heap.map((v: { timestamp: BN; aggregatorAddr: any }) => {
         return {
           nextTimestamp: new BN(v.timestamp),
-          aggregatorAddr: HexString.ensure(v.aggregatorAddr),
+          aggregatorAddr: HexString.ensure(v.aggregatorAddr).toString(),
         };
       });
     const sorted = pqSort(pqData);
