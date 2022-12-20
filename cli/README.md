@@ -106,6 +106,7 @@ node bin/dev print GvDMxPzN1sCj7L26YDK2HnMRXEQmQ2aemov8YBtPS7vR
 * [`sbv2 solana aggregator deposit AGGREGATORKEY`](#sbv2-solana-aggregator-deposit-aggregatorkey)
 * [`sbv2 solana aggregator extend AGGREGATORKEY`](#sbv2-solana-aggregator-extend-aggregatorkey)
 * [`sbv2 solana aggregator fund AGGREGATORKEY`](#sbv2-solana-aggregator-fund-aggregatorkey)
+* [`sbv2 solana aggregator history AGGREGATORKEY`](#sbv2-solana-aggregator-history-aggregatorkey)
 * [`sbv2 solana aggregator lock AGGREGATORKEY`](#sbv2-solana-aggregator-lock-aggregatorkey)
 * [`sbv2 solana aggregator open-round [AGGREGATORKEY]`](#sbv2-solana-aggregator-open-round-aggregatorkey)
 * [`sbv2 solana aggregator permission create AGGREGATORKEY`](#sbv2-solana-aggregator-permission-create-aggregatorkey)
@@ -3028,47 +3029,55 @@ USAGE
     [--aggregatorKeypair <value>] [--name <value>] [--metadata <value>] [--batchSize <value>] [--minJobs <value>]
     [--minOracles <value>] [--forceReportPeriod <value>] [--varianceThreshold <value>] [--historyLimit <value>]
     [--crankKey <value> | --disableCrank] [--queueAuthority <value>] [--enable] [--leaseAmount <value>] [-j <value>]
-    [--jobKey <value>]
+    [--jobKey <value>] [--slidingWindow] [--basePriorityFee <value>] [--priorityFeeBump <value>]
+    [--priorityFeeBumpPeriod <value>] [--maxPriorityFeeMultiplier <value>]
 
 ARGUMENTS
   QUEUEKEY  public key of the oracle queue to create an aggregator on
 
 FLAGS
-  -a, --authority=<value>      alternate keypair that is the authority for the aggregator
-  -h, --help                   Show CLI help.
-  -j, --job=<value>...         filesystem path to job definition file
-  -k, --keypair=<value>        keypair that will pay for onchain transactions. defaults to new account authority if no
-                               alternate authority provided
-  -s, --silent                 suppress cli prompts
-  -u, --rpcUrl=<value>         alternate RPC url
-  -v, --verbose                log everything
-  --aggregatorKeypair=<value>  keypair to use for aggregator account. This will be the account's publicKey
-  --batchSize=<value>          [default: 1] number of oracles requested for each open round call
-  --cluster=<option>           the solana cluster to connect to
-                               <options: devnet|mainnet-beta|mainnet|localnet>
-  --commitment=<option>        [default: confirmed] transaction commitment level to use
-                               <options: confirmed|finalized|processed>
-  --crankKey=<value>           public key of the crank to join
-  --disableCrank               whether the newly created feed can be pushed onto a crank. irreversible
-  --enable                     set permissions to PERMIT_ORACLE_QUEUE_USAGE
-  --forceReportPeriod=<value>  Number of seconds for which, even if the variance threshold is not passed, accept new
-                               responses from oracles.
-  --historyLimit=<value>       number of historical samples to store
-  --jobKey=<value>...          public key of existing job account
-  --leaseAmount=<value>        [default: 0] amount of funds to deposit into the lease, ex: 1.5 would deposit 1.5 wSOL
-  --ledger                     enable ledger support
-  --ledgerPath=<value>         HID path to the ledger
-  --mainnetBeta                WARNING: use mainnet-beta solana cluster
-  --metadata=<value>           metadata of the aggregator
-  --minJobs=<value>            [default: 1] number of jobs that must respond before an oracle responds
-  --minOracles=<value>         [default: 1] number of oracles that must respond before a value is accepted on-chain
-  --name=<value>               name of the aggregator
-  --programId=<value>          alternative Switchboard program ID to interact with
-  --queueAuthority=<value>     alternative keypair to use for queue authority
-  --updateInterval=<value>     (required) set an aggregator's minimum update delay
-  --varianceThreshold=<value>  [default: 0] percentage change between a previous accepted result and the next round
-                               before an oracle reports a value on-chain. Used to conserve lease cost during low
-                               volatility
+  -a, --authority=<value>             alternate keypair that is the authority for the aggregator
+  -h, --help                          Show CLI help.
+  -j, --job=<value>...                filesystem path to job definition file
+  -k, --keypair=<value>               keypair that will pay for onchain transactions. defaults to new account authority
+                                      if no alternate authority provided
+  -s, --silent                        suppress cli prompts
+  -u, --rpcUrl=<value>                alternate RPC url
+  -v, --verbose                       log everything
+  --aggregatorKeypair=<value>         keypair to use for aggregator account. This will be the account's publicKey
+  --basePriorityFee=<value>
+  --batchSize=<value>                 [default: 1] number of oracles requested for each open round call
+  --cluster=<option>                  the solana cluster to connect to
+                                      <options: devnet|mainnet-beta|mainnet|localnet>
+  --commitment=<option>               [default: confirmed] transaction commitment level to use
+                                      <options: confirmed|finalized|processed>
+  --crankKey=<value>                  public key of the crank to join
+  --disableCrank                      whether the newly created feed can be pushed onto a crank. irreversible
+  --enable                            set permissions to PERMIT_ORACLE_QUEUE_USAGE
+  --forceReportPeriod=<value>         Number of seconds for which, even if the variance threshold is not passed, accept
+                                      new responses from oracles.
+  --historyLimit=<value>              number of historical samples to store
+  --jobKey=<value>...                 public key of existing job account
+  --leaseAmount=<value>               [default: 0] amount of funds to deposit into the lease, ex: 1.5 would deposit 1.5
+                                      wSOL
+  --ledger                            enable ledger support
+  --ledgerPath=<value>                HID path to the ledger
+  --mainnetBeta                       WARNING: use mainnet-beta solana cluster
+  --maxPriorityFeeMultiplier=<value>
+  --metadata=<value>                  metadata of the aggregator
+  --minJobs=<value>                   [default: 1] number of jobs that must respond before an oracle responds
+  --minOracles=<value>                [default: 1] number of oracles that must respond before a value is accepted
+                                      on-chain
+  --name=<value>                      name of the aggregator
+  --priorityFeeBump=<value>
+  --priorityFeeBumpPeriod=<value>
+  --programId=<value>                 alternative Switchboard program ID to interact with
+  --queueAuthority=<value>            alternative keypair to use for queue authority
+  --slidingWindow                     enable sliding window resolution mode
+  --updateInterval=<value>            (required) set an aggregator's minimum update delay
+  --varianceThreshold=<value>         [default: 0] percentage change between a previous accepted result and the next
+                                      round before an oracle reports a value on-chain. Used to conserve lease cost
+                                      during low volatility
 
 GLOBAL FLAGS
   --json  Format output as json.
@@ -3247,6 +3256,39 @@ ALIASES
 
 EXAMPLES
   $ sbv2 solana:aggregator:fund GvDMxPzN1sCj7L26YDK2HnMRXEQmQ2aemov8YBtPS7vR --amount 1.1 --keypair ../payer-keypair.json
+```
+
+## `sbv2 solana aggregator history AGGREGATORKEY`
+
+print an aggregator's history'
+
+```
+USAGE
+  $ sbv2 solana aggregator history [AGGREGATORKEY] [-h] [-v] [-s] [--mainnetBeta | --cluster
+    devnet|mainnet-beta|mainnet|localnet] [-u <value>] [--programId <value>] [--commitment
+    confirmed|finalized|processed] [--json] [--metrics]
+
+ARGUMENTS
+  AGGREGATORKEY  public key of the aggregator account
+
+FLAGS
+  -h, --help             Show CLI help.
+  -s, --silent           suppress cli prompts
+  -u, --rpcUrl=<value>   alternate RPC url
+  -v, --verbose          log everything
+  --cluster=<option>     the solana cluster to connect to
+                         <options: devnet|mainnet-beta|mainnet|localnet>
+  --commitment=<option>  [default: confirmed] transaction commitment level to use
+                         <options: confirmed|finalized|processed>
+  --mainnetBeta          WARNING: use mainnet-beta solana cluster
+  --metrics              print metrics on an aggregators history like average update interval
+  --programId=<value>    alternative Switchboard program ID to interact with
+
+GLOBAL FLAGS
+  --json  Format output as json.
+
+DESCRIPTION
+  print an aggregator's history'
 ```
 
 ## `sbv2 solana aggregator lock AGGREGATORKEY`
@@ -3634,15 +3676,15 @@ run anchor test and a switchboard oracle in parallel
 
 ```
 USAGE
-  $ sbv2 solana anchor test [-h] [-v] [-s] [--mainnetBeta | --cluster localnet|devnet] [-u <value>] [--programId
-    <value>] [--commitment confirmed|finalized|processed] [-k <value>] [--ledgerPath <value> --ledger] [-d <value>]
-    [--oracleKey <value>] [--nodeImage <value>] [--arm] [-t <value>]
+  $ sbv2 solana anchor test -k <value> [-h] [-v] [-s] [--mainnetBeta | --cluster localnet|devnet] [-u <value>]
+    [--programId <value>] [-d <value>] [--oracleKey <value>] [--nodeImage <value>] [--arm] [-t <value>] [--oracleDelay
+    <value>] [--delay <value>]
 
 FLAGS
   -d, --switchboardDir=<value>  directory with switchboard.env to load a switchboard environment
   -h, --help                    Show CLI help.
-  -k, --keypair=<value>         keypair that will pay for onchain transactions. defaults to new account authority if no
-                                alternate authority provided
+  -k, --keypair=<value>         (required) keypair that will pay for onchain transactions. defaults to new account
+                                authority if no alternate authority provided
   -s, --silent                  suppress docker logging
   -t, --timeout=<value>         [default: 120] number of seconds before ending the docker process
   -u, --rpcUrl=<value>          alternate RPC url
@@ -3650,12 +3692,12 @@ FLAGS
   --arm                         apple silicon needs to use a docker image for linux/arm64
   --cluster=<option>            [default: localnet] cluster
                                 <options: localnet|devnet>
-  --commitment=<option>         [default: confirmed] transaction commitment level to use
-                                <options: confirmed|finalized|processed>
-  --ledger                      enable ledger support
-  --ledgerPath=<value>          HID path to the ledger
+  --delay=<value>               [default: 30000] the number of milliseconds after starting the Switchboard oracle to
+                                start running the Anchor test suite
   --mainnetBeta                 WARNING: use mainnet-beta solana cluster
   --nodeImage=<value>           [default: dev-v2-RC_11_10_22__19_19] public key of the oracle to start-up
+  --oracleDelay=<value>         [default: 5000] the number of milliseconds after starting the validator to start the
+                                Switchboard oracle
   --oracleKey=<value>           public key of the oracle to start-up
   --programId=<value>           alternative Switchboard program ID to interact with
 
