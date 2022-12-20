@@ -62,22 +62,22 @@ export default class BufferCreate extends BaseCommand {
     }
 
     if (this.silent) {
-      this.log(signatures.join("\n"));
+      this.logger.info(signatures.join("\n"));
       return;
     }
 
     // handle nicer logging here
-    this.log(
+    this.logger.info(
       `${chalk.green(CHECK_ICON, "successfully created a job")} - ${
         jobAccount.publicKey
       }`
     );
 
     if (signatures.length === 1) {
-      this.log(this.toUrl(signatures[0]));
+      this.logger.info(this.toUrl(signatures[0]));
     } else {
-      for (const [index, oracleInitSignature] of signatures.entries())
-        this.log(`Txn #${index}`, this.toUrl(oracleInitSignature));
+      for (const [index, signature] of signatures.entries())
+        this.logger.info(`Txn #${index}: ${this.toUrl(signature)}`);
     }
   }
 

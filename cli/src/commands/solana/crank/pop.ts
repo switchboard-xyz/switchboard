@@ -27,7 +27,7 @@ export default class CrankPop extends BaseCommand {
     const signature = await this.signAndSend(txn);
 
     if (this.silent) {
-      this.log(signature);
+      this.logger.info(signature);
       return;
     }
 

@@ -99,7 +99,7 @@ export default class AggregatorAddJob extends BaseCommand {
     }
 
     if (this.silent) {
-      this.log(signatures.join("\n"));
+      this.logger.info(signatures.join("\n"));
       return;
     }
 
@@ -110,10 +110,10 @@ export default class AggregatorAddJob extends BaseCommand {
     );
 
     if (signatures.length === 1) {
-      this.log(this.toUrl(signatures[0]));
+      this.logger.info(this.toUrl(signatures[0]));
     } else {
       for (const [index, signature] of signatures.entries())
-        this.log(`Txn #${index}`, this.toUrl(signature));
+        this.logger.info(`Txn #${index}: ${this.toUrl(signature)}`);
     }
   }
 

@@ -44,8 +44,8 @@ export default class OracleLogs extends OutputFileBaseCommand {
     }
 
     const payload = await response.json();
-    // this.log(JSON.stringify(payload, undefined, 2));
-    this.log(payload);
+    // this.logger.info(JSON.stringify(payload, undefined, 2));
+    this.logger.info(payload);
   }
 
   async catch(error) {

@@ -91,7 +91,7 @@ export default class AggregatorTransfer extends BaseCommand {
     const signatures = await this.signAndSendAll(transferTxns);
 
     if (this.silent) {
-      this.log(signatures.join("\n"));
+      this.logger.info(signatures.join("\n"));
       return;
     }
 

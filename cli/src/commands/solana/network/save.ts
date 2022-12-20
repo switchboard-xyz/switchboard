@@ -50,7 +50,7 @@ export default class NetworkSave extends BaseCommand {
       return network.toJSON();
     }
 
-    this.log(
+    this.logger.info(
       `${chalk.green(
         CHECK_ICON,
         "successfully saved SwitchboardNetwork accounts"

@@ -82,7 +82,7 @@ export default class AggregatorAddHistory extends BaseCommand {
     }
 
     if (this.silent) {
-      this.log(signature);
+      this.logger.info(signature);
       return;
     }
 
@@ -92,7 +92,7 @@ export default class AggregatorAddHistory extends BaseCommand {
       )}`
     );
 
-    this.log(this.toUrl(signature));
+    this.logger.info(this.toUrl(signature));
   }
 
   async catch(error) {

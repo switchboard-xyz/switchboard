@@ -109,7 +109,7 @@ export default class PermissionCreate extends BaseCommand {
     }
 
     if (this.silent) {
-      this.log(signature);
+      this.logger.info(signature);
       return;
     }
 

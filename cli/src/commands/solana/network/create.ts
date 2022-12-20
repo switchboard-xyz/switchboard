@@ -66,20 +66,20 @@ export default class NetworkCreate extends BaseCommand {
       "Creating Switchboard Network"
     );
 
-    this.log(
+    this.logger.info(
       `${chalk.green(CHECK_ICON, "successfully created an oracle queue")} - ${
         network.queue.account.publicKey
       }`
     );
     for (const crank of network.cranks)
-      this.log(
+      this.logger.info(
         `${chalk.green(CHECK_ICON, "successfully created a crank")} - ${
           crank.account.publicKey
         }`
       );
 
     for (const oracle of network.oracles) {
-      this.log(
+      this.logger.info(
         `${chalk.green(CHECK_ICON, "successfully created an oracle")} - ${
           oracle.account.publicKey
         }`
@@ -87,17 +87,17 @@ export default class NetworkCreate extends BaseCommand {
     }
 
     for (const aggregator of network.aggregators) {
-      this.log(
+      this.logger.info(
         `${chalk.green(CHECK_ICON, "successfully created an aggregator")} - ${
           aggregator.account.publicKey
         }`
       );
     }
 
-    this.log(`Loading SwitchboardNetwork accounts ...`);
+    this.logger.info(`Loading SwitchboardNetwork accounts ...`);
     const loadedNetwork = await network.load();
 
-    this.log(
+    this.logger.info(
       `${chalk.green(
         CHECK_ICON,
         "successfully loaded SwitchboardNetwork accounts"
@@ -124,18 +124,18 @@ export default class NetworkCreate extends BaseCommand {
     // }
 
     // if (this.silent) {
-    //   this.log(signature);
+    //   this.logger.info(signature);
     //   return;
     // }
 
     // // handle nicer logging here
-    // this.log(
+    // this.logger.info(
     //   `${chalk.green(CHECK_ICON, "successfully created an oracle queue")} - ${
     //     queueAccount.publicKey
     //   }`
     // );
 
-    // this.log("Transaction Signature:", this.toUrl(signature));
+    // this.logger.info("Transaction Signature:", this.toUrl(signature));
   }
 
   async catch(error) {

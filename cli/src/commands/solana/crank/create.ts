@@ -62,7 +62,7 @@ export default class CrankCreate extends BaseCommand {
     const signature = await this.signAndSend(txn);
 
     if (flags.silent) {
-      this.log(signature);
+      this.logger.info(signature);
       return;
     }
 
@@ -78,7 +78,7 @@ export default class CrankCreate extends BaseCommand {
       )}`
     );
 
-    this.log(this.toUrl(signature));
+    this.logger.info(this.toUrl(signature));
   }
 
   async catch(error) {

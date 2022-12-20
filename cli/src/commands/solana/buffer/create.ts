@@ -100,18 +100,18 @@ export default class BufferCreate extends BaseCommand {
     }
 
     if (this.silent) {
-      this.log(signature);
+      this.logger.info(signature);
       return;
     }
 
     // handle nicer logging here
-    this.log(
+    this.logger.info(
       `${chalk.green(CHECK_ICON, "successfully created a buffer relayer")} - ${
         queueAccount.publicKey
       }`
     );
 
-    this.log("Transaction Signature:", this.toUrl(signature));
+    this.logger.info(`Transaction Signature: ${this.toUrl(signature)}`);
   }
 
   async catch(error) {

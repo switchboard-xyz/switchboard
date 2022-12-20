@@ -2760,10 +2760,10 @@
     wait-for-event "^2.0.1"
     ws "^8.10.0"
 
-"@switchboard-xyz/solana.js@^2.0.51":
-  version "2.0.51"
-  resolved "https://registry.npmjs.org/@switchboard-xyz/solana.js/-/solana.js-2.0.51.tgz#7bce2b5ad107750238b2fb50dc629ad350a09f65"
-  integrity sha512-kdeU2PZEcelJKqDStVH5aoM0upgblby8sATAJvqIOg30+VV1oMIRCt6NY0XBaMERvsUYv3pKgd5nODTFMAlVHg==
+"@switchboard-xyz/solana.js@^2.0.57":
+  version "2.0.57"
+  resolved "https://registry.npmjs.org/@switchboard-xyz/solana.js/-/solana.js-2.0.57.tgz#f51d6c5a98591e55bcef1922bd66be0b2096c82f"
+  integrity sha512-SfOVBj31JakQshZT5SF0UKmSasfh0Ii9t/jAP2ZrHDx6SFE1RC+c6L4kw9g0e48n5kiVD7RlpjZkLofjv43E3w==
   dependencies:
     "@project-serum/anchor" "^0.25.0"
     "@project-serum/borsh" "^0.2.5"
@@ -2772,6 +2772,7 @@
     "@switchboard-xyz/common" "^2.1.8"
     big.js "^6.2.1"
     bn.js "^5.2.1"
+    dotenv "^16.0.3"
 
 "@szmarczak/http-timer@^4.0.5":
   version "4.0.6"
@@ -4377,6 +4378,11 @@ dot-case@^3.0.4:
   dependencies:
     no-case "^3.0.4"
     tslib "^2.0.3"
+
+dotenv@^16.0.3:
+  version "16.0.3"
+  resolved "https://registry.npmjs.org/dotenv/-/dotenv-16.0.3.tgz#115aec42bac5053db3c456db30cc243a5a836a07"
+  integrity sha512-7GO6HghkA5fYG9TYnNxi14/7K9f5occMlp3zXAuSxn7CKCxt9xbNWG7yF8hTCSUchlfWSe3uLmlPfigevRItzQ==
 
 duplexify@^4.0.0:
   version "4.1.2"

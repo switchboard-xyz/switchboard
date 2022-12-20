@@ -100,7 +100,7 @@ export default class QueueSet extends BaseCommand {
     const signature = await this.signAndSend(txn);
 
     if (this.silent) {
-      this.log(signature);
+      this.logger.info(signature);
       return;
     }
 
@@ -112,13 +112,13 @@ export default class QueueSet extends BaseCommand {
     }
 
     // handle nicer logging here
-    this.log(
+    this.logger.info(
       `${chalk.green(CHECK_ICON, "successfully set the queue's config")} - ${
         queueAccount.publicKey
       }`
     );
 
-    this.log("Transaction Signature:", this.toUrl(signature));
+    this.logger.info(`Transaction Signature: ${this.toUrl(signature)}`);
   }
 
   async catch(error) {
