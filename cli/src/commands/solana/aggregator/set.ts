@@ -111,7 +111,7 @@ export default class AggregatorSet extends BaseCommand {
     const signature = await this.signAndSend(txn);
 
     if (this.silent) {
-      this.log(signature);
+      this.logger.info(signature);
       return;
     }
 
@@ -120,7 +120,7 @@ export default class AggregatorSet extends BaseCommand {
       return this.normalizeAccountData(aggregatorAccount.publicKey, accounts);
     }
 
-    this.log(this.toUrl(signature));
+    this.logger.info(this.toUrl(signature));
   }
 
   async catch(error) {

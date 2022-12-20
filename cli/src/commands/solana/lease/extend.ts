@@ -97,7 +97,7 @@ export default class LeaseExtend extends BaseCommand {
     }
 
     if (this.silent) {
-      this.log(signature);
+      this.logger.info(signature);
       return;
     }
 

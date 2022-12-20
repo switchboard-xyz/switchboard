@@ -47,9 +47,10 @@ export default class AggregatorPermissionCreate extends BaseCommand {
 
     // check if permission account already exists
     if (permissionAccountInfo !== null) {
-      this.log(
-        chalk.yellow("Warning:"),
-        `Permission Account already exists: ${permissionAcct.publicKey}`
+      this.logger.info(
+        `${chalk.yellow("Warning:")} Permission Account already exists: ${
+          permissionAcct.publicKey
+        }`
       );
       return;
     }
@@ -66,11 +67,11 @@ export default class AggregatorPermissionCreate extends BaseCommand {
     const signature = await this.signAndSend(txn);
 
     if (this.silent) {
-      this.log(signature);
+      this.logger.info(signature);
       return;
     }
 
-    this.log(
+    this.logger.info(
       `${chalk.green(
         `${CHECK_ICON}Permission Account created successfully:`,
         permissionAccount.publicKey.toBase58()

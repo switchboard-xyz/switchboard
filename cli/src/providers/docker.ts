@@ -172,7 +172,8 @@ export class DockerOracle implements Required<IOracleConfig> {
         `-e APTOS_PID=${this.aptosPid}`,
         `-e TASK_RUNNER_SOLANA_RPC=${this.taskRunnerSolanaRpc}`,
         `-e VERBOSE=1`,
-        `--mount type=bind,source=${this.secretPath},target=/home/payer_secrets.json`,
+        `-e APTOS_FS_PAYER_SECRET_PATH=/home/node/payer_secrets.json`,
+        `--mount type=bind,source=${this.secretPath},target=/home/node/payer_secrets.json`,
         `switchboardlabs/node:${this.nodeImage}`,
       ].filter(Boolean);
     }
@@ -189,7 +190,8 @@ export class DockerOracle implements Required<IOracleConfig> {
         `-e NEAR_NAMED_ACCOUNT=${this.nearNamedAccount}`,
         `-e TASK_RUNNER_SOLANA_RPC=${this.taskRunnerSolanaRpc}`,
         `-e VERBOSE=1`,
-        `--mount type=bind,source=${this.secretPath},target=/home/payer_secrets.json`,
+        `-e NEAR_FS_PAYER_SECRET_PATH=/home/node/payer_secrets.json`,
+        `--mount type=bind,source=${this.secretPath},target=/home/node/payer_secrets.json`,
         `switchboardlabs/node:${this.nodeImage}`,
       ].filter(Boolean);
     }
@@ -205,7 +207,8 @@ export class DockerOracle implements Required<IOracleConfig> {
         `-e CLUSTER=${this.network}`,
         `-e TASK_RUNNER_SOLANA_RPC=${this.taskRunnerSolanaRpc}`,
         `-e VERBOSE=1`,
-        `--mount type=bind,source=${this.secretPath},target=/home/payer_secrets.json`,
+        `-e SOLANA_FS_PAYER_SECRET_PATH=/home/node/payer_secrets.json`,
+        `--mount type=bind,source=${this.secretPath},target=/home/node/payer_secrets.json`,
         `switchboardlabs/node:${this.nodeImage}`,
       ].filter(Boolean);
     }

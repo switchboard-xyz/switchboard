@@ -147,7 +147,7 @@ export default class JsonCreateAggregator extends BaseCommand {
     });
 
     if (flags.silent) {
-      this.log(signatures.join("\n"));
+      this.logger.info(signatures.join("\n"));
       return;
     }
 
@@ -157,10 +157,10 @@ export default class JsonCreateAggregator extends BaseCommand {
     }
 
     if (signatures.length === 1) {
-      this.log(this.toUrl(signatures[0]));
+      this.logger.info(this.toUrl(signatures[0]));
     } else {
-      for (const [index, oracleInitSignature] of signatures.entries())
-        this.log(`Txn #${index}`, this.toUrl(oracleInitSignature));
+      for (const [index, signature] of signatures.entries())
+        this.logger.info(`Txn #${index}: ${this.toUrl(signature)}`);
     }
 
     // handle nicer logging here

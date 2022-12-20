@@ -95,7 +95,7 @@ export default class AggregatorLeaseWithdraw extends BaseCommand {
     }
 
     if (this.silent) {
-      this.log(signature);
+      this.logger.info(signature);
       return;
     }
 

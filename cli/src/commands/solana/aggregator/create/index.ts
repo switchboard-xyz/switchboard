@@ -94,6 +94,23 @@ export default class AggregatorCreate extends BaseCommand {
       description: "public key of existing job account",
       multiple: true,
     }),
+    // resolution mode
+    slidingWindow: Flags.boolean({
+      description: "enable sliding window resolution mode",
+    }),
+    // fee config
+    basePriorityFee: Flags.integer({
+      description: "",
+    }),
+    priorityFeeBump: Flags.integer({
+      description: "",
+    }),
+    priorityFeeBumpPeriod: Flags.integer({
+      description: "",
+    }),
+    maxPriorityFeeMultiplier: Flags.integer({
+      description: "",
+    }),
   };
 
   static args = [
@@ -159,6 +176,12 @@ export default class AggregatorCreate extends BaseCommand {
         varianceThreshold: Number(flags.varianceThreshold ?? "0"),
         forceReportPeriod: flags.forceReportPeriod ?? 0,
         historyLimit: flags.historyLimit,
+        // fees
+        slidingWindow: flags.slidingWindow,
+        basePriorityFee: flags.basePriorityFee,
+        priorityFeeBump: flags.priorityFeeBump,
+        priorityFeeBumpPeriod: flags.priorityFeeBumpPeriod,
+        maxPriorityFeeMultiplier: flags.maxPriorityFeeMultiplier,
         // crank params
         crankPubkey: flags.crankKey ? new PublicKey(flags.crankKey) : undefined,
         // lease params
@@ -179,11 +202,11 @@ export default class AggregatorCreate extends BaseCommand {
     }
 
     if (this.silent) {
-      this.log(signatures.join("\n"));
+      this.logger.info(signatures.join("\n"));
       return;
     }
 
-    this.log(
+    this.logger.info(
       `${chalk.green(
         `${CHECK_ICON}Aggregator Account created successfully:`,
         aggregatorAccount.publicKey.toBase58()
@@ -191,26 +214,14 @@ export default class AggregatorCreate extends BaseCommand {
     );
 
     if (signatures.length === 1) {
-      this.log(this.toUrl(signatures[0]));
+      this.logger.info(this.toUrl(signatures[0]));
     } else {
       for (const [index, signature] of signatures.entries())
-        this.log(`Txn #${index}`, this.toUrl(signature));
+        this.logger.info(`Txn #${index}: ${this.toUrl(signature)}`);
     }
 
-    const accounts = await aggregatorAccount.toAccountsJSON();
-    const parsedAccounts = this.normalizeAccountData(
-      aggregatorAccount.publicKey,
-      accounts
-    );
-
-    this.logProperty("Name", parsedAccounts.name);
-    this.logProperty("Metadata", parsedAccounts.metadata);
-    this.logProperty("Update Interval", accounts.minUpdateDelaySeconds);
-    this.logProperty("Batch Size", accounts.oracleRequestBatchSize);
-    this.logProperty("Min Responses", accounts.minOracleResults);
-    this.logProperty("Min Job Responses", accounts.minJobResults);
-
-    // TODO: Pretty print the rest of the permission & lease account properties
+    const accounts = await aggregatorAccount.fetchAccounts();
+    this.prettyPrintAggregatorAccounts(accounts);
   }
 
   async catch(error) {
