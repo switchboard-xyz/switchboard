@@ -1,18 +1,16 @@
-
-
-| Field | Type | Description |
-|--|--|--|
-| numSuccess |  u32 | Number of successful responses |
-| numError |  u32 | Number of error responses |
-| isClosed |  bool | Whether an update request round has ended |
-| roundOpenSlot |  u64 | Solana slot when the update request round was open |
-| roundOpenTimestamp |  i64 | Timestamp when the update request round was open |
-| result |  [SwitchboardDecimal](/solana/idl/types/SwitchboardDecimal) | Maintains the current median of all successful round responses |
-| stdDeviation |  [SwitchboardDecimal](/solana/idl/types/SwitchboardDecimal) | Standard deviation of the accepted results in the round |
-| minResponse |  [SwitchboardDecimal](/solana/idl/types/SwitchboardDecimal) | Maintains the minimum oracle response this round |
-| maxResponse |  [SwitchboardDecimal](/solana/idl/types/SwitchboardDecimal) | Maintains the maximum oracle response this round |
-| oraclePubkeysData |  publicKey[16] | Public keys of the oracles fulfilling this round |
-| mediansData |  [SwitchboardDecimal](/solana/idl/types/SwitchboardDecimal)[16] | Represents all successful node responses this round. `NaN` if empty |
-| currentPayout |  i64[16] | Rewards to provide oracles and round openers on this queue. |
-| mediansFulfilled |  bool[16] | Keeps track of which responses are fulfilled here |
-| errorsFulfilled |  bool[16] | Keeps track of which errors are fulfilled here |
+| Field              | Type                                                           | Description                                                                                                                                           |
+| ------------------ | -------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- |
+| numSuccess         | u32                                                            | Maintains the number of successful responses received from nodes. Nodes can submit one successful response per round. Number of successful responses. |
+| numError           | u32                                                            | Number of error responses.                                                                                                                            |
+| isClosed           | bool                                                           | Whether an update request round has ended.                                                                                                            |
+| roundOpenSlot      | u64                                                            | Maintains the `solana_program::clock::Slot` that the round was opened at. Solana slot when the update request round was open.                         |
+| roundOpenTimestamp | i64                                                            | Maintains the `solana_program::clock::UnixTimestamp;` the round was opened at. Timestamp when the update request round was open.                      |
+| result             | [SwitchboardDecimal](/solana/idl/types/switchboarddecimal)     | Maintains the current median of all successful round responses.                                                                                       |
+| stdDeviation       | [SwitchboardDecimal](/solana/idl/types/switchboarddecimal)     | Standard deviation of the accepted results in the round.                                                                                              |
+| minResponse        | [SwitchboardDecimal](/solana/idl/types/switchboarddecimal)     | Maintains the minimum node response this round. Maintains the minimum oracle response this round.                                                     |
+| maxResponse        | [SwitchboardDecimal](/solana/idl/types/switchboarddecimal)     | Maintains the maximum node response this round. Maintains the maximum oracle response this round.                                                     |
+| oraclePubkeysData  | publicKey[16]                                                  | Pubkeys of the oracles fulfilling this round. Public keys of the oracles fulfilling this round.                                                       |
+| mediansData        | [SwitchboardDecimal](/solana/idl/types/switchboarddecimal)[16] | Represents all successful node responses this round. `NaN` if empty.                                                                                  |
+| currentPayout      | i64[16]                                                        | Current rewards/slashes oracles have received this round. Rewards to provide oracles and round openers on this queue.                                 |
+| mediansFulfilled   | bool[16]                                                       | Keep track of which responses are fulfilled here. Keeps track of which responses are fulfilled here.                                                  |
+| errorsFulfilled    | bool[16]                                                       | Keeps track of which errors are fulfilled here.                                                                                                       |

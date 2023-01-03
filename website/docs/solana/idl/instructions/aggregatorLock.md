@@ -1,10 +1,14 @@
 Prevent new jobs from being added to the feed.
 
 ## Accounts
-|Name|isMut|isSigner|Description|
-|--|--|--|--|
-| aggregator | true | false |  |
-| authority | false | true |  |
+
+| Name       | isMut | isSigner | Description |
+| ---------- | ----- | -------- | ----------- |
+| aggregator | true  | false    |             |
+| authority  | false | true     |             |
+
 ## Args
-|Field|Type|Description|
-|--|--|--|
+
+| Name   | Type                                                           | Description |
+| ------ | -------------------------------------------------------------- | ----------- |
+| params | [AggregatorLockParams](/solana/idl/types/aggregatorlockparams) |             |

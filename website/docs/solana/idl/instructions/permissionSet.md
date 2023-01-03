@@ -1,12 +1,14 @@
-Sets the permission in the PermissionAccount
+Sets the permission in the PermissionAccount.
 
 ## Accounts
-|Name|isMut|isSigner|Description|
-|--|--|--|--|
-| permission | true | false |  |
-| authority | false | true |  |
+
+| Name       | isMut | isSigner | Description |
+| ---------- | ----- | -------- | ----------- |
+| permission | true  | false    |             |
+| authority  | false | true     |             |
+
 ## Args
-|Field|Type|Description|
-|--|--|--|
-| permission |  [SwitchboardPermission](/solana/idl/types/SwitchboardPermission) | The [SwitchboardPermission](/solana/idl/types/SwitchboardPermission) enumeration to set. |
-| enable |  bool | Specifies whether to enable or disable the permission. |
+
+| Name   | Type                                                         | Description |
+| ------ | ------------------------------------------------------------ | ----------- |
+| params | [PermissionSetParams](/solana/idl/types/permissionsetparams) |             |

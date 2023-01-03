@@ -1,5 +1,5 @@
+The `Scalar` struct holds an integer \\(s < 2\^{255} \\) which. represents an element of \\(\mathbb Z / \ell\\).
 
-
-| Field | Type | Description |
-|--|--|--|
-| bytes |  u8[32] |  |
+| Field | Type   | Description                                                                                                                                                                                                                                                                                                                                            |
+| ----- | ------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| bytes | u8[32] | `bytes` is a little-endian byte encoding of an integer representing a scalar modulo the. group order. . # Invariant. . The integer representing this scalar must be bounded above by \\(2\^{255}\\), or. equivalently the high bit of `bytes[31]` must be zero. . This ensures that there is room for a carry bit when computing a NAF representation. |

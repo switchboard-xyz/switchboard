@@ -51,10 +51,10 @@ export default class AggregatorLeaseWithdraw extends BaseCommand {
       this.program,
       aggregatorData.queuePubkey.toBase58()
     );
-    const { leaseAccount } = aggregatorAccount.getAccounts({
+    const { leaseAccount } = aggregatorAccount.getAccounts(
       queueAccount,
-      queueAuthority: queueData.authority,
-    });
+      queueData.authority
+    );
     const leaseData = await leaseAccount.loadData().catch(() => {
       throw new Error(`Failed to load lease account. Has it been created yet?`);
     });

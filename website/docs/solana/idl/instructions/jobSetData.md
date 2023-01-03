@@ -1,13 +1,12 @@
-
-
 ## Accounts
-|Name|isMut|isSigner|Description|
-|--|--|--|--|
-| job | true | false |  |
-| authority | false | true |  |
+
+| Name      | isMut | isSigner | Description |
+| --------- | ----- | -------- | ----------- |
+| job       | true  | false    |             |
+| authority | false | true     |             |
+
 ## Args
-|Field|Type|Description|
-|--|--|--|
-| data |  bytes |  |
-| size |  u32 |  |
-| chunkIdx |  u8 |  |
+
+| Name   | Type                                                   | Description |
+| ------ | ------------------------------------------------------ | ----------- |
+| params | [JobSetDataParams](/solana/idl/types/jobsetdataparams) |             |

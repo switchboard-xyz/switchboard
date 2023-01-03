@@ -117,6 +117,7 @@ export default class AggregatorCreate extends BaseCommand {
     {
       name: "queueKey",
       description: "public key of the oracle queue to create an aggregator on",
+      required: true,
     },
   ];
 

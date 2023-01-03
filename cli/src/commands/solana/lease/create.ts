@@ -48,10 +48,10 @@ export default class LeaseCreate extends BaseCommand {
       this.program,
       aggregatorData.queuePubkey.toBase58()
     );
-    const { leaseAccount } = aggregatorAccount.getAccounts({
+    const { leaseAccount } = aggregatorAccount.getAccounts(
       queueAccount,
-      queueAuthority: queueData.authority,
-    });
+      queueData.authority
+    );
 
     // Check that funder account has a large enough balance
     const funder = this.program.mint.getAssociatedAddress(

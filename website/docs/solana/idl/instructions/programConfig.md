@@ -1,14 +1,13 @@
-
-
 ## Accounts
-|Name|isMut|isSigner|Description|
-|--|--|--|--|
-| authority | false | true |  |
-| programState | true | false |  |
-| daoMint | false | false |  |
+
+| Name         | isMut | isSigner | Description |
+| ------------ | ----- | -------- | ----------- |
+| authority    | false | true     |             |
+| programState | true  | false    |             |
+| daoMint      | false | false    |             |
+
 ## Args
-|Field|Type|Description|
-|--|--|--|
-| token |  publicKey |  |
-| bump |  u8 |  |
-| daoMint |  publicKey |  |
+
+| Name   | Type                                                         | Description |
+| ------ | ------------------------------------------------------------ | ----------- |
+| params | [ProgramConfigParams](/solana/idl/types/programconfigparams) |             |

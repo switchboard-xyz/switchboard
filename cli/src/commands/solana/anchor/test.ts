@@ -9,18 +9,13 @@ import { DockerOracle } from "../../../providers/docker";
 import {
   getIdlAddress,
   getProgramDataAddress,
-  SwitchboardTestContext,
 } from "@switchboard-xyz/solana.js/test";
 import { sleep } from "@switchboard-xyz/common";
-import { isBase58 } from "@switchboard-xyz/near.js";
 import { CliBaseCommand as BaseCommand } from "../../../BaseCommand";
 import path from "path";
 import fs from "fs";
 import { normalizeFilePath } from "../../../utils/io";
-import {
-  ProgramStateAccount,
-  SBV2_DEVNET_PID,
-} from "@switchboard-xyz/solana.js";
+import { SBV2_DEVNET_PID } from "@switchboard-xyz/solana.js";
 
 function getRequiredVariable(key: string): PublicKey {
   if (!(key in process.env)) {

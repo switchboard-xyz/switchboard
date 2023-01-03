@@ -1,20 +1,21 @@
 Pushes a new aggregator onto the crank.
 
 ## Accounts
-|Name|isMut|isSigner|Description|
-|--|--|--|--|
-| crank | true | false |  |
-| aggregator | true | false |  |
-| oracleQueue | true | false |  |
-| queueAuthority | false | false |  |
-| permission | false | false |  |
-| lease | true | false |  |
-| escrow | true | false |  |
-| programState | false | false |  |
-| dataBuffer | true | false |  |
+
+| Name           | isMut | isSigner | Description |
+| -------------- | ----- | -------- | ----------- |
+| crank          | true  | false    |             |
+| aggregator     | true  | false    |             |
+| oracleQueue    | true  | false    |             |
+| queueAuthority | false | false    |             |
+| permission     | false | false    |             |
+| lease          | true  | false    |             |
+| escrow         | true  | false    |             |
+| programState   | false | false    |             |
+| dataBuffer     | true  | false    |             |
+
 ## Args
-|Field|Type|Description|
-|--|--|--|
-| stateBump |  u8 | The [SbState](/solana/idl/accounts/SbState) bump used to derive its public key. |
-| permissionBump |  u8 |  |
-| notifiRef |  Option&lt;u8[64]&gt; |  |
+
+| Name   | Type                                                 | Description |
+| ------ | ---------------------------------------------------- | ----------- |
+| params | [CrankPushParams](/solana/idl/types/crankpushparams) |             |

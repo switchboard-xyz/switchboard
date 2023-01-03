@@ -1,5 +1,5 @@
-New aggregator created on-chain
+New aggregator created on-chain.
 
-| Name | Type | Description |
-|--|--|--|
-| feedPubkey | publicKey | Public key of the newly created aggregator |
+| Name       | Type      | Description                                 |
+| ---------- | --------- | ------------------------------------------- |
+| feedPubkey | publicKey | Public key of the newly created aggregator. |
