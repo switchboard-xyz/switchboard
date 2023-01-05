@@ -22,10 +22,7 @@ export default class VrfPrint extends BaseCommand {
   async run() {
     const { args, flags } = await this.parse(VrfPrint);
 
-    const [vrfAccount, vrf] = await VrfAccount.load(
-      this.program,
-      args.aggregatvrfKeyorKey
-    );
+    const [vrfAccount, vrf] = await VrfAccount.load(this.program, args.vrfKey);
 
     const accounts = await vrfAccount.fetchAccounts(vrf);
 

@@ -58,7 +58,7 @@ export class DockerOracle implements Required<IOracleConfig> {
 
   constructor(
     readonly config: IOracleConfig,
-    readonly nodeImage: string = "dev-v2-10-18-22",
+    readonly nodeImage: string = "dev-v2-RC_01_05_23_05_52",
     readonly platform: "linux/arm64" | "linux/amd64" = "linux/amd64",
     readonly switchboardDirectory = path.join(process.cwd(), ".switchboard"),
     readonly silent = false
@@ -164,6 +164,7 @@ export class DockerOracle implements Required<IOracleConfig> {
     if (this.chain === "aptos") {
       return [
         "run",
+        `--network=host`,
         `--name ${this.image}`,
         `--platform=${this.platform}`,
         `-e CHAIN=aptos`,
@@ -174,6 +175,7 @@ export class DockerOracle implements Required<IOracleConfig> {
         `-e VERBOSE=1`,
         `-e APTOS_FS_PAYER_SECRET_PATH=/home/node/payer_secrets.json`,
         `--mount type=bind,source=${this.secretPath},target=/home/node/payer_secrets.json`,
+        `--network host`,
         `switchboardlabs/node:${this.nodeImage}`,
       ].filter(Boolean);
     }
@@ -181,6 +183,7 @@ export class DockerOracle implements Required<IOracleConfig> {
     if (this.chain === "near") {
       return [
         "run",
+        `--network=host`,
         `--name ${this.image}`,
         `--platform=${this.platform}`,
         `-e CHAIN=near`,
@@ -199,6 +202,7 @@ export class DockerOracle implements Required<IOracleConfig> {
     if (this.chain === "solana") {
       return [
         "run",
+        `--network=host`,
         `--name ${this.image}`,
         `--platform=${this.platform}`,
         `-e CHAIN=solana`,

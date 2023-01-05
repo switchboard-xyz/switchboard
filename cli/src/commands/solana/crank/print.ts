@@ -1,6 +1,7 @@
 import { Flags } from "@oclif/core";
-import { CrankAccount } from "@switchboard-xyz/solana.js";
+import { CrankAccount, SolanaClock, types } from "@switchboard-xyz/solana.js";
 import { SolanaWithoutSignerBaseCommand as BaseCommand } from "../../../solana";
+import { chalkString } from "../../../utils/misc";
 
 export default class CrankPrint extends BaseCommand {
   static enableJsonFlag = true;
@@ -9,6 +10,7 @@ export default class CrankPrint extends BaseCommand {
 
   static flags = {
     ...BaseCommand.flags,
+    rows: Flags.boolean({ description: "print the crank rows in order" }),
   };
 
   static args = [
@@ -27,11 +29,47 @@ export default class CrankPrint extends BaseCommand {
       args.crankKey
     );
 
+    const rows: Array<types.CrankRow> = await crankAccount.loadCrank(true);
+    const time = (
+      await SolanaClock.fetch(this.program.connection)
+    ).unixTimestamp.toNumber();
+
     if (flags.json) {
+      if (rows.length) {
+        return this.normalizeAccountData(crankAccount.publicKey, {
+          ...crank.toJSON(),
+          time,
+          rows,
+        });
+      }
       return this.normalizeAccountData(crankAccount.publicKey, crank.toJSON());
     }
 
     this.prettyPrintCrank(crank, crankAccount.publicKey);
+    this.logger.info(
+      chalkString(
+        "solanaTime",
+        `${time} (${Math.round(Date.now() / 1000) - time} sec behind)`,
+        24
+      )
+    );
+
+    const nextTimestamp = Math.min(
+      ...rows.map((r) => r.nextTimestamp.toNumber())
+    );
+    const staleness = time - nextTimestamp;
+    this.logger.info(chalkString("staleness", staleness, 24));
+
+    if (flags.rows && rows.length) {
+      rows.forEach((row) =>
+        this.logger.info(
+          chalkString(
+            row.nextTimestamp.toNumber().toString(),
+            row.pubkey.toBase58()
+          )
+        )
+      );
+    }
   }
 
   async catch(error) {

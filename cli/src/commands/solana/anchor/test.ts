@@ -9,7 +9,7 @@ import { DockerOracle } from "../../../providers/docker";
 import {
   getIdlAddress,
   getProgramDataAddress,
-} from "@switchboard-xyz/solana.js/test";
+} from "@switchboard-xyz/solana.js";
 import { sleep } from "@switchboard-xyz/common";
 import { CliBaseCommand as BaseCommand } from "../../../BaseCommand";
 import path from "path";
@@ -92,7 +92,7 @@ export default class AnchorTest extends BaseCommand {
     }),
     nodeImage: Flags.string({
       description: "public key of the oracle to start-up",
-      default: "dev-v2-RC_11_10_22__19_19",
+      default: "dev-v2-RC_01_05_23_05_52",
     }),
     arm: Flags.boolean({
       description: "apple silicon needs to use a docker image for linux/arm64",

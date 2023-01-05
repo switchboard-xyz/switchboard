@@ -3,7 +3,7 @@ import path from "path";
 import fs from "fs";
 import chalk from "chalk";
 import { SolanaWithSignerBaseCommand as BaseCommand } from "../../../solana";
-import { SwitchboardTestContext } from "@switchboard-xyz/solana.js/test";
+import { SwitchboardTestContext } from "@switchboard-xyz/solana.js";
 import { CHECK_ICON } from "../../../utils/icons";
 
 export default class LocalnetEnvironment extends BaseCommand {
@@ -92,7 +92,7 @@ ${path.join(outputDir, "start-local-validator.sh")}
 In shell #2, start the oracle
 
 \`\`\`bash
-SBV2_ORACLE_VERSION=dev-v2-RC_12_05_22_22_48 ${path.join(
+SBV2_ORACLE_VERSION=dev-v2-RC_01_05_23_05_52 ${path.join(
         outputDir,
         "start-oracle.sh"
       )}

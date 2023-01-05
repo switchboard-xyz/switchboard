@@ -193,7 +193,7 @@ export function prettyPrintLease(
   if (balance && balance > 0) {
     output.push(chalkString("balance", balance, SPACING));
   }
-
+  output.push(chalkString("escrow", lease.escrow, SPACING));
   output.push(
     chalkString("withdrawAuthority", lease.withdrawAuthority, SPACING)
   );

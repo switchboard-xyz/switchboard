@@ -1,5 +1,9 @@
 import { Flags } from "@oclif/core";
-import { CrankAccount, OracleAccount } from "@switchboard-xyz/solana.js";
+import {
+  CrankAccount,
+  OracleAccount,
+  QueueAccount,
+} from "@switchboard-xyz/solana.js";
 import { SolanaWithoutSignerBaseCommand as BaseCommand } from "../../../solana";
 
 export default class OraclePrint extends BaseCommand {
@@ -36,6 +40,10 @@ export default class OraclePrint extends BaseCommand {
     }
 
     this.prettyPrintOracle(oracle, oracleAccount.publicKey, balance);
+
+    const [permissionAccount, bump, permissions] =
+      await oracleAccount.getPermissions(oracle);
+    this.prettyPrintPermissions(permissions, permissionAccount.publicKey);
   }
 
   async catch(error) {

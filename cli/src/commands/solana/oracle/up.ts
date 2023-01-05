@@ -3,6 +3,7 @@ import { SolanaWithSignerBaseCommand as BaseCommand } from "../../../solana";
 import { DockerOracle } from "../../../providers/docker";
 import { sleep } from "../../../utils";
 import { execSync } from "child_process";
+import { clusterApiUrl } from "@solana/web3.js";
 
 export default class SolanaDockerOracle extends BaseCommand {
   static description = "start a solana docker oracle";
@@ -15,7 +16,7 @@ export default class SolanaDockerOracle extends BaseCommand {
     }),
     nodeImage: Flags.string({
       description: "public key of the oracle to start-up",
-      default: "dev-v2-RC_11_10_22__19_19",
+      default: "dev-v2-RC_01_05_23_05_52",
     }),
     arm: Flags.boolean({
       description: "apple silicon needs to use a docker image for linux/arm64",
@@ -51,7 +52,10 @@ export default class SolanaDockerOracle extends BaseCommand {
       {
         chain: "solana",
         network: this.network,
-        rpcUrl: this.rpcUrl,
+        rpcUrl:
+          flags.cluster === "localnet"
+            ? "http://host.docker.internal:8899"
+            : flags.rpcUrl ?? clusterApiUrl("devnet"),
         oracleKey: flags.oracleKey,
         secretPath: this.normalizePath(flags.keypair),
       },

@@ -55,7 +55,7 @@
     "@switchboard-xyz/aptos.js": "^2.5.32",
     "@switchboard-xyz/common": "^2.1.7",
     "@switchboard-xyz/near.js": "^2.0.74",
-    "@switchboard-xyz/solana.js": "^2.0.63",
+    "@switchboard-xyz/solana.js": "^2.0.81",
     "aptos": "^1.4.0",
     "aws-sdk": "^2.1167.0",
     "big.js": "^6.2.0",
