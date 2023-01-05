@@ -1,15 +1,18 @@
 
 interact with switchboard on Solana
 
-* [`sbv2 solana`](#sbv2-solana)
 * [`sbv2 solana aggregator add history AGGREGATORKEY`](#sbv2-solana-aggregator-add-history-aggregatorkey)
 * [`sbv2 solana aggregator add job AGGREGATORKEY`](#sbv2-solana-aggregator-add-job-aggregatorkey)
-* [`sbv2 solana aggregator create [QUEUEKEY]`](#sbv2-solana-aggregator-create-queuekey)
+* [`sbv2 solana aggregator create QUEUEKEY`](#sbv2-solana-aggregator-create-queuekey)
 * [`sbv2 solana aggregator create json [DEFINITIONFILE]`](#sbv2-solana-aggregator-create-json-definitionfile)
 * [`sbv2 solana aggregator deposit AGGREGATORKEY`](#sbv2-solana-aggregator-deposit-aggregatorkey)
+* [`sbv2 solana aggregator events AGGREGATORKEY`](#sbv2-solana-aggregator-events-aggregatorkey)
 * [`sbv2 solana aggregator extend AGGREGATORKEY`](#sbv2-solana-aggregator-extend-aggregatorkey)
 * [`sbv2 solana aggregator fund AGGREGATORKEY`](#sbv2-solana-aggregator-fund-aggregatorkey)
+* [`sbv2 solana aggregator history AGGREGATORKEY`](#sbv2-solana-aggregator-history-aggregatorkey)
 * [`sbv2 solana aggregator lock AGGREGATORKEY`](#sbv2-solana-aggregator-lock-aggregatorkey)
+* [`sbv2 solana aggregator metrics AGGREGATORKEY`](#sbv2-solana-aggregator-metrics-aggregatorkey)
+* [`sbv2 solana aggregator open-round [AGGREGATORKEY]`](#sbv2-solana-aggregator-open-round-aggregatorkey)
 * [`sbv2 solana aggregator permission create AGGREGATORKEY`](#sbv2-solana-aggregator-permission-create-aggregatorkey)
 * [`sbv2 solana aggregator print AGGREGATORKEY`](#sbv2-solana-aggregator-print-aggregatorkey)
 * [`sbv2 solana aggregator remove job AGGREGATORKEY JOBKEY`](#sbv2-solana-aggregator-remove-job-aggregatorkey-jobkey)
@@ -20,10 +23,12 @@ interact with switchboard on Solana
 * [`sbv2 solana aggregator withdraw AGGREGATORKEY`](#sbv2-solana-aggregator-withdraw-aggregatorkey)
 * [`sbv2 solana anchor test`](#sbv2-solana-anchor-test)
 * [`sbv2 solana buffer create [QUEUEKEY]`](#sbv2-solana-buffer-create-queuekey)
+* [`sbv2 solana buffer open-round [BUFFERRELAYERKEY]`](#sbv2-solana-buffer-open-round-bufferrelayerkey)
+* [`sbv2 solana buffer update [BUFFERRELAYERKEY]`](#sbv2-solana-buffer-update-bufferrelayerkey)
 * [`sbv2 solana crank create QUEUEKEY`](#sbv2-solana-crank-create-queuekey)
 * [`sbv2 solana crank pop CRANKKEY`](#sbv2-solana-crank-pop-crankkey)
 * [`sbv2 solana crank print CRANKKEY`](#sbv2-solana-crank-print-crankkey)
-* [`sbv2 solana init`](#sbv2-solana-init)
+* [`sbv2 solana job create`](#sbv2-solana-job-create)
 * [`sbv2 solana json create aggregator [DEFINITIONFILE]`](#sbv2-solana-json-create-aggregator-definitionfile)
 * [`sbv2 solana lease create [AGGREGATORKEY]`](#sbv2-solana-lease-create-aggregatorkey)
 * [`sbv2 solana lease extend AGGREGATORKEY`](#sbv2-solana-lease-extend-aggregatorkey)
@@ -33,6 +38,7 @@ interact with switchboard on Solana
 * [`sbv2 solana localnet up`](#sbv2-solana-localnet-up)
 * [`sbv2 solana network create`](#sbv2-solana-network-create)
 * [`sbv2 solana network save`](#sbv2-solana-network-save)
+* [`sbv2 solana network start`](#sbv2-solana-network-start)
 * [`sbv2 solana oracle create QUEUEKEY`](#sbv2-solana-oracle-create-queuekey)
 * [`sbv2 solana oracle print ORACLEKEY`](#sbv2-solana-oracle-print-oraclekey)
 * [`sbv2 solana oracle up`](#sbv2-solana-oracle-up)
@@ -45,36 +51,10 @@ interact with switchboard on Solana
 * [`sbv2 solana queue create`](#sbv2-solana-queue-create)
 * [`sbv2 solana queue print QUEUEKEY`](#sbv2-solana-queue-print-queuekey)
 * [`sbv2 solana queue set QUEUEKEY`](#sbv2-solana-queue-set-queuekey)
+* [`sbv2 solana vrf open-round [VRFKEY]`](#sbv2-solana-vrf-open-round-vrfkey)
 * [`sbv2 solana vrf print VRFKEY`](#sbv2-solana-vrf-print-vrfkey)
 * [`sbv2 solana vrf request [VRFKEY]`](#sbv2-solana-vrf-request-vrfkey)
-
-## `sbv2 solana`
-
-fetch the Switchboard program accounts on Solana
-
-```
-USAGE
-  $ sbv2 solana [-h] [-v] [-s] [--mainnetBeta | --cluster devnet|mainnet-beta|mainnet|localnet] [-u <value>]
-    [--programId <value>] [--commitment confirmed|finalized|processed] [--outputFile <value>]
-
-FLAGS
-  -h, --help             Show CLI help.
-  -s, --silent           suppress cli prompts
-  -u, --rpcUrl=<value>   alternate RPC url
-  -v, --verbose          log everything
-  --cluster=<option>     the solana cluster to connect to
-                         <options: devnet|mainnet-beta|mainnet|localnet>
-  --commitment=<option>  [default: confirmed] transaction commitment level to use
-                         <options: confirmed|finalized|processed>
-  --mainnetBeta          WARNING: use mainnet-beta solana cluster
-  --outputFile=<value>   file to save solana account definitions to
-  --programId=<value>    alternative Switchboard program ID to interact with
-
-DESCRIPTION
-  fetch the Switchboard program accounts on Solana
-```
-
-_See code: [dist/commands/solana/index.ts](https://github.com/switchboard-xyz/sbv2-core/blob/v2.1.1/dist/commands/solana/index.ts)_
+* [`sbv2 solana vrf update [VRFKEY]`](#sbv2-solana-vrf-update-vrfkey)
 
 ## `sbv2 solana aggregator add history AGGREGATORKEY`
 
@@ -155,7 +135,7 @@ EXAMPLES
   $ sbv2 solana aggregator add job
 ```
 
-## `sbv2 solana aggregator create [QUEUEKEY]`
+## `sbv2 solana aggregator create QUEUEKEY`
 
 create an aggregator account
 
@@ -167,47 +147,55 @@ USAGE
     [--aggregatorKeypair <value>] [--name <value>] [--metadata <value>] [--batchSize <value>] [--minJobs <value>]
     [--minOracles <value>] [--forceReportPeriod <value>] [--varianceThreshold <value>] [--historyLimit <value>]
     [--crankKey <value> | --disableCrank] [--queueAuthority <value>] [--enable] [--leaseAmount <value>] [-j <value>]
-    [--jobKey <value>]
+    [--jobKey <value>] [--slidingWindow] [--basePriorityFee <value>] [--priorityFeeBump <value>]
+    [--priorityFeeBumpPeriod <value>] [--maxPriorityFeeMultiplier <value>]
 
 ARGUMENTS
   QUEUEKEY  public key of the oracle queue to create an aggregator on
 
 FLAGS
-  -a, --authority=<value>      alternate keypair that is the authority for the aggregator
-  -h, --help                   Show CLI help.
-  -j, --job=<value>...         filesystem path to job definition file
-  -k, --keypair=<value>        keypair that will pay for onchain transactions. defaults to new account authority if no
-                               alternate authority provided
-  -s, --silent                 suppress cli prompts
-  -u, --rpcUrl=<value>         alternate RPC url
-  -v, --verbose                log everything
-  --aggregatorKeypair=<value>  keypair to use for aggregator account. This will be the account's publicKey
-  --batchSize=<value>          [default: 1] number of oracles requested for each open round call
-  --cluster=<option>           the solana cluster to connect to
-                               <options: devnet|mainnet-beta|mainnet|localnet>
-  --commitment=<option>        [default: confirmed] transaction commitment level to use
-                               <options: confirmed|finalized|processed>
-  --crankKey=<value>           public key of the crank to join
-  --disableCrank               whether the newly created feed can be pushed onto a crank. irreversible
-  --enable                     set permissions to PERMIT_ORACLE_QUEUE_USAGE
-  --forceReportPeriod=<value>  Number of seconds for which, even if the variance threshold is not passed, accept new
-                               responses from oracles.
-  --historyLimit=<value>       number of historical samples to store
-  --jobKey=<value>...          public key of existing job account
-  --leaseAmount=<value>        [default: 0] amount of funds to deposit into the lease, ex: 1.5 would deposit 1.5 wSOL
-  --ledger                     enable ledger support
-  --ledgerPath=<value>         HID path to the ledger
-  --mainnetBeta                WARNING: use mainnet-beta solana cluster
-  --metadata=<value>           metadata of the aggregator
-  --minJobs=<value>            [default: 1] number of jobs that must respond before an oracle responds
-  --minOracles=<value>         [default: 1] number of oracles that must respond before a value is accepted on-chain
-  --name=<value>               name of the aggregator
-  --programId=<value>          alternative Switchboard program ID to interact with
-  --queueAuthority=<value>     alternative keypair to use for queue authority
-  --updateInterval=<value>     (required) set an aggregator's minimum update delay
-  --varianceThreshold=<value>  [default: 0] percentage change between a previous accepted result and the next round
-                               before an oracle reports a value on-chain. Used to conserve lease cost during low
-                               volatility
+  -a, --authority=<value>             alternate keypair that is the authority for the aggregator
+  -h, --help                          Show CLI help.
+  -j, --job=<value>...                filesystem path to job definition file
+  -k, --keypair=<value>               keypair that will pay for onchain transactions. defaults to new account authority
+                                      if no alternate authority provided
+  -s, --silent                        suppress cli prompts
+  -u, --rpcUrl=<value>                alternate RPC url
+  -v, --verbose                       log everything
+  --aggregatorKeypair=<value>         keypair to use for aggregator account. This will be the account's publicKey
+  --basePriorityFee=<value>
+  --batchSize=<value>                 [default: 1] number of oracles requested for each open round call
+  --cluster=<option>                  the solana cluster to connect to
+                                      <options: devnet|mainnet-beta|mainnet|localnet>
+  --commitment=<option>               [default: confirmed] transaction commitment level to use
+                                      <options: confirmed|finalized|processed>
+  --crankKey=<value>                  public key of the crank to join
+  --disableCrank                      whether the newly created feed can be pushed onto a crank. irreversible
+  --enable                            set permissions to PERMIT_ORACLE_QUEUE_USAGE
+  --forceReportPeriod=<value>         Number of seconds for which, even if the variance threshold is not passed, accept
+                                      new responses from oracles.
+  --historyLimit=<value>              number of historical samples to store
+  --jobKey=<value>...                 public key of existing job account
+  --leaseAmount=<value>               [default: 0] amount of funds to deposit into the lease, ex: 1.5 would deposit 1.5
+                                      wSOL
+  --ledger                            enable ledger support
+  --ledgerPath=<value>                HID path to the ledger
+  --mainnetBeta                       WARNING: use mainnet-beta solana cluster
+  --maxPriorityFeeMultiplier=<value>
+  --metadata=<value>                  metadata of the aggregator
+  --minJobs=<value>                   [default: 1] number of jobs that must respond before an oracle responds
+  --minOracles=<value>                [default: 1] number of oracles that must respond before a value is accepted
+                                      on-chain
+  --name=<value>                      name of the aggregator
+  --priorityFeeBump=<value>
+  --priorityFeeBumpPeriod=<value>
+  --programId=<value>                 alternative Switchboard program ID to interact with
+  --queueAuthority=<value>            alternative keypair to use for queue authority
+  --slidingWindow                     enable sliding window resolution mode
+  --updateInterval=<value>            (required) set an aggregator's minimum update delay
+  --varianceThreshold=<value>         [default: 0] percentage change between a previous accepted result and the next
+                                      round before an oracle reports a value on-chain. Used to conserve lease cost
+                                      during low volatility
 
 GLOBAL FLAGS
   --json  Format output as json.
@@ -304,6 +292,37 @@ EXAMPLES
   $ sbv2 solana:aggregator:fund GvDMxPzN1sCj7L26YDK2HnMRXEQmQ2aemov8YBtPS7vR --amount 1.1 --keypair ../payer-keypair.json
 ```
 
+## `sbv2 solana aggregator events AGGREGATORKEY`
+
+watch an aggregator account and stream the on-chain events
+
+```
+USAGE
+  $ sbv2 solana aggregator events [AGGREGATORKEY] [-h] [-v] [-s] [--mainnetBeta | --cluster
+    devnet|mainnet-beta|mainnet|localnet] [-u <value>] [--programId <value>] [--commitment
+    confirmed|finalized|processed] [-t <value>] [-f <value>]
+
+ARGUMENTS
+  AGGREGATORKEY  public key of the aggregator account
+
+FLAGS
+  -f, --outfile=<value>  save results to a file
+  -h, --help             Show CLI help.
+  -s, --silent           suppress cli prompts
+  -t, --timeout=<value>  time to watch feed for updates
+  -u, --rpcUrl=<value>   alternate RPC url
+  -v, --verbose          log everything
+  --cluster=<option>     the solana cluster to connect to
+                         <options: devnet|mainnet-beta|mainnet|localnet>
+  --commitment=<option>  [default: confirmed] transaction commitment level to use
+                         <options: confirmed|finalized|processed>
+  --mainnetBeta          WARNING: use mainnet-beta solana cluster
+  --programId=<value>    alternative Switchboard program ID to interact with
+
+DESCRIPTION
+  watch an aggregator account and stream the on-chain events
+```
+
 ## `sbv2 solana aggregator extend AGGREGATORKEY`
 
 fund and re-enable an aggregator lease
@@ -388,6 +407,39 @@ EXAMPLES
   $ sbv2 solana:aggregator:fund GvDMxPzN1sCj7L26YDK2HnMRXEQmQ2aemov8YBtPS7vR --amount 1.1 --keypair ../payer-keypair.json
 ```
 
+## `sbv2 solana aggregator history AGGREGATORKEY`
+
+print an aggregator's history'
+
+```
+USAGE
+  $ sbv2 solana aggregator history [AGGREGATORKEY] [-h] [-v] [-s] [--mainnetBeta | --cluster
+    devnet|mainnet-beta|mainnet|localnet] [-u <value>] [--programId <value>] [--commitment
+    confirmed|finalized|processed] [--json] [--metrics]
+
+ARGUMENTS
+  AGGREGATORKEY  public key of the aggregator account
+
+FLAGS
+  -h, --help             Show CLI help.
+  -s, --silent           suppress cli prompts
+  -u, --rpcUrl=<value>   alternate RPC url
+  -v, --verbose          log everything
+  --cluster=<option>     the solana cluster to connect to
+                         <options: devnet|mainnet-beta|mainnet|localnet>
+  --commitment=<option>  [default: confirmed] transaction commitment level to use
+                         <options: confirmed|finalized|processed>
+  --mainnetBeta          WARNING: use mainnet-beta solana cluster
+  --metrics              print metrics on an aggregators history like average update interval
+  --programId=<value>    alternative Switchboard program ID to interact with
+
+GLOBAL FLAGS
+  --json  Format output as json.
+
+DESCRIPTION
+  print an aggregator's history'
+```
+
 ## `sbv2 solana aggregator lock AGGREGATORKEY`
 
 lock an aggregator's configuration and prevent further changes
@@ -420,6 +472,78 @@ FLAGS
 
 DESCRIPTION
   lock an aggregator's configuration and prevent further changes
+```
+
+## `sbv2 solana aggregator metrics AGGREGATORKEY`
+
+print an aggregator's metrics'
+
+```
+USAGE
+  $ sbv2 solana aggregator metrics [AGGREGATORKEY] [-h] [-v] [-s] [--mainnetBeta | --cluster
+    devnet|mainnet-beta|mainnet|localnet] [-u <value>] [--programId <value>] [--commitment
+    confirmed|finalized|processed] [--json] [--period <value>]
+
+ARGUMENTS
+  AGGREGATORKEY  public key of the aggregator account
+
+FLAGS
+  -h, --help             Show CLI help.
+  -s, --silent           suppress cli prompts
+  -u, --rpcUrl=<value>   alternate RPC url
+  -v, --verbose          log everything
+  --cluster=<option>     the solana cluster to connect to
+                         <options: devnet|mainnet-beta|mainnet|localnet>
+  --commitment=<option>  [default: confirmed] transaction commitment level to use
+                         <options: confirmed|finalized|processed>
+  --mainnetBeta          WARNING: use mainnet-beta solana cluster
+  --period=<value>       the period to collect metrics for. Ex. 3600 will collect update metrics for the last 1hr
+  --programId=<value>    alternative Switchboard program ID to interact with
+
+GLOBAL FLAGS
+  --json  Format output as json.
+
+DESCRIPTION
+  print an aggregator's metrics'
+```
+
+## `sbv2 solana aggregator open-round [AGGREGATORKEY]`
+
+request a new aggregator result from a set of oracles
+
+```
+USAGE
+  $ sbv2 solana aggregator open-round [AGGREGATORKEY] [-h] [-v] [-s] [--mainnetBeta | --cluster
+    devnet|mainnet-beta|mainnet|localnet] [-u <value>] [--programId <value>] [--commitment
+    confirmed|finalized|processed] [-k <value>] [--ledgerPath <value> --ledger]
+
+ARGUMENTS
+  AGGREGATORKEY  public key of the aggregator account to request an update for
+
+FLAGS
+  -h, --help             Show CLI help.
+  -k, --keypair=<value>  keypair that will pay for onchain transactions. defaults to new account authority if no
+                         alternate authority provided
+  -s, --silent           suppress cli prompts
+  -u, --rpcUrl=<value>   alternate RPC url
+  -v, --verbose          log everything
+  --cluster=<option>     the solana cluster to connect to
+                         <options: devnet|mainnet-beta|mainnet|localnet>
+  --commitment=<option>  [default: confirmed] transaction commitment level to use
+                         <options: confirmed|finalized|processed>
+  --ledger               enable ledger support
+  --ledgerPath=<value>   HID path to the ledger
+  --mainnetBeta          WARNING: use mainnet-beta solana cluster
+  --programId=<value>    alternative Switchboard program ID to interact with
+
+DESCRIPTION
+  request a new aggregator result from a set of oracles
+
+ALIASES
+  $ sbv2 solana aggregator open-round
+
+EXAMPLES
+  $ sbv2 solana aggregator update J7j9xX8JP2B2ErvUzuqGAKBGeggsxPyFXj5MqZcYDxfa --keypair ../payer-keypair.json
 ```
 
 ## `sbv2 solana aggregator permission create AGGREGATORKEY`
@@ -649,6 +773,9 @@ FLAGS
 DESCRIPTION
   request a new aggregator result from a set of oracles
 
+ALIASES
+  $ sbv2 solana aggregator open-round
+
 EXAMPLES
   $ sbv2 solana aggregator update J7j9xX8JP2B2ErvUzuqGAKBGeggsxPyFXj5MqZcYDxfa --keypair ../payer-keypair.json
 ```
@@ -731,15 +858,15 @@ run anchor test and a switchboard oracle in parallel
 
 ```
 USAGE
-  $ sbv2 solana anchor test [-h] [-v] [-s] [--mainnetBeta | --cluster localnet|devnet] [-u <value>] [--programId
-    <value>] [--commitment confirmed|finalized|processed] [-k <value>] [--ledgerPath <value> --ledger] [-d <value>]
-    [--oracleKey <value>] [--nodeImage <value>] [--arm] [-t <value>]
+  $ sbv2 solana anchor test -k <value> [-h] [-v] [-s] [--mainnetBeta | --cluster localnet|devnet] [-u <value>]
+    [--programId <value>] [-d <value>] [--oracleKey <value>] [--nodeImage <value>] [--arm] [-t <value>] [--oracleDelay
+    <value>] [--delay <value>]
 
 FLAGS
   -d, --switchboardDir=<value>  directory with switchboard.env to load a switchboard environment
   -h, --help                    Show CLI help.
-  -k, --keypair=<value>         keypair that will pay for onchain transactions. defaults to new account authority if no
-                                alternate authority provided
+  -k, --keypair=<value>         (required) keypair that will pay for onchain transactions. defaults to new account
+                                authority if no alternate authority provided
   -s, --silent                  suppress docker logging
   -t, --timeout=<value>         [default: 120] number of seconds before ending the docker process
   -u, --rpcUrl=<value>          alternate RPC url
@@ -747,12 +874,12 @@ FLAGS
   --arm                         apple silicon needs to use a docker image for linux/arm64
   --cluster=<option>            [default: localnet] cluster
                                 <options: localnet|devnet>
-  --commitment=<option>         [default: confirmed] transaction commitment level to use
-                                <options: confirmed|finalized|processed>
-  --ledger                      enable ledger support
-  --ledgerPath=<value>          HID path to the ledger
+  --delay=<value>               [default: 30000] the number of milliseconds after starting the Switchboard oracle to
+                                start running the Anchor test suite
   --mainnetBeta                 WARNING: use mainnet-beta solana cluster
-  --nodeImage=<value>           [default: dev-v2-RC_11_10_22__19_19] public key of the oracle to start-up
+  --nodeImage=<value>           [default: dev-v2-RC_01_05_23_05_52] public key of the oracle to start-up
+  --oracleDelay=<value>         [default: 5000] the number of milliseconds after starting the validator to start the
+                                Switchboard oracle
   --oracleKey=<value>           public key of the oracle to start-up
   --programId=<value>           alternative Switchboard program ID to interact with
 
@@ -768,13 +895,14 @@ create a buffer relayer account
 USAGE
   $ sbv2 solana buffer create [QUEUEKEY] [-h] [-v] [-s] [--mainnetBeta | --cluster devnet|mainnet-beta|mainnet|localnet]
     [-u <value>] [--programId <value>] [--commitment confirmed|finalized|processed] [-k <value>] [--ledgerPath <value>
-    --ledger] [-a <value>] [-n <value>] [--minUpdateDelaySeconds <value>] [--jobDefinition <value> | --jobKey <value>]
+    --ledger] [--json] [--bufferKeypair <value>] [-a <value>] [-n <value>] [--minUpdateDelaySeconds <value>]
+    [--jobDefinition <value> | --jobKey <value>]
 
 ARGUMENTS
   QUEUEKEY  oracle queue to create BufferRelayer account on
 
 FLAGS
-  -a, --authority=<value>          alternate keypair that will be the aggregator authority
+  -a, --authority=<value>          alternate keypair that will be the buffer relayer authority
   -h, --help                       Show CLI help.
   -k, --keypair=<value>            keypair that will pay for onchain transactions. defaults to new account authority if
                                    no alternate authority provided
@@ -782,6 +910,7 @@ FLAGS
   -s, --silent                     suppress cli prompts
   -u, --rpcUrl=<value>             alternate RPC url
   -v, --verbose                    log everything
+  --bufferKeypair=<value>          keypair to use for the buffer relayer account. This will be the account's publicKey
   --cluster=<option>               the solana cluster to connect to
                                    <options: devnet|mainnet-beta|mainnet|localnet>
   --commitment=<option>            [default: confirmed] transaction commitment level to use
@@ -794,8 +923,89 @@ FLAGS
   --minUpdateDelaySeconds=<value>  [default: 30] minimum number of seconds between update calls
   --programId=<value>              alternative Switchboard program ID to interact with
 
+GLOBAL FLAGS
+  --json  Format output as json.
+
 DESCRIPTION
   create a buffer relayer account
+```
+
+## `sbv2 solana buffer open-round [BUFFERRELAYERKEY]`
+
+request a new buffer relayer result
+
+```
+USAGE
+  $ sbv2 solana buffer open-round [BUFFERRELAYERKEY] [-h] [-v] [-s] [--mainnetBeta | --cluster
+    devnet|mainnet-beta|mainnet|localnet] [-u <value>] [--programId <value>] [--commitment
+    confirmed|finalized|processed] [-k <value>] [--ledgerPath <value> --ledger]
+
+ARGUMENTS
+  BUFFERRELAYERKEY  public key of the aggregator account to request an update for
+
+FLAGS
+  -h, --help             Show CLI help.
+  -k, --keypair=<value>  keypair that will pay for onchain transactions. defaults to new account authority if no
+                         alternate authority provided
+  -s, --silent           suppress cli prompts
+  -u, --rpcUrl=<value>   alternate RPC url
+  -v, --verbose          log everything
+  --cluster=<option>     the solana cluster to connect to
+                         <options: devnet|mainnet-beta|mainnet|localnet>
+  --commitment=<option>  [default: confirmed] transaction commitment level to use
+                         <options: confirmed|finalized|processed>
+  --ledger               enable ledger support
+  --ledgerPath=<value>   HID path to the ledger
+  --mainnetBeta          WARNING: use mainnet-beta solana cluster
+  --programId=<value>    alternative Switchboard program ID to interact with
+
+DESCRIPTION
+  request a new buffer relayer result
+
+ALIASES
+  $ sbv2 solana buffer open-round
+
+EXAMPLES
+  $ sbv2 solana buffer update J7j9xX8JP2B2ErvUzuqGAKBGeggsxPyFXj5MqZcYDxfa --keypair ../payer-keypair.json
+```
+
+## `sbv2 solana buffer update [BUFFERRELAYERKEY]`
+
+request a new buffer relayer result
+
+```
+USAGE
+  $ sbv2 solana buffer update [BUFFERRELAYERKEY] [-h] [-v] [-s] [--mainnetBeta | --cluster
+    devnet|mainnet-beta|mainnet|localnet] [-u <value>] [--programId <value>] [--commitment
+    confirmed|finalized|processed] [-k <value>] [--ledgerPath <value> --ledger]
+
+ARGUMENTS
+  BUFFERRELAYERKEY  public key of the aggregator account to request an update for
+
+FLAGS
+  -h, --help             Show CLI help.
+  -k, --keypair=<value>  keypair that will pay for onchain transactions. defaults to new account authority if no
+                         alternate authority provided
+  -s, --silent           suppress cli prompts
+  -u, --rpcUrl=<value>   alternate RPC url
+  -v, --verbose          log everything
+  --cluster=<option>     the solana cluster to connect to
+                         <options: devnet|mainnet-beta|mainnet|localnet>
+  --commitment=<option>  [default: confirmed] transaction commitment level to use
+                         <options: confirmed|finalized|processed>
+  --ledger               enable ledger support
+  --ledgerPath=<value>   HID path to the ledger
+  --mainnetBeta          WARNING: use mainnet-beta solana cluster
+  --programId=<value>    alternative Switchboard program ID to interact with
+
+DESCRIPTION
+  request a new buffer relayer result
+
+ALIASES
+  $ sbv2 solana buffer open-round
+
+EXAMPLES
+  $ sbv2 solana buffer update J7j9xX8JP2B2ErvUzuqGAKBGeggsxPyFXj5MqZcYDxfa --keypair ../payer-keypair.json
 ```
 
 ## `sbv2 solana crank create QUEUEKEY`
@@ -878,7 +1088,7 @@ print a crank
 ```
 USAGE
   $ sbv2 solana crank print [CRANKKEY] [-h] [-v] [-s] [--mainnetBeta | --cluster devnet|mainnet-beta|mainnet|localnet]
-    [-u <value>] [--programId <value>] [--commitment confirmed|finalized|processed] [--json]
+    [-u <value>] [--programId <value>] [--commitment confirmed|finalized|processed] [--json] [--rows]
 
 ARGUMENTS
   CRANKKEY  public key of the crank account
@@ -894,6 +1104,7 @@ FLAGS
                          <options: confirmed|finalized|processed>
   --mainnetBeta          WARNING: use mainnet-beta solana cluster
   --programId=<value>    alternative Switchboard program ID to interact with
+  --rows                 print the crank rows in order
 
 GLOBAL FLAGS
   --json  Format output as json.
@@ -902,37 +1113,42 @@ DESCRIPTION
   print a crank
 ```
 
-## `sbv2 solana init`
+## `sbv2 solana job create`
 
-get or create the program state
+create a job account
 
 ```
 USAGE
-  $ sbv2 solana init [-h] [-v] [-s] [--mainnetBeta | --cluster devnet|mainnet-beta|mainnet|localnet] [-u <value>]
-    [--programId <value>] [--commitment confirmed|finalized|processed] [-k <value>] [--ledgerPath <value> --ledger]
-    [--json]
+  $ sbv2 solana job create --jobDefinition <value> [-h] [-v] [-s] [--mainnetBeta | --cluster
+    devnet|mainnet-beta|mainnet|localnet] [-u <value>] [--programId <value>] [--commitment
+    confirmed|finalized|processed] [-k <value>] [--ledgerPath <value> --ledger] [--json] [--jobKeypair <value>] [-a
+    <value>] [-n <value>]
 
 FLAGS
-  -h, --help             Show CLI help.
-  -k, --keypair=<value>  keypair that will pay for onchain transactions. defaults to new account authority if no
-                         alternate authority provided
-  -s, --silent           suppress cli prompts
-  -u, --rpcUrl=<value>   alternate RPC url
-  -v, --verbose          log everything
-  --cluster=<option>     the solana cluster to connect to
-                         <options: devnet|mainnet-beta|mainnet|localnet>
-  --commitment=<option>  [default: confirmed] transaction commitment level to use
-                         <options: confirmed|finalized|processed>
-  --ledger               enable ledger support
-  --ledgerPath=<value>   HID path to the ledger
-  --mainnetBeta          WARNING: use mainnet-beta solana cluster
-  --programId=<value>    alternative Switchboard program ID to interact with
+  -a, --authority=<value>  alternate keypair that will be the buffer relayer authority
+  -h, --help               Show CLI help.
+  -k, --keypair=<value>    keypair that will pay for onchain transactions. defaults to new account authority if no
+                           alternate authority provided
+  -n, --name=<value>       name of the buffer account
+  -s, --silent             suppress cli prompts
+  -u, --rpcUrl=<value>     alternate RPC url
+  -v, --verbose            log everything
+  --cluster=<option>       the solana cluster to connect to
+                           <options: devnet|mainnet-beta|mainnet|localnet>
+  --commitment=<option>    [default: confirmed] transaction commitment level to use
+                           <options: confirmed|finalized|processed>
+  --jobDefinition=<value>  (required) filesystem path to job definition
+  --jobKeypair=<value>     keypair to use for the job account. This will be the account's publicKey
+  --ledger                 enable ledger support
+  --ledgerPath=<value>     HID path to the ledger
+  --mainnetBeta            WARNING: use mainnet-beta solana cluster
+  --programId=<value>      alternative Switchboard program ID to interact with
 
 GLOBAL FLAGS
   --json  Format output as json.
 
 DESCRIPTION
-  get or create the program state
+  create a job account
 ```
 
 ## `sbv2 solana json create aggregator [DEFINITIONFILE]`
@@ -1197,7 +1413,7 @@ FLAGS
   --minStake=<value>                    [default: 0] the reward payed out to oracles for responding to an update request
                                         on-chain, Ex: 2 requires oracles to have 2 wSOL in their staking wallet before
                                         heartbeating
-  --nodeImage=<value>                   [default: dev-v2-RC_11_10_22__19_19] public key of the oracle to start-up
+  --nodeImage=<value>                   [default: dev-v2-RC_01_05_23_05_52] public key of the oracle to start-up
   --oracleStakingWalletKeypair=<value>  keypair to use for the oracle staking wallet. Using a static staking wallet with
                                         the same queue will produce the same oracle pubkey each time.
   --oracleTimeout=<value>               [default: 180] time period (in seconds) we should remove an oracle after if no
@@ -1224,10 +1440,9 @@ create an oracle queue
 
 ```
 USAGE
-  $ sbv2 solana network create --inputFile <value> [-h] [-v] [-s] [--mainnetBeta | --cluster
+  $ sbv2 solana network create --configFile <value> --schemaFile <value> [-h] [-v] [-s] [--mainnetBeta | --cluster
     devnet|mainnet-beta|mainnet|localnet] [-u <value>] [--programId <value>] [--commitment
-    confirmed|finalized|processed] [-k <value>] [--ledgerPath <value> --ledger] [--json] [--outputFile <value>]
-    [--force]
+    confirmed|finalized|processed] [-k <value>] [--ledgerPath <value> --ledger] [--json] [--force]
 
 FLAGS
   -h, --help             Show CLI help.
@@ -1240,13 +1455,13 @@ FLAGS
                          <options: devnet|mainnet-beta|mainnet|localnet>
   --commitment=<option>  [default: confirmed] transaction commitment level to use
                          <options: confirmed|finalized|processed>
+  --configFile=<value>   (required)
   --force
-  --inputFile=<value>    (required)
   --ledger               enable ledger support
   --ledgerPath=<value>   HID path to the ledger
   --mainnetBeta          WARNING: use mainnet-beta solana cluster
-  --outputFile=<value>
   --programId=<value>    alternative Switchboard program ID to interact with
+  --schemaFile=<value>   (required)
 
 GLOBAL FLAGS
   --json  Format output as json.
@@ -1285,6 +1500,44 @@ GLOBAL FLAGS
 
 DESCRIPTION
   save an existing switchboard network
+```
+
+## `sbv2 solana network start`
+
+start a switchboard network from a JSON file
+
+```
+USAGE
+  $ sbv2 solana network start [-h] [-v] [-s] [--mainnetBeta | --cluster devnet|mainnet-beta|mainnet|localnet] [-u <value>]
+    [--programId <value>] [--commitment confirmed|finalized|processed] [-k <value>] [--ledgerPath <value> --ledger]
+    [--json] [--configFile <value>] [--schemaFile <value>] [--nodeImage <value>] [--arm] [-t <value>]
+
+FLAGS
+  -h, --help             Show CLI help.
+  -k, --keypair=<value>  keypair that will pay for onchain transactions. defaults to new account authority if no
+                         alternate authority provided
+  -s, --silent           suppress docker logging
+  -t, --timeout=<value>  [default: 300] number of seconds before ending the docker process
+  -u, --rpcUrl=<value>   alternate RPC url
+  -v, --verbose          log everything
+  --arm                  apple silicon needs to use a docker image for linux/arm64
+  --cluster=<option>     the solana cluster to connect to
+                         <options: devnet|mainnet-beta|mainnet|localnet>
+  --commitment=<option>  [default: confirmed] transaction commitment level to use
+                         <options: confirmed|finalized|processed>
+  --configFile=<value>
+  --ledger               enable ledger support
+  --ledgerPath=<value>   HID path to the ledger
+  --mainnetBeta          WARNING: use mainnet-beta solana cluster
+  --nodeImage=<value>    [default: dev-v2-RC_01_05_23_05_52] public key of the oracle to start-up
+  --programId=<value>    alternative Switchboard program ID to interact with
+  --schemaFile=<value>
+
+GLOBAL FLAGS
+  --json  Format output as json.
+
+DESCRIPTION
+  start a switchboard network from a JSON file
 ```
 
 ## `sbv2 solana oracle create QUEUEKEY`
@@ -1389,7 +1642,7 @@ FLAGS
   --ledger               enable ledger support
   --ledgerPath=<value>   HID path to the ledger
   --mainnetBeta          WARNING: use mainnet-beta solana cluster
-  --nodeImage=<value>    [default: dev-v2-RC_11_10_22__19_19] public key of the oracle to start-up
+  --nodeImage=<value>    [default: dev-v2-RC_01_05_23_05_52] public key of the oracle to start-up
   --oracleKey=<value>    (required) public key of the oracle to start-up
   --programId=<value>    alternative Switchboard program ID to interact with
 
@@ -1755,6 +2008,47 @@ DESCRIPTION
   set an oracle queue's config
 ```
 
+## `sbv2 solana vrf open-round [VRFKEY]`
+
+request a new vrf result from a set of oracles
+
+```
+USAGE
+  $ sbv2 solana vrf open-round [VRFKEY] [-h] [-v] [-s] [--mainnetBeta | --cluster devnet|mainnet-beta|mainnet|localnet] [-u
+    <value>] [--programId <value>] [--commitment confirmed|finalized|processed] [-k <value>] [--ledgerPath <value>
+    --ledger] [--authority <value>]
+
+ARGUMENTS
+  VRFKEY  public key of the vrf account to request randomness for
+
+FLAGS
+  -h, --help             Show CLI help.
+  -k, --keypair=<value>  keypair that will pay for onchain transactions. defaults to new account authority if no
+                         alternate authority provided
+  -s, --silent           suppress cli prompts
+  -u, --rpcUrl=<value>   alternate RPC url
+  -v, --verbose          log everything
+  --authority=<value>    alternative keypair that is the VRF authority
+  --cluster=<option>     the solana cluster to connect to
+                         <options: devnet|mainnet-beta|mainnet|localnet>
+  --commitment=<option>  [default: confirmed] transaction commitment level to use
+                         <options: confirmed|finalized|processed>
+  --ledger               enable ledger support
+  --ledgerPath=<value>   HID path to the ledger
+  --mainnetBeta          WARNING: use mainnet-beta solana cluster
+  --programId=<value>    alternative Switchboard program ID to interact with
+
+DESCRIPTION
+  request a new vrf result from a set of oracles
+
+ALIASES
+  $ sbv2 solana vrf update
+  $ sbv2 solana vrf open-round
+
+EXAMPLES
+  $ sbv2 solana vrf request
+```
+
 ## `sbv2 solana vrf print VRFKEY`
 
 print a VRF and it's associated accounts
@@ -1818,6 +2112,51 @@ FLAGS
 
 DESCRIPTION
   request a new vrf result from a set of oracles
+
+ALIASES
+  $ sbv2 solana vrf update
+  $ sbv2 solana vrf open-round
+
+EXAMPLES
+  $ sbv2 solana vrf request
+```
+
+## `sbv2 solana vrf update [VRFKEY]`
+
+request a new vrf result from a set of oracles
+
+```
+USAGE
+  $ sbv2 solana vrf update [VRFKEY] [-h] [-v] [-s] [--mainnetBeta | --cluster devnet|mainnet-beta|mainnet|localnet] [-u
+    <value>] [--programId <value>] [--commitment confirmed|finalized|processed] [-k <value>] [--ledgerPath <value>
+    --ledger] [--authority <value>]
+
+ARGUMENTS
+  VRFKEY  public key of the vrf account to request randomness for
+
+FLAGS
+  -h, --help             Show CLI help.
+  -k, --keypair=<value>  keypair that will pay for onchain transactions. defaults to new account authority if no
+                         alternate authority provided
+  -s, --silent           suppress cli prompts
+  -u, --rpcUrl=<value>   alternate RPC url
+  -v, --verbose          log everything
+  --authority=<value>    alternative keypair that is the VRF authority
+  --cluster=<option>     the solana cluster to connect to
+                         <options: devnet|mainnet-beta|mainnet|localnet>
+  --commitment=<option>  [default: confirmed] transaction commitment level to use
+                         <options: confirmed|finalized|processed>
+  --ledger               enable ledger support
+  --ledgerPath=<value>   HID path to the ledger
+  --mainnetBeta          WARNING: use mainnet-beta solana cluster
+  --programId=<value>    alternative Switchboard program ID to interact with
+
+DESCRIPTION
+  request a new vrf result from a set of oracles
+
+ALIASES
+  $ sbv2 solana vrf update
+  $ sbv2 solana vrf open-round
 
 EXAMPLES
   $ sbv2 solana vrf request

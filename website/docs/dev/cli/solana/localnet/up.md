@@ -32,7 +32,7 @@ FLAGS
   --minStake=<value>                    [default: 0] the reward payed out to oracles for responding to an update request
                                         on-chain, Ex: 2 requires oracles to have 2 wSOL in their staking wallet before
                                         heartbeating
-  --nodeImage=<value>                   [default: dev-v2-RC_11_10_22__19_19] public key of the oracle to start-up
+  --nodeImage=<value>                   [default: dev-v2-RC_01_05_23_05_52] public key of the oracle to start-up
   --oracleStakingWalletKeypair=<value>  keypair to use for the oracle staking wallet. Using a static staking wallet with
                                         the same queue will produce the same oracle pubkey each time.
   --oracleTimeout=<value>               [default: 180] time period (in seconds) we should remove an oracle after if no

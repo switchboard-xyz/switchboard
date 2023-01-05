@@ -7,7 +7,7 @@ print a crank
 ```asciidoc
 USAGE
   $ sbv2 solana crank print [CRANKKEY] [-h] [-v] [-s] [--mainnetBeta | --cluster devnet|mainnet-beta|mainnet|localnet]
-    [-u <value>] [--programId <value>] [--commitment confirmed|finalized|processed] [--json]
+    [-u <value>] [--programId <value>] [--commitment confirmed|finalized|processed] [--json] [--rows]
 
 ARGUMENTS
   CRANKKEY  public key of the crank account
@@ -23,6 +23,7 @@ FLAGS
                          <options: confirmed|finalized|processed>
   --mainnetBeta          WARNING: use mainnet-beta solana cluster
   --programId=<value>    alternative Switchboard program ID to interact with
+  --rows                 print the crank rows in order
 
 GLOBAL FLAGS
   --json  Format output as json.

@@ -14,12 +14,13 @@
  - [sbv2 solana anchor test](/dev/cli/solana/anchor/test)
 ## sbv2 solana buffer
  - [sbv2 solana buffer create](/dev/cli/solana/buffer/create)
+ - [sbv2 solana buffer update](/dev/cli/solana/buffer/update)
 ## sbv2 solana crank
  - [sbv2 solana crank create](/dev/cli/solana/crank/create)
  - [sbv2 solana crank pop](/dev/cli/solana/crank/pop)
  - [sbv2 solana crank print](/dev/cli/solana/crank/print)
-## sbv2 solana init
- - [sbv2 solana init index](/dev/cli/solana/init/)
+## sbv2 solana job
+ - [sbv2 solana job create](/dev/cli/solana/job/create)
 ## sbv2 solana json
  - [sbv2 solana json create aggregator](/dev/cli/solana/json/create_aggregator)
 ## sbv2 solana lease
@@ -31,6 +32,7 @@
 ## sbv2 solana network
  - [sbv2 solana network create](/dev/cli/solana/network/create)
  - [sbv2 solana network save](/dev/cli/solana/network/save)
+ - [sbv2 solana network start](/dev/cli/solana/network/start)
 ## sbv2 solana oracle
  - [sbv2 solana oracle create](/dev/cli/solana/oracle/create)
  - [sbv2 solana oracle print](/dev/cli/solana/oracle/print)
@@ -47,3 +49,4 @@
  - [sbv2 solana queue print](/dev/cli/solana/queue/print)
 ## sbv2 solana vrf
  - [sbv2 solana vrf request](/dev/cli/solana/vrf/request)
+ - [sbv2 solana vrf update](/dev/cli/solana/vrf/update)

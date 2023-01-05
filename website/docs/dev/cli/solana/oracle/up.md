@@ -27,7 +27,7 @@ FLAGS
   --ledger               enable ledger support
   --ledgerPath=<value>   HID path to the ledger
   --mainnetBeta          WARNING: use mainnet-beta solana cluster
-  --nodeImage=<value>    [default: dev-v2-RC_11_10_22__19_19] public key of the oracle to start-up
+  --nodeImage=<value>    [default: dev-v2-RC_01_05_23_05_52] public key of the oracle to start-up
   --oracleKey=<value>    (required) public key of the oracle to start-up
   --programId=<value>    alternative Switchboard program ID to interact with
 

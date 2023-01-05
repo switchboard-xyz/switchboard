@@ -729,7 +729,7 @@ FLAGS
   --keypair=<value>             (required) Path to AptosAccount keypair or config.yaml file
   --networkId=<option>          [default: testnet] Aptos network to connect to
                                 <options: devnet|testnet|mainnet>
-  --nodeImage=<value>           [default: dev-v2-10-18-22] public key of the oracle to start-up
+  --nodeImage=<value>           [default: dev-v2-RC_01_05_23_05_52] public key of the oracle to start-up
   --profileName=<value>         [default: default] If --keypair is pointing to a yaml file, provide an optional profile
                                 to load. If none provided, default will be used
   --programId=<value>           Switchboard programId on the selected Aptos network

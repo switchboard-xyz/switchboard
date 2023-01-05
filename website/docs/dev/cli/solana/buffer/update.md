@@ -2,16 +2,16 @@
 
 title: Update
 ---
-request a new aggregator result from a set of oracles
+request a new buffer relayer result
 
 ```asciidoc
 USAGE
-  $ sbv2 solana aggregator update [AGGREGATORKEY] [-h] [-v] [-s] [--mainnetBeta | --cluster
+  $ sbv2 solana buffer update [BUFFERRELAYERKEY] [-h] [-v] [-s] [--mainnetBeta | --cluster
     devnet|mainnet-beta|mainnet|localnet] [-u <value>] [--programId <value>] [--commitment
     confirmed|finalized|processed] [-k <value>] [--ledgerPath <value> --ledger]
 
 ARGUMENTS
-  AGGREGATORKEY  public key of the aggregator account to request an update for
+  BUFFERRELAYERKEY  public key of the aggregator account to request an update for
 
 FLAGS
   -h, --help             Show CLI help.
@@ -30,11 +30,11 @@ FLAGS
   --programId=<value>    alternative Switchboard program ID to interact with
 
 DESCRIPTION
-  request a new aggregator result from a set of oracles
+  request a new buffer relayer result
 
 ALIASES
-  $ sbv2 solana aggregator open-round
+  $ sbv2 solana buffer open-round
 
 EXAMPLES
-  $ sbv2 solana aggregator update J7j9xX8JP2B2ErvUzuqGAKBGeggsxPyFXj5MqZcYDxfa --keypair ../payer-keypair.json
+  $ sbv2 solana buffer update J7j9xX8JP2B2ErvUzuqGAKBGeggsxPyFXj5MqZcYDxfa --keypair ../payer-keypair.json
 ```

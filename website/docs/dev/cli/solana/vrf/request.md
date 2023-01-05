@@ -33,6 +33,10 @@ FLAGS
 DESCRIPTION
   request a new vrf result from a set of oracles
 
+ALIASES
+  $ sbv2 solana vrf update
+  $ sbv2 solana vrf open-round
+
 EXAMPLES
   $ sbv2 solana vrf request
 ```

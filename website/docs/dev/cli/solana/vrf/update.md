@@ -2,16 +2,16 @@
 
 title: Update
 ---
-request a new aggregator result from a set of oracles
+request a new vrf result from a set of oracles
 
 ```asciidoc
 USAGE
-  $ sbv2 solana aggregator update [AGGREGATORKEY] [-h] [-v] [-s] [--mainnetBeta | --cluster
-    devnet|mainnet-beta|mainnet|localnet] [-u <value>] [--programId <value>] [--commitment
-    confirmed|finalized|processed] [-k <value>] [--ledgerPath <value> --ledger]
+  $ sbv2 solana vrf update [VRFKEY] [-h] [-v] [-s] [--mainnetBeta | --cluster devnet|mainnet-beta|mainnet|localnet] [-u
+    <value>] [--programId <value>] [--commitment confirmed|finalized|processed] [-k <value>] [--ledgerPath <value>
+    --ledger] [--authority <value>]
 
 ARGUMENTS
-  AGGREGATORKEY  public key of the aggregator account to request an update for
+  VRFKEY  public key of the vrf account to request randomness for
 
 FLAGS
   -h, --help             Show CLI help.
@@ -20,6 +20,7 @@ FLAGS
   -s, --silent           suppress cli prompts
   -u, --rpcUrl=<value>   alternate RPC url
   -v, --verbose          log everything
+  --authority=<value>    alternative keypair that is the VRF authority
   --cluster=<option>     the solana cluster to connect to
                          <options: devnet|mainnet-beta|mainnet|localnet>
   --commitment=<option>  [default: confirmed] transaction commitment level to use
@@ -30,11 +31,12 @@ FLAGS
   --programId=<value>    alternative Switchboard program ID to interact with
 
 DESCRIPTION
-  request a new aggregator result from a set of oracles
+  request a new vrf result from a set of oracles
 
 ALIASES
-  $ sbv2 solana aggregator open-round
+  $ sbv2 solana vrf update
+  $ sbv2 solana vrf open-round
 
 EXAMPLES
-  $ sbv2 solana aggregator update J7j9xX8JP2B2ErvUzuqGAKBGeggsxPyFXj5MqZcYDxfa --keypair ../payer-keypair.json
+  $ sbv2 solana vrf request
 ```
