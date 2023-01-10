@@ -92,7 +92,7 @@ ${path.join(outputDir, "start-local-validator.sh")}
 In shell #2, start the oracle
 
 \`\`\`bash
-SBV2_ORACLE_VERSION=dev-v2-RC_01_05_23_05_52 ${path.join(
+SBV2_ORACLE_VERSION=dev-v2-RC_01_10_23_18_31a ${path.join(
         outputDir,
         "start-oracle.sh"
       )}

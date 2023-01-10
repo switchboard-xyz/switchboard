@@ -36,8 +36,10 @@ export default class AnchorTest extends BaseCommand {
 
   timestamp: number = Date.now();
 
+  detach = false;
+
   async endProcesses() {
-    if (this.localValidatorProcess) {
+    if (this.localValidatorProcess && !this.detach) {
       try {
         this.localValidatorProcess.kill();
       } catch {}
@@ -92,7 +94,7 @@ export default class AnchorTest extends BaseCommand {
     }),
     nodeImage: Flags.string({
       description: "public key of the oracle to start-up",
-      default: "dev-v2-RC_01_05_23_05_52",
+      default: "dev-v2-RC_01_10_23_18_31a",
     }),
     arm: Flags.boolean({
       description: "apple silicon needs to use a docker image for linux/arm64",
@@ -116,10 +118,15 @@ export default class AnchorTest extends BaseCommand {
         "the number of milliseconds after starting the Switchboard oracle to start running the Anchor test suite",
       default: 30000,
     }),
+    detach: Flags.boolean({
+      description: "keep the localnet rpc running",
+    }),
   };
 
   async run() {
     const { flags } = await this.parse(AnchorTest);
+
+    this.detach = flags.detach;
 
     const switchboardDir = this.normalizeDirPath(
       flags.switchboardDir ?? ".switchboard"

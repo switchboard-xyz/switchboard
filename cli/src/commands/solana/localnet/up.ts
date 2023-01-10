@@ -44,7 +44,7 @@ export default class SolanaValidatorUp extends BaseCommand {
     // docker flags
     nodeImage: Flags.string({
       description: "public key of the oracle to start-up",
-      default: "dev-v2-RC_01_05_23_05_52",
+      default: "dev-v2-RC_01_10_23_18_31a",
     }),
     arm: Flags.boolean({
       description: "apple silicon needs to use a docker image for linux/arm64",
