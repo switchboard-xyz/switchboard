@@ -1,3 +1,5 @@
+import useBaseUrl from "@docusaurus/useBaseUrl";
+
 <table>
   <thead>
     <tr>
@@ -20,7 +22,9 @@
         <b>Description</b> - Dictates which metric suite to aggregate resource
         metrics, as defined in:
         <br />
-        <a href="./monitoring">Oracle - Monitoring</a>
+        <a href={useBaseUrl("/operator/oracle/monitoring")}>
+          Oracle - Monitoring
+        </a>
         <br />
         *opentelemetry-collector only supports the default endpoint
         localhost:55681/v1/metric
@@ -40,7 +44,9 @@
         <b>Description</b> - Token provided by pagerduty for sending pages about
         various alerts.
         <br />
-        <a href="./monitoring#alerts">Oracle - Alerts</a>
+        <a href={useBaseUrl("/operator/oracle/monitoring#alerts")}>
+          Oracle - Alerts
+        </a>
       </td>
     </tr>
     <tr>

@@ -5,13 +5,18 @@ title: Monitoring
 
 ## Metrics
 
-The oracle uses open telemetry for emitting metrics.
-As such, at the time of this writing, the oracle supports prometheus (as well as any wire-compatible solution like cortex, thanos or victoria metrics) and GCP monitoring.
-This can be configured via the `$METRICS_EXPORTER` environmental variable ('prometheus' and 'gcp')
+The oracle uses open telemetry for emitting metrics. As such, at the time of
+this writing, the oracle supports prometheus (as well as any wire-compatible
+solution like cortex, thanos or victoria metrics) and GCP monitoring. This can
+be configured via the `$METRICS_EXPORTER` environmental variable ('prometheus'
+and 'gcp')
 
-If GCP monitoring is used, all data collection and visualization is handled by the platform although users are advised to closely watch billing.
+If GCP monitoring is used, all data collection and visualization is handled by
+the platform although users are advised to closely watch billing.
 
-For users that are either not running on GCP or want a more cost effective solution, grafana and victoria metrics (prometheus compatible scraping+storage) manifests are provided in the kubernetes-manifests repo.
+For users that are either not running on GCP or want a more cost effective
+solution, grafana and victoria metrics (prometheus compatible scraping+storage)
+manifests are provided in the kubernetes-manifests repo.
 
 <details open>
   <summary>List of metrics</summary>
@@ -79,8 +84,11 @@ For users that are either not running on GCP or want a more cost effective solut
 
 ## Alerts
 
-Pagerduty allows you to get real time alerts on your oracle. You will need to sign up for an account and get an API key for access.
+Pagerduty allows you to get real time alerts on your oracle. You will need to
+sign up for an account and get an API key for access.
 
-`$PAGERDUTY_EVENT_KEY` is an optional environment variable to help you manage your cluster. You may wish to ignore this variable if you are comfortable with your own monitoring solutions
+`$PAGERDUTY_EVENT_KEY` is an optional environment variable to help you manage
+your cluster. You may wish to ignore this variable if you are comfortable with
+your own monitoring solutions
 
 - [Pagerduty - Generating API Keys](https://support.pagerduty.com/docs/generating-api-keys#section-events-api-keys)
