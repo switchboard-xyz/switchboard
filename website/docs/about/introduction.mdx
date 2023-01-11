@@ -20,8 +20,10 @@ forward a dialer’s call to the next hop in the circuit. Similarly, Switchboard
 our oracle network is responsible for how external data gets updated and routed
 through a blockchain until it reaches its appropriate destination.
 
+<hr />
+
 <RoundedCardGroup
-  cols={2}
+  cols={3}
   sx={{
     border: "1px solid var(--ifm-color-primary-dark)",
     boxShadow: "2px 2px 5px var(--ifm-color-primary-dark)",
@@ -37,19 +39,12 @@ through a blockchain until it reaches its appropriate destination.
       imageDark: <img src={useBaseUrl("/img/icons/design/dark.svg")} />,
     },
     {
-      to: "/dev",
-      title: "Publish",
-      description: "Publish your own data feeds on-chain through Switchboard.",
+      to: "/publisher",
+      title: "Publisher",
+      description:
+        "Learn how to use the Publisher to bring your own data on-chain.",
       image: <img src={useBaseUrl("/img/icons/publish/teal.svg")} />,
       imageDark: <img src={useBaseUrl("/img/icons/publish/dark.svg")} />,
-    },
-    {
-      to: "/dev",
-      title: "Develop",
-      description:
-        "Read the developer docs and learn how to integrate Switchboard into your protocol on Aptos, Near, or Solana.",
-      image: <img src={useBaseUrl("/img/icons/develop/teal.svg")} />,
-      imageDark: <img src={useBaseUrl("/img/icons/develop/dark.svg")} />,
     },
     {
       to: "/operator",
@@ -62,7 +57,41 @@ through a blockchain until it reaches its appropriate destination.
   ]}
 />
 
----
+<hr />
+
+<RoundedCardGroup
+  cols={3}
+  sx={{
+    border: "1px solid var(--ifm-color-primary-dark)",
+    boxShadow: "2px 2px 5px var(--ifm-color-primary-dark)",
+    borderRadius: "10px",
+  }}
+  items={[
+    {
+      to: "/aptos",
+      title: "Aptos",
+      description: "Integrate Switchboard on Aptos.",
+      image: <img src={useBaseUrl("/img/icons/aptos/teal.svg")} />,
+      imageDark: <img src={useBaseUrl("/img/icons/aptos/dark.svg")} />,
+    },
+    {
+      to: "/near",
+      title: "Near",
+      description: "Integrate Switchboard on Near.",
+      image: <img src={useBaseUrl("/img/icons/near/teal.svg")} />,
+      imageDark: <img src={useBaseUrl("/img/icons/near/dark.svg")} />,
+    },
+    {
+      to: "/solana",
+      title: "Solana",
+      description: "Integrate Switchboard on Solana.",
+      image: <img src={useBaseUrl("/img/icons/solana/teal.svg")} />,
+      imageDark: <img src={useBaseUrl("/img/icons/solana/dark.svg")} />,
+    },
+  ]}
+/>
+
+<hr />
 
 ## What is an Oracle?
 
@@ -75,7 +104,7 @@ verifying and authenticating external data sources; which is relayed to the
 blockchain for a smart contract to read and carry out necessary course of action
 for its intended product.
 
----
+<hr />
 
 ## What makes Switchboard different?
 
@@ -85,7 +114,7 @@ Switchboard's [Publisher](https://app.switchboard.xyz).
 
 > No friction, no contact, build permissionlessly.
 
----
+<hr />
 
 ## Use Cases
 

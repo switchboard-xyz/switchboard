@@ -126,7 +126,7 @@ const config = {
           },
           {
             type: "dropdown",
-            label: "Chains",
+            label: "Integrate",
             position: "left",
             items: [
               {
@@ -145,6 +145,11 @@ const config = {
                 className: "header-solana-link",
               },
             ],
+          },
+          {
+            label: "Publisher",
+            position: "left",
+            to: "/publisher",
           },
           {
             label: "CLI",
