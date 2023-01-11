@@ -1,6 +1,7 @@
 ---
 sidebar_position: 1
-# hide_table_of_contents: true
+slug: .
+hide_table_of_contents: true
 ---
 
 import RoundedCardGroup from "/src/components/RoundedCard/RoundedCardGroup";
@@ -9,10 +10,10 @@ import useBaseUrl from "@docusaurus/useBaseUrl";
 # Switchboard Operator
 
 <RoundedCardGroup
-  cols={1}
+  cols={2}
   items={[
     {
-      to: "/oracles",
+      to: "/operator/oracle",
       title: "Oracle",
       description:
         "Learn how to operate an Oracle and fulfill update requests on-chain",
@@ -20,7 +21,7 @@ import useBaseUrl from "@docusaurus/useBaseUrl";
       imageDark: <img src={useBaseUrl("/img/icons/oracle/dark.svg")} />,
     },
     {
-      to: "/crank",
+      to: "/operator/crank",
       title: "Crank",
       description:
         "Learn how to operate a crank and get rewarded for invoking data feed update requests",

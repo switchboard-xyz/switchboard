@@ -49,6 +49,7 @@ export interface RoundedCardProps {
   image: ReactNode;
   imageDark?: ReactNode;
   description?: string;
+  sx?: any;
 }
 
 export default function RoundedCard({
@@ -57,12 +58,13 @@ export default function RoundedCard({
   imageDark,
   description,
   to,
+  sx,
 }: RoundedCardProps) {
   const { colorMode } = useColorMode();
 
   return (
     <Link href={to} style={{ textDecoration: "none" }}>
-      <StyledCard dark={colorMode === "dark" ? 1 : 0}>
+      <StyledCard dark={colorMode === "dark" ? 1 : 0} sx={sx}>
         <CardContent sx={{ height: "100%", width: "100%" }}>
           <StyledCardHeader
             avatar={

@@ -1,65 +1,87 @@
 ---
 sidebar_position: 1
 id: introduction
-slug: .
+slug: /
+hide_table_of_contents: true
+title: Introduction
 ---
 
-# Introduction
+import RoundedCardGroup from "/src/components/RoundedCard/RoundedCardGroup";
+import { RustIcon } from "/src/components/icons/RustIcon";
+import useBaseUrl from "@docusaurus/useBaseUrl";
+import { Box, Container } from "@mui/system";
 
-## Welcome to Switchboard's Documentation
-
-Switchboard is a multichain, permissionless oracle protocol for general purpose
-data feeds  
-and verifiable random function (VRF).
-
-:::info
-
-The documentation includes information and guides on the following:
-
-- [Switchboard architecture on the different chains](about/network)
-- [Frequently Asked Questions](/faq)
-- [All about Data Feeds](feeds/about)
-- [All about VRF](/randomness/about)
-- [Oracle operator](/operator/about)
-- [Developer resources](/dev)
-
-:::
-
----
-
-## Origin of Switchboard
+Switchboard is a multi-chain, permissionless oracle protocol for general purpose
+data feeds and verifiable random function (VRF).
 
 Switchboard gets its name from the early days of phone networks, where operators
 would shuffle telephone lines around a 'switchboard' to complete a circuit and
-forward a dialer’s call to the  
-next hop in the circuit.
+forward a dialer’s call to the next hop in the circuit. Similarly, Switchboard,
+our oracle network is responsible for how external data gets updated and routed
+through a blockchain until it reaches its appropriate destination.
 
-Similarly, Switchboard, our oracle network is responsible for how external data
-gets updated  
-and routed through a blockchain until it reaches its appropriate destination.
+<RoundedCardGroup
+  cols={2}
+  sx={{
+    border: "1px solid var(--ifm-color-primary-dark)",
+    boxShadow: "2px 2px 5px var(--ifm-color-primary-dark)",
+    borderRadius: "10px",
+  }}
+  items={[
+    {
+      to: "/arch",
+      title: "Learn",
+      description:
+        "Learn about Switchboard and how it enables the community to dictate what data lives on-chain.",
+      image: <img src={useBaseUrl("/img/icons/design/teal.svg")} />,
+      imageDark: <img src={useBaseUrl("/img/icons/design/dark.svg")} />,
+    },
+    {
+      to: "/dev",
+      title: "Publish",
+      description: "Publish your own data feeds on-chain through Switchboard.",
+      image: <img src={useBaseUrl("/img/icons/publish/teal.svg")} />,
+      imageDark: <img src={useBaseUrl("/img/icons/publish/dark.svg")} />,
+    },
+    {
+      to: "/dev",
+      title: "Develop",
+      description:
+        "Read the developer docs and learn how to integrate Switchboard into your protocol on Aptos, Near, or Solana.",
+      image: <img src={useBaseUrl("/img/icons/develop/teal.svg")} />,
+      imageDark: <img src={useBaseUrl("/img/icons/develop/dark.svg")} />,
+    },
+    {
+      to: "/operator",
+      title: "Operator",
+      description:
+        "Learn how to contribute to the network and process data feed updates.",
+      image: <img src={useBaseUrl("/img/icons/oracle/teal.svg")} />,
+      imageDark: <img src={useBaseUrl("/img/icons/oracle/dark.svg")} />,
+    },
+  ]}
+/>
 
 ---
 
 ## What is an Oracle?
 
 Blockchains do not have the capability of directly relaying information from
-off-chain to on-chain.  
-Hence, enter oracles, a gateway between blockchain and real world data.
+off-chain to on-chain. Hence, enter oracles, a gateway between blockchain and
+real world data.
 
 An oracle is not the data source, it is an infrastructure layer for querying,
-verifying  
-and authenticating external data sources; which is relayed to the blockchain for
-a smart contract  
-to read and carry out necessary course of action for its intended product.
+verifying and authenticating external data sources; which is relayed to the
+blockchain for a smart contract to read and carry out necessary course of action
+for its intended product.
 
 ---
 
 ## What makes Switchboard different?
 
 Switchboard is permissionless. From a developer's perspective, you customize,
-build and manage  
-your own data feeds where all of which can be done from Switchboard's
-[Publisher](https://app.switchboard.xyz).
+build and manage your own data feeds where all of which can be done from
+Switchboard's [Publisher](https://app.switchboard.xyz).
 
 > No friction, no contact, build permissionlessly.
 
@@ -68,8 +90,7 @@ your own data feeds where all of which can be done from Switchboard's
 ## Use Cases
 
 With the power of off-chain data being brought on-chain, Switchboard has plugged
-into mulitple verticals  
-to build blockchain based applications today, such as:
+into mulitple verticals to build blockchain based applications today, such as:
 
 - Determining the current price of an asset for collateralized lending
 - Determining the state of a tracking number to auto settle funds on arrival
