@@ -7,6 +7,10 @@ li > a.menu__link {
   margin-bottom: 0.1rem;
 }
 
+.sidebar-separator {
+  margin: 0.8rem 0;
+}
+
 /* .sidebar__category_label::before {
   content: "🗳 ";
 } */

@@ -1,0 +1,34 @@
+---
+sidebar_position: 30
+title: "anchor-vrf-walkthrough"
+---
+
+import RoundedCardGroup from "/src/components/RoundedCard/RoundedCardGroup";
+import useBaseUrl from "@docusaurus/useBaseUrl";
+
+```bash
+git clone https://github.com/switchboard-xyz/vrf-demo-walkthrough
+cd vrf-demo-walkthrough
+```
+
+## Quick Links
+
+<RoundedCardGroup
+  cols={2}
+  items={[
+    {
+      to: "https://github.com/switchboard-xyz/vrf-demo-walkthrough",
+      title: "Github",
+      description: "View the repo",
+      image: <img src={useBaseUrl("/img/icons/github/light.svg")} />,
+      imageDark: <img src={useBaseUrl("/img/icons/github/dark.svg")} />,
+    },
+    {
+      to: "https://www.youtube.com/watch?v=OJtGFexVFII&",
+      title: "Youtube",
+      description: "Watch the walkthrough LIVE",
+      image: <img src={useBaseUrl("/img/icons/youtube/light.svg")} />,
+      imageDark: <img src={useBaseUrl("/img/icons/youtube/dark.svg")} />,
+    },
+  ]}
+/>

@@ -1,0 +1,57 @@
+---
+sidebar_position: 1
+title: What is Randomness
+description: Learn how to use Switchboard's Verifiable Random Functions
+keywords: [Switchboard, Solana, VRF, randomness, verifiable, proof]
+slug: .
+---
+
+import MarkdownImage from "/src/components/MarkdownImage";
+import RandomnessInstructions from "/docs/solana/idl/_randomness_instructions.mdx";
+import {
+  Typography,
+  IconButton,
+  Box,
+  CardActionArea,
+  Card,
+  CardContent,
+} from "@mui/material";
+import Link from "@docusaurus/Link";
+import GitHubIcon from "@mui/icons-material/GitHub";
+import VrfAccountData from "/docs/solana/idl/accounts/VrfAccountData.md";
+import VrfInit from "/docs/solana/idl/instructions/vrfInit.md";
+import vrfProveAndVerify from "/docs/solana/idl/instructions/vrfProveAndVerify.md";
+import VrfRequestRandomness from "/docs/solana/idl/instructions/vrfRequestRandomness.md";
+
+import CallbackZC from "/docs/solana/idl/types/CallbackZC.md";
+
+While true-randomness on some computers can be made possible via atmospheric
+noise and special hardware modules, such solutions on blockchains are not
+possible since they are virtual machines without physical hardware. Thus,
+pseudorandom-functions are needed to close this gap. **_You should be skeptical
+of teams claiming they offer true randomness._**
+
+Random numbers are crucial for many DeFi applications whether its fair NFT
+launches, gambling, gaming, or assigning user roles in a DAO. Without an element
+of randomness, each of the above could be exploited and the final outcome
+predicted.
+
+A Verifiable Random Function (VRF) is a public-key pseudorandom function that
+provides proofs that its outputs were calculated correctly. This means we can
+use a cryptographic keypair to generate a random number with a proof, which can
+then be validated by anyone to ensure the value was calculated correctly without
+the possibility of leaking the producer’s secret key. You can read more about
+VRF from the Algorand team, whose founder was one of the authors on the original
+VRF paper -
+[Algorand Releases First Open Source Code of Verifiable Random Functions](https://medium.com/algorand/algorand-releases-first-open-source-code-of-verifiable-random-function-93c2960abd61).
+
+Switchboard's VRF implementation uses the oracle authority secret key to publish
+the VRF proof on-chain. The on-chain proof verification is very computationally
+expensive and requires 276 instructions on-chain to fully verify. Once the proof
+is submitted on-chain anyone can turn the VRF crank to produce the pseduorandom
+result, although for simplicity and speed the Switchboard oracle that submitted
+the proof also submits the verification instructions.
+
+The final proof verification instruction invokes the VRF Account's specified
+callback, which allows developers to integrate pseduorandomness into their
+applications and be confident they are consuming the latest pseduorandom result.

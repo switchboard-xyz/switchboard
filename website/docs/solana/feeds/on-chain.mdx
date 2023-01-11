@@ -1,0 +1,19 @@
+---
+sidebar_position: 1
+title: On-Chain
+---
+
+import CodeBlock from "@theme/CodeBlock";
+import ReadFeed from "!!raw-loader!../../solana/code/rust/read-feed.rs";
+import ReadFeedPreview from "!!raw-loader!../../solana/code/rust/read-feed.preview.rs";
+import Tabs from "@theme/Tabs";
+import TabItem from "@theme/TabItem";
+
+<Tabs>
+  <TabItem value="preview" label="Preview">
+    <CodeBlock language="rust">{ReadFeedPreview}</CodeBlock>
+  </TabItem>
+  <TabItem value="full" label="Full">
+    <CodeBlock language="rust">{ReadFeed}</CodeBlock>
+  </TabItem>
+</Tabs>

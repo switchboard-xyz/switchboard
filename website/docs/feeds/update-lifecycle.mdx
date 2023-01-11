@@ -1,0 +1,131 @@
+---
+sidebar_position: 10
+slug: updates
+title: Update Lifecycle
+---
+
+import AggregatorRound from "/docs/solana/idl/types/AggregatorRound.md";
+import ChainNote from "/src/components/ChainNote";
+import MarkdownImage from "/src/components/MarkdownImage";
+
+An update request can be broken down into three stages:
+
+- Requesting Updates
+- Oracle Execution
+- Oracle Consensus
+
+Let's walk through what the feed update lifecycle looks like.
+
+<MarkdownImage
+  img="/img/update_request_activity.png"
+  sx={{
+    display: "flex",
+    width: "90%",
+  }}
+/>
+
+## Requesting Updates
+
+A feed is updated when someone calls `aggregatorOpenRound` on-chain. If
+openRound is called before `aggregator.minUpdateDelaySeconds` have elapsed, the
+openRound call will fail and the user will forfeit their transaction fees. If
+successful, the user is rewarded from the feed's lease for keeping the feed
+updating.
+
+Optionally, a feed may be pushed onto a crank and updated periodically. Any data
+feed permitted to request updates on a queue is also permitted to join a queue's
+existing Crank, `aggregator.crankPubkey`. The Crank is the scheduling mechanism
+behind feeds that allow them to be periodically updated. The Crank is a buffer
+account that stores a collection of aggregator public keys, ordered by their
+next available update, with some level of jitter added to prevent a predictable
+oracle allocation cycle. A feed can set `aggregator.disableCrank` to prevent
+being pushed onto a Crank and draining it's lease.
+
+After `aggregatorOpenRound` is called successfully, the queue assigns the next
+`aggregator.oracleRequestBatchSize` oracles to the update request and assigns
+them to the current round.
+
+- Any user calls **_aggregatorOpenRound_**, either manually or via a crank turn
+- sbv2 program checks if `aggregator.minUpdateDelaySeconds` have passed since
+  the last openRound call
+- sbv2 program checks if a LeaseContract has enough funds to reward the oracles
+  for the next round
+- sbv2 program assigns the next `aggregator.oracleRequestBatchSize` oracles to
+  the update request and emits an **_AggregatorOpenRoundEvent_**
+
+## Oracle Execution
+
+- Oracle watches the chain for an **_AggregatorOpenRoundEvent_** with the
+  oracle's public key assigned to the update
+- Oracle fetches the feed and job account definitions from its RPC Provider
+- Oracle verifies the job account definitions match the feeds
+  `aggregator.jobHashes`
+- Oracle executes the job definitions in parallel
+- When an oracle receives `aggregator.minJobResults`, it calculates the weighted
+  median based on the feeds `aggregator.jobWeights`. Note, this is not enforced
+  on-chain and is purely up to the oracle to respect
+- If a feed has configured a `aggregator.varianceThreshold` and
+  `aggregator.forceReportPeriod` has not elapsed, the oracle calculates the
+  percentage change between its calculated result and the previous confirmed
+  round. If it does not exceed the feeds `aggregator.varianceThreshold`, the
+  oracle drops the update request and waits for new update request
+- If a feeds configuration dictate a new on-chain result, the oracle submits an
+  **_aggregatorSaveResult_** transaction
+
+## Oracle Consensus
+
+When a new update is requested, the feeds `aggregator.currentRound` is zeroized.
+The AggregatorRound is updated each time an assigned oracle responds. After
+`aggregator.minOracleResponses` responses, the round is moved to
+`aggregator.latestConfirmedRound` and ready for on-chain programs to consume.
+
+<!-- If `aggregator.minOracleResponses` is reached, the result is calculated from the
+median of the oracle responses. Oracles who responded within the
+`queue.varianceToleranceMultiplier` are rewarded the `queue.reward` from the
+feeds lease. If `queue.slashingEnabled`, any oracles who respond outside this
+threshold are slashed the `queue.reward` from the `oracle.tokenWallet` and
+transferred to the feeds lease. The AggregatorRound is then moved to
+`aggregator.latestConfirmedRound` and ready for on-chain programs to consume. -->
+
+- sbv2 program waits for `aggregator.minOracleResults` to be submitted by the
+  assigned oracles
+- When sufficient oracle responses, the sbv2 program computes the accepted value
+  from the median of the oracle responses
+- If a feed has a history buffer account, the accepted result is pushed onto the
+  buffer
+- Oracles that responded within `queue.varianceToleranceMultiplier` are rewarded
+  `queue.reward` from the feed's LeaseContract
+- If `queue.slashingEnabled`, oracles that responded outside the
+  `queue.varianceToleranceMultiplier` are slashed `queue.reward` tokens from
+  it's `oracle.tokenAccount` and transferred to the feed's `lease.escrow`
+- If additional oracle responses are submitted after a value has been accepted,
+  the median is recalculated based on the new response set, oracle rewards are
+  redistributed, and the history buffer value is updated
+
+<details>
+
+<summary>AggregatorRound Definition (Solana)</summary>
+
+<AggregatorRound />
+
+</details>
+
+### Sliding Window Mode
+
+<ChainNote
+  chain="solana"
+  note="Currently, only Solana supports sliding window mode."
+/>
+
+During periods of network congestion, oracle responses may be delayed and
+processed by the network after the next round has started. This results in a
+data feed to be stale for a prolonged period of time even when an oracle
+response is just milliseconds too late.
+
+To remedy this, Solana feeds may enable sliding window mode
+`aggregator.resolutionMode`. Sliding window mode allows an aggregator to store
+the last 16 oracle responses even if they were processed after its assigned
+round has closed. The sliding window account can only store a single response
+per oracle to prevent an oracle from filling the responses with malicous data.
+Upon each response, the `aggregator.latestConfirmedRound` is calculated from the
+median of the last `aggregator.oracleRequestBatchSize` responses.

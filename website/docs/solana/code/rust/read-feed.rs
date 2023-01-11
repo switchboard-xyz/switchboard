@@ -8,10 +8,6 @@ declare_id!("FnsPs665aBSwJRu2A8wGv6ZT76ipR41kHm4hoA3B1QGh");
 #[derive(Accounts)]
 #[instruction(params: ReadResultParams)]
 pub struct ReadResult<'info> {
-    #[account(
-        constraint = 
-            *aggregator.to_account_info().owner == SWITCHBOARD_PROGRAM_ID @ FeedErrorCode::InvalidSwitchboardAccount
-    )]
     pub aggregator: AccountLoader<'info, AggregatorAccountData>,
 }
 

@@ -26,49 +26,28 @@ import useBaseUrl from "@docusaurus/useBaseUrl";
   ]}
 />
 
-## Products
+## SDK
 
-<RoundedCardGroup
-  cols={3}
-  items={[
-    {
-      to: "/solana/feeds",
-      title: "Data Feeds",
-      description: "Learn about Switchboard's data feeds on Solana",
-      image: <img src={useBaseUrl("/img/icons/feeds/light.svg")} />,
-      imageDark: <img src={useBaseUrl("/img/icons/feeds/dark.svg")} />,
-    },
-    {
-      to: "/solana/randomness",
-      title: "Randomness",
-      description:
-        "Learn about Switchboard's Verifiable Random Function on Solana",
-      image: <img src={useBaseUrl("/img/icons/randomness/light.svg")} />,
-      imageDark: <img src={useBaseUrl("/img/icons/randomness/dark.svg")} />,
-    },
-    {
-      to: "/solana/buffer-relayers",
-      title: "Buffer Relayers",
-      description: "Learn about Switchboard's buffer relayers on Solana",
-      image: <img src={useBaseUrl("/img/icons/buffer-relayers/light.svg")} />,
-      imageDark: (
-        <img src={useBaseUrl("/img/icons/buffer-relayers/dark.svg")} />
-      ),
-    },
-  ]}
-/>
+### Clients
 
-## Resources
+import SolanaSdkClients from "/docs/solana/_common/_solana_clients.mdx";
 
-<RoundedCardGroup
-  cols={2}
-  items={[
-    {
-      to: "/solana/dev",
-      title: "Developer Resources",
-      description: "Learn how to develop with Switchboard on Solana",
-      image: <img src={useBaseUrl("/img/icons/develop/light.svg")} />,
-      imageDark: <img src={useBaseUrl("/img/icons/develop/dark.svg")} />,
-    },
-  ]}
-/>
+<SolanaSdkClients />
+
+### On-Chain Example Programs
+
+import SolanaExamplePrograms from "/docs/solana/_common/_solana_example_programs.mdx";
+
+<SolanaExamplePrograms />
+
+### Off-Chain Examples
+
+import SolanaClientExamples from "/docs/solana/_common/_solana_client_examples.mdx";
+
+<SolanaClientExamples />
+
+## Anchor IDL
+
+import TOC from "/docs/solana/idl/_short_toc.md";
+
+<TOC />

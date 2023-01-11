@@ -9,5 +9,5 @@
   },
   "include": ["src/**/*", "src/**/*.json", "scripts/**/*"],
   "exclude": ["static", "public", "node_modules"],
-  "files": ["src/pages/index.tsx"]
+  "files": ["src/pages/main.tsx"]
 }

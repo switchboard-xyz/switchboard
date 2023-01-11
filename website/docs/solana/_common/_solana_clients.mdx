@@ -1,0 +1,26 @@
+import RoundedCardGroup from "/src/components/RoundedCard/RoundedCardGroup";
+import useBaseUrl from "@docusaurus/useBaseUrl";
+
+<RoundedCardGroup
+  cols={3}
+  items={[
+    {
+      to: "/solana/dev/rust/",
+      title: "Rust",
+      description: "View the switchboard-v2 crate",
+      image: <img src={useBaseUrl("/img/icons/rust/crab.svg")} />,
+    },
+    {
+      to: "/solana/dev/javascript/",
+      title: "Javascript",
+      description: "View the @switchboard-xyz/switchboard-v2 npm package",
+      image: <img src={useBaseUrl("/img/icons/javascript/light.svg")} />,
+    },
+    {
+      to: "/solana/dev/python",
+      title: "Python",
+      description: "View the switchboardpy module",
+      image: <img src={useBaseUrl("/img/icons/python/light.svg")} />,
+    },
+  ]}
+/>
