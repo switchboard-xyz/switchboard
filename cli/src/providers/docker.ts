@@ -8,6 +8,7 @@ import path from "path";
 import internal from "stream";
 import crypto from "crypto";
 import chalk from "chalk";
+import { promiseWithTimeout, sleep } from "@switchboard-xyz/common";
 
 export interface IOracleConfig {
   chain: "aptos" | "near" | "solana";
@@ -58,7 +59,7 @@ export class DockerOracle implements Required<IOracleConfig> {
 
   constructor(
     readonly config: IOracleConfig,
-    readonly nodeImage: string = "dev-v2-RC_01_05_23_03_24",
+    readonly nodeImage: string,
     readonly platform: "linux/arm64" | "linux/amd64" = "linux/amd64",
     readonly switchboardDirectory = path.join(process.cwd(), ".switchboard"),
     readonly silent = false
@@ -283,5 +284,26 @@ export class DockerOracle implements Required<IOracleConfig> {
     }
 
     return undefined;
+  }
+
+  async awaitReady(timeout = 60_000): Promise<void> {
+    let n = Math.floor(timeout / 1000);
+
+    const result = await promiseWithTimeout(
+      timeout,
+      new Promise(async (resolve: (value: boolean) => void, reject) => {
+        while (n > 0) {
+          if (this.ready) {
+            n = 0;
+            resolve(true);
+          }
+          n = n - 1;
+          await sleep(1000);
+        }
+        reject(`Failed to await oracle readiness`);
+      })
+    );
+
+    return;
   }
 }

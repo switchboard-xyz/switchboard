@@ -79,7 +79,7 @@
   "devDependencies": {
     "@oclif/test": "^2",
     "@types/big.js": "^6.1.6",
-    "@types/bn.js": "^5.1.0",
+    "@types/bn.js": "^5.1.1",
     "@types/bs58": "^4.0.1",
     "@types/chai": "^4",
     "@types/decimal.js": "^7.4.0",

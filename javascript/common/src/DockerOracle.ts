@@ -4,8 +4,8 @@ import path from "path";
 import internal from "stream";
 import crypto from "crypto";
 import chalk from "chalk";
-
-export const LATEST_DOCKER_VERSION = "dev-v2-RC_11_10_22__19_19";
+import { clusterApiUrl } from "@solana/web3.js";
+import { promiseWithTimeout, sleep } from "./utils";
 
 export interface IOracleConfig {
   chain: "aptos" | "near" | "solana";
@@ -22,7 +22,7 @@ export interface IOracleConfig {
   nearNamedAccount?: string;
 }
 
-export class DockerOracle implements IOracleConfig {
+export class DockerOracle implements Required<IOracleConfig> {
   chain: "aptos" | "near" | "solana";
   network: "localnet" | "devnet" | "testnet" | "mainnet" | "mainnet-beta";
   rpcUrl: string;
@@ -56,7 +56,7 @@ export class DockerOracle implements IOracleConfig {
 
   constructor(
     readonly config: IOracleConfig,
-    readonly nodeImage: string = LATEST_DOCKER_VERSION,
+    readonly nodeImage: string,
     readonly platform: "linux/arm64" | "linux/amd64" = "linux/amd64",
     readonly switchboardDirectory = path.join(process.cwd(), ".switchboard"),
     readonly silent = false
@@ -68,7 +68,10 @@ export class DockerOracle implements IOracleConfig {
     this.oracleKey = config.oracleKey;
     this.secretPath = config.secretPath;
     this.taskRunnerSolanaRpc =
-      config.taskRunnerSolanaRpc ?? "https://api.mainnet-beta.solana.com";
+      config.taskRunnerSolanaRpc ?? clusterApiUrl("mainnet-beta");
+    if (this.chain === "aptos" && !config.aptosPid) {
+      throw new Error(`Need to provide 'aptosPID' if chain is set to 'aptos'`);
+    }
     this.aptosPid = config.aptosPid ?? "";
     this.nearNamedAccount = config.nearNamedAccount ?? "";
     if (this.chain === "near" && !this.nearNamedAccount) {
@@ -155,6 +158,7 @@ export class DockerOracle implements IOracleConfig {
     if (this.chain === "aptos") {
       return [
         "run",
+        `--network=host`,
         `--name ${this.image}`,
         `--platform=${this.platform}`,
         `-e CHAIN=aptos`,
@@ -163,7 +167,9 @@ export class DockerOracle implements IOracleConfig {
         `-e APTOS_PID=${this.aptosPid}`,
         `-e TASK_RUNNER_SOLANA_RPC=${this.taskRunnerSolanaRpc}`,
         `-e VERBOSE=1`,
-        `--mount type=bind,source=${this.secretPath},target=/home/payer_secrets.json`,
+        `-e APTOS_FS_PAYER_SECRET_PATH=/home/node/payer_secrets.json`,
+        `--mount type=bind,source=${this.secretPath},target=/home/node/payer_secrets.json`,
+        `--network host`,
         `switchboardlabs/node:${this.nodeImage}`,
       ].filter(Boolean);
     }
@@ -171,6 +177,7 @@ export class DockerOracle implements IOracleConfig {
     if (this.chain === "near") {
       return [
         "run",
+        `--network=host`,
         `--name ${this.image}`,
         `--platform=${this.platform}`,
         `-e CHAIN=near`,
@@ -180,7 +187,8 @@ export class DockerOracle implements IOracleConfig {
         `-e NEAR_NAMED_ACCOUNT=${this.nearNamedAccount}`,
         `-e TASK_RUNNER_SOLANA_RPC=${this.taskRunnerSolanaRpc}`,
         `-e VERBOSE=1`,
-        `--mount type=bind,source=${this.secretPath},target=/home/payer_secrets.json`,
+        `-e NEAR_FS_PAYER_SECRET_PATH=/home/node/payer_secrets.json`,
+        `--mount type=bind,source=${this.secretPath},target=/home/node/payer_secrets.json`,
         `switchboardlabs/node:${this.nodeImage}`,
       ].filter(Boolean);
     }
@@ -188,6 +196,7 @@ export class DockerOracle implements IOracleConfig {
     if (this.chain === "solana") {
       return [
         "run",
+        `--network=host`,
         `--name ${this.image}`,
         `--platform=${this.platform}`,
         `-e CHAIN=solana`,
@@ -196,7 +205,8 @@ export class DockerOracle implements IOracleConfig {
         `-e CLUSTER=${this.network}`,
         `-e TASK_RUNNER_SOLANA_RPC=${this.taskRunnerSolanaRpc}`,
         `-e VERBOSE=1`,
-        `--mount type=bind,source=${this.secretPath},target=/home/payer_secrets.json`,
+        `-e SOLANA_FS_PAYER_SECRET_PATH=/home/node/payer_secrets.json`,
+        `--mount type=bind,source=${this.secretPath},target=/home/node/payer_secrets.json`,
         `switchboardlabs/node:${this.nodeImage}`,
       ].filter(Boolean);
     }
@@ -267,5 +277,26 @@ export class DockerOracle implements IOracleConfig {
     }
 
     return undefined;
+  }
+
+  async awaitReady(timeout = 60_000): Promise<void> {
+    let n = Math.floor(timeout / 1000);
+
+    const result = await promiseWithTimeout(
+      timeout,
+      new Promise(async (resolve: (value: boolean) => void, reject) => {
+        while (n > 0) {
+          if (this.ready) {
+            n = 0;
+            resolve(true);
+          }
+          n = n - 1;
+          await sleep(1000);
+        }
+        reject(`Failed to await oracle readiness`);
+      })
+    );
+
+    return;
   }
 }

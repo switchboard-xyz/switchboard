@@ -120,16 +120,6 @@ export default class AnchorTest extends BaseCommand {
       char: "s",
       description: "suppress docker logging",
     }),
-    oracleDelay: Flags.integer({
-      description:
-        "the number of milliseconds after starting the validator to start the Switchboard oracle",
-      default: 5000,
-    }),
-    delay: Flags.integer({
-      description:
-        "the number of milliseconds after starting the Switchboard oracle to start running the Anchor test suite",
-      default: 30_000,
-    }),
     detach: Flags.boolean({
       description: "keep the localnet rpc running",
     }),
@@ -138,7 +128,7 @@ export default class AnchorTest extends BaseCommand {
   async run() {
     const { flags } = await this.parse(AnchorTest);
 
-    this.detach = flags.detach;
+    this.detach = flags.detach; // only set this after validator has started
 
     const switchboardDir = this.normalizeDirPath(
       flags.switchboardDir ?? ".switchboard"
@@ -257,18 +247,28 @@ export default class AnchorTest extends BaseCommand {
     );
 
     // try to kill existing local validator
-    // TODO: Detect if port is in use
     try {
       if (os.platform() === "win32") {
         execSync(
-          `taskkill /F /IM command-solana-test-validator.exe || exit 0`,
+          `netstat -ano | findstr :8899 | awk {'print $5'} | xargs -I {} taskkill /F /PID {} || exit 0`,
           {
-            stdio: null,
+            stdio: ["pipe", "pipe", "ignore"],
+          }
+        );
+        execSync(
+          `netstat -ano | findstr :9900 | awk {'print $5'} | xargs -I {} taskkill /F /PID {} || exit 0`,
+          {
+            stdio: ["pipe", "pipe", "ignore"],
           }
         );
       } else {
-        execSync(`kill -9 $(pgrep command solana-test-validator) || exit 0`, {
-          stdio: null,
+        execSync(`lsof -t -i :8899 | xargs kill -9 || exit 0`, {
+          env: process.env,
+          stdio: ["pipe", "pipe", "ignore"],
+        });
+        execSync(`lsof -t -i :9900 | xargs kill -9 || exit 0`, {
+          env: process.env,
+          stdio: ["pipe", "pipe", "ignore"],
         });
       }
     } catch {}
@@ -287,18 +287,15 @@ export default class AnchorTest extends BaseCommand {
         cwd: process.cwd(),
         env: process.env,
         stdio: "inherit",
-        detached: this.detach ?? false,
+        detached: flags.detach ?? false,
       }
     );
-
-    await sleep(Math.max(2500, flags.oracleDelay));
 
     this.logger.info(`Starting oracle`);
 
     this.docker.start();
 
-    // TODO: Read logs to determine when oracle is ready
-    await sleep(Math.max(15_000, flags.delay));
+    await this.docker.awaitReady();
 
     this.logger.info(`Starting anchor tests`);
 

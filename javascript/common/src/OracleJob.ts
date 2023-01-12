@@ -3,6 +3,7 @@
 import { IOracleJob, OracleJob } from "./protos/index.js";
 
 import protobuf from "protobufjs/minimal.js";
+import Big from "big.js";
 
 protobuf.util.toJSONOptions = {
   longs: String,
@@ -60,4 +61,52 @@ export function serializeOracleJob(
  */
 export function deserializeOracleJob(jobData: Buffer | Uint8Array): OracleJob {
   return OracleJob.decodeDelimited(jobData);
+}
+
+export type TaskSimulatorNetwork = "devnet" | "mainnet-beta";
+
+export type TaskRunnerResponse1 = TaskRunnerError | TaskRunnerResponse;
+
+export type TaskRunnerMeta = {
+  taskRunnerVersion: string;
+};
+
+export type TaskRunnerError = TaskRunnerMeta & {
+  error: string;
+};
+
+export type TaskRunnerResponse = TaskRunnerMeta & {
+  results: Array<Big>;
+  result: Big;
+};
+
+export async function simulateOracleJobs(
+  jobs: Array<OracleJob>,
+  network: TaskSimulatorNetwork = "devnet"
+): Promise<TaskRunnerResponse> {
+  const response = await fetch("https://task.switchboard.xyz/simulate", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      jobs: jobs.map((j) => j.toJSON()),
+      cluster: network,
+    }),
+  });
+
+  if (!response.ok) {
+    throw new Error(
+      `Failed to simulate job definition, Status=${response.status}`
+    );
+  }
+  const payload: {
+    results: Array<string>;
+    result: string;
+    task_runner_version: string;
+  } = await response.json();
+
+  return {
+    results: payload.results.map((r) => new Big(r)),
+    result: new Big(payload.result),
+    taskRunnerVersion: payload.task_runner_version,
+  };
 }
