@@ -4,6 +4,8 @@ id: introduction
 slug: /
 hide_table_of_contents: true
 title: Introduction
+keywords:
+  [Switchboard, web3, oracle, data feeds, vrf, randomness, solana, aptos, near]
 ---
 
 import RoundedCardGroup from "/src/components/RoundedCard/RoundedCardGroup";
@@ -75,6 +77,13 @@ through a blockchain until it reaches its appropriate destination.
   }}
   items={[
     {
+      to: "/solana",
+      title: "Solana",
+      description: "Integrate Switchboard on Solana.",
+      image: <img src={useBaseUrl("/img/icons/solana/teal.svg")} />,
+      imageDark: <img src={useBaseUrl("/img/icons/solana/dark.svg")} />,
+    },
+    {
       to: "/aptos",
       title: "Aptos",
       description: "Integrate Switchboard on Aptos.",
@@ -87,13 +96,6 @@ through a blockchain until it reaches its appropriate destination.
       description: "Integrate Switchboard on Near.",
       image: <img src={useBaseUrl("/img/icons/near/teal.svg")} />,
       imageDark: <img src={useBaseUrl("/img/icons/near/dark.svg")} />,
-    },
-    {
-      to: "/solana",
-      title: "Solana",
-      description: "Integrate Switchboard on Solana.",
-      image: <img src={useBaseUrl("/img/icons/solana/teal.svg")} />,
-      imageDark: <img src={useBaseUrl("/img/icons/solana/dark.svg")} />,
     },
   ]}
 />

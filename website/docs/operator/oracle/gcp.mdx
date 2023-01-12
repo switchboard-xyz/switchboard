@@ -23,8 +23,8 @@ The repo below contains the kubernetes manifest to streamline the deployment.
 Clone the repo below to get started:
 
 ```bash
-git clone https://github.com/switchboard-xyz/switchboard-v2
-cd switchboard-v2/oracles/helm-deployment
+git clone https://github.com/switchboard-xyz/helm-manifests sbv2-helm-manifests
+cd sbv2-helm-manifests
 ```
 
 ### gcloud SDK
@@ -268,12 +268,12 @@ populated.
 
 ## Setup
 
-The `oracles/helm-deployment` directory in the
-[Switchboard-V2 SDK](https://github.com/switchboard-xyz/switchboard-v2) contains
-a bash script to walk through the GCP setup and output the required variables to
-an env file. This script is provided as a convenience tool, you should
-understand all of the commands in the script before running. To automate the GCP
-setup, run the following command:
+The
+[switchboard-xyz/helm-manifests](https://github.com/switchboard-xyz/helm-manifests)
+repo contains a bash script to walk through the GCP setup and output the
+required variables to an env file. This script is provided as a convenience
+tool, you should understand all of the commands in the script before running. To
+automate the GCP setup, run the following command:
 
 ```bash
 ./setup-gcloud.sh PROJECTNAME
