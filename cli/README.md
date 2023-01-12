@@ -21,6 +21,7 @@ node bin/dev print GvDMxPzN1sCj7L26YDK2HnMRXEQmQ2aemov8YBtPS7vR
 **Commands**
 
 <!-- commands -->
+* [`sbv2 anchor test`](#sbv2-anchor-test)
 * [`sbv2 aptos account airdrop`](#sbv2-aptos-account-airdrop)
 * [`sbv2 aptos aggregator add job [AGGREGATORHEXSTRING]`](#sbv2-aptos-aggregator-add-job-aggregatorhexstring)
 * [`sbv2 aptos aggregator create [QUEUEHEXSTRING]`](#sbv2-aptos-aggregator-create-queuehexstring)
@@ -50,6 +51,7 @@ node bin/dev print GvDMxPzN1sCj7L26YDK2HnMRXEQmQ2aemov8YBtPS7vR
 * [`sbv2 config print`](#sbv2-config-print)
 * [`sbv2 config set CHAIN NETWORK PARAMETER [VALUE]`](#sbv2-config-set-chain-network-parameter-value)
 * [`sbv2 help [COMMAND]`](#sbv2-help-command)
+* [`sbv2 job test`](#sbv2-job-test)
 * [`sbv2 near aggregator add history [AGGREGATORADDRESS]`](#sbv2-near-aggregator-add-history-aggregatoraddress)
 * [`sbv2 near aggregator add job [AGGREGATORADDRESS]`](#sbv2-near-aggregator-add-job-aggregatoraddress)
 * [`sbv2 near aggregator create QUEUEADDRESS`](#sbv2-near-aggregator-create-queueaddress)
@@ -156,6 +158,45 @@ node bin/dev print GvDMxPzN1sCj7L26YDK2HnMRXEQmQ2aemov8YBtPS7vR
 * [`sbv2 solana vrf update [VRFKEY]`](#sbv2-solana-vrf-update-vrfkey)
 * [`sbv2 update [CHANNEL]`](#sbv2-update-channel)
 * [`sbv2 version`](#sbv2-version)
+
+## `sbv2 anchor test`
+
+run anchor test and a switchboard oracle in parallel
+
+```
+USAGE
+  $ sbv2 anchor test [-h] [-v] [-s] [--mainnetBeta | --cluster localnet|devnet] [-u <value>] [--programId
+    <value>] [-d <value>] [--oracleKey <value>] [-k <value>] [--nodeImage <value>] [--arm] [-t <value>] [--oracleDelay
+    <value>] [--delay <value>] [--detach]
+
+FLAGS
+  -d, --switchboardDir=<value>  directory with switchboard.env to load a switchboard environment
+  -h, --help                    Show CLI help.
+  -k, --keypair=<value>         keypair that will pay for onchain transactions. defaults to new account authority if no
+                                alternate authority provided
+  -s, --silent                  suppress docker logging
+  -t, --timeout=<value>         [default: 120] number of seconds before ending the docker process
+  -u, --rpcUrl=<value>          alternate RPC url
+  -v, --verbose                 log everything
+  --arm                         apple silicon needs to use a docker image for linux/arm64
+  --cluster=<option>            [default: localnet] cluster
+                                <options: localnet|devnet>
+  --delay=<value>               [default: 30000] the number of milliseconds after starting the Switchboard oracle to
+                                start running the Anchor test suite
+  --detach                      keep the localnet rpc running
+  --mainnetBeta                 WARNING: use mainnet-beta solana cluster
+  --nodeImage=<value>           [default: dev-v2-RC_01_05_23_03_24] public key of the oracle to start-up
+  --oracleDelay=<value>         [default: 5000] the number of milliseconds after starting the validator to start the
+                                Switchboard oracle
+  --oracleKey=<value>           public key of the oracle to start-up
+  --programId=<value>           alternative Switchboard program ID to interact with
+
+DESCRIPTION
+  run anchor test and a switchboard oracle in parallel
+
+ALIASES
+  $ sbv2 anchor test
+```
 
 ## `sbv2 aptos account airdrop`
 
@@ -1179,6 +1220,31 @@ DESCRIPTION
 ```
 
 _See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v5.1.20/src/commands/help.ts)_
+
+## `sbv2 job test`
+
+test a job definition against the Switchboard task-runner
+
+```
+USAGE
+  $ sbv2 job test [-h] [-v] [-s] [--json] [-d] [--job <value>]
+
+FLAGS
+  -d, --devnet      test against a devnet task-runner
+  -h, --help        Show CLI help.
+  -s, --silent      suppress cli prompts
+  -v, --verbose     log everything
+  --job=<value>...  filesystem path to job definition file
+
+GLOBAL FLAGS
+  --json  Format output as json.
+
+DESCRIPTION
+  test a job definition against the Switchboard task-runner
+
+EXAMPLES
+  $ sbv2 job:test
+```
 
 ## `sbv2 near aggregator add history [AGGREGATORADDRESS]`
 
@@ -3744,15 +3810,15 @@ run anchor test and a switchboard oracle in parallel
 
 ```
 USAGE
-  $ sbv2 solana anchor test -k <value> [-h] [-v] [-s] [--mainnetBeta | --cluster localnet|devnet] [-u <value>]
-    [--programId <value>] [-d <value>] [--oracleKey <value>] [--nodeImage <value>] [--arm] [-t <value>] [--oracleDelay
+  $ sbv2 solana anchor test [-h] [-v] [-s] [--mainnetBeta | --cluster localnet|devnet] [-u <value>] [--programId
+    <value>] [-d <value>] [--oracleKey <value>] [-k <value>] [--nodeImage <value>] [--arm] [-t <value>] [--oracleDelay
     <value>] [--delay <value>] [--detach]
 
 FLAGS
   -d, --switchboardDir=<value>  directory with switchboard.env to load a switchboard environment
   -h, --help                    Show CLI help.
-  -k, --keypair=<value>         (required) keypair that will pay for onchain transactions. defaults to new account
-                                authority if no alternate authority provided
+  -k, --keypair=<value>         keypair that will pay for onchain transactions. defaults to new account authority if no
+                                alternate authority provided
   -s, --silent                  suppress docker logging
   -t, --timeout=<value>         [default: 120] number of seconds before ending the docker process
   -u, --rpcUrl=<value>          alternate RPC url
@@ -3772,6 +3838,9 @@ FLAGS
 
 DESCRIPTION
   run anchor test and a switchboard oracle in parallel
+
+ALIASES
+  $ sbv2 anchor test
 ```
 
 ## `sbv2 solana buffer create [QUEUEKEY]`
