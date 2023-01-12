@@ -116,34 +116,38 @@ export abstract class CliBaseCommand extends Command {
     logger.info(chalk.red(`${FAILED_ICON}${message}`));
   }
 
-  async catch(error: any, message?: string) {
+  async catch(error: unknown, message?: string) {
     const logger = this.logger ?? console;
     if (message) {
       logger.info(chalk.red(`${FAILED_ICON}${message}`));
     }
 
-    if ("parse" in error) {
-      error.parse = undefined;
+    if ("parse" in (error as any)) {
+      (error as any).parse = undefined;
     }
 
-    throw error;
+    if (error instanceof Error) {
+      throw error;
 
-    if (error.message) {
-      const messageLines = error.message.split("\n");
-      logger.error(messageLines[0]);
-    }
+      // if (error.message) {
+      //   const messageLines = error.message.split("\n");
+      //   logger.error(messageLines[0]);
+      // }
 
-    if (this.verbose) {
-      console.error(error);
-    }
+      // if (this.verbose) {
+      //   console.error(error);
+      // }
 
-    if (error.stack) {
-      logger.error(error);
+      // if (error.stack) {
+      //   logger.error(error);
+      // } else {
+      //   logger.error(error.toString());
+      // }
+
+      // // this.exit(1); // causes unreadable errors?
     } else {
-      logger.error(error.toString());
+      throw error;
     }
-
-    // this.exit(1); // causes unreadable errors?
   }
 
   logConfig(c: Record<string, string>, writeHeader = true) {
@@ -173,6 +177,31 @@ export abstract class CliBaseCommand extends Command {
     );
 
     return oracleJob;
+  }
+
+  loadJobDefinitions(jsonDefinitionPath: string): Array<OracleJob> {
+    const normalizedPath = this.normalizePath(jsonDefinitionPath);
+
+    const fileString = fs
+      .readFileSync(normalizedPath, "utf-8")
+      .replace(/\/\*[\S\s]*?\*\/|([^:\\]|^)\/\/.*$/g, "");
+    const fileObj = JSON.parse(fileString);
+
+    if ("tasks" in fileObj) {
+      const oracleJob = OracleJob.fromObject(fileObj);
+      return [oracleJob];
+    }
+
+    if ("jobs" in fileObj && Array.isArray(fileObj.jobs)) {
+      const oracleJobs: Array<OracleJob> = fileObj.jobs.map(
+        (job: Record<string, any>): OracleJob => OracleJob.fromObject(job)
+      );
+      return oracleJobs;
+    }
+
+    throw new Error(
+      `Failed to load job definitions from file, ${jsonDefinitionPath}`
+    );
   }
 
   // eslint-disable-next-line complexity

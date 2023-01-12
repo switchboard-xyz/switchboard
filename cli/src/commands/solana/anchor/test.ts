@@ -1,10 +1,8 @@
-/* eslint-disable unicorn/prevent-abbreviations */
-
 import * as dotenv from "dotenv";
 import * as anchor from "@project-serum/anchor";
 import { Flags } from "@oclif/core";
 import { clusterApiUrl, PublicKey } from "@solana/web3.js";
-import { ChildProcess, exec, spawn } from "child_process";
+import { ChildProcess, exec, execSync, spawn } from "child_process";
 import { DockerOracle } from "../../../providers/docker";
 import {
   getIdlAddress,
@@ -14,8 +12,10 @@ import { sleep } from "@switchboard-xyz/common";
 import { CliBaseCommand as BaseCommand } from "../../../BaseCommand";
 import path from "path";
 import fs from "fs";
-import { normalizeFilePath } from "../../../utils/io";
+import os from "os";
 import { SBV2_DEVNET_PID } from "@switchboard-xyz/solana.js";
+import toml from "toml";
+import { loadKeypairFs } from "../../../utils/keypair";
 
 function getRequiredVariable(key: string): PublicKey {
   if (!(key in process.env)) {
@@ -27,6 +27,8 @@ function getRequiredVariable(key: string): PublicKey {
 
 export default class AnchorTest extends BaseCommand {
   static description = "run anchor test and a switchboard oracle in parallel";
+
+  static aliases = ["anchor:test"];
 
   anchorChildProcess?: ChildProcess = undefined;
 
@@ -41,19 +43,29 @@ export default class AnchorTest extends BaseCommand {
   async endProcesses() {
     if (this.localValidatorProcess && !this.detach) {
       try {
-        this.localValidatorProcess.kill();
+        const isKilled = this.localValidatorProcess.kill();
+        if (isKilled) {
+          this.log(`Solana localnet validator process killed`);
+          this.localValidatorProcess = undefined;
+        }
       } catch {}
     }
 
     if (this.anchorChildProcess) {
       try {
-        this.anchorChildProcess.kill();
+        const isKilled = this.anchorChildProcess.kill();
+        if (isKilled) {
+          this.log(`Anchor test process killed`);
+          this.localValidatorProcess = undefined;
+        }
       } catch {}
     }
 
     if (this.docker) {
       try {
         this.docker.stop();
+        this.log(`Switchboard docker oracle killed`);
+        this.docker = undefined;
       } catch {}
     }
   }
@@ -88,7 +100,7 @@ export default class AnchorTest extends BaseCommand {
     }),
     keypair: Flags.string({
       char: "k",
-      required: true,
+      required: false,
       description:
         "keypair that will pay for onchain transactions. defaults to new account authority if no alternate authority provided",
     }),
@@ -116,7 +128,7 @@ export default class AnchorTest extends BaseCommand {
     delay: Flags.integer({
       description:
         "the number of milliseconds after starting the Switchboard oracle to start running the Anchor test suite",
-      default: 30000,
+      default: 30_000,
     }),
     detach: Flags.boolean({
       description: "keep the localnet rpc running",
@@ -144,6 +156,45 @@ export default class AnchorTest extends BaseCommand {
       path: envPath,
     });
 
+    const anchorFile = path.join(process.cwd(), "Anchor.toml");
+
+    // get keypair from flag or from Anchor.toml
+    let keypairPath: string | undefined;
+    if (flags.keypair) {
+      keypairPath = this.normalizePath(flags.keypair);
+    } else {
+      // read anchor.toml
+      if (!fs.existsSync(anchorFile)) {
+        throw new Error(
+          `--keypair flag not provided and failed to locate Anchor.toml`
+        );
+      }
+      const anchorToml = toml.parse(fs.readFileSync(anchorFile, "utf-8"));
+      if ("provider" in anchorToml && "wallet" in anchorToml.provider) {
+        keypairPath = this.normalizePath(anchorToml.provider.wallet);
+      }
+    }
+    if (!keypairPath) {
+      throw new Error(
+        `Failed to load a keypair path. Try providing the--keypair flag`
+      );
+    }
+    const payerKeypair = loadKeypairFs(keypairPath);
+    this.logProperty("payerKeypair", payerKeypair.publicKey.toBase58());
+
+    let cluster: "localnet" | "devnet" | "mainnet-beta" = flags.cluster as any;
+    if (fs.existsSync(anchorFile)) {
+      const anchorToml = toml.parse(fs.readFileSync(anchorFile, "utf-8"));
+      if ("provider" in anchorToml && "cluster" in anchorToml.provider) {
+        if (
+          anchorToml.provider.cluster === "localnet" ||
+          anchorToml.provider.cluster === "devnet"
+        ) {
+          cluster = anchorToml.provider.cluster;
+        }
+      }
+    }
+
     // gather accounts
     const programId = process.env.SWITCHBOARD_PROGRAM_ID
       ? new PublicKey(process.env.SWITCHBOARD_PROGRAM_ID)
@@ -163,7 +214,11 @@ export default class AnchorTest extends BaseCommand {
     const oracleEscrow = getRequiredVariable("ORACLE_ESCROW");
     const oraclePermissions = getRequiredVariable("ORACLE_PERMISSIONS");
 
-    // TODO: Read Anchor.toml and get additional accounts to clone
+    if (!oracleAuthority.equals(payerKeypair.publicKey)) {
+      throw new Error(
+        `Provided keypair does not match the oracle authority, expected ${oracleAuthority.toBase58()}, received ${payerKeypair.publicKey.toBase58()}`
+      );
+    }
 
     const accountCloneString = [
       programId,
@@ -187,13 +242,13 @@ export default class AnchorTest extends BaseCommand {
     this.docker = new DockerOracle(
       {
         chain: "solana",
-        network: flags.cluster as "localnet" | "devnet",
+        network: cluster as "localnet" | "devnet",
         rpcUrl:
-          flags.cluster === "localnet"
+          cluster === "localnet"
             ? "http://host.docker.internal:8899"
-            : flags.rpcUrl ?? clusterApiUrl("devnet"),
+            : flags.rpcUrl ?? clusterApiUrl(cluster),
         oracleKey: oracle.toBase58(),
-        secretPath: normalizeFilePath(flags.keypair),
+        secretPath: keypairPath,
       },
       flags.nodeImage,
       flags.arm ? "linux/arm64" : "linux/amd64",
@@ -201,8 +256,25 @@ export default class AnchorTest extends BaseCommand {
       flags.silent
     );
 
-    this.logger.info(`Starting local validator`);
+    // try to kill existing local validator
+    // TODO: Detect if port is in use
+    try {
+      if (os.platform() === "win32") {
+        execSync(
+          `taskkill /F /IM command-solana-test-validator.exe || exit 0`,
+          {
+            stdio: null,
+          }
+        );
+      } else {
+        execSync(`kill -9 $(pgrep command solana-test-validator) || exit 0`, {
+          stdio: null,
+        });
+      }
+    } catch {}
+
     // lets start local validator with account set cloned
+    this.logger.info(`Starting local validator`);
     this.localValidatorProcess = spawn(
       "solana-test-validator",
       [
@@ -215,6 +287,7 @@ export default class AnchorTest extends BaseCommand {
         cwd: process.cwd(),
         env: process.env,
         stdio: "inherit",
+        detached: this.detach ?? false,
       }
     );
 
@@ -225,7 +298,7 @@ export default class AnchorTest extends BaseCommand {
     this.docker.start();
 
     // TODO: Read logs to determine when oracle is ready
-    await sleep(Math.max(15000, flags.delay));
+    await sleep(Math.max(15_000, flags.delay));
 
     this.logger.info(`Starting anchor tests`);
 
@@ -254,15 +327,28 @@ export default class AnchorTest extends BaseCommand {
       if (isFinished) {
         break;
       }
+
       await sleep(1000);
       timeout--;
     }
 
     await this.endProcesses();
+    if (this.detach && this.localValidatorProcess) {
+      this.log(
+        `Solana local validator process (${this.localValidatorProcess.pid}) still running`
+      );
+      process.exit();
+    }
+    return;
   }
 
   async catch(error) {
     await this.endProcesses();
+    if (this.detach && this.localValidatorProcess) {
+      this.log(
+        `Solana local validator process (${this.localValidatorProcess.pid}) still running`
+      );
+    }
     super.catch(error, "Failed to create localnet test environment");
   }
 }

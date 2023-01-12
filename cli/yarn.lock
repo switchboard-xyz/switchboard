@@ -2769,10 +2769,10 @@
     wait-for-event "^2.0.1"
     ws "^8.10.0"
 
-"@switchboard-xyz/solana.js@^2.0.86":
-  version "2.0.86"
-  resolved "https://registry.npmjs.org/@switchboard-xyz/solana.js/-/solana.js-2.0.86.tgz#3e356399e9e9e647a94bdec3466b94223da61242"
-  integrity sha512-cWW97cMRxQr1wXWsZLuVQDOIWi4tGN152wbYa/NAG/VRakzVg0c3GBpoq5pIneYSRM4cuHNxi72T4yW06+2RKQ==
+"@switchboard-xyz/solana.js@^2.0.87":
+  version "2.0.87"
+  resolved "https://registry.npmjs.org/@switchboard-xyz/solana.js/-/solana.js-2.0.87.tgz#f70be99e18c1cce290e2934a8c84751c70804680"
+  integrity sha512-bcAI7EUL6W8E//Kqku0akd2fUjPsH64tlTiJoNo1KndzS9lJ1efjAVb0qyBlBbeA5FrSNUszYSCtPeUFX29h/A==
   dependencies:
     "@project-serum/anchor" "^0.26.0"
     "@project-serum/borsh" "^0.2.5"
@@ -8520,7 +8520,7 @@ toidentifier@1.0.1:
 
 toml@^3.0.0:
   version "3.0.0"
-  resolved "https://registry.npmjs.org/toml/-/toml-3.0.0.tgz"
+  resolved "https://registry.npmjs.org/toml/-/toml-3.0.0.tgz#342160f1af1904ec9d204d03a5d61222d762c5ee"
   integrity sha512-y/mWCZinnvxjTKYhJ+pYxwD0mRLVvOtdS2Awbgxln6iEnt4rk0yBxeSBHkGJcPucRiG0e55mwWp+g/05rsrd6w==
 
 tr46@~0.0.3:
