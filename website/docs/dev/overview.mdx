@@ -1,8 +1,149 @@
 ---
 sidebar_position: 1
-id: overview
-title: Overview
 slug: .
+title: Developer Resources
+hide_table_of_contents: true
 ---
 
-<!-- Github repo overview -->
+import RoundedCardGroup from "/src/components/RoundedCard/RoundedCardGroup";
+import { RustIcon } from "/src/components/icons/RustIcon";
+import useBaseUrl from "@docusaurus/useBaseUrl";
+import { Box } from "@mui/system";
+
+The [switchboard-xyz/sbv2-core](https://github.com/switchboard-xyz/sbv2-core)
+repo contains the chain agnostic code such as the CLI and OracleJob protobufs
+along with a git submodule for each chain specific SDK.
+
+To get started, clone the sbv2-core repo along with the submodules.
+
+## Common
+
+<Box sx={{ marginRight: "5em" }}>
+
+```bash
+git clone --recurse-submodules https://github.com/switchboard-xyz/sbv2-core.git
+cd sbv2-core
+```
+
+<RoundedCardGroup
+  cols={3}
+  items={[
+    {
+      to: "/dev/common",
+      title: "common",
+      description:
+        "Common type definitions used across chains such as the OracleJob protobuf",
+      image: <img src={useBaseUrl("/img/icons/javascript/light.svg")} />,
+      imageDark: <img src={useBaseUrl("/img/icons/javascript/light.svg")} />,
+    },
+    {
+      to: "/dev/cli",
+      title: "cli",
+      description: "Switchboard command line interface",
+      image: <img src={useBaseUrl("/img/icons/javascript/light.svg")} />,
+      imageDark: <img src={useBaseUrl("/img/icons/javascript/light.svg")} />,
+    },
+  ]}
+/>
+
+</Box>
+
+## Solana
+
+<Box sx={{ marginRight: "5em" }}>
+
+```bash
+git clone https://github.com/switchboard-xyz/sbv2-solana.git
+cd sbv2-solana
+```
+
+<RoundedCardGroup
+  cols={3}
+  items={[
+    {
+      to: "/solana/dev/rust",
+      title: "switchboard-v2",
+      description: "View the Solana rust client",
+      image: <img src={useBaseUrl("/img/icons/rust/crab.svg")} />,
+      imageDark: <img src={useBaseUrl("/img/icons/rust/crab.svg")} />,
+    },
+    {
+      to: "/solana/dev/javascript",
+      title: "solana.js",
+      description: "View the Solana typescript client",
+      image: <img src={useBaseUrl("/img/icons/javascript/light.svg")} />,
+      imageDark: <img src={useBaseUrl("/img/icons/javascript/light.svg")} />,
+    },
+    {
+      to: "/solana/dev/python",
+      title: "switchboardpy",
+      description: "View Solana python client",
+      image: <img src={useBaseUrl("/img/icons/python/light.svg")} />,
+      imageDark: <img src={useBaseUrl("/img/icons/python/light.svg")} />,
+    },
+  ]}
+/>
+
+</Box>
+
+## Aptos
+
+<Box sx={{ marginRight: "5em" }}>
+
+```bash
+git clone https://github.com/switchboard-xyz/sbv2-aptos.git
+cd sbv2-aptos
+```
+
+<RoundedCardGroup
+  cols={3}
+  items={[
+    {
+      to: "/aptos/dev/move",
+      title: "switchboard",
+      description: "View the Aptos move client",
+      image: <img src={useBaseUrl("/img/icons/move/logo.png")} />,
+      imageDark: <img src={useBaseUrl("/img/icons/move/logo.png")} />,
+    },
+    {
+      to: "/aptos/dev/javascript",
+      title: "aptos.js",
+      description: "View the Aptos typescript client",
+      image: <img src={useBaseUrl("/img/icons/javascript/light.svg")} />,
+      imageDark: <img src={useBaseUrl("/img/icons/javascript/light.svg")} />,
+    },
+  ]}
+/>
+
+</Box>
+
+## Near
+
+<Box sx={{ marginRight: "5em" }}>
+
+```bash
+git clone https://github.com/switchboard-xyz/sbv2-near.git
+cd sbv2-near
+```
+
+<RoundedCardGroup
+  cols={3}
+  items={[
+    {
+      to: "/near/dev/rust",
+      title: "sbv2-near",
+      description: "View the Near rust client",
+      image: <img src={useBaseUrl("/img/icons/rust/crab.svg")} />,
+      imageDark: <img src={useBaseUrl("/img/icons/rust/crab.svg")} />,
+    },
+    {
+      to: "/near/dev/javascript",
+      title: "near.js",
+      description: "View the Near typescript client",
+      image: <img src={useBaseUrl("/img/icons/javascript/light.svg")} />,
+      imageDark: <img src={useBaseUrl("/img/icons/javascript/light.svg")} />,
+    },
+  ]}
+/>
+
+</Box>

@@ -18,3 +18,5 @@ update interval for a feed on a crank is based on its
 `aggregator.minUpdateDelaySeconds` and can be calculated by:
 
 $I_{Max} (seconds) = I_{minUpdateDelaySeconds}  + [5\quad\% \quad I_{minUpdateDelaySeconds}]$
+
+An aggregator pushed onto a crank will have a maximum jitter of 5 seconds.

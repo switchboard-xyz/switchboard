@@ -125,6 +125,11 @@ const config = {
             to: "/network",
           },
           {
+            label: "Publish",
+            position: "left",
+            to: "/publisher",
+          },
+          {
             type: "dropdown",
             label: "Integrate",
             position: "left",
@@ -147,17 +152,92 @@ const config = {
             ],
           },
           {
-            label: "Publisher",
+            type: "dropdown",
+            label: "Develop",
+            to: "/dev",
             position: "left",
-            to: "/publisher",
+            items: [
+              {
+                type: "html",
+                className: "dropdown-heading",
+                value: "<b>Common</b>",
+              },
+              {
+                label: "@switchboard-xyz/cli",
+                to: "/dev/cli",
+                className: "header-typescript-link",
+              },
+              {
+                label: "@switchboard-xyz/common",
+                to: "/dev/common",
+                className: "header-typescript-link",
+              },
+              {
+                type: "html",
+                value: '<hr class="dropdown-separator">',
+              },
+              {
+                type: "html",
+                className: "dropdown-heading",
+                value: "<b>Solana</b>",
+              },
+              {
+                label: "  switchboard-v2",
+                to: "/solana/dev/rust",
+                className: "header-rust-link",
+              },
+              {
+                label: "@switchboard-xyz/solana.js",
+                to: "/solana/dev/javascript",
+                className: "header-typescript-link",
+              },
+              {
+                label: "  switchboardpy",
+                to: "/solana/dev/python",
+                className: "header-python-link",
+              },
+              {
+                type: "html",
+                value: '<hr class="dropdown-separator">',
+              },
+              {
+                type: "html",
+                className: "dropdown-heading",
+                value: "<b>Aptos</b>",
+              },
+              {
+                label: "  switchboard",
+                to: "/aptos/dev/move",
+                className: "header-rust-link",
+              },
+              {
+                label: "@switchboard-xyz/aptos.js",
+                to: "/aptos/dev/javascript",
+                className: "header-typescript-link",
+              },
+              {
+                type: "html",
+                value: '<hr class="dropdown-separator">',
+              },
+              {
+                type: "html",
+                className: "dropdown-heading",
+                value: "<b>Near</b>",
+              },
+              {
+                label: "  sbv2-near",
+                to: "/near/dev/rust",
+                className: "header-rust-link",
+              },
+              {
+                label: "@switchboard-xyz/near.js",
+                to: "/near/dev/javascript",
+                className: "header-typescript-link",
+              },
+            ],
           },
           {
-            label: "CLI",
-            position: "left",
-            to: "/cli",
-          },
-          {
-            label: "Operators",
+            label: "Operate",
             position: "left",
             to: "/operator",
           },

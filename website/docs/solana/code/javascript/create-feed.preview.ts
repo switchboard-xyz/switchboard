@@ -1,15 +1,30 @@
-const queueAccount = new OracleQueueAccount({
-  program,
-  publicKey: queuePubkey,
-});
+import { QueueAccount } from "@switchboard-xyz/solana.js";
+import { OracleJob } from "@switchboard-xyz/common";
 
-const aggregatorAccount = await AggregatorAccount.create(program, {
-  name: Buffer.from("MY SOL/USD Feed"),
-  batchSize: 1,
-  minRequiredOracleResults: 1,
-  minRequiredJobResults: 1,
-  minUpdateDelaySeconds: 10,
-  queueAccount,
-  authority: authority.publicKey,
-});
-console.log(aggregatorAccount.publicKey.toString());
+const queueAccount = new QueueAccount(program, queuePubkey);
+
+const [aggregatorAccount, aggregatorInitSignatures] =
+  await queueAccount.createFeed({
+    batchSize: 1,
+    minRequiredOracleResults: 1,
+    minRequiredJobResults: 1,
+    minUpdateDelaySeconds: 60,
+    fundAmount: 2.5, // deposit 2.5 wSOL into the leaseAccount escrow
+    jobs: [
+      {
+        weight: 2,
+        data: OracleJob.encodeDelimited(
+          OracleJob.fromObject({
+            tasks: [
+              {
+                valueTask: {
+                  value: 1,
+                },
+              },
+            ],
+          })
+        ).finish(),
+      },
+    ],
+  });
+const aggregator = await aggregatorAccount.loadData();
