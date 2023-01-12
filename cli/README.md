@@ -127,6 +127,7 @@ node bin/dev print GvDMxPzN1sCj7L26YDK2HnMRXEQmQ2aemov8YBtPS7vR
 * [`sbv2 solana crank pop CRANKKEY`](#sbv2-solana-crank-pop-crankkey)
 * [`sbv2 solana crank print CRANKKEY`](#sbv2-solana-crank-print-crankkey)
 * [`sbv2 solana job create`](#sbv2-solana-job-create)
+* [`sbv2 solana job print JOBKEY`](#sbv2-solana-job-print-jobkey)
 * [`sbv2 solana json create aggregator [DEFINITIONFILE]`](#sbv2-solana-json-create-aggregator-definitionfile)
 * [`sbv2 solana lease create [AGGREGATORKEY]`](#sbv2-solana-lease-create-aggregatorkey)
 * [`sbv2 solana lease extend AGGREGATORKEY`](#sbv2-solana-lease-extend-aggregatorkey)
@@ -857,7 +858,7 @@ FLAGS
   --keypair=<value>             (required) Path to AptosAccount keypair or config.yaml file
   --networkId=<option>          [default: testnet] Aptos network to connect to
                                 <options: devnet|testnet|mainnet>
-  --nodeImage=<value>           [default: dev-v2-RC_01_05_23_05_52] public key of the oracle to start-up
+  --nodeImage=<value>           [default: dev-v2-RC_01_05_23_03_24] public key of the oracle to start-up
   --profileName=<value>         [default: default] If --keypair is pointing to a yaml file, provide an optional profile
                                 to load. If none provided, default will be used
   --programId=<value>           Switchboard programId on the selected Aptos network
@@ -2466,7 +2467,7 @@ FLAGS
                                 Defaults to ~/.near-credentials
   --networkId=<option>          [default: testnet] Near network ID to connect to
                                 <options: testnet|mainnet|localnet>
-  --nodeImage=<value>           [default: dev-v2-RC_01_05_23_05_52] public key of the oracle to start-up
+  --nodeImage=<value>           [default: dev-v2-RC_01_05_23_03_24] public key of the oracle to start-up
   --programId=<value>           Switchboard programId on the selected Near networkId
 
 GLOBAL FLAGS
@@ -3745,7 +3746,7 @@ run anchor test and a switchboard oracle in parallel
 USAGE
   $ sbv2 solana anchor test -k <value> [-h] [-v] [-s] [--mainnetBeta | --cluster localnet|devnet] [-u <value>]
     [--programId <value>] [-d <value>] [--oracleKey <value>] [--nodeImage <value>] [--arm] [-t <value>] [--oracleDelay
-    <value>] [--delay <value>]
+    <value>] [--delay <value>] [--detach]
 
 FLAGS
   -d, --switchboardDir=<value>  directory with switchboard.env to load a switchboard environment
@@ -3761,8 +3762,9 @@ FLAGS
                                 <options: localnet|devnet>
   --delay=<value>               [default: 30000] the number of milliseconds after starting the Switchboard oracle to
                                 start running the Anchor test suite
+  --detach                      keep the localnet rpc running
   --mainnetBeta                 WARNING: use mainnet-beta solana cluster
-  --nodeImage=<value>           [default: dev-v2-RC_01_05_23_05_52] public key of the oracle to start-up
+  --nodeImage=<value>           [default: dev-v2-RC_01_05_23_03_24] public key of the oracle to start-up
   --oracleDelay=<value>         [default: 5000] the number of milliseconds after starting the validator to start the
                                 Switchboard oracle
   --oracleKey=<value>           public key of the oracle to start-up
@@ -4036,6 +4038,37 @@ DESCRIPTION
   create a job account
 ```
 
+## `sbv2 solana job print JOBKEY`
+
+print an job and it's associated accounts
+
+```
+USAGE
+  $ sbv2 solana job print [JOBKEY] [-h] [-v] [-s] [--mainnetBeta | --cluster devnet|mainnet-beta|mainnet|localnet] [-u
+    <value>] [--programId <value>] [--commitment confirmed|finalized|processed] [--json]
+
+ARGUMENTS
+  JOBKEY  public key of the job account
+
+FLAGS
+  -h, --help             Show CLI help.
+  -s, --silent           suppress cli prompts
+  -u, --rpcUrl=<value>   alternate RPC url
+  -v, --verbose          log everything
+  --cluster=<option>     the solana cluster to connect to
+                         <options: devnet|mainnet-beta|mainnet|localnet>
+  --commitment=<option>  [default: confirmed] transaction commitment level to use
+                         <options: confirmed|finalized|processed>
+  --mainnetBeta          WARNING: use mainnet-beta solana cluster
+  --programId=<value>    alternative Switchboard program ID to interact with
+
+GLOBAL FLAGS
+  --json  Format output as json.
+
+DESCRIPTION
+  print an job and it's associated accounts
+```
+
 ## `sbv2 solana json create aggregator [DEFINITIONFILE]`
 
 create an aggregator from a json file
@@ -4298,7 +4331,7 @@ FLAGS
   --minStake=<value>                    [default: 0] the reward payed out to oracles for responding to an update request
                                         on-chain, Ex: 2 requires oracles to have 2 wSOL in their staking wallet before
                                         heartbeating
-  --nodeImage=<value>                   [default: dev-v2-RC_01_05_23_05_52] public key of the oracle to start-up
+  --nodeImage=<value>                   [default: dev-v2-RC_01_05_23_03_24] public key of the oracle to start-up
   --oracleStakingWalletKeypair=<value>  keypair to use for the oracle staking wallet. Using a static staking wallet with
                                         the same queue will produce the same oracle pubkey each time.
   --oracleTimeout=<value>               [default: 180] time period (in seconds) we should remove an oracle after if no
@@ -4414,7 +4447,7 @@ FLAGS
   --ledger               enable ledger support
   --ledgerPath=<value>   HID path to the ledger
   --mainnetBeta          WARNING: use mainnet-beta solana cluster
-  --nodeImage=<value>    [default: dev-v2-RC_01_05_23_05_52] public key of the oracle to start-up
+  --nodeImage=<value>    [default: dev-v2-RC_01_05_23_03_24] public key of the oracle to start-up
   --programId=<value>    alternative Switchboard program ID to interact with
   --schemaFile=<value>
 
@@ -4527,7 +4560,7 @@ FLAGS
   --ledger               enable ledger support
   --ledgerPath=<value>   HID path to the ledger
   --mainnetBeta          WARNING: use mainnet-beta solana cluster
-  --nodeImage=<value>    [default: dev-v2-RC_01_05_23_05_52] public key of the oracle to start-up
+  --nodeImage=<value>    [default: dev-v2-RC_01_05_23_03_24] public key of the oracle to start-up
   --oracleKey=<value>    (required) public key of the oracle to start-up
   --programId=<value>    alternative Switchboard program ID to interact with
 

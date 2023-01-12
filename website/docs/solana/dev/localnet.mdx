@@ -28,7 +28,7 @@ sbv2 solana localnet env --keypair "../payer-keypair.json"
   <TabItem value="Typescript" label="Typescript">
 
 ```typescript
-import { SwitchboardTestEnvironment } from "@switchboard-xyz/sbv2-utils";
+import { SwitchboardTestEnvironment } from "@switchboard-xyz/solana.js";
 const testEnvironment = await SwitchboardTestEnvironment.create(
   "../payer-keypair.json"
 );
@@ -89,38 +89,36 @@ throwing an error.
   <TabItem value="Typescript" label="Typescript" default>
 
 ```typescript
-import * as anchor from "@project-serum/anchor";
-import { SwitchboardTestContext } from "@switchboard-xyz/sbv2-utils";
-import chai from "chai";
 import "mocha";
+import chai from "chai";
+import assert from "assert";
+import * as anchor from "@coral-xyz/anchor";
+import { SwitchboardTestContext } from "@switchboard-xyz/solana.js";
+
 describe("switchboard integration test", async () => {
   const provider = anchor.AnchorProvider.env();
   anchor.setProvider(provider);
+
   let switchboard: SwitchboardTestContext;
+  let payerTokenAddress: anchor.web3.PublicKey;
+
   before(async () => {
-    // Optional, attempt to load the switchboard devnet PID
-    // If successful, then we can assume we're on devnet and can use the public permissionless queue
-    try {
-      switchboard = await SwitchboardTestContext.loadDevnetQueue(provider);
-      console.log("devnet detected");
-      return;
-    } catch (error: any) {
-      console.log("Error: SBV2 Devnet - ", error.message);
-    }
-    // Attempt to load switchboard.env or .switchboard directory
-    // Will look 3 levels up before failing
-    try {
-      switchboard = await SwitchboardTestContext.loadFromEnv(provider);
-      console.log("localnet detected");
-      return;
-    } catch (error: any) {
-      console.log("Error: SBV2 Localnet - ", error.message);
-    }
-    // If fails, throw error
-    throw new Error(
-      "Failed to load the SwitchboardTestContext from devnet or from a switchboard.env file"
+    switchboard = await SwitchboardTestContext.loadFromEnv(
+      program.provider as anchor.AnchorProvider
+    );
+    const queueData = await switchboard.queue.loadData();
+    const queueOracles = await switchboard.queue.loadOracles();
+    assert(
+      queueOracles.length > 0,
+      `No oracles actively heartbeating on-chain`
+    );
+
+    [payerTokenAddress] = await switchboard.program.mint.getOrCreateWrappedUser(
+      switchboard.program.walletPubkey,
+      { fundUpTo: 0.75 }
     );
   });
+
   it("Your test here", async () => {});
 });
 ```
@@ -134,13 +132,17 @@ describe("switchboard integration test", async () => {
   <TabItem value="Typescript" label="Typescript" default>
 
 ```typescript
-import * as anchor from "@project-serum/anchor";
-import { SwitchboardTestContext } from "@switchboard-xyz/sbv2-utils";
-import { AggregatorAccount } from "@switchboard-xyz/switchboard-v2";
+import * as anchor from "@coral-xyz/anchor";
+import {
+  AggregatorAccount,
+  SwitchboardTestContext,
+} from "@switchboard-xyz/solana.js";
+
 // load the Switchboard env to dictate which queue to create feed for
 const switchboard = await SwitchboardTestContext.loadFromEnv(
   anchor.AnchorProvider.env()
 );
+
 // create a static feed that will always resolve to 100
 // then call openRound and wait for the oracle to process the update
 const aggregatorAccount: AggregatorAccount = await switchboard.createStaticFeed(

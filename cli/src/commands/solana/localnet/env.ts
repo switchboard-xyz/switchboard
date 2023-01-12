@@ -5,6 +5,7 @@ import chalk from "chalk";
 import { SolanaWithSignerBaseCommand as BaseCommand } from "../../../solana";
 import { SwitchboardTestContext } from "@switchboard-xyz/solana.js";
 import { CHECK_ICON } from "../../../utils/icons";
+import { PublicKey } from "@solana/web3.js";
 
 export default class LocalnetEnvironment extends BaseCommand {
   static description = "create a localnet switchboard environment";
@@ -47,6 +48,13 @@ export default class LocalnetEnvironment extends BaseCommand {
       this.programId
     );
 
+    if (
+      !testEnvironment.oracle ||
+      testEnvironment.oracle.equals(PublicKey.default)
+    ) {
+      throw new Error(`Failed to create an oracle`);
+    }
+
     this.logger.info("");
     testEnvironment.writeAll(outputDir);
 
@@ -61,9 +69,9 @@ The outputted files will help you copy your newly created Switchboard devnet env
 This command will parse the switchboardDir, read the env file, then spin up a local validator and oracle. It will then call \`anchor test --skip-local-validator\` and close the validator and oracle upon completion.
 
 \`\`\`bash
-sbv2 solana anchor test --keypair \"${
+sbv2 solana anchor test --keypair "${
         testEnvironment.payerKeypairPath
-      }\" --switchboardDir \"${outputDir}\"
+      }" --switchboardDir "${outputDir}"
 \`\`\`
 
 ## Using Anchor TOML
@@ -92,7 +100,7 @@ ${path.join(outputDir, "start-local-validator.sh")}
 In shell #2, start the oracle
 
 \`\`\`bash
-SBV2_ORACLE_VERSION=dev-v2-RC_01_10_23_18_31a ${path.join(
+SBV2_ORACLE_VERSION=dev-v2-RC_01_05_23_03_24 ${path.join(
         outputDir,
         "start-oracle.sh"
       )}

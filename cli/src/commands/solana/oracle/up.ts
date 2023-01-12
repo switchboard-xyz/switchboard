@@ -16,7 +16,7 @@ export default class SolanaDockerOracle extends BaseCommand {
     }),
     nodeImage: Flags.string({
       description: "public key of the oracle to start-up",
-      default: "dev-v2-RC_01_10_23_18_31a",
+      default: "dev-v2-RC_01_05_23_03_24",
     }),
     arm: Flags.boolean({
       description: "apple silicon needs to use a docker image for linux/arm64",

@@ -29,6 +29,7 @@
     "no-useless-constructor": "off",
     "@typescript-eslint/no-empty-function": "off",
     "lines-between-class-members": "off",
-    "no-warning-comments": "off"
+    "no-warning-comments": "off",
+    "unicorn/prevent-abbreviations": "off"
   }
 }
