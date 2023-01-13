@@ -1,8 +1,8 @@
 import * as dotenv from "dotenv";
 import * as anchor from "@project-serum/anchor";
 import { Flags } from "@oclif/core";
-import { clusterApiUrl, PublicKey } from "@solana/web3.js";
-import { ChildProcess, exec, execSync, spawn } from "child_process";
+import { clusterApiUrl, Connection, PublicKey } from "@solana/web3.js";
+import { ChildProcess, execSync, spawn } from "child_process";
 import { DockerOracle } from "../../../providers/docker";
 import {
   getIdlAddress,
@@ -23,6 +23,30 @@ function getRequiredVariable(key: string): PublicKey {
   }
 
   return new PublicKey(process.env[key]);
+}
+
+export async function waitForSolanaValidator(
+  rpcUrl = "http://localhost:8899",
+  maxRetries: number = 30
+): Promise<boolean> {
+  const localnetConnection = new Connection(
+    rpcUrl === "http://host.docker.internal:8899"
+      ? "http://localhost:8899"
+      : rpcUrl
+  );
+  let numRetries = maxRetries * 2;
+  while (numRetries) {
+    try {
+      const blockHeight = await localnetConnection.getBlockHeight();
+      if (blockHeight > 0) {
+        return true;
+      }
+    } catch {}
+    --numRetries;
+    await sleep(500);
+  }
+
+  throw new Error(`Failed to start Solana validator in ${maxRetries} seconds`);
 }
 
 export default class AnchorTest extends BaseCommand {
@@ -86,6 +110,10 @@ export default class AnchorTest extends BaseCommand {
     rpcUrl: Flags.string({
       char: "u",
       description: "alternate RPC url",
+    }),
+    mainnetRpcUrl: Flags.string({
+      description: "Solana mainnet RPC URL to use for the oracle task runner",
+      default: clusterApiUrl("mainnet-beta"),
     }),
     programId: Flags.string({
       description: "alternative Switchboard program ID to interact with",
@@ -184,7 +212,16 @@ export default class AnchorTest extends BaseCommand {
         }
       }
     }
+    const rpcUrl =
+      cluster === "localnet"
+        ? "http://host.docker.internal:8899"
+        : flags.rpcUrl ?? clusterApiUrl(cluster);
 
+    let isFinished = false;
+
+    ////////////////////////////////////////////////////////////
+    ///// SOLANA LOCALNET VALIDATOR
+    ////////////////////////////////////////////////////////////
     // gather accounts
     const programId = process.env.SWITCHBOARD_PROGRAM_ID
       ? new PublicKey(process.env.SWITCHBOARD_PROGRAM_ID)
@@ -203,13 +240,11 @@ export default class AnchorTest extends BaseCommand {
     const oracleAuthority = getRequiredVariable("ORACLE_AUTHORITY");
     const oracleEscrow = getRequiredVariable("ORACLE_ESCROW");
     const oraclePermissions = getRequiredVariable("ORACLE_PERMISSIONS");
-
     if (!oracleAuthority.equals(payerKeypair.publicKey)) {
       throw new Error(
         `Provided keypair does not match the oracle authority, expected ${oracleAuthority.toBase58()}, received ${payerKeypair.publicKey.toBase58()}`
       );
     }
-
     const accountCloneString = [
       programId,
       idlAddress,
@@ -226,27 +261,6 @@ export default class AnchorTest extends BaseCommand {
     ]
       .map((pubkey) => `--clone ${pubkey.toBase58()}`)
       .join(" ");
-
-    let isFinished = false;
-
-    this.docker = new DockerOracle(
-      {
-        chain: "solana",
-        network: cluster as "localnet" | "devnet",
-        rpcUrl:
-          cluster === "localnet"
-            ? "http://host.docker.internal:8899"
-            : flags.rpcUrl ?? clusterApiUrl(cluster),
-        oracleKey: oracle.toBase58(),
-        secretPath: keypairPath,
-      },
-      flags.nodeImage,
-      flags.arm ? "linux/arm64" : "linux/amd64",
-      flags.switchboardDir,
-      flags.silent
-    );
-
-    // try to kill existing local validator
     try {
       if (os.platform() === "win32") {
         execSync(
@@ -272,8 +286,6 @@ export default class AnchorTest extends BaseCommand {
         });
       }
     } catch {}
-
-    // lets start local validator with account set cloned
     this.logger.info(`Starting local validator`);
     this.localValidatorProcess = spawn(
       "solana-test-validator",
@@ -290,35 +302,53 @@ export default class AnchorTest extends BaseCommand {
         detached: flags.detach ?? false,
       }
     );
+    await waitForSolanaValidator(rpcUrl);
+
+    ////////////////////////////////////////////////////////////
+    ///// SWITCHBOARD DOCKER ORACLE
+    ////////////////////////////////////////////////////////////
+    this.docker = new DockerOracle(
+      {
+        chain: "solana",
+        network: cluster as "localnet" | "devnet",
+        rpcUrl: rpcUrl,
+        taskRunnerSolanaRpc: flags.mainnetRpcUrl,
+        oracleKey: oracle.toBase58(),
+        secretPath: keypairPath,
+      },
+      flags.nodeImage,
+      flags.arm ? "linux/arm64" : "linux/amd64",
+      flags.switchboardDir,
+      flags.silent
+    );
 
     this.logger.info(`Starting oracle`);
-
     this.docker.start();
-
     await this.docker.awaitReady();
 
+    ////////////////////////////////////////////////////////////
+    ///// ANCHOR TEST
+    ////////////////////////////////////////////////////////////
     this.logger.info(`Starting anchor tests`);
-
     this.anchorChildProcess = spawn("anchor", ["test --skip-local-validator"], {
       shell: true,
       cwd: process.cwd(),
       env: process.env,
       stdio: "inherit",
     });
-
     this.anchorChildProcess.addListener("message", (data) => {
       if (data.toString().includes("✨  Done")) {
         isFinished = true;
         // process.exit(0);
       }
     });
-
     this.anchorChildProcess.addListener("close", (code) => {
       // console.log(`anchor test process closing ...`);
       isFinished = true;
       // process.exit(0);
     });
 
+    // wait for it to finish
     let timeout = Math.max(flags.timeout, 30);
     while (timeout > 0) {
       if (isFinished) {

@@ -165,8 +165,9 @@ run anchor test and a switchboard oracle in parallel
 
 ```
 USAGE
-  $ sbv2 anchor test [-h] [-v] [-s] [--mainnetBeta | --cluster localnet|devnet] [-u <value>] [--programId
-    <value>] [-d <value>] [--oracleKey <value>] [-k <value>] [--nodeImage <value>] [--arm] [-t <value>] [--detach]
+  $ sbv2 anchor test [-h] [-v] [-s] [--mainnetBeta | --cluster localnet|devnet] [-u <value>] [--mainnetRpcUrl
+    <value>] [--programId <value>] [-d <value>] [--oracleKey <value>] [-k <value>] [--nodeImage <value>] [--arm] [-t
+    <value>] [--detach]
 
 FLAGS
   -d, --switchboardDir=<value>  directory with switchboard.env to load a switchboard environment
@@ -182,6 +183,8 @@ FLAGS
                                 <options: localnet|devnet>
   --detach                      keep the localnet rpc running
   --mainnetBeta                 WARNING: use mainnet-beta solana cluster
+  --mainnetRpcUrl=<value>       [default: https://api.mainnet-beta.solana.com/] Solana mainnet RPC URL to use for the
+                                oracle task runner
   --nodeImage=<value>           [default: dev-v2-RC_01_05_23_03_24] public key of the oracle to start-up
   --oracleKey=<value>           public key of the oracle to start-up
   --programId=<value>           alternative Switchboard program ID to interact with
@@ -3805,8 +3808,9 @@ run anchor test and a switchboard oracle in parallel
 
 ```
 USAGE
-  $ sbv2 solana anchor test [-h] [-v] [-s] [--mainnetBeta | --cluster localnet|devnet] [-u <value>] [--programId
-    <value>] [-d <value>] [--oracleKey <value>] [-k <value>] [--nodeImage <value>] [--arm] [-t <value>] [--detach]
+  $ sbv2 solana anchor test [-h] [-v] [-s] [--mainnetBeta | --cluster localnet|devnet] [-u <value>] [--mainnetRpcUrl
+    <value>] [--programId <value>] [-d <value>] [--oracleKey <value>] [-k <value>] [--nodeImage <value>] [--arm] [-t
+    <value>] [--detach]
 
 FLAGS
   -d, --switchboardDir=<value>  directory with switchboard.env to load a switchboard environment
@@ -3822,6 +3826,8 @@ FLAGS
                                 <options: localnet|devnet>
   --detach                      keep the localnet rpc running
   --mainnetBeta                 WARNING: use mainnet-beta solana cluster
+  --mainnetRpcUrl=<value>       [default: https://api.mainnet-beta.solana.com/] Solana mainnet RPC URL to use for the
+                                oracle task runner
   --nodeImage=<value>           [default: dev-v2-RC_01_05_23_03_24] public key of the oracle to start-up
   --oracleKey=<value>           public key of the oracle to start-up
   --programId=<value>           alternative Switchboard program ID to interact with
