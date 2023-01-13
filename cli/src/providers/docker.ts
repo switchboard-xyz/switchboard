@@ -2,7 +2,7 @@ import {
   SWITCHBOARD_DEVNET_ADDRESS,
   SWITCHBOARD_TESTNET_ADDRESS,
 } from "@switchboard-xyz/aptos.js";
-import { ChildProcessByStdio, spawn } from "child_process";
+import { ChildProcessByStdio, execSync, spawn } from "child_process";
 import fs from "fs";
 import path from "path";
 import internal from "stream";
@@ -153,12 +153,50 @@ export class DockerOracle implements Required<IOracleConfig> {
     };
   }
 
+  public static isDockerRunning() {
+    // Check docker is running
+    try {
+      execSync(`docker ps`, { stdio: "pipe" });
+    } catch (error) {
+      throw new Error(`Is Docker running?`);
+    }
+  }
+
   start() {
-    // TODO: Check docker is running
+    DockerOracle.isDockerRunning();
+
+    // Kill all existing switchboard oracles
+    try {
+      execSync(
+        `docker container stop $(docker ps | grep "switchboardlabs/node" | awk '{ print $1 }')`,
+        { stdio: "pipe" }
+      );
+    } catch (error) {
+      const errorString = `Failed to stop existing docker containers, ${error}`;
+      if (
+        !errorString.includes(
+          `"docker container stop" requires at least 1 argument`
+        )
+      ) {
+        console.error(errorString);
+      }
+    }
 
     // we always try to create the oracle first
     // if already exist, attach to it
     this.createOracle();
+  }
+
+  stop(exitCode = 1) {
+    this.isActive = false;
+    this.saveLogs(this.logs, this.nodeImage);
+    try {
+      execSync(`docker container stop ${this.image}`, { stdio: "pipe" });
+      return true;
+    } catch (error) {
+      console.error(`Failed to stop docker oracle, ${error}`);
+      return false;
+    }
   }
 
   private getArgs(): string[] {
@@ -260,14 +298,6 @@ export class DockerOracle implements Required<IOracleConfig> {
     this.dockerOracleProcess.on("close", this.onCloseCallback);
   }
 
-  stop() {
-    this.isActive = false;
-    const r = this.dockerOracleProcess.kill(1);
-    if (!r) {
-      throw new Error(`Failed to stop docker oracle`);
-    }
-  }
-
   saveLogs(logs: string[], nodeImage: string): string | null {
     if (!fs.existsSync(this.switchboardDirectory)) {
       fs.mkdirSync(this.switchboardDirectory);
@@ -286,7 +316,7 @@ export class DockerOracle implements Required<IOracleConfig> {
     return undefined;
   }
 
-  async awaitReady(timeout = 60_000): Promise<void> {
+  async awaitReadyOld(timeout = 60_000): Promise<void> {
     let n = Math.floor(timeout / 1000);
 
     const result = await promiseWithTimeout(
@@ -305,5 +335,24 @@ export class DockerOracle implements Required<IOracleConfig> {
     );
 
     return;
+  }
+
+  async awaitReady(maxRetries: number = 60): Promise<void> {
+    if (this.ready) {
+      return;
+    }
+
+    let numRetries = maxRetries * 2;
+    while (numRetries) {
+      if (this.ready) {
+        return;
+      }
+      --numRetries;
+      await sleep(500);
+    }
+
+    throw new Error(
+      `Failed to start Switchboard oracle in ${maxRetries} seconds`
+    );
   }
 }

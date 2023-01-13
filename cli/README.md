@@ -167,7 +167,7 @@ run anchor test and a switchboard oracle in parallel
 USAGE
   $ sbv2 anchor test [-h] [-v] [-s] [--mainnetBeta | --cluster localnet|devnet] [-u <value>] [--mainnetRpcUrl
     <value>] [--programId <value>] [-d <value>] [--oracleKey <value>] [-k <value>] [--nodeImage <value>] [--arm] [-t
-    <value>] [--detach]
+    <value>] [--detach] [--testValidatorArgs <value>]
 
 FLAGS
   -d, --switchboardDir=<value>  directory with switchboard.env to load a switchboard environment
@@ -188,6 +188,7 @@ FLAGS
   --nodeImage=<value>           [default: dev-v2-RC_01_05_23_03_24] public key of the oracle to start-up
   --oracleKey=<value>           public key of the oracle to start-up
   --programId=<value>           alternative Switchboard program ID to interact with
+  --testValidatorArgs=<value>   additional args passed to the local solana validator
 
 DESCRIPTION
   run anchor test and a switchboard oracle in parallel
@@ -3810,7 +3811,7 @@ run anchor test and a switchboard oracle in parallel
 USAGE
   $ sbv2 solana anchor test [-h] [-v] [-s] [--mainnetBeta | --cluster localnet|devnet] [-u <value>] [--mainnetRpcUrl
     <value>] [--programId <value>] [-d <value>] [--oracleKey <value>] [-k <value>] [--nodeImage <value>] [--arm] [-t
-    <value>] [--detach]
+    <value>] [--detach] [--testValidatorArgs <value>]
 
 FLAGS
   -d, --switchboardDir=<value>  directory with switchboard.env to load a switchboard environment
@@ -3831,6 +3832,7 @@ FLAGS
   --nodeImage=<value>           [default: dev-v2-RC_01_05_23_03_24] public key of the oracle to start-up
   --oracleKey=<value>           public key of the oracle to start-up
   --programId=<value>           alternative Switchboard program ID to interact with
+  --testValidatorArgs=<value>   additional args passed to the local solana validator
 
 DESCRIPTION
   run anchor test and a switchboard oracle in parallel
