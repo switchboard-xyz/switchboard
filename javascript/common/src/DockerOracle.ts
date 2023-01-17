@@ -6,6 +6,22 @@ import crypto from "crypto";
 import chalk from "chalk";
 import { sleep } from "./utils";
 
+// try not to allow duplicate env flags to docker command
+const INVALID_ENV_KEYS = [
+  "CHAIN",
+  "ORACLE_KEY",
+  "RPC_URL",
+  "APTOS_RPC_URL",
+  "NEAR_RPC_URL",
+  "SOLANA_RPC_URL",
+  "APTOS_PID",
+  "TASK_RUNNER_SOLANA_RPC",
+  "NEAR_NAMED_ACCOUNT",
+  "CLUSTER",
+  "VERBOSE",
+  "DEBUG",
+];
+
 export interface IOracleBaseConfig {
   chain: "aptos" | "near" | "solana";
   network: "localnet" | "devnet" | "testnet" | "mainnet" | "mainnet-beta";
@@ -16,6 +32,8 @@ export interface IOracleBaseConfig {
   taskRunnerSolanaRpc?: string;
   // docker config
   arch?: "linux/arm64" | "linux/amd64";
+  // extra env vars
+  envVariables?: Record<string, string>;
 }
 
 export type ISolanaOracleConfig = {};
@@ -33,9 +51,20 @@ export type IOracleConfig = IOracleBaseConfig &
   INearOracleConfig &
   ISolanaOracleConfig;
 
+function normalizeFsPath(fsPath: string) {
+  return fsPath.startsWith("/") ||
+    fsPath.startsWith("C:") ||
+    fsPath.startsWith("D:")
+    ? fsPath
+    : fsPath.startsWith("~")
+    ? path.join(os.homedir(), fsPath.slice(1))
+    : path.join(process.cwd(), fsPath);
+}
+
 export class DockerOracle implements Required<IOracleConfig> {
   chain: "aptos" | "near" | "solana";
   network: "localnet" | "devnet" | "testnet" | "mainnet" | "mainnet-beta";
+  envVariables: Record<string, string>;
   arch: "linux/arm64" | "linux/amd64";
   rpcUrl: string;
   oracleKey: string;
@@ -47,7 +76,7 @@ export class DockerOracle implements Required<IOracleConfig> {
   // near oracle config
   nearNamedAccount: string;
 
-  ready = false;
+  // ready = false;
 
   image: string;
   args: string[];
@@ -57,9 +86,41 @@ export class DockerOracle implements Required<IOracleConfig> {
   isActive = true;
   timestamp: number = Date.now();
 
-  onDataCallback: (data: any) => void;
-  onErrorCallback: (error: Error) => void;
-  onCloseCallback: (code: number, signal: NodeJS.Signals) => void;
+  onDataCallback: (data: any) => void = (data) => {
+    // if (data.toString().includes("Using default performance monitoring")) {
+    //   this.ready = true;
+    // }
+
+    this.logs.push(data.toString());
+    if (!this.silent) {
+      console.log(`\u001B[34m${data.toString()}\u001B[0m`);
+    }
+  };
+  onErrorCallback: (error: Error) => void = (error) => {
+    this.logs.push(error.toString());
+    if (!this.silent) {
+      console.error(`\u001B[31m${error.toString()}\u001B[0m`);
+    }
+  };
+  onCloseCallback: (code: number, signal: NodeJS.Signals) => void = (
+    code,
+    signal
+  ) => {
+    this.saveLogs(this.logs);
+    if (!this.isActive) {
+      return;
+    }
+
+    // if reboot from no RPC or if image already exists
+    if (code === 0 || code === 125) {
+      this.startOracle();
+    } else if (!this.silent) {
+      this.startOracle();
+      console.error(chalk.red(`Docker image exited with code ${code}`));
+    } else if (code !== 0 && code !== 1) {
+      console.error(`\u001B[31mDocker image exited with code ${code}\u001B[0m`);
+    }
+  };
 
   constructor(
     readonly config: IOracleConfig,
@@ -72,14 +133,16 @@ export class DockerOracle implements Required<IOracleConfig> {
     this.chain = config.chain;
     this.network = config.network;
     this.arch = config.arch ?? "linux/amd64";
+    this.envVariables = config.envVariables ?? {};
     this.rpcUrl = config.rpcUrl;
+    if (this.rpcUrl.includes("localhost")) {
+      this.rpcUrl = this.rpcUrl.replace("localhost", "host.docker.internal");
+    }
+    if (this.rpcUrl.includes("0.0.0.0")) {
+      this.rpcUrl = this.rpcUrl.replace("0.0.0.0", "host.docker.internal");
+    }
     this.oracleKey = config.oracleKey;
-    this.secretPath =
-      config.secretPath.startsWith("/") || config.secretPath.startsWith("C:")
-        ? config.secretPath
-        : config.secretPath.startsWith("~")
-        ? path.join(os.homedir(), config.secretPath.slice(1))
-        : path.join(process.cwd(), config.secretPath);
+    this.secretPath = normalizeFsPath(config.secretPath);
 
     // task runner config
     this.taskRunnerSolanaRpc =
@@ -125,44 +188,6 @@ export class DockerOracle implements Required<IOracleConfig> {
 
     // get image args
     this.args = this.getArgs();
-
-    // set callbacks
-    this.onDataCallback = (data) => {
-      if (data.toString().includes("Using default performance monitoring")) {
-        this.ready = true;
-      }
-
-      this.logs.push(data.toString());
-      if (!this.silent) {
-        console.log(`\u001B[34m${data.toString()}\u001B[0m`);
-      }
-    };
-
-    this.onErrorCallback = (error) => {
-      this.logs.push(error.toString());
-      if (!this.silent) {
-        console.error(`\u001B[31m${error.toString()}\u001B[0m`);
-      }
-    };
-
-    this.onCloseCallback = (code, signal) => {
-      this.saveLogs(this.logs);
-      if (!this.isActive) {
-        return;
-      }
-
-      // if reboot from no RPC or if image already exists
-      if (code === 0 || code === 125) {
-        this.startOracle();
-      } else if (!this.silent) {
-        this.startOracle();
-        console.error(chalk.red(`Docker image exited with code ${code}`));
-      } else if (code !== 0 && code !== 1) {
-        console.error(
-          `\u001B[31mDocker image exited with code ${code}\u001B[0m`
-        );
-      }
-    };
   }
 
   public static isDockerRunning() {
@@ -180,7 +205,7 @@ export class DockerOracle implements Required<IOracleConfig> {
   start() {
     // Kill all existing switchboard oracles
     try {
-      if (os.platform() === "win32") {
+      if (os.type() === "Windows_NT") {
         execSync(
           `FOR /F "tokens=*" %i IN ('docker ps -q -f "ancestor=switchboardlabs/node"') DO (docker container stop %i)`,
           { stdio: ["pipe", "pipe", "pipe"], shell: "powershell.exe" }
@@ -208,7 +233,7 @@ export class DockerOracle implements Required<IOracleConfig> {
   }
 
   /** Stop the docker oracle process */
-  stop(exitCode = 1) {
+  stop() {
     this.isActive = false;
     this.saveLogs(this.logs);
     try {
@@ -219,6 +244,18 @@ export class DockerOracle implements Required<IOracleConfig> {
     } catch (error) {
       console.error(`Failed to stop docker oracle, ${error}`);
       return false;
+    }
+  }
+
+  /** Force kill the child_process */
+  kill(exitCode = 1) {
+    this.isActive = false;
+    this.saveLogs(this.logs);
+    if (this.dockerOracleProcess) {
+      const killed = this.dockerOracleProcess.kill(exitCode);
+      if (!killed) {
+        throw new Error(`Failed to kill the docker oracle process`);
+      }
     }
   }
 
@@ -235,6 +272,12 @@ export class DockerOracle implements Required<IOracleConfig> {
   }
 
   private getArgs(): string[] {
+    const envVariables: Array<string> = []; // we could use a Set to prevent duplicates
+    for (const [key, value] of Object.entries(this.envVariables)) {
+      if (!INVALID_ENV_KEYS.includes(key)) {
+        envVariables.push(`-e ${key.toUpperCase()}=${value}`);
+      }
+    }
     if (this.chain === "aptos") {
       return [
         "run",
@@ -247,9 +290,10 @@ export class DockerOracle implements Required<IOracleConfig> {
         `-e APTOS_PID=${this.aptosPid}`,
         `-e TASK_RUNNER_SOLANA_RPC=${this.taskRunnerSolanaRpc}`,
         `-e VERBOSE=1`,
+        `-e DEBUG=1`,
+        ...envVariables,
         `-e APTOS_FS_PAYER_SECRET_PATH=/home/node/sbv2-oracle/payer_secrets.json`,
         `--mount type=bind,source=${this.secretPath},target=/home/node/sbv2-oracle/payer_secrets.json`,
-        `--network host`,
         `switchboardlabs/node:${this.nodeImage}`,
       ].filter(Boolean);
     }
@@ -267,6 +311,8 @@ export class DockerOracle implements Required<IOracleConfig> {
         `-e NEAR_NAMED_ACCOUNT=${this.nearNamedAccount}`,
         `-e TASK_RUNNER_SOLANA_RPC=${this.taskRunnerSolanaRpc}`,
         `-e VERBOSE=1`,
+        `-e DEBUG=1`,
+        ...envVariables,
         `-e NEAR_FS_PAYER_SECRET_PATH=/home/node/sbv2-oracle/payer_secrets.json`,
         `--mount type=bind,source=${this.secretPath},target=/home/node/sbv2-oracle/payer_secrets.json`,
         `switchboardlabs/node:${this.nodeImage}`,
@@ -285,6 +331,8 @@ export class DockerOracle implements Required<IOracleConfig> {
         `-e CLUSTER=${this.network}`,
         `-e TASK_RUNNER_SOLANA_RPC=${this.taskRunnerSolanaRpc}`,
         `-e VERBOSE=1`,
+        `-e DEBUG=1`,
+        ...envVariables,
         `-e SOLANA_FS_PAYER_SECRET_PATH=/home/node/sbv2-oracle/payer_secrets.json`,
         `--mount type=bind,source=${this.secretPath},target=/home/node/sbv2-oracle/payer_secrets.json`,
         `switchboardlabs/node:${this.nodeImage}`,
@@ -295,7 +343,7 @@ export class DockerOracle implements Required<IOracleConfig> {
   }
 
   private createOracle() {
-    this.ready = false;
+    // this.ready = false;
     this.dockerOracleProcess = spawn("docker", this.args, {
       shell: true,
       env: process.env,
@@ -320,7 +368,7 @@ export class DockerOracle implements Required<IOracleConfig> {
   }
 
   private startOracle() {
-    this.ready = false;
+    // this.ready = false;
     this.dockerOracleProcess = spawn(
       "docker",
       ["start", "--attach", this.image],
@@ -352,21 +400,41 @@ export class DockerOracle implements Required<IOracleConfig> {
     }
   }
 
+  public static checkDockerHealthStatus(containerName: string): boolean {
+    try {
+      const inspectResponseBuffer = execSync(
+        `docker inspect --format='{{json .State.Health.Status}}' ${containerName}`,
+        { stdio: ["pipe", "pipe", "pipe"] }
+      );
+      const response = Buffer.from(inspectResponseBuffer)
+        .toString("utf-8")
+        .replace(/\"/g, "") // remove double quotes
+        .trim(); // trim new line
+      return response === "healthy" ? true : false;
+    } catch (error) {}
+
+    return false;
+  }
+
+  checkDockerHealthStatus(): boolean {
+    return DockerOracle.checkDockerHealthStatus(this.image);
+  }
+
   /**
    * @param timeout - the number of seconds to await for the oracle to start successfully heartbeating
    *
    * @throws if timeout is exceeded and oracle heartbeat was never detected
    */
   async awaitReady(timeout: number = 60): Promise<void> {
-    if (this.ready) {
-      return;
-    }
-
     let numRetries = timeout * 2;
     while (numRetries) {
-      if (this.ready) {
-        return;
-      }
+      try {
+        const status = this.checkDockerHealthStatus();
+        if (status === true) {
+          return;
+        }
+      } catch {}
+
       --numRetries;
       await sleep(500);
     }
