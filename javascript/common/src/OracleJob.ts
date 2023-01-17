@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 /* eslint-disable import/extensions */
-import { IOracleJob, OracleJob } from "./protos/index.js";
+import { IOracleJob, OracleJob } from "./protos";
 
 import protobuf from "protobufjs/minimal.js";
 import Big from "big.js";

@@ -1,11 +1,10 @@
-import { ChildProcessByStdio, spawn } from "child_process";
+import { ChildProcess, execSync, spawn } from "child_process";
 import fs from "fs";
 import path from "path";
-import internal from "stream";
+import os from "os";
 import crypto from "crypto";
 import chalk from "chalk";
-import { clusterApiUrl } from "@solana/web3.js";
-import { promiseWithTimeout, sleep } from "./utils";
+import { sleep } from "./utils";
 
 export interface IOracleConfig {
   chain: "aptos" | "near" | "solana";
@@ -13,12 +12,11 @@ export interface IOracleConfig {
   rpcUrl: string;
   oracleKey: string;
   secretPath: string;
-  // optionals
-  // Optional
+  // task runner config
   taskRunnerSolanaRpc?: string;
-  // Optional, will use network to determine PID if not provided
+  // aptos oracle config
   aptosPid?: string;
-  // Required if chain is near
+  // near oracle config
   nearNamedAccount?: string;
 }
 
@@ -28,12 +26,11 @@ export class DockerOracle implements Required<IOracleConfig> {
   rpcUrl: string;
   oracleKey: string;
   secretPath: string;
-  // optionals
-  // Required if chain is aptos or near, can revert to default RPCs
+  // task runner config
   taskRunnerSolanaRpc: string;
-  // Optional, will use network to determine PID if not provided
+  // aptos oracle config
   aptosPid: string;
-  // Required if chain is near
+  // near oracle config
   nearNamedAccount: string;
 
   ready = false;
@@ -42,11 +39,7 @@ export class DockerOracle implements Required<IOracleConfig> {
   args: string[];
   allLogs: string[] = [];
   logs: string[] = [];
-  dockerOracleProcess: ChildProcessByStdio<
-    null,
-    internal.Readable,
-    internal.Readable
-  >;
+  dockerOracleProcess: ChildProcess;
   isActive = true;
   timestamp: number = Date.now();
 
@@ -57,22 +50,34 @@ export class DockerOracle implements Required<IOracleConfig> {
   constructor(
     readonly config: IOracleConfig,
     readonly nodeImage: string,
-    readonly platform: "linux/arm64" | "linux/amd64" = "linux/amd64",
     readonly switchboardDirectory = path.join(process.cwd(), ".switchboard"),
+    readonly platform: "linux/arm64" | "linux/amd64" = "linux/amd64",
     readonly silent = false
   ) {
+    DockerOracle.isDockerRunning();
     // set config
     this.chain = config.chain;
     this.network = config.network;
     this.rpcUrl = config.rpcUrl;
     this.oracleKey = config.oracleKey;
-    this.secretPath = config.secretPath;
+    this.secretPath =
+      config.secretPath.startsWith("/") || config.secretPath.startsWith("C:")
+        ? config.secretPath
+        : config.secretPath.startsWith("~")
+        ? path.join(os.homedir(), config.secretPath.slice(1))
+        : path.join(process.cwd(), config.secretPath);
+
+    // task runner config
     this.taskRunnerSolanaRpc =
-      config.taskRunnerSolanaRpc ?? clusterApiUrl("mainnet-beta");
-    if (this.chain === "aptos" && !config.aptosPid) {
-      throw new Error(`Need to provide 'aptosPID' if chain is set to 'aptos'`);
+      config.taskRunnerSolanaRpc ?? "https://api.mainnet-beta.solana.com";
+
+    // aptos config
+    this.aptosPid = config.aptosPid;
+    if (this.chain === "aptos" && !this.aptosPid) {
+      throw new Error(`Need to provide 'aptosPid' if chain is set to 'aptos'`);
     }
-    this.aptosPid = config.aptosPid ?? "";
+
+    // near config
     this.nearNamedAccount = config.nearNamedAccount ?? "";
     if (this.chain === "near" && !this.nearNamedAccount) {
       throw new Error(
@@ -127,7 +132,7 @@ export class DockerOracle implements Required<IOracleConfig> {
     };
 
     this.onCloseCallback = (code) => {
-      this.saveLogs(this.logs, this.nodeImage);
+      this.saveLogs(this.logs);
       if (!this.isActive) {
         return;
       }
@@ -146,12 +151,64 @@ export class DockerOracle implements Required<IOracleConfig> {
     };
   }
 
+  public static isDockerRunning() {
+    // Check docker is running
+    try {
+      execSync(`docker ps`, { stdio: "pipe" });
+    } catch (error) {
+      throw new Error(`Is Docker running?`);
+    }
+  }
+
+  /**
+   * Start a Docker process with the oracle running. If an existing oracle is detected, it will re-attach to the container.
+   */
   start() {
-    // TODO: Check docker is running
+    // Kill all existing switchboard oracles
+    try {
+      execSync(
+        `docker container stop $(docker ps | grep "switchboardlabs/node" | awk '{ print $1 }')`,
+        { stdio: "pipe" }
+      );
+    } catch (error) {
+      const errorString = `Failed to stop existing docker containers, ${error}`;
+      if (
+        !errorString.includes(
+          `"docker container stop" requires at least 1 argument`
+        )
+      ) {
+        console.error(errorString);
+      }
+    }
 
     // we always try to create the oracle first
     // if already exist, attach to it
     this.createOracle();
+  }
+
+  /** Stop the docker oracle process */
+  stop(exitCode = 1) {
+    this.isActive = false;
+    this.saveLogs(this.logs);
+    try {
+      execSync(`docker container stop ${this.image}`, { stdio: "pipe" });
+      return true;
+    } catch (error) {
+      console.error(`Failed to stop docker oracle, ${error}`);
+      return false;
+    }
+  }
+
+  /**
+   * Start a Docker process with the oracle running and await for the oracle to signal readiness. If an existing oracle is detected, it will re-attach to the container.
+   *
+   * @param timeout - the number of seconds to await for the oracle to start successfully heartbeating
+   *
+   * @throws if timeout is exceeded and oracle heartbeat was never detected
+   */
+  public async startAndAwait(timeout: number = 60) {
+    this.start();
+    await this.awaitReady(timeout);
   }
 
   private getArgs(): string[] {
@@ -167,8 +224,8 @@ export class DockerOracle implements Required<IOracleConfig> {
         `-e APTOS_PID=${this.aptosPid}`,
         `-e TASK_RUNNER_SOLANA_RPC=${this.taskRunnerSolanaRpc}`,
         `-e VERBOSE=1`,
-        `-e APTOS_FS_PAYER_SECRET_PATH=/home/node/payer_secrets.json`,
-        `--mount type=bind,source=${this.secretPath},target=/home/node/payer_secrets.json`,
+        `-e APTOS_FS_PAYER_SECRET_PATH=/home/node/sbv2-oracle/payer_secrets.json`,
+        `--mount type=bind,source=${this.secretPath},target=/home/node/sbv2-oracle/payer_secrets.json`,
         `--network host`,
         `switchboardlabs/node:${this.nodeImage}`,
       ].filter(Boolean);
@@ -187,8 +244,8 @@ export class DockerOracle implements Required<IOracleConfig> {
         `-e NEAR_NAMED_ACCOUNT=${this.nearNamedAccount}`,
         `-e TASK_RUNNER_SOLANA_RPC=${this.taskRunnerSolanaRpc}`,
         `-e VERBOSE=1`,
-        `-e NEAR_FS_PAYER_SECRET_PATH=/home/node/payer_secrets.json`,
-        `--mount type=bind,source=${this.secretPath},target=/home/node/payer_secrets.json`,
+        `-e NEAR_FS_PAYER_SECRET_PATH=/home/node/sbv2-oracle/payer_secrets.json`,
+        `--mount type=bind,source=${this.secretPath},target=/home/node/sbv2-oracle/payer_secrets.json`,
         `switchboardlabs/node:${this.nodeImage}`,
       ].filter(Boolean);
     }
@@ -205,8 +262,8 @@ export class DockerOracle implements Required<IOracleConfig> {
         `-e CLUSTER=${this.network}`,
         `-e TASK_RUNNER_SOLANA_RPC=${this.taskRunnerSolanaRpc}`,
         `-e VERBOSE=1`,
-        `-e SOLANA_FS_PAYER_SECRET_PATH=/home/node/payer_secrets.json`,
-        `--mount type=bind,source=${this.secretPath},target=/home/node/payer_secrets.json`,
+        `-e SOLANA_FS_PAYER_SECRET_PATH=/home/node/sbv2-oracle/payer_secrets.json`,
+        `--mount type=bind,source=${this.secretPath},target=/home/node/sbv2-oracle/payer_secrets.json`,
         `switchboardlabs/node:${this.nodeImage}`,
       ].filter(Boolean);
     }
@@ -253,22 +310,15 @@ export class DockerOracle implements Required<IOracleConfig> {
     this.dockerOracleProcess.on("close", this.onCloseCallback);
   }
 
-  stop() {
-    this.isActive = false;
-    const r = this.dockerOracleProcess.kill(1);
-    if (!r) {
-      throw new Error(`Failed to stop docker oracle`);
-    }
-  }
-
-  saveLogs(logs: string[], nodeImage: string): string | null {
+  /** Save an array of oracle logs */
+  saveLogs(logs: string[]): string | null {
     if (!fs.existsSync(this.switchboardDirectory)) {
-      fs.mkdirSync(this.switchboardDirectory);
+      fs.mkdirSync(this.switchboardDirectory, { recursive: true });
     }
 
     const fileName = path.join(
       this.switchboardDirectory,
-      `docker.${nodeImage}.${Math.floor(this.timestamp / 1000)}.log`
+      `docker.${this.nodeImage}.${Math.floor(this.timestamp / 1000)}.log`
     );
     const filteredLogs = logs.filter((l) => Boolean);
     if (filteredLogs.length > 0) {
@@ -279,24 +329,25 @@ export class DockerOracle implements Required<IOracleConfig> {
     return undefined;
   }
 
-  async awaitReady(timeout = 60_000): Promise<void> {
-    let n = Math.floor(timeout / 1000);
+  /**
+   * @param timeout - the number of seconds to await for the oracle to start successfully heartbeating
+   *
+   * @throws if timeout is exceeded and oracle heartbeat was never detected
+   */
+  async awaitReady(timeout: number = 60): Promise<void> {
+    if (this.ready) {
+      return;
+    }
 
-    const result = await promiseWithTimeout(
-      timeout,
-      new Promise(async (resolve: (value: boolean) => void, reject) => {
-        while (n > 0) {
-          if (this.ready) {
-            n = 0;
-            resolve(true);
-          }
-          n = n - 1;
-          await sleep(1000);
-        }
-        reject(`Failed to await oracle readiness`);
-      })
-    );
+    let numRetries = timeout * 2;
+    while (numRetries) {
+      if (this.ready) {
+        return;
+      }
+      --numRetries;
+      await sleep(500);
+    }
 
-    return;
+    throw new Error(`Failed to start Switchboard oracle in ${timeout} seconds`);
   }
 }

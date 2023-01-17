@@ -1,7 +1,7 @@
 import Big from "big.js";
 import BN from "bn.js";
 import Decimal from "decimal.js";
-import { SwitchboardDecimal } from "../SwitchboardDecimal.js";
+import { SwitchboardDecimal } from "../SwitchboardDecimal";
 
 export class BigUtils {
   public static safeDiv(number_: Big, denominator: Big, decimals = 20): Big {
