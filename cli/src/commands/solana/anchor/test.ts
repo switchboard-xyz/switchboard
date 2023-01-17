@@ -1,13 +1,12 @@
 import * as dotenv from "dotenv";
 import * as anchor from "@project-serum/anchor";
 import { Flags } from "@oclif/core";
-import { clusterApiUrl, Connection, PublicKey } from "@solana/web3.js";
-import { ChildProcess, execSync, spawn } from "child_process";
-import { DockerOracle } from "../../../providers/docker";
+import { clusterApiUrl, PublicKey } from "@solana/web3.js";
+import { ChildProcess, spawn } from "child_process";
+import { DockerOracle } from "@switchboard-xyz/common";
 import {
   getIdlAddress,
   getProgramDataAddress,
-  PermissionAccount,
 } from "@switchboard-xyz/solana.js";
 import { sleep } from "@switchboard-xyz/common";
 import { CliBaseCommand as BaseCommand } from "../../../BaseCommand";
@@ -112,7 +111,7 @@ export default class AnchorTest extends BaseCommand {
     }),
     nodeImage: Flags.string({
       description: "public key of the oracle to start-up",
-      default: "dev-v2-RC_01_05_23_03_24",
+      default: "dev-v2-RC_01_17_23_16_22",
     }),
     arm: Flags.boolean({
       description: "apple silicon needs to use a docker image for linux/arm64",
@@ -318,8 +317,8 @@ export default class AnchorTest extends BaseCommand {
         secretPath: keypairPath,
       },
       flags.nodeImage,
-      flags.arm ? "linux/arm64" : "linux/amd64",
       flags.switchboardDir,
+      flags.arm ? "linux/arm64" : "linux/amd64",
       flags.silent
     );
 

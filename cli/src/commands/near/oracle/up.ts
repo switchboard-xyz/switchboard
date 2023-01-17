@@ -5,7 +5,7 @@ import {
   SwitchboardDecimal,
   toBase58,
 } from "@switchboard-xyz/near.js";
-import { DockerOracle } from "../../../providers/docker";
+import { DockerOracle } from "@switchboard-xyz/common";
 import path from "path";
 import { sleep } from "../../../utils";
 
@@ -21,7 +21,7 @@ export default class NearDockerOracle extends BaseCommand {
     }),
     nodeImage: Flags.string({
       description: "public key of the oracle to start-up",
-      default: "dev-v2-RC_01_05_23_03_24",
+      default: "dev-v2-RC_01_17_23_16_22",
     }),
     arm: Flags.boolean({
       description: "apple silicon needs to use a docker image for linux/arm64",
@@ -61,10 +61,11 @@ export default class NearDockerOracle extends BaseCommand {
         nearNamedAccount: flags.accountName,
       },
       flags.nodeImage,
-      flags.arm ? "linux/arm64" : "linux/amd64",
       flags.switchboardDir,
+      flags.arm ? "linux/arm64" : "linux/amd64",
       flags.silent
-    ).start();
+    );
+    docker.start();
 
     await sleep(120000);
   }

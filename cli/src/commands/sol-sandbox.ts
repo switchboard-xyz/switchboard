@@ -1,9 +1,29 @@
 import { Flags } from "@oclif/core";
 import { BN } from "@project-serum/anchor";
-import { PublicKey } from "@solana/web3.js";
+import {
+  Keypair,
+  PublicKey,
+  SystemProgram,
+  Transaction,
+} from "@solana/web3.js";
 import { SwitchboardDecimal } from "@switchboard-xyz/common";
-import { AggregatorAccount, types } from "@switchboard-xyz/solana.js";
-import { SolanaWithoutSignerBaseCommand as BaseCommand } from "../solana/index";
+import {
+  AggregatorAccount,
+  TransactionObject,
+  types,
+} from "@switchboard-xyz/solana.js";
+import { SolanaWithSignerBaseCommand as BaseCommand } from "../solana/index";
+
+/** Get the IDL address for a given programId
+ * @param programId the programId for a given on-chain program
+ * @return the publicKey of the IDL address
+ */
+export const getIdlAddress = async (
+  programId: PublicKey
+): Promise<PublicKey> => {
+  const base = (await PublicKey.findProgramAddress([], programId))[0];
+  return PublicKey.createWithSeed(base, "anchor:idl", programId);
+};
 
 export default class SandboxCommand extends BaseCommand {
   static description = "sandbox";
@@ -29,6 +49,34 @@ export default class SandboxCommand extends BaseCommand {
 
   async run() {
     const { args, flags } = await this.parse(SandboxCommand);
+
+    const programId = new PublicKey(
+      "2n97njHWjiWGx8T7ps8Ap79HUSprqXzdowSmnESUnMQE"
+    );
+    const idlAddress = await getIdlAddress(programId);
+
+    const space = 15686;
+    const lamports =
+      await this.program.connection.getMinimumBalanceForRentExemption(space);
+
+    const baseKeypair = Keypair.generate();
+
+    const createIxn = SystemProgram.createAccountWithSeed({
+      fromPubkey: this.program.walletPubkey,
+      newAccountPubkey: idlAddress,
+      basePubkey: baseKeypair.publicKey,
+      seed: "anchor:idl",
+      space,
+      lamports,
+      programId,
+    });
+    const txn = new TransactionObject(
+      this.program.walletPubkey,
+      [createIxn],
+      [baseKeypair]
+    );
+    const signature = await this.program.signAndSend(txn);
+    console.log(signature);
 
     // const [aggregatorAccount, aggregator] = await AggregatorAccount.load(
     //   this.program,

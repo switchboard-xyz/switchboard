@@ -2672,7 +2672,7 @@
     "@solana/buffer-layout-utils" "^0.2.0"
     buffer "^6.0.3"
 
-"@solana/web3.js@^1.32.0", "@solana/web3.js@^1.73.0":
+"@solana/web3.js@^1.32.0", "@solana/web3.js@^1.66.2", "@solana/web3.js@^1.73.0":
   version "1.73.0"
   resolved "https://registry.npmjs.org/@solana/web3.js/-/web3.js-1.73.0.tgz"
   integrity sha512-YrgX3Py7ylh8NYkbanoINUPCj//bWUjYZ5/WPy9nQ9SK3Cl7QWCR+NmbDjmC/fTspZGR+VO9LTQslM++jr5PRw==
@@ -2728,7 +2728,7 @@
     js-sha3 "^0.8.0"
     node-fetch "^2.1.6"
 
-"@switchboard-xyz/common@^2.0.0", "@switchboard-xyz/common@^2.1.7":
+"@switchboard-xyz/common@^2.0.0":
   version "2.1.7"
   resolved "https://registry.npmjs.org/@switchboard-xyz/common/-/common-2.1.7.tgz"
   integrity sha512-ME2HnxMn/S2jCuUkanPZKtc3gaT5lq+Crr47DUx46ILldwBxsA9UL6LVv/Pknlp6JwkVxekhMCc+m6YSRER3pw==
@@ -2743,6 +2743,17 @@
   resolved "https://registry.npmjs.org/@switchboard-xyz/common/-/common-2.1.8.tgz#15772fa195df048aa860317ba40561dd8ce7e181"
   integrity sha512-mqCDwCtBf3tY2Bvce0USR4m6DsXSqw8rn4luc2sjLL4PPFKCuCZVgzysfkwzwBHoipbnx6odRQ+BIfm35nhWDA==
   dependencies:
+    big.js "^6.2.1"
+    bn.js "^5.2.1"
+    decimal.js "^10.4.3"
+    protobufjs "^7.1.2"
+
+"@switchboard-xyz/common@^2.1.9":
+  version "2.1.9"
+  resolved "https://registry.npmjs.org/@switchboard-xyz/common/-/common-2.1.9.tgz#2cbb01d1d7b14ab81dd95e45865137e32198743a"
+  integrity sha512-b9/F9Unrrzyxv/ZaZuDd0D9iF9zK6tEcHYwYGvvny8aOGGcVYexuYuuiZ6ljE1zdSAnbIDXqBtmGY+DqwVBJXA==
+  dependencies:
+    "@solana/web3.js" "^1.66.2"
     big.js "^6.2.1"
     bn.js "^5.2.1"
     decimal.js "^10.4.3"
@@ -2769,10 +2780,10 @@
     wait-for-event "^2.0.1"
     ws "^8.10.0"
 
-"@switchboard-xyz/solana.js@^2.0.87":
-  version "2.0.87"
-  resolved "https://registry.npmjs.org/@switchboard-xyz/solana.js/-/solana.js-2.0.87.tgz#f70be99e18c1cce290e2934a8c84751c70804680"
-  integrity sha512-bcAI7EUL6W8E//Kqku0akd2fUjPsH64tlTiJoNo1KndzS9lJ1efjAVb0qyBlBbeA5FrSNUszYSCtPeUFX29h/A==
+"@switchboard-xyz/solana.js@^2.0.93":
+  version "2.0.93"
+  resolved "https://registry.npmjs.org/@switchboard-xyz/solana.js/-/solana.js-2.0.93.tgz#1aa2810fa3881c91a30edeea5e76e816ae12bb06"
+  integrity sha512-zkGV8vhiD/pK8HtiZxWxigP/yHZbWk6oA9zNtDq32yPPLFiibfpWsMjbSeruSH8dxn5rc16/W1SXpmGJInc1FA==
   dependencies:
     "@project-serum/anchor" "^0.26.0"
     "@project-serum/borsh" "^0.2.5"

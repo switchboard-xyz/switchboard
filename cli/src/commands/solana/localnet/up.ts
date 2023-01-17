@@ -1,15 +1,9 @@
 import { Flags } from "@oclif/core";
 import * as anchor from "@project-serum/anchor";
 import { SolanaWithSignerBaseCommand as BaseCommand } from "../../../solana";
-import { DockerOracle } from "../../../providers/docker";
+import { DockerOracle } from "@switchboard-xyz/common";
 import { CHECK_ICON, sleep } from "../../../utils";
-import {
-  ChildProcess,
-  ChildProcessWithoutNullStreams,
-  exec,
-  execSync,
-  spawn,
-} from "child_process";
+import { ChildProcess, exec, execSync } from "child_process";
 import { Connection, Keypair } from "@solana/web3.js";
 import chalk from "chalk";
 import {
@@ -44,7 +38,7 @@ export default class SolanaValidatorUp extends BaseCommand {
     // docker flags
     nodeImage: Flags.string({
       description: "public key of the oracle to start-up",
-      default: "dev-v2-RC_01_05_23_03_24",
+      default: "dev-v2-RC_01_17_23_16_22",
     }),
     arm: Flags.boolean({
       description: "apple silicon needs to use a docker image for linux/arm64",

@@ -1,6 +1,6 @@
 import { Flags } from "@oclif/core";
 import { SolanaWithSignerBaseCommand as BaseCommand } from "../../../solana";
-import { DockerOracle } from "../../../providers/docker";
+import { DockerOracle } from "@switchboard-xyz/common";
 import { sleep } from "../../../utils";
 import { execSync } from "child_process";
 import { clusterApiUrl } from "@solana/web3.js";
@@ -16,7 +16,7 @@ export default class SolanaDockerOracle extends BaseCommand {
     }),
     nodeImage: Flags.string({
       description: "public key of the oracle to start-up",
-      default: "dev-v2-RC_01_05_23_03_24",
+      default: "dev-v2-RC_01_17_23_16_22",
     }),
     arm: Flags.boolean({
       description: "apple silicon needs to use a docker image for linux/arm64",

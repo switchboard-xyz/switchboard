@@ -7,8 +7,7 @@ import {
   SwitchboardNetwork,
   TransactionObject,
 } from "@switchboard-xyz/solana.js";
-import { DockerOracle } from "../../../providers/docker";
-import { sleep } from "@switchboard-xyz/common";
+import { DockerOracle } from "@switchboard-xyz/common";
 import { clusterApiUrl } from "@solana/web3.js";
 
 export default class NetworkStart extends BaseCommand {
@@ -30,7 +29,7 @@ export default class NetworkStart extends BaseCommand {
     }),
     nodeImage: Flags.string({
       description: "public key of the oracle to start-up",
-      default: "dev-v2-RC_01_05_23_03_24",
+      default: "dev-v2-RC_01_17_23_16_22",
     }),
     arm: Flags.boolean({
       description: "apple silicon needs to use a docker image for linux/arm64",
@@ -43,6 +42,10 @@ export default class NetworkStart extends BaseCommand {
     silent: Flags.boolean({
       char: "s",
       description: "suppress docker logging",
+    }),
+    mainnetRpcUrl: Flags.string({
+      description: "Solana mainnet RPC URL to use for the oracle task runner",
+      default: clusterApiUrl("mainnet-beta"),
     }),
   };
 
@@ -177,11 +180,14 @@ export default class NetworkStart extends BaseCommand {
     // console.log(`Starting ${this.oracles.length} oracles ...`);
     this.startOracles();
 
+    await Promise.all(this.oracles.map(async (o) => await o.awaitReady()));
+
     // console.log(`Sleeping for ${flags.timeout} seconds`);
-    await sleep(flags.timeout * 1000);
+    // await sleep(flags.timeout * 1000);
 
     // console.log(`Stopping ${this.oracles.length} oracles ...`);
-    this.stopOracles();
+    // this.stopOracles();
+    process.exit();
   }
 
   async catch(error) {
