@@ -2738,22 +2738,22 @@
     decimal.js "^10.4.2"
     protobufjs "^7.1.2"
 
-"@switchboard-xyz/common@^2.1.8":
-  version "2.1.8"
-  resolved "https://registry.npmjs.org/@switchboard-xyz/common/-/common-2.1.8.tgz#15772fa195df048aa860317ba40561dd8ce7e181"
-  integrity sha512-mqCDwCtBf3tY2Bvce0USR4m6DsXSqw8rn4luc2sjLL4PPFKCuCZVgzysfkwzwBHoipbnx6odRQ+BIfm35nhWDA==
+"@switchboard-xyz/common@^2.1.10":
+  version "2.1.10"
+  resolved "https://registry.npmjs.org/@switchboard-xyz/common/-/common-2.1.10.tgz#bc65e64def6286c73d577791b6c838a222bc1ae3"
+  integrity sha512-wVdnDUGGEQS+xX8YfG4JEPbxvVLY6HQWzUJ8hNKcYIqIYvLzg4k6QHLfSZY0ugP5TE8pq2m6LTR3C6S7cFEMYQ==
   dependencies:
+    "@solana/web3.js" "^1.66.2"
     big.js "^6.2.1"
     bn.js "^5.2.1"
     decimal.js "^10.4.3"
     protobufjs "^7.1.2"
 
-"@switchboard-xyz/common@^2.1.9":
-  version "2.1.9"
-  resolved "https://registry.npmjs.org/@switchboard-xyz/common/-/common-2.1.9.tgz#2cbb01d1d7b14ab81dd95e45865137e32198743a"
-  integrity sha512-b9/F9Unrrzyxv/ZaZuDd0D9iF9zK6tEcHYwYGvvny8aOGGcVYexuYuuiZ6ljE1zdSAnbIDXqBtmGY+DqwVBJXA==
+"@switchboard-xyz/common@^2.1.8":
+  version "2.1.8"
+  resolved "https://registry.npmjs.org/@switchboard-xyz/common/-/common-2.1.8.tgz#15772fa195df048aa860317ba40561dd8ce7e181"
+  integrity sha512-mqCDwCtBf3tY2Bvce0USR4m6DsXSqw8rn4luc2sjLL4PPFKCuCZVgzysfkwzwBHoipbnx6odRQ+BIfm35nhWDA==
   dependencies:
-    "@solana/web3.js" "^1.66.2"
     big.js "^6.2.1"
     bn.js "^5.2.1"
     decimal.js "^10.4.3"

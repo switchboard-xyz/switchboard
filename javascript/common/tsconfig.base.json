@@ -20,7 +20,7 @@
     "allowJs": true,
     "checkJs": false,
     // strict
-    "strict": false,
-    "noImplicitAny": false
+    "strict": true,
+    "noImplicitAny": true
   }
 }

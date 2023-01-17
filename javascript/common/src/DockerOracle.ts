@@ -6,7 +6,7 @@ import crypto from "crypto";
 import chalk from "chalk";
 import { sleep } from "./utils";
 
-export interface IOracleConfig {
+export interface IOracleBaseConfig {
   chain: "aptos" | "near" | "solana";
   network: "localnet" | "devnet" | "testnet" | "mainnet" | "mainnet-beta";
   rpcUrl: string;
@@ -14,15 +14,29 @@ export interface IOracleConfig {
   secretPath: string;
   // task runner config
   taskRunnerSolanaRpc?: string;
-  // aptos oracle config
-  aptosPid?: string;
-  // near oracle config
-  nearNamedAccount?: string;
+  // docker config
+  arch?: "linux/arm64" | "linux/amd64";
 }
+
+export type ISolanaOracleConfig = {};
+
+export type IAptosOracleConfig = {
+  aptosPid?: string;
+};
+
+export type INearOracleConfig = {
+  nearNamedAccount?: string;
+};
+
+export type IOracleConfig = IOracleBaseConfig &
+  IAptosOracleConfig &
+  INearOracleConfig &
+  ISolanaOracleConfig;
 
 export class DockerOracle implements Required<IOracleConfig> {
   chain: "aptos" | "near" | "solana";
   network: "localnet" | "devnet" | "testnet" | "mainnet" | "mainnet-beta";
+  arch: "linux/arm64" | "linux/amd64";
   rpcUrl: string;
   oracleKey: string;
   secretPath: string;
@@ -39,25 +53,25 @@ export class DockerOracle implements Required<IOracleConfig> {
   args: string[];
   allLogs: string[] = [];
   logs: string[] = [];
-  dockerOracleProcess: ChildProcess;
+  dockerOracleProcess?: ChildProcess;
   isActive = true;
   timestamp: number = Date.now();
 
   onDataCallback: (data: any) => void;
   onErrorCallback: (error: Error) => void;
-  onCloseCallback: (code: number) => void;
+  onCloseCallback: (code: number, signal: NodeJS.Signals) => void;
 
   constructor(
     readonly config: IOracleConfig,
     readonly nodeImage: string,
     readonly switchboardDirectory = path.join(process.cwd(), ".switchboard"),
-    readonly platform: "linux/arm64" | "linux/amd64" = "linux/amd64",
     readonly silent = false
   ) {
     DockerOracle.isDockerRunning();
     // set config
     this.chain = config.chain;
     this.network = config.network;
+    this.arch = config.arch ?? "linux/amd64";
     this.rpcUrl = config.rpcUrl;
     this.oracleKey = config.oracleKey;
     this.secretPath =
@@ -72,7 +86,7 @@ export class DockerOracle implements Required<IOracleConfig> {
       config.taskRunnerSolanaRpc ?? "https://api.mainnet-beta.solana.com";
 
     // aptos config
-    this.aptosPid = config.aptosPid;
+    this.aptosPid = config.aptosPid ?? "";
     if (this.chain === "aptos" && !this.aptosPid) {
       throw new Error(`Need to provide 'aptosPid' if chain is set to 'aptos'`);
     }
@@ -97,7 +111,7 @@ export class DockerOracle implements Required<IOracleConfig> {
           this.secretPath,
           this.taskRunnerSolanaRpc,
           this.aptosPid,
-          this.platform,
+          this.arch,
           this.nodeImage,
         ].join(" ")
       )
@@ -131,7 +145,7 @@ export class DockerOracle implements Required<IOracleConfig> {
       }
     };
 
-    this.onCloseCallback = (code) => {
+    this.onCloseCallback = (code, signal) => {
       this.saveLogs(this.logs);
       if (!this.isActive) {
         return;
@@ -154,7 +168,7 @@ export class DockerOracle implements Required<IOracleConfig> {
   public static isDockerRunning() {
     // Check docker is running
     try {
-      execSync(`docker ps`, { stdio: "pipe" });
+      execSync(`docker ps`, { stdio: ["pipe", "pipe", "pipe"] });
     } catch (error) {
       throw new Error(`Is Docker running?`);
     }
@@ -166,10 +180,17 @@ export class DockerOracle implements Required<IOracleConfig> {
   start() {
     // Kill all existing switchboard oracles
     try {
-      execSync(
-        `docker container stop $(docker ps | grep "switchboardlabs/node" | awk '{ print $1 }')`,
-        { stdio: "pipe" }
-      );
+      if (os.platform() === "win32") {
+        execSync(
+          `FOR /F "tokens=*" %i IN ('docker ps -q -f "ancestor=switchboardlabs/node"') DO (docker container stop %i)`,
+          { stdio: ["pipe", "pipe", "pipe"], shell: "powershell.exe" }
+        );
+      } else {
+        execSync(
+          `docker container stop $(docker ps | grep "switchboardlabs/node" | awk '{ print $1 }')`,
+          { stdio: ["pipe", "pipe", "pipe"] }
+        );
+      }
     } catch (error) {
       const errorString = `Failed to stop existing docker containers, ${error}`;
       if (
@@ -191,7 +212,9 @@ export class DockerOracle implements Required<IOracleConfig> {
     this.isActive = false;
     this.saveLogs(this.logs);
     try {
-      execSync(`docker container stop ${this.image}`, { stdio: "pipe" });
+      execSync(`docker container stop ${this.image}`, {
+        stdio: ["pipe", "pipe", "pipe"],
+      });
       return true;
     } catch (error) {
       console.error(`Failed to stop docker oracle, ${error}`);
@@ -217,7 +240,7 @@ export class DockerOracle implements Required<IOracleConfig> {
         "run",
         `--network=host`,
         `--name ${this.image}`,
-        `--platform=${this.platform}`,
+        `--platform=${this.arch}`,
         `-e CHAIN=aptos`,
         `-e ORACLE_KEY=${this.oracleKey}`,
         `-e APTOS_RPC_URL=${this.rpcUrl}`,
@@ -236,7 +259,7 @@ export class DockerOracle implements Required<IOracleConfig> {
         "run",
         `--network=host`,
         `--name ${this.image}`,
-        `--platform=${this.platform}`,
+        `--platform=${this.arch}`,
         `-e CHAIN=near`,
         `-e ORACLE_KEY=${this.oracleKey}`,
         `-e NEAR_RPC_URL=${this.rpcUrl}`,
@@ -255,7 +278,7 @@ export class DockerOracle implements Required<IOracleConfig> {
         "run",
         `--network=host`,
         `--name ${this.image}`,
-        `--platform=${this.platform}`,
+        `--platform=${this.arch}`,
         `-e CHAIN=solana`,
         `-e ORACLE_KEY=${this.oracleKey}`,
         `-e RPC_URL=${this.rpcUrl}`,
@@ -267,6 +290,8 @@ export class DockerOracle implements Required<IOracleConfig> {
         `switchboardlabs/node:${this.nodeImage}`,
       ].filter(Boolean);
     }
+
+    throw new Error(`DockerOracle chain must be 'aptos', 'near', or 'solana'`);
   }
 
   private createOracle() {
@@ -277,11 +302,9 @@ export class DockerOracle implements Required<IOracleConfig> {
       stdio: this.silent ? undefined : ["inherit", "pipe", "pipe"],
     });
 
-    this.dockerOracleProcess.stdout.on("data", this.onDataCallback);
-    this.dockerOracleProcess.on("close", this.onCloseCallback);
-    this.dockerOracleProcess.stderr.on("error", (error) => {
+    this.dockerOracleProcess!.on("message", this.onDataCallback);
+    this.dockerOracleProcess!.on("error", (error) => {
       if (
-        !this.silent ||
         !error
           .toString()
           .includes(
@@ -292,6 +315,8 @@ export class DockerOracle implements Required<IOracleConfig> {
         this.logs.push(error.toString());
       }
     });
+    this.dockerOracleProcess.on("close", this.onCloseCallback);
+    this.dockerOracleProcess.on("exit", this.onCloseCallback);
   }
 
   private startOracle() {
@@ -305,13 +330,14 @@ export class DockerOracle implements Required<IOracleConfig> {
         stdio: this.silent ? undefined : ["inherit", "pipe", "pipe"],
       }
     );
-    this.dockerOracleProcess.stdout.on("data", this.onDataCallback);
-    this.dockerOracleProcess.stderr.on("error", this.onErrorCallback);
+    this.dockerOracleProcess!.on("message", this.onDataCallback);
+    this.dockerOracleProcess!.on("error", this.onErrorCallback);
     this.dockerOracleProcess.on("close", this.onCloseCallback);
+    this.dockerOracleProcess.on("exit", this.onCloseCallback);
   }
 
   /** Save an array of oracle logs */
-  saveLogs(logs: string[]): string | null {
+  saveLogs(logs: string[]): void {
     if (!fs.existsSync(this.switchboardDirectory)) {
       fs.mkdirSync(this.switchboardDirectory, { recursive: true });
     }
@@ -323,10 +349,7 @@ export class DockerOracle implements Required<IOracleConfig> {
     const filteredLogs = logs.filter((l) => Boolean);
     if (filteredLogs.length > 0) {
       fs.writeFileSync(fileName, filteredLogs.join(""));
-      return fileName;
     }
-
-    return undefined;
   }
 
   /**

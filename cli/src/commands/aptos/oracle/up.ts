@@ -55,10 +55,10 @@ export default class AptosDockerOracle extends BaseCommand {
         oracleKey: oracleAccount.address.toString(),
         secretPath: this.normalizePath(flags.keypair),
         aptosPid: this.programId.toString(),
+        arch: flags.arm ? "linux/arm64" : "linux/amd64",
       },
       flags.nodeImage,
       flags.switchboardDir,
-      flags.arm ? "linux/arm64" : "linux/amd64",
       flags.silent
     );
     docker.start();

@@ -168,9 +168,9 @@ export default class NetworkStart extends BaseCommand {
                 : flags.rpcUrl ?? clusterApiUrl("devnet"),
             oracleKey: oracle.account.publicKey.toBase58(),
             secretPath: this.normalizePath(flags.keypair),
+            arch: flags.arm ? "linux/arm64" : "linux/amd64",
           },
           flags.nodeImage,
-          flags.arm ? "linux/arm64" : "linux/amd64",
           undefined,
           flags.silent
         )

@@ -207,9 +207,9 @@ export default class SolanaValidatorUp extends BaseCommand {
         rpcUrl: "http://host.docker.internal:8899",
         oracleKey: oracle.account.publicKey.toBase58(),
         secretPath: this.normalizePath(flags.keypair),
+        arch: flags.arm ? "linux/arm64" : "linux/amd64",
       },
       flags.nodeImage,
-      flags.arm ? "linux/arm64" : "linux/amd64",
       undefined,
       flags.silent
     );

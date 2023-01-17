@@ -58,9 +58,9 @@ export default class SolanaDockerOracle extends BaseCommand {
             : flags.rpcUrl ?? clusterApiUrl("devnet"),
         oracleKey: flags.oracleKey,
         secretPath: this.normalizePath(flags.keypair),
+        arch: flags.arm ? "linux/arm64" : "linux/amd64",
       },
       flags.nodeImage,
-      flags.arm ? "linux/arm64" : "linux/amd64",
       flags.switchboardDir,
       flags.silent
     );

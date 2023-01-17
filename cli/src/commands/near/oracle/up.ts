@@ -59,10 +59,10 @@ export default class NearDockerOracle extends BaseCommand {
           flags.accountName + ".json"
         ),
         nearNamedAccount: flags.accountName,
+        arch: flags.arm ? "linux/arm64" : "linux/amd64",
       },
       flags.nodeImage,
       flags.switchboardDir,
-      flags.arm ? "linux/arm64" : "linux/amd64",
       flags.silent
     );
     docker.start();
