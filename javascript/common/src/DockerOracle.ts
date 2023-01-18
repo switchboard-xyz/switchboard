@@ -63,66 +63,37 @@ function normalizeFsPath(fsPath: string) {
 }
 
 export class DockerOracle implements Required<IOracleConfig> {
-  chain: "aptos" | "near" | "solana";
-  network: "localnet" | "devnet" | "testnet" | "mainnet" | "mainnet-beta";
-  envVariables: Record<string, string>;
-  dockerRunFlags: Array<string>;
-  arch: "linux/arm64" | "linux/amd64";
-  rpcUrl: string;
-  oracleKey: string;
-  secretPath: string;
+  readonly chain: "aptos" | "near" | "solana";
+  readonly network:
+    | "localnet"
+    | "devnet"
+    | "testnet"
+    | "mainnet"
+    | "mainnet-beta";
+  readonly envVariables: Record<string, string>;
+  readonly dockerRunFlags: Array<string>;
+  readonly arch: "linux/arm64" | "linux/amd64";
+  readonly rpcUrl: string;
+  readonly oracleKey: string;
+  readonly secretPath: string;
   // task runner config
-  taskRunnerSolanaRpc: string;
+  readonly taskRunnerSolanaRpc: string;
   // aptos oracle config
-  aptosPid: string;
+  readonly aptosPid: string;
   // near oracle config
-  nearNamedAccount: string;
+  readonly nearNamedAccount: string;
 
-  // ready = false;
-
-  image: string;
-  args: string[];
-  allLogs: string[] = [];
+  readonly image: string;
+  readonly args: string[];
   logs: string[] = [];
+  readonly logFile: string;
   dockerOracleProcess?: ChildProcess;
   isActive = true;
-  timestamp: number = Date.now();
+  readonly timestamp: number = Date.now();
 
-  onDataCallback: (data: any) => void = (data) => {
-    // if (data.toString().includes("Using default performance monitoring")) {
-    //   this.ready = true;
-    // }
-
-    this.logs.push(data.toString());
-    if (!this.silent) {
-      console.log(`\u001B[34m${data.toString()}\u001B[0m`);
-    }
-  };
-  onErrorCallback: (error: Error) => void = (error) => {
-    this.logs.push(error.toString());
-    if (!this.silent) {
-      console.error(`\u001B[31m${error.toString()}\u001B[0m`);
-    }
-  };
-  onCloseCallback: (code: number, signal: NodeJS.Signals) => void = (
-    code,
-    signal
-  ) => {
-    this.saveLogs(this.logs);
-    if (!this.isActive) {
-      return;
-    }
-
-    // if reboot from no RPC or if image already exists
-    if (code === 0 || code === 125) {
-      this.startOracle();
-    } else if (!this.silent) {
-      this.startOracle();
-      console.error(`\u001B[31mDocker image exited with code ${code}\u001B[0m`);
-    } else if (code !== 0 && code !== 1) {
-      console.error(`\u001B[31mDocker image exited with code ${code}\u001B[0m`);
-    }
-  };
+  onDataCallback: (data: any) => void;
+  onErrorCallback: (error: Error) => void;
+  onCloseCallback: (code: number, signal: NodeJS.Signals) => void;
 
   constructor(
     readonly config: IOracleConfig,
@@ -165,6 +136,15 @@ export class DockerOracle implements Required<IOracleConfig> {
       );
     }
 
+    // log config
+    if (!fs.existsSync(this.switchboardDirectory)) {
+      fs.mkdirSync(this.switchboardDirectory, { recursive: true });
+    }
+    this.logFile = path.join(
+      this.switchboardDirectory,
+      `docker.${this.nodeImage}.${Math.floor(this.timestamp / 1000)}.log`
+    );
+
     // build image name from a hash of provided args
     const shaHash = crypto.createHash("sha256");
     shaHash.update(
@@ -191,6 +171,42 @@ export class DockerOracle implements Required<IOracleConfig> {
 
     // get image args
     this.args = this.getArgs();
+
+    // callback config
+    this.onDataCallback = (data) => {
+      this.logs.push(data.toString());
+      if (!this.silent) {
+        console.log(`\u001B[34m${data.toString()}\u001B[0m`);
+      }
+    };
+    this.onErrorCallback = (error) => {
+      this.logs.push(error.toString());
+      if (!this.silent) {
+        console.error(`\u001B[31m${error.toString()}\u001B[0m`);
+      }
+    };
+    this.onCloseCallback = (code, signal) => {
+      this.logs.push(`Exit code ${code} received`);
+      this.saveLogs();
+      if (!this.isActive) {
+        return;
+      }
+
+      // if reboot from no RPC or if image already exists
+      if (code === 0 || code === 125) {
+        this.startOracle();
+      } else if (!this.silent) {
+        console.error(
+          `\u001B[31mDocker image exited with code ${code}\u001B[0m`
+        );
+        console.log(`\u001B[34m${"Restarting oracle ..."}\u001B[0m`);
+        this.startOracle();
+      } else if (code !== 0 && code !== 1) {
+        console.error(
+          `\u001B[31mDocker image exited with code ${code}\u001B[0m`
+        );
+      }
+    };
   }
 
   public static isDockerRunning() {
@@ -238,7 +254,7 @@ export class DockerOracle implements Required<IOracleConfig> {
   /** Stop the docker oracle process */
   stop() {
     this.isActive = false;
-    this.saveLogs(this.logs);
+    this.saveLogs();
     try {
       execSync(`docker container stop ${this.image}`, {
         stdio: ["pipe", "pipe", "pipe"],
@@ -253,7 +269,7 @@ export class DockerOracle implements Required<IOracleConfig> {
   /** Force kill the child_process */
   kill(exitCode = 1) {
     this.isActive = false;
-    this.saveLogs(this.logs);
+    this.saveLogs();
     if (this.dockerOracleProcess) {
       const killed = this.dockerOracleProcess.kill(exitCode);
       if (!killed) {
@@ -273,15 +289,6 @@ export class DockerOracle implements Required<IOracleConfig> {
     this.start();
     await this.awaitReady(timeout);
   }
-
-  // private static parseExtraEnvVariables(envVariables?: Record<string, string>) {
-  //   const envVariables: Array<string> = []; // we could use a Set to prevent duplicates
-  //   for (const [key, value] of Object.entries(this.envVariables)) {
-  //     if (!INVALID_ENV_KEYS.includes(key)) {
-  //       envVariables.push(`-e ${key.toUpperCase()}=${value}`);
-  //     }
-  //   }
-  // }
 
   private getArgs(): string[] {
     const baseFlags: Array<string> = [
@@ -392,23 +399,21 @@ export class DockerOracle implements Required<IOracleConfig> {
     );
     this.dockerOracleProcess!.on("message", this.onDataCallback);
     this.dockerOracleProcess!.on("error", this.onErrorCallback);
-    this.dockerOracleProcess.on("close", this.onCloseCallback);
-    this.dockerOracleProcess.on("exit", this.onCloseCallback);
+    this.dockerOracleProcess!.on("close", this.onCloseCallback);
+    this.dockerOracleProcess!.on("exit", this.onCloseCallback);
   }
 
   /** Save an array of oracle logs */
-  saveLogs(logs: string[]): void {
-    if (!fs.existsSync(this.switchboardDirectory)) {
-      fs.mkdirSync(this.switchboardDirectory, { recursive: true });
-    }
-
-    const fileName = path.join(
-      this.switchboardDirectory,
-      `docker.${this.nodeImage}.${Math.floor(this.timestamp / 1000)}.log`
-    );
-    const filteredLogs = logs.filter((l) => Boolean);
+  saveLogs(): void {
+    const filteredLogs = this.logs.filter((l) => Boolean);
     if (filteredLogs.length > 0) {
-      fs.writeFileSync(fileName, filteredLogs.join(""));
+      if (fs.existsSync(this.logFile)) {
+        fs.appendFileSync(this.logFile, filteredLogs.join("\n"));
+        this.logs = [];
+      } else {
+        fs.writeFileSync(this.logFile, filteredLogs.join("\n"));
+        this.logs = [];
+      }
     }
   }
 
