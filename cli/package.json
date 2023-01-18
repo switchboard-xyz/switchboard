@@ -1,6 +1,6 @@
 {
   "name": "@switchboard-xyz/cli",
-  "version": "2.1.19",
+  "version": "2.1.20",
   "description": "command line tool to interact with switchboard",
   "author": "gallynaut @gallynaut",
   "bin": {
@@ -55,7 +55,7 @@
     "@switchboard-xyz/aptos.js": "^2.5.32",
     "@switchboard-xyz/common": "^2.1.19",
     "@switchboard-xyz/near.js": "^2.0.74",
-    "@switchboard-xyz/solana.js": "^2.0.93",
+    "@switchboard-xyz/solana.js": "^2.0.105",
     "aptos": "^1.4.0",
     "aws-sdk": "^2.1167.0",
     "bs58": "^5.0.0",
