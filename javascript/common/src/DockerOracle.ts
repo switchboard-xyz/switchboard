@@ -366,11 +366,11 @@ export class DockerOracle implements Required<IOracleConfig> {
     this.dockerOracleProcess = spawn("docker", this.args, {
       shell: true,
       env: process.env,
-      stdio: this.silent ? undefined : ["inherit", "pipe", "pipe"],
+      stdio: ["inherit", "pipe", "pipe"],
     });
 
-    this.dockerOracleProcess!.on("message", this.onDataCallback);
-    this.dockerOracleProcess!.on("error", (error) => {
+    this.dockerOracleProcess!.stdout!.on("message", this.onDataCallback);
+    this.dockerOracleProcess!.stderr!.on("error", (error) => {
       if (
         !error
           .toString()
@@ -397,8 +397,9 @@ export class DockerOracle implements Required<IOracleConfig> {
         stdio: this.silent ? undefined : ["inherit", "pipe", "pipe"],
       }
     );
-    this.dockerOracleProcess!.on("message", this.onDataCallback);
-    this.dockerOracleProcess!.on("error", this.onErrorCallback);
+
+    this.dockerOracleProcess!.stdout!.on("message", this.onDataCallback);
+    this.dockerOracleProcess!.stderr!.on("error", this.onErrorCallback);
     this.dockerOracleProcess!.on("close", this.onCloseCallback);
     this.dockerOracleProcess!.on("exit", this.onCloseCallback);
   }
@@ -408,10 +409,10 @@ export class DockerOracle implements Required<IOracleConfig> {
     const filteredLogs = this.logs.filter((l) => Boolean);
     if (filteredLogs.length > 0) {
       if (fs.existsSync(this.logFile)) {
-        fs.appendFileSync(this.logFile, filteredLogs.join("\n"));
+        fs.appendFileSync(this.logFile, filteredLogs.join("\r\n"));
         this.logs = [];
       } else {
-        fs.writeFileSync(this.logFile, filteredLogs.join("\n"));
+        fs.writeFileSync(this.logFile, filteredLogs.join("\r\n"));
         this.logs = [];
       }
     }
