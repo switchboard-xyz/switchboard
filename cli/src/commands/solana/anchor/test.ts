@@ -3,7 +3,7 @@ import * as anchor from "@project-serum/anchor";
 import { Flags } from "@oclif/core";
 import { clusterApiUrl, PublicKey } from "@solana/web3.js";
 import { ChildProcess, spawn } from "child_process";
-import { DockerOracle } from "@switchboard-xyz/common/docker";
+import { DockerOracle } from "@switchboard-xyz/common";
 import {
   getIdlAddress,
   getProgramDataAddress,

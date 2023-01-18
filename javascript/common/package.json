@@ -2,7 +2,7 @@
   "name": "@switchboard-xyz/common",
   "author": "",
   "license": "MIT",
-  "version": "2.1.15",
+  "version": "2.1.16",
   "description": "common type definitions and utils for interacting with switchboard",
   "files": [
     "lib",
@@ -16,11 +16,7 @@
       "import": "./lib/esm/index.js",
       "require": "./lib/cjs/index.js"
     },
-    "./package.json": "./package.json",
-    "./docker": {
-      "import": "./lib/esm/DockerOracle.js",
-      "require": "./lib/cjs/DockerOracle.js"
-    }
+    "./package.json": "./package.json"
   },
   "main": "lib/cjs/index.js",
   "module": "lib/esm/index.js",

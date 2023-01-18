@@ -1,7 +1,7 @@
 import { Flags } from "@oclif/core";
 import * as anchor from "@project-serum/anchor";
 import { SolanaWithSignerBaseCommand as BaseCommand } from "../../../solana";
-import { DockerOracle } from "@switchboard-xyz/common/docker";
+import { DockerOracle } from "@switchboard-xyz/common";
 import { CHECK_ICON, sleep } from "../../../utils";
 import { ChildProcess, exec, execSync } from "child_process";
 import { Connection, Keypair } from "@solana/web3.js";

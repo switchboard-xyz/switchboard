@@ -2738,10 +2738,10 @@
     decimal.js "^10.4.2"
     protobufjs "^7.1.2"
 
-"@switchboard-xyz/common@^2.1.15":
-  version "2.1.15"
-  resolved "https://registry.npmjs.org/@switchboard-xyz/common/-/common-2.1.15.tgz#53182707e30b5e6688a977ae3edc925385fb7333"
-  integrity sha512-oGEA20OyEKXoqjQfpmcH/I/UngPr1M+V0VO/yFNnyv6ZwaJzPqtPuPnpWqb76g6YrjJ3swCDcOzF2DUfA/WEIg==
+"@switchboard-xyz/common@^2.1.16":
+  version "2.1.16"
+  resolved "https://registry.npmjs.org/@switchboard-xyz/common/-/common-2.1.16.tgz#20219ecff961a31d288133beea54e6a4f69f3ffa"
+  integrity sha512-Ld7HgRW6VajylPZcSddBqBaQTDAKEUraaozzpN1AzOxl8b4HTrYZ6JektJ35UiE1y1c7NGf8VVJ87lo3bvnrvA==
   dependencies:
     "@solana/web3.js" "^1.66.2"
     big.js "^6.2.1"
