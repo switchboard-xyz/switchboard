@@ -3,7 +3,7 @@ import {
   parseAddressString,
   SwitchboardDecimal,
 } from "@switchboard-xyz/near.js";
-import Big from "big.js";
+import { Big } from "@switchboard-xyz/common";
 import { NearWithSignerBaseCommand as BaseCommand } from "../../../near";
 
 export default class SetAggregator extends BaseCommand {

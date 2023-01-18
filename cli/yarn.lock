@@ -2738,10 +2738,10 @@
     decimal.js "^10.4.2"
     protobufjs "^7.1.2"
 
-"@switchboard-xyz/common@^2.1.10":
-  version "2.1.10"
-  resolved "https://registry.npmjs.org/@switchboard-xyz/common/-/common-2.1.10.tgz#bc65e64def6286c73d577791b6c838a222bc1ae3"
-  integrity sha512-wVdnDUGGEQS+xX8YfG4JEPbxvVLY6HQWzUJ8hNKcYIqIYvLzg4k6QHLfSZY0ugP5TE8pq2m6LTR3C6S7cFEMYQ==
+"@switchboard-xyz/common@^2.1.13":
+  version "2.1.13"
+  resolved "https://registry.npmjs.org/@switchboard-xyz/common/-/common-2.1.13.tgz#60dbce253a306ec40069dee83e070b68d271bacd"
+  integrity sha512-1lsYd9E+oHw4ADuAbjhTYSulvTB/PhHCmf1MH4l2Is4X318IHzxdzjeS/u1tze6Wgg9LssCWjfPMxC0FUQ4H3Q==
   dependencies:
     "@solana/web3.js" "^1.66.2"
     big.js "^6.2.1"
@@ -2831,18 +2831,6 @@
   version "1.0.3"
   resolved "https://registry.npmjs.org/@tsconfig/node16/-/node16-1.0.3.tgz"
   integrity sha512-yOlFc+7UtL/89t2ZhjPvvB/DeAr3r+Dq58IgzsFkOAvVC6NMJXmCGjbptdXdR9qsX7pKcTL+s87FtYREi2dEEQ==
-
-"@types/big.js@^6.1.6":
-  version "6.1.6"
-  resolved "https://registry.npmjs.org/@types/big.js/-/big.js-6.1.6.tgz"
-  integrity sha512-0r9J+Zz9rYm2hOTwiMAVkm3XFQ4u5uTK37xrQMhc9bysn/sf/okzovWMYYIBMFTn/yrEZ11pusgLEaoarTlQbA==
-
-"@types/bn.js@^5.1.1":
-  version "5.1.1"
-  resolved "https://registry.npmjs.org/@types/bn.js/-/bn.js-5.1.1.tgz#b51e1b55920a4ca26e9285ff79936bbdec910682"
-  integrity sha512-qNrYbZqMx0uJAfKnKclPh+dTwK33KfLHYqtyODwd5HnXOjnkhc4qgn3BrK6RWyGZm5+sIFE7Q7Vz6QQtJB7w7g==
-  dependencies:
-    "@types/node" "*"
 
 "@types/bs58@^4.0.1":
   version "4.0.1"
@@ -3500,7 +3488,7 @@ before-after-hook@^2.2.0:
   resolved "https://registry.npmjs.org/before-after-hook/-/before-after-hook-2.2.2.tgz"
   integrity sha512-3pZEU3NT5BFUo/AD5ERPWOgQOCZITni6iavr5AUw5AUwQjMlI0kzu5btnyD39AF0gUEsDPwJT+oY1ORBJijPjQ==
 
-big.js@^6.2.0, big.js@^6.2.1:
+big.js@^6.2.1:
   version "6.2.1"
   resolved "https://registry.npmjs.org/big.js/-/big.js-6.2.1.tgz"
   integrity sha512-bCtHMwL9LeDIozFn+oNhhFoq+yQ3BNdnsLSASUxLciOb1vgvpHsIO1dsENiGMgbb4SkP5TrzWzRiLddn8ahVOQ==

@@ -1,6 +1,6 @@
 import * as anchor from "@project-serum/anchor";
 import { PublicKey } from "@solana/web3.js";
-import Big from "big.js";
+import { Big } from "@switchboard-xyz/common";
 import { BN } from "bn.js";
 import chalk from "chalk";
 

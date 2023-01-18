@@ -15,7 +15,7 @@ import {
 import { Action } from "near-api-js/lib/transaction";
 import fs from "fs";
 import { OracleJob } from "@switchboard-xyz/common";
-import Big from "big.js";
+import { Big } from "@switchboard-xyz/common";
 import base58 from "bs58";
 import { FinalExecutionOutcome } from "near-api-js/lib/providers";
 import { BN } from "bn.js";

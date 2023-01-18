@@ -5,7 +5,7 @@ import {
   PermissionAccount,
   SwitchboardDecimal,
 } from "@switchboard-xyz/near.js";
-import Big from "big.js";
+import { Big } from "@switchboard-xyz/common";
 
 export default class CreateAggregator extends BaseCommand {
   static enableJsonFlag = true;

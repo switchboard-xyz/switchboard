@@ -1,6 +1,6 @@
 import { Flags } from "@oclif/core";
 import { HexString, MaybeHexString } from "aptos";
-import BN from "bn.js";
+import { BN } from "@switchboard-xyz/common";
 import chalk from "chalk";
 import { AptosWithoutSignerBaseCommand as BaseCommand } from "../../../aptos";
 import { pqSort } from "../../../utils/crank";

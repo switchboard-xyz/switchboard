@@ -15,7 +15,7 @@ import {
   normalizeFilePath,
 } from "./utils";
 import bs58 from "bs58";
-import Big from "big.js";
+import { Big } from "@switchboard-xyz/common";
 import { OracleJob, toUtf8 } from "@switchboard-xyz/common";
 import {
   FsProvider,

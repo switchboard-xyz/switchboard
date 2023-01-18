@@ -6,11 +6,11 @@ import {
   SwitchboardDecimal,
   types,
 } from "@switchboard-xyz/near.js";
-import Big from "big.js";
+import { Big } from "@switchboard-xyz/common";
 import { Action } from "near-api-js/lib/transaction";
 import { Gas, NEAR } from "near-units";
 import { utils } from "near-api-js";
-import BN from "bn.js";
+import { BN } from "@switchboard-xyz/common";
 
 export default class AggregatorFund extends BaseCommand {
   static description = "";

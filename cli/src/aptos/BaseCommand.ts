@@ -23,7 +23,7 @@ import {
 } from "@switchboard-xyz/aptos.js";
 import { OracleJob, SwitchboardDecimal } from "@switchboard-xyz/common";
 import { isBN } from "bn.js";
-import Big from "big.js";
+import { Big } from "@switchboard-xyz/common";
 import { IBaseChain } from "../types/chain";
 
 export abstract class AptosBaseCommand

@@ -2,7 +2,7 @@ import { Flags } from "@oclif/core";
 import { Input } from "@oclif/parser";
 import * as anchor from "@project-serum/anchor";
 import { SwitchboardDecimal } from "@switchboard-xyz/common";
-import Big from "big.js";
+import { Big } from "@switchboard-xyz/common";
 import fs from "fs";
 import path from "path";
 import { CliBaseCommand } from "./BaseCommand";

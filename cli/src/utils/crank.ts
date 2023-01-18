@@ -1,7 +1,7 @@
 import { PublicKey } from "@solana/web3.js";
 import { HexString } from "aptos";
 import assert from "assert";
-import BN from "bn.js";
+import { BN } from "@switchboard-xyz/common";
 
 export interface ICrankRow {
   nextTimestamp: BN;

@@ -80,27 +80,28 @@ export class SolanaTestValidator implements ISolanaTestValidator {
 
   kill() {
     try {
-      if (os.platform() === "win32") {
+      if (os.type() === "Windows_NT") {
         execSync(
-          `netstat -ano | findstr :${this.port} | awk {'print $5'} | xargs -I {} taskkill /F /PID {} || exit 0`,
+          `FOR /F "tokens=5" %i IN ('netstat -aon ^| find "${this.port}"') DO (taskkill /F /PID %i)`,
           {
-            stdio: ["pipe", "pipe", "ignore"],
+            stdio: ["pipe", "pipe", "pipe"],
+            shell: "powershell.exe",
           }
         );
         execSync(
-          `netstat -ano | findstr :${this.faucetPort} | awk {'print $5'} | xargs -I {} taskkill /F /PID {} || exit 0`,
+          `FOR /F "tokens=5" %i IN ('netstat -aon ^| find "${this.faucetPort}"') DO (taskkill /F /PID %i)`,
           {
-            stdio: ["pipe", "pipe", "ignore"],
+            stdio: ["pipe", "pipe", "pipe"],
           }
         );
       } else {
         execSync(`lsof -t -i :${this.port} | xargs kill -9 || exit 0`, {
           env: process.env,
-          stdio: ["pipe", "pipe", "ignore"],
+          stdio: ["pipe", "pipe", "pipe"],
         });
         execSync(`lsof -t -i :${this.faucetPort} | xargs kill -9 || exit 0`, {
           env: process.env,
-          stdio: ["pipe", "pipe", "ignore"],
+          stdio: ["pipe", "pipe", "pipe"],
         });
       }
     } catch {}

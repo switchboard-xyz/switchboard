@@ -1,6 +1,6 @@
 import { Flags } from "@oclif/core";
 import { AptosWithSignerBaseCommand as BaseCommand } from "../../../aptos";
-import Big from "big.js";
+import { Big } from "@switchboard-xyz/common";
 import { OracleJob } from "@switchboard-xyz/common";
 import {
   AggregatorAccount,

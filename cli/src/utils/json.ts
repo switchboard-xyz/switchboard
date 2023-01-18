@@ -1,7 +1,7 @@
 import { PublicKey } from "@solana/web3.js";
 import { SwitchboardDecimal, toUtf8 } from "@switchboard-xyz/common";
-import Big from "big.js";
-import BN from "bn.js";
+import { Big } from "@switchboard-xyz/common";
+import { BN } from "@switchboard-xyz/common";
 
 export const baseJsonReplacers = (key: any, value: any): any => {
   if (

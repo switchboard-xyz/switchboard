@@ -19,7 +19,7 @@ import { CliBaseCommand as BaseCommand } from "../BaseCommand";
 import bs58 from "bs58";
 import { NearNetwork } from ".";
 import { isBN } from "bn.js";
-import Big from "big.js";
+import { Big } from "@switchboard-xyz/common";
 import { OracleJob, SwitchboardDecimal } from "@switchboard-xyz/common";
 import { IBaseChain } from "../types/chain";
 
