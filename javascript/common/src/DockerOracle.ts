@@ -3,7 +3,6 @@ import fs from "fs";
 import path from "path";
 import os from "os";
 import crypto from "crypto";
-import chalk from "chalk";
 import { sleep } from "./utils";
 
 // try not to allow duplicate env flags to docker command
@@ -116,7 +115,7 @@ export class DockerOracle implements Required<IOracleConfig> {
       this.startOracle();
     } else if (!this.silent) {
       this.startOracle();
-      console.error(chalk.red(`Docker image exited with code ${code}`));
+      console.error(`\u001B[31mDocker image exited with code ${code}\u001B[0m`);
     } else if (code !== 0 && code !== 1) {
       console.error(`\u001B[31mDocker image exited with code ${code}\u001B[0m`);
     }
