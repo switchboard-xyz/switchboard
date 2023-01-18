@@ -162,32 +162,18 @@ export class DockerOracle implements Required<IOracleConfig> {
       );
     }
 
-    // get image name
+    // get image args
+    this.args = this.getArgs();
+
+    // build image name from a hash of provided args
     const shaHash = crypto.createHash("sha256");
-    shaHash.update(
-      Buffer.from(
-        [
-          this.chain,
-          this.network,
-          this.rpcUrl,
-          this.oracleKey,
-          this.secretPath,
-          this.taskRunnerSolanaRpc,
-          this.aptosPid,
-          this.arch,
-          this.nodeImage,
-        ].join(" ")
-      )
-    );
+    shaHash.update(Buffer.from(this.args.join(" ")));
     const hash = shaHash.digest().toString("hex").slice(0, 16);
 
     this.image = `sbv2-${this.chain}-${this.network}-${this.nodeImage.replace(
       "dev-v2-",
       ""
     )}-${hash}`;
-
-    // get image args
-    this.args = this.getArgs();
   }
 
   public static isDockerRunning() {
@@ -270,6 +256,15 @@ export class DockerOracle implements Required<IOracleConfig> {
     this.start();
     await this.awaitReady(timeout);
   }
+
+  // private static parseExtraEnvVariables(envVariables?: Record<string, string>) {
+  //   const envVariables: Array<string> = []; // we could use a Set to prevent duplicates
+  //   for (const [key, value] of Object.entries(this.envVariables)) {
+  //     if (!INVALID_ENV_KEYS.includes(key)) {
+  //       envVariables.push(`-e ${key.toUpperCase()}=${value}`);
+  //     }
+  //   }
+  // }
 
   private getArgs(): string[] {
     const envVariables: Array<string> = []; // we could use a Set to prevent duplicates
