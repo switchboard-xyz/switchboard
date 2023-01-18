@@ -33,6 +33,8 @@ export interface IOracleBaseConfig {
   arch?: "linux/arm64" | "linux/amd64";
   // extra env vars
   envVariables?: Record<string, string>;
+  // extra flags to pass to docker run
+  dockerRunFlags?: Array<string>;
 }
 
 export type ISolanaOracleConfig = {};
@@ -64,6 +66,7 @@ export class DockerOracle implements Required<IOracleConfig> {
   chain: "aptos" | "near" | "solana";
   network: "localnet" | "devnet" | "testnet" | "mainnet" | "mainnet-beta";
   envVariables: Record<string, string>;
+  dockerRunFlags: Array<string>;
   arch: "linux/arm64" | "linux/amd64";
   rpcUrl: string;
   oracleKey: string;
@@ -133,6 +136,7 @@ export class DockerOracle implements Required<IOracleConfig> {
     this.network = config.network;
     this.arch = config.arch ?? "linux/amd64";
     this.envVariables = config.envVariables ?? {};
+    this.dockerRunFlags = config.dockerRunFlags ?? [];
     this.rpcUrl = config.rpcUrl;
     if (this.rpcUrl.includes("localhost")) {
       this.rpcUrl = this.rpcUrl.replace("localhost", "host.docker.internal");
@@ -280,28 +284,40 @@ export class DockerOracle implements Required<IOracleConfig> {
   // }
 
   private getArgs(): string[] {
-    const envVariables: Array<string> = []; // we could use a Set to prevent duplicates
+    const baseFlags: Array<string> = [
+      `--network=host`,
+      `--name ${this.image}`,
+      `--platform=${this.arch}`,
+      `--health-interval 10s`,
+      `--health-start-period 10s`,
+      `-e ORACLE_KEY=${this.oracleKey}`,
+      `-e TASK_RUNNER_SOLANA_RPC=${this.taskRunnerSolanaRpc}`,
+      `-e VERBOSE=1`,
+      `-e DEBUG=1`,
+    ];
+
+    const extraFlags: Array<string> = []; // we could use a Set to prevent duplicates
     for (const [key, value] of Object.entries(this.envVariables)) {
       if (!INVALID_ENV_KEYS.includes(key)) {
-        envVariables.push(`-e ${key.toUpperCase()}=${value}`);
+        extraFlags.push(`-e ${key.toUpperCase()}=${value}`);
       }
     }
+
+    if (os.type() === "Linux") {
+      extraFlags.push(`--add-host=host.docker.internal:host-gateway`);
+    }
+
+    const allFlags = Array.from(
+      new Set([...baseFlags, ...extraFlags, ...this.dockerRunFlags])
+    );
+
     if (this.chain === "aptos") {
       return [
         "run",
-        `--network=host`,
-        `--name ${this.image}`,
-        `--platform=${this.arch}`,
-        `--health-interval 10s`,
-        `--health-start-period 10s`,
+        ...allFlags,
         `-e CHAIN=aptos`,
-        `-e ORACLE_KEY=${this.oracleKey}`,
         `-e APTOS_RPC_URL=${this.rpcUrl}`,
         `-e APTOS_PID=${this.aptosPid}`,
-        `-e TASK_RUNNER_SOLANA_RPC=${this.taskRunnerSolanaRpc}`,
-        `-e VERBOSE=1`,
-        `-e DEBUG=1`,
-        ...envVariables,
         `-e APTOS_FS_PAYER_SECRET_PATH=/home/node/sbv2-oracle/payer_secrets.json`,
         `--mount type=bind,source=${this.secretPath},target=/home/node/sbv2-oracle/payer_secrets.json`,
         `switchboardlabs/node:${this.nodeImage}`,
@@ -311,20 +327,11 @@ export class DockerOracle implements Required<IOracleConfig> {
     if (this.chain === "near") {
       return [
         "run",
-        `--network=host`,
-        `--name ${this.image}`,
-        `--platform=${this.arch}`,
-        `--health-interval 10s`,
-        `--health-start-period 10s`,
+        ...allFlags,
         `-e CHAIN=near`,
-        `-e ORACLE_KEY=${this.oracleKey}`,
         `-e NEAR_RPC_URL=${this.rpcUrl}`,
         `-e NEAR_NETWORK_ID=${this.network}`,
         `-e NEAR_NAMED_ACCOUNT=${this.nearNamedAccount}`,
-        `-e TASK_RUNNER_SOLANA_RPC=${this.taskRunnerSolanaRpc}`,
-        `-e VERBOSE=1`,
-        `-e DEBUG=1`,
-        ...envVariables,
         `-e NEAR_FS_PAYER_SECRET_PATH=/home/node/sbv2-oracle/payer_secrets.json`,
         `--mount type=bind,source=${this.secretPath},target=/home/node/sbv2-oracle/payer_secrets.json`,
         `switchboardlabs/node:${this.nodeImage}`,
@@ -334,19 +341,10 @@ export class DockerOracle implements Required<IOracleConfig> {
     if (this.chain === "solana") {
       return [
         "run",
-        `--network=host`,
-        `--name ${this.image}`,
-        `--platform=${this.arch}`,
-        `--health-interval 10s`,
-        `--health-start-period 10s`,
+        ...allFlags,
         `-e CHAIN=solana`,
-        `-e ORACLE_KEY=${this.oracleKey}`,
         `-e RPC_URL=${this.rpcUrl}`,
         `-e CLUSTER=${this.network}`,
-        `-e TASK_RUNNER_SOLANA_RPC=${this.taskRunnerSolanaRpc}`,
-        `-e VERBOSE=1`,
-        `-e DEBUG=1`,
-        ...envVariables,
         `-e SOLANA_FS_PAYER_SECRET_PATH=/home/node/sbv2-oracle/payer_secrets.json`,
         `--mount type=bind,source=${this.secretPath},target=/home/node/sbv2-oracle/payer_secrets.json`,
         `switchboardlabs/node:${this.nodeImage}`,
