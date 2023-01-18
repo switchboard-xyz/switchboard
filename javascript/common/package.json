@@ -2,7 +2,7 @@
   "name": "@switchboard-xyz/common",
   "author": "",
   "license": "MIT",
-  "version": "2.1.14",
+  "version": "2.1.15",
   "description": "common type definitions and utils for interacting with switchboard",
   "files": [
     "lib",
@@ -16,7 +16,11 @@
       "import": "./lib/esm/index.js",
       "require": "./lib/cjs/index.js"
     },
-    "./package.json": "./package.json"
+    "./package.json": "./package.json",
+    "./docker": {
+      "import": "./lib/esm/DockerOracle.js",
+      "require": "./lib/cjs/DockerOracle.js"
+    }
   },
   "main": "lib/cjs/index.js",
   "module": "lib/esm/index.js",
@@ -36,6 +40,7 @@
     "@solana/web3.js": "^1.66.2",
     "big.js": "^6.2.1",
     "bn.js": "^5.2.1",
+    "chalk": "^4.1.2",
     "decimal.js": "^10.4.3",
     "protobufjs": "^7.1.2"
   },

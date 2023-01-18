@@ -1,6 +1,6 @@
 import { Flags } from "@oclif/core";
 import { SolanaWithSignerBaseCommand as BaseCommand } from "../../../solana";
-import { DockerOracle } from "@switchboard-xyz/common";
+import { DockerOracle } from "@switchboard-xyz/common/docker";
 import { sleep } from "../../../utils";
 import { execSync } from "child_process";
 import { clusterApiUrl } from "@solana/web3.js";

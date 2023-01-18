@@ -7,7 +7,7 @@ import {
   SwitchboardNetwork,
   TransactionObject,
 } from "@switchboard-xyz/solana.js";
-import { DockerOracle } from "@switchboard-xyz/common";
+import { DockerOracle } from "@switchboard-xyz/common/docker";
 import { clusterApiUrl } from "@solana/web3.js";
 
 export default class NetworkStart extends BaseCommand {

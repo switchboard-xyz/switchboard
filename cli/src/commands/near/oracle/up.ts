@@ -5,7 +5,7 @@ import {
   SwitchboardDecimal,
   toBase58,
 } from "@switchboard-xyz/near.js";
-import { DockerOracle } from "@switchboard-xyz/common";
+import { DockerOracle } from "@switchboard-xyz/common/docker";
 import path from "path";
 import { sleep } from "../../../utils";
 
