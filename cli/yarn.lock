@@ -2738,10 +2738,10 @@
     decimal.js "^10.4.2"
     protobufjs "^7.1.2"
 
-"@switchboard-xyz/common@^2.1.24":
-  version "2.1.24"
-  resolved "https://registry.npmjs.org/@switchboard-xyz/common/-/common-2.1.24.tgz#5b112511260666e1e9f13815c9fab7d3b12a96c1"
-  integrity sha512-JAQTPpA5VDXiz9tSbXv1z26qTE+1trVD5l8dOxGF/+D5N97sHsyRna5ZcstK99rfLK8gZxaiHc4Wz5MQ5kWbuw==
+"@switchboard-xyz/common@^2.1.25":
+  version "2.1.25"
+  resolved "https://registry.npmjs.org/@switchboard-xyz/common/-/common-2.1.25.tgz#72d285fc776707bf547d8d388a7bca2ff55a0f22"
+  integrity sha512-BWdoJneDmLnwkFwHipjywNDV2tPruHfr3GGKNhas2Au+7/EvYuZzMSkMMdECWUrlnslaJpMy1yNCLAq0SAumKQ==
   dependencies:
     "@solana/web3.js" "^1.66.2"
     big.js "^6.2.1"
@@ -2770,16 +2770,16 @@
     wait-for-event "^2.0.1"
     ws "^8.10.0"
 
-"@switchboard-xyz/solana.js@^2.0.109":
-  version "2.0.109"
-  resolved "https://registry.npmjs.org/@switchboard-xyz/solana.js/-/solana.js-2.0.109.tgz#8b1d2f09c31d79b12a1e35422622948c7d1046bb"
-  integrity sha512-CQb0SMkBrDOC90vpf0GbjCMuvEJv5L/yBHrkpMcmgL+j54tEmAAMoYqoQCtqy/FX+0L7V6sBRRB1X2j6mFNCEw==
+"@switchboard-xyz/solana.js@^2.0.110":
+  version "2.0.110"
+  resolved "https://registry.npmjs.org/@switchboard-xyz/solana.js/-/solana.js-2.0.110.tgz#63bb24b8304d07fa5b051ae9dd4167964a087340"
+  integrity sha512-5TZ7Lh/45JvWRvh5eW3oOl+wjVOufy5FxCVSVQ6Fn3b6p5OmU7s4hwifbBFGZo+lvSPlTi47SFbO6TwKoKQ2aw==
   dependencies:
     "@project-serum/anchor" "^0.26.0"
     "@project-serum/borsh" "^0.2.5"
     "@solana/spl-token" "^0.3.6"
     "@solana/web3.js" "^1.73.0"
-    "@switchboard-xyz/common" "^2.1.24"
+    "@switchboard-xyz/common" "^2.1.25"
     dotenv "^16.0.3"
     lodash "^4.17.21"
 

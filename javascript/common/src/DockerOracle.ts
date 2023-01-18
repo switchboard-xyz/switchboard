@@ -384,10 +384,18 @@ export class DockerOracle implements Required<IOracleConfig> {
     });
     this.dockerOracleProcess.on("close", this.onCloseCallback);
     this.dockerOracleProcess.on("exit", this.onCloseCallback);
+    this.dockerOracleProcess.on("exit", () => {
+      if (this.dockerOracleProcess !== undefined) {
+        this.dockerOracleProcess.removeAllListeners();
+        this.dockerOracleProcess = undefined;
+      }
+    });
   }
 
   private startOracle() {
-    // this.ready = false;
+    if (this.dockerOracleProcess !== undefined) {
+      this.dockerOracleProcess.removeAllListeners();
+    }
     this.dockerOracleProcess = spawn(
       "docker",
       ["start", "--attach", this.image],
@@ -406,16 +414,15 @@ export class DockerOracle implements Required<IOracleConfig> {
 
   /** Save an array of oracle logs */
   saveLogs(): void {
-    const filteredLogs = this.logs.filter((l) => Boolean);
+    const filteredLogs = this.logs
+      .filter((l) => Boolean)
+      .map((l) => l.replace(/\n\s*\n/g, "\n"));
     if (filteredLogs.length > 0) {
       if (fs.existsSync(this.logFile)) {
-        fs.appendFileSync(
-          this.logFile,
-          "\r\n" + filteredLogs.join("\r\n") + "\r\n"
-        );
+        fs.appendFileSync(this.logFile, "\r\n" + filteredLogs.join("\r\n"));
         this.logs = [];
       } else {
-        fs.writeFileSync(this.logFile, filteredLogs.join("\r\n") + "\r\n");
+        fs.writeFileSync(this.logFile, filteredLogs.join("\r\n"));
         this.logs = [];
       }
     }
