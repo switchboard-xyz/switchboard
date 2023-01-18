@@ -162,18 +162,32 @@ export class DockerOracle implements Required<IOracleConfig> {
       );
     }
 
-    // get image args
-    this.args = this.getArgs();
-
     // build image name from a hash of provided args
     const shaHash = crypto.createHash("sha256");
-    shaHash.update(Buffer.from(this.args.join(" ")));
+    shaHash.update(
+      Buffer.from(
+        [
+          this.chain,
+          this.network,
+          this.rpcUrl,
+          this.oracleKey,
+          this.secretPath,
+          this.taskRunnerSolanaRpc,
+          this.aptosPid,
+          this.arch,
+          this.nodeImage,
+        ].join(" ") + JSON.stringify(this.envVariables)
+      )
+    );
     const hash = shaHash.digest().toString("hex").slice(0, 16);
 
     this.image = `sbv2-${this.chain}-${this.network}-${this.nodeImage.replace(
       "dev-v2-",
       ""
     )}-${hash}`;
+
+    // get image args
+    this.args = this.getArgs();
   }
 
   public static isDockerRunning() {
