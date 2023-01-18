@@ -95,6 +95,14 @@ export class DockerOracle implements Required<IOracleConfig> {
   onErrorCallback: (error: Error) => void;
   onCloseCallback: (code: number, signal: NodeJS.Signals) => void;
 
+  private addLog(log: string): void {
+    this.logs.push(log);
+    // flush logs
+    if (this.logs.length > 10) {
+      this.saveLogs();
+    }
+  }
+
   constructor(
     readonly config: IOracleConfig,
     readonly nodeImage: string,
@@ -174,19 +182,19 @@ export class DockerOracle implements Required<IOracleConfig> {
 
     // callback config
     this.onDataCallback = (data) => {
-      this.logs.push(data.toString());
+      this.addLog(data.toString());
       if (!this.silent) {
         console.log(`\u001B[34m${data.toString()}\u001B[0m`);
       }
     };
     this.onErrorCallback = (error) => {
-      this.logs.push(error.toString());
+      this.addLog(error.toString());
       if (!this.silent) {
         console.error(`\u001B[31m${error.toString()}\u001B[0m`);
       }
     };
     this.onCloseCallback = (code, signal) => {
-      this.logs.push(`Exit code ${code} received`);
+      this.addLog(`Exit code ${code} received`);
       this.saveLogs();
       if (!this.isActive) {
         return;
@@ -379,7 +387,7 @@ export class DockerOracle implements Required<IOracleConfig> {
           )
       ) {
         console.error(`\u001B[31m${error.toString()}\u001B[0m`);
-        this.logs.push(error.toString());
+        this.addLog(error.toString());
       }
     });
     this.dockerOracleProcess.on("close", this.onCloseCallback);
@@ -416,7 +424,7 @@ export class DockerOracle implements Required<IOracleConfig> {
   saveLogs(): void {
     const filteredLogs = this.logs
       .filter((l) => Boolean)
-      .map((l) => l.replace(/\n\s*\n/g, "\n"));
+      .map((l) => l.replace(/\r?\n\s*\r?\n/g, "\r\n"));
     if (filteredLogs.length > 0) {
       if (fs.existsSync(this.logFile)) {
         fs.appendFileSync(this.logFile, "\r\n" + filteredLogs.join("\r\n"));
