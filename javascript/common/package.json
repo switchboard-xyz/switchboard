@@ -2,7 +2,7 @@
   "name": "@switchboard-xyz/common",
   "author": "",
   "license": "MIT",
-  "version": "2.1.26",
+  "version": "2.1.27",
   "description": "common type definitions and utils for interacting with switchboard",
   "files": [
     "lib",
@@ -34,15 +34,15 @@
   },
   "dependencies": {
     "@solana/web3.js": "^1.66.2",
+    "@types/big.js": "^6.1.6",
+    "@types/bn.js": "^5.1.1",
+    "@types/long": "^5.0.0",
     "big.js": "^6.2.1",
     "bn.js": "^5.2.1",
     "decimal.js": "^10.4.3",
     "protobufjs": "^7.1.2"
   },
   "devDependencies": {
-    "@types/big.js": "^6.1.6",
-    "@types/bn.js": "^5.1.1",
-    "@types/long": "^5.0.0",
     "@types/node": "^18.11.9",
     "protobufjs-cli": "^1.0.2",
     "shx": "^0.3.4",
