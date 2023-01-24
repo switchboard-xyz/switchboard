@@ -92,8 +92,6 @@ jobs:
           npm install
 
       - name: Build website
-        env:
-          ALGOLIA_SEARCH_API_KEY: ${{ env.ALGOLIA_SEARCH_API_KEY }}
         working-directory: website
         run: |
           yarn install --frozen-lockfile --network-timeout=1000000
@@ -102,8 +100,6 @@ jobs:
       # Docs: https://github.com/peaceiris/actions-gh-pages#%EF%B8%8F-docusaurus
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
-        env:
-          ALGOLIA_SEARCH_API_KEY: ${{ env.ALGOLIA_SEARCH_API_KEY }}
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           # Build output to publish to the `gh-pages` branch:
