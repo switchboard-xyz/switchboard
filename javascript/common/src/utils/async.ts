@@ -34,11 +34,11 @@ export async function promiseWithTimeout<T>(
   // create a promise that rejects in N milliseconds
   const timeout = new Promise<never>((_, reject) => {
     setTimeout(() => {
-      for (const p of promises) {
-        if ("unref" in p && typeof p.unref === "function") {
-          p.unref();
-        }
-      }
+      // for (const p of promises) {
+      //   if ("unref" in p && typeof p.unref === "function") {
+      //     p.unref();
+      //   }
+      // }
       reject(new TimeoutError(ms, timeoutError));
     }, ms).unref(); // dont hold up closing NodeJS process if this is the only timer scheduled
   });
