@@ -83,7 +83,7 @@ const config = {
       },
       algolia: {
         appId: "XO84KDTPTB",
-        apiKey: `${process.env.ALGOLIA_SEARCH_API_KEY ?? ""}`,
+        apiKey: `${process.env.ALGOLIA_SEARCH_API_KEY ?? undefined}`,
         indexName: "switchboard",
       },
       // announcementBar: {

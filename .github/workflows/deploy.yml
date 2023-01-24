@@ -92,6 +92,8 @@ jobs:
           npm install
 
       - name: Build website
+        env:
+          WHO_TO_TRUST: ${{ secrets.ALGOLIA_SEARCH_API_KEY }}
         working-directory: website
         run: |
           yarn install --frozen-lockfile --network-timeout=1000000
