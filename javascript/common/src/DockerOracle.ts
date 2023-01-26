@@ -1,27 +1,20 @@
-import { ChildProcess, execSync, spawn } from "child_process";
+import type { ChildProcess } from "child_process";
+import { execSync, spawn } from "child_process";
 import fs from "fs";
 import path from "path";
 import os from "os";
 import crypto from "crypto";
 import { sleep } from "./utils";
 
-// try not to allow duplicate env flags to docker command
-const INVALID_ENV_KEYS = [
-  "CHAIN",
-  "ORACLE_KEY",
-  "RPC_URL",
-  "APTOS_RPC_URL",
-  "NEAR_RPC_URL",
-  "SOLANA_RPC_URL",
-  "APTOS_PID",
-  "TASK_RUNNER_SOLANA_RPC",
-  "NEAR_NAMED_ACCOUNT",
-  "CLUSTER",
-  "VERBOSE",
-  "DEBUG",
-];
+export interface IDockerConfig {
+  arch?: "linux/arm64" | "linux/amd64";
+  // extra flags to pass to docker run
+  dockerRunFlags?: Array<string>;
+  // extra env vars
+  envVariables?: Record<string, string>;
+}
 
-export interface IOracleBaseConfig {
+export type IOracleConfig = IDockerConfig & {
   chain: "aptos" | "near" | "solana";
   network: "localnet" | "devnet" | "testnet" | "mainnet" | "mainnet-beta";
   rpcUrl: string;
@@ -29,40 +22,13 @@ export interface IOracleBaseConfig {
   secretPath: string;
   // task runner config
   taskRunnerSolanaRpc?: string;
-  // docker config
-  arch?: "linux/arm64" | "linux/amd64";
-  // extra env vars
-  envVariables?: Record<string, string>;
-  // extra flags to pass to docker run
-  dockerRunFlags?: Array<string>;
-}
-
-export type ISolanaOracleConfig = {};
-
-export type IAptosOracleConfig = {
-  aptosPid?: string;
 };
 
-export type INearOracleConfig = {
-  nearNamedAccount?: string;
-};
+export class DockerOracle {
+  readonly image: string;
+  readonly arch: "linux/arm64" | "linux/amd64";
+  readonly dockerRunFlags: Array<string>;
 
-export type IOracleConfig = IOracleBaseConfig &
-  IAptosOracleConfig &
-  INearOracleConfig &
-  ISolanaOracleConfig;
-
-function normalizeFsPath(fsPath: string) {
-  return fsPath.startsWith("/") ||
-    fsPath.startsWith("C:") ||
-    fsPath.startsWith("D:")
-    ? fsPath
-    : fsPath.startsWith("~")
-    ? path.join(os.homedir(), fsPath.slice(1))
-    : path.join(process.cwd(), fsPath);
-}
-
-export class DockerOracle implements Required<IOracleConfig> {
   readonly chain: "aptos" | "near" | "solana";
   readonly network:
     | "localnet"
@@ -71,22 +37,11 @@ export class DockerOracle implements Required<IOracleConfig> {
     | "mainnet"
     | "mainnet-beta";
   readonly envVariables: Record<string, string>;
-  readonly dockerRunFlags: Array<string>;
-  readonly arch: "linux/arm64" | "linux/amd64";
-  readonly rpcUrl: string;
-  readonly oracleKey: string;
   readonly secretPath: string;
-  // task runner config
-  readonly taskRunnerSolanaRpc: string;
-  // aptos oracle config
-  readonly aptosPid: string;
-  // near oracle config
-  readonly nearNamedAccount: string;
 
-  readonly image: string;
-  readonly args: string[];
   logs: string[] = [];
   readonly logFile: string;
+
   dockerOracleProcess?: ChildProcess;
   isActive = true;
   readonly timestamp: number = Date.now();
@@ -104,8 +59,8 @@ export class DockerOracle implements Required<IOracleConfig> {
   }
 
   constructor(
-    readonly config: IOracleConfig,
     readonly nodeImage: string,
+    readonly config: IOracleConfig,
     readonly switchboardDirectory = path.join(process.cwd(), ".switchboard"),
     readonly silent = false
   ) {
@@ -114,35 +69,20 @@ export class DockerOracle implements Required<IOracleConfig> {
     this.chain = config.chain;
     this.network = config.network;
     this.arch = config.arch ?? "linux/amd64";
-    this.envVariables = config.envVariables ?? {};
+
     this.dockerRunFlags = config.dockerRunFlags ?? [];
-    this.rpcUrl = config.rpcUrl;
-    if (this.rpcUrl.includes("localhost")) {
-      this.rpcUrl = this.rpcUrl.replace("localhost", "host.docker.internal");
-    }
-    if (this.rpcUrl.includes("0.0.0.0")) {
-      this.rpcUrl = this.rpcUrl.replace("0.0.0.0", "host.docker.internal");
-    }
-    this.oracleKey = config.oracleKey;
+
+    // payer secret (required)
     this.secretPath = normalizeFsPath(config.secretPath);
-
-    // task runner config
-    this.taskRunnerSolanaRpc =
-      config.taskRunnerSolanaRpc ?? "https://api.mainnet-beta.solana.com";
-
-    // aptos config
-    this.aptosPid = config.aptosPid ?? "";
-    if (this.chain === "aptos" && !this.aptosPid) {
-      throw new Error(`Need to provide 'aptosPid' if chain is set to 'aptos'`);
+    if (!this.secretPath) {
+      throw new Error(`Payer secret path is required`);
+    }
+    if (!fs.existsSync(this.secretPath)) {
+      throw new Error(`Payer secret path does not exist`);
     }
 
-    // near config
-    this.nearNamedAccount = config.nearNamedAccount ?? "";
-    if (this.chain === "near" && !this.nearNamedAccount) {
-      throw new Error(
-        `Need to provide 'nearNamedAccount' if chain is set to 'near'`
-      );
-    }
+    // Set environment variables for docker image
+    this.envVariables = DockerOracle.parseEnvVariables(config);
 
     // log config
     if (!fs.existsSync(this.switchboardDirectory)) {
@@ -160,25 +100,18 @@ export class DockerOracle implements Required<IOracleConfig> {
         [
           this.chain,
           this.network,
-          this.rpcUrl,
-          this.oracleKey,
           this.secretPath,
-          this.taskRunnerSolanaRpc,
-          this.aptosPid,
           this.arch,
           this.nodeImage,
         ].join(" ") + JSON.stringify(this.envVariables)
       )
     );
-    const hash = shaHash.digest().toString("hex").slice(0, 16);
+    const hash = shaHash.digest().toString("hex");
 
     this.image = `sbv2-${this.chain}-${this.network}-${this.nodeImage.replace(
       "dev-v2-",
       ""
-    )}-${hash}`;
-
-    // get image args
-    this.args = this.getArgs();
+    )}-${hash.slice(0, 16)}`;
 
     // callback config
     this.onDataCallback = (data) => {
@@ -286,6 +219,47 @@ export class DockerOracle implements Required<IOracleConfig> {
     }
   }
 
+  amIAContainer(): boolean {
+    let amIAContainer = false;
+
+    // Yes, there are some edge cases to checking the presence of the /proc/self/cgroup file to determine if your code is running inside a container:
+    // The /proc/self/cgroup file is only present on Linux systems that have the cgroups feature enabled, so this method will not work on other operating systems.
+    // If your container is using the host's network namespace, then the /proc/self/cgroup will be the same as the host, and the check would return false, even if the code is running inside a container.
+    // Some container runtime (e.g. lxc) does not use /proc/self/cgroup to isolate the container, so the check would return false.
+    // If the container is running with --privileged flag it will have full access to the host, including the /proc filesystem, so the check would return false
+    // Checking the presence of this file only verifies that the process is running in a cgroup, not that it is running in a container.
+    try {
+      if (fs.existsSync("/proc/self/cgroup")) {
+        return true;
+      }
+    } catch (error) {}
+
+    try {
+      const stdout = execSync("ps -o pid,args", {
+        encoding: "utf-8",
+      });
+      if (stdout.includes("dockerd") || stdout.includes("containerd")) {
+        return true;
+      }
+    } catch (error) {}
+
+    try {
+      const stdout = execSync("lsof -p $$", {
+        encoding: "utf-8",
+      });
+      if (stdout.includes("/var/run/docker.sock")) {
+        return true;
+      }
+    } catch (error) {}
+
+    // not a reliable way to check as it's not only depend on the container, it's depend on the environment variable set by the host or other config
+    if (process.env.container && process.env.container === "docekr") {
+      return true;
+    }
+
+    return amIAContainer;
+  }
+
   /**
    * Start a Docker process with the oracle running and await for the oracle to signal readiness. If an existing oracle is detected, it will re-attach to the container.
    *
@@ -299,40 +273,32 @@ export class DockerOracle implements Required<IOracleConfig> {
   }
 
   private getArgs(): string[] {
-    const baseFlags: Array<string> = [
-      `--network=host`,
+    const dockerRunFlags: Set<string> = new Set([
+      `--network=host`, // TODO: re-evaluate this
       `--name ${this.image}`,
       `--platform=${this.arch}`,
       `--health-interval 10s`,
       `--health-start-period 10s`,
-      `-e ORACLE_KEY=${this.oracleKey}`,
-      `-e TASK_RUNNER_SOLANA_RPC=${this.taskRunnerSolanaRpc}`,
-      `-e VERBOSE=1`,
-      `-e DEBUG=1`,
-    ];
+      ...this.dockerRunFlags,
+    ]);
 
-    const extraFlags: Array<string> = []; // we could use a Set to prevent duplicates
     for (const [key, value] of Object.entries(this.envVariables)) {
-      if (!INVALID_ENV_KEYS.includes(key)) {
-        extraFlags.push(`-e ${key.toUpperCase()}=${value}`);
-      }
+      dockerRunFlags.add(`-e ${key.toUpperCase()}=${value}`);
     }
 
     if (os.type() === "Linux") {
-      extraFlags.push(`--add-host=host.docker.internal:host-gateway`);
+      dockerRunFlags.add(`--add-host=host.docker.internal:host-gateway`);
     }
 
-    const allFlags = Array.from(
-      new Set([...baseFlags, ...extraFlags, ...this.dockerRunFlags])
-    );
+    if (this.amIAContainer()) {
+      // More Info: https://jpetazzo.github.io/2015/09/03/do-not-use-docker-in-docker-for-ci/
+      dockerRunFlags.add(`-v /var/run/docker.sock:/var/run/docker.sock`);
+    }
 
     if (this.chain === "aptos") {
       return [
         "run",
-        ...allFlags,
-        `-e CHAIN=aptos`,
-        `-e APTOS_RPC_URL=${this.rpcUrl}`,
-        `-e APTOS_PID=${this.aptosPid}`,
+        ...Array.from(dockerRunFlags),
         `-e APTOS_FS_PAYER_SECRET_PATH=/home/node/sbv2-oracle/payer_secrets.json`,
         `--mount type=bind,source=${this.secretPath},target=/home/node/sbv2-oracle/payer_secrets.json`,
         `switchboardlabs/node:${this.nodeImage}`,
@@ -342,11 +308,7 @@ export class DockerOracle implements Required<IOracleConfig> {
     if (this.chain === "near") {
       return [
         "run",
-        ...allFlags,
-        `-e CHAIN=near`,
-        `-e NEAR_RPC_URL=${this.rpcUrl}`,
-        `-e NEAR_NETWORK_ID=${this.network}`,
-        `-e NEAR_NAMED_ACCOUNT=${this.nearNamedAccount}`,
+        ...Array.from(dockerRunFlags),
         `-e NEAR_FS_PAYER_SECRET_PATH=/home/node/sbv2-oracle/payer_secrets.json`,
         `--mount type=bind,source=${this.secretPath},target=/home/node/sbv2-oracle/payer_secrets.json`,
         `switchboardlabs/node:${this.nodeImage}`,
@@ -356,10 +318,7 @@ export class DockerOracle implements Required<IOracleConfig> {
     if (this.chain === "solana") {
       return [
         "run",
-        ...allFlags,
-        `-e CHAIN=solana`,
-        `-e RPC_URL=${this.rpcUrl}`,
-        `-e CLUSTER=${this.network}`,
+        ...Array.from(dockerRunFlags),
         `-e SOLANA_FS_PAYER_SECRET_PATH=/home/node/sbv2-oracle/payer_secrets.json`,
         `--mount type=bind,source=${this.secretPath},target=/home/node/sbv2-oracle/payer_secrets.json`,
         `switchboardlabs/node:${this.nodeImage}`,
@@ -371,7 +330,7 @@ export class DockerOracle implements Required<IOracleConfig> {
 
   private createOracle() {
     // this.ready = false;
-    this.dockerOracleProcess = spawn("docker", this.args, {
+    this.dockerOracleProcess = spawn("docker", this.getArgs(), {
       shell: true,
       env: process.env,
       stdio: this.silent ? undefined : ["inherit", "pipe", "pipe"],
@@ -477,4 +436,88 @@ export class DockerOracle implements Required<IOracleConfig> {
 
     throw new Error(`Failed to start Switchboard oracle in ${timeout} seconds`);
   }
+
+  private static parseEnvVariables(
+    config: IOracleConfig
+  ): Record<string, string> {
+    // Set environment variables for docker image
+    const envVariables = config.envVariables ?? {};
+
+    // defaults
+    envVariables["DISABLE_NONCE_QUEUE"] = "1";
+    envVariables["DEBUG"] = "1";
+    envVariables["VERBOSE"] = "1";
+
+    // set chain
+    envVariables["CHAIN"] = config.chain ?? "solana";
+
+    // rpc url (required)
+    envVariables["RPC_URL"] = envVariables["RPC_URL"] ?? config.rpcUrl;
+    if (envVariables["RPC_URL"].includes("localhost")) {
+      envVariables["RPC_URL"] = envVariables["RPC_URL"].replace(
+        "localhost",
+        "host.docker.internal"
+      );
+    }
+    if (envVariables["RPC_URL"].includes("0.0.0.0")) {
+      envVariables["RPC_URL"] = envVariables["RPC_URL"].replace(
+        "0.0.0.0",
+        "host.docker.internal"
+      );
+    }
+    if (!envVariables["RPC_URL"]) {
+      throw new Error(`$RPC_URL is required`);
+    }
+
+    // oracle key (required)
+    envVariables["ORACLE_KEY"] = envVariables["ORACLE_KEY"] ?? config.oracleKey;
+    if (!envVariables["ORACLE_KEY"]) {
+      throw new Error(`$ORACLE_KEY is required`);
+    }
+
+    // task runner config
+    envVariables["TASK_RUNNER_SOLANA_RPC"] =
+      envVariables["TASK_RUNNER_SOLANA_RPC"] ??
+      config.taskRunnerSolanaRpc ??
+      "https://api.mainnet-beta.solana.com";
+
+    // solana config
+    if (envVariables["CHAIN"] === "solana") {
+      envVariables["CLUSTER"] = config.network;
+    }
+
+    // aptos config
+    if (envVariables["CHAIN"] === "aptos") {
+      envVariables["NETWORK"] = config.network;
+
+      if (!envVariables["APTOS_PID"]) {
+        throw new Error(
+          `Need to provide '$APTOS_PID' if chain is set to 'aptos'`
+        );
+      }
+    }
+
+    // near config
+    if (envVariables["CHAIN"] === "near") {
+      envVariables["NEAR_NETWORK_ID"] = config.network;
+
+      if (!envVariables["NEAR_NAMED_ACCOUNT"]) {
+        throw new Error(
+          `Need to provide '$NEAR_NAMED_ACCOUNT' if chain is set to 'near'`
+        );
+      }
+    }
+
+    return envVariables;
+  }
+}
+
+function normalizeFsPath(fsPath: string) {
+  return fsPath.startsWith("/") ||
+    fsPath.startsWith("C:") ||
+    fsPath.startsWith("D:")
+    ? fsPath
+    : fsPath.startsWith("~")
+    ? path.join(os.homedir(), fsPath.slice(1))
+    : path.join(process.cwd(), fsPath);
 }
