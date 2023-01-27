@@ -3,7 +3,15 @@ import useBaseUrl from "@docusaurus/useBaseUrl";
 
 <RoundedCardGroup
   cols={2}
+  justifyContent="center"
   items={[
+    {
+      to: "/solana/dev/examples/vrf-flip",
+      title: "VRF Flip (Advanced)",
+      description:
+        "View an example program depicting how to simulate a coin toss",
+      image: <img src={useBaseUrl("/img/icons/anchor/light.png")} />,
+    },
     {
       to: "/solana/dev/examples/anchor-feed-parser",
       title: "Feed Parser",
