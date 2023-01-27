@@ -8,6 +8,5 @@
     "types": ["node"]
   },
   "include": ["src/**/*", "src/**/*.json", "scripts/**/*"],
-  "exclude": ["static", "public", "node_modules"],
-  "files": ["src/pages/main.tsx"]
+  "exclude": ["static", "public", "node_modules"]
 }
