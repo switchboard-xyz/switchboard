@@ -140,6 +140,11 @@ const config = {
                 className: "header-aptos-link",
               },
               {
+                label: " CoreDAO",
+                to: "/coredao",
+                className: "header-coredao-link",
+              },
+              {
                 label: " Near",
                 to: "/near",
                 className: "header-near-link",
@@ -148,6 +153,11 @@ const config = {
                 label: " Solana",
                 to: "/solana",
                 className: "header-solana-link",
+              },
+              {
+                label: " Starkware",
+                to: "/starknet",
+                className: "header-starknet-link",
               },
             ],
           },
