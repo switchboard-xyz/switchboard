@@ -2,7 +2,7 @@ import RoundedCardGroup from "/src/components/RoundedCard/RoundedCardGroup";
 import useBaseUrl from "@docusaurus/useBaseUrl";
 
 <RoundedCardGroup
-  cols={3}
+  cols={2}
   justifyContent="center"
   items={[
     {
@@ -16,13 +16,6 @@ import useBaseUrl from "@docusaurus/useBaseUrl";
       to: "/aptos/program/testnet",
       title: "Testnet",
       description: "View the Testnet deployment accounts",
-      image: <img src={useBaseUrl("/img/icons/aptos/light.svg")} />,
-      imageDark: <img src={useBaseUrl("/img/icons/aptos/dark.svg")} />,
-    },
-    {
-      to: "/aptos/program/devnet",
-      title: "Devnet",
-      description: "View the Devnet deployment accounts",
       image: <img src={useBaseUrl("/img/icons/aptos/light.svg")} />,
       imageDark: <img src={useBaseUrl("/img/icons/aptos/dark.svg")} />,
     },

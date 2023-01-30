@@ -37,6 +37,7 @@ export default function RoundedCardGroup({
     >
       {items.map((item) => (
         <Grid
+          key={item.title}
           item
           style={{ flexGrow: 1 }}
           xs={12}

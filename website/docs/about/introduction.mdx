@@ -8,6 +8,7 @@ keywords:
   [Switchboard, web3, oracle, data feeds, vrf, randomness, solana, aptos, near]
 ---
 
+import ChainComponent2 from "/src/components/ChainComponent/ChainComponent2";
 import RoundedCardGroup from "/src/components/RoundedCard/RoundedCardGroup";
 import { RustIcon } from "/src/components/icons/RustIcon";
 import useBaseUrl from "@docusaurus/useBaseUrl";
@@ -69,56 +70,50 @@ through a blockchain until it reaches its appropriate destination.
 
 <hr />
 
-<RoundedCardGroup
-  cols={3}
-  justifyContent="center"
-  sx={{
-    border: "1px solid var(--ifm-color-primary-dark)",
-    boxShadow: "2px 2px 5px var(--ifm-color-primary-dark)",
-    borderRadius: "10px",
-  }}
+<ChainComponent2
   items={[
     {
       to: "/aptos",
       title: "Aptos",
       description: "Integrate Switchboard on Aptos.",
-      image: <img src={useBaseUrl("/img/icons/aptos/teal.svg")} />,
-      imageDark: <img src={useBaseUrl("/img/icons/aptos/dark.svg")} />,
+      image: useBaseUrl("/img/icons/aptos/teal.svg"),
+      imageDark: useBaseUrl("/img/icons/aptos/dark.svg"),
     },
     {
       to: "/coredao",
       title: "CoreDAO",
       description: "Integrate Switchboard on CoreDAO.",
-      image: <img src={useBaseUrl("/img/icons/coredao/logo.svg")} />,
-      imageDark: <img src={useBaseUrl("/img/icons/coredao/logo.svg")} />,
+      image: useBaseUrl("/img/icons/coredao/teal.svg"),
+      imageDark: useBaseUrl("/img/icons/coredao/dark.svg"),
     },
     {
       to: "/near",
       title: "Near",
       description: "Integrate Switchboard on Near.",
-      image: <img src={useBaseUrl("/img/icons/near/teal.svg")} />,
-      imageDark: <img src={useBaseUrl("/img/icons/near/dark.svg")} />,
+      image: useBaseUrl("/img/icons/near/teal.svg"),
+      imageDark: useBaseUrl("/img/icons/near/dark.svg"),
     },
     {
       to: "/solana",
       title: "Solana",
       description: "Integrate Switchboard on Solana.",
-      image: <img src={useBaseUrl("/img/icons/solana/teal.svg")} />,
-      imageDark: <img src={useBaseUrl("/img/icons/solana/logo.svg")} />,
+      image: useBaseUrl("/img/icons/solana/teal.svg"),
+      imageDark: useBaseUrl("/img/icons/solana/logo.svg"),
     },
     {
       to: "/starknet",
       title: "StarkNet",
       description: "Integrate Switchboard on StarkNet.",
-      image: <img src={useBaseUrl("/img/icons/starknet/teal.svg")} />,
-      imageDark: <img src={useBaseUrl("/img/icons/starknet/dark.svg")} />,
+      image: useBaseUrl("/img/icons/starknet/teal.svg"),
+      imageDark: useBaseUrl("/img/icons/starknet/dark.svg"),
     },
     {
       to: "/sui",
       title: "Sui",
       description: "Integrate Switchboard on Sui.",
-      image: <img src={useBaseUrl("/img/icons/sui/teal.svg")} />,
-      imageDark: <img src={useBaseUrl("/img/icons/sui/teal.svg")} />,
+      image: useBaseUrl("/img/icons/sui/teal.svg"),
+      imageDark: useBaseUrl("/img/icons/sui/dark.svg"),
+      comingSoon: true,
     },
   ]}
 />
