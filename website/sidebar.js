@@ -66,6 +66,12 @@ module.exports = {
       className: "sidebar__starknet",
       href: "/starknet",
     },
+    {
+      type: "link",
+      label: "Sui",
+      className: "sidebar__sui",
+      href: "/sui",
+    },
   ],
 
   learn: [
@@ -226,6 +232,15 @@ module.exports = {
       label: "Starkware",
       className: "sidebar__starknet",
       id: "starknet/overview",
+    },
+  ],
+
+  sui: [
+    {
+      type: "doc",
+      label: "Sui",
+      className: "sidebar__sui",
+      id: "sui/overview",
     },
   ],
 

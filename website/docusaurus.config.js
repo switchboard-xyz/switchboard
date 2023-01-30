@@ -159,6 +159,11 @@ const config = {
                 to: "/starknet",
                 className: "header-starknet-link",
               },
+              {
+                label: " Sui",
+                to: "/sui",
+                className: "header-sui-link",
+              },
             ],
           },
           {
