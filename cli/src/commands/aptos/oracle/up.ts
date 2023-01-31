@@ -48,16 +48,19 @@ export default class AptosDockerOracle extends BaseCommand {
 
     // TODO: Add mounts for AWS creds
     const docker = new DockerOracle(
+      flags.nodeImage,
       {
         chain: "aptos",
         network: flags.networkId as "testnet" | "devnet",
         rpcUrl: this.rpcUrl,
         oracleKey: oracleAccount.address.toString(),
         secretPath: this.normalizePath(flags.keypair),
-        aptosPid: this.programId.toString(),
         arch: flags.arm ? "linux/arm64" : "linux/amd64",
+        envVariables: {
+          PROGRAM_ID: this.programId.toString(),
+        },
       },
-      flags.nodeImage,
+
       flags.switchboardDir,
       flags.silent
     );

@@ -159,6 +159,7 @@ export default class NetworkStart extends BaseCommand {
       }
       this.oracles.push(
         new DockerOracle(
+          flags.nodeImage,
           {
             chain: "solana",
             network: this.network,
@@ -170,7 +171,6 @@ export default class NetworkStart extends BaseCommand {
             secretPath: this.normalizePath(flags.keypair),
             arch: flags.arm ? "linux/arm64" : "linux/amd64",
           },
-          flags.nodeImage,
           undefined,
           flags.silent
         )

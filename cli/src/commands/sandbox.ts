@@ -1,5 +1,5 @@
 import { Flags } from "@oclif/core";
-import { BN } from "@project-serum/anchor";
+import { BN } from "@coral-xyz/anchor";
 import { SwitchboardDecimal } from "@switchboard-xyz/common";
 import { SolanaWithSignerBaseCommand as BaseCommand } from "../solana";
 

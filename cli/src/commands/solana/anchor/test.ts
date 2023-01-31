@@ -1,5 +1,5 @@
 import * as dotenv from "dotenv";
-import * as anchor from "@project-serum/anchor";
+import * as anchor from "@coral-xyz/anchor";
 import { Flags } from "@oclif/core";
 import { clusterApiUrl, PublicKey } from "@solana/web3.js";
 import { ChildProcess, spawn } from "child_process";
@@ -308,6 +308,7 @@ export default class AnchorTest extends BaseCommand {
     ///// SWITCHBOARD DOCKER ORACLE
     ////////////////////////////////////////////////////////////
     this.docker = new DockerOracle(
+      flags.nodeImage,
       {
         chain: "solana",
         network: cluster as "localnet" | "devnet",
@@ -317,7 +318,7 @@ export default class AnchorTest extends BaseCommand {
         secretPath: keypairPath,
         arch: flags.arm ? "linux/arm64" : "linux/amd64",
       },
-      flags.nodeImage,
+
       flags.switchboardDir,
       flags.silent
     );

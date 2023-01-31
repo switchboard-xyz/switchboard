@@ -48,6 +48,7 @@ export default class NearDockerOracle extends BaseCommand {
 
     // TODO: Add mounts for AWS creds
     const docker = new DockerOracle(
+      flags.nodeImage,
       {
         chain: "near",
         network: flags.networkId as "testnet" | "localnet",
@@ -58,10 +59,12 @@ export default class NearDockerOracle extends BaseCommand {
           flags.networkId,
           flags.accountName + ".json"
         ),
-        nearNamedAccount: flags.accountName,
         arch: flags.arm ? "linux/arm64" : "linux/amd64",
+        envVariables: {
+          NEAR_NAMED_ACCOUNT: flags.accountName,
+        },
       },
-      flags.nodeImage,
+
       flags.switchboardDir,
       flags.silent
     );

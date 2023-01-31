@@ -49,6 +49,7 @@ export default class SolanaDockerOracle extends BaseCommand {
     }
 
     const docker = new DockerOracle(
+      flags.nodeImage,
       {
         chain: "solana",
         network: this.network,
@@ -60,7 +61,7 @@ export default class SolanaDockerOracle extends BaseCommand {
         secretPath: this.normalizePath(flags.keypair),
         arch: flags.arm ? "linux/arm64" : "linux/amd64",
       },
-      flags.nodeImage,
+
       flags.switchboardDir,
       flags.silent
     );

@@ -1,5 +1,5 @@
 import { Flags } from "@oclif/core";
-import * as anchor from "@project-serum/anchor";
+import * as anchor from "@coral-xyz/anchor";
 import { SolanaWithSignerBaseCommand as BaseCommand } from "../../../solana";
 import { DockerOracle } from "@switchboard-xyz/common";
 import { CHECK_ICON, sleep } from "../../../utils";
@@ -201,6 +201,7 @@ export default class SolanaValidatorUp extends BaseCommand {
     this.logger.info(`Oracle: ${oracle.account.publicKey}`);
 
     this.docker = new DockerOracle(
+      flags.nodeImage,
       {
         chain: "solana",
         network: "localnet",
@@ -209,7 +210,7 @@ export default class SolanaValidatorUp extends BaseCommand {
         secretPath: this.normalizePath(flags.keypair),
         arch: flags.arm ? "linux/arm64" : "linux/amd64",
       },
-      flags.nodeImage,
+
       undefined,
       flags.silent
     );

@@ -1,5 +1,5 @@
 import { Flags } from "@oclif/core";
-import * as anchor from "@project-serum/anchor";
+import * as anchor from "@coral-xyz/anchor";
 import {
   AggregatorAccount,
   LeaseAccount,

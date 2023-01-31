@@ -2,7 +2,7 @@ import { Keypair } from "@solana/web3.js";
 import chalk from "chalk";
 import fs from "fs";
 import path from "path";
-import * as anchor from "@project-serum/anchor";
+import * as anchor from "@coral-xyz/anchor";
 import { Big } from "@switchboard-xyz/common";
 import bs58 from "bs58";
 import { ILogProvider, DEFAULT_LOGGER } from "./logging";
