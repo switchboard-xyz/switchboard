@@ -3681,15 +3681,20 @@ FLAGS
   --enable                  enable permissions on the new queue
   --ledger                  enable ledger support
   --ledgerPath=<value>      HID path to the ledger
-  --loadAmount=<value>      amount of funds to load into the new lease
+  --loadAmount=<value>      [default: 0.0] amount of funds to load into the new lease, in addition to the funds
+                            remaining in the old lease account
   --mainnetBeta             WARNING: use mainnet-beta solana cluster
   --newCrank=<value>        publicKey of the crank to transfer to
   --newQueue=<value>        (required) publicKey of the new queue to transfer to
   --programId=<value>       alternative Switchboard program ID to interact with
-  --queueAuthority=<value>  alternate keypair that is the authority for the queue
+  --queueAuthority=<value>  alternate keypair that is the authority for the queue. only used if enabling permissions in
+                            one transaction
 
 DESCRIPTION
   transfer an aggregator to a new queue
+
+EXAMPLES
+  $ sbv2 solana aggregator transfer GvDMxPzN1sCj7L26YDK2HnMRXEQmQ2aemov8YBtPS7vR --mainnetBeta --loadAmount 0.1 \n	--newQueue 3HBb2DQqDfuMdzWxNk1Eo9RTMkFYmuEAd32RiLKn9pAn --newCrank GdNVLWzcE6h9SPuSbmu69YzxAj8enim9t6mjzuqTXgLd \n	--keypair ~/.config/solana/id.json
 ```
 
 ## `sbv2 solana aggregator update [AGGREGATORKEY]`
