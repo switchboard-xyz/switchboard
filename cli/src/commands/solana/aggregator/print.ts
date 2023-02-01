@@ -1,5 +1,5 @@
 import { Flags } from "@oclif/core";
-import { AggregatorAccount } from "@switchboard-xyz/solana.js";
+import { AggregatorAccount, QueueAccount } from "@switchboard-xyz/solana.js";
 import { SolanaWithoutSignerBaseCommand as BaseCommand } from "../../../solana";
 
 export default class AggregatorPrint extends BaseCommand {
@@ -9,6 +9,10 @@ export default class AggregatorPrint extends BaseCommand {
 
   static flags = {
     ...BaseCommand.flags,
+    queuePubkey: Flags.string({
+      description:
+        "override the aggregators current queue. useful for viewing permission lease accounts if an aggregator has moved queues",
+    }),
   };
 
   static args = [
@@ -27,7 +31,16 @@ export default class AggregatorPrint extends BaseCommand {
       args.aggregatorKey
     );
 
-    const accounts = await aggregatorAccount.fetchAccounts(aggregator);
+    const [queueAccount, queue] = await QueueAccount.load(
+      this.program,
+      flags.queuePubkey ?? aggregator.queuePubkey
+    );
+
+    const accounts = await aggregatorAccount.fetchAccounts(
+      aggregator,
+      queueAccount,
+      queue
+    );
 
     if (flags.json) {
       return accounts;

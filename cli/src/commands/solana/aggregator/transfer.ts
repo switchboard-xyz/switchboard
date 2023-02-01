@@ -18,7 +18,7 @@ export default class AggregatorTransfer extends BaseCommand {
   static description = "transfer an aggregator to a new queue";
 
   static examples = [
-    "$ sbv2 solana aggregator transfer GvDMxPzN1sCj7L26YDK2HnMRXEQmQ2aemov8YBtPS7vR --mainnetBeta --loadAmount 0.1 \\n\t--newQueue 3HBb2DQqDfuMdzWxNk1Eo9RTMkFYmuEAd32RiLKn9pAn --newCrank GdNVLWzcE6h9SPuSbmu69YzxAj8enim9t6mjzuqTXgLd \\n\t--keypair ~/.config/solana/id.json",
+    "$ sbv2 solana aggregator transfer GvDMxPzN1sCj7L26YDK2HnMRXEQmQ2aemov8YBtPS7vR --mainnetBeta --loadAmount 0.1 --newQueue 3HBb2DQqDfuMdzWxNk1Eo9RTMkFYmuEAd32RiLKn9pAn --newCrank GdNVLWzcE6h9SPuSbmu69YzxAj8enim9t6mjzuqTXgLd --keypair ~/.config/solana/id.json",
   ];
 
   static flags = {
@@ -46,6 +46,9 @@ export default class AggregatorTransfer extends BaseCommand {
       description:
         "alternate keypair that is the authority for the queue. only used if enabling permissions in one transaction",
     }),
+    force: Flags.boolean({
+      description: "skip permission checks",
+    }),
   };
 
   static args = [
@@ -59,6 +62,8 @@ export default class AggregatorTransfer extends BaseCommand {
   async run() {
     const { args, flags } = await this.parse(AggregatorTransfer);
 
+    const loadAmount = Number(flags.loadAmount ?? "0.0");
+
     const txns: Array<TransactionObject> = [];
 
     const [aggregatorAccount, aggregator] = await AggregatorAccount.load(
@@ -69,7 +74,7 @@ export default class AggregatorTransfer extends BaseCommand {
     const [payerTokenWallet, wrapIxns] =
       await this.program.mint.getOrCreateWrappedUserInstructions(
         this.program.walletPubkey,
-        { fundUpTo: Number(flags.loadAmount ?? "0") }
+        { fundUpTo: loadAmount }
       );
     txns.push(wrapIxns);
 
@@ -88,12 +93,24 @@ export default class AggregatorTransfer extends BaseCommand {
       flags.newQueue
     );
 
+    if (oldQueueAccount.publicKey.equals(newQueueAccount.publicKey)) {
+      throw new Error(
+        `Aggregator already belongs to --newQueue ${newQueueAccount.publicKey}`
+      );
+    }
+
     const queueAuthority =
       flags.enable && flags.queueAuthority
         ? await this.loadAuthority(flags.queueAuthority, newQueue.authority)
         : undefined;
 
     // create new lease
+    const [oldLeaseAccount] = LeaseAccount.fromSeed(
+      this.program,
+      aggregator.queuePubkey,
+      aggregatorAccount.publicKey
+    );
+    const oldLease = await oldLeaseAccount.loadData();
     const jobs = await aggregatorAccount.loadJobs(aggregator);
     const jobAuthorities = jobs.map((job) => job.state.authority);
     const [newLeaseAccount] = LeaseAccount.fromSeed(
@@ -116,7 +133,7 @@ export default class AggregatorTransfer extends BaseCommand {
             queueAccount: newQueueAccount,
             funderTokenWallet: payerTokenWallet ?? undefined,
             jobAuthorities,
-            fundAmount: Number(flags.loadAmount) ?? 0,
+            fundAmount: loadAmount,
             withdrawAuthority: aggregator.authority, // set to current authority
             jobPubkeys: aggregator.jobPubkeysData.slice(
               0,
@@ -126,6 +143,20 @@ export default class AggregatorTransfer extends BaseCommand {
         );
 
       txns.push(leaseInit);
+    } else {
+      // lease already created, fund lease if needed
+      const newLease = types.LeaseAccountData.decode(newLeaseAccountInfo.data);
+      if (loadAmount > 0) {
+        const transferIxn = await newLeaseAccount.extendInstruction(
+          this.program.walletPubkey,
+          {
+            fundAmount: loadAmount,
+            funderTokenWallet: payerTokenWallet,
+            disableWrap: true,
+          }
+        );
+        txns.push(transferIxn);
+      }
     }
 
     // create new permission account
@@ -145,17 +176,17 @@ export default class AggregatorTransfer extends BaseCommand {
       const newPermission = types.PermissionAccountData.decode(
         newPermissionAccountInfo.data
       );
+
+      // try to set permissions
       if (
-        !newQueue.unpermissionedFeedsEnabled &&
+        flags.enable &&
         newPermission.permissions !==
           types.SwitchboardPermission.PermitOracleQueueUsage.discriminator
       ) {
-        // try to set permissions
         if (
-          flags.enable &&
-          ((queueAuthority &&
+          (queueAuthority &&
             newQueue.authority.equals(queueAuthority.publicKey)) ||
-            newQueue.authority.equals(this.program.walletPubkey))
+          newQueue.authority.equals(this.program.walletPubkey)
         ) {
           const permissionSet = newPermissionAccount.setInstruction(
             this.program.walletPubkey,
@@ -169,9 +200,11 @@ export default class AggregatorTransfer extends BaseCommand {
           txns.push(permissionSet);
           skipPermissionCheck = true;
         } else {
-          throw new Error(
-            `Permission account lacks permissions to join this queue. Try providing the --queueAuthority flag or have the queue authority enable your permission account`
-          );
+          if (!flags.force) {
+            throw new Error(
+              `Permission account lacks permissions to join this queue. Try providing the --queueAuthority flag or have the queue authority enable your permission account`
+            );
+          }
         }
       }
     } else {
@@ -205,17 +238,21 @@ export default class AggregatorTransfer extends BaseCommand {
           txns.push(permissionSet);
           skipPermissionCheck = true;
         } else {
-          throw new Error(
-            `Permission account lacks permissions to join this queue. Try providing the --queueAuthority flag or have the queue authority enable your permission account`
-          );
+          if (!flags.force) {
+            throw new Error(
+              `Permission account lacks permissions to join this queue. Try providing the --queueAuthority flag or have the queue authority enable your permission account`
+            );
+          }
         }
       }
     }
 
     if (!skipPermissionCheck && !newQueue.unpermissionedFeedsEnabled) {
-      throw new Error(
-        `Permission account lacks permissions to join this queue. Try providing the --queueAuthority flag or have the queue authority enable your permission account`
-      );
+      if (!flags.force) {
+        throw new Error(
+          `Permission account lacks permissions to join this queue. Try providing the --queueAuthority flag or have the queue authority enable your permission account`
+        );
+      }
     }
 
     // set the feeds queue
@@ -258,29 +295,30 @@ export default class AggregatorTransfer extends BaseCommand {
     }
 
     // remove any funds from the old lease account
-    const [oldLeaseAccount] = LeaseAccount.fromSeed(
-      this.program,
-      aggregator.queuePubkey,
-      aggregatorAccount.publicKey
-    );
-    const oldLease = await oldLeaseAccount.loadData();
     const oldLeaseBalance = await oldLeaseAccount.fetchBalance(oldLease.escrow);
-    if (
-      oldLease.withdrawAuthority.equals(this.program.walletPubkey) &&
-      oldLeaseBalance > 0
-    ) {
-      const withdrawTxn = await oldLeaseAccount.withdrawInstruction(
-        this.program.walletPubkey,
-        {
-          amount: oldLeaseBalance,
-          unwrap: false,
-          // withdraw old lease funds into the new lease
-          withdrawWallet: this.program.mint.getAssociatedAddress(
-            newLeaseAccount.publicKey
-          ),
-        }
+    if (oldLeaseBalance > 0) {
+      if (oldLease.withdrawAuthority.equals(this.program.walletPubkey)) {
+        const withdrawTxn = await oldLeaseAccount.withdrawInstruction(
+          this.program.walletPubkey,
+          {
+            amount: oldLeaseBalance,
+            unwrap: false,
+            // withdraw old lease funds into the new lease
+            withdrawWallet: this.program.mint.getAssociatedAddress(
+              newLeaseAccount.publicKey
+            ),
+          }
+        );
+        txns.push(withdrawTxn);
+      } else {
+        this.log(
+          `Skipping withdrawing funds from old lease: Aggregator's withdrawAuthority does not match payer, expected ${this.program.walletPubkey}, received ${oldLease.withdrawAuthority}`
+        );
+      }
+    } else {
+      this.log(
+        `Skipping withdrawing funds from old lease: Old lease has a current balance of ${oldLeaseBalance}.`
       );
-      txns.push(withdrawTxn);
     }
 
     const transferTxns = TransactionObject.pack(txns, {

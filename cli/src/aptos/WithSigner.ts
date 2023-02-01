@@ -1,7 +1,6 @@
 import { Flags } from "@oclif/core";
 import { Input } from "@oclif/parser";
 import { SwitchboardProgram } from "@switchboard-xyz/aptos.js";
-import { EscrowAccount } from "@switchboard-xyz/near.js";
 import { AptosAccount } from "aptos";
 import { AuthorityMismatch } from "../types";
 import { AptosBaseCommand as BaseCommand } from "./BaseCommand";

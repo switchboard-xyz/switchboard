@@ -40,7 +40,6 @@ export default class CreateOracle extends BaseCommand {
 
     const [queue, queueData] = await this.loadQueue(args.queueHexString);
 
-    const account = flags.new ? this.program.newAccount : this.signer;
     const [oracleAccount, sig1] = await createOracle(
       this.aptos,
       this.signer,
@@ -49,8 +48,8 @@ export default class CreateOracle extends BaseCommand {
           ? this.parseAddress(flags.authority)
           : this.signer.address(), // not --new keypair cuz we didnt back it up
         queue: args.queueHexString,
-        name: flags.name || "",
-        metadata: flags.metadata || "",
+        name: flags.name ?? "",
+        metadata: flags.metadata ?? "",
         coinType: "0x1::aptos_coin::AptosCoin",
       },
       this.programId.toString()

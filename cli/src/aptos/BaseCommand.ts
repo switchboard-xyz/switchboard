@@ -1,7 +1,7 @@
 import { Flags } from "@oclif/core";
 import { Input } from "@oclif/parser";
 import { CliBaseCommand as BaseCommand } from "../BaseCommand";
-import { AptosAccount, AptosClient, HexString, MaybeHexString } from "aptos";
+import { AptosAccount, HexString, MaybeHexString } from "aptos";
 import { AwsProvider, FsProvider, GcpProvider } from "../providers";
 import YAML from "yaml";
 import fs from "fs";
@@ -11,13 +11,10 @@ import {
   AggregatorAccount,
   AptosDecimal,
   CrankAccount,
-  DEVNET_PROGRAM_ID,
   JobAccount,
-  MAINNET_PROGRAM_ID,
   OracleAccount,
   OracleQueueAccount,
   StateAccount,
-  TESTNET_PROGRAM_ID,
   SwitchboardProgram,
   getProgramId,
 } from "@switchboard-xyz/aptos.js";
@@ -52,15 +49,11 @@ export abstract class AptosBaseCommand
 
   public rpcUrl: string;
 
-  public programId: HexString;
+  public programId: MaybeHexString;
 
   public program: SwitchboardProgram;
 
-  // public aptos: AptosClient;
-
-  // public faucet: FaucetClient;
-
-  public stateAddress: HexString;
+  public stateAddress: MaybeHexString;
 
   async init() {
     await super.init();
@@ -69,7 +62,10 @@ export abstract class AptosBaseCommand
 
     this.networkId = this.getNetwork((flags as any).networkId);
     this.rpcUrl = this.getRpcUrl(this.networkId, (flags as any).rpcUrl);
-    this.programId = getProgramId(this.networkId, (flags as any).programId);
+    this.programId = getProgramId(
+      this.networkId,
+      (flags as any).programId
+    ).toString();
     this.stateAddress = this.programId;
 
     // this.aptos = new AptosClient(this.rpcUrl);
@@ -81,8 +77,8 @@ export abstract class AptosBaseCommand
     this.logConfig({
       network: this.networkId,
       rpc: this.rpcUrl,
-      pid: this.programId.hex(),
-      state: this.stateAddress.hex(),
+      pid: this.programId.toString(),
+      state: this.stateAddress.toString(),
     });
   }
 
@@ -102,8 +98,8 @@ export abstract class AptosBaseCommand
     return networkIdFlag;
   }
 
-  getProgramId(networkId: AptosNetwork, programId?: string): HexString {
-    return getProgramId(networkId, programId);
+  getProgramId(networkId: AptosNetwork, programId?: string): MaybeHexString {
+    return getProgramId(networkId, programId).toString();
   }
 
   getRpcUrl(networkId: AptosNetwork, rpcUrlFlag?: string): string {

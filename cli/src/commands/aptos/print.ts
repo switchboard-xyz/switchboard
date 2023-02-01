@@ -10,6 +10,7 @@ import {
   Permission,
   StateAccount,
 } from "@switchboard-xyz/aptos.js";
+import { OracleJob } from "@switchboard-xyz/common";
 
 export default class AptosPrint extends BaseCommand {
   static enableJsonFlag = true;
@@ -84,7 +85,18 @@ export default class AptosPrint extends BaseCommand {
         const [aggregator, aggregatorData] = await this.loadAggregator(
           address.toString()
         );
-        data = this.normalizeAccountData(address, aggregatorData);
+        const jobs: Array<OracleJob> = [];
+        for (const jobKey of aggregatorData.jobKeys) {
+          const [job, jobData, oracleJob] = await this.loadJob(
+            jobKey.toString()
+          );
+          jobs.push(oracleJob);
+        }
+
+        data = this.normalizeAccountData(address, {
+          ...aggregatorData,
+          jobs: jobs.map((j) => j.toJSON()),
+        });
         break;
       }
       case "job": {

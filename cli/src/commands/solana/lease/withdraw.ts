@@ -20,6 +20,10 @@ export default class AggregatorLeaseWithdraw extends BaseCommand {
       description:
         "keypair delegated as the authority for managing the lease account",
     }),
+    queuePubkey: Flags.string({
+      description:
+        "override the aggregators current queue. useful for withdrawing from a lease after moving to a new queue",
+    }),
   };
 
   static args = [
@@ -49,7 +53,7 @@ export default class AggregatorLeaseWithdraw extends BaseCommand {
     );
     const [queueAccount, queueData] = await QueueAccount.load(
       this.program,
-      aggregatorData.queuePubkey.toBase58()
+      flags.queuePubkey ?? aggregatorData.queuePubkey.toBase58()
     );
     const { leaseAccount } = aggregatorAccount.getAccounts(
       queueAccount,

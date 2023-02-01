@@ -110,6 +110,8 @@ node bin/dev print GvDMxPzN1sCj7L26YDK2HnMRXEQmQ2aemov8YBtPS7vR
 * [`sbv2 solana aggregator extend AGGREGATORKEY`](#sbv2-solana-aggregator-extend-aggregatorkey)
 * [`sbv2 solana aggregator fund AGGREGATORKEY`](#sbv2-solana-aggregator-fund-aggregatorkey)
 * [`sbv2 solana aggregator history AGGREGATORKEY`](#sbv2-solana-aggregator-history-aggregatorkey)
+* [`sbv2 solana aggregator lease set AGGREGATORKEY`](#sbv2-solana-aggregator-lease-set-aggregatorkey)
+* [`sbv2 solana aggregator list AUTHORITYKEY`](#sbv2-solana-aggregator-list-authoritykey)
 * [`sbv2 solana aggregator lock AGGREGATORKEY`](#sbv2-solana-aggregator-lock-aggregatorkey)
 * [`sbv2 solana aggregator metrics AGGREGATORKEY`](#sbv2-solana-aggregator-metrics-aggregatorkey)
 * [`sbv2 solana aggregator open-round [AGGREGATORKEY]`](#sbv2-solana-aggregator-open-round-aggregatorkey)
@@ -134,6 +136,7 @@ node bin/dev print GvDMxPzN1sCj7L26YDK2HnMRXEQmQ2aemov8YBtPS7vR
 * [`sbv2 solana lease create [AGGREGATORKEY]`](#sbv2-solana-lease-create-aggregatorkey)
 * [`sbv2 solana lease extend AGGREGATORKEY`](#sbv2-solana-lease-extend-aggregatorkey)
 * [`sbv2 solana lease print LEASEKEY`](#sbv2-solana-lease-print-leasekey)
+* [`sbv2 solana lease set AGGREGATORKEY`](#sbv2-solana-lease-set-aggregatorkey)
 * [`sbv2 solana lease withdraw AGGREGATORKEY`](#sbv2-solana-lease-withdraw-aggregatorkey)
 * [`sbv2 solana localnet env`](#sbv2-solana-localnet-env)
 * [`sbv2 solana localnet up`](#sbv2-solana-localnet-up)
@@ -3391,6 +3394,82 @@ DESCRIPTION
   print an aggregator's history'
 ```
 
+## `sbv2 solana aggregator lease set AGGREGATORKEY`
+
+set a lease's withdraw authority
+
+```
+USAGE
+  $ sbv2 solana aggregator lease set [AGGREGATORKEY] [-h] [-v] [-s] [--mainnetBeta | --cluster
+    devnet|mainnet-beta|mainnet|localnet] [-u <value>] [--programId <value>] [--commitment
+    confirmed|finalized|processed] [-k <value>] [--ledgerPath <value> --ledger] [-a <value>] [--queuePubkey <value>]
+    [--newAuthority <value>]
+
+ARGUMENTS
+  AGGREGATORKEY  public key of the aggregator to extend a lease for
+
+FLAGS
+  -a, --authority=<value>  alternate keypair delegated as the authority for managing the lease account
+  -h, --help               Show CLI help.
+  -k, --keypair=<value>    keypair that will pay for onchain transactions. defaults to new account authority if no
+                           alternate authority provided
+  -s, --silent             suppress cli prompts
+  -u, --rpcUrl=<value>     alternate RPC url
+  -v, --verbose            log everything
+  --cluster=<option>       the solana cluster to connect to
+                           <options: devnet|mainnet-beta|mainnet|localnet>
+  --commitment=<option>    [default: confirmed] transaction commitment level to use
+                           <options: confirmed|finalized|processed>
+  --ledger                 enable ledger support
+  --ledgerPath=<value>     HID path to the ledger
+  --mainnetBeta            WARNING: use mainnet-beta solana cluster
+  --newAuthority=<value>   new lease withdraw authority. if not set, defaults to the aggregator authority
+  --programId=<value>      alternative Switchboard program ID to interact with
+  --queuePubkey=<value>    override the aggregators current queue. useful for withdrawing from a lease after moving to a
+                           new queue
+
+DESCRIPTION
+  set a lease's withdraw authority
+
+ALIASES
+  $ sbv2 solana aggregator lease set
+
+EXAMPLES
+  $ sbv2 solana:lease:set GvDMxPzN1sCj7L26YDK2HnMRXEQmQ2aemov8YBtPS7vR --keypair ../payer-keypair.json
+```
+
+## `sbv2 solana aggregator list AUTHORITYKEY`
+
+get a list of aggregators from a provided authority pubkey
+
+```
+USAGE
+  $ sbv2 solana aggregator list [AUTHORITYKEY] [-h] [-v] [-s] [--mainnetBeta | --cluster
+    devnet|mainnet-beta|mainnet|localnet] [-u <value>] [--programId <value>] [--commitment
+    confirmed|finalized|processed] [--json]
+
+ARGUMENTS
+  AUTHORITYKEY  public key of an aggregator's authority
+
+FLAGS
+  -h, --help             Show CLI help.
+  -s, --silent           suppress cli prompts
+  -u, --rpcUrl=<value>   alternate RPC url
+  -v, --verbose          log everything
+  --cluster=<option>     the solana cluster to connect to
+                         <options: devnet|mainnet-beta|mainnet|localnet>
+  --commitment=<option>  [default: confirmed] transaction commitment level to use
+                         <options: confirmed|finalized|processed>
+  --mainnetBeta          WARNING: use mainnet-beta solana cluster
+  --programId=<value>    alternative Switchboard program ID to interact with
+
+GLOBAL FLAGS
+  --json  Format output as json.
+
+DESCRIPTION
+  get a list of aggregators from a provided authority pubkey
+```
+
 ## `sbv2 solana aggregator lock AGGREGATORKEY`
 
 lock an aggregator's configuration and prevent further changes
@@ -3538,7 +3617,7 @@ print an aggregator and it's associated accounts
 USAGE
   $ sbv2 solana aggregator print [AGGREGATORKEY] [-h] [-v] [-s] [--mainnetBeta | --cluster
     devnet|mainnet-beta|mainnet|localnet] [-u <value>] [--programId <value>] [--commitment
-    confirmed|finalized|processed] [--json]
+    confirmed|finalized|processed] [--json] [--queuePubkey <value>]
 
 ARGUMENTS
   AGGREGATORKEY  public key of the aggregator account
@@ -3554,6 +3633,8 @@ FLAGS
                          <options: confirmed|finalized|processed>
   --mainnetBeta          WARNING: use mainnet-beta solana cluster
   --programId=<value>    alternative Switchboard program ID to interact with
+  --queuePubkey=<value>  override the aggregators current queue. useful for viewing permission lease accounts if an
+                         aggregator has moved queues
 
 GLOBAL FLAGS
   --json  Format output as json.
@@ -3661,7 +3742,7 @@ USAGE
   $ sbv2 solana aggregator transfer [AGGREGATORKEY] --newQueue <value> [-h] [-v] [-s] [--mainnetBeta | --cluster
     devnet|mainnet-beta|mainnet|localnet] [-u <value>] [--programId <value>] [--commitment
     confirmed|finalized|processed] [-k <value>] [--ledgerPath <value> --ledger] [-a <value>] [--newCrank <value>]
-    [--loadAmount <value>] [--enable] [--queueAuthority <value>]
+    [--loadAmount <value>] [--enable] [--queueAuthority <value>] [--force]
 
 ARGUMENTS
   AGGREGATORKEY  public key of the aggregator account to transfer
@@ -3679,6 +3760,7 @@ FLAGS
   --commitment=<option>     [default: confirmed] transaction commitment level to use
                             <options: confirmed|finalized|processed>
   --enable                  enable permissions on the new queue
+  --force                   skip permission checks
   --ledger                  enable ledger support
   --ledgerPath=<value>      HID path to the ledger
   --loadAmount=<value>      [default: 0.0] amount of funds to load into the new lease, in addition to the funds
@@ -3694,7 +3776,7 @@ DESCRIPTION
   transfer an aggregator to a new queue
 
 EXAMPLES
-  $ sbv2 solana aggregator transfer GvDMxPzN1sCj7L26YDK2HnMRXEQmQ2aemov8YBtPS7vR --mainnetBeta --loadAmount 0.1 \n	--newQueue 3HBb2DQqDfuMdzWxNk1Eo9RTMkFYmuEAd32RiLKn9pAn --newCrank GdNVLWzcE6h9SPuSbmu69YzxAj8enim9t6mjzuqTXgLd \n	--keypair ~/.config/solana/id.json
+  $ sbv2 solana aggregator transfer GvDMxPzN1sCj7L26YDK2HnMRXEQmQ2aemov8YBtPS7vR --mainnetBeta --loadAmount 0.1 --newQueue 3HBb2DQqDfuMdzWxNk1Eo9RTMkFYmuEAd32RiLKn9pAn --newCrank GdNVLWzcE6h9SPuSbmu69YzxAj8enim9t6mjzuqTXgLd --keypair ~/.config/solana/id.json
 ```
 
 ## `sbv2 solana aggregator update [AGGREGATORKEY]`
@@ -3775,7 +3857,7 @@ withdraw funds from an aggregator lease
 USAGE
   $ sbv2 solana aggregator withdraw [AGGREGATORKEY] --amount <value> [-h] [-v] [-s] [--mainnetBeta | --cluster
     devnet|mainnet-beta|mainnet|localnet] [-u <value>] [--programId <value>] [--commitment
-    confirmed|finalized|processed] [-k <value>] [--ledgerPath <value> --ledger] [-a <value>]
+    confirmed|finalized|processed] [-k <value>] [--ledgerPath <value> --ledger] [-a <value>] [--queuePubkey <value>]
 
 ARGUMENTS
   AGGREGATORKEY  public key of the aggregator to extend a lease for
@@ -3797,6 +3879,8 @@ FLAGS
   --ledgerPath=<value>     HID path to the ledger
   --mainnetBeta            WARNING: use mainnet-beta solana cluster
   --programId=<value>      alternative Switchboard program ID to interact with
+  --queuePubkey=<value>    override the aggregators current queue. useful for withdrawing from a lease after moving to a
+                           new queue
 
 DESCRIPTION
   withdraw funds from an aggregator lease
@@ -4298,6 +4382,50 @@ DESCRIPTION
   print a lease account
 ```
 
+## `sbv2 solana lease set AGGREGATORKEY`
+
+set a lease's withdraw authority
+
+```
+USAGE
+  $ sbv2 solana lease set [AGGREGATORKEY] [-h] [-v] [-s] [--mainnetBeta | --cluster
+    devnet|mainnet-beta|mainnet|localnet] [-u <value>] [--programId <value>] [--commitment
+    confirmed|finalized|processed] [-k <value>] [--ledgerPath <value> --ledger] [-a <value>] [--queuePubkey <value>]
+    [--newAuthority <value>]
+
+ARGUMENTS
+  AGGREGATORKEY  public key of the aggregator to extend a lease for
+
+FLAGS
+  -a, --authority=<value>  alternate keypair delegated as the authority for managing the lease account
+  -h, --help               Show CLI help.
+  -k, --keypair=<value>    keypair that will pay for onchain transactions. defaults to new account authority if no
+                           alternate authority provided
+  -s, --silent             suppress cli prompts
+  -u, --rpcUrl=<value>     alternate RPC url
+  -v, --verbose            log everything
+  --cluster=<option>       the solana cluster to connect to
+                           <options: devnet|mainnet-beta|mainnet|localnet>
+  --commitment=<option>    [default: confirmed] transaction commitment level to use
+                           <options: confirmed|finalized|processed>
+  --ledger                 enable ledger support
+  --ledgerPath=<value>     HID path to the ledger
+  --mainnetBeta            WARNING: use mainnet-beta solana cluster
+  --newAuthority=<value>   new lease withdraw authority. if not set, defaults to the aggregator authority
+  --programId=<value>      alternative Switchboard program ID to interact with
+  --queuePubkey=<value>    override the aggregators current queue. useful for withdrawing from a lease after moving to a
+                           new queue
+
+DESCRIPTION
+  set a lease's withdraw authority
+
+ALIASES
+  $ sbv2 solana aggregator lease set
+
+EXAMPLES
+  $ sbv2 solana:lease:set GvDMxPzN1sCj7L26YDK2HnMRXEQmQ2aemov8YBtPS7vR --keypair ../payer-keypair.json
+```
+
 ## `sbv2 solana lease withdraw AGGREGATORKEY`
 
 withdraw funds from an aggregator lease
@@ -4306,7 +4434,7 @@ withdraw funds from an aggregator lease
 USAGE
   $ sbv2 solana lease withdraw [AGGREGATORKEY] --amount <value> [-h] [-v] [-s] [--mainnetBeta | --cluster
     devnet|mainnet-beta|mainnet|localnet] [-u <value>] [--programId <value>] [--commitment
-    confirmed|finalized|processed] [-k <value>] [--ledgerPath <value> --ledger] [-a <value>]
+    confirmed|finalized|processed] [-k <value>] [--ledgerPath <value> --ledger] [-a <value>] [--queuePubkey <value>]
 
 ARGUMENTS
   AGGREGATORKEY  public key of the aggregator to extend a lease for
@@ -4328,6 +4456,8 @@ FLAGS
   --ledgerPath=<value>     HID path to the ledger
   --mainnetBeta            WARNING: use mainnet-beta solana cluster
   --programId=<value>      alternative Switchboard program ID to interact with
+  --queuePubkey=<value>    override the aggregators current queue. useful for withdrawing from a lease after moving to a
+                           new queue
 
 DESCRIPTION
   withdraw funds from an aggregator lease
