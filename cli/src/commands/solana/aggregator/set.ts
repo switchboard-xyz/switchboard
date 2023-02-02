@@ -1,5 +1,9 @@
 import { Flags } from "@oclif/core";
-import { AggregatorAccount, QueueAccount } from "@switchboard-xyz/solana.js";
+import {
+  AggregatorAccount,
+  QueueAccount,
+  types,
+} from "@switchboard-xyz/solana.js";
 import { SolanaWithSignerBaseCommand as BaseCommand } from "../../../solana";
 
 export default class AggregatorSet extends BaseCommand {
@@ -56,6 +60,10 @@ export default class AggregatorSet extends BaseCommand {
     maxPriorityFeeMultiplier: Flags.integer({
       description: "",
     }),
+    // resolution config
+    enableSlidingWindow: Flags.boolean({
+      description: "set the aggregator resolution mode",
+    }),
   };
 
   static args = [
@@ -84,7 +92,7 @@ export default class AggregatorSet extends BaseCommand {
       aggregatorData.queuePubkey
     );
 
-    const txn = await aggregatorAccount.setConfigInstruction(this.payer, {
+    let txn = await aggregatorAccount.setConfigInstruction(this.payer, {
       authority,
       name: flags.name,
       metadata: flags.metadata,
@@ -108,6 +116,22 @@ export default class AggregatorSet extends BaseCommand {
       priorityFeeBumpPeriod: flags.priorityFeeBumpPeriod,
       maxPriorityFeeMultiplier: flags.maxPriorityFeeMultiplier,
     });
+
+    if (
+      flags.enableSlidingWindow &&
+      aggregatorData.resolutionMode.kind !==
+        types.AggregatorResolutionMode.ModeSlidingResolution.kind
+    ) {
+      const setResolutionMode = aggregatorAccount.setSlidingWindowInstruction(
+        this.payer,
+        {
+          authority,
+          mode: new types.AggregatorResolutionMode.ModeSlidingResolution(),
+        }
+      );
+      txn = txn.combine(setResolutionMode);
+    }
+
     const signature = await this.signAndSend(txn);
 
     if (this.silent) {

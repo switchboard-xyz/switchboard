@@ -106,7 +106,6 @@ node bin/dev print GvDMxPzN1sCj7L26YDK2HnMRXEQmQ2aemov8YBtPS7vR
 * [`sbv2 solana aggregator create QUEUEKEY`](#sbv2-solana-aggregator-create-queuekey)
 * [`sbv2 solana aggregator create json [DEFINITIONFILE]`](#sbv2-solana-aggregator-create-json-definitionfile)
 * [`sbv2 solana aggregator deposit AGGREGATORKEY`](#sbv2-solana-aggregator-deposit-aggregatorkey)
-* [`sbv2 solana aggregator events AGGREGATORKEY`](#sbv2-solana-aggregator-events-aggregatorkey)
 * [`sbv2 solana aggregator extend AGGREGATORKEY`](#sbv2-solana-aggregator-extend-aggregatorkey)
 * [`sbv2 solana aggregator fund AGGREGATORKEY`](#sbv2-solana-aggregator-fund-aggregatorkey)
 * [`sbv2 solana aggregator history AGGREGATORKEY`](#sbv2-solana-aggregator-history-aggregatorkey)
@@ -128,8 +127,10 @@ node bin/dev print GvDMxPzN1sCj7L26YDK2HnMRXEQmQ2aemov8YBtPS7vR
 * [`sbv2 solana buffer open-round [BUFFERRELAYERKEY]`](#sbv2-solana-buffer-open-round-bufferrelayerkey)
 * [`sbv2 solana buffer update [BUFFERRELAYERKEY]`](#sbv2-solana-buffer-update-bufferrelayerkey)
 * [`sbv2 solana crank create QUEUEKEY`](#sbv2-solana-crank-create-queuekey)
+* [`sbv2 solana crank events AGGREGATORKEY`](#sbv2-solana-crank-events-aggregatorkey)
 * [`sbv2 solana crank pop CRANKKEY`](#sbv2-solana-crank-pop-crankkey)
 * [`sbv2 solana crank print CRANKKEY`](#sbv2-solana-crank-print-crankkey)
+* [`sbv2 solana crank push AGGREGATORKEY`](#sbv2-solana-crank-push-aggregatorkey)
 * [`sbv2 solana job create`](#sbv2-solana-job-create)
 * [`sbv2 solana job print JOBKEY`](#sbv2-solana-job-print-jobkey)
 * [`sbv2 solana json create aggregator [DEFINITIONFILE]`](#sbv2-solana-json-create-aggregator-definitionfile)
@@ -3246,37 +3247,6 @@ EXAMPLES
   $ sbv2 solana:aggregator:fund GvDMxPzN1sCj7L26YDK2HnMRXEQmQ2aemov8YBtPS7vR --amount 1.1 --keypair ../payer-keypair.json
 ```
 
-## `sbv2 solana aggregator events AGGREGATORKEY`
-
-watch an aggregator account and stream the on-chain events
-
-```
-USAGE
-  $ sbv2 solana aggregator events [AGGREGATORKEY] [-h] [-v] [-s] [--mainnetBeta | --cluster
-    devnet|mainnet-beta|mainnet|localnet] [-u <value>] [--programId <value>] [--commitment
-    confirmed|finalized|processed] [-t <value>] [-f <value>]
-
-ARGUMENTS
-  AGGREGATORKEY  public key of the aggregator account
-
-FLAGS
-  -f, --outfile=<value>  save results to a file
-  -h, --help             Show CLI help.
-  -s, --silent           suppress cli prompts
-  -t, --timeout=<value>  time to watch feed for updates
-  -u, --rpcUrl=<value>   alternate RPC url
-  -v, --verbose          log everything
-  --cluster=<option>     the solana cluster to connect to
-                         <options: devnet|mainnet-beta|mainnet|localnet>
-  --commitment=<option>  [default: confirmed] transaction commitment level to use
-                         <options: confirmed|finalized|processed>
-  --mainnetBeta          WARNING: use mainnet-beta solana cluster
-  --programId=<value>    alternative Switchboard program ID to interact with
-
-DESCRIPTION
-  watch an aggregator account and stream the on-chain events
-```
-
 ## `sbv2 solana aggregator extend AGGREGATORKEY`
 
 fund and re-enable an aggregator lease
@@ -3689,7 +3659,7 @@ USAGE
     confirmed|finalized|processed] [-k <value>] [--ledgerPath <value> --ledger] [--json] [-a <value>] [--name <value>]
     [--metadata <value>] [--batchSize <value>] [--minJobs <value>] [--minOracles <value>] [--updateInterval <value>]
     [--varianceThreshold <value>] [--forceReportPeriod <value>] [--basePriorityFee <value>] [--priorityFeeBump <value>]
-    [--priorityFeeBumpPeriod <value>] [--maxPriorityFeeMultiplier <value>]
+    [--priorityFeeBumpPeriod <value>] [--maxPriorityFeeMultiplier <value>] [--enableSlidingWindow]
 
 ARGUMENTS
   AGGREGATORKEY  public key of the aggregator account
@@ -3709,6 +3679,7 @@ FLAGS
                                       <options: devnet|mainnet-beta|mainnet|localnet>
   --commitment=<option>               [default: confirmed] transaction commitment level to use
                                       <options: confirmed|finalized|processed>
+  --enableSlidingWindow               set the aggregator resolution mode
   --forceReportPeriod=<value>         Number of seconds for which, even if the variance threshold is not passed, accept
                                       new responses from oracles.
   --ledger                            enable ledger support
@@ -4091,6 +4062,37 @@ DESCRIPTION
   create a new crank account
 ```
 
+## `sbv2 solana crank events AGGREGATORKEY`
+
+watch an aggregator account and stream the on-chain events
+
+```
+USAGE
+  $ sbv2 solana crank events [AGGREGATORKEY] [-h] [-v] [-s] [--mainnetBeta | --cluster
+    devnet|mainnet-beta|mainnet|localnet] [-u <value>] [--programId <value>] [--commitment
+    confirmed|finalized|processed] [-t <value>] [-f <value>]
+
+ARGUMENTS
+  AGGREGATORKEY  public key of the aggregator account
+
+FLAGS
+  -f, --outfile=<value>  save results to a file
+  -h, --help             Show CLI help.
+  -s, --silent           suppress cli prompts
+  -t, --timeout=<value>  time to watch feed for updates
+  -u, --rpcUrl=<value>   alternate RPC url
+  -v, --verbose          log everything
+  --cluster=<option>     the solana cluster to connect to
+                         <options: devnet|mainnet-beta|mainnet|localnet>
+  --commitment=<option>  [default: confirmed] transaction commitment level to use
+                         <options: confirmed|finalized|processed>
+  --mainnetBeta          WARNING: use mainnet-beta solana cluster
+  --programId=<value>    alternative Switchboard program ID to interact with
+
+DESCRIPTION
+  watch an aggregator account and stream the on-chain events
+```
+
 ## `sbv2 solana crank pop CRANKKEY`
 
 pop the crank
@@ -4154,6 +4156,40 @@ GLOBAL FLAGS
 
 DESCRIPTION
   print a crank
+```
+
+## `sbv2 solana crank push AGGREGATORKEY`
+
+push the crank
+
+```
+USAGE
+  $ sbv2 solana crank push [AGGREGATORKEY] [-h] [-v] [-s] [--mainnetBeta | --cluster
+    devnet|mainnet-beta|mainnet|localnet] [-u <value>] [--programId <value>] [--commitment
+    confirmed|finalized|processed] [-k <value>] [--ledgerPath <value> --ledger] [--crankKey <value>]
+
+ARGUMENTS
+  AGGREGATORKEY  public key of the aggregator to push onto a crank
+
+FLAGS
+  -h, --help             Show CLI help.
+  -k, --keypair=<value>  keypair that will pay for onchain transactions. defaults to new account authority if no
+                         alternate authority provided
+  -s, --silent           suppress cli prompts
+  -u, --rpcUrl=<value>   alternate RPC url
+  -v, --verbose          log everything
+  --cluster=<option>     the solana cluster to connect to
+                         <options: devnet|mainnet-beta|mainnet|localnet>
+  --commitment=<option>  [default: confirmed] transaction commitment level to use
+                         <options: confirmed|finalized|processed>
+  --crankKey=<value>     push onto a new crank, if provided
+  --ledger               enable ledger support
+  --ledgerPath=<value>   HID path to the ledger
+  --mainnetBeta          WARNING: use mainnet-beta solana cluster
+  --programId=<value>    alternative Switchboard program ID to interact with
+
+DESCRIPTION
+  push the crank
 ```
 
 ## `sbv2 solana job create`
