@@ -1,15 +1,9 @@
 import { Flags } from "@oclif/core";
-import {
-  AggregatorAccount,
-  SolanaClock,
-  types,
-} from "@switchboard-xyz/solana.js";
+import { OracleAccount, SolanaClock, types } from "@switchboard-xyz/solana.js";
 import { SolanaWithoutSignerBaseCommand as BaseCommand } from "../../../solana/index";
 import { sleep } from "../../../utils/index";
 import chalk from "chalk";
-import { SYSVAR_CLOCK_PUBKEY } from "@solana/web3.js";
-import { BNtoDateTimeString } from "@switchboard-xyz/common";
-import { BN } from "bn.js";
+import { PublicKey, SYSVAR_CLOCK_PUBKEY } from "@solana/web3.js";
 
 const switchboardOracles: Map<string, string> = new Map([
   // Mainnet Permissioned
@@ -50,9 +44,8 @@ const switchboardOracles: Map<string, string> = new Map([
   ["GEFENFya32FoM6z8K2zDQMPfpEuVTHDTJU1UNu6cACqo", "idx-6"],
 ]);
 
-export default class AggregatorEvents extends BaseCommand {
-  static description =
-    "watch an aggregator account and stream the on-chain events";
+export default class OracleEvents extends BaseCommand {
+  static description = "watch an oracle account and stream the on-chain events";
 
   static hidden = true;
 
@@ -70,7 +63,7 @@ export default class AggregatorEvents extends BaseCommand {
 
   static args = [
     {
-      name: "aggregatorKey",
+      name: "oracleKey",
       description: "public key of the aggregator account",
       required: true,
     },
@@ -90,12 +83,15 @@ export default class AggregatorEvents extends BaseCommand {
   }
 
   async run() {
-    const { args, flags } = await this.parse(AggregatorEvents);
+    const { args, flags } = await this.parse(OracleEvents);
 
-    const [aggregatorAccount, aggregatorData] = await AggregatorAccount.load(
+    const [oracleAccount, oracleData] = await OracleAccount.load(
       this.program,
-      args.aggregatorKey
+      args.oracleKey
     );
+
+    const events: Array<[string, number]> = [];
+    const finishedEvents: Array<[string, number, number]> = [];
 
     let solanaTime: number = Math.round(Date.now() / 1000);
 
@@ -109,12 +105,12 @@ export default class AggregatorEvents extends BaseCommand {
       )
     );
 
-    let aggregator: types.AggregatorAccountData = aggregatorData;
+    let oracle: types.OracleAccountData = oracleData;
     this.subscriptions.push(
       this.program.connection.onAccountChange(
-        aggregatorAccount.publicKey,
+        oracleAccount.publicKey,
         (accountInfo) => {
-          aggregator = types.AggregatorAccountData.decode(accountInfo.data);
+          oracle = types.OracleAccountData.decode(accountInfo.data);
         }
       )
     );
@@ -123,30 +119,11 @@ export default class AggregatorEvents extends BaseCommand {
       this.program.addEventListener(
         "AggregatorOpenRoundEvent",
         (event, slot) => {
-          if (event.feedPubkey.equals(aggregatorAccount.publicKey)) {
-            this.logger.info(
-              `${chalk.magenta("AggregatorOpenRoundEvent")} - ${chalk.blue(
-                BNtoDateTimeString(new BN(solanaTime))
-              )}\n\t${"slot:".padEnd(12, " ")}${chalk.yellow(
-                slot
-              )}\n\t${"roundOpen:".padEnd(12, " ")}${chalk.yellow(
-                aggregator.currentRound.roundOpenTimestamp.toNumber()
-              )}\n\t${event.oraclePubkeys
-                .map(
-                  (oraclePubkey, n) =>
-                    `${("oracle #" + (n + 1).toString() + ":").padEnd(
-                      12,
-                      " "
-                    )}${chalk.yellow(oraclePubkey.toBase58())}${
-                      switchboardOracles.has(oraclePubkey.toBase58())
-                        ? " (" +
-                          switchboardOracles.get(oraclePubkey.toBase58()) +
-                          ")"
-                        : ""
-                    }`
-                )
-                .join("\n\t")}`
-            );
+          const idx = event.oraclePubkeys.findIndex((value) =>
+            value.equals(oracleAccount.publicKey)
+          );
+          if (idx !== -1) {
+            events.push([event.feedPubkey.toBase58(), slot]);
           }
         }
       )
@@ -155,50 +132,27 @@ export default class AggregatorEvents extends BaseCommand {
       this.program.addEventListener(
         "AggregatorSaveResultEvent",
         (event, slot) => {
-          if (event.feedPubkey.equals(aggregatorAccount.publicKey)) {
-            this.logger.info(
-              `${chalk.magenta("AggregatorSaveResultEvent")} - ${chalk.blue(
-                BNtoDateTimeString(new BN(solanaTime))
-              )}\n\t${"slot:".padEnd(12, " ")}${chalk.yellow(
-                slot
-              )}\n\t${"roundOpen:".padEnd(12, " ")}${chalk.yellow(
-                aggregator.currentRound.roundOpenTimestamp.toNumber()
-              )}\n\t${"oracle:".padEnd(12, " ")}${chalk.yellow(
-                event.oraclePubkey.toBase58()
-              )}${
-                switchboardOracles.has(event.oraclePubkey.toBase58())
-                  ? " (" +
-                    switchboardOracles.get(event.oraclePubkey.toBase58()) +
-                    ")"
-                  : ""
-              }\n\t${"value:".padEnd(12, " ")}${chalk.yellow(
-                types.SwitchboardDecimal.from(event.value).toBig().toString()
-              )}`
+          if (event.oraclePubkey.equals(oracleAccount.publicKey)) {
+            const idx = events.findIndex(
+              (myEvent) => event.feedPubkey.toBase58() === myEvent[0]
             );
+            if (idx === -1) {
+              return;
+            }
+            const finishedEvent = events.splice(idx, 1)[0];
+            finishedEvents.push([
+              finishedEvent[0],
+              finishedEvent[1],
+              event.slot.toNumber(),
+            ]);
           }
         }
       )
     );
-    this.subscriptions.push(
-      this.program.addEventListener(
-        "AggregatorValueUpdateEvent",
-        (event, slot) => {
-          if (event.feedPubkey.equals(aggregatorAccount.publicKey)) {
-            this.logger.info(
-              `${chalk.magenta("AggregatorValueUpdateEvent")} - ${chalk.blue(
-                BNtoDateTimeString(new BN(solanaTime))
-              )}\n\t${"slot:".padEnd(12, " ")}${chalk.yellow(
-                slot
-              )}\n\t${"roundOpen:".padEnd(12, " ")}${chalk.yellow(
-                aggregator.latestConfirmedRound.roundOpenTimestamp.toNumber()
-              )}\n\t${"value:".padEnd(12, " ")}${chalk.yellow(
-                types.SwitchboardDecimal.from(event.value).toBig().toString()
-              )}`
-            );
-          }
-        }
-      )
-    );
+
+    setInterval(() => {
+      this.printEvents(oracleAccount.publicKey, events, finishedEvents);
+    }, 1000);
 
     if (flags.timeout && flags.timeout > 0) {
       // Wait for timeout.
@@ -215,5 +169,60 @@ export default class AggregatorEvents extends BaseCommand {
       await this.closeSubscriptions();
     } catch (error) {}
     super.catch(error, "failed to watch aggregator events");
+  }
+
+  printEvents(
+    oraclePubkey: PublicKey,
+    events: Array<[string, number]>,
+    finishedEvents: Array<[string, number, number]>
+  ): void {
+    console.clear();
+    console.log(chalk.blue(`Watching oracle ${oraclePubkey}`));
+
+    // open events
+    console.log(chalk.bgYellow(chalk.underline(`LIVE Events`.padEnd(64, " "))));
+    console.log(
+      chalk.underline(
+        chalk.blue(
+          `${"Open".padEnd(10, " ")}${"Closed".padEnd(10, " ")}${"Feed".padEnd(
+            44,
+            " "
+          )}`
+        )
+      )
+    );
+    events.forEach((myEvent) => {
+      console.log(
+        `${myEvent[1].toString().padEnd(10, " ")}${"".padEnd(
+          10,
+          " "
+        )}${myEvent[0].toString().padEnd(44, " ")}`
+      );
+    });
+
+    // closed events
+    console.log(
+      chalk.bgYellow(chalk.underline(`Finished Events`.padEnd(64, " ")))
+    );
+    const closedEvents = finishedEvents
+      .sort((a, b) => b[2] - a[2])
+      .slice(0, 10);
+    console.log(
+      chalk.underline(
+        chalk.blue(
+          `${"Open".padEnd(10, " ")}${"Closed".padEnd(10, " ")}${"Feed".padEnd(
+            44,
+            " "
+          )}`
+        )
+      )
+    );
+    closedEvents.forEach((myEvent) => {
+      console.log(
+        `${myEvent[1].toString().padEnd(10, " ")}${myEvent[2]
+          .toString()
+          .padEnd(10, " ")}${myEvent[0].toString().padEnd(44, " ")}`
+      );
+    });
   }
 }

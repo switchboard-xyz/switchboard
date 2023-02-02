@@ -4,10 +4,12 @@ import {
   SolanaClock,
   types,
 } from "@switchboard-xyz/solana.js";
+import fs from "fs";
+import path from "path";
 import { SolanaWithoutSignerBaseCommand as BaseCommand } from "../../../solana/index";
-import { sleep } from "../../../utils/index";
+import { CHECK_ICON, sleep } from "../../../utils/index";
 import chalk from "chalk";
-import { SYSVAR_CLOCK_PUBKEY } from "@solana/web3.js";
+import { PublicKey, SYSVAR_CLOCK_PUBKEY } from "@solana/web3.js";
 import { BNtoDateTimeString } from "@switchboard-xyz/common";
 import { BN } from "bn.js";
 
@@ -53,8 +55,6 @@ const switchboardOracles: Map<string, string> = new Map([
 export default class AggregatorEvents extends BaseCommand {
   static description =
     "watch an aggregator account and stream the on-chain events";
-
-  static hidden = true;
 
   static flags = {
     ...BaseCommand.flags,

@@ -89,7 +89,9 @@ export default class AggregatorLeaseWithdraw extends BaseCommand {
       withdrawAuthority: authority,
       withdrawWallet: tokenWallet,
     });
-    const signature = await this.signAndSend(userInitTxn.combine(txn));
+    const signature = await this.signAndSend(
+      userInitTxn ? userInitTxn.combine(txn) : txn
+    );
 
     if (!this.silent) {
       const [leaseBalance] = await Promise.all([
