@@ -89,14 +89,15 @@ echo -e "${Blue}Size:${Color_Off} $queue_size"
 echo -e "${Blue}Update Interval:${Color_Off} $update_interval"
 echo
 
-envFilename="aptos.${queue_name// /_}.env"
+envFilename="solana.${queue_name// /_}.env"
 if test -f "$envFilename"; then
     echo "$envFilename exists."
     exit 1
 fi
 
 ## Create Queue
-sbv2 solana queue create \
+MY_QUEUE=$(sbv2 solana queue create \
+    --keypair "$payer" \
     --size "$queue_size" \
     --name "$queue_name" \
     --reward "$reward" \
@@ -109,47 +110,35 @@ sbv2 solana queue create \
     --feedProbationPeriod 100 \
     --consecutiveFeedFailureLimit 500 \
     --consecutiveOracleFailureLimit 500 \
-    --json \
-    --verbose \
-    --ledger
-
-
-sbv2 solana queue create \
-    --size 100 \
-    --name "TestQueue" \
-    --reward 0 \
-    --minStake 0 \
-    --oracleTimeout 300 \
-    --slashingEnabled \
-    --permissionedFeeds \
-    --unpermissionedVrf \
-    --enableBufferRelayers \
-    --feedProbationPeriod 100 \
-    --consecutiveFeedFailureLimit 500 \
-    --consecutiveOracleFailureLimit 500 \
-    --verbose \
-    --ledger
-
-sbv2 solana queue set Epw38ZqcD7oYBVfCPTLzW33evyryTPbJpL6yu1vL1h37 --mainnetBeta \
-    --name "TestQueue2" \
-    --reward 0.1 \
-    --minStake 2.5 \
-    --oracleTimeout 90 \
-    --consecutiveFeedFailureLimit 1250 \
-    --consecutiveOracleFailureLimit 1250 \
-    --verbose \
-    --ledger \
-    --json > Epw38ZqcD7oYBVfCPTLzW33evyryTPbJpL6yu1vL1h37.json
-# Read json file and get publicKey field
-
-## Create Oracle
+    --json)
+MY_QUEUE_PUBKEY=$(echo "$MY_QUEUE" | jq -r '.publicKey')
+echo "Queue: $MY_QUEUE_PUBKEY"
+sbv2 solana queue print "$MY_QUEUE_PUBKEY" 
 
 ## Create Crank
+MY_CRANK=$(sbv2 solana crank create "$MY_QUEUE_PUBKEY" \
+    --keypair "$payer" \
+    --size 100 \
+    --name "My_Test_Crank" \
+    --json)
+MY_CRANK_PUBKEY=$(echo "$MY_CRANK" | jq -r '.publicKey')
+echo "Crank: $MY_CRANK_PUBKEY"
+sbv2 solana crank print "$MY_CRANK_PUBKEY" 
+
+## Create Oracle
+MY_ORACLE=$(sbv2 solana oracle create "$MY_QUEUE_PUBKEY" \
+    --keypair "$payer" \
+    --name "My_Test_Oracle" \
+    --enable \
+    --stakeAmount 1.1 \
+    --json)
+MY_ORACLE_PUBKEY=$(echo "$MY_ORACLE" | jq -r '.publicKey')
+echo "Oracle: $MY_ORACLE_PUBKEY"
+sbv2 solana oracle print "$MY_ORACLE_PUBKEY" 
 
 ## Create Aggregator
-sbv2 solana aggregator create F8ce7MsckeZAbAGmxjJNetxYXQa9mKr9nnrC3qKubyYy \
+MY_AGGREGATOR=$(sbv2 solana aggregator create "$MY_QUEUE_PUBKEY"  \
     --keypair "$payer" \
-    --crankKey GN9jjCy2THzZxhYqZETmPM3my8vg4R5JyNkgULddUMa5 \
     --name "My_Test_Feed" \
     --updateInterval 10 \
     --minOracles 1 \
@@ -158,18 +147,9 @@ sbv2 solana aggregator create F8ce7MsckeZAbAGmxjJNetxYXQa9mKr9nnrC3qKubyYy \
     --job ./directory/jobs/btc/binanceCom.jsonc \
     --job ./directory/jobs/btc/kraken.jsonc \
     --job ./directory/jobs/btc/bitfinex.jsonc \
-    --json \
-    --verbose > My_Test_Feed.json
-
-sbv2 solana aggregator create Epw38ZqcD7oYBVfCPTLzW33evyryTPbJpL6yu1vL1h37 --mainnetBeta \
-    --name "My_Test_Feed" \
-    --updateInterval 10 \
-    --minOracles 1 \
-    --batchSize 1 \
-    --leaseAmount 1.337 \
-    --job ./directory/jobs/btc/binanceCom.jsonc \
-    --job ./directory/jobs/btc/kraken.jsonc \
-    --job ./directory/jobs/btc/bitfinex.jsonc \
-    --json \
-    --ledger \
-    --verbose > My_Test_Feed.json
+    --crankKey "$MY_CRANK_PUBKEY" \
+    --enable \
+    --json )
+MY_AGGREGATOR_PUBKEY=$(echo "$MY_AGGREGATOR" | jq -r '.publicKey')
+echo "Aggregator: $MY_AGGREGATOR_PUBKEY"
+sbv2 solana aggregator print "$MY_AGGREGATOR_PUBKEY" 
