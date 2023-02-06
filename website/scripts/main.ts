@@ -80,7 +80,7 @@ const projectRoot = path.join(__dirname, "..", "..");
   console.log(chalk.green(`Generating typedocs for @switchboard-xyz/evm.js`));
   generateGenericApiTypedocs(
     projectRoot,
-    ["sdks", "evm", "javascript", "evm.js"],
+    ["sdks", "evm", "javascript", "eth.js"],
     ["@switchboard-xyz", "evm.js"],
     "npm"
   );
