@@ -85,15 +85,15 @@ const projectRoot = path.join(__dirname, "..", "..");
     "npm"
   );
 
-  console.log(
-    chalk.green(`Generating typedocs for @switchboard-xyz/starknet.js`)
-  );
-  generateGenericApiTypedocs(
-    projectRoot,
-    ["sdks", "starknet", "javascript", "starknet.js"],
-    ["@switchboard-xyz", "starknet.js"],
-    "npm"
-  );
+  // console.log(
+  //   chalk.green(`Generating typedocs for @switchboard-xyz/starknet.js`)
+  // );
+  // generateGenericApiTypedocs(
+  //   projectRoot,
+  //   ["sdks", "starknet", "javascript", "starknet.js"],
+  //   ["@switchboard-xyz", "starknet.js"],
+  //   "npm"
+  // );
 
   console.log(chalk.green(`Generating typedocs for @switchboard-xyz/sui.js`));
   generateGenericApiTypedocs(

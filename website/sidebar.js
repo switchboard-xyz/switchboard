@@ -236,7 +236,7 @@ module.exports = {
   starknet: [
     {
       type: "doc",
-      label: "Starkware",
+      label: "StarkNet",
       className: "sidebar__starknet",
       id: "starknet/overview",
     },
@@ -314,7 +314,19 @@ module.exports = {
       href: "/aptos/dev/javascript",
     },
     { type: "html", value: '<hr class="sidebar__separator">' },
-
+    {
+      type: "link",
+      href: "/coredao",
+      label: "CoreDAO Resources",
+      className: "sidebar__coredao sidebar__custom_doc_label",
+    },
+    {
+      type: "link",
+      label: "@switchboard-xyz/evm.js",
+      className: "sidebar__typescript",
+      href: "/coredao",
+    },
+    { type: "html", value: '<hr class="sidebar__separator">' },
     {
       type: "link",
       href: "/near/dev",
@@ -332,6 +344,32 @@ module.exports = {
       label: "@switchboard-xyz/near.js",
       className: "sidebar__typescript",
       href: "/near/dev/javascript",
+    },
+    { type: "html", value: '<hr class="sidebar__separator">' },
+    {
+      type: "link",
+      href: "/starknet",
+      label: "Starknet Resources",
+      className: "sidebar__starknet sidebar__custom_doc_label",
+    },
+    {
+      type: "link",
+      label: "@switchboard-xyz/starknet.js",
+      className: "sidebar__typescript",
+      href: "/starknet",
+    },
+    { type: "html", value: '<hr class="sidebar__separator">' },
+    {
+      type: "link",
+      href: "/sui",
+      label: "Sui Resources",
+      className: "sidebar__sui sidebar__custom_doc_label",
+    },
+    {
+      type: "link",
+      label: "@switchboard-xyz/sui.js",
+      className: "sidebar__typescript",
+      href: "/sui",
     },
     // { type: "html", value: '<hr class="sidebar__separator">' },
     // {

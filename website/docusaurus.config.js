@@ -237,6 +237,20 @@ const config = {
               {
                 type: "html",
                 className: "dropdown-heading",
+                value: "<b>CoreDAO</b>",
+              },
+              {
+                label: "@switchboard-xyz/evm.js",
+                to: "https://docs.switchboard.xyz/api/@switchboard-xyz/evm.js/",
+                className: "header-typescript-link",
+              },
+              {
+                type: "html",
+                value: '<hr class="dropdown-separator">',
+              },
+              {
+                type: "html",
+                className: "dropdown-heading",
                 value: "<b>Near</b>",
               },
               {
@@ -247,6 +261,34 @@ const config = {
               {
                 label: "@switchboard-xyz/near.js",
                 to: "/near/dev/javascript",
+                className: "header-typescript-link",
+              },
+              {
+                type: "html",
+                value: '<hr class="dropdown-separator">',
+              },
+              {
+                type: "html",
+                className: "dropdown-heading",
+                value: "<b>Starknet</b>",
+              },
+              {
+                label: "@switchboard-xyz/starknet.js",
+                to: "/starknet",
+                className: "header-typescript-link",
+              },
+              {
+                type: "html",
+                value: '<hr class="dropdown-separator">',
+              },
+              {
+                type: "html",
+                className: "dropdown-heading",
+                value: "<b>Sui</b>",
+              },
+              {
+                label: "@switchboard-xyz/sui.js",
+                to: "https://docs.switchboard.xyz/api/@switchboard-xyz/sui.js/",
                 className: "header-typescript-link",
               },
             ],
