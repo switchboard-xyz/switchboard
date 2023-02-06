@@ -5,6 +5,7 @@ import React from "react";
 
 interface MarkdownImageProps {
   img: string;
+  darkImg?: string;
   lightBg?: string;
   darkBg?: string;
   sx?: any;
@@ -12,6 +13,10 @@ interface MarkdownImageProps {
 
 const MarkdownImage = (props: MarkdownImageProps) => {
   const { colorMode } = useColorMode();
+
+  let img = useBaseUrl(
+    colorMode === "dark" && props.darkImg ? props.darkImg : props.img
+  );
 
   let backgroundColor = "inherit";
   if (props.lightBg && colorMode !== "dark") {
@@ -32,7 +37,7 @@ const MarkdownImage = (props: MarkdownImageProps) => {
     };
   }
 
-  return <Box component="img" sx={sx} src={useBaseUrl(props.img)} />;
+  return <Box component="img" sx={sx} src={img} />;
 };
 
 export default MarkdownImage;

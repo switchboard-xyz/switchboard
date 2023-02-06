@@ -148,6 +148,7 @@ export default class SolanaTransactions extends BaseCommand {
         timestamp: BNtoDateTimeString(new BN(parsedTxn.blockTime)),
         ixnName: ixnName,
         success,
+        signatures: parsedTxn.transaction.signatures,
         ...parsedTxn,
         transaction: undefined,
         // transaction: {
