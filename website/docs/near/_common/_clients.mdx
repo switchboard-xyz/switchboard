@@ -1,0 +1,20 @@
+import RoundedCardGroup from "/src/components/RoundedCard/RoundedCardGroup";
+import useBaseUrl from "@docusaurus/useBaseUrl";
+
+<RoundedCardGroup
+  cols={2}
+  items={[
+    {
+      to: "/near/dev/rust/",
+      title: "Rust",
+      description: "View the sbv2-near crate",
+      image: <img src={useBaseUrl("/img/icons/rust/crab.svg")} />,
+    },
+    {
+      to: "/near/dev/javascript/",
+      title: "Javascript",
+      description: "View the @switchboard-xyz/near.js npm package",
+      image: <img src={useBaseUrl("/img/icons/javascript/light.svg")} />,
+    },
+  ]}
+/>

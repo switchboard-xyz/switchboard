@@ -221,7 +221,7 @@ const config = {
                 value: "<b>Aptos</b>",
               },
               {
-                label: "  switchboard",
+                label: "  sbv2-aptos",
                 to: "/aptos/dev/move",
                 className: "header-rust-link",
               },
@@ -241,7 +241,7 @@ const config = {
               },
               {
                 label: "@switchboard-xyz/evm.js",
-                to: "https://docs.switchboard.xyz/api/@switchboard-xyz/evm.js/",
+                to: "/coredao/dev/javascript",
                 className: "header-typescript-link",
               },
               {
@@ -274,7 +274,7 @@ const config = {
               },
               {
                 label: "@switchboard-xyz/starknet.js",
-                to: "/starknet",
+                to: "/starknet/dev/javascript",
                 className: "header-typescript-link",
               },
               {
@@ -288,7 +288,7 @@ const config = {
               },
               {
                 label: "@switchboard-xyz/sui.js",
-                to: "https://docs.switchboard.xyz/api/@switchboard-xyz/sui.js/",
+                to: "/sui/dev/javascript",
                 className: "header-typescript-link",
               },
             ],

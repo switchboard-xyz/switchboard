@@ -31,12 +31,14 @@ export default function ChainComponent2({ items }: ChainComponentProps) {
       >
         <Grid item xs={12} sm={12} md={2}>
           <Typography
-            noWrap
             variant="body1"
             align="center"
             sx={{
               fontSize: "1.5rem",
-              color: "var(--ifm-navbar-link-color)",
+              color:
+                colorMode === "dark"
+                  ? "var(--ifm-navbar-link-color)"
+                  : "var(--ifm-color-primary-dark)",
               fontWeight: "var(--ifm-font-weight-bold)",
             }}
           >
@@ -56,19 +58,6 @@ export default function ChainComponent2({ items }: ChainComponentProps) {
                   style={{ textDecoration: "none" }}
                   sx={{ p: 2 }}
                 >
-                  {/* {item.comingSoon ? (
-                    <img
-                      style={{
-                        position: "absolute",
-                        top: 0,
-                        left: 0,
-                        zIndex: 9999999,
-                      }}
-                      src={useBaseUrl("/img/icons/coming-soon/coming-soon.svg")}
-                    />
-                  ) : (
-                    <></>
-                  )} */}
                   <Avatar
                     src={
                       colorMode === "dark" && item.imageDark
@@ -82,7 +71,10 @@ export default function ChainComponent2({ items }: ChainComponentProps) {
                     align="center"
                     sx={{
                       fontSize: "1.25rem",
-                      color: "var(--ifm-navbar-link-color)",
+                      color:
+                        colorMode === "dark"
+                          ? "var(--ifm-navbar-link-color)"
+                          : "var(--ifm-color-primary-dark)",
                       fontWeight: "var(--ifm-font-weight-bold)",
                     }}
                   >

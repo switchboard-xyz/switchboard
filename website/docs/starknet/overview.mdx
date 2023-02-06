@@ -4,53 +4,42 @@ title: Overview
 slug: .
 ---
 
-Coming Soon.
-
-<!--
 import RoundedCardGroup from "/src/components/RoundedCard/RoundedCardGroup";
 import useBaseUrl from "@docusaurus/useBaseUrl";
+
+More information coming soon!
 
 ## Networks
 
 <RoundedCardGroup
   items={[
     {
-      to: "/solana/program/mainnet",
+      to: "/starknet/program/mainnet",
       title: "Mainnet",
       description: "View the Mainnet deployment accounts",
-      image: <img src={useBaseUrl("/img/icons/solana/logo.svg")} />,
+      image: <img src={useBaseUrl("/img/icons/starknet/logo.svg")} />,
+      imageDark: <img src={useBaseUrl("/img/icons/starknet/dark.svg")} />,
     },
     {
-      to: "/solana/program/devnet",
-      title: "Devnet",
-      description: "View the Devnet deployment accounts",
-      image: <img src={useBaseUrl("/img/icons/solana/logo.svg")} />,
+      to: "/starknet/program/testnet",
+      title: "Testnet",
+      description: "View the Testnet deployment accounts",
+      image: <img src={useBaseUrl("/img/icons/starknet/logo.svg")} />,
+      imageDark: <img src={useBaseUrl("/img/icons/starknet/dark.svg")} />,
     },
   ]}
 />
 
-## SDK
+## Resources
 
-### Clients
-
-import SolanaSdkClients from "/docs/solana/_common/_solana_clients.mdx";
-
-<SolanaSdkClients />
-
-### On-Chain Example Programs
-
-import SolanaExamplePrograms from "/docs/solana/_common/_solana_example_programs.mdx";
-
-<SolanaExamplePrograms />
-
-### Off-Chain Examples
-
-import SolanaClientExamples from "/docs/solana/_common/_solana_client_examples.mdx";
-
-<SolanaClientExamples />
-
-## Anchor IDL
-
-import TOC from "/docs/solana/idl/_short_toc.md";
-
-<TOC /> -->
+<RoundedCardGroup
+  items={[
+    {
+      to: "/starknet/dev",
+      title: "Developer Resources",
+      description: "Learn how to develop with Switchboard on Starknet",
+      image: <img src={useBaseUrl("/img/icons/develop/light.svg")} />,
+      imageDark: <img src={useBaseUrl("/img/icons/develop/dark.svg")} />,
+    },
+  ]}
+/>

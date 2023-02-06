@@ -2,11 +2,7 @@
 sidebar_position: 20
 ---
 
-import MarkdownImage from "/src/components/MarkdownImage";
-import { Box, Typography, Grid } from "@mui/material";
-import Link from "@docusaurus/Link";
 import PublicKeyButton from "/src/components/PublicKeyButton";
-// import NearTestnetAccounts from "/"
 
 # Testnet
 
@@ -17,8 +13,7 @@ Below are the public keys associated with the Switchboard V2 deployment.
 <table>
   <thead>
     <tr>
-      <th>Account</th>
-      <th>Address</th>
+      <th colspan="2">Mainnet</th>
     </tr>
   </thead>
   <tbody>
@@ -28,6 +23,90 @@ Below are the public keys associated with the Switchboard V2 deployment.
       </td>
       <td>
         <PublicKeyButton publicKey="switchboard-v2.testnet" />
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+## Permissionless Queue
+
+The permissionless queue does not require aggregators to have
+`PERMIT_ORACLE_QUEUE_USAGE` permissions before using a queue's resources.
+
+<table>
+  <thead>
+    <tr>
+      <th colspan="2">Public Keys</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <b>Oracle Queue</b>
+      </td>
+      <td>
+        <PublicKeyButton publicKey="HFSJrvA1w2uhciLGLUfE4sADGwGBpUiAjxZPgeFSs61M" />
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <b>Authority</b>
+      </td>
+      <td>
+        <PublicKeyButton publicKey="sbv2-authority.testnet" />
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <b>Mint</b>
+      </td>
+      <td>
+        <PublicKeyButton publicKey="wrap.testnet" />
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <b>Crank #1</b>
+      </td>
+      <td>
+        <PublicKeyButton publicKey="9Vzzu1Z74oPLctxwjRHwkKSd5H32AiQe32iMesuQwKnQ" />
+      </td>
+    </tr>
+    <tr>
+      <td colspan="2">
+        <div className="centeredText">
+          <b>Testnet Permissionless Queue Settings</b>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td colspan="2">
+        <table className="table_no_border">
+          <tr>
+            <td>
+              <b>unpermissionedFeedsEnabled</b>
+            </td>
+            <td>True</td>
+          </tr>
+          <tr>
+            <td>
+              <b>slashingEnabled</b>
+            </td>
+            <td>True</td>
+          </tr>
+          <tr>
+            <td>
+              <b>minStake</b>
+            </td>
+            <td>0</td>
+          </tr>
+          <tr>
+            <td>
+              <b>oracleTimeout</b>
+            </td>
+            <td>180</td>
+          </tr>
+        </table>
       </td>
     </tr>
   </tbody>

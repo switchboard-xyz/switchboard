@@ -1,0 +1,209 @@
+---
+sidebar_position: 20
+---
+
+import PublicKeyButton from "/src/components/PublicKeyButton";
+
+# Testnet
+
+## Program ID
+
+Below are the public keys associated with the Switchboard V2 deployment.
+
+<table>
+  <thead>
+    <tr>
+      <th colspan="2">Testnet</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <b>Program ID</b>
+      </td>
+      <td>
+        <PublicKeyButton publicKey="" />
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+## Permissioned Queue
+
+The permissioned queue requires aggregators to have `PERMIT_ORACLE_QUEUE_USAGE`
+permissions before using the queue's resources.
+
+<table>
+  <thead>
+    <tr>
+      <th colspan="2">Public Keys</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <b>Oracle Queue</b>
+      </td>
+      <td>
+        <PublicKeyButton publicKey="" />
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <b>Authority</b>
+      </td>
+      <td>
+        <PublicKeyButton publicKey="" />
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <b>Mint</b>
+      </td>
+      <td>
+        <PublicKeyButton publicKey="" />
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <b>Crank #1</b>
+      </td>
+      <td>
+        <PublicKeyButton publicKey="" />
+      </td>
+    </tr>
+    <tr>
+      <td colspan="2">
+        <div className="centeredText">
+          <b>Testnet Permissioned Queue Settings</b>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td colspan="2">
+        <table className="table_no_border">
+          <tr>
+            <td>
+              <b>unpermissionedFeedsEnabled</b>
+            </td>
+            <td>False</td>
+          </tr>
+          <tr>
+            <td>
+              <b>slashingEnabled</b>
+            </td>
+            <td>False</td>
+          </tr>
+          <tr>
+            <td>
+              <b>reward</b>
+            </td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>
+              <b>minStake</b>
+            </td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>
+              <b>oracleTimeout</b>
+            </td>
+            <td></td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+## Permissionless Queue
+
+The permissionless queue does not require aggregators to have
+`PERMIT_ORACLE_QUEUE_USAGE` permissions before using a queue's resources.
+
+<table>
+  <thead>
+    <tr>
+      <th colspan="2">Public Keys</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <b>Oracle Queue</b>
+      </td>
+      <td>
+        <PublicKeyButton publicKey="" />
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <b>Authority</b>
+      </td>
+      <td>
+        <PublicKeyButton publicKey="" />
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <b>Mint</b>
+      </td>
+      <td>
+        <PublicKeyButton publicKey="" />
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <b>Crank #1</b>
+      </td>
+      <td>
+        <PublicKeyButton publicKey="" />
+      </td>
+    </tr>
+    <tr>
+      <td colspan="2">
+        <div className="centeredText">
+          <b>Testnet Permissionless Queue Settings</b>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td colspan="2">
+        <table className="table_no_border">
+          <tr>
+            <td>
+              <b>unpermissionedFeedsEnabled</b>
+            </td>
+            <td>True</td>
+          </tr>
+          <tr>
+            <td>
+              <b>slashingEnabled</b>
+            </td>
+            <td>False</td>
+          </tr>
+          <tr>
+            <td>
+              <b>reward</b>
+            </td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>
+              <b>minStake</b>
+            </td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>
+              <b>oracleTimeout</b>
+            </td>
+            <td></td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+  </tbody>
+</table>
