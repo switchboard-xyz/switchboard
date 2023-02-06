@@ -1,4 +1,4 @@
-import { Flags } from "@oclif/core";
+import { Flags, Args } from "@oclif/core";
 import { AptosWithSignerBaseCommand as BaseCommand } from "../../../aptos";
 import { Big } from "@switchboard-xyz/common";
 import { OracleJob } from "@switchboard-xyz/common";
@@ -7,7 +7,6 @@ import {
   JobAccount,
   SwitchboardProgram,
 } from "@switchboard-xyz/aptos.js";
-import { AptosAccount } from "aptos";
 
 export default class CreateAggregator extends BaseCommand {
   static enableJsonFlag = true;
@@ -67,12 +66,12 @@ export default class CreateAggregator extends BaseCommand {
     }),
   };
 
-  static args = [
-    {
-      name: "queueHexString",
+  static args = {
+    queueHexString: Args.string({
       description: "HexString address of the queue",
-    },
-  ];
+      required: true,
+    }),
+  };
 
   async run() {
     const { flags, args } = await this.parse(CreateAggregator);

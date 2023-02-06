@@ -1,4 +1,4 @@
-import { Flags } from "@oclif/core";
+import { Args, Flags } from "@oclif/core";
 import { NearWithSignerBaseCommand as BaseCommand } from "../../../near";
 import { JobAccount } from "@switchboard-xyz/near.js";
 import { OracleJob } from "@switchboard-xyz/common";
@@ -25,13 +25,12 @@ export default class CreateJob extends BaseCommand {
     }),
   };
 
-  static args = [
-    {
-      name: "jobDefinition",
-      required: true,
+  static args = {
+    jobDefinition: Args.string({
       description: "filesystem path to job definition",
-    },
-  ];
+      required: true,
+    }),
+  };
 
   async run() {
     const { flags, args } = await this.parse(CreateJob);

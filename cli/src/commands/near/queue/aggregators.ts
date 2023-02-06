@@ -1,5 +1,4 @@
-import { Flags } from "@oclif/core";
-import { AggregatorAccount } from "@switchboard-xyz/near.js";
+import { Args } from "@oclif/core";
 import base58 from "bs58";
 import { NearWithoutSignerBaseCommand as BaseCommand } from "../../../near";
 
@@ -14,13 +13,12 @@ export default class FetchAggregators extends BaseCommand {
     ...BaseCommand.flags,
   };
 
-  static args = [
-    {
-      name: "queueAddress",
+  static args = {
+    queueAddress: Args.string({
       description: "address of the queue in Uint8 or Base58 encoding",
       required: true,
-    },
-  ];
+    }),
+  };
 
   async run() {
     const { flags, args } = await this.parse(FetchAggregators);

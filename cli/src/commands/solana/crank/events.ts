@@ -1,4 +1,4 @@
-import { Flags } from "@oclif/core";
+import { Args, Flags } from "@oclif/core";
 import {
   AggregatorAccount,
   SolanaClock,
@@ -68,13 +68,12 @@ export default class AggregatorEvents extends BaseCommand {
     }),
   };
 
-  static args = [
-    {
-      name: "aggregatorKey",
+  static args = {
+    aggregatorKey: Args.string({
       description: "public key of the aggregator account",
       required: true,
-    },
-  ];
+    }),
+  };
 
   subscriptions: Array<number> = [];
 

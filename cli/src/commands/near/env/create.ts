@@ -1,7 +1,6 @@
 import { Flags } from "@oclif/core";
 import { NearWithSignerBaseCommand as BaseCommand } from "../../../near";
 import {
-  EscrowAccount,
   QueueAccount,
   CrankAccount,
   OracleAccount,
@@ -10,7 +9,6 @@ import {
   AggregatorAccount,
   JobAccount,
   SwitchboardDecimal,
-  SwitchboardTransaction,
 } from "@switchboard-xyz/near.js";
 import { Action } from "near-api-js/lib/transaction";
 import fs from "fs";
@@ -18,7 +16,6 @@ import { OracleJob } from "@switchboard-xyz/common";
 import { Big } from "@switchboard-xyz/common";
 import base58 from "bs58";
 import { FinalExecutionOutcome } from "near-api-js/lib/providers";
-import { BN } from "bn.js";
 
 export default class EnvCreate extends BaseCommand {
   static enableJsonFlag = true;

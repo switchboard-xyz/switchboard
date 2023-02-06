@@ -1,4 +1,4 @@
-import { Flags } from "@oclif/core";
+import { Args, Flags } from "@oclif/core";
 import { PublicKey } from "@solana/web3.js";
 import { LeaseAccount } from "@switchboard-xyz/solana.js";
 import { SolanaWithoutSignerBaseCommand as BaseCommand } from "../../../solana";
@@ -12,13 +12,12 @@ export default class LeasePrint extends BaseCommand {
     ...BaseCommand.flags,
   };
 
-  static args = [
-    {
-      name: "leaseKey",
+  static args = {
+    leaseKey: Args.string({
       description: "public key of the lease account",
       required: true,
-    },
-  ];
+    }),
+  };
 
   async run() {
     const { args, flags } = await this.parse(LeasePrint);

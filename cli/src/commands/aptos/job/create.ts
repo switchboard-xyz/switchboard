@@ -1,13 +1,7 @@
-import { Flags } from "@oclif/core";
+import { Args, Flags } from "@oclif/core";
 import { AptosWithSignerBaseCommand as BaseCommand } from "../../../aptos";
 import { AptosAccount, HexString } from "aptos";
-import {
-  CrankAccount,
-  JobAccount,
-  OracleAccount,
-  OracleQueueAccount,
-  SwitchboardProgram,
-} from "@switchboard-xyz/aptos.js";
+import { JobAccount } from "@switchboard-xyz/aptos.js";
 import { OracleJob } from "@switchboard-xyz/common";
 
 export default class JobCreate extends BaseCommand {
@@ -40,18 +34,16 @@ export default class JobCreate extends BaseCommand {
     }),
   };
 
-  static args = [
-    {
-      name: "queueHexString",
-      required: true,
+  static args = {
+    queueHexString: Args.string({
       description: "HexString address of the queue",
-    },
-    {
-      name: "jobDefinition",
       required: true,
+    }),
+    jobDefinition: Args.string({
       description: "filesystem path to job definition",
-    },
-  ];
+      required: true,
+    }),
+  };
 
   async run() {
     const { flags, args } = await this.parse(JobCreate);

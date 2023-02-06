@@ -1,3 +1,4 @@
+import { Args } from "@oclif/core";
 import { PublicKey } from "@solana/web3.js";
 import {
   AggregatorAccount,
@@ -21,14 +22,12 @@ export default class BufferRelayerUpdate extends BaseCommand {
     ...BaseCommand.flags,
   };
 
-  static args = [
-    {
-      name: "bufferRelayerKey",
-      description:
-        "public key of the aggregator account to request an update for",
-      require: true,
-    },
-  ];
+  static args = {
+    bufferRelayerKey: Args.string({
+      description: "public key of the buffer relayer account",
+      required: true,
+    }),
+  };
 
   async run() {
     const { args } = await this.parse(BufferRelayerUpdate);

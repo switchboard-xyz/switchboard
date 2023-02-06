@@ -1,5 +1,5 @@
 /* eslint-disable complexity */
-import { Flags } from "@oclif/core";
+import { Args, Flags } from "@oclif/core";
 import { PublicKey } from "@solana/web3.js";
 import { OracleJob } from "@switchboard-xyz/common";
 import { JobInitParams, QueueAccount } from "@switchboard-xyz/solana.js";
@@ -39,12 +39,12 @@ export default class JsonCreateAggregator extends BaseCommand {
     }),
   };
 
-  static args = [
-    {
-      name: "definitionFile",
+  static args = {
+    definitionFile: Args.string({
       description: "filesystem path of queue definition json file",
-    },
-  ];
+      required: true,
+    }),
+  };
 
   async run() {
     const { args, flags } = await this.parse(JsonCreateAggregator);

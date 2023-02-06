@@ -1,4 +1,4 @@
-import { Flags } from "@oclif/core";
+import { Args, Flags } from "@oclif/core";
 import { NearWithSignerBaseCommand as BaseCommand } from "../../../../near";
 
 export default class AggregatorAddHistory extends BaseCommand {
@@ -18,12 +18,12 @@ export default class AggregatorAddHistory extends BaseCommand {
     }),
   };
 
-  static args = [
-    {
-      name: "aggregatorAddress",
+  static args = {
+    aggregatorAddress: Args.string({
       description: "address of the aggregator in Uint8 or Base58 encoding",
-    },
-  ];
+      required: true,
+    }),
+  };
 
   async run() {
     const { flags, args } = await this.parse(AggregatorAddHistory);

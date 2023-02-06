@@ -1,4 +1,4 @@
-import { Flags } from "@oclif/core";
+import { Args } from "@oclif/core";
 import { QueueAccount } from "@switchboard-xyz/solana.js";
 import { SolanaWithoutSignerBaseCommand as BaseCommand } from "../../../solana";
 
@@ -11,13 +11,12 @@ export default class QueuePrint extends BaseCommand {
     ...BaseCommand.flags,
   };
 
-  static args = [
-    {
-      name: "queueKey",
-      description: "public key of the oracle queue account",
+  static args = {
+    queueKey: Args.string({
+      description: "public key of the queue account",
       required: true,
-    },
-  ];
+    }),
+  };
 
   async run() {
     const { args, flags } = await this.parse(QueuePrint);

@@ -1,4 +1,4 @@
-import { Flags } from "@oclif/core";
+import { Args, Flags } from "@oclif/core";
 import { PublicKey } from "@solana/web3.js";
 import {
   AggregatorAccount,
@@ -51,13 +51,12 @@ export default class AggregatorTransfer extends BaseCommand {
     }),
   };
 
-  static args = [
-    {
-      name: "aggregatorKey",
-      description: "public key of the aggregator account to transfer",
-      require: true,
-    },
-  ];
+  static args = {
+    aggregatorKey: Args.string({
+      description: "public key of the aggregator account",
+      required: true,
+    }),
+  };
 
   async run() {
     const { args, flags } = await this.parse(AggregatorTransfer);

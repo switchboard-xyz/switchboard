@@ -1,4 +1,4 @@
-import { Flags } from "@oclif/core";
+import { Args, Flags } from "@oclif/core";
 import { AggregatorAccount, QueueAccount } from "@switchboard-xyz/solana.js";
 import chalk from "chalk";
 import { SolanaWithSignerBaseCommand as BaseCommand } from "../../../solana";
@@ -26,13 +26,12 @@ export default class AggregatorLeaseWithdraw extends BaseCommand {
     }),
   };
 
-  static args = [
-    {
-      name: "aggregatorKey",
-      description: "public key of the aggregator to extend a lease for",
+  static args = {
+    aggregatorKey: Args.string({
+      description: "public key of the aggregator account",
       required: true,
-    },
-  ];
+    }),
+  };
 
   static examples = [
     "$ sbv2 solana:aggregator:withdraw GvDMxPzN1sCj7L26YDK2HnMRXEQmQ2aemov8YBtPS7vR --amount 1.1 --keypair ../payer-keypair.json",

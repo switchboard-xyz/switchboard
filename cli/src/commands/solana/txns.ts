@@ -1,4 +1,4 @@
-import { Flags } from "@oclif/core";
+import { Args, Flags } from "@oclif/core";
 import { ConfirmedSignatureInfo, PublicKey } from "@solana/web3.js";
 import { SolanaWithoutSignerBaseCommand as BaseCommand } from "../../solana/index";
 import fs from "fs";
@@ -54,18 +54,16 @@ export default class SolanaTransactions extends BaseCommand {
     }),
   };
 
-  static args = [
-    {
-      name: "pubkey",
-      required: true,
+  static args = {
+    pubkey: Args.string({
       description: "publicKey of the Switchboard account to search for",
-    },
-    {
-      name: "filename",
+      required: true,
+    }),
+    filename: Args.string({
       required: true,
       description: "filename to save the json file",
-    },
-  ];
+    }),
+  };
 
   async run(): Promise<any> {
     const { args, flags } = await this.parse(SolanaTransactions);

@@ -1,4 +1,4 @@
-import { Flags } from "@oclif/core";
+import { Args } from "@oclif/core";
 import { NearWithSignerBaseCommand as BaseCommand } from "../../../near";
 import { AggregatorAccount, QueueAccount } from "@switchboard-xyz/near.js";
 
@@ -11,13 +11,12 @@ export default class AggregatorUpdate extends BaseCommand {
     ...BaseCommand.flags,
   };
 
-  static args = [
-    {
-      name: "aggregatorAddress",
+  static args = {
+    aggregatorAddress: Args.string({
       description: "address of the aggregator in Uint8 or Base58 encoding",
-    },
-  ];
-
+      required: true,
+    }),
+  };
   async run() {
     const { flags, args } = await this.parse(AggregatorUpdate);
 

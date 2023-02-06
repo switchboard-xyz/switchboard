@@ -1,4 +1,4 @@
-import { Flags } from "@oclif/core";
+import { Args, Flags } from "@oclif/core";
 import { AptosWithSignerBaseCommand as BaseCommand } from "../../../aptos";
 
 export default class CrankPush extends BaseCommand {
@@ -18,12 +18,12 @@ export default class CrankPush extends BaseCommand {
     }),
   };
 
-  static args = [
-    {
-      name: "crankHexString",
+  static args = {
+    crankHexString: Args.string({
       description: "HexString address of the crank",
-    },
-  ];
+      required: true,
+    }),
+  };
 
   async run() {
     const { flags, args } = await this.parse(CrankPush);

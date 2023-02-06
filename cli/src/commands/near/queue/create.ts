@@ -1,7 +1,6 @@
 import { Flags } from "@oclif/core";
 import { NearWithSignerBaseCommand as BaseCommand } from "../../../near";
-import { getWrappedMint, QueueAccount } from "@switchboard-xyz/near.js";
-import { BN } from "bn.js";
+import { QueueAccount } from "@switchboard-xyz/near.js";
 
 export default class QueueCreate extends BaseCommand {
   static enableJsonFlag = true;

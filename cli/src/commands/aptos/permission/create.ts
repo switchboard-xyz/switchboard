@@ -1,4 +1,4 @@
-import { Flags } from "@oclif/core";
+import { Args, Flags } from "@oclif/core";
 import { AptosWithSignerBaseCommand as BaseCommand } from "../../../aptos";
 import { HexString } from "aptos";
 import { Permission, SwitchboardPermission } from "@switchboard-xyz/aptos.js";
@@ -25,12 +25,12 @@ export default class PermissionCreate extends BaseCommand {
     }),
   };
 
-  static args = [
-    {
-      name: "granter",
+  static args = {
+    granter: Args.string({
       description: "HexString of the oracle queue to create a permission for",
-    },
-  ];
+      required: true,
+    }),
+  };
 
   async run() {
     const { flags, args } = await this.parse(PermissionCreate);

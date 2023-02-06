@@ -1,4 +1,4 @@
-import { Flags } from "@oclif/core";
+import { Args, Flags } from "@oclif/core";
 import {
   AggregatorAccount,
   QueueAccount,
@@ -66,13 +66,12 @@ export default class AggregatorSet extends BaseCommand {
     }),
   };
 
-  static args = [
-    {
-      name: "aggregatorKey",
+  static args = {
+    aggregatorKey: Args.string({
       description: "public key of the aggregator account",
       required: true,
-    },
-  ];
+    }),
+  };
 
   async run() {
     const { args, flags } = await this.parse(AggregatorSet);

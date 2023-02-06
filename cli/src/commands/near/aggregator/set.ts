@@ -1,4 +1,4 @@
-import { Flags } from "@oclif/core";
+import { Args, Flags } from "@oclif/core";
 import {
   parseAddressString,
   SwitchboardDecimal,
@@ -72,14 +72,12 @@ export default class SetAggregator extends BaseCommand {
     // }),
   };
 
-  static args = [
-    {
-      name: "aggregatorAddress",
+  static args = {
+    aggregatorAddress: Args.string({
       description: "address of the aggregator in Uint8 or Base58 encoding",
       required: true,
-    },
-  ];
-
+    }),
+  };
   async run() {
     const { flags, args } = await this.parse(SetAggregator);
 

@@ -1,4 +1,4 @@
-import { Flags } from "@oclif/core";
+import { Args, Flags } from "@oclif/core";
 import { NearWithoutSignerBaseCommand as BaseCommand } from "../../near";
 import {
   AggregatorAccount,
@@ -26,9 +26,10 @@ export default class NearPrint extends BaseCommand {
     }),
   };
 
-  static args = [
-    {
-      name: "accountType",
+  static args = {
+    accountType: Args.string({
+      description: "account type to print",
+      required: true,
       options: [
         "queue",
         "aggregator",
@@ -38,16 +39,13 @@ export default class NearPrint extends BaseCommand {
         "lease",
         "job",
       ],
-      description: "account type to print",
-      required: true,
-    },
-    {
-      name: "address",
+    }),
+    address: Args.string({
       description:
         "address of the account to print in Uint8 or Base58 encoding",
       required: true,
-    },
-  ];
+    }),
+  };
 
   async run() {
     const { flags, args } = await this.parse(NearPrint);
@@ -197,7 +195,7 @@ export default class NearPrint extends BaseCommand {
 
     if (!data) {
       throw new Error(
-        `Failed to fetch account data for accountType ${args.accountTyp}`
+        `Failed to fetch account data for accountType ${args.accountType}`
       );
     }
 

@@ -1,5 +1,6 @@
 import { OutputFileBaseCommand } from "../../OutputFileBaseCommand";
 import fetch from "node-fetch";
+import { Args } from "@oclif/core";
 
 export default class OracleLogs extends OutputFileBaseCommand {
   //   static enableJsonFlag = true;
@@ -12,19 +13,24 @@ export default class OracleLogs extends OutputFileBaseCommand {
 
   //   static examples = ["$ sbv2 config:print"];
 
-  static args = [
-    {
-      name: "network",
-      options: ["solana-devnet", "solana-mainnet"],
+  static args = {
+    network: Args.string({
       description: "network to parse logs for",
       required: true,
-    },
-    {
-      name: "searchString",
+      options: [
+        "solana-mainnet",
+        "solana-devnet",
+        "aptos-mainnet",
+        "aptos-testnet",
+        "near-mainnet",
+        "near-testnet",
+      ],
+    }),
+    searchString: Args.string({
       description: "string to search for in the oracle logs",
       required: true,
-    },
-  ];
+    }),
+  };
 
   async run() {
     const { args, flags } = await this.parse(OracleLogs);

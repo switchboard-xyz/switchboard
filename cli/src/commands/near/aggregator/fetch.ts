@@ -17,8 +17,6 @@ export default class FetchAggregator extends BaseCommand {
     }),
   };
 
-  static args = [];
-
   async run() {
     const { flags, args } = await this.parse(FetchAggregator);
 

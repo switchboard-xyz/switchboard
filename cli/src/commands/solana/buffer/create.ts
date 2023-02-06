@@ -1,4 +1,4 @@
-import { Flags } from "@oclif/core";
+import { Args, Flags } from "@oclif/core";
 import { Keypair } from "@solana/web3.js";
 import { OracleJob } from "@switchboard-xyz/common";
 import {
@@ -44,12 +44,12 @@ export default class BufferCreate extends BaseCommand {
     }),
   };
 
-  static args = [
-    {
-      name: "queueKey",
-      description: "oracle queue to create BufferRelayer account on",
-    },
-  ];
+  static args = {
+    queueKey: Args.string({
+      description: "public key of the oracle queue account",
+      required: true,
+    }),
+  };
 
   async run() {
     const { args, flags } = await this.parse(BufferCreate);

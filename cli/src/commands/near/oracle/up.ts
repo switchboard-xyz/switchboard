@@ -1,10 +1,6 @@
-import { Flags } from "@oclif/core";
+import { Args, Flags } from "@oclif/core";
 import { NearWithSignerBaseCommand as BaseCommand } from "../../../near";
-import {
-  OracleAccount,
-  SwitchboardDecimal,
-  toBase58,
-} from "@switchboard-xyz/near.js";
+import { toBase58 } from "@switchboard-xyz/near.js";
 import { DockerOracle } from "@switchboard-xyz/common";
 import path from "path";
 import { sleep } from "../../../utils";
@@ -32,12 +28,12 @@ export default class NearDockerOracle extends BaseCommand {
     }),
   };
 
-  static args = [
-    {
-      name: "oracleAddress",
+  static args = {
+    oracleAddress: Args.string({
       description: "address of the oracle in Uint8 or Base58 encoding",
-    },
-  ];
+      required: true,
+    }),
+  };
 
   async run() {
     const { flags, args } = await this.parse(NearDockerOracle);

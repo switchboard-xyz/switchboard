@@ -1,4 +1,4 @@
-import { Flags } from "@oclif/core";
+import { Flags, Args } from "@oclif/core";
 import { AptosWithSignerBaseCommand as BaseCommand } from "../../../aptos";
 import { AptosAccount, HexString } from "aptos";
 import { CrankAccount, OracleQueueAccount } from "@switchboard-xyz/aptos.js";
@@ -28,12 +28,12 @@ export default class CrankCreate extends BaseCommand {
     }),
   };
 
-  static args = [
-    {
-      name: "queueHexString",
+  static args = {
+    queueHexString: Args.string({
       description: "HexString of the oracle queue to create a crank for",
-    },
-  ];
+      required: true,
+    }),
+  };
 
   async run() {
     const { flags, args } = await this.parse(CrankCreate);

@@ -1,4 +1,4 @@
-import { Flags } from "@oclif/core";
+import { Args } from "@oclif/core";
 import { OracleJob } from "@switchboard-xyz/common";
 import { JobAccount } from "@switchboard-xyz/solana.js";
 import { SolanaWithoutSignerBaseCommand as BaseCommand } from "../../../solana";
@@ -12,13 +12,12 @@ export default class JobPrint extends BaseCommand {
     ...BaseCommand.flags,
   };
 
-  static args = [
-    {
-      name: "jobKey",
+  static args = {
+    jobKey: Args.string({
       description: "public key of the job account",
       required: true,
-    },
-  ];
+    }),
+  };
 
   async run() {
     const { args, flags } = await this.parse(JobPrint);

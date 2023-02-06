@@ -1,5 +1,5 @@
-import { Flags } from "@oclif/core";
-import { HexString, MaybeHexString } from "aptos";
+import { Args } from "@oclif/core";
+import { HexString } from "aptos";
 import { BN } from "@switchboard-xyz/common";
 import chalk from "chalk";
 import { AptosWithoutSignerBaseCommand as BaseCommand } from "../../../aptos";
@@ -16,12 +16,12 @@ export default class CrankList extends BaseCommand {
     ...BaseCommand.flags,
   };
 
-  static args = [
-    {
-      name: "crankHexString",
+  static args = {
+    crankHexString: Args.string({
       description: "HexString address of the crank",
-    },
-  ];
+      required: true,
+    }),
+  };
 
   async run() {
     const { flags, args } = await this.parse(CrankList);

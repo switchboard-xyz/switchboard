@@ -1,12 +1,6 @@
-import { Flags } from "@oclif/core";
+import { Args, Flags } from "@oclif/core";
 import { AptosWithSignerBaseCommand as BaseCommand } from "../../../aptos";
-import {
-  OracleAccount,
-  SwitchboardDecimal,
-  toBase58,
-} from "@switchboard-xyz/near.js";
 import { DockerOracle } from "@switchboard-xyz/common";
-import path from "path";
 import { sleep } from "../../../utils";
 
 export default class AptosDockerOracle extends BaseCommand {
@@ -32,12 +26,12 @@ export default class AptosDockerOracle extends BaseCommand {
     }),
   };
 
-  static args = [
-    {
-      name: "oracleHexString",
+  static args = {
+    oracleHexString: Args.string({
       description: "HexString address of the oracle",
-    },
-  ];
+      required: true,
+    }),
+  };
 
   async run() {
     const { flags, args } = await this.parse(AptosDockerOracle);

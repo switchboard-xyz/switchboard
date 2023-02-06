@@ -1,4 +1,4 @@
-import { Flags } from "@oclif/core";
+import { Args, Flags } from "@oclif/core";
 import { NearWithSignerBaseCommand as BaseCommand } from "../../../near";
 import { AggregatorAccount, CrankAccount } from "@switchboard-xyz/near.js";
 
@@ -19,12 +19,12 @@ export default class CrankPush extends BaseCommand {
     }),
   };
 
-  static args = [
-    {
-      name: "crankAddress",
+  static args = {
+    crankAddress: Args.string({
       description: "address of the crank in Uint8 or Base58 encoding",
-    },
-  ];
+      required: true,
+    }),
+  };
 
   async run() {
     const { flags, args } = await this.parse(CrankPush);

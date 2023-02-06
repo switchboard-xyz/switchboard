@@ -1,4 +1,4 @@
-import { Flags } from "@oclif/core";
+import { Args, Flags } from "@oclif/core";
 import { BN } from "@coral-xyz/anchor";
 import { SwitchboardDecimal } from "@switchboard-xyz/common";
 import { SolanaWithSignerBaseCommand as BaseCommand } from "../solana";
@@ -17,13 +17,12 @@ export default class SandboxCommand extends BaseCommand {
     }),
   };
 
-  static args = [
-    {
-      name: "placeholder",
-      required: false,
+  static args = {
+    placeholder: Args.string({
       description: "",
-    },
-  ];
+      required: false,
+    }),
+  };
 
   async run() {
     const { args, flags } = await this.parse(SandboxCommand);

@@ -1,4 +1,4 @@
-import { Flags } from "@oclif/core";
+import { Args, Flags } from "@oclif/core";
 import { AggregatorAccount } from "@switchboard-xyz/solana.js";
 import chalk from "chalk";
 import { SolanaWithSignerBaseCommand as BaseCommand } from "../../../solana";
@@ -16,13 +16,12 @@ export default class AggregatorLock extends BaseCommand {
     }),
   };
 
-  static args = [
-    {
-      name: "aggregatorKey",
+  static args = {
+    aggregatorKey: Args.string({
       description: "public key of the aggregator account",
       required: true,
-    },
-  ];
+    }),
+  };
 
   async run() {
     const { args, flags } = await this.parse(AggregatorLock);

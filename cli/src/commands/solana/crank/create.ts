@@ -1,4 +1,4 @@
-import { Flags } from "@oclif/core";
+import { Args, Flags } from "@oclif/core";
 import { QueueAccount } from "@switchboard-xyz/solana.js";
 import chalk from "chalk";
 import { SolanaWithSignerBaseCommand as BaseCommand } from "../../../solana";
@@ -31,13 +31,12 @@ export default class CrankCreate extends BaseCommand {
     }),
   };
 
-  static args = [
-    {
-      name: "queueKey",
-      description: "public key of the oracle queue to create a crank for",
+  static args = {
+    queueKey: Args.string({
+      description: "public key of the oracle queue to create a crank on",
       required: true,
-    },
-  ];
+    }),
+  };
 
   async run() {
     const { args, flags } = await this.parse(CrankCreate);

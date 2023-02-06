@@ -1,17 +1,10 @@
 import { Flags } from "@oclif/core";
-import * as anchor from "@coral-xyz/anchor";
-import {
-  AggregatorAccount,
-  LeaseAccount,
-  QueueAccount,
-  types,
-} from "@switchboard-xyz/solana.js";
+import { AggregatorAccount, types } from "@switchboard-xyz/solana.js";
 import { SolanaWithoutSignerBaseCommand as BaseCommand } from "../../solana";
 import { chalkString, normalizeFilePath } from "../../utils";
 import chalk from "chalk";
-import fs, { fstat } from "fs";
+import fs from "fs";
 import path from "path";
-import { PublicKey } from "@solana/web3.js";
 
 function toArray<
   T extends

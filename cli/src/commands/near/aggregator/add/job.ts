@@ -1,4 +1,4 @@
-import { Flags } from "@oclif/core";
+import { Args, Flags } from "@oclif/core";
 import { NearWithSignerBaseCommand as BaseCommand } from "../../../../near";
 import { AggregatorAccount, JobAccount } from "@switchboard-xyz/near.js";
 import { OracleJob } from "@switchboard-xyz/common";
@@ -37,12 +37,12 @@ export default class AggregatorAddJob extends BaseCommand {
     }),
   };
 
-  static args = [
-    {
-      name: "aggregatorAddress",
+  static args = {
+    aggregatorAddress: Args.string({
       description: "address of the aggregator in Uint8 or Base58 encoding",
-    },
-  ];
+      required: true,
+    }),
+  };
 
   async run() {
     const { flags, args } = await this.parse(AggregatorAddJob);

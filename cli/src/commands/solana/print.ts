@@ -1,3 +1,4 @@
+import { Args } from "@oclif/core";
 import { PublicKey } from "@solana/web3.js";
 import { SolanaWithoutSignerBaseCommand as BaseCommand } from "../../solana";
 
@@ -10,13 +11,12 @@ export default class SolanaPrint extends BaseCommand {
     ...BaseCommand.flags,
   };
 
-  static args = [
-    {
-      name: "pubkey",
-      required: true,
+  static args = {
+    pubkey: Args.string({
       description: "publicKey of the Switchboard account to search for",
-    },
-  ];
+      required: true,
+    }),
+  };
 
   async run(): Promise<any> {
     const { args, flags } = await this.parse(SolanaPrint);

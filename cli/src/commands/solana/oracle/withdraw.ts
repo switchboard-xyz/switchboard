@@ -1,4 +1,4 @@
-import { Flags } from "@oclif/core";
+import { Args, Flags } from "@oclif/core";
 import { OracleAccount } from "@switchboard-xyz/solana.js";
 import chalk from "chalk";
 import { SolanaWithSignerBaseCommand as BaseCommand } from "../../../solana";
@@ -23,13 +23,12 @@ export default class OracleWithdraw extends BaseCommand {
     }),
   };
 
-  static args = [
-    {
-      name: "oracleKey",
-      description: "public key of the oracle",
+  static args = {
+    oracleKey: Args.string({
+      description: "public key of the oracle account",
       required: true,
-    },
-  ];
+    }),
+  };
 
   async run() {
     const { args, flags } = await this.parse(OracleWithdraw);

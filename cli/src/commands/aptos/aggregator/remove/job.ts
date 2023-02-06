@@ -1,7 +1,6 @@
-import { Flags } from "@oclif/core";
+import { Flags, Args } from "@oclif/core";
 import { AptosWithSignerBaseCommand as BaseCommand } from "../../../../aptos";
-import base58 from "bs58";
-import { AggregatorAccount, JobAccount } from "@switchboard-xyz/aptos.js";
+import { JobAccount } from "@switchboard-xyz/aptos.js";
 import { HexString } from "aptos";
 
 export default class AggregatorRemoveJob extends BaseCommand {
@@ -25,12 +24,12 @@ export default class AggregatorRemoveJob extends BaseCommand {
     }),
   };
 
-  static args = [
-    {
-      name: "aggregatorHexString",
+  static args = {
+    aggregatorHexString: Args.string({
       description: "HexString address of the aggregator",
-    },
-  ];
+      required: true,
+    }),
+  };
 
   async run() {
     const { flags, args } = await this.parse(AggregatorRemoveJob);

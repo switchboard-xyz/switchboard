@@ -1,4 +1,4 @@
-import { Flags } from "@oclif/core";
+import { Args, Flags } from "@oclif/core";
 import { CrankAccount, SolanaClock, types } from "@switchboard-xyz/solana.js";
 import { SolanaWithoutSignerBaseCommand as BaseCommand } from "../../../solana";
 import { chalkString } from "../../../utils/misc";
@@ -13,13 +13,12 @@ export default class CrankPrint extends BaseCommand {
     rows: Flags.boolean({ description: "print the crank rows in order" }),
   };
 
-  static args = [
-    {
-      name: "crankKey",
+  static args = {
+    crankKey: Args.string({
       description: "public key of the crank account",
       required: true,
-    },
-  ];
+    }),
+  };
 
   async run() {
     const { args, flags } = await this.parse(CrankPrint);

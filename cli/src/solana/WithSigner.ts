@@ -1,4 +1,4 @@
-import { Flags, CliUx } from "@oclif/core";
+import { Flags, ux } from "@oclif/core";
 import { flags, Input } from "@oclif/parser";
 import {
   ConfirmOptions,
@@ -126,7 +126,7 @@ export abstract class SolanaWithSignerBaseCommand extends SolanaBaseCommand {
 
         try {
           if (!silent) {
-            CliUx.ux.action.start("sign the transaction on your ledger ...");
+            ux.ux.action.start("sign the transaction on your ledger ...");
           }
 
           const signedTxn = await this.ledger
@@ -146,7 +146,7 @@ export abstract class SolanaWithSignerBaseCommand extends SolanaBaseCommand {
           );
 
           if (!silent) {
-            CliUx.ux.action.stop(
+            ux.ux.action.stop(
               chalk.green(CHECK_ICON, "transaction confirmed!")
             );
           }
@@ -258,7 +258,7 @@ export abstract class SolanaWithSignerBaseCommand extends SolanaBaseCommand {
               txns.length
             } on your ledger ...`;
             if (!silent) {
-              CliUx.ux.action.start(status);
+              ux.ux.action.start(status);
             }
 
             const signedTxn = await this.ledger
@@ -275,7 +275,7 @@ export abstract class SolanaWithSignerBaseCommand extends SolanaBaseCommand {
               txns.length
             } sending ...`;
             if (!silent) {
-              (CliUx.ux.action as any)._updateStatus(status, newStatus);
+              (ux.ux.action as any)._updateStatus(status, newStatus);
             }
 
             status = newStatus;
@@ -287,7 +287,7 @@ export abstract class SolanaWithSignerBaseCommand extends SolanaBaseCommand {
             );
 
             if (!silent) {
-              CliUx.ux.action.stop(
+              ux.ux.action.stop(
                 chalk.green(
                   `${CHECK_ICON}transaction #${index + 1}/${
                     txns.length

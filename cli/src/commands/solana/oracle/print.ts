@@ -1,9 +1,5 @@
-import { Flags } from "@oclif/core";
-import {
-  CrankAccount,
-  OracleAccount,
-  QueueAccount,
-} from "@switchboard-xyz/solana.js";
+import { Args } from "@oclif/core";
+import { OracleAccount } from "@switchboard-xyz/solana.js";
 import { SolanaWithoutSignerBaseCommand as BaseCommand } from "../../../solana";
 
 export default class OraclePrint extends BaseCommand {
@@ -15,13 +11,12 @@ export default class OraclePrint extends BaseCommand {
     ...BaseCommand.flags,
   };
 
-  static args = [
-    {
-      name: "oracleKey",
+  static args = {
+    oracleKey: Args.string({
       description: "public key of the oracle account",
       required: true,
-    },
-  ];
+    }),
+  };
 
   async run() {
     const { args, flags } = await this.parse(OraclePrint);

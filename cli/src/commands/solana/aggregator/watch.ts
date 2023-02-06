@@ -1,4 +1,4 @@
-import { Flags } from "@oclif/core";
+import { Args, Flags } from "@oclif/core";
 import { AggregatorAccount, types } from "@switchboard-xyz/solana.js";
 import fs from "fs";
 import path from "path";
@@ -20,13 +20,12 @@ export default class AggregatorWatch extends BaseCommand {
     }),
   };
 
-  static args = [
-    {
-      name: "aggregatorKey",
+  static args = {
+    aggregatorKey: Args.string({
       description: "public key of the aggregator account",
       required: true,
-    },
-  ];
+    }),
+  };
 
   async run() {
     const { args, flags } = await this.parse(AggregatorWatch);

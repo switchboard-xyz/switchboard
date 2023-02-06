@@ -1,4 +1,4 @@
-import { Flags } from "@oclif/core";
+import { Args, Flags } from "@oclif/core";
 import { Keypair } from "@solana/web3.js";
 import { QueueAccount } from "@switchboard-xyz/solana.js";
 import chalk from "chalk";
@@ -38,13 +38,12 @@ export default class OracleCreate extends BaseCommand {
     }),
   };
 
-  static args = [
-    {
-      name: "queueKey",
-      description: "public key of the oracle queue to create an oracle for",
+  static args = {
+    queueKey: Args.string({
+      description: "public key of the oracle queue account",
       required: true,
-    },
-  ];
+    }),
+  };
 
   async run() {
     const { args, flags } = await this.parse(OracleCreate);

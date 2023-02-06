@@ -1,10 +1,6 @@
-import { Flags } from "@oclif/core";
+import { Args } from "@oclif/core";
 import { NearWithSignerBaseCommand as BaseCommand } from "../../../near";
-import {
-  CrankAccount,
-  EscrowAccount,
-  QueueAccount,
-} from "@switchboard-xyz/near.js";
+import { CrankAccount } from "@switchboard-xyz/near.js";
 import { FinalExecutionOutcome } from "near-api-js/lib/providers";
 import { BN } from "bn.js";
 
@@ -53,12 +49,12 @@ export default class CrankPop extends BaseCommand {
     ...BaseCommand.flags,
   };
 
-  static args = [
-    {
-      name: "crankAddress",
+  static args = {
+    crankAddress: Args.string({
       description: "address of the crank in Uint8 or Base58 encoding",
-    },
-  ];
+      required: true,
+    }),
+  };
 
   async run() {
     const { flags, args } = await this.parse(CrankPop);

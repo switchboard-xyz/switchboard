@@ -1,6 +1,6 @@
-import { Flags } from "@oclif/core";
+import { Args, Flags } from "@oclif/core";
 import { AptosWithSignerBaseCommand as BaseCommand } from "../../../aptos";
-import { createOracle, Permission } from "@switchboard-xyz/aptos.js";
+import { createOracle } from "@switchboard-xyz/aptos.js";
 
 export default class CreateOracle extends BaseCommand {
   static enableJsonFlag = true;
@@ -28,12 +28,12 @@ export default class CreateOracle extends BaseCommand {
     }),
   };
 
-  static args = [
-    {
-      name: "queueHexString",
+  static args = {
+    queueHexString: Args.string({
       description: "HexString address of the queue",
-    },
-  ];
+      required: true,
+    }),
+  };
 
   async run() {
     const { flags, args } = await this.parse(CreateOracle);

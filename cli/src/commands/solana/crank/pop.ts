@@ -1,3 +1,4 @@
+import { Args } from "@oclif/core";
 import { CrankAccount } from "@switchboard-xyz/solana.js";
 import chalk from "chalk";
 import { SolanaWithSignerBaseCommand as BaseCommand } from "../../../solana";
@@ -10,13 +11,12 @@ export default class CrankPop extends BaseCommand {
     ...BaseCommand.flags,
   };
 
-  static args = [
-    {
-      name: "crankKey",
-      description: "public key of the crank",
+  static args = {
+    crankKey: Args.string({
+      description: "public key of the crank account",
       required: true,
-    },
-  ];
+    }),
+  };
 
   async run() {
     const { args } = await this.parse(CrankPop);

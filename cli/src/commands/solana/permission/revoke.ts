@@ -1,11 +1,6 @@
-import { Flags } from "@oclif/core";
-import { flags } from "@oclif/parser";
+import { Args, Flags } from "@oclif/core";
 import { PublicKey } from "@solana/web3.js";
-import {
-  PermissionAccount,
-  SwitchboardProgram,
-  types,
-} from "@switchboard-xyz/solana.js";
+import { PermissionAccount, types } from "@switchboard-xyz/solana.js";
 import chalk from "chalk";
 import { SolanaWithSignerBaseCommand as BaseCommand } from "../../../solana";
 import { CHECK_ICON } from "../../../utils";
@@ -22,13 +17,12 @@ export default class PermissionRevoke extends BaseCommand {
     }),
   };
 
-  static args = [
-    {
-      name: "permissionKey",
+  static args = {
+    permissionKey: Args.string({
       description: "public key of the permission account",
       required: true,
-    },
-  ];
+    }),
+  };
 
   async run() {
     const { args, flags } = await this.parse(PermissionRevoke);

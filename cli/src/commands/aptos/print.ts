@@ -1,15 +1,6 @@
-import { Flags } from "@oclif/core";
+import { Args } from "@oclif/core";
 import { AptosWithoutSignerBaseCommand as BaseCommand } from "../../aptos";
-import { AptosAccount, HexString } from "aptos";
-import {
-  AggregatorAccount,
-  AptosDecimal,
-  CrankAccount,
-  OracleAccount,
-  OracleQueueAccount,
-  Permission,
-  StateAccount,
-} from "@switchboard-xyz/aptos.js";
+import { HexString } from "aptos";
 import { OracleJob } from "@switchboard-xyz/common";
 
 export default class AptosPrint extends BaseCommand {
@@ -23,9 +14,10 @@ export default class AptosPrint extends BaseCommand {
     ...BaseCommand.flags,
   };
 
-  static args = [
-    {
-      name: "accountType",
+  static args = {
+    accountType: Args.string({
+      description: "account type to print",
+      required: true,
       options: [
         "queue",
         "aggregator",
@@ -36,15 +28,12 @@ export default class AptosPrint extends BaseCommand {
         "job",
         "state",
       ],
-      description: "account type to print",
-      required: true,
-    },
-    {
-      name: "address",
+    }),
+    address: Args.string({
       description: "HexString address of the account to print",
       required: true,
-    },
-  ];
+    }),
+  };
 
   normalizeAccountData(address: HexString, data: any): Record<string, any> {
     return JSON.parse(
@@ -128,7 +117,7 @@ export default class AptosPrint extends BaseCommand {
 
     if (!data) {
       throw new Error(
-        `Failed to fetch account data for accountType ${args.accountTyp}`
+        `Failed to fetch account data for accountType ${args.accountType}`
       );
     }
 

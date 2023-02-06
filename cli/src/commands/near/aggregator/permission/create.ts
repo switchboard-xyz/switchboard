@@ -1,7 +1,6 @@
-import { Flags } from "@oclif/core";
+import { Args } from "@oclif/core";
 import { NearWithSignerBaseCommand as BaseCommand } from "../../../../near";
 import {
-  OracleAccount,
   QueueAccount,
   PermissionAccount,
   AggregatorAccount,
@@ -18,12 +17,12 @@ export default class CreateAggregatorPermission extends BaseCommand {
     ...BaseCommand.flags,
   };
 
-  static args = [
-    {
-      name: "aggregatorAddress",
+  static args = {
+    aggregatorAddress: Args.string({
       description: "address of the aggregator in Uint8 or Base58 encoding",
-    },
-  ];
+      required: true,
+    }),
+  };
 
   async run() {
     const { flags, args } = await this.parse(CreateAggregatorPermission);

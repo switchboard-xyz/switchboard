@@ -3497,7 +3497,7 @@ FLAGS
   --commitment=<option>  [default: confirmed] transaction commitment level to use
                          <options: confirmed|finalized|processed>
   --mainnetBeta          WARNING: use mainnet-beta solana cluster
-  --period=<value>       the period to collect metrics for. Ex. 3600 will collect update metrics for the last 1hr
+  --period=<value>...    the period to collect metrics for. Ex. 3600 will collect update metrics for the last 1hr
   --programId=<value>    alternative Switchboard program ID to interact with
 
 GLOBAL FLAGS

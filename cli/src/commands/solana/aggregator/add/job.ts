@@ -1,4 +1,4 @@
-import { Flags } from "@oclif/core";
+import { Args, Flags } from "@oclif/core";
 import { OracleJob } from "@switchboard-xyz/common";
 import {
   AggregatorAccount,
@@ -31,13 +31,12 @@ export default class AggregatorAddJob extends BaseCommand {
     }),
   };
 
-  static args = [
-    {
-      name: "aggregatorKey",
+  static args = {
+    aggregatorKey: Args.string({
       description: "public key of the aggregator account",
       required: true,
-    },
-  ];
+    }),
+  };
 
   async run() {
     const { args, flags } = await this.parse(AggregatorAddJob);

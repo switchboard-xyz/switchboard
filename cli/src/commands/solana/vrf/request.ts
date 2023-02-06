@@ -1,4 +1,4 @@
-import { Flags } from "@oclif/core";
+import { Flags, Args } from "@oclif/core";
 import { VrfAccount } from "@switchboard-xyz/solana.js";
 import chalk from "chalk";
 import { SolanaWithSignerBaseCommand as BaseCommand } from "../../../solana";
@@ -19,13 +19,12 @@ export default class VrfRequest extends BaseCommand {
     }),
   };
 
-  static args = [
-    {
-      name: "vrfKey",
-      description: "public key of the vrf account to request randomness for",
-      require: true,
-    },
-  ];
+  static args = {
+    vrfKey: Args.string({
+      description: "public key of the VRF account",
+      required: true,
+    }),
+  };
 
   async run() {
     const { args, flags } = await this.parse(VrfRequest);

@@ -1,4 +1,4 @@
-import { Flags } from "@oclif/core";
+import { Args, Flags } from "@oclif/core";
 import { OracleAccount, SolanaClock, types } from "@switchboard-xyz/solana.js";
 import { SolanaWithoutSignerBaseCommand as BaseCommand } from "../../../solana/index";
 import { sleep } from "../../../utils/index";
@@ -61,13 +61,12 @@ export default class OracleEvents extends BaseCommand {
     }),
   };
 
-  static args = [
-    {
-      name: "oracleKey",
-      description: "public key of the aggregator account",
+  static args = {
+    oracleKey: Args.string({
+      description: "public key of the oracle account",
       required: true,
-    },
-  ];
+    }),
+  };
 
   subscriptions: Array<number> = [];
 

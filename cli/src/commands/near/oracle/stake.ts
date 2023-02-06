@@ -1,4 +1,4 @@
-import { Flags } from "@oclif/core";
+import { Args, Flags } from "@oclif/core";
 import { NearWithSignerBaseCommand as BaseCommand } from "../../../near";
 import { OracleAccount, SwitchboardDecimal } from "@switchboard-xyz/near.js";
 
@@ -15,12 +15,12 @@ export default class OracleStake extends BaseCommand {
     }),
   };
 
-  static args = [
-    {
-      name: "oracleAddress",
+  static args = {
+    oracleAddress: Args.string({
       description: "address of the oracle in Uint8 or Base58 encoding",
-    },
-  ];
+      required: true,
+    }),
+  };
 
   async run() {
     const { flags, args } = await this.parse(OracleStake);

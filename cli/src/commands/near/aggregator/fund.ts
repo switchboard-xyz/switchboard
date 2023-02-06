@@ -1,16 +1,6 @@
-import { Flags } from "@oclif/core";
+import { Args, Flags } from "@oclif/core";
 import { NearWithSignerBaseCommand as BaseCommand } from "../../../near";
-import {
-  AggregatorAccount,
-  QueueAccount,
-  SwitchboardDecimal,
-  types,
-} from "@switchboard-xyz/near.js";
-import { Big } from "@switchboard-xyz/common";
-import { Action } from "near-api-js/lib/transaction";
-import { Gas, NEAR } from "near-units";
-import { utils } from "near-api-js";
-import { BN } from "@switchboard-xyz/common";
+import { SwitchboardDecimal } from "@switchboard-xyz/near.js";
 
 export default class AggregatorFund extends BaseCommand {
   static description = "";
@@ -26,13 +16,12 @@ export default class AggregatorFund extends BaseCommand {
     }),
   };
 
-  static args = [
-    {
-      name: "aggregatorAddress",
+  static args = {
+    aggregatorAddress: Args.string({
       description: "address of the aggregator in Uint8 or Base58 encoding",
-    },
-  ];
-
+      required: true,
+    }),
+  };
   async run() {
     const { flags, args } = await this.parse(AggregatorFund);
 

@@ -1,4 +1,4 @@
-import { Flags } from "@oclif/core";
+import { Args, Flags } from "@oclif/core";
 import { PublicKey } from "@solana/web3.js";
 import { AggregatorAccount, JobAccount } from "@switchboard-xyz/solana.js";
 import chalk from "chalk";
@@ -18,19 +18,17 @@ export default class AggregatorRemoveJob extends BaseCommand {
     }),
   };
 
-  static args = [
-    {
-      name: "aggregatorKey",
+  static args = {
+    aggregatorKey: Args.string({
       description: "public key of the aggregator account",
       required: true,
-    },
-    {
-      name: "jobKey",
+    }),
+    jobKey: Args.string({
       description:
         "public key of an existing job account to remove from an aggregator",
       required: true,
-    },
-  ];
+    }),
+  };
 
   async run() {
     const { args, flags } = await this.parse(AggregatorRemoveJob);

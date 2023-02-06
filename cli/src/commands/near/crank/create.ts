@@ -1,4 +1,4 @@
-import { Flags } from "@oclif/core";
+import { Args, Flags } from "@oclif/core";
 import { NearWithSignerBaseCommand as BaseCommand } from "../../../near";
 import { CrankAccount } from "@switchboard-xyz/near.js";
 
@@ -23,12 +23,12 @@ export default class CrankCreate extends BaseCommand {
     }),
   };
 
-  static args = [
-    {
-      name: "queueAddress",
+  static args = {
+    queueAddress: Args.string({
       description: "address of the queue in Uint8 or Base58 encoding",
-    },
-  ];
+      required: true,
+    }),
+  };
 
   async run() {
     const { flags, args } = await this.parse(CrankCreate);

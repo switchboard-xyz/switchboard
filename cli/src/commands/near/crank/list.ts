@@ -1,12 +1,6 @@
-import { Flags } from "@oclif/core";
+import { Args } from "@oclif/core";
 import { NearWithoutSignerBaseCommand as BaseCommand } from "../../../near";
-import {
-  CrankAccount,
-  EscrowAccount,
-  QueueAccount,
-  toBase58,
-} from "@switchboard-xyz/near.js";
-import { FinalExecutionOutcome } from "near-api-js/lib/providers";
+import { toBase58 } from "@switchboard-xyz/near.js";
 import chalk from "chalk";
 import { pqSort } from "../../../utils/crank";
 
@@ -19,12 +13,12 @@ export default class CrankList extends BaseCommand {
     ...BaseCommand.flags,
   };
 
-  static args = [
-    {
-      name: "crankAddress",
+  static args = {
+    crankAddress: Args.string({
       description: "address of the crank in Uint8 or Base58 encoding",
-    },
-  ];
+      required: true,
+    }),
+  };
 
   async run() {
     const { flags, args } = await this.parse(CrankList);

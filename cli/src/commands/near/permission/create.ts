@@ -36,13 +36,6 @@ export default class CreateOraclePermissions extends BaseCommand {
     }),
   };
 
-  static args = [
-    // {
-    //   name: "grantee",
-    //   description: "address of the oracle in Uint8 or Base58 encoding",
-    // },
-  ];
-
   async getGranteeAccountType(
     granteeAddress: Uint8Array
   ): Promise<"Aggregator" | "Oracle"> {

@@ -1,12 +1,7 @@
-import { Flags } from "@oclif/core";
+import { Flags, Args } from "@oclif/core";
 import { AptosWithSignerBaseCommand as BaseCommand } from "../../../../aptos";
 import { OracleJob } from "@switchboard-xyz/common";
-import {
-  AggregatorAccount,
-  JobAccount,
-  SwitchboardProgram,
-} from "@switchboard-xyz/aptos.js";
-import { AptosAccount } from "aptos";
+import { JobAccount, SwitchboardProgram } from "@switchboard-xyz/aptos.js";
 
 export default class AggregatorAddJob extends BaseCommand {
   static description = "add a job to an aggregator";
@@ -42,12 +37,12 @@ export default class AggregatorAddJob extends BaseCommand {
     }),
   };
 
-  static args = [
-    {
-      name: "aggregatorHexString",
+  static args = {
+    aggregatorHexString: Args.string({
       description: "HexString address of the aggregator",
-    },
-  ];
+      required: true,
+    }),
+  };
 
   async run() {
     const { flags, args } = await this.parse(AggregatorAddJob);

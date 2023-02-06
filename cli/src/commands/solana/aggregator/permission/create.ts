@@ -1,3 +1,4 @@
+import { Args } from "@oclif/core";
 import {
   AggregatorAccount,
   PermissionAccount,
@@ -14,13 +15,12 @@ export default class AggregatorPermissionCreate extends BaseCommand {
     ...BaseCommand.flags,
   };
 
-  static args = [
-    {
-      name: "aggregatorKey",
+  static args = {
+    aggregatorKey: Args.string({
       description: "public key of the aggregator account",
       required: true,
-    },
-  ];
+    }),
+  };
 
   async run() {
     const { args } = await this.parse(AggregatorPermissionCreate);

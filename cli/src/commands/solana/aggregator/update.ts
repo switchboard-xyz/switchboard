@@ -1,4 +1,4 @@
-import { PublicKey } from "@solana/web3.js";
+import { Args } from "@oclif/core";
 import { AggregatorAccount } from "@switchboard-xyz/solana.js";
 import chalk from "chalk";
 import { SolanaWithSignerBaseCommand as BaseCommand } from "../../../solana";
@@ -18,14 +18,12 @@ export default class AggregatorUpdate extends BaseCommand {
     ...BaseCommand.flags,
   };
 
-  static args = [
-    {
-      name: "aggregatorKey",
-      description:
-        "public key of the aggregator account to request an update for",
-      require: true,
-    },
-  ];
+  static args = {
+    aggregatorKey: Args.string({
+      description: "public key of the aggregator account",
+      required: true,
+    }),
+  };
 
   async run() {
     const { args } = await this.parse(AggregatorUpdate);

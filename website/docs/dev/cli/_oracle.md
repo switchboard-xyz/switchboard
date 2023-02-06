@@ -1,5 +1,5 @@
 
-fetch logs for a switchboard oracle
+fetch oracle logs for a given cluster
 
 * [`sbv2 oracle logs NETWORK SEARCHSTRING`](#sbv2-oracle-logs-network-searchstring)
 

@@ -1,6 +1,5 @@
-import { Flags } from "@oclif/core";
+import { Args } from "@oclif/core";
 import { NearWithoutSignerBaseCommand as BaseCommand } from "../../../near";
-import { AggregatorAccount, QueueAccount } from "@switchboard-xyz/near.js";
 
 export default class AggregatorEscrow extends BaseCommand {
   static enableJsonFlag = true;
@@ -11,12 +10,12 @@ export default class AggregatorEscrow extends BaseCommand {
     ...BaseCommand.flags,
   };
 
-  static args = [
-    {
-      name: "oracleAddress",
-      description: "address of the aggregator in Uint8 or Base58 encoding",
-    },
-  ];
+  static args = {
+    oracleAddress: Args.string({
+      description: "address of the oracle in Uint8 or Base58 encoding",
+      required: true,
+    }),
+  };
 
   async run() {
     const { flags, args } = await this.parse(AggregatorEscrow);

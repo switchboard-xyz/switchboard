@@ -1,17 +1,6 @@
-import { Flags } from "@oclif/core";
-import { BN } from "@coral-xyz/anchor";
-import {
-  Keypair,
-  PublicKey,
-  SystemProgram,
-  Transaction,
-} from "@solana/web3.js";
-import { SwitchboardDecimal } from "@switchboard-xyz/common";
-import {
-  AggregatorAccount,
-  TransactionObject,
-  types,
-} from "@switchboard-xyz/solana.js";
+import { Args, Flags } from "@oclif/core";
+import { Keypair, PublicKey, SystemProgram } from "@solana/web3.js";
+import { TransactionObject } from "@switchboard-xyz/solana.js";
 import { SolanaWithSignerBaseCommand as BaseCommand } from "../solana/index";
 
 /** Get the IDL address for a given programId
@@ -39,13 +28,12 @@ export default class SandboxCommand extends BaseCommand {
     // }),
   };
 
-  static args = [
-    {
-      name: "placeholder",
-      required: false,
+  static args = {
+    placeholder: Args.string({
       description: "",
-    },
-  ];
+      required: false,
+    }),
+  };
 
   async run() {
     const { args, flags } = await this.parse(SandboxCommand);

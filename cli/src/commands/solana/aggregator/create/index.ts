@@ -1,4 +1,4 @@
-import { Flags } from "@oclif/core";
+import { Args, Flags } from "@oclif/core";
 import { Keypair, PublicKey } from "@solana/web3.js";
 import { OracleJob } from "@switchboard-xyz/common";
 import { JobInitParams, QueueAccount } from "@switchboard-xyz/solana.js";
@@ -113,13 +113,12 @@ export default class AggregatorCreate extends BaseCommand {
     }),
   };
 
-  static args = [
-    {
-      name: "queueKey",
+  static args = {
+    queueKey: Args.string({
       description: "public key of the oracle queue to create an aggregator on",
       required: true,
-    },
-  ];
+    }),
+  };
 
   async run() {
     const { args, flags } = await this.parse(AggregatorCreate);

@@ -1337,7 +1337,7 @@ FLAGS
                                 Defaults to ~/.near-credentials
   --networkId=<option>          [default: testnet] Near network ID to connect to
                                 <options: testnet|mainnet|localnet>
-  --nodeImage=<value>           [default: dev-v2-RC_01_05_23_05_52] public key of the oracle to start-up
+  --nodeImage=<value>           [default: dev-v2-RC_01_17_23_16_22] public key of the oracle to start-up
   --programId=<value>           Switchboard programId on the selected Near networkId
 
 GLOBAL FLAGS

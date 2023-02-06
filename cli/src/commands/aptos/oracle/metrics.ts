@@ -1,10 +1,6 @@
-import { Flags } from "@oclif/core";
+import { Args } from "@oclif/core";
 import { OracleAccount, types } from "@switchboard-xyz/aptos.js";
-import { HexString, MaybeHexString } from "aptos";
-import { BN } from "@switchboard-xyz/common";
-import chalk from "chalk";
 import { AptosWithoutSignerBaseCommand as BaseCommand } from "../../../aptos";
-import { pqSort } from "../../../utils/crank";
 
 export default class OracleMetrics extends BaseCommand {
   static enableJsonFlag = true;
@@ -15,12 +11,12 @@ export default class OracleMetrics extends BaseCommand {
     ...BaseCommand.flags,
   };
 
-  static args = [
-    {
-      name: "oracleHexString",
-      description: "HexString address of the crank",
-    },
-  ];
+  static args = {
+    oracleHexString: Args.string({
+      description: "HexString address of the oracle",
+      required: true,
+    }),
+  };
 
   async run() {
     const { flags, args } = await this.parse(OracleMetrics);

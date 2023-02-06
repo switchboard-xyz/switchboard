@@ -1,6 +1,5 @@
-import { Flags } from "@oclif/core";
+import { Args } from "@oclif/core";
 import { NearWithoutSignerBaseCommand as BaseCommand } from "../../../near";
-import { QueueAccount } from "@switchboard-xyz/near.js";
 
 export default class QueueList extends BaseCommand {
   static enableJsonFlag = true;
@@ -13,13 +12,12 @@ export default class QueueList extends BaseCommand {
     ...BaseCommand.flags,
   };
 
-  static args = [
-    {
-      name: "queueAddress",
+  static args = {
+    queueAddress: Args.string({
       description: "address of the queue in Uint8 or Base58 encoding",
       required: true,
-    },
-  ];
+    }),
+  };
 
   async run() {
     const { flags, args } = await this.parse(QueueList);

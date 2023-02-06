@@ -1,4 +1,4 @@
-import { Flags } from "@oclif/core";
+import { Args } from "@oclif/core";
 import { PublicKey } from "@solana/web3.js";
 import { PermissionAccount } from "@switchboard-xyz/solana.js";
 import { SolanaWithoutSignerBaseCommand as BaseCommand } from "../../../solana";
@@ -12,13 +12,12 @@ export default class PermissionPrint extends BaseCommand {
     ...BaseCommand.flags,
   };
 
-  static args = [
-    {
-      name: "permissionKey",
+  static args = {
+    permissionKey: Args.string({
       description: "public key of the permission account",
       required: true,
-    },
-  ];
+    }),
+  };
 
   async run() {
     const { args, flags } = await this.parse(PermissionPrint);

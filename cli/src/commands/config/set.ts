@@ -1,4 +1,4 @@
-import { Flags } from "@oclif/core";
+import { Args, Flags } from "@oclif/core";
 import { CliBaseCommand as BaseCommand } from "../../BaseCommand";
 
 export default class ConfigSet extends BaseCommand {
@@ -14,31 +14,27 @@ export default class ConfigSet extends BaseCommand {
     }),
   };
 
-  static args = [
-    {
-      name: "chain",
+  static args = {
+    chain: Args.string({
       required: true,
       options: ["solana", "near", "aptos"],
       description: "chain to set a config parameter",
-    },
-    {
-      name: "network",
+    }),
+    network: Args.string({
       required: true,
       options: ["localnet", "testnet", "betanet", "devnet", "mainnet"],
       description: "network of chain to set parameter",
-    },
-    {
-      name: "parameter",
+    }),
+    parameter: Args.string({
       required: true,
       options: ["rpc", "default-account", "account"],
       description: "parameter to set",
-    },
-    {
-      name: "value",
+    }),
+    value: Args.string({
       required: false,
       description: "value of the param to set",
-    },
-  ];
+    }),
+  };
 
   async run() {
     const { args, flags } = await this.parse(ConfigSet);
@@ -49,7 +45,7 @@ export default class ConfigSet extends BaseCommand {
 
     if (args.parameter === "rpc") {
       this.ctx.setRpcUrl(
-        args.chain,
+        args.chain as any,
         args.network,
         flags.reset ? undefined : args.value
       );
@@ -57,7 +53,7 @@ export default class ConfigSet extends BaseCommand {
 
     if (args.parameter === "account" || args.parameter === "default-account") {
       this.ctx.setDefaultAccount(
-        args.chain,
+        args.chain as any,
         args.network,
         flags.reset ? undefined : args.value
       );

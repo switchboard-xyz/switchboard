@@ -1,4 +1,4 @@
-import { Flags } from "@oclif/core";
+import { Args, Flags } from "@oclif/core";
 import { PublicKey } from "@solana/web3.js";
 import { SolanaWithoutSignerBaseCommand as BaseCommand } from "../../../solana/index";
 
@@ -12,13 +12,12 @@ export default class AggregatorList extends BaseCommand {
     ...BaseCommand.flags,
   };
 
-  static args = [
-    {
-      name: "authorityKey",
-      description: "public key of an aggregator's authority",
+  static args = {
+    authorityKey: Args.string({
+      description: "public key of the aggregator authority",
       required: true,
-    },
-  ];
+    }),
+  };
 
   async run() {
     const { args, flags } = await this.parse(AggregatorList);
