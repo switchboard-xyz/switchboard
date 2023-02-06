@@ -35,10 +35,10 @@ jobs:
           cache: npm
           cache-dependency-path: "**/package-lock.json"
 
-      # - name: Install global deps
-      #   working-directory: .
-      #   run: |
-      #     npm i -g typescript ts-node @types/node
+      - name: Install global deps
+        working-directory: .
+        run: |
+          npm i -g typescript ts-node @types/node
 
       - name: Install sbv2-scripts
         working-directory: javascript/sbv2-scripts
