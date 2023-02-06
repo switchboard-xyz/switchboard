@@ -38,12 +38,12 @@ jobs:
       - name: Install global deps
         working-directory: .
         run: |
-          yarn global add typescript ts-node @types/node
+          npm i -g typescript ts-node @types/node
 
       - name: Install sbv2-scripts
         working-directory: javascript/sbv2-scripts
         run: |
-          npm install
+          npm ci
           npm link
 
       - name: Install @switchboard-xyz/cli dependencies
@@ -60,7 +60,7 @@ jobs:
       - name: Install @switchboard-xyz/common dependencies
         working-directory: javascript/common
         run: |
-          npm install
+          npm ci
 
       - name: Install @switchboard-xyz/aptos.js dependencies
         working-directory: sdks/aptos
@@ -75,22 +75,37 @@ jobs:
       - name: Install @switchboard-xyz/switchboard-v2 dependencies
         working-directory: sdks/solana/javascript/switchboard-v2
         run: |
-          npm install
+          npm ci
 
       - name: Install @switchboard-xyz/solana.js dependencies
         working-directory: sdks/solana/javascript/solana.js
         run: |
-          npm install
+          npm ci
 
-      - name: Install @switchboard-xyz/sbv2-lite dependencies
-        working-directory: sdks/solana/javascript/sbv2-lite
-        run: |
-          npm install
+      # - name: Install @switchboard-xyz/sbv2-lite dependencies
+      #   working-directory: sdks/solana/javascript/sbv2-lite
+      #   run: |
+      #     npm ci
 
-      - name: Install @switchboard-xyz/sbv2-utils dependencies
-        working-directory: sdks/solana/javascript/sbv2-utils
+      # - name: Install @switchboard-xyz/sbv2-utils dependencies
+      #   working-directory: sdks/solana/javascript/sbv2-utils
+      #   run: |
+      #     npm ci
+
+      - name: Install @switchboard-xyz/evm.js dependencies
+        working-directory: sdks/evm/javascript/evm.js
         run: |
-          npm install
+          npm ci
+
+      - name: Install @switchboard-xyz/starknet.js dependencies
+        working-directory: sdks/starknet/javascript/starknet.js
+        run: |
+          npm ci
+
+      - name: Install @switchboard-xyz/sui.js dependencies
+        working-directory: sdks/sui/javascript/sui.js
+        run: |
+          npm ci
 
       - name: Build website
         working-directory: website

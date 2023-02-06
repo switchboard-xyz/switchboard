@@ -7,3 +7,12 @@
 [submodule "sdks/near"]
 	path = sdks/near
 	url = https://github.com/switchboard-xyz/sbv2-near
+[submodule "sdks/starknet"]
+	path = sdks/starknet
+	url = https://github.com/switchboard-xyz/sbv2-starknet
+[submodule "sdks/sui"]
+	path = sdks/sui
+	url = https://github.com/switchboard-xyz/sbv2-sui
+[submodule "sdks/evm"]
+	path = sdks/evm
+	url = https://github.com/switchboard-xyz/sbv2-evm

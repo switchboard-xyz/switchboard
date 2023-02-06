@@ -77,6 +77,32 @@ const projectRoot = path.join(__dirname, "..", "..");
     "npm"
   );
 
+  console.log(chalk.green(`Generating typedocs for @switchboard-xyz/evm.js`));
+  generateGenericApiTypedocs(
+    projectRoot,
+    ["sdks", "evm", "javascript", "evm.js"],
+    ["@switchboard-xyz", "evm.js"],
+    "npm"
+  );
+
+  console.log(
+    chalk.green(`Generating typedocs for @switchboard-xyz/starknet.js`)
+  );
+  generateGenericApiTypedocs(
+    projectRoot,
+    ["sdks", "starknet", "javascript", "starknet.js"],
+    ["@switchboard-xyz", "starknet.js"],
+    "npm"
+  );
+
+  console.log(chalk.green(`Generating typedocs for @switchboard-xyz/sui.js`));
+  generateGenericApiTypedocs(
+    projectRoot,
+    ["sdks", "sui", "javascript", "sui.js"],
+    ["@switchboard-xyz", "sui.js"],
+    "npm"
+  );
+
   console.log(chalk.green(`Generating documentation for @switchboard-xyz/cli`));
   generateCliDocs(projectRoot);
 })();
