@@ -88,10 +88,10 @@ jobs:
         run: |
           npm ci
 
-      # - name: Install @switchboard-xyz/starknet.js dependencies
-      #   working-directory: sdks/starknet/javascript/starknet.js
-      #   run: |
-      #     npm ci
+      - name: Install @switchboard-xyz/starknet.js dependencies
+        working-directory: sdks/starknet/javascript/starknet.js
+        run: |
+          npm install
 
       - name: Install @switchboard-xyz/sui.js dependencies
         working-directory: sdks/sui/javascript/sui.js
