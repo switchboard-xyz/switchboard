@@ -126,7 +126,7 @@ export default class NetworkStart extends BaseCommand {
   async run() {
     const { flags } = await this.parse(NetworkStart);
 
-    let loadedNetwork: LoadedSwitchboardNetwork;
+    let loadedNetwork: LoadedSwitchboardNetwork | undefined = undefined;
 
     if (flags.schemaFile) {
       loadedNetwork = await this.loadFromSchema(flags.schemaFile);
@@ -168,7 +168,7 @@ export default class NetworkStart extends BaseCommand {
                 ? "http://host.docker.internal:8899"
                 : flags.rpcUrl ?? clusterApiUrl("devnet"),
             oracleKey: oracle.account.publicKey.toBase58(),
-            secretPath: this.normalizePath(flags.keypair),
+            secretPath: this.normalizePath(flags.keypair!),
             arch: flags.arm ? "linux/arm64" : "linux/amd64",
           },
           undefined,
@@ -190,7 +190,7 @@ export default class NetworkStart extends BaseCommand {
     process.exit();
   }
 
-  async catch(error) {
+  async catch(error: any) {
     try {
       this.stopOracles();
     } catch {}

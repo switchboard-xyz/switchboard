@@ -32,7 +32,7 @@ export default class CreateEscrow extends BaseCommand {
     console.log(escrow.toJSON());
   }
 
-  async catch(error) {
+  async catch(error: any) {
     super.catch(error, "Failed to create near escrow account");
   }
 }

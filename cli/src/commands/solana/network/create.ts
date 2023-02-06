@@ -141,7 +141,7 @@ export default class NetworkCreate extends BaseCommand {
     // this.logger.info("Transaction Signature:", this.toUrl(signature));
   }
 
-  async catch(error) {
+  async catch(error: any) {
     super.catch(error, "Failed to create a switchboard network");
   }
 }

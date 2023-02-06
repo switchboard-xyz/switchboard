@@ -98,7 +98,7 @@ export default class LeaseCreate extends BaseCommand {
     this.logger.log(this.toUrl(signature));
   }
 
-  async catch(error) {
+  async catch(error: any) {
     super.catch(error, "failed to create a lease account");
   }
 }

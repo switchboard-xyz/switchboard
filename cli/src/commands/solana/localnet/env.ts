@@ -151,7 +151,7 @@ anchor test --skip-local-validator
     );
   }
 
-  async catch(error) {
+  async catch(error: any) {
     super.catch(error, "Failed to create localnet environment");
   }
 }

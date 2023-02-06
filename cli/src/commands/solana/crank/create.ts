@@ -80,7 +80,7 @@ export default class CrankCreate extends BaseCommand {
     this.logger.info(this.toUrl(signature));
   }
 
-  async catch(error) {
+  async catch(error: any) {
     super.catch(error, "failed to create a crank account");
   }
 }

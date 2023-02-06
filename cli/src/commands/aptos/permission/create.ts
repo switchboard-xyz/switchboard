@@ -82,7 +82,7 @@ export default class PermissionCreate extends BaseCommand {
     // this.logger.info(this.normalizeAccountData(crank.address, crankData));
   }
 
-  async catch(error) {
+  async catch(error: any) {
     super.catch(error, "Failed to create aptos permission");
   }
 }

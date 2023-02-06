@@ -58,7 +58,7 @@ export default class NetworkSave extends BaseCommand {
     );
   }
 
-  async catch(error) {
+  async catch(error: any) {
     super.catch(error, "Failed to create a switchboard network");
   }
 }

@@ -12,7 +12,7 @@ export function pqPop<T extends ICrankRow>(crankData: Array<T>): T | null {
     return null;
   }
   const ret = crankData[0];
-  crankData[0] = crankData.at(-1);
+  crankData[0] = crankData.at(-1)!;
   crankData.pop();
   let current = 0;
   while (true) {
@@ -54,7 +54,9 @@ export function pqSort<
 
   while (rows.length > 0) {
     const popped = pqPop(rows);
-    sorted.push(popped);
+    if (popped) {
+      sorted.push(popped);
+    }
   }
 
   assert(sorted.length === pqData.length, "SortFailure");

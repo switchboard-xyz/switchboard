@@ -162,7 +162,7 @@ export class AggregatorJson implements IAggregatorJson {
       throw new Error(`Aggregator JSON should have at least one job`);
     }
 
-    const jobs: IJobJson[] = json.jobs.map((job) => {
+    const jobs: IJobJson[] = json.jobs.map((job: any) => {
       if (
         !("tasks" in job) ||
         !Array.isArray(job.tasks) ||
@@ -190,9 +190,9 @@ export class AggregatorJson implements IAggregatorJson {
       name,
       metadata,
       batchSize,
-      minOracleResults,
+      minOracleResults: minOracleResults ?? 1,
       minJobResults,
-      minUpdateDelaySeconds,
+      minUpdateDelaySeconds: minUpdateDelaySeconds ?? 0,
       startAfter,
       varianceThreshold,
       forceReportPeriod,

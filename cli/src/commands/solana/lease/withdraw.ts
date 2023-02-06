@@ -77,9 +77,11 @@ export default class AggregatorLeaseWithdraw extends BaseCommand {
         this.program.mint.fetchBalance(tokenWallet),
         this.program.mint.fetchBalance(leaseData.escrow),
       ]);
-      this.logger.log(chalkString("Initial Lease Balance", leaseBalance, 24));
       this.logger.log(
-        chalkString("Initial Withdrawer Balance", withdrawerBalance, 24)
+        chalkString("Initial Lease Balance", leaseBalance ?? 0, 24)
+      );
+      this.logger.log(
+        chalkString("Initial Withdrawer Balance", withdrawerBalance ?? 0, 24)
       );
     }
 
@@ -96,7 +98,9 @@ export default class AggregatorLeaseWithdraw extends BaseCommand {
       const [leaseBalance] = await Promise.all([
         this.program.mint.fetchBalance(leaseData.escrow),
       ]);
-      this.logger.log(chalkString("Final Lease Balance", leaseBalance, 24));
+      this.logger.log(
+        chalkString("Final Lease Balance", leaseBalance ?? 0, 24)
+      );
     }
 
     if (this.silent) {
@@ -112,7 +116,7 @@ export default class AggregatorLeaseWithdraw extends BaseCommand {
     this.logger.log(this.toUrl(signature));
   }
 
-  async catch(error) {
+  async catch(error: any) {
     super.catch(error, "failed to withdraw from aggregator lease account");
   }
 }

@@ -49,7 +49,7 @@ export default class AggregatorUpdate extends BaseCommand {
     this.logger.log(this.toUrl(signature));
   }
 
-  async catch(error) {
+  async catch(error: any) {
     if (
       error instanceof AggregatorIllegalRoundOpenCall ||
       error.toString().includes("0x177d")

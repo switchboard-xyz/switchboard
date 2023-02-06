@@ -81,11 +81,11 @@ export default class AggregatorPrintHistory extends BaseCommand {
         )
       );
       this.logger.info(
-        chalkString("start", `[${startTimestamp}, ${start.value}]`)
+        chalkString("start", `[${startTimestamp}, ${start!.value}]`)
       );
-      this.logger.info(chalkString("end", `[${endTimestamp}, ${end.value}]`));
-      this.logger.info(chalkString("min", `[${min.timestamp}, ${minValue}]`));
-      this.logger.info(chalkString("max", `[${max.timestamp}, ${maxValue}]`));
+      this.logger.info(chalkString("end", `[${endTimestamp}, ${end!.value}]`));
+      this.logger.info(chalkString("min", `[${min!.timestamp}, ${minValue}]`));
+      this.logger.info(chalkString("max", `[${max!.timestamp}, ${maxValue}]`));
 
       return;
     }
@@ -99,7 +99,7 @@ export default class AggregatorPrintHistory extends BaseCommand {
     }
   }
 
-  async catch(error) {
+  async catch(error: any) {
     super.catch(error, "failed to print aggregator history");
   }
 }

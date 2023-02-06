@@ -62,7 +62,7 @@ export default class ConfigSet extends BaseCommand {
     // this.ctx.set(args.param, flags.reset ? undefined : args.value);
   }
 
-  async catch(error) {
+  async catch(error: any) {
     super.catch(error, "failed to set config option");
   }
 }

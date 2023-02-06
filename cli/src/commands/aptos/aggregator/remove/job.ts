@@ -43,7 +43,7 @@ export default class AggregatorRemoveJob extends BaseCommand {
       aggregatorData.authority.toString()
     );
 
-    for (const jobKey of flags.jobAddress) {
+    for (const jobKey of flags.jobAddress ?? []) {
       const jobAccount = new JobAccount(
         this.aptos,
         this.parseAddress(jobKey).toString(),
@@ -70,7 +70,7 @@ export default class AggregatorRemoveJob extends BaseCommand {
     }
   }
 
-  async catch(error) {
+  async catch(error: any) {
     super.catch(error, "Failed to remove job account from aggregator");
   }
 }

@@ -48,8 +48,8 @@ export class LogProvider implements ILogProvider {
 
   constructor(parameters: LoggerParameters, disable = false) {
     this._logger = new WinstonLogger(parameters);
-    this.silent = parameters.silent;
-    this.verbose = parameters.verbose;
+    this.silent = parameters.silent ?? false;
+    this.verbose = parameters.verbose ?? false;
 
     if (disable) {
       this.disable();

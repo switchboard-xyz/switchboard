@@ -205,7 +205,7 @@ export abstract class CliBaseCommand extends Command {
   }
 
   // eslint-disable-next-line complexity
-  jsonReplacers(key: any, value: any) {
+  jsonReplacers(key: any, value: any): any {
     if (
       !value ||
       typeof value === "string" ||

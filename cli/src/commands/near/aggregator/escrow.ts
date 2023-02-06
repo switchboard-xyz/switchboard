@@ -27,7 +27,7 @@ export default class AggregatorEscrow extends BaseCommand {
     console.log((await escrow.loadData()).toJSON());
   }
 
-  async catch(error) {
+  async catch(error: any) {
     super.catch(error, "Failed to print near aggregator's escrow");
   }
 }

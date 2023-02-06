@@ -93,7 +93,7 @@ export default class SandboxCommand extends BaseCommand {
     // console.log(accountInfo.lamports);
   }
 
-  async catch(error) {
+  async catch(error: any) {
     super.catch(error, "sandbox command failed");
   }
 }

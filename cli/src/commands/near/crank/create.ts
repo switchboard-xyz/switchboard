@@ -56,7 +56,7 @@ export default class CrankCreate extends BaseCommand {
     this.logger.info(JSON.stringify(crankData, this.jsonReplacers, 2));
   }
 
-  async catch(error) {
+  async catch(error: any) {
     super.catch(error, "Failed to create near crank");
   }
 }

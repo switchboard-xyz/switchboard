@@ -75,7 +75,7 @@ export default class QueueSet extends BaseCommand {
       args.queueKey
     );
 
-    let authority: Keypair;
+    let authority: Keypair | undefined = undefined;
     if (flags.authority) {
       authority = await this.loadAuthority(flags.authority, queue.authority);
     }
@@ -120,7 +120,7 @@ export default class QueueSet extends BaseCommand {
     this.logger.info(`Transaction Signature: ${this.toUrl(signature)}`);
   }
 
-  async catch(error) {
+  async catch(error: any) {
     super.catch(error, "Failed to set the oracle queue config");
   }
 }

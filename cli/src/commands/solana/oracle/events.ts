@@ -163,7 +163,7 @@ export default class OracleEvents extends BaseCommand {
     await this.closeSubscriptions();
   }
 
-  async catch(error) {
+  async catch(error: any) {
     try {
       await this.closeSubscriptions();
     } catch (error) {}

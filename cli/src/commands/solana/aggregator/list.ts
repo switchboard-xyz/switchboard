@@ -39,7 +39,7 @@ export default class AggregatorList extends BaseCommand {
     aggregatorKeys.forEach((aggregatorKey) => console.log(aggregatorKey));
   }
 
-  async catch(error) {
+  async catch(error: any) {
     super.catch(error, "failed to list aggregators");
   }
 }

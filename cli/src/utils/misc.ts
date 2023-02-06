@@ -6,7 +6,15 @@ import chalk from "chalk";
 
 export const chalkString = (
   label: string,
-  value: string | number | boolean | PublicKey | Big | anchor.BN | undefined,
+  value:
+    | string
+    | number
+    | boolean
+    | PublicKey
+    | Big
+    | anchor.BN
+    | undefined
+    | null,
   padding = 16
 ): string => {
   let valueString: string;

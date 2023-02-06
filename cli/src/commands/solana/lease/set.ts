@@ -93,7 +93,7 @@ export default class AggregatorLeaseSet extends BaseCommand {
     this.logger.log(this.toUrl(signature));
   }
 
-  async catch(error) {
+  async catch(error: any) {
     super.catch(error, "failed to set aggregator lease withdraw authority");
   }
 }

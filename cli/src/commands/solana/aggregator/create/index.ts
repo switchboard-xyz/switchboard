@@ -139,7 +139,7 @@ export default class AggregatorCreate extends BaseCommand {
       ? await this.loadAuthority(flags.authority)
       : this.program.wallet.payer;
 
-    let keypair: Keypair;
+    let keypair: Keypair | undefined = undefined;
     if (flags.aggregatorKeypair) {
       keypair = await this.loadKeypair(flags.aggregatorKeypair);
     }
@@ -224,7 +224,7 @@ export default class AggregatorCreate extends BaseCommand {
     this.prettyPrintAggregatorAccounts(accounts);
   }
 
-  async catch(error) {
+  async catch(error: any) {
     super.catch(error, "Failed to create aggregator account");
   }
 }

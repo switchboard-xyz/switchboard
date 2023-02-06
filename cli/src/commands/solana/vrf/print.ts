@@ -32,7 +32,7 @@ export default class VrfPrint extends BaseCommand {
     this.prettyPrintVrfAccounts(accounts);
   }
 
-  async catch(error) {
+  async catch(error: any) {
     super.catch(error, "failed to print vrf");
   }
 }

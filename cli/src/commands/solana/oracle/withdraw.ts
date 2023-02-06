@@ -75,7 +75,7 @@ export default class OracleWithdraw extends BaseCommand {
     this.logger.info(this.toUrl(signature));
   }
 
-  async catch(error) {
+  async catch(error: any) {
     super.catch(error, "failed to withdraw from oracle's staking wallet");
   }
 }

@@ -33,7 +33,7 @@ export default class QueuePrint extends BaseCommand {
     this.prettyPrintQueue(queue, queueAccount.publicKey);
   }
 
-  async catch(error) {
+  async catch(error: any) {
     super.catch(error, "failed to print queue");
   }
 }

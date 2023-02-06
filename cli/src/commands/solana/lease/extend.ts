@@ -88,7 +88,9 @@ export default class LeaseExtend extends BaseCommand {
       funderTokenWallet: funderTokenWallet,
       funderAuthority: this.program.wallet.payer,
     });
-    const signature = await this.signAndSend(wrapFundsTxn.combine(txn));
+    const signature = await this.signAndSend(
+      wrapFundsTxn ? wrapFundsTxn.combine(txn) : txn
+    );
 
     if (!this.silent) {
       const newBalance = await this.program.mint.fetchBalance(lease.escrow);
@@ -106,7 +108,7 @@ export default class LeaseExtend extends BaseCommand {
     this.logger.log(this.toUrl(signature));
   }
 
-  async catch(error) {
+  async catch(error: any) {
     super.catch(error, "failed to deposit into aggregator lease account");
   }
 }

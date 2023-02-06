@@ -207,7 +207,7 @@ export default class SolanaValidatorUp extends BaseCommand {
         network: "localnet",
         rpcUrl: "http://host.docker.internal:8899",
         oracleKey: oracle.account.publicKey.toBase58(),
-        secretPath: this.normalizePath(flags.keypair),
+        secretPath: this.normalizePath(flags.keypair!),
         arch: flags.arm ? "linux/arm64" : "linux/amd64",
       },
 
@@ -226,7 +226,7 @@ export default class SolanaValidatorUp extends BaseCommand {
     await this.endProcesses();
   }
 
-  async catch(error) {
+  async catch(error: any) {
     await this.endProcesses();
     super.catch(
       error,

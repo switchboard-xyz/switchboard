@@ -58,7 +58,7 @@ export default class SolanaDockerOracle extends BaseCommand {
             ? "http://host.docker.internal:8899"
             : flags.rpcUrl ?? clusterApiUrl("devnet"),
         oracleKey: flags.oracleKey,
-        secretPath: this.normalizePath(flags.keypair),
+        secretPath: this.normalizePath(flags.keypair!),
         arch: flags.arm ? "linux/arm64" : "linux/amd64",
       },
 
@@ -71,7 +71,7 @@ export default class SolanaDockerOracle extends BaseCommand {
     docker.stop();
   }
 
-  async catch(error) {
+  async catch(error: any) {
     super.catch(error, "Failed to start solana oracle");
   }
 }

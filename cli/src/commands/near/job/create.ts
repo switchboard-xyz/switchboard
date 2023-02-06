@@ -61,7 +61,7 @@ export default class CreateJob extends BaseCommand {
     this.logger.info(JSON.stringify(accountData, this.jsonReplacers, 2));
   }
 
-  async catch(error) {
+  async catch(error: any) {
     super.catch(error, "Failed to create near job account");
   }
 }

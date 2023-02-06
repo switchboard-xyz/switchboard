@@ -87,7 +87,7 @@ export default class CreateOracle extends BaseCommand {
     this.logger.info(JSON.stringify(oracleData, this.jsonReplacers, 2));
   }
 
-  async catch(error) {
+  async catch(error: any) {
     super.catch(error, "Failed to create near oracle");
   }
 }

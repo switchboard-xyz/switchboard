@@ -157,7 +157,6 @@ export default class NearPrint extends BaseCommand {
                 const jobData = await jobAccount.loadData();
                 const oracleJob = OracleJob.decodeDelimited(jobData.data);
                 return {
-                  address: jobAccount.address,
                   addressBase58: this.encodeAddress(jobAccount.address),
                   ...jobData.toJSON(),
                   data: oracleJob.toJSON(),
@@ -205,7 +204,7 @@ export default class NearPrint extends BaseCommand {
     console.log(JSON.stringify(data, this.jsonReplacers, 2));
   }
 
-  async catch(error) {
+  async catch(error: any) {
     super.catch(error, "Failed to print near account");
   }
 }

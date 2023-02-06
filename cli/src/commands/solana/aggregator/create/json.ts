@@ -166,7 +166,7 @@ export default class JsonCreateAggregator extends BaseCommand {
     // handle nicer logging here
   }
 
-  async catch(error) {
+  async catch(error: any) {
     super.catch(error, "failed to create aggregator from json file");
   }
 }

@@ -146,7 +146,7 @@ export default class AggregatorSet extends BaseCommand {
     this.logger.info(this.toUrl(signature));
   }
 
-  async catch(error) {
+  async catch(error: any) {
     super.catch(error, "failed to set an aggregator's config");
   }
 }

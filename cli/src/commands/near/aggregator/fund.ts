@@ -51,7 +51,7 @@ export default class AggregatorFund extends BaseCommand {
     console.log("Fund aggregator", this.toUrl(aggReceipt.transaction.hash));
   }
 
-  async catch(error) {
+  async catch(error: any) {
     super.catch(error, "Failed to fund near aggregator");
   }
 }

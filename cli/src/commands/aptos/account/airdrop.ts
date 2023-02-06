@@ -47,7 +47,7 @@ export default class AccountAirdrop extends BaseCommand {
     // );
   }
 
-  async catch(error) {
+  async catch(error: any) {
     super.catch(error, "Failed to request an airdrop");
   }
 }

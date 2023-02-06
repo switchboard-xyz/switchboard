@@ -65,12 +65,12 @@ export const loadGoogleSecretKeypair = async (
       : `${secretPath}/versions/latest`,
   });
 
-  const secrets = accessResponse.payload.data;
-  if (secrets === undefined) {
+  const secrets = accessResponse.payload?.data ?? "";
+  if (!secrets) {
     throw new Error("Google secret not found.");
   }
 
-  let secretKey: Uint8Array;
+  let secretKey: Uint8Array | undefined = undefined;
 
   if (typeof secrets === "string") {
     secretKey = new Uint8Array(Buffer.from(secrets));
@@ -78,11 +78,11 @@ export const loadGoogleSecretKeypair = async (
     secretKey = new Uint8Array(JSON.parse(secrets.toString()));
   }
 
-  if (secretKey) {
-    return Keypair.fromSecretKey(secretKey);
+  if (!secretKey) {
+    throw new Error(`failed to read gcp secret`);
   }
 
-  throw new Error(`failed to read gcp secret`);
+  return Keypair.fromSecretKey(secretKey);
 };
 
 export const loadKeypair = async (

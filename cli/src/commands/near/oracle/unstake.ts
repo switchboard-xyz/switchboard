@@ -46,7 +46,7 @@ export default class OracleUnstake extends BaseCommand {
     }
   }
 
-  async catch(error) {
+  async catch(error: any) {
     super.catch(error, "Failed to unstake funds from near oracle");
   }
 }

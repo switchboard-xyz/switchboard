@@ -43,7 +43,9 @@ export default class VrfRequest extends BaseCommand {
       vrf,
       payerTokenWallet,
     });
-    const signature = await this.signAndSend(userInitTxn.combine(txn));
+    const signature = await this.signAndSend(
+      userInitTxn ? userInitTxn.combine(txn) : txn
+    );
 
     if (this.silent) {
       this.logger.info(signature);
@@ -57,7 +59,7 @@ export default class VrfRequest extends BaseCommand {
     this.logger.log(this.toUrl(signature));
   }
 
-  async catch(error) {
+  async catch(error: any) {
     if (
       error instanceof AggregatorIllegalRoundOpenCall ||
       error.toString().includes("0x177d")

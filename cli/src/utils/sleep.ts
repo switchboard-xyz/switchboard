@@ -2,7 +2,10 @@
 export const sleep = (ms: number): Promise<any> =>
   new Promise((s) => setTimeout(s, ms));
 
-export const callWithRetry = async (function_, depth = 0) => {
+export async function callWithRetry<T>(
+  function_: (...args: any[]) => T | Promise<T>,
+  depth = 0
+): Promise<T> {
   try {
     return function_();
   } catch (error) {
@@ -14,4 +17,4 @@ export const callWithRetry = async (function_, depth = 0) => {
 
     return callWithRetry(function_, depth + 1);
   }
-};
+}

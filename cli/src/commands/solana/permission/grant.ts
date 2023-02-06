@@ -1,6 +1,7 @@
 import { Args, Flags } from "@oclif/core";
 import { PublicKey } from "@solana/web3.js";
 import {
+  AccountNotFoundError,
   PermissionAccount,
   SwitchboardProgram,
   types,
@@ -51,6 +52,9 @@ export default class PermissionGrant extends BaseCommand {
     const granteeAccountInfo = await this.program.connection.getAccountInfo(
       permissionData.grantee
     );
+    if (!granteeAccountInfo) {
+      throw new AccountNotFoundError("Grantee", permissionData.grantee);
+    }
     const granteeAccountType =
       SwitchboardProgram.getAccountType(granteeAccountInfo);
 
@@ -95,7 +99,7 @@ export default class PermissionGrant extends BaseCommand {
     this.logger.log(this.toUrl(signature));
   }
 
-  async catch(error) {
+  async catch(error: any) {
     super.catch(error, "failed to set permissions");
   }
 }

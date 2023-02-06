@@ -54,7 +54,7 @@ export default class OracleLogs extends OutputFileBaseCommand {
     this.logger.info(payload);
   }
 
-  async catch(error) {
+  async catch(error: any) {
     super.catch(error, "Failed to fetch oracle logs");
   }
 }

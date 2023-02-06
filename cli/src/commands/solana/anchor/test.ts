@@ -24,7 +24,7 @@ function getRequiredVariable(key: string): string {
     );
   }
 
-  return process.env[key];
+  return process.env[key]!;
 
   // return new PublicKey(process.env[key]);
 }
@@ -161,19 +161,21 @@ export default class AnchorTest extends BaseCommand {
     const anchorToml = getAnchorToml(anchorFile);
 
     let cluster: "localnet" | "devnet" | "mainnet-beta" = flags.cluster as any;
-    if (anchorToml) {
-      if ("provider" in anchorToml && "cluster" in anchorToml.provider) {
-        const anchorCluster = anchorToml.provider.cluster.toLowerCase();
-        if (anchorCluster === "localnet" || anchorCluster === "devnet") {
-          cluster = anchorCluster;
-        }
+    if (
+      anchorToml &&
+      "provider" in anchorToml &&
+      "cluster" in anchorToml.provider!
+    ) {
+      const anchorCluster = anchorToml?.provider?.cluster?.toLowerCase();
+      if (anchorCluster === "localnet" || anchorCluster === "devnet") {
+        cluster = anchorCluster;
       }
     }
 
     // get keypair from flag or from Anchor.toml
     let keypairPath: string | undefined;
     if (flags.keypair) {
-      keypairPath = this.normalizePath(flags.keypair);
+      keypairPath = this.normalizePath(flags.keypair!);
     } else {
       // read anchor.toml
       if (!anchorToml) {
@@ -181,8 +183,8 @@ export default class AnchorTest extends BaseCommand {
           `--keypair flag not provided and failed to locate Anchor.toml`
         );
       }
-      if ("provider" in anchorToml && "wallet" in anchorToml.provider) {
-        keypairPath = this.normalizePath(anchorToml.provider.wallet);
+      if ("provider" in anchorToml && "wallet" in anchorToml.provider!) {
+        keypairPath = this.normalizePath(anchorToml.provider.wallet!);
       }
     }
     if (!keypairPath) {
@@ -206,7 +208,11 @@ export default class AnchorTest extends BaseCommand {
       const cloneAccounts: Array<string> = [];
       const clonePrograms: Array<string> = [];
 
-      if ("test" in anchorToml && typeof anchorToml.test === "object") {
+      if (
+        anchorToml &&
+        "test" in anchorToml &&
+        typeof anchorToml.test === "object"
+      ) {
         if (
           "genesis" in anchorToml.test &&
           Array.isArray(anchorToml.test.genesis)
@@ -247,7 +253,7 @@ export default class AnchorTest extends BaseCommand {
           ) {
             for (const account of anchorToml.test.validator.account) {
               if ("filename" in account) {
-                cloneAccounts.push(account.filename);
+                cloneAccounts.push(account.filename!);
               }
             }
           }
@@ -369,7 +375,7 @@ export default class AnchorTest extends BaseCommand {
     process.exit();
   }
 
-  async catch(error) {
+  async catch(error: any) {
     await this.endProcesses();
     if (this.detach && this.solanaTestValidator) {
       this.log(

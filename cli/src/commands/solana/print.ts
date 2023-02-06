@@ -36,7 +36,7 @@ export default class SolanaPrint extends BaseCommand {
     }
   }
 
-  async catch(error) {
+  async catch(error: any) {
     super.catch(error, "Failed to print Switchboard account");
   }
 }

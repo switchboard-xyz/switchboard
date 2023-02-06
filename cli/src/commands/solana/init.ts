@@ -32,7 +32,7 @@ export default class ProgramInit extends BaseCommand {
     this.prettyPrintSbstate(programState, programStateAccount.publicKey);
   }
 
-  async catch(error) {
+  async catch(error: any) {
     super.catch(error, "Failed to get or create program state account");
   }
 }

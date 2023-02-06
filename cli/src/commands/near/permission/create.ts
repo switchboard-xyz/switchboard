@@ -137,7 +137,7 @@ export default class CreateOraclePermissions extends BaseCommand {
     this.logger.info(JSON.stringify(permissionData, this.jsonReplacers, 2));
   }
 
-  async catch(error) {
+  async catch(error: any) {
     super.catch(
       error,
       "Failed to create a permission account for a near oracle"

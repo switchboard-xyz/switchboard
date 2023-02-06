@@ -48,7 +48,7 @@ export default class AggregatorPrint extends BaseCommand {
     this.prettyPrintAggregatorAccounts(accounts);
   }
 
-  async catch(error) {
+  async catch(error: any) {
     super.catch(error, "failed to print aggregator");
   }
 }

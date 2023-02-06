@@ -38,7 +38,7 @@ export default class CrankList extends BaseCommand {
     );
   }
 
-  async catch(error) {
+  async catch(error: any) {
     super.catch(error, "Failed to pop near crank");
   }
 }

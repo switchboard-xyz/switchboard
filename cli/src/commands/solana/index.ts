@@ -102,8 +102,8 @@ export default class Solana extends BaseCommand {
           const jobs = jobPubkeys
             .map((jobKey) => {
               if (accounts.jobs.has(jobKey.toBase58())) {
-                const job = accounts.jobs.get(jobKey.toBase58());
-                const oracleJob = this.deserializeJobData(job.data);
+                const job = accounts.jobs.get(jobKey.toBase58())!;
+                const oracleJob = this.deserializeJobData(job.data!);
                 return {
                   ...job.toJSON(),
                   ...oracleJob.toJSON(),
@@ -167,7 +167,10 @@ export default class Solana extends BaseCommand {
         if (key === "buffers") {
           continue;
         }
-        fs.appendFileSync(flags.outputFile, JSON.stringify(accountsJson[key]));
+        fs.appendFileSync(
+          flags.outputFile,
+          JSON.stringify((accountsJson as any)[key])
+        );
       }
     }
 
@@ -207,7 +210,7 @@ export default class Solana extends BaseCommand {
     this.logger.info(chalkString("vrfs", accounts.vrfs.size, SPACING));
   }
 
-  async catch(error) {
+  async catch(error: any) {
     super.catch(error, "failed to get switchboard accounts");
   }
 }

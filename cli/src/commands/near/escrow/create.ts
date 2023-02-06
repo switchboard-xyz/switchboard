@@ -42,7 +42,7 @@ export default class CreateEscrow extends BaseCommand {
     this.logger.info(JSON.stringify(escrowData, this.jsonReplacers, 2));
   }
 
-  async catch(error) {
+  async catch(error: any) {
     super.catch(error, "Failed to create near escrow account");
   }
 }

@@ -37,7 +37,7 @@ export default class PermissionPrint extends BaseCommand {
     this.prettyPrintPermissions(permission, permissionAccount.publicKey);
   }
 
-  async catch(error) {
+  async catch(error: any) {
     super.catch(error, "failed to print permission account");
   }
 }

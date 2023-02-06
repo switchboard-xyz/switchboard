@@ -91,12 +91,12 @@ export default class QueueCreate extends BaseCommand {
   async run() {
     const { flags } = await this.parse(QueueCreate);
 
-    let authority: Keypair;
+    let authority: Keypair | undefined = undefined;
     if (flags.authority) {
       authority = await this.loadAuthority(flags.authority);
     }
 
-    let keypair: Keypair;
+    let keypair: Keypair | undefined = undefined;
     if (flags.queueKeypair) {
       keypair = await this.loadKeypair(flags.queueKeypair);
       const keypairAccountInfo = await this.program.connection.getAccountInfo(
@@ -111,7 +111,7 @@ export default class QueueCreate extends BaseCommand {
       }
     }
 
-    let dataBufferKeypair: Keypair;
+    let dataBufferKeypair: Keypair | undefined = undefined;
     if (flags.dataBufferKeypair) {
       dataBufferKeypair = await this.loadKeypair(flags.dataBufferKeypair);
       const keypairAccountInfo = await this.program.connection.getAccountInfo(
@@ -170,7 +170,7 @@ export default class QueueCreate extends BaseCommand {
     this.logger.info(`Transaction Signature: ${this.toUrl(signature)}`);
   }
 
-  async catch(error) {
+  async catch(error: any) {
     super.catch(error, "Failed to create oracle queue account");
   }
 }

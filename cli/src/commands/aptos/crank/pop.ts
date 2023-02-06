@@ -36,7 +36,7 @@ export default class CrankPop extends BaseCommand {
     this.logger.info(this.toUrl(sig));
   }
 
-  async catch(error) {
+  async catch(error: any) {
     super.catch(error, "Failed to pop crank");
   }
 }

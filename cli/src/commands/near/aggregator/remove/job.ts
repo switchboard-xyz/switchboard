@@ -46,7 +46,7 @@ export default class AggregatorRemoveJob extends BaseCommand {
 
     const txns: FinalExecutionOutcome[] = [];
 
-    for (const jobKey of flags.jobAddress) {
+    for (const jobKey of flags.jobAddress ?? []) {
       const jobAccount = new JobAccount({
         program: this.program,
         address: this.parseAddress(jobKey),
@@ -80,7 +80,7 @@ export default class AggregatorRemoveJob extends BaseCommand {
     }
   }
 
-  async catch(error) {
+  async catch(error: any) {
     super.catch(error, "Failed to remove job account from aggregator");
   }
 }

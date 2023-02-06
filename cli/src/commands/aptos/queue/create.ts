@@ -119,7 +119,7 @@ export default class QueueCreate extends BaseCommand {
     this.logger.info(this.toUrl(sig));
   }
 
-  async catch(error) {
+  async catch(error: any) {
     super.catch(error, "Failed to create aptos oracle queue");
   }
 }

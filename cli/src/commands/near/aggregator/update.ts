@@ -50,7 +50,7 @@ export default class AggregatorUpdate extends BaseCommand {
     this.logger.info(`${this.toUrl(txnReceipt.transaction.hash)}`);
   }
 
-  async catch(error) {
+  async catch(error: any) {
     super.catch(error, "Failed to update near aggregator");
   }
 }

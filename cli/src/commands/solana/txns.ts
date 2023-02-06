@@ -78,7 +78,7 @@ export default class SolanaTransactions extends BaseCommand {
     const signatures: Array<ConfirmedSignatureInfo> = [];
     let lastSig: string | undefined = undefined;
     while (signatures.length < flags.limit) {
-      const signatureBatch =
+      const signatureBatch: ConfirmedSignatureInfo[] =
         await this.program.connection.getSignaturesForAddress(pubkey, {
           before: lastSig,
           limit: 1000,
@@ -96,57 +96,57 @@ export default class SolanaTransactions extends BaseCommand {
         })
       )
     ).map((parsedTxn, txnIdx) => {
-      const logs = parsedTxn.meta.logMessages.join("\n");
+      const logs = (parsedTxn?.meta?.logMessages ?? []).join("\n");
       let ixnName = "";
       let success: string | boolean = "Unknown";
-      const parsedTxnIxns = parsedTxn.transaction.message.instructions.map(
-        (ixn) => {
-          if (ixn.programId.equals(this.program.programId) && "data" in ixn) {
-            const ixnData = isBase58(ixn.data)
-              ? Buffer.from(base58.decode(ixn.data))
-              : Buffer.from(ixn.data, "base64");
+      const parsedTxnIxns = (
+        parsedTxn?.transaction?.message?.instructions ?? []
+      ).map((ixn) => {
+        if (ixn.programId.equals(this.program.programId) && "data" in ixn) {
+          const ixnData = isBase58(ixn.data)
+            ? Buffer.from(base58.decode(ixn.data))
+            : Buffer.from(ixn.data, "base64");
 
-            const sbv2IxnName =
-              discriminatorMap.get(ixnData.slice(0, 8).toString()) ??
-              "Switchboard Unknown";
-            if (sbv2IxnName !== "") {
-              ixnName = sbv2IxnName;
-            }
-
-            switch (sbv2IxnName) {
-              case "AggregatorOpenRound":
-              case "OracleHeartbeat":
-              case "AggregatorSaveResultV2":
-              case "AggregatorSaveResult":
-              case "CrankPopV2":
-              case "CrankPop": {
-                if (
-                  logs.includes("AnchorError") ||
-                  logs.includes("Crank pop miss")
-                ) {
-                  success = false;
-                  break;
-                } else {
-                  success = true;
-                }
-              }
-            }
-
-            return {
-              ...ixn,
-              ixnName: sbv2IxnName,
-            };
+          const sbv2IxnName =
+            discriminatorMap.get(ixnData.slice(0, 8).toString()) ??
+            "Switchboard Unknown";
+          if (sbv2IxnName !== "") {
+            ixnName = sbv2IxnName;
           }
 
-          return ixn;
+          switch (sbv2IxnName) {
+            case "AggregatorOpenRound":
+            case "OracleHeartbeat":
+            case "AggregatorSaveResultV2":
+            case "AggregatorSaveResult":
+            case "CrankPopV2":
+            case "CrankPop": {
+              if (
+                logs.includes("AnchorError") ||
+                logs.includes("Crank pop miss")
+              ) {
+                success = false;
+                break;
+              } else {
+                success = true;
+              }
+            }
+          }
+
+          return {
+            ...ixn,
+            ixnName: sbv2IxnName,
+          };
         }
-      );
+
+        return ixn;
+      });
 
       return {
-        timestamp: BNtoDateTimeString(new BN(parsedTxn.blockTime)),
+        timestamp: BNtoDateTimeString(new BN(parsedTxn?.blockTime ?? 0)),
         ixnName: ixnName,
         success,
-        signatures: parsedTxn.transaction.signatures,
+        signatures: parsedTxn?.transaction.signatures,
         ...parsedTxn,
         transaction: undefined,
         // transaction: {
@@ -198,7 +198,7 @@ export default class SolanaTransactions extends BaseCommand {
     );
   }
 
-  async catch(error) {
+  async catch(error: any) {
     super.catch(error, "Failed to print Switchboard account");
   }
 }

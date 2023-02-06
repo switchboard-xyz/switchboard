@@ -75,7 +75,9 @@ export default class AggregatorTransfer extends BaseCommand {
         this.program.walletPubkey,
         { fundUpTo: loadAmount }
       );
-    txns.push(wrapIxns);
+    if (wrapIxns) {
+      txns.push(wrapIxns);
+    }
 
     const authority = await this.loadAuthority(
       flags.authority,
@@ -340,7 +342,7 @@ export default class AggregatorTransfer extends BaseCommand {
     signatures.map((signature) => this.logger.info(this.toUrl(signature)));
   }
 
-  async catch(error) {
+  async catch(error: any) {
     if (
       error instanceof AggregatorIllegalRoundOpenCall ||
       error.toString().includes("0x177d")

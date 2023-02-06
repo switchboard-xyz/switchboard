@@ -36,7 +36,7 @@ export default class JobPrint extends BaseCommand {
     this.prettyPrintJob(job, jobAccount.publicKey, oracleJob.tasks);
   }
 
-  async catch(error) {
+  async catch(error: any) {
     super.catch(error, "failed to print job");
   }
 }

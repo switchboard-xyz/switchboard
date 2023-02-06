@@ -56,7 +56,7 @@ export default class OracleStake extends BaseCommand {
     }
   }
 
-  async catch(error) {
+  async catch(error: any) {
     super.catch(error, "Failed to stake funds for near oracle");
   }
 }

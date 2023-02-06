@@ -111,7 +111,6 @@ export default class CreateAggregator extends BaseCommand {
     });
 
     const data = {
-      address: aggregator.address,
       addressBase58: this.encodeAddress(aggregator.address),
       ...(await aggregator.loadData()),
       permission: {
@@ -135,7 +134,7 @@ export default class CreateAggregator extends BaseCommand {
     );
   }
 
-  async catch(error) {
+  async catch(error: any) {
     super.catch(error, "Failed to create near aggregator");
   }
 }

@@ -69,7 +69,7 @@ export default class NearDockerOracle extends BaseCommand {
     await sleep(120000);
   }
 
-  async catch(error) {
+  async catch(error: any) {
     super.catch(error, "Failed to start near oracle");
   }
 }

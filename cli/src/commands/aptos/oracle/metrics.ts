@@ -50,7 +50,7 @@ export default class OracleMetrics extends BaseCommand {
     console.log(oracle.toJSON());
   }
 
-  async catch(error) {
+  async catch(error: any) {
     super.catch(error, "Failed to sort crank");
   }
 }

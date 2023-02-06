@@ -113,7 +113,7 @@ export default class AggregatorAddJob extends BaseCommand {
     // });
   }
 
-  async catch(error) {
+  async catch(error: any) {
     super.catch(error, "Failed to add job to aggregator");
   }
 }

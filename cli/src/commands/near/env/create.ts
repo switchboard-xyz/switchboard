@@ -181,7 +181,7 @@ export default class EnvCreate extends BaseCommand {
       jobs: JobAccount[];
       permissionAccount: PermissionAccount;
     }[] = [];
-    for await (const feedDefinitionPath of flags.feed) {
+    for await (const feedDefinitionPath of flags.feed ?? []) {
       try {
         const feedDefinition = JSON.parse(
           fs
@@ -300,7 +300,6 @@ export default class EnvCreate extends BaseCommand {
         const permissionData = await feed.permissionAccount.loadData();
 
         return {
-          address: feed.aggregatorAccount.address,
           addressBase58: this.encodeAddress(feed.aggregatorAccount.address),
           ...aggData,
           permission: {
@@ -313,11 +312,9 @@ export default class EnvCreate extends BaseCommand {
     );
 
     const data = {
-      address: queueAccount.address,
       addressBase58: this.encodeAddress(queueAccount.address),
       ...queueData,
       oracle: {
-        address: oracleAccount.address,
         addressBase58: this.encodeAddress(oracleAccount.address),
         ...oracleData,
         permission: {
@@ -327,7 +324,6 @@ export default class EnvCreate extends BaseCommand {
         },
       },
       crank: {
-        address: crankAccount.address,
         addressBase58: this.encodeAddress(crankAccount.address),
         ...crankData,
         length: crankData.data.length,
@@ -355,7 +351,7 @@ export default class EnvCreate extends BaseCommand {
     // this.logger.info(JSON.stringify(queueData, this.fs.jsonReplacers, 2));
   }
 
-  async catch(error) {
+  async catch(error: any) {
     super.catch(error, "Failed to create near oracle queue environment");
   }
 }

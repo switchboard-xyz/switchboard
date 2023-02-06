@@ -67,7 +67,7 @@ export default class JobTest extends BaseCommand {
     this.logger.info(JSON.stringify(payload, undefined, 2));
   }
 
-  async catch(error) {
+  async catch(error: any) {
     super.catch(error, "Failed to test job definitions");
   }
 }

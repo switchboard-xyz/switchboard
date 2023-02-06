@@ -48,7 +48,7 @@ export default class AptosDockerOracle extends BaseCommand {
         network: flags.networkId as "testnet" | "devnet",
         rpcUrl: this.rpcUrl,
         oracleKey: oracleAccount.address.toString(),
-        secretPath: this.normalizePath(flags.keypair),
+        secretPath: this.normalizePath(flags.keypair!),
         arch: flags.arm ? "linux/arm64" : "linux/amd64",
         envVariables: {
           PROGRAM_ID: this.programId.toString(),
@@ -63,7 +63,7 @@ export default class AptosDockerOracle extends BaseCommand {
     await sleep(120000);
   }
 
-  async catch(error) {
+  async catch(error: any) {
     super.catch(error, "Failed to start aptos oracle");
   }
 }

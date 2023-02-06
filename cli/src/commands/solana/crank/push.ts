@@ -70,7 +70,7 @@ export default class CrankPush extends BaseCommand {
     this.logger.log(this.toUrl(signature));
   }
 
-  async catch(error) {
+  async catch(error: any) {
     super.catch(error, "failed to push feed onto the crank");
   }
 }

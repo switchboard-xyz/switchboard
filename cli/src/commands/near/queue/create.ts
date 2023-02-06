@@ -92,7 +92,7 @@ export default class QueueCreate extends BaseCommand {
     this.logger.info(JSON.stringify(queueData, this.jsonReplacers, 2));
   }
 
-  async catch(error) {
+  async catch(error: any) {
     super.catch(error, "Failed to create near oracle queue");
   }
 }

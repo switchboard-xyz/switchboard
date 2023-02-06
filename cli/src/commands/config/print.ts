@@ -26,13 +26,13 @@ export default class ConfigPrint extends BaseCommand {
       this.logger.info(
         chalkString(
           "solana-mainnet-rpc".padEnd(PADDING, " "),
-          mainnet.rpcUrl || "N/A"
+          mainnet?.rpcUrl || "N/A"
         )
       );
       this.logger.info(
         chalkString(
           "solana-devnet-rpc".padEnd(PADDING, " "),
-          devnet.rpcUrl || "N/A"
+          devnet?.rpcUrl || "N/A"
         )
       );
     } catch (error) {}
@@ -43,13 +43,13 @@ export default class ConfigPrint extends BaseCommand {
       this.logger.info(
         chalkString(
           "near-mainnet-rpc".padEnd(PADDING, " "),
-          mainnet.rpcUrl || "N/A"
+          mainnet?.rpcUrl || "N/A"
         )
       );
       this.logger.info(
         chalkString(
           "near-testnet-rpc".padEnd(PADDING, " "),
-          testnet.rpcUrl || "N/A"
+          testnet?.rpcUrl || "N/A"
         )
       );
     } catch (error) {}

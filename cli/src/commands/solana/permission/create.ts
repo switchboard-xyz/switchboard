@@ -5,6 +5,7 @@ import {
   PermissionAccount,
   QueueAccount,
   SwitchboardProgram,
+  AccountNotFoundError,
 } from "@switchboard-xyz/solana.js";
 import chalk from "chalk";
 import { SolanaWithSignerBaseCommand as BaseCommand } from "../../../solana";
@@ -57,6 +58,9 @@ export default class PermissionCreate extends BaseCommand {
     const granteeAccountInfo = await this.program.connection.getAccountInfo(
       new PublicKey(flags.grantee)
     );
+    if (!granteeAccountInfo) {
+      throw new AccountNotFoundError("Grantee", new PublicKey(flags.grantee));
+    }
     const granteeAccountType =
       SwitchboardProgram.getAccountType(granteeAccountInfo);
 
@@ -122,7 +126,7 @@ export default class PermissionCreate extends BaseCommand {
     this.logger.log(this.toUrl(signature));
   }
 
-  async catch(error) {
+  async catch(error: any) {
     super.catch(error, "failed to create a permission account");
   }
 }

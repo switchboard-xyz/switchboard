@@ -81,7 +81,7 @@ export default class AggregatorPermissionCreate extends BaseCommand {
     this.logger.log(this.toUrl(signature));
   }
 
-  async catch(error) {
+  async catch(error: any) {
     super.catch(error, "failed to create permission account for aggregator");
   }
 }

@@ -60,7 +60,7 @@ export default class AggregatorWatch extends BaseCommand {
     );
   }
 
-  async catch(error) {
+  async catch(error: any) {
     super.catch(error, "failed to watch aggregator's state");
   }
 }

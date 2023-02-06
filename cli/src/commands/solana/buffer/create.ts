@@ -65,7 +65,7 @@ export default class BufferCreate extends BaseCommand {
       ? await this.loadKeypair(flags.bufferKeypair)
       : Keypair.generate();
 
-    let job: JobAccount | Omit<JobInitParams, "weight">;
+    let job: JobAccount | Omit<JobInitParams, "weight"> | undefined = undefined;
     if (flags.jobDefinition) {
       const oracleJob = this.loadJobDefinition(flags.jobDefinition);
       job = {
@@ -114,7 +114,7 @@ export default class BufferCreate extends BaseCommand {
     this.logger.info(`Transaction Signature: ${this.toUrl(signature)}`);
   }
 
-  async catch(error) {
+  async catch(error: any) {
     super.catch(error, "failed to create buffer relayer account");
   }
 }

@@ -37,12 +37,12 @@ export class SolanaTestValidator implements ISolanaTestValidator {
   readonly args: Array<string>;
 
   get pid() {
-    return this.localValidatorProcess.pid;
+    return this.localValidatorProcess?.pid;
   }
 
   constructor(config: ISolanaTestValidator) {
     this.detached = config.detached ?? true;
-    this.quiet = config.quiet;
+    this.quiet = config.quiet ?? false;
     this.bindAddress = config.bindAddress ?? "0.0.0.0";
     this.port = config.port ?? 8899;
     this.faucetPort = config.faucetPort ?? 9900;

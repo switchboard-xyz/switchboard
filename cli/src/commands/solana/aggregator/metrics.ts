@@ -121,7 +121,9 @@ export default class AggregatorMetrics extends BaseCommand {
     }
     const rawHistory = await aggregatorAccount.loadHistory();
 
-    const periods = flags.period.map((p) => Number(p)).sort((a, b) => a - b);
+    const periods = (flags.period ?? [])
+      .map((p) => Number(p))
+      .sort((a, b) => a - b);
 
     const metrics = periods.map((period) =>
       AggregatorHistoryBuffer.collectMetrics(
@@ -150,7 +152,7 @@ export default class AggregatorMetrics extends BaseCommand {
     }
   }
 
-  async catch(error) {
+  async catch(error: any) {
     super.catch(error, "failed to print aggregator update metrics");
   }
 }

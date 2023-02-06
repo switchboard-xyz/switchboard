@@ -30,7 +30,7 @@ export default class AggregatorUpdate extends BaseCommand {
     this.logger.info(this.toUrl(updateSig));
   }
 
-  async catch(error) {
+  async catch(error: any) {
     super.catch(error, "Failed to update aptos aggregator");
   }
 }

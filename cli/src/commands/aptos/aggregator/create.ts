@@ -116,9 +116,9 @@ export default class CreateAggregator extends BaseCommand {
         name: flags.name || "",
         metadata: flags.metadata || "",
         queueAddress: queue.address,
-        batchSize: flags.batchSize,
-        minOracleResults: flags.minOracles,
-        minJobResults: flags.minJobs,
+        batchSize: flags.batchSize ?? 1,
+        minOracleResults: flags.minOracles ?? 1,
+        minJobResults: flags.minJobs ?? 1,
         minUpdateDelaySeconds: flags.updateInterval,
         startAfter: 0,
         varianceThreshold: new Big(flags.varianceThreshold),
@@ -182,7 +182,7 @@ export default class CreateAggregator extends BaseCommand {
     this.logger.info(this.toUrl(aggSig));
   }
 
-  async catch(error) {
+  async catch(error: any) {
     super.catch(error, "Failed to create aptos aggregator");
   }
 }

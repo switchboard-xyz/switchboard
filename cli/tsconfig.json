@@ -6,7 +6,7 @@
     "module": "commonjs",
     "outDir": "dist",
     "rootDir": "src",
-    "strict": false,
+    "strict": true,
     "target": "es2019",
     "esModuleInterop": true,
     "skipLibCheck": true,

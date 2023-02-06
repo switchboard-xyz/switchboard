@@ -41,7 +41,7 @@ export default class OraclePrint extends BaseCommand {
     this.prettyPrintPermissions(permissions, permissionAccount.publicKey);
   }
 
-  async catch(error) {
+  async catch(error: any) {
     super.catch(error, "failed to print oracle");
   }
 }

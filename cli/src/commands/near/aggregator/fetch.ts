@@ -34,7 +34,7 @@ export default class FetchAggregator extends BaseCommand {
     // );
   }
 
-  async catch(error) {
+  async catch(error: any) {
     super.catch(error, "Failed to fetch near aggregators");
   }
 }

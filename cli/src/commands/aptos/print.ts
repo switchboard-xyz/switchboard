@@ -127,7 +127,7 @@ export default class AptosPrint extends BaseCommand {
     console.log(JSON.stringify(data, this.jsonReplacers, 2));
   }
 
-  async catch(error) {
+  async catch(error: any) {
     super.catch(error, "Failed to print aptos account");
   }
 }

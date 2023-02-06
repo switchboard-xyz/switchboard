@@ -71,7 +71,7 @@ export default class CrankCreate extends BaseCommand {
     );
   }
 
-  async catch(error) {
+  async catch(error: any) {
     super.catch(error, "Failed to create aptos crank");
   }
 }

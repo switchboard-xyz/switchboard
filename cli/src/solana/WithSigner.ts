@@ -57,7 +57,10 @@ export abstract class SolanaWithSignerBaseCommand extends SolanaBaseCommand {
       this.signerType = "ledger";
 
       const transport = await TransportNodeHid.open();
-      this.logConfig({ ledger: transport.deviceModel.productName }, false);
+      this.logConfig(
+        { ledger: transport.deviceModel?.productName ?? "" },
+        false
+      );
       this.ledger = new Solana(transport);
       this.payer = await this.ledger
         .getAddress(this.ledgerPath, false)
@@ -129,15 +132,13 @@ export abstract class SolanaWithSignerBaseCommand extends SolanaBaseCommand {
             ux.ux.action.start("sign the transaction on your ledger ...");
           }
 
-          const signedTxn = await this.ledger
-            .signTransaction(
-              this.ledgerPath,
-              partiallySignedTxn.serializeMessage()
-            )
-            .then((r) => {
-              partiallySignedTxn.addSignature(this.payer, r.signature);
-              return partiallySignedTxn;
-            });
+          const signedTxn = await this.ledger!.signTransaction(
+            this.ledgerPath,
+            partiallySignedTxn.serializeMessage()
+          ).then((r) => {
+            partiallySignedTxn.addSignature(this.payer, r.signature);
+            return partiallySignedTxn;
+          });
 
           const txnSignature = await sendAndConfirmRawTransaction(
             this.program.connection,
@@ -158,11 +159,9 @@ export abstract class SolanaWithSignerBaseCommand extends SolanaBaseCommand {
 
         break;
       }
-
-      default: {
-        throw new Error(`Failed to match signerType to a txn signer handler`);
-      }
     }
+
+    throw new Error(`Failed to match signerType to a txn signer handler`);
   }
 
   private verifyTransaction(txn: TransactionObject): void {
@@ -261,15 +260,13 @@ export abstract class SolanaWithSignerBaseCommand extends SolanaBaseCommand {
               ux.ux.action.start(status);
             }
 
-            const signedTxn = await this.ledger
-              .signTransaction(
-                this.ledgerPath,
-                partiallySignedTxn.serializeMessage()
-              )
-              .then((r) => {
-                partiallySignedTxn.addSignature(this.payer, r.signature);
-                return partiallySignedTxn;
-              });
+            const signedTxn = await this.ledger!.signTransaction(
+              this.ledgerPath,
+              partiallySignedTxn.serializeMessage()
+            ).then((r) => {
+              partiallySignedTxn.addSignature(this.payer, r.signature);
+              return partiallySignedTxn;
+            });
 
             const newStatus = `transaction #${index + 1}/${
               txns.length
