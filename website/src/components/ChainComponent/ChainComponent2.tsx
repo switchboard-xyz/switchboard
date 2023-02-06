@@ -29,8 +29,9 @@ export default function ChainComponent2({ items }: ChainComponentProps) {
         alignItems="center"
         spacing={3}
       >
-        <Grid item xs={12} md={2}>
+        <Grid item xs={12} sm={12} md={2}>
           <Typography
+            noWrap
             variant="body1"
             align="center"
             sx={{
@@ -39,7 +40,7 @@ export default function ChainComponent2({ items }: ChainComponentProps) {
               fontWeight: "var(--ifm-font-weight-bold)",
             }}
           >
-            Integrate Switchboard today
+            Integrate Switchboard Today!
           </Typography>
         </Grid>
         {items.map((item, index) => {
