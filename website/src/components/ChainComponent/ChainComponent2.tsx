@@ -29,7 +29,7 @@ export default function ChainComponent2({ items }: ChainComponentProps) {
         alignItems="center"
         spacing={3}
       >
-        <Grid item xs={12} sm={12} md={2}>
+        <Grid item xs={12} sm={12} md={3}>
           <Typography
             variant="body1"
             align="center"
