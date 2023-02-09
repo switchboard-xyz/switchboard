@@ -109,7 +109,7 @@ import { JobAccount } from "@switchboard-xyz/near.js";
 const job = await JobAccount.create(program, {
   data: Buffer.from(OracleJob.encodeDelimited(oracleJob).finish()),
   name: Buffer.from("Job1"),
-  metadata: Buffer.from("Job1 - FtxUS BTC/USD"),
+  metadata: Buffer.from("Job1"),
 });
 console.log(await job.loadData());
 ```

@@ -159,7 +159,7 @@ export default class SolanaValidatorUp extends BaseCommand {
       this.program.idl,
       SBV2_DEVNET_PID,
       new anchor.AnchorProvider(
-        new Connection("http://localhost:8899"),
+        new Connection("http://0.0.0.0:8899"),
         new AnchorWallet(this.program.wallet.payer),
         {}
       )

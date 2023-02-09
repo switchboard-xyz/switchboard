@@ -137,14 +137,14 @@ export class SolanaTestValidator implements ISolanaTestValidator {
     return false;
   }
 
-  async awaitReady(rpcUrl = "http://localhost:8899", maxRetries: number = 30) {
+  async awaitReady(rpcUrl = "http://0.0.0.0:8899", maxRetries: number = 30) {
     if (this.isReady) {
       return;
     }
 
     const localnetConnection = new Connection(
       rpcUrl === "http://host.docker.internal:8899"
-        ? "http://localhost:8899"
+        ? "http://0.0.0.0:8899"
         : rpcUrl
     );
 

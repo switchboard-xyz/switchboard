@@ -11,14 +11,10 @@ export type SolanaConfigParameter =
 export type NearConfigParameter =
   | "near-testnet-rpc"
   | "near-mainnet-rpc"
-  | "near-betanet-rpc"
   | "near-testnet-default-account"
-  | "near-mainnet-default-account"
-  | "near-betanet-default-account";
+  | "near-mainnet-default-account";
 
 export type AptosConfigParameter =
-  | "aptos-devnet-rpc"
-  | "aptos-devnet-default-account"
   | "aptos-testnet-rpc"
   | "aptos-testnet-default-account"
   | "aptos-mainnet-rpc"
@@ -56,7 +52,6 @@ export interface IAptosNetworkConfig {
 }
 
 export interface IAptosConfig {
-  devnet?: IAptosNetworkConfig;
   testnet?: IAptosNetworkConfig;
   mainnet?: IAptosNetworkConfig;
 }
@@ -79,8 +74,6 @@ export const DEFAULT_NEAR_BETANET_RPC = "https://rpc.betanet.near.org";
 export const DEFAULT_NEAR_TESTNET_RPC = "https://rpc.testnet.near.org";
 export const DEFAULT_NEAR_MAINNET_RPC = "https://rpc.mainnet.near.org";
 
-export const DEFAULT_APTOS_DEVNET_RPC =
-  "https://fullnode.devnet.aptoslabs.com/v1";
 export const DEFAULT_APTOS_TESTNET_RPC =
   "https://fullnode.testnet.aptoslabs.com/v1";
 export const DEFAULT_APTOS_MAINNET_RPC =
@@ -110,9 +103,6 @@ export class ConfigProvider {
   nearMainnetDefaultAccount?: string;
 
   // aptos
-  aptosDevnetRpc = DEFAULT_APTOS_DEVNET_RPC;
-  aptosDevnetDefaultAccount?: string;
-
   aptosTestnetRpc = DEFAULT_APTOS_TESTNET_RPC;
   aptosTestnetDefaultAccount?: string;
 
@@ -178,14 +168,6 @@ export class ConfigProvider {
     }
 
     // aptos
-    if (config.aptos?.devnet?.rpcUrl) {
-      this.aptosDevnetRpc = config.aptos.devnet.rpcUrl;
-    }
-
-    if (config.aptos?.devnet?.defaultAccount) {
-      this.aptosDevnetDefaultAccount = config.aptos.devnet.defaultAccount;
-    }
-
     if (config.aptos?.testnet?.rpcUrl) {
       this.aptosTestnetRpc = config.aptos.testnet.rpcUrl;
     }
@@ -255,13 +237,6 @@ export class ConfigProvider {
     };
   }
 
-  get aptosDevnet(): IAptosNetworkConfig {
-    return {
-      rpcUrl: this.aptosDevnetRpc,
-      defaultAccount: this.aptosDevnetDefaultAccount,
-    };
-  }
-
   get aptosTestnet(): IAptosNetworkConfig {
     return {
       rpcUrl: this.aptosTestnetRpc,
@@ -278,7 +253,6 @@ export class ConfigProvider {
 
   get aptos(): IAptosConfig {
     return {
-      devnet: this.aptosDevnet,
       testnet: this.aptosTestnet,
       mainnet: this.aptosMainnet,
     };
@@ -322,7 +296,7 @@ export class ConfigProvider {
             return this.solanaMainnetRpc;
 
           case "localnet":
-            return "http://localhost:8899";
+            return "http://0.0.0.0:8899";
         }
 
         break;
@@ -343,8 +317,6 @@ export class ConfigProvider {
 
       case "aptos": {
         switch (network) {
-          case "devnet":
-            return this.aptosDevnetRpc;
           case "testnet":
             return this.aptosTestnetRpc;
           case "mainnet":
@@ -389,8 +361,6 @@ export class ConfigProvider {
 
       case "aptos": {
         switch (network) {
-          case "devnet":
-            return this.aptosDevnetDefaultAccount;
           case "testnet":
             return this.aptosTestnetDefaultAccount;
           case "mainnet":
@@ -446,10 +416,6 @@ export class ConfigProvider {
 
       case "aptos": {
         switch (network) {
-          case "devnet":
-            this.aptosDevnetRpc = value || DEFAULT_APTOS_DEVNET_RPC;
-            this.save();
-            return;
           case "testnet":
             this.aptosTestnetRpc = value || DEFAULT_APTOS_TESTNET_RPC;
             this.save();
@@ -511,10 +477,6 @@ export class ConfigProvider {
 
       case "aptos": {
         switch (network) {
-          case "devnet":
-            this.aptosDevnetDefaultAccount = value || "";
-            this.save();
-            return;
           case "testnet":
             this.aptosTestnetDefaultAccount = value || "";
             this.save();
