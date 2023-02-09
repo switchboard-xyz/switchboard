@@ -2741,12 +2741,13 @@
     rpc-websockets "^7.5.0"
     superstruct "^0.14.2"
 
-"@switchboard-xyz/aptos.js@^2.6.0":
-  version "2.6.0"
-  resolved "https://registry.npmjs.org/@switchboard-xyz/aptos.js/-/aptos.js-2.6.0.tgz#a42ef185b25321da07b1351e8dccf8b53a732027"
-  integrity sha512-hUETu59haz/0NYmrVXtCDt5dPHH+XymOZxrZtU04u0EfdqOEihZyTXm8TmGTCetd8qDUnE1gW8Ic/udrdWjRhw==
+"@switchboard-xyz/aptos.js@^2.6.2":
+  version "2.6.2"
+  resolved "https://registry.npmjs.org/@switchboard-xyz/aptos.js/-/aptos.js-2.6.2.tgz#1ec7cb52eec5f95f43993a4b6b2a2435d0737ae1"
+  integrity sha512-sqapsHb9ScGOKgHL0BmamDAs4qNbH848sw4ji76qQdfHKaNt63CxZ0QoPid5Xc9mAOODaZHszsLlyqmRpHxQsg==
   dependencies:
     "@switchboard-xyz/common" "^2.1.29"
+    aptos "^1.6.0"
     big.js "^6.2.1"
     bn.js "^5.2.1"
     chalk "^5.0.1"
@@ -2819,10 +2820,10 @@
     wait-for-event "^2.0.1"
     ws "^8.10.0"
 
-"@switchboard-xyz/solana.js@^2.0.120":
-  version "2.0.120"
-  resolved "https://registry.npmjs.org/@switchboard-xyz/solana.js/-/solana.js-2.0.120.tgz#ddceb65c0f9aad3c8cdfc5f3827b2d14268d7e4e"
-  integrity sha512-D4cG0kk2n5VqfLQdjFROsVI27fRlNDoM7mQpswDz0Gh5odCEpXb1U2AimkmbQsDd4I+WrnIIpuza/7jXZsKX8Q==
+"@switchboard-xyz/solana.js@^2.0.125":
+  version "2.0.125"
+  resolved "https://registry.npmjs.org/@switchboard-xyz/solana.js/-/solana.js-2.0.125.tgz#893f80e33c48e46011ab26f6c83cdf7aa329350c"
+  integrity sha512-3Dwcn+uA3BRD2d2boHRbY995573J4FPqxpRYkRnp9G7QD/11aEptWN4fQxm86suDt5gLOtiaTL2oWeXy86NgTg==
   dependencies:
     "@coral-xyz/anchor" "^0.26.0"
     "@coral-xyz/borsh" "^0.26.0"
