@@ -38,25 +38,40 @@ export default function ChainComponent2({ items }: ChainComponentProps) {
               color:
                 colorMode === "dark"
                   ? "var(--ifm-navbar-link-color)"
-                  : "var(--ifm-color-primary-dark)",
+                  : "var(--ifm-navbar-link-color)",
               fontWeight: "var(--ifm-font-weight-bold)",
             }}
           >
             Integrate Switchboard Today!
           </Typography>
         </Grid>
-        {items.map((item, index) => {
-          return (
-            <>
-              <Grid item key={item.title + "Chain"}>
+        <Grid
+          container
+          item
+          xs={12}
+          sm={12}
+          md={9}
+          justifyContent="space-around"
+          alignItems="center"
+        >
+          {items.map((item, index) => {
+            return (
+              <>
                 <Box
+                  key={item.title + "Chain"}
                   display="flex"
                   flexDirection="column"
                   alignItems="center"
                   component={Link}
                   href={item.to}
                   style={{ textDecoration: "none" }}
-                  sx={{ p: 2 }}
+                  sx={{
+                    p: 2,
+                    transition: "transform 0.15s ease-in-out",
+                    "&&&:hover": {
+                      transform: "scale3d(1.25, 1.25, 1)",
+                    },
+                  }}
                 >
                   <Avatar
                     src={
@@ -81,10 +96,10 @@ export default function ChainComponent2({ items }: ChainComponentProps) {
                     {item.title}
                   </Typography>
                 </Box>
-              </Grid>
-            </>
-          );
-        })}
+              </>
+            );
+          })}
+        </Grid>
       </Grid>
     </>
   );
