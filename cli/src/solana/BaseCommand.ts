@@ -65,6 +65,7 @@ export abstract class SolanaBaseCommand
       options: ["devnet", "mainnet-beta", "mainnet", "localnet"],
       required: false,
       exclusive: ["mainnetBeta"],
+      aliases: ["networkId"],
     }),
     rpcUrl: Flags.string({
       char: "u",
