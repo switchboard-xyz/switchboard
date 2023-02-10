@@ -1,5 +1,3 @@
-import type { ChildProcess } from "child_process";
-import { execSync, spawn } from "child_process";
 import fs from "fs";
 import path from "path";
 import os from "os";
@@ -42,7 +40,7 @@ export class DockerOracle {
   logs: string[] = [];
   readonly logFile: string;
 
-  dockerOracleProcess?: ChildProcess;
+  dockerOracleProcess?: any;
   isActive = true;
   readonly timestamp: number = Date.now();
 
@@ -153,7 +151,9 @@ export class DockerOracle {
   public static isDockerRunning() {
     // Check docker is running
     try {
-      execSync(`docker ps`, { stdio: ["pipe", "pipe", "pipe"] });
+      require("child_process").execSync(`docker ps`, {
+        stdio: ["pipe", "pipe", "pipe"],
+      });
     } catch (error) {
       throw new Error(`Is Docker running?`);
     }
@@ -166,12 +166,12 @@ export class DockerOracle {
     // Kill all existing switchboard oracles
     try {
       if (os.type() === "Windows_NT") {
-        execSync(
+        require("child_process").execSync(
           `FOR /F "tokens=*" %i IN ('docker ps -q -f "ancestor=switchboardlabs/node"') DO (docker container stop %i)`,
           { stdio: ["pipe", "pipe", "pipe"], shell: "powershell.exe" }
         );
       } else {
-        execSync(
+        require("child_process").execSync(
           `docker container stop $(docker ps | grep "switchboardlabs/node" | awk '{ print $1 }')`,
           { stdio: ["pipe", "pipe", "pipe"] }
         );
@@ -197,7 +197,7 @@ export class DockerOracle {
     this.isActive = false;
     this.saveLogs();
     try {
-      execSync(`docker container stop ${this.image}`, {
+      require("child_process").execSync(`docker container stop ${this.image}`, {
         stdio: ["pipe", "pipe", "pipe"],
       });
       return true;
@@ -235,7 +235,7 @@ export class DockerOracle {
     } catch (error) {}
 
     try {
-      const stdout = execSync("ps -o pid,args", {
+      const stdout = require("child_process").execSync("ps -o pid,args", {
         encoding: "utf-8",
       });
       if (stdout.includes("dockerd") || stdout.includes("containerd")) {
@@ -244,7 +244,7 @@ export class DockerOracle {
     } catch (error) {}
 
     try {
-      const stdout = execSync("lsof -p $$", {
+      const stdout = require("child_process").execSync("lsof -p $$", {
         encoding: "utf-8",
       });
       if (stdout.includes("/var/run/docker.sock")) {
@@ -330,14 +330,18 @@ export class DockerOracle {
 
   private createOracle() {
     // this.ready = false;
-    this.dockerOracleProcess = spawn("docker", this.getArgs(), {
-      shell: true,
-      env: process.env,
-      stdio: this.silent ? undefined : ["inherit", "pipe", "pipe"],
-    });
+    this.dockerOracleProcess = require("child_process").spawn(
+      "docker",
+      this.getArgs(),
+      {
+        shell: true,
+        env: process.env,
+        stdio: this.silent ? undefined : ["inherit", "pipe", "pipe"],
+      }
+    );
 
     this.dockerOracleProcess!.stdout!.on("data", this.onDataCallback);
-    this.dockerOracleProcess!.stderr!.on("error", (error) => {
+    this.dockerOracleProcess!.stderr!.on("error", (error: any) => {
       if (
         !error
           .toString()
@@ -349,9 +353,9 @@ export class DockerOracle {
         this.addLog(error.toString());
       }
     });
-    this.dockerOracleProcess.on("close", this.onCloseCallback);
-    this.dockerOracleProcess.on("exit", this.onCloseCallback);
-    this.dockerOracleProcess.on("exit", () => {
+    this.dockerOracleProcess!.on("close", this.onCloseCallback);
+    this.dockerOracleProcess!.on("exit", this.onCloseCallback);
+    this.dockerOracleProcess!.on("exit", () => {
       if (this.dockerOracleProcess !== undefined) {
         this.dockerOracleProcess.removeAllListeners();
         this.dockerOracleProcess = undefined;
@@ -363,7 +367,7 @@ export class DockerOracle {
     if (this.dockerOracleProcess !== undefined) {
       this.dockerOracleProcess.removeAllListeners();
     }
-    this.dockerOracleProcess = spawn(
+    this.dockerOracleProcess = require("child_process").spawn(
       "docker",
       ["start", "--attach", this.image],
       {
@@ -397,7 +401,7 @@ export class DockerOracle {
 
   public static checkDockerHealthStatus(containerName: string): boolean {
     try {
-      const inspectResponseBuffer = execSync(
+      const inspectResponseBuffer = require("child_process").execSync(
         `docker inspect --format='{{json .State.Health.Status}}' ${containerName}`,
         { stdio: ["pipe", "pipe", "pipe"] }
       );
