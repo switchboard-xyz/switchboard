@@ -1,0 +1,96 @@
+---
+title: HistoryFunctionTask
+hide_title: true
+---
+
+import {
+  ProtoMessage,
+  ProtoServiceMethod,
+  ProtoEnum,
+} from "/src/components/ProtoFile";
+
+## `HistoryFunctionTask`
+
+_**path** HistoryFunctionTask_
+
+_**package** HistoryFunctionTask_
+
+---
+
+## Messages
+
+### `HistoryFunctionTask`
+
+<ProtoMessage
+  key={0}
+  message={{
+    name: "HistoryFunctionTask",
+    longName: "HistoryFunctionTask",
+    fullName: ".HistoryFunctionTask",
+    description: "",
+    hasExtensions: false,
+    hasFields: true,
+    hasOneofs: false,
+    extensions: [],
+    fields: [
+      {
+        name: "method",
+        description: "",
+        label: "optional",
+        type: "Method",
+        longType: "HistoryFunctionTask.Method",
+        fullType: "HistoryFunctionTask.Method",
+        ismap: false,
+        isoneof: false,
+        oneofdecl: "",
+        defaultValue: "",
+      },
+      {
+        name: "aggregator_address",
+        description: "",
+        label: "optional",
+        type: "string",
+        longType: "string",
+        fullType: "string",
+        ismap: false,
+        isoneof: false,
+        oneofdecl: "",
+        defaultValue: "",
+      },
+      {
+        name: "period",
+        description: "",
+        label: "optional",
+        type: "uint32",
+        longType: "uint32",
+        fullType: "uint32",
+        ismap: false,
+        isoneof: false,
+        oneofdecl: "",
+        defaultValue: "",
+      },
+    ],
+  }}
+/>
+
+---
+
+## Enums
+
+### `HistoryFunctionTask.Method`
+
+<ProtoEnum
+  key={0}
+  enumb={{
+    name: "Method",
+    longName: "HistoryFunctionTask.Method",
+    fullName: ".HistoryFunctionTask.Method",
+    description: "",
+    values: [
+      { name: "METHOD_MIN", number: "0", description: "" },
+      { name: "METHOD_MAX", number: "1", description: "" },
+    ],
+  }}
+/>
+
+---

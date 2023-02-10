@@ -1,0 +1,94 @@
+---
+title: MultiplyTask
+hide_title: true
+---
+
+import {
+  ProtoMessage,
+  ProtoServiceMethod,
+  ProtoEnum,
+} from "/src/components/ProtoFile";
+
+## `MultiplyTask`
+
+_**path** MultiplyTask_
+
+_**package** MultiplyTask_
+
+This task will multiply a numerical input by a scalar value or by another
+aggregator.
+
+---
+
+## Messages
+
+### `MultiplyTask`
+
+<ProtoMessage
+  key={0}
+  message={{
+    name: "MultiplyTask",
+    longName: "MultiplyTask",
+    fullName: ".MultiplyTask",
+    description:
+      "This task will multiply a numerical input by a scalar value or by another aggregator.",
+    hasExtensions: false,
+    hasFields: true,
+    hasOneofs: true,
+    extensions: [],
+    fields: [
+      {
+        name: "scalar",
+        description: "Specifies a scalar to multiply by.",
+        label: "optional",
+        type: "double",
+        longType: "double",
+        fullType: "double",
+        ismap: false,
+        isoneof: true,
+        oneofdecl: "Multiple",
+        defaultValue: "",
+      },
+      {
+        name: "aggregator_pubkey",
+        description: "Specifies an aggregator to multiply by.",
+        label: "optional",
+        type: "string",
+        longType: "string",
+        fullType: "string",
+        ismap: false,
+        isoneof: true,
+        oneofdecl: "Multiple",
+        defaultValue: "",
+      },
+      {
+        name: "job",
+        description:
+          "A job whose result is computed before multiplying our numerical input by that result.",
+        label: "optional",
+        type: "OracleJob",
+        longType: "OracleJob",
+        fullType: "OracleJob",
+        ismap: false,
+        isoneof: true,
+        oneofdecl: "Multiple",
+        defaultValue: "",
+      },
+      {
+        name: "big",
+        description:
+          "A stringified big.js. `Accepts variable expansion syntax.`",
+        label: "optional",
+        type: "string",
+        longType: "string",
+        fullType: "string",
+        ismap: false,
+        isoneof: true,
+        oneofdecl: "Multiple",
+        defaultValue: "",
+      },
+    ],
+  }}
+/>
+
+---

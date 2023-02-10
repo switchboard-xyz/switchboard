@@ -1,0 +1,107 @@
+---
+title: JsonParseTask
+hide_title: true
+---
+
+import {
+  ProtoMessage,
+  ProtoServiceMethod,
+  ProtoEnum,
+} from "/src/components/ProtoFile";
+
+## `JsonParseTask`
+
+_**path** JsonParseTask_
+
+_**package** JsonParseTask_
+
+The adapter walks the path specified and returns the value found at that result.
+If returning JSON data from the HttpGet or HttpPost adapters, you must use this
+adapter to parse the response.
+
+---
+
+## Messages
+
+### `JsonParseTask`
+
+<ProtoMessage
+  key={0}
+  message={{
+    name: "JsonParseTask",
+    longName: "JsonParseTask",
+    fullName: ".JsonParseTask",
+    description:
+      "The adapter walks the path specified and returns the value found at that result. If returning\nJSON data from the HttpGet or HttpPost adapters, you must use this adapter to parse the \nresponse.",
+    hasExtensions: false,
+    hasFields: true,
+    hasOneofs: false,
+    extensions: [],
+    fields: [
+      {
+        name: "path",
+        description:
+          "JSONPath formatted path to the element. https://t.ly/uLtw\nhttps://www.npmjs.com/package/jsonpath-plus",
+        label: "optional",
+        type: "string",
+        longType: "string",
+        fullType: "string",
+        ismap: false,
+        isoneof: false,
+        oneofdecl: "",
+        defaultValue: "",
+      },
+      {
+        name: "aggregation_method",
+        description:
+          "The technique that will be used to aggregate the results if walking the specified path\nreturns multiple numerical results.",
+        label: "optional",
+        type: "AggregationMethod",
+        longType: "JsonParseTask.AggregationMethod",
+        fullType: "JsonParseTask.AggregationMethod",
+        ismap: false,
+        isoneof: false,
+        oneofdecl: "",
+        defaultValue: "",
+      },
+    ],
+  }}
+/>
+
+---
+
+## Enums
+
+### `JsonParseTask.AggregationMethod`
+
+<ProtoEnum
+  key={0}
+  enumb={{
+    name: "AggregationMethod",
+    longName: "JsonParseTask.AggregationMethod",
+    fullName: ".JsonParseTask.AggregationMethod",
+    description: "The methods of combining a list of numerical results.",
+    values: [
+      { name: "NONE", number: "0", description: "" },
+      {
+        name: "MIN",
+        number: "1",
+        description: "Grab the minimum value of the results.",
+      },
+      {
+        name: "MAX",
+        number: "2",
+        description: "Grab the maximum value of the results.",
+      },
+      { name: "SUM", number: "3", description: "Sum up all of the results." },
+      { name: "MEAN", number: "4", description: "Average all of the results." },
+      {
+        name: "MEDIAN",
+        number: "5",
+        description: "Grab the median of the results.",
+      },
+    ],
+  }}
+/>
+
+---

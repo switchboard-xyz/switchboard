@@ -5,6 +5,8 @@ lib
 build
 tsconfig.tsbuildinfo
 
+oracle_job_protos.json
+
 *.env
 .switchboard
 start-local-validator.sh

@@ -1,0 +1,54 @@
+---
+title: SerumSwapTask
+hide_title: true
+---
+
+import {
+  ProtoMessage,
+  ProtoServiceMethod,
+  ProtoEnum,
+} from "/src/components/ProtoFile";
+
+## `SerumSwapTask`
+
+_**path** SerumSwapTask_
+
+_**package** SerumSwapTask_
+
+Fetch the latest swap price on Serum's orderbook
+
+---
+
+## Messages
+
+### `SerumSwapTask`
+
+<ProtoMessage
+  key={0}
+  message={{
+    name: "SerumSwapTask",
+    longName: "SerumSwapTask",
+    fullName: ".SerumSwapTask",
+    description: "Fetch the latest swap price on Serum's orderbook",
+    hasExtensions: false,
+    hasFields: true,
+    hasOneofs: false,
+    extensions: [],
+    fields: [
+      {
+        name: "serum_pool_address",
+        description: "The serum pool to fetch swap price for",
+        label: "optional",
+        type: "string",
+        longType: "string",
+        fullType: "string",
+        ismap: false,
+        isoneof: false,
+        oneofdecl: "",
+        defaultValue: "",
+      },
+    ],
+  }}
+/>
+
+---

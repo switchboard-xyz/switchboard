@@ -1,0 +1,94 @@
+---
+title: OracleTask
+hide_title: true
+---
+
+import {
+  ProtoMessage,
+  ProtoServiceMethod,
+  ProtoEnum,
+} from "/src/components/ProtoFile";
+
+## `OracleTask`
+
+_**path** OracleTask_
+
+_**package** OracleTask_
+
+Fetch the current price of a Solana oracle protocol.
+
+---
+
+## Messages
+
+### `OracleTask`
+
+<ProtoMessage
+  key={0}
+  message={{
+    name: "OracleTask",
+    longName: "OracleTask",
+    fullName: ".OracleTask",
+    description: "Fetch the current price of a Solana oracle protocol.",
+    hasExtensions: false,
+    hasFields: true,
+    hasOneofs: true,
+    extensions: [],
+    fields: [
+      {
+        name: "switchboard_address",
+        description:
+          "Mainnet address of a Switchboard V2 feed. Switchboard is decentralized and allows anyone to build their own feed. A small subset of feeds is available here: https://switchboard.xyz/explorer",
+        label: "optional",
+        type: "string",
+        longType: "string",
+        fullType: "string",
+        ismap: false,
+        isoneof: true,
+        oneofdecl: "AggregatorAddress",
+        defaultValue: "",
+      },
+      {
+        name: "pyth_address",
+        description:
+          "Mainnet address for a Pyth feed. A full list can be found here: https://pyth.network/price-feeds/",
+        label: "optional",
+        type: "string",
+        longType: "string",
+        fullType: "string",
+        ismap: false,
+        isoneof: true,
+        oneofdecl: "AggregatorAddress",
+        defaultValue: "",
+      },
+      {
+        name: "chainlink_address",
+        description:
+          "Mainnet address for a Chainlink feed. A full list can be found here: https://docs.chain.link/docs/solana/data-feeds-solana",
+        label: "optional",
+        type: "string",
+        longType: "string",
+        fullType: "string",
+        ismap: false,
+        isoneof: true,
+        oneofdecl: "AggregatorAddress",
+        defaultValue: "",
+      },
+      {
+        name: "pyth_allowed_confidence_interval",
+        description:
+          "Value (as a percentage) that the lower bound confidence interval is of the actual value.\nConfidence intervals that are larger that this treshold are rejected.",
+        label: "optional",
+        type: "double",
+        longType: "double",
+        fullType: "double",
+        ismap: false,
+        isoneof: false,
+        oneofdecl: "",
+        defaultValue: "",
+      },
+    ],
+  }}
+/>
+
+---

@@ -1,0 +1,134 @@
+---
+title: BufferLayoutParseTask
+hide_title: true
+---
+
+import {
+  ProtoMessage,
+  ProtoServiceMethod,
+  ProtoEnum,
+} from "/src/components/ProtoFile";
+
+## `BufferLayoutParseTask`
+
+_**path** BufferLayoutParseTask_
+
+_**package** BufferLayoutParseTask_
+
+Return the deserialized value from a stringified buffer.
+
+---
+
+## Messages
+
+### `BufferLayoutParseTask`
+
+<ProtoMessage
+  key={0}
+  message={{
+    name: "BufferLayoutParseTask",
+    longName: "BufferLayoutParseTask",
+    fullName: ".BufferLayoutParseTask",
+    description: "Return the deserialized value from a stringified buffer.",
+    hasExtensions: false,
+    hasFields: true,
+    hasOneofs: false,
+    extensions: [],
+    fields: [
+      {
+        name: "offset",
+        description: "The buffer offset to start deserializing from.",
+        label: "optional",
+        type: "uint32",
+        longType: "uint32",
+        fullType: "uint32",
+        ismap: false,
+        isoneof: false,
+        oneofdecl: "",
+        defaultValue: "",
+      },
+      {
+        name: "endian",
+        description: "The endianness of the stored value.",
+        label: "optional",
+        type: "Endian",
+        longType: "BufferLayoutParseTask.Endian",
+        fullType: "BufferLayoutParseTask.Endian",
+        ismap: false,
+        isoneof: false,
+        oneofdecl: "",
+        defaultValue: "",
+      },
+      {
+        name: "type",
+        description: "The type of value to deserialize.",
+        label: "optional",
+        type: "BufferParseType",
+        longType: "BufferLayoutParseTask.BufferParseType",
+        fullType: "BufferLayoutParseTask.BufferParseType",
+        ismap: false,
+        isoneof: false,
+        oneofdecl: "",
+        defaultValue: "",
+      },
+    ],
+  }}
+/>
+
+---
+
+## Enums
+
+### `BufferLayoutParseTask.BufferParseType`
+
+<ProtoEnum
+  key={0}
+  enumb={{
+    name: "BufferParseType",
+    longName: "BufferLayoutParseTask.BufferParseType",
+    fullName: ".BufferLayoutParseTask.BufferParseType",
+    description: "",
+    values: [
+      { name: "pubkey", number: "1", description: "A public key." },
+      { name: "bool", number: "2", description: "A boolean." },
+      { name: "u8", number: "3", description: "An 8-bit unsigned value." },
+      { name: "i8", number: "4", description: "An 8-bit signed value." },
+      { name: "u16", number: "5", description: "A 16-bit unsigned value." },
+      { name: "i16", number: "6", description: "A 16-bit signed value." },
+      { name: "u32", number: "7", description: "A 32-bit unsigned value." },
+      { name: "i32", number: "8", description: "A 32-bit signed value." },
+      {
+        name: "f32",
+        number: "9",
+        description: "A 32-bit IEEE floating point value.",
+      },
+      { name: "u64", number: "10", description: "A 64-bit unsigned value." },
+      { name: "i64", number: "11", description: "A 64-bit signed value." },
+      {
+        name: "f64",
+        number: "12",
+        description: "A 64-bit IEEE floating point value.",
+      },
+      { name: "u128", number: "13", description: "A 128-bit unsigned value." },
+      { name: "i128", number: "14", description: "A 128-bit signed value." },
+    ],
+  }}
+/>
+
+### `BufferLayoutParseTask.Endian`
+
+<ProtoEnum
+  key={1}
+  enumb={{
+    name: "Endian",
+    longName: "BufferLayoutParseTask.Endian",
+    fullName: ".BufferLayoutParseTask.Endian",
+    description: "",
+    values: [
+      { name: "LITTLE_ENDIAN", number: "0", description: "" },
+      { name: "BIG_ENDIAN", number: "1", description: "" },
+    ],
+  }}
+/>
+
+---

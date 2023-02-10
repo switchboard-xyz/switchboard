@@ -1,0 +1,71 @@
+---
+title: ConditionalTask
+hide_title: true
+---
+
+import {
+  ProtoMessage,
+  ProtoServiceMethod,
+  ProtoEnum,
+} from "/src/components/ProtoFile";
+
+## `ConditionalTask`
+
+_**path** ConditionalTask_
+
+_**package** ConditionalTask_
+
+This task will run the `attempt` subtasks in an effort to produce a valid
+numerical result. If `attempt` fails to produce an acceptable result,
+`on_failure` subtasks will be run instead.
+
+---
+
+## Messages
+
+### `ConditionalTask`
+
+<ProtoMessage
+  key={0}
+  message={{
+    name: "ConditionalTask",
+    longName: "ConditionalTask",
+    fullName: ".ConditionalTask",
+    description:
+      "This task will run the `attempt` subtasks in an effort to produce a valid numerical result. If\n`attempt` fails to produce an acceptable result, `on_failure` subtasks will be run instead.",
+    hasExtensions: false,
+    hasFields: true,
+    hasOneofs: false,
+    extensions: [],
+    fields: [
+      {
+        name: "attempt",
+        description:
+          "A list of subtasks to process in an attempt to produce a valid numerical result.",
+        label: "repeated",
+        type: "Task",
+        longType: "Task",
+        fullType: "Task",
+        ismap: false,
+        isoneof: false,
+        oneofdecl: "",
+        defaultValue: "",
+      },
+      {
+        name: "on_failure",
+        description:
+          "A list of subtasks that will be run if `attempt` subtasks are unable to produce an acceptable\nresult.",
+        label: "repeated",
+        type: "Task",
+        longType: "Task",
+        fullType: "Task",
+        ismap: false,
+        isoneof: false,
+        oneofdecl: "",
+        defaultValue: "",
+      },
+    ],
+  }}
+/>
+
+---

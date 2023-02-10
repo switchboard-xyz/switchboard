@@ -1,0 +1,54 @@
+---
+title: SplStakePoolTask
+hide_title: true
+---
+
+import {
+  ProtoMessage,
+  ProtoServiceMethod,
+  ProtoEnum,
+} from "/src/components/ProtoFile";
+
+## `SplStakePoolTask`
+
+_**path** SplStakePoolTask_
+
+_**package** SplStakePoolTask_
+
+Fetch the JSON representation of an SPL Stake Pool account.
+
+---
+
+## Messages
+
+### `SplStakePoolTask`
+
+<ProtoMessage
+  key={0}
+  message={{
+    name: "SplStakePoolTask",
+    longName: "SplStakePoolTask",
+    fullName: ".SplStakePoolTask",
+    description: "Fetch the JSON representation of an SPL Stake Pool account.",
+    hasExtensions: false,
+    hasFields: true,
+    hasOneofs: false,
+    extensions: [],
+    fields: [
+      {
+        name: "pubkey",
+        description: "The pubkey of the SPL Stake Pool.",
+        label: "optional",
+        type: "string",
+        longType: "string",
+        fullType: "string",
+        ismap: false,
+        isoneof: false,
+        oneofdecl: "",
+        defaultValue: "",
+      },
+    ],
+  }}
+/>
+
+---

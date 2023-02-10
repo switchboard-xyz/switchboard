@@ -1,0 +1,70 @@
+---
+title: MinTask
+hide_title: true
+---
+
+import {
+  ProtoMessage,
+  ProtoServiceMethod,
+  ProtoEnum,
+} from "/src/components/ProtoFile";
+
+## `MinTask`
+
+_**path** MinTask_
+
+_**package** MinTask_
+
+Returns the minimum value of all the results returned by the provided subtasks
+and subjobs.
+
+---
+
+## Messages
+
+### `MinTask`
+
+<ProtoMessage
+  key={0}
+  message={{
+    name: "MinTask",
+    longName: "MinTask",
+    fullName: ".MinTask",
+    description:
+      "Returns the minimum value of all the results returned by the provided subtasks and subjobs.",
+    hasExtensions: false,
+    hasFields: true,
+    hasOneofs: false,
+    extensions: [],
+    fields: [
+      {
+        name: "tasks",
+        description:
+          "A list of subtasks to process and produce a list of result values.",
+        label: "repeated",
+        type: "Task",
+        longType: "Task",
+        fullType: "Task",
+        ismap: false,
+        isoneof: false,
+        oneofdecl: "",
+        defaultValue: "",
+      },
+      {
+        name: "jobs",
+        description:
+          "A list of subjobs to process and produce a list of result values.",
+        label: "repeated",
+        type: "OracleJob",
+        longType: "OracleJob",
+        fullType: "OracleJob",
+        ismap: false,
+        isoneof: false,
+        oneofdecl: "",
+        defaultValue: "",
+      },
+    ],
+  }}
+/>
+
+---

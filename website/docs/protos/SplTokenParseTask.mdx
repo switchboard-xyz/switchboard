@@ -1,0 +1,67 @@
+---
+title: SplTokenParseTask
+hide_title: true
+---
+
+import {
+  ProtoMessage,
+  ProtoServiceMethod,
+  ProtoEnum,
+} from "/src/components/ProtoFile";
+
+## `SplTokenParseTask`
+
+_**path** SplTokenParseTask_
+
+_**package** SplTokenParseTask_
+
+Fetch the JSON representation of an SPL token mint.
+
+---
+
+## Messages
+
+### `SplTokenParseTask`
+
+<ProtoMessage
+  key={0}
+  message={{
+    name: "SplTokenParseTask",
+    longName: "SplTokenParseTask",
+    fullName: ".SplTokenParseTask",
+    description: "Fetch the JSON representation of an SPL token mint.",
+    hasExtensions: false,
+    hasFields: true,
+    hasOneofs: true,
+    extensions: [],
+    fields: [
+      {
+        name: "token_account_address",
+        description:
+          "The publicKey of a token account to fetch the mintInfo for.",
+        label: "optional",
+        type: "string",
+        longType: "string",
+        fullType: "string",
+        ismap: false,
+        isoneof: true,
+        oneofdecl: "AccountAddress",
+        defaultValue: "",
+      },
+      {
+        name: "mint_address",
+        description: "The publicKey of the token mint address.",
+        label: "optional",
+        type: "string",
+        longType: "string",
+        fullType: "string",
+        ismap: false,
+        isoneof: true,
+        oneofdecl: "AccountAddress",
+        defaultValue: "",
+      },
+    ],
+  }}
+/>
+
+---
