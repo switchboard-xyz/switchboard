@@ -1,0 +1,54 @@
+---
+title: SolanaAccountDataFetchTask
+hide_title: true
+---
+
+import {
+  ProtoMessage,
+  ProtoServiceMethod,
+  ProtoEnum,
+} from "/src/components/ProtoFile";
+
+## `SolanaAccountDataFetchTask`
+
+_**path** SolanaAccountDataFetchTask_
+
+_**package** SolanaAccountDataFetchTask_
+
+Fetch the account data in a stringified buffer format.
+
+---
+
+## Messages
+
+### `SolanaAccountDataFetchTask`
+
+<ProtoMessage
+  key={0}
+  message={{
+    name: "SolanaAccountDataFetchTask",
+    longName: "SolanaAccountDataFetchTask",
+    fullName: ".SolanaAccountDataFetchTask",
+    description: "Fetch the account data in a stringified buffer format.",
+    hasExtensions: false,
+    hasFields: true,
+    hasOneofs: false,
+    extensions: [],
+    fields: [
+      {
+        name: "pubkey",
+        description: "The on-chain account to fetch the account data from.",
+        label: "optional",
+        type: "string",
+        longType: "string",
+        fullType: "string",
+        ismap: false,
+        isoneof: false,
+        oneofdecl: "",
+        defaultValue: "",
+      },
+    ],
+  }}
+/>
+
+---

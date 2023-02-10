@@ -1,0 +1,120 @@
+---
+title: DefiKingdomsTask
+hide_title: true
+---
+
+import {
+  ProtoMessage,
+  ProtoServiceMethod,
+  ProtoEnum,
+} from "/src/components/ProtoFile";
+
+## `DefiKingdomsTask`
+
+_**path** DefiKingdomsTask_
+
+_**package** DefiKingdomsTask_
+
+Fetch the swap price from DefiKingdoms.
+
+---
+
+## Messages
+
+### `DefiKingdomsTask`
+
+<ProtoMessage
+  key={0}
+  message={{
+    name: "DefiKingdomsTask",
+    longName: "DefiKingdomsTask",
+    fullName: ".DefiKingdomsTask",
+    description: "Fetch the swap price from DefiKingdoms.",
+    hasExtensions: false,
+    hasFields: true,
+    hasOneofs: false,
+    extensions: [],
+    fields: [
+      {
+        name: "provider",
+        description: "The RPC provider to use for the swap.",
+        label: "optional",
+        type: "string",
+        longType: "string",
+        fullType: "string",
+        ismap: false,
+        isoneof: false,
+        oneofdecl: "",
+        defaultValue: "",
+      },
+      {
+        name: "in_token",
+        description: "The input token of the swap.",
+        label: "optional",
+        type: "Token",
+        longType: "DefiKingdomsTask.Token",
+        fullType: "DefiKingdomsTask.Token",
+        ismap: false,
+        isoneof: false,
+        oneofdecl: "",
+        defaultValue: "",
+      },
+      {
+        name: "out_token",
+        description: "The output token of the swap.",
+        label: "optional",
+        type: "Token",
+        longType: "DefiKingdomsTask.Token",
+        fullType: "DefiKingdomsTask.Token",
+        ismap: false,
+        isoneof: false,
+        oneofdecl: "",
+        defaultValue: "",
+      },
+    ],
+  }}
+/>
+
+### `DefiKingdomsTask.Token`
+
+<ProtoMessage
+  key={1}
+  message={{
+    name: "Token",
+    longName: "DefiKingdomsTask.Token",
+    fullName: ".DefiKingdomsTask.Token",
+    description: "",
+    hasExtensions: false,
+    hasFields: true,
+    hasOneofs: false,
+    extensions: [],
+    fields: [
+      {
+        name: "address",
+        description: "The address of the token.",
+        label: "optional",
+        type: "string",
+        longType: "string",
+        fullType: "string",
+        ismap: false,
+        isoneof: false,
+        oneofdecl: "",
+        defaultValue: "",
+      },
+      {
+        name: "decimals",
+        description: "The number of decimal places for a token.",
+        label: "optional",
+        type: "int32",
+        longType: "int32",
+        fullType: "int32",
+        ismap: false,
+        isoneof: false,
+        oneofdecl: "",
+        defaultValue: "",
+      },
+    ],
+  }}
+/>
+
+---

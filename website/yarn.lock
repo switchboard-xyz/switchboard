@@ -1955,7 +1955,7 @@
     js-yaml "^4.1.0"
     tslib "^2.4.0"
 
-"@docusaurus/utils@2.3.1":
+"@docusaurus/utils@2.3.1", "@docusaurus/utils@^2.0.0-alpha.72":
   version "2.3.1"
   resolved "https://registry.npmjs.org/@docusaurus/utils/-/utils-2.3.1.tgz#24b9cae3a23b1e6dc88f95c45722c7e82727b032"
   integrity sha512-9WcQROCV0MmrpOQDXDGhtGMd52DHpSFbKLfkyaYumzbTstrbA5pPOtiGtxK1nqUHkiIv8UwexS54p0Vod2I1lg==
@@ -4544,6 +4544,20 @@ dns-packet@^5.2.2:
   integrity sha512-EgqGeaBB8hLiHLZtp/IbaDQTL8pZ0+IvwzSHA6d7VyMDM+B9hgddEMa9xjK5oYnw0ci0JQ6g2XCD7/f6cafU6g==
   dependencies:
     "@leichtgewicht/ip-codec" "^2.0.1"
+
+docusaurus-protobuffet-plugin@^0.3.2:
+  version "0.3.2"
+  resolved "https://registry.npmjs.org/docusaurus-protobuffet-plugin/-/docusaurus-protobuffet-plugin-0.3.2.tgz#09ede681475c881bff804fb652f7497b63347dad"
+  integrity sha512-LPu+ah2uy53//q6QN8IYSYH6DHUOz2MxvOzk8JRMsUDUF2sTxIvobFqj3/BctlLM15kBWbWnI2zHaAZQlZodqA==
+  dependencies:
+    "@docusaurus/utils" "^2.0.0-alpha.72"
+
+docusaurus-protobuffet@^0.3.2:
+  version "0.3.2"
+  resolved "https://registry.npmjs.org/docusaurus-protobuffet/-/docusaurus-protobuffet-0.3.2.tgz#55cda95e4da413bbf7f680b7eac616760bed2aac"
+  integrity sha512-RsTPoyUDW6efG8PyRa9bg1L0W7fvEQLYI/W6Mk96DVr01DnUagiHFmAHkAKCpVAZi7KggCbiDHmCJSRykm63+g==
+  dependencies:
+    docusaurus-protobuffet-plugin "^0.3.2"
 
 dom-converter@^0.2.0:
   version "0.2.0"

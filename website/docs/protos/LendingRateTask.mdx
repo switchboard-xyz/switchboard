@@ -1,0 +1,107 @@
+---
+title: LendingRateTask
+hide_title: true
+---
+
+import {
+  ProtoMessage,
+  ProtoServiceMethod,
+  ProtoEnum,
+} from "/src/components/ProtoFile";
+
+## `LendingRateTask`
+
+_**path** LendingRateTask_
+
+_**package** LendingRateTask_
+
+Fetch the lending rates for various Solana protocols
+
+---
+
+## Messages
+
+### `LendingRateTask`
+
+<ProtoMessage
+  key={0}
+  message={{
+    name: "LendingRateTask",
+    longName: "LendingRateTask",
+    fullName: ".LendingRateTask",
+    description: "Fetch the lending rates for various Solana protocols",
+    hasExtensions: false,
+    hasFields: true,
+    hasOneofs: false,
+    extensions: [],
+    fields: [
+      {
+        name: "protocol",
+        description:
+          "01, apricot, francium, jet, larix, mango, port, solend, tulip",
+        label: "optional",
+        type: "string",
+        longType: "string",
+        fullType: "string",
+        ismap: false,
+        isoneof: false,
+        oneofdecl: "",
+        defaultValue: "",
+      },
+      {
+        name: "asset_mint",
+        description: "A token mint address supported by the chosen protocol",
+        label: "optional",
+        type: "string",
+        longType: "string",
+        fullType: "string",
+        ismap: false,
+        isoneof: false,
+        oneofdecl: "",
+        defaultValue: "",
+      },
+      {
+        name: "field",
+        description: "",
+        label: "optional",
+        type: "Field",
+        longType: "LendingRateTask.Field",
+        fullType: "LendingRateTask.Field",
+        ismap: false,
+        isoneof: false,
+        oneofdecl: "",
+        defaultValue: "",
+      },
+    ],
+  }}
+/>
+
+---
+
+## Enums
+
+### `LendingRateTask.Field`
+
+<ProtoEnum
+  key={0}
+  enumb={{
+    name: "Field",
+    longName: "LendingRateTask.Field",
+    fullName: ".LendingRateTask.Field",
+    description: "",
+    values: [
+      {
+        name: "FIELD_DEPOSIT_RATE",
+        number: "0",
+        description: "deposit lending rate",
+      },
+      {
+        name: "FIELD_BORROW_RATE",
+        number: "1",
+        description: "borrow lending rate",
+      },
+    ],
+  }}
+/>
+
+---

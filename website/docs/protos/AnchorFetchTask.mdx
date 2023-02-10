@@ -1,0 +1,66 @@
+---
+title: AnchorFetchTask
+hide_title: true
+---
+
+import {
+  ProtoMessage,
+  ProtoServiceMethod,
+  ProtoEnum,
+} from "/src/components/ProtoFile";
+
+## `AnchorFetchTask`
+
+_**path** AnchorFetchTask_
+
+_**package** AnchorFetchTask_
+
+Load a parse an Anchor based solana account.
+
+---
+
+## Messages
+
+### `AnchorFetchTask`
+
+<ProtoMessage
+  key={0}
+  message={{
+    name: "AnchorFetchTask",
+    longName: "AnchorFetchTask",
+    fullName: ".AnchorFetchTask",
+    description: "Load a parse an Anchor based solana account.",
+    hasExtensions: false,
+    hasFields: true,
+    hasOneofs: false,
+    extensions: [],
+    fields: [
+      {
+        name: "program_id",
+        description: "Owning program of the account to parse.",
+        label: "optional",
+        type: "string",
+        longType: "string",
+        fullType: "string",
+        ismap: false,
+        isoneof: false,
+        oneofdecl: "",
+        defaultValue: "",
+      },
+      {
+        name: "account_address",
+        description: "The account to parse.",
+        label: "optional",
+        type: "string",
+        longType: "string",
+        fullType: "string",
+        ismap: false,
+        isoneof: false,
+        oneofdecl: "",
+        defaultValue: "",
+      },
+    ],
+  }}
+/>
+
+---

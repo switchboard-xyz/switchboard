@@ -1,0 +1,82 @@
+---
+title: MedianTask
+hide_title: true
+---
+
+import {
+  ProtoMessage,
+  ProtoServiceMethod,
+  ProtoEnum,
+} from "/src/components/ProtoFile";
+
+## `MedianTask`
+
+_**path** MedianTask_
+
+_**package** MedianTask_
+
+Returns the median of all the results returned by the provided subtasks and
+subjobs. Nested tasks must return a Number.
+
+---
+
+## Messages
+
+### `MedianTask`
+
+<ProtoMessage
+  key={0}
+  message={{
+    name: "MedianTask",
+    longName: "MedianTask",
+    fullName: ".MedianTask",
+    description:
+      "Returns the median of all the results returned by the provided subtasks and subjobs. Nested tasks must return a Number.",
+    hasExtensions: false,
+    hasFields: true,
+    hasOneofs: false,
+    extensions: [],
+    fields: [
+      {
+        name: "tasks",
+        description:
+          "A list of subtasks to process and produce a list of result values.",
+        label: "repeated",
+        type: "Task",
+        longType: "Task",
+        fullType: "Task",
+        ismap: false,
+        isoneof: false,
+        oneofdecl: "",
+        defaultValue: "",
+      },
+      {
+        name: "jobs",
+        description:
+          "A list of subjobs to process and produce a list of result values.",
+        label: "repeated",
+        type: "OracleJob",
+        longType: "OracleJob",
+        fullType: "OracleJob",
+        ismap: false,
+        isoneof: false,
+        oneofdecl: "",
+        defaultValue: "",
+      },
+      {
+        name: "min_successful_required",
+        description: "",
+        label: "optional",
+        type: "int32",
+        longType: "int32",
+        fullType: "int32",
+        ismap: false,
+        isoneof: false,
+        oneofdecl: "",
+        defaultValue: "",
+      },
+    ],
+  }}
+/>
+
+---

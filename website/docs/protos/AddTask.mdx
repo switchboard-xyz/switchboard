@@ -1,0 +1,93 @@
+---
+title: AddTask
+hide_title: true
+---
+
+import {
+  ProtoMessage,
+  ProtoServiceMethod,
+  ProtoEnum,
+} from "/src/components/ProtoFile";
+
+## `AddTask`
+
+_**path** AddTask_
+
+_**package** AddTask_
+
+This task will add a numerical input by a scalar value or by another aggregate.
+
+---
+
+## Messages
+
+### `AddTask`
+
+<ProtoMessage
+  key={0}
+  message={{
+    name: "AddTask",
+    longName: "AddTask",
+    fullName: ".AddTask",
+    description:
+      "This task will add a numerical input by a scalar value or by another\naggregate.",
+    hasExtensions: false,
+    hasFields: true,
+    hasOneofs: true,
+    extensions: [],
+    fields: [
+      {
+        name: "scalar",
+        description: "Specifies a scalar to add by.",
+        label: "optional",
+        type: "double",
+        longType: "double",
+        fullType: "double",
+        ismap: false,
+        isoneof: true,
+        oneofdecl: "Addition",
+        defaultValue: "",
+      },
+      {
+        name: "aggregator_pubkey",
+        description: "Specifies an aggregator to add by.",
+        label: "optional",
+        type: "string",
+        longType: "string",
+        fullType: "string",
+        ismap: false,
+        isoneof: true,
+        oneofdecl: "Addition",
+        defaultValue: "",
+      },
+      {
+        name: "job",
+        description:
+          "A job whose result is computed before adding our numerical input by that result.",
+        label: "optional",
+        type: "OracleJob",
+        longType: "OracleJob",
+        fullType: "OracleJob",
+        ismap: false,
+        isoneof: true,
+        oneofdecl: "Addition",
+        defaultValue: "",
+      },
+      {
+        name: "big",
+        description:
+          "A stringified big.js. `Accepts variable expansion syntax.`",
+        label: "optional",
+        type: "string",
+        longType: "string",
+        fullType: "string",
+        ismap: false,
+        isoneof: true,
+        oneofdecl: "Addition",
+        defaultValue: "",
+      },
+    ],
+  }}
+/>
+
+---

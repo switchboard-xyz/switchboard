@@ -1,0 +1,70 @@
+---
+title: MeanTask
+hide_title: true
+---
+
+import {
+  ProtoMessage,
+  ProtoServiceMethod,
+  ProtoEnum,
+} from "/src/components/ProtoFile";
+
+## `MeanTask`
+
+_**path** MeanTask_
+
+_**package** MeanTask_
+
+Returns the mean of all the results returned by the provided subtasks and
+subjobs.
+
+---
+
+## Messages
+
+### `MeanTask`
+
+<ProtoMessage
+  key={0}
+  message={{
+    name: "MeanTask",
+    longName: "MeanTask",
+    fullName: ".MeanTask",
+    description:
+      "Returns the mean of all the results returned by the provided subtasks and subjobs.",
+    hasExtensions: false,
+    hasFields: true,
+    hasOneofs: false,
+    extensions: [],
+    fields: [
+      {
+        name: "tasks",
+        description:
+          "A list of subtasks to process and produce a list of result values.",
+        label: "repeated",
+        type: "Task",
+        longType: "Task",
+        fullType: "Task",
+        ismap: false,
+        isoneof: false,
+        oneofdecl: "",
+        defaultValue: "",
+      },
+      {
+        name: "jobs",
+        description:
+          "A list of subjobs to process and produce a list of result values.",
+        label: "repeated",
+        type: "OracleJob",
+        longType: "OracleJob",
+        fullType: "OracleJob",
+        ismap: false,
+        isoneof: false,
+        oneofdecl: "",
+        defaultValue: "",
+      },
+    ],
+  }}
+/>
+
+---

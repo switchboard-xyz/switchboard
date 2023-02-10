@@ -61,6 +61,14 @@ const config = {
         },
       }),
     ],
+    // [
+    //   "docusaurus-protobuffet",
+    //   {
+    //     protobuffet: {
+    //       fileDescriptorsPath: "./oracle_job_protos.json",
+    //     },
+    //   },
+    // ],
   ],
   stylesheets: [
     {
@@ -129,6 +137,12 @@ const config = {
             position: "left",
             to: "/publisher",
           },
+          // {
+          //   to: "protodocs/OracleJob.proto",
+          //   activeBasePath: "protodocs",
+          //   label: "Protodocs",
+          //   position: "left",
+          // },
           {
             type: "dropdown",
             label: "Integrate",
