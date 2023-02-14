@@ -38,3 +38,41 @@
 ```bash
 npm i --save @switchboard-xyz/common
 ```
+
+## Usage
+
+### Create an OracleJob
+
+```ts
+import { OracleJob, serializeOracleJob } from "@switchboard-xyz/common";
+
+const oracleJob: OracleJob = serializeOracleJob({
+  tasks: [
+    {
+      httpTask: {
+        url: "https://www.binance.com/api/v3/ticker/price?symbol=BTCUSDT",
+      },
+    },
+    {
+      jsonParseTask: {
+        path: "$.price",
+      },
+    },
+    {
+      multiplyTask: {
+        /* Mainnet USDT/USD Feed */
+        aggregatorPubkey: "ETAaeeuQBwsh9mC2gCov9WdhJENZuffRMXY2HgjCcSL9",
+      },
+    },
+  ],
+});
+```
+
+### Simulate an OracleJob
+
+```ts
+import { simulateOracleJobs } from "@switchboard-xyz/common";
+
+const result = await simulateOracleJobs([oracleJob]);
+console.log(result);
+```
