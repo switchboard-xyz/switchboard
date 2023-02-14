@@ -59,31 +59,15 @@ git submodule update --remote sdks/solana
 
 ## Packages
 
-### CLI
+| **Lang** | **Name**                                                                                                                                                                                    | **Description**                                                                     |
+| -------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------- |
+| JS       | [@switchboard-xyz/cli](/cli/) <br />[[npmjs](https://www.npmjs.com/package/@switchboard-xyz/cli), [Typedocs](https://docs.switchboard.xyz/dev/cli)]                                         | Command line interface to interact with Switchboard                                 |
+| JS       | [@switchboard-xyz/common](/javascript/common/) <br />[[npmjs](https://www.npmjs.com/package/@switchboard-xyz/common), [Typedocs](https://docs.switchboard.xyz/api/@switchboard-xyz/common)] | Contains the OracleJob protobufs and other types and utilities shared across chains |
 
-To link the CLI,
+## Troubleshooting
 
-```bash
-cd cli && yarn link; cd ../;
-```
-
-### sbv2-scripts
-
-To link the sbv2-scripts binary,
-
-```bash
-cd javascript/sbv2-scripts
-yarn install
-yarn link
-```
-
-**NOTE:** Requires ts-node to be installed globally,
-`yarn global add typescript ts-node @types/node`
-
-For upgrading task types:
-
-```
-cd javascript/common
-npm run build
-yarn publish
-```
+1. File a
+   [GitHub Issue](https://github.com/switchboard-xyz/sbv2-core/issues/new). If
+   chain specific, then file an issue in the SDK's respective repository.
+2. Ask a question in
+   [Discord #dev-support](https://discord.com/channels/841525135311634443/984343400377647144)
