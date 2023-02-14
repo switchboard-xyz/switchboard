@@ -1,13 +1,16 @@
 ---
 sidebar_position: 20
-title: Javascript
+title: "@switchboard-xyz/starknet.js"
 ---
 
-[![GitHub](https://img.shields.io/badge/--181717?logo=github&logoColor=ffffff)](https://github.com/switchboard-xyz/starknet.js/tree/main/libraries/ts)&nbsp;&nbsp;
-[![npm](https://img.shields.io/npm/v/@switchboard-xyz/starknet.js)](https://www.npmjs.com/package/@switchboard-xyz/starknet.js)&nbsp;&nbsp;
-[![twitter](https://badgen.net/twitter/follow/switchboardxyz)](https://twitter.com/switchboardxyz)&nbsp;&nbsp;
+<a href="https://www.npmjs.com/package/@switchboard-xyz/starknet.js">
+  <img
+    alt="NPM Badge"
+    src="https://img.shields.io/github/package-json/v/switchboard-xyz/sbv2-starknet?color=red&filename=javascript%2Fstarknet.js%2Fpackage.json&label=%40switchboard-xyz%2Fstarknet.js&logo=npm"
+  />
+</a>
 
-A library of utility functions to interact with the Switchboardv2 program
+A Typescript client to interact with Switchboard V2 on Starknet.
 
 ## Quick Links
 
@@ -38,4 +41,68 @@ import useBaseUrl from "@docusaurus/useBaseUrl";
 
 ```bash npm2yarn
 npm install @switchboard-xyz/starknet.js
+```
+
+## Usage
+
+### Creating Feeds
+
+```typescript
+import { OracleJob } from '@switchboard-xyz/common';
+import { AggregatorAccount, JobAccount, SwitchboardProgram } from '@switchboard-xyz/starknet.js';
+import { Account, RpcProvider } from 'starknet';
+
+const rpcProvider: RpcProvider = ...
+const account: Account = ...
+const queueAddress = '0x744fdb2b81ca1792b9b8f5e6ad24c0ec7d02e6322897c6ad77190f4eace1502'
+const program = new SwitchboardProgram('goerli-alpha', rpcProvider);
+
+const [aggregatorAccount, createAggregatorAction] = AggregatorAccount.create(program, {
+  authorityAddress: account.address,
+  queueAddress: queueAddress,
+  batchSize: 1,
+  minRequiredJobResults: 1,
+  minRequiredOracleResults: 1,
+  minUpdateDelaySeconds: 60,
+});
+const [jobAccount, createJobAction] = JobAccount.create(program, {
+  name: 'Binance BTC / USD',
+  authorityAddress: account.address,
+  data: OracleJob.create({
+    tasks: [
+      {
+        httpTask: {
+          url: 'https://www.binance.us/api/v3/ticker/price?symbol=BTCUSD',
+        },
+      },
+      {
+        jsonParseTask: {
+          path: '$.price',
+        },
+      },
+    ]
+  })
+})
+
+await program.invoke(account, [
+  createAggregatorAction,
+  createJobAction,
+  aggregatorAccount.addJob({ jobAddress: jobAccount.address })
+])
+
+console.log(`Created Aggregator address ${aggregatorAccount.address}.`);
+```
+
+### Reading Feeds
+
+```typescript
+import {
+  AggregatorAccount,
+  SwitchboardProgram,
+} from "@switchboard-xyz/starknet.js";
+
+const program = new SwitchboardProgram("goerli-alpha", my_rpc_provider);
+const aggregatorAccount = new AggregatorAccount(program, aggregator_address);
+
+console.log(await aggregatorAccount.loadData());
 ```

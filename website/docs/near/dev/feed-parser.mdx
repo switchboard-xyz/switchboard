@@ -1,0 +1,50 @@
+---
+sidebar_position: 10
+title: Feed Parser
+---
+
+import RoundedCardGroup from "/src/components/RoundedCard/RoundedCardGroup";
+import useBaseUrl from "@docusaurus/useBaseUrl";
+
+To get started, clone the
+[sbv2-near](https://github.com/switchboard-xyz/sbv2-near) repository.
+
+```bash
+git clone https://github.com/switchboard-xyz/sbv2-near
+cd sbv2-near/programs/feed-parser
+```
+
+## Quick Links
+
+<RoundedCardGroup
+  cols={2}
+  items={[
+    {
+      to: "https://github.com/switchboard-xyz/sbv2-near/tree/main/programs/feed-parser",
+      title: "Github",
+      description: "View the repo",
+      image: <img src={useBaseUrl("/img/icons/github/light.svg")} />,
+      imageDark: <img src={useBaseUrl("/img/icons/github/dark.svg")} />,
+    },
+  ]}
+/>
+
+## Usage
+
+Build the contract
+
+```bash
+cargo build --all --target wasm32-unknown-unknown --release
+```
+
+Deploy and read an aggregator account
+
+```bash
+near dev-deploy target/wasm32-unknown-unknown/release/sbv2_near_feed_parser.wasm \
+    --initFunction aggregator_read \
+    --initArgs '{"ix": {"address": [14,234,193,55,190,250,74,147,12,227,241,149,117,14,77,28,207,81,168,192,0,251,113,20,80,113,123,208,153,253,41,248]} }' \
+    --initGas 300000000000000
+```
+
+See [switchboard.xyz/explorer](https://switchboard.xyz/explorer) for a list of
+feeds deployed on NEAR.

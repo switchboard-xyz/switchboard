@@ -7,19 +7,26 @@ title: Developer Resources
 import RoundedCardGroup from "/src/components/RoundedCard/RoundedCardGroup";
 import useBaseUrl from "@docusaurus/useBaseUrl";
 
-## Clients
+To get started, clone the
+[sbv2-near](https://github.com/switchboard-xyz/sbv2-near) repository.
 
-import NearSdkClients from "/docs/near/_common/_clients.mdx";
+```bash
+git clone https://github.com/switchboard-xyz/sbv2-near
+```
 
-<NearSdkClients />
+## Libraries
 
-## On-Chain Example Programs
+import NearLibraries from "/docs/near/_common/_libraries.mdx";
+
+<NearLibraries />
+
+## Example Programs
 
 <RoundedCardGroup
   cols={2}
   items={[
     {
-      to: "/near/dev/examples/feed-parser",
+      to: "/near/dev/feed-parser",
       title: "Feed Parser",
       description:
         "View an example program depicting how to read a Switchboard Data Feed on-chain",

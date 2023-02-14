@@ -6,29 +6,28 @@ slug: .
 
 import RoundedCardGroup from "/src/components/RoundedCard/RoundedCardGroup";
 import useBaseUrl from "@docusaurus/useBaseUrl";
+import PublicKeyButton from "/src/components/PublicKeyButton";
 
-More information coming soon!
+## Getting Started
 
-## Networks
+To get started, clone the
+[sbv2-starknet](https://github.com/switchboard-xyz/sbv2-starknet) repository.
 
-<RoundedCardGroup
-  items={[
-    {
-      to: "/starknet/program/mainnet",
-      title: "Mainnet",
-      description: "View the Mainnet deployment accounts",
-      image: <img src={useBaseUrl("/img/icons/starknet/logo.svg")} />,
-      imageDark: <img src={useBaseUrl("/img/icons/starknet/dark.svg")} />,
-    },
-    {
-      to: "/starknet/program/testnet",
-      title: "Testnet",
-      description: "View the Testnet deployment accounts",
-      image: <img src={useBaseUrl("/img/icons/starknet/logo.svg")} />,
-      imageDark: <img src={useBaseUrl("/img/icons/starknet/dark.svg")} />,
-    },
-  ]}
-/>
+```bash
+git clone https://github.com/switchboard-xyz/sbv2-starknet
+```
+
+## Program IDs
+
+| **Network**  | **Program ID**                                                                                                                                                                           |
+| ------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| goerli-alpha | <PublicKeyButton publicKey="0x043e3ac5daf823088291cf98a71eb0187f1db77ae767333f11003a9a2da66f92" /> <br />See [program/testnet](starknet/program/testnet) for a full list of public keys. |
+
+## Libraries
+
+import StarknetLibraries from "/docs/starknet/_common/_libraries.mdx";
+
+<StarknetLibraries />
 
 ## Resources
 

@@ -6,6 +6,7 @@ slug: .
 
 import RoundedCardGroup from "/src/components/RoundedCard/RoundedCardGroup";
 import useBaseUrl from "@docusaurus/useBaseUrl";
+import PublicKeyButton from "/src/components/PublicKeyButton";
 
 ## Getting Started
 
@@ -18,37 +19,16 @@ git clone https://github.com/switchboard-xyz/sbv2-aptos
 
 ## Program IDs
 
-| **Network** | **Program ID**                                                                                                                                          |
-| ----------- | ------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Mainnet     | `0x7d7e436f0b2aafde60774efb26ccc432cf881b677aca7faaf2a01879bd19fb8` <br />See [program/mainnet](aptos/program/testnet) for a full list of public keys.  |
-| Testnet     | `0xb91d3fef0eeb4e685dc85e739c7d3e2968784945be4424e92e2f86e2418bf271` <br />See [program/testnet](aptos/program/testnet) for a full list of public keys. |
+| **Network** | **Program ID**                                                                                                                                                                        |
+| ----------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Mainnet     | <PublicKeyButton publicKey="0x7d7e436f0b2aafde60774efb26ccc432cf881b677aca7faaf2a01879bd19fb8" /> <br />See [program/mainnet](aptos/program/mainnet) for a full list of public keys.  |
+| Testnet     | <PublicKeyButton publicKey="0xb91d3fef0eeb4e685dc85e739c7d3e2968784945be4424e92e2f86e2418bf271" /> <br />See [program/testnet](aptos/program/testnet) for a full list of public keys. |
 
 ## Libraries
 
-<RoundedCardGroup
-  cols={2}
-  items={[
-    {
-      to: "/aptos/dev/move/",
-      title: "Rust",
-      description: "View the sbv2-aptos Move module",
-      image: <img src={useBaseUrl("/img/icons/move/logo.png")} />,
-    },
-    {
-      to: "/aptos/dev/javascript/",
-      title: "Javascript",
-      description: "View the @switchboard-xyz/aptos.js npm package",
-      image: <img src={useBaseUrl("/img/icons/javascript/light.svg")} />,
-    },
-    {
-      to: "/aptos/dev/cli/",
-      title: "CLI",
-      description: "View the @switchboard-xyz/cli npm package",
-      image: <img src={useBaseUrl("/img/icons/terminal/light.svg")} />,
-      imageDark: <img src={useBaseUrl("/img/icons/terminal/teal.svg")} />,
-    },
-  ]}
-/>
+import AptosLibraries from "/docs/aptos/_common/_libraries.mdx";
+
+<AptosLibraries />
 
 ## Resources
 

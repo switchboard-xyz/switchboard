@@ -6,7 +6,7 @@ slug: .
 
 import RoundedCardGroup from "/src/components/RoundedCard/RoundedCardGroup";
 import useBaseUrl from "@docusaurus/useBaseUrl";
-
+import PublicKeyButton from "/src/components/PublicKeyButton";
 
 ## Getting Started
 
@@ -19,16 +19,16 @@ git clone https://github.com/switchboard-xyz/sbv2-solana
 
 ## Program IDs
 
-| **Network**  | **Program ID**                                                                                                                    |
-| ------------ | --------------------------------------------------------------------------------------------------------------------------------- |
-| Mainnet-Beta | `SW1TCH7qEPTdLsDHRgPuMQjbQxKdH2aBStViMFnt64f` <br />See [program/mainnet](solana/program/mainnet) for a full list of public keys. |
-| Devnet       | `2TfB33aLaneQb5TNVwyDz3jSZXS6jdW2ARw1Dgf84XCG` <br />See [program/devnet](solana/program/devnet) for a full list of public keys.  |
+| **Network**  | **Program ID**                                                                                                                                                  |
+| ------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Mainnet-Beta | <PublicKeyButton publicKey="SW1TCH7qEPTdLsDHRgPuMQjbQxKdH2aBStViMFnt64f" /> <br />See [program/mainnet](solana/program/mainnet) for a full list of public keys. |
+| Devnet       | <PublicKeyButton publicKey="2TfB33aLaneQb5TNVwyDz3jSZXS6jdW2ARw1Dgf84XCG" /> <br />See [program/devnet](solana/program/devnet) for a full list of public keys.  |
 
 ## Libraries
 
-import SolanaSdkClients from "/docs/solana/_common/_clients.mdx";
+import SolanaLibraries from "/docs/solana/_common/_libraries.mdx";
 
-<SolanaSdkClients />
+<SolanaLibraries />
 
 ## Data Feeds
 

@@ -6,29 +6,28 @@ slug: .
 
 import RoundedCardGroup from "/src/components/RoundedCard/RoundedCardGroup";
 import useBaseUrl from "@docusaurus/useBaseUrl";
+import PublicKeyButton from "/src/components/PublicKeyButton";
 
-More information coming soon!
+## Getting Started
 
-## Networks
+To get started, clone the
+[sbv2-evm](https://github.com/switchboard-xyz/sbv2-evm) repository.
 
-<RoundedCardGroup
-  items={[
-    {
-      to: "/coredao/program/mainnet",
-      title: "Mainnet",
-      description: "View the Mainnet deployment accounts",
-      image: <img src={useBaseUrl("/img/icons/coredao/logo.svg")} />,
-      imageDark: <img src={useBaseUrl("/img/icons/coredao/dark.svg")} />,
-    },
-    {
-      to: "/coredao/program/testnet",
-      title: "Testnet",
-      description: "View the Testnet deployment accounts",
-      image: <img src={useBaseUrl("/img/icons/coredao/logo.svg")} />,
-      imageDark: <img src={useBaseUrl("/img/icons/coredao/dark.svg")} />,
-    },
-  ]}
-/>
+```bash
+git clone https://github.com/switchboard-xyz/sbv2-evm
+```
+
+## Program IDs
+
+| **Network** | **Program ID**                                                                                                                                                |
+| ----------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Testnet     | <PublicKeyButton publicKey="0xe9F5Ecb00BC437F061DF59d899F00f260740dC48" /> <br />See [program/testnet](aptos/program/testnet) for a full list of public keys. |
+
+## Libraries
+
+import CoreDaoSdkLibraries from "/docs/coredao/_common/_libraries.mdx";
+
+<CoreDaoSdkLibraries />
 
 ## Resources
 
