@@ -33,14 +33,14 @@ cd sbv2-core
 
 ## SDKs
 
-| **Chain**     | **Name**                      |
-| ------------- | ----------------------------- |
-| Aptos         | [sbv2-aptos](/sdks/aptos)     |
-| EVM (CoreDAO) | [sbv2-evm](/sdks/evm)         |
-| NEAR          | [sbv2-near](/sdks/near)       |
-| Solana        | [sbv2-solana](/sdks/solana)   |
-| Starknet      | [sbv2-solana](/sdks/starknet) |
-| Sui           | [sbv2-solana](/sdks/sui)      |
+| **Chain**     | **Name**                                                        |
+| ------------- | --------------------------------------------------------------- |
+| Aptos         | [sbv2-aptos](https://github.com/switchboard-xyz/sbv2-aptos)     |
+| EVM (CoreDAO) | [sbv2-evm](https://github.com/switchboard-xyz/sbv2-evm)         |
+| NEAR          | [sbv2-near](https://github.com/switchboard-xyz/sbv2-near)       |
+| Solana        | [sbv2-solana](https://github.com/switchboard-xyz/sbv2-solana)   |
+| Starknet      | [sbv2-solana](https://github.com/switchboard-xyz/sbv2-starknet) |
+| Sui           | [sbv2-solana](https://github.com/switchboard-xyz/sbv2-sui)      |
 
 To add SDKs,
 
