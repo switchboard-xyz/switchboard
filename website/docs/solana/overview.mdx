@@ -7,32 +7,68 @@ slug: .
 import RoundedCardGroup from "/src/components/RoundedCard/RoundedCardGroup";
 import useBaseUrl from "@docusaurus/useBaseUrl";
 
-## Networks
 
-<RoundedCardGroup
-  items={[
-    {
-      to: "/solana/program/mainnet",
-      title: "Mainnet",
-      description: "View the Mainnet deployment accounts",
-      image: <img src={useBaseUrl("/img/icons/solana/logo.svg")} />,
-    },
-    {
-      to: "/solana/program/devnet",
-      title: "Devnet",
-      description: "View the Devnet deployment accounts",
-      image: <img src={useBaseUrl("/img/icons/solana/logo.svg")} />,
-    },
-  ]}
-/>
+## Getting Started
 
-## SDK
+To get started, clone the
+[sbv2-solana](https://github.com/switchboard-xyz/sbv2-solana) repository.
 
-### Clients
+```bash
+git clone https://github.com/switchboard-xyz/sbv2-solana
+```
+
+## Program IDs
+
+| **Network**  | **Program ID**                                                                                                                    |
+| ------------ | --------------------------------------------------------------------------------------------------------------------------------- |
+| Mainnet-Beta | `SW1TCH7qEPTdLsDHRgPuMQjbQxKdH2aBStViMFnt64f` <br />See [program/mainnet](solana/program/mainnet) for a full list of public keys. |
+| Devnet       | `2TfB33aLaneQb5TNVwyDz3jSZXS6jdW2ARw1Dgf84XCG` <br />See [program/devnet](solana/program/devnet) for a full list of public keys.  |
+
+## Libraries
 
 import SolanaSdkClients from "/docs/solana/_common/_clients.mdx";
 
 <SolanaSdkClients />
+
+## Data Feeds
+
+<RoundedCardGroup
+  cols={3}
+  items={[
+    {
+      to: "/solana/feeds",
+      title: "Integration",
+      description: "Integrate Switchboard data feeds",
+      image: <img src={useBaseUrl("/img/icons/develop/light.svg")} />,
+      imageDark: <img src={useBaseUrl("/img/icons/develop/teal.svg")} />,
+    },
+    {
+      to: "/solana/feeds/priority-fees",
+      title: "Priority Fees",
+      description: "Learn how to set custom priority fees",
+      image: <img src={useBaseUrl("/img/icons/priority/light.svg")} />,
+      imageDark: <img src={useBaseUrl("/img/icons/priority/teal.svg")} />,
+    },
+  ]}
+/>
+
+## Randomness
+
+<RoundedCardGroup
+  cols={3}
+  items={[
+    {
+      to: "/solana/randomness",
+      title: "Integration",
+      description: "Integrate Switchboard VRF",
+      image: <img src={useBaseUrl("/img/icons/randomness/light.svg")} />,
+      imageDark: <img src={useBaseUrl("/img/icons/randomness/dark.svg")} />,
+    },
+  ]}
+/>
+
+<!--
+## Buffer Relayers
 
 ### On-Chain Example Programs
 
@@ -44,10 +80,4 @@ import SolanaExamplePrograms from "/docs/solana/_common/_solana_example_programs
 
 import SolanaClientExamples from "/docs/solana/_common/_solana_client_examples.mdx";
 
-<SolanaClientExamples />
-
-## Anchor IDL
-
-import TOC from "/docs/solana/idl/_short_toc.md";
-
-<TOC />
+<SolanaClientExamples /> -->

@@ -1,0 +1,40 @@
+import { ProtoExample } from "/src/components/ProtoFile";
+
+<ProtoExample
+  title="Get Request Example"
+  subtitle="Bitfinex HttpTask"
+  description="Fetch data from the Bitfinex API"
+  input="NONE - Not used"
+  output="JSON Response"
+  outputSample='[["tBTCUSD",22295,24.53541614,22296,13.4187415,625,0.02884305,22294,2456.21099645,22339,21354]]'
+  tasks={[
+    {
+      httpTask: {
+        url: "https://api-pub.bitfinex.com/v2/tickers?symbols=tBTCUSD",
+      },
+    },
+  ]}
+/>
+
+<ProtoExample
+  title="POST Request with Headers"
+  subtitle="HttpTask"
+  description="Send a POST request with HTTP Headers"
+  input="NONE - Not used"
+  output="JSON Response"
+  tasks={[
+    {
+      httpTask: {
+        url: "https://mywebsite.org/path",
+        method: "METHOD_POST",
+        headers: [
+          {
+            key: "MY_HEADER_KEY",
+            value: "MY_HEADER_VALUE",
+          },
+        ],
+        body: '{"MY_BODY_KEY":"MY_BODY_VALUE"}',
+      },
+    },
+  ]}
+/>

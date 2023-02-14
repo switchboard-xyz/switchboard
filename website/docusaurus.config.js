@@ -169,7 +169,7 @@ const config = {
                 className: "header-solana-link",
               },
               {
-                label: " Starkware",
+                label: " Starknet",
                 to: "/starknet",
                 className: "header-starknet-link",
               },

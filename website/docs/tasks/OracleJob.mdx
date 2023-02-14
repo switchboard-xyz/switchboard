@@ -1,6 +1,7 @@
 ---
 title: OracleJob
 hide_title: true
+slug: .
 ---
 
 import {
@@ -26,57 +27,9 @@ running result.
 
 Switchboard tasks can be divided into the following categories:
 
-- **Web2 Fetch**: Retrieve data from the web
-  - [HttpTask](/protos/HttpTask)
-  - [WebsocketTask](/protos/WebsocketTask)
-- **Web3 Fetch**: Retrieve on-chain data
-  - [AnchorFetchTask](/protos/AnchorFetchTask)
-  - [OracleTask](/protos/OracleTask)
-  - [SolanaAccountDataFetchTask](/protos/SolanaAccountDataFetchTask)
-  - [JupiterSwapTask](/protos/JupiterSwapTask)
-  - [SerumSwapTask](/protos/SerumSwapTask)
-  - [UniswapExchangeRateTask](/protos/UniswapExchangeRateTask)
-  - [SushiSwapExchangeRateTask](/protos/SushiSwapExchangeRateTask)
-  - [PancakeswapExchangeRateTask](/protos/PancakeswapExchangeRateTask)
-  - [DefiKingdomsTask](/protos/DefiKingdomsTask)
-  - [MangoPerpTask](/protos/MangoPerpTask)
-  - [LendingRateTask](/protos/LendingRateTask)
-  - [XStepPriceTask](/protos/XStepPriceTask)
-  - [SplTokenParseTask](/protos/SplTokenParseTask)
-  - [SplStakePoolTask](/protos/SplStakePoolTask)
-  - [LpExchangeRateTask](/protos/LpExchangeRateTask)
-  - [LpTokenPriceTask](/protos/LpTokenPriceTask)
-- **Parse**: Extract a value from a response
-  - [JsonParseTask](/protos/JsonParseTask)
-  - [RegexExtractTask](/protos/RegexExtractTask)
-  - [BufferLayoutParseTask](/protos/BufferLayoutParseTask)
-- **Logic**: Perform some logical operation like if..else clauses
-  - [BoundTask](/protos/BoundTask)
-  - [ConditionalTask](/protos/ConditionalTask)
-  - [ComparisonTask](/protos/ComparisonTask)
-- **Utils**: Helpful utility tasks like caching values or calculating a
-  timestamp
-  - [CacheTask](/protos/CacheTask)
-  - [SysclockOffsetTask](/protos/SysclockOffsetTask)
-  - [CronParseTask](/protos/CronParseTask)
-  - [TpsTask](/protos/TpsTask)
-- **Historical**: Parse an on-chain history buffer and perform some calculation
-  - [TwapTask](/protos/TwapTask)
-  - [EwmaTask](/protos/EwmaTask)
-  - [HistoryFunctionTask](/protos/HistoryFunctionTask)
-  - [VwapTask](/protos/VwapTask)
-- **Math**: Perform a mathematical operation like taking the maximum value of a
-  list or raising a value to an exponent.
-  - [MaxTask](/protos/MaxTask)
-  - [MeanTask](/protos/MeanTask)
-  - [MedianTask](/protos/MedianTask)
-  - [AddTask](/protos/AddTask)
-  - [SubtractTask](/protos/SubtractTask)
-  - [MultiplyTask](/protos/MultiplyTask)
-  - [DivideTask](/protos/DivideTask)
-  - [PowTask](/protos/PowTask)
-  - [ValueTask](/protos/ValueTask)
-  - [RoundTask](/protos/RoundTask)
+import TaskCategories from "./_common/TaskCategories.mdx";
+
+<TaskCategories />
 
 ---
 

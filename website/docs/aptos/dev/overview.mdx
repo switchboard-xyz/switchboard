@@ -7,15 +7,15 @@ title: Developer Resources
 import RoundedCardGroup from "/src/components/RoundedCard/RoundedCardGroup";
 import useBaseUrl from "@docusaurus/useBaseUrl";
 
-## Clients
+## Libraries
 
 <RoundedCardGroup
   cols={2}
   items={[
     {
       to: "/aptos/dev/move/",
-      title: "Move",
-      description: "View the switchboard move module for Aptos",
+      title: "Rust",
+      description: "View the sbv2-aptos Move module",
       image: <img src={useBaseUrl("/img/icons/move/logo.png")} />,
     },
     {
@@ -24,10 +24,17 @@ import useBaseUrl from "@docusaurus/useBaseUrl";
       description: "View the @switchboard-xyz/aptos.js npm package",
       image: <img src={useBaseUrl("/img/icons/javascript/light.svg")} />,
     },
+    {
+      to: "/aptos/dev/cli/",
+      title: "CLI",
+      description: "View the @switchboard-xyz/cli npm package",
+      image: <img src={useBaseUrl("/img/icons/terminal/light.svg")} />,
+      imageDark: <img src={useBaseUrl("/img/icons/terminal/teal.svg")} />,
+    },
   ]}
 />
 
-## On-Chain Example Programs
+## Example Programs
 
 <RoundedCardGroup
   cols={2}

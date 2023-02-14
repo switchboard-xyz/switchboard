@@ -2,7 +2,7 @@ import RoundedCardGroup from "/src/components/RoundedCard/RoundedCardGroup";
 import useBaseUrl from "@docusaurus/useBaseUrl";
 
 <RoundedCardGroup
-  cols={3}
+  cols={2}
   justifyContent="center"
   items={[
     {
@@ -16,6 +16,13 @@ import useBaseUrl from "@docusaurus/useBaseUrl";
       title: "Javascript",
       description: "View the @switchboard-xyz/solana.js npm package",
       image: <img src={useBaseUrl("/img/icons/javascript/light.svg")} />,
+    },
+    {
+      to: "/dev/cli/solana/",
+      title: "CLI",
+      description: "View the @switchboard-xyz/cli npm package",
+      image: <img src={useBaseUrl("/img/icons/develop/light.svg")} />,
+      imageDark: <img src={useBaseUrl("/img/icons/develop/teal.svg")} />,
     },
     {
       to: "/solana/dev/python",

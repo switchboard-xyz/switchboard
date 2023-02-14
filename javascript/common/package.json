@@ -36,7 +36,6 @@
     "@solana/web3.js": "^1.66.2",
     "@types/big.js": "^6.1.6",
     "@types/bn.js": "^5.1.1",
-    "@types/long": "^5.0.0",
     "big.js": "^6.2.1",
     "bn.js": "^5.2.1",
     "decimal.js": "^10.4.3",

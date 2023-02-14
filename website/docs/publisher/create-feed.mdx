@@ -1,0 +1,74 @@
+---
+sidebar_position: 15
+title: Create a Feed
+---
+
+import MarkdownImage from "/src/components/MarkdownImage";
+import { Box, Typography, Grid } from "@mui/material";
+import Link from "@docusaurus/Link";
+
+## Checkout
+
+During checkout, the publisher will create the necessary accounts for your data
+feed.
+
+### Lease
+
+<Grid container spacing={3} justifyContent="space-around">
+  <Grid item md={5} sm={12}>
+    <b>
+      <u>Automatic Updates</u>
+    </b>
+    <Typography>
+      The <i>Enable automatic updates</i> checkbox determines whether your data
+      feed will be added to a crank. A crank allows data feeds to be updated at
+      regular intervals. Event based feeds should uncheck this box.
+    </Typography>
+    <br />
+    <b>
+      <u>Update Interval</u>
+    </b>
+    <Typography>
+      The update interval lets you configure how often and how long a data feed
+      should be updated for. This derives the total cost deposited into the
+      lease contract escrow account, which is used to fund oracles each time a
+      feed is updated. You can extend or terminate a lease at anytime.
+    </Typography>
+    <br />
+  </Grid>
+  <Grid item md={6}>
+    <MarkdownImage
+      img="/img/publisher/Lease_Contract_Modal.png"
+      sx={{ borderWidth: "thin", border: "1px solid #D3D3D3", borderRadius: 5 }}
+    />
+  </Grid>
+</Grid>
+
+### Account Creation
+
+<Grid container spacing={3} justifyContent="space-around">
+  <Grid item md={6} order={{ xs: 2, md: 1 }}>
+    <MarkdownImage
+      img="/img/publisher/Account_Creation.png"
+      sx={{ borderWidth: "thin", border: "1px solid #D3D3D3", borderRadius: 3 }}
+    />
+  </Grid>
+  <Grid item md={6} order={{ xs: 1, md: 2 }}>
+    <Typography>
+      The <i>Account Creation</i> modal gives you a summary of your balance
+      changes before any on-chain transactions occur. Once you have verified the
+      total cost, hit <i>Create Feed</i> to submit the transactions.
+    </Typography>
+    <br />
+    <Typography>
+      After the accounts have been created, you will be redirected to the My
+      Feeds page to view your newly created data feeds.
+    </Typography>
+    <br />
+    <Typography>
+      By default, data feeds are added to the permissionless queue, where they
+      can begin updating immediately. Data feeds can be upgraded to the
+      permissioned queue by submitting a request to the Switchboard DAO.
+    </Typography>
+  </Grid>
+</Grid>
