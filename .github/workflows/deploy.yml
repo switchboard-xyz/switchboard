@@ -85,7 +85,7 @@ jobs:
       #     npm ci
 
       - name: Install @switchboard-xyz/evm.js dependencies
-        working-directory: sdks/evm/javascript/eth.js
+        working-directory: sdks/evm/javascript/evm.js
         run: |
           npm ci
 
