@@ -38,6 +38,7 @@
     "@types/bn.js": "^5.1.1",
     "big.js": "^6.2.1",
     "bn.js": "^5.2.1",
+    "class-validator": "^0.14.0",
     "decimal.js": "^10.4.3",
     "protobufjs": "^7.1.2"
   },
