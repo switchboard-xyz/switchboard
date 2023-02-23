@@ -1,0 +1,248 @@
+---
+sidebar_position: 5
+---
+
+# Liquidity
+
+Switchboard oracles can be used to fetch order book depth and AMM liquidity.
+
+<details>
+<summary>
+
+## Binance Liquidity
+
+</summary>
+
+:::note
+
+**This is not a full job definition.** You should pair it with some conditional
+logic.
+
+:::
+
+```json title="sol_binance_orderbook.json"
+{
+  "tasks": [
+    {
+      "httpTask": {
+        "url": "https://www.binance.com/api/v3/ticker/bookTicker?symbol=SOLUSDT",
+        "method": "METHOD_GET"
+      }
+    },
+    {
+      "cacheTask": {
+        "cacheItems": [
+          {
+            "variableName": "BINANCE_BID_QTY",
+            "job": {
+              "tasks": [
+                {
+                  "jsonParseTask": {
+                    "path": "$.bidQty",
+                    "aggregationMethod": "NONE"
+                  }
+                }
+              ]
+            }
+          },
+          {
+            "variableName": "BINANCE_ASK_QTY",
+            "job": {
+              "tasks": [
+                {
+                  "jsonParseTask": {
+                    "path": "$.askQty",
+                    "aggregationMethod": "NONE"
+                  }
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "valueTask": {
+        "big": "${BINANCE_ASK_QTY}"
+      }
+    }
+  ]
+}
+```
+
+</details>
+
+<details>
+<summary>
+
+## JupiterSwap Liquidity
+
+</summary>
+
+The following show how to get the swap price for a given input and output token
+with a given input order size. This is useful to see how the price impact
+affects the oracle result.
+
+```json title="jupiter_liquidity.json"
+{
+  "tasks": [
+    {
+      "cacheTask": {
+        "cacheItems": [
+          {
+            "variableName": "BASE_1",
+            "job": {
+              "tasks": [
+                {
+                  "jupiterSwapTask": {
+                    "inTokenAddress": "So11111111111111111111111111111111111111112",
+                    "outTokenAddress": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+                    "baseAmount": "1"
+                  }
+                },
+                {
+                  "divideTask": {
+                    "scalar": "1"
+                  }
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "cacheTask": {
+        "cacheItems": [
+          {
+            "variableName": "BASE_10",
+            "job": {
+              "tasks": [
+                {
+                  "jupiterSwapTask": {
+                    "inTokenAddress": "So11111111111111111111111111111111111111112",
+                    "outTokenAddress": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+                    "baseAmount": "10"
+                  }
+                },
+                {
+                  "divideTask": {
+                    "scalar": "10"
+                  }
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "cacheTask": {
+        "cacheItems": [
+          {
+            "variableName": "BASE_100",
+            "job": {
+              "tasks": [
+                {
+                  "jupiterSwapTask": {
+                    "inTokenAddress": "So11111111111111111111111111111111111111112",
+                    "outTokenAddress": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+                    "baseAmount": "100"
+                  }
+                },
+                {
+                  "divideTask": {
+                    "scalar": "100"
+                  }
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "cacheTask": {
+        "cacheItems": [
+          {
+            "variableName": "BASE_1000",
+            "job": {
+              "tasks": [
+                {
+                  "jupiterSwapTask": {
+                    "inTokenAddress": "So11111111111111111111111111111111111111112",
+                    "outTokenAddress": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+                    "baseAmount": "1000"
+                  }
+                },
+                {
+                  "divideTask": {
+                    "scalar": "1000"
+                  }
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "cacheTask": {
+        "cacheItems": [
+          {
+            "variableName": "BASE_10000",
+            "job": {
+              "tasks": [
+                {
+                  "jupiterSwapTask": {
+                    "inTokenAddress": "So11111111111111111111111111111111111111112",
+                    "outTokenAddress": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+                    "baseAmount": "10000"
+                  }
+                },
+                {
+                  "divideTask": {
+                    "scalar": "10000"
+                  }
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "cacheTask": {
+        "cacheItems": [
+          {
+            "variableName": "BASE_100000",
+            "job": {
+              "tasks": [
+                {
+                  "jupiterSwapTask": {
+                    "inTokenAddress": "So11111111111111111111111111111111111111112",
+                    "outTokenAddress": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+                    "baseAmount": "100000"
+                  }
+                },
+                {
+                  "divideTask": {
+                    "scalar": "100000"
+                  }
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "valueTask": {
+        "big": "${BASE_1}"
+      }
+    }
+  ]
+}
+```
+
+</details>

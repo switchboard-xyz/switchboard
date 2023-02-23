@@ -51,13 +51,7 @@ const config = {
           remarkPlugins: [require("@docusaurus/remark-plugin-npm2yarn")],
         },
         theme: {
-          customCss: [
-            require.resolve("./src/css/custom.css"),
-            require.resolve("./src/css/sidebar.css"),
-            require.resolve("./src/css/navbar.css"),
-            require.resolve("./src/css/icons.css"),
-            require.resolve("./src/css/footer.css"),
-          ],
+          customCss: [require.resolve("./src/css/custom.css")],
         },
       }),
     ],

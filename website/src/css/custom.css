@@ -6,6 +6,12 @@
  * work well for content-centric websites.
  */
 
+@import "admonitions.css";
+@import "footer.css";
+@import "icons.css";
+@import "navbar.css";
+@import "sidebar.css";
+
 :root {
   --ifm-color-primary: #117083;
   --ifm-color-primary-dark: #0f6576;
@@ -89,7 +95,7 @@ html[data-theme="dark"] .docusaurus-highlight-code-line {
 
 a.link__nocolor,
 a.link__nocolor:hover,
-a.link__nocolorvisited,
+a.link__nocolor:visited,
 a.link__nocolor:link,
 a.link__nocolor:active {
   color: inherit;
@@ -107,3 +113,20 @@ a.link__nocolor:active {
     --ifm-col-width: 180px;
   }
 } */
+
+table li {
+  list-style-type: "> ";
+}
+
+table li::marker {
+  color: var(--ifm-color-primary);
+  font-size: 1.25rem;
+}
+
+table a {
+  color: var(--ifm-navbar-link-color);
+}
+
+html[data-theme="dark"] a:hover {
+  color: var(--ifm-color-primary-lightest);
+}
