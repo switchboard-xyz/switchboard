@@ -1,0 +1,45 @@
+{
+  "name": "@switchboard-xyz/oracle",
+  "version": "2.1.1",
+  "author": "mitch@switchboard.xyz",
+  "license": "MIT",
+  "description": "Switchboard oracle module",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/switchboard-xyz/switchboard-oracle-v2.git",
+    "directory": "packages/oracle"
+  },
+  "files": [
+    "dist",
+    "package.json",
+    "package-lock.json"
+  ],
+  "exports": {
+    ".": {
+      "import": "./dist/esm/index.js",
+      "require": "./dist/cjs/index.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "main": "dist/cjs/index.js",
+  "module": "dist/esm/index.js",
+  "types": "dist/cjs/index.d.ts",
+  "node": ">=14.16",
+  "scripts": {
+    "build": "tsc && tsc -p tsconfig.cjs.json",
+    "prepublishOnly": "shx rm -rf dist && npm run build && npm version patch"
+  },
+  "dependencies": {
+    "node-fetch": "^2.6.9"
+  },
+  "devDependencies": {
+    "@terascope/fetch-github-release": "^0.8.7",
+    "@types/node": "^18.11.9",
+    "@types/node-fetch": "^2.6.2",
+    "shx": "^0.3.4",
+    "typescript": "^4.9.3"
+  },
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org"
+  }
+}
