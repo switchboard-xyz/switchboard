@@ -1,0 +1,4 @@
+src/node/*.js
+src/node/*.wasm
+*.tgz
+sbv2-oracle/*

@@ -1,0 +1,33 @@
+{
+  "exclude": ["node_modules", "**/*.test.ts", "tests"],
+  "compilerOptions": {
+    "module": "es2022",
+    "target": "es2022",
+    "lib": ["ES2022"],
+    "moduleResolution": "node",
+    "inlineSourceMap": true,
+    "inlineSources": true,
+    "declaration": true,
+    "declarationMap": true,
+    "allowSyntheticDefaultImports": true,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "resolveJsonModule": true,
+    "composite": true,
+    "skipLibCheck": true,
+    // strict
+    "strict": true,
+    "noImplicitThis": true,
+    "alwaysStrict": true,
+    "noImplicitAny": false,
+    "strictNullChecks": true,
+    "strictFunctionTypes": true,
+    "noImplicitReturns": true,
+    "strictPropertyInitialization": true,
+    "esModuleInterop": true,
+    "outDir": "dist/esm/"
+    // "rootDir": "./src",
+    // "baseUrl": "./",
+    // "types": ["node", "jest"],
+  }
+}
