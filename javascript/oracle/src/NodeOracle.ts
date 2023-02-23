@@ -1,16 +1,16 @@
 import { ChildProcess, spawn } from "child_process";
 import fs from "fs";
+import os from "os";
 import fetch from "node-fetch";
 import path from "path";
 import { IOracleConfig, ISwitchboardOracle } from "./types";
-import { normalizeFsPath, sleep } from "./utils";
+import { getCacheDir, normalizeFsPath, sleep } from "./utils";
 import { downloadRelease } from "@terascope/fetch-github-release";
-
-// TOOD: Add function to fetch oracle with a given tag from the github repository
 
 /** Downloads a github release and stores in the current working directory */
 async function downloadReleaseArtifact(oracleVersion: string) {
-  const outputLocation = path.join(process.cwd(), "sbv2-oracle", oracleVersion);
+  const cacheDir = getCacheDir() ?? process.cwd();
+  const outputLocation = path.join(cacheDir, "sbv2-oracle", oracleVersion);
   fs.mkdirSync(outputLocation, { recursive: true });
   if (
     fs.existsSync(outputLocation) &&
@@ -28,7 +28,6 @@ async function downloadReleaseArtifact(oracleVersion: string) {
     false
   );
 
-  console.log(result);
   if (
     !fs.existsSync(outputLocation) ||
     !fs.existsSync(path.join(outputLocation, "index.js"))
