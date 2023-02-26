@@ -40,7 +40,8 @@
     "bn.js": "^5.2.1",
     "class-validator": "^0.14.0",
     "decimal.js": "^10.4.3",
-    "protobufjs": "^7.1.2"
+    "protobufjs": "^7.1.2",
+    "yaml": "^2.2.1"
   },
   "devDependencies": {
     "@types/node": "^18.11.9",

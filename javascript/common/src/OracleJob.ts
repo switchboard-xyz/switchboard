@@ -1,7 +1,5 @@
-/* eslint-disable @typescript-eslint/no-var-requires */
-/* eslint-disable import/extensions */
-import { IOracleJob, OracleJob } from "./protos";
-
+import * as proto from "./protos";
+import YAML from "yaml";
 import protobuf from "protobufjs/minimal.js";
 import Big from "big.js";
 
@@ -14,6 +12,30 @@ protobuf.util.toJSONOptions = {
 
 export * from "./protos/index.js";
 
+export class OracleJob extends proto.OracleJob {
+  public static create(properties?: proto.IOracleJob | undefined): OracleJob {
+    return new OracleJob(properties);
+  }
+  public static fromObject(object: { [k: string]: any }): OracleJob {
+    return this.create(super.fromObject(object));
+  }
+  public static decodeDelimited(r: protobuf.Reader | Uint8Array): OracleJob {
+    return this.create(super.decodeDelimited(r));
+  }
+  /**
+   *  Creates an OracleJob message from a YAML string.
+   */
+  public static fromYaml(src: string): OracleJob {
+    return this.create(YAML.parse(src));
+  }
+  /**
+   *  Converts this OracleJob to YAML.
+   */
+  public toYaml() {
+    return YAML.stringify(this.toJSON());
+  }
+}
+
 /**
  * Serialize a stringified OracleJob and replace any json comments
  * @param [job] Stringified OracleJob or object with an array of Switchboard tasks defined
@@ -21,13 +43,13 @@ export * from "./protos/index.js";
  * @returns {OracleJob}
  */
 export function serializeOracleJob(
-  job: string | IOracleJob | Record<string, any>
+  job: string | proto.IOracleJob | Record<string, any>
 ): OracleJob {
   if (!job) {
     throw new Error("");
   }
 
-  let jobObj: IOracleJob;
+  let jobObj: proto.IOracleJob;
   if (typeof job === "string") {
     const parsedFileString = job
       // replace all json comments https://regex101.com/r/B8WkuX/1
