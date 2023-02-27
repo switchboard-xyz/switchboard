@@ -1,65 +1,64 @@
-
 interact with switchboard on Solana
 
-* [`sbv2 solana aggregator add history AGGREGATORKEY`](#sbv2-solana-aggregator-add-history-aggregatorkey)
-* [`sbv2 solana aggregator add job AGGREGATORKEY`](#sbv2-solana-aggregator-add-job-aggregatorkey)
-* [`sbv2 solana aggregator create QUEUEKEY`](#sbv2-solana-aggregator-create-queuekey)
-* [`sbv2 solana aggregator create json DEFINITIONFILE`](#sbv2-solana-aggregator-create-json-definitionfile)
-* [`sbv2 solana aggregator deposit AGGREGATORKEY`](#sbv2-solana-aggregator-deposit-aggregatorkey)
-* [`sbv2 solana aggregator extend AGGREGATORKEY`](#sbv2-solana-aggregator-extend-aggregatorkey)
-* [`sbv2 solana aggregator fund AGGREGATORKEY`](#sbv2-solana-aggregator-fund-aggregatorkey)
-* [`sbv2 solana aggregator history AGGREGATORKEY`](#sbv2-solana-aggregator-history-aggregatorkey)
-* [`sbv2 solana aggregator lease set AGGREGATORKEY`](#sbv2-solana-aggregator-lease-set-aggregatorkey)
-* [`sbv2 solana aggregator list AUTHORITYKEY`](#sbv2-solana-aggregator-list-authoritykey)
-* [`sbv2 solana aggregator lock AGGREGATORKEY`](#sbv2-solana-aggregator-lock-aggregatorkey)
-* [`sbv2 solana aggregator metrics AGGREGATORKEY`](#sbv2-solana-aggregator-metrics-aggregatorkey)
-* [`sbv2 solana aggregator open-round AGGREGATORKEY`](#sbv2-solana-aggregator-open-round-aggregatorkey)
-* [`sbv2 solana aggregator permission create AGGREGATORKEY`](#sbv2-solana-aggregator-permission-create-aggregatorkey)
-* [`sbv2 solana aggregator print AGGREGATORKEY`](#sbv2-solana-aggregator-print-aggregatorkey)
-* [`sbv2 solana aggregator remove job AGGREGATORKEY JOBKEY`](#sbv2-solana-aggregator-remove-job-aggregatorkey-jobkey)
-* [`sbv2 solana aggregator set AGGREGATORKEY`](#sbv2-solana-aggregator-set-aggregatorkey)
-* [`sbv2 solana aggregator transfer AGGREGATORKEY`](#sbv2-solana-aggregator-transfer-aggregatorkey)
-* [`sbv2 solana aggregator update AGGREGATORKEY`](#sbv2-solana-aggregator-update-aggregatorkey)
-* [`sbv2 solana aggregator watch AGGREGATORKEY`](#sbv2-solana-aggregator-watch-aggregatorkey)
-* [`sbv2 solana aggregator withdraw AGGREGATORKEY`](#sbv2-solana-aggregator-withdraw-aggregatorkey)
-* [`sbv2 solana anchor test`](#sbv2-solana-anchor-test)
-* [`sbv2 solana buffer create QUEUEKEY`](#sbv2-solana-buffer-create-queuekey)
-* [`sbv2 solana buffer open-round BUFFERRELAYERKEY`](#sbv2-solana-buffer-open-round-bufferrelayerkey)
-* [`sbv2 solana buffer update BUFFERRELAYERKEY`](#sbv2-solana-buffer-update-bufferrelayerkey)
-* [`sbv2 solana crank create QUEUEKEY`](#sbv2-solana-crank-create-queuekey)
-* [`sbv2 solana crank events AGGREGATORKEY`](#sbv2-solana-crank-events-aggregatorkey)
-* [`sbv2 solana crank pop CRANKKEY`](#sbv2-solana-crank-pop-crankkey)
-* [`sbv2 solana crank print CRANKKEY`](#sbv2-solana-crank-print-crankkey)
-* [`sbv2 solana crank push AGGREGATORKEY`](#sbv2-solana-crank-push-aggregatorkey)
-* [`sbv2 solana job create`](#sbv2-solana-job-create)
-* [`sbv2 solana job print JOBKEY`](#sbv2-solana-job-print-jobkey)
-* [`sbv2 solana json create aggregator DEFINITIONFILE`](#sbv2-solana-json-create-aggregator-definitionfile)
-* [`sbv2 solana lease create AGGREGATORKEY`](#sbv2-solana-lease-create-aggregatorkey)
-* [`sbv2 solana lease extend AGGREGATORKEY`](#sbv2-solana-lease-extend-aggregatorkey)
-* [`sbv2 solana lease print LEASEKEY`](#sbv2-solana-lease-print-leasekey)
-* [`sbv2 solana lease set AGGREGATORKEY`](#sbv2-solana-lease-set-aggregatorkey)
-* [`sbv2 solana lease withdraw AGGREGATORKEY`](#sbv2-solana-lease-withdraw-aggregatorkey)
-* [`sbv2 solana localnet env`](#sbv2-solana-localnet-env)
-* [`sbv2 solana localnet up`](#sbv2-solana-localnet-up)
-* [`sbv2 solana network create`](#sbv2-solana-network-create)
-* [`sbv2 solana network save`](#sbv2-solana-network-save)
-* [`sbv2 solana network start`](#sbv2-solana-network-start)
-* [`sbv2 solana oracle create QUEUEKEY`](#sbv2-solana-oracle-create-queuekey)
-* [`sbv2 solana oracle print ORACLEKEY`](#sbv2-solana-oracle-print-oraclekey)
-* [`sbv2 solana oracle up`](#sbv2-solana-oracle-up)
-* [`sbv2 solana oracle withdraw ORACLEKEY`](#sbv2-solana-oracle-withdraw-oraclekey)
-* [`sbv2 solana permission create`](#sbv2-solana-permission-create)
-* [`sbv2 solana permission grant PERMISSIONKEY`](#sbv2-solana-permission-grant-permissionkey)
-* [`sbv2 solana permission print PERMISSIONKEY`](#sbv2-solana-permission-print-permissionkey)
-* [`sbv2 solana permission revoke PERMISSIONKEY`](#sbv2-solana-permission-revoke-permissionkey)
-* [`sbv2 solana print PUBKEY`](#sbv2-solana-print-pubkey)
-* [`sbv2 solana queue create`](#sbv2-solana-queue-create)
-* [`sbv2 solana queue print QUEUEKEY`](#sbv2-solana-queue-print-queuekey)
-* [`sbv2 solana queue set QUEUEKEY`](#sbv2-solana-queue-set-queuekey)
-* [`sbv2 solana vrf open-round VRFKEY`](#sbv2-solana-vrf-open-round-vrfkey)
-* [`sbv2 solana vrf print VRFKEY`](#sbv2-solana-vrf-print-vrfkey)
-* [`sbv2 solana vrf request VRFKEY`](#sbv2-solana-vrf-request-vrfkey)
-* [`sbv2 solana vrf update VRFKEY`](#sbv2-solana-vrf-update-vrfkey)
+- [`sbv2 solana aggregator add history AGGREGATORKEY`](#sbv2-solana-aggregator-add-history-aggregatorkey)
+- [`sbv2 solana aggregator add job AGGREGATORKEY`](#sbv2-solana-aggregator-add-job-aggregatorkey)
+- [`sbv2 solana aggregator create QUEUEKEY`](#sbv2-solana-aggregator-create-queuekey)
+- [`sbv2 solana aggregator create json DEFINITIONFILE`](#sbv2-solana-aggregator-create-json-definitionfile)
+- [`sbv2 solana aggregator deposit AGGREGATORKEY`](#sbv2-solana-aggregator-deposit-aggregatorkey)
+- [`sbv2 solana aggregator extend AGGREGATORKEY`](#sbv2-solana-aggregator-extend-aggregatorkey)
+- [`sbv2 solana aggregator fund AGGREGATORKEY`](#sbv2-solana-aggregator-fund-aggregatorkey)
+- [`sbv2 solana aggregator history AGGREGATORKEY`](#sbv2-solana-aggregator-history-aggregatorkey)
+- [`sbv2 solana aggregator lease set AGGREGATORKEY`](#sbv2-solana-aggregator-lease-set-aggregatorkey)
+- [`sbv2 solana aggregator list AUTHORITYKEY`](#sbv2-solana-aggregator-list-authoritykey)
+- [`sbv2 solana aggregator lock AGGREGATORKEY`](#sbv2-solana-aggregator-lock-aggregatorkey)
+- [`sbv2 solana aggregator metrics AGGREGATORKEY`](#sbv2-solana-aggregator-metrics-aggregatorkey)
+- [`sbv2 solana aggregator open-round AGGREGATORKEY`](#sbv2-solana-aggregator-open-round-aggregatorkey)
+- [`sbv2 solana aggregator permission create AGGREGATORKEY`](#sbv2-solana-aggregator-permission-create-aggregatorkey)
+- [`sbv2 solana aggregator print AGGREGATORKEY`](#sbv2-solana-aggregator-print-aggregatorkey)
+- [`sbv2 solana aggregator remove job AGGREGATORKEY JOBKEY`](#sbv2-solana-aggregator-remove-job-aggregatorkey-jobkey)
+- [`sbv2 solana aggregator set AGGREGATORKEY`](#sbv2-solana-aggregator-set-aggregatorkey)
+- [`sbv2 solana aggregator transfer AGGREGATORKEY`](#sbv2-solana-aggregator-transfer-aggregatorkey)
+- [`sbv2 solana aggregator update AGGREGATORKEY`](#sbv2-solana-aggregator-update-aggregatorkey)
+- [`sbv2 solana aggregator watch AGGREGATORKEY`](#sbv2-solana-aggregator-watch-aggregatorkey)
+- [`sbv2 solana aggregator withdraw AGGREGATORKEY`](#sbv2-solana-aggregator-withdraw-aggregatorkey)
+- [`sbv2 solana anchor test`](#sbv2-solana-anchor-test)
+- [`sbv2 solana buffer create QUEUEKEY`](#sbv2-solana-buffer-create-queuekey)
+- [`sbv2 solana buffer open-round BUFFERRELAYERKEY`](#sbv2-solana-buffer-open-round-bufferrelayerkey)
+- [`sbv2 solana buffer update BUFFERRELAYERKEY`](#sbv2-solana-buffer-update-bufferrelayerkey)
+- [`sbv2 solana crank create QUEUEKEY`](#sbv2-solana-crank-create-queuekey)
+- [`sbv2 solana crank events AGGREGATORKEY`](#sbv2-solana-crank-events-aggregatorkey)
+- [`sbv2 solana crank pop CRANKKEY`](#sbv2-solana-crank-pop-crankkey)
+- [`sbv2 solana crank print CRANKKEY`](#sbv2-solana-crank-print-crankkey)
+- [`sbv2 solana crank push AGGREGATORKEY`](#sbv2-solana-crank-push-aggregatorkey)
+- [`sbv2 solana job create`](#sbv2-solana-job-create)
+- [`sbv2 solana job print JOBKEY`](#sbv2-solana-job-print-jobkey)
+- [`sbv2 solana json create aggregator DEFINITIONFILE`](#sbv2-solana-json-create-aggregator-definitionfile)
+- [`sbv2 solana lease create AGGREGATORKEY`](#sbv2-solana-lease-create-aggregatorkey)
+- [`sbv2 solana lease extend AGGREGATORKEY`](#sbv2-solana-lease-extend-aggregatorkey)
+- [`sbv2 solana lease print LEASEKEY`](#sbv2-solana-lease-print-leasekey)
+- [`sbv2 solana lease set AGGREGATORKEY`](#sbv2-solana-lease-set-aggregatorkey)
+- [`sbv2 solana lease withdraw AGGREGATORKEY`](#sbv2-solana-lease-withdraw-aggregatorkey)
+- [`sbv2 solana localnet env`](#sbv2-solana-localnet-env)
+- [`sbv2 solana localnet up`](#sbv2-solana-localnet-up)
+- [`sbv2 solana network create`](#sbv2-solana-network-create)
+- [`sbv2 solana network save`](#sbv2-solana-network-save)
+- [`sbv2 solana network start`](#sbv2-solana-network-start)
+- [`sbv2 solana oracle create QUEUEKEY`](#sbv2-solana-oracle-create-queuekey)
+- [`sbv2 solana oracle print ORACLEKEY`](#sbv2-solana-oracle-print-oraclekey)
+- [`sbv2 solana oracle up`](#sbv2-solana-oracle-up)
+- [`sbv2 solana oracle withdraw ORACLEKEY`](#sbv2-solana-oracle-withdraw-oraclekey)
+- [`sbv2 solana permission create`](#sbv2-solana-permission-create)
+- [`sbv2 solana permission grant PERMISSIONKEY`](#sbv2-solana-permission-grant-permissionkey)
+- [`sbv2 solana permission print PERMISSIONKEY`](#sbv2-solana-permission-print-permissionkey)
+- [`sbv2 solana permission revoke PERMISSIONKEY`](#sbv2-solana-permission-revoke-permissionkey)
+- [`sbv2 solana print PUBKEY`](#sbv2-solana-print-pubkey)
+- [`sbv2 solana queue create`](#sbv2-solana-queue-create)
+- [`sbv2 solana queue print QUEUEKEY`](#sbv2-solana-queue-print-queuekey)
+- [`sbv2 solana queue set QUEUEKEY`](#sbv2-solana-queue-set-queuekey)
+- [`sbv2 solana vrf open-round VRFKEY`](#sbv2-solana-vrf-open-round-vrfkey)
+- [`sbv2 solana vrf print VRFKEY`](#sbv2-solana-vrf-print-vrfkey)
+- [`sbv2 solana vrf request VRFKEY`](#sbv2-solana-vrf-request-vrfkey)
+- [`sbv2 solana vrf update VRFKEY`](#sbv2-solana-vrf-update-vrfkey)
 
 ## `sbv2 solana aggregator add history AGGREGATORKEY`
 
@@ -939,7 +938,7 @@ FLAGS
   --mainnetBeta                 WARNING: use mainnet-beta solana cluster
   --mainnetRpcUrl=<value>       [default: https://api.mainnet-beta.solana.com/] Solana mainnet RPC URL to use for the
                                 oracle task runner
-  --nodeImage=<value>           [default: dev-v2-RC_01_17_23_16_22] public key of the oracle to start-up
+  --nodeImage=<value>           [default: ] public key of the oracle to start-up
   --oracleKey=<value>           public key of the oracle to start-up
   --programId=<value>           alternative Switchboard program ID to interact with
   --testValidatorArgs=<value>   additional args passed to the local solana validator
@@ -1589,7 +1588,8 @@ DESCRIPTION
 
 ## `sbv2 solana localnet up`
 
-start a local solana validator with a switchboard environment and oracle running alongside it
+start a local solana validator with a switchboard environment and oracle running
+alongside it
 
 ```
 USAGE
@@ -1619,7 +1619,7 @@ FLAGS
   --minStake=<value>                    [default: 0] the reward payed out to oracles for responding to an update request
                                         on-chain, Ex: 2 requires oracles to have 2 wSOL in their staking wallet before
                                         heartbeating
-  --nodeImage=<value>                   [default: dev-v2-RC_01_17_23_16_22] public key of the oracle to start-up
+  --nodeImage=<value>                   [default: ] public key of the oracle to start-up
   --oracleStakingWalletKeypair=<value>  keypair to use for the oracle staking wallet. Using a static staking wallet with
                                         the same queue will produce the same oracle pubkey each time.
   --oracleTimeout=<value>               [default: 180] time period (in seconds) we should remove an oracle after if no
@@ -1738,7 +1738,7 @@ FLAGS
   --mainnetBeta            WARNING: use mainnet-beta solana cluster
   --mainnetRpcUrl=<value>  [default: https://api.mainnet-beta.solana.com/] Solana mainnet RPC URL to use for the oracle
                            task runner
-  --nodeImage=<value>      [default: dev-v2-RC_01_17_23_16_22] public key of the oracle to start-up
+  --nodeImage=<value>      [default: ] public key of the oracle to start-up
   --programId=<value>      alternative Switchboard program ID to interact with
   --schemaFile=<value>
 
@@ -1851,7 +1851,7 @@ FLAGS
   --ledger               enable ledger support
   --ledgerPath=<value>   HID path to the ledger
   --mainnetBeta          WARNING: use mainnet-beta solana cluster
-  --nodeImage=<value>    [default: dev-v2-RC_01_17_23_16_22] public key of the oracle to start-up
+  --nodeImage=<value>    [default: ] public key of the oracle to start-up
   --oracleKey=<value>    (required) public key of the oracle to start-up
   --programId=<value>    alternative Switchboard program ID to interact with
 
