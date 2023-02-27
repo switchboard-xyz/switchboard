@@ -3,7 +3,8 @@ import { sleep } from "./src/utils";
 
 async function main() {
   // TODO: Create queue + oracle so we dont need to hard-cdoe oracle pubkeys
-  const oracle = new NodeOracle("dev-v2-RC_02_23_23_22_23", {
+  const oracle = await NodeOracle.fromReleaseChannel({
+    releaseChannel: "testnet",
     chain: "solana",
     network: "localnet",
     rpcUrl: "http://0.0.0.0:8899",

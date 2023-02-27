@@ -4,21 +4,29 @@ import crypto from "crypto";
 import fs from "fs";
 import os from "os";
 import path from "path";
-import { IDockerOracleConfig, ISwitchboardOracle } from "./types";
+import { ISwitchboardOracle } from "./SwitchboardOracle";
+import {
+  IDockerOracleConfig,
+  IOracleConfig,
+  Chain,
+  Network,
+  OracleTagVersion,
+  ReleaseChannelVersion,
+} from "./types";
 import { normalizeFsPath, sleep } from "./utils";
 
 export class DockerOracle extends ISwitchboardOracle {
+  readonly imageTag: string;
+
+  readonly switchboardDirectory: string;
+  readonly silent: boolean;
+
   readonly image: string;
   readonly arch: "linux/arm64" | "linux/amd64";
   readonly dockerRunFlags: Array<string>;
 
-  readonly chain: "aptos" | "near" | "solana";
-  readonly network:
-    | "localnet"
-    | "devnet"
-    | "testnet"
-    | "mainnet"
-    | "mainnet-beta";
+  readonly chain: Chain;
+  readonly network: Network;
   readonly envVariables: Record<string, string>;
   readonly secretPath: string;
 
@@ -32,18 +40,15 @@ export class DockerOracle extends ISwitchboardOracle {
   onErrorCallback: (error: Error) => void;
   onCloseCallback: (code: number, signal: NodeJS.Signals) => void;
 
-  constructor(
-    readonly nodeImage: string,
-    readonly config: IDockerOracleConfig,
-    readonly switchboardDirectory = path.join(process.cwd(), ".switchboard"),
-    readonly silent = false
-  ) {
+  constructor(readonly config: IDockerOracleConfig & OracleTagVersion) {
     super();
     DockerOracle.isDockerRunning();
     // set config
     this.chain = config.chain;
     this.network = config.network;
     this.arch = config.arch ?? "linux/amd64";
+    this.imageTag = config.imageTag;
+    this.silent = config.silent ?? false;
 
     this.dockerRunFlags = config.dockerRunFlags ?? [];
 
@@ -72,12 +77,14 @@ export class DockerOracle extends ISwitchboardOracle {
     }
 
     // log config
+    this.switchboardDirectory =
+      config.switchboardDirectory ?? path.join(process.cwd(), ".switchboard");
     if (!fs.existsSync(this.switchboardDirectory)) {
       fs.mkdirSync(this.switchboardDirectory, { recursive: true });
     }
     this.logFile = path.join(
       this.switchboardDirectory,
-      `docker.${this.nodeImage}.${Math.floor(this.timestamp / 1000)}.log`
+      `docker.${this.imageTag}.${Math.floor(this.timestamp / 1000)}.log`
     );
 
     // build image name from a hash of provided args
@@ -89,13 +96,13 @@ export class DockerOracle extends ISwitchboardOracle {
           this.network,
           this.secretPath,
           this.arch,
-          this.nodeImage,
+          this.imageTag,
         ].join(" ") + JSON.stringify(this.envVariables)
       )
     );
     const hash = shaHash.digest().toString("hex");
 
-    this.image = `sbv2-${this.chain}-${this.network}-${this.nodeImage.replace(
+    this.image = `sbv2-${this.chain}-${this.network}-${this.imageTag.replace(
       "dev-v2-",
       ""
     )}-${hash.slice(0, 16)}`;
@@ -135,6 +142,24 @@ export class DockerOracle extends ISwitchboardOracle {
         );
       }
     };
+  }
+
+  public static async fromReleaseChannel(
+    config: IOracleConfig & ReleaseChannelVersion
+  ): Promise<DockerOracle> {
+    try {
+      const nodeImage = await ISwitchboardOracle.getNodeImage(
+        config.releaseChannel
+      );
+      return new DockerOracle({
+        ...config,
+        imageTag: nodeImage,
+      });
+    } catch (error) {
+      throw new Error(
+        `Failed to find oracle version for release channel ${config.releaseChannel}, ${error}`
+      );
+    }
   }
 
   public static isDockerRunning() {
@@ -298,7 +323,7 @@ export class DockerOracle extends ISwitchboardOracle {
         ...Array.from(dockerRunFlags),
         `-e APTOS_FS_PAYER_SECRET_PATH=/home/node/sbv2-oracle/payer_secrets.json`,
         `--mount type=bind,source=${this.secretPath},target=/home/node/sbv2-oracle/payer_secrets.json`,
-        `switchboardlabs/node:${this.nodeImage}`,
+        `switchboardlabs/node:${this.imageTag}`,
       ].filter(Boolean);
     }
 
@@ -308,7 +333,7 @@ export class DockerOracle extends ISwitchboardOracle {
         ...Array.from(dockerRunFlags),
         `-e NEAR_FS_PAYER_SECRET_PATH=/home/node/sbv2-oracle/payer_secrets.json`,
         `--mount type=bind,source=${this.secretPath},target=/home/node/sbv2-oracle/payer_secrets.json`,
-        `switchboardlabs/node:${this.nodeImage}`,
+        `switchboardlabs/node:${this.imageTag}`,
       ].filter(Boolean);
     }
 
@@ -318,7 +343,7 @@ export class DockerOracle extends ISwitchboardOracle {
         ...Array.from(dockerRunFlags),
         `-e SOLANA_FS_PAYER_SECRET_PATH=/home/node/sbv2-oracle/payer_secrets.json`,
         `--mount type=bind,source=${this.secretPath},target=/home/node/sbv2-oracle/payer_secrets.json`,
-        `switchboardlabs/node:${this.nodeImage}`,
+        `switchboardlabs/node:${this.imageTag}`,
       ].filter(Boolean);
     }
 
@@ -339,7 +364,7 @@ export class DockerOracle extends ISwitchboardOracle {
         !error
           .toString()
           .includes(
-            `The container name "/sbv2-${this.nodeImage}" is already in use by container`
+            `The container name "/sbv2-${this.imageTag}" is already in use by container`
           )
       ) {
         console.error(`\u001B[34m${error.toString()}\u001B[0m`);
@@ -351,7 +376,7 @@ export class DockerOracle extends ISwitchboardOracle {
         !error
           .toString()
           .includes(
-            `The container name "/sbv2-${this.nodeImage}" is already in use by container`
+            `The container name "/sbv2-${this.imageTag}" is already in use by container`
           )
       ) {
         console.error(`\u001B[31m${error.toString()}\u001B[0m`);
