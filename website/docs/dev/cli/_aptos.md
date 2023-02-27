@@ -2,31 +2,31 @@
 interact with switchboard on Aptos
 
 * [`sbv2 aptos account airdrop`](#sbv2-aptos-account-airdrop)
-* [`sbv2 aptos aggregator add job [AGGREGATORHEXSTRING]`](#sbv2-aptos-aggregator-add-job-aggregatorhexstring)
-* [`sbv2 aptos aggregator create [QUEUEHEXSTRING]`](#sbv2-aptos-aggregator-create-queuehexstring)
-* [`sbv2 aptos aggregator job add [AGGREGATORHEXSTRING]`](#sbv2-aptos-aggregator-job-add-aggregatorhexstring)
-* [`sbv2 aptos aggregator update [AGGREGATORHEXSTRING]`](#sbv2-aptos-aggregator-update-aggregatorhexstring)
-* [`sbv2 aptos crank create [QUEUEHEXSTRING]`](#sbv2-aptos-crank-create-queuehexstring)
-* [`sbv2 aptos crank list [CRANKHEXSTRING]`](#sbv2-aptos-crank-list-crankhexstring)
-* [`sbv2 aptos crank pop [CRANKHEXSTRING]`](#sbv2-aptos-crank-pop-crankhexstring)
-* [`sbv2 aptos crank push [CRANKHEXSTRING]`](#sbv2-aptos-crank-push-crankhexstring)
-* [`sbv2 aptos create aggregator [QUEUEHEXSTRING]`](#sbv2-aptos-create-aggregator-queuehexstring)
-* [`sbv2 aptos create crank [QUEUEHEXSTRING]`](#sbv2-aptos-create-crank-queuehexstring)
+* [`sbv2 aptos aggregator add job AGGREGATORHEXSTRING`](#sbv2-aptos-aggregator-add-job-aggregatorhexstring)
+* [`sbv2 aptos aggregator create QUEUEHEXSTRING`](#sbv2-aptos-aggregator-create-queuehexstring)
+* [`sbv2 aptos aggregator job add AGGREGATORHEXSTRING`](#sbv2-aptos-aggregator-job-add-aggregatorhexstring)
+* [`sbv2 aptos aggregator update AGGREGATORHEXSTRING`](#sbv2-aptos-aggregator-update-aggregatorhexstring)
+* [`sbv2 aptos crank create QUEUEHEXSTRING`](#sbv2-aptos-crank-create-queuehexstring)
+* [`sbv2 aptos crank list CRANKHEXSTRING`](#sbv2-aptos-crank-list-crankhexstring)
+* [`sbv2 aptos crank pop CRANKHEXSTRING`](#sbv2-aptos-crank-pop-crankhexstring)
+* [`sbv2 aptos crank push CRANKHEXSTRING`](#sbv2-aptos-crank-push-crankhexstring)
+* [`sbv2 aptos create aggregator QUEUEHEXSTRING`](#sbv2-aptos-create-aggregator-queuehexstring)
+* [`sbv2 aptos create crank QUEUEHEXSTRING`](#sbv2-aptos-create-crank-queuehexstring)
 * [`sbv2 aptos create job QUEUEHEXSTRING JOBDEFINITION`](#sbv2-aptos-create-job-queuehexstring-jobdefinition)
-* [`sbv2 aptos create oracle [QUEUEHEXSTRING]`](#sbv2-aptos-create-oracle-queuehexstring)
+* [`sbv2 aptos create oracle QUEUEHEXSTRING`](#sbv2-aptos-create-oracle-queuehexstring)
 * [`sbv2 aptos create queue`](#sbv2-aptos-create-queue)
 * [`sbv2 aptos job create QUEUEHEXSTRING JOBDEFINITION`](#sbv2-aptos-job-create-queuehexstring-jobdefinition)
-* [`sbv2 aptos list crank [CRANKHEXSTRING]`](#sbv2-aptos-list-crank-crankhexstring)
-* [`sbv2 aptos oracle create [QUEUEHEXSTRING]`](#sbv2-aptos-oracle-create-queuehexstring)
-* [`sbv2 aptos oracle metrics [ORACLEHEXSTRING]`](#sbv2-aptos-oracle-metrics-oraclehexstring)
-* [`sbv2 aptos oracle up [ORACLEHEXSTRING]`](#sbv2-aptos-oracle-up-oraclehexstring)
-* [`sbv2 aptos permission create [GRANTER]`](#sbv2-aptos-permission-create-granter)
-* [`sbv2 aptos permission set [GRANTER]`](#sbv2-aptos-permission-set-granter)
-* [`sbv2 aptos pop crank [CRANKHEXSTRING]`](#sbv2-aptos-pop-crank-crankhexstring)
+* [`sbv2 aptos list crank CRANKHEXSTRING`](#sbv2-aptos-list-crank-crankhexstring)
+* [`sbv2 aptos oracle create QUEUEHEXSTRING`](#sbv2-aptos-oracle-create-queuehexstring)
+* [`sbv2 aptos oracle metrics ORACLEHEXSTRING`](#sbv2-aptos-oracle-metrics-oraclehexstring)
+* [`sbv2 aptos oracle up ORACLEHEXSTRING`](#sbv2-aptos-oracle-up-oraclehexstring)
+* [`sbv2 aptos permission create GRANTER`](#sbv2-aptos-permission-create-granter)
+* [`sbv2 aptos permission set GRANTER`](#sbv2-aptos-permission-set-granter)
+* [`sbv2 aptos pop crank CRANKHEXSTRING`](#sbv2-aptos-pop-crank-crankhexstring)
 * [`sbv2 aptos print ACCOUNTTYPE ADDRESS`](#sbv2-aptos-print-accounttype-address)
-* [`sbv2 aptos push crank [CRANKHEXSTRING]`](#sbv2-aptos-push-crank-crankhexstring)
+* [`sbv2 aptos push crank CRANKHEXSTRING`](#sbv2-aptos-push-crank-crankhexstring)
 * [`sbv2 aptos queue create`](#sbv2-aptos-queue-create)
-* [`sbv2 aptos update aggregator [AGGREGATORHEXSTRING]`](#sbv2-aptos-update-aggregator-aggregatorhexstring)
+* [`sbv2 aptos update aggregator AGGREGATORHEXSTRING`](#sbv2-aptos-update-aggregator-aggregatorhexstring)
 
 ## `sbv2 aptos account airdrop`
 
@@ -55,7 +55,7 @@ DESCRIPTION
   request an airdrop
 ```
 
-## `sbv2 aptos aggregator add job [AGGREGATORHEXSTRING]`
+## `sbv2 aptos aggregator add job AGGREGATORHEXSTRING`
 
 add a job to an aggregator
 
@@ -93,7 +93,7 @@ ALIASES
   $ sbv2 aptos aggregator job add
 ```
 
-## `sbv2 aptos aggregator create [QUEUEHEXSTRING]`
+## `sbv2 aptos aggregator create QUEUEHEXSTRING`
 
 create an aptos aggregator for a given queue
 
@@ -144,7 +144,7 @@ ALIASES
   $ sbv2 aptos create aggregator
 ```
 
-## `sbv2 aptos aggregator job add [AGGREGATORHEXSTRING]`
+## `sbv2 aptos aggregator job add AGGREGATORHEXSTRING`
 
 add a job to an aggregator
 
@@ -182,7 +182,7 @@ ALIASES
   $ sbv2 aptos aggregator job add
 ```
 
-## `sbv2 aptos aggregator update [AGGREGATORHEXSTRING]`
+## `sbv2 aptos aggregator update AGGREGATORHEXSTRING`
 
 request a new value on-chain for an aggregator
 
@@ -213,7 +213,7 @@ ALIASES
   $ sbv2 aptos update aggregator
 ```
 
-## `sbv2 aptos crank create [QUEUEHEXSTRING]`
+## `sbv2 aptos crank create QUEUEHEXSTRING`
 
 create a new crank
 
@@ -252,7 +252,7 @@ ALIASES
   $ sbv2 aptos create crank
 ```
 
-## `sbv2 aptos crank list [CRANKHEXSTRING]`
+## `sbv2 aptos crank list CRANKHEXSTRING`
 
 sort the crank
 
@@ -283,7 +283,7 @@ ALIASES
   $ sbv2 aptos list crank
 ```
 
-## `sbv2 aptos crank pop [CRANKHEXSTRING]`
+## `sbv2 aptos crank pop CRANKHEXSTRING`
 
 pop the crank
 
@@ -317,7 +317,7 @@ ALIASES
   $ sbv2 aptos pop crank
 ```
 
-## `sbv2 aptos crank push [CRANKHEXSTRING]`
+## `sbv2 aptos crank push CRANKHEXSTRING`
 
 push an aggregator onto the crank
 
@@ -352,7 +352,7 @@ ALIASES
   $ sbv2 aptos push crank
 ```
 
-## `sbv2 aptos create aggregator [QUEUEHEXSTRING]`
+## `sbv2 aptos create aggregator QUEUEHEXSTRING`
 
 create an aptos aggregator for a given queue
 
@@ -403,7 +403,7 @@ ALIASES
   $ sbv2 aptos create aggregator
 ```
 
-## `sbv2 aptos create crank [QUEUEHEXSTRING]`
+## `sbv2 aptos create crank QUEUEHEXSTRING`
 
 create a new crank
 
@@ -483,7 +483,7 @@ ALIASES
   $ sbv2 aptos create job
 ```
 
-## `sbv2 aptos create oracle [QUEUEHEXSTRING]`
+## `sbv2 aptos create oracle QUEUEHEXSTRING`
 
 create a oracle for a given queue
 
@@ -609,7 +609,7 @@ ALIASES
   $ sbv2 aptos create job
 ```
 
-## `sbv2 aptos list crank [CRANKHEXSTRING]`
+## `sbv2 aptos list crank CRANKHEXSTRING`
 
 sort the crank
 
@@ -640,7 +640,7 @@ ALIASES
   $ sbv2 aptos list crank
 ```
 
-## `sbv2 aptos oracle create [QUEUEHEXSTRING]`
+## `sbv2 aptos oracle create QUEUEHEXSTRING`
 
 create a oracle for a given queue
 
@@ -679,7 +679,7 @@ ALIASES
   $ sbv2 aptos create oracle
 ```
 
-## `sbv2 aptos oracle metrics [ORACLEHEXSTRING]`
+## `sbv2 aptos oracle metrics ORACLEHEXSTRING`
 
 list oracle metrics
 
@@ -689,7 +689,7 @@ USAGE
     [-u <value>] [--json]
 
 ARGUMENTS
-  ORACLEHEXSTRING  HexString address of the crank
+  ORACLEHEXSTRING  HexString address of the oracle
 
 FLAGS
   -h, --help            Show CLI help.
@@ -707,7 +707,7 @@ DESCRIPTION
   list oracle metrics
 ```
 
-## `sbv2 aptos oracle up [ORACLEHEXSTRING]`
+## `sbv2 aptos oracle up ORACLEHEXSTRING`
 
 start an aptos docker oracle
 
@@ -738,7 +738,7 @@ DESCRIPTION
   start an aptos docker oracle
 ```
 
-## `sbv2 aptos permission create [GRANTER]`
+## `sbv2 aptos permission create GRANTER`
 
 create a new permission
 
@@ -772,7 +772,7 @@ DESCRIPTION
   create a new permission
 ```
 
-## `sbv2 aptos permission set [GRANTER]`
+## `sbv2 aptos permission set GRANTER`
 
 create a new permission
 
@@ -806,7 +806,7 @@ DESCRIPTION
   create a new permission
 ```
 
-## `sbv2 aptos pop crank [CRANKHEXSTRING]`
+## `sbv2 aptos pop crank CRANKHEXSTRING`
 
 pop the crank
 
@@ -872,7 +872,7 @@ ALIASES
   $ sbv2 aptos print
 ```
 
-## `sbv2 aptos push crank [CRANKHEXSTRING]`
+## `sbv2 aptos push crank CRANKHEXSTRING`
 
 push an aggregator onto the crank
 
@@ -953,7 +953,7 @@ ALIASES
   $ sbv2 aptos create queue
 ```
 
-## `sbv2 aptos update aggregator [AGGREGATORHEXSTRING]`
+## `sbv2 aptos update aggregator AGGREGATORHEXSTRING`
 
 request a new value on-chain for an aggregator
 

@@ -196,6 +196,11 @@ const config = {
                 className: "header-typescript-link",
               },
               {
+                label: "@switchboard-xyz/oracle",
+                to: "/dev/oracle",
+                className: "header-typescript-link",
+              },
+              {
                 type: "html",
                 value: '<hr class="dropdown-separator">',
               },

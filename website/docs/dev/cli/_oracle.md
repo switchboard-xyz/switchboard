@@ -12,7 +12,8 @@ USAGE
   $ sbv2 oracle logs [NETWORK] [SEARCHSTRING] -f <value> [-h] [-v] [-s] [--force] [--json] [--csv]
 
 ARGUMENTS
-  NETWORK       (solana-devnet|solana-mainnet) network to parse logs for
+  NETWORK       (solana-mainnet|solana-devnet|aptos-mainnet|aptos-testnet|near-mainnet|near-testnet) network to parse
+                logs for
   SEARCHSTRING  string to search for in the oracle logs
 
 FLAGS
