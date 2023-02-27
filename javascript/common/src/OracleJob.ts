@@ -2,6 +2,7 @@ import * as proto from "./protos";
 import YAML from "yaml";
 import protobuf from "protobufjs/minimal.js";
 import Big from "big.js";
+import validation from "./validation";
 
 protobuf.util.toJSONOptions = {
   longs: String,
@@ -23,16 +24,22 @@ export class OracleJob extends proto.OracleJob {
     return this.create(super.decodeDelimited(r));
   }
   /**
-   *  Creates an OracleJob message from a YAML string.
+   *  Creates an {@linkcode OracleJob} message from a YAML string.
    */
   public static fromYaml(src: string): OracleJob {
     return this.fromObject(YAML.parse(src));
   }
   /**
-   *  Converts this OracleJob to YAML.
+   *  Converts this {@linkcode OracleJob} to YAML.
    */
   public toYaml() {
     return YAML.stringify(this.toJSON());
+  }
+  /**
+   *  Validate this {@linkcode OracleJob} structure.
+   */
+  public validate() {
+    return validation(this);
   }
 }
 
