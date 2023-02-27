@@ -2,7 +2,7 @@ import { IsString, MinLength } from "class-validator";
 import * as protos from "../protos/index";
 import Task from "./Task";
 
-export default class HttpTask implements Task {
+export default class JsonParseTask implements Task {
   @IsString({})
   @MinLength(1)
   path: string;

@@ -1,12 +1,13 @@
-import { MinLength, ValidateNested } from "class-validator";
+import { ArrayMinSize, IsArray, ValidateNested } from "class-validator";
 import * as protos from "../protos/index";
 import HttpTask from "./HttpTask";
 import JsonParseTask from "./JsonParseTask";
 import Task from "./Task";
 
 export default class OracleJob {
+  @IsArray()
   @ValidateNested()
-  @MinLength(1, { each: true })
+  @ArrayMinSize(1)
   tasks: Task[];
 
   constructor(iOracleJob: protos.IOracleJob) {
