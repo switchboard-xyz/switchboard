@@ -3,17 +3,11 @@ import fs from "fs";
 import fetch from "node-fetch";
 import path from "path";
 import { ISwitchboardOracle } from "./SwitchboardOracle";
-import {
-  IOracleConfig,
-  Chain,
-  Network,
-  OracleTagVersion,
-  ReleaseChannelVersion,
-} from "./types";
-import { normalizeFsPath, sleep, downloadReleaseArtifact } from "./utils";
+import { IOracleConfig, Chain, Network } from "./types";
+import { normalizeFsPath, sleep } from "./utils";
 
-export class NodeOracle extends ISwitchboardOracle {
-  readonly imageTag: string;
+export class TsNodeOracle extends ISwitchboardOracle {
+  readonly imageTag: string = "TsNode";
 
   readonly switchboardDirectory: string;
   readonly silent = false;
@@ -35,12 +29,11 @@ export class NodeOracle extends ISwitchboardOracle {
   onErrorCallback: (error: Error) => void;
   onCloseCallback: (code: number, signal: NodeJS.Signals) => void;
 
-  constructor(readonly config: IOracleConfig & OracleTagVersion) {
+  constructor(readonly sourcePath: string, readonly config: IOracleConfig) {
     super();
     // set config
     this.chain = config.chain;
     this.network = config.network;
-    this.imageTag = config.imageTag;
 
     // payer secret (required)
     this.secretPath = normalizeFsPath(config.secretPath);
@@ -101,28 +94,6 @@ export class NodeOracle extends ISwitchboardOracle {
     };
   }
 
-  public static async fromReleaseChannel(
-    config: IOracleConfig & ReleaseChannelVersion
-  ): Promise<NodeOracle> {
-    try {
-      const nodeImage = await ISwitchboardOracle.getNodeImage(
-        config.releaseChannel
-      );
-      return new NodeOracle({
-        ...config,
-        imageTag: nodeImage,
-      });
-    } catch (error) {
-      throw new Error(
-        `Failed to find oracle version for release channel ${config.releaseChannel}, ${error}`
-      );
-    }
-  }
-
-  async fetchImage(): Promise<string> {
-    return await downloadReleaseArtifact(this.imageTag);
-  }
-
   getArgs(): string[] {
     return Object.entries(this.envVariables).map(
       ([key, value]) => `${key.toUpperCase()}=${value}`
@@ -130,13 +101,12 @@ export class NodeOracle extends ISwitchboardOracle {
   }
 
   async start() {
-    const imageLocation = await this.fetchImage();
     if (this.oracleProcess) {
       this.oracleProcess.removeAllListeners();
       this.oracleProcess.kill("SIGKILL");
     }
     this.oracleProcess = spawn(
-      `${this.getArgs().join(" ")} node ${imageLocation}`,
+      `${this.getArgs().join(" ")} ts-node ${this.sourcePath}`,
       {
         shell: true,
         env: process.env,

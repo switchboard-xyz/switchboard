@@ -44,7 +44,8 @@ npm i --save-dev @switchboard-xyz/oracle
 ```ts
 import { NodeOracle } from "@switchboard-xyz/oracle";
 
-const oracle = new NodeOracle("dev-v2-RC_02_09_23_21_32", {
+const oracle = await NodeOracle.fromReleaseChannel({
+  releaseChannel: "testnet",
   chain: "solana",
   network: "localnet",
   rpcUrl: "http://0.0.0.0:8899",
@@ -68,7 +69,8 @@ oracle.stop();
 ```ts
 import { DockerOracle } from "@switchboard-xyz/oracle";
 
-const oracle = new DockerOracle("dev-v2-RC_02_09_23_21_32", {
+const oracle = await DockerOracle.fromReleaseChannel({
+  releaseChannel: "testnet",
   chain: "solana",
   network: "localnet",
   rpcUrl: "http://0.0.0.0:8899",
