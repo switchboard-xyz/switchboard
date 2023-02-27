@@ -2,7 +2,7 @@
   "name": "@switchboard-xyz/common",
   "author": "",
   "license": "MIT",
-  "version": "2.1.31",
+  "version": "2.1.32",
   "description": "common type definitions and utils for interacting with switchboard",
   "files": [
     "lib",
@@ -28,9 +28,9 @@
     "build:esm": "tsc && npm run build:esm:protos",
     "build:protos": "shx mkdir -p src/protos; pbjs --root sbv2Protos -t static-module -o src/protos/index.js ./protos/*.proto && pbts -o src/protos/index.d.ts src/protos/index.js; ",
     "build:cjs:protos": "shx rm -rf lib/cjs/protos; shx mkdir -p lib/cjs/protos; pbjs --root sbv2Protos -t static-module -o lib/cjs/protos/index.js ./protos/*.proto && pbts -o lib/cjs/protos/index.d.ts lib/cjs/protos/index.js",
-    "build:esm:protos": "shx rm -rf lib/esm/protos; shx mkdir -p lib/esm/protos; pbjs --root sbv2Protos -t static-module --es6 -w \"es6\" -o lib/esm/protos/index.js ./protos/*.proto && pbts -o lib/esm/protos/index.d.ts lib/esm/protos/index.js && shx --silent sed  -i 'protobufjs/minimal' 'protobufjs/minimal.js' lib/esm/protos/index.js && shx --silent sed -i 'import \\* as' 'import' lib/esm/protos/index.js",
+    "build:esm:protos": "shx rm -rf lib/esm/protos; shx mkdir -p lib/esm/protos; pbjs --root sbv2Protos -t static-module --es6 -w \"es6\" -o lib/esm/protos/index.js ./protos/*.proto && pbts -o lib/esm/protos/index.d.ts lib/esm/protos/index.js && shx --silent sed  -i 'protobufjs/minimal' 'protobufjs/minimal.js' lib/esm/protos/index.js > '/dev/null' 2>&1 && shx --silent sed -i 'import \\* as' 'import' lib/esm/protos/index.js > '/dev/null' 2>&1",
     "test": "jest",
-    "prepublishOnly": "npm run build && npm version patch"
+    "prepublishOnly": "npm run build && npm test && npm version patch"
   },
   "dependencies": {
     "@solana/web3.js": "^1.66.2",
