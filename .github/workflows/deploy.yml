@@ -54,6 +54,11 @@ jobs:
         run: |
           npm ci
 
+      - name: Install @switchboard-xyz/oracle dependencies
+        working-directory: javascript/oracle
+        run: |
+          npm ci
+
       - name: Install @switchboard-xyz/aptos.js dependencies
         working-directory: sdks/aptos
         run: |

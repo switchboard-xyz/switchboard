@@ -4,7 +4,7 @@ interact with switchboard on Solana
 * [`sbv2 solana aggregator add history AGGREGATORKEY`](#sbv2-solana-aggregator-add-history-aggregatorkey)
 * [`sbv2 solana aggregator add job AGGREGATORKEY`](#sbv2-solana-aggregator-add-job-aggregatorkey)
 * [`sbv2 solana aggregator create QUEUEKEY`](#sbv2-solana-aggregator-create-queuekey)
-* [`sbv2 solana aggregator create json [DEFINITIONFILE]`](#sbv2-solana-aggregator-create-json-definitionfile)
+* [`sbv2 solana aggregator create json DEFINITIONFILE`](#sbv2-solana-aggregator-create-json-definitionfile)
 * [`sbv2 solana aggregator deposit AGGREGATORKEY`](#sbv2-solana-aggregator-deposit-aggregatorkey)
 * [`sbv2 solana aggregator extend AGGREGATORKEY`](#sbv2-solana-aggregator-extend-aggregatorkey)
 * [`sbv2 solana aggregator fund AGGREGATORKEY`](#sbv2-solana-aggregator-fund-aggregatorkey)
@@ -13,19 +13,19 @@ interact with switchboard on Solana
 * [`sbv2 solana aggregator list AUTHORITYKEY`](#sbv2-solana-aggregator-list-authoritykey)
 * [`sbv2 solana aggregator lock AGGREGATORKEY`](#sbv2-solana-aggregator-lock-aggregatorkey)
 * [`sbv2 solana aggregator metrics AGGREGATORKEY`](#sbv2-solana-aggregator-metrics-aggregatorkey)
-* [`sbv2 solana aggregator open-round [AGGREGATORKEY]`](#sbv2-solana-aggregator-open-round-aggregatorkey)
+* [`sbv2 solana aggregator open-round AGGREGATORKEY`](#sbv2-solana-aggregator-open-round-aggregatorkey)
 * [`sbv2 solana aggregator permission create AGGREGATORKEY`](#sbv2-solana-aggregator-permission-create-aggregatorkey)
 * [`sbv2 solana aggregator print AGGREGATORKEY`](#sbv2-solana-aggregator-print-aggregatorkey)
 * [`sbv2 solana aggregator remove job AGGREGATORKEY JOBKEY`](#sbv2-solana-aggregator-remove-job-aggregatorkey-jobkey)
 * [`sbv2 solana aggregator set AGGREGATORKEY`](#sbv2-solana-aggregator-set-aggregatorkey)
-* [`sbv2 solana aggregator transfer [AGGREGATORKEY]`](#sbv2-solana-aggregator-transfer-aggregatorkey)
-* [`sbv2 solana aggregator update [AGGREGATORKEY]`](#sbv2-solana-aggregator-update-aggregatorkey)
+* [`sbv2 solana aggregator transfer AGGREGATORKEY`](#sbv2-solana-aggregator-transfer-aggregatorkey)
+* [`sbv2 solana aggregator update AGGREGATORKEY`](#sbv2-solana-aggregator-update-aggregatorkey)
 * [`sbv2 solana aggregator watch AGGREGATORKEY`](#sbv2-solana-aggregator-watch-aggregatorkey)
 * [`sbv2 solana aggregator withdraw AGGREGATORKEY`](#sbv2-solana-aggregator-withdraw-aggregatorkey)
 * [`sbv2 solana anchor test`](#sbv2-solana-anchor-test)
-* [`sbv2 solana buffer create [QUEUEKEY]`](#sbv2-solana-buffer-create-queuekey)
-* [`sbv2 solana buffer open-round [BUFFERRELAYERKEY]`](#sbv2-solana-buffer-open-round-bufferrelayerkey)
-* [`sbv2 solana buffer update [BUFFERRELAYERKEY]`](#sbv2-solana-buffer-update-bufferrelayerkey)
+* [`sbv2 solana buffer create QUEUEKEY`](#sbv2-solana-buffer-create-queuekey)
+* [`sbv2 solana buffer open-round BUFFERRELAYERKEY`](#sbv2-solana-buffer-open-round-bufferrelayerkey)
+* [`sbv2 solana buffer update BUFFERRELAYERKEY`](#sbv2-solana-buffer-update-bufferrelayerkey)
 * [`sbv2 solana crank create QUEUEKEY`](#sbv2-solana-crank-create-queuekey)
 * [`sbv2 solana crank events AGGREGATORKEY`](#sbv2-solana-crank-events-aggregatorkey)
 * [`sbv2 solana crank pop CRANKKEY`](#sbv2-solana-crank-pop-crankkey)
@@ -33,8 +33,8 @@ interact with switchboard on Solana
 * [`sbv2 solana crank push AGGREGATORKEY`](#sbv2-solana-crank-push-aggregatorkey)
 * [`sbv2 solana job create`](#sbv2-solana-job-create)
 * [`sbv2 solana job print JOBKEY`](#sbv2-solana-job-print-jobkey)
-* [`sbv2 solana json create aggregator [DEFINITIONFILE]`](#sbv2-solana-json-create-aggregator-definitionfile)
-* [`sbv2 solana lease create [AGGREGATORKEY]`](#sbv2-solana-lease-create-aggregatorkey)
+* [`sbv2 solana json create aggregator DEFINITIONFILE`](#sbv2-solana-json-create-aggregator-definitionfile)
+* [`sbv2 solana lease create AGGREGATORKEY`](#sbv2-solana-lease-create-aggregatorkey)
 * [`sbv2 solana lease extend AGGREGATORKEY`](#sbv2-solana-lease-extend-aggregatorkey)
 * [`sbv2 solana lease print LEASEKEY`](#sbv2-solana-lease-print-leasekey)
 * [`sbv2 solana lease set AGGREGATORKEY`](#sbv2-solana-lease-set-aggregatorkey)
@@ -56,10 +56,10 @@ interact with switchboard on Solana
 * [`sbv2 solana queue create`](#sbv2-solana-queue-create)
 * [`sbv2 solana queue print QUEUEKEY`](#sbv2-solana-queue-print-queuekey)
 * [`sbv2 solana queue set QUEUEKEY`](#sbv2-solana-queue-set-queuekey)
-* [`sbv2 solana vrf open-round [VRFKEY]`](#sbv2-solana-vrf-open-round-vrfkey)
+* [`sbv2 solana vrf open-round VRFKEY`](#sbv2-solana-vrf-open-round-vrfkey)
 * [`sbv2 solana vrf print VRFKEY`](#sbv2-solana-vrf-print-vrfkey)
-* [`sbv2 solana vrf request [VRFKEY]`](#sbv2-solana-vrf-request-vrfkey)
-* [`sbv2 solana vrf update [VRFKEY]`](#sbv2-solana-vrf-update-vrfkey)
+* [`sbv2 solana vrf request VRFKEY`](#sbv2-solana-vrf-request-vrfkey)
+* [`sbv2 solana vrf update VRFKEY`](#sbv2-solana-vrf-update-vrfkey)
 
 ## `sbv2 solana aggregator add history AGGREGATORKEY`
 
@@ -209,7 +209,7 @@ DESCRIPTION
   create an aggregator account
 ```
 
-## `sbv2 solana aggregator create json [DEFINITIONFILE]`
+## `sbv2 solana aggregator create json DEFINITIONFILE`
 
 create an aggregator from a json file
 
@@ -266,7 +266,7 @@ USAGE
     confirmed|finalized|processed] [-k <value>] [--ledgerPath <value> --ledger]
 
 ARGUMENTS
-  AGGREGATORKEY  public key of the aggregator to extend a lease for
+  AGGREGATORKEY  public key of the aggregator account
 
 FLAGS
   -h, --help             Show CLI help.
@@ -308,7 +308,7 @@ USAGE
     confirmed|finalized|processed] [-k <value>] [--ledgerPath <value> --ledger]
 
 ARGUMENTS
-  AGGREGATORKEY  public key of the aggregator to extend a lease for
+  AGGREGATORKEY  public key of the aggregator account
 
 FLAGS
   -h, --help             Show CLI help.
@@ -350,7 +350,7 @@ USAGE
     confirmed|finalized|processed] [-k <value>] [--ledgerPath <value> --ledger]
 
 ARGUMENTS
-  AGGREGATORKEY  public key of the aggregator to extend a lease for
+  AGGREGATORKEY  public key of the aggregator account
 
 FLAGS
   -h, --help             Show CLI help.
@@ -426,7 +426,7 @@ USAGE
     [--newAuthority <value>]
 
 ARGUMENTS
-  AGGREGATORKEY  public key of the aggregator to extend a lease for
+  AGGREGATORKEY  public key of the aggregator account
 
 FLAGS
   -a, --authority=<value>  alternate keypair delegated as the authority for managing the lease account
@@ -469,7 +469,7 @@ USAGE
     confirmed|finalized|processed] [--json]
 
 ARGUMENTS
-  AUTHORITYKEY  public key of an aggregator's authority
+  AUTHORITYKEY  public key of the aggregator authority
 
 FLAGS
   -h, --help             Show CLI help.
@@ -557,7 +557,7 @@ DESCRIPTION
   print an aggregator's metrics'
 ```
 
-## `sbv2 solana aggregator open-round [AGGREGATORKEY]`
+## `sbv2 solana aggregator open-round AGGREGATORKEY`
 
 request a new aggregator result from a set of oracles
 
@@ -568,7 +568,7 @@ USAGE
     confirmed|finalized|processed] [-k <value>] [--ledgerPath <value> --ledger]
 
 ARGUMENTS
-  AGGREGATORKEY  public key of the aggregator account to request an update for
+  AGGREGATORKEY  public key of the aggregator account
 
 FLAGS
   -h, --help             Show CLI help.
@@ -754,7 +754,7 @@ DESCRIPTION
   set an aggregators config
 ```
 
-## `sbv2 solana aggregator transfer [AGGREGATORKEY]`
+## `sbv2 solana aggregator transfer AGGREGATORKEY`
 
 transfer an aggregator to a new queue
 
@@ -766,7 +766,7 @@ USAGE
     [--loadAmount <value>] [--enable] [--queueAuthority <value>] [--force]
 
 ARGUMENTS
-  AGGREGATORKEY  public key of the aggregator account to transfer
+  AGGREGATORKEY  public key of the aggregator account
 
 FLAGS
   -a, --authority=<value>   alternate keypair that is the authority for the aggregator
@@ -800,7 +800,7 @@ EXAMPLES
   $ sbv2 solana aggregator transfer GvDMxPzN1sCj7L26YDK2HnMRXEQmQ2aemov8YBtPS7vR --mainnetBeta --loadAmount 0.1 --newQueue 3HBb2DQqDfuMdzWxNk1Eo9RTMkFYmuEAd32RiLKn9pAn --newCrank GdNVLWzcE6h9SPuSbmu69YzxAj8enim9t6mjzuqTXgLd --keypair ~/.config/solana/id.json
 ```
 
-## `sbv2 solana aggregator update [AGGREGATORKEY]`
+## `sbv2 solana aggregator update AGGREGATORKEY`
 
 request a new aggregator result from a set of oracles
 
@@ -811,7 +811,7 @@ USAGE
     confirmed|finalized|processed] [-k <value>] [--ledgerPath <value> --ledger]
 
 ARGUMENTS
-  AGGREGATORKEY  public key of the aggregator account to request an update for
+  AGGREGATORKEY  public key of the aggregator account
 
 FLAGS
   -h, --help             Show CLI help.
@@ -881,7 +881,7 @@ USAGE
     confirmed|finalized|processed] [-k <value>] [--ledgerPath <value> --ledger] [-a <value>] [--queuePubkey <value>]
 
 ARGUMENTS
-  AGGREGATORKEY  public key of the aggregator to extend a lease for
+  AGGREGATORKEY  public key of the aggregator account
 
 FLAGS
   -a, --authority=<value>  keypair delegated as the authority for managing the lease account
@@ -951,7 +951,7 @@ ALIASES
   $ sbv2 anchor test
 ```
 
-## `sbv2 solana buffer create [QUEUEKEY]`
+## `sbv2 solana buffer create QUEUEKEY`
 
 create a buffer relayer account
 
@@ -963,7 +963,7 @@ USAGE
     [--jobDefinition <value> | --jobKey <value>]
 
 ARGUMENTS
-  QUEUEKEY  oracle queue to create BufferRelayer account on
+  QUEUEKEY  public key of the oracle queue account
 
 FLAGS
   -a, --authority=<value>          alternate keypair that will be the buffer relayer authority
@@ -994,7 +994,7 @@ DESCRIPTION
   create a buffer relayer account
 ```
 
-## `sbv2 solana buffer open-round [BUFFERRELAYERKEY]`
+## `sbv2 solana buffer open-round BUFFERRELAYERKEY`
 
 request a new buffer relayer result
 
@@ -1005,7 +1005,7 @@ USAGE
     confirmed|finalized|processed] [-k <value>] [--ledgerPath <value> --ledger]
 
 ARGUMENTS
-  BUFFERRELAYERKEY  public key of the aggregator account to request an update for
+  BUFFERRELAYERKEY  public key of the buffer relayer account
 
 FLAGS
   -h, --help             Show CLI help.
@@ -1033,7 +1033,7 @@ EXAMPLES
   $ sbv2 solana buffer update J7j9xX8JP2B2ErvUzuqGAKBGeggsxPyFXj5MqZcYDxfa --keypair ../payer-keypair.json
 ```
 
-## `sbv2 solana buffer update [BUFFERRELAYERKEY]`
+## `sbv2 solana buffer update BUFFERRELAYERKEY`
 
 request a new buffer relayer result
 
@@ -1044,7 +1044,7 @@ USAGE
     confirmed|finalized|processed] [-k <value>] [--ledgerPath <value> --ledger]
 
 ARGUMENTS
-  BUFFERRELAYERKEY  public key of the aggregator account to request an update for
+  BUFFERRELAYERKEY  public key of the buffer relayer account
 
 FLAGS
   -h, --help             Show CLI help.
@@ -1084,7 +1084,7 @@ USAGE
     <value>]
 
 ARGUMENTS
-  QUEUEKEY  public key of the oracle queue to create a crank for
+  QUEUEKEY  public key of the oracle queue to create a crank on
 
 FLAGS
   -h, --help             Show CLI help.
@@ -1154,7 +1154,7 @@ USAGE
     --ledger]
 
 ARGUMENTS
-  CRANKKEY  public key of the crank
+  CRANKKEY  public key of the crank account
 
 FLAGS
   -h, --help             Show CLI help.
@@ -1219,7 +1219,7 @@ USAGE
     confirmed|finalized|processed] [-k <value>] [--ledgerPath <value> --ledger] [--crankKey <value>]
 
 ARGUMENTS
-  AGGREGATORKEY  public key of the aggregator to push onto a crank
+  AGGREGATORKEY  public key of the aggregator account
 
 FLAGS
   -h, --help             Show CLI help.
@@ -1311,7 +1311,7 @@ DESCRIPTION
   print an job and it's associated accounts
 ```
 
-## `sbv2 solana json create aggregator [DEFINITIONFILE]`
+## `sbv2 solana json create aggregator DEFINITIONFILE`
 
 create an aggregator from a json file
 
@@ -1357,7 +1357,7 @@ EXAMPLES
   $ sbv2 solana aggregator create json examples/aggregator.json --keypair ../payer-keypair.json --queueKey GhYg3R1V6DmJbwuc57qZeoYG6gUuvCotUF1zU3WCj98U --outputFile aggregator.schema.json
 ```
 
-## `sbv2 solana lease create [AGGREGATORKEY]`
+## `sbv2 solana lease create AGGREGATORKEY`
 
 fund and re-enable an aggregator lease
 
@@ -1368,7 +1368,7 @@ USAGE
     confirmed|finalized|processed] [-k <value>] [--ledgerPath <value> --ledger] [--amount <value>]
 
 ARGUMENTS
-  AGGREGATORKEY  public key of the aggregator to extend a lease for
+  AGGREGATORKEY  public key of the aggregator account
 
 FLAGS
   -h, --help             Show CLI help.
@@ -1406,7 +1406,7 @@ USAGE
     confirmed|finalized|processed] [-k <value>] [--ledgerPath <value> --ledger]
 
 ARGUMENTS
-  AGGREGATORKEY  public key of the aggregator to extend a lease for
+  AGGREGATORKEY  public key of the aggregator account
 
 FLAGS
   -h, --help             Show CLI help.
@@ -1480,7 +1480,7 @@ USAGE
     [--newAuthority <value>]
 
 ARGUMENTS
-  AGGREGATORKEY  public key of the aggregator to extend a lease for
+  AGGREGATORKEY  public key of the aggregator account
 
 FLAGS
   -a, --authority=<value>  alternate keypair delegated as the authority for managing the lease account
@@ -1523,7 +1523,7 @@ USAGE
     confirmed|finalized|processed] [-k <value>] [--ledgerPath <value> --ledger] [-a <value>] [--queuePubkey <value>]
 
 ARGUMENTS
-  AGGREGATORKEY  public key of the aggregator to extend a lease for
+  AGGREGATORKEY  public key of the aggregator account
 
 FLAGS
   -a, --authority=<value>  keypair delegated as the authority for managing the lease account
@@ -1760,7 +1760,7 @@ USAGE
     --ledger] [--json] [-n <value>] [-a <value>] [--enable] [--queueAuthority <value>] [--stakeAmount <value>]
 
 ARGUMENTS
-  QUEUEKEY  public key of the oracle queue to create an oracle for
+  QUEUEKEY  public key of the oracle queue account
 
 FLAGS
   -a, --authority=<value>   keypair to delegate authority to for managing the oracle account
@@ -1870,7 +1870,7 @@ USAGE
     confirmed|finalized|processed] [-k <value>] [--ledgerPath <value> --ledger] [-a <value>]
 
 ARGUMENTS
-  ORACLEKEY  public key of the oracle
+  ORACLEKEY  public key of the oracle account
 
 FLAGS
   -a, --authority=<value>  alternate keypair for the oracle authority
@@ -2139,7 +2139,7 @@ USAGE
     [-u <value>] [--programId <value>] [--commitment confirmed|finalized|processed] [--json]
 
 ARGUMENTS
-  QUEUEKEY  public key of the oracle queue account
+  QUEUEKEY  public key of the queue account
 
 FLAGS
   -h, --help             Show CLI help.
@@ -2217,7 +2217,7 @@ DESCRIPTION
   set an oracle queue's config
 ```
 
-## `sbv2 solana vrf open-round [VRFKEY]`
+## `sbv2 solana vrf open-round VRFKEY`
 
 request a new vrf result from a set of oracles
 
@@ -2228,7 +2228,7 @@ USAGE
     --ledger] [--authority <value>]
 
 ARGUMENTS
-  VRFKEY  public key of the vrf account to request randomness for
+  VRFKEY  public key of the VRF account
 
 FLAGS
   -h, --help             Show CLI help.
@@ -2268,7 +2268,7 @@ USAGE
     <value>] [--programId <value>] [--commitment confirmed|finalized|processed] [--json]
 
 ARGUMENTS
-  VRFKEY  public key of the vrf account
+  VRFKEY  public key of the VRF account
 
 FLAGS
   -h, --help             Show CLI help.
@@ -2289,7 +2289,7 @@ DESCRIPTION
   print a VRF and it's associated accounts
 ```
 
-## `sbv2 solana vrf request [VRFKEY]`
+## `sbv2 solana vrf request VRFKEY`
 
 request a new vrf result from a set of oracles
 
@@ -2300,7 +2300,7 @@ USAGE
     --ledger] [--authority <value>]
 
 ARGUMENTS
-  VRFKEY  public key of the vrf account to request randomness for
+  VRFKEY  public key of the VRF account
 
 FLAGS
   -h, --help             Show CLI help.
@@ -2330,7 +2330,7 @@ EXAMPLES
   $ sbv2 solana vrf request
 ```
 
-## `sbv2 solana vrf update [VRFKEY]`
+## `sbv2 solana vrf update VRFKEY`
 
 request a new vrf result from a set of oracles
 
@@ -2341,7 +2341,7 @@ USAGE
     --ledger] [--authority <value>]
 
 ARGUMENTS
-  VRFKEY  public key of the vrf account to request randomness for
+  VRFKEY  public key of the VRF account
 
 FLAGS
   -h, --help             Show CLI help.

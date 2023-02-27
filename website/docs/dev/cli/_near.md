@@ -1,56 +1,56 @@
 
 interact with switchboard on Near
 
-* [`sbv2 near aggregator add history [AGGREGATORADDRESS]`](#sbv2-near-aggregator-add-history-aggregatoraddress)
-* [`sbv2 near aggregator add job [AGGREGATORADDRESS]`](#sbv2-near-aggregator-add-job-aggregatoraddress)
+* [`sbv2 near aggregator add history AGGREGATORADDRESS`](#sbv2-near-aggregator-add-history-aggregatoraddress)
+* [`sbv2 near aggregator add job AGGREGATORADDRESS`](#sbv2-near-aggregator-add-job-aggregatoraddress)
 * [`sbv2 near aggregator create QUEUEADDRESS`](#sbv2-near-aggregator-create-queueaddress)
-* [`sbv2 near aggregator escrow [AGGREGATORADDRESS]`](#sbv2-near-aggregator-escrow-aggregatoraddress)
+* [`sbv2 near aggregator escrow AGGREGATORADDRESS`](#sbv2-near-aggregator-escrow-aggregatoraddress)
 * [`sbv2 near aggregator fetch`](#sbv2-near-aggregator-fetch)
-* [`sbv2 near aggregator fund [AGGREGATORADDRESS]`](#sbv2-near-aggregator-fund-aggregatoraddress)
-* [`sbv2 near aggregator history add [AGGREGATORADDRESS]`](#sbv2-near-aggregator-history-add-aggregatoraddress)
-* [`sbv2 near aggregator job add [AGGREGATORADDRESS]`](#sbv2-near-aggregator-job-add-aggregatoraddress)
-* [`sbv2 near aggregator job remove [AGGREGATORADDRESS]`](#sbv2-near-aggregator-job-remove-aggregatoraddress)
-* [`sbv2 near aggregator permission create [AGGREGATORADDRESS]`](#sbv2-near-aggregator-permission-create-aggregatoraddress)
-* [`sbv2 near aggregator remove job [AGGREGATORADDRESS]`](#sbv2-near-aggregator-remove-job-aggregatoraddress)
+* [`sbv2 near aggregator fund AGGREGATORADDRESS`](#sbv2-near-aggregator-fund-aggregatoraddress)
+* [`sbv2 near aggregator history add AGGREGATORADDRESS`](#sbv2-near-aggregator-history-add-aggregatoraddress)
+* [`sbv2 near aggregator job add AGGREGATORADDRESS`](#sbv2-near-aggregator-job-add-aggregatoraddress)
+* [`sbv2 near aggregator job remove AGGREGATORADDRESS`](#sbv2-near-aggregator-job-remove-aggregatoraddress)
+* [`sbv2 near aggregator permission create AGGREGATORADDRESS`](#sbv2-near-aggregator-permission-create-aggregatoraddress)
+* [`sbv2 near aggregator remove job AGGREGATORADDRESS`](#sbv2-near-aggregator-remove-job-aggregatoraddress)
 * [`sbv2 near aggregator set AGGREGATORADDRESS`](#sbv2-near-aggregator-set-aggregatoraddress)
-* [`sbv2 near aggregator update [AGGREGATORADDRESS]`](#sbv2-near-aggregator-update-aggregatoraddress)
-* [`sbv2 near crank create [QUEUEADDRESS]`](#sbv2-near-crank-create-queueaddress)
-* [`sbv2 near crank list [CRANKADDRESS]`](#sbv2-near-crank-list-crankaddress)
-* [`sbv2 near crank pop [CRANKADDRESS]`](#sbv2-near-crank-pop-crankaddress)
-* [`sbv2 near crank push [CRANKADDRESS]`](#sbv2-near-crank-push-crankaddress)
+* [`sbv2 near aggregator update AGGREGATORADDRESS`](#sbv2-near-aggregator-update-aggregatoraddress)
+* [`sbv2 near crank create QUEUEADDRESS`](#sbv2-near-crank-create-queueaddress)
+* [`sbv2 near crank list CRANKADDRESS`](#sbv2-near-crank-list-crankaddress)
+* [`sbv2 near crank pop CRANKADDRESS`](#sbv2-near-crank-pop-crankaddress)
+* [`sbv2 near crank push CRANKADDRESS`](#sbv2-near-crank-push-crankaddress)
 * [`sbv2 near create aggregator QUEUEADDRESS`](#sbv2-near-create-aggregator-queueaddress)
-* [`sbv2 near create aggregator permission [AGGREGATORADDRESS]`](#sbv2-near-create-aggregator-permission-aggregatoraddress)
-* [`sbv2 near create crank [QUEUEADDRESS]`](#sbv2-near-create-crank-queueaddress)
+* [`sbv2 near create aggregator permission AGGREGATORADDRESS`](#sbv2-near-create-aggregator-permission-aggregatoraddress)
+* [`sbv2 near create crank QUEUEADDRESS`](#sbv2-near-create-crank-queueaddress)
 * [`sbv2 near create escrow`](#sbv2-near-create-escrow)
 * [`sbv2 near create job JOBDEFINITION`](#sbv2-near-create-job-jobdefinition)
-* [`sbv2 near create oracle [QUEUEADDRESS]`](#sbv2-near-create-oracle-queueaddress)
+* [`sbv2 near create oracle QUEUEADDRESS`](#sbv2-near-create-oracle-queueaddress)
 * [`sbv2 near create oracle permission`](#sbv2-near-create-oracle-permission)
 * [`sbv2 near create queue`](#sbv2-near-create-queue)
 * [`sbv2 near escrow create`](#sbv2-near-escrow-create)
 * [`sbv2 near escrow print`](#sbv2-near-escrow-print)
 * [`sbv2 near fetch aggregators`](#sbv2-near-fetch-aggregators)
-* [`sbv2 near fund aggregator [AGGREGATORADDRESS]`](#sbv2-near-fund-aggregator-aggregatoraddress)
+* [`sbv2 near fund aggregator AGGREGATORADDRESS`](#sbv2-near-fund-aggregator-aggregatoraddress)
 * [`sbv2 near job create JOBDEFINITION`](#sbv2-near-job-create-jobdefinition)
 * [`sbv2 near list queue QUEUEADDRESS`](#sbv2-near-list-queue-queueaddress)
-* [`sbv2 near oracle create [QUEUEADDRESS]`](#sbv2-near-oracle-create-queueaddress)
-* [`sbv2 near oracle escrow [ORACLEADDRESS]`](#sbv2-near-oracle-escrow-oracleaddress)
-* [`sbv2 near oracle stake [ORACLEADDRESS]`](#sbv2-near-oracle-stake-oracleaddress)
-* [`sbv2 near oracle unstake [ORACLEADDRESS]`](#sbv2-near-oracle-unstake-oracleaddress)
-* [`sbv2 near oracle up [ORACLEADDRESS]`](#sbv2-near-oracle-up-oracleaddress)
+* [`sbv2 near oracle create QUEUEADDRESS`](#sbv2-near-oracle-create-queueaddress)
+* [`sbv2 near oracle escrow ORACLEADDRESS`](#sbv2-near-oracle-escrow-oracleaddress)
+* [`sbv2 near oracle stake ORACLEADDRESS`](#sbv2-near-oracle-stake-oracleaddress)
+* [`sbv2 near oracle unstake ORACLEADDRESS`](#sbv2-near-oracle-unstake-oracleaddress)
+* [`sbv2 near oracle up ORACLEADDRESS`](#sbv2-near-oracle-up-oracleaddress)
 * [`sbv2 near permission create`](#sbv2-near-permission-create)
-* [`sbv2 near pop crank [CRANKADDRESS]`](#sbv2-near-pop-crank-crankaddress)
+* [`sbv2 near pop crank CRANKADDRESS`](#sbv2-near-pop-crank-crankaddress)
 * [`sbv2 near print ACCOUNTTYPE ADDRESS`](#sbv2-near-print-accounttype-address)
 * [`sbv2 near print escrow`](#sbv2-near-print-escrow)
-* [`sbv2 near push crank [CRANKADDRESS]`](#sbv2-near-push-crank-crankaddress)
+* [`sbv2 near push crank CRANKADDRESS`](#sbv2-near-push-crank-crankaddress)
 * [`sbv2 near queue aggregators QUEUEADDRESS`](#sbv2-near-queue-aggregators-queueaddress)
 * [`sbv2 near queue create`](#sbv2-near-queue-create)
 * [`sbv2 near queue feeds QUEUEADDRESS`](#sbv2-near-queue-feeds-queueaddress)
 * [`sbv2 near queue list QUEUEADDRESS`](#sbv2-near-queue-list-queueaddress)
 * [`sbv2 near queue set QUEUEADDRESS`](#sbv2-near-queue-set-queueaddress)
 * [`sbv2 near set aggregator AGGREGATORADDRESS`](#sbv2-near-set-aggregator-aggregatoraddress)
-* [`sbv2 near update aggregator [AGGREGATORADDRESS]`](#sbv2-near-update-aggregator-aggregatoraddress)
+* [`sbv2 near update aggregator AGGREGATORADDRESS`](#sbv2-near-update-aggregator-aggregatoraddress)
 
-## `sbv2 near aggregator add history [AGGREGATORADDRESS]`
+## `sbv2 near aggregator add history AGGREGATORADDRESS`
 
 add rows to a history vector
 
@@ -86,7 +86,7 @@ ALIASES
   $ sbv2 near aggregator history add
 ```
 
-## `sbv2 near aggregator add job [AGGREGATORADDRESS]`
+## `sbv2 near aggregator add job AGGREGATORADDRESS`
 
 add a job to an aggregator
 
@@ -178,7 +178,7 @@ ALIASES
   $ sbv2 near create aggregator
 ```
 
-## `sbv2 near aggregator escrow [AGGREGATORADDRESS]`
+## `sbv2 near aggregator escrow AGGREGATORADDRESS`
 
 view an aggregators escrow state
 
@@ -236,7 +236,7 @@ ALIASES
   $ sbv2 near fetch aggregators
 ```
 
-## `sbv2 near aggregator fund [AGGREGATORADDRESS]`
+## `sbv2 near aggregator fund AGGREGATORADDRESS`
 
 ```
 USAGE
@@ -266,7 +266,7 @@ ALIASES
   $ sbv2 near fund aggregator
 ```
 
-## `sbv2 near aggregator history add [AGGREGATORADDRESS]`
+## `sbv2 near aggregator history add AGGREGATORADDRESS`
 
 add rows to a history vector
 
@@ -302,7 +302,7 @@ ALIASES
   $ sbv2 near aggregator history add
 ```
 
-## `sbv2 near aggregator job add [AGGREGATORADDRESS]`
+## `sbv2 near aggregator job add AGGREGATORADDRESS`
 
 add a job to an aggregator
 
@@ -343,7 +343,7 @@ ALIASES
   $ sbv2 near aggregator job add
 ```
 
-## `sbv2 near aggregator job remove [AGGREGATORADDRESS]`
+## `sbv2 near aggregator job remove AGGREGATORADDRESS`
 
 remove a job to an aggregator
 
@@ -380,7 +380,7 @@ ALIASES
   $ sbv2 near aggregator job remove
 ```
 
-## `sbv2 near aggregator permission create [AGGREGATORADDRESS]`
+## `sbv2 near aggregator permission create AGGREGATORADDRESS`
 
 create a permission account for a near aggregator
 
@@ -414,7 +414,7 @@ ALIASES
   $ sbv2 near create aggregator permission
 ```
 
-## `sbv2 near aggregator remove job [AGGREGATORADDRESS]`
+## `sbv2 near aggregator remove job AGGREGATORADDRESS`
 
 remove a job to an aggregator
 
@@ -501,7 +501,7 @@ ALIASES
   $ sbv2 near set aggregator
 ```
 
-## `sbv2 near aggregator update [AGGREGATORADDRESS]`
+## `sbv2 near aggregator update AGGREGATORADDRESS`
 
 request a new value on-chain for an aggregator
 
@@ -535,7 +535,7 @@ ALIASES
   $ sbv2 near update aggregator
 ```
 
-## `sbv2 near crank create [QUEUEADDRESS]`
+## `sbv2 near crank create QUEUEADDRESS`
 
 create a new crank
 
@@ -573,7 +573,7 @@ ALIASES
   $ sbv2 near create crank
 ```
 
-## `sbv2 near crank list [CRANKADDRESS]`
+## `sbv2 near crank list CRANKADDRESS`
 
 pop the crank
 
@@ -603,7 +603,7 @@ ALIASES
   $ sbv2 near pop crank
 ```
 
-## `sbv2 near crank pop [CRANKADDRESS]`
+## `sbv2 near crank pop CRANKADDRESS`
 
 pop the crank
 
@@ -637,7 +637,7 @@ ALIASES
   $ sbv2 near pop crank
 ```
 
-## `sbv2 near crank push [CRANKADDRESS]`
+## `sbv2 near crank push CRANKADDRESS`
 
 push an aggregator onto the crank
 
@@ -723,7 +723,7 @@ ALIASES
   $ sbv2 near create aggregator
 ```
 
-## `sbv2 near create aggregator permission [AGGREGATORADDRESS]`
+## `sbv2 near create aggregator permission AGGREGATORADDRESS`
 
 create a permission account for a near aggregator
 
@@ -757,7 +757,7 @@ ALIASES
   $ sbv2 near create aggregator permission
 ```
 
-## `sbv2 near create crank [QUEUEADDRESS]`
+## `sbv2 near create crank QUEUEADDRESS`
 
 create a new crank
 
@@ -866,7 +866,7 @@ ALIASES
   $ sbv2 near create job
 ```
 
-## `sbv2 near create oracle [QUEUEADDRESS]`
+## `sbv2 near create oracle QUEUEADDRESS`
 
 create a near oracle for a given queue
 
@@ -1079,7 +1079,7 @@ ALIASES
   $ sbv2 near fetch aggregators
 ```
 
-## `sbv2 near fund aggregator [AGGREGATORADDRESS]`
+## `sbv2 near fund aggregator AGGREGATORADDRESS`
 
 ```
 USAGE
@@ -1180,7 +1180,7 @@ ALIASES
   $ sbv2 near list queue
 ```
 
-## `sbv2 near oracle create [QUEUEADDRESS]`
+## `sbv2 near oracle create QUEUEADDRESS`
 
 create a near oracle for a given queue
 
@@ -1218,7 +1218,7 @@ ALIASES
   $ sbv2 near create oracle
 ```
 
-## `sbv2 near oracle escrow [ORACLEADDRESS]`
+## `sbv2 near oracle escrow ORACLEADDRESS`
 
 view an aggregators escrow state
 
@@ -1228,7 +1228,7 @@ USAGE
     [-u <value>] [--nearCredentialsDir <value>] [--json]
 
 ARGUMENTS
-  ORACLEADDRESS  address of the aggregator in Uint8 or Base58 encoding
+  ORACLEADDRESS  address of the oracle in Uint8 or Base58 encoding
 
 FLAGS
   -h, --help                    Show CLI help.
@@ -1248,7 +1248,7 @@ DESCRIPTION
   view an aggregators escrow state
 ```
 
-## `sbv2 near oracle stake [ORACLEADDRESS]`
+## `sbv2 near oracle stake ORACLEADDRESS`
 
 deposit funds to an oracle's staking wallet
 
@@ -1280,7 +1280,7 @@ DESCRIPTION
   deposit funds to an oracle's staking wallet
 ```
 
-## `sbv2 near oracle unstake [ORACLEADDRESS]`
+## `sbv2 near oracle unstake ORACLEADDRESS`
 
 deposit funds to an oracle's staking wallet
 
@@ -1312,7 +1312,7 @@ DESCRIPTION
   deposit funds to an oracle's staking wallet
 ```
 
-## `sbv2 near oracle up [ORACLEADDRESS]`
+## `sbv2 near oracle up ORACLEADDRESS`
 
 start a near docker oracle
 
@@ -1383,7 +1383,7 @@ ALIASES
   $ sbv2 near create oracle permission
 ```
 
-## `sbv2 near pop crank [CRANKADDRESS]`
+## `sbv2 near pop crank CRANKADDRESS`
 
 pop the crank
 
@@ -1479,7 +1479,7 @@ ALIASES
   $ sbv2 near print escrow
 ```
 
-## `sbv2 near push crank [CRANKADDRESS]`
+## `sbv2 near push crank CRANKADDRESS`
 
 push an aggregator onto the crank
 
@@ -1753,7 +1753,7 @@ ALIASES
   $ sbv2 near set aggregator
 ```
 
-## `sbv2 near update aggregator [AGGREGATORADDRESS]`
+## `sbv2 near update aggregator AGGREGATORADDRESS`
 
 request a new value on-chain for an aggregator
 

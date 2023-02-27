@@ -1,0 +1,99 @@
+---
+sidebar_position: 30
+title: "@switchboard-xyz/oracle"
+---
+
+<a
+  style={{ padding: "0 5px" }}
+  href="https://www.npmjs.com/package/@switchboard-xyz/oracle"
+>
+  <img
+    alt="NPM Badge"
+    src="https://img.shields.io/github/package-json/v/switchboard-xyz/sbv2-core?color=red&filename=javascript%2Foracle%2Fpackage.json&label=%40switchboard-xyz%2Foracle&logo=npm"
+  />
+</a>
+
+A Typescript wrapper for the Switchboard V2 oracle.
+
+## Quick Links
+
+import RoundedCardGroup from "/src/components/RoundedCard/RoundedCardGroup";
+import useBaseUrl from "@docusaurus/useBaseUrl";
+
+<RoundedCardGroup
+  cols={2}
+  items={[
+    {
+      to: "https://github.com/switchboard-xyz/sbv2-core/tree/main/javascript/oracle",
+      title: "Github",
+      description: "View the Github repo",
+      image: <img src={useBaseUrl("/img/icons/github/light.svg")} />,
+      imageDark: <img src={useBaseUrl("/img/icons/github/dark.svg")} />,
+    },
+    {
+      to: "https://docs.switchboard.xyz/api/@switchboard-xyz/oracle/",
+      title: "Typedocs",
+      description: "View the Typedocs",
+      image: <img src={useBaseUrl("/img/icons/typedoc/logo.svg")} />,
+      imageDark: <img src={useBaseUrl("/img/icons/typedoc/logo.svg")} />,
+    },
+  ]}
+/>
+
+## Install
+
+```bash npm2yarn
+npm install @switchboard-xyz/oracle
+```
+
+## Usage
+
+### NodeJS
+
+```ts
+import { NodeOracle } from "@switchboard-xyz/oracle";
+
+const oracle = await NodeOracle.fromReleaseChannel({
+  releaseChannel: "testnet",
+  chain: "solana",
+  network: "localnet",
+  rpcUrl: "http://0.0.0.0:8899",
+  oracleKey: "FKFPBD5WUUL5bSNwBH3AKY58KuY8nz2zkMCYR271CcVA",
+  secretPath: "~/.config/solana/id.json",
+});
+
+try {
+  await oracle.startAndAwait();
+  console.log("oracle ready");
+  await sleep(10000);
+} catch (error) {
+  console.error(error);
+}
+
+oracle.stop();
+```
+
+### Docker
+
+```ts
+import { DockerOracle } from "@switchboard-xyz/oracle";
+
+const oracle = await DockerOracle.fromReleaseChannel({
+  releaseChannel: "testnet",
+  chain: "solana",
+  network: "localnet",
+  rpcUrl: "http://0.0.0.0:8899",
+  oracleKey: "FKFPBD5WUUL5bSNwBH3AKY58KuY8nz2zkMCYR271CcVA",
+  secretPath: "~/.config/solana/id.json",
+});
+
+try {
+  await oracle.startAndAwait();
+  console.log("oracle ready");
+  await sleep(10000);
+} catch (error) {
+  console.error(error);
+}
+
+oracle.stop();
+```

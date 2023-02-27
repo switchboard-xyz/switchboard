@@ -23,6 +23,14 @@ const projectRoot = path.join(__dirname, "..", "..");
     "npm"
   );
 
+  console.log(chalk.green(`Generating typedocs for @switchboard-xyz/oracle`));
+  generateGenericApiTypedocs(
+    projectRoot,
+    ["javascript", "oracle"],
+    ["@switchboard-xyz", "oracle"],
+    "npm"
+  );
+
   console.log(chalk.green(`Generating typedocs for @switchboard-xyz/aptos.js`));
   generateGenericApiTypedocs(
     projectRoot,
