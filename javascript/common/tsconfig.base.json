@@ -1,6 +1,6 @@
 {
   "include": ["./src/**/*"],
-  "exclude": ["tests/**/*", "lib", "node_modules"],
+  "exclude": ["test/**/*", "lib", "node_modules"],
   "files": ["src/index.ts"],
   "compilerOptions": {
     "target": "es2019",
@@ -16,7 +16,7 @@
     "esModuleInterop": true,
     "resolveJsonModule": true,
     "skipLibCheck": true,
-    "types": ["node", "long"],
+    "types": ["node", "long", "jest"],
     "allowJs": true,
     "checkJs": false,
     // strict
