@@ -26,7 +26,7 @@ export class OracleJob extends proto.OracleJob {
    *  Creates an OracleJob message from a YAML string.
    */
   public static fromYaml(src: string): OracleJob {
-    return this.create(YAML.parse(src));
+    return this.fromObject(YAML.parse(src));
   }
   /**
    *  Converts this OracleJob to YAML.
