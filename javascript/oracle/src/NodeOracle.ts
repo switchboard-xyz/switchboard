@@ -149,6 +149,23 @@ export class NodeOracle extends ISwitchboardOracle {
       });
     this.envVariables["HEALTH_CHECK_PORT"] = healthcheckPort.toString();
 
+    // check if metrics port is in use
+    let metricsPort = Number.parseInt(
+      this.envVariables.METRICS_EXPORTER_PORT ?? "9090"
+    );
+    metricsPort = await detect(metricsPort)
+      .then((_port) => {
+        if (metricsPort == _port) {
+          return metricsPort;
+        } else {
+          return _port;
+        }
+      })
+      .catch((err) => {
+        return metricsPort;
+      });
+    this.envVariables["METRICS_EXPORTER_PORT"] = metricsPort.toString();
+
     if (this.oracleProcess) {
       this.oracleProcess.removeAllListeners();
       this.oracleProcess.kill("SIGKILL");
@@ -163,6 +180,7 @@ export class NodeOracle extends ISwitchboardOracle {
       }
     );
     this.oracleProcess!.stdout!.on("data", this.onDataCallback);
+    this.oracleProcess!.stderr!.on("data", this.onDataCallback);
     this.oracleProcess!.on("error", this.onErrorCallback);
     this.oracleProcess.on("close", this.onCloseCallback);
     this.oracleProcess.on("exit", this.onCloseCallback);
