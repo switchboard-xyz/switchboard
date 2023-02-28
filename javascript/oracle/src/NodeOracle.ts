@@ -11,6 +11,7 @@ import {
   ReleaseChannelVersion,
 } from "./types";
 import { normalizeFsPath, sleep, downloadReleaseArtifact } from "./utils";
+import detect from "detect-port";
 
 export class NodeOracle extends ISwitchboardOracle {
   readonly imageTag: string;
@@ -131,10 +132,28 @@ export class NodeOracle extends ISwitchboardOracle {
 
   async start() {
     const imageLocation = await this.fetchImage();
+    // check if health check port is in use
+    let healthcheckPort = Number.parseInt(
+      this.envVariables.HEALTH_CHECK_PORT ?? "8080"
+    );
+    healthcheckPort = await detect(healthcheckPort)
+      .then((_port) => {
+        if (healthcheckPort == _port) {
+          return healthcheckPort;
+        } else {
+          return _port;
+        }
+      })
+      .catch((err) => {
+        return healthcheckPort;
+      });
+    this.envVariables["HEALTH_CHECK_PORT"] = healthcheckPort.toString();
+
     if (this.oracleProcess) {
       this.oracleProcess.removeAllListeners();
       this.oracleProcess.kill("SIGKILL");
     }
+
     this.oracleProcess = spawn(
       `${this.getArgs().join(" ")} node ${imageLocation}`,
       {
@@ -144,7 +163,6 @@ export class NodeOracle extends ISwitchboardOracle {
       }
     );
     this.oracleProcess!.stdout!.on("data", this.onDataCallback);
-    this.oracleProcess!.stderr!.on("data", this.onDataCallback);
     this.oracleProcess!.on("error", this.onErrorCallback);
     this.oracleProcess.on("close", this.onCloseCallback);
     this.oracleProcess.on("exit", this.onCloseCallback);
