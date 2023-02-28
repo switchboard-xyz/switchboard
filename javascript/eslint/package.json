@@ -1,13 +1,13 @@
 {
   "name": "@switchboard-xyz/eslint-config",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "author": "",
   "license": "MIT",
   "description": "Switchboard eslint-config",
   "repository": {
     "type": "git",
-    "url": "https://github.com/switchboard-xyz/switchboard-v2",
-    "directory": "config/eslint"
+    "url": "https://github.com/switchboard-xyz/sbv2-core",
+    "directory": "javascript/eslint"
   },
   "homepage": "https://docs.switchboard.xyz",
   "main": "index.js",
@@ -26,7 +26,7 @@
     "eslint-config-airbnb": "^19.0.4",
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-import": "^2.26.0",
-    "eslint-plugin-prettier": "^4.2.1"
-  },
-  "gitHead": "e1fba338e9177832acca6c7770e08888e21abfce"
+    "eslint-plugin-prettier": "^4.2.1",
+    "eslint-plugin-simple-import-sort": "^10.0.0"
+  }
 }

@@ -1,7 +1,7 @@
 // Google gts eslint-config https://github.com/google/gts/blob/main/.eslintrc.json
 module.exports = {
   extends: ["eslint:recommended", "plugin:node/recommended", "prettier"],
-  plugins: ["node", "prettier"],
+  plugins: ["node", "prettier", "simple-import-sort"],
   rules: {
     "prettier/prettier": "error",
     "block-scoped-var": "error",
@@ -23,6 +23,15 @@ module.exports = {
         property: "only",
       },
     ],
+    "no-empty": "off",
+    "no-process-exit": "off",
+    "no-useless-catch": "off",
+    "no-useless-escape": "off",
+    "no-async-promise-executor": "off",
+    "node/shebang": "off",
+    // increase the severity of rules so they are auto-fixable
+    "simple-import-sort/imports": "error",
+    "simple-import-sort/exports": "error",
   },
   overrides: [
     {
@@ -35,6 +44,7 @@ module.exports = {
         "@typescript-eslint/no-warning-comments": "off",
         "@typescript-eslint/no-empty-function": "off",
         "@typescript-eslint/no-var-requires": "off",
+        "@typescript-eslint/no-inferrable-types": "off",
         "@typescript-eslint/explicit-function-return-type": "off",
         "@typescript-eslint/explicit-module-boundary-types": "off",
         "@typescript-eslint/ban-types": "off",
@@ -50,6 +60,24 @@ module.exports = {
       parserOptions: {
         ecmaVersion: 2018,
         sourceType: "module",
+      },
+    },
+    {
+      files: ["*.js", "*.ts"],
+      rules: {
+        "simple-import-sort/imports": [
+          "error",
+          {
+            groups: [
+              // Side effect imports.
+              ["^\\u0000"],
+              // Parent imports. Put `..` last.
+              ["^\\.\\.(?!/?$)", "^\\.\\./?$"],
+              // Other relative imports. Put same-folder imports and `.` last.
+              ["^\\./(?=.*/)(?!/?$)", "^\\.(?!/?$)", "^\\./?$"],
+            ],
+          },
+        ],
       },
     },
   ],
