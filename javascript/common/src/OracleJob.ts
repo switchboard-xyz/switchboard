@@ -1,50 +1,17 @@
 import * as proto from "./protos";
-import YAML from "yaml";
-import protobuf from "protobufjs/minimal.js";
+
 import Big from "big.js";
 
-protobuf.util.toJSONOptions = {
-  longs: String,
-  enums: String,
-  bytes: String,
-  json: true,
-};
-
-export * from "./protos/index.js";
-
-export class OracleJob extends proto.OracleJob {
-  public static create(properties?: proto.IOracleJob | undefined): OracleJob {
-    return new OracleJob(properties);
-  }
-  public static fromObject(object: { [k: string]: any }): OracleJob {
-    return this.create(super.fromObject(object));
-  }
-  public static decodeDelimited(r: protobuf.Reader | Uint8Array): OracleJob {
-    return this.create(super.decodeDelimited(r));
-  }
-  /**
-   *  Creates an OracleJob message from a YAML string.
-   */
-  public static fromYaml(src: string): OracleJob {
-    return this.fromObject(YAML.parse(src));
-  }
-  /**
-   *  Converts this OracleJob to YAML.
-   */
-  public toYaml() {
-    return YAML.stringify(this.toJSON());
-  }
-}
 
 /**
  * Serialize a stringified OracleJob and replace any json comments
  * @param [job] Stringified OracleJob or object with an array of Switchboard tasks defined
  * @throws {String}
- * @returns {OracleJob}
+ * @returns {proto.OracleJob }
  */
 export function serializeOracleJob(
   job: string | proto.IOracleJob | Record<string, any>
-): OracleJob {
+): proto.OracleJob {
   if (!job) {
     throw new Error("");
   }
@@ -54,7 +21,7 @@ export function serializeOracleJob(
     const parsedFileString = job
       // replace all json comments https://regex101.com/r/B8WkuX/1
       .replace(/\/\*[\s\S]*?\*\/|([^\\:]|^)\/\/.*$/g, "");
-    jobObj = OracleJob.fromObject(JSON.parse(parsedFileString));
+    jobObj = proto.OracleJob.fromObject(JSON.parse(parsedFileString));
   } else {
     if (!("tasks" in job) || !Array.isArray(job.tasks)) {
       throw new Error(`OracleJob is missing the 'tasks' property`);
@@ -66,11 +33,11 @@ export function serializeOracleJob(
   }
 
   try {
-    const err = OracleJob.verify(jobObj);
+    const err = proto.OracleJob.verify(jobObj);
     if (err !== null) {
       throw new Error(err);
     }
-    return OracleJob.create(jobObj);
+    return proto.OracleJob.create(jobObj);
   } catch (error) {
     throw new Error(`failed to serialize oracle job: ${error}`);
   }
@@ -81,8 +48,10 @@ export function serializeOracleJob(
  * @param [jobData] Serialized OracleJob data
  * @returns {OracleJob}
  */
-export function deserializeOracleJob(jobData: Buffer | Uint8Array): OracleJob {
-  return OracleJob.decodeDelimited(jobData);
+export function deserializeOracleJob(
+  jobData: Buffer | Uint8Array
+): proto.OracleJob {
+  return proto.OracleJob.decodeDelimited(jobData);
 }
 
 export type TaskSimulatorNetwork = "devnet" | "mainnet-beta";
@@ -103,7 +72,7 @@ export type TaskRunnerResponse = TaskRunnerMeta & {
 };
 
 export async function simulateOracleJobs(
-  jobs: Array<OracleJob>,
+  jobs: Array<proto.OracleJob>,
   network: TaskSimulatorNetwork = "devnet"
 ): Promise<TaskRunnerResponse> {
   const response = await fetch("https://task.switchboard.xyz/simulate", {
