@@ -1,4 +1,4 @@
-import { OracleJob } from "../src/OracleJob";
+import { OracleJob } from "../src";
 import { expect } from "chai";
 
 const yaml = `
@@ -14,6 +14,7 @@ tasks:
         - jsonParseTask:
             path: $.last
 `.trim();
+
 const json = {
   tasks: [
     {
@@ -47,6 +48,12 @@ describe("OracleJob Tests", () => {
 
     it("OracleJob.fromYaml", () => {
       expect(OracleJob.fromYaml(yaml).toJSON()).deep.equal(json);
+    });
+
+    it("Accesses child properties", () => {
+      const bufferParserType = (iTask: OracleJob) => {};
+
+      expect(bufferParserType).not.throw();
     });
   });
 });
