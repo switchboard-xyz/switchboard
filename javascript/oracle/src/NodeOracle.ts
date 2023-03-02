@@ -17,7 +17,7 @@ export class NodeOracle extends ISwitchboardOracle {
   readonly imageTag: string;
 
   readonly switchboardDirectory: string;
-  readonly silent = false;
+  readonly silent: boolean;
 
   readonly chain: Chain;
   readonly network: Network;
@@ -42,6 +42,7 @@ export class NodeOracle extends ISwitchboardOracle {
     this.chain = config.chain;
     this.network = config.network;
     this.imageTag = config.imageTag;
+    this.silent = config.silent ?? false;
 
     // payer secret (required)
     this.secretPath = normalizeFsPath(config.secretPath);
