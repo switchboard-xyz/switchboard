@@ -1,6 +1,6 @@
 {
   "name": "@switchboard-xyz/oracle",
-  "version": "2.1.8",
+  "version": "2.1.9",
   "author": "mitch@switchboard.xyz",
   "license": "MIT",
   "description": "Switchboard oracle module",

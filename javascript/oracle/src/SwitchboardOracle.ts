@@ -2,6 +2,14 @@ import fs from "fs";
 import fetch from "node-fetch";
 import { IOracleConfig, Chain, Network, ReleaseChannel } from "./types";
 
+type ParsedRelease = {
+  imageName: string;
+  releaseChannel: "mainnet" | "testnet" | undefined;
+  name: string;
+  tag_name: string;
+  published: number;
+};
+
 export abstract class ISwitchboardOracle {
   abstract imageTag: string;
   abstract silent: boolean;
@@ -133,13 +141,7 @@ export abstract class ISwitchboardOracle {
         },
       }
     );
-    const releases: Array<{
-      imageName: string;
-      releaseChannel: "mainnet" | "testnet" | undefined;
-      name: string;
-      tag_name: string;
-      published: Date;
-    }> = (await response.json()).map(
+    const releases: Array<ParsedRelease> = (await response.json()).map(
       (release: {
         tag_name: string;
         name: string;
@@ -154,13 +156,14 @@ export abstract class ISwitchboardOracle {
           : imageName.startsWith("testnet-")
           ? "testnet"
           : undefined;
-        return {
+        const myRelease: ParsedRelease = {
           imageName,
           releaseChannel,
           name: release.name,
           tag_name: release.tag_name,
           published: Date.parse(release.published_at),
         };
+        return myRelease;
       }
     );
 
@@ -168,9 +171,7 @@ export abstract class ISwitchboardOracle {
       throw new Error(`Failed to fetch any releases`);
     }
 
-    const sortedReleases = releases.sort(
-      (a, b) => a.published.getTime() - b.published.getTime()
-    );
+    const sortedReleases = releases.sort((a, b) => a.published - b.published);
 
     if (releaseChannel === "latest") {
       return sortedReleases[0].imageName;
