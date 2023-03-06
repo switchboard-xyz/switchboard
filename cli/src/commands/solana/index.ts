@@ -20,7 +20,7 @@ function toArray<
     | types.SlidingResultAccountData
     | types.VrfAccountData
 >(map: Map<string, T>): Array<any> {
-  return Array.from(map.entries()).map(([pubkey, account]) => {
+  return [...map.entries()].map(([pubkey, account]) => {
     return {
       publicKey: pubkey,
       ...account.toJSON(),
@@ -49,10 +49,8 @@ export default class Solana extends BaseCommand {
   async run() {
     const { args, flags } = await this.parse(Solana);
 
-    if (flags.outputFile) {
-      if (this.verifyFileExists(flags.outputFile)) {
-        throw new Error(`Existing file found at ${flags.outputFile}`);
-      }
+    if (flags.outputFile && this.verifyFileExists(flags.outputFile)) {
+      throw new Error(`Existing file found at ${flags.outputFile}`);
     }
 
     const accounts = await this.program.getProgramAccounts();
@@ -93,7 +91,7 @@ export default class Solana extends BaseCommand {
         throw new Error(`--feedDir already exists`);
       }
 
-      const parsedAggregators = Array.from(accounts.aggregators.entries()).map(
+      const parsedAggregators = [...accounts.aggregators.entries()].map(
         ([aggregatorKey, aggregator]) => {
           const jobPubkeys = aggregator.jobPubkeysData.slice(
             0,
@@ -167,6 +165,7 @@ export default class Solana extends BaseCommand {
         if (key === "buffers") {
           continue;
         }
+
         fs.appendFileSync(
           flags.outputFile,
           JSON.stringify((accountsJson as any)[key])

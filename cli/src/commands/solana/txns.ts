@@ -76,7 +76,7 @@ export default class SolanaTransactions extends BaseCommand {
     const pubkey = new PublicKey(args.pubkey);
 
     const signatures: Array<ConfirmedSignatureInfo> = [];
-    let lastSig: string | undefined = undefined;
+    let lastSig: string | undefined;
     while (signatures.length < flags.limit) {
       const signatureBatch: ConfirmedSignatureInfo[] =
         await this.program.connection.getSignaturesForAddress(pubkey, {
@@ -87,7 +87,7 @@ export default class SolanaTransactions extends BaseCommand {
       signatures.push(...signatureBatch);
     }
 
-    const parsedTransactions = _.flatten(
+    const parsedTransactions = (
       await Promise.all(
         _.chunk(signatures, 100).map(async (signatures) => {
           return await this.program.connection.getParsedTransactions(
@@ -95,82 +95,84 @@ export default class SolanaTransactions extends BaseCommand {
           );
         })
       )
-    ).map((parsedTxn, txnIdx) => {
-      const logs = (parsedTxn?.meta?.logMessages ?? []).join("\n");
-      let ixnName = "";
-      let success: string | boolean = "Unknown";
-      const parsedTxnIxns = (
-        parsedTxn?.transaction?.message?.instructions ?? []
-      ).map((ixn) => {
-        if (ixn.programId.equals(this.program.programId) && "data" in ixn) {
-          const ixnData = isBase58(ixn.data)
-            ? Buffer.from(base58.decode(ixn.data))
-            : Buffer.from(ixn.data, "base64");
+    )
+      .flat()
+      .map((parsedTxn, txnIdx) => {
+        const logs = (parsedTxn?.meta?.logMessages ?? []).join("\n");
+        let ixnName = "";
+        let success: string | boolean = "Unknown";
+        const parsedTxnIxns = (
+          parsedTxn?.transaction?.message?.instructions ?? []
+        ).map((ixn) => {
+          if (ixn.programId.equals(this.program.programId) && "data" in ixn) {
+            const ixnData = isBase58(ixn.data)
+              ? Buffer.from(base58.decode(ixn.data))
+              : Buffer.from(ixn.data, "base64");
 
-          const sbv2IxnName =
-            discriminatorMap.get(ixnData.slice(0, 8).toString()) ??
-            "Switchboard Unknown";
-          if (sbv2IxnName !== "") {
-            ixnName = sbv2IxnName;
-          }
+            const sbv2IxnName =
+              discriminatorMap.get(ixnData.slice(0, 8).toString()) ??
+              "Switchboard Unknown";
+            if (sbv2IxnName !== "") {
+              ixnName = sbv2IxnName;
+            }
 
-          switch (sbv2IxnName) {
-            case "AggregatorOpenRound":
-            case "OracleHeartbeat":
-            case "AggregatorSaveResultV2":
-            case "AggregatorSaveResult":
-            case "CrankPopV2":
-            case "CrankPop": {
-              if (
-                logs.includes("AnchorError") ||
-                logs.includes("Crank pop miss")
-              ) {
-                success = false;
-                break;
-              } else {
-                success = true;
+            switch (sbv2IxnName) {
+              case "AggregatorOpenRound":
+              case "OracleHeartbeat":
+              case "AggregatorSaveResultV2":
+              case "AggregatorSaveResult":
+              case "CrankPopV2":
+              case "CrankPop": {
+                if (
+                  logs.includes("AnchorError") ||
+                  logs.includes("Crank pop miss")
+                ) {
+                  success = false;
+                  break;
+                } else {
+                  success = true;
+                }
               }
             }
+
+            return {
+              ...ixn,
+              ixnName: sbv2IxnName,
+            };
           }
 
-          return {
-            ...ixn,
-            ixnName: sbv2IxnName,
-          };
-        }
+          return ixn;
+        });
 
-        return ixn;
+        return {
+          timestamp: BNtoDateTimeString(new BN(parsedTxn?.blockTime ?? 0)),
+          ixnName: ixnName,
+          success,
+          signatures: parsedTxn?.transaction.signatures,
+          ...parsedTxn,
+          transaction: undefined,
+          // transaction: {
+          //   ...parsedTxn.transaction,
+          //   message: {
+          //     ...parsedTxn.transaction.message,
+          //     instructions: parsedTxnIxns,
+          //   },
+          // },
+        };
       });
-
-      return {
-        timestamp: BNtoDateTimeString(new BN(parsedTxn?.blockTime ?? 0)),
-        ixnName: ixnName,
-        success,
-        signatures: parsedTxn?.transaction.signatures,
-        ...parsedTxn,
-        transaction: undefined,
-        // transaction: {
-        //   ...parsedTxn.transaction,
-        //   message: {
-        //     ...parsedTxn.transaction.message,
-        //     instructions: parsedTxnIxns,
-        //   },
-        // },
-      };
-    });
 
     let numSuccess = 0;
     let numFailed = 0;
 
-    parsedTransactions.forEach((txn) => {
+    for (const txn of parsedTransactions) {
       if (typeof txn.success === "boolean") {
         if (txn.success) {
-          numSuccess = numSuccess + 1;
+          numSuccess += 1;
         } else {
-          numFailed = numFailed + 1;
+          numFailed += 1;
         }
       }
-    });
+    }
 
     console.log(`numSuccess: ${numSuccess}`);
     console.log(`numFailed: ${numFailed}`);
@@ -189,8 +191,9 @@ export default class SolanaTransactions extends BaseCommand {
             // "",
           ];
           if (ignoreKeys.includes(key)) {
-            return undefined;
+            return;
           }
+
           return value;
         },
         2

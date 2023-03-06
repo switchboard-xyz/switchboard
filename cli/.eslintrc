@@ -30,6 +30,7 @@
     "@typescript-eslint/no-empty-function": "off",
     "lines-between-class-members": "off",
     "no-warning-comments": "off",
-    "unicorn/prevent-abbreviations": "off"
+    "unicorn/prevent-abbreviations": "off",
+    "no-return-await": "off"
   }
 }

@@ -1,0 +1,1 @@
+# Switchboard Prettier Config

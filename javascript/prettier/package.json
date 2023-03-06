@@ -1,0 +1,21 @@
+{
+  "name": "@switchboard-xyz/prettier-config-solana",
+  "version": "0.0.1",
+  "description": "Prettier rules to be shared across all Solana Labs projects",
+  "main": "./index.json",
+  "type": "module",
+  "keywords": [
+    "prettier",
+    "prettierconfig",
+    "config",
+    "javascript",
+    "styleguide"
+  ],
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  },
+  "peerDependencies": {
+    "prettier": "^2.7.1"
+  }
+}
