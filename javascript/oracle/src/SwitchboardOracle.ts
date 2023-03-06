@@ -138,14 +138,20 @@ export abstract class ISwitchboardOracle {
       releaseChannel: "mainnet" | "testnet" | undefined;
       name: string;
       tag_name: string;
+      published: Date;
     }> = (await response.json()).map(
-      (release: { tag_name: string; name: string; html_url: string }) => {
+      (release: {
+        tag_name: string;
+        name: string;
+        html_url: string;
+        published_at: string;
+      }) => {
         const imageName = release.tag_name.startsWith("oracle/")
           ? release.tag_name.slice(7)
           : release.tag_name;
-        const releaseChannel = release.tag_name.startsWith("oracle/mainnet-")
+        const releaseChannel = imageName.startsWith("mainnet-")
           ? "mainnet"
-          : release.tag_name.startsWith("oracle/testnet-")
+          : imageName.startsWith("testnet-")
           ? "testnet"
           : undefined;
         return {
@@ -153,15 +159,28 @@ export abstract class ISwitchboardOracle {
           releaseChannel,
           name: release.name,
           tag_name: release.tag_name,
+          published: Date.parse(release.published_at),
         };
       }
     );
+
+    if (releases.length === 0) {
+      throw new Error(`Failed to fetch any releases`);
+    }
+
+    const sortedReleases = releases.sort(
+      (a, b) => a.published.getTime() - b.published.getTime()
+    );
+
+    if (releaseChannel === "latest") {
+      return sortedReleases[0].imageName;
+    }
 
     let highestMajor = 0;
     let highestMinor = 0;
     let highestPatch = 0;
 
-    for (const release of releases) {
+    for (const release of sortedReleases) {
       if (release.releaseChannel !== releaseChannel) {
         continue;
       }

@@ -7,7 +7,7 @@ export type Chain =
   | "sui";
 export type Network = "localnet" | "devnet" | "testnet" | "mainnet" | "mainnet";
 
-export type ReleaseChannel = "testnet" | "mainnet";
+export type ReleaseChannel = "testnet" | "mainnet" | "latest";
 
 export type ReleaseChannelVersion = {
   // Release channel for the oracle version to run
