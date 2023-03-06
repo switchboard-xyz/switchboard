@@ -50,7 +50,7 @@ const projectRoot = path.join(__dirname, "..", "..");
   );
   generateGenericApiTypedocs(
     projectRoot,
-    ["sdks", "solana", "javascript", "switchboard-v2"],
+    ["sdks", "solana", "javascript", "__deprecated__", "switchboard-v2"],
     ["@switchboard-xyz", "switchboard-v2"],
     "npm"
   );
@@ -70,7 +70,7 @@ const projectRoot = path.join(__dirname, "..", "..");
   );
   generateGenericApiTypedocs(
     projectRoot,
-    ["sdks", "solana", "javascript", "sbv2-lite"],
+    ["sdks", "solana", "javascript", "__deprecated__", "sbv2-lite"],
     ["@switchboard-xyz", "sbv2-lite"],
     "npm"
   );
@@ -80,7 +80,7 @@ const projectRoot = path.join(__dirname, "..", "..");
   );
   generateGenericApiTypedocs(
     projectRoot,
-    ["sdks", "solana", "javascript", "sbv2-utils"],
+    ["sdks", "solana", "javascript", "__deprecated__", "sbv2-utils"],
     ["@switchboard-xyz", "sbv2-utils"],
     "npm"
   );

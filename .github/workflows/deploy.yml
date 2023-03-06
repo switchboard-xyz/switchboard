@@ -70,7 +70,7 @@ jobs:
           yarn install --frozen-lockfile --network-timeout=1000000
 
       - name: Install @switchboard-xyz/switchboard-v2 dependencies
-        working-directory: sdks/solana/javascript/switchboard-v2
+        working-directory: sdks/solana/javascript/__deprecated__/switchboard-v2
         run: |
           npm ci
 

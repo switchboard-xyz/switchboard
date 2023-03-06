@@ -17,5 +17,11 @@
   },
   "peerDependencies": {
     "prettier": "^2.7.1"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/switchboard-xyz/sbv2-core",
+    "directory": "javascript/prettier"
+  },
+  "homepage": "https://docs.switchboard.xyz"
 }
