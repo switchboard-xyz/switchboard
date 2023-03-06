@@ -2,14 +2,6 @@ import fs from "fs";
 import fetch from "node-fetch";
 import { IOracleConfig, Chain, Network, ReleaseChannel } from "./types";
 
-type ParsedRelease = {
-  imageName: string;
-  releaseChannel: "mainnet" | "testnet" | undefined;
-  name: string;
-  tag_name: string;
-  published: number;
-};
-
 export abstract class ISwitchboardOracle {
   abstract imageTag: string;
   abstract silent: boolean;
@@ -133,55 +125,23 @@ export abstract class ISwitchboardOracle {
   public static async getNodeImage(
     releaseChannel: ReleaseChannel
   ): Promise<string> {
-    const response = await fetch(
-      `https://api.github.com/repos/switchboard-xyz/sbv2-oracle-operators/releases`,
-      {
-        headers: {
-          Accept: "application/vnd.github.v3+json",
-        },
-      }
-    );
-    const releases: Array<ParsedRelease> = (await response.json()).map(
-      (release: {
-        tag_name: string;
-        name: string;
-        html_url: string;
-        published_at: string;
-      }) => {
-        const imageName = release.tag_name.startsWith("oracle/")
-          ? release.tag_name.slice(7)
-          : release.tag_name;
-        const releaseChannel = imageName.startsWith("mainnet-")
-          ? "mainnet"
-          : imageName.startsWith("testnet-")
-          ? "testnet"
-          : undefined;
-        const myRelease: ParsedRelease = {
-          imageName,
-          releaseChannel,
-          name: release.name,
-          tag_name: release.tag_name,
-          published: Date.parse(release.published_at),
-        };
-        return myRelease;
-      }
-    );
+    const releases = await fetchReleases();
 
     if (releases.length === 0) {
-      throw new Error(`Failed to fetch any releases`);
+      throw new Error(
+        `Failed to fetch any releases for switchboard-xyz/sbv2-oracle-operators`
+      );
     }
 
-    const sortedReleases = releases.sort((a, b) => a.published - b.published);
-
     if (releaseChannel === "latest") {
-      return sortedReleases[0].imageName;
+      return releases[0].imageName;
     }
 
     let highestMajor = 0;
     let highestMinor = 0;
     let highestPatch = 0;
 
-    for (const release of sortedReleases) {
+    for (const release of releases) {
       if (release.releaseChannel !== releaseChannel) {
         continue;
       }
@@ -214,4 +174,59 @@ export abstract class ISwitchboardOracle {
     const nodeImage = `${releaseChannel}-${highestMajor}.${highestMinor}.${highestPatch}`;
     return nodeImage;
   }
+}
+
+type ParsedRelease = {
+  imageName: string;
+  releaseChannel: "mainnet" | "testnet" | undefined;
+  name: string;
+  tag_name: string;
+  published: number;
+};
+
+type RawRelease = {
+  url: string;
+  id: number;
+  tag_name: string;
+  name: string;
+  html_url: string;
+  published_at: string;
+  created_at: string;
+  draft?: boolean;
+  prerelease?: boolean;
+};
+
+export async function fetchReleases(): Promise<Array<ParsedRelease>> {
+  const response = await fetch(
+    `https://api.github.com/repos/switchboard-xyz/sbv2-oracle-operators/releases`,
+    {
+      headers: {
+        Accept: "application/vnd.github.v3+json",
+      },
+    }
+  );
+  const releases: Array<ParsedRelease> = (await response.json()).map(
+    (release: RawRelease) => {
+      const imageName = release.tag_name.startsWith("oracle/")
+        ? release.tag_name.slice(7)
+        : release.tag_name;
+      const releaseChannel = imageName.startsWith("mainnet-")
+        ? "mainnet"
+        : imageName.startsWith("testnet-")
+        ? "testnet"
+        : undefined;
+      const myRelease: ParsedRelease = {
+        imageName,
+        releaseChannel,
+        name: release.name,
+        tag_name: release.tag_name,
+        published: Date.parse(release.published_at),
+      };
+      return myRelease;
+    }
+  );
+
+  const sortedReleases = releases.sort((a, b) => a.published - b.published);
+
+  return sortedReleases;
 }
