@@ -226,7 +226,7 @@ export async function fetchReleases(): Promise<Array<ParsedRelease>> {
     }
   );
 
-  const sortedReleases = releases.sort((a, b) => a.published - b.published);
+  const sortedReleases = releases.sort((a, b) => b.published - a.published);
 
   return sortedReleases;
 }
