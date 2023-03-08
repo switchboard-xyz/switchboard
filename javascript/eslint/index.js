@@ -11,7 +11,8 @@ module.exports = {
     "eol-last": "error",
     "prefer-arrow-callback": "error",
     "no-trailing-spaces": "error",
-    quotes: ["warn", "single", { avoidEscape: true }],
+    // quotes: ["warn", "single", { avoidEscape: true }],
+    quotes: "off",
     "no-restricted-properties": [
       "error",
       {
