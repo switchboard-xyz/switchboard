@@ -23,92 +23,81 @@ jobs:
         with:
           submodules: recursive
 
-      - uses: actions/setup-node@v3
+      - name: Install pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 7.28.0
+
+      - name: Use Node.js
+        uses: actions/setup-node@v3
         with:
           node-version: 16
+          cache: "pnpm"
+
+      - name: Get pnpm store directory
+        id: pnpm-cache
+        shell: bash
+        run: |
+          echo "STORE_PATH=$(pnpm store path)" >> $GITHUB_OUTPUT
+
+      - uses: actions/cache@v3
+        name: Setup pnpm cache
+        with:
+          path: ${{ steps.pnpm-cache.outputs.STORE_PATH }}
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-store-
 
       - name: Install global deps
-        working-directory: .
         run: |
           npm i -g typescript ts-node @types/node
 
+      - name: Install sbv2-core Dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build sbv2-core
+        run: pnpm -r --filter=!website build
+
       - name: Install sbv2-scripts
         working-directory: javascript/sbv2-scripts
-        run: |
-          npm ci
-          npm link
-
-      - name: Install @switchboard-xyz/cli dependencies
-        working-directory: cli
-        run: |
-          yarn install --frozen-lockfile --network-timeout=1000000
-          yarn build
+        run: npm link
 
       - name: Generate CLI Docs
         working-directory: .
         run: |
           sbv2-scripts cli ./cli/README.md ./website/docs/dev/cli
 
-      - name: Install @switchboard-xyz/common dependencies
-        working-directory: javascript/common
-        run: |
-          npm ci
-
-      - name: Install @switchboard-xyz/oracle dependencies
-        working-directory: javascript/oracle
-        run: |
-          npm ci
-
       - name: Install @switchboard-xyz/aptos.js dependencies
-        working-directory: sdks/aptos
-        run: |
-          yarn install --frozen-lockfile --network-timeout=1000000
+        working-directory: sdks/aptos/javascript/aptos.js
+        run: pnpm build
 
       - name: Install @switchboard-xyz/near.js dependencies
         working-directory: sdks/near/javascript/near.js
-        run: |
-          yarn install --frozen-lockfile --network-timeout=1000000
+        run: pnpm build
 
       - name: Install @switchboard-xyz/switchboard-v2 dependencies
         working-directory: sdks/solana/javascript/__deprecated__/switchboard-v2
-        run: |
-          npm ci
+        run: npm ci
 
       - name: Install @switchboard-xyz/solana.js dependencies
         working-directory: sdks/solana/javascript/solana.js
-        run: |
-          npm ci
-
-      # - name: Install @switchboard-xyz/sbv2-lite dependencies
-      #   working-directory: sdks/solana/javascript/sbv2-lite
-      #   run: |
-      #     npm ci
-
-      # - name: Install @switchboard-xyz/sbv2-utils dependencies
-      #   working-directory: sdks/solana/javascript/sbv2-utils
-      #   run: |
-      #     npm ci
+        run: pnpm build
 
       - name: Install @switchboard-xyz/evm.js dependencies
         working-directory: sdks/evm/javascript/evm.js
-        run: |
-          npm ci
+        run: pnpm build
 
       - name: Install @switchboard-xyz/starknet.js dependencies
         working-directory: sdks/starknet/javascript/starknet.js
-        run: |
-          npm install
+        run: pnpm build
 
       - name: Install @switchboard-xyz/sui.js dependencies
         working-directory: sdks/sui/javascript/sui.js
-        run: |
-          npm install
+        run: pnpm build
 
       - name: Build website
         working-directory: website
-        run: |
-          yarn install --frozen-lockfile --network-timeout=1000000
-          yarn build:all
+        run: pnpm run build:all
       # Popular action to deploy to GitHub Pages:
       # Docs: https://github.com/peaceiris/actions-gh-pages#%EF%B8%8F-docusaurus
       - name: Deploy to GitHub Pages

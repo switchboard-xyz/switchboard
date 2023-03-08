@@ -1,7 +1,8 @@
+import { SolanaWithSignerBaseCommand as BaseCommand } from "../../../solana/index";
+
 import { Args, Flags } from "@oclif/core";
 import { PublicKey } from "@solana/web3.js";
 import { AggregatorAccount, QueueAccount } from "@switchboard-xyz/solana.js";
-import { SolanaWithSignerBaseCommand as BaseCommand } from "../../../solana/index";
 
 export default class AggregatorLeaseSet extends BaseCommand {
   static description = "set a lease's withdraw authority";

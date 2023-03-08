@@ -70,7 +70,6 @@ export const pubKeyReviver = (key: string, value: any): any => {
   return value;
 };
 
-/* eslint-disable no-control-regex */
 export const buffer2string = (buf: Buffer | string | ArrayBuffer): string => {
   return Buffer.from(buf as any)
     .toString("utf8")

@@ -1,5 +1,6 @@
-import { Args, Flags } from "@oclif/core";
 import { NearWithSignerBaseCommand as BaseCommand } from "../../../../near";
+
+import { Args, Flags } from "@oclif/core";
 
 export default class AggregatorAddHistory extends BaseCommand {
   static description = "add rows to a history vector";

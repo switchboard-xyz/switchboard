@@ -1,9 +1,11 @@
+import { AuthorityMismatch } from "../types";
+
+import { NearBaseCommand as BaseCommand } from "./BaseCommand";
+
 import { Flags } from "@oclif/core";
 import { Input } from "@oclif/parser";
 import { EscrowAccount, SwitchboardProgram } from "@switchboard-xyz/near.js";
 import { Account } from "near-api-js";
-import { AuthorityMismatch } from "../types";
-import { NearBaseCommand as BaseCommand } from "./BaseCommand";
 
 export abstract class NearWithSignerBaseCommand extends BaseCommand {
   static enableJsonFlag = true;

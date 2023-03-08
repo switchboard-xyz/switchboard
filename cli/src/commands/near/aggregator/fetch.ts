@@ -1,6 +1,7 @@
+import { NearWithoutSignerBaseCommand as BaseCommand } from "../../../near";
+
 import { Flags } from "@oclif/core";
 import { AggregatorAccount } from "@switchboard-xyz/near.js";
-import { NearWithoutSignerBaseCommand as BaseCommand } from "../../../near";
 
 export default class FetchAggregator extends BaseCommand {
   static enableJsonFlag = true;

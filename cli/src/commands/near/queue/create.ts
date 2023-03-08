@@ -1,5 +1,6 @@
-import { Flags } from "@oclif/core";
 import { NearWithSignerBaseCommand as BaseCommand } from "../../../near";
+
+import { Flags } from "@oclif/core";
 import { QueueAccount } from "@switchboard-xyz/near.js";
 
 export default class QueueCreate extends BaseCommand {

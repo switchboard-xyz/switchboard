@@ -11,7 +11,9 @@
     "sbv2-scripts": "./src/index.ts"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "lint": "gts lint ./src",
+    "clean": "gts clean",
+    "fix": "gts fix ./src"
   },
   "dependencies": {
     "chalk": "4",
@@ -22,8 +24,12 @@
     "typescript": "^4.8.3"
   },
   "devDependencies": {
-    "@types/commander": "^2.12.2",
+    "@switchboard-xyz/eslint-config": "workspace:^0.1.8",
     "@types/fs-extra": "^9.0.13",
-    "@types/shelljs": "^0.8.11"
+    "@types/node": "^18.14.6",
+    "@types/shelljs": "^0.8.11",
+    "eslint": "^8.35.0",
+    "gts": "^3.1.1",
+    "prettier": ">=2.0.0"
   }
 }

@@ -1,5 +1,6 @@
-import { Args, Flags } from "@oclif/core";
 import { NearWithSignerBaseCommand as BaseCommand } from "../../../../near";
+
+import { Args, Flags } from "@oclif/core";
 import { AggregatorAccount, JobAccount } from "@switchboard-xyz/near.js";
 import base58 from "bs58";
 import { FinalExecutionOutcome } from "near-api-js/lib/providers";
@@ -62,6 +63,7 @@ export default class AggregatorRemoveJob extends BaseCommand {
           `Failed to find job ${jobAddressBase58} for the given aggregator`
         );
       }
+
       const removeTxn = await aggregatorAccount.removeJob({
         idx: jobIdx,
       });

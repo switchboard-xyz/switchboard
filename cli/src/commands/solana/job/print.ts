@@ -1,7 +1,8 @@
+import { SolanaWithoutSignerBaseCommand as BaseCommand } from "../../../solana";
+
 import { Args } from "@oclif/core";
 import { OracleJob } from "@switchboard-xyz/common";
 import { JobAccount } from "@switchboard-xyz/solana.js";
-import { SolanaWithoutSignerBaseCommand as BaseCommand } from "../../../solana";
 
 export default class JobPrint extends BaseCommand {
   static enableJsonFlag = true;

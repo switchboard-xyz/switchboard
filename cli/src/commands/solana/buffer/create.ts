@@ -1,3 +1,6 @@
+import { SolanaWithSignerBaseCommand as BaseCommand } from "../../../solana";
+import { CHECK_ICON } from "../../../utils/icons";
+
 import { Args, Flags } from "@oclif/core";
 import { Keypair } from "@solana/web3.js";
 import { OracleJob } from "@switchboard-xyz/common";
@@ -6,8 +9,6 @@ import {
   JobInitParams,
   QueueAccount,
 } from "@switchboard-xyz/solana.js";
-import { SolanaWithSignerBaseCommand as BaseCommand } from "../../../solana";
-import { CHECK_ICON } from "../../../utils/icons";
 import chalk from "chalk";
 
 export default class BufferCreate extends BaseCommand {
@@ -65,7 +66,7 @@ export default class BufferCreate extends BaseCommand {
       ? await this.loadKeypair(flags.bufferKeypair)
       : Keypair.generate();
 
-    let job: JobAccount | Omit<JobInitParams, "weight"> | undefined = undefined;
+    let job: JobAccount | Omit<JobInitParams, "weight"> | undefined;
     if (flags.jobDefinition) {
       const oracleJob = this.loadJobDefinition(flags.jobDefinition);
       job = {
@@ -76,6 +77,7 @@ export default class BufferCreate extends BaseCommand {
       const [jobAccount] = await JobAccount.load(this.program, flags.jobKey);
       job = jobAccount;
     }
+
     if (!job) {
       throw new Error(`Must provide --jobDefinition or --jobKey`);
     }

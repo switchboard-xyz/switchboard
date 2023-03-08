@@ -1,6 +1,7 @@
+import { SolanaWithoutSignerBaseCommand as BaseCommand } from "../../../solana";
+
 import { Args } from "@oclif/core";
 import { QueueAccount } from "@switchboard-xyz/solana.js";
-import { SolanaWithoutSignerBaseCommand as BaseCommand } from "../../../solana";
 
 export default class QueuePrint extends BaseCommand {
   static enableJsonFlag = true;

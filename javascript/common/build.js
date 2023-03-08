@@ -1,13 +1,18 @@
-const shell = require("shelljs");
-const path = require("path");
-const fs = require("fs");
-const { execSync } = require("child_process");
+const shell = require('shelljs');
+const path = require('path');
+const fs = require('fs');
+const { execSync } = require('child_process');
 
 const projectRoot = __dirname;
 
+const binPath = path.relative(
+  process.cwd(),
+  path.join(__dirname, 'node_modules', '.bin')
+);
+
 function insertStringBeforeSync(file, searchStr, insertStr) {
   try {
-    const data = fs.readFileSync(file, "utf8");
+    const data = fs.readFileSync(file, 'utf8');
 
     const index = data.indexOf(searchStr);
     if (index === -1) {
@@ -15,7 +20,7 @@ function insertStringBeforeSync(file, searchStr, insertStr) {
     }
 
     const updatedData =
-      data.slice(0, index) + "\n" + insertStr + "\n" + data.slice(index);
+      data.slice(0, index) + '\n' + insertStr + '\n' + data.slice(index);
 
     fs.writeFileSync(file, updatedData);
 
@@ -30,10 +35,11 @@ async function main() {
 
   // Create protos in the src/protos directory
   execSync(
-    "npx shx mkdir -p src/protos; npx pbjs --root sbv2Protos -t static-module -o src/protos/index.js ./protos/*.proto && npx pbts -o src/protos/index.d.ts src/protos/index.js;"
+    `${binPath}/shx mkdir -p src/protos; ${binPath}/pbjs --root sbv2Protos -t static-module -o src/protos/index.js ./protos/*.proto && ${binPath}/pbts -o src/protos/index.d.ts src/protos/index.js;`,
+    { encoding: 'utf-8' }
   );
   insertStringBeforeSync(
-    path.join(projectRoot, "src", "protos", "index.js"),
+    path.join(projectRoot, 'src', 'protos', 'index.js'),
     `OracleJob.HttpTask = (function() {`,
     `
   /**
@@ -52,7 +58,7 @@ async function main() {
 `
   );
   insertStringBeforeSync(
-    path.join(projectRoot, "src", "protos", "index.d.ts"),
+    path.join(projectRoot, 'src', 'protos', 'index.d.ts'),
     `public static create(properties?: IOracleJob): OracleJob;`,
     `
   /**
@@ -69,15 +75,16 @@ async function main() {
   public toYaml(): string;
 `
   );
-  execSync(`npx prettier ./src/protos --write`);
+  execSync(`${binPath}/prettier ./src/protos --write`, { encoding: 'utf-8' });
 
   // Create protos in the lib/cjs/protos
-  execSync(`npx tsc -p tsconfig.cjs.json`);
+  execSync(`${binPath}/tsc -p tsconfig.cjs.json`, { encoding: 'utf-8' });
   execSync(
-    "npx shx rm -rf lib/cjs/protos; npx shx mkdir -p lib/cjs/protos; npx pbjs --root sbv2Protos -t static-module -o lib/cjs/protos/index.js ./protos/*.proto && npx pbts -o lib/cjs/protos/index.d.ts lib/cjs/protos/index.js"
+    `${binPath}/shx rm -rf lib/cjs/protos; ${binPath}/shx mkdir -p lib/cjs/protos; ${binPath}/pbjs --root sbv2Protos -t static-module -o lib/cjs/protos/index.js ./protos/*.proto && ${binPath}/pbts -o lib/cjs/protos/index.d.ts lib/cjs/protos/index.js`,
+    { encoding: 'utf-8' }
   );
   insertStringBeforeSync(
-    path.join(projectRoot, "lib", "cjs", "protos", "index.js"),
+    path.join(projectRoot, 'lib', 'cjs', 'protos', 'index.js'),
     `OracleJob.HttpTask = (function() {`,
     `
     /**
@@ -96,7 +103,7 @@ async function main() {
   `
   );
   insertStringBeforeSync(
-    path.join(projectRoot, "lib", "cjs", "protos", "index.d.ts"),
+    path.join(projectRoot, 'lib', 'cjs', 'protos', 'index.d.ts'),
     `public static create(properties?: IOracleJob): OracleJob;`,
     `
     /**
@@ -113,15 +120,18 @@ async function main() {
     public toYaml(): string;
   `
   );
-  execSync(`npx prettier ./lib/cjs/protos --write`);
+  execSync(`${binPath}/prettier ./lib/cjs/protos --write`, {
+    encoding: 'utf-8',
+  });
 
   // Create protos in the lib/esm/protos
-  execSync(`npx tsc`);
+  execSync(`${binPath}/tsc`, { encoding: 'utf-8' });
   execSync(
-    "npx shx rm -rf lib/esm/protos; npx shx mkdir -p lib/esm/protos; npx pbjs --root sbv2Protos -t static-module --es6 -w \"es6\" -o lib/esm/protos/index.js ./protos/*.proto && npx pbts -o lib/esm/protos/index.d.ts lib/esm/protos/index.js && npx shx --silent sed  -i 'protobufjs/minimal' 'protobufjs/minimal.js' lib/esm/protos/index.js > '/dev/null' 2>&1 && npx shx --silent sed -i 'import \\* as' 'import' lib/esm/protos/index.js > '/dev/null' 2>&1"
+    `${binPath}/shx rm -rf lib/esm/protos; ${binPath}/shx mkdir -p lib/esm/protos; ${binPath}/pbjs --root sbv2Protos -t static-module --es6 -w \"es6\" -o lib/esm/protos/index.js ./protos/*.proto && ${binPath}/pbts -o lib/esm/protos/index.d.ts lib/esm/protos/index.js && ${binPath}/shx --silent sed  -i 'protobufjs/minimal' 'protobufjs/minimal.js' lib/esm/protos/index.js > '/dev/null' 2>&1 && ${binPath}/shx --silent sed -i 'import \\* as' 'import' lib/esm/protos/index.js > '/dev/null' 2>&1`,
+    { encoding: 'utf-8' }
   );
   insertStringBeforeSync(
-    path.join(projectRoot, "lib", "esm", "protos", "index.js"),
+    path.join(projectRoot, 'lib', 'esm', 'protos', 'index.js'),
     `OracleJob.HttpTask = (function() {`,
     `
       /**
@@ -140,7 +150,7 @@ async function main() {
     `
   );
   insertStringBeforeSync(
-    path.join(projectRoot, "lib", "esm", "protos", "index.d.ts"),
+    path.join(projectRoot, 'lib', 'esm', 'protos', 'index.d.ts'),
     `public static create(properties?: IOracleJob): OracleJob;`,
     `
       /**
@@ -157,13 +167,15 @@ async function main() {
       public toYaml(): string;
     `
   );
-  execSync(`npx prettier ./lib/esm/protos --write`);
+  execSync(`${binPath}/prettier ./lib/esm/protos --write`, {
+    encoding: 'utf-8',
+  });
 }
 
 main()
   .then(() => {
     // console.log("Executed successfully");
   })
-  .catch((err) => {
+  .catch(err => {
     console.error(err);
   });

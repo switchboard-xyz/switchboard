@@ -1,7 +1,7 @@
-import shell from "shelljs";
-import fs from "fs";
-import fse from "fs-extra";
-import path from "path";
+import fs from 'fs';
+import fse from 'fs-extra';
+import path from 'path';
+import shell from 'shelljs';
 
 const toTitleCase = (str: string) =>
   str.length > 2
@@ -10,21 +10,21 @@ const toTitleCase = (str: string) =>
 
 export function cli(cliReadmePath: string, outputDirectory: string) {
   const cliReadme =
-    cliReadmePath.startsWith("/") ||
-    cliReadmePath.startsWith("C:") ||
-    cliReadmePath.startsWith("D:")
+    cliReadmePath.startsWith('/') ||
+    cliReadmePath.startsWith('C:') ||
+    cliReadmePath.startsWith('D:')
       ? cliReadmePath
       : path.join(process.cwd(), cliReadmePath);
   if (!fs.existsSync(cliReadme)) {
     throw new Error(`Failed to find CLI README.md at ${cliReadme}`);
   }
 
-  console.log("Generating partial markdown files for the CLI ...");
+  console.log('Generating partial markdown files for the CLI ...');
 
   const outputDir =
-    outputDirectory.startsWith("/") ||
-    outputDirectory.startsWith("C:") ||
-    outputDirectory.startsWith("D:")
+    outputDirectory.startsWith('/') ||
+    outputDirectory.startsWith('C:') ||
+    outputDirectory.startsWith('D:')
       ? outputDirectory
       : path.join(process.cwd(), outputDirectory);
   const cliPath = path.dirname(cliReadme);
@@ -44,9 +44,9 @@ export function cli(cliReadmePath: string, outputDirectory: string) {
   );
 
   CliCommand.writeByChain(
-    "config",
+    'config',
     10,
-    commandsByChain["config"].reduce((all, c) => {
+    commandsByChain['config'].reduce((all, c) => {
       all[c.topic] = all[c.topic] || [];
       all[c.topic].push(c);
       return all;
@@ -55,9 +55,9 @@ export function cli(cliReadmePath: string, outputDirectory: string) {
   );
 
   CliCommand.writeByChain(
-    "aptos",
+    'aptos',
     20,
-    commandsByChain["aptos"].reduce((all, c) => {
+    commandsByChain['aptos'].reduce((all, c) => {
       all[c.topic] = all[c.topic] || [];
       all[c.topic].push(c);
       return all;
@@ -66,9 +66,9 @@ export function cli(cliReadmePath: string, outputDirectory: string) {
   );
 
   CliCommand.writeByChain(
-    "near",
+    'near',
     30,
-    commandsByChain["near"].reduce((all, c) => {
+    commandsByChain['near'].reduce((all, c) => {
       all[c.topic] = all[c.topic] || [];
       all[c.topic].push(c);
       return all;
@@ -77,9 +77,9 @@ export function cli(cliReadmePath: string, outputDirectory: string) {
   );
 
   CliCommand.writeByChain(
-    "solana",
+    'solana',
     40,
-    commandsByChain["solana"].reduce((all, c) => {
+    commandsByChain['solana'].reduce((all, c) => {
       all[c.topic] = all[c.topic] || [];
       all[c.topic].push(c);
       return all;
@@ -106,9 +106,9 @@ class CliCommand {
     readonly command: string,
     readonly description: string
   ) {
-    this.cmd = command.replace(this.chain, "").replace(this.topic, "").trim();
-    if (this.cmd === "") {
-      this.cmd = "index";
+    this.cmd = command.replace(this.chain, '').replace(this.topic, '').trim();
+    if (this.cmd === '') {
+      this.cmd = 'index';
     }
   }
 
@@ -118,7 +118,7 @@ class CliCommand {
 
   toString() {
     return (
-      this.description + "\n\n" + "```asciidoc\n" + this.docs + "\n```" + "\n"
+      this.description + '\n\n' + '```asciidoc\n' + this.docs + '\n```' + '\n'
     );
   }
 
@@ -128,7 +128,7 @@ class CliCommand {
 
     const outputFile = path.join(
       outputDir,
-      `${this.cmd.replaceAll(" ", "_")}.md`
+      `${this.cmd.replaceAll(' ', '_')}.md`
     );
 
     fs.writeFileSync(outputFile, this.toString());
@@ -144,7 +144,7 @@ class CliCommand {
     fs.mkdirSync(chainDir, { recursive: true });
 
     fs.writeFileSync(
-      path.join(chainDir, "_category_.json"),
+      path.join(chainDir, '_category_.json'),
       `{"label": "${toTitleCase(chain)}","position": ${index}}`
     );
 
@@ -164,7 +164,7 @@ class CliCommand {
         fs.mkdirSync(topicDir, { recursive: true });
 
         fs.writeFileSync(
-          path.join(topicDir, "_category_.json"),
+          path.join(topicDir, '_category_.json'),
           `{"label": "${toTitleCase(topic)}","position": ${i + 1}0}`
         );
 
@@ -182,18 +182,18 @@ class CliCommand {
             ` - [sbv2 ${chain} ${topic} ${
               c.cmd
             }](/dev/cli/${chain}/${topic}/${c.cmd
-              .replace(" ", "_")
-              .replace("index", "")})`
+              .replace(' ', '_')
+              .replace('index', '')})`
           );
           const commandName = c.cmd
             .toLowerCase()
-            .split(" ")
+            .split(' ')
             .map(toTitleCase)
-            .join(" ");
+            .join(' ');
 
           const fileName = path.join(
             topicDir,
-            `${(c.cmd + ".md").replaceAll(" ", "_")}`
+            `${(c.cmd + '.md').replaceAll(' ', '_')}`
           );
           fs.writeFileSync(
             fileName,
@@ -203,8 +203,8 @@ class CliCommand {
       });
 
     fs.writeFileSync(
-      path.join(chainDir, "_Table_of_Contents.md"),
-      `${toc.join("\n")}`
+      path.join(chainDir, '_Table_of_Contents.md'),
+      `${toc.join('\n')}`
     );
   }
 }
@@ -229,28 +229,28 @@ function parseCommandsByChain(readme: string): {
   }
 
   const commands = matches
-    .map((m) => {
-      if (!("groups" in m)) {
+    .map(m => {
+      if (!('groups' in m)) {
         return undefined;
       }
 
-      const description = m.groups["description"] ?? "";
-      const docs = m.groups["docs"] ?? "";
+      const description = m.groups['description'] ?? '';
+      const docs = m.groups['docs'] ?? '';
 
-      let command = m.groups["command"] ?? "";
+      let command = m.groups['command'] ?? '';
 
       // get index of first upper case letter or open bracket to trim command string
       for (let i = 0; i < command.length; i++) {
         const char = command.charAt(i);
-        if (char !== " " && (char === "[" || char == char.toUpperCase())) {
+        if (char !== ' ' && (char === '[' || char === char.toUpperCase())) {
           command = command.slice(0, i - 1);
           break;
         }
       }
 
-      const words = command.split(" ");
-      const chain = words.shift() ?? "";
-      const topic = words.shift() ?? "";
+      const words = command.split(' ');
+      const chain = words.shift() ?? '';
+      const topic = words.shift() ?? '';
 
       return new CliCommand(
         docs.trim(),
@@ -288,7 +288,7 @@ function generateFullReadme(cliPath: string): string {
     shell.exit(1);
   }
 
-  const readme = fs.readFileSync(path.join(cliPath, "README.md"), "utf-8");
+  const readme = fs.readFileSync(path.join(cliPath, 'README.md'), 'utf-8');
 
   shell.cd(currentPath);
 
@@ -310,30 +310,30 @@ function generatePartialTopicMarkdown(cliPath: string, outputDir: string) {
     shell.exit(1);
   }
   const outputFiles = [
-    "aptos.md",
-    "config.md",
-    "help.md",
-    "near.md",
-    "solana.md",
-    "update.md",
-    "version.md",
-  ].map((f) => path.join(outputDir, f));
-  outputFiles.forEach((f) => {
+    'aptos.md',
+    'config.md',
+    'help.md',
+    'near.md',
+    'solana.md',
+    'update.md',
+    'version.md',
+  ].map(f => path.join(outputDir, f));
+  outputFiles.forEach(f => {
     // TODO: Update URL to release tag
     // update github documentation links
     shell.sed(
-      "-i",
+      '-i',
       `https://github.com/switchboard-xyz/sbv2-core/blob/.*/src`,
-      "https://github.com/switchboard-xyz/sbv2-core/tree/main/cli/src",
+      'https://github.com/switchboard-xyz/sbv2-core/tree/main/cli/src',
       f
     );
     // remove first two lines
     fs.writeFileSync(
       f,
-      fs.readFileSync(f, "utf8").split("\n").slice(2).join("\n")
+      fs.readFileSync(f, 'utf8').split('\n').slice(2).join('\n')
     );
     // add underscore to filename
-    fs.renameSync(f, path.join(path.dirname(f), "_" + path.basename(f)));
+    fs.renameSync(f, path.join(path.dirname(f), '_' + path.basename(f)));
   });
 
   shell.cd(currentPath);

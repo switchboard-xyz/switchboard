@@ -11,11 +11,6 @@
   },
   "homepage": "https://docs.switchboard.xyz",
   "main": "index.js",
-  "scripts": {
-    "build": "echo \"No build script required for workspace eslint-config\" && exit 0",
-    "watch": "echo \"No watch script required for workspace eslint-config\" && exit 0",
-    "test": "echo \"No test script required for workspace eslint-config\" && exit 0"
-  },
   "dependencies": {
     "@typescript-eslint/eslint-plugin": "^5.54.1",
     "@typescript-eslint/parser": "^5.54.1",

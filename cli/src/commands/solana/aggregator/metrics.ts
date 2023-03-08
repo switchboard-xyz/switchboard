@@ -1,3 +1,6 @@
+import { SolanaWithoutSignerBaseCommand as BaseCommand } from "../../../solana/index";
+import { chalkString } from "../../../utils/misc";
+
 import { Args, Flags } from "@oclif/core";
 import { PublicKey } from "@solana/web3.js";
 import {
@@ -5,8 +8,6 @@ import {
   AggregatorHistoryBuffer,
   AggregatorHistoryMetrics,
 } from "@switchboard-xyz/solana.js";
-import { SolanaWithoutSignerBaseCommand as BaseCommand } from "../../../solana/index";
-import { chalkString } from "../../../utils/misc";
 
 export default class AggregatorMetrics extends BaseCommand {
   static enableJsonFlag = true;
@@ -119,6 +120,7 @@ export default class AggregatorMetrics extends BaseCommand {
     if (aggregator.historyBuffer.equals(PublicKey.default)) {
       throw new Error(`Aggregator does not have history enabled`);
     }
+
     const rawHistory = await aggregatorAccount.loadHistory();
 
     const periods = (flags.period ?? [])
@@ -137,6 +139,7 @@ export default class AggregatorMetrics extends BaseCommand {
       if (metrics.length === 1) {
         return this.metricToJson(metrics[0], aggregator.minUpdateDelaySeconds);
       }
+
       return metrics.map((m) =>
         this.metricToJson(m, aggregator.minUpdateDelaySeconds)
       );

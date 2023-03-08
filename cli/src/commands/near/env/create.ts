@@ -1,21 +1,22 @@
-import { Flags } from "@oclif/core";
 import { NearWithSignerBaseCommand as BaseCommand } from "../../../near";
-import {
-  QueueAccount,
-  CrankAccount,
-  OracleAccount,
-  PermissionAccount,
-  SwitchboardPermission,
-  AggregatorAccount,
-  JobAccount,
-  SwitchboardDecimal,
-} from "@switchboard-xyz/near.js";
-import { Action } from "near-api-js/lib/transaction";
-import fs from "fs";
+
+import { Flags } from "@oclif/core";
 import { OracleJob } from "@switchboard-xyz/common";
 import { Big } from "@switchboard-xyz/common";
+import {
+  AggregatorAccount,
+  CrankAccount,
+  JobAccount,
+  OracleAccount,
+  PermissionAccount,
+  QueueAccount,
+  SwitchboardDecimal,
+  SwitchboardPermission,
+} from "@switchboard-xyz/near.js";
 import base58 from "bs58";
+import fs from "fs";
 import { FinalExecutionOutcome } from "near-api-js/lib/providers";
+import { Action } from "near-api-js/lib/transaction";
 
 export default class EnvCreate extends BaseCommand {
   static enableJsonFlag = true;
@@ -83,7 +84,7 @@ export default class EnvCreate extends BaseCommand {
     }),
   };
 
-  async run() {
+  async run(): Promise<any> {
     const { flags, args } = await this.parse(EnvCreate);
 
     const txnReceipts: FinalExecutionOutcome[] = [];
@@ -139,8 +140,9 @@ export default class EnvCreate extends BaseCommand {
         granter: queueAccount.address,
         grantee: oracleAccount.address,
       });
-    queueActions.push(createOraclePermissionAction);
+
     queueActions.push(
+      createOraclePermissionAction,
       oraclePermissionAccount.setAction({
         permission: SwitchboardPermission.PERMIT_ORACLE_HEARTBEAT,
         enable: true,
@@ -186,7 +188,7 @@ export default class EnvCreate extends BaseCommand {
         const feedDefinition = JSON.parse(
           fs
             .readFileSync(this.normalizePath(feedDefinitionPath), "utf-8")
-            .replace(/\/\*[\s\S]*?\*\/|([^\\:]|^)\/\/.*$/g, "")
+            .replace(/\/\*[\S\s]*?\*\/|([^:\\]|^)\/\/.*$/g, "")
         );
         const jobs: JobAccount[] = [];
         const jobActions: Action[] = [];
@@ -210,6 +212,7 @@ export default class EnvCreate extends BaseCommand {
             }
           }
         }
+
         const jobReceipt = await this.program.sendActions(jobActions);
         txnReceipts.push(jobReceipt);
         this.logger.info(`${this.toUrl(jobReceipt.transaction.hash)}`);
@@ -235,13 +238,13 @@ export default class EnvCreate extends BaseCommand {
                 )
               : SwitchboardDecimal.fromBig(new Big(0)),
             forceReportPeriod: feedDefinition.forceReportPeriod
-              ? Number.parseInt(feedDefinition.forceReportPeriod)
+              ? Number.parseInt(feedDefinition.forceReportPeriod, 10)
               : 0,
           });
-        feedActions.push(createAggregatorAction);
 
         // add jobs
         feedActions.push(
+          createAggregatorAction,
           ...jobs.map((j) => aggregatorAccount.addJobAction({ job: j.address }))
         );
 

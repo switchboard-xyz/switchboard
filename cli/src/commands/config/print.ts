@@ -1,6 +1,7 @@
-import chalk from "chalk";
 import { CliBaseCommand as BaseCommand } from "../../BaseCommand";
 import { chalkString } from "../../utils";
+
+import chalk from "chalk";
 
 export default class ConfigPrint extends BaseCommand {
   static enableJsonFlag = true;
@@ -35,7 +36,7 @@ export default class ConfigPrint extends BaseCommand {
           devnet?.rpcUrl || "N/A"
         )
       );
-    } catch (error) {}
+    } catch {}
 
     try {
       const { testnet, mainnet } = this.ctx.near;
@@ -52,6 +53,6 @@ export default class ConfigPrint extends BaseCommand {
           testnet?.rpcUrl || "N/A"
         )
       );
-    } catch (error) {}
+    } catch {}
   }
 }

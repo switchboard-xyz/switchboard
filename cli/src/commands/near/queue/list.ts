@@ -1,5 +1,6 @@
-import { Args } from "@oclif/core";
 import { NearWithoutSignerBaseCommand as BaseCommand } from "../../../near";
+
+import { Args } from "@oclif/core";
 
 export default class QueueList extends BaseCommand {
   static enableJsonFlag = true;

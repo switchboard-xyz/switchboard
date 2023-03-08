@@ -1,5 +1,5 @@
-import BN from "bn.js";
-import Big from "big.js";
+import Big from 'big.js';
+import BN from 'bn.js';
 /**
  * Switchboard precisioned representation of numbers.
  */
@@ -27,7 +27,7 @@ export class SwitchboardDecimal {
     // Round to fit in Switchboard Decimal
     // TODO: smarter logic.
     big = big.round(20);
-    let mantissa: BN = new BN(big.c.join(""), 10);
+    let mantissa: BN = new BN(big.c.join(''), 10);
     // Set the scale. Big.exponenet sets scale from the opposite side
     // SwitchboardDecimal does.
     let scale = big.c.slice(1).length - big.e;
@@ -40,7 +40,7 @@ export class SwitchboardDecimal {
       throw new Error(`SwitchboardDecimal: Unexpected negative scale.`);
     }
     if (scale >= 28) {
-      throw new Error("SwitchboardDecimalExcessiveScaleError");
+      throw new Error('SwitchboardDecimalExcessiveScaleError');
     }
 
     // Set sign for the coefficient (mantissa)

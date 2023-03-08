@@ -1,7 +1,8 @@
-import { Args } from "@oclif/core";
 import { AptosWithoutSignerBaseCommand as BaseCommand } from "../../aptos";
-import { HexString } from "aptos";
+
+import { Args } from "@oclif/core";
 import { OracleJob } from "@switchboard-xyz/common";
+import { HexString } from "aptos";
 
 export default class AptosPrint extends BaseCommand {
   static enableJsonFlag = true;
@@ -60,16 +61,19 @@ export default class AptosPrint extends BaseCommand {
         data = this.normalizeAccountData(address, queueData);
         break;
       }
+
       case "crank": {
         const [crank, crankData] = await this.loadCrank(address.toString());
         data = this.normalizeAccountData(address, crankData);
         break;
       }
+
       case "oracle": {
         const [oracle, oracleData] = await this.loadOracle(address.toString());
         data = this.normalizeAccountData(address, oracleData);
         break;
       }
+
       case "aggregator": {
         const [aggregator, aggregatorData] = await this.loadAggregator(
           address.toString()
@@ -88,6 +92,7 @@ export default class AptosPrint extends BaseCommand {
         });
         break;
       }
+
       case "job": {
         const [job, jobData, oracleJob] = await this.loadJob(
           address.toString()
@@ -98,11 +103,13 @@ export default class AptosPrint extends BaseCommand {
         });
         break;
       }
+
       case "state": {
         const [state, stateData] = await this.loadState();
         data = this.normalizeAccountData(address, await state.loadData());
         break;
       }
+
       // case "permission": {
       //   const permission = new Permission(this.aptos, this.programId);
       //   data = this.normalizeAccountData(address, await permission.loadData());
@@ -124,6 +131,7 @@ export default class AptosPrint extends BaseCommand {
     if (flags.json) {
       return data;
     }
+
     console.log(JSON.stringify(data, this.jsonReplacers, 2));
   }
 

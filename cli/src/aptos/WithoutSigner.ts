@@ -1,7 +1,8 @@
+import { AptosBaseCommand as BaseCommand } from "./BaseCommand";
+
 import { Flags } from "@oclif/core";
 import { Input } from "@oclif/parser";
 import { SwitchboardProgram } from "@switchboard-xyz/aptos.js";
-import { AptosBaseCommand as BaseCommand } from "./BaseCommand";
 
 export abstract class AptosWithoutSignerBaseCommand extends BaseCommand {
   static flags = {

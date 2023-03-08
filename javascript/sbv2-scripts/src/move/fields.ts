@@ -8,8 +8,8 @@ export const cleanupString = (
 ): string => {
   const parsedStr = str
     .trim()
-    .replace(/([//].*)/g, "") // remove comments
-    .replace(/(^,)|(,$)/g, ""); // remove leading and trailing commas
+    .replace(/([//].*)/g, '') // remove comments
+    .replace(/(^,)|(,$)/g, ''); // remove leading and trailing commas
   if (!convertSnakeCase) {
     return parsedStr;
   }
@@ -17,36 +17,36 @@ export const cleanupString = (
 };
 
 export const toCamelCase = (str: string): string => {
-  if (str.startsWith("_")) {
+  if (str.startsWith('_')) {
     return str;
   }
   return str
     .toLowerCase()
-    .replace(/([-_][a-z])/g, (group) =>
-      group.toUpperCase().replace("-", "").replace("_", "")
+    .replace(/([-_][a-z])/g, group =>
+      group.toUpperCase().replace('-', '').replace('_', '')
     );
 };
 
 export type BuiltInField = BooleanType | NumberField | StringField;
 
-export type ExportedTypes = "bool" | "string" | "number" | "uint8array" | "bn";
+export type ExportedTypes = 'bool' | 'string' | 'number' | 'uint8array' | 'bn';
 
 export const FieldTypeAliases: Map<ExportedTypes, string[]> = new Map([
-  ["bool", ["bool"]],
-  ["string", ["string", "accountid", "coin<cointype>"]],
-  ["number", ["i8", "u8", "i16", "u16", "i32", "u32", "f32", "f64"]],
+  ['bool', ['bool']],
+  ['string', ['string', 'accountid', 'coin<cointype>']],
+  ['number', ['i8', 'u8', 'i16', 'u16', 'i32', 'u32', 'f32', 'f64']],
   [
-    "uint8array",
-    ["uint8array", "uuid", "[u8;32]", "[u8; 32]", "vec<u8>", "vector<u8>"],
+    'uint8array',
+    ['uint8array', 'uuid', '[u8;32]', '[u8; 32]', 'vec<u8>', 'vector<u8>'],
   ],
-  ["bn", ["i64", "u64", "i128", "u128", "i256", "u256", "bitvector"]],
+  ['bn', ['i64', 'u64', 'i128', 'u128', 'i256', 'u256', 'bitvector']],
 ]);
 
 export const FieldTypeMap: Map<string, ExportedTypes> = Array.from(
   FieldTypeAliases.entries()
 ).reduce((map, t) => {
   const [mappedType, types] = t;
-  types.forEach((type) => map.set(type, mappedType));
+  types.forEach(type => map.set(type, mappedType));
   return map;
 }, new Map());
 
@@ -122,15 +122,15 @@ export abstract class SupportedField implements ISupportedField {
   }
 
   get isUint8Array(): boolean {
-    return !this.isPrimitive && this._fieldType.toLowerCase() === "uint8array";
+    return !this.isPrimitive && this._fieldType.toLowerCase() === 'uint8array';
   }
 
   get isHexString(): boolean {
-    return !this.isPrimitive && this._fieldType.toLowerCase() === "hexstring";
+    return !this.isPrimitive && this._fieldType.toLowerCase() === 'hexstring';
   }
 
   get isBn(): boolean {
-    return !this.isPrimitive && this._fieldType.toLowerCase() === "bn";
+    return !this.isPrimitive && this._fieldType.toLowerCase() === 'bn';
   }
 
   get isCustom(): boolean {
@@ -138,7 +138,7 @@ export abstract class SupportedField implements ISupportedField {
       !this.isPrimitive &&
       !this.isUint8Array &&
       !this.isBn &&
-      !("innerType" in this)
+      !('innerType' in this)
     );
   }
 
@@ -153,23 +153,23 @@ export abstract class SupportedField implements ISupportedField {
     try {
       const t = SupportedField.getType(type);
       switch (t) {
-        case "bool":
+        case 'bool':
           return new BooleanType(rustName, type);
-        case "string":
+        case 'string':
           return new StringField(rustName, type);
-        case "number":
+        case 'number':
           return new NumberField(rustName, type);
-        case "bn":
+        case 'bn':
           return new BnField(rustName, type);
-        case "uint8array":
+        case 'uint8array':
           return new Uint8ArrayType(rustName, type);
         default:
           throw new Error(`Failed to match ExportedType, ${t}`);
       }
     } catch (error) {
       if (
-        type.toLowerCase() === "hexstring" ||
-        type.toLowerCase() === "address"
+        type.toLowerCase() === 'hexstring' ||
+        type.toLowerCase() === 'address'
       ) {
         return new HexStringField(rustName, type);
       }
@@ -183,11 +183,11 @@ export abstract class SupportedField implements ISupportedField {
         const mapMatch = mapMatches.shift();
         const mapKeyKind = SupportedField.from(
           rustName,
-          mapMatch.groups["keyKind"]
+          mapMatch.groups['keyKind']
         );
         const mapValKind = SupportedField.from(
           rustName,
-          mapMatch.groups["valKind"]
+          mapMatch.groups['valKind']
         );
         return new MapType(rustName, type, mapKeyKind, mapValKind);
       }
@@ -197,7 +197,7 @@ export abstract class SupportedField implements ISupportedField {
       );
       if (vecMatches && vecMatches.length) {
         const vecMatch = vecMatches.shift();
-        const vecType = SupportedField.from(rustName, vecMatch.groups["kind"]);
+        const vecType = SupportedField.from(rustName, vecMatch.groups['kind']);
         return new ArrayField(rustName, type, vecType);
       }
       // check if its optional
@@ -208,17 +208,17 @@ export abstract class SupportedField implements ISupportedField {
         const optionMatch = optionMatches.shift();
         const optionType = SupportedField.from(
           rustName,
-          optionMatch.groups["kind"]
+          optionMatch.groups['kind']
         );
         return new OptionalType(rustName, type, optionType);
       }
 
-      if (type === "Escrow<CoinType>") {
-        return new CustomStructField(rustName, type, "Escrow");
+      if (type === 'Escrow<CoinType>') {
+        return new CustomStructField(rustName, type, 'Escrow');
       }
 
-      if (type === "Coin<CoinType>") {
-        return new CustomStructField(rustName, type, "Coin");
+      if (type === 'Coin<CoinType>') {
+        return new CustomStructField(rustName, type, 'Coin');
       }
 
       // fallthrough, treat as custom type
@@ -230,26 +230,26 @@ export abstract class SupportedField implements ISupportedField {
 /// Primitive Types
 
 export abstract class PrimitiveType extends SupportedField {
-  toJsonMethod(prefix = "this") {
-    return `${prefix ? prefix + "." : ""}${this.tsName}`;
+  toJsonMethod(prefix = 'this') {
+    return `${prefix ? prefix + '.' : ''}${this.tsName}`;
   }
-  fromJsonMethod(prefix = "obj") {
-    return `${prefix ? prefix + "." : ""}${this.tsName}`;
-  }
-
-  toMoveStructMethod(prefix = "this"): string {
-    return `${prefix ? prefix + "." : ""}${this.tsName}`;
+  fromJsonMethod(prefix = 'obj') {
+    return `${prefix ? prefix + '.' : ''}${this.tsName}`;
   }
 
-  fromMoveStructMethod(prefix = "obj"): string {
-    return `${prefix ? prefix + "." : ""}${this.rustName}`;
+  toMoveStructMethod(prefix = 'this'): string {
+    return `${prefix ? prefix + '.' : ''}${this.tsName}`;
+  }
+
+  fromMoveStructMethod(prefix = 'obj'): string {
+    return `${prefix ? prefix + '.' : ''}${this.rustName}`;
   }
 }
 
 export class BooleanType extends PrimitiveType {
-  _fieldType: string = "boolean";
-  _jsonType: string = "boolean";
-  _moveStructType: string = "boolean";
+  _fieldType: string = 'boolean';
+  _jsonType: string = 'boolean';
+  _moveStructType: string = 'boolean';
 
   constructor(readonly name: string, readonly rawType: string) {
     super(name, rawType);
@@ -257,9 +257,9 @@ export class BooleanType extends PrimitiveType {
 }
 
 export class NumberField extends PrimitiveType {
-  _fieldType: string = "number";
-  _jsonType: string = "number";
-  _moveStructType: string = "number";
+  _fieldType: string = 'number';
+  _jsonType: string = 'number';
+  _moveStructType: string = 'number';
 
   constructor(readonly name: string, readonly rawType: string) {
     super(name, rawType);
@@ -267,9 +267,9 @@ export class NumberField extends PrimitiveType {
 }
 
 export class StringField extends PrimitiveType {
-  _fieldType: string = "string";
-  _jsonType: string = "string";
-  _moveStructType: string = "string";
+  _fieldType: string = 'string';
+  _jsonType: string = 'string';
+  _moveStructType: string = 'string';
 
   constructor(readonly name: string, readonly rawType: string) {
     super(name, rawType);
@@ -277,50 +277,50 @@ export class StringField extends PrimitiveType {
 }
 
 export class BnField extends SupportedField {
-  _fieldType: string = "BN";
-  _jsonType: string = "string";
-  _moveStructType: string = "string";
+  _fieldType: string = 'BN';
+  _jsonType: string = 'string';
+  _moveStructType: string = 'string';
 
   constructor(readonly name: string, readonly rawType: string) {
     super(name, rawType);
   }
 
-  toJsonMethod(prefix = "this") {
-    return `${prefix ? prefix + "." : ""}${this.tsName}.toString()`;
+  toJsonMethod(prefix = 'this') {
+    return `${prefix ? prefix + '.' : ''}${this.tsName}.toString()`;
   }
-  fromJsonMethod(prefix = "obj") {
-    return `new BN(${prefix ? prefix + "." : ""}${this.tsName})`;
+  fromJsonMethod(prefix = 'obj') {
+    return `new BN(${prefix ? prefix + '.' : ''}${this.tsName})`;
   }
 
-  toMoveStructMethod(prefix = "this") {
-    return `${prefix ? prefix + "." : ""}${this.tsName}.toString()`;
+  toMoveStructMethod(prefix = 'this') {
+    return `${prefix ? prefix + '.' : ''}${this.tsName}.toString()`;
   }
-  fromMoveStructMethod(prefix = "obj") {
-    return `new BN(${prefix ? prefix + "." : ""}${this.rustName})`;
+  fromMoveStructMethod(prefix = 'obj') {
+    return `new BN(${prefix ? prefix + '.' : ''}${this.rustName})`;
   }
 }
 
 export class HexStringField extends SupportedField {
-  _fieldType: string = "HexString";
-  _jsonType: string = "string";
-  _moveStructType: string = "string";
+  _fieldType: string = 'HexString';
+  _jsonType: string = 'string';
+  _moveStructType: string = 'string';
 
   constructor(readonly name: string, readonly rawType: string) {
     super(name, rawType);
   }
 
-  toJsonMethod(prefix = "this") {
-    return `${prefix ? prefix + "." : ""}${this.tsName}.toString()`;
+  toJsonMethod(prefix = 'this') {
+    return `${prefix ? prefix + '.' : ''}${this.tsName}.toString()`;
   }
-  fromJsonMethod(prefix = "obj") {
-    return `HexString.ensure(${prefix ? prefix + "." : ""}${this.tsName})`;
+  fromJsonMethod(prefix = 'obj') {
+    return `HexString.ensure(${prefix ? prefix + '.' : ''}${this.tsName})`;
   }
 
-  toMoveStructMethod(prefix = "this") {
-    return `${prefix ? prefix + "." : ""}${this.tsName}.toString()`;
+  toMoveStructMethod(prefix = 'this') {
+    return `${prefix ? prefix + '.' : ''}${this.tsName}.toString()`;
   }
-  fromMoveStructMethod(prefix = "obj") {
-    return `HexString.ensure(${prefix ? prefix + "." : ""}${this.rustName})`;
+  fromMoveStructMethod(prefix = 'obj') {
+    return `HexString.ensure(${prefix ? prefix + '.' : ''}${this.rustName})`;
   }
 }
 
@@ -342,8 +342,8 @@ export class OptionalType<T extends ISupportedField> extends SupportedField {
     this._moveStructType = `${innerType.moveStructType} | null`;
   }
 
-  toJsonMethod(prefix = "this"): string {
-    const name = `${prefix ? prefix + "." : ""}${this.tsName}`;
+  toJsonMethod(prefix = 'this'): string {
+    const name = `${prefix ? prefix + '.' : ''}${this.tsName}`;
     const innerMethod = this.innerType.toJsonMethod(prefix);
     if (this.innerType.isPrimitive) {
       return innerMethod;
@@ -357,11 +357,11 @@ export class OptionalType<T extends ISupportedField> extends SupportedField {
     if (this.innerType.isUint8Array) {
       return `${name} ? [...${name}] : undefined`;
     }
-    return `${name}${innerMethod ? " ? " + innerMethod : ""} : undefined`;
+    return `${name}${innerMethod ? ' ? ' + innerMethod : ''} : undefined`;
   }
 
-  fromJsonMethod(prefix = "obj"): string {
-    const name = `${prefix ? prefix + "." : ""}${this.tsName}`;
+  fromJsonMethod(prefix = 'obj'): string {
+    const name = `${prefix ? prefix + '.' : ''}${this.tsName}`;
     const innerMethod = this.innerType.fromJsonMethod(prefix);
     if (this.innerType.isPrimitive) {
       return innerMethod;
@@ -378,8 +378,8 @@ export class OptionalType<T extends ISupportedField> extends SupportedField {
     return `${name} ? ${innerMethod} : undefined`;
   }
 
-  toMoveStructMethod(prefix = "this"): string {
-    const name = `${prefix ? prefix + "." : ""}${this.tsName}`;
+  toMoveStructMethod(prefix = 'this'): string {
+    const name = `${prefix ? prefix + '.' : ''}${this.tsName}`;
     const innerMethod = this.innerType.toMoveStructMethod(prefix);
     if (this.innerType.isPrimitive) {
       return innerMethod;
@@ -393,11 +393,11 @@ export class OptionalType<T extends ISupportedField> extends SupportedField {
     if (this.innerType.isUint8Array) {
       return `${name} ? [...${name}] : null`;
     }
-    return `${name}${innerMethod ? " ? " + innerMethod : ""} : null`;
+    return `${name}${innerMethod ? ' ? ' + innerMethod : ''} : null`;
   }
 
-  fromMoveStructMethod(prefix = "obj"): string {
-    const name = `${prefix ? prefix + "." : ""}${this.rustName}`;
+  fromMoveStructMethod(prefix = 'obj'): string {
+    const name = `${prefix ? prefix + '.' : ''}${this.rustName}`;
     const innerMethod = this.innerType.fromMoveStructMethod(prefix);
     if (this.innerType.isPrimitive) {
       return innerMethod;
@@ -431,21 +431,21 @@ export class CustomStructField extends SupportedField {
     this._moveStructType = `types.${customTypeName}MoveStruct`;
   }
 
-  toJsonMethod(prefix = "this"): string {
-    return `${prefix ? prefix + "." : ""}${this.tsName}.toJSON()`;
+  toJsonMethod(prefix = 'this'): string {
+    return `${prefix ? prefix + '.' : ''}${this.tsName}.toJSON()`;
   }
 
-  fromJsonMethod(prefix = "obj"): string {
-    const name = `${prefix ? prefix + "." : ""}${this.tsName}`;
+  fromJsonMethod(prefix = 'obj'): string {
+    const name = `${prefix ? prefix + '.' : ''}${this.tsName}`;
     return `types.${this.customTypeName}.fromJSON(${name})`;
   }
 
-  toMoveStructMethod(prefix = "this"): string {
-    return `${prefix ? prefix + "." : ""}${this.tsName}.toMoveStruct()`;
+  toMoveStructMethod(prefix = 'this'): string {
+    return `${prefix ? prefix + '.' : ''}${this.tsName}.toMoveStruct()`;
   }
 
-  fromMoveStructMethod(prefix = "obj") {
-    const name = `${prefix ? prefix + "." : ""}${this.rustName}`;
+  fromMoveStructMethod(prefix = 'obj') {
+    const name = `${prefix ? prefix + '.' : ''}${this.rustName}`;
     return `types.${this.customTypeName}.fromMoveStruct(${name})`;
   }
 }
@@ -466,8 +466,8 @@ export class ArrayField<T extends ISupportedField> extends SupportedField {
     this._moveStructType = `Array<${innerType.moveStructType}>`;
   }
 
-  toJsonMethod(prefix = "this"): string {
-    const name = `${prefix ? prefix + "." : ""}${this.tsName}`;
+  toJsonMethod(prefix = 'this'): string {
+    const name = `${prefix ? prefix + '.' : ''}${this.tsName}`;
     if (this.innerType.isPrimitive) {
       return `${name}.map((item) => item)`;
     }
@@ -483,11 +483,11 @@ export class ArrayField<T extends ISupportedField> extends SupportedField {
     if (this.innerType.isCustom) {
       return `${name}.map((item) => item.toJSON())`;
     }
-    return `${name}.map((item) => ${this.innerType.toJsonMethod("item")})`;
+    return `${name}.map((item) => ${this.innerType.toJsonMethod('item')})`;
   }
 
-  toMoveStructMethod(prefix = "this"): string {
-    const name = `${prefix ? prefix + "." : ""}${this.tsName}`;
+  toMoveStructMethod(prefix = 'this'): string {
+    const name = `${prefix ? prefix + '.' : ''}${this.tsName}`;
     if (this.innerType.isPrimitive) {
       return `${name}.map((item) => item)`;
     }
@@ -504,12 +504,12 @@ export class ArrayField<T extends ISupportedField> extends SupportedField {
       return `${name}.map((item) => item.toMoveStruct())`;
     }
     return `${name}.map((item) => ${this.innerType.toMoveStructMethod(
-      "item"
+      'item'
     )})`;
   }
 
-  fromJsonMethod(prefix = "obj"): string {
-    const name = `${prefix ? prefix + "." : ""}${this.tsName}`;
+  fromJsonMethod(prefix = 'obj'): string {
+    const name = `${prefix ? prefix + '.' : ''}${this.tsName}`;
     if (this.innerType.isUint8Array) {
       return `${name}.map((item) => new Uint8Array(item))`;
     }
@@ -528,12 +528,12 @@ export class ArrayField<T extends ISupportedField> extends SupportedField {
       }.fromJSON(item))`;
     }
     return `Array.from(${name}.map((item) => ${this.innerType.fromJsonMethod(
-      "item"
+      'item'
     )}))`;
   }
 
-  fromMoveStructMethod(prefix = "obj"): string {
-    const name = `${prefix ? prefix + "." : ""}${this.rustName}`;
+  fromMoveStructMethod(prefix = 'obj'): string {
+    const name = `${prefix ? prefix + '.' : ''}${this.rustName}`;
     if (this.innerType.isUint8Array) {
       return `${name}.map((item) => new Uint8Array(item))`;
     }
@@ -552,7 +552,7 @@ export class ArrayField<T extends ISupportedField> extends SupportedField {
       }.fromMoveStruct(item))`;
     }
     return `Array.from(${name}.map((item) => ${this.innerType.fromMoveStructMethod(
-      "item"
+      'item'
     )}))`;
   }
 }
@@ -573,23 +573,23 @@ export class Uint8ArrayType extends ArrayField<NumberField> {
     this._moveStructType = `string`;
   }
 
-  toJsonMethod(prefix = "this"): string {
-    const name = `${prefix ? prefix + "." : ""}${this.tsName}`;
+  toJsonMethod(prefix = 'this'): string {
+    const name = `${prefix ? prefix + '.' : ''}${this.tsName}`;
     return `[...${name}]`;
   }
 
-  toMoveStructMethod(prefix = "this"): string {
-    const name = `${prefix ? prefix + "." : ""}${this.tsName}`;
+  toMoveStructMethod(prefix = 'this'): string {
+    const name = `${prefix ? prefix + '.' : ''}${this.tsName}`;
     return `Buffer.from(${name}).toString("hex")`;
   }
 
-  fromJsonMethod(prefix = "obj"): string {
-    const name = `${prefix ? prefix + "." : ""}${this.tsName}`;
+  fromJsonMethod(prefix = 'obj'): string {
+    const name = `${prefix ? prefix + '.' : ''}${this.tsName}`;
     return `new Uint8Array(${name})`;
   }
 
-  fromMoveStructMethod(prefix = "obj"): string {
-    const name = `${prefix ? prefix + "." : ""}${this.rustName}`;
+  fromMoveStructMethod(prefix = 'obj'): string {
+    const name = `${prefix ? prefix + '.' : ''}${this.rustName}`;
     return `typeof ${name} === "string" ? new Uint8Array(Buffer.from(${name}.slice(2), "hex")) : new Uint8Array(${name})`;
     // return `Array.isArray(${name}) ? new Uint8Array(${name}) : typeof ${name} === "string" ? new Uint8Array(Buffer.from(${name}, "hex")) : new Uint8Array(${name})`;
   }
@@ -615,18 +615,18 @@ export class MapType<
     this._moveStructType = `Map<${key.moveStructType}, ${value.moveStructType}>`;
   }
 
-  toJsonMethod(prefix = "this"): string {
-    const name = `${prefix ? prefix + "." : ""}${this.tsName}`;
+  toJsonMethod(prefix = 'this'): string {
+    const name = `${prefix ? prefix + '.' : ''}${this.tsName}`;
     return `Object.fromEntries(this.${this.tsName})`;
   }
 
-  toMoveStructMethod(prefix = "this"): string {
-    const name = `${prefix ? prefix + "." : ""}${this.tsName}`;
+  toMoveStructMethod(prefix = 'this'): string {
+    const name = `${prefix ? prefix + '.' : ''}${this.tsName}`;
     return this.toJsonMethod();
   }
 
-  fromJsonMethod(prefix = "obj"): string {
-    const name = `${prefix ? prefix + "." : ""}${this.tsName}`;
+  fromJsonMethod(prefix = 'obj'): string {
+    const name = `${prefix ? prefix + '.' : ''}${this.tsName}`;
     if (this.key.isUint8Array) {
       if (this.value.isCustom) {
         return `new Map(Array.from(${name}.entries()).map(([k,v]) => [new Uint8Array(k), types.${
@@ -637,16 +637,16 @@ export class MapType<
         return `new Map(Array.from(${name}.entries()).map(([k,v]) => [new Uint8Array(k), new Uint8Array(v)]))`;
       }
       return `new Map(Array.from(${name}.entries()).map(([k,v]) => [new Uint8Array(k), ${this.value.fromJsonMethod(
-        "v"
+        'v'
       )}]))`;
     }
     return `new Map(Array.from(${name}.entries()).map(([k,v]) => [k, ${this.value.fromJsonMethod(
-      "v"
+      'v'
     )}]))`;
   }
 
-  fromMoveStructMethod(prefix = "obj"): string {
-    const name = `${prefix ? prefix + "." : ""}${this.rustName}`;
+  fromMoveStructMethod(prefix = 'obj'): string {
+    const name = `${prefix ? prefix + '.' : ''}${this.rustName}`;
     if (this.key.isUint8Array) {
       if (this.value.isCustom) {
         return `new Map(Array.from(${name}.entries()).map(([k,v]) => [new Uint8Array(k), types.${
@@ -657,11 +657,11 @@ export class MapType<
         return `new Map(Array.from(${name}.entries()).map(([k,v]) => [new Uint8Array(k), new Uint8Array(v)]))`;
       }
       return `new Map(Array.from(${name}.entries()).map(([k,v]) => [new Uint8Array(k), ${this.value.fromMoveStructMethod(
-        ""
+        ''
       )}]))`;
     }
     return `new Map(Array.from(${name}.entries()).map(([k,v]) => [k, ${this.value.fromMoveStructMethod(
-      "v"
+      'v'
     )}]))`;
   }
 }

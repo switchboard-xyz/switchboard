@@ -1,16 +1,17 @@
-import fs from "fs";
-import path from "path";
-import { execSync } from "child_process";
-import { getAllFiles } from "../utilts";
-import { ProgramStructs } from "../rust/generator";
+import { ProgramStructs } from '../rust/generator';
+import { getAllFiles } from '../utilts';
+
+import { execSync } from 'child_process';
+import fs from 'fs';
+import path from 'path';
 
 export function nearTypes(nearSourceDir: string, outputDirectory: string) {
   console.log(`Finding input files ...`);
 
   const inputDirectory =
-    nearSourceDir.startsWith("/") ||
-    nearSourceDir.startsWith("C:") ||
-    nearSourceDir.startsWith("D:")
+    nearSourceDir.startsWith('/') ||
+    nearSourceDir.startsWith('C:') ||
+    nearSourceDir.startsWith('D:')
       ? nearSourceDir
       : path.join(process.cwd(), nearSourceDir);
 
@@ -18,7 +19,7 @@ export function nearTypes(nearSourceDir: string, outputDirectory: string) {
     throw new Error(`Failed to find input directory ${inputDirectory}`);
   }
 
-  const sourceFiles = getAllFiles("rs", inputDirectory, []);
+  const sourceFiles = getAllFiles('rs', inputDirectory, []);
   if (sourceFiles.length === 0) {
     throw new Error(`Failed to find source files in ${inputDirectory}`);
   }

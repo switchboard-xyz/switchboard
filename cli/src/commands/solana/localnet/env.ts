@@ -1,11 +1,12 @@
-import { Flags } from "@oclif/core";
-import path from "path";
-import fs from "fs";
-import chalk from "chalk";
 import { SolanaWithSignerBaseCommand as BaseCommand } from "../../../solana";
-import { SwitchboardTestContext } from "@switchboard-xyz/solana.js";
 import { CHECK_ICON } from "../../../utils/icons";
+
+import { Flags } from "@oclif/core";
 import { PublicKey } from "@solana/web3.js";
+import { SwitchboardTestContext } from "@switchboard-xyz/solana.js";
+import chalk from "chalk";
+import fs from "fs";
+import path from "path";
 
 export default class LocalnetEnvironment extends BaseCommand {
   static description = "create a localnet switchboard environment";

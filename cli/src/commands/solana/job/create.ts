@@ -1,9 +1,10 @@
+import { SolanaWithSignerBaseCommand as BaseCommand } from "../../../solana";
+import { CHECK_ICON } from "../../../utils/icons";
+
 import { Flags } from "@oclif/core";
 import { Keypair } from "@solana/web3.js";
 import { OracleJob } from "@switchboard-xyz/common";
 import { JobAccount } from "@switchboard-xyz/solana.js";
-import { SolanaWithSignerBaseCommand as BaseCommand } from "../../../solana";
-import { CHECK_ICON } from "../../../utils/icons";
 import chalk from "chalk";
 
 export default class BufferCreate extends BaseCommand {

@@ -1,11 +1,16 @@
-import { AccountMeta, Keypair, PublicKey } from "@solana/web3.js";
+/* eslint unicorn/no-array-push-push: 0 */
+/* eslint new-cap: 0 */
+
 import { NoPayerKeypairProvided } from "../types";
 import { chalkString } from "../utils";
+
+import { AccountMeta, Keypair, PublicKey } from "@solana/web3.js";
 import {
   BNtoDateTimeString,
   buf2String,
   OracleJob,
 } from "@switchboard-xyz/common";
+import { BN } from "@switchboard-xyz/common";
 import {
   AggregatorAccounts,
   SwitchboardProgram,
@@ -13,7 +18,6 @@ import {
   VrfAccounts,
 } from "@switchboard-xyz/solana.js";
 import chalk from "chalk";
-import { BN } from "bn.js";
 
 export const programHasPayer = (program: SwitchboardProgram): boolean => {
   const payer = program.wallet.payer;
@@ -193,6 +197,7 @@ export function prettyPrintLease(
   if (balance && balance > 0) {
     output.push(chalkString("balance", balance, SPACING));
   }
+
   output.push(chalkString("escrow", lease.escrow, SPACING));
   output.push(
     chalkString("withdrawAuthority", lease.withdrawAuthority, SPACING)

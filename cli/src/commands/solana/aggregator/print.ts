@@ -1,6 +1,7 @@
+import { SolanaWithoutSignerBaseCommand as BaseCommand } from "../../../solana";
+
 import { Args, Flags } from "@oclif/core";
 import { AggregatorAccount, QueueAccount } from "@switchboard-xyz/solana.js";
-import { SolanaWithoutSignerBaseCommand as BaseCommand } from "../../../solana";
 
 export default class AggregatorPrint extends BaseCommand {
   static enableJsonFlag = true;

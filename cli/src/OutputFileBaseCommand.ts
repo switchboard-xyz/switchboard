@@ -1,11 +1,12 @@
+import { CliBaseCommand } from "./BaseCommand";
+
+import * as anchor from "@coral-xyz/anchor";
 import { Flags } from "@oclif/core";
 import { Input } from "@oclif/parser";
-import * as anchor from "@coral-xyz/anchor";
 import { SwitchboardDecimal } from "@switchboard-xyz/common";
 import { Big } from "@switchboard-xyz/common";
 import fs from "fs";
 import path from "path";
-import { CliBaseCommand } from "./BaseCommand";
 
 export abstract class OutputFileBaseCommand extends CliBaseCommand {
   outputBasePath: string;
@@ -74,23 +75,31 @@ export abstract class OutputFileBaseCommand extends CliBaseCommand {
   jsonReplacers(key: any, value: any) {
     if (typeof value === "string") {
       return value;
-    } else if (typeof value === "number") {
+    }
+
+    if (typeof value === "number") {
       return value;
-    } else if (typeof value === "boolean") {
+    }
+
+    if (typeof value === "boolean") {
       return value.toString();
-    } else {
-      if (value instanceof Big) {
-        return value.toString();
-      } else if (anchor.BN.isBN(value)) {
-        return value.toString(10);
-      } else if (
-        ("scale" in value && "mantissa" in value) ||
-        value instanceof SwitchboardDecimal
-      ) {
-        return new SwitchboardDecimal(value.mantissa, value.scale)
-          .toBig()
-          .toString();
-      }
+    }
+
+    if (value instanceof Big) {
+      return value.toString();
+    }
+
+    if (anchor.BN.isBN(value)) {
+      return value.toString(10);
+    }
+
+    if (
+      ("scale" in value && "mantissa" in value) ||
+      value instanceof SwitchboardDecimal
+    ) {
+      return new SwitchboardDecimal(value.mantissa, value.scale)
+        .toBig()
+        .toString();
     }
 
     return value;
@@ -100,6 +109,7 @@ export abstract class OutputFileBaseCommand extends CliBaseCommand {
     if (rows) {
       this.saveJson(rows);
     }
+
     if (rows !== undefined && headers !== undefined) {
       this.saveCsv(rows, headers);
     }
@@ -119,24 +129,26 @@ export abstract class OutputFileBaseCommand extends CliBaseCommand {
       const grid: string[][] = [];
       grid.push(headers as string[]);
       if (Array.isArray(rows)) {
-        rows.forEach((row) => {
+        for (const row of rows) {
           const cols: string[] = [];
-          headers.forEach((col) => {
+          for (const col of headers) {
             const val = row[col];
             cols.push(
               typeof val === "string" ? val : this.jsonReplacers(undefined, val)
             );
-          });
+          }
+
           grid.push(cols);
-        });
+        }
       } else {
         const cols: string[] = [];
-        headers.forEach((col) => {
+        for (const col of headers) {
           const val = rows[col];
           cols.push(
             typeof val === "string" ? val : this.jsonReplacers(undefined, val)
           );
-        });
+        }
+
         grid.push(cols);
       }
 

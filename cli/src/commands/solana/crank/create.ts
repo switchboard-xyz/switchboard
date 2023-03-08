@@ -1,8 +1,9 @@
+import { SolanaWithSignerBaseCommand as BaseCommand } from "../../../solana";
+import { CHECK_ICON } from "../../../utils";
+
 import { Args, Flags } from "@oclif/core";
 import { QueueAccount } from "@switchboard-xyz/solana.js";
 import chalk from "chalk";
-import { SolanaWithSignerBaseCommand as BaseCommand } from "../../../solana";
-import { CHECK_ICON } from "../../../utils";
 
 export default class CrankCreate extends BaseCommand {
   static enableJsonFlag = true;

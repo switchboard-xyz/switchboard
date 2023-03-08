@@ -1,19 +1,13 @@
+import { DEFAULT_LOGGER, ILogProvider } from "./logging";
+
+import * as anchor from "@coral-xyz/anchor";
 import { Keypair } from "@solana/web3.js";
+import { Big, toUtf8 } from "@switchboard-xyz/common";
+import { SwitchboardDecimal } from "@switchboard-xyz/common";
+import bs58 from "bs58";
 import chalk from "chalk";
 import fs from "fs";
 import path from "path";
-import * as anchor from "@coral-xyz/anchor";
-import { Big } from "@switchboard-xyz/common";
-import bs58 from "bs58";
-import { ILogProvider, DEFAULT_LOGGER } from "./logging";
-import { SwitchboardDecimal } from "@switchboard-xyz/common";
-
-export const toUtf8 = (buf: any): string => {
-  buf = buf ?? "";
-  return Buffer.from(buf)
-    .toString("utf8")
-    .replace(/\u0000/g, "");
-};
 
 export class FsProvider {
   dataDir: string;
@@ -70,27 +64,39 @@ export class FsProvider {
   jsonReplacers(key: any, value: any) {
     if (typeof value === "string") {
       return value;
-    } else if (typeof value === "number") {
+    }
+
+    if (typeof value === "number") {
       return value;
-    } else if (typeof value === "boolean") {
+    }
+
+    if (typeof value === "boolean") {
       return value.toString();
-    } else {
-      if (key === "name" || (key === "metadata" && Array.isArray(value))) {
-        return toUtf8(Buffer.from(value));
-      } else if (key === "address" && Array.isArray(value)) {
-        return bs58.encode(value);
-      } else if (value instanceof Big) {
-        return value.toString();
-      } else if (anchor.BN.isBN(value)) {
-        return value.toString(10);
-      } else if (
-        ("scale" in value && "mantissa" in value) ||
-        value instanceof SwitchboardDecimal
-      ) {
-        return new SwitchboardDecimal(value.mantissa, value.scale)
-          .toBig()
-          .toString();
-      }
+    }
+
+    if (key === "name" || (key === "metadata" && Array.isArray(value))) {
+      return toUtf8(Buffer.from(value));
+    }
+
+    if (key === "address" && Array.isArray(value)) {
+      return bs58.encode(value);
+    }
+
+    if (value instanceof Big) {
+      return value.toString();
+    }
+
+    if (anchor.BN.isBN(value)) {
+      return value.toString(10);
+    }
+
+    if (
+      ("scale" in value && "mantissa" in value) ||
+      value instanceof SwitchboardDecimal
+    ) {
+      return new SwitchboardDecimal(value.mantissa, value.scale)
+        .toBig()
+        .toString();
     }
 
     return value;
@@ -104,6 +110,7 @@ export class FsProvider {
     if (rows) {
       this.saveJson(`${baseFileName}.json`, rows);
     }
+
     if (rows !== undefined && headers !== undefined) {
       this.saveCsv(`${baseFileName}.csv`, rows, headers);
     }
@@ -127,24 +134,26 @@ export class FsProvider {
       const grid: string[][] = [];
       grid.push(headers as string[]);
       if (Array.isArray(rows)) {
-        rows.forEach((row) => {
+        for (const row of rows) {
           const cols: string[] = [];
-          headers.forEach((col) => {
+          for (const col of headers) {
             const val = row[col];
             cols.push(
               typeof val === "string" ? val : this.jsonReplacers(undefined, val)
             );
-          });
+          }
+
           grid.push(cols);
-        });
+        }
       } else {
         const cols: string[] = [];
-        headers.forEach((col) => {
+        for (const col of headers) {
           const val = rows[col];
           cols.push(
             typeof val === "string" ? val : this.jsonReplacers(undefined, val)
           );
-        });
+        }
+
         grid.push(cols);
       }
 
@@ -154,12 +163,13 @@ export class FsProvider {
   }
 
   static getSecret<T>(
-    fileSystemPath: string | undefined = "../payer_secrets.json",
+    fileSystemPath: string,
     fileParser: (fileString: string) => T
   ): T {
     if (!fileSystemPath || fileSystemPath.length === 0) {
       throw new Error(`Failed to provide a fileSystemPath`);
     }
+
     if (!fs.existsSync(fileSystemPath)) {
       throw new Error(`fileSystemPath does not exist`);
     }

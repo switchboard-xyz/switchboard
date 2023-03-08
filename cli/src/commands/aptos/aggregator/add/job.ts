@@ -1,7 +1,8 @@
-import { Flags, Args } from "@oclif/core";
 import { AptosWithSignerBaseCommand as BaseCommand } from "../../../../aptos";
-import { OracleJob } from "@switchboard-xyz/common";
+
+import { Args, Flags } from "@oclif/core";
 import { JobAccount, SwitchboardProgram } from "@switchboard-xyz/aptos.js";
+import { OracleJob } from "@switchboard-xyz/common";
 
 export default class AggregatorAddJob extends BaseCommand {
   static description = "add a job to an aggregator";

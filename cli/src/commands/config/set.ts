@@ -1,5 +1,6 @@
-import { Args, Flags } from "@oclif/core";
 import { CliBaseCommand as BaseCommand } from "../../BaseCommand";
+
+import { Args, Flags } from "@oclif/core";
 
 export default class ConfigSet extends BaseCommand {
   hidden = true;

@@ -1,16 +1,17 @@
+import { SolanaWithoutSignerBaseCommand as BaseCommand } from "../../solana/index";
+
 import { Args, Flags } from "@oclif/core";
 import { ConfirmedSignatureInfo, PublicKey } from "@solana/web3.js";
-import { SolanaWithoutSignerBaseCommand as BaseCommand } from "../../solana/index";
-import fs from "fs";
-import _ from "lodash";
-import { types } from "@switchboard-xyz/solana.js";
-import base58 from "bs58";
 import {
   BN,
   BNtoDateTimeString,
   isBase58,
   toDateTimeString,
 } from "@switchboard-xyz/common";
+import { types } from "@switchboard-xyz/solana.js";
+import base58 from "bs58";
+import fs from "fs";
+import _ from "lodash";
 
 const discriminatorMap = new Map([
   [Buffer.from([66, 57, 216, 251, 165, 107, 128, 98]).toString(), "CrankPop"],

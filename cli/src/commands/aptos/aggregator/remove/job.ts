@@ -1,5 +1,6 @@
-import { Flags, Args } from "@oclif/core";
 import { AptosWithSignerBaseCommand as BaseCommand } from "../../../../aptos";
+
+import { Args, Flags } from "@oclif/core";
 import { JobAccount } from "@switchboard-xyz/aptos.js";
 import { HexString } from "aptos";
 
@@ -43,7 +44,7 @@ export default class AggregatorRemoveJob extends BaseCommand {
       aggregatorData.authority.toString()
     );
 
-    for (const jobKey of flags.jobAddress ?? []) {
+    for await (const jobKey of flags.jobAddress ?? []) {
       const jobAccount = new JobAccount(
         this.aptos,
         this.parseAddress(jobKey).toString(),

@@ -1,5 +1,6 @@
-import { Args, Flags } from "@oclif/core";
 import { AptosWithSignerBaseCommand as BaseCommand } from "../../../aptos";
+
+import { Args, Flags } from "@oclif/core";
 
 export default class CrankPush extends BaseCommand {
   static enableJsonFlag = true;

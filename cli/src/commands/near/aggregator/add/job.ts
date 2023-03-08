@@ -1,7 +1,8 @@
-import { Args, Flags } from "@oclif/core";
 import { NearWithSignerBaseCommand as BaseCommand } from "../../../../near";
-import { AggregatorAccount, JobAccount } from "@switchboard-xyz/near.js";
+
+import { Args, Flags } from "@oclif/core";
 import { OracleJob } from "@switchboard-xyz/common";
+import { AggregatorAccount, JobAccount } from "@switchboard-xyz/near.js";
 
 export default class AggregatorAddJob extends BaseCommand {
   static description = "add a job to an aggregator";

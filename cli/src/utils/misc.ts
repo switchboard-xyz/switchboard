@@ -1,7 +1,7 @@
 import * as anchor from "@coral-xyz/anchor";
 import { PublicKey } from "@solana/web3.js";
 import { Big } from "@switchboard-xyz/common";
-import { BN } from "bn.js";
+import { BN } from "@switchboard-xyz/common";
 import chalk from "chalk";
 
 export const chalkString = (
@@ -21,21 +21,13 @@ export const chalkString = (
   if (value === undefined) {
     valueString = "undefined";
   } else if (typeof value === "string") {
-    if (value === "11111111111111111111111111111111") {
-      valueString = "N/A";
-    } else {
-      valueString = value;
-    }
+    valueString = value === "11111111111111111111111111111111" ? "N/A" : value;
   } else if (typeof value === "number") {
     valueString = value.toString(10);
   } else if (typeof value === "boolean") {
     valueString = value.toString();
   } else if (value instanceof PublicKey) {
-    if (value.equals(PublicKey.default)) {
-      valueString = "N/A";
-    } else {
-      valueString = value.toBase58();
-    }
+    valueString = value.equals(PublicKey.default) ? "N/A" : value.toBase58();
   } else if (value instanceof Big) {
     valueString = value.toString();
   } else if (BN.isBN(value)) {

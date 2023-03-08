@@ -1,9 +1,10 @@
-import { Args } from "@oclif/core";
-import { HexString } from "aptos";
-import { BN } from "@switchboard-xyz/common";
-import chalk from "chalk";
 import { AptosWithoutSignerBaseCommand as BaseCommand } from "../../../aptos";
 import { pqSort } from "../../../utils/crank";
+
+import { Args } from "@oclif/core";
+import { BN } from "@switchboard-xyz/common";
+import { HexString } from "aptos";
+import chalk from "chalk";
 
 export default class CrankList extends BaseCommand {
   static enableJsonFlag = true;

@@ -16,7 +16,7 @@
     "esModuleInterop": true,
     "resolveJsonModule": true,
     "skipLibCheck": true,
-    "types": ["node", "long", "jest"],
+    "types": ["node", "jest"],
     "allowJs": true,
     "checkJs": false,
     // strict

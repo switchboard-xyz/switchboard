@@ -3,30 +3,31 @@
  * - Logger
  * - Filesystem Utils
  */
-import { Command, Flags } from "@oclif/core";
-import { Input } from "@oclif/parser";
-import chalk from "chalk";
-import fs from "fs";
-import path from "path";
+import {
+  ConfigProvider,
+  FsProvider,
+  LoggerParameters,
+  LogProvider,
+} from "./providers";
 import {
   baseJsonReplacers,
   chalkString,
   FAILED_ICON,
   normalizeFilePath,
 } from "./utils";
-import bs58 from "bs58";
+
+import { Command, Flags } from "@oclif/core";
+import { Input } from "@oclif/parser";
+import { PublicKey } from "@solana/web3.js";
 import { Big } from "@switchboard-xyz/common";
 import { OracleJob, toUtf8 } from "@switchboard-xyz/common";
-import {
-  FsProvider,
-  LogProvider,
-  LoggerParameters,
-  ConfigProvider,
-} from "./providers";
-import { HexString } from "aptos";
-import { PublicKey } from "@solana/web3.js";
-import { isBN } from "bn.js";
+import { BN } from "@switchboard-xyz/common";
 import { SwitchboardDecimal } from "@switchboard-xyz/common";
+import { HexString } from "aptos";
+import bs58 from "bs58";
+import chalk from "chalk";
+import fs from "fs";
+import path from "path";
 
 export abstract class CliBaseCommand extends Command {
   static flags = {
@@ -126,28 +127,8 @@ export abstract class CliBaseCommand extends Command {
       (error as any).parse = undefined;
     }
 
-    if (error instanceof Error) {
-      throw error;
-
-      // if (error.message) {
-      //   const messageLines = error.message.split("\n");
-      //   logger.error(messageLines[0]);
-      // }
-
-      // if (this.verbose) {
-      //   console.error(error);
-      // }
-
-      // if (error.stack) {
-      //   logger.error(error);
-      // } else {
-      //   logger.error(error.toString());
-      // }
-
-      // // this.exit(1); // causes unreadable errors?
-    } else {
-      throw error;
-    }
+    const error_ = error instanceof Error ? error : error;
+    throw error_;
   }
 
   logConfig(c: Record<string, string>, writeHeader = true) {
@@ -204,7 +185,6 @@ export abstract class CliBaseCommand extends Command {
     );
   }
 
-  // eslint-disable-next-line complexity
   jsonReplacers(key: any, value: any): any {
     if (
       !value ||
@@ -264,7 +244,7 @@ export abstract class CliBaseCommand extends Command {
       return value.toString();
     }
 
-    if (isBN(value)) {
+    if (BN.isBN(value)) {
       return value.toString();
     }
 

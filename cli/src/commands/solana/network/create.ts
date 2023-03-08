@@ -1,10 +1,11 @@
+import { SolanaWithSignerBaseCommand as BaseCommand } from "../../../solana";
+import { normalizeFilePath, PLUS_ICON } from "../../../utils";
+
 import { Flags } from "@oclif/core";
 import { Keypair } from "@solana/web3.js";
-import { SolanaWithSignerBaseCommand as BaseCommand } from "../../../solana";
-import { PLUS_ICON, normalizeFilePath } from "../../../utils";
+import { NetworkJSON, SwitchboardNetwork } from "@switchboard-xyz/solana.js";
 import chalk from "chalk";
 import fs from "fs";
-import { SwitchboardNetwork, NetworkJSON } from "@switchboard-xyz/solana.js";
 
 export default class NetworkCreate extends BaseCommand {
   static enableJsonFlag = true;

@@ -1,5 +1,6 @@
-import { Flags } from "@oclif/core";
 import { NearWithSignerBaseCommand as BaseCommand } from "../../../near";
+
+import { Flags } from "@oclif/core";
 
 export default class CreateEscrow extends BaseCommand {
   static enableJsonFlag = true;

@@ -1,5 +1,10 @@
+/* eslint no-negated-condition: 0 */
+
+import { SolanaWithSignerBaseCommand as BaseCommand } from "../../../solana";
+import { AggregatorIllegalRoundOpenCall } from "../../../types";
+import { CHECK_ICON } from "../../../utils";
+
 import { Args, Flags } from "@oclif/core";
-import { PublicKey } from "@solana/web3.js";
 import {
   AggregatorAccount,
   CrankAccount,
@@ -10,9 +15,6 @@ import {
   types,
 } from "@switchboard-xyz/solana.js";
 import chalk from "chalk";
-import { SolanaWithSignerBaseCommand as BaseCommand } from "../../../solana";
-import { AggregatorIllegalRoundOpenCall } from "../../../types";
-import { CHECK_ICON } from "../../../utils";
 
 export default class AggregatorTransfer extends BaseCommand {
   static description = "transfer an aggregator to a new queue";
@@ -200,12 +202,10 @@ export default class AggregatorTransfer extends BaseCommand {
           );
           txns.push(permissionSet);
           skipPermissionCheck = true;
-        } else {
-          if (!flags.force) {
-            throw new Error(
-              `Permission account lacks permissions to join this queue. Try providing the --queueAuthority flag or have the queue authority enable your permission account`
-            );
-          }
+        } else if (!flags.force) {
+          throw new Error(
+            `Permission account lacks permissions to join this queue. Try providing the --queueAuthority flag or have the queue authority enable your permission account`
+          );
         }
       }
     } else {
@@ -238,22 +238,22 @@ export default class AggregatorTransfer extends BaseCommand {
           );
           txns.push(permissionSet);
           skipPermissionCheck = true;
-        } else {
-          if (!flags.force) {
-            throw new Error(
-              `Permission account lacks permissions to join this queue. Try providing the --queueAuthority flag or have the queue authority enable your permission account`
-            );
-          }
+        } else if (!flags.force) {
+          throw new Error(
+            `Permission account lacks permissions to join this queue. Try providing the --queueAuthority flag or have the queue authority enable your permission account`
+          );
         }
       }
     }
 
-    if (!skipPermissionCheck && !newQueue.unpermissionedFeedsEnabled) {
-      if (!flags.force) {
-        throw new Error(
-          `Permission account lacks permissions to join this queue. Try providing the --queueAuthority flag or have the queue authority enable your permission account`
-        );
-      }
+    if (
+      !skipPermissionCheck &&
+      !newQueue.unpermissionedFeedsEnabled &&
+      !flags.force
+    ) {
+      throw new Error(
+        `Permission account lacks permissions to join this queue. Try providing the --queueAuthority flag or have the queue authority enable your permission account`
+      );
     }
 
     // set the feeds queue
@@ -284,6 +284,7 @@ export default class AggregatorTransfer extends BaseCommand {
       if (!newCrank.queuePubkey.equals(newQueueAccount.publicKey)) {
         throw new Error(`Crank is owned by the wrong queue`);
       }
+
       const crankPush = newCrankAccount.pushInstructionSync(
         this.program.walletPubkey,
         {

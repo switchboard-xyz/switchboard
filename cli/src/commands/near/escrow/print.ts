@@ -1,6 +1,7 @@
+import { NearWithSignerBaseCommand as BaseCommand } from "../../../near";
+
 import { Flags } from "@oclif/core";
 import { EscrowAccount } from "@switchboard-xyz/near.js";
-import { NearWithSignerBaseCommand as BaseCommand } from "../../../near";
 
 export default class CreateEscrow extends BaseCommand {
   static enableJsonFlag = true;

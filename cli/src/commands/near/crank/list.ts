@@ -1,8 +1,9 @@
-import { Args } from "@oclif/core";
 import { NearWithoutSignerBaseCommand as BaseCommand } from "../../../near";
+import { pqSort } from "../../../utils/crank";
+
+import { Args } from "@oclif/core";
 import { toBase58 } from "@switchboard-xyz/near.js";
 import chalk from "chalk";
-import { pqSort } from "../../../utils/crank";
 
 export default class CrankList extends BaseCommand {
   static description = "pop the crank";

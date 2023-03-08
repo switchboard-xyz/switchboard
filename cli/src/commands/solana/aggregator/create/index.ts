@@ -1,10 +1,11 @@
+import { SolanaWithSignerBaseCommand as BaseCommand } from "../../../../solana";
+import { CHECK_ICON } from "../../../../utils";
+
 import { Args, Flags } from "@oclif/core";
 import { Keypair, PublicKey } from "@solana/web3.js";
 import { OracleJob } from "@switchboard-xyz/common";
 import { JobInitParams, QueueAccount } from "@switchboard-xyz/solana.js";
-import { SolanaWithSignerBaseCommand as BaseCommand } from "../../../../solana";
 import chalk from "chalk";
-import { CHECK_ICON } from "../../../../utils";
 
 export default class AggregatorCreate extends BaseCommand {
   static enableJsonFlag = true;
@@ -139,7 +140,7 @@ export default class AggregatorCreate extends BaseCommand {
       ? await this.loadAuthority(flags.authority)
       : this.program.wallet.payer;
 
-    let keypair: Keypair | undefined = undefined;
+    let keypair: Keypair | undefined;
     if (flags.aggregatorKeypair) {
       keypair = await this.loadKeypair(flags.aggregatorKeypair);
     }

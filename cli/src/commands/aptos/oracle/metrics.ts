@@ -1,6 +1,7 @@
+import { AptosWithoutSignerBaseCommand as BaseCommand } from "../../../aptos";
+
 import { Args } from "@oclif/core";
 import { OracleAccount, types } from "@switchboard-xyz/aptos.js";
-import { AptosWithoutSignerBaseCommand as BaseCommand } from "../../../aptos";
 
 export default class OracleMetrics extends BaseCommand {
   static enableJsonFlag = true;
@@ -41,6 +42,7 @@ export default class OracleMetrics extends BaseCommand {
     );
 
     // merge queue data
+    // eslint-disable-next-line unicorn/no-array-reduce, unicorn/prefer-object-from-entries
     const data = oracleData.reduce(
       (prev, curr) => ({ ...prev, ...curr.data }),
       {}

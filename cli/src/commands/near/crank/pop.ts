@@ -1,24 +1,24 @@
-import { Args } from "@oclif/core";
 import { NearWithSignerBaseCommand as BaseCommand } from "../../../near";
+
+import { Args } from "@oclif/core";
+import { BN } from "@switchboard-xyz/common";
 import { CrankAccount } from "@switchboard-xyz/near.js";
 import { FinalExecutionOutcome } from "near-api-js/lib/providers";
-import { BN } from "bn.js";
 
 export const parseTxn = (
   txnReceipt: FinalExecutionOutcome
 ): { success: boolean; logs: string[]; txnReceipt: FinalExecutionOutcome } => {
   // only get the logs for successful transactions
-  const logs = txnReceipt.receipts_outcome
-    .map((outcome) => {
-      if (
-        typeof outcome.outcome.status !== "string" &&
-        "SuccessValue" in outcome.outcome.status
-      ) {
-        return outcome.outcome.logs;
-      }
-      return [];
-    })
-    .flat();
+  const logs = txnReceipt.receipts_outcome.flatMap((outcome) => {
+    if (
+      typeof outcome.outcome.status !== "string" &&
+      "SuccessValue" in outcome.outcome.status
+    ) {
+      return outcome.outcome.logs;
+    }
+
+    return [];
+  });
 
   if (
     txnReceipt.status === "Failure" ||

@@ -1,7 +1,8 @@
-import { Flags, Args } from "@oclif/core";
 import { AptosWithSignerBaseCommand as BaseCommand } from "../../../aptos";
-import { AptosAccount, HexString } from "aptos";
+
+import { Args, Flags } from "@oclif/core";
 import { CrankAccount, OracleQueueAccount } from "@switchboard-xyz/aptos.js";
+import { AptosAccount, HexString } from "aptos";
 
 export default class CrankCreate extends BaseCommand {
   static enableJsonFlag = true;
@@ -40,13 +41,7 @@ export default class CrankCreate extends BaseCommand {
 
     const [queue, queueData] = await this.loadQueue(args.queueHexString);
 
-    let account: AptosAccount;
-    if (flags.new) {
-      account = new AptosAccount();
-      // await this.faucet.fundAccount(account.address(), 10000000);
-    } else {
-      account = this.signer;
-    }
+    // const account: AptosAccount = flags.new ? new AptosAccount() : this.signer;
 
     const [crank, sig] = await CrankAccount.init(
       this.aptos,

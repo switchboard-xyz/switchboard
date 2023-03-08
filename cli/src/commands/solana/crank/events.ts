@@ -1,17 +1,18 @@
+import { SolanaWithoutSignerBaseCommand as BaseCommand } from "../../../solana/index";
+import { CHECK_ICON, sleep } from "../../../utils/index";
+
 import { Args, Flags } from "@oclif/core";
+import { PublicKey, SYSVAR_CLOCK_PUBKEY } from "@solana/web3.js";
+import { BNtoDateTimeString } from "@switchboard-xyz/common";
+import { BN } from "@switchboard-xyz/common";
 import {
   AggregatorAccount,
   SolanaClock,
   types,
 } from "@switchboard-xyz/solana.js";
+import chalk from "chalk";
 import fs from "fs";
 import path from "path";
-import { SolanaWithoutSignerBaseCommand as BaseCommand } from "../../../solana/index";
-import { CHECK_ICON, sleep } from "../../../utils/index";
-import chalk from "chalk";
-import { PublicKey, SYSVAR_CLOCK_PUBKEY } from "@solana/web3.js";
-import { BNtoDateTimeString } from "@switchboard-xyz/common";
-import { BN } from "bn.js";
 
 const switchboardOracles: Map<string, string> = new Map([
   // Mainnet Permissioned
@@ -199,12 +200,9 @@ export default class AggregatorEvents extends BaseCommand {
       )
     );
 
-    if (flags.timeout && flags.timeout > 0) {
-      // Wait for timeout.
-      await sleep(flags.timeout * 1000);
-    } else {
-      await sleep(1800 * 1000);
-    }
+    await (flags.timeout && flags.timeout > 0
+      ? sleep(flags.timeout * 1000)
+      : sleep(1800 * 1000));
 
     await this.closeSubscriptions();
   }
@@ -212,7 +210,8 @@ export default class AggregatorEvents extends BaseCommand {
   async catch(error: any) {
     try {
       await this.closeSubscriptions();
-    } catch (error) {}
+    } catch {}
+
     super.catch(error, "failed to watch aggregator events");
   }
 }

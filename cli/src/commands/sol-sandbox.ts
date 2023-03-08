@@ -1,7 +1,8 @@
+import { SolanaWithSignerBaseCommand as BaseCommand } from "../solana/index";
+
 import { Args, Flags } from "@oclif/core";
 import { Keypair, PublicKey, SystemProgram } from "@solana/web3.js";
 import { TransactionObject } from "@switchboard-xyz/solana.js";
-import { SolanaWithSignerBaseCommand as BaseCommand } from "../solana/index";
 
 /** Get the IDL address for a given programId
  * @param programId the programId for a given on-chain program
@@ -43,7 +44,7 @@ export default class SandboxCommand extends BaseCommand {
     );
     const idlAddress = await getIdlAddress(programId);
 
-    const space = 15686;
+    const space = 15_686;
     const lamports =
       await this.program.connection.getMinimumBalanceForRentExemption(space);
 

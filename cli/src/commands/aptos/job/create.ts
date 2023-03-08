@@ -1,8 +1,9 @@
-import { Args, Flags } from "@oclif/core";
 import { AptosWithSignerBaseCommand as BaseCommand } from "../../../aptos";
-import { AptosAccount, HexString } from "aptos";
+
+import { Args, Flags } from "@oclif/core";
 import { JobAccount } from "@switchboard-xyz/aptos.js";
 import { OracleJob } from "@switchboard-xyz/common";
+import { AptosAccount, HexString } from "aptos";
 
 export default class JobCreate extends BaseCommand {
   static enableJsonFlag = true;
@@ -45,7 +46,7 @@ export default class JobCreate extends BaseCommand {
     }),
   };
 
-  async run() {
+  async run(): Promise<any> {
     const { flags, args } = await this.parse(JobCreate);
 
     const oracleJob = this.loadJobDefinition(args.jobDefinition);

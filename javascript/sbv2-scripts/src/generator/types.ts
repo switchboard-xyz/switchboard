@@ -1,4 +1,4 @@
-import { cleanupString, toCamelCase } from "./utils";
+import { cleanupString, toCamelCase } from './utils';
 
 export interface ITypeTransformer {
   type: string;

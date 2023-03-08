@@ -1,9 +1,11 @@
-import { CustomStructField, SupportedField } from "./fields";
-import fs from "fs";
-import path from "path";
-import fse from "fs-extra";
-import { cleanupString } from "../utilts";
-import { CustomIdl } from "../idl";
+import { CustomIdl } from '../idl';
+import { cleanupString } from '../utilts';
+
+import { CustomStructField, SupportedField } from './fields';
+
+import fs from 'fs';
+import fse from 'fs-extra';
+import path from 'path';
 
 interface MoveIdl {
   name: string;
@@ -56,7 +58,7 @@ export interface IProgramStruct {
   match?: any;
 }
 
-export const IGNORE_STRUCTS = ["State", "EscrowManager"];
+export const IGNORE_STRUCTS = ['State', 'EscrowManager'];
 
 export class ProgramStruct implements IProgramStruct {
   constructor(
@@ -68,61 +70,61 @@ export class ProgramStruct implements IProgramStruct {
 
   getFieldsInterface(): string {
     return `export interface I${this.name} {\n${this.fields
-      .map((f) => `\t${f.tsName}: ${f.fieldType};`)
-      .join("\n")}\n}`;
+      .map(f => `\t${f.tsName}: ${f.fieldType};`)
+      .join('\n')}\n}`;
   }
 
   getConstructor(): string {
     return `constructor(fields: I${this.name}) {\n\t${this.fields
-      .map((f) => `\tthis.${f.tsName} = fields.${f.tsName};`)
-      .join("\n")}\n}`;
+      .map(f => `\tthis.${f.tsName} = fields.${f.tsName};`)
+      .join('\n')}\n}`;
   }
 
   getJsonInterface(): string {
     return `export interface ${this.name}JSON {\n${this.fields
-      .map((f) => `\t${f.tsName}: ${f.jsonType};`)
-      .join("\n")}\n}`;
+      .map(f => `\t${f.tsName}: ${f.jsonType};`)
+      .join('\n')}\n}`;
   }
 
   getToJsonMethod(): string {
     return `toJSON(): ${this.name}JSON {\n\treturn {\n\t\t${this.fields
-      .map((f) => `${f.tsName}: ${f.toJsonMethod()}`)
-      .join(",\n\t\t\t")}\n\t}\n}`;
+      .map(f => `${f.tsName}: ${f.toJsonMethod()}`)
+      .join(',\n\t\t\t')}\n\t}\n}`;
   }
 
   getFromJsonMethod(): string {
     return `static fromJSON(obj: ${this.name}JSON) {\nreturn new ${
       this.name
     }({\n\t\t${this.fields
-      .map((f) => `${f.tsName}: ${f.fromJsonMethod()}`)
-      .join(",\n\t\t\t")}\n})}`;
+      .map(f => `${f.tsName}: ${f.fromJsonMethod()}`)
+      .join(',\n\t\t\t')}\n})}`;
   }
 
   getMoveStructInterface(): string {
     return `export interface ${this.name}MoveStruct {\n${this.fields
-      .map((f) => `\t${f.rustName}: ${f.moveStructType};`)
-      .join("\n")}\n}`;
+      .map(f => `\t${f.rustName}: ${f.moveStructType};`)
+      .join('\n')}\n}`;
   }
 
   getToMoveStructMethod(): string {
     return `toMoveStruct(): ${
       this.name
     }MoveStruct {\n\treturn {\n\t\t${this.fields
-      .map((f) => `${f.rustName}: ${f.toMoveStructMethod()}`)
-      .join(",\n\t\t\t")}\n\t}\n}`;
+      .map(f => `${f.rustName}: ${f.toMoveStructMethod()}`)
+      .join(',\n\t\t\t')}\n\t}\n}`;
   }
 
   getFromMoveStructMethod(): string {
     return `static fromMoveStruct(obj: ${this.name}MoveStruct) {\nreturn new ${
       this.name
     }({\n\t\t${this.fields
-      .map((f) => `${f.tsName}: ${f.fromMoveStructMethod()}`)
-      .join(",\n\t\t\t")}\n})}`;
+      .map(f => `${f.tsName}: ${f.fromMoveStructMethod()}`)
+      .join(',\n\t\t\t')}\n})}`;
   }
 
   getClassInterface(): string {
     const interfaces = [
-      this.fields.map((f) => f.toReadonlyString()).join("\n\t"),
+      this.fields.map(f => f.toReadonlyString()).join('\n\t'),
       this.getConstructor(),
       this.getToJsonMethod(),
       this.getFromJsonMethod(),
@@ -131,24 +133,24 @@ export class ProgramStruct implements IProgramStruct {
     ];
     return `export class ${this.name} implements I${
       this.name
-    } {\n${interfaces.join("\n\n")}\n}`;
+    } {\n${interfaces.join('\n\n')}\n}`;
   }
 
   getRustString(): string {
     return `${this.traits}pub struct ${this.name} {\n${this.fields
-      .map((f) => JSON.stringify(f, undefined, 2))
-      .join("\n")}\n}`;
+      .map(f => JSON.stringify(f, undefined, 2))
+      .join('\n')}\n}`;
   }
 
   toStructString(): string {
     const chunks: string[] = [
-      "",
+      '',
       this.getFieldsInterface(),
       this.getJsonInterface(),
       this.getMoveStructInterface(),
       this.getClassInterface(),
     ];
-    return chunks.join("\n\n");
+    return chunks.join('\n\n');
   }
 
   toString(): string {
@@ -169,63 +171,63 @@ export class ProgramStructs {
   constructor(sourceFiles: string[]) {
     // add default structs
     this.structs.set(
-      "SignerCapability",
+      'SignerCapability',
       new ProgramStruct(
-        "SignerCapability",
-        [SupportedField.from("account", "HexString")],
-        "",
-        ""
+        'SignerCapability',
+        [SupportedField.from('account', 'HexString')],
+        '',
+        ''
       )
     );
     this.structs.set(
-      "Coin",
-      new ProgramStruct("Coin", [SupportedField.from("value", "u64")], "", "")
+      'Coin',
+      new ProgramStruct('Coin', [SupportedField.from('value', 'u64')], '', '')
     );
 
     this.structs.set(
-      "EscrowManagerItem",
+      'EscrowManagerItem',
       new ProgramStruct(
-        "EscrowManagerItem",
-        [SupportedField.from("handle", "HexString")],
-        "",
-        ""
+        'EscrowManagerItem',
+        [SupportedField.from('handle', 'HexString')],
+        '',
+        ''
       )
     );
 
     this.structs.set(
-      "EscrowManager",
+      'EscrowManager',
       new ProgramStruct(
-        "EscrowManager",
-        [SupportedField.from("escrows", "EscrowManagerItem")],
-        "",
-        ""
+        'EscrowManager',
+        [SupportedField.from('escrows', 'EscrowManagerItem')],
+        '',
+        ''
       )
     );
 
     for (const filePath of sourceFiles) {
-      const fileString = fs.readFileSync(filePath, "utf-8");
+      const fileString = fs.readFileSync(filePath, 'utf-8');
       const matches = fileString.matchAll(ProgramStructs.structRegex);
       if (matches) {
         for (const m of matches) {
-          const traits = m.groups["traits"] || "";
-          const name = m.groups["name"];
+          const traits = m.groups['traits'] || '';
+          const name = m.groups['name'];
           if (IGNORE_STRUCTS.includes(name)) {
             continue;
           }
-          let fields: SupportedField[] = m.groups["fields"]
-            .replace(/(pub |[//].*)/g, "")
-            .replace(/(\r\n){2,}/g, "")
-            .split("\n")
-            .map((i) => {
+          const fields: SupportedField[] = m.groups['fields']
+            .replace(/(pub |[//].*)/g, '')
+            .replace(/(\r\n){2,}/g, '')
+            .split('\n')
+            .map(i => {
               const trimmed = i.trim();
-              if (trimmed.endsWith(",")) {
+              if (trimmed.endsWith(',')) {
                 return trimmed.slice(0, -1);
               }
               return trimmed;
             })
             .filter(Boolean)
-            .map((i) => {
-              const [name, type] = i.split(":");
+            .map(i => {
+              const [name, type] = i.split(':');
               if (!name || !type) {
                 return;
               }
@@ -236,10 +238,10 @@ export class ProgramStructs {
               // );
               return SupportedField.from(
                 name,
-                typeKind === "Coin<CoinType>"
-                  ? "Coin"
-                  : typeKind === "Escrow<CoinType>"
-                  ? "Escrow"
+                typeKind === 'Coin<CoinType>'
+                  ? 'Coin'
+                  : typeKind === 'Escrow<CoinType>'
+                  ? 'Escrow'
                   : typeKind
               );
             })
@@ -257,22 +259,22 @@ export class ProgramStructs {
 
   writeMarkdown(outputDirectory: string) {
     const typesWithLinks = [
-      "SwitchboardDecimal",
-      "AggregatorRound",
-      "AggregatorHistoryRow",
-      "OracleMetrics",
-      "SignerCapability",
-      "AggregatorOpenRoundParams",
-      "Coin",
-      "EscrowManagerItem",
-      "CrankRow",
+      'SwitchboardDecimal',
+      'AggregatorRound',
+      'AggregatorHistoryRow',
+      'OracleMetrics',
+      'SignerCapability',
+      'AggregatorOpenRoundParams',
+      'Coin',
+      'EscrowManagerItem',
+      'CrankRow',
     ];
     const hyperlinks = new Map<string, string>(
-      typesWithLinks.map((t) => [t, `[${t}](/aptos/idl/types/${t})`])
+      typesWithLinks.map(t => [t, `[${t}](/aptos/idl/types/${t})`])
     );
     const remapper = new Map<string, string>([
-      ["address", "HexString"],
-      ["vector<address>", "vector<HexString>"],
+      ['address', 'HexString'],
+      ['vector<address>', 'vector<HexString>'],
     ]);
     // fse.emptyDirSync(outputDirectory);
     fs.mkdirSync(outputDirectory, { recursive: true });
@@ -285,13 +287,13 @@ export class ProgramStructs {
     };
 
     const convertType = (type: string): string => {
-      if (type.startsWith("vector<")) {
+      if (type.startsWith('vector<')) {
         return convertVectorType(type);
       }
-      if (type.startsWith("Option<")) {
+      if (type.startsWith('Option<')) {
         // return convertOptionType(type);
         const typeMatch = Array.from(type.matchAll(/\<(?<inner>.*)\>/g));
-        const inner = typeMatch[0].groups["inner"] ?? type;
+        const inner = typeMatch[0].groups['inner'] ?? type;
         return type.replace(
           `Option<${inner}>`,
           `Option<${getHyperlink(inner)}\\>`
@@ -301,25 +303,25 @@ export class ProgramStructs {
     };
 
     const convertVectorType = (type: string): string => {
-      if (!type.startsWith("vector<")) {
+      if (!type.startsWith('vector<')) {
         return type;
       }
       const typeMatch = Array.from(type.matchAll(/\<(?<inner>.*)\>/g));
-      const inner = typeMatch[0].groups["inner"] ?? type;
+      const inner = typeMatch[0].groups['inner'] ?? type;
       return convertType(
-        getHyperlink(inner) + "[]" + type.replace(`vector<${inner}>`, "")
+        getHyperlink(inner) + '[]' + type.replace(`vector<${inner}>`, '')
       );
     };
 
-    const idlPath = path.join(outputDirectory, "..", "IDL.json");
+    const idlPath = path.join(outputDirectory, '..', 'IDL.json');
     const idl = CustomIdl.getOrCreate(
       idlPath,
-      Array.from(this.structs.entries()).map((s) => {
+      Array.from(this.structs.entries()).map(s => {
         return {
           name: s[1].name,
-          description: "",
-          fields: s[1].fields.map((f) => {
-            return { name: f.tsName, description: "", type: f.rawType };
+          description: '',
+          fields: s[1].fields.map(f => {
+            return { name: f.tsName, description: '', type: f.rawType };
           }),
         };
       })
@@ -329,20 +331,20 @@ export class ProgramStructs {
     for (const type of idl.types) {
       const fileName = path.join(outputDirectory, `_${type.name}.md`);
       const tableHeader = `${
-        type.description ? type.description + "\n\n" : ""
+        type.description ? type.description + '\n\n' : ''
       }| Field  | Type  | Description |
       | ------ | --------- | ------|`;
 
       const rows = type.fields.map(
-        (f) => `| ${f.name} | ${convertType(f.type)} | ${f.description} |`
+        f => `| ${f.name} | ${convertType(f.type)} | ${f.description} |`
       );
-      const fileString = tableHeader + "\n" + rows.join("\n");
+      const fileString = tableHeader + '\n' + rows.join('\n');
       fs.writeFileSync(fileName, fileString);
     }
 
     /// write errors
     if (idl.errors && idl.errors.length) {
-      const errorFile = path.join(outputDirectory, "..", "errors.md");
+      const errorFile = path.join(outputDirectory, '..', 'errors.md');
       const errorHeader: string = `---
 sidebar_position: 60
 title: Errors
@@ -353,12 +355,12 @@ title: Errors
 | Code | Hex    | Name                 | Description |
 | ---- | ------ | -------------------- | ----------- |\n`;
       const rows = idl.errors.map(
-        (e) =>
+        e =>
           `| ${e.code} | 0x${
-            e.value ? Number.parseInt(e.value).toString(16) : ""
+            e.value ? Number.parseInt(e.value).toString(16) : ''
           } | ${e.name} |  ${e.description} |`
       );
-      fs.writeFileSync(errorFile, errorHeader + rows.join("\n"));
+      fs.writeFileSync(errorFile, errorHeader + rows.join('\n'));
     }
 
     //     for (const type of types) {
@@ -385,24 +387,24 @@ title: Errors
     // load the IDL
     const idlPath = path.join(
       __dirname,
-      "..",
-      "..",
-      "..",
-      "..",
-      "website",
-      "docs",
-      "aptos",
-      "idl",
-      "IDL.json"
+      '..',
+      '..',
+      '..',
+      '..',
+      'website',
+      'docs',
+      'aptos',
+      'idl',
+      'IDL.json'
     );
     const idl = CustomIdl.getOrCreate(
       idlPath,
-      Array.from(this.structs.entries()).map((s) => {
+      Array.from(this.structs.entries()).map(s => {
         return {
           name: s[1].name,
-          description: "",
-          fields: s[1].fields.map((f) => {
-            return { name: f.tsName, description: "", type: f.rawType };
+          description: '',
+          fields: s[1].fields.map(f => {
+            return { name: f.tsName, description: '', type: f.rawType };
           }),
         };
       })
@@ -412,7 +414,7 @@ title: Errors
     fse.emptyDirSync(outputDirectory);
 
     fs.writeFileSync(
-      path.join(outputDirectory, "programId.ts"),
+      path.join(outputDirectory, 'programId.ts'),
       `export const PROGRAM_ID = MAINNET_PROGRAM_ID;
   export const MAINNET_PROGRAM_ID = "0x7d7e436f0b2aafde60774efb26ccc432cf881b677aca7faaf2a01879bd19fb8";
   export const TESTNET_PROGRAM_ID = "0x34e2eead0aefbc3d0af13c0522be94b002658f4bef8e0740a21086d22236ad77";
@@ -421,7 +423,7 @@ title: Errors
     );
 
     fs.writeFileSync(
-      path.join(outputDirectory, "index.ts"),
+      path.join(outputDirectory, 'index.ts'),
       `export * from "./types/index.js";\nexport * from "./programId.js";`
     );
 
@@ -431,7 +433,7 @@ title: Errors
       `import { HexString } from "aptos"; // eslint-disable-line @typescript-eslint/no-unused-vars`,
     ];
 
-    const typeDir = path.join(outputDirectory, "types");
+    const typeDir = path.join(outputDirectory, 'types');
     if (!fs.existsSync(typeDir)) {
       fs.mkdirSync(typeDir);
     }
@@ -439,7 +441,7 @@ title: Errors
     // write the errors to a file
     if (idl.errors && idl.errors.length > 0) {
       const errors: { name: string; code: number; hexCode: string }[] =
-        idl.errors.map((e) => {
+        idl.errors.map(e => {
           return {
             name: e.name,
             code: e.code,
@@ -447,12 +449,12 @@ title: Errors
           };
         });
       const errorEnum = `export enum SwitchboardErrorEnum {\n\t${errors
-        .map((e) => `${e.name} = "${e.name}",`)
-        .join("\n\t")}\n}`;
+        .map(e => `${e.name} = "${e.name}",`)
+        .join('\n\t')}\n}`;
 
       const errorType = `export type SwitchboardErrorType = ${errors
-        .map((e) => e.name)
-        .join(" | ")};`;
+        .map(e => e.name)
+        .join(' | ')};`;
 
       const abstractClass = `export abstract class SwitchboardError extends Error {
   readonly logs?: string[];
@@ -474,8 +476,8 @@ title: Errors
   ): SwitchboardError {
     switch (errorType) {
       ${errors
-        .map((e) => `case "${e.name}": return new ${e.name}(logs);`)
-        .join("\n")}
+        .map(e => `case "${e.name}": return new ${e.name}(logs);`)
+        .join('\n')}
       default:
         return new Generic(logs);
     }
@@ -483,7 +485,7 @@ title: Errors
 }`;
       const errorBlocks = errors
         .map(
-          (e) => `export class ${e.name} extends SwitchboardError {
+          e => `export class ${e.name} extends SwitchboardError {
   static readonly code = ${e.code};
   static readonly hexCode = "${e.hexCode}";
 
@@ -492,16 +494,16 @@ title: Errors
   }
 }`
         )
-        .join("\n\n");
+        .join('\n\n');
 
       fs.writeFileSync(
-        path.join(outputDirectory, "errors.ts"),
-        [errorEnum, errorType, abstractClass, errorBlocks].join("\n")
+        path.join(outputDirectory, 'errors.ts'),
+        [errorEnum, errorType, abstractClass, errorBlocks].join('\n')
       );
     }
 
     for (const [structName, struct] of this.structs.entries()) {
-      const typeFile = path.join(outputDirectory, "types", `${structName}.ts`);
+      const typeFile = path.join(outputDirectory, 'types', `${structName}.ts`);
 
       // TODO: read in existing generated output and read content to re-add to the template
       // use flag like <<<< START >>>> & <<<<< END >>>>> to track boundaries
@@ -510,12 +512,12 @@ title: Errors
         const now = new Date();
         fs.utimesSync(typeFile, now, now);
       } catch (err) {
-        fs.closeSync(fs.openSync(typeFile, "w"));
+        fs.closeSync(fs.openSync(typeFile, 'w'));
       }
 
       // very janky
-      if (structName === "Error") {
-        const errorNames = struct.fields.map((f) => f.rustName);
+      if (structName === 'Error') {
+        const errorNames = struct.fields.map(f => f.rustName);
         const errors = struct.fields.map(
           (f, i) => `
   export class ${f.rustName} extends Error {
@@ -533,21 +535,21 @@ title: Errors
         fs.writeFileSync(
           typeFile,
           `export type SwitchboardError = 
-    ${errorNames.map((e) => "| " + e).join("\n\t")};
-  ${errors.join("")}
+    ${errorNames.map(e => '| ' + e).join('\n\t')};
+  ${errors.join('')}
   `
         );
       } else {
-        fs.writeFileSync(typeFile, imports.join("\n") + "\n");
+        fs.writeFileSync(typeFile, imports.join('\n') + '\n');
         fs.appendFileSync(typeFile, struct.toString());
       }
     }
 
     fs.writeFileSync(
-      path.join(typeDir, "index.ts"),
+      path.join(typeDir, 'index.ts'),
       Array.from(this.structs.keys())
-        .map((s) => `export * from "./${s}.js";`)
-        .join("\n")
+        .map(s => `export * from "./${s}.js";`)
+        .join('\n')
     );
     // fs.appendFileSync(
     //   path.join(typeDir, "index.ts"),

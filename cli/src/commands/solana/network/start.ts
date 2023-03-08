@@ -1,14 +1,15 @@
-import { Flags } from "@oclif/core";
 import { SolanaWithSignerBaseCommand as BaseCommand } from "../../../solana/index";
-import fs from "fs";
+
+import { Flags } from "@oclif/core";
+import { clusterApiUrl } from "@solana/web3.js";
+import { DockerOracle } from "@switchboard-xyz/oracle";
 import {
   LoadedSwitchboardNetwork,
   NetworkJSON,
   SwitchboardNetwork,
   TransactionObject,
 } from "@switchboard-xyz/solana.js";
-import { DockerOracle } from "@switchboard-xyz/common";
-import { clusterApiUrl } from "@solana/web3.js";
+import fs from "fs";
 
 export default class NetworkStart extends BaseCommand {
   static enableJsonFlag = true;
@@ -126,7 +127,7 @@ export default class NetworkStart extends BaseCommand {
   async run() {
     const { flags } = await this.parse(NetworkStart);
 
-    let loadedNetwork: LoadedSwitchboardNetwork | undefined = undefined;
+    let loadedNetwork: LoadedSwitchboardNetwork | undefined;
 
     if (flags.schemaFile) {
       loadedNetwork = await this.loadFromSchema(flags.schemaFile);
@@ -157,23 +158,21 @@ export default class NetworkStart extends BaseCommand {
       if (!oracle.state.oracleAuthority.equals(this.program.walletPubkey)) {
         throw new Error(`Oracle authority must match --keypair flag`);
       }
+
       this.oracles.push(
-        new DockerOracle(
-          flags.nodeImage,
-          {
-            chain: "solana",
-            network: this.network,
-            rpcUrl:
-              flags.cluster === "localnet"
-                ? "http://host.docker.internal:8899"
-                : flags.rpcUrl ?? clusterApiUrl("devnet"),
-            oracleKey: oracle.account.publicKey.toBase58(),
-            secretPath: this.normalizePath(flags.keypair!),
-            arch: flags.arm ? "linux/arm64" : "linux/amd64",
-          },
-          undefined,
-          flags.silent
-        )
+        new DockerOracle({
+          chain: "solana",
+          network: this.network as any,
+          rpcUrl:
+            flags.cluster === "localnet"
+              ? "http://host.docker.internal:8899"
+              : flags.rpcUrl ?? clusterApiUrl("devnet"),
+          oracleKey: oracle.account.publicKey.toBase58(),
+          secretPath: this.normalizePath(flags.keypair!),
+          arch: flags.arm ? "linux/arm64" : "linux/amd64",
+          imageTag: flags.nodeImage,
+          silent: flags.silent,
+        })
       );
     }
 
@@ -194,6 +193,7 @@ export default class NetworkStart extends BaseCommand {
     try {
       this.stopOracles();
     } catch {}
+
     super.catch(error, "Failed to create a switchboard network");
   }
 }

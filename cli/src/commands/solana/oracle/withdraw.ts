@@ -1,8 +1,9 @@
+import { SolanaWithSignerBaseCommand as BaseCommand } from "../../../solana";
+import { CHECK_ICON } from "../../../utils";
+
 import { Args, Flags } from "@oclif/core";
 import { OracleAccount } from "@switchboard-xyz/solana.js";
 import chalk from "chalk";
-import { SolanaWithSignerBaseCommand as BaseCommand } from "../../../solana";
-import { CHECK_ICON } from "../../../utils";
 
 export default class OracleWithdraw extends BaseCommand {
   static description = "withdraw from an oracle's staking wallet";

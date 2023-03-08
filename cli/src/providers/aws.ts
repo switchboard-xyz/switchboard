@@ -1,8 +1,8 @@
-import { fromNodeProviderChain } from "@aws-sdk/credential-providers";
 import {
-  SecretsManagerClient,
   GetSecretValueCommand,
+  SecretsManagerClient,
 } from "@aws-sdk/client-secrets-manager";
+import { fromNodeProviderChain } from "@aws-sdk/credential-providers";
 
 export class AwsProvider {
   private constructor() {}
@@ -38,9 +38,10 @@ export class AwsProvider {
       if (!(secretName in secretObject)) {
         throw new Error(`secret ${secretName} does not exist`);
       }
+
       secret = secretObject[secretName];
     } else if ("SecretBinary" in data) {
-      let buff = Buffer.from(data.SecretBinary!);
+      const buff = Buffer.from(data.SecretBinary!);
       secret = buff.toString("ascii");
     } else {
       throw new Error("AWS Secret not found");

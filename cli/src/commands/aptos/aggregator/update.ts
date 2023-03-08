@@ -1,6 +1,7 @@
-import { Flags, Args } from "@oclif/core";
-import { AggregatorAccount } from "@switchboard-xyz/aptos.js";
 import { AptosWithSignerBaseCommand as BaseCommand } from "../../../aptos";
+
+import { Args, Flags } from "@oclif/core";
+import { AggregatorAccount } from "@switchboard-xyz/aptos.js";
 
 export default class AggregatorUpdate extends BaseCommand {
   static description = "request a new value on-chain for an aggregator";

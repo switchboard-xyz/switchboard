@@ -1,21 +1,21 @@
-import fs from "fs";
-import path from "path";
+import fs from 'fs';
+import path from 'path';
 
 export const getAllFiles = (
   extension: string,
   dirPath: string,
   arrayOfFiles: string[]
 ): string[] => {
-  const files = fs.readdirSync(dirPath, "utf8");
+  const files = fs.readdirSync(dirPath, 'utf8');
 
   arrayOfFiles = arrayOfFiles || [];
 
   files.forEach((file: string) => {
-    if (fs.statSync(dirPath + "/" + file).isDirectory()) {
-      arrayOfFiles = getAllFiles(extension, dirPath + "/" + file, arrayOfFiles);
+    if (fs.statSync(dirPath + '/' + file).isDirectory()) {
+      arrayOfFiles = getAllFiles(extension, dirPath + '/' + file, arrayOfFiles);
     } else {
       if (file.endsWith(`.${extension}`)) {
-        arrayOfFiles.push(path.join(dirPath, "/", file));
+        arrayOfFiles.push(path.join(dirPath, '/', file));
       }
     }
   });
@@ -29,9 +29,9 @@ export const cleanupString = (
 ): string => {
   const parsedStr = str
     .trim()
-    .replace(/([//].*)/g, "") // remove comments
+    .replace(/([//].*)/g, '') // remove comments
     // .replace(/[\s]/g, "") // remove whitespace
-    .replace(/(^,)|(,$)/g, ""); // remove leading and trailing commas
+    .replace(/(^,)|(,$)/g, ''); // remove leading and trailing commas
   if (!convertSnakeCase) {
     return parsedStr;
   }
@@ -39,13 +39,13 @@ export const cleanupString = (
 };
 
 export const toCamelCase = (str: string): string => {
-  if (str.startsWith("_")) {
+  if (str.startsWith('_')) {
     return str;
   }
   return str
     .toLowerCase()
-    .replace(/([-_][a-z])/g, (group) =>
-      group.toUpperCase().replace("-", "").replace("_", "")
+    .replace(/([-_][a-z])/g, group =>
+      group.toUpperCase().replace('-', '').replace('_', '')
     );
 };
 

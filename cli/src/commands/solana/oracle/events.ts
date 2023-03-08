@@ -1,9 +1,10 @@
-import { Args, Flags } from "@oclif/core";
-import { OracleAccount, SolanaClock, types } from "@switchboard-xyz/solana.js";
 import { SolanaWithoutSignerBaseCommand as BaseCommand } from "../../../solana/index";
 import { sleep } from "../../../utils/index";
-import chalk from "chalk";
+
+import { Args, Flags } from "@oclif/core";
 import { PublicKey, SYSVAR_CLOCK_PUBKEY } from "@solana/web3.js";
+import { OracleAccount, SolanaClock, types } from "@switchboard-xyz/solana.js";
+import chalk from "chalk";
 
 const switchboardOracles: Map<string, string> = new Map([
   // Mainnet Permissioned
@@ -138,6 +139,7 @@ export default class OracleEvents extends BaseCommand {
             if (idx === -1) {
               return;
             }
+
             const finishedEvent = events.splice(idx, 1)[0];
             finishedEvents.push([
               finishedEvent[0],
@@ -153,12 +155,9 @@ export default class OracleEvents extends BaseCommand {
       this.printEvents(oracleAccount.publicKey, events, finishedEvents);
     }, 1000);
 
-    if (flags.timeout && flags.timeout > 0) {
-      // Wait for timeout.
-      await sleep(flags.timeout * 1000);
-    } else {
-      await sleep(1800 * 1000);
-    }
+    await (flags.timeout && flags.timeout > 0
+      ? sleep(flags.timeout * 1000)
+      : sleep(1800 * 1000));
 
     await this.closeSubscriptions();
   }
@@ -166,7 +165,8 @@ export default class OracleEvents extends BaseCommand {
   async catch(error: any) {
     try {
       await this.closeSubscriptions();
-    } catch (error) {}
+    } catch {}
+
     super.catch(error, "failed to watch aggregator events");
   }
 
@@ -190,14 +190,14 @@ export default class OracleEvents extends BaseCommand {
         )
       )
     );
-    events.forEach((myEvent) => {
+    for (const myEvent of events) {
       console.log(
         `${myEvent[1].toString().padEnd(10, " ")}${"".padEnd(
           10,
           " "
         )}${myEvent[0].toString().padEnd(44, " ")}`
       );
-    });
+    }
 
     // closed events
     console.log(
@@ -216,12 +216,12 @@ export default class OracleEvents extends BaseCommand {
         )
       )
     );
-    closedEvents.forEach((myEvent) => {
+    for (const myEvent of closedEvents) {
       console.log(
         `${myEvent[1].toString().padEnd(10, " ")}${myEvent[2]
           .toString()
           .padEnd(10, " ")}${myEvent[0].toString().padEnd(44, " ")}`
       );
-    });
+    }
   }
 }

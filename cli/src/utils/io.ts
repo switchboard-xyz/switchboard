@@ -1,6 +1,6 @@
-import path from "path";
 import fs from "fs";
 import os from "os";
+import path from "path";
 
 export function normalizeFilePath(rawPath: string): string {
   return rawPath.startsWith("/") || rawPath.startsWith("C:")

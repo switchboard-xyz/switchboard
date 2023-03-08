@@ -1,7 +1,8 @@
+import { CliBaseCommand as BaseCommand } from "../../BaseCommand";
+
 import { Command, Flags } from "@oclif/core";
 import { OracleJob } from "@switchboard-xyz/common";
 import fetch from "node-fetch";
-import { CliBaseCommand as BaseCommand } from "../../BaseCommand";
 
 export default class JobTest extends BaseCommand {
   static enableJsonFlag = true;

@@ -1,0 +1,8 @@
+{
+  "extends": "@switchboard-xyz",
+  "rules": {
+    "quotes": "off",
+    "@typescript-eslint/no-explicit-any": "off",
+    "no-control-regex": "off"
+  }
+}

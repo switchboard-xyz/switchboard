@@ -1,7 +1,8 @@
-import { Args, Flags } from "@oclif/core";
-import { CrankAccount, SolanaClock, types } from "@switchboard-xyz/solana.js";
 import { SolanaWithoutSignerBaseCommand as BaseCommand } from "../../../solana";
 import { chalkString } from "../../../utils/misc";
+
+import { Args, Flags } from "@oclif/core";
+import { CrankAccount, SolanaClock, types } from "@switchboard-xyz/solana.js";
 
 export default class CrankPrint extends BaseCommand {
   static enableJsonFlag = true;
@@ -34,13 +35,14 @@ export default class CrankPrint extends BaseCommand {
     ).unixTimestamp.toNumber();
 
     if (flags.json) {
-      if (rows.length) {
+      if (rows.length > 0) {
         return this.normalizeAccountData(crankAccount.publicKey, {
           ...crank.toJSON(),
           time,
           rows,
         });
       }
+
       return this.normalizeAccountData(crankAccount.publicKey, crank.toJSON());
     }
 
@@ -59,15 +61,14 @@ export default class CrankPrint extends BaseCommand {
     const staleness = time - nextTimestamp;
     this.logger.info(chalkString("staleness", staleness, 24));
 
-    if (flags.rows && rows.length) {
-      rows.forEach((row) =>
+    if (flags.rows && rows.length > 0) {
+      for (const row of rows)
         this.logger.info(
           chalkString(
             row.nextTimestamp.toNumber().toString(),
             row.pubkey.toBase58()
           )
-        )
-      );
+        );
     }
   }
 

@@ -1,9 +1,10 @@
-import { Args, Flags } from "@oclif/core";
 import { NearWithSignerBaseCommand as BaseCommand } from "../../../near";
-import { toBase58 } from "@switchboard-xyz/near.js";
-import { DockerOracle } from "@switchboard-xyz/common";
-import path from "path";
 import { sleep } from "../../../utils";
+
+import { Args, Flags } from "@oclif/core";
+import { toBase58 } from "@switchboard-xyz/near.js";
+import { DockerOracle } from "@switchboard-xyz/oracle";
+import path from "path";
 
 export default class NearDockerOracle extends BaseCommand {
   static description = "start a near docker oracle";
@@ -43,30 +44,27 @@ export default class NearDockerOracle extends BaseCommand {
     );
 
     // TODO: Add mounts for AWS creds
-    const docker = new DockerOracle(
-      flags.nodeImage,
-      {
-        chain: "near",
-        network: flags.networkId as "testnet" | "localnet",
-        rpcUrl: this.rpcUrl,
-        oracleKey: toBase58(oracleAccount.address),
-        secretPath: path.join(
-          flags.nearCredentialsDir,
-          flags.networkId,
-          flags.accountName + ".json"
-        ),
-        arch: flags.arm ? "linux/arm64" : "linux/amd64",
-        envVariables: {
-          NEAR_NAMED_ACCOUNT: flags.accountName,
-        },
+    const docker = new DockerOracle({
+      chain: "near",
+      network: flags.networkId as "testnet" | "localnet",
+      rpcUrl: this.rpcUrl,
+      oracleKey: toBase58(oracleAccount.address),
+      secretPath: path.join(
+        flags.nearCredentialsDir,
+        flags.networkId,
+        flags.accountName + ".json"
+      ),
+      arch: flags.arm ? "linux/arm64" : "linux/amd64",
+      envVariables: {
+        NEAR_NAMED_ACCOUNT: flags.accountName,
       },
-
-      flags.switchboardDir,
-      flags.silent
-    );
+      imageTag: flags.nodeImage,
+      switchboardDirectory: flags.switchboardDir,
+      silent: flags.silent,
+    });
     docker.start();
 
-    await sleep(120000);
+    await sleep(120_000);
   }
 
   async catch(error: any) {

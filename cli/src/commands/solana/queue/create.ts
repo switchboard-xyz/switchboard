@@ -1,8 +1,9 @@
+import { SolanaWithSignerBaseCommand as BaseCommand } from "../../../solana";
+import { CHECK_ICON } from "../../../utils";
+
 import { Flags } from "@oclif/core";
 import { Keypair } from "@solana/web3.js";
 import { QueueAccount } from "@switchboard-xyz/solana.js";
-import { SolanaWithSignerBaseCommand as BaseCommand } from "../../../solana";
-import { CHECK_ICON } from "../../../utils";
 import chalk from "chalk";
 
 export default class QueueCreate extends BaseCommand {
@@ -91,12 +92,12 @@ export default class QueueCreate extends BaseCommand {
   async run() {
     const { flags } = await this.parse(QueueCreate);
 
-    let authority: Keypair | undefined = undefined;
+    let authority: Keypair | undefined;
     if (flags.authority) {
       authority = await this.loadAuthority(flags.authority);
     }
 
-    let keypair: Keypair | undefined = undefined;
+    let keypair: Keypair | undefined;
     if (flags.queueKeypair) {
       keypair = await this.loadKeypair(flags.queueKeypair);
       const keypairAccountInfo = await this.program.connection.getAccountInfo(
@@ -111,7 +112,7 @@ export default class QueueCreate extends BaseCommand {
       }
     }
 
-    let dataBufferKeypair: Keypair | undefined = undefined;
+    let dataBufferKeypair: Keypair | undefined;
     if (flags.dataBufferKeypair) {
       dataBufferKeypair = await this.loadKeypair(flags.dataBufferKeypair);
       const keypairAccountInfo = await this.program.connection.getAccountInfo(

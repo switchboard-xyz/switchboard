@@ -1,5 +1,7 @@
-import { Args, Flags } from "@oclif/core";
 import { NearWithoutSignerBaseCommand as BaseCommand } from "../../near";
+
+import { Args, Flags } from "@oclif/core";
+import { OracleJob } from "@switchboard-xyz/common";
 import {
   AggregatorAccount,
   CrankAccount,
@@ -8,7 +10,6 @@ import {
   PermissionAccount,
   QueueAccount,
 } from "@switchboard-xyz/near.js";
-import { OracleJob } from "@switchboard-xyz/common";
 import base58 from "bs58";
 
 export default class NearPrint extends BaseCommand {
@@ -63,6 +64,7 @@ export default class NearPrint extends BaseCommand {
         data = (await queue.loadData()).toJSON();
         break;
       }
+
       case "crank": {
         const crank = new CrankAccount(params);
         const crankData = await crank.loadData();
@@ -75,6 +77,7 @@ export default class NearPrint extends BaseCommand {
         };
         break;
       }
+
       case "oracle": {
         const oracle = new OracleAccount(params);
         data = (await oracle.loadData()).toJSON();
@@ -110,6 +113,7 @@ export default class NearPrint extends BaseCommand {
 
         break;
       }
+
       case "aggregator": {
         const aggregator = new AggregatorAccount(params);
         data = {
@@ -169,13 +173,16 @@ export default class NearPrint extends BaseCommand {
             };
           } catch {}
         }
+
         break;
       }
+
       case "permission": {
         const permission = new PermissionAccount(params);
         data = await permission.loadData();
         break;
       }
+
       case "job": {
         const job = new JobAccount(params);
         data = await job.loadData();
@@ -185,6 +192,7 @@ export default class NearPrint extends BaseCommand {
         };
         break;
       }
+
       default: {
         throw new Error(
           `printing for accountType ${args.accountType} not implemented yet`
@@ -201,6 +209,7 @@ export default class NearPrint extends BaseCommand {
     if (flags.json) {
       return this.normalizeAccountData(address, data);
     }
+
     console.log(JSON.stringify(data, this.jsonReplacers, 2));
   }
 

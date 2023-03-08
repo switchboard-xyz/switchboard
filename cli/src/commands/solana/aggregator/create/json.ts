@@ -1,13 +1,13 @@
-/* eslint-disable complexity */
+import { SolanaWithSignerBaseCommand as BaseCommand } from "../../../../solana";
+import { pubKeyReviver } from "../../../../utils";
+
 import { Args, Flags } from "@oclif/core";
 import { PublicKey } from "@solana/web3.js";
 import { OracleJob } from "@switchboard-xyz/common";
 import { JobInitParams, QueueAccount } from "@switchboard-xyz/solana.js";
 import * as fs from "fs";
-import * as path from "path";
-import { SolanaWithSignerBaseCommand as BaseCommand } from "../../../../solana";
-import { pubKeyReviver } from "../../../../utils";
 import _ from "lodash";
+import * as path from "path";
 
 export default class JsonCreateAggregator extends BaseCommand {
   static enableJsonFlag = true;

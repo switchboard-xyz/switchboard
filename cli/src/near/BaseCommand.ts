@@ -1,7 +1,17 @@
+import { CliBaseCommand as BaseCommand } from "../BaseCommand";
+import { IBaseChain } from "../types/chain";
+
+import { NearNetwork } from ".";
+
 import { Flags } from "@oclif/core";
 import { Input } from "@oclif/parser";
-import { Account, connect } from "near-api-js";
-import { homedir } from "os";
+import {
+  Big,
+  BN,
+  OracleJob,
+  SwitchboardDecimal,
+  toUtf8,
+} from "@switchboard-xyz/common";
 import {
   AggregatorAccount,
   CrankAccount,
@@ -15,20 +25,9 @@ import {
   TESTNET_PROGRAM_ID,
   types,
 } from "@switchboard-xyz/near.js";
-import { CliBaseCommand as BaseCommand } from "../BaseCommand";
 import bs58 from "bs58";
-import { NearNetwork } from ".";
-import { isBN } from "bn.js";
-import { Big } from "@switchboard-xyz/common";
-import { OracleJob, SwitchboardDecimal } from "@switchboard-xyz/common";
-import { IBaseChain } from "../types/chain";
-
-export const toUtf8 = (buf: any): string => {
-  buf = buf ?? "";
-  return Buffer.from(buf)
-    .toString("utf8")
-    .replace(/\u0000/g, "");
-};
+import { Account, connect } from "near-api-js";
+import { homedir } from "os";
 
 export abstract class NearBaseCommand
   extends BaseCommand
@@ -116,6 +115,7 @@ export abstract class NearBaseCommand
         `Failed to get Near RPC URL for network ${networkId}. Try providing the --rpcUrl flag`
       );
     }
+
     return rpcUrl;
   }
 
@@ -123,6 +123,7 @@ export abstract class NearBaseCommand
     if (programId) {
       return programId;
     }
+
     switch (networkId) {
       case "mainnet":
         return MAINNET_PROGRAM_ID;
@@ -170,26 +171,28 @@ export abstract class NearBaseCommand
         `Need to load the SwitchboardProgram before loading the signer`
       );
     }
+
     return new Account(this.program.connection, nearNamedAccount);
   }
 
   isBase58(value: string): boolean {
-    return /^[A-HJ-NP-Za-km-z1-9]*$/.test(value);
+    return /^[1-9A-HJ-NP-Za-km-z]*$/.test(value);
   }
 
   // convert a near address to a Uint8Array
   // accepts [00,01,...] or Base58 econding
   parseAddress(address: string | Array<number>): Uint8Array {
     if (Array.isArray(address)) {
-      return new Uint8Array([...address]);
+      return new Uint8Array(address);
     }
+
     if (this.isBase58(address)) {
       return bs58.decode(address);
-    } else {
-      try {
-        return new Uint8Array(JSON.parse(address));
-      } catch {}
     }
+
+    try {
+      return new Uint8Array(JSON.parse(address));
+    } catch {}
 
     throw new Error(`Failed to convert near address to Uint8Array, ${address}`);
   }
@@ -205,6 +208,7 @@ export abstract class NearBaseCommand
     if (key === "permissions" && typeof value === "number") {
       return SwitchboardPermission[value].toString();
     }
+
     if (key === "address") {
       // for some reason Array.isArray(value) is not working for permission address
       return `[${value.toString()}]`;
@@ -216,35 +220,44 @@ export abstract class NearBaseCommand
 
     if (typeof value === "string") {
       return value;
-    } else if (typeof value === "number") {
+    }
+
+    if (typeof value === "number") {
       return value;
-    } else if (typeof value === "boolean") {
+    }
+
+    if (typeof value === "boolean") {
       return value.toString();
-    } else {
-      if (uint8ArrayKeys.includes(key) && Array.isArray(value)) {
-        return bs58.encode(value);
-      }
-      if (utf8ArrayKeys.includes(key) && Array.isArray(value)) {
-        return toUtf8(Buffer.from(value));
-      }
-      if (value instanceof Big) {
-        return value.toString();
-      }
-      if (isBN(value)) {
-        return value.toString(10);
-      }
-      if ((key === "hash" || key === "jobs_checksum") && Array.isArray(value)) {
-        return Buffer.from(value).toString("hex");
-      }
-      if (
-        value &&
-        (("scale" in value && "mantissa" in value) ||
-          value instanceof SwitchboardDecimal)
-      ) {
-        return new SwitchboardDecimal(value.mantissa, value.scale)
-          .toBig()
-          .toString();
-      }
+    }
+
+    if (uint8ArrayKeys.includes(key) && Array.isArray(value)) {
+      return bs58.encode(value);
+    }
+
+    if (utf8ArrayKeys.includes(key) && Array.isArray(value)) {
+      return toUtf8(Buffer.from(value));
+    }
+
+    if (value instanceof Big) {
+      return value.toString();
+    }
+
+    if (BN.isBN(value)) {
+      return value.toString(10);
+    }
+
+    if ((key === "hash" || key === "jobs_checksum") && Array.isArray(value)) {
+      return Buffer.from(value).toString("hex");
+    }
+
+    if (
+      value &&
+      (("scale" in value && "mantissa" in value) ||
+        value instanceof SwitchboardDecimal)
+    ) {
+      return new SwitchboardDecimal(value.mantissa, value.scale)
+        .toBig()
+        .toString();
     }
 
     return value;

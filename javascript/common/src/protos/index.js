@@ -2,17 +2,17 @@
 (function (global, factory) {
   /* global define, require, module */
 
-  /* AMD */ if (typeof define === "function" && define.amd)
-    define(["protobufjs/minimal"], factory);
+  /* AMD */ if (typeof define === 'function' && define.amd)
+    define(['protobufjs/minimal'], factory);
   /* CommonJS */ else if (
-    typeof require === "function" &&
-    typeof module === "object" &&
+    typeof require === 'function' &&
+    typeof module === 'object' &&
     module &&
     module.exports
   )
-    module.exports = factory(require("protobufjs/minimal"));
+    module.exports = factory(require('protobufjs/minimal'));
 })(this, function ($protobuf) {
-  "use strict";
+  'use strict';
 
   // Common aliases
   var $Reader = $protobuf.Reader,
@@ -155,13 +155,13 @@
      * @returns {string|null} `null` if valid, otherwise the reason why it is not
      */
     OracleJob.verify = function verify(message) {
-      if (typeof message !== "object" || message === null)
-        return "object expected";
-      if (message.tasks != null && message.hasOwnProperty("tasks")) {
-        if (!Array.isArray(message.tasks)) return "tasks: array expected";
+      if (typeof message !== 'object' || message === null)
+        return 'object expected';
+      if (message.tasks != null && message.hasOwnProperty('tasks')) {
+        if (!Array.isArray(message.tasks)) return 'tasks: array expected';
         for (var i = 0; i < message.tasks.length; ++i) {
           var error = $root.OracleJob.Task.verify(message.tasks[i]);
-          if (error) return "tasks." + error;
+          if (error) return 'tasks.' + error;
         }
       }
       return null;
@@ -180,11 +180,11 @@
       var message = new $root.OracleJob();
       if (object.tasks) {
         if (!Array.isArray(object.tasks))
-          throw TypeError(".OracleJob.tasks: array expected");
+          throw TypeError('.OracleJob.tasks: array expected');
         message.tasks = [];
         for (var i = 0; i < object.tasks.length; ++i) {
-          if (typeof object.tasks[i] !== "object")
-            throw TypeError(".OracleJob.tasks: object expected");
+          if (typeof object.tasks[i] !== 'object')
+            throw TypeError('.OracleJob.tasks: object expected');
           message.tasks[i] = $root.OracleJob.Task.fromObject(object.tasks[i]);
         }
       }
@@ -236,23 +236,23 @@
      */
     OracleJob.getTypeUrl = function getTypeUrl(typeUrlPrefix) {
       if (typeUrlPrefix === undefined) {
-        typeUrlPrefix = "type.googleapis.com";
+        typeUrlPrefix = 'type.googleapis.com';
       }
-      return typeUrlPrefix + "/OracleJob";
+      return typeUrlPrefix + '/OracleJob';
     };
 
     /**
      * Creates an OracleJob message from a YAML string.
      */
     OracleJob.fromYaml = function fromYaml(yamlString) {
-      return OracleJob.fromObject(require("yaml").parse(yamlString));
+      return OracleJob.fromObject(require('yaml').parse(yamlString));
     };
 
     /**
      * Converts this OracleJob to YAML.
      */
     OracleJob.prototype.toYaml = function toYaml() {
-      return require("yaml").stringify(this.toJSON());
+      return require('yaml').stringify(this.toJSON());
     };
 
     OracleJob.HttpTask = (function () {
@@ -288,7 +288,7 @@
        * @memberof OracleJob.HttpTask
        * @instance
        */
-      HttpTask.prototype.url = "";
+      HttpTask.prototype.url = '';
 
       /**
        * HttpTask method.
@@ -312,7 +312,7 @@
        * @memberof OracleJob.HttpTask
        * @instance
        */
-      HttpTask.prototype.body = "";
+      HttpTask.prototype.body = '';
 
       /**
        * Creates a new HttpTask instance using the specified properties.
@@ -337,11 +337,11 @@
        */
       HttpTask.encode = function encode(message, writer) {
         if (!writer) writer = $Writer.create();
-        if (message.url != null && Object.hasOwnProperty.call(message, "url"))
+        if (message.url != null && Object.hasOwnProperty.call(message, 'url'))
           writer.uint32(/* id 1, wireType 2 =*/ 10).string(message.url);
         if (
           message.method != null &&
-          Object.hasOwnProperty.call(message, "method")
+          Object.hasOwnProperty.call(message, 'method')
         )
           writer.uint32(/* id 2, wireType 0 =*/ 16).int32(message.method);
         if (message.headers != null && message.headers.length)
@@ -350,7 +350,7 @@
               message.headers[i],
               writer.uint32(/* id 3, wireType 2 =*/ 26).fork()
             ).ldelim();
-        if (message.body != null && Object.hasOwnProperty.call(message, "body"))
+        if (message.body != null && Object.hasOwnProperty.call(message, 'body'))
           writer.uint32(/* id 4, wireType 2 =*/ 34).string(message.body);
         return writer;
       };
@@ -438,30 +438,30 @@
        * @returns {string|null} `null` if valid, otherwise the reason why it is not
        */
       HttpTask.verify = function verify(message) {
-        if (typeof message !== "object" || message === null)
-          return "object expected";
-        if (message.url != null && message.hasOwnProperty("url"))
-          if (!$util.isString(message.url)) return "url: string expected";
-        if (message.method != null && message.hasOwnProperty("method"))
+        if (typeof message !== 'object' || message === null)
+          return 'object expected';
+        if (message.url != null && message.hasOwnProperty('url'))
+          if (!$util.isString(message.url)) return 'url: string expected';
+        if (message.method != null && message.hasOwnProperty('method'))
           switch (message.method) {
             default:
-              return "method: enum value expected";
+              return 'method: enum value expected';
             case 0:
             case 1:
             case 2:
               break;
           }
-        if (message.headers != null && message.hasOwnProperty("headers")) {
-          if (!Array.isArray(message.headers)) return "headers: array expected";
+        if (message.headers != null && message.hasOwnProperty('headers')) {
+          if (!Array.isArray(message.headers)) return 'headers: array expected';
           for (var i = 0; i < message.headers.length; ++i) {
             var error = $root.OracleJob.HttpTask.Header.verify(
               message.headers[i]
             );
-            if (error) return "headers." + error;
+            if (error) return 'headers.' + error;
           }
         }
-        if (message.body != null && message.hasOwnProperty("body"))
-          if (!$util.isString(message.body)) return "body: string expected";
+        if (message.body != null && message.hasOwnProperty('body'))
+          if (!$util.isString(message.body)) return 'body: string expected';
         return null;
       };
 
@@ -479,31 +479,31 @@
         if (object.url != null) message.url = String(object.url);
         switch (object.method) {
           default:
-            if (typeof object.method === "number") {
+            if (typeof object.method === 'number') {
               message.method = object.method;
               break;
             }
             break;
-          case "METHOD_UNKOWN":
+          case 'METHOD_UNKOWN':
           case 0:
             message.method = 0;
             break;
-          case "METHOD_GET":
+          case 'METHOD_GET':
           case 1:
             message.method = 1;
             break;
-          case "METHOD_POST":
+          case 'METHOD_POST':
           case 2:
             message.method = 2;
             break;
         }
         if (object.headers) {
           if (!Array.isArray(object.headers))
-            throw TypeError(".OracleJob.HttpTask.headers: array expected");
+            throw TypeError('.OracleJob.HttpTask.headers: array expected');
           message.headers = [];
           for (var i = 0; i < object.headers.length; ++i) {
-            if (typeof object.headers[i] !== "object")
-              throw TypeError(".OracleJob.HttpTask.headers: object expected");
+            if (typeof object.headers[i] !== 'object')
+              throw TypeError('.OracleJob.HttpTask.headers: object expected');
             message.headers[i] = $root.OracleJob.HttpTask.Header.fromObject(
               object.headers[i]
             );
@@ -527,13 +527,13 @@
         var object = {};
         if (options.arrays || options.defaults) object.headers = [];
         if (options.defaults) {
-          object.url = "";
-          object.method = options.enums === String ? "METHOD_UNKOWN" : 0;
-          object.body = "";
+          object.url = '';
+          object.method = options.enums === String ? 'METHOD_UNKOWN' : 0;
+          object.body = '';
         }
-        if (message.url != null && message.hasOwnProperty("url"))
+        if (message.url != null && message.hasOwnProperty('url'))
           object.url = message.url;
-        if (message.method != null && message.hasOwnProperty("method"))
+        if (message.method != null && message.hasOwnProperty('method'))
           object.method =
             options.enums === String
               ? $root.OracleJob.HttpTask.Method[message.method] === undefined
@@ -548,7 +548,7 @@
               options
             );
         }
-        if (message.body != null && message.hasOwnProperty("body"))
+        if (message.body != null && message.hasOwnProperty('body'))
           object.body = message.body;
         return object;
       };
@@ -574,9 +574,9 @@
        */
       HttpTask.getTypeUrl = function getTypeUrl(typeUrlPrefix) {
         if (typeUrlPrefix === undefined) {
-          typeUrlPrefix = "type.googleapis.com";
+          typeUrlPrefix = 'type.googleapis.com';
         }
-        return typeUrlPrefix + "/OracleJob.HttpTask";
+        return typeUrlPrefix + '/OracleJob.HttpTask';
       };
 
       /**
@@ -590,9 +590,9 @@
       HttpTask.Method = (function () {
         var valuesById = {},
           values = Object.create(valuesById);
-        values[(valuesById[0] = "METHOD_UNKOWN")] = 0;
-        values[(valuesById[1] = "METHOD_GET")] = 1;
-        values[(valuesById[2] = "METHOD_POST")] = 2;
+        values[(valuesById[0] = 'METHOD_UNKOWN')] = 0;
+        values[(valuesById[1] = 'METHOD_GET')] = 1;
+        values[(valuesById[2] = 'METHOD_POST')] = 2;
         return values;
       })();
 
@@ -630,7 +630,7 @@
          * @memberof OracleJob.HttpTask.Header
          * @instance
          */
-        Header.prototype.key = "";
+        Header.prototype.key = '';
 
         /**
          * Header value.
@@ -638,7 +638,7 @@
          * @memberof OracleJob.HttpTask.Header
          * @instance
          */
-        Header.prototype.value = "";
+        Header.prototype.value = '';
 
         /**
          * Creates a new Header instance using the specified properties.
@@ -663,11 +663,11 @@
          */
         Header.encode = function encode(message, writer) {
           if (!writer) writer = $Writer.create();
-          if (message.key != null && Object.hasOwnProperty.call(message, "key"))
+          if (message.key != null && Object.hasOwnProperty.call(message, 'key'))
             writer.uint32(/* id 1, wireType 2 =*/ 10).string(message.key);
           if (
             message.value != null &&
-            Object.hasOwnProperty.call(message, "value")
+            Object.hasOwnProperty.call(message, 'value')
           )
             writer.uint32(/* id 2, wireType 2 =*/ 18).string(message.value);
           return writer;
@@ -744,12 +744,12 @@
          * @returns {string|null} `null` if valid, otherwise the reason why it is not
          */
         Header.verify = function verify(message) {
-          if (typeof message !== "object" || message === null)
-            return "object expected";
-          if (message.key != null && message.hasOwnProperty("key"))
-            if (!$util.isString(message.key)) return "key: string expected";
-          if (message.value != null && message.hasOwnProperty("value"))
-            if (!$util.isString(message.value)) return "value: string expected";
+          if (typeof message !== 'object' || message === null)
+            return 'object expected';
+          if (message.key != null && message.hasOwnProperty('key'))
+            if (!$util.isString(message.key)) return 'key: string expected';
+          if (message.value != null && message.hasOwnProperty('value'))
+            if (!$util.isString(message.value)) return 'value: string expected';
           return null;
         };
 
@@ -782,12 +782,12 @@
           if (!options) options = {};
           var object = {};
           if (options.defaults) {
-            object.key = "";
-            object.value = "";
+            object.key = '';
+            object.value = '';
           }
-          if (message.key != null && message.hasOwnProperty("key"))
+          if (message.key != null && message.hasOwnProperty('key'))
             object.key = message.key;
-          if (message.value != null && message.hasOwnProperty("value"))
+          if (message.value != null && message.hasOwnProperty('value'))
             object.value = message.value;
           return object;
         };
@@ -813,9 +813,9 @@
          */
         Header.getTypeUrl = function getTypeUrl(typeUrlPrefix) {
           if (typeUrlPrefix === undefined) {
-            typeUrlPrefix = "type.googleapis.com";
+            typeUrlPrefix = 'type.googleapis.com';
           }
-          return typeUrlPrefix + "/OracleJob.HttpTask.Header";
+          return typeUrlPrefix + '/OracleJob.HttpTask.Header';
         };
 
         return Header;
@@ -854,7 +854,7 @@
        * @memberof OracleJob.JsonParseTask
        * @instance
        */
-      JsonParseTask.prototype.path = "";
+      JsonParseTask.prototype.path = '';
 
       /**
        * JsonParseTask aggregationMethod.
@@ -887,11 +887,11 @@
        */
       JsonParseTask.encode = function encode(message, writer) {
         if (!writer) writer = $Writer.create();
-        if (message.path != null && Object.hasOwnProperty.call(message, "path"))
+        if (message.path != null && Object.hasOwnProperty.call(message, 'path'))
           writer.uint32(/* id 1, wireType 2 =*/ 10).string(message.path);
         if (
           message.aggregationMethod != null &&
-          Object.hasOwnProperty.call(message, "aggregationMethod")
+          Object.hasOwnProperty.call(message, 'aggregationMethod')
         )
           writer
             .uint32(/* id 2, wireType 0 =*/ 16)
@@ -973,17 +973,17 @@
        * @returns {string|null} `null` if valid, otherwise the reason why it is not
        */
       JsonParseTask.verify = function verify(message) {
-        if (typeof message !== "object" || message === null)
-          return "object expected";
-        if (message.path != null && message.hasOwnProperty("path"))
-          if (!$util.isString(message.path)) return "path: string expected";
+        if (typeof message !== 'object' || message === null)
+          return 'object expected';
+        if (message.path != null && message.hasOwnProperty('path'))
+          if (!$util.isString(message.path)) return 'path: string expected';
         if (
           message.aggregationMethod != null &&
-          message.hasOwnProperty("aggregationMethod")
+          message.hasOwnProperty('aggregationMethod')
         )
           switch (message.aggregationMethod) {
             default:
-              return "aggregationMethod: enum value expected";
+              return 'aggregationMethod: enum value expected';
             case 0:
             case 1:
             case 2:
@@ -1009,32 +1009,32 @@
         if (object.path != null) message.path = String(object.path);
         switch (object.aggregationMethod) {
           default:
-            if (typeof object.aggregationMethod === "number") {
+            if (typeof object.aggregationMethod === 'number') {
               message.aggregationMethod = object.aggregationMethod;
               break;
             }
             break;
-          case "NONE":
+          case 'NONE':
           case 0:
             message.aggregationMethod = 0;
             break;
-          case "MIN":
+          case 'MIN':
           case 1:
             message.aggregationMethod = 1;
             break;
-          case "MAX":
+          case 'MAX':
           case 2:
             message.aggregationMethod = 2;
             break;
-          case "SUM":
+          case 'SUM':
           case 3:
             message.aggregationMethod = 3;
             break;
-          case "MEAN":
+          case 'MEAN':
           case 4:
             message.aggregationMethod = 4;
             break;
-          case "MEDIAN":
+          case 'MEDIAN':
           case 5:
             message.aggregationMethod = 5;
             break;
@@ -1055,14 +1055,14 @@
         if (!options) options = {};
         var object = {};
         if (options.defaults) {
-          object.path = "";
-          object.aggregationMethod = options.enums === String ? "NONE" : 0;
+          object.path = '';
+          object.aggregationMethod = options.enums === String ? 'NONE' : 0;
         }
-        if (message.path != null && message.hasOwnProperty("path"))
+        if (message.path != null && message.hasOwnProperty('path'))
           object.path = message.path;
         if (
           message.aggregationMethod != null &&
-          message.hasOwnProperty("aggregationMethod")
+          message.hasOwnProperty('aggregationMethod')
         )
           object.aggregationMethod =
             options.enums === String
@@ -1098,9 +1098,9 @@
        */
       JsonParseTask.getTypeUrl = function getTypeUrl(typeUrlPrefix) {
         if (typeUrlPrefix === undefined) {
-          typeUrlPrefix = "type.googleapis.com";
+          typeUrlPrefix = 'type.googleapis.com';
         }
-        return typeUrlPrefix + "/OracleJob.JsonParseTask";
+        return typeUrlPrefix + '/OracleJob.JsonParseTask';
       };
 
       /**
@@ -1117,12 +1117,12 @@
       JsonParseTask.AggregationMethod = (function () {
         var valuesById = {},
           values = Object.create(valuesById);
-        values[(valuesById[0] = "NONE")] = 0;
-        values[(valuesById[1] = "MIN")] = 1;
-        values[(valuesById[2] = "MAX")] = 2;
-        values[(valuesById[3] = "SUM")] = 3;
-        values[(valuesById[4] = "MEAN")] = 4;
-        values[(valuesById[5] = "MEDIAN")] = 5;
+        values[(valuesById[0] = 'NONE')] = 0;
+        values[(valuesById[1] = 'MIN')] = 1;
+        values[(valuesById[2] = 'MAX')] = 2;
+        values[(valuesById[3] = 'SUM')] = 3;
+        values[(valuesById[4] = 'MEAN')] = 4;
+        values[(valuesById[5] = 'MEDIAN')] = 5;
         return values;
       })();
 
@@ -1217,7 +1217,7 @@
             ).ldelim();
         if (
           message.minSuccessfulRequired != null &&
-          Object.hasOwnProperty.call(message, "minSuccessfulRequired")
+          Object.hasOwnProperty.call(message, 'minSuccessfulRequired')
         )
           writer
             .uint32(/* id 3, wireType 0 =*/ 24)
@@ -1306,28 +1306,28 @@
        * @returns {string|null} `null` if valid, otherwise the reason why it is not
        */
       MedianTask.verify = function verify(message) {
-        if (typeof message !== "object" || message === null)
-          return "object expected";
-        if (message.tasks != null && message.hasOwnProperty("tasks")) {
-          if (!Array.isArray(message.tasks)) return "tasks: array expected";
+        if (typeof message !== 'object' || message === null)
+          return 'object expected';
+        if (message.tasks != null && message.hasOwnProperty('tasks')) {
+          if (!Array.isArray(message.tasks)) return 'tasks: array expected';
           for (var i = 0; i < message.tasks.length; ++i) {
             var error = $root.OracleJob.Task.verify(message.tasks[i]);
-            if (error) return "tasks." + error;
+            if (error) return 'tasks.' + error;
           }
         }
-        if (message.jobs != null && message.hasOwnProperty("jobs")) {
-          if (!Array.isArray(message.jobs)) return "jobs: array expected";
+        if (message.jobs != null && message.hasOwnProperty('jobs')) {
+          if (!Array.isArray(message.jobs)) return 'jobs: array expected';
           for (var i = 0; i < message.jobs.length; ++i) {
             var error = $root.OracleJob.verify(message.jobs[i]);
-            if (error) return "jobs." + error;
+            if (error) return 'jobs.' + error;
           }
         }
         if (
           message.minSuccessfulRequired != null &&
-          message.hasOwnProperty("minSuccessfulRequired")
+          message.hasOwnProperty('minSuccessfulRequired')
         )
           if (!$util.isInteger(message.minSuccessfulRequired))
-            return "minSuccessfulRequired: integer expected";
+            return 'minSuccessfulRequired: integer expected';
         return null;
       };
 
@@ -1344,21 +1344,21 @@
         var message = new $root.OracleJob.MedianTask();
         if (object.tasks) {
           if (!Array.isArray(object.tasks))
-            throw TypeError(".OracleJob.MedianTask.tasks: array expected");
+            throw TypeError('.OracleJob.MedianTask.tasks: array expected');
           message.tasks = [];
           for (var i = 0; i < object.tasks.length; ++i) {
-            if (typeof object.tasks[i] !== "object")
-              throw TypeError(".OracleJob.MedianTask.tasks: object expected");
+            if (typeof object.tasks[i] !== 'object')
+              throw TypeError('.OracleJob.MedianTask.tasks: object expected');
             message.tasks[i] = $root.OracleJob.Task.fromObject(object.tasks[i]);
           }
         }
         if (object.jobs) {
           if (!Array.isArray(object.jobs))
-            throw TypeError(".OracleJob.MedianTask.jobs: array expected");
+            throw TypeError('.OracleJob.MedianTask.jobs: array expected');
           message.jobs = [];
           for (var i = 0; i < object.jobs.length; ++i) {
-            if (typeof object.jobs[i] !== "object")
-              throw TypeError(".OracleJob.MedianTask.jobs: object expected");
+            if (typeof object.jobs[i] !== 'object')
+              throw TypeError('.OracleJob.MedianTask.jobs: object expected');
             message.jobs[i] = $root.OracleJob.fromObject(object.jobs[i]);
           }
         }
@@ -1399,7 +1399,7 @@
         }
         if (
           message.minSuccessfulRequired != null &&
-          message.hasOwnProperty("minSuccessfulRequired")
+          message.hasOwnProperty('minSuccessfulRequired')
         )
           object.minSuccessfulRequired = message.minSuccessfulRequired;
         return object;
@@ -1426,9 +1426,9 @@
        */
       MedianTask.getTypeUrl = function getTypeUrl(typeUrlPrefix) {
         if (typeUrlPrefix === undefined) {
-          typeUrlPrefix = "type.googleapis.com";
+          typeUrlPrefix = 'type.googleapis.com';
         }
-        return typeUrlPrefix + "/OracleJob.MedianTask";
+        return typeUrlPrefix + '/OracleJob.MedianTask';
       };
 
       return MedianTask;
@@ -1591,20 +1591,20 @@
        * @returns {string|null} `null` if valid, otherwise the reason why it is not
        */
       MeanTask.verify = function verify(message) {
-        if (typeof message !== "object" || message === null)
-          return "object expected";
-        if (message.tasks != null && message.hasOwnProperty("tasks")) {
-          if (!Array.isArray(message.tasks)) return "tasks: array expected";
+        if (typeof message !== 'object' || message === null)
+          return 'object expected';
+        if (message.tasks != null && message.hasOwnProperty('tasks')) {
+          if (!Array.isArray(message.tasks)) return 'tasks: array expected';
           for (var i = 0; i < message.tasks.length; ++i) {
             var error = $root.OracleJob.Task.verify(message.tasks[i]);
-            if (error) return "tasks." + error;
+            if (error) return 'tasks.' + error;
           }
         }
-        if (message.jobs != null && message.hasOwnProperty("jobs")) {
-          if (!Array.isArray(message.jobs)) return "jobs: array expected";
+        if (message.jobs != null && message.hasOwnProperty('jobs')) {
+          if (!Array.isArray(message.jobs)) return 'jobs: array expected';
           for (var i = 0; i < message.jobs.length; ++i) {
             var error = $root.OracleJob.verify(message.jobs[i]);
-            if (error) return "jobs." + error;
+            if (error) return 'jobs.' + error;
           }
         }
         return null;
@@ -1623,21 +1623,21 @@
         var message = new $root.OracleJob.MeanTask();
         if (object.tasks) {
           if (!Array.isArray(object.tasks))
-            throw TypeError(".OracleJob.MeanTask.tasks: array expected");
+            throw TypeError('.OracleJob.MeanTask.tasks: array expected');
           message.tasks = [];
           for (var i = 0; i < object.tasks.length; ++i) {
-            if (typeof object.tasks[i] !== "object")
-              throw TypeError(".OracleJob.MeanTask.tasks: object expected");
+            if (typeof object.tasks[i] !== 'object')
+              throw TypeError('.OracleJob.MeanTask.tasks: object expected');
             message.tasks[i] = $root.OracleJob.Task.fromObject(object.tasks[i]);
           }
         }
         if (object.jobs) {
           if (!Array.isArray(object.jobs))
-            throw TypeError(".OracleJob.MeanTask.jobs: array expected");
+            throw TypeError('.OracleJob.MeanTask.jobs: array expected');
           message.jobs = [];
           for (var i = 0; i < object.jobs.length; ++i) {
-            if (typeof object.jobs[i] !== "object")
-              throw TypeError(".OracleJob.MeanTask.jobs: object expected");
+            if (typeof object.jobs[i] !== 'object')
+              throw TypeError('.OracleJob.MeanTask.jobs: object expected');
             message.jobs[i] = $root.OracleJob.fromObject(object.jobs[i]);
           }
         }
@@ -1697,9 +1697,9 @@
        */
       MeanTask.getTypeUrl = function getTypeUrl(typeUrlPrefix) {
         if (typeUrlPrefix === undefined) {
-          typeUrlPrefix = "type.googleapis.com";
+          typeUrlPrefix = 'type.googleapis.com';
         }
-        return typeUrlPrefix + "/OracleJob.MeanTask";
+        return typeUrlPrefix + '/OracleJob.MeanTask';
       };
 
       return MeanTask;
@@ -1862,20 +1862,20 @@
        * @returns {string|null} `null` if valid, otherwise the reason why it is not
        */
       MaxTask.verify = function verify(message) {
-        if (typeof message !== "object" || message === null)
-          return "object expected";
-        if (message.tasks != null && message.hasOwnProperty("tasks")) {
-          if (!Array.isArray(message.tasks)) return "tasks: array expected";
+        if (typeof message !== 'object' || message === null)
+          return 'object expected';
+        if (message.tasks != null && message.hasOwnProperty('tasks')) {
+          if (!Array.isArray(message.tasks)) return 'tasks: array expected';
           for (var i = 0; i < message.tasks.length; ++i) {
             var error = $root.OracleJob.Task.verify(message.tasks[i]);
-            if (error) return "tasks." + error;
+            if (error) return 'tasks.' + error;
           }
         }
-        if (message.jobs != null && message.hasOwnProperty("jobs")) {
-          if (!Array.isArray(message.jobs)) return "jobs: array expected";
+        if (message.jobs != null && message.hasOwnProperty('jobs')) {
+          if (!Array.isArray(message.jobs)) return 'jobs: array expected';
           for (var i = 0; i < message.jobs.length; ++i) {
             var error = $root.OracleJob.verify(message.jobs[i]);
-            if (error) return "jobs." + error;
+            if (error) return 'jobs.' + error;
           }
         }
         return null;
@@ -1894,21 +1894,21 @@
         var message = new $root.OracleJob.MaxTask();
         if (object.tasks) {
           if (!Array.isArray(object.tasks))
-            throw TypeError(".OracleJob.MaxTask.tasks: array expected");
+            throw TypeError('.OracleJob.MaxTask.tasks: array expected');
           message.tasks = [];
           for (var i = 0; i < object.tasks.length; ++i) {
-            if (typeof object.tasks[i] !== "object")
-              throw TypeError(".OracleJob.MaxTask.tasks: object expected");
+            if (typeof object.tasks[i] !== 'object')
+              throw TypeError('.OracleJob.MaxTask.tasks: object expected');
             message.tasks[i] = $root.OracleJob.Task.fromObject(object.tasks[i]);
           }
         }
         if (object.jobs) {
           if (!Array.isArray(object.jobs))
-            throw TypeError(".OracleJob.MaxTask.jobs: array expected");
+            throw TypeError('.OracleJob.MaxTask.jobs: array expected');
           message.jobs = [];
           for (var i = 0; i < object.jobs.length; ++i) {
-            if (typeof object.jobs[i] !== "object")
-              throw TypeError(".OracleJob.MaxTask.jobs: object expected");
+            if (typeof object.jobs[i] !== 'object')
+              throw TypeError('.OracleJob.MaxTask.jobs: object expected');
             message.jobs[i] = $root.OracleJob.fromObject(object.jobs[i]);
           }
         }
@@ -1968,9 +1968,9 @@
        */
       MaxTask.getTypeUrl = function getTypeUrl(typeUrlPrefix) {
         if (typeUrlPrefix === undefined) {
-          typeUrlPrefix = "type.googleapis.com";
+          typeUrlPrefix = 'type.googleapis.com';
         }
-        return typeUrlPrefix + "/OracleJob.MaxTask";
+        return typeUrlPrefix + '/OracleJob.MaxTask';
       };
 
       return MaxTask;
@@ -2133,20 +2133,20 @@
        * @returns {string|null} `null` if valid, otherwise the reason why it is not
        */
       MinTask.verify = function verify(message) {
-        if (typeof message !== "object" || message === null)
-          return "object expected";
-        if (message.tasks != null && message.hasOwnProperty("tasks")) {
-          if (!Array.isArray(message.tasks)) return "tasks: array expected";
+        if (typeof message !== 'object' || message === null)
+          return 'object expected';
+        if (message.tasks != null && message.hasOwnProperty('tasks')) {
+          if (!Array.isArray(message.tasks)) return 'tasks: array expected';
           for (var i = 0; i < message.tasks.length; ++i) {
             var error = $root.OracleJob.Task.verify(message.tasks[i]);
-            if (error) return "tasks." + error;
+            if (error) return 'tasks.' + error;
           }
         }
-        if (message.jobs != null && message.hasOwnProperty("jobs")) {
-          if (!Array.isArray(message.jobs)) return "jobs: array expected";
+        if (message.jobs != null && message.hasOwnProperty('jobs')) {
+          if (!Array.isArray(message.jobs)) return 'jobs: array expected';
           for (var i = 0; i < message.jobs.length; ++i) {
             var error = $root.OracleJob.verify(message.jobs[i]);
-            if (error) return "jobs." + error;
+            if (error) return 'jobs.' + error;
           }
         }
         return null;
@@ -2165,21 +2165,21 @@
         var message = new $root.OracleJob.MinTask();
         if (object.tasks) {
           if (!Array.isArray(object.tasks))
-            throw TypeError(".OracleJob.MinTask.tasks: array expected");
+            throw TypeError('.OracleJob.MinTask.tasks: array expected');
           message.tasks = [];
           for (var i = 0; i < object.tasks.length; ++i) {
-            if (typeof object.tasks[i] !== "object")
-              throw TypeError(".OracleJob.MinTask.tasks: object expected");
+            if (typeof object.tasks[i] !== 'object')
+              throw TypeError('.OracleJob.MinTask.tasks: object expected');
             message.tasks[i] = $root.OracleJob.Task.fromObject(object.tasks[i]);
           }
         }
         if (object.jobs) {
           if (!Array.isArray(object.jobs))
-            throw TypeError(".OracleJob.MinTask.jobs: array expected");
+            throw TypeError('.OracleJob.MinTask.jobs: array expected');
           message.jobs = [];
           for (var i = 0; i < object.jobs.length; ++i) {
-            if (typeof object.jobs[i] !== "object")
-              throw TypeError(".OracleJob.MinTask.jobs: object expected");
+            if (typeof object.jobs[i] !== 'object')
+              throw TypeError('.OracleJob.MinTask.jobs: object expected');
             message.jobs[i] = $root.OracleJob.fromObject(object.jobs[i]);
           }
         }
@@ -2239,9 +2239,9 @@
        */
       MinTask.getTypeUrl = function getTypeUrl(typeUrlPrefix) {
         if (typeUrlPrefix === undefined) {
-          typeUrlPrefix = "type.googleapis.com";
+          typeUrlPrefix = 'type.googleapis.com';
         }
-        return typeUrlPrefix + "/OracleJob.MinTask";
+        return typeUrlPrefix + '/OracleJob.MinTask';
       };
 
       return MinTask;
@@ -2305,9 +2305,9 @@
        * @memberof OracleJob.ValueTask
        * @instance
        */
-      Object.defineProperty(ValueTask.prototype, "Value", {
+      Object.defineProperty(ValueTask.prototype, 'Value', {
         get: $util.oneOfGetter(
-          ($oneOfFields = ["value", "aggregatorPubkey", "big"])
+          ($oneOfFields = ['value', 'aggregatorPubkey', 'big'])
         ),
         set: $util.oneOfSetter($oneOfFields),
       });
@@ -2337,17 +2337,17 @@
         if (!writer) writer = $Writer.create();
         if (
           message.value != null &&
-          Object.hasOwnProperty.call(message, "value")
+          Object.hasOwnProperty.call(message, 'value')
         )
           writer.uint32(/* id 1, wireType 1 =*/ 9).double(message.value);
         if (
           message.aggregatorPubkey != null &&
-          Object.hasOwnProperty.call(message, "aggregatorPubkey")
+          Object.hasOwnProperty.call(message, 'aggregatorPubkey')
         )
           writer
             .uint32(/* id 2, wireType 2 =*/ 18)
             .string(message.aggregatorPubkey);
-        if (message.big != null && Object.hasOwnProperty.call(message, "big"))
+        if (message.big != null && Object.hasOwnProperty.call(message, 'big'))
           writer.uint32(/* id 3, wireType 2 =*/ 26).string(message.big);
         return writer;
       };
@@ -2427,27 +2427,27 @@
        * @returns {string|null} `null` if valid, otherwise the reason why it is not
        */
       ValueTask.verify = function verify(message) {
-        if (typeof message !== "object" || message === null)
-          return "object expected";
+        if (typeof message !== 'object' || message === null)
+          return 'object expected';
         var properties = {};
-        if (message.value != null && message.hasOwnProperty("value")) {
+        if (message.value != null && message.hasOwnProperty('value')) {
           properties.Value = 1;
-          if (typeof message.value !== "number")
-            return "value: number expected";
+          if (typeof message.value !== 'number')
+            return 'value: number expected';
         }
         if (
           message.aggregatorPubkey != null &&
-          message.hasOwnProperty("aggregatorPubkey")
+          message.hasOwnProperty('aggregatorPubkey')
         ) {
-          if (properties.Value === 1) return "Value: multiple values";
+          if (properties.Value === 1) return 'Value: multiple values';
           properties.Value = 1;
           if (!$util.isString(message.aggregatorPubkey))
-            return "aggregatorPubkey: string expected";
+            return 'aggregatorPubkey: string expected';
         }
-        if (message.big != null && message.hasOwnProperty("big")) {
-          if (properties.Value === 1) return "Value: multiple values";
+        if (message.big != null && message.hasOwnProperty('big')) {
+          if (properties.Value === 1) return 'Value: multiple values';
           properties.Value = 1;
-          if (!$util.isString(message.big)) return "big: string expected";
+          if (!$util.isString(message.big)) return 'big: string expected';
         }
         return null;
       };
@@ -2482,23 +2482,23 @@
       ValueTask.toObject = function toObject(message, options) {
         if (!options) options = {};
         var object = {};
-        if (message.value != null && message.hasOwnProperty("value")) {
+        if (message.value != null && message.hasOwnProperty('value')) {
           object.value =
             options.json && !isFinite(message.value)
               ? String(message.value)
               : message.value;
-          if (options.oneofs) object.Value = "value";
+          if (options.oneofs) object.Value = 'value';
         }
         if (
           message.aggregatorPubkey != null &&
-          message.hasOwnProperty("aggregatorPubkey")
+          message.hasOwnProperty('aggregatorPubkey')
         ) {
           object.aggregatorPubkey = message.aggregatorPubkey;
-          if (options.oneofs) object.Value = "aggregatorPubkey";
+          if (options.oneofs) object.Value = 'aggregatorPubkey';
         }
-        if (message.big != null && message.hasOwnProperty("big")) {
+        if (message.big != null && message.hasOwnProperty('big')) {
           object.big = message.big;
-          if (options.oneofs) object.Value = "big";
+          if (options.oneofs) object.Value = 'big';
         }
         return object;
       };
@@ -2524,9 +2524,9 @@
        */
       ValueTask.getTypeUrl = function getTypeUrl(typeUrlPrefix) {
         if (typeUrlPrefix === undefined) {
-          typeUrlPrefix = "type.googleapis.com";
+          typeUrlPrefix = 'type.googleapis.com';
         }
-        return typeUrlPrefix + "/OracleJob.ValueTask";
+        return typeUrlPrefix + '/OracleJob.ValueTask';
       };
 
       return ValueTask;
@@ -2564,7 +2564,7 @@
        * @memberof OracleJob.WebsocketTask
        * @instance
        */
-      WebsocketTask.prototype.url = "";
+      WebsocketTask.prototype.url = '';
 
       /**
        * WebsocketTask subscription.
@@ -2572,7 +2572,7 @@
        * @memberof OracleJob.WebsocketTask
        * @instance
        */
-      WebsocketTask.prototype.subscription = "";
+      WebsocketTask.prototype.subscription = '';
 
       /**
        * WebsocketTask maxDataAgeSeconds.
@@ -2588,7 +2588,7 @@
        * @memberof OracleJob.WebsocketTask
        * @instance
        */
-      WebsocketTask.prototype.filter = "";
+      WebsocketTask.prototype.filter = '';
 
       /**
        * Creates a new WebsocketTask instance using the specified properties.
@@ -2613,25 +2613,25 @@
        */
       WebsocketTask.encode = function encode(message, writer) {
         if (!writer) writer = $Writer.create();
-        if (message.url != null && Object.hasOwnProperty.call(message, "url"))
+        if (message.url != null && Object.hasOwnProperty.call(message, 'url'))
           writer.uint32(/* id 1, wireType 2 =*/ 10).string(message.url);
         if (
           message.subscription != null &&
-          Object.hasOwnProperty.call(message, "subscription")
+          Object.hasOwnProperty.call(message, 'subscription')
         )
           writer
             .uint32(/* id 2, wireType 2 =*/ 18)
             .string(message.subscription);
         if (
           message.maxDataAgeSeconds != null &&
-          Object.hasOwnProperty.call(message, "maxDataAgeSeconds")
+          Object.hasOwnProperty.call(message, 'maxDataAgeSeconds')
         )
           writer
             .uint32(/* id 3, wireType 0 =*/ 24)
             .int32(message.maxDataAgeSeconds);
         if (
           message.filter != null &&
-          Object.hasOwnProperty.call(message, "filter")
+          Object.hasOwnProperty.call(message, 'filter')
         )
           writer.uint32(/* id 4, wireType 2 =*/ 34).string(message.filter);
         return writer;
@@ -2719,24 +2719,24 @@
        * @returns {string|null} `null` if valid, otherwise the reason why it is not
        */
       WebsocketTask.verify = function verify(message) {
-        if (typeof message !== "object" || message === null)
-          return "object expected";
-        if (message.url != null && message.hasOwnProperty("url"))
-          if (!$util.isString(message.url)) return "url: string expected";
+        if (typeof message !== 'object' || message === null)
+          return 'object expected';
+        if (message.url != null && message.hasOwnProperty('url'))
+          if (!$util.isString(message.url)) return 'url: string expected';
         if (
           message.subscription != null &&
-          message.hasOwnProperty("subscription")
+          message.hasOwnProperty('subscription')
         )
           if (!$util.isString(message.subscription))
-            return "subscription: string expected";
+            return 'subscription: string expected';
         if (
           message.maxDataAgeSeconds != null &&
-          message.hasOwnProperty("maxDataAgeSeconds")
+          message.hasOwnProperty('maxDataAgeSeconds')
         )
           if (!$util.isInteger(message.maxDataAgeSeconds))
-            return "maxDataAgeSeconds: integer expected";
-        if (message.filter != null && message.hasOwnProperty("filter"))
-          if (!$util.isString(message.filter)) return "filter: string expected";
+            return 'maxDataAgeSeconds: integer expected';
+        if (message.filter != null && message.hasOwnProperty('filter'))
+          if (!$util.isString(message.filter)) return 'filter: string expected';
         return null;
       };
 
@@ -2773,24 +2773,24 @@
         if (!options) options = {};
         var object = {};
         if (options.defaults) {
-          object.url = "";
-          object.subscription = "";
+          object.url = '';
+          object.subscription = '';
           object.maxDataAgeSeconds = 0;
-          object.filter = "";
+          object.filter = '';
         }
-        if (message.url != null && message.hasOwnProperty("url"))
+        if (message.url != null && message.hasOwnProperty('url'))
           object.url = message.url;
         if (
           message.subscription != null &&
-          message.hasOwnProperty("subscription")
+          message.hasOwnProperty('subscription')
         )
           object.subscription = message.subscription;
         if (
           message.maxDataAgeSeconds != null &&
-          message.hasOwnProperty("maxDataAgeSeconds")
+          message.hasOwnProperty('maxDataAgeSeconds')
         )
           object.maxDataAgeSeconds = message.maxDataAgeSeconds;
-        if (message.filter != null && message.hasOwnProperty("filter"))
+        if (message.filter != null && message.hasOwnProperty('filter'))
           object.filter = message.filter;
         return object;
       };
@@ -2816,9 +2816,9 @@
        */
       WebsocketTask.getTypeUrl = function getTypeUrl(typeUrlPrefix) {
         if (typeUrlPrefix === undefined) {
-          typeUrlPrefix = "type.googleapis.com";
+          typeUrlPrefix = 'type.googleapis.com';
         }
-        return typeUrlPrefix + "/OracleJob.WebsocketTask";
+        return typeUrlPrefix + '/OracleJob.WebsocketTask';
       };
 
       return WebsocketTask;
@@ -2986,21 +2986,21 @@
        * @returns {string|null} `null` if valid, otherwise the reason why it is not
        */
       ConditionalTask.verify = function verify(message) {
-        if (typeof message !== "object" || message === null)
-          return "object expected";
-        if (message.attempt != null && message.hasOwnProperty("attempt")) {
-          if (!Array.isArray(message.attempt)) return "attempt: array expected";
+        if (typeof message !== 'object' || message === null)
+          return 'object expected';
+        if (message.attempt != null && message.hasOwnProperty('attempt')) {
+          if (!Array.isArray(message.attempt)) return 'attempt: array expected';
           for (var i = 0; i < message.attempt.length; ++i) {
             var error = $root.OracleJob.Task.verify(message.attempt[i]);
-            if (error) return "attempt." + error;
+            if (error) return 'attempt.' + error;
           }
         }
-        if (message.onFailure != null && message.hasOwnProperty("onFailure")) {
+        if (message.onFailure != null && message.hasOwnProperty('onFailure')) {
           if (!Array.isArray(message.onFailure))
-            return "onFailure: array expected";
+            return 'onFailure: array expected';
           for (var i = 0; i < message.onFailure.length; ++i) {
             var error = $root.OracleJob.Task.verify(message.onFailure[i]);
-            if (error) return "onFailure." + error;
+            if (error) return 'onFailure.' + error;
           }
         }
         return null;
@@ -3020,13 +3020,13 @@
         if (object.attempt) {
           if (!Array.isArray(object.attempt))
             throw TypeError(
-              ".OracleJob.ConditionalTask.attempt: array expected"
+              '.OracleJob.ConditionalTask.attempt: array expected'
             );
           message.attempt = [];
           for (var i = 0; i < object.attempt.length; ++i) {
-            if (typeof object.attempt[i] !== "object")
+            if (typeof object.attempt[i] !== 'object')
               throw TypeError(
-                ".OracleJob.ConditionalTask.attempt: object expected"
+                '.OracleJob.ConditionalTask.attempt: object expected'
               );
             message.attempt[i] = $root.OracleJob.Task.fromObject(
               object.attempt[i]
@@ -3036,13 +3036,13 @@
         if (object.onFailure) {
           if (!Array.isArray(object.onFailure))
             throw TypeError(
-              ".OracleJob.ConditionalTask.onFailure: array expected"
+              '.OracleJob.ConditionalTask.onFailure: array expected'
             );
           message.onFailure = [];
           for (var i = 0; i < object.onFailure.length; ++i) {
-            if (typeof object.onFailure[i] !== "object")
+            if (typeof object.onFailure[i] !== 'object')
               throw TypeError(
-                ".OracleJob.ConditionalTask.onFailure: object expected"
+                '.OracleJob.ConditionalTask.onFailure: object expected'
               );
             message.onFailure[i] = $root.OracleJob.Task.fromObject(
               object.onFailure[i]
@@ -3108,9 +3108,9 @@
        */
       ConditionalTask.getTypeUrl = function getTypeUrl(typeUrlPrefix) {
         if (typeUrlPrefix === undefined) {
-          typeUrlPrefix = "type.googleapis.com";
+          typeUrlPrefix = 'type.googleapis.com';
         }
-        return typeUrlPrefix + "/OracleJob.ConditionalTask";
+        return typeUrlPrefix + '/OracleJob.ConditionalTask';
       };
 
       return ConditionalTask;
@@ -3183,9 +3183,9 @@
        * @memberof OracleJob.DivideTask
        * @instance
        */
-      Object.defineProperty(DivideTask.prototype, "Denominator", {
+      Object.defineProperty(DivideTask.prototype, 'Denominator', {
         get: $util.oneOfGetter(
-          ($oneOfFields = ["scalar", "aggregatorPubkey", "job", "big"])
+          ($oneOfFields = ['scalar', 'aggregatorPubkey', 'job', 'big'])
         ),
         set: $util.oneOfSetter($oneOfFields),
       });
@@ -3215,22 +3215,22 @@
         if (!writer) writer = $Writer.create();
         if (
           message.scalar != null &&
-          Object.hasOwnProperty.call(message, "scalar")
+          Object.hasOwnProperty.call(message, 'scalar')
         )
           writer.uint32(/* id 1, wireType 1 =*/ 9).double(message.scalar);
         if (
           message.aggregatorPubkey != null &&
-          Object.hasOwnProperty.call(message, "aggregatorPubkey")
+          Object.hasOwnProperty.call(message, 'aggregatorPubkey')
         )
           writer
             .uint32(/* id 2, wireType 2 =*/ 18)
             .string(message.aggregatorPubkey);
-        if (message.job != null && Object.hasOwnProperty.call(message, "job"))
+        if (message.job != null && Object.hasOwnProperty.call(message, 'job'))
           $root.OracleJob.encode(
             message.job,
             writer.uint32(/* id 3, wireType 2 =*/ 26).fork()
           ).ldelim();
-        if (message.big != null && Object.hasOwnProperty.call(message, "big"))
+        if (message.big != null && Object.hasOwnProperty.call(message, 'big'))
           writer.uint32(/* id 4, wireType 2 =*/ 34).string(message.big);
         return writer;
       };
@@ -3314,38 +3314,38 @@
        * @returns {string|null} `null` if valid, otherwise the reason why it is not
        */
       DivideTask.verify = function verify(message) {
-        if (typeof message !== "object" || message === null)
-          return "object expected";
+        if (typeof message !== 'object' || message === null)
+          return 'object expected';
         var properties = {};
-        if (message.scalar != null && message.hasOwnProperty("scalar")) {
+        if (message.scalar != null && message.hasOwnProperty('scalar')) {
           properties.Denominator = 1;
-          if (typeof message.scalar !== "number")
-            return "scalar: number expected";
+          if (typeof message.scalar !== 'number')
+            return 'scalar: number expected';
         }
         if (
           message.aggregatorPubkey != null &&
-          message.hasOwnProperty("aggregatorPubkey")
+          message.hasOwnProperty('aggregatorPubkey')
         ) {
           if (properties.Denominator === 1)
-            return "Denominator: multiple values";
+            return 'Denominator: multiple values';
           properties.Denominator = 1;
           if (!$util.isString(message.aggregatorPubkey))
-            return "aggregatorPubkey: string expected";
+            return 'aggregatorPubkey: string expected';
         }
-        if (message.job != null && message.hasOwnProperty("job")) {
+        if (message.job != null && message.hasOwnProperty('job')) {
           if (properties.Denominator === 1)
-            return "Denominator: multiple values";
+            return 'Denominator: multiple values';
           properties.Denominator = 1;
           {
             var error = $root.OracleJob.verify(message.job);
-            if (error) return "job." + error;
+            if (error) return 'job.' + error;
           }
         }
-        if (message.big != null && message.hasOwnProperty("big")) {
+        if (message.big != null && message.hasOwnProperty('big')) {
           if (properties.Denominator === 1)
-            return "Denominator: multiple values";
+            return 'Denominator: multiple values';
           properties.Denominator = 1;
-          if (!$util.isString(message.big)) return "big: string expected";
+          if (!$util.isString(message.big)) return 'big: string expected';
         }
         return null;
       };
@@ -3365,8 +3365,8 @@
         if (object.aggregatorPubkey != null)
           message.aggregatorPubkey = String(object.aggregatorPubkey);
         if (object.job != null) {
-          if (typeof object.job !== "object")
-            throw TypeError(".OracleJob.DivideTask.job: object expected");
+          if (typeof object.job !== 'object')
+            throw TypeError('.OracleJob.DivideTask.job: object expected');
           message.job = $root.OracleJob.fromObject(object.job);
         }
         if (object.big != null) message.big = String(object.big);
@@ -3385,27 +3385,27 @@
       DivideTask.toObject = function toObject(message, options) {
         if (!options) options = {};
         var object = {};
-        if (message.scalar != null && message.hasOwnProperty("scalar")) {
+        if (message.scalar != null && message.hasOwnProperty('scalar')) {
           object.scalar =
             options.json && !isFinite(message.scalar)
               ? String(message.scalar)
               : message.scalar;
-          if (options.oneofs) object.Denominator = "scalar";
+          if (options.oneofs) object.Denominator = 'scalar';
         }
         if (
           message.aggregatorPubkey != null &&
-          message.hasOwnProperty("aggregatorPubkey")
+          message.hasOwnProperty('aggregatorPubkey')
         ) {
           object.aggregatorPubkey = message.aggregatorPubkey;
-          if (options.oneofs) object.Denominator = "aggregatorPubkey";
+          if (options.oneofs) object.Denominator = 'aggregatorPubkey';
         }
-        if (message.job != null && message.hasOwnProperty("job")) {
+        if (message.job != null && message.hasOwnProperty('job')) {
           object.job = $root.OracleJob.toObject(message.job, options);
-          if (options.oneofs) object.Denominator = "job";
+          if (options.oneofs) object.Denominator = 'job';
         }
-        if (message.big != null && message.hasOwnProperty("big")) {
+        if (message.big != null && message.hasOwnProperty('big')) {
           object.big = message.big;
-          if (options.oneofs) object.Denominator = "big";
+          if (options.oneofs) object.Denominator = 'big';
         }
         return object;
       };
@@ -3431,9 +3431,9 @@
        */
       DivideTask.getTypeUrl = function getTypeUrl(typeUrlPrefix) {
         if (typeUrlPrefix === undefined) {
-          typeUrlPrefix = "type.googleapis.com";
+          typeUrlPrefix = 'type.googleapis.com';
         }
-        return typeUrlPrefix + "/OracleJob.DivideTask";
+        return typeUrlPrefix + '/OracleJob.DivideTask';
       };
 
       return DivideTask;
@@ -3506,9 +3506,9 @@
        * @memberof OracleJob.MultiplyTask
        * @instance
        */
-      Object.defineProperty(MultiplyTask.prototype, "Multiple", {
+      Object.defineProperty(MultiplyTask.prototype, 'Multiple', {
         get: $util.oneOfGetter(
-          ($oneOfFields = ["scalar", "aggregatorPubkey", "job", "big"])
+          ($oneOfFields = ['scalar', 'aggregatorPubkey', 'job', 'big'])
         ),
         set: $util.oneOfSetter($oneOfFields),
       });
@@ -3538,22 +3538,22 @@
         if (!writer) writer = $Writer.create();
         if (
           message.scalar != null &&
-          Object.hasOwnProperty.call(message, "scalar")
+          Object.hasOwnProperty.call(message, 'scalar')
         )
           writer.uint32(/* id 1, wireType 1 =*/ 9).double(message.scalar);
         if (
           message.aggregatorPubkey != null &&
-          Object.hasOwnProperty.call(message, "aggregatorPubkey")
+          Object.hasOwnProperty.call(message, 'aggregatorPubkey')
         )
           writer
             .uint32(/* id 2, wireType 2 =*/ 18)
             .string(message.aggregatorPubkey);
-        if (message.job != null && Object.hasOwnProperty.call(message, "job"))
+        if (message.job != null && Object.hasOwnProperty.call(message, 'job'))
           $root.OracleJob.encode(
             message.job,
             writer.uint32(/* id 3, wireType 2 =*/ 26).fork()
           ).ldelim();
-        if (message.big != null && Object.hasOwnProperty.call(message, "big"))
+        if (message.big != null && Object.hasOwnProperty.call(message, 'big'))
           writer.uint32(/* id 4, wireType 2 =*/ 34).string(message.big);
         return writer;
       };
@@ -3637,35 +3637,35 @@
        * @returns {string|null} `null` if valid, otherwise the reason why it is not
        */
       MultiplyTask.verify = function verify(message) {
-        if (typeof message !== "object" || message === null)
-          return "object expected";
+        if (typeof message !== 'object' || message === null)
+          return 'object expected';
         var properties = {};
-        if (message.scalar != null && message.hasOwnProperty("scalar")) {
+        if (message.scalar != null && message.hasOwnProperty('scalar')) {
           properties.Multiple = 1;
-          if (typeof message.scalar !== "number")
-            return "scalar: number expected";
+          if (typeof message.scalar !== 'number')
+            return 'scalar: number expected';
         }
         if (
           message.aggregatorPubkey != null &&
-          message.hasOwnProperty("aggregatorPubkey")
+          message.hasOwnProperty('aggregatorPubkey')
         ) {
-          if (properties.Multiple === 1) return "Multiple: multiple values";
+          if (properties.Multiple === 1) return 'Multiple: multiple values';
           properties.Multiple = 1;
           if (!$util.isString(message.aggregatorPubkey))
-            return "aggregatorPubkey: string expected";
+            return 'aggregatorPubkey: string expected';
         }
-        if (message.job != null && message.hasOwnProperty("job")) {
-          if (properties.Multiple === 1) return "Multiple: multiple values";
+        if (message.job != null && message.hasOwnProperty('job')) {
+          if (properties.Multiple === 1) return 'Multiple: multiple values';
           properties.Multiple = 1;
           {
             var error = $root.OracleJob.verify(message.job);
-            if (error) return "job." + error;
+            if (error) return 'job.' + error;
           }
         }
-        if (message.big != null && message.hasOwnProperty("big")) {
-          if (properties.Multiple === 1) return "Multiple: multiple values";
+        if (message.big != null && message.hasOwnProperty('big')) {
+          if (properties.Multiple === 1) return 'Multiple: multiple values';
           properties.Multiple = 1;
-          if (!$util.isString(message.big)) return "big: string expected";
+          if (!$util.isString(message.big)) return 'big: string expected';
         }
         return null;
       };
@@ -3685,8 +3685,8 @@
         if (object.aggregatorPubkey != null)
           message.aggregatorPubkey = String(object.aggregatorPubkey);
         if (object.job != null) {
-          if (typeof object.job !== "object")
-            throw TypeError(".OracleJob.MultiplyTask.job: object expected");
+          if (typeof object.job !== 'object')
+            throw TypeError('.OracleJob.MultiplyTask.job: object expected');
           message.job = $root.OracleJob.fromObject(object.job);
         }
         if (object.big != null) message.big = String(object.big);
@@ -3705,27 +3705,27 @@
       MultiplyTask.toObject = function toObject(message, options) {
         if (!options) options = {};
         var object = {};
-        if (message.scalar != null && message.hasOwnProperty("scalar")) {
+        if (message.scalar != null && message.hasOwnProperty('scalar')) {
           object.scalar =
             options.json && !isFinite(message.scalar)
               ? String(message.scalar)
               : message.scalar;
-          if (options.oneofs) object.Multiple = "scalar";
+          if (options.oneofs) object.Multiple = 'scalar';
         }
         if (
           message.aggregatorPubkey != null &&
-          message.hasOwnProperty("aggregatorPubkey")
+          message.hasOwnProperty('aggregatorPubkey')
         ) {
           object.aggregatorPubkey = message.aggregatorPubkey;
-          if (options.oneofs) object.Multiple = "aggregatorPubkey";
+          if (options.oneofs) object.Multiple = 'aggregatorPubkey';
         }
-        if (message.job != null && message.hasOwnProperty("job")) {
+        if (message.job != null && message.hasOwnProperty('job')) {
           object.job = $root.OracleJob.toObject(message.job, options);
-          if (options.oneofs) object.Multiple = "job";
+          if (options.oneofs) object.Multiple = 'job';
         }
-        if (message.big != null && message.hasOwnProperty("big")) {
+        if (message.big != null && message.hasOwnProperty('big')) {
           object.big = message.big;
-          if (options.oneofs) object.Multiple = "big";
+          if (options.oneofs) object.Multiple = 'big';
         }
         return object;
       };
@@ -3751,9 +3751,9 @@
        */
       MultiplyTask.getTypeUrl = function getTypeUrl(typeUrlPrefix) {
         if (typeUrlPrefix === undefined) {
-          typeUrlPrefix = "type.googleapis.com";
+          typeUrlPrefix = 'type.googleapis.com';
         }
-        return typeUrlPrefix + "/OracleJob.MultiplyTask";
+        return typeUrlPrefix + '/OracleJob.MultiplyTask';
       };
 
       return MultiplyTask;
@@ -3826,9 +3826,9 @@
        * @memberof OracleJob.AddTask
        * @instance
        */
-      Object.defineProperty(AddTask.prototype, "Addition", {
+      Object.defineProperty(AddTask.prototype, 'Addition', {
         get: $util.oneOfGetter(
-          ($oneOfFields = ["scalar", "aggregatorPubkey", "job", "big"])
+          ($oneOfFields = ['scalar', 'aggregatorPubkey', 'job', 'big'])
         ),
         set: $util.oneOfSetter($oneOfFields),
       });
@@ -3858,22 +3858,22 @@
         if (!writer) writer = $Writer.create();
         if (
           message.scalar != null &&
-          Object.hasOwnProperty.call(message, "scalar")
+          Object.hasOwnProperty.call(message, 'scalar')
         )
           writer.uint32(/* id 1, wireType 1 =*/ 9).double(message.scalar);
         if (
           message.aggregatorPubkey != null &&
-          Object.hasOwnProperty.call(message, "aggregatorPubkey")
+          Object.hasOwnProperty.call(message, 'aggregatorPubkey')
         )
           writer
             .uint32(/* id 2, wireType 2 =*/ 18)
             .string(message.aggregatorPubkey);
-        if (message.job != null && Object.hasOwnProperty.call(message, "job"))
+        if (message.job != null && Object.hasOwnProperty.call(message, 'job'))
           $root.OracleJob.encode(
             message.job,
             writer.uint32(/* id 3, wireType 2 =*/ 26).fork()
           ).ldelim();
-        if (message.big != null && Object.hasOwnProperty.call(message, "big"))
+        if (message.big != null && Object.hasOwnProperty.call(message, 'big'))
           writer.uint32(/* id 4, wireType 2 =*/ 34).string(message.big);
         return writer;
       };
@@ -3957,35 +3957,35 @@
        * @returns {string|null} `null` if valid, otherwise the reason why it is not
        */
       AddTask.verify = function verify(message) {
-        if (typeof message !== "object" || message === null)
-          return "object expected";
+        if (typeof message !== 'object' || message === null)
+          return 'object expected';
         var properties = {};
-        if (message.scalar != null && message.hasOwnProperty("scalar")) {
+        if (message.scalar != null && message.hasOwnProperty('scalar')) {
           properties.Addition = 1;
-          if (typeof message.scalar !== "number")
-            return "scalar: number expected";
+          if (typeof message.scalar !== 'number')
+            return 'scalar: number expected';
         }
         if (
           message.aggregatorPubkey != null &&
-          message.hasOwnProperty("aggregatorPubkey")
+          message.hasOwnProperty('aggregatorPubkey')
         ) {
-          if (properties.Addition === 1) return "Addition: multiple values";
+          if (properties.Addition === 1) return 'Addition: multiple values';
           properties.Addition = 1;
           if (!$util.isString(message.aggregatorPubkey))
-            return "aggregatorPubkey: string expected";
+            return 'aggregatorPubkey: string expected';
         }
-        if (message.job != null && message.hasOwnProperty("job")) {
-          if (properties.Addition === 1) return "Addition: multiple values";
+        if (message.job != null && message.hasOwnProperty('job')) {
+          if (properties.Addition === 1) return 'Addition: multiple values';
           properties.Addition = 1;
           {
             var error = $root.OracleJob.verify(message.job);
-            if (error) return "job." + error;
+            if (error) return 'job.' + error;
           }
         }
-        if (message.big != null && message.hasOwnProperty("big")) {
-          if (properties.Addition === 1) return "Addition: multiple values";
+        if (message.big != null && message.hasOwnProperty('big')) {
+          if (properties.Addition === 1) return 'Addition: multiple values';
           properties.Addition = 1;
-          if (!$util.isString(message.big)) return "big: string expected";
+          if (!$util.isString(message.big)) return 'big: string expected';
         }
         return null;
       };
@@ -4005,8 +4005,8 @@
         if (object.aggregatorPubkey != null)
           message.aggregatorPubkey = String(object.aggregatorPubkey);
         if (object.job != null) {
-          if (typeof object.job !== "object")
-            throw TypeError(".OracleJob.AddTask.job: object expected");
+          if (typeof object.job !== 'object')
+            throw TypeError('.OracleJob.AddTask.job: object expected');
           message.job = $root.OracleJob.fromObject(object.job);
         }
         if (object.big != null) message.big = String(object.big);
@@ -4025,27 +4025,27 @@
       AddTask.toObject = function toObject(message, options) {
         if (!options) options = {};
         var object = {};
-        if (message.scalar != null && message.hasOwnProperty("scalar")) {
+        if (message.scalar != null && message.hasOwnProperty('scalar')) {
           object.scalar =
             options.json && !isFinite(message.scalar)
               ? String(message.scalar)
               : message.scalar;
-          if (options.oneofs) object.Addition = "scalar";
+          if (options.oneofs) object.Addition = 'scalar';
         }
         if (
           message.aggregatorPubkey != null &&
-          message.hasOwnProperty("aggregatorPubkey")
+          message.hasOwnProperty('aggregatorPubkey')
         ) {
           object.aggregatorPubkey = message.aggregatorPubkey;
-          if (options.oneofs) object.Addition = "aggregatorPubkey";
+          if (options.oneofs) object.Addition = 'aggregatorPubkey';
         }
-        if (message.job != null && message.hasOwnProperty("job")) {
+        if (message.job != null && message.hasOwnProperty('job')) {
           object.job = $root.OracleJob.toObject(message.job, options);
-          if (options.oneofs) object.Addition = "job";
+          if (options.oneofs) object.Addition = 'job';
         }
-        if (message.big != null && message.hasOwnProperty("big")) {
+        if (message.big != null && message.hasOwnProperty('big')) {
           object.big = message.big;
-          if (options.oneofs) object.Addition = "big";
+          if (options.oneofs) object.Addition = 'big';
         }
         return object;
       };
@@ -4071,9 +4071,9 @@
        */
       AddTask.getTypeUrl = function getTypeUrl(typeUrlPrefix) {
         if (typeUrlPrefix === undefined) {
-          typeUrlPrefix = "type.googleapis.com";
+          typeUrlPrefix = 'type.googleapis.com';
         }
-        return typeUrlPrefix + "/OracleJob.AddTask";
+        return typeUrlPrefix + '/OracleJob.AddTask';
       };
 
       return AddTask;
@@ -4146,9 +4146,9 @@
        * @memberof OracleJob.SubtractTask
        * @instance
        */
-      Object.defineProperty(SubtractTask.prototype, "Subtraction", {
+      Object.defineProperty(SubtractTask.prototype, 'Subtraction', {
         get: $util.oneOfGetter(
-          ($oneOfFields = ["scalar", "aggregatorPubkey", "job", "big"])
+          ($oneOfFields = ['scalar', 'aggregatorPubkey', 'job', 'big'])
         ),
         set: $util.oneOfSetter($oneOfFields),
       });
@@ -4178,22 +4178,22 @@
         if (!writer) writer = $Writer.create();
         if (
           message.scalar != null &&
-          Object.hasOwnProperty.call(message, "scalar")
+          Object.hasOwnProperty.call(message, 'scalar')
         )
           writer.uint32(/* id 1, wireType 1 =*/ 9).double(message.scalar);
         if (
           message.aggregatorPubkey != null &&
-          Object.hasOwnProperty.call(message, "aggregatorPubkey")
+          Object.hasOwnProperty.call(message, 'aggregatorPubkey')
         )
           writer
             .uint32(/* id 2, wireType 2 =*/ 18)
             .string(message.aggregatorPubkey);
-        if (message.job != null && Object.hasOwnProperty.call(message, "job"))
+        if (message.job != null && Object.hasOwnProperty.call(message, 'job'))
           $root.OracleJob.encode(
             message.job,
             writer.uint32(/* id 3, wireType 2 =*/ 26).fork()
           ).ldelim();
-        if (message.big != null && Object.hasOwnProperty.call(message, "big"))
+        if (message.big != null && Object.hasOwnProperty.call(message, 'big'))
           writer.uint32(/* id 4, wireType 2 =*/ 34).string(message.big);
         return writer;
       };
@@ -4277,38 +4277,38 @@
        * @returns {string|null} `null` if valid, otherwise the reason why it is not
        */
       SubtractTask.verify = function verify(message) {
-        if (typeof message !== "object" || message === null)
-          return "object expected";
+        if (typeof message !== 'object' || message === null)
+          return 'object expected';
         var properties = {};
-        if (message.scalar != null && message.hasOwnProperty("scalar")) {
+        if (message.scalar != null && message.hasOwnProperty('scalar')) {
           properties.Subtraction = 1;
-          if (typeof message.scalar !== "number")
-            return "scalar: number expected";
+          if (typeof message.scalar !== 'number')
+            return 'scalar: number expected';
         }
         if (
           message.aggregatorPubkey != null &&
-          message.hasOwnProperty("aggregatorPubkey")
+          message.hasOwnProperty('aggregatorPubkey')
         ) {
           if (properties.Subtraction === 1)
-            return "Subtraction: multiple values";
+            return 'Subtraction: multiple values';
           properties.Subtraction = 1;
           if (!$util.isString(message.aggregatorPubkey))
-            return "aggregatorPubkey: string expected";
+            return 'aggregatorPubkey: string expected';
         }
-        if (message.job != null && message.hasOwnProperty("job")) {
+        if (message.job != null && message.hasOwnProperty('job')) {
           if (properties.Subtraction === 1)
-            return "Subtraction: multiple values";
+            return 'Subtraction: multiple values';
           properties.Subtraction = 1;
           {
             var error = $root.OracleJob.verify(message.job);
-            if (error) return "job." + error;
+            if (error) return 'job.' + error;
           }
         }
-        if (message.big != null && message.hasOwnProperty("big")) {
+        if (message.big != null && message.hasOwnProperty('big')) {
           if (properties.Subtraction === 1)
-            return "Subtraction: multiple values";
+            return 'Subtraction: multiple values';
           properties.Subtraction = 1;
-          if (!$util.isString(message.big)) return "big: string expected";
+          if (!$util.isString(message.big)) return 'big: string expected';
         }
         return null;
       };
@@ -4328,8 +4328,8 @@
         if (object.aggregatorPubkey != null)
           message.aggregatorPubkey = String(object.aggregatorPubkey);
         if (object.job != null) {
-          if (typeof object.job !== "object")
-            throw TypeError(".OracleJob.SubtractTask.job: object expected");
+          if (typeof object.job !== 'object')
+            throw TypeError('.OracleJob.SubtractTask.job: object expected');
           message.job = $root.OracleJob.fromObject(object.job);
         }
         if (object.big != null) message.big = String(object.big);
@@ -4348,27 +4348,27 @@
       SubtractTask.toObject = function toObject(message, options) {
         if (!options) options = {};
         var object = {};
-        if (message.scalar != null && message.hasOwnProperty("scalar")) {
+        if (message.scalar != null && message.hasOwnProperty('scalar')) {
           object.scalar =
             options.json && !isFinite(message.scalar)
               ? String(message.scalar)
               : message.scalar;
-          if (options.oneofs) object.Subtraction = "scalar";
+          if (options.oneofs) object.Subtraction = 'scalar';
         }
         if (
           message.aggregatorPubkey != null &&
-          message.hasOwnProperty("aggregatorPubkey")
+          message.hasOwnProperty('aggregatorPubkey')
         ) {
           object.aggregatorPubkey = message.aggregatorPubkey;
-          if (options.oneofs) object.Subtraction = "aggregatorPubkey";
+          if (options.oneofs) object.Subtraction = 'aggregatorPubkey';
         }
-        if (message.job != null && message.hasOwnProperty("job")) {
+        if (message.job != null && message.hasOwnProperty('job')) {
           object.job = $root.OracleJob.toObject(message.job, options);
-          if (options.oneofs) object.Subtraction = "job";
+          if (options.oneofs) object.Subtraction = 'job';
         }
-        if (message.big != null && message.hasOwnProperty("big")) {
+        if (message.big != null && message.hasOwnProperty('big')) {
           object.big = message.big;
-          if (options.oneofs) object.Subtraction = "big";
+          if (options.oneofs) object.Subtraction = 'big';
         }
         return object;
       };
@@ -4394,9 +4394,9 @@
        */
       SubtractTask.getTypeUrl = function getTypeUrl(typeUrlPrefix) {
         if (typeUrlPrefix === undefined) {
-          typeUrlPrefix = "type.googleapis.com";
+          typeUrlPrefix = 'type.googleapis.com';
         }
-        return typeUrlPrefix + "/OracleJob.SubtractTask";
+        return typeUrlPrefix + '/OracleJob.SubtractTask';
       };
 
       return SubtractTask;
@@ -4498,13 +4498,13 @@
        * @memberof OracleJob.LpTokenPriceTask
        * @instance
        */
-      Object.defineProperty(LpTokenPriceTask.prototype, "PoolAddress", {
+      Object.defineProperty(LpTokenPriceTask.prototype, 'PoolAddress', {
         get: $util.oneOfGetter(
           ($oneOfFields = [
-            "mercurialPoolAddress",
-            "saberPoolAddress",
-            "orcaPoolAddress",
-            "raydiumPoolAddress",
+            'mercurialPoolAddress',
+            'saberPoolAddress',
+            'orcaPoolAddress',
+            'raydiumPoolAddress',
           ])
         ),
         set: $util.oneOfSetter($oneOfFields),
@@ -4535,28 +4535,28 @@
         if (!writer) writer = $Writer.create();
         if (
           message.mercurialPoolAddress != null &&
-          Object.hasOwnProperty.call(message, "mercurialPoolAddress")
+          Object.hasOwnProperty.call(message, 'mercurialPoolAddress')
         )
           writer
             .uint32(/* id 1, wireType 2 =*/ 10)
             .string(message.mercurialPoolAddress);
         if (
           message.saberPoolAddress != null &&
-          Object.hasOwnProperty.call(message, "saberPoolAddress")
+          Object.hasOwnProperty.call(message, 'saberPoolAddress')
         )
           writer
             .uint32(/* id 2, wireType 2 =*/ 18)
             .string(message.saberPoolAddress);
         if (
           message.orcaPoolAddress != null &&
-          Object.hasOwnProperty.call(message, "orcaPoolAddress")
+          Object.hasOwnProperty.call(message, 'orcaPoolAddress')
         )
           writer
             .uint32(/* id 3, wireType 2 =*/ 26)
             .string(message.orcaPoolAddress);
         if (
           message.raydiumPoolAddress != null &&
-          Object.hasOwnProperty.call(message, "raydiumPoolAddress")
+          Object.hasOwnProperty.call(message, 'raydiumPoolAddress')
         )
           writer
             .uint32(/* id 4, wireType 2 =*/ 34)
@@ -4577,7 +4577,7 @@
             ).ldelim();
         if (
           message.useFairPrice != null &&
-          Object.hasOwnProperty.call(message, "useFairPrice")
+          Object.hasOwnProperty.call(message, 'useFairPrice')
         )
           writer.uint32(/* id 7, wireType 0 =*/ 56).bool(message.useFairPrice);
         return writer;
@@ -4688,74 +4688,74 @@
        * @returns {string|null} `null` if valid, otherwise the reason why it is not
        */
       LpTokenPriceTask.verify = function verify(message) {
-        if (typeof message !== "object" || message === null)
-          return "object expected";
+        if (typeof message !== 'object' || message === null)
+          return 'object expected';
         var properties = {};
         if (
           message.mercurialPoolAddress != null &&
-          message.hasOwnProperty("mercurialPoolAddress")
+          message.hasOwnProperty('mercurialPoolAddress')
         ) {
           properties.PoolAddress = 1;
           if (!$util.isString(message.mercurialPoolAddress))
-            return "mercurialPoolAddress: string expected";
+            return 'mercurialPoolAddress: string expected';
         }
         if (
           message.saberPoolAddress != null &&
-          message.hasOwnProperty("saberPoolAddress")
+          message.hasOwnProperty('saberPoolAddress')
         ) {
           if (properties.PoolAddress === 1)
-            return "PoolAddress: multiple values";
+            return 'PoolAddress: multiple values';
           properties.PoolAddress = 1;
           if (!$util.isString(message.saberPoolAddress))
-            return "saberPoolAddress: string expected";
+            return 'saberPoolAddress: string expected';
         }
         if (
           message.orcaPoolAddress != null &&
-          message.hasOwnProperty("orcaPoolAddress")
+          message.hasOwnProperty('orcaPoolAddress')
         ) {
           if (properties.PoolAddress === 1)
-            return "PoolAddress: multiple values";
+            return 'PoolAddress: multiple values';
           properties.PoolAddress = 1;
           if (!$util.isString(message.orcaPoolAddress))
-            return "orcaPoolAddress: string expected";
+            return 'orcaPoolAddress: string expected';
         }
         if (
           message.raydiumPoolAddress != null &&
-          message.hasOwnProperty("raydiumPoolAddress")
+          message.hasOwnProperty('raydiumPoolAddress')
         ) {
           if (properties.PoolAddress === 1)
-            return "PoolAddress: multiple values";
+            return 'PoolAddress: multiple values';
           properties.PoolAddress = 1;
           if (!$util.isString(message.raydiumPoolAddress))
-            return "raydiumPoolAddress: string expected";
+            return 'raydiumPoolAddress: string expected';
         }
         if (
           message.priceFeedAddresses != null &&
-          message.hasOwnProperty("priceFeedAddresses")
+          message.hasOwnProperty('priceFeedAddresses')
         ) {
           if (!Array.isArray(message.priceFeedAddresses))
-            return "priceFeedAddresses: array expected";
+            return 'priceFeedAddresses: array expected';
           for (var i = 0; i < message.priceFeedAddresses.length; ++i)
             if (!$util.isString(message.priceFeedAddresses[i]))
-              return "priceFeedAddresses: string[] expected";
+              return 'priceFeedAddresses: string[] expected';
         }
         if (
           message.priceFeedJobs != null &&
-          message.hasOwnProperty("priceFeedJobs")
+          message.hasOwnProperty('priceFeedJobs')
         ) {
           if (!Array.isArray(message.priceFeedJobs))
-            return "priceFeedJobs: array expected";
+            return 'priceFeedJobs: array expected';
           for (var i = 0; i < message.priceFeedJobs.length; ++i) {
             var error = $root.OracleJob.verify(message.priceFeedJobs[i]);
-            if (error) return "priceFeedJobs." + error;
+            if (error) return 'priceFeedJobs.' + error;
           }
         }
         if (
           message.useFairPrice != null &&
-          message.hasOwnProperty("useFairPrice")
+          message.hasOwnProperty('useFairPrice')
         )
-          if (typeof message.useFairPrice !== "boolean")
-            return "useFairPrice: boolean expected";
+          if (typeof message.useFairPrice !== 'boolean')
+            return 'useFairPrice: boolean expected';
         return null;
       };
 
@@ -4781,7 +4781,7 @@
         if (object.priceFeedAddresses) {
           if (!Array.isArray(object.priceFeedAddresses))
             throw TypeError(
-              ".OracleJob.LpTokenPriceTask.priceFeedAddresses: array expected"
+              '.OracleJob.LpTokenPriceTask.priceFeedAddresses: array expected'
             );
           message.priceFeedAddresses = [];
           for (var i = 0; i < object.priceFeedAddresses.length; ++i)
@@ -4792,13 +4792,13 @@
         if (object.priceFeedJobs) {
           if (!Array.isArray(object.priceFeedJobs))
             throw TypeError(
-              ".OracleJob.LpTokenPriceTask.priceFeedJobs: array expected"
+              '.OracleJob.LpTokenPriceTask.priceFeedJobs: array expected'
             );
           message.priceFeedJobs = [];
           for (var i = 0; i < object.priceFeedJobs.length; ++i) {
-            if (typeof object.priceFeedJobs[i] !== "object")
+            if (typeof object.priceFeedJobs[i] !== 'object')
               throw TypeError(
-                ".OracleJob.LpTokenPriceTask.priceFeedJobs: object expected"
+                '.OracleJob.LpTokenPriceTask.priceFeedJobs: object expected'
               );
             message.priceFeedJobs[i] = $root.OracleJob.fromObject(
               object.priceFeedJobs[i]
@@ -4829,31 +4829,31 @@
         if (options.defaults) object.useFairPrice = false;
         if (
           message.mercurialPoolAddress != null &&
-          message.hasOwnProperty("mercurialPoolAddress")
+          message.hasOwnProperty('mercurialPoolAddress')
         ) {
           object.mercurialPoolAddress = message.mercurialPoolAddress;
-          if (options.oneofs) object.PoolAddress = "mercurialPoolAddress";
+          if (options.oneofs) object.PoolAddress = 'mercurialPoolAddress';
         }
         if (
           message.saberPoolAddress != null &&
-          message.hasOwnProperty("saberPoolAddress")
+          message.hasOwnProperty('saberPoolAddress')
         ) {
           object.saberPoolAddress = message.saberPoolAddress;
-          if (options.oneofs) object.PoolAddress = "saberPoolAddress";
+          if (options.oneofs) object.PoolAddress = 'saberPoolAddress';
         }
         if (
           message.orcaPoolAddress != null &&
-          message.hasOwnProperty("orcaPoolAddress")
+          message.hasOwnProperty('orcaPoolAddress')
         ) {
           object.orcaPoolAddress = message.orcaPoolAddress;
-          if (options.oneofs) object.PoolAddress = "orcaPoolAddress";
+          if (options.oneofs) object.PoolAddress = 'orcaPoolAddress';
         }
         if (
           message.raydiumPoolAddress != null &&
-          message.hasOwnProperty("raydiumPoolAddress")
+          message.hasOwnProperty('raydiumPoolAddress')
         ) {
           object.raydiumPoolAddress = message.raydiumPoolAddress;
-          if (options.oneofs) object.PoolAddress = "raydiumPoolAddress";
+          if (options.oneofs) object.PoolAddress = 'raydiumPoolAddress';
         }
         if (message.priceFeedAddresses && message.priceFeedAddresses.length) {
           object.priceFeedAddresses = [];
@@ -4870,7 +4870,7 @@
         }
         if (
           message.useFairPrice != null &&
-          message.hasOwnProperty("useFairPrice")
+          message.hasOwnProperty('useFairPrice')
         )
           object.useFairPrice = message.useFairPrice;
         return object;
@@ -4897,9 +4897,9 @@
        */
       LpTokenPriceTask.getTypeUrl = function getTypeUrl(typeUrlPrefix) {
         if (typeUrlPrefix === undefined) {
-          typeUrlPrefix = "type.googleapis.com";
+          typeUrlPrefix = 'type.googleapis.com';
         }
-        return typeUrlPrefix + "/OracleJob.LpTokenPriceTask";
+        return typeUrlPrefix + '/OracleJob.LpTokenPriceTask';
       };
 
       return LpTokenPriceTask;
@@ -4941,7 +4941,7 @@
        * @memberof OracleJob.LpExchangeRateTask
        * @instance
        */
-      LpExchangeRateTask.prototype.inTokenAddress = "";
+      LpExchangeRateTask.prototype.inTokenAddress = '';
 
       /**
        * LpExchangeRateTask outTokenAddress.
@@ -4949,7 +4949,7 @@
        * @memberof OracleJob.LpExchangeRateTask
        * @instance
        */
-      LpExchangeRateTask.prototype.outTokenAddress = "";
+      LpExchangeRateTask.prototype.outTokenAddress = '';
 
       /**
        * LpExchangeRateTask mercurialPoolAddress.
@@ -5008,15 +5008,15 @@
        * @memberof OracleJob.LpExchangeRateTask
        * @instance
        */
-      Object.defineProperty(LpExchangeRateTask.prototype, "PoolAddress", {
+      Object.defineProperty(LpExchangeRateTask.prototype, 'PoolAddress', {
         get: $util.oneOfGetter(
           ($oneOfFields = [
-            "mercurialPoolAddress",
-            "saberPoolAddress",
-            "orcaPoolTokenMintAddress",
-            "raydiumPoolAddress",
-            "orcaPoolAddress",
-            "portReserveAddress",
+            'mercurialPoolAddress',
+            'saberPoolAddress',
+            'orcaPoolTokenMintAddress',
+            'raydiumPoolAddress',
+            'orcaPoolAddress',
+            'portReserveAddress',
           ])
         ),
         set: $util.oneOfSetter($oneOfFields),
@@ -5047,56 +5047,56 @@
         if (!writer) writer = $Writer.create();
         if (
           message.inTokenAddress != null &&
-          Object.hasOwnProperty.call(message, "inTokenAddress")
+          Object.hasOwnProperty.call(message, 'inTokenAddress')
         )
           writer
             .uint32(/* id 1, wireType 2 =*/ 10)
             .string(message.inTokenAddress);
         if (
           message.outTokenAddress != null &&
-          Object.hasOwnProperty.call(message, "outTokenAddress")
+          Object.hasOwnProperty.call(message, 'outTokenAddress')
         )
           writer
             .uint32(/* id 2, wireType 2 =*/ 18)
             .string(message.outTokenAddress);
         if (
           message.mercurialPoolAddress != null &&
-          Object.hasOwnProperty.call(message, "mercurialPoolAddress")
+          Object.hasOwnProperty.call(message, 'mercurialPoolAddress')
         )
           writer
             .uint32(/* id 3, wireType 2 =*/ 26)
             .string(message.mercurialPoolAddress);
         if (
           message.saberPoolAddress != null &&
-          Object.hasOwnProperty.call(message, "saberPoolAddress")
+          Object.hasOwnProperty.call(message, 'saberPoolAddress')
         )
           writer
             .uint32(/* id 4, wireType 2 =*/ 34)
             .string(message.saberPoolAddress);
         if (
           message.orcaPoolTokenMintAddress != null &&
-          Object.hasOwnProperty.call(message, "orcaPoolTokenMintAddress")
+          Object.hasOwnProperty.call(message, 'orcaPoolTokenMintAddress')
         )
           writer
             .uint32(/* id 5, wireType 2 =*/ 42)
             .string(message.orcaPoolTokenMintAddress);
         if (
           message.raydiumPoolAddress != null &&
-          Object.hasOwnProperty.call(message, "raydiumPoolAddress")
+          Object.hasOwnProperty.call(message, 'raydiumPoolAddress')
         )
           writer
             .uint32(/* id 6, wireType 2 =*/ 50)
             .string(message.raydiumPoolAddress);
         if (
           message.orcaPoolAddress != null &&
-          Object.hasOwnProperty.call(message, "orcaPoolAddress")
+          Object.hasOwnProperty.call(message, 'orcaPoolAddress')
         )
           writer
             .uint32(/* id 7, wireType 2 =*/ 58)
             .string(message.orcaPoolAddress);
         if (
           message.portReserveAddress != null &&
-          Object.hasOwnProperty.call(message, "portReserveAddress")
+          Object.hasOwnProperty.call(message, 'portReserveAddress')
         )
           writer
             .uint32(/* id 8, wireType 2 =*/ 66)
@@ -5202,78 +5202,78 @@
        * @returns {string|null} `null` if valid, otherwise the reason why it is not
        */
       LpExchangeRateTask.verify = function verify(message) {
-        if (typeof message !== "object" || message === null)
-          return "object expected";
+        if (typeof message !== 'object' || message === null)
+          return 'object expected';
         var properties = {};
         if (
           message.inTokenAddress != null &&
-          message.hasOwnProperty("inTokenAddress")
+          message.hasOwnProperty('inTokenAddress')
         )
           if (!$util.isString(message.inTokenAddress))
-            return "inTokenAddress: string expected";
+            return 'inTokenAddress: string expected';
         if (
           message.outTokenAddress != null &&
-          message.hasOwnProperty("outTokenAddress")
+          message.hasOwnProperty('outTokenAddress')
         )
           if (!$util.isString(message.outTokenAddress))
-            return "outTokenAddress: string expected";
+            return 'outTokenAddress: string expected';
         if (
           message.mercurialPoolAddress != null &&
-          message.hasOwnProperty("mercurialPoolAddress")
+          message.hasOwnProperty('mercurialPoolAddress')
         ) {
           properties.PoolAddress = 1;
           if (!$util.isString(message.mercurialPoolAddress))
-            return "mercurialPoolAddress: string expected";
+            return 'mercurialPoolAddress: string expected';
         }
         if (
           message.saberPoolAddress != null &&
-          message.hasOwnProperty("saberPoolAddress")
+          message.hasOwnProperty('saberPoolAddress')
         ) {
           if (properties.PoolAddress === 1)
-            return "PoolAddress: multiple values";
+            return 'PoolAddress: multiple values';
           properties.PoolAddress = 1;
           if (!$util.isString(message.saberPoolAddress))
-            return "saberPoolAddress: string expected";
+            return 'saberPoolAddress: string expected';
         }
         if (
           message.orcaPoolTokenMintAddress != null &&
-          message.hasOwnProperty("orcaPoolTokenMintAddress")
+          message.hasOwnProperty('orcaPoolTokenMintAddress')
         ) {
           if (properties.PoolAddress === 1)
-            return "PoolAddress: multiple values";
+            return 'PoolAddress: multiple values';
           properties.PoolAddress = 1;
           if (!$util.isString(message.orcaPoolTokenMintAddress))
-            return "orcaPoolTokenMintAddress: string expected";
+            return 'orcaPoolTokenMintAddress: string expected';
         }
         if (
           message.raydiumPoolAddress != null &&
-          message.hasOwnProperty("raydiumPoolAddress")
+          message.hasOwnProperty('raydiumPoolAddress')
         ) {
           if (properties.PoolAddress === 1)
-            return "PoolAddress: multiple values";
+            return 'PoolAddress: multiple values';
           properties.PoolAddress = 1;
           if (!$util.isString(message.raydiumPoolAddress))
-            return "raydiumPoolAddress: string expected";
+            return 'raydiumPoolAddress: string expected';
         }
         if (
           message.orcaPoolAddress != null &&
-          message.hasOwnProperty("orcaPoolAddress")
+          message.hasOwnProperty('orcaPoolAddress')
         ) {
           if (properties.PoolAddress === 1)
-            return "PoolAddress: multiple values";
+            return 'PoolAddress: multiple values';
           properties.PoolAddress = 1;
           if (!$util.isString(message.orcaPoolAddress))
-            return "orcaPoolAddress: string expected";
+            return 'orcaPoolAddress: string expected';
         }
         if (
           message.portReserveAddress != null &&
-          message.hasOwnProperty("portReserveAddress")
+          message.hasOwnProperty('portReserveAddress')
         ) {
           if (properties.PoolAddress === 1)
-            return "PoolAddress: multiple values";
+            return 'PoolAddress: multiple values';
           properties.PoolAddress = 1;
           if (!$util.isString(message.portReserveAddress))
-            return "portReserveAddress: string expected";
+            return 'portReserveAddress: string expected';
         }
         return null;
       };
@@ -5323,60 +5323,60 @@
         if (!options) options = {};
         var object = {};
         if (options.defaults) {
-          object.inTokenAddress = "";
-          object.outTokenAddress = "";
+          object.inTokenAddress = '';
+          object.outTokenAddress = '';
         }
         if (
           message.inTokenAddress != null &&
-          message.hasOwnProperty("inTokenAddress")
+          message.hasOwnProperty('inTokenAddress')
         )
           object.inTokenAddress = message.inTokenAddress;
         if (
           message.outTokenAddress != null &&
-          message.hasOwnProperty("outTokenAddress")
+          message.hasOwnProperty('outTokenAddress')
         )
           object.outTokenAddress = message.outTokenAddress;
         if (
           message.mercurialPoolAddress != null &&
-          message.hasOwnProperty("mercurialPoolAddress")
+          message.hasOwnProperty('mercurialPoolAddress')
         ) {
           object.mercurialPoolAddress = message.mercurialPoolAddress;
-          if (options.oneofs) object.PoolAddress = "mercurialPoolAddress";
+          if (options.oneofs) object.PoolAddress = 'mercurialPoolAddress';
         }
         if (
           message.saberPoolAddress != null &&
-          message.hasOwnProperty("saberPoolAddress")
+          message.hasOwnProperty('saberPoolAddress')
         ) {
           object.saberPoolAddress = message.saberPoolAddress;
-          if (options.oneofs) object.PoolAddress = "saberPoolAddress";
+          if (options.oneofs) object.PoolAddress = 'saberPoolAddress';
         }
         if (
           message.orcaPoolTokenMintAddress != null &&
-          message.hasOwnProperty("orcaPoolTokenMintAddress")
+          message.hasOwnProperty('orcaPoolTokenMintAddress')
         ) {
           object.orcaPoolTokenMintAddress = message.orcaPoolTokenMintAddress;
-          if (options.oneofs) object.PoolAddress = "orcaPoolTokenMintAddress";
+          if (options.oneofs) object.PoolAddress = 'orcaPoolTokenMintAddress';
         }
         if (
           message.raydiumPoolAddress != null &&
-          message.hasOwnProperty("raydiumPoolAddress")
+          message.hasOwnProperty('raydiumPoolAddress')
         ) {
           object.raydiumPoolAddress = message.raydiumPoolAddress;
-          if (options.oneofs) object.PoolAddress = "raydiumPoolAddress";
+          if (options.oneofs) object.PoolAddress = 'raydiumPoolAddress';
         }
         if (
           message.orcaPoolAddress != null &&
-          message.hasOwnProperty("orcaPoolAddress")
+          message.hasOwnProperty('orcaPoolAddress')
         ) {
           object.orcaPoolAddress = message.orcaPoolAddress;
-          if (options.oneofs) object.PoolAddress = "orcaPoolAddress";
+          if (options.oneofs) object.PoolAddress = 'orcaPoolAddress';
         }
         if (
           message.portReserveAddress != null &&
-          message.hasOwnProperty("portReserveAddress")
+          message.hasOwnProperty('portReserveAddress')
         ) {
           object.portReserveAddress = message.portReserveAddress;
-          if (options.oneofs) object.PoolAddress = "portReserveAddress";
+          if (options.oneofs) object.PoolAddress = 'portReserveAddress';
         }
         return object;
       };
@@ -5402,9 +5402,9 @@
        */
       LpExchangeRateTask.getTypeUrl = function getTypeUrl(typeUrlPrefix) {
         if (typeUrlPrefix === undefined) {
-          typeUrlPrefix = "type.googleapis.com";
+          typeUrlPrefix = 'type.googleapis.com';
         }
-        return typeUrlPrefix + "/OracleJob.LpExchangeRateTask";
+        return typeUrlPrefix + '/OracleJob.LpExchangeRateTask';
       };
 
       return LpExchangeRateTask;
@@ -5440,7 +5440,7 @@
        * @memberof OracleJob.RegexExtractTask
        * @instance
        */
-      RegexExtractTask.prototype.pattern = "";
+      RegexExtractTask.prototype.pattern = '';
 
       /**
        * RegexExtractTask groupNumber.
@@ -5475,12 +5475,12 @@
         if (!writer) writer = $Writer.create();
         if (
           message.pattern != null &&
-          Object.hasOwnProperty.call(message, "pattern")
+          Object.hasOwnProperty.call(message, 'pattern')
         )
           writer.uint32(/* id 1, wireType 2 =*/ 10).string(message.pattern);
         if (
           message.groupNumber != null &&
-          Object.hasOwnProperty.call(message, "groupNumber")
+          Object.hasOwnProperty.call(message, 'groupNumber')
         )
           writer.uint32(/* id 2, wireType 0 =*/ 16).int32(message.groupNumber);
         return writer;
@@ -5560,17 +5560,17 @@
        * @returns {string|null} `null` if valid, otherwise the reason why it is not
        */
       RegexExtractTask.verify = function verify(message) {
-        if (typeof message !== "object" || message === null)
-          return "object expected";
-        if (message.pattern != null && message.hasOwnProperty("pattern"))
+        if (typeof message !== 'object' || message === null)
+          return 'object expected';
+        if (message.pattern != null && message.hasOwnProperty('pattern'))
           if (!$util.isString(message.pattern))
-            return "pattern: string expected";
+            return 'pattern: string expected';
         if (
           message.groupNumber != null &&
-          message.hasOwnProperty("groupNumber")
+          message.hasOwnProperty('groupNumber')
         )
           if (!$util.isInteger(message.groupNumber))
-            return "groupNumber: integer expected";
+            return 'groupNumber: integer expected';
         return null;
       };
 
@@ -5604,14 +5604,14 @@
         if (!options) options = {};
         var object = {};
         if (options.defaults) {
-          object.pattern = "";
+          object.pattern = '';
           object.groupNumber = 0;
         }
-        if (message.pattern != null && message.hasOwnProperty("pattern"))
+        if (message.pattern != null && message.hasOwnProperty('pattern'))
           object.pattern = message.pattern;
         if (
           message.groupNumber != null &&
-          message.hasOwnProperty("groupNumber")
+          message.hasOwnProperty('groupNumber')
         )
           object.groupNumber = message.groupNumber;
         return object;
@@ -5638,9 +5638,9 @@
        */
       RegexExtractTask.getTypeUrl = function getTypeUrl(typeUrlPrefix) {
         if (typeUrlPrefix === undefined) {
-          typeUrlPrefix = "type.googleapis.com";
+          typeUrlPrefix = 'type.googleapis.com';
         }
-        return typeUrlPrefix + "/OracleJob.RegexExtractTask";
+        return typeUrlPrefix + '/OracleJob.RegexExtractTask';
       };
 
       return RegexExtractTask;
@@ -5695,9 +5695,9 @@
        * @memberof OracleJob.XStepPriceTask
        * @instance
        */
-      Object.defineProperty(XStepPriceTask.prototype, "StepSource", {
+      Object.defineProperty(XStepPriceTask.prototype, 'StepSource', {
         get: $util.oneOfGetter(
-          ($oneOfFields = ["stepJob", "stepAggregatorPubkey"])
+          ($oneOfFields = ['stepJob', 'stepAggregatorPubkey'])
         ),
         set: $util.oneOfSetter($oneOfFields),
       });
@@ -5727,7 +5727,7 @@
         if (!writer) writer = $Writer.create();
         if (
           message.stepJob != null &&
-          Object.hasOwnProperty.call(message, "stepJob")
+          Object.hasOwnProperty.call(message, 'stepJob')
         )
           $root.OracleJob.MedianTask.encode(
             message.stepJob,
@@ -5735,7 +5735,7 @@
           ).ldelim();
         if (
           message.stepAggregatorPubkey != null &&
-          Object.hasOwnProperty.call(message, "stepAggregatorPubkey")
+          Object.hasOwnProperty.call(message, 'stepAggregatorPubkey')
         )
           writer
             .uint32(/* id 2, wireType 2 =*/ 18)
@@ -5820,24 +5820,24 @@
        * @returns {string|null} `null` if valid, otherwise the reason why it is not
        */
       XStepPriceTask.verify = function verify(message) {
-        if (typeof message !== "object" || message === null)
-          return "object expected";
+        if (typeof message !== 'object' || message === null)
+          return 'object expected';
         var properties = {};
-        if (message.stepJob != null && message.hasOwnProperty("stepJob")) {
+        if (message.stepJob != null && message.hasOwnProperty('stepJob')) {
           properties.StepSource = 1;
           {
             var error = $root.OracleJob.MedianTask.verify(message.stepJob);
-            if (error) return "stepJob." + error;
+            if (error) return 'stepJob.' + error;
           }
         }
         if (
           message.stepAggregatorPubkey != null &&
-          message.hasOwnProperty("stepAggregatorPubkey")
+          message.hasOwnProperty('stepAggregatorPubkey')
         ) {
-          if (properties.StepSource === 1) return "StepSource: multiple values";
+          if (properties.StepSource === 1) return 'StepSource: multiple values';
           properties.StepSource = 1;
           if (!$util.isString(message.stepAggregatorPubkey))
-            return "stepAggregatorPubkey: string expected";
+            return 'stepAggregatorPubkey: string expected';
         }
         return null;
       };
@@ -5854,9 +5854,9 @@
         if (object instanceof $root.OracleJob.XStepPriceTask) return object;
         var message = new $root.OracleJob.XStepPriceTask();
         if (object.stepJob != null) {
-          if (typeof object.stepJob !== "object")
+          if (typeof object.stepJob !== 'object')
             throw TypeError(
-              ".OracleJob.XStepPriceTask.stepJob: object expected"
+              '.OracleJob.XStepPriceTask.stepJob: object expected'
             );
           message.stepJob = $root.OracleJob.MedianTask.fromObject(
             object.stepJob
@@ -5879,19 +5879,19 @@
       XStepPriceTask.toObject = function toObject(message, options) {
         if (!options) options = {};
         var object = {};
-        if (message.stepJob != null && message.hasOwnProperty("stepJob")) {
+        if (message.stepJob != null && message.hasOwnProperty('stepJob')) {
           object.stepJob = $root.OracleJob.MedianTask.toObject(
             message.stepJob,
             options
           );
-          if (options.oneofs) object.StepSource = "stepJob";
+          if (options.oneofs) object.StepSource = 'stepJob';
         }
         if (
           message.stepAggregatorPubkey != null &&
-          message.hasOwnProperty("stepAggregatorPubkey")
+          message.hasOwnProperty('stepAggregatorPubkey')
         ) {
           object.stepAggregatorPubkey = message.stepAggregatorPubkey;
-          if (options.oneofs) object.StepSource = "stepAggregatorPubkey";
+          if (options.oneofs) object.StepSource = 'stepAggregatorPubkey';
         }
         return object;
       };
@@ -5917,9 +5917,9 @@
        */
       XStepPriceTask.getTypeUrl = function getTypeUrl(typeUrlPrefix) {
         if (typeUrlPrefix === undefined) {
-          typeUrlPrefix = "type.googleapis.com";
+          typeUrlPrefix = 'type.googleapis.com';
         }
-        return typeUrlPrefix + "/OracleJob.XStepPriceTask";
+        return typeUrlPrefix + '/OracleJob.XStepPriceTask';
       };
 
       return XStepPriceTask;
@@ -5959,7 +5959,7 @@
        * @memberof OracleJob.TwapTask
        * @instance
        */
-      TwapTask.prototype.aggregatorPubkey = "";
+      TwapTask.prototype.aggregatorPubkey = '';
 
       /**
        * TwapTask period.
@@ -6026,38 +6026,38 @@
         if (!writer) writer = $Writer.create();
         if (
           message.aggregatorPubkey != null &&
-          Object.hasOwnProperty.call(message, "aggregatorPubkey")
+          Object.hasOwnProperty.call(message, 'aggregatorPubkey')
         )
           writer
             .uint32(/* id 1, wireType 2 =*/ 10)
             .string(message.aggregatorPubkey);
         if (
           message.period != null &&
-          Object.hasOwnProperty.call(message, "period")
+          Object.hasOwnProperty.call(message, 'period')
         )
           writer.uint32(/* id 2, wireType 0 =*/ 16).int32(message.period);
         if (
           message.weightByPropagationTime != null &&
-          Object.hasOwnProperty.call(message, "weightByPropagationTime")
+          Object.hasOwnProperty.call(message, 'weightByPropagationTime')
         )
           writer
             .uint32(/* id 3, wireType 0 =*/ 24)
             .bool(message.weightByPropagationTime);
         if (
           message.minSamples != null &&
-          Object.hasOwnProperty.call(message, "minSamples")
+          Object.hasOwnProperty.call(message, 'minSamples')
         )
           writer.uint32(/* id 4, wireType 0 =*/ 32).uint32(message.minSamples);
         if (
           message.endingUnixTimestamp != null &&
-          Object.hasOwnProperty.call(message, "endingUnixTimestamp")
+          Object.hasOwnProperty.call(message, 'endingUnixTimestamp')
         )
           writer
             .uint32(/* id 5, wireType 0 =*/ 40)
             .int32(message.endingUnixTimestamp);
         if (
           message.endingUnixTimestampTask != null &&
-          Object.hasOwnProperty.call(message, "endingUnixTimestampTask")
+          Object.hasOwnProperty.call(message, 'endingUnixTimestampTask')
         )
           $root.OracleJob.CronParseTask.encode(
             message.endingUnixTimestampTask,
@@ -6154,40 +6154,40 @@
        * @returns {string|null} `null` if valid, otherwise the reason why it is not
        */
       TwapTask.verify = function verify(message) {
-        if (typeof message !== "object" || message === null)
-          return "object expected";
+        if (typeof message !== 'object' || message === null)
+          return 'object expected';
         if (
           message.aggregatorPubkey != null &&
-          message.hasOwnProperty("aggregatorPubkey")
+          message.hasOwnProperty('aggregatorPubkey')
         )
           if (!$util.isString(message.aggregatorPubkey))
-            return "aggregatorPubkey: string expected";
-        if (message.period != null && message.hasOwnProperty("period"))
+            return 'aggregatorPubkey: string expected';
+        if (message.period != null && message.hasOwnProperty('period'))
           if (!$util.isInteger(message.period))
-            return "period: integer expected";
+            return 'period: integer expected';
         if (
           message.weightByPropagationTime != null &&
-          message.hasOwnProperty("weightByPropagationTime")
+          message.hasOwnProperty('weightByPropagationTime')
         )
-          if (typeof message.weightByPropagationTime !== "boolean")
-            return "weightByPropagationTime: boolean expected";
-        if (message.minSamples != null && message.hasOwnProperty("minSamples"))
+          if (typeof message.weightByPropagationTime !== 'boolean')
+            return 'weightByPropagationTime: boolean expected';
+        if (message.minSamples != null && message.hasOwnProperty('minSamples'))
           if (!$util.isInteger(message.minSamples))
-            return "minSamples: integer expected";
+            return 'minSamples: integer expected';
         if (
           message.endingUnixTimestamp != null &&
-          message.hasOwnProperty("endingUnixTimestamp")
+          message.hasOwnProperty('endingUnixTimestamp')
         )
           if (!$util.isInteger(message.endingUnixTimestamp))
-            return "endingUnixTimestamp: integer expected";
+            return 'endingUnixTimestamp: integer expected';
         if (
           message.endingUnixTimestampTask != null &&
-          message.hasOwnProperty("endingUnixTimestampTask")
+          message.hasOwnProperty('endingUnixTimestampTask')
         ) {
           var error = $root.OracleJob.CronParseTask.verify(
             message.endingUnixTimestampTask
           );
-          if (error) return "endingUnixTimestampTask." + error;
+          if (error) return 'endingUnixTimestampTask.' + error;
         }
         return null;
       };
@@ -6215,9 +6215,9 @@
         if (object.endingUnixTimestamp != null)
           message.endingUnixTimestamp = object.endingUnixTimestamp | 0;
         if (object.endingUnixTimestampTask != null) {
-          if (typeof object.endingUnixTimestampTask !== "object")
+          if (typeof object.endingUnixTimestampTask !== 'object')
             throw TypeError(
-              ".OracleJob.TwapTask.endingUnixTimestampTask: object expected"
+              '.OracleJob.TwapTask.endingUnixTimestampTask: object expected'
             );
           message.endingUnixTimestampTask =
             $root.OracleJob.CronParseTask.fromObject(
@@ -6240,7 +6240,7 @@
         if (!options) options = {};
         var object = {};
         if (options.defaults) {
-          object.aggregatorPubkey = "";
+          object.aggregatorPubkey = '';
           object.period = 0;
           object.weightByPropagationTime = false;
           object.minSamples = 0;
@@ -6249,26 +6249,26 @@
         }
         if (
           message.aggregatorPubkey != null &&
-          message.hasOwnProperty("aggregatorPubkey")
+          message.hasOwnProperty('aggregatorPubkey')
         )
           object.aggregatorPubkey = message.aggregatorPubkey;
-        if (message.period != null && message.hasOwnProperty("period"))
+        if (message.period != null && message.hasOwnProperty('period'))
           object.period = message.period;
         if (
           message.weightByPropagationTime != null &&
-          message.hasOwnProperty("weightByPropagationTime")
+          message.hasOwnProperty('weightByPropagationTime')
         )
           object.weightByPropagationTime = message.weightByPropagationTime;
-        if (message.minSamples != null && message.hasOwnProperty("minSamples"))
+        if (message.minSamples != null && message.hasOwnProperty('minSamples'))
           object.minSamples = message.minSamples;
         if (
           message.endingUnixTimestamp != null &&
-          message.hasOwnProperty("endingUnixTimestamp")
+          message.hasOwnProperty('endingUnixTimestamp')
         )
           object.endingUnixTimestamp = message.endingUnixTimestamp;
         if (
           message.endingUnixTimestampTask != null &&
-          message.hasOwnProperty("endingUnixTimestampTask")
+          message.hasOwnProperty('endingUnixTimestampTask')
         )
           object.endingUnixTimestampTask =
             $root.OracleJob.CronParseTask.toObject(
@@ -6299,9 +6299,9 @@
        */
       TwapTask.getTypeUrl = function getTypeUrl(typeUrlPrefix) {
         if (typeUrlPrefix === undefined) {
-          typeUrlPrefix = "type.googleapis.com";
+          typeUrlPrefix = 'type.googleapis.com';
         }
-        return typeUrlPrefix + "/OracleJob.TwapTask";
+        return typeUrlPrefix + '/OracleJob.TwapTask';
       };
 
       return TwapTask;
@@ -6336,7 +6336,7 @@
        * @memberof OracleJob.SerumSwapTask
        * @instance
        */
-      SerumSwapTask.prototype.serumPoolAddress = "";
+      SerumSwapTask.prototype.serumPoolAddress = '';
 
       /**
        * Creates a new SerumSwapTask instance using the specified properties.
@@ -6363,7 +6363,7 @@
         if (!writer) writer = $Writer.create();
         if (
           message.serumPoolAddress != null &&
-          Object.hasOwnProperty.call(message, "serumPoolAddress")
+          Object.hasOwnProperty.call(message, 'serumPoolAddress')
         )
           writer
             .uint32(/* id 1, wireType 2 =*/ 10)
@@ -6441,14 +6441,14 @@
        * @returns {string|null} `null` if valid, otherwise the reason why it is not
        */
       SerumSwapTask.verify = function verify(message) {
-        if (typeof message !== "object" || message === null)
-          return "object expected";
+        if (typeof message !== 'object' || message === null)
+          return 'object expected';
         if (
           message.serumPoolAddress != null &&
-          message.hasOwnProperty("serumPoolAddress")
+          message.hasOwnProperty('serumPoolAddress')
         )
           if (!$util.isString(message.serumPoolAddress))
-            return "serumPoolAddress: string expected";
+            return 'serumPoolAddress: string expected';
         return null;
       };
 
@@ -6480,10 +6480,10 @@
       SerumSwapTask.toObject = function toObject(message, options) {
         if (!options) options = {};
         var object = {};
-        if (options.defaults) object.serumPoolAddress = "";
+        if (options.defaults) object.serumPoolAddress = '';
         if (
           message.serumPoolAddress != null &&
-          message.hasOwnProperty("serumPoolAddress")
+          message.hasOwnProperty('serumPoolAddress')
         )
           object.serumPoolAddress = message.serumPoolAddress;
         return object;
@@ -6510,9 +6510,9 @@
        */
       SerumSwapTask.getTypeUrl = function getTypeUrl(typeUrlPrefix) {
         if (typeUrlPrefix === undefined) {
-          typeUrlPrefix = "type.googleapis.com";
+          typeUrlPrefix = 'type.googleapis.com';
         }
-        return typeUrlPrefix + "/OracleJob.SerumSwapTask";
+        return typeUrlPrefix + '/OracleJob.SerumSwapTask';
       };
 
       return SerumSwapTask;
@@ -6576,9 +6576,9 @@
        * @memberof OracleJob.PowTask
        * @instance
        */
-      Object.defineProperty(PowTask.prototype, "Exponent", {
+      Object.defineProperty(PowTask.prototype, 'Exponent', {
         get: $util.oneOfGetter(
-          ($oneOfFields = ["scalar", "aggregatorPubkey", "big"])
+          ($oneOfFields = ['scalar', 'aggregatorPubkey', 'big'])
         ),
         set: $util.oneOfSetter($oneOfFields),
       });
@@ -6608,17 +6608,17 @@
         if (!writer) writer = $Writer.create();
         if (
           message.scalar != null &&
-          Object.hasOwnProperty.call(message, "scalar")
+          Object.hasOwnProperty.call(message, 'scalar')
         )
           writer.uint32(/* id 1, wireType 1 =*/ 9).double(message.scalar);
         if (
           message.aggregatorPubkey != null &&
-          Object.hasOwnProperty.call(message, "aggregatorPubkey")
+          Object.hasOwnProperty.call(message, 'aggregatorPubkey')
         )
           writer
             .uint32(/* id 2, wireType 2 =*/ 18)
             .string(message.aggregatorPubkey);
-        if (message.big != null && Object.hasOwnProperty.call(message, "big"))
+        if (message.big != null && Object.hasOwnProperty.call(message, 'big'))
           writer.uint32(/* id 3, wireType 2 =*/ 26).string(message.big);
         return writer;
       };
@@ -6698,27 +6698,27 @@
        * @returns {string|null} `null` if valid, otherwise the reason why it is not
        */
       PowTask.verify = function verify(message) {
-        if (typeof message !== "object" || message === null)
-          return "object expected";
+        if (typeof message !== 'object' || message === null)
+          return 'object expected';
         var properties = {};
-        if (message.scalar != null && message.hasOwnProperty("scalar")) {
+        if (message.scalar != null && message.hasOwnProperty('scalar')) {
           properties.Exponent = 1;
-          if (typeof message.scalar !== "number")
-            return "scalar: number expected";
+          if (typeof message.scalar !== 'number')
+            return 'scalar: number expected';
         }
         if (
           message.aggregatorPubkey != null &&
-          message.hasOwnProperty("aggregatorPubkey")
+          message.hasOwnProperty('aggregatorPubkey')
         ) {
-          if (properties.Exponent === 1) return "Exponent: multiple values";
+          if (properties.Exponent === 1) return 'Exponent: multiple values';
           properties.Exponent = 1;
           if (!$util.isString(message.aggregatorPubkey))
-            return "aggregatorPubkey: string expected";
+            return 'aggregatorPubkey: string expected';
         }
-        if (message.big != null && message.hasOwnProperty("big")) {
-          if (properties.Exponent === 1) return "Exponent: multiple values";
+        if (message.big != null && message.hasOwnProperty('big')) {
+          if (properties.Exponent === 1) return 'Exponent: multiple values';
           properties.Exponent = 1;
-          if (!$util.isString(message.big)) return "big: string expected";
+          if (!$util.isString(message.big)) return 'big: string expected';
         }
         return null;
       };
@@ -6753,23 +6753,23 @@
       PowTask.toObject = function toObject(message, options) {
         if (!options) options = {};
         var object = {};
-        if (message.scalar != null && message.hasOwnProperty("scalar")) {
+        if (message.scalar != null && message.hasOwnProperty('scalar')) {
           object.scalar =
             options.json && !isFinite(message.scalar)
               ? String(message.scalar)
               : message.scalar;
-          if (options.oneofs) object.Exponent = "scalar";
+          if (options.oneofs) object.Exponent = 'scalar';
         }
         if (
           message.aggregatorPubkey != null &&
-          message.hasOwnProperty("aggregatorPubkey")
+          message.hasOwnProperty('aggregatorPubkey')
         ) {
           object.aggregatorPubkey = message.aggregatorPubkey;
-          if (options.oneofs) object.Exponent = "aggregatorPubkey";
+          if (options.oneofs) object.Exponent = 'aggregatorPubkey';
         }
-        if (message.big != null && message.hasOwnProperty("big")) {
+        if (message.big != null && message.hasOwnProperty('big')) {
           object.big = message.big;
-          if (options.oneofs) object.Exponent = "big";
+          if (options.oneofs) object.Exponent = 'big';
         }
         return object;
       };
@@ -6795,9 +6795,9 @@
        */
       PowTask.getTypeUrl = function getTypeUrl(typeUrlPrefix) {
         if (typeUrlPrefix === undefined) {
-          typeUrlPrefix = "type.googleapis.com";
+          typeUrlPrefix = 'type.googleapis.com';
         }
-        return typeUrlPrefix + "/OracleJob.PowTask";
+        return typeUrlPrefix + '/OracleJob.PowTask';
       };
 
       return PowTask;
@@ -6834,7 +6834,7 @@
        * @memberof OracleJob.LendingRateTask
        * @instance
        */
-      LendingRateTask.prototype.protocol = "";
+      LendingRateTask.prototype.protocol = '';
 
       /**
        * LendingRateTask assetMint.
@@ -6842,7 +6842,7 @@
        * @memberof OracleJob.LendingRateTask
        * @instance
        */
-      LendingRateTask.prototype.assetMint = "";
+      LendingRateTask.prototype.assetMint = '';
 
       /**
        * LendingRateTask field.
@@ -6877,17 +6877,17 @@
         if (!writer) writer = $Writer.create();
         if (
           message.protocol != null &&
-          Object.hasOwnProperty.call(message, "protocol")
+          Object.hasOwnProperty.call(message, 'protocol')
         )
           writer.uint32(/* id 1, wireType 2 =*/ 10).string(message.protocol);
         if (
           message.assetMint != null &&
-          Object.hasOwnProperty.call(message, "assetMint")
+          Object.hasOwnProperty.call(message, 'assetMint')
         )
           writer.uint32(/* id 2, wireType 2 =*/ 18).string(message.assetMint);
         if (
           message.field != null &&
-          Object.hasOwnProperty.call(message, "field")
+          Object.hasOwnProperty.call(message, 'field')
         )
           writer.uint32(/* id 3, wireType 0 =*/ 24).int32(message.field);
         return writer;
@@ -6971,18 +6971,18 @@
        * @returns {string|null} `null` if valid, otherwise the reason why it is not
        */
       LendingRateTask.verify = function verify(message) {
-        if (typeof message !== "object" || message === null)
-          return "object expected";
-        if (message.protocol != null && message.hasOwnProperty("protocol"))
+        if (typeof message !== 'object' || message === null)
+          return 'object expected';
+        if (message.protocol != null && message.hasOwnProperty('protocol'))
           if (!$util.isString(message.protocol))
-            return "protocol: string expected";
-        if (message.assetMint != null && message.hasOwnProperty("assetMint"))
+            return 'protocol: string expected';
+        if (message.assetMint != null && message.hasOwnProperty('assetMint'))
           if (!$util.isString(message.assetMint))
-            return "assetMint: string expected";
-        if (message.field != null && message.hasOwnProperty("field"))
+            return 'assetMint: string expected';
+        if (message.field != null && message.hasOwnProperty('field'))
           switch (message.field) {
             default:
-              return "field: enum value expected";
+              return 'field: enum value expected';
             case 0:
             case 1:
               break;
@@ -7006,16 +7006,16 @@
           message.assetMint = String(object.assetMint);
         switch (object.field) {
           default:
-            if (typeof object.field === "number") {
+            if (typeof object.field === 'number') {
               message.field = object.field;
               break;
             }
             break;
-          case "FIELD_DEPOSIT_RATE":
+          case 'FIELD_DEPOSIT_RATE':
           case 0:
             message.field = 0;
             break;
-          case "FIELD_BORROW_RATE":
+          case 'FIELD_BORROW_RATE':
           case 1:
             message.field = 1;
             break;
@@ -7036,15 +7036,15 @@
         if (!options) options = {};
         var object = {};
         if (options.defaults) {
-          object.protocol = "";
-          object.assetMint = "";
-          object.field = options.enums === String ? "FIELD_DEPOSIT_RATE" : 0;
+          object.protocol = '';
+          object.assetMint = '';
+          object.field = options.enums === String ? 'FIELD_DEPOSIT_RATE' : 0;
         }
-        if (message.protocol != null && message.hasOwnProperty("protocol"))
+        if (message.protocol != null && message.hasOwnProperty('protocol'))
           object.protocol = message.protocol;
-        if (message.assetMint != null && message.hasOwnProperty("assetMint"))
+        if (message.assetMint != null && message.hasOwnProperty('assetMint'))
           object.assetMint = message.assetMint;
-        if (message.field != null && message.hasOwnProperty("field"))
+        if (message.field != null && message.hasOwnProperty('field'))
           object.field =
             options.enums === String
               ? $root.OracleJob.LendingRateTask.Field[message.field] ===
@@ -7076,9 +7076,9 @@
        */
       LendingRateTask.getTypeUrl = function getTypeUrl(typeUrlPrefix) {
         if (typeUrlPrefix === undefined) {
-          typeUrlPrefix = "type.googleapis.com";
+          typeUrlPrefix = 'type.googleapis.com';
         }
-        return typeUrlPrefix + "/OracleJob.LendingRateTask";
+        return typeUrlPrefix + '/OracleJob.LendingRateTask';
       };
 
       /**
@@ -7091,8 +7091,8 @@
       LendingRateTask.Field = (function () {
         var valuesById = {},
           values = Object.create(valuesById);
-        values[(valuesById[0] = "FIELD_DEPOSIT_RATE")] = 0;
-        values[(valuesById[1] = "FIELD_BORROW_RATE")] = 1;
+        values[(valuesById[0] = 'FIELD_DEPOSIT_RATE')] = 0;
+        values[(valuesById[1] = 'FIELD_BORROW_RATE')] = 1;
         return values;
       })();
 
@@ -7128,7 +7128,7 @@
        * @memberof OracleJob.MangoPerpMarketTask
        * @instance
        */
-      MangoPerpMarketTask.prototype.perpMarketAddress = "";
+      MangoPerpMarketTask.prototype.perpMarketAddress = '';
 
       /**
        * Creates a new MangoPerpMarketTask instance using the specified properties.
@@ -7155,7 +7155,7 @@
         if (!writer) writer = $Writer.create();
         if (
           message.perpMarketAddress != null &&
-          Object.hasOwnProperty.call(message, "perpMarketAddress")
+          Object.hasOwnProperty.call(message, 'perpMarketAddress')
         )
           writer
             .uint32(/* id 1, wireType 2 =*/ 10)
@@ -7233,14 +7233,14 @@
        * @returns {string|null} `null` if valid, otherwise the reason why it is not
        */
       MangoPerpMarketTask.verify = function verify(message) {
-        if (typeof message !== "object" || message === null)
-          return "object expected";
+        if (typeof message !== 'object' || message === null)
+          return 'object expected';
         if (
           message.perpMarketAddress != null &&
-          message.hasOwnProperty("perpMarketAddress")
+          message.hasOwnProperty('perpMarketAddress')
         )
           if (!$util.isString(message.perpMarketAddress))
-            return "perpMarketAddress: string expected";
+            return 'perpMarketAddress: string expected';
         return null;
       };
 
@@ -7273,10 +7273,10 @@
       MangoPerpMarketTask.toObject = function toObject(message, options) {
         if (!options) options = {};
         var object = {};
-        if (options.defaults) object.perpMarketAddress = "";
+        if (options.defaults) object.perpMarketAddress = '';
         if (
           message.perpMarketAddress != null &&
-          message.hasOwnProperty("perpMarketAddress")
+          message.hasOwnProperty('perpMarketAddress')
         )
           object.perpMarketAddress = message.perpMarketAddress;
         return object;
@@ -7303,9 +7303,9 @@
        */
       MangoPerpMarketTask.getTypeUrl = function getTypeUrl(typeUrlPrefix) {
         if (typeUrlPrefix === undefined) {
-          typeUrlPrefix = "type.googleapis.com";
+          typeUrlPrefix = 'type.googleapis.com';
         }
-        return typeUrlPrefix + "/OracleJob.MangoPerpMarketTask";
+        return typeUrlPrefix + '/OracleJob.MangoPerpMarketTask';
       };
 
       return MangoPerpMarketTask;
@@ -7344,7 +7344,7 @@
        * @memberof OracleJob.JupiterSwapTask
        * @instance
        */
-      JupiterSwapTask.prototype.inTokenAddress = "";
+      JupiterSwapTask.prototype.inTokenAddress = '';
 
       /**
        * JupiterSwapTask outTokenAddress.
@@ -7352,7 +7352,7 @@
        * @memberof OracleJob.JupiterSwapTask
        * @instance
        */
-      JupiterSwapTask.prototype.outTokenAddress = "";
+      JupiterSwapTask.prototype.outTokenAddress = '';
 
       /**
        * JupiterSwapTask baseAmount.
@@ -7387,8 +7387,8 @@
        * @memberof OracleJob.JupiterSwapTask
        * @instance
        */
-      Object.defineProperty(JupiterSwapTask.prototype, "RoutesFilters", {
-        get: $util.oneOfGetter(($oneOfFields = ["allowList", "denyList"])),
+      Object.defineProperty(JupiterSwapTask.prototype, 'RoutesFilters', {
+        get: $util.oneOfGetter(($oneOfFields = ['allowList', 'denyList'])),
         set: $util.oneOfSetter($oneOfFields),
       });
 
@@ -7417,26 +7417,26 @@
         if (!writer) writer = $Writer.create();
         if (
           message.inTokenAddress != null &&
-          Object.hasOwnProperty.call(message, "inTokenAddress")
+          Object.hasOwnProperty.call(message, 'inTokenAddress')
         )
           writer
             .uint32(/* id 1, wireType 2 =*/ 10)
             .string(message.inTokenAddress);
         if (
           message.outTokenAddress != null &&
-          Object.hasOwnProperty.call(message, "outTokenAddress")
+          Object.hasOwnProperty.call(message, 'outTokenAddress')
         )
           writer
             .uint32(/* id 2, wireType 2 =*/ 18)
             .string(message.outTokenAddress);
         if (
           message.baseAmount != null &&
-          Object.hasOwnProperty.call(message, "baseAmount")
+          Object.hasOwnProperty.call(message, 'baseAmount')
         )
           writer.uint32(/* id 3, wireType 1 =*/ 25).double(message.baseAmount);
         if (
           message.allowList != null &&
-          Object.hasOwnProperty.call(message, "allowList")
+          Object.hasOwnProperty.call(message, 'allowList')
         )
           $root.OracleJob.JupiterSwapTask.FilterList.encode(
             message.allowList,
@@ -7444,7 +7444,7 @@
           ).ldelim();
         if (
           message.denyList != null &&
-          Object.hasOwnProperty.call(message, "denyList")
+          Object.hasOwnProperty.call(message, 'denyList')
         )
           $root.OracleJob.JupiterSwapTask.FilterList.encode(
             message.denyList,
@@ -7547,42 +7547,42 @@
        * @returns {string|null} `null` if valid, otherwise the reason why it is not
        */
       JupiterSwapTask.verify = function verify(message) {
-        if (typeof message !== "object" || message === null)
-          return "object expected";
+        if (typeof message !== 'object' || message === null)
+          return 'object expected';
         var properties = {};
         if (
           message.inTokenAddress != null &&
-          message.hasOwnProperty("inTokenAddress")
+          message.hasOwnProperty('inTokenAddress')
         )
           if (!$util.isString(message.inTokenAddress))
-            return "inTokenAddress: string expected";
+            return 'inTokenAddress: string expected';
         if (
           message.outTokenAddress != null &&
-          message.hasOwnProperty("outTokenAddress")
+          message.hasOwnProperty('outTokenAddress')
         )
           if (!$util.isString(message.outTokenAddress))
-            return "outTokenAddress: string expected";
-        if (message.baseAmount != null && message.hasOwnProperty("baseAmount"))
-          if (typeof message.baseAmount !== "number")
-            return "baseAmount: number expected";
-        if (message.allowList != null && message.hasOwnProperty("allowList")) {
+            return 'outTokenAddress: string expected';
+        if (message.baseAmount != null && message.hasOwnProperty('baseAmount'))
+          if (typeof message.baseAmount !== 'number')
+            return 'baseAmount: number expected';
+        if (message.allowList != null && message.hasOwnProperty('allowList')) {
           properties.RoutesFilters = 1;
           {
             var error = $root.OracleJob.JupiterSwapTask.FilterList.verify(
               message.allowList
             );
-            if (error) return "allowList." + error;
+            if (error) return 'allowList.' + error;
           }
         }
-        if (message.denyList != null && message.hasOwnProperty("denyList")) {
+        if (message.denyList != null && message.hasOwnProperty('denyList')) {
           if (properties.RoutesFilters === 1)
-            return "RoutesFilters: multiple values";
+            return 'RoutesFilters: multiple values';
           properties.RoutesFilters = 1;
           {
             var error = $root.OracleJob.JupiterSwapTask.FilterList.verify(
               message.denyList
             );
-            if (error) return "denyList." + error;
+            if (error) return 'denyList.' + error;
           }
         }
         return null;
@@ -7606,9 +7606,9 @@
         if (object.baseAmount != null)
           message.baseAmount = Number(object.baseAmount);
         if (object.allowList != null) {
-          if (typeof object.allowList !== "object")
+          if (typeof object.allowList !== 'object')
             throw TypeError(
-              ".OracleJob.JupiterSwapTask.allowList: object expected"
+              '.OracleJob.JupiterSwapTask.allowList: object expected'
             );
           message.allowList =
             $root.OracleJob.JupiterSwapTask.FilterList.fromObject(
@@ -7616,9 +7616,9 @@
             );
         }
         if (object.denyList != null) {
-          if (typeof object.denyList !== "object")
+          if (typeof object.denyList !== 'object')
             throw TypeError(
-              ".OracleJob.JupiterSwapTask.denyList: object expected"
+              '.OracleJob.JupiterSwapTask.denyList: object expected'
             );
           message.denyList =
             $root.OracleJob.JupiterSwapTask.FilterList.fromObject(
@@ -7641,39 +7641,39 @@
         if (!options) options = {};
         var object = {};
         if (options.defaults) {
-          object.inTokenAddress = "";
-          object.outTokenAddress = "";
+          object.inTokenAddress = '';
+          object.outTokenAddress = '';
           object.baseAmount = 0;
         }
         if (
           message.inTokenAddress != null &&
-          message.hasOwnProperty("inTokenAddress")
+          message.hasOwnProperty('inTokenAddress')
         )
           object.inTokenAddress = message.inTokenAddress;
         if (
           message.outTokenAddress != null &&
-          message.hasOwnProperty("outTokenAddress")
+          message.hasOwnProperty('outTokenAddress')
         )
           object.outTokenAddress = message.outTokenAddress;
-        if (message.baseAmount != null && message.hasOwnProperty("baseAmount"))
+        if (message.baseAmount != null && message.hasOwnProperty('baseAmount'))
           object.baseAmount =
             options.json && !isFinite(message.baseAmount)
               ? String(message.baseAmount)
               : message.baseAmount;
-        if (message.allowList != null && message.hasOwnProperty("allowList")) {
+        if (message.allowList != null && message.hasOwnProperty('allowList')) {
           object.allowList =
             $root.OracleJob.JupiterSwapTask.FilterList.toObject(
               message.allowList,
               options
             );
-          if (options.oneofs) object.RoutesFilters = "allowList";
+          if (options.oneofs) object.RoutesFilters = 'allowList';
         }
-        if (message.denyList != null && message.hasOwnProperty("denyList")) {
+        if (message.denyList != null && message.hasOwnProperty('denyList')) {
           object.denyList = $root.OracleJob.JupiterSwapTask.FilterList.toObject(
             message.denyList,
             options
           );
-          if (options.oneofs) object.RoutesFilters = "denyList";
+          if (options.oneofs) object.RoutesFilters = 'denyList';
         }
         return object;
       };
@@ -7699,9 +7699,9 @@
        */
       JupiterSwapTask.getTypeUrl = function getTypeUrl(typeUrlPrefix) {
         if (typeUrlPrefix === undefined) {
-          typeUrlPrefix = "type.googleapis.com";
+          typeUrlPrefix = 'type.googleapis.com';
         }
-        return typeUrlPrefix + "/OracleJob.JupiterSwapTask";
+        return typeUrlPrefix + '/OracleJob.JupiterSwapTask';
       };
 
       JupiterSwapTask.FilterList = (function () {
@@ -7840,13 +7840,13 @@
          * @returns {string|null} `null` if valid, otherwise the reason why it is not
          */
         FilterList.verify = function verify(message) {
-          if (typeof message !== "object" || message === null)
-            return "object expected";
-          if (message.labels != null && message.hasOwnProperty("labels")) {
-            if (!Array.isArray(message.labels)) return "labels: array expected";
+          if (typeof message !== 'object' || message === null)
+            return 'object expected';
+          if (message.labels != null && message.hasOwnProperty('labels')) {
+            if (!Array.isArray(message.labels)) return 'labels: array expected';
             for (var i = 0; i < message.labels.length; ++i)
               if (!$util.isString(message.labels[i]))
-                return "labels: string[] expected";
+                return 'labels: string[] expected';
           }
           return null;
         };
@@ -7866,7 +7866,7 @@
           if (object.labels) {
             if (!Array.isArray(object.labels))
               throw TypeError(
-                ".OracleJob.JupiterSwapTask.FilterList.labels: array expected"
+                '.OracleJob.JupiterSwapTask.FilterList.labels: array expected'
               );
             message.labels = [];
             for (var i = 0; i < object.labels.length; ++i)
@@ -7917,9 +7917,9 @@
          */
         FilterList.getTypeUrl = function getTypeUrl(typeUrlPrefix) {
           if (typeUrlPrefix === undefined) {
-            typeUrlPrefix = "type.googleapis.com";
+            typeUrlPrefix = 'type.googleapis.com';
           }
-          return typeUrlPrefix + "/OracleJob.JupiterSwapTask.FilterList";
+          return typeUrlPrefix + '/OracleJob.JupiterSwapTask.FilterList';
         };
 
         return FilterList;
@@ -7995,13 +7995,13 @@
        * @memberof OracleJob.PerpMarketTask
        * @instance
        */
-      Object.defineProperty(PerpMarketTask.prototype, "MarketAddress", {
+      Object.defineProperty(PerpMarketTask.prototype, 'MarketAddress', {
         get: $util.oneOfGetter(
           ($oneOfFields = [
-            "mangoMarketAddress",
-            "driftMarketAddress",
-            "zetaMarketAddress",
-            "zoMarketAddress",
+            'mangoMarketAddress',
+            'driftMarketAddress',
+            'zetaMarketAddress',
+            'zoMarketAddress',
           ])
         ),
         set: $util.oneOfSetter($oneOfFields),
@@ -8032,28 +8032,28 @@
         if (!writer) writer = $Writer.create();
         if (
           message.mangoMarketAddress != null &&
-          Object.hasOwnProperty.call(message, "mangoMarketAddress")
+          Object.hasOwnProperty.call(message, 'mangoMarketAddress')
         )
           writer
             .uint32(/* id 1, wireType 2 =*/ 10)
             .string(message.mangoMarketAddress);
         if (
           message.driftMarketAddress != null &&
-          Object.hasOwnProperty.call(message, "driftMarketAddress")
+          Object.hasOwnProperty.call(message, 'driftMarketAddress')
         )
           writer
             .uint32(/* id 2, wireType 2 =*/ 18)
             .string(message.driftMarketAddress);
         if (
           message.zetaMarketAddress != null &&
-          Object.hasOwnProperty.call(message, "zetaMarketAddress")
+          Object.hasOwnProperty.call(message, 'zetaMarketAddress')
         )
           writer
             .uint32(/* id 3, wireType 2 =*/ 26)
             .string(message.zetaMarketAddress);
         if (
           message.zoMarketAddress != null &&
-          Object.hasOwnProperty.call(message, "zoMarketAddress")
+          Object.hasOwnProperty.call(message, 'zoMarketAddress')
         )
           writer
             .uint32(/* id 4, wireType 2 =*/ 34)
@@ -8143,46 +8143,46 @@
        * @returns {string|null} `null` if valid, otherwise the reason why it is not
        */
       PerpMarketTask.verify = function verify(message) {
-        if (typeof message !== "object" || message === null)
-          return "object expected";
+        if (typeof message !== 'object' || message === null)
+          return 'object expected';
         var properties = {};
         if (
           message.mangoMarketAddress != null &&
-          message.hasOwnProperty("mangoMarketAddress")
+          message.hasOwnProperty('mangoMarketAddress')
         ) {
           properties.MarketAddress = 1;
           if (!$util.isString(message.mangoMarketAddress))
-            return "mangoMarketAddress: string expected";
+            return 'mangoMarketAddress: string expected';
         }
         if (
           message.driftMarketAddress != null &&
-          message.hasOwnProperty("driftMarketAddress")
+          message.hasOwnProperty('driftMarketAddress')
         ) {
           if (properties.MarketAddress === 1)
-            return "MarketAddress: multiple values";
+            return 'MarketAddress: multiple values';
           properties.MarketAddress = 1;
           if (!$util.isString(message.driftMarketAddress))
-            return "driftMarketAddress: string expected";
+            return 'driftMarketAddress: string expected';
         }
         if (
           message.zetaMarketAddress != null &&
-          message.hasOwnProperty("zetaMarketAddress")
+          message.hasOwnProperty('zetaMarketAddress')
         ) {
           if (properties.MarketAddress === 1)
-            return "MarketAddress: multiple values";
+            return 'MarketAddress: multiple values';
           properties.MarketAddress = 1;
           if (!$util.isString(message.zetaMarketAddress))
-            return "zetaMarketAddress: string expected";
+            return 'zetaMarketAddress: string expected';
         }
         if (
           message.zoMarketAddress != null &&
-          message.hasOwnProperty("zoMarketAddress")
+          message.hasOwnProperty('zoMarketAddress')
         ) {
           if (properties.MarketAddress === 1)
-            return "MarketAddress: multiple values";
+            return 'MarketAddress: multiple values';
           properties.MarketAddress = 1;
           if (!$util.isString(message.zoMarketAddress))
-            return "zoMarketAddress: string expected";
+            return 'zoMarketAddress: string expected';
         }
         return null;
       };
@@ -8223,31 +8223,31 @@
         var object = {};
         if (
           message.mangoMarketAddress != null &&
-          message.hasOwnProperty("mangoMarketAddress")
+          message.hasOwnProperty('mangoMarketAddress')
         ) {
           object.mangoMarketAddress = message.mangoMarketAddress;
-          if (options.oneofs) object.MarketAddress = "mangoMarketAddress";
+          if (options.oneofs) object.MarketAddress = 'mangoMarketAddress';
         }
         if (
           message.driftMarketAddress != null &&
-          message.hasOwnProperty("driftMarketAddress")
+          message.hasOwnProperty('driftMarketAddress')
         ) {
           object.driftMarketAddress = message.driftMarketAddress;
-          if (options.oneofs) object.MarketAddress = "driftMarketAddress";
+          if (options.oneofs) object.MarketAddress = 'driftMarketAddress';
         }
         if (
           message.zetaMarketAddress != null &&
-          message.hasOwnProperty("zetaMarketAddress")
+          message.hasOwnProperty('zetaMarketAddress')
         ) {
           object.zetaMarketAddress = message.zetaMarketAddress;
-          if (options.oneofs) object.MarketAddress = "zetaMarketAddress";
+          if (options.oneofs) object.MarketAddress = 'zetaMarketAddress';
         }
         if (
           message.zoMarketAddress != null &&
-          message.hasOwnProperty("zoMarketAddress")
+          message.hasOwnProperty('zoMarketAddress')
         ) {
           object.zoMarketAddress = message.zoMarketAddress;
-          if (options.oneofs) object.MarketAddress = "zoMarketAddress";
+          if (options.oneofs) object.MarketAddress = 'zoMarketAddress';
         }
         return object;
       };
@@ -8273,9 +8273,9 @@
        */
       PerpMarketTask.getTypeUrl = function getTypeUrl(typeUrlPrefix) {
         if (typeUrlPrefix === undefined) {
-          typeUrlPrefix = "type.googleapis.com";
+          typeUrlPrefix = 'type.googleapis.com';
         }
-        return typeUrlPrefix + "/OracleJob.PerpMarketTask";
+        return typeUrlPrefix + '/OracleJob.PerpMarketTask';
       };
 
       return PerpMarketTask;
@@ -8348,12 +8348,12 @@
        * @memberof OracleJob.OracleTask
        * @instance
        */
-      Object.defineProperty(OracleTask.prototype, "AggregatorAddress", {
+      Object.defineProperty(OracleTask.prototype, 'AggregatorAddress', {
         get: $util.oneOfGetter(
           ($oneOfFields = [
-            "switchboardAddress",
-            "pythAddress",
-            "chainlinkAddress",
+            'switchboardAddress',
+            'pythAddress',
+            'chainlinkAddress',
           ])
         ),
         set: $util.oneOfSetter($oneOfFields),
@@ -8384,26 +8384,26 @@
         if (!writer) writer = $Writer.create();
         if (
           message.switchboardAddress != null &&
-          Object.hasOwnProperty.call(message, "switchboardAddress")
+          Object.hasOwnProperty.call(message, 'switchboardAddress')
         )
           writer
             .uint32(/* id 1, wireType 2 =*/ 10)
             .string(message.switchboardAddress);
         if (
           message.pythAddress != null &&
-          Object.hasOwnProperty.call(message, "pythAddress")
+          Object.hasOwnProperty.call(message, 'pythAddress')
         )
           writer.uint32(/* id 2, wireType 2 =*/ 18).string(message.pythAddress);
         if (
           message.chainlinkAddress != null &&
-          Object.hasOwnProperty.call(message, "chainlinkAddress")
+          Object.hasOwnProperty.call(message, 'chainlinkAddress')
         )
           writer
             .uint32(/* id 3, wireType 2 =*/ 26)
             .string(message.chainlinkAddress);
         if (
           message.pythAllowedConfidenceInterval != null &&
-          Object.hasOwnProperty.call(message, "pythAllowedConfidenceInterval")
+          Object.hasOwnProperty.call(message, 'pythAllowedConfidenceInterval')
         )
           writer
             .uint32(/* id 4, wireType 1 =*/ 33)
@@ -8490,43 +8490,43 @@
        * @returns {string|null} `null` if valid, otherwise the reason why it is not
        */
       OracleTask.verify = function verify(message) {
-        if (typeof message !== "object" || message === null)
-          return "object expected";
+        if (typeof message !== 'object' || message === null)
+          return 'object expected';
         var properties = {};
         if (
           message.switchboardAddress != null &&
-          message.hasOwnProperty("switchboardAddress")
+          message.hasOwnProperty('switchboardAddress')
         ) {
           properties.AggregatorAddress = 1;
           if (!$util.isString(message.switchboardAddress))
-            return "switchboardAddress: string expected";
+            return 'switchboardAddress: string expected';
         }
         if (
           message.pythAddress != null &&
-          message.hasOwnProperty("pythAddress")
+          message.hasOwnProperty('pythAddress')
         ) {
           if (properties.AggregatorAddress === 1)
-            return "AggregatorAddress: multiple values";
+            return 'AggregatorAddress: multiple values';
           properties.AggregatorAddress = 1;
           if (!$util.isString(message.pythAddress))
-            return "pythAddress: string expected";
+            return 'pythAddress: string expected';
         }
         if (
           message.chainlinkAddress != null &&
-          message.hasOwnProperty("chainlinkAddress")
+          message.hasOwnProperty('chainlinkAddress')
         ) {
           if (properties.AggregatorAddress === 1)
-            return "AggregatorAddress: multiple values";
+            return 'AggregatorAddress: multiple values';
           properties.AggregatorAddress = 1;
           if (!$util.isString(message.chainlinkAddress))
-            return "chainlinkAddress: string expected";
+            return 'chainlinkAddress: string expected';
         }
         if (
           message.pythAllowedConfidenceInterval != null &&
-          message.hasOwnProperty("pythAllowedConfidenceInterval")
+          message.hasOwnProperty('pythAllowedConfidenceInterval')
         )
-          if (typeof message.pythAllowedConfidenceInterval !== "number")
-            return "pythAllowedConfidenceInterval: number expected";
+          if (typeof message.pythAllowedConfidenceInterval !== 'number')
+            return 'pythAllowedConfidenceInterval: number expected';
         return null;
       };
 
@@ -8569,28 +8569,28 @@
         if (options.defaults) object.pythAllowedConfidenceInterval = 0;
         if (
           message.switchboardAddress != null &&
-          message.hasOwnProperty("switchboardAddress")
+          message.hasOwnProperty('switchboardAddress')
         ) {
           object.switchboardAddress = message.switchboardAddress;
-          if (options.oneofs) object.AggregatorAddress = "switchboardAddress";
+          if (options.oneofs) object.AggregatorAddress = 'switchboardAddress';
         }
         if (
           message.pythAddress != null &&
-          message.hasOwnProperty("pythAddress")
+          message.hasOwnProperty('pythAddress')
         ) {
           object.pythAddress = message.pythAddress;
-          if (options.oneofs) object.AggregatorAddress = "pythAddress";
+          if (options.oneofs) object.AggregatorAddress = 'pythAddress';
         }
         if (
           message.chainlinkAddress != null &&
-          message.hasOwnProperty("chainlinkAddress")
+          message.hasOwnProperty('chainlinkAddress')
         ) {
           object.chainlinkAddress = message.chainlinkAddress;
-          if (options.oneofs) object.AggregatorAddress = "chainlinkAddress";
+          if (options.oneofs) object.AggregatorAddress = 'chainlinkAddress';
         }
         if (
           message.pythAllowedConfidenceInterval != null &&
-          message.hasOwnProperty("pythAllowedConfidenceInterval")
+          message.hasOwnProperty('pythAllowedConfidenceInterval')
         )
           object.pythAllowedConfidenceInterval =
             options.json && !isFinite(message.pythAllowedConfidenceInterval)
@@ -8620,9 +8620,9 @@
        */
       OracleTask.getTypeUrl = function getTypeUrl(typeUrlPrefix) {
         if (typeUrlPrefix === undefined) {
-          typeUrlPrefix = "type.googleapis.com";
+          typeUrlPrefix = 'type.googleapis.com';
         }
-        return typeUrlPrefix + "/OracleJob.OracleTask";
+        return typeUrlPrefix + '/OracleJob.OracleTask';
       };
 
       return OracleTask;
@@ -8658,7 +8658,7 @@
        * @memberof OracleJob.AnchorFetchTask
        * @instance
        */
-      AnchorFetchTask.prototype.programId = "";
+      AnchorFetchTask.prototype.programId = '';
 
       /**
        * AnchorFetchTask accountAddress.
@@ -8666,7 +8666,7 @@
        * @memberof OracleJob.AnchorFetchTask
        * @instance
        */
-      AnchorFetchTask.prototype.accountAddress = "";
+      AnchorFetchTask.prototype.accountAddress = '';
 
       /**
        * Creates a new AnchorFetchTask instance using the specified properties.
@@ -8693,12 +8693,12 @@
         if (!writer) writer = $Writer.create();
         if (
           message.programId != null &&
-          Object.hasOwnProperty.call(message, "programId")
+          Object.hasOwnProperty.call(message, 'programId')
         )
           writer.uint32(/* id 1, wireType 2 =*/ 10).string(message.programId);
         if (
           message.accountAddress != null &&
-          Object.hasOwnProperty.call(message, "accountAddress")
+          Object.hasOwnProperty.call(message, 'accountAddress')
         )
           writer
             .uint32(/* id 2, wireType 2 =*/ 18)
@@ -8780,17 +8780,17 @@
        * @returns {string|null} `null` if valid, otherwise the reason why it is not
        */
       AnchorFetchTask.verify = function verify(message) {
-        if (typeof message !== "object" || message === null)
-          return "object expected";
-        if (message.programId != null && message.hasOwnProperty("programId"))
+        if (typeof message !== 'object' || message === null)
+          return 'object expected';
+        if (message.programId != null && message.hasOwnProperty('programId'))
           if (!$util.isString(message.programId))
-            return "programId: string expected";
+            return 'programId: string expected';
         if (
           message.accountAddress != null &&
-          message.hasOwnProperty("accountAddress")
+          message.hasOwnProperty('accountAddress')
         )
           if (!$util.isString(message.accountAddress))
-            return "accountAddress: string expected";
+            return 'accountAddress: string expected';
         return null;
       };
 
@@ -8825,14 +8825,14 @@
         if (!options) options = {};
         var object = {};
         if (options.defaults) {
-          object.programId = "";
-          object.accountAddress = "";
+          object.programId = '';
+          object.accountAddress = '';
         }
-        if (message.programId != null && message.hasOwnProperty("programId"))
+        if (message.programId != null && message.hasOwnProperty('programId'))
           object.programId = message.programId;
         if (
           message.accountAddress != null &&
-          message.hasOwnProperty("accountAddress")
+          message.hasOwnProperty('accountAddress')
         )
           object.accountAddress = message.accountAddress;
         return object;
@@ -8859,9 +8859,9 @@
        */
       AnchorFetchTask.getTypeUrl = function getTypeUrl(typeUrlPrefix) {
         if (typeUrlPrefix === undefined) {
-          typeUrlPrefix = "type.googleapis.com";
+          typeUrlPrefix = 'type.googleapis.com';
         }
-        return typeUrlPrefix + "/OracleJob.AnchorFetchTask";
+        return typeUrlPrefix + '/OracleJob.AnchorFetchTask';
       };
 
       return AnchorFetchTask;
@@ -8978,8 +8978,8 @@
        * @returns {string|null} `null` if valid, otherwise the reason why it is not
        */
       TpsTask.verify = function verify(message) {
-        if (typeof message !== "object" || message === null)
-          return "object expected";
+        if (typeof message !== 'object' || message === null)
+          return 'object expected';
         return null;
       };
 
@@ -9030,9 +9030,9 @@
        */
       TpsTask.getTypeUrl = function getTypeUrl(typeUrlPrefix) {
         if (typeUrlPrefix === undefined) {
-          typeUrlPrefix = "type.googleapis.com";
+          typeUrlPrefix = 'type.googleapis.com';
         }
-        return typeUrlPrefix + "/OracleJob.TpsTask";
+        return typeUrlPrefix + '/OracleJob.TpsTask';
       };
 
       return TpsTask;
@@ -9067,7 +9067,7 @@
        * @memberof OracleJob.SplStakePoolTask
        * @instance
        */
-      SplStakePoolTask.prototype.pubkey = "";
+      SplStakePoolTask.prototype.pubkey = '';
 
       /**
        * Creates a new SplStakePoolTask instance using the specified properties.
@@ -9094,7 +9094,7 @@
         if (!writer) writer = $Writer.create();
         if (
           message.pubkey != null &&
-          Object.hasOwnProperty.call(message, "pubkey")
+          Object.hasOwnProperty.call(message, 'pubkey')
         )
           writer.uint32(/* id 1, wireType 2 =*/ 10).string(message.pubkey);
         return writer;
@@ -9170,10 +9170,10 @@
        * @returns {string|null} `null` if valid, otherwise the reason why it is not
        */
       SplStakePoolTask.verify = function verify(message) {
-        if (typeof message !== "object" || message === null)
-          return "object expected";
-        if (message.pubkey != null && message.hasOwnProperty("pubkey"))
-          if (!$util.isString(message.pubkey)) return "pubkey: string expected";
+        if (typeof message !== 'object' || message === null)
+          return 'object expected';
+        if (message.pubkey != null && message.hasOwnProperty('pubkey'))
+          if (!$util.isString(message.pubkey)) return 'pubkey: string expected';
         return null;
       };
 
@@ -9204,8 +9204,8 @@
       SplStakePoolTask.toObject = function toObject(message, options) {
         if (!options) options = {};
         var object = {};
-        if (options.defaults) object.pubkey = "";
-        if (message.pubkey != null && message.hasOwnProperty("pubkey"))
+        if (options.defaults) object.pubkey = '';
+        if (message.pubkey != null && message.hasOwnProperty('pubkey'))
           object.pubkey = message.pubkey;
         return object;
       };
@@ -9231,9 +9231,9 @@
        */
       SplStakePoolTask.getTypeUrl = function getTypeUrl(typeUrlPrefix) {
         if (typeUrlPrefix === undefined) {
-          typeUrlPrefix = "type.googleapis.com";
+          typeUrlPrefix = 'type.googleapis.com';
         }
-        return typeUrlPrefix + "/OracleJob.SplStakePoolTask";
+        return typeUrlPrefix + '/OracleJob.SplStakePoolTask';
       };
 
       return SplStakePoolTask;
@@ -9288,9 +9288,9 @@
        * @memberof OracleJob.SplTokenParseTask
        * @instance
        */
-      Object.defineProperty(SplTokenParseTask.prototype, "AccountAddress", {
+      Object.defineProperty(SplTokenParseTask.prototype, 'AccountAddress', {
         get: $util.oneOfGetter(
-          ($oneOfFields = ["tokenAccountAddress", "mintAddress"])
+          ($oneOfFields = ['tokenAccountAddress', 'mintAddress'])
         ),
         set: $util.oneOfSetter($oneOfFields),
       });
@@ -9320,14 +9320,14 @@
         if (!writer) writer = $Writer.create();
         if (
           message.tokenAccountAddress != null &&
-          Object.hasOwnProperty.call(message, "tokenAccountAddress")
+          Object.hasOwnProperty.call(message, 'tokenAccountAddress')
         )
           writer
             .uint32(/* id 1, wireType 2 =*/ 10)
             .string(message.tokenAccountAddress);
         if (
           message.mintAddress != null &&
-          Object.hasOwnProperty.call(message, "mintAddress")
+          Object.hasOwnProperty.call(message, 'mintAddress')
         )
           writer.uint32(/* id 2, wireType 2 =*/ 18).string(message.mintAddress);
         return writer;
@@ -9407,26 +9407,26 @@
        * @returns {string|null} `null` if valid, otherwise the reason why it is not
        */
       SplTokenParseTask.verify = function verify(message) {
-        if (typeof message !== "object" || message === null)
-          return "object expected";
+        if (typeof message !== 'object' || message === null)
+          return 'object expected';
         var properties = {};
         if (
           message.tokenAccountAddress != null &&
-          message.hasOwnProperty("tokenAccountAddress")
+          message.hasOwnProperty('tokenAccountAddress')
         ) {
           properties.AccountAddress = 1;
           if (!$util.isString(message.tokenAccountAddress))
-            return "tokenAccountAddress: string expected";
+            return 'tokenAccountAddress: string expected';
         }
         if (
           message.mintAddress != null &&
-          message.hasOwnProperty("mintAddress")
+          message.hasOwnProperty('mintAddress')
         ) {
           if (properties.AccountAddress === 1)
-            return "AccountAddress: multiple values";
+            return 'AccountAddress: multiple values';
           properties.AccountAddress = 1;
           if (!$util.isString(message.mintAddress))
-            return "mintAddress: string expected";
+            return 'mintAddress: string expected';
         }
         return null;
       };
@@ -9463,17 +9463,17 @@
         var object = {};
         if (
           message.tokenAccountAddress != null &&
-          message.hasOwnProperty("tokenAccountAddress")
+          message.hasOwnProperty('tokenAccountAddress')
         ) {
           object.tokenAccountAddress = message.tokenAccountAddress;
-          if (options.oneofs) object.AccountAddress = "tokenAccountAddress";
+          if (options.oneofs) object.AccountAddress = 'tokenAccountAddress';
         }
         if (
           message.mintAddress != null &&
-          message.hasOwnProperty("mintAddress")
+          message.hasOwnProperty('mintAddress')
         ) {
           object.mintAddress = message.mintAddress;
-          if (options.oneofs) object.AccountAddress = "mintAddress";
+          if (options.oneofs) object.AccountAddress = 'mintAddress';
         }
         return object;
       };
@@ -9499,9 +9499,9 @@
        */
       SplTokenParseTask.getTypeUrl = function getTypeUrl(typeUrlPrefix) {
         if (typeUrlPrefix === undefined) {
-          typeUrlPrefix = "type.googleapis.com";
+          typeUrlPrefix = 'type.googleapis.com';
         }
-        return typeUrlPrefix + "/OracleJob.SplTokenParseTask";
+        return typeUrlPrefix + '/OracleJob.SplTokenParseTask';
       };
 
       return SplTokenParseTask;
@@ -9538,7 +9538,7 @@
        * @memberof OracleJob.DefiKingdomsTask
        * @instance
        */
-      DefiKingdomsTask.prototype.provider = "";
+      DefiKingdomsTask.prototype.provider = '';
 
       /**
        * DefiKingdomsTask inToken.
@@ -9581,12 +9581,12 @@
         if (!writer) writer = $Writer.create();
         if (
           message.provider != null &&
-          Object.hasOwnProperty.call(message, "provider")
+          Object.hasOwnProperty.call(message, 'provider')
         )
           writer.uint32(/* id 1, wireType 2 =*/ 10).string(message.provider);
         if (
           message.inToken != null &&
-          Object.hasOwnProperty.call(message, "inToken")
+          Object.hasOwnProperty.call(message, 'inToken')
         )
           $root.OracleJob.DefiKingdomsTask.Token.encode(
             message.inToken,
@@ -9594,7 +9594,7 @@
           ).ldelim();
         if (
           message.outToken != null &&
-          Object.hasOwnProperty.call(message, "outToken")
+          Object.hasOwnProperty.call(message, 'outToken')
         )
           $root.OracleJob.DefiKingdomsTask.Token.encode(
             message.outToken,
@@ -9687,22 +9687,22 @@
        * @returns {string|null} `null` if valid, otherwise the reason why it is not
        */
       DefiKingdomsTask.verify = function verify(message) {
-        if (typeof message !== "object" || message === null)
-          return "object expected";
-        if (message.provider != null && message.hasOwnProperty("provider"))
+        if (typeof message !== 'object' || message === null)
+          return 'object expected';
+        if (message.provider != null && message.hasOwnProperty('provider'))
           if (!$util.isString(message.provider))
-            return "provider: string expected";
-        if (message.inToken != null && message.hasOwnProperty("inToken")) {
+            return 'provider: string expected';
+        if (message.inToken != null && message.hasOwnProperty('inToken')) {
           var error = $root.OracleJob.DefiKingdomsTask.Token.verify(
             message.inToken
           );
-          if (error) return "inToken." + error;
+          if (error) return 'inToken.' + error;
         }
-        if (message.outToken != null && message.hasOwnProperty("outToken")) {
+        if (message.outToken != null && message.hasOwnProperty('outToken')) {
           var error = $root.OracleJob.DefiKingdomsTask.Token.verify(
             message.outToken
           );
-          if (error) return "outToken." + error;
+          if (error) return 'outToken.' + error;
         }
         return null;
       };
@@ -9720,18 +9720,18 @@
         var message = new $root.OracleJob.DefiKingdomsTask();
         if (object.provider != null) message.provider = String(object.provider);
         if (object.inToken != null) {
-          if (typeof object.inToken !== "object")
+          if (typeof object.inToken !== 'object')
             throw TypeError(
-              ".OracleJob.DefiKingdomsTask.inToken: object expected"
+              '.OracleJob.DefiKingdomsTask.inToken: object expected'
             );
           message.inToken = $root.OracleJob.DefiKingdomsTask.Token.fromObject(
             object.inToken
           );
         }
         if (object.outToken != null) {
-          if (typeof object.outToken !== "object")
+          if (typeof object.outToken !== 'object')
             throw TypeError(
-              ".OracleJob.DefiKingdomsTask.outToken: object expected"
+              '.OracleJob.DefiKingdomsTask.outToken: object expected'
             );
           message.outToken = $root.OracleJob.DefiKingdomsTask.Token.fromObject(
             object.outToken
@@ -9753,18 +9753,18 @@
         if (!options) options = {};
         var object = {};
         if (options.defaults) {
-          object.provider = "";
+          object.provider = '';
           object.inToken = null;
           object.outToken = null;
         }
-        if (message.provider != null && message.hasOwnProperty("provider"))
+        if (message.provider != null && message.hasOwnProperty('provider'))
           object.provider = message.provider;
-        if (message.inToken != null && message.hasOwnProperty("inToken"))
+        if (message.inToken != null && message.hasOwnProperty('inToken'))
           object.inToken = $root.OracleJob.DefiKingdomsTask.Token.toObject(
             message.inToken,
             options
           );
-        if (message.outToken != null && message.hasOwnProperty("outToken"))
+        if (message.outToken != null && message.hasOwnProperty('outToken'))
           object.outToken = $root.OracleJob.DefiKingdomsTask.Token.toObject(
             message.outToken,
             options
@@ -9793,9 +9793,9 @@
        */
       DefiKingdomsTask.getTypeUrl = function getTypeUrl(typeUrlPrefix) {
         if (typeUrlPrefix === undefined) {
-          typeUrlPrefix = "type.googleapis.com";
+          typeUrlPrefix = 'type.googleapis.com';
         }
-        return typeUrlPrefix + "/OracleJob.DefiKingdomsTask";
+        return typeUrlPrefix + '/OracleJob.DefiKingdomsTask';
       };
 
       DefiKingdomsTask.Token = (function () {
@@ -9832,7 +9832,7 @@
          * @memberof OracleJob.DefiKingdomsTask.Token
          * @instance
          */
-        Token.prototype.address = "";
+        Token.prototype.address = '';
 
         /**
          * Token decimals.
@@ -9867,12 +9867,12 @@
           if (!writer) writer = $Writer.create();
           if (
             message.address != null &&
-            Object.hasOwnProperty.call(message, "address")
+            Object.hasOwnProperty.call(message, 'address')
           )
             writer.uint32(/* id 1, wireType 2 =*/ 10).string(message.address);
           if (
             message.decimals != null &&
-            Object.hasOwnProperty.call(message, "decimals")
+            Object.hasOwnProperty.call(message, 'decimals')
           )
             writer.uint32(/* id 2, wireType 0 =*/ 16).int32(message.decimals);
           return writer;
@@ -9949,14 +9949,14 @@
          * @returns {string|null} `null` if valid, otherwise the reason why it is not
          */
         Token.verify = function verify(message) {
-          if (typeof message !== "object" || message === null)
-            return "object expected";
-          if (message.address != null && message.hasOwnProperty("address"))
+          if (typeof message !== 'object' || message === null)
+            return 'object expected';
+          if (message.address != null && message.hasOwnProperty('address'))
             if (!$util.isString(message.address))
-              return "address: string expected";
-          if (message.decimals != null && message.hasOwnProperty("decimals"))
+              return 'address: string expected';
+          if (message.decimals != null && message.hasOwnProperty('decimals'))
             if (!$util.isInteger(message.decimals))
-              return "decimals: integer expected";
+              return 'decimals: integer expected';
           return null;
         };
 
@@ -9990,12 +9990,12 @@
           if (!options) options = {};
           var object = {};
           if (options.defaults) {
-            object.address = "";
+            object.address = '';
             object.decimals = 0;
           }
-          if (message.address != null && message.hasOwnProperty("address"))
+          if (message.address != null && message.hasOwnProperty('address'))
             object.address = message.address;
-          if (message.decimals != null && message.hasOwnProperty("decimals"))
+          if (message.decimals != null && message.hasOwnProperty('decimals'))
             object.decimals = message.decimals;
           return object;
         };
@@ -10021,9 +10021,9 @@
          */
         Token.getTypeUrl = function getTypeUrl(typeUrlPrefix) {
           if (typeUrlPrefix === undefined) {
-            typeUrlPrefix = "type.googleapis.com";
+            typeUrlPrefix = 'type.googleapis.com';
           }
-          return typeUrlPrefix + "/OracleJob.DefiKingdomsTask.Token";
+          return typeUrlPrefix + '/OracleJob.DefiKingdomsTask.Token';
         };
 
         return Token;
@@ -10065,7 +10065,7 @@
        * @memberof OracleJob.UniswapExchangeRateTask
        * @instance
        */
-      UniswapExchangeRateTask.prototype.inTokenAddress = "";
+      UniswapExchangeRateTask.prototype.inTokenAddress = '';
 
       /**
        * UniswapExchangeRateTask outTokenAddress.
@@ -10073,7 +10073,7 @@
        * @memberof OracleJob.UniswapExchangeRateTask
        * @instance
        */
-      UniswapExchangeRateTask.prototype.outTokenAddress = "";
+      UniswapExchangeRateTask.prototype.outTokenAddress = '';
 
       /**
        * UniswapExchangeRateTask inTokenAmount.
@@ -10097,7 +10097,7 @@
        * @memberof OracleJob.UniswapExchangeRateTask
        * @instance
        */
-      UniswapExchangeRateTask.prototype.provider = "";
+      UniswapExchangeRateTask.prototype.provider = '';
 
       /**
        * Creates a new UniswapExchangeRateTask instance using the specified properties.
@@ -10124,33 +10124,33 @@
         if (!writer) writer = $Writer.create();
         if (
           message.inTokenAddress != null &&
-          Object.hasOwnProperty.call(message, "inTokenAddress")
+          Object.hasOwnProperty.call(message, 'inTokenAddress')
         )
           writer
             .uint32(/* id 1, wireType 2 =*/ 10)
             .string(message.inTokenAddress);
         if (
           message.outTokenAddress != null &&
-          Object.hasOwnProperty.call(message, "outTokenAddress")
+          Object.hasOwnProperty.call(message, 'outTokenAddress')
         )
           writer
             .uint32(/* id 2, wireType 2 =*/ 18)
             .string(message.outTokenAddress);
         if (
           message.inTokenAmount != null &&
-          Object.hasOwnProperty.call(message, "inTokenAmount")
+          Object.hasOwnProperty.call(message, 'inTokenAmount')
         )
           writer
             .uint32(/* id 3, wireType 1 =*/ 25)
             .double(message.inTokenAmount);
         if (
           message.slippage != null &&
-          Object.hasOwnProperty.call(message, "slippage")
+          Object.hasOwnProperty.call(message, 'slippage')
         )
           writer.uint32(/* id 4, wireType 1 =*/ 33).double(message.slippage);
         if (
           message.provider != null &&
-          Object.hasOwnProperty.call(message, "provider")
+          Object.hasOwnProperty.call(message, 'provider')
         )
           writer.uint32(/* id 5, wireType 2 =*/ 42).string(message.provider);
         return writer;
@@ -10244,32 +10244,32 @@
        * @returns {string|null} `null` if valid, otherwise the reason why it is not
        */
       UniswapExchangeRateTask.verify = function verify(message) {
-        if (typeof message !== "object" || message === null)
-          return "object expected";
+        if (typeof message !== 'object' || message === null)
+          return 'object expected';
         if (
           message.inTokenAddress != null &&
-          message.hasOwnProperty("inTokenAddress")
+          message.hasOwnProperty('inTokenAddress')
         )
           if (!$util.isString(message.inTokenAddress))
-            return "inTokenAddress: string expected";
+            return 'inTokenAddress: string expected';
         if (
           message.outTokenAddress != null &&
-          message.hasOwnProperty("outTokenAddress")
+          message.hasOwnProperty('outTokenAddress')
         )
           if (!$util.isString(message.outTokenAddress))
-            return "outTokenAddress: string expected";
+            return 'outTokenAddress: string expected';
         if (
           message.inTokenAmount != null &&
-          message.hasOwnProperty("inTokenAmount")
+          message.hasOwnProperty('inTokenAmount')
         )
-          if (typeof message.inTokenAmount !== "number")
-            return "inTokenAmount: number expected";
-        if (message.slippage != null && message.hasOwnProperty("slippage"))
-          if (typeof message.slippage !== "number")
-            return "slippage: number expected";
-        if (message.provider != null && message.hasOwnProperty("provider"))
+          if (typeof message.inTokenAmount !== 'number')
+            return 'inTokenAmount: number expected';
+        if (message.slippage != null && message.hasOwnProperty('slippage'))
+          if (typeof message.slippage !== 'number')
+            return 'slippage: number expected';
+        if (message.provider != null && message.hasOwnProperty('provider'))
           if (!$util.isString(message.provider))
-            return "provider: string expected";
+            return 'provider: string expected';
         return null;
       };
 
@@ -10309,36 +10309,36 @@
         if (!options) options = {};
         var object = {};
         if (options.defaults) {
-          object.inTokenAddress = "";
-          object.outTokenAddress = "";
+          object.inTokenAddress = '';
+          object.outTokenAddress = '';
           object.inTokenAmount = 0;
           object.slippage = 0;
-          object.provider = "";
+          object.provider = '';
         }
         if (
           message.inTokenAddress != null &&
-          message.hasOwnProperty("inTokenAddress")
+          message.hasOwnProperty('inTokenAddress')
         )
           object.inTokenAddress = message.inTokenAddress;
         if (
           message.outTokenAddress != null &&
-          message.hasOwnProperty("outTokenAddress")
+          message.hasOwnProperty('outTokenAddress')
         )
           object.outTokenAddress = message.outTokenAddress;
         if (
           message.inTokenAmount != null &&
-          message.hasOwnProperty("inTokenAmount")
+          message.hasOwnProperty('inTokenAmount')
         )
           object.inTokenAmount =
             options.json && !isFinite(message.inTokenAmount)
               ? String(message.inTokenAmount)
               : message.inTokenAmount;
-        if (message.slippage != null && message.hasOwnProperty("slippage"))
+        if (message.slippage != null && message.hasOwnProperty('slippage'))
           object.slippage =
             options.json && !isFinite(message.slippage)
               ? String(message.slippage)
               : message.slippage;
-        if (message.provider != null && message.hasOwnProperty("provider"))
+        if (message.provider != null && message.hasOwnProperty('provider'))
           object.provider = message.provider;
         return object;
       };
@@ -10364,9 +10364,9 @@
        */
       UniswapExchangeRateTask.getTypeUrl = function getTypeUrl(typeUrlPrefix) {
         if (typeUrlPrefix === undefined) {
-          typeUrlPrefix = "type.googleapis.com";
+          typeUrlPrefix = 'type.googleapis.com';
         }
-        return typeUrlPrefix + "/OracleJob.UniswapExchangeRateTask";
+        return typeUrlPrefix + '/OracleJob.UniswapExchangeRateTask';
       };
 
       return UniswapExchangeRateTask;
@@ -10405,7 +10405,7 @@
        * @memberof OracleJob.SushiswapExchangeRateTask
        * @instance
        */
-      SushiswapExchangeRateTask.prototype.inTokenAddress = "";
+      SushiswapExchangeRateTask.prototype.inTokenAddress = '';
 
       /**
        * SushiswapExchangeRateTask outTokenAddress.
@@ -10413,7 +10413,7 @@
        * @memberof OracleJob.SushiswapExchangeRateTask
        * @instance
        */
-      SushiswapExchangeRateTask.prototype.outTokenAddress = "";
+      SushiswapExchangeRateTask.prototype.outTokenAddress = '';
 
       /**
        * SushiswapExchangeRateTask inTokenAmount.
@@ -10437,7 +10437,7 @@
        * @memberof OracleJob.SushiswapExchangeRateTask
        * @instance
        */
-      SushiswapExchangeRateTask.prototype.provider = "";
+      SushiswapExchangeRateTask.prototype.provider = '';
 
       /**
        * Creates a new SushiswapExchangeRateTask instance using the specified properties.
@@ -10464,33 +10464,33 @@
         if (!writer) writer = $Writer.create();
         if (
           message.inTokenAddress != null &&
-          Object.hasOwnProperty.call(message, "inTokenAddress")
+          Object.hasOwnProperty.call(message, 'inTokenAddress')
         )
           writer
             .uint32(/* id 1, wireType 2 =*/ 10)
             .string(message.inTokenAddress);
         if (
           message.outTokenAddress != null &&
-          Object.hasOwnProperty.call(message, "outTokenAddress")
+          Object.hasOwnProperty.call(message, 'outTokenAddress')
         )
           writer
             .uint32(/* id 2, wireType 2 =*/ 18)
             .string(message.outTokenAddress);
         if (
           message.inTokenAmount != null &&
-          Object.hasOwnProperty.call(message, "inTokenAmount")
+          Object.hasOwnProperty.call(message, 'inTokenAmount')
         )
           writer
             .uint32(/* id 3, wireType 1 =*/ 25)
             .double(message.inTokenAmount);
         if (
           message.slippage != null &&
-          Object.hasOwnProperty.call(message, "slippage")
+          Object.hasOwnProperty.call(message, 'slippage')
         )
           writer.uint32(/* id 4, wireType 1 =*/ 33).double(message.slippage);
         if (
           message.provider != null &&
-          Object.hasOwnProperty.call(message, "provider")
+          Object.hasOwnProperty.call(message, 'provider')
         )
           writer.uint32(/* id 5, wireType 2 =*/ 42).string(message.provider);
         return writer;
@@ -10584,32 +10584,32 @@
        * @returns {string|null} `null` if valid, otherwise the reason why it is not
        */
       SushiswapExchangeRateTask.verify = function verify(message) {
-        if (typeof message !== "object" || message === null)
-          return "object expected";
+        if (typeof message !== 'object' || message === null)
+          return 'object expected';
         if (
           message.inTokenAddress != null &&
-          message.hasOwnProperty("inTokenAddress")
+          message.hasOwnProperty('inTokenAddress')
         )
           if (!$util.isString(message.inTokenAddress))
-            return "inTokenAddress: string expected";
+            return 'inTokenAddress: string expected';
         if (
           message.outTokenAddress != null &&
-          message.hasOwnProperty("outTokenAddress")
+          message.hasOwnProperty('outTokenAddress')
         )
           if (!$util.isString(message.outTokenAddress))
-            return "outTokenAddress: string expected";
+            return 'outTokenAddress: string expected';
         if (
           message.inTokenAmount != null &&
-          message.hasOwnProperty("inTokenAmount")
+          message.hasOwnProperty('inTokenAmount')
         )
-          if (typeof message.inTokenAmount !== "number")
-            return "inTokenAmount: number expected";
-        if (message.slippage != null && message.hasOwnProperty("slippage"))
-          if (typeof message.slippage !== "number")
-            return "slippage: number expected";
-        if (message.provider != null && message.hasOwnProperty("provider"))
+          if (typeof message.inTokenAmount !== 'number')
+            return 'inTokenAmount: number expected';
+        if (message.slippage != null && message.hasOwnProperty('slippage'))
+          if (typeof message.slippage !== 'number')
+            return 'slippage: number expected';
+        if (message.provider != null && message.hasOwnProperty('provider'))
           if (!$util.isString(message.provider))
-            return "provider: string expected";
+            return 'provider: string expected';
         return null;
       };
 
@@ -10649,36 +10649,36 @@
         if (!options) options = {};
         var object = {};
         if (options.defaults) {
-          object.inTokenAddress = "";
-          object.outTokenAddress = "";
+          object.inTokenAddress = '';
+          object.outTokenAddress = '';
           object.inTokenAmount = 0;
           object.slippage = 0;
-          object.provider = "";
+          object.provider = '';
         }
         if (
           message.inTokenAddress != null &&
-          message.hasOwnProperty("inTokenAddress")
+          message.hasOwnProperty('inTokenAddress')
         )
           object.inTokenAddress = message.inTokenAddress;
         if (
           message.outTokenAddress != null &&
-          message.hasOwnProperty("outTokenAddress")
+          message.hasOwnProperty('outTokenAddress')
         )
           object.outTokenAddress = message.outTokenAddress;
         if (
           message.inTokenAmount != null &&
-          message.hasOwnProperty("inTokenAmount")
+          message.hasOwnProperty('inTokenAmount')
         )
           object.inTokenAmount =
             options.json && !isFinite(message.inTokenAmount)
               ? String(message.inTokenAmount)
               : message.inTokenAmount;
-        if (message.slippage != null && message.hasOwnProperty("slippage"))
+        if (message.slippage != null && message.hasOwnProperty('slippage'))
           object.slippage =
             options.json && !isFinite(message.slippage)
               ? String(message.slippage)
               : message.slippage;
-        if (message.provider != null && message.hasOwnProperty("provider"))
+        if (message.provider != null && message.hasOwnProperty('provider'))
           object.provider = message.provider;
         return object;
       };
@@ -10706,9 +10706,9 @@
         typeUrlPrefix
       ) {
         if (typeUrlPrefix === undefined) {
-          typeUrlPrefix = "type.googleapis.com";
+          typeUrlPrefix = 'type.googleapis.com';
         }
-        return typeUrlPrefix + "/OracleJob.SushiswapExchangeRateTask";
+        return typeUrlPrefix + '/OracleJob.SushiswapExchangeRateTask';
       };
 
       return SushiswapExchangeRateTask;
@@ -10747,7 +10747,7 @@
        * @memberof OracleJob.PancakeswapExchangeRateTask
        * @instance
        */
-      PancakeswapExchangeRateTask.prototype.inTokenAddress = "";
+      PancakeswapExchangeRateTask.prototype.inTokenAddress = '';
 
       /**
        * PancakeswapExchangeRateTask outTokenAddress.
@@ -10755,7 +10755,7 @@
        * @memberof OracleJob.PancakeswapExchangeRateTask
        * @instance
        */
-      PancakeswapExchangeRateTask.prototype.outTokenAddress = "";
+      PancakeswapExchangeRateTask.prototype.outTokenAddress = '';
 
       /**
        * PancakeswapExchangeRateTask inTokenAmount.
@@ -10779,7 +10779,7 @@
        * @memberof OracleJob.PancakeswapExchangeRateTask
        * @instance
        */
-      PancakeswapExchangeRateTask.prototype.provider = "";
+      PancakeswapExchangeRateTask.prototype.provider = '';
 
       /**
        * Creates a new PancakeswapExchangeRateTask instance using the specified properties.
@@ -10806,33 +10806,33 @@
         if (!writer) writer = $Writer.create();
         if (
           message.inTokenAddress != null &&
-          Object.hasOwnProperty.call(message, "inTokenAddress")
+          Object.hasOwnProperty.call(message, 'inTokenAddress')
         )
           writer
             .uint32(/* id 1, wireType 2 =*/ 10)
             .string(message.inTokenAddress);
         if (
           message.outTokenAddress != null &&
-          Object.hasOwnProperty.call(message, "outTokenAddress")
+          Object.hasOwnProperty.call(message, 'outTokenAddress')
         )
           writer
             .uint32(/* id 2, wireType 2 =*/ 18)
             .string(message.outTokenAddress);
         if (
           message.inTokenAmount != null &&
-          Object.hasOwnProperty.call(message, "inTokenAmount")
+          Object.hasOwnProperty.call(message, 'inTokenAmount')
         )
           writer
             .uint32(/* id 3, wireType 1 =*/ 25)
             .double(message.inTokenAmount);
         if (
           message.slippage != null &&
-          Object.hasOwnProperty.call(message, "slippage")
+          Object.hasOwnProperty.call(message, 'slippage')
         )
           writer.uint32(/* id 4, wireType 1 =*/ 33).double(message.slippage);
         if (
           message.provider != null &&
-          Object.hasOwnProperty.call(message, "provider")
+          Object.hasOwnProperty.call(message, 'provider')
         )
           writer.uint32(/* id 5, wireType 2 =*/ 42).string(message.provider);
         return writer;
@@ -10926,32 +10926,32 @@
        * @returns {string|null} `null` if valid, otherwise the reason why it is not
        */
       PancakeswapExchangeRateTask.verify = function verify(message) {
-        if (typeof message !== "object" || message === null)
-          return "object expected";
+        if (typeof message !== 'object' || message === null)
+          return 'object expected';
         if (
           message.inTokenAddress != null &&
-          message.hasOwnProperty("inTokenAddress")
+          message.hasOwnProperty('inTokenAddress')
         )
           if (!$util.isString(message.inTokenAddress))
-            return "inTokenAddress: string expected";
+            return 'inTokenAddress: string expected';
         if (
           message.outTokenAddress != null &&
-          message.hasOwnProperty("outTokenAddress")
+          message.hasOwnProperty('outTokenAddress')
         )
           if (!$util.isString(message.outTokenAddress))
-            return "outTokenAddress: string expected";
+            return 'outTokenAddress: string expected';
         if (
           message.inTokenAmount != null &&
-          message.hasOwnProperty("inTokenAmount")
+          message.hasOwnProperty('inTokenAmount')
         )
-          if (typeof message.inTokenAmount !== "number")
-            return "inTokenAmount: number expected";
-        if (message.slippage != null && message.hasOwnProperty("slippage"))
-          if (typeof message.slippage !== "number")
-            return "slippage: number expected";
-        if (message.provider != null && message.hasOwnProperty("provider"))
+          if (typeof message.inTokenAmount !== 'number')
+            return 'inTokenAmount: number expected';
+        if (message.slippage != null && message.hasOwnProperty('slippage'))
+          if (typeof message.slippage !== 'number')
+            return 'slippage: number expected';
+        if (message.provider != null && message.hasOwnProperty('provider'))
           if (!$util.isString(message.provider))
-            return "provider: string expected";
+            return 'provider: string expected';
         return null;
       };
 
@@ -10994,36 +10994,36 @@
         if (!options) options = {};
         var object = {};
         if (options.defaults) {
-          object.inTokenAddress = "";
-          object.outTokenAddress = "";
+          object.inTokenAddress = '';
+          object.outTokenAddress = '';
           object.inTokenAmount = 0;
           object.slippage = 0;
-          object.provider = "";
+          object.provider = '';
         }
         if (
           message.inTokenAddress != null &&
-          message.hasOwnProperty("inTokenAddress")
+          message.hasOwnProperty('inTokenAddress')
         )
           object.inTokenAddress = message.inTokenAddress;
         if (
           message.outTokenAddress != null &&
-          message.hasOwnProperty("outTokenAddress")
+          message.hasOwnProperty('outTokenAddress')
         )
           object.outTokenAddress = message.outTokenAddress;
         if (
           message.inTokenAmount != null &&
-          message.hasOwnProperty("inTokenAmount")
+          message.hasOwnProperty('inTokenAmount')
         )
           object.inTokenAmount =
             options.json && !isFinite(message.inTokenAmount)
               ? String(message.inTokenAmount)
               : message.inTokenAmount;
-        if (message.slippage != null && message.hasOwnProperty("slippage"))
+        if (message.slippage != null && message.hasOwnProperty('slippage'))
           object.slippage =
             options.json && !isFinite(message.slippage)
               ? String(message.slippage)
               : message.slippage;
-        if (message.provider != null && message.hasOwnProperty("provider"))
+        if (message.provider != null && message.hasOwnProperty('provider'))
           object.provider = message.provider;
         return object;
       };
@@ -11051,9 +11051,9 @@
         typeUrlPrefix
       ) {
         if (typeUrlPrefix === undefined) {
-          typeUrlPrefix = "type.googleapis.com";
+          typeUrlPrefix = 'type.googleapis.com';
         }
-        return typeUrlPrefix + "/OracleJob.PancakeswapExchangeRateTask";
+        return typeUrlPrefix + '/OracleJob.PancakeswapExchangeRateTask';
       };
 
       return PancakeswapExchangeRateTask;
@@ -11197,19 +11197,19 @@
        * @returns {string|null} `null` if valid, otherwise the reason why it is not
        */
       CacheTask.verify = function verify(message) {
-        if (typeof message !== "object" || message === null)
-          return "object expected";
+        if (typeof message !== 'object' || message === null)
+          return 'object expected';
         if (
           message.cacheItems != null &&
-          message.hasOwnProperty("cacheItems")
+          message.hasOwnProperty('cacheItems')
         ) {
           if (!Array.isArray(message.cacheItems))
-            return "cacheItems: array expected";
+            return 'cacheItems: array expected';
           for (var i = 0; i < message.cacheItems.length; ++i) {
             var error = $root.OracleJob.CacheTask.CacheItem.verify(
               message.cacheItems[i]
             );
-            if (error) return "cacheItems." + error;
+            if (error) return 'cacheItems.' + error;
           }
         }
         return null;
@@ -11228,12 +11228,12 @@
         var message = new $root.OracleJob.CacheTask();
         if (object.cacheItems) {
           if (!Array.isArray(object.cacheItems))
-            throw TypeError(".OracleJob.CacheTask.cacheItems: array expected");
+            throw TypeError('.OracleJob.CacheTask.cacheItems: array expected');
           message.cacheItems = [];
           for (var i = 0; i < object.cacheItems.length; ++i) {
-            if (typeof object.cacheItems[i] !== "object")
+            if (typeof object.cacheItems[i] !== 'object')
               throw TypeError(
-                ".OracleJob.CacheTask.cacheItems: object expected"
+                '.OracleJob.CacheTask.cacheItems: object expected'
               );
             message.cacheItems[i] =
               $root.OracleJob.CacheTask.CacheItem.fromObject(
@@ -11289,9 +11289,9 @@
        */
       CacheTask.getTypeUrl = function getTypeUrl(typeUrlPrefix) {
         if (typeUrlPrefix === undefined) {
-          typeUrlPrefix = "type.googleapis.com";
+          typeUrlPrefix = 'type.googleapis.com';
         }
-        return typeUrlPrefix + "/OracleJob.CacheTask";
+        return typeUrlPrefix + '/OracleJob.CacheTask';
       };
 
       CacheTask.CacheItem = (function () {
@@ -11328,7 +11328,7 @@
          * @memberof OracleJob.CacheTask.CacheItem
          * @instance
          */
-        CacheItem.prototype.variableName = "";
+        CacheItem.prototype.variableName = '';
 
         /**
          * CacheItem job.
@@ -11363,12 +11363,12 @@
           if (!writer) writer = $Writer.create();
           if (
             message.variableName != null &&
-            Object.hasOwnProperty.call(message, "variableName")
+            Object.hasOwnProperty.call(message, 'variableName')
           )
             writer
               .uint32(/* id 1, wireType 2 =*/ 10)
               .string(message.variableName);
-          if (message.job != null && Object.hasOwnProperty.call(message, "job"))
+          if (message.job != null && Object.hasOwnProperty.call(message, 'job'))
             $root.OracleJob.encode(
               message.job,
               writer.uint32(/* id 2, wireType 2 =*/ 18).fork()
@@ -11447,17 +11447,17 @@
          * @returns {string|null} `null` if valid, otherwise the reason why it is not
          */
         CacheItem.verify = function verify(message) {
-          if (typeof message !== "object" || message === null)
-            return "object expected";
+          if (typeof message !== 'object' || message === null)
+            return 'object expected';
           if (
             message.variableName != null &&
-            message.hasOwnProperty("variableName")
+            message.hasOwnProperty('variableName')
           )
             if (!$util.isString(message.variableName))
-              return "variableName: string expected";
-          if (message.job != null && message.hasOwnProperty("job")) {
+              return 'variableName: string expected';
+          if (message.job != null && message.hasOwnProperty('job')) {
             var error = $root.OracleJob.verify(message.job);
-            if (error) return "job." + error;
+            if (error) return 'job.' + error;
           }
           return null;
         };
@@ -11477,9 +11477,9 @@
           if (object.variableName != null)
             message.variableName = String(object.variableName);
           if (object.job != null) {
-            if (typeof object.job !== "object")
+            if (typeof object.job !== 'object')
               throw TypeError(
-                ".OracleJob.CacheTask.CacheItem.job: object expected"
+                '.OracleJob.CacheTask.CacheItem.job: object expected'
               );
             message.job = $root.OracleJob.fromObject(object.job);
           }
@@ -11499,15 +11499,15 @@
           if (!options) options = {};
           var object = {};
           if (options.defaults) {
-            object.variableName = "";
+            object.variableName = '';
             object.job = null;
           }
           if (
             message.variableName != null &&
-            message.hasOwnProperty("variableName")
+            message.hasOwnProperty('variableName')
           )
             object.variableName = message.variableName;
-          if (message.job != null && message.hasOwnProperty("job"))
+          if (message.job != null && message.hasOwnProperty('job'))
             object.job = $root.OracleJob.toObject(message.job, options);
           return object;
         };
@@ -11533,9 +11533,9 @@
          */
         CacheItem.getTypeUrl = function getTypeUrl(typeUrlPrefix) {
           if (typeUrlPrefix === undefined) {
-            typeUrlPrefix = "type.googleapis.com";
+            typeUrlPrefix = 'type.googleapis.com';
           }
-          return typeUrlPrefix + "/OracleJob.CacheTask.CacheItem";
+          return typeUrlPrefix + '/OracleJob.CacheTask.CacheItem';
         };
 
         return CacheItem;
@@ -11658,8 +11658,8 @@
        * @returns {string|null} `null` if valid, otherwise the reason why it is not
        */
       SysclockOffsetTask.verify = function verify(message) {
-        if (typeof message !== "object" || message === null)
-          return "object expected";
+        if (typeof message !== 'object' || message === null)
+          return 'object expected';
         return null;
       };
 
@@ -11710,9 +11710,9 @@
        */
       SysclockOffsetTask.getTypeUrl = function getTypeUrl(typeUrlPrefix) {
         if (typeUrlPrefix === undefined) {
-          typeUrlPrefix = "type.googleapis.com";
+          typeUrlPrefix = 'type.googleapis.com';
         }
-        return typeUrlPrefix + "/OracleJob.SysclockOffsetTask";
+        return typeUrlPrefix + '/OracleJob.SysclockOffsetTask';
       };
 
       return SysclockOffsetTask;
@@ -11832,8 +11832,8 @@
        * @returns {string|null} `null` if valid, otherwise the reason why it is not
        */
       MarinadeStateTask.verify = function verify(message) {
-        if (typeof message !== "object" || message === null)
-          return "object expected";
+        if (typeof message !== 'object' || message === null)
+          return 'object expected';
         return null;
       };
 
@@ -11884,9 +11884,9 @@
        */
       MarinadeStateTask.getTypeUrl = function getTypeUrl(typeUrlPrefix) {
         if (typeUrlPrefix === undefined) {
-          typeUrlPrefix = "type.googleapis.com";
+          typeUrlPrefix = 'type.googleapis.com';
         }
-        return typeUrlPrefix + "/OracleJob.MarinadeStateTask";
+        return typeUrlPrefix + '/OracleJob.MarinadeStateTask';
       };
 
       return MarinadeStateTask;
@@ -11921,7 +11921,7 @@
        * @memberof OracleJob.SolanaAccountDataFetchTask
        * @instance
        */
-      SolanaAccountDataFetchTask.prototype.pubkey = "";
+      SolanaAccountDataFetchTask.prototype.pubkey = '';
 
       /**
        * Creates a new SolanaAccountDataFetchTask instance using the specified properties.
@@ -11948,7 +11948,7 @@
         if (!writer) writer = $Writer.create();
         if (
           message.pubkey != null &&
-          Object.hasOwnProperty.call(message, "pubkey")
+          Object.hasOwnProperty.call(message, 'pubkey')
         )
           writer.uint32(/* id 1, wireType 2 =*/ 10).string(message.pubkey);
         return writer;
@@ -12026,10 +12026,10 @@
        * @returns {string|null} `null` if valid, otherwise the reason why it is not
        */
       SolanaAccountDataFetchTask.verify = function verify(message) {
-        if (typeof message !== "object" || message === null)
-          return "object expected";
-        if (message.pubkey != null && message.hasOwnProperty("pubkey"))
-          if (!$util.isString(message.pubkey)) return "pubkey: string expected";
+        if (typeof message !== 'object' || message === null)
+          return 'object expected';
+        if (message.pubkey != null && message.hasOwnProperty('pubkey'))
+          if (!$util.isString(message.pubkey)) return 'pubkey: string expected';
         return null;
       };
 
@@ -12064,8 +12064,8 @@
       ) {
         if (!options) options = {};
         var object = {};
-        if (options.defaults) object.pubkey = "";
-        if (message.pubkey != null && message.hasOwnProperty("pubkey"))
+        if (options.defaults) object.pubkey = '';
+        if (message.pubkey != null && message.hasOwnProperty('pubkey'))
           object.pubkey = message.pubkey;
         return object;
       };
@@ -12093,9 +12093,9 @@
         typeUrlPrefix
       ) {
         if (typeUrlPrefix === undefined) {
-          typeUrlPrefix = "type.googleapis.com";
+          typeUrlPrefix = 'type.googleapis.com';
         }
-        return typeUrlPrefix + "/OracleJob.SolanaAccountDataFetchTask";
+        return typeUrlPrefix + '/OracleJob.SolanaAccountDataFetchTask';
       };
 
       return SolanaAccountDataFetchTask;
@@ -12132,7 +12132,7 @@
        * @memberof OracleJob.CronParseTask
        * @instance
        */
-      CronParseTask.prototype.cronPattern = "";
+      CronParseTask.prototype.cronPattern = '';
 
       /**
        * CronParseTask clockOffset.
@@ -12175,17 +12175,17 @@
         if (!writer) writer = $Writer.create();
         if (
           message.cronPattern != null &&
-          Object.hasOwnProperty.call(message, "cronPattern")
+          Object.hasOwnProperty.call(message, 'cronPattern')
         )
           writer.uint32(/* id 1, wireType 2 =*/ 10).string(message.cronPattern);
         if (
           message.clockOffset != null &&
-          Object.hasOwnProperty.call(message, "clockOffset")
+          Object.hasOwnProperty.call(message, 'clockOffset')
         )
           writer.uint32(/* id 2, wireType 0 =*/ 16).int32(message.clockOffset);
         if (
           message.clock != null &&
-          Object.hasOwnProperty.call(message, "clock")
+          Object.hasOwnProperty.call(message, 'clock')
         )
           writer.uint32(/* id 3, wireType 0 =*/ 24).int32(message.clock);
         return writer;
@@ -12269,24 +12269,24 @@
        * @returns {string|null} `null` if valid, otherwise the reason why it is not
        */
       CronParseTask.verify = function verify(message) {
-        if (typeof message !== "object" || message === null)
-          return "object expected";
+        if (typeof message !== 'object' || message === null)
+          return 'object expected';
         if (
           message.cronPattern != null &&
-          message.hasOwnProperty("cronPattern")
+          message.hasOwnProperty('cronPattern')
         )
           if (!$util.isString(message.cronPattern))
-            return "cronPattern: string expected";
+            return 'cronPattern: string expected';
         if (
           message.clockOffset != null &&
-          message.hasOwnProperty("clockOffset")
+          message.hasOwnProperty('clockOffset')
         )
           if (!$util.isInteger(message.clockOffset))
-            return "clockOffset: integer expected";
-        if (message.clock != null && message.hasOwnProperty("clock"))
+            return 'clockOffset: integer expected';
+        if (message.clock != null && message.hasOwnProperty('clock'))
           switch (message.clock) {
             default:
-              return "clock: enum value expected";
+              return 'clock: enum value expected';
             case 0:
             case 1:
               break;
@@ -12311,16 +12311,16 @@
           message.clockOffset = object.clockOffset | 0;
         switch (object.clock) {
           default:
-            if (typeof object.clock === "number") {
+            if (typeof object.clock === 'number') {
               message.clock = object.clock;
               break;
             }
             break;
-          case "ORACLE":
+          case 'ORACLE':
           case 0:
             message.clock = 0;
             break;
-          case "SYSCLOCK":
+          case 'SYSCLOCK':
           case 1:
             message.clock = 1;
             break;
@@ -12341,21 +12341,21 @@
         if (!options) options = {};
         var object = {};
         if (options.defaults) {
-          object.cronPattern = "";
+          object.cronPattern = '';
           object.clockOffset = 0;
-          object.clock = options.enums === String ? "ORACLE" : 0;
+          object.clock = options.enums === String ? 'ORACLE' : 0;
         }
         if (
           message.cronPattern != null &&
-          message.hasOwnProperty("cronPattern")
+          message.hasOwnProperty('cronPattern')
         )
           object.cronPattern = message.cronPattern;
         if (
           message.clockOffset != null &&
-          message.hasOwnProperty("clockOffset")
+          message.hasOwnProperty('clockOffset')
         )
           object.clockOffset = message.clockOffset;
-        if (message.clock != null && message.hasOwnProperty("clock"))
+        if (message.clock != null && message.hasOwnProperty('clock'))
           object.clock =
             options.enums === String
               ? $root.OracleJob.CronParseTask.ClockType[message.clock] ===
@@ -12387,9 +12387,9 @@
        */
       CronParseTask.getTypeUrl = function getTypeUrl(typeUrlPrefix) {
         if (typeUrlPrefix === undefined) {
-          typeUrlPrefix = "type.googleapis.com";
+          typeUrlPrefix = 'type.googleapis.com';
         }
-        return typeUrlPrefix + "/OracleJob.CronParseTask";
+        return typeUrlPrefix + '/OracleJob.CronParseTask';
       };
 
       /**
@@ -12402,8 +12402,8 @@
       CronParseTask.ClockType = (function () {
         var valuesById = {},
           values = Object.create(valuesById);
-        values[(valuesById[0] = "ORACLE")] = 0;
-        values[(valuesById[1] = "SYSCLOCK")] = 1;
+        values[(valuesById[0] = 'ORACLE')] = 0;
+        values[(valuesById[1] = 'SYSCLOCK')] = 1;
         return values;
       })();
 
@@ -12484,15 +12484,15 @@
         if (!writer) writer = $Writer.create();
         if (
           message.offset != null &&
-          Object.hasOwnProperty.call(message, "offset")
+          Object.hasOwnProperty.call(message, 'offset')
         )
           writer.uint32(/* id 1, wireType 0 =*/ 8).uint32(message.offset);
         if (
           message.endian != null &&
-          Object.hasOwnProperty.call(message, "endian")
+          Object.hasOwnProperty.call(message, 'endian')
         )
           writer.uint32(/* id 2, wireType 0 =*/ 16).int32(message.endian);
-        if (message.type != null && Object.hasOwnProperty.call(message, "type"))
+        if (message.type != null && Object.hasOwnProperty.call(message, 'type'))
           writer.uint32(/* id 3, wireType 0 =*/ 24).int32(message.type);
         return writer;
       };
@@ -12575,23 +12575,23 @@
        * @returns {string|null} `null` if valid, otherwise the reason why it is not
        */
       BufferLayoutParseTask.verify = function verify(message) {
-        if (typeof message !== "object" || message === null)
-          return "object expected";
-        if (message.offset != null && message.hasOwnProperty("offset"))
+        if (typeof message !== 'object' || message === null)
+          return 'object expected';
+        if (message.offset != null && message.hasOwnProperty('offset'))
           if (!$util.isInteger(message.offset))
-            return "offset: integer expected";
-        if (message.endian != null && message.hasOwnProperty("endian"))
+            return 'offset: integer expected';
+        if (message.endian != null && message.hasOwnProperty('endian'))
           switch (message.endian) {
             default:
-              return "endian: enum value expected";
+              return 'endian: enum value expected';
             case 0:
             case 1:
               break;
           }
-        if (message.type != null && message.hasOwnProperty("type"))
+        if (message.type != null && message.hasOwnProperty('type'))
           switch (message.type) {
             default:
-              return "type: enum value expected";
+              return 'type: enum value expected';
             case 1:
             case 2:
             case 3:
@@ -12626,80 +12626,80 @@
         if (object.offset != null) message.offset = object.offset >>> 0;
         switch (object.endian) {
           default:
-            if (typeof object.endian === "number") {
+            if (typeof object.endian === 'number') {
               message.endian = object.endian;
               break;
             }
             break;
-          case "LITTLE_ENDIAN":
+          case 'LITTLE_ENDIAN':
           case 0:
             message.endian = 0;
             break;
-          case "BIG_ENDIAN":
+          case 'BIG_ENDIAN':
           case 1:
             message.endian = 1;
             break;
         }
         switch (object.type) {
           default:
-            if (typeof object.type === "number") {
+            if (typeof object.type === 'number') {
               message.type = object.type;
               break;
             }
             break;
-          case "pubkey":
+          case 'pubkey':
           case 1:
             message.type = 1;
             break;
-          case "bool":
+          case 'bool':
           case 2:
             message.type = 2;
             break;
-          case "u8":
+          case 'u8':
           case 3:
             message.type = 3;
             break;
-          case "i8":
+          case 'i8':
           case 4:
             message.type = 4;
             break;
-          case "u16":
+          case 'u16':
           case 5:
             message.type = 5;
             break;
-          case "i16":
+          case 'i16':
           case 6:
             message.type = 6;
             break;
-          case "u32":
+          case 'u32':
           case 7:
             message.type = 7;
             break;
-          case "i32":
+          case 'i32':
           case 8:
             message.type = 8;
             break;
-          case "f32":
+          case 'f32':
           case 9:
             message.type = 9;
             break;
-          case "u64":
+          case 'u64':
           case 10:
             message.type = 10;
             break;
-          case "i64":
+          case 'i64':
           case 11:
             message.type = 11;
             break;
-          case "f64":
+          case 'f64':
           case 12:
             message.type = 12;
             break;
-          case "u128":
+          case 'u128':
           case 13:
             message.type = 13;
             break;
-          case "i128":
+          case 'i128':
           case 14:
             message.type = 14;
             break;
@@ -12721,12 +12721,12 @@
         var object = {};
         if (options.defaults) {
           object.offset = 0;
-          object.endian = options.enums === String ? "LITTLE_ENDIAN" : 0;
-          object.type = options.enums === String ? "pubkey" : 1;
+          object.endian = options.enums === String ? 'LITTLE_ENDIAN' : 0;
+          object.type = options.enums === String ? 'pubkey' : 1;
         }
-        if (message.offset != null && message.hasOwnProperty("offset"))
+        if (message.offset != null && message.hasOwnProperty('offset'))
           object.offset = message.offset;
-        if (message.endian != null && message.hasOwnProperty("endian"))
+        if (message.endian != null && message.hasOwnProperty('endian'))
           object.endian =
             options.enums === String
               ? $root.OracleJob.BufferLayoutParseTask.Endian[message.endian] ===
@@ -12734,7 +12734,7 @@
                 ? message.endian
                 : $root.OracleJob.BufferLayoutParseTask.Endian[message.endian]
               : message.endian;
-        if (message.type != null && message.hasOwnProperty("type"))
+        if (message.type != null && message.hasOwnProperty('type'))
           object.type =
             options.enums === String
               ? $root.OracleJob.BufferLayoutParseTask.BufferParseType[
@@ -12769,9 +12769,9 @@
        */
       BufferLayoutParseTask.getTypeUrl = function getTypeUrl(typeUrlPrefix) {
         if (typeUrlPrefix === undefined) {
-          typeUrlPrefix = "type.googleapis.com";
+          typeUrlPrefix = 'type.googleapis.com';
         }
-        return typeUrlPrefix + "/OracleJob.BufferLayoutParseTask";
+        return typeUrlPrefix + '/OracleJob.BufferLayoutParseTask';
       };
 
       /**
@@ -12784,8 +12784,8 @@
       BufferLayoutParseTask.Endian = (function () {
         var valuesById = {},
           values = Object.create(valuesById);
-        values[(valuesById[0] = "LITTLE_ENDIAN")] = 0;
-        values[(valuesById[1] = "BIG_ENDIAN")] = 1;
+        values[(valuesById[0] = 'LITTLE_ENDIAN')] = 0;
+        values[(valuesById[1] = 'BIG_ENDIAN')] = 1;
         return values;
       })();
 
@@ -12811,20 +12811,20 @@
       BufferLayoutParseTask.BufferParseType = (function () {
         var valuesById = {},
           values = Object.create(valuesById);
-        values[(valuesById[1] = "pubkey")] = 1;
-        values[(valuesById[2] = "bool")] = 2;
-        values[(valuesById[3] = "u8")] = 3;
-        values[(valuesById[4] = "i8")] = 4;
-        values[(valuesById[5] = "u16")] = 5;
-        values[(valuesById[6] = "i16")] = 6;
-        values[(valuesById[7] = "u32")] = 7;
-        values[(valuesById[8] = "i32")] = 8;
-        values[(valuesById[9] = "f32")] = 9;
-        values[(valuesById[10] = "u64")] = 10;
-        values[(valuesById[11] = "i64")] = 11;
-        values[(valuesById[12] = "f64")] = 12;
-        values[(valuesById[13] = "u128")] = 13;
-        values[(valuesById[14] = "i128")] = 14;
+        values[(valuesById[1] = 'pubkey')] = 1;
+        values[(valuesById[2] = 'bool')] = 2;
+        values[(valuesById[3] = 'u8')] = 3;
+        values[(valuesById[4] = 'i8')] = 4;
+        values[(valuesById[5] = 'u16')] = 5;
+        values[(valuesById[6] = 'i16')] = 6;
+        values[(valuesById[7] = 'u32')] = 7;
+        values[(valuesById[8] = 'i32')] = 8;
+        values[(valuesById[9] = 'f32')] = 9;
+        values[(valuesById[10] = 'u64')] = 10;
+        values[(valuesById[11] = 'i64')] = 11;
+        values[(valuesById[12] = 'f64')] = 12;
+        values[(valuesById[13] = 'u128')] = 13;
+        values[(valuesById[14] = 'i128')] = 14;
         return values;
       })();
 
@@ -12870,7 +12870,7 @@
        * @memberof OracleJob.HistoryFunctionTask
        * @instance
        */
-      HistoryFunctionTask.prototype.aggregatorAddress = "";
+      HistoryFunctionTask.prototype.aggregatorAddress = '';
 
       /**
        * HistoryFunctionTask period.
@@ -12905,19 +12905,19 @@
         if (!writer) writer = $Writer.create();
         if (
           message.method != null &&
-          Object.hasOwnProperty.call(message, "method")
+          Object.hasOwnProperty.call(message, 'method')
         )
           writer.uint32(/* id 1, wireType 0 =*/ 8).int32(message.method);
         if (
           message.aggregatorAddress != null &&
-          Object.hasOwnProperty.call(message, "aggregatorAddress")
+          Object.hasOwnProperty.call(message, 'aggregatorAddress')
         )
           writer
             .uint32(/* id 2, wireType 2 =*/ 18)
             .string(message.aggregatorAddress);
         if (
           message.period != null &&
-          Object.hasOwnProperty.call(message, "period")
+          Object.hasOwnProperty.call(message, 'period')
         )
           writer.uint32(/* id 3, wireType 0 =*/ 24).uint32(message.period);
         return writer;
@@ -13001,25 +13001,25 @@
        * @returns {string|null} `null` if valid, otherwise the reason why it is not
        */
       HistoryFunctionTask.verify = function verify(message) {
-        if (typeof message !== "object" || message === null)
-          return "object expected";
-        if (message.method != null && message.hasOwnProperty("method"))
+        if (typeof message !== 'object' || message === null)
+          return 'object expected';
+        if (message.method != null && message.hasOwnProperty('method'))
           switch (message.method) {
             default:
-              return "method: enum value expected";
+              return 'method: enum value expected';
             case 0:
             case 1:
               break;
           }
         if (
           message.aggregatorAddress != null &&
-          message.hasOwnProperty("aggregatorAddress")
+          message.hasOwnProperty('aggregatorAddress')
         )
           if (!$util.isString(message.aggregatorAddress))
-            return "aggregatorAddress: string expected";
-        if (message.period != null && message.hasOwnProperty("period"))
+            return 'aggregatorAddress: string expected';
+        if (message.period != null && message.hasOwnProperty('period'))
           if (!$util.isInteger(message.period))
-            return "period: integer expected";
+            return 'period: integer expected';
         return null;
       };
 
@@ -13037,16 +13037,16 @@
         var message = new $root.OracleJob.HistoryFunctionTask();
         switch (object.method) {
           default:
-            if (typeof object.method === "number") {
+            if (typeof object.method === 'number') {
               message.method = object.method;
               break;
             }
             break;
-          case "METHOD_MIN":
+          case 'METHOD_MIN':
           case 0:
             message.method = 0;
             break;
-          case "METHOD_MAX":
+          case 'METHOD_MAX':
           case 1:
             message.method = 1;
             break;
@@ -13070,11 +13070,11 @@
         if (!options) options = {};
         var object = {};
         if (options.defaults) {
-          object.method = options.enums === String ? "METHOD_MIN" : 0;
-          object.aggregatorAddress = "";
+          object.method = options.enums === String ? 'METHOD_MIN' : 0;
+          object.aggregatorAddress = '';
           object.period = 0;
         }
-        if (message.method != null && message.hasOwnProperty("method"))
+        if (message.method != null && message.hasOwnProperty('method'))
           object.method =
             options.enums === String
               ? $root.OracleJob.HistoryFunctionTask.Method[message.method] ===
@@ -13084,10 +13084,10 @@
               : message.method;
         if (
           message.aggregatorAddress != null &&
-          message.hasOwnProperty("aggregatorAddress")
+          message.hasOwnProperty('aggregatorAddress')
         )
           object.aggregatorAddress = message.aggregatorAddress;
-        if (message.period != null && message.hasOwnProperty("period"))
+        if (message.period != null && message.hasOwnProperty('period'))
           object.period = message.period;
         return object;
       };
@@ -13113,9 +13113,9 @@
        */
       HistoryFunctionTask.getTypeUrl = function getTypeUrl(typeUrlPrefix) {
         if (typeUrlPrefix === undefined) {
-          typeUrlPrefix = "type.googleapis.com";
+          typeUrlPrefix = 'type.googleapis.com';
         }
-        return typeUrlPrefix + "/OracleJob.HistoryFunctionTask";
+        return typeUrlPrefix + '/OracleJob.HistoryFunctionTask';
       };
 
       /**
@@ -13128,8 +13128,8 @@
       HistoryFunctionTask.Method = (function () {
         var valuesById = {},
           values = Object.create(valuesById);
-        values[(valuesById[0] = "METHOD_MIN")] = 0;
-        values[(valuesById[1] = "METHOD_MAX")] = 1;
+        values[(valuesById[0] = 'METHOD_MIN')] = 0;
+        values[(valuesById[1] = 'METHOD_MAX')] = 1;
         return values;
       })();
 
@@ -13167,7 +13167,7 @@
        * @memberof OracleJob.VwapTask
        * @instance
        */
-      VwapTask.prototype.priceAggregatorAddress = "";
+      VwapTask.prototype.priceAggregatorAddress = '';
 
       /**
        * VwapTask volumeAggregatorAddress.
@@ -13175,7 +13175,7 @@
        * @memberof OracleJob.VwapTask
        * @instance
        */
-      VwapTask.prototype.volumeAggregatorAddress = "";
+      VwapTask.prototype.volumeAggregatorAddress = '';
 
       /**
        * VwapTask period.
@@ -13210,21 +13210,21 @@
         if (!writer) writer = $Writer.create();
         if (
           message.priceAggregatorAddress != null &&
-          Object.hasOwnProperty.call(message, "priceAggregatorAddress")
+          Object.hasOwnProperty.call(message, 'priceAggregatorAddress')
         )
           writer
             .uint32(/* id 1, wireType 2 =*/ 10)
             .string(message.priceAggregatorAddress);
         if (
           message.volumeAggregatorAddress != null &&
-          Object.hasOwnProperty.call(message, "volumeAggregatorAddress")
+          Object.hasOwnProperty.call(message, 'volumeAggregatorAddress')
         )
           writer
             .uint32(/* id 2, wireType 2 =*/ 18)
             .string(message.volumeAggregatorAddress);
         if (
           message.period != null &&
-          Object.hasOwnProperty.call(message, "period")
+          Object.hasOwnProperty.call(message, 'period')
         )
           writer.uint32(/* id 3, wireType 0 =*/ 24).uint32(message.period);
         return writer;
@@ -13305,23 +13305,23 @@
        * @returns {string|null} `null` if valid, otherwise the reason why it is not
        */
       VwapTask.verify = function verify(message) {
-        if (typeof message !== "object" || message === null)
-          return "object expected";
+        if (typeof message !== 'object' || message === null)
+          return 'object expected';
         if (
           message.priceAggregatorAddress != null &&
-          message.hasOwnProperty("priceAggregatorAddress")
+          message.hasOwnProperty('priceAggregatorAddress')
         )
           if (!$util.isString(message.priceAggregatorAddress))
-            return "priceAggregatorAddress: string expected";
+            return 'priceAggregatorAddress: string expected';
         if (
           message.volumeAggregatorAddress != null &&
-          message.hasOwnProperty("volumeAggregatorAddress")
+          message.hasOwnProperty('volumeAggregatorAddress')
         )
           if (!$util.isString(message.volumeAggregatorAddress))
-            return "volumeAggregatorAddress: string expected";
-        if (message.period != null && message.hasOwnProperty("period"))
+            return 'volumeAggregatorAddress: string expected';
+        if (message.period != null && message.hasOwnProperty('period'))
           if (!$util.isInteger(message.period))
-            return "period: integer expected";
+            return 'period: integer expected';
         return null;
       };
 
@@ -13361,21 +13361,21 @@
         if (!options) options = {};
         var object = {};
         if (options.defaults) {
-          object.priceAggregatorAddress = "";
-          object.volumeAggregatorAddress = "";
+          object.priceAggregatorAddress = '';
+          object.volumeAggregatorAddress = '';
           object.period = 0;
         }
         if (
           message.priceAggregatorAddress != null &&
-          message.hasOwnProperty("priceAggregatorAddress")
+          message.hasOwnProperty('priceAggregatorAddress')
         )
           object.priceAggregatorAddress = message.priceAggregatorAddress;
         if (
           message.volumeAggregatorAddress != null &&
-          message.hasOwnProperty("volumeAggregatorAddress")
+          message.hasOwnProperty('volumeAggregatorAddress')
         )
           object.volumeAggregatorAddress = message.volumeAggregatorAddress;
-        if (message.period != null && message.hasOwnProperty("period"))
+        if (message.period != null && message.hasOwnProperty('period'))
           object.period = message.period;
         return object;
       };
@@ -13401,9 +13401,9 @@
        */
       VwapTask.getTypeUrl = function getTypeUrl(typeUrlPrefix) {
         if (typeUrlPrefix === undefined) {
-          typeUrlPrefix = "type.googleapis.com";
+          typeUrlPrefix = 'type.googleapis.com';
         }
-        return typeUrlPrefix + "/OracleJob.VwapTask";
+        return typeUrlPrefix + '/OracleJob.VwapTask';
       };
 
       return VwapTask;
@@ -13440,7 +13440,7 @@
        * @memberof OracleJob.EwmaTask
        * @instance
        */
-      EwmaTask.prototype.aggregatorAddress = "";
+      EwmaTask.prototype.aggregatorAddress = '';
 
       /**
        * EwmaTask period.
@@ -13483,19 +13483,19 @@
         if (!writer) writer = $Writer.create();
         if (
           message.aggregatorAddress != null &&
-          Object.hasOwnProperty.call(message, "aggregatorAddress")
+          Object.hasOwnProperty.call(message, 'aggregatorAddress')
         )
           writer
             .uint32(/* id 1, wireType 2 =*/ 10)
             .string(message.aggregatorAddress);
         if (
           message.period != null &&
-          Object.hasOwnProperty.call(message, "period")
+          Object.hasOwnProperty.call(message, 'period')
         )
           writer.uint32(/* id 2, wireType 0 =*/ 16).int32(message.period);
         if (
           message.lambda != null &&
-          Object.hasOwnProperty.call(message, "lambda")
+          Object.hasOwnProperty.call(message, 'lambda')
         )
           writer.uint32(/* id 3, wireType 1 =*/ 25).double(message.lambda);
         return writer;
@@ -13576,20 +13576,20 @@
        * @returns {string|null} `null` if valid, otherwise the reason why it is not
        */
       EwmaTask.verify = function verify(message) {
-        if (typeof message !== "object" || message === null)
-          return "object expected";
+        if (typeof message !== 'object' || message === null)
+          return 'object expected';
         if (
           message.aggregatorAddress != null &&
-          message.hasOwnProperty("aggregatorAddress")
+          message.hasOwnProperty('aggregatorAddress')
         )
           if (!$util.isString(message.aggregatorAddress))
-            return "aggregatorAddress: string expected";
-        if (message.period != null && message.hasOwnProperty("period"))
+            return 'aggregatorAddress: string expected';
+        if (message.period != null && message.hasOwnProperty('period'))
           if (!$util.isInteger(message.period))
-            return "period: integer expected";
-        if (message.lambda != null && message.hasOwnProperty("lambda"))
-          if (typeof message.lambda !== "number")
-            return "lambda: number expected";
+            return 'period: integer expected';
+        if (message.lambda != null && message.hasOwnProperty('lambda'))
+          if (typeof message.lambda !== 'number')
+            return 'lambda: number expected';
         return null;
       };
 
@@ -13624,18 +13624,18 @@
         if (!options) options = {};
         var object = {};
         if (options.defaults) {
-          object.aggregatorAddress = "";
+          object.aggregatorAddress = '';
           object.period = 0;
           object.lambda = 0;
         }
         if (
           message.aggregatorAddress != null &&
-          message.hasOwnProperty("aggregatorAddress")
+          message.hasOwnProperty('aggregatorAddress')
         )
           object.aggregatorAddress = message.aggregatorAddress;
-        if (message.period != null && message.hasOwnProperty("period"))
+        if (message.period != null && message.hasOwnProperty('period'))
           object.period = message.period;
-        if (message.lambda != null && message.hasOwnProperty("lambda"))
+        if (message.lambda != null && message.hasOwnProperty('lambda'))
           object.lambda =
             options.json && !isFinite(message.lambda)
               ? String(message.lambda)
@@ -13664,9 +13664,9 @@
        */
       EwmaTask.getTypeUrl = function getTypeUrl(typeUrlPrefix) {
         if (typeUrlPrefix === undefined) {
-          typeUrlPrefix = "type.googleapis.com";
+          typeUrlPrefix = 'type.googleapis.com';
         }
-        return typeUrlPrefix + "/OracleJob.EwmaTask";
+        return typeUrlPrefix + '/OracleJob.EwmaTask';
       };
 
       return EwmaTask;
@@ -13759,7 +13759,7 @@
        * @memberof OracleJob.ComparisonTask
        * @instance
        */
-      ComparisonTask.prototype.onTrueValue = "";
+      ComparisonTask.prototype.onTrueValue = '';
 
       /**
        * ComparisonTask onFalse.
@@ -13775,7 +13775,7 @@
        * @memberof OracleJob.ComparisonTask
        * @instance
        */
-      ComparisonTask.prototype.onFalseValue = "";
+      ComparisonTask.prototype.onFalseValue = '';
 
       /**
        * ComparisonTask onFailure.
@@ -13791,7 +13791,7 @@
        * @memberof OracleJob.ComparisonTask
        * @instance
        */
-      ComparisonTask.prototype.onFailureValue = "";
+      ComparisonTask.prototype.onFailureValue = '';
 
       // OneOf field names bound to virtual getters and setters
       var $oneOfFields;
@@ -13802,8 +13802,8 @@
        * @memberof OracleJob.ComparisonTask
        * @instance
        */
-      Object.defineProperty(ComparisonTask.prototype, "LHS", {
-        get: $util.oneOfGetter(($oneOfFields = ["lhs", "lhsValue"])),
+      Object.defineProperty(ComparisonTask.prototype, 'LHS', {
+        get: $util.oneOfGetter(($oneOfFields = ['lhs', 'lhsValue'])),
         set: $util.oneOfSetter($oneOfFields),
       });
 
@@ -13813,8 +13813,8 @@
        * @memberof OracleJob.ComparisonTask
        * @instance
        */
-      Object.defineProperty(ComparisonTask.prototype, "RHS", {
-        get: $util.oneOfGetter(($oneOfFields = ["rhs", "rhsValue"])),
+      Object.defineProperty(ComparisonTask.prototype, 'RHS', {
+        get: $util.oneOfGetter(($oneOfFields = ['rhs', 'rhsValue'])),
         set: $util.oneOfSetter($oneOfFields),
       });
 
@@ -13841,31 +13841,31 @@
        */
       ComparisonTask.encode = function encode(message, writer) {
         if (!writer) writer = $Writer.create();
-        if (message.op != null && Object.hasOwnProperty.call(message, "op"))
+        if (message.op != null && Object.hasOwnProperty.call(message, 'op'))
           writer.uint32(/* id 1, wireType 0 =*/ 8).int32(message.op);
-        if (message.lhs != null && Object.hasOwnProperty.call(message, "lhs"))
+        if (message.lhs != null && Object.hasOwnProperty.call(message, 'lhs'))
           $root.OracleJob.encode(
             message.lhs,
             writer.uint32(/* id 2, wireType 2 =*/ 18).fork()
           ).ldelim();
         if (
           message.lhsValue != null &&
-          Object.hasOwnProperty.call(message, "lhsValue")
+          Object.hasOwnProperty.call(message, 'lhsValue')
         )
           writer.uint32(/* id 3, wireType 2 =*/ 26).string(message.lhsValue);
-        if (message.rhs != null && Object.hasOwnProperty.call(message, "rhs"))
+        if (message.rhs != null && Object.hasOwnProperty.call(message, 'rhs'))
           $root.OracleJob.encode(
             message.rhs,
             writer.uint32(/* id 4, wireType 2 =*/ 34).fork()
           ).ldelim();
         if (
           message.rhsValue != null &&
-          Object.hasOwnProperty.call(message, "rhsValue")
+          Object.hasOwnProperty.call(message, 'rhsValue')
         )
           writer.uint32(/* id 5, wireType 2 =*/ 42).string(message.rhsValue);
         if (
           message.onTrue != null &&
-          Object.hasOwnProperty.call(message, "onTrue")
+          Object.hasOwnProperty.call(message, 'onTrue')
         )
           $root.OracleJob.encode(
             message.onTrue,
@@ -13873,12 +13873,12 @@
           ).ldelim();
         if (
           message.onTrueValue != null &&
-          Object.hasOwnProperty.call(message, "onTrueValue")
+          Object.hasOwnProperty.call(message, 'onTrueValue')
         )
           writer.uint32(/* id 7, wireType 2 =*/ 58).string(message.onTrueValue);
         if (
           message.onFalse != null &&
-          Object.hasOwnProperty.call(message, "onFalse")
+          Object.hasOwnProperty.call(message, 'onFalse')
         )
           $root.OracleJob.encode(
             message.onFalse,
@@ -13886,14 +13886,14 @@
           ).ldelim();
         if (
           message.onFalseValue != null &&
-          Object.hasOwnProperty.call(message, "onFalseValue")
+          Object.hasOwnProperty.call(message, 'onFalseValue')
         )
           writer
             .uint32(/* id 9, wireType 2 =*/ 74)
             .string(message.onFalseValue);
         if (
           message.onFailure != null &&
-          Object.hasOwnProperty.call(message, "onFailure")
+          Object.hasOwnProperty.call(message, 'onFailure')
         )
           $root.OracleJob.encode(
             message.onFailure,
@@ -13901,7 +13901,7 @@
           ).ldelim();
         if (
           message.onFailureValue != null &&
-          Object.hasOwnProperty.call(message, "onFailureValue")
+          Object.hasOwnProperty.call(message, 'onFailureValue')
         )
           writer
             .uint32(/* id 11, wireType 2 =*/ 90)
@@ -14022,74 +14022,74 @@
        * @returns {string|null} `null` if valid, otherwise the reason why it is not
        */
       ComparisonTask.verify = function verify(message) {
-        if (typeof message !== "object" || message === null)
-          return "object expected";
+        if (typeof message !== 'object' || message === null)
+          return 'object expected';
         var properties = {};
-        if (message.op != null && message.hasOwnProperty("op"))
+        if (message.op != null && message.hasOwnProperty('op'))
           switch (message.op) {
             default:
-              return "op: enum value expected";
+              return 'op: enum value expected';
             case 0:
             case 1:
             case 2:
               break;
           }
-        if (message.lhs != null && message.hasOwnProperty("lhs")) {
+        if (message.lhs != null && message.hasOwnProperty('lhs')) {
           properties.LHS = 1;
           {
             var error = $root.OracleJob.verify(message.lhs);
-            if (error) return "lhs." + error;
+            if (error) return 'lhs.' + error;
           }
         }
-        if (message.lhsValue != null && message.hasOwnProperty("lhsValue")) {
-          if (properties.LHS === 1) return "LHS: multiple values";
+        if (message.lhsValue != null && message.hasOwnProperty('lhsValue')) {
+          if (properties.LHS === 1) return 'LHS: multiple values';
           properties.LHS = 1;
           if (!$util.isString(message.lhsValue))
-            return "lhsValue: string expected";
+            return 'lhsValue: string expected';
         }
-        if (message.rhs != null && message.hasOwnProperty("rhs")) {
+        if (message.rhs != null && message.hasOwnProperty('rhs')) {
           properties.RHS = 1;
           {
             var error = $root.OracleJob.verify(message.rhs);
-            if (error) return "rhs." + error;
+            if (error) return 'rhs.' + error;
           }
         }
-        if (message.rhsValue != null && message.hasOwnProperty("rhsValue")) {
-          if (properties.RHS === 1) return "RHS: multiple values";
+        if (message.rhsValue != null && message.hasOwnProperty('rhsValue')) {
+          if (properties.RHS === 1) return 'RHS: multiple values';
           properties.RHS = 1;
           if (!$util.isString(message.rhsValue))
-            return "rhsValue: string expected";
+            return 'rhsValue: string expected';
         }
-        if (message.onTrue != null && message.hasOwnProperty("onTrue")) {
+        if (message.onTrue != null && message.hasOwnProperty('onTrue')) {
           var error = $root.OracleJob.verify(message.onTrue);
-          if (error) return "onTrue." + error;
+          if (error) return 'onTrue.' + error;
         }
         if (
           message.onTrueValue != null &&
-          message.hasOwnProperty("onTrueValue")
+          message.hasOwnProperty('onTrueValue')
         )
           if (!$util.isString(message.onTrueValue))
-            return "onTrueValue: string expected";
-        if (message.onFalse != null && message.hasOwnProperty("onFalse")) {
+            return 'onTrueValue: string expected';
+        if (message.onFalse != null && message.hasOwnProperty('onFalse')) {
           var error = $root.OracleJob.verify(message.onFalse);
-          if (error) return "onFalse." + error;
+          if (error) return 'onFalse.' + error;
         }
         if (
           message.onFalseValue != null &&
-          message.hasOwnProperty("onFalseValue")
+          message.hasOwnProperty('onFalseValue')
         )
           if (!$util.isString(message.onFalseValue))
-            return "onFalseValue: string expected";
-        if (message.onFailure != null && message.hasOwnProperty("onFailure")) {
+            return 'onFalseValue: string expected';
+        if (message.onFailure != null && message.hasOwnProperty('onFailure')) {
           var error = $root.OracleJob.verify(message.onFailure);
-          if (error) return "onFailure." + error;
+          if (error) return 'onFailure.' + error;
         }
         if (
           message.onFailureValue != null &&
-          message.hasOwnProperty("onFailureValue")
+          message.hasOwnProperty('onFailureValue')
         )
           if (!$util.isString(message.onFailureValue))
-            return "onFailureValue: string expected";
+            return 'onFailureValue: string expected';
         return null;
       };
 
@@ -14106,58 +14106,58 @@
         var message = new $root.OracleJob.ComparisonTask();
         switch (object.op) {
           default:
-            if (typeof object.op === "number") {
+            if (typeof object.op === 'number') {
               message.op = object.op;
               break;
             }
             break;
-          case "OPERATION_EQ":
+          case 'OPERATION_EQ':
           case 0:
             message.op = 0;
             break;
-          case "OPERATION_GT":
+          case 'OPERATION_GT':
           case 1:
             message.op = 1;
             break;
-          case "OPERATION_LT":
+          case 'OPERATION_LT':
           case 2:
             message.op = 2;
             break;
         }
         if (object.lhs != null) {
-          if (typeof object.lhs !== "object")
-            throw TypeError(".OracleJob.ComparisonTask.lhs: object expected");
+          if (typeof object.lhs !== 'object')
+            throw TypeError('.OracleJob.ComparisonTask.lhs: object expected');
           message.lhs = $root.OracleJob.fromObject(object.lhs);
         }
         if (object.lhsValue != null) message.lhsValue = String(object.lhsValue);
         if (object.rhs != null) {
-          if (typeof object.rhs !== "object")
-            throw TypeError(".OracleJob.ComparisonTask.rhs: object expected");
+          if (typeof object.rhs !== 'object')
+            throw TypeError('.OracleJob.ComparisonTask.rhs: object expected');
           message.rhs = $root.OracleJob.fromObject(object.rhs);
         }
         if (object.rhsValue != null) message.rhsValue = String(object.rhsValue);
         if (object.onTrue != null) {
-          if (typeof object.onTrue !== "object")
+          if (typeof object.onTrue !== 'object')
             throw TypeError(
-              ".OracleJob.ComparisonTask.onTrue: object expected"
+              '.OracleJob.ComparisonTask.onTrue: object expected'
             );
           message.onTrue = $root.OracleJob.fromObject(object.onTrue);
         }
         if (object.onTrueValue != null)
           message.onTrueValue = String(object.onTrueValue);
         if (object.onFalse != null) {
-          if (typeof object.onFalse !== "object")
+          if (typeof object.onFalse !== 'object')
             throw TypeError(
-              ".OracleJob.ComparisonTask.onFalse: object expected"
+              '.OracleJob.ComparisonTask.onFalse: object expected'
             );
           message.onFalse = $root.OracleJob.fromObject(object.onFalse);
         }
         if (object.onFalseValue != null)
           message.onFalseValue = String(object.onFalseValue);
         if (object.onFailure != null) {
-          if (typeof object.onFailure !== "object")
+          if (typeof object.onFailure !== 'object')
             throw TypeError(
-              ".OracleJob.ComparisonTask.onFailure: object expected"
+              '.OracleJob.ComparisonTask.onFailure: object expected'
             );
           message.onFailure = $root.OracleJob.fromObject(object.onFailure);
         }
@@ -14179,15 +14179,15 @@
         if (!options) options = {};
         var object = {};
         if (options.defaults) {
-          object.op = options.enums === String ? "OPERATION_EQ" : 0;
+          object.op = options.enums === String ? 'OPERATION_EQ' : 0;
           object.onTrue = null;
-          object.onTrueValue = "";
+          object.onTrueValue = '';
           object.onFalse = null;
-          object.onFalseValue = "";
+          object.onFalseValue = '';
           object.onFailure = null;
-          object.onFailureValue = "";
+          object.onFailureValue = '';
         }
-        if (message.op != null && message.hasOwnProperty("op"))
+        if (message.op != null && message.hasOwnProperty('op'))
           object.op =
             options.enums === String
               ? $root.OracleJob.ComparisonTask.Operation[message.op] ===
@@ -14195,44 +14195,44 @@
                 ? message.op
                 : $root.OracleJob.ComparisonTask.Operation[message.op]
               : message.op;
-        if (message.lhs != null && message.hasOwnProperty("lhs")) {
+        if (message.lhs != null && message.hasOwnProperty('lhs')) {
           object.lhs = $root.OracleJob.toObject(message.lhs, options);
-          if (options.oneofs) object.LHS = "lhs";
+          if (options.oneofs) object.LHS = 'lhs';
         }
-        if (message.lhsValue != null && message.hasOwnProperty("lhsValue")) {
+        if (message.lhsValue != null && message.hasOwnProperty('lhsValue')) {
           object.lhsValue = message.lhsValue;
-          if (options.oneofs) object.LHS = "lhsValue";
+          if (options.oneofs) object.LHS = 'lhsValue';
         }
-        if (message.rhs != null && message.hasOwnProperty("rhs")) {
+        if (message.rhs != null && message.hasOwnProperty('rhs')) {
           object.rhs = $root.OracleJob.toObject(message.rhs, options);
-          if (options.oneofs) object.RHS = "rhs";
+          if (options.oneofs) object.RHS = 'rhs';
         }
-        if (message.rhsValue != null && message.hasOwnProperty("rhsValue")) {
+        if (message.rhsValue != null && message.hasOwnProperty('rhsValue')) {
           object.rhsValue = message.rhsValue;
-          if (options.oneofs) object.RHS = "rhsValue";
+          if (options.oneofs) object.RHS = 'rhsValue';
         }
-        if (message.onTrue != null && message.hasOwnProperty("onTrue"))
+        if (message.onTrue != null && message.hasOwnProperty('onTrue'))
           object.onTrue = $root.OracleJob.toObject(message.onTrue, options);
         if (
           message.onTrueValue != null &&
-          message.hasOwnProperty("onTrueValue")
+          message.hasOwnProperty('onTrueValue')
         )
           object.onTrueValue = message.onTrueValue;
-        if (message.onFalse != null && message.hasOwnProperty("onFalse"))
+        if (message.onFalse != null && message.hasOwnProperty('onFalse'))
           object.onFalse = $root.OracleJob.toObject(message.onFalse, options);
         if (
           message.onFalseValue != null &&
-          message.hasOwnProperty("onFalseValue")
+          message.hasOwnProperty('onFalseValue')
         )
           object.onFalseValue = message.onFalseValue;
-        if (message.onFailure != null && message.hasOwnProperty("onFailure"))
+        if (message.onFailure != null && message.hasOwnProperty('onFailure'))
           object.onFailure = $root.OracleJob.toObject(
             message.onFailure,
             options
           );
         if (
           message.onFailureValue != null &&
-          message.hasOwnProperty("onFailureValue")
+          message.hasOwnProperty('onFailureValue')
         )
           object.onFailureValue = message.onFailureValue;
         return object;
@@ -14259,9 +14259,9 @@
        */
       ComparisonTask.getTypeUrl = function getTypeUrl(typeUrlPrefix) {
         if (typeUrlPrefix === undefined) {
-          typeUrlPrefix = "type.googleapis.com";
+          typeUrlPrefix = 'type.googleapis.com';
         }
-        return typeUrlPrefix + "/OracleJob.ComparisonTask";
+        return typeUrlPrefix + '/OracleJob.ComparisonTask';
       };
 
       /**
@@ -14275,9 +14275,9 @@
       ComparisonTask.Operation = (function () {
         var valuesById = {},
           values = Object.create(valuesById);
-        values[(valuesById[0] = "OPERATION_EQ")] = 0;
-        values[(valuesById[1] = "OPERATION_GT")] = 1;
-        values[(valuesById[2] = "OPERATION_LT")] = 2;
+        values[(valuesById[0] = 'OPERATION_EQ')] = 0;
+        values[(valuesById[1] = 'OPERATION_GT')] = 1;
+        values[(valuesById[2] = 'OPERATION_LT')] = 2;
         return values;
       })();
 
@@ -14349,12 +14349,12 @@
         if (!writer) writer = $Writer.create();
         if (
           message.method != null &&
-          Object.hasOwnProperty.call(message, "method")
+          Object.hasOwnProperty.call(message, 'method')
         )
           writer.uint32(/* id 1, wireType 0 =*/ 8).int32(message.method);
         if (
           message.decimals != null &&
-          Object.hasOwnProperty.call(message, "decimals")
+          Object.hasOwnProperty.call(message, 'decimals')
         )
           writer.uint32(/* id 2, wireType 0 =*/ 16).int32(message.decimals);
         return writer;
@@ -14431,19 +14431,19 @@
        * @returns {string|null} `null` if valid, otherwise the reason why it is not
        */
       RoundTask.verify = function verify(message) {
-        if (typeof message !== "object" || message === null)
-          return "object expected";
-        if (message.method != null && message.hasOwnProperty("method"))
+        if (typeof message !== 'object' || message === null)
+          return 'object expected';
+        if (message.method != null && message.hasOwnProperty('method'))
           switch (message.method) {
             default:
-              return "method: enum value expected";
+              return 'method: enum value expected';
             case 0:
             case 1:
               break;
           }
-        if (message.decimals != null && message.hasOwnProperty("decimals"))
+        if (message.decimals != null && message.hasOwnProperty('decimals'))
           if (!$util.isInteger(message.decimals))
-            return "decimals: integer expected";
+            return 'decimals: integer expected';
         return null;
       };
 
@@ -14460,16 +14460,16 @@
         var message = new $root.OracleJob.RoundTask();
         switch (object.method) {
           default:
-            if (typeof object.method === "number") {
+            if (typeof object.method === 'number') {
               message.method = object.method;
               break;
             }
             break;
-          case "METHOD_ROUND_UP":
+          case 'METHOD_ROUND_UP':
           case 0:
             message.method = 0;
             break;
-          case "METHOD_ROUND_DOWN":
+          case 'METHOD_ROUND_DOWN':
           case 1:
             message.method = 1;
             break;
@@ -14491,17 +14491,17 @@
         if (!options) options = {};
         var object = {};
         if (options.defaults) {
-          object.method = options.enums === String ? "METHOD_ROUND_UP" : 0;
+          object.method = options.enums === String ? 'METHOD_ROUND_UP' : 0;
           object.decimals = 0;
         }
-        if (message.method != null && message.hasOwnProperty("method"))
+        if (message.method != null && message.hasOwnProperty('method'))
           object.method =
             options.enums === String
               ? $root.OracleJob.RoundTask.Method[message.method] === undefined
                 ? message.method
                 : $root.OracleJob.RoundTask.Method[message.method]
               : message.method;
-        if (message.decimals != null && message.hasOwnProperty("decimals"))
+        if (message.decimals != null && message.hasOwnProperty('decimals'))
           object.decimals = message.decimals;
         return object;
       };
@@ -14527,9 +14527,9 @@
        */
       RoundTask.getTypeUrl = function getTypeUrl(typeUrlPrefix) {
         if (typeUrlPrefix === undefined) {
-          typeUrlPrefix = "type.googleapis.com";
+          typeUrlPrefix = 'type.googleapis.com';
         }
-        return typeUrlPrefix + "/OracleJob.RoundTask";
+        return typeUrlPrefix + '/OracleJob.RoundTask';
       };
 
       /**
@@ -14542,8 +14542,8 @@
       RoundTask.Method = (function () {
         var valuesById = {},
           values = Object.create(valuesById);
-        values[(valuesById[0] = "METHOD_ROUND_UP")] = 0;
-        values[(valuesById[1] = "METHOD_ROUND_DOWN")] = 1;
+        values[(valuesById[0] = 'METHOD_ROUND_UP')] = 0;
+        values[(valuesById[1] = 'METHOD_ROUND_DOWN')] = 1;
         return values;
       })();
 
@@ -14594,7 +14594,7 @@
        * @memberof OracleJob.BoundTask
        * @instance
        */
-      BoundTask.prototype.lowerBoundValue = "";
+      BoundTask.prototype.lowerBoundValue = '';
 
       /**
        * BoundTask upperBound.
@@ -14610,7 +14610,7 @@
        * @memberof OracleJob.BoundTask
        * @instance
        */
-      BoundTask.prototype.upperBoundValue = "";
+      BoundTask.prototype.upperBoundValue = '';
 
       /**
        * BoundTask onExceedsUpperBound.
@@ -14626,7 +14626,7 @@
        * @memberof OracleJob.BoundTask
        * @instance
        */
-      BoundTask.prototype.onExceedsUpperBoundValue = "";
+      BoundTask.prototype.onExceedsUpperBoundValue = '';
 
       /**
        * BoundTask onExceedsLowerBound.
@@ -14642,7 +14642,7 @@
        * @memberof OracleJob.BoundTask
        * @instance
        */
-      BoundTask.prototype.onExceedsLowerBoundValue = "";
+      BoundTask.prototype.onExceedsLowerBoundValue = '';
 
       /**
        * Creates a new BoundTask instance using the specified properties.
@@ -14669,7 +14669,7 @@
         if (!writer) writer = $Writer.create();
         if (
           message.lowerBound != null &&
-          Object.hasOwnProperty.call(message, "lowerBound")
+          Object.hasOwnProperty.call(message, 'lowerBound')
         )
           $root.OracleJob.encode(
             message.lowerBound,
@@ -14677,14 +14677,14 @@
           ).ldelim();
         if (
           message.lowerBoundValue != null &&
-          Object.hasOwnProperty.call(message, "lowerBoundValue")
+          Object.hasOwnProperty.call(message, 'lowerBoundValue')
         )
           writer
             .uint32(/* id 2, wireType 2 =*/ 18)
             .string(message.lowerBoundValue);
         if (
           message.upperBound != null &&
-          Object.hasOwnProperty.call(message, "upperBound")
+          Object.hasOwnProperty.call(message, 'upperBound')
         )
           $root.OracleJob.encode(
             message.upperBound,
@@ -14692,14 +14692,14 @@
           ).ldelim();
         if (
           message.upperBoundValue != null &&
-          Object.hasOwnProperty.call(message, "upperBoundValue")
+          Object.hasOwnProperty.call(message, 'upperBoundValue')
         )
           writer
             .uint32(/* id 4, wireType 2 =*/ 34)
             .string(message.upperBoundValue);
         if (
           message.onExceedsUpperBound != null &&
-          Object.hasOwnProperty.call(message, "onExceedsUpperBound")
+          Object.hasOwnProperty.call(message, 'onExceedsUpperBound')
         )
           $root.OracleJob.encode(
             message.onExceedsUpperBound,
@@ -14707,14 +14707,14 @@
           ).ldelim();
         if (
           message.onExceedsUpperBoundValue != null &&
-          Object.hasOwnProperty.call(message, "onExceedsUpperBoundValue")
+          Object.hasOwnProperty.call(message, 'onExceedsUpperBoundValue')
         )
           writer
             .uint32(/* id 6, wireType 2 =*/ 50)
             .string(message.onExceedsUpperBoundValue);
         if (
           message.onExceedsLowerBound != null &&
-          Object.hasOwnProperty.call(message, "onExceedsLowerBound")
+          Object.hasOwnProperty.call(message, 'onExceedsLowerBound')
         )
           $root.OracleJob.encode(
             message.onExceedsLowerBound,
@@ -14722,7 +14722,7 @@
           ).ldelim();
         if (
           message.onExceedsLowerBoundValue != null &&
-          Object.hasOwnProperty.call(message, "onExceedsLowerBoundValue")
+          Object.hasOwnProperty.call(message, 'onExceedsLowerBoundValue')
         )
           writer
             .uint32(/* id 8, wireType 2 =*/ 66)
@@ -14837,60 +14837,60 @@
        * @returns {string|null} `null` if valid, otherwise the reason why it is not
        */
       BoundTask.verify = function verify(message) {
-        if (typeof message !== "object" || message === null)
-          return "object expected";
+        if (typeof message !== 'object' || message === null)
+          return 'object expected';
         if (
           message.lowerBound != null &&
-          message.hasOwnProperty("lowerBound")
+          message.hasOwnProperty('lowerBound')
         ) {
           var error = $root.OracleJob.verify(message.lowerBound);
-          if (error) return "lowerBound." + error;
+          if (error) return 'lowerBound.' + error;
         }
         if (
           message.lowerBoundValue != null &&
-          message.hasOwnProperty("lowerBoundValue")
+          message.hasOwnProperty('lowerBoundValue')
         )
           if (!$util.isString(message.lowerBoundValue))
-            return "lowerBoundValue: string expected";
+            return 'lowerBoundValue: string expected';
         if (
           message.upperBound != null &&
-          message.hasOwnProperty("upperBound")
+          message.hasOwnProperty('upperBound')
         ) {
           var error = $root.OracleJob.verify(message.upperBound);
-          if (error) return "upperBound." + error;
+          if (error) return 'upperBound.' + error;
         }
         if (
           message.upperBoundValue != null &&
-          message.hasOwnProperty("upperBoundValue")
+          message.hasOwnProperty('upperBoundValue')
         )
           if (!$util.isString(message.upperBoundValue))
-            return "upperBoundValue: string expected";
+            return 'upperBoundValue: string expected';
         if (
           message.onExceedsUpperBound != null &&
-          message.hasOwnProperty("onExceedsUpperBound")
+          message.hasOwnProperty('onExceedsUpperBound')
         ) {
           var error = $root.OracleJob.verify(message.onExceedsUpperBound);
-          if (error) return "onExceedsUpperBound." + error;
+          if (error) return 'onExceedsUpperBound.' + error;
         }
         if (
           message.onExceedsUpperBoundValue != null &&
-          message.hasOwnProperty("onExceedsUpperBoundValue")
+          message.hasOwnProperty('onExceedsUpperBoundValue')
         )
           if (!$util.isString(message.onExceedsUpperBoundValue))
-            return "onExceedsUpperBoundValue: string expected";
+            return 'onExceedsUpperBoundValue: string expected';
         if (
           message.onExceedsLowerBound != null &&
-          message.hasOwnProperty("onExceedsLowerBound")
+          message.hasOwnProperty('onExceedsLowerBound')
         ) {
           var error = $root.OracleJob.verify(message.onExceedsLowerBound);
-          if (error) return "onExceedsLowerBound." + error;
+          if (error) return 'onExceedsLowerBound.' + error;
         }
         if (
           message.onExceedsLowerBoundValue != null &&
-          message.hasOwnProperty("onExceedsLowerBoundValue")
+          message.hasOwnProperty('onExceedsLowerBoundValue')
         )
           if (!$util.isString(message.onExceedsLowerBoundValue))
-            return "onExceedsLowerBoundValue: string expected";
+            return 'onExceedsLowerBoundValue: string expected';
         return null;
       };
 
@@ -14906,23 +14906,23 @@
         if (object instanceof $root.OracleJob.BoundTask) return object;
         var message = new $root.OracleJob.BoundTask();
         if (object.lowerBound != null) {
-          if (typeof object.lowerBound !== "object")
-            throw TypeError(".OracleJob.BoundTask.lowerBound: object expected");
+          if (typeof object.lowerBound !== 'object')
+            throw TypeError('.OracleJob.BoundTask.lowerBound: object expected');
           message.lowerBound = $root.OracleJob.fromObject(object.lowerBound);
         }
         if (object.lowerBoundValue != null)
           message.lowerBoundValue = String(object.lowerBoundValue);
         if (object.upperBound != null) {
-          if (typeof object.upperBound !== "object")
-            throw TypeError(".OracleJob.BoundTask.upperBound: object expected");
+          if (typeof object.upperBound !== 'object')
+            throw TypeError('.OracleJob.BoundTask.upperBound: object expected');
           message.upperBound = $root.OracleJob.fromObject(object.upperBound);
         }
         if (object.upperBoundValue != null)
           message.upperBoundValue = String(object.upperBoundValue);
         if (object.onExceedsUpperBound != null) {
-          if (typeof object.onExceedsUpperBound !== "object")
+          if (typeof object.onExceedsUpperBound !== 'object')
             throw TypeError(
-              ".OracleJob.BoundTask.onExceedsUpperBound: object expected"
+              '.OracleJob.BoundTask.onExceedsUpperBound: object expected'
             );
           message.onExceedsUpperBound = $root.OracleJob.fromObject(
             object.onExceedsUpperBound
@@ -14933,9 +14933,9 @@
             object.onExceedsUpperBoundValue
           );
         if (object.onExceedsLowerBound != null) {
-          if (typeof object.onExceedsLowerBound !== "object")
+          if (typeof object.onExceedsLowerBound !== 'object')
             throw TypeError(
-              ".OracleJob.BoundTask.onExceedsLowerBound: object expected"
+              '.OracleJob.BoundTask.onExceedsLowerBound: object expected'
             );
           message.onExceedsLowerBound = $root.OracleJob.fromObject(
             object.onExceedsLowerBound
@@ -14962,37 +14962,37 @@
         var object = {};
         if (options.defaults) {
           object.lowerBound = null;
-          object.lowerBoundValue = "";
+          object.lowerBoundValue = '';
           object.upperBound = null;
-          object.upperBoundValue = "";
+          object.upperBoundValue = '';
           object.onExceedsUpperBound = null;
-          object.onExceedsUpperBoundValue = "";
+          object.onExceedsUpperBoundValue = '';
           object.onExceedsLowerBound = null;
-          object.onExceedsLowerBoundValue = "";
+          object.onExceedsLowerBoundValue = '';
         }
-        if (message.lowerBound != null && message.hasOwnProperty("lowerBound"))
+        if (message.lowerBound != null && message.hasOwnProperty('lowerBound'))
           object.lowerBound = $root.OracleJob.toObject(
             message.lowerBound,
             options
           );
         if (
           message.lowerBoundValue != null &&
-          message.hasOwnProperty("lowerBoundValue")
+          message.hasOwnProperty('lowerBoundValue')
         )
           object.lowerBoundValue = message.lowerBoundValue;
-        if (message.upperBound != null && message.hasOwnProperty("upperBound"))
+        if (message.upperBound != null && message.hasOwnProperty('upperBound'))
           object.upperBound = $root.OracleJob.toObject(
             message.upperBound,
             options
           );
         if (
           message.upperBoundValue != null &&
-          message.hasOwnProperty("upperBoundValue")
+          message.hasOwnProperty('upperBoundValue')
         )
           object.upperBoundValue = message.upperBoundValue;
         if (
           message.onExceedsUpperBound != null &&
-          message.hasOwnProperty("onExceedsUpperBound")
+          message.hasOwnProperty('onExceedsUpperBound')
         )
           object.onExceedsUpperBound = $root.OracleJob.toObject(
             message.onExceedsUpperBound,
@@ -15000,12 +15000,12 @@
           );
         if (
           message.onExceedsUpperBoundValue != null &&
-          message.hasOwnProperty("onExceedsUpperBoundValue")
+          message.hasOwnProperty('onExceedsUpperBoundValue')
         )
           object.onExceedsUpperBoundValue = message.onExceedsUpperBoundValue;
         if (
           message.onExceedsLowerBound != null &&
-          message.hasOwnProperty("onExceedsLowerBound")
+          message.hasOwnProperty('onExceedsLowerBound')
         )
           object.onExceedsLowerBound = $root.OracleJob.toObject(
             message.onExceedsLowerBound,
@@ -15013,7 +15013,7 @@
           );
         if (
           message.onExceedsLowerBoundValue != null &&
-          message.hasOwnProperty("onExceedsLowerBoundValue")
+          message.hasOwnProperty('onExceedsLowerBoundValue')
         )
           object.onExceedsLowerBoundValue = message.onExceedsLowerBoundValue;
         return object;
@@ -15040,9 +15040,9 @@
        */
       BoundTask.getTypeUrl = function getTypeUrl(typeUrlPrefix) {
         if (typeUrlPrefix === undefined) {
-          typeUrlPrefix = "type.googleapis.com";
+          typeUrlPrefix = 'type.googleapis.com';
         }
-        return typeUrlPrefix + "/OracleJob.BoundTask";
+        return typeUrlPrefix + '/OracleJob.BoundTask';
       };
 
       return BoundTask;
@@ -15484,54 +15484,54 @@
        * @memberof OracleJob.Task
        * @instance
        */
-      Object.defineProperty(Task.prototype, "Task", {
+      Object.defineProperty(Task.prototype, 'Task', {
         get: $util.oneOfGetter(
           ($oneOfFields = [
-            "httpTask",
-            "jsonParseTask",
-            "medianTask",
-            "meanTask",
-            "websocketTask",
-            "divideTask",
-            "multiplyTask",
-            "lpTokenPriceTask",
-            "lpExchangeRateTask",
-            "conditionalTask",
-            "valueTask",
-            "maxTask",
-            "regexExtractTask",
-            "xstepPriceTask",
-            "addTask",
-            "subtractTask",
-            "twapTask",
-            "serumSwapTask",
-            "powTask",
-            "lendingRateTask",
-            "mangoPerpMarketTask",
-            "jupiterSwapTask",
-            "perpMarketTask",
-            "oracleTask",
-            "anchorFetchTask",
-            "defiKingdomsTask",
-            "tpsTask",
-            "splStakePoolTask",
-            "splTokenParseTask",
-            "uniswapExchangeRateTask",
-            "sushiswapExchangeRateTask",
-            "pancakeswapExchangeRateTask",
-            "cacheTask",
-            "sysclockOffsetTask",
-            "marinadeStateTask",
-            "solanaAccountDataFetchTask",
-            "bufferLayoutParseTask",
-            "cronParseTask",
-            "minTask",
-            "historyFunctionTask",
-            "vwapTask",
-            "ewmaTask",
-            "comparisonTask",
-            "roundTask",
-            "boundTask",
+            'httpTask',
+            'jsonParseTask',
+            'medianTask',
+            'meanTask',
+            'websocketTask',
+            'divideTask',
+            'multiplyTask',
+            'lpTokenPriceTask',
+            'lpExchangeRateTask',
+            'conditionalTask',
+            'valueTask',
+            'maxTask',
+            'regexExtractTask',
+            'xstepPriceTask',
+            'addTask',
+            'subtractTask',
+            'twapTask',
+            'serumSwapTask',
+            'powTask',
+            'lendingRateTask',
+            'mangoPerpMarketTask',
+            'jupiterSwapTask',
+            'perpMarketTask',
+            'oracleTask',
+            'anchorFetchTask',
+            'defiKingdomsTask',
+            'tpsTask',
+            'splStakePoolTask',
+            'splTokenParseTask',
+            'uniswapExchangeRateTask',
+            'sushiswapExchangeRateTask',
+            'pancakeswapExchangeRateTask',
+            'cacheTask',
+            'sysclockOffsetTask',
+            'marinadeStateTask',
+            'solanaAccountDataFetchTask',
+            'bufferLayoutParseTask',
+            'cronParseTask',
+            'minTask',
+            'historyFunctionTask',
+            'vwapTask',
+            'ewmaTask',
+            'comparisonTask',
+            'roundTask',
+            'boundTask',
           ])
         ),
         set: $util.oneOfSetter($oneOfFields),
@@ -15562,7 +15562,7 @@
         if (!writer) writer = $Writer.create();
         if (
           message.httpTask != null &&
-          Object.hasOwnProperty.call(message, "httpTask")
+          Object.hasOwnProperty.call(message, 'httpTask')
         )
           $root.OracleJob.HttpTask.encode(
             message.httpTask,
@@ -15570,7 +15570,7 @@
           ).ldelim();
         if (
           message.jsonParseTask != null &&
-          Object.hasOwnProperty.call(message, "jsonParseTask")
+          Object.hasOwnProperty.call(message, 'jsonParseTask')
         )
           $root.OracleJob.JsonParseTask.encode(
             message.jsonParseTask,
@@ -15578,7 +15578,7 @@
           ).ldelim();
         if (
           message.medianTask != null &&
-          Object.hasOwnProperty.call(message, "medianTask")
+          Object.hasOwnProperty.call(message, 'medianTask')
         )
           $root.OracleJob.MedianTask.encode(
             message.medianTask,
@@ -15586,7 +15586,7 @@
           ).ldelim();
         if (
           message.meanTask != null &&
-          Object.hasOwnProperty.call(message, "meanTask")
+          Object.hasOwnProperty.call(message, 'meanTask')
         )
           $root.OracleJob.MeanTask.encode(
             message.meanTask,
@@ -15594,7 +15594,7 @@
           ).ldelim();
         if (
           message.websocketTask != null &&
-          Object.hasOwnProperty.call(message, "websocketTask")
+          Object.hasOwnProperty.call(message, 'websocketTask')
         )
           $root.OracleJob.WebsocketTask.encode(
             message.websocketTask,
@@ -15602,7 +15602,7 @@
           ).ldelim();
         if (
           message.divideTask != null &&
-          Object.hasOwnProperty.call(message, "divideTask")
+          Object.hasOwnProperty.call(message, 'divideTask')
         )
           $root.OracleJob.DivideTask.encode(
             message.divideTask,
@@ -15610,7 +15610,7 @@
           ).ldelim();
         if (
           message.multiplyTask != null &&
-          Object.hasOwnProperty.call(message, "multiplyTask")
+          Object.hasOwnProperty.call(message, 'multiplyTask')
         )
           $root.OracleJob.MultiplyTask.encode(
             message.multiplyTask,
@@ -15618,7 +15618,7 @@
           ).ldelim();
         if (
           message.lpTokenPriceTask != null &&
-          Object.hasOwnProperty.call(message, "lpTokenPriceTask")
+          Object.hasOwnProperty.call(message, 'lpTokenPriceTask')
         )
           $root.OracleJob.LpTokenPriceTask.encode(
             message.lpTokenPriceTask,
@@ -15626,7 +15626,7 @@
           ).ldelim();
         if (
           message.lpExchangeRateTask != null &&
-          Object.hasOwnProperty.call(message, "lpExchangeRateTask")
+          Object.hasOwnProperty.call(message, 'lpExchangeRateTask')
         )
           $root.OracleJob.LpExchangeRateTask.encode(
             message.lpExchangeRateTask,
@@ -15634,7 +15634,7 @@
           ).ldelim();
         if (
           message.conditionalTask != null &&
-          Object.hasOwnProperty.call(message, "conditionalTask")
+          Object.hasOwnProperty.call(message, 'conditionalTask')
         )
           $root.OracleJob.ConditionalTask.encode(
             message.conditionalTask,
@@ -15642,7 +15642,7 @@
           ).ldelim();
         if (
           message.valueTask != null &&
-          Object.hasOwnProperty.call(message, "valueTask")
+          Object.hasOwnProperty.call(message, 'valueTask')
         )
           $root.OracleJob.ValueTask.encode(
             message.valueTask,
@@ -15650,7 +15650,7 @@
           ).ldelim();
         if (
           message.maxTask != null &&
-          Object.hasOwnProperty.call(message, "maxTask")
+          Object.hasOwnProperty.call(message, 'maxTask')
         )
           $root.OracleJob.MaxTask.encode(
             message.maxTask,
@@ -15658,7 +15658,7 @@
           ).ldelim();
         if (
           message.regexExtractTask != null &&
-          Object.hasOwnProperty.call(message, "regexExtractTask")
+          Object.hasOwnProperty.call(message, 'regexExtractTask')
         )
           $root.OracleJob.RegexExtractTask.encode(
             message.regexExtractTask,
@@ -15666,7 +15666,7 @@
           ).ldelim();
         if (
           message.xstepPriceTask != null &&
-          Object.hasOwnProperty.call(message, "xstepPriceTask")
+          Object.hasOwnProperty.call(message, 'xstepPriceTask')
         )
           $root.OracleJob.XStepPriceTask.encode(
             message.xstepPriceTask,
@@ -15674,7 +15674,7 @@
           ).ldelim();
         if (
           message.addTask != null &&
-          Object.hasOwnProperty.call(message, "addTask")
+          Object.hasOwnProperty.call(message, 'addTask')
         )
           $root.OracleJob.AddTask.encode(
             message.addTask,
@@ -15682,7 +15682,7 @@
           ).ldelim();
         if (
           message.subtractTask != null &&
-          Object.hasOwnProperty.call(message, "subtractTask")
+          Object.hasOwnProperty.call(message, 'subtractTask')
         )
           $root.OracleJob.SubtractTask.encode(
             message.subtractTask,
@@ -15690,7 +15690,7 @@
           ).ldelim();
         if (
           message.twapTask != null &&
-          Object.hasOwnProperty.call(message, "twapTask")
+          Object.hasOwnProperty.call(message, 'twapTask')
         )
           $root.OracleJob.TwapTask.encode(
             message.twapTask,
@@ -15698,7 +15698,7 @@
           ).ldelim();
         if (
           message.serumSwapTask != null &&
-          Object.hasOwnProperty.call(message, "serumSwapTask")
+          Object.hasOwnProperty.call(message, 'serumSwapTask')
         )
           $root.OracleJob.SerumSwapTask.encode(
             message.serumSwapTask,
@@ -15706,7 +15706,7 @@
           ).ldelim();
         if (
           message.powTask != null &&
-          Object.hasOwnProperty.call(message, "powTask")
+          Object.hasOwnProperty.call(message, 'powTask')
         )
           $root.OracleJob.PowTask.encode(
             message.powTask,
@@ -15714,7 +15714,7 @@
           ).ldelim();
         if (
           message.lendingRateTask != null &&
-          Object.hasOwnProperty.call(message, "lendingRateTask")
+          Object.hasOwnProperty.call(message, 'lendingRateTask')
         )
           $root.OracleJob.LendingRateTask.encode(
             message.lendingRateTask,
@@ -15722,7 +15722,7 @@
           ).ldelim();
         if (
           message.mangoPerpMarketTask != null &&
-          Object.hasOwnProperty.call(message, "mangoPerpMarketTask")
+          Object.hasOwnProperty.call(message, 'mangoPerpMarketTask')
         )
           $root.OracleJob.MangoPerpMarketTask.encode(
             message.mangoPerpMarketTask,
@@ -15730,7 +15730,7 @@
           ).ldelim();
         if (
           message.jupiterSwapTask != null &&
-          Object.hasOwnProperty.call(message, "jupiterSwapTask")
+          Object.hasOwnProperty.call(message, 'jupiterSwapTask')
         )
           $root.OracleJob.JupiterSwapTask.encode(
             message.jupiterSwapTask,
@@ -15738,7 +15738,7 @@
           ).ldelim();
         if (
           message.perpMarketTask != null &&
-          Object.hasOwnProperty.call(message, "perpMarketTask")
+          Object.hasOwnProperty.call(message, 'perpMarketTask')
         )
           $root.OracleJob.PerpMarketTask.encode(
             message.perpMarketTask,
@@ -15746,7 +15746,7 @@
           ).ldelim();
         if (
           message.oracleTask != null &&
-          Object.hasOwnProperty.call(message, "oracleTask")
+          Object.hasOwnProperty.call(message, 'oracleTask')
         )
           $root.OracleJob.OracleTask.encode(
             message.oracleTask,
@@ -15754,7 +15754,7 @@
           ).ldelim();
         if (
           message.anchorFetchTask != null &&
-          Object.hasOwnProperty.call(message, "anchorFetchTask")
+          Object.hasOwnProperty.call(message, 'anchorFetchTask')
         )
           $root.OracleJob.AnchorFetchTask.encode(
             message.anchorFetchTask,
@@ -15762,7 +15762,7 @@
           ).ldelim();
         if (
           message.defiKingdomsTask != null &&
-          Object.hasOwnProperty.call(message, "defiKingdomsTask")
+          Object.hasOwnProperty.call(message, 'defiKingdomsTask')
         )
           $root.OracleJob.DefiKingdomsTask.encode(
             message.defiKingdomsTask,
@@ -15770,7 +15770,7 @@
           ).ldelim();
         if (
           message.tpsTask != null &&
-          Object.hasOwnProperty.call(message, "tpsTask")
+          Object.hasOwnProperty.call(message, 'tpsTask')
         )
           $root.OracleJob.TpsTask.encode(
             message.tpsTask,
@@ -15778,7 +15778,7 @@
           ).ldelim();
         if (
           message.splStakePoolTask != null &&
-          Object.hasOwnProperty.call(message, "splStakePoolTask")
+          Object.hasOwnProperty.call(message, 'splStakePoolTask')
         )
           $root.OracleJob.SplStakePoolTask.encode(
             message.splStakePoolTask,
@@ -15786,7 +15786,7 @@
           ).ldelim();
         if (
           message.splTokenParseTask != null &&
-          Object.hasOwnProperty.call(message, "splTokenParseTask")
+          Object.hasOwnProperty.call(message, 'splTokenParseTask')
         )
           $root.OracleJob.SplTokenParseTask.encode(
             message.splTokenParseTask,
@@ -15794,7 +15794,7 @@
           ).ldelim();
         if (
           message.uniswapExchangeRateTask != null &&
-          Object.hasOwnProperty.call(message, "uniswapExchangeRateTask")
+          Object.hasOwnProperty.call(message, 'uniswapExchangeRateTask')
         )
           $root.OracleJob.UniswapExchangeRateTask.encode(
             message.uniswapExchangeRateTask,
@@ -15802,7 +15802,7 @@
           ).ldelim();
         if (
           message.sushiswapExchangeRateTask != null &&
-          Object.hasOwnProperty.call(message, "sushiswapExchangeRateTask")
+          Object.hasOwnProperty.call(message, 'sushiswapExchangeRateTask')
         )
           $root.OracleJob.SushiswapExchangeRateTask.encode(
             message.sushiswapExchangeRateTask,
@@ -15810,7 +15810,7 @@
           ).ldelim();
         if (
           message.pancakeswapExchangeRateTask != null &&
-          Object.hasOwnProperty.call(message, "pancakeswapExchangeRateTask")
+          Object.hasOwnProperty.call(message, 'pancakeswapExchangeRateTask')
         )
           $root.OracleJob.PancakeswapExchangeRateTask.encode(
             message.pancakeswapExchangeRateTask,
@@ -15818,7 +15818,7 @@
           ).ldelim();
         if (
           message.cacheTask != null &&
-          Object.hasOwnProperty.call(message, "cacheTask")
+          Object.hasOwnProperty.call(message, 'cacheTask')
         )
           $root.OracleJob.CacheTask.encode(
             message.cacheTask,
@@ -15826,7 +15826,7 @@
           ).ldelim();
         if (
           message.sysclockOffsetTask != null &&
-          Object.hasOwnProperty.call(message, "sysclockOffsetTask")
+          Object.hasOwnProperty.call(message, 'sysclockOffsetTask')
         )
           $root.OracleJob.SysclockOffsetTask.encode(
             message.sysclockOffsetTask,
@@ -15834,7 +15834,7 @@
           ).ldelim();
         if (
           message.marinadeStateTask != null &&
-          Object.hasOwnProperty.call(message, "marinadeStateTask")
+          Object.hasOwnProperty.call(message, 'marinadeStateTask')
         )
           $root.OracleJob.MarinadeStateTask.encode(
             message.marinadeStateTask,
@@ -15842,7 +15842,7 @@
           ).ldelim();
         if (
           message.solanaAccountDataFetchTask != null &&
-          Object.hasOwnProperty.call(message, "solanaAccountDataFetchTask")
+          Object.hasOwnProperty.call(message, 'solanaAccountDataFetchTask')
         )
           $root.OracleJob.SolanaAccountDataFetchTask.encode(
             message.solanaAccountDataFetchTask,
@@ -15850,7 +15850,7 @@
           ).ldelim();
         if (
           message.bufferLayoutParseTask != null &&
-          Object.hasOwnProperty.call(message, "bufferLayoutParseTask")
+          Object.hasOwnProperty.call(message, 'bufferLayoutParseTask')
         )
           $root.OracleJob.BufferLayoutParseTask.encode(
             message.bufferLayoutParseTask,
@@ -15858,7 +15858,7 @@
           ).ldelim();
         if (
           message.cronParseTask != null &&
-          Object.hasOwnProperty.call(message, "cronParseTask")
+          Object.hasOwnProperty.call(message, 'cronParseTask')
         )
           $root.OracleJob.CronParseTask.encode(
             message.cronParseTask,
@@ -15866,7 +15866,7 @@
           ).ldelim();
         if (
           message.minTask != null &&
-          Object.hasOwnProperty.call(message, "minTask")
+          Object.hasOwnProperty.call(message, 'minTask')
         )
           $root.OracleJob.MinTask.encode(
             message.minTask,
@@ -15874,7 +15874,7 @@
           ).ldelim();
         if (
           message.historyFunctionTask != null &&
-          Object.hasOwnProperty.call(message, "historyFunctionTask")
+          Object.hasOwnProperty.call(message, 'historyFunctionTask')
         )
           $root.OracleJob.HistoryFunctionTask.encode(
             message.historyFunctionTask,
@@ -15882,7 +15882,7 @@
           ).ldelim();
         if (
           message.vwapTask != null &&
-          Object.hasOwnProperty.call(message, "vwapTask")
+          Object.hasOwnProperty.call(message, 'vwapTask')
         )
           $root.OracleJob.VwapTask.encode(
             message.vwapTask,
@@ -15890,7 +15890,7 @@
           ).ldelim();
         if (
           message.ewmaTask != null &&
-          Object.hasOwnProperty.call(message, "ewmaTask")
+          Object.hasOwnProperty.call(message, 'ewmaTask')
         )
           $root.OracleJob.EwmaTask.encode(
             message.ewmaTask,
@@ -15898,7 +15898,7 @@
           ).ldelim();
         if (
           message.comparisonTask != null &&
-          Object.hasOwnProperty.call(message, "comparisonTask")
+          Object.hasOwnProperty.call(message, 'comparisonTask')
         )
           $root.OracleJob.ComparisonTask.encode(
             message.comparisonTask,
@@ -15906,7 +15906,7 @@
           ).ldelim();
         if (
           message.roundTask != null &&
-          Object.hasOwnProperty.call(message, "roundTask")
+          Object.hasOwnProperty.call(message, 'roundTask')
         )
           $root.OracleJob.RoundTask.encode(
             message.roundTask,
@@ -15914,7 +15914,7 @@
           ).ldelim();
         if (
           message.boundTask != null &&
-          Object.hasOwnProperty.call(message, "boundTask")
+          Object.hasOwnProperty.call(message, 'boundTask')
         )
           $root.OracleJob.BoundTask.encode(
             message.boundTask,
@@ -16316,515 +16316,515 @@
        * @returns {string|null} `null` if valid, otherwise the reason why it is not
        */
       Task.verify = function verify(message) {
-        if (typeof message !== "object" || message === null)
-          return "object expected";
+        if (typeof message !== 'object' || message === null)
+          return 'object expected';
         var properties = {};
-        if (message.httpTask != null && message.hasOwnProperty("httpTask")) {
+        if (message.httpTask != null && message.hasOwnProperty('httpTask')) {
           properties.Task = 1;
           {
             var error = $root.OracleJob.HttpTask.verify(message.httpTask);
-            if (error) return "httpTask." + error;
+            if (error) return 'httpTask.' + error;
           }
         }
         if (
           message.jsonParseTask != null &&
-          message.hasOwnProperty("jsonParseTask")
+          message.hasOwnProperty('jsonParseTask')
         ) {
-          if (properties.Task === 1) return "Task: multiple values";
+          if (properties.Task === 1) return 'Task: multiple values';
           properties.Task = 1;
           {
             var error = $root.OracleJob.JsonParseTask.verify(
               message.jsonParseTask
             );
-            if (error) return "jsonParseTask." + error;
+            if (error) return 'jsonParseTask.' + error;
           }
         }
         if (
           message.medianTask != null &&
-          message.hasOwnProperty("medianTask")
+          message.hasOwnProperty('medianTask')
         ) {
-          if (properties.Task === 1) return "Task: multiple values";
+          if (properties.Task === 1) return 'Task: multiple values';
           properties.Task = 1;
           {
             var error = $root.OracleJob.MedianTask.verify(message.medianTask);
-            if (error) return "medianTask." + error;
+            if (error) return 'medianTask.' + error;
           }
         }
-        if (message.meanTask != null && message.hasOwnProperty("meanTask")) {
-          if (properties.Task === 1) return "Task: multiple values";
+        if (message.meanTask != null && message.hasOwnProperty('meanTask')) {
+          if (properties.Task === 1) return 'Task: multiple values';
           properties.Task = 1;
           {
             var error = $root.OracleJob.MeanTask.verify(message.meanTask);
-            if (error) return "meanTask." + error;
+            if (error) return 'meanTask.' + error;
           }
         }
         if (
           message.websocketTask != null &&
-          message.hasOwnProperty("websocketTask")
+          message.hasOwnProperty('websocketTask')
         ) {
-          if (properties.Task === 1) return "Task: multiple values";
+          if (properties.Task === 1) return 'Task: multiple values';
           properties.Task = 1;
           {
             var error = $root.OracleJob.WebsocketTask.verify(
               message.websocketTask
             );
-            if (error) return "websocketTask." + error;
+            if (error) return 'websocketTask.' + error;
           }
         }
         if (
           message.divideTask != null &&
-          message.hasOwnProperty("divideTask")
+          message.hasOwnProperty('divideTask')
         ) {
-          if (properties.Task === 1) return "Task: multiple values";
+          if (properties.Task === 1) return 'Task: multiple values';
           properties.Task = 1;
           {
             var error = $root.OracleJob.DivideTask.verify(message.divideTask);
-            if (error) return "divideTask." + error;
+            if (error) return 'divideTask.' + error;
           }
         }
         if (
           message.multiplyTask != null &&
-          message.hasOwnProperty("multiplyTask")
+          message.hasOwnProperty('multiplyTask')
         ) {
-          if (properties.Task === 1) return "Task: multiple values";
+          if (properties.Task === 1) return 'Task: multiple values';
           properties.Task = 1;
           {
             var error = $root.OracleJob.MultiplyTask.verify(
               message.multiplyTask
             );
-            if (error) return "multiplyTask." + error;
+            if (error) return 'multiplyTask.' + error;
           }
         }
         if (
           message.lpTokenPriceTask != null &&
-          message.hasOwnProperty("lpTokenPriceTask")
+          message.hasOwnProperty('lpTokenPriceTask')
         ) {
-          if (properties.Task === 1) return "Task: multiple values";
+          if (properties.Task === 1) return 'Task: multiple values';
           properties.Task = 1;
           {
             var error = $root.OracleJob.LpTokenPriceTask.verify(
               message.lpTokenPriceTask
             );
-            if (error) return "lpTokenPriceTask." + error;
+            if (error) return 'lpTokenPriceTask.' + error;
           }
         }
         if (
           message.lpExchangeRateTask != null &&
-          message.hasOwnProperty("lpExchangeRateTask")
+          message.hasOwnProperty('lpExchangeRateTask')
         ) {
-          if (properties.Task === 1) return "Task: multiple values";
+          if (properties.Task === 1) return 'Task: multiple values';
           properties.Task = 1;
           {
             var error = $root.OracleJob.LpExchangeRateTask.verify(
               message.lpExchangeRateTask
             );
-            if (error) return "lpExchangeRateTask." + error;
+            if (error) return 'lpExchangeRateTask.' + error;
           }
         }
         if (
           message.conditionalTask != null &&
-          message.hasOwnProperty("conditionalTask")
+          message.hasOwnProperty('conditionalTask')
         ) {
-          if (properties.Task === 1) return "Task: multiple values";
+          if (properties.Task === 1) return 'Task: multiple values';
           properties.Task = 1;
           {
             var error = $root.OracleJob.ConditionalTask.verify(
               message.conditionalTask
             );
-            if (error) return "conditionalTask." + error;
+            if (error) return 'conditionalTask.' + error;
           }
         }
-        if (message.valueTask != null && message.hasOwnProperty("valueTask")) {
-          if (properties.Task === 1) return "Task: multiple values";
+        if (message.valueTask != null && message.hasOwnProperty('valueTask')) {
+          if (properties.Task === 1) return 'Task: multiple values';
           properties.Task = 1;
           {
             var error = $root.OracleJob.ValueTask.verify(message.valueTask);
-            if (error) return "valueTask." + error;
+            if (error) return 'valueTask.' + error;
           }
         }
-        if (message.maxTask != null && message.hasOwnProperty("maxTask")) {
-          if (properties.Task === 1) return "Task: multiple values";
+        if (message.maxTask != null && message.hasOwnProperty('maxTask')) {
+          if (properties.Task === 1) return 'Task: multiple values';
           properties.Task = 1;
           {
             var error = $root.OracleJob.MaxTask.verify(message.maxTask);
-            if (error) return "maxTask." + error;
+            if (error) return 'maxTask.' + error;
           }
         }
         if (
           message.regexExtractTask != null &&
-          message.hasOwnProperty("regexExtractTask")
+          message.hasOwnProperty('regexExtractTask')
         ) {
-          if (properties.Task === 1) return "Task: multiple values";
+          if (properties.Task === 1) return 'Task: multiple values';
           properties.Task = 1;
           {
             var error = $root.OracleJob.RegexExtractTask.verify(
               message.regexExtractTask
             );
-            if (error) return "regexExtractTask." + error;
+            if (error) return 'regexExtractTask.' + error;
           }
         }
         if (
           message.xstepPriceTask != null &&
-          message.hasOwnProperty("xstepPriceTask")
+          message.hasOwnProperty('xstepPriceTask')
         ) {
-          if (properties.Task === 1) return "Task: multiple values";
+          if (properties.Task === 1) return 'Task: multiple values';
           properties.Task = 1;
           {
             var error = $root.OracleJob.XStepPriceTask.verify(
               message.xstepPriceTask
             );
-            if (error) return "xstepPriceTask." + error;
+            if (error) return 'xstepPriceTask.' + error;
           }
         }
-        if (message.addTask != null && message.hasOwnProperty("addTask")) {
-          if (properties.Task === 1) return "Task: multiple values";
+        if (message.addTask != null && message.hasOwnProperty('addTask')) {
+          if (properties.Task === 1) return 'Task: multiple values';
           properties.Task = 1;
           {
             var error = $root.OracleJob.AddTask.verify(message.addTask);
-            if (error) return "addTask." + error;
+            if (error) return 'addTask.' + error;
           }
         }
         if (
           message.subtractTask != null &&
-          message.hasOwnProperty("subtractTask")
+          message.hasOwnProperty('subtractTask')
         ) {
-          if (properties.Task === 1) return "Task: multiple values";
+          if (properties.Task === 1) return 'Task: multiple values';
           properties.Task = 1;
           {
             var error = $root.OracleJob.SubtractTask.verify(
               message.subtractTask
             );
-            if (error) return "subtractTask." + error;
+            if (error) return 'subtractTask.' + error;
           }
         }
-        if (message.twapTask != null && message.hasOwnProperty("twapTask")) {
-          if (properties.Task === 1) return "Task: multiple values";
+        if (message.twapTask != null && message.hasOwnProperty('twapTask')) {
+          if (properties.Task === 1) return 'Task: multiple values';
           properties.Task = 1;
           {
             var error = $root.OracleJob.TwapTask.verify(message.twapTask);
-            if (error) return "twapTask." + error;
+            if (error) return 'twapTask.' + error;
           }
         }
         if (
           message.serumSwapTask != null &&
-          message.hasOwnProperty("serumSwapTask")
+          message.hasOwnProperty('serumSwapTask')
         ) {
-          if (properties.Task === 1) return "Task: multiple values";
+          if (properties.Task === 1) return 'Task: multiple values';
           properties.Task = 1;
           {
             var error = $root.OracleJob.SerumSwapTask.verify(
               message.serumSwapTask
             );
-            if (error) return "serumSwapTask." + error;
+            if (error) return 'serumSwapTask.' + error;
           }
         }
-        if (message.powTask != null && message.hasOwnProperty("powTask")) {
-          if (properties.Task === 1) return "Task: multiple values";
+        if (message.powTask != null && message.hasOwnProperty('powTask')) {
+          if (properties.Task === 1) return 'Task: multiple values';
           properties.Task = 1;
           {
             var error = $root.OracleJob.PowTask.verify(message.powTask);
-            if (error) return "powTask." + error;
+            if (error) return 'powTask.' + error;
           }
         }
         if (
           message.lendingRateTask != null &&
-          message.hasOwnProperty("lendingRateTask")
+          message.hasOwnProperty('lendingRateTask')
         ) {
-          if (properties.Task === 1) return "Task: multiple values";
+          if (properties.Task === 1) return 'Task: multiple values';
           properties.Task = 1;
           {
             var error = $root.OracleJob.LendingRateTask.verify(
               message.lendingRateTask
             );
-            if (error) return "lendingRateTask." + error;
+            if (error) return 'lendingRateTask.' + error;
           }
         }
         if (
           message.mangoPerpMarketTask != null &&
-          message.hasOwnProperty("mangoPerpMarketTask")
+          message.hasOwnProperty('mangoPerpMarketTask')
         ) {
-          if (properties.Task === 1) return "Task: multiple values";
+          if (properties.Task === 1) return 'Task: multiple values';
           properties.Task = 1;
           {
             var error = $root.OracleJob.MangoPerpMarketTask.verify(
               message.mangoPerpMarketTask
             );
-            if (error) return "mangoPerpMarketTask." + error;
+            if (error) return 'mangoPerpMarketTask.' + error;
           }
         }
         if (
           message.jupiterSwapTask != null &&
-          message.hasOwnProperty("jupiterSwapTask")
+          message.hasOwnProperty('jupiterSwapTask')
         ) {
-          if (properties.Task === 1) return "Task: multiple values";
+          if (properties.Task === 1) return 'Task: multiple values';
           properties.Task = 1;
           {
             var error = $root.OracleJob.JupiterSwapTask.verify(
               message.jupiterSwapTask
             );
-            if (error) return "jupiterSwapTask." + error;
+            if (error) return 'jupiterSwapTask.' + error;
           }
         }
         if (
           message.perpMarketTask != null &&
-          message.hasOwnProperty("perpMarketTask")
+          message.hasOwnProperty('perpMarketTask')
         ) {
-          if (properties.Task === 1) return "Task: multiple values";
+          if (properties.Task === 1) return 'Task: multiple values';
           properties.Task = 1;
           {
             var error = $root.OracleJob.PerpMarketTask.verify(
               message.perpMarketTask
             );
-            if (error) return "perpMarketTask." + error;
+            if (error) return 'perpMarketTask.' + error;
           }
         }
         if (
           message.oracleTask != null &&
-          message.hasOwnProperty("oracleTask")
+          message.hasOwnProperty('oracleTask')
         ) {
-          if (properties.Task === 1) return "Task: multiple values";
+          if (properties.Task === 1) return 'Task: multiple values';
           properties.Task = 1;
           {
             var error = $root.OracleJob.OracleTask.verify(message.oracleTask);
-            if (error) return "oracleTask." + error;
+            if (error) return 'oracleTask.' + error;
           }
         }
         if (
           message.anchorFetchTask != null &&
-          message.hasOwnProperty("anchorFetchTask")
+          message.hasOwnProperty('anchorFetchTask')
         ) {
-          if (properties.Task === 1) return "Task: multiple values";
+          if (properties.Task === 1) return 'Task: multiple values';
           properties.Task = 1;
           {
             var error = $root.OracleJob.AnchorFetchTask.verify(
               message.anchorFetchTask
             );
-            if (error) return "anchorFetchTask." + error;
+            if (error) return 'anchorFetchTask.' + error;
           }
         }
         if (
           message.defiKingdomsTask != null &&
-          message.hasOwnProperty("defiKingdomsTask")
+          message.hasOwnProperty('defiKingdomsTask')
         ) {
-          if (properties.Task === 1) return "Task: multiple values";
+          if (properties.Task === 1) return 'Task: multiple values';
           properties.Task = 1;
           {
             var error = $root.OracleJob.DefiKingdomsTask.verify(
               message.defiKingdomsTask
             );
-            if (error) return "defiKingdomsTask." + error;
+            if (error) return 'defiKingdomsTask.' + error;
           }
         }
-        if (message.tpsTask != null && message.hasOwnProperty("tpsTask")) {
-          if (properties.Task === 1) return "Task: multiple values";
+        if (message.tpsTask != null && message.hasOwnProperty('tpsTask')) {
+          if (properties.Task === 1) return 'Task: multiple values';
           properties.Task = 1;
           {
             var error = $root.OracleJob.TpsTask.verify(message.tpsTask);
-            if (error) return "tpsTask." + error;
+            if (error) return 'tpsTask.' + error;
           }
         }
         if (
           message.splStakePoolTask != null &&
-          message.hasOwnProperty("splStakePoolTask")
+          message.hasOwnProperty('splStakePoolTask')
         ) {
-          if (properties.Task === 1) return "Task: multiple values";
+          if (properties.Task === 1) return 'Task: multiple values';
           properties.Task = 1;
           {
             var error = $root.OracleJob.SplStakePoolTask.verify(
               message.splStakePoolTask
             );
-            if (error) return "splStakePoolTask." + error;
+            if (error) return 'splStakePoolTask.' + error;
           }
         }
         if (
           message.splTokenParseTask != null &&
-          message.hasOwnProperty("splTokenParseTask")
+          message.hasOwnProperty('splTokenParseTask')
         ) {
-          if (properties.Task === 1) return "Task: multiple values";
+          if (properties.Task === 1) return 'Task: multiple values';
           properties.Task = 1;
           {
             var error = $root.OracleJob.SplTokenParseTask.verify(
               message.splTokenParseTask
             );
-            if (error) return "splTokenParseTask." + error;
+            if (error) return 'splTokenParseTask.' + error;
           }
         }
         if (
           message.uniswapExchangeRateTask != null &&
-          message.hasOwnProperty("uniswapExchangeRateTask")
+          message.hasOwnProperty('uniswapExchangeRateTask')
         ) {
-          if (properties.Task === 1) return "Task: multiple values";
+          if (properties.Task === 1) return 'Task: multiple values';
           properties.Task = 1;
           {
             var error = $root.OracleJob.UniswapExchangeRateTask.verify(
               message.uniswapExchangeRateTask
             );
-            if (error) return "uniswapExchangeRateTask." + error;
+            if (error) return 'uniswapExchangeRateTask.' + error;
           }
         }
         if (
           message.sushiswapExchangeRateTask != null &&
-          message.hasOwnProperty("sushiswapExchangeRateTask")
+          message.hasOwnProperty('sushiswapExchangeRateTask')
         ) {
-          if (properties.Task === 1) return "Task: multiple values";
+          if (properties.Task === 1) return 'Task: multiple values';
           properties.Task = 1;
           {
             var error = $root.OracleJob.SushiswapExchangeRateTask.verify(
               message.sushiswapExchangeRateTask
             );
-            if (error) return "sushiswapExchangeRateTask." + error;
+            if (error) return 'sushiswapExchangeRateTask.' + error;
           }
         }
         if (
           message.pancakeswapExchangeRateTask != null &&
-          message.hasOwnProperty("pancakeswapExchangeRateTask")
+          message.hasOwnProperty('pancakeswapExchangeRateTask')
         ) {
-          if (properties.Task === 1) return "Task: multiple values";
+          if (properties.Task === 1) return 'Task: multiple values';
           properties.Task = 1;
           {
             var error = $root.OracleJob.PancakeswapExchangeRateTask.verify(
               message.pancakeswapExchangeRateTask
             );
-            if (error) return "pancakeswapExchangeRateTask." + error;
+            if (error) return 'pancakeswapExchangeRateTask.' + error;
           }
         }
-        if (message.cacheTask != null && message.hasOwnProperty("cacheTask")) {
-          if (properties.Task === 1) return "Task: multiple values";
+        if (message.cacheTask != null && message.hasOwnProperty('cacheTask')) {
+          if (properties.Task === 1) return 'Task: multiple values';
           properties.Task = 1;
           {
             var error = $root.OracleJob.CacheTask.verify(message.cacheTask);
-            if (error) return "cacheTask." + error;
+            if (error) return 'cacheTask.' + error;
           }
         }
         if (
           message.sysclockOffsetTask != null &&
-          message.hasOwnProperty("sysclockOffsetTask")
+          message.hasOwnProperty('sysclockOffsetTask')
         ) {
-          if (properties.Task === 1) return "Task: multiple values";
+          if (properties.Task === 1) return 'Task: multiple values';
           properties.Task = 1;
           {
             var error = $root.OracleJob.SysclockOffsetTask.verify(
               message.sysclockOffsetTask
             );
-            if (error) return "sysclockOffsetTask." + error;
+            if (error) return 'sysclockOffsetTask.' + error;
           }
         }
         if (
           message.marinadeStateTask != null &&
-          message.hasOwnProperty("marinadeStateTask")
+          message.hasOwnProperty('marinadeStateTask')
         ) {
-          if (properties.Task === 1) return "Task: multiple values";
+          if (properties.Task === 1) return 'Task: multiple values';
           properties.Task = 1;
           {
             var error = $root.OracleJob.MarinadeStateTask.verify(
               message.marinadeStateTask
             );
-            if (error) return "marinadeStateTask." + error;
+            if (error) return 'marinadeStateTask.' + error;
           }
         }
         if (
           message.solanaAccountDataFetchTask != null &&
-          message.hasOwnProperty("solanaAccountDataFetchTask")
+          message.hasOwnProperty('solanaAccountDataFetchTask')
         ) {
-          if (properties.Task === 1) return "Task: multiple values";
+          if (properties.Task === 1) return 'Task: multiple values';
           properties.Task = 1;
           {
             var error = $root.OracleJob.SolanaAccountDataFetchTask.verify(
               message.solanaAccountDataFetchTask
             );
-            if (error) return "solanaAccountDataFetchTask." + error;
+            if (error) return 'solanaAccountDataFetchTask.' + error;
           }
         }
         if (
           message.bufferLayoutParseTask != null &&
-          message.hasOwnProperty("bufferLayoutParseTask")
+          message.hasOwnProperty('bufferLayoutParseTask')
         ) {
-          if (properties.Task === 1) return "Task: multiple values";
+          if (properties.Task === 1) return 'Task: multiple values';
           properties.Task = 1;
           {
             var error = $root.OracleJob.BufferLayoutParseTask.verify(
               message.bufferLayoutParseTask
             );
-            if (error) return "bufferLayoutParseTask." + error;
+            if (error) return 'bufferLayoutParseTask.' + error;
           }
         }
         if (
           message.cronParseTask != null &&
-          message.hasOwnProperty("cronParseTask")
+          message.hasOwnProperty('cronParseTask')
         ) {
-          if (properties.Task === 1) return "Task: multiple values";
+          if (properties.Task === 1) return 'Task: multiple values';
           properties.Task = 1;
           {
             var error = $root.OracleJob.CronParseTask.verify(
               message.cronParseTask
             );
-            if (error) return "cronParseTask." + error;
+            if (error) return 'cronParseTask.' + error;
           }
         }
-        if (message.minTask != null && message.hasOwnProperty("minTask")) {
-          if (properties.Task === 1) return "Task: multiple values";
+        if (message.minTask != null && message.hasOwnProperty('minTask')) {
+          if (properties.Task === 1) return 'Task: multiple values';
           properties.Task = 1;
           {
             var error = $root.OracleJob.MinTask.verify(message.minTask);
-            if (error) return "minTask." + error;
+            if (error) return 'minTask.' + error;
           }
         }
         if (
           message.historyFunctionTask != null &&
-          message.hasOwnProperty("historyFunctionTask")
+          message.hasOwnProperty('historyFunctionTask')
         ) {
-          if (properties.Task === 1) return "Task: multiple values";
+          if (properties.Task === 1) return 'Task: multiple values';
           properties.Task = 1;
           {
             var error = $root.OracleJob.HistoryFunctionTask.verify(
               message.historyFunctionTask
             );
-            if (error) return "historyFunctionTask." + error;
+            if (error) return 'historyFunctionTask.' + error;
           }
         }
-        if (message.vwapTask != null && message.hasOwnProperty("vwapTask")) {
-          if (properties.Task === 1) return "Task: multiple values";
+        if (message.vwapTask != null && message.hasOwnProperty('vwapTask')) {
+          if (properties.Task === 1) return 'Task: multiple values';
           properties.Task = 1;
           {
             var error = $root.OracleJob.VwapTask.verify(message.vwapTask);
-            if (error) return "vwapTask." + error;
+            if (error) return 'vwapTask.' + error;
           }
         }
-        if (message.ewmaTask != null && message.hasOwnProperty("ewmaTask")) {
-          if (properties.Task === 1) return "Task: multiple values";
+        if (message.ewmaTask != null && message.hasOwnProperty('ewmaTask')) {
+          if (properties.Task === 1) return 'Task: multiple values';
           properties.Task = 1;
           {
             var error = $root.OracleJob.EwmaTask.verify(message.ewmaTask);
-            if (error) return "ewmaTask." + error;
+            if (error) return 'ewmaTask.' + error;
           }
         }
         if (
           message.comparisonTask != null &&
-          message.hasOwnProperty("comparisonTask")
+          message.hasOwnProperty('comparisonTask')
         ) {
-          if (properties.Task === 1) return "Task: multiple values";
+          if (properties.Task === 1) return 'Task: multiple values';
           properties.Task = 1;
           {
             var error = $root.OracleJob.ComparisonTask.verify(
               message.comparisonTask
             );
-            if (error) return "comparisonTask." + error;
+            if (error) return 'comparisonTask.' + error;
           }
         }
-        if (message.roundTask != null && message.hasOwnProperty("roundTask")) {
-          if (properties.Task === 1) return "Task: multiple values";
+        if (message.roundTask != null && message.hasOwnProperty('roundTask')) {
+          if (properties.Task === 1) return 'Task: multiple values';
           properties.Task = 1;
           {
             var error = $root.OracleJob.RoundTask.verify(message.roundTask);
-            if (error) return "roundTask." + error;
+            if (error) return 'roundTask.' + error;
           }
         }
-        if (message.boundTask != null && message.hasOwnProperty("boundTask")) {
-          if (properties.Task === 1) return "Task: multiple values";
+        if (message.boundTask != null && message.hasOwnProperty('boundTask')) {
+          if (properties.Task === 1) return 'Task: multiple values';
           properties.Task = 1;
           {
             var error = $root.OracleJob.BoundTask.verify(message.boundTask);
-            if (error) return "boundTask." + error;
+            if (error) return 'boundTask.' + error;
           }
         }
         return null;
@@ -16842,58 +16842,58 @@
         if (object instanceof $root.OracleJob.Task) return object;
         var message = new $root.OracleJob.Task();
         if (object.httpTask != null) {
-          if (typeof object.httpTask !== "object")
-            throw TypeError(".OracleJob.Task.httpTask: object expected");
+          if (typeof object.httpTask !== 'object')
+            throw TypeError('.OracleJob.Task.httpTask: object expected');
           message.httpTask = $root.OracleJob.HttpTask.fromObject(
             object.httpTask
           );
         }
         if (object.jsonParseTask != null) {
-          if (typeof object.jsonParseTask !== "object")
-            throw TypeError(".OracleJob.Task.jsonParseTask: object expected");
+          if (typeof object.jsonParseTask !== 'object')
+            throw TypeError('.OracleJob.Task.jsonParseTask: object expected');
           message.jsonParseTask = $root.OracleJob.JsonParseTask.fromObject(
             object.jsonParseTask
           );
         }
         if (object.medianTask != null) {
-          if (typeof object.medianTask !== "object")
-            throw TypeError(".OracleJob.Task.medianTask: object expected");
+          if (typeof object.medianTask !== 'object')
+            throw TypeError('.OracleJob.Task.medianTask: object expected');
           message.medianTask = $root.OracleJob.MedianTask.fromObject(
             object.medianTask
           );
         }
         if (object.meanTask != null) {
-          if (typeof object.meanTask !== "object")
-            throw TypeError(".OracleJob.Task.meanTask: object expected");
+          if (typeof object.meanTask !== 'object')
+            throw TypeError('.OracleJob.Task.meanTask: object expected');
           message.meanTask = $root.OracleJob.MeanTask.fromObject(
             object.meanTask
           );
         }
         if (object.websocketTask != null) {
-          if (typeof object.websocketTask !== "object")
-            throw TypeError(".OracleJob.Task.websocketTask: object expected");
+          if (typeof object.websocketTask !== 'object')
+            throw TypeError('.OracleJob.Task.websocketTask: object expected');
           message.websocketTask = $root.OracleJob.WebsocketTask.fromObject(
             object.websocketTask
           );
         }
         if (object.divideTask != null) {
-          if (typeof object.divideTask !== "object")
-            throw TypeError(".OracleJob.Task.divideTask: object expected");
+          if (typeof object.divideTask !== 'object')
+            throw TypeError('.OracleJob.Task.divideTask: object expected');
           message.divideTask = $root.OracleJob.DivideTask.fromObject(
             object.divideTask
           );
         }
         if (object.multiplyTask != null) {
-          if (typeof object.multiplyTask !== "object")
-            throw TypeError(".OracleJob.Task.multiplyTask: object expected");
+          if (typeof object.multiplyTask !== 'object')
+            throw TypeError('.OracleJob.Task.multiplyTask: object expected');
           message.multiplyTask = $root.OracleJob.MultiplyTask.fromObject(
             object.multiplyTask
           );
         }
         if (object.lpTokenPriceTask != null) {
-          if (typeof object.lpTokenPriceTask !== "object")
+          if (typeof object.lpTokenPriceTask !== 'object')
             throw TypeError(
-              ".OracleJob.Task.lpTokenPriceTask: object expected"
+              '.OracleJob.Task.lpTokenPriceTask: object expected'
             );
           message.lpTokenPriceTask =
             $root.OracleJob.LpTokenPriceTask.fromObject(
@@ -16901,9 +16901,9 @@
             );
         }
         if (object.lpExchangeRateTask != null) {
-          if (typeof object.lpExchangeRateTask !== "object")
+          if (typeof object.lpExchangeRateTask !== 'object')
             throw TypeError(
-              ".OracleJob.Task.lpExchangeRateTask: object expected"
+              '.OracleJob.Task.lpExchangeRateTask: object expected'
             );
           message.lpExchangeRateTask =
             $root.OracleJob.LpExchangeRateTask.fromObject(
@@ -16911,28 +16911,28 @@
             );
         }
         if (object.conditionalTask != null) {
-          if (typeof object.conditionalTask !== "object")
-            throw TypeError(".OracleJob.Task.conditionalTask: object expected");
+          if (typeof object.conditionalTask !== 'object')
+            throw TypeError('.OracleJob.Task.conditionalTask: object expected');
           message.conditionalTask = $root.OracleJob.ConditionalTask.fromObject(
             object.conditionalTask
           );
         }
         if (object.valueTask != null) {
-          if (typeof object.valueTask !== "object")
-            throw TypeError(".OracleJob.Task.valueTask: object expected");
+          if (typeof object.valueTask !== 'object')
+            throw TypeError('.OracleJob.Task.valueTask: object expected');
           message.valueTask = $root.OracleJob.ValueTask.fromObject(
             object.valueTask
           );
         }
         if (object.maxTask != null) {
-          if (typeof object.maxTask !== "object")
-            throw TypeError(".OracleJob.Task.maxTask: object expected");
+          if (typeof object.maxTask !== 'object')
+            throw TypeError('.OracleJob.Task.maxTask: object expected');
           message.maxTask = $root.OracleJob.MaxTask.fromObject(object.maxTask);
         }
         if (object.regexExtractTask != null) {
-          if (typeof object.regexExtractTask !== "object")
+          if (typeof object.regexExtractTask !== 'object')
             throw TypeError(
-              ".OracleJob.Task.regexExtractTask: object expected"
+              '.OracleJob.Task.regexExtractTask: object expected'
             );
           message.regexExtractTask =
             $root.OracleJob.RegexExtractTask.fromObject(
@@ -16940,54 +16940,54 @@
             );
         }
         if (object.xstepPriceTask != null) {
-          if (typeof object.xstepPriceTask !== "object")
-            throw TypeError(".OracleJob.Task.xstepPriceTask: object expected");
+          if (typeof object.xstepPriceTask !== 'object')
+            throw TypeError('.OracleJob.Task.xstepPriceTask: object expected');
           message.xstepPriceTask = $root.OracleJob.XStepPriceTask.fromObject(
             object.xstepPriceTask
           );
         }
         if (object.addTask != null) {
-          if (typeof object.addTask !== "object")
-            throw TypeError(".OracleJob.Task.addTask: object expected");
+          if (typeof object.addTask !== 'object')
+            throw TypeError('.OracleJob.Task.addTask: object expected');
           message.addTask = $root.OracleJob.AddTask.fromObject(object.addTask);
         }
         if (object.subtractTask != null) {
-          if (typeof object.subtractTask !== "object")
-            throw TypeError(".OracleJob.Task.subtractTask: object expected");
+          if (typeof object.subtractTask !== 'object')
+            throw TypeError('.OracleJob.Task.subtractTask: object expected');
           message.subtractTask = $root.OracleJob.SubtractTask.fromObject(
             object.subtractTask
           );
         }
         if (object.twapTask != null) {
-          if (typeof object.twapTask !== "object")
-            throw TypeError(".OracleJob.Task.twapTask: object expected");
+          if (typeof object.twapTask !== 'object')
+            throw TypeError('.OracleJob.Task.twapTask: object expected');
           message.twapTask = $root.OracleJob.TwapTask.fromObject(
             object.twapTask
           );
         }
         if (object.serumSwapTask != null) {
-          if (typeof object.serumSwapTask !== "object")
-            throw TypeError(".OracleJob.Task.serumSwapTask: object expected");
+          if (typeof object.serumSwapTask !== 'object')
+            throw TypeError('.OracleJob.Task.serumSwapTask: object expected');
           message.serumSwapTask = $root.OracleJob.SerumSwapTask.fromObject(
             object.serumSwapTask
           );
         }
         if (object.powTask != null) {
-          if (typeof object.powTask !== "object")
-            throw TypeError(".OracleJob.Task.powTask: object expected");
+          if (typeof object.powTask !== 'object')
+            throw TypeError('.OracleJob.Task.powTask: object expected');
           message.powTask = $root.OracleJob.PowTask.fromObject(object.powTask);
         }
         if (object.lendingRateTask != null) {
-          if (typeof object.lendingRateTask !== "object")
-            throw TypeError(".OracleJob.Task.lendingRateTask: object expected");
+          if (typeof object.lendingRateTask !== 'object')
+            throw TypeError('.OracleJob.Task.lendingRateTask: object expected');
           message.lendingRateTask = $root.OracleJob.LendingRateTask.fromObject(
             object.lendingRateTask
           );
         }
         if (object.mangoPerpMarketTask != null) {
-          if (typeof object.mangoPerpMarketTask !== "object")
+          if (typeof object.mangoPerpMarketTask !== 'object')
             throw TypeError(
-              ".OracleJob.Task.mangoPerpMarketTask: object expected"
+              '.OracleJob.Task.mangoPerpMarketTask: object expected'
             );
           message.mangoPerpMarketTask =
             $root.OracleJob.MangoPerpMarketTask.fromObject(
@@ -16995,37 +16995,37 @@
             );
         }
         if (object.jupiterSwapTask != null) {
-          if (typeof object.jupiterSwapTask !== "object")
-            throw TypeError(".OracleJob.Task.jupiterSwapTask: object expected");
+          if (typeof object.jupiterSwapTask !== 'object')
+            throw TypeError('.OracleJob.Task.jupiterSwapTask: object expected');
           message.jupiterSwapTask = $root.OracleJob.JupiterSwapTask.fromObject(
             object.jupiterSwapTask
           );
         }
         if (object.perpMarketTask != null) {
-          if (typeof object.perpMarketTask !== "object")
-            throw TypeError(".OracleJob.Task.perpMarketTask: object expected");
+          if (typeof object.perpMarketTask !== 'object')
+            throw TypeError('.OracleJob.Task.perpMarketTask: object expected');
           message.perpMarketTask = $root.OracleJob.PerpMarketTask.fromObject(
             object.perpMarketTask
           );
         }
         if (object.oracleTask != null) {
-          if (typeof object.oracleTask !== "object")
-            throw TypeError(".OracleJob.Task.oracleTask: object expected");
+          if (typeof object.oracleTask !== 'object')
+            throw TypeError('.OracleJob.Task.oracleTask: object expected');
           message.oracleTask = $root.OracleJob.OracleTask.fromObject(
             object.oracleTask
           );
         }
         if (object.anchorFetchTask != null) {
-          if (typeof object.anchorFetchTask !== "object")
-            throw TypeError(".OracleJob.Task.anchorFetchTask: object expected");
+          if (typeof object.anchorFetchTask !== 'object')
+            throw TypeError('.OracleJob.Task.anchorFetchTask: object expected');
           message.anchorFetchTask = $root.OracleJob.AnchorFetchTask.fromObject(
             object.anchorFetchTask
           );
         }
         if (object.defiKingdomsTask != null) {
-          if (typeof object.defiKingdomsTask !== "object")
+          if (typeof object.defiKingdomsTask !== 'object')
             throw TypeError(
-              ".OracleJob.Task.defiKingdomsTask: object expected"
+              '.OracleJob.Task.defiKingdomsTask: object expected'
             );
           message.defiKingdomsTask =
             $root.OracleJob.DefiKingdomsTask.fromObject(
@@ -17033,14 +17033,14 @@
             );
         }
         if (object.tpsTask != null) {
-          if (typeof object.tpsTask !== "object")
-            throw TypeError(".OracleJob.Task.tpsTask: object expected");
+          if (typeof object.tpsTask !== 'object')
+            throw TypeError('.OracleJob.Task.tpsTask: object expected');
           message.tpsTask = $root.OracleJob.TpsTask.fromObject(object.tpsTask);
         }
         if (object.splStakePoolTask != null) {
-          if (typeof object.splStakePoolTask !== "object")
+          if (typeof object.splStakePoolTask !== 'object')
             throw TypeError(
-              ".OracleJob.Task.splStakePoolTask: object expected"
+              '.OracleJob.Task.splStakePoolTask: object expected'
             );
           message.splStakePoolTask =
             $root.OracleJob.SplStakePoolTask.fromObject(
@@ -17048,9 +17048,9 @@
             );
         }
         if (object.splTokenParseTask != null) {
-          if (typeof object.splTokenParseTask !== "object")
+          if (typeof object.splTokenParseTask !== 'object')
             throw TypeError(
-              ".OracleJob.Task.splTokenParseTask: object expected"
+              '.OracleJob.Task.splTokenParseTask: object expected'
             );
           message.splTokenParseTask =
             $root.OracleJob.SplTokenParseTask.fromObject(
@@ -17058,9 +17058,9 @@
             );
         }
         if (object.uniswapExchangeRateTask != null) {
-          if (typeof object.uniswapExchangeRateTask !== "object")
+          if (typeof object.uniswapExchangeRateTask !== 'object')
             throw TypeError(
-              ".OracleJob.Task.uniswapExchangeRateTask: object expected"
+              '.OracleJob.Task.uniswapExchangeRateTask: object expected'
             );
           message.uniswapExchangeRateTask =
             $root.OracleJob.UniswapExchangeRateTask.fromObject(
@@ -17068,9 +17068,9 @@
             );
         }
         if (object.sushiswapExchangeRateTask != null) {
-          if (typeof object.sushiswapExchangeRateTask !== "object")
+          if (typeof object.sushiswapExchangeRateTask !== 'object')
             throw TypeError(
-              ".OracleJob.Task.sushiswapExchangeRateTask: object expected"
+              '.OracleJob.Task.sushiswapExchangeRateTask: object expected'
             );
           message.sushiswapExchangeRateTask =
             $root.OracleJob.SushiswapExchangeRateTask.fromObject(
@@ -17078,9 +17078,9 @@
             );
         }
         if (object.pancakeswapExchangeRateTask != null) {
-          if (typeof object.pancakeswapExchangeRateTask !== "object")
+          if (typeof object.pancakeswapExchangeRateTask !== 'object')
             throw TypeError(
-              ".OracleJob.Task.pancakeswapExchangeRateTask: object expected"
+              '.OracleJob.Task.pancakeswapExchangeRateTask: object expected'
             );
           message.pancakeswapExchangeRateTask =
             $root.OracleJob.PancakeswapExchangeRateTask.fromObject(
@@ -17088,16 +17088,16 @@
             );
         }
         if (object.cacheTask != null) {
-          if (typeof object.cacheTask !== "object")
-            throw TypeError(".OracleJob.Task.cacheTask: object expected");
+          if (typeof object.cacheTask !== 'object')
+            throw TypeError('.OracleJob.Task.cacheTask: object expected');
           message.cacheTask = $root.OracleJob.CacheTask.fromObject(
             object.cacheTask
           );
         }
         if (object.sysclockOffsetTask != null) {
-          if (typeof object.sysclockOffsetTask !== "object")
+          if (typeof object.sysclockOffsetTask !== 'object')
             throw TypeError(
-              ".OracleJob.Task.sysclockOffsetTask: object expected"
+              '.OracleJob.Task.sysclockOffsetTask: object expected'
             );
           message.sysclockOffsetTask =
             $root.OracleJob.SysclockOffsetTask.fromObject(
@@ -17105,9 +17105,9 @@
             );
         }
         if (object.marinadeStateTask != null) {
-          if (typeof object.marinadeStateTask !== "object")
+          if (typeof object.marinadeStateTask !== 'object')
             throw TypeError(
-              ".OracleJob.Task.marinadeStateTask: object expected"
+              '.OracleJob.Task.marinadeStateTask: object expected'
             );
           message.marinadeStateTask =
             $root.OracleJob.MarinadeStateTask.fromObject(
@@ -17115,9 +17115,9 @@
             );
         }
         if (object.solanaAccountDataFetchTask != null) {
-          if (typeof object.solanaAccountDataFetchTask !== "object")
+          if (typeof object.solanaAccountDataFetchTask !== 'object')
             throw TypeError(
-              ".OracleJob.Task.solanaAccountDataFetchTask: object expected"
+              '.OracleJob.Task.solanaAccountDataFetchTask: object expected'
             );
           message.solanaAccountDataFetchTask =
             $root.OracleJob.SolanaAccountDataFetchTask.fromObject(
@@ -17125,9 +17125,9 @@
             );
         }
         if (object.bufferLayoutParseTask != null) {
-          if (typeof object.bufferLayoutParseTask !== "object")
+          if (typeof object.bufferLayoutParseTask !== 'object')
             throw TypeError(
-              ".OracleJob.Task.bufferLayoutParseTask: object expected"
+              '.OracleJob.Task.bufferLayoutParseTask: object expected'
             );
           message.bufferLayoutParseTask =
             $root.OracleJob.BufferLayoutParseTask.fromObject(
@@ -17135,21 +17135,21 @@
             );
         }
         if (object.cronParseTask != null) {
-          if (typeof object.cronParseTask !== "object")
-            throw TypeError(".OracleJob.Task.cronParseTask: object expected");
+          if (typeof object.cronParseTask !== 'object')
+            throw TypeError('.OracleJob.Task.cronParseTask: object expected');
           message.cronParseTask = $root.OracleJob.CronParseTask.fromObject(
             object.cronParseTask
           );
         }
         if (object.minTask != null) {
-          if (typeof object.minTask !== "object")
-            throw TypeError(".OracleJob.Task.minTask: object expected");
+          if (typeof object.minTask !== 'object')
+            throw TypeError('.OracleJob.Task.minTask: object expected');
           message.minTask = $root.OracleJob.MinTask.fromObject(object.minTask);
         }
         if (object.historyFunctionTask != null) {
-          if (typeof object.historyFunctionTask !== "object")
+          if (typeof object.historyFunctionTask !== 'object')
             throw TypeError(
-              ".OracleJob.Task.historyFunctionTask: object expected"
+              '.OracleJob.Task.historyFunctionTask: object expected'
             );
           message.historyFunctionTask =
             $root.OracleJob.HistoryFunctionTask.fromObject(
@@ -17157,36 +17157,36 @@
             );
         }
         if (object.vwapTask != null) {
-          if (typeof object.vwapTask !== "object")
-            throw TypeError(".OracleJob.Task.vwapTask: object expected");
+          if (typeof object.vwapTask !== 'object')
+            throw TypeError('.OracleJob.Task.vwapTask: object expected');
           message.vwapTask = $root.OracleJob.VwapTask.fromObject(
             object.vwapTask
           );
         }
         if (object.ewmaTask != null) {
-          if (typeof object.ewmaTask !== "object")
-            throw TypeError(".OracleJob.Task.ewmaTask: object expected");
+          if (typeof object.ewmaTask !== 'object')
+            throw TypeError('.OracleJob.Task.ewmaTask: object expected');
           message.ewmaTask = $root.OracleJob.EwmaTask.fromObject(
             object.ewmaTask
           );
         }
         if (object.comparisonTask != null) {
-          if (typeof object.comparisonTask !== "object")
-            throw TypeError(".OracleJob.Task.comparisonTask: object expected");
+          if (typeof object.comparisonTask !== 'object')
+            throw TypeError('.OracleJob.Task.comparisonTask: object expected');
           message.comparisonTask = $root.OracleJob.ComparisonTask.fromObject(
             object.comparisonTask
           );
         }
         if (object.roundTask != null) {
-          if (typeof object.roundTask !== "object")
-            throw TypeError(".OracleJob.Task.roundTask: object expected");
+          if (typeof object.roundTask !== 'object')
+            throw TypeError('.OracleJob.Task.roundTask: object expected');
           message.roundTask = $root.OracleJob.RoundTask.fromObject(
             object.roundTask
           );
         }
         if (object.boundTask != null) {
-          if (typeof object.boundTask !== "object")
-            throw TypeError(".OracleJob.Task.boundTask: object expected");
+          if (typeof object.boundTask !== 'object')
+            throw TypeError('.OracleJob.Task.boundTask: object expected');
           message.boundTask = $root.OracleJob.BoundTask.fromObject(
             object.boundTask
           );
@@ -17206,422 +17206,422 @@
       Task.toObject = function toObject(message, options) {
         if (!options) options = {};
         var object = {};
-        if (message.httpTask != null && message.hasOwnProperty("httpTask")) {
+        if (message.httpTask != null && message.hasOwnProperty('httpTask')) {
           object.httpTask = $root.OracleJob.HttpTask.toObject(
             message.httpTask,
             options
           );
-          if (options.oneofs) object.Task = "httpTask";
+          if (options.oneofs) object.Task = 'httpTask';
         }
         if (
           message.jsonParseTask != null &&
-          message.hasOwnProperty("jsonParseTask")
+          message.hasOwnProperty('jsonParseTask')
         ) {
           object.jsonParseTask = $root.OracleJob.JsonParseTask.toObject(
             message.jsonParseTask,
             options
           );
-          if (options.oneofs) object.Task = "jsonParseTask";
+          if (options.oneofs) object.Task = 'jsonParseTask';
         }
         if (
           message.medianTask != null &&
-          message.hasOwnProperty("medianTask")
+          message.hasOwnProperty('medianTask')
         ) {
           object.medianTask = $root.OracleJob.MedianTask.toObject(
             message.medianTask,
             options
           );
-          if (options.oneofs) object.Task = "medianTask";
+          if (options.oneofs) object.Task = 'medianTask';
         }
-        if (message.meanTask != null && message.hasOwnProperty("meanTask")) {
+        if (message.meanTask != null && message.hasOwnProperty('meanTask')) {
           object.meanTask = $root.OracleJob.MeanTask.toObject(
             message.meanTask,
             options
           );
-          if (options.oneofs) object.Task = "meanTask";
+          if (options.oneofs) object.Task = 'meanTask';
         }
         if (
           message.websocketTask != null &&
-          message.hasOwnProperty("websocketTask")
+          message.hasOwnProperty('websocketTask')
         ) {
           object.websocketTask = $root.OracleJob.WebsocketTask.toObject(
             message.websocketTask,
             options
           );
-          if (options.oneofs) object.Task = "websocketTask";
+          if (options.oneofs) object.Task = 'websocketTask';
         }
         if (
           message.divideTask != null &&
-          message.hasOwnProperty("divideTask")
+          message.hasOwnProperty('divideTask')
         ) {
           object.divideTask = $root.OracleJob.DivideTask.toObject(
             message.divideTask,
             options
           );
-          if (options.oneofs) object.Task = "divideTask";
+          if (options.oneofs) object.Task = 'divideTask';
         }
         if (
           message.multiplyTask != null &&
-          message.hasOwnProperty("multiplyTask")
+          message.hasOwnProperty('multiplyTask')
         ) {
           object.multiplyTask = $root.OracleJob.MultiplyTask.toObject(
             message.multiplyTask,
             options
           );
-          if (options.oneofs) object.Task = "multiplyTask";
+          if (options.oneofs) object.Task = 'multiplyTask';
         }
         if (
           message.lpTokenPriceTask != null &&
-          message.hasOwnProperty("lpTokenPriceTask")
+          message.hasOwnProperty('lpTokenPriceTask')
         ) {
           object.lpTokenPriceTask = $root.OracleJob.LpTokenPriceTask.toObject(
             message.lpTokenPriceTask,
             options
           );
-          if (options.oneofs) object.Task = "lpTokenPriceTask";
+          if (options.oneofs) object.Task = 'lpTokenPriceTask';
         }
         if (
           message.lpExchangeRateTask != null &&
-          message.hasOwnProperty("lpExchangeRateTask")
+          message.hasOwnProperty('lpExchangeRateTask')
         ) {
           object.lpExchangeRateTask =
             $root.OracleJob.LpExchangeRateTask.toObject(
               message.lpExchangeRateTask,
               options
             );
-          if (options.oneofs) object.Task = "lpExchangeRateTask";
+          if (options.oneofs) object.Task = 'lpExchangeRateTask';
         }
         if (
           message.conditionalTask != null &&
-          message.hasOwnProperty("conditionalTask")
+          message.hasOwnProperty('conditionalTask')
         ) {
           object.conditionalTask = $root.OracleJob.ConditionalTask.toObject(
             message.conditionalTask,
             options
           );
-          if (options.oneofs) object.Task = "conditionalTask";
+          if (options.oneofs) object.Task = 'conditionalTask';
         }
-        if (message.valueTask != null && message.hasOwnProperty("valueTask")) {
+        if (message.valueTask != null && message.hasOwnProperty('valueTask')) {
           object.valueTask = $root.OracleJob.ValueTask.toObject(
             message.valueTask,
             options
           );
-          if (options.oneofs) object.Task = "valueTask";
+          if (options.oneofs) object.Task = 'valueTask';
         }
-        if (message.maxTask != null && message.hasOwnProperty("maxTask")) {
+        if (message.maxTask != null && message.hasOwnProperty('maxTask')) {
           object.maxTask = $root.OracleJob.MaxTask.toObject(
             message.maxTask,
             options
           );
-          if (options.oneofs) object.Task = "maxTask";
+          if (options.oneofs) object.Task = 'maxTask';
         }
         if (
           message.regexExtractTask != null &&
-          message.hasOwnProperty("regexExtractTask")
+          message.hasOwnProperty('regexExtractTask')
         ) {
           object.regexExtractTask = $root.OracleJob.RegexExtractTask.toObject(
             message.regexExtractTask,
             options
           );
-          if (options.oneofs) object.Task = "regexExtractTask";
+          if (options.oneofs) object.Task = 'regexExtractTask';
         }
         if (
           message.xstepPriceTask != null &&
-          message.hasOwnProperty("xstepPriceTask")
+          message.hasOwnProperty('xstepPriceTask')
         ) {
           object.xstepPriceTask = $root.OracleJob.XStepPriceTask.toObject(
             message.xstepPriceTask,
             options
           );
-          if (options.oneofs) object.Task = "xstepPriceTask";
+          if (options.oneofs) object.Task = 'xstepPriceTask';
         }
-        if (message.addTask != null && message.hasOwnProperty("addTask")) {
+        if (message.addTask != null && message.hasOwnProperty('addTask')) {
           object.addTask = $root.OracleJob.AddTask.toObject(
             message.addTask,
             options
           );
-          if (options.oneofs) object.Task = "addTask";
+          if (options.oneofs) object.Task = 'addTask';
         }
         if (
           message.subtractTask != null &&
-          message.hasOwnProperty("subtractTask")
+          message.hasOwnProperty('subtractTask')
         ) {
           object.subtractTask = $root.OracleJob.SubtractTask.toObject(
             message.subtractTask,
             options
           );
-          if (options.oneofs) object.Task = "subtractTask";
+          if (options.oneofs) object.Task = 'subtractTask';
         }
-        if (message.twapTask != null && message.hasOwnProperty("twapTask")) {
+        if (message.twapTask != null && message.hasOwnProperty('twapTask')) {
           object.twapTask = $root.OracleJob.TwapTask.toObject(
             message.twapTask,
             options
           );
-          if (options.oneofs) object.Task = "twapTask";
+          if (options.oneofs) object.Task = 'twapTask';
         }
         if (
           message.serumSwapTask != null &&
-          message.hasOwnProperty("serumSwapTask")
+          message.hasOwnProperty('serumSwapTask')
         ) {
           object.serumSwapTask = $root.OracleJob.SerumSwapTask.toObject(
             message.serumSwapTask,
             options
           );
-          if (options.oneofs) object.Task = "serumSwapTask";
+          if (options.oneofs) object.Task = 'serumSwapTask';
         }
-        if (message.powTask != null && message.hasOwnProperty("powTask")) {
+        if (message.powTask != null && message.hasOwnProperty('powTask')) {
           object.powTask = $root.OracleJob.PowTask.toObject(
             message.powTask,
             options
           );
-          if (options.oneofs) object.Task = "powTask";
+          if (options.oneofs) object.Task = 'powTask';
         }
         if (
           message.lendingRateTask != null &&
-          message.hasOwnProperty("lendingRateTask")
+          message.hasOwnProperty('lendingRateTask')
         ) {
           object.lendingRateTask = $root.OracleJob.LendingRateTask.toObject(
             message.lendingRateTask,
             options
           );
-          if (options.oneofs) object.Task = "lendingRateTask";
+          if (options.oneofs) object.Task = 'lendingRateTask';
         }
         if (
           message.mangoPerpMarketTask != null &&
-          message.hasOwnProperty("mangoPerpMarketTask")
+          message.hasOwnProperty('mangoPerpMarketTask')
         ) {
           object.mangoPerpMarketTask =
             $root.OracleJob.MangoPerpMarketTask.toObject(
               message.mangoPerpMarketTask,
               options
             );
-          if (options.oneofs) object.Task = "mangoPerpMarketTask";
+          if (options.oneofs) object.Task = 'mangoPerpMarketTask';
         }
         if (
           message.jupiterSwapTask != null &&
-          message.hasOwnProperty("jupiterSwapTask")
+          message.hasOwnProperty('jupiterSwapTask')
         ) {
           object.jupiterSwapTask = $root.OracleJob.JupiterSwapTask.toObject(
             message.jupiterSwapTask,
             options
           );
-          if (options.oneofs) object.Task = "jupiterSwapTask";
+          if (options.oneofs) object.Task = 'jupiterSwapTask';
         }
         if (
           message.perpMarketTask != null &&
-          message.hasOwnProperty("perpMarketTask")
+          message.hasOwnProperty('perpMarketTask')
         ) {
           object.perpMarketTask = $root.OracleJob.PerpMarketTask.toObject(
             message.perpMarketTask,
             options
           );
-          if (options.oneofs) object.Task = "perpMarketTask";
+          if (options.oneofs) object.Task = 'perpMarketTask';
         }
         if (
           message.oracleTask != null &&
-          message.hasOwnProperty("oracleTask")
+          message.hasOwnProperty('oracleTask')
         ) {
           object.oracleTask = $root.OracleJob.OracleTask.toObject(
             message.oracleTask,
             options
           );
-          if (options.oneofs) object.Task = "oracleTask";
+          if (options.oneofs) object.Task = 'oracleTask';
         }
         if (
           message.anchorFetchTask != null &&
-          message.hasOwnProperty("anchorFetchTask")
+          message.hasOwnProperty('anchorFetchTask')
         ) {
           object.anchorFetchTask = $root.OracleJob.AnchorFetchTask.toObject(
             message.anchorFetchTask,
             options
           );
-          if (options.oneofs) object.Task = "anchorFetchTask";
+          if (options.oneofs) object.Task = 'anchorFetchTask';
         }
         if (
           message.defiKingdomsTask != null &&
-          message.hasOwnProperty("defiKingdomsTask")
+          message.hasOwnProperty('defiKingdomsTask')
         ) {
           object.defiKingdomsTask = $root.OracleJob.DefiKingdomsTask.toObject(
             message.defiKingdomsTask,
             options
           );
-          if (options.oneofs) object.Task = "defiKingdomsTask";
+          if (options.oneofs) object.Task = 'defiKingdomsTask';
         }
-        if (message.tpsTask != null && message.hasOwnProperty("tpsTask")) {
+        if (message.tpsTask != null && message.hasOwnProperty('tpsTask')) {
           object.tpsTask = $root.OracleJob.TpsTask.toObject(
             message.tpsTask,
             options
           );
-          if (options.oneofs) object.Task = "tpsTask";
+          if (options.oneofs) object.Task = 'tpsTask';
         }
         if (
           message.splStakePoolTask != null &&
-          message.hasOwnProperty("splStakePoolTask")
+          message.hasOwnProperty('splStakePoolTask')
         ) {
           object.splStakePoolTask = $root.OracleJob.SplStakePoolTask.toObject(
             message.splStakePoolTask,
             options
           );
-          if (options.oneofs) object.Task = "splStakePoolTask";
+          if (options.oneofs) object.Task = 'splStakePoolTask';
         }
         if (
           message.splTokenParseTask != null &&
-          message.hasOwnProperty("splTokenParseTask")
+          message.hasOwnProperty('splTokenParseTask')
         ) {
           object.splTokenParseTask = $root.OracleJob.SplTokenParseTask.toObject(
             message.splTokenParseTask,
             options
           );
-          if (options.oneofs) object.Task = "splTokenParseTask";
+          if (options.oneofs) object.Task = 'splTokenParseTask';
         }
         if (
           message.uniswapExchangeRateTask != null &&
-          message.hasOwnProperty("uniswapExchangeRateTask")
+          message.hasOwnProperty('uniswapExchangeRateTask')
         ) {
           object.uniswapExchangeRateTask =
             $root.OracleJob.UniswapExchangeRateTask.toObject(
               message.uniswapExchangeRateTask,
               options
             );
-          if (options.oneofs) object.Task = "uniswapExchangeRateTask";
+          if (options.oneofs) object.Task = 'uniswapExchangeRateTask';
         }
         if (
           message.sushiswapExchangeRateTask != null &&
-          message.hasOwnProperty("sushiswapExchangeRateTask")
+          message.hasOwnProperty('sushiswapExchangeRateTask')
         ) {
           object.sushiswapExchangeRateTask =
             $root.OracleJob.SushiswapExchangeRateTask.toObject(
               message.sushiswapExchangeRateTask,
               options
             );
-          if (options.oneofs) object.Task = "sushiswapExchangeRateTask";
+          if (options.oneofs) object.Task = 'sushiswapExchangeRateTask';
         }
         if (
           message.pancakeswapExchangeRateTask != null &&
-          message.hasOwnProperty("pancakeswapExchangeRateTask")
+          message.hasOwnProperty('pancakeswapExchangeRateTask')
         ) {
           object.pancakeswapExchangeRateTask =
             $root.OracleJob.PancakeswapExchangeRateTask.toObject(
               message.pancakeswapExchangeRateTask,
               options
             );
-          if (options.oneofs) object.Task = "pancakeswapExchangeRateTask";
+          if (options.oneofs) object.Task = 'pancakeswapExchangeRateTask';
         }
-        if (message.cacheTask != null && message.hasOwnProperty("cacheTask")) {
+        if (message.cacheTask != null && message.hasOwnProperty('cacheTask')) {
           object.cacheTask = $root.OracleJob.CacheTask.toObject(
             message.cacheTask,
             options
           );
-          if (options.oneofs) object.Task = "cacheTask";
+          if (options.oneofs) object.Task = 'cacheTask';
         }
         if (
           message.sysclockOffsetTask != null &&
-          message.hasOwnProperty("sysclockOffsetTask")
+          message.hasOwnProperty('sysclockOffsetTask')
         ) {
           object.sysclockOffsetTask =
             $root.OracleJob.SysclockOffsetTask.toObject(
               message.sysclockOffsetTask,
               options
             );
-          if (options.oneofs) object.Task = "sysclockOffsetTask";
+          if (options.oneofs) object.Task = 'sysclockOffsetTask';
         }
         if (
           message.marinadeStateTask != null &&
-          message.hasOwnProperty("marinadeStateTask")
+          message.hasOwnProperty('marinadeStateTask')
         ) {
           object.marinadeStateTask = $root.OracleJob.MarinadeStateTask.toObject(
             message.marinadeStateTask,
             options
           );
-          if (options.oneofs) object.Task = "marinadeStateTask";
+          if (options.oneofs) object.Task = 'marinadeStateTask';
         }
         if (
           message.solanaAccountDataFetchTask != null &&
-          message.hasOwnProperty("solanaAccountDataFetchTask")
+          message.hasOwnProperty('solanaAccountDataFetchTask')
         ) {
           object.solanaAccountDataFetchTask =
             $root.OracleJob.SolanaAccountDataFetchTask.toObject(
               message.solanaAccountDataFetchTask,
               options
             );
-          if (options.oneofs) object.Task = "solanaAccountDataFetchTask";
+          if (options.oneofs) object.Task = 'solanaAccountDataFetchTask';
         }
         if (
           message.bufferLayoutParseTask != null &&
-          message.hasOwnProperty("bufferLayoutParseTask")
+          message.hasOwnProperty('bufferLayoutParseTask')
         ) {
           object.bufferLayoutParseTask =
             $root.OracleJob.BufferLayoutParseTask.toObject(
               message.bufferLayoutParseTask,
               options
             );
-          if (options.oneofs) object.Task = "bufferLayoutParseTask";
+          if (options.oneofs) object.Task = 'bufferLayoutParseTask';
         }
         if (
           message.cronParseTask != null &&
-          message.hasOwnProperty("cronParseTask")
+          message.hasOwnProperty('cronParseTask')
         ) {
           object.cronParseTask = $root.OracleJob.CronParseTask.toObject(
             message.cronParseTask,
             options
           );
-          if (options.oneofs) object.Task = "cronParseTask";
+          if (options.oneofs) object.Task = 'cronParseTask';
         }
-        if (message.minTask != null && message.hasOwnProperty("minTask")) {
+        if (message.minTask != null && message.hasOwnProperty('minTask')) {
           object.minTask = $root.OracleJob.MinTask.toObject(
             message.minTask,
             options
           );
-          if (options.oneofs) object.Task = "minTask";
+          if (options.oneofs) object.Task = 'minTask';
         }
         if (
           message.historyFunctionTask != null &&
-          message.hasOwnProperty("historyFunctionTask")
+          message.hasOwnProperty('historyFunctionTask')
         ) {
           object.historyFunctionTask =
             $root.OracleJob.HistoryFunctionTask.toObject(
               message.historyFunctionTask,
               options
             );
-          if (options.oneofs) object.Task = "historyFunctionTask";
+          if (options.oneofs) object.Task = 'historyFunctionTask';
         }
-        if (message.vwapTask != null && message.hasOwnProperty("vwapTask")) {
+        if (message.vwapTask != null && message.hasOwnProperty('vwapTask')) {
           object.vwapTask = $root.OracleJob.VwapTask.toObject(
             message.vwapTask,
             options
           );
-          if (options.oneofs) object.Task = "vwapTask";
+          if (options.oneofs) object.Task = 'vwapTask';
         }
-        if (message.ewmaTask != null && message.hasOwnProperty("ewmaTask")) {
+        if (message.ewmaTask != null && message.hasOwnProperty('ewmaTask')) {
           object.ewmaTask = $root.OracleJob.EwmaTask.toObject(
             message.ewmaTask,
             options
           );
-          if (options.oneofs) object.Task = "ewmaTask";
+          if (options.oneofs) object.Task = 'ewmaTask';
         }
         if (
           message.comparisonTask != null &&
-          message.hasOwnProperty("comparisonTask")
+          message.hasOwnProperty('comparisonTask')
         ) {
           object.comparisonTask = $root.OracleJob.ComparisonTask.toObject(
             message.comparisonTask,
             options
           );
-          if (options.oneofs) object.Task = "comparisonTask";
+          if (options.oneofs) object.Task = 'comparisonTask';
         }
-        if (message.roundTask != null && message.hasOwnProperty("roundTask")) {
+        if (message.roundTask != null && message.hasOwnProperty('roundTask')) {
           object.roundTask = $root.OracleJob.RoundTask.toObject(
             message.roundTask,
             options
           );
-          if (options.oneofs) object.Task = "roundTask";
+          if (options.oneofs) object.Task = 'roundTask';
         }
-        if (message.boundTask != null && message.hasOwnProperty("boundTask")) {
+        if (message.boundTask != null && message.hasOwnProperty('boundTask')) {
           object.boundTask = $root.OracleJob.BoundTask.toObject(
             message.boundTask,
             options
           );
-          if (options.oneofs) object.Task = "boundTask";
+          if (options.oneofs) object.Task = 'boundTask';
         }
         return object;
       };
@@ -17647,9 +17647,9 @@
        */
       Task.getTypeUrl = function getTypeUrl(typeUrlPrefix) {
         if (typeUrlPrefix === undefined) {
-          typeUrlPrefix = "type.googleapis.com";
+          typeUrlPrefix = 'type.googleapis.com';
         }
-        return typeUrlPrefix + "/OracleJob.Task";
+        return typeUrlPrefix + '/OracleJob.Task';
       };
 
       return Task;

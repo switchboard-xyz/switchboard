@@ -1,9 +1,10 @@
+import { SolanaWithoutSignerBaseCommand as BaseCommand } from "../../../solana";
+import { CHECK_ICON, sleep } from "../../../utils";
+
 import { Args, Flags } from "@oclif/core";
 import { AggregatorAccount, types } from "@switchboard-xyz/solana.js";
 import fs from "fs";
 import path from "path";
-import { SolanaWithoutSignerBaseCommand as BaseCommand } from "../../../solana";
-import { CHECK_ICON, sleep } from "../../../utils";
 
 export default class AggregatorWatch extends BaseCommand {
   static description = "watch an aggregator account and stream the results";

@@ -1,8 +1,9 @@
+import { SolanaWithSignerBaseCommand as BaseCommand } from "../../../solana";
+import { CHECK_ICON } from "../../../utils";
+
 import { Args, Flags } from "@oclif/core";
 import { Keypair } from "@solana/web3.js";
 import { QueueAccount } from "@switchboard-xyz/solana.js";
-import { SolanaWithSignerBaseCommand as BaseCommand } from "../../../solana";
-import { CHECK_ICON } from "../../../utils";
 import chalk from "chalk";
 
 export default class QueueSet extends BaseCommand {
@@ -75,7 +76,7 @@ export default class QueueSet extends BaseCommand {
       args.queueKey
     );
 
-    let authority: Keypair | undefined = undefined;
+    let authority: Keypair | undefined;
     if (flags.authority) {
       authority = await this.loadAuthority(flags.authority, queue.authority);
     }

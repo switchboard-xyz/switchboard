@@ -1,36 +1,9 @@
-import { Flags } from "@oclif/core";
-import { Input } from "@oclif/parser";
-import * as anchor from "@coral-xyz/anchor";
-import {
-  AccountInfo,
-  Cluster,
-  Connection,
-  Keypair,
-  PublicKey,
-} from "@solana/web3.js";
-import { AuthorityMismatch } from "../types";
-import { loadKeypair } from "../utils";
 import { CliBaseCommand as BaseCommand } from "../BaseCommand";
 import { AwsProvider, FsProvider, GcpProvider } from "../providers";
+import { AuthorityMismatch } from "../types";
 import { IBaseChain } from "../types/chain";
-import { OracleJob } from "@switchboard-xyz/common";
-import {
-  SBV2_MAINNET_PID,
-  SBV2_DEVNET_PID,
-  SwitchboardProgram,
-  QueueAccount,
-  AggregatorAccount,
-  CrankAccount,
-  OracleAccount,
-  JobAccount,
-  types,
-  PermissionAccount,
-  LeaseAccount,
-  AggregatorAccounts,
-  VrfAccounts,
-  VrfAccount,
-  SwitchboardAccountType,
-} from "@switchboard-xyz/solana.js";
+import { loadKeypair } from "../utils";
+
 import {
   prettyPrintAggregator,
   prettyPrintAggregatorAccounts,
@@ -45,6 +18,35 @@ import {
   prettyPrintVrf,
   prettyPrintVrfAccounts,
 } from "./utils";
+
+import * as anchor from "@coral-xyz/anchor";
+import { Flags } from "@oclif/core";
+import { Input } from "@oclif/parser";
+import {
+  AccountInfo,
+  Cluster,
+  Connection,
+  Keypair,
+  PublicKey,
+} from "@solana/web3.js";
+import { OracleJob } from "@switchboard-xyz/common";
+import {
+  AggregatorAccount,
+  AggregatorAccounts,
+  CrankAccount,
+  JobAccount,
+  LeaseAccount,
+  OracleAccount,
+  PermissionAccount,
+  QueueAccount,
+  SBV2_DEVNET_PID,
+  SBV2_MAINNET_PID,
+  SwitchboardAccountType,
+  SwitchboardProgram,
+  types,
+  VrfAccount,
+  VrfAccounts,
+} from "@switchboard-xyz/solana.js";
 
 export type SolanaNetwork = Cluster | "localnet";
 

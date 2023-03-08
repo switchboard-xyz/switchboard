@@ -1,7 +1,8 @@
-import { Args, Flags } from "@oclif/core";
 import { AptosWithSignerBaseCommand as BaseCommand } from "../../../aptos";
-import { DockerOracle } from "@switchboard-xyz/common";
 import { sleep } from "../../../utils";
+
+import { Args, Flags } from "@oclif/core";
+import { DockerOracle } from "@switchboard-xyz/oracle";
 
 export default class AptosDockerOracle extends BaseCommand {
   static description = "start an aptos docker oracle";
@@ -41,26 +42,23 @@ export default class AptosDockerOracle extends BaseCommand {
     );
 
     // TODO: Add mounts for AWS creds
-    const docker = new DockerOracle(
-      flags.nodeImage,
-      {
-        chain: "aptos",
-        network: flags.networkId as "testnet" | "devnet",
-        rpcUrl: this.rpcUrl,
-        oracleKey: oracleAccount.address.toString(),
-        secretPath: this.normalizePath(flags.keypair!),
-        arch: flags.arm ? "linux/arm64" : "linux/amd64",
-        envVariables: {
-          PROGRAM_ID: this.programId.toString(),
-        },
+    const docker = new DockerOracle({
+      chain: "aptos",
+      network: flags.networkId as "testnet" | "devnet",
+      rpcUrl: this.rpcUrl,
+      oracleKey: oracleAccount.address.toString(),
+      secretPath: this.normalizePath(flags.keypair!),
+      arch: flags.arm ? "linux/arm64" : "linux/amd64",
+      envVariables: {
+        PROGRAM_ID: this.programId.toString(),
       },
-
-      flags.switchboardDir,
-      flags.silent
-    );
+      imageTag: flags.nodeImage,
+      switchboardDirectory: flags.switchboardDir,
+      silent: flags.silent,
+    });
     docker.start();
 
-    await sleep(120000);
+    await sleep(120_000);
   }
 
   async catch(error: any) {

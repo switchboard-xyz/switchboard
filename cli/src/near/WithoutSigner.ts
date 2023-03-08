@@ -1,6 +1,7 @@
+import { NearBaseCommand as BaseCommand } from "./BaseCommand";
+
 import { Flags } from "@oclif/core";
 import { Input } from "@oclif/parser";
-import { NearBaseCommand as BaseCommand } from "./BaseCommand";
 
 export abstract class NearWithoutSignerBaseCommand extends BaseCommand {
   static flags = {

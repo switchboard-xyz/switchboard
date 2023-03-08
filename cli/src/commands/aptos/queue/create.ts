@@ -1,7 +1,8 @@
-import { Flags } from "@oclif/core";
 import { AptosWithSignerBaseCommand as BaseCommand } from "../../../aptos";
-import { AptosAccount } from "aptos";
+
+import { Flags } from "@oclif/core";
 import { OracleQueueAccount } from "@switchboard-xyz/aptos.js";
+import { AptosAccount } from "aptos";
 
 export default class QueueCreate extends BaseCommand {
   static enableJsonFlag = true;
@@ -71,13 +72,7 @@ export default class QueueCreate extends BaseCommand {
   async run() {
     const { flags, args } = await this.parse(QueueCreate);
 
-    let account: AptosAccount;
-    if (flags.new) {
-      account = new AptosAccount();
-      // await this.faucet.fundAccount(account.address(), 10000000);
-    } else {
-      account = this.signer;
-    }
+    const account: AptosAccount = flags.new ? new AptosAccount() : this.signer;
 
     const [queue, sig] = await OracleQueueAccount.init(
       this.program.client,

@@ -1,10 +1,11 @@
-import { Flags } from "@oclif/core";
 import { NearWithSignerBaseCommand as BaseCommand } from "../../../near";
+
+import { Flags } from "@oclif/core";
 import {
-  OracleAccount,
-  QueueAccount,
-  PermissionAccount,
   AggregatorAccount,
+  OracleAccount,
+  PermissionAccount,
+  QueueAccount,
   SwitchboardPermission,
 } from "@switchboard-xyz/near.js";
 

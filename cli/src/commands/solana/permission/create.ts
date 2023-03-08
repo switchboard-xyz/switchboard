@@ -1,15 +1,16 @@
+import { SolanaWithSignerBaseCommand as BaseCommand } from "../../../solana";
+import { CHECK_ICON } from "../../../utils";
+
 import { Flags } from "@oclif/core";
 import { PublicKey } from "@solana/web3.js";
 import {
-  types,
+  AccountNotFoundError,
   PermissionAccount,
   QueueAccount,
   SwitchboardProgram,
-  AccountNotFoundError,
+  types,
 } from "@switchboard-xyz/solana.js";
 import chalk from "chalk";
-import { SolanaWithSignerBaseCommand as BaseCommand } from "../../../solana";
-import { CHECK_ICON } from "../../../utils";
 
 export default class PermissionCreate extends BaseCommand {
   static enableJsonFlag = true;
@@ -61,6 +62,7 @@ export default class PermissionCreate extends BaseCommand {
     if (!granteeAccountInfo) {
       throw new AccountNotFoundError("Grantee", new PublicKey(flags.grantee));
     }
+
     const granteeAccountType =
       SwitchboardProgram.getAccountType(granteeAccountInfo);
 
@@ -70,15 +72,18 @@ export default class PermissionCreate extends BaseCommand {
         permission = new types.SwitchboardPermission.PermitOracleHeartbeat();
         break;
       }
+
       case "Aggregator":
       case "BufferRelayer": {
         permission = new types.SwitchboardPermission.PermitOracleQueueUsage();
         break;
       }
+
       case "Vrf": {
         permission = new types.SwitchboardPermission.PermitVrfRequests();
         break;
       }
+
       default: {
         throw new Error(
           `Unable to determine correct permissions to assign for resource type ${granteeAccountType}`

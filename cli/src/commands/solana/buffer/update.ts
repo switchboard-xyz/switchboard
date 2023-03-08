@@ -1,3 +1,7 @@
+import { SolanaWithSignerBaseCommand as BaseCommand } from "../../../solana";
+import { AggregatorIllegalRoundOpenCall } from "../../../types";
+import { CHECK_ICON } from "../../../utils";
+
 import { Args } from "@oclif/core";
 import { PublicKey } from "@solana/web3.js";
 import {
@@ -5,9 +9,6 @@ import {
   BufferRelayerAccount,
 } from "@switchboard-xyz/solana.js";
 import chalk from "chalk";
-import { SolanaWithSignerBaseCommand as BaseCommand } from "../../../solana";
-import { AggregatorIllegalRoundOpenCall } from "../../../types";
-import { CHECK_ICON } from "../../../utils";
 
 export default class BufferRelayerUpdate extends BaseCommand {
   static description = "request a new buffer relayer result";

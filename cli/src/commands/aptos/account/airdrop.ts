@@ -1,6 +1,7 @@
+import { AptosWithoutSignerBaseCommand as BaseCommand } from "../../../aptos";
+
 import { Flags } from "@oclif/core";
 import { HexString } from "aptos";
-import { AptosWithoutSignerBaseCommand as BaseCommand } from "../../../aptos";
 
 export default class AccountAirdrop extends BaseCommand {
   static enableJsonFlag = true;
@@ -12,7 +13,7 @@ export default class AccountAirdrop extends BaseCommand {
     amount: Flags.integer({
       char: "n",
       description: "number of airdrops to request, 10_000 coins each",
-      default: 1000000,
+      default: 1_000_000,
     }),
     address: Flags.string({
       description: "HexString address of account to fund",

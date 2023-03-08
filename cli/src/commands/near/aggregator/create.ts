@@ -1,11 +1,12 @@
-import { Args, Flags } from "@oclif/core";
 import { NearWithSignerBaseCommand as BaseCommand } from "../../../near";
+
+import { Args, Flags } from "@oclif/core";
+import { Big } from "@switchboard-xyz/common";
 import {
   AggregatorAccount,
   PermissionAccount,
   SwitchboardDecimal,
 } from "@switchboard-xyz/near.js";
-import { Big } from "@switchboard-xyz/common";
 
 export default class CreateAggregator extends BaseCommand {
   static enableJsonFlag = true;

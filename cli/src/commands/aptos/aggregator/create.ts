@@ -1,12 +1,13 @@
-import { Flags, Args } from "@oclif/core";
 import { AptosWithSignerBaseCommand as BaseCommand } from "../../../aptos";
-import { Big } from "@switchboard-xyz/common";
-import { OracleJob } from "@switchboard-xyz/common";
+
+import { Args, Flags } from "@oclif/core";
 import {
   AggregatorAccount,
   JobAccount,
   SwitchboardProgram,
 } from "@switchboard-xyz/aptos.js";
+import { Big } from "@switchboard-xyz/common";
+import { OracleJob } from "@switchboard-xyz/common";
 
 export default class CreateAggregator extends BaseCommand {
   static enableJsonFlag = true;

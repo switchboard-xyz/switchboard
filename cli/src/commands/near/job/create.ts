@@ -1,7 +1,8 @@
-import { Args, Flags } from "@oclif/core";
 import { NearWithSignerBaseCommand as BaseCommand } from "../../../near";
-import { JobAccount } from "@switchboard-xyz/near.js";
+
+import { Args, Flags } from "@oclif/core";
 import { OracleJob } from "@switchboard-xyz/common";
+import { JobAccount } from "@switchboard-xyz/near.js";
 
 export default class CreateJob extends BaseCommand {
   static enableJsonFlag = true;

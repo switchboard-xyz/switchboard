@@ -1,18 +1,19 @@
-import fs from "fs";
-import path from "path";
-import { execSync } from "child_process";
-import { getAllFiles } from "../utilts";
-import { ProgramStructs } from "../move/generator";
+import { ProgramStructs } from '../move/generator';
+import { getAllFiles } from '../utilts';
 
-const projectDir = path.join(__dirname, "..", "..", "..", "..");
+import { execSync } from 'child_process';
+import fs from 'fs';
+import path from 'path';
+
+const projectDir = path.join(__dirname, '..', '..', '..', '..');
 
 export function aptosTypes(aptosSourceDir: string, outputDirectory: string) {
   console.log(`Finding input files ...`);
 
   const inputDirectory =
-    aptosSourceDir.startsWith("/") ||
-    aptosSourceDir.startsWith("C:") ||
-    aptosSourceDir.startsWith("D:")
+    aptosSourceDir.startsWith('/') ||
+    aptosSourceDir.startsWith('C:') ||
+    aptosSourceDir.startsWith('D:')
       ? aptosSourceDir
       : path.join(process.cwd(), aptosSourceDir);
 
@@ -20,7 +21,7 @@ export function aptosTypes(aptosSourceDir: string, outputDirectory: string) {
     throw new Error(`Failed to find input directory ${inputDirectory}`);
   }
 
-  const sourceFiles = getAllFiles("move", inputDirectory, []);
+  const sourceFiles = getAllFiles('move', inputDirectory, []);
   if (sourceFiles.length === 0) {
     throw new Error(`Failed to find source files in ${inputDirectory}`);
   }
@@ -41,9 +42,9 @@ export function aptosIdl(aptosSourceDir: string) {
   console.log(`Finding input files ...`);
 
   const inputDirectory =
-    aptosSourceDir.startsWith("/") ||
-    aptosSourceDir.startsWith("C:") ||
-    aptosSourceDir.startsWith("D:")
+    aptosSourceDir.startsWith('/') ||
+    aptosSourceDir.startsWith('C:') ||
+    aptosSourceDir.startsWith('D:')
       ? aptosSourceDir
       : path.join(process.cwd(), aptosSourceDir);
 
@@ -51,7 +52,7 @@ export function aptosIdl(aptosSourceDir: string) {
     throw new Error(`Failed to find input directory ${inputDirectory}`);
   }
 
-  const sourceFiles = getAllFiles("move", inputDirectory, []);
+  const sourceFiles = getAllFiles('move', inputDirectory, []);
   if (sourceFiles.length === 0) {
     throw new Error(`Failed to find source files in ${inputDirectory}`);
   }
@@ -64,14 +65,14 @@ export function aptosIdl(aptosSourceDir: string) {
   // TODO: Fix this path
   const idlDir = path.join(
     projectDir,
-    "website",
-    "docs",
-    "aptos",
-    "idl",
-    "_generated"
+    'website',
+    'docs',
+    'aptos',
+    'idl',
+    '_generated'
   );
   structs.writeMarkdown(idlDir);
-  execSync(`npx prettier --write ${path.join(idlDir, "..")}`);
+  execSync(`npx prettier --write ${path.join(idlDir, '..')}`);
 
   process.exit();
 }

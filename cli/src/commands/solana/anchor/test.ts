@@ -1,21 +1,22 @@
-import * as dotenv from "dotenv";
+import { CliBaseCommand as BaseCommand } from "../../../BaseCommand";
+import { SolanaTestValidator } from "../../../providers/solana";
+import { loadKeypairFs } from "../../../utils/keypair";
+
 import * as anchor from "@coral-xyz/anchor";
 import { Flags } from "@oclif/core";
 import { clusterApiUrl, PublicKey } from "@solana/web3.js";
-import { ChildProcess, spawn } from "child_process";
-import { DockerOracle } from "@switchboard-xyz/common";
+import { sleep } from "@switchboard-xyz/common";
+import { DockerOracle } from "@switchboard-xyz/oracle";
 import {
   getIdlAddress,
   getProgramDataAddress,
 } from "@switchboard-xyz/solana.js";
-import { sleep } from "@switchboard-xyz/common";
-import { CliBaseCommand as BaseCommand } from "../../../BaseCommand";
-import path from "path";
-import fs from "fs";
 import { SBV2_DEVNET_PID } from "@switchboard-xyz/solana.js";
+import { ChildProcess, spawn } from "child_process";
+import * as dotenv from "dotenv";
+import fs from "fs";
+import path from "path";
 import toml from "toml";
-import { loadKeypairFs } from "../../../utils/keypair";
-import { SolanaTestValidator } from "../../../providers/solana";
 
 function getRequiredVariable(key: string): string {
   if (!(key in process.env)) {
@@ -33,6 +34,7 @@ function getAnchorToml(filePath: string): AnchorToml | undefined {
   if (!fs.existsSync(filePath)) {
     return undefined;
   }
+
   const rawToml = toml.parse(fs.readFileSync(filePath, "utf-8"));
   const anchorToml: AnchorToml = JSON.parse(JSON.stringify(rawToml));
   return anchorToml;
@@ -183,15 +185,18 @@ export default class AnchorTest extends BaseCommand {
           `--keypair flag not provided and failed to locate Anchor.toml`
         );
       }
+
       if ("provider" in anchorToml && "wallet" in anchorToml.provider!) {
         keypairPath = this.normalizePath(anchorToml.provider.wallet!);
       }
     }
+
     if (!keypairPath) {
       throw new Error(
         `Failed to load a keypair path. Try providing the--keypair flag`
       );
     }
+
     const payerKeypair = loadKeypairFs(keypairPath);
     this.logProperty("payerKeypair", payerKeypair.publicKey.toBase58());
 
@@ -200,9 +205,9 @@ export default class AnchorTest extends BaseCommand {
         ? "http://host.docker.internal:8899"
         : flags.rpcUrl ?? clusterApiUrl(cluster);
 
-    ////////////////////////////////////////////////////////////
-    ///// SOLANA LOCALNET VALIDATOR
-    ////////////////////////////////////////////////////////////
+    /// /////////////////////////////////////////////////////////
+    /// // SOLANA LOCALNET VALIDATOR
+    /// /////////////////////////////////////////////////////////
     if (cluster === "localnet") {
       const cloneJson: Array<string> = [];
       const cloneAccounts: Array<string> = [];
@@ -224,6 +229,7 @@ export default class AnchorTest extends BaseCommand {
             }
           }
         }
+
         if (
           "validator" in anchorToml.test &&
           typeof anchorToml.test.validator === "object"
@@ -235,6 +241,7 @@ export default class AnchorTest extends BaseCommand {
           ) {
             cloneUrl = anchorToml.test.validator.url;
           }
+
           // clone accounts from a network
           if (
             "clone" in anchorToml.test.validator &&
@@ -246,6 +253,7 @@ export default class AnchorTest extends BaseCommand {
               }
             }
           }
+
           // clone accounts from a file
           if (
             "account" in anchorToml.test.validator &&
@@ -282,6 +290,7 @@ export default class AnchorTest extends BaseCommand {
           `Provided keypair does not match the oracle authority, expected ${oracleAuthority}, received ${payerKeypair.publicKey.toBase58()}`
         );
       }
+
       cloneAccounts.push(
         programId.toBase58(),
         idlAddress.toBase58(),
@@ -310,32 +319,29 @@ export default class AnchorTest extends BaseCommand {
       await this.solanaTestValidator.awaitReady();
     }
 
-    ////////////////////////////////////////////////////////////
-    ///// SWITCHBOARD DOCKER ORACLE
-    ////////////////////////////////////////////////////////////
-    this.docker = new DockerOracle(
-      flags.nodeImage,
-      {
-        chain: "solana",
-        network: cluster as "localnet" | "devnet",
-        rpcUrl: rpcUrl,
-        taskRunnerSolanaRpc: flags.mainnetRpcUrl,
-        oracleKey: oracle,
-        secretPath: keypairPath,
-        arch: flags.arm ? "linux/arm64" : "linux/amd64",
-      },
-
-      flags.switchboardDir,
-      flags.silent
-    );
+    /// /////////////////////////////////////////////////////////
+    /// // SWITCHBOARD DOCKER ORACLE
+    /// /////////////////////////////////////////////////////////
+    this.docker = new DockerOracle({
+      chain: "solana",
+      network: cluster as "localnet" | "devnet",
+      rpcUrl: rpcUrl,
+      taskRunnerSolanaRpc: flags.mainnetRpcUrl,
+      oracleKey: oracle,
+      secretPath: keypairPath,
+      arch: flags.arm ? "linux/arm64" : "linux/amd64",
+      imageTag: flags.nodeImage,
+      switchboardDirectory: flags.switchboardDir,
+      silent: flags.silent,
+    });
 
     this.logger.info(`Starting oracle`);
     this.docker.start();
     await this.docker.awaitReady();
 
-    ////////////////////////////////////////////////////////////
-    ///// ANCHOR TEST
-    ////////////////////////////////////////////////////////////
+    /// /////////////////////////////////////////////////////////
+    /// // ANCHOR TEST
+    /// /////////////////////////////////////////////////////////
     this.logger.info(`Starting anchor tests`);
     this.anchorChildProcess = spawn("anchor", ["test --skip-local-validator"], {
       shell: true,
@@ -372,6 +378,7 @@ export default class AnchorTest extends BaseCommand {
         `Solana local validator process (${this.solanaTestValidator.pid}) still running`
       );
     }
+
     process.exit();
   }
 
@@ -382,6 +389,7 @@ export default class AnchorTest extends BaseCommand {
         `Solana local validator process (${this.solanaTestValidator.pid}) still running`
       );
     }
+
     super.catch(error, "Failed to create localnet test environment");
   }
 

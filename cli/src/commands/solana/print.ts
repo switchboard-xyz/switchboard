@@ -1,6 +1,7 @@
+import { SolanaWithoutSignerBaseCommand as BaseCommand } from "../../solana";
+
 import { Args } from "@oclif/core";
 import { PublicKey } from "@solana/web3.js";
-import { SolanaWithoutSignerBaseCommand as BaseCommand } from "../../solana";
 
 export default class SolanaPrint extends BaseCommand {
   static enableJsonFlag = true;

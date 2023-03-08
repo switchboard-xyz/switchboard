@@ -1,5 +1,6 @@
-import { Args } from "@oclif/core";
 import { NearWithSignerBaseCommand as BaseCommand } from "../../../near";
+
+import { Args } from "@oclif/core";
 import { AggregatorAccount, QueueAccount } from "@switchboard-xyz/near.js";
 
 export default class AggregatorUpdate extends BaseCommand {

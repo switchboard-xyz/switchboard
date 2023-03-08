@@ -1,9 +1,10 @@
+import { SolanaWithSignerBaseCommand as BaseCommand } from "../../../solana";
+import { CHECK_ICON } from "../../../utils";
+
 import { Args, Flags } from "@oclif/core";
 import { PublicKey } from "@solana/web3.js";
 import { PermissionAccount, types } from "@switchboard-xyz/solana.js";
 import chalk from "chalk";
-import { SolanaWithSignerBaseCommand as BaseCommand } from "../../../solana";
-import { CHECK_ICON } from "../../../utils";
 
 export default class PermissionRevoke extends BaseCommand {
   static description = "disable a resources permissions";

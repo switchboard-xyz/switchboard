@@ -1,3 +1,6 @@
+import { SolanaWithSignerBaseCommand as BaseCommand } from "../../../solana";
+import { CHECK_ICON } from "../../../utils";
+
 import { Args, Flags } from "@oclif/core";
 import { PublicKey } from "@solana/web3.js";
 import {
@@ -7,8 +10,6 @@ import {
   types,
 } from "@switchboard-xyz/solana.js";
 import chalk from "chalk";
-import { SolanaWithSignerBaseCommand as BaseCommand } from "../../../solana";
-import { CHECK_ICON } from "../../../utils";
 
 export default class PermissionGrant extends BaseCommand {
   static description = "enable a resources permissions";
@@ -55,6 +56,7 @@ export default class PermissionGrant extends BaseCommand {
     if (!granteeAccountInfo) {
       throw new AccountNotFoundError("Grantee", permissionData.grantee);
     }
+
     const granteeAccountType =
       SwitchboardProgram.getAccountType(granteeAccountInfo);
 
@@ -64,15 +66,18 @@ export default class PermissionGrant extends BaseCommand {
         permission = new types.SwitchboardPermission.PermitOracleHeartbeat();
         break;
       }
+
       case "Aggregator":
       case "BufferRelayer": {
         permission = new types.SwitchboardPermission.PermitOracleQueueUsage();
         break;
       }
+
       case "Vrf": {
         permission = new types.SwitchboardPermission.PermitVrfRequests();
         break;
       }
+
       default: {
         throw new Error(
           `Unable to determine correct permissions to assign for resource type ${granteeAccountType}`

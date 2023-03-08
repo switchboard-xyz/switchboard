@@ -8,8 +8,8 @@ export const cleanupString = (
 ): string => {
   const parsedStr = str
     .trim()
-    .replace(/([//].*)/g, "") // remove comments
-    .replace(/(^,)|(,$)/g, ""); // remove leading and trailing commas
+    .replace(/([//].*)/g, '') // remove comments
+    .replace(/(^,)|(,$)/g, ''); // remove leading and trailing commas
   if (!convertSnakeCase) {
     return parsedStr;
   }
@@ -17,12 +17,12 @@ export const cleanupString = (
 };
 
 export const toCamelCase = (str: string): string => {
-  if (str.startsWith("_")) {
+  if (str.startsWith('_')) {
     return str;
   }
   return str
     .toLowerCase()
-    .replace(/([-_][a-z])/g, (group) =>
-      group.toUpperCase().replace("-", "").replace("_", "")
+    .replace(/([-_][a-z])/g, group =>
+      group.toUpperCase().replace('-', '').replace('_', '')
     );
 };

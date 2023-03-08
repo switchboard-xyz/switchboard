@@ -1,17 +1,18 @@
-import { Flags } from "@oclif/core";
-import * as anchor from "@coral-xyz/anchor";
 import { SolanaWithSignerBaseCommand as BaseCommand } from "../../../solana";
-import { DockerOracle } from "@switchboard-xyz/common";
 import { CHECK_ICON, sleep } from "../../../utils";
-import { ChildProcess, exec, execSync } from "child_process";
+
+import * as anchor from "@coral-xyz/anchor";
+import { Flags } from "@oclif/core";
 import { Connection, Keypair } from "@solana/web3.js";
-import chalk from "chalk";
+import { DockerOracle } from "@switchboard-xyz/oracle";
 import {
   AnchorWallet,
   SBV2_DEVNET_PID,
   SwitchboardNetwork,
   SwitchboardProgram,
 } from "@switchboard-xyz/solana.js";
+import chalk from "chalk";
+import { ChildProcess, exec, execSync } from "child_process";
 import fs from "fs";
 import path from "path";
 
@@ -200,20 +201,16 @@ export default class SolanaValidatorUp extends BaseCommand {
     this.logger.info(`Queue: ${network.queue.account.publicKey}`);
     this.logger.info(`Oracle: ${oracle.account.publicKey}`);
 
-    this.docker = new DockerOracle(
-      flags.nodeImage,
-      {
-        chain: "solana",
-        network: "localnet",
-        rpcUrl: "http://host.docker.internal:8899",
-        oracleKey: oracle.account.publicKey.toBase58(),
-        secretPath: this.normalizePath(flags.keypair!),
-        arch: flags.arm ? "linux/arm64" : "linux/amd64",
-      },
-
-      undefined,
-      flags.silent
-    );
+    this.docker = new DockerOracle({
+      chain: "solana",
+      network: "localnet",
+      rpcUrl: "http://host.docker.internal:8899",
+      oracleKey: oracle.account.publicKey.toBase58(),
+      secretPath: this.normalizePath(flags.keypair!),
+      arch: flags.arm ? "linux/arm64" : "linux/amd64",
+      imageTag: flags.nodeImage,
+      silent: flags.silent,
+    });
 
     this.docker.start();
 

@@ -1,6 +1,7 @@
 import { OutputFileBaseCommand } from "../../OutputFileBaseCommand";
-import fetch from "node-fetch";
+
 import { Args } from "@oclif/core";
+import fetch from "node-fetch";
 
 export default class OracleLogs extends OutputFileBaseCommand {
   //   static enableJsonFlag = true;

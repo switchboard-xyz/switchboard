@@ -1,27 +1,32 @@
+import { CliBaseCommand as BaseCommand } from "../BaseCommand";
+import { AwsProvider, FsProvider, GcpProvider } from "../providers";
+import { IBaseChain } from "../types/chain";
+
+import { AptosNetwork } from ".";
+
 import { Flags } from "@oclif/core";
 import { Input } from "@oclif/parser";
-import { CliBaseCommand as BaseCommand } from "../BaseCommand";
-import { AptosAccount, HexString, MaybeHexString } from "aptos";
-import { AwsProvider, FsProvider, GcpProvider } from "../providers";
-import YAML from "yaml";
-import fs from "fs";
-import { AptosNetwork } from ".";
 import {
-  types,
   AggregatorAccount,
   AptosDecimal,
   CrankAccount,
+  getProgramId,
   JobAccount,
   OracleAccount,
   OracleQueueAccount,
   StateAccount,
   SwitchboardProgram,
-  getProgramId,
+  types,
 } from "@switchboard-xyz/aptos.js";
-import { OracleJob, SwitchboardDecimal } from "@switchboard-xyz/common";
-import { isBN } from "bn.js";
-import { Big } from "@switchboard-xyz/common";
-import { IBaseChain } from "../types/chain";
+import {
+  Big,
+  BN,
+  OracleJob,
+  SwitchboardDecimal,
+} from "@switchboard-xyz/common";
+import { AptosAccount, HexString, MaybeHexString } from "aptos";
+import fs from "fs";
+import YAML from "yaml";
 
 export abstract class AptosBaseCommand
   extends BaseCommand
@@ -113,6 +118,7 @@ export abstract class AptosBaseCommand
         `Failed to get Aptos RPC URL for network ${networkId}. Try providing the --rpcUrl flag`
       );
     }
+
     return rpcUrl;
   }
 
@@ -143,7 +149,7 @@ export abstract class AptosBaseCommand
         .trim()
         .replace(/\n/g, "")
         .replace(/\s/g, "");
-      const bytesRegex = /^\[(\s)?[0-9]+((\s)?,(\s)?[0-9]+){31,}\]/g;
+      const bytesRegex = /^\[(\s)?\d+((\s)?,(\s)?\d+){31,}]/g;
       if (bytesRegex.test(parsedFileString)) {
         return SwitchboardProgram.getAccount(
           new Uint8Array(JSON.parse(parsedFileString))
@@ -151,7 +157,7 @@ export abstract class AptosBaseCommand
       }
 
       // check if hex
-      const hexRegex = /^(0x|0X)?[a-fA-F0-9]{64}/g;
+      const hexRegex = /^(0x|0X)?[\dA-Fa-f]{64}/g;
       if (hexRegex.test(parsedFileString)) {
         return SwitchboardProgram.getAccount(
           this.hexStringToBytes(parsedFileString)
@@ -160,7 +166,7 @@ export abstract class AptosBaseCommand
 
       // check if base64 encoded
       const base64Regex =
-        /^(?:[A-Za-z\d+\/]{4})*(?:[A-Za-z\d+\/]{3}=|[A-Za-z\d+\/]{2}==)?/g;
+        /^(?:[\d+/A-Za-z]{4})*(?:[\d+/A-Za-z]{3}=|[\d+/A-Za-z]{2}==)?/g;
       if (base64Regex.test(parsedFileString)) {
         return SwitchboardProgram.getAccount(
           new Uint8Array(Buffer.from(parsedFileString, "base64"))
@@ -170,7 +176,7 @@ export abstract class AptosBaseCommand
       throw new Error(`Failed to derive secret key from input file`);
     };
 
-    let errors: any[] = [];
+    const errors: any[] = [];
 
     // first check if file is a yaml config
     if (keypairPath.endsWith(".yaml")) {
@@ -264,21 +270,23 @@ export abstract class AptosBaseCommand
       typeof value === "boolean"
     ) {
       return value;
-    } else {
-      if (value instanceof Big) {
-        return value.toString();
-      }
-      if (isBN(value)) {
-        return value.toString(10);
-      }
-      if (
-        ("value" in value && "dec" in value && "neg" in value) ||
-        value instanceof AptosDecimal
-      ) {
-        const base = new SwitchboardDecimal(value.value, value.scale).toBig();
-        const val = value.neg ? base.mul(-1) : base;
-        return val.toString();
-      }
+    }
+
+    if (value instanceof Big) {
+      return value.toString();
+    }
+
+    if (BN.isBN(value)) {
+      return value.toString(10);
+    }
+
+    if (
+      ("value" in value && "dec" in value && "neg" in value) ||
+      value instanceof AptosDecimal
+    ) {
+      const base = new SwitchboardDecimal(value.value, value.scale).toBig();
+      const val = value.neg ? base.mul(-1) : base;
+      return val.toString();
     }
 
     return super.jsonReplacers(key, value);

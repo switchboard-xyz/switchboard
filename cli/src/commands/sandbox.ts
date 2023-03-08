@@ -1,7 +1,8 @@
-import { Args, Flags } from "@oclif/core";
-import { BN } from "@coral-xyz/anchor";
-import { SwitchboardDecimal } from "@switchboard-xyz/common";
 import { SolanaWithSignerBaseCommand as BaseCommand } from "../solana";
+
+import { BN } from "@coral-xyz/anchor";
+import { Args, Flags } from "@oclif/core";
+import { SwitchboardDecimal } from "@switchboard-xyz/common";
 
 export default class SandboxCommand extends BaseCommand {
   static description = "sandbox";
@@ -27,7 +28,7 @@ export default class SandboxCommand extends BaseCommand {
   async run() {
     const { args, flags } = await this.parse(SandboxCommand);
 
-    const swbDec = new SwitchboardDecimal(new BN(13371337), 4);
+    const swbDec = new SwitchboardDecimal(new BN(13_371_337), 4);
     console.log(swbDec.toString());
 
     // const size = this.program.account.vrfAccountData.size;

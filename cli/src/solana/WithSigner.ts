@@ -1,3 +1,9 @@
+import { CHECK_ICON } from "../utils";
+
+import { SolanaBaseCommand } from "./BaseCommand";
+
+import Solana from "@ledgerhq/hw-app-solana";
+import TransportNodeHid from "@ledgerhq/hw-transport-node-hid-singleton";
 import { Flags, ux } from "@oclif/core";
 import { flags, Input } from "@oclif/parser";
 import {
@@ -7,13 +13,9 @@ import {
   sendAndConfirmRawTransaction,
   TransactionSignature,
 } from "@solana/web3.js";
-import { SolanaBaseCommand } from "./BaseCommand";
-import TransportNodeHid from "@ledgerhq/hw-transport-node-hid-singleton";
-import Solana from "@ledgerhq/hw-app-solana";
 import { TransactionObject } from "@switchboard-xyz/solana.js";
 import bs58 from "bs58";
 import chalk from "chalk";
-import { CHECK_ICON } from "../utils";
 
 export abstract class SolanaWithSignerBaseCommand extends SolanaBaseCommand {
   static flags = {

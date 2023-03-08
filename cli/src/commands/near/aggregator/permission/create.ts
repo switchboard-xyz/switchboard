@@ -1,9 +1,10 @@
-import { Args } from "@oclif/core";
 import { NearWithSignerBaseCommand as BaseCommand } from "../../../../near";
+
+import { Args } from "@oclif/core";
 import {
-  QueueAccount,
-  PermissionAccount,
   AggregatorAccount,
+  PermissionAccount,
+  QueueAccount,
 } from "@switchboard-xyz/near.js";
 
 export default class CreateAggregatorPermission extends BaseCommand {
@@ -52,7 +53,7 @@ export default class CreateAggregatorPermission extends BaseCommand {
         address: permissionKey,
       });
       permissionData = await permissionAccount.loadData();
-    } catch (error) {
+    } catch {
       permissionAccount = await PermissionAccount.create(this.program, {
         authority: queueData.authority,
         granter: queueAccount.address,

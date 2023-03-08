@@ -8,8 +8,8 @@ export const cleanupString = (
 ): string => {
   const parsedStr = str
     .trim()
-    .replace(/([//].*)/g, "") // remove comments
-    .replace(/(^,)|(,$)/g, ""); // remove leading and trailing commas
+    .replace(/([//].*)/g, '') // remove comments
+    .replace(/(^,)|(,$)/g, ''); // remove leading and trailing commas
   if (!convertSnakeCase) {
     return parsedStr;
   }
@@ -17,43 +17,43 @@ export const cleanupString = (
 };
 
 export const toCamelCase = (str: string): string => {
-  if (str.startsWith("_")) {
+  if (str.startsWith('_')) {
     return str;
   }
   return str
     .toLowerCase()
-    .replace(/([-_][a-z])/g, (group) =>
-      group.toUpperCase().replace("-", "").replace("_", "")
+    .replace(/([-_][a-z])/g, group =>
+      group.toUpperCase().replace('-', '').replace('_', '')
     );
 };
 
 export type BuiltInField = BooleanType | NumberField | StringField;
 
 export type ExportedTypes =
-  | "bool"
-  | "string"
-  | "number"
-  | "uint8array"
-  | "bn"
-  | "bn_wrapper";
+  | 'bool'
+  | 'string'
+  | 'number'
+  | 'uint8array'
+  | 'bn'
+  | 'bn_wrapper';
 
 export const FieldTypeAliases: Map<ExportedTypes, string[]> = new Map([
-  ["bool", ["bool"]],
-  ["string", ["String", "AccountId"]],
-  ["number", ["i8", "u8", "i16", "u16", "i32", "u32", "f32", "f64"]],
+  ['bool', ['bool']],
+  ['string', ['String', 'AccountId']],
+  ['number', ['i8', 'u8', 'i16', 'u16', 'i32', 'u32', 'f32', 'f64']],
   [
-    "uint8array",
-    ["uint8array", "Uuid", "Address", "[u8;32]", "[u8; 32]", "Vec<u8>"],
+    'uint8array',
+    ['uint8array', 'Uuid', 'Address', '[u8;32]', '[u8; 32]', 'Vec<u8>'],
   ],
-  ["bn", ["i64", "u64", "i128", "u128", "i256", "u256"]],
-  ["bn_wrapper", ["U64", "I64", "U128", "I128", "U256", "I256"]],
+  ['bn', ['i64', 'u64', 'i128', 'u128', 'i256', 'u256']],
+  ['bn_wrapper', ['U64', 'I64', 'U128', 'I128', 'U256', 'I256']],
 ]);
 
 export const FieldTypeMap: Map<string, ExportedTypes> = Array.from(
   FieldTypeAliases.entries()
 ).reduce((map, t) => {
   const [mappedType, types] = t;
-  types.forEach((type) => map.set(type, mappedType));
+  types.forEach(type => map.set(type, mappedType));
   return map;
 }, new Map());
 
@@ -129,22 +129,22 @@ export abstract class SupportedField implements ISupportedField {
   }
 
   get isUint8Array(): boolean {
-    return !this.isPrimitive && this._fieldType.toLowerCase() === "uint8array";
+    return !this.isPrimitive && this._fieldType.toLowerCase() === 'uint8array';
   }
 
   get isBn(): boolean {
     return (
       !this.isPrimitive &&
-      this._fieldType.toLowerCase() === "bn" &&
-      this._serdeType === "number"
+      this._fieldType.toLowerCase() === 'bn' &&
+      this._serdeType === 'number'
     );
   }
 
   get isBnWrapper(): boolean {
     return (
       !this.isPrimitive &&
-      this._fieldType.toLowerCase() === "bn" &&
-      this._serdeType === "string"
+      this._fieldType.toLowerCase() === 'bn' &&
+      this._serdeType === 'string'
     );
   }
 
@@ -153,7 +153,7 @@ export abstract class SupportedField implements ISupportedField {
       !this.isPrimitive &&
       !this.isUint8Array &&
       !this.isBn &&
-      !("innerType" in this)
+      !('innerType' in this)
     );
   }
 
@@ -168,17 +168,17 @@ export abstract class SupportedField implements ISupportedField {
     try {
       const t = SupportedField.getType(type);
       switch (t) {
-        case "bool":
+        case 'bool':
           return new BooleanType(rustName);
-        case "string":
+        case 'string':
           return new StringField(rustName);
-        case "number":
+        case 'number':
           return new NumberField(rustName);
-        case "bn":
+        case 'bn':
           return new BnField(rustName);
-        case "bn_wrapper":
+        case 'bn_wrapper':
           return new BnWrapperField(rustName);
-        case "uint8array":
+        case 'uint8array':
           return new Uint8ArrayType(rustName);
         default:
           throw new Error(`Failed to match ExportedType, ${t}`);
@@ -196,11 +196,11 @@ export abstract class SupportedField implements ISupportedField {
         const mapMatch = mapMatches.shift();
         const mapKeyKind = SupportedField.from(
           rustName,
-          mapMatch.groups["keyKind"]
+          mapMatch.groups['keyKind']
         );
         const mapValKind = SupportedField.from(
           rustName,
-          mapMatch.groups["valKind"]
+          mapMatch.groups['valKind']
         );
         return new MapType(rustName, mapKeyKind, mapValKind);
       }
@@ -210,7 +210,7 @@ export abstract class SupportedField implements ISupportedField {
       );
       if (vecMatches && vecMatches.length) {
         const vecMatch = vecMatches.shift();
-        const vecType = SupportedField.from(rustName, vecMatch.groups["kind"]);
+        const vecType = SupportedField.from(rustName, vecMatch.groups['kind']);
         return new ArrayField(rustName, vecType);
       }
       // check if its optional
@@ -221,7 +221,7 @@ export abstract class SupportedField implements ISupportedField {
         const optionMatch = optionMatches.shift();
         const optionType = SupportedField.from(
           rustName,
-          optionMatch.groups["kind"]
+          optionMatch.groups['kind']
         );
         return new OptionalType(rustName, optionType);
       }
@@ -235,26 +235,26 @@ export abstract class SupportedField implements ISupportedField {
 /// Primitive Types
 
 export abstract class PrimitiveType extends SupportedField {
-  toJsonMethod(prefix = "this") {
-    return `${prefix ? prefix + "." : ""}${this.tsName}`;
+  toJsonMethod(prefix = 'this') {
+    return `${prefix ? prefix + '.' : ''}${this.tsName}`;
   }
-  fromJsonMethod(prefix = "obj") {
-    return `${prefix ? prefix + "." : ""}${this.tsName}`;
-  }
-
-  toSerdeMethod(prefix = "this"): string {
-    return `${prefix ? prefix + "." : ""}${this.tsName}`;
+  fromJsonMethod(prefix = 'obj') {
+    return `${prefix ? prefix + '.' : ''}${this.tsName}`;
   }
 
-  fromSerdeMethod(prefix = "obj"): string {
-    return `${prefix ? prefix + "." : ""}${this.rustName}`;
+  toSerdeMethod(prefix = 'this'): string {
+    return `${prefix ? prefix + '.' : ''}${this.tsName}`;
+  }
+
+  fromSerdeMethod(prefix = 'obj'): string {
+    return `${prefix ? prefix + '.' : ''}${this.rustName}`;
   }
 }
 
 export class BooleanType extends PrimitiveType {
-  _fieldType: string = "boolean";
-  _jsonType: string = "boolean";
-  _serdeType: string = "boolean";
+  _fieldType: string = 'boolean';
+  _jsonType: string = 'boolean';
+  _serdeType: string = 'boolean';
 
   constructor(readonly name: string) {
     super(name);
@@ -262,9 +262,9 @@ export class BooleanType extends PrimitiveType {
 }
 
 export class NumberField extends PrimitiveType {
-  _fieldType: string = "number";
-  _jsonType: string = "number";
-  _serdeType: string = "number";
+  _fieldType: string = 'number';
+  _jsonType: string = 'number';
+  _serdeType: string = 'number';
 
   constructor(readonly name: string) {
     super(name);
@@ -272,9 +272,9 @@ export class NumberField extends PrimitiveType {
 }
 
 export class StringField extends PrimitiveType {
-  _fieldType: string = "string";
-  _jsonType: string = "string";
-  _serdeType: string = "string";
+  _fieldType: string = 'string';
+  _jsonType: string = 'string';
+  _serdeType: string = 'string';
 
   constructor(readonly name: string) {
     super(name);
@@ -282,43 +282,43 @@ export class StringField extends PrimitiveType {
 }
 
 export class BnField extends SupportedField {
-  _fieldType: string = "BN";
-  _jsonType: string = "string";
-  _serdeType: string = "number";
+  _fieldType: string = 'BN';
+  _jsonType: string = 'string';
+  _serdeType: string = 'number';
 
   constructor(readonly name: string) {
     super(name);
   }
 
-  toJsonMethod(prefix = "this") {
-    return `${prefix ? prefix + "." : ""}${this.tsName}.toString()`;
+  toJsonMethod(prefix = 'this') {
+    return `${prefix ? prefix + '.' : ''}${this.tsName}.toString()`;
   }
-  fromJsonMethod(prefix = "obj") {
-    return `new BN(${prefix ? prefix + "." : ""}${this.tsName})`;
+  fromJsonMethod(prefix = 'obj') {
+    return `new BN(${prefix ? prefix + '.' : ''}${this.tsName})`;
   }
 
-  toSerdeMethod(prefix = "this") {
-    return `${prefix ? prefix + "." : ""}${this.tsName}.toNumber()`;
+  toSerdeMethod(prefix = 'this') {
+    return `${prefix ? prefix + '.' : ''}${this.tsName}.toNumber()`;
   }
-  fromSerdeMethod(prefix = "obj") {
-    return `new BN(${prefix ? prefix + "." : ""}${
+  fromSerdeMethod(prefix = 'obj') {
+    return `new BN(${prefix ? prefix + '.' : ''}${
       this.rustName
     }.toLocaleString("fullwide", { useGrouping: false }))`;
   }
 }
 
 export class BnWrapperField extends BnField {
-  _serdeType: string = "string";
+  _serdeType: string = 'string';
 
   constructor(readonly name: string) {
     super(name);
   }
 
-  toSerdeMethod(prefix = "this") {
-    return `${prefix ? prefix + "." : ""}${this.tsName}.toString(10)`;
+  toSerdeMethod(prefix = 'this') {
+    return `${prefix ? prefix + '.' : ''}${this.tsName}.toString(10)`;
   }
-  fromSerdeMethod(prefix = "obj") {
-    return `new BN(${prefix ? prefix + "." : ""}${this.rustName})`;
+  fromSerdeMethod(prefix = 'obj') {
+    return `new BN(${prefix ? prefix + '.' : ''}${this.rustName})`;
   }
 }
 
@@ -336,8 +336,8 @@ export class OptionalType<T extends ISupportedField> extends SupportedField {
     this._serdeType = `${innerType.serdeType} | null`;
   }
 
-  toJsonMethod(prefix = "this"): string {
-    const name = `${prefix ? prefix + "." : ""}${this.tsName}`;
+  toJsonMethod(prefix = 'this'): string {
+    const name = `${prefix ? prefix + '.' : ''}${this.tsName}`;
     const innerMethod = this.innerType.toJsonMethod();
     if (this.innerType.isUint8Array) {
       return `${name} ? [...${name}] : undefined`;
@@ -348,11 +348,11 @@ export class OptionalType<T extends ISupportedField> extends SupportedField {
     if (this.innerType.isBn) {
       return `${name}?.toString()`;
     }
-    return `${name}${innerMethod ? " ? " + innerMethod : ""} : undefined`;
+    return `${name}${innerMethod ? ' ? ' + innerMethod : ''} : undefined`;
   }
 
-  fromJsonMethod(prefix = "obj"): string {
-    const name = `${prefix ? prefix + "." : ""}${this.tsName}`;
+  fromJsonMethod(prefix = 'obj'): string {
+    const name = `${prefix ? prefix + '.' : ''}${this.tsName}`;
     const innerMethod = this.innerType.fromJsonMethod();
     if (this.innerType.isPrimitive) {
       return innerMethod;
@@ -366,8 +366,8 @@ export class OptionalType<T extends ISupportedField> extends SupportedField {
     return `${name} ? ${innerMethod} : undefined`;
   }
 
-  toSerdeMethod(prefix = "this"): string {
-    const name = `${prefix ? prefix + "." : ""}${this.tsName}`;
+  toSerdeMethod(prefix = 'this'): string {
+    const name = `${prefix ? prefix + '.' : ''}${this.tsName}`;
     const innerMethod = this.innerType.toSerdeMethod();
     if (this.innerType.isUint8Array) {
       return `${name} ? [...${name}] : null`;
@@ -381,11 +381,11 @@ export class OptionalType<T extends ISupportedField> extends SupportedField {
     if (this.innerType.isBn) {
       return `${name}?.toNumber()`;
     }
-    return `${name}${innerMethod ? " ? " + innerMethod : ""} : null`;
+    return `${name}${innerMethod ? ' ? ' + innerMethod : ''} : null`;
   }
 
-  fromSerdeMethod(prefix = "obj"): string {
-    const name = `${prefix ? prefix + "." : ""}${this.rustName}`;
+  fromSerdeMethod(prefix = 'obj'): string {
+    const name = `${prefix ? prefix + '.' : ''}${this.rustName}`;
     const innerMethod = this.innerType.fromSerdeMethod();
     if (this.innerType.isPrimitive) {
       return innerMethod;
@@ -412,21 +412,21 @@ export class CustomStructField extends SupportedField {
     this._serdeType = `types.${customTypeName}Serde`;
   }
 
-  toJsonMethod(prefix = "this"): string {
-    return `${prefix ? prefix + "." : ""}${this.tsName}.toJSON()`;
+  toJsonMethod(prefix = 'this'): string {
+    return `${prefix ? prefix + '.' : ''}${this.tsName}.toJSON()`;
   }
 
-  fromJsonMethod(prefix = "obj"): string {
-    const name = `${prefix ? prefix + "." : ""}${this.tsName}`;
+  fromJsonMethod(prefix = 'obj'): string {
+    const name = `${prefix ? prefix + '.' : ''}${this.tsName}`;
     return `types.${this.customTypeName}.fromJSON(${name})`;
   }
 
-  toSerdeMethod(prefix = "this"): string {
-    return `${prefix ? prefix + "." : ""}${this.tsName}.toSerde()`;
+  toSerdeMethod(prefix = 'this'): string {
+    return `${prefix ? prefix + '.' : ''}${this.tsName}.toSerde()`;
   }
 
-  fromSerdeMethod(prefix = "obj") {
-    const name = `${prefix ? prefix + "." : ""}${this.rustName}`;
+  fromSerdeMethod(prefix = 'obj') {
+    const name = `${prefix ? prefix + '.' : ''}${this.rustName}`;
     return `types.${this.customTypeName}.fromSerde(${name})`;
   }
 }
@@ -443,8 +443,8 @@ export class ArrayField<T extends ISupportedField> extends SupportedField {
     this._serdeType = `Array<${innerType.serdeType}>`;
   }
 
-  toJsonMethod(prefix = "this"): string {
-    const name = `${prefix ? prefix + "." : ""}${this.tsName}`;
+  toJsonMethod(prefix = 'this'): string {
+    const name = `${prefix ? prefix + '.' : ''}${this.tsName}`;
     if (this.innerType.isPrimitive) {
       return `${name}.map((item) => item)`;
     }
@@ -457,11 +457,11 @@ export class ArrayField<T extends ISupportedField> extends SupportedField {
     if (this.innerType.isBn) {
       return `${name}.map((item) => item.toString())`;
     }
-    return `${name}.map((item) => ${this.innerType.toJsonMethod("item")})`;
+    return `${name}.map((item) => ${this.innerType.toJsonMethod('item')})`;
   }
 
-  toSerdeMethod(prefix = "this"): string {
-    const name = `${prefix ? prefix + "." : ""}${this.tsName}`;
+  toSerdeMethod(prefix = 'this'): string {
+    const name = `${prefix ? prefix + '.' : ''}${this.tsName}`;
     if (this.innerType.isPrimitive) {
       return `${name}.map((item) => item)`;
     }
@@ -474,11 +474,11 @@ export class ArrayField<T extends ISupportedField> extends SupportedField {
     if (this.innerType.isBn) {
       return `${name}.map((item) => item.toNumber())`;
     }
-    return `${name}.map((item) => ${this.innerType.toSerdeMethod("item")})`;
+    return `${name}.map((item) => ${this.innerType.toSerdeMethod('item')})`;
   }
 
-  fromJsonMethod(prefix = "obj"): string {
-    const name = `${prefix ? prefix + "." : ""}${this.tsName}`;
+  fromJsonMethod(prefix = 'obj'): string {
+    const name = `${prefix ? prefix + '.' : ''}${this.tsName}`;
     if (this.innerType.isUint8Array) {
       return `${name}.map((item) => new Uint8Array(item))`;
     }
@@ -494,12 +494,12 @@ export class ArrayField<T extends ISupportedField> extends SupportedField {
       return `${name}.map((item) => item)`;
     }
     return `Array.from(${name}.map((item) => ${this.innerType.fromJsonMethod(
-      "item"
+      'item'
     )}))`;
   }
 
-  fromSerdeMethod(prefix = "obj"): string {
-    const name = `${prefix ? prefix + "." : ""}${this.rustName}`;
+  fromSerdeMethod(prefix = 'obj'): string {
+    const name = `${prefix ? prefix + '.' : ''}${this.rustName}`;
     if (this.innerType.isUint8Array) {
       return `${name}.map((item) => new Uint8Array(item))`;
     }
@@ -515,7 +515,7 @@ export class ArrayField<T extends ISupportedField> extends SupportedField {
       return `${name}.map((item) => item)`;
     }
     return `Array.from(${name}.map((item) => ${this.innerType.fromSerdeMethod(
-      "item"
+      'item'
     )}))`;
   }
 }
@@ -535,23 +535,23 @@ export class Uint8ArrayType extends ArrayField<NumberField> {
     this._serdeType = `Array<number>`;
   }
 
-  toJsonMethod(prefix = "this"): string {
-    const name = `${prefix ? prefix + "." : ""}${this.tsName}`;
+  toJsonMethod(prefix = 'this'): string {
+    const name = `${prefix ? prefix + '.' : ''}${this.tsName}`;
     return `[...${name}]`;
   }
 
-  toSerdeMethod(prefix = "this"): string {
-    const name = `${prefix ? prefix + "." : ""}${this.tsName}`;
+  toSerdeMethod(prefix = 'this'): string {
+    const name = `${prefix ? prefix + '.' : ''}${this.tsName}`;
     return `[...${name}]`;
   }
 
-  fromJsonMethod(prefix = "obj"): string {
-    const name = `${prefix ? prefix + "." : ""}${this.tsName}`;
+  fromJsonMethod(prefix = 'obj'): string {
+    const name = `${prefix ? prefix + '.' : ''}${this.tsName}`;
     return `new Uint8Array(${name})`;
   }
 
-  fromSerdeMethod(prefix = "obj"): string {
-    const name = `${prefix ? prefix + "." : ""}${this.rustName}`;
+  fromSerdeMethod(prefix = 'obj'): string {
+    const name = `${prefix ? prefix + '.' : ''}${this.rustName}`;
     return `new Uint8Array(${name})`;
   }
 }
@@ -571,18 +571,18 @@ export class MapType<
     this._serdeType = `Map<${key.serdeType}, ${value.serdeType}>`;
   }
 
-  toJsonMethod(prefix = "this"): string {
-    const name = `${prefix ? prefix + "." : ""}${this.tsName}`;
+  toJsonMethod(prefix = 'this'): string {
+    const name = `${prefix ? prefix + '.' : ''}${this.tsName}`;
     return `Object.fromEntries(this.${this.tsName})`;
   }
 
-  toSerdeMethod(prefix = "this"): string {
-    const name = `${prefix ? prefix + "." : ""}${this.tsName}`;
+  toSerdeMethod(prefix = 'this'): string {
+    const name = `${prefix ? prefix + '.' : ''}${this.tsName}`;
     return this.toJsonMethod();
   }
 
-  fromJsonMethod(prefix = "obj"): string {
-    const name = `${prefix ? prefix + "." : ""}${this.tsName}`;
+  fromJsonMethod(prefix = 'obj'): string {
+    const name = `${prefix ? prefix + '.' : ''}${this.tsName}`;
     if (this.key.isUint8Array) {
       if (this.value.isCustom) {
         return `new Map(Array.from(${name}.entries()).map(([k,v]) => [new Uint8Array(k), types.${
@@ -593,16 +593,16 @@ export class MapType<
         return `new Map(Array.from(${name}.entries()).map(([k,v]) => [new Uint8Array(k), new Uint8Array(v)]))`;
       }
       return `new Map(Array.from(${name}.entries()).map(([k,v]) => [new Uint8Array(k), ${this.value.fromJsonMethod(
-        "v"
+        'v'
       )}]))`;
     }
     return `new Map(Array.from(${name}.entries()).map(([k,v]) => [k, ${this.value.fromJsonMethod(
-      "v"
+      'v'
     )}]))`;
   }
 
-  fromSerdeMethod(prefix = "obj"): string {
-    const name = `${prefix ? prefix + "." : ""}${this.rustName}`;
+  fromSerdeMethod(prefix = 'obj'): string {
+    const name = `${prefix ? prefix + '.' : ''}${this.rustName}`;
     if (this.key.isUint8Array) {
       if (this.value.isCustom) {
         return `new Map(Array.from(${name}.entries()).map(([k,v]) => [new Uint8Array(k), types.${
@@ -613,11 +613,11 @@ export class MapType<
         return `new Map(Array.from(${name}.entries()).map(([k,v]) => [new Uint8Array(k), new Uint8Array(v)]))`;
       }
       return `new Map(Array.from(${name}.entries()).map(([k,v]) => [new Uint8Array(k), ${this.value.fromSerdeMethod(
-        ""
+        ''
       )}]))`;
     }
     return `new Map(Array.from(${name}.entries()).map(([k,v]) => [k, ${this.value.fromSerdeMethod(
-      "v"
+      'v'
     )}]))`;
   }
 }

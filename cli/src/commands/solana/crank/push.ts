@@ -1,3 +1,6 @@
+import { SolanaWithSignerBaseCommand as BaseCommand } from "../../../solana/index";
+import { CHECK_ICON } from "../../../utils/index";
+
 import { Args, Flags } from "@oclif/core";
 import { PublicKey } from "@solana/web3.js";
 import {
@@ -6,8 +9,6 @@ import {
   QueueAccount,
 } from "@switchboard-xyz/solana.js";
 import chalk from "chalk";
-import { SolanaWithSignerBaseCommand as BaseCommand } from "../../../solana/index";
-import { CHECK_ICON } from "../../../utils/index";
 
 export default class CrankPush extends BaseCommand {
   static description = "push the crank";
@@ -45,6 +46,7 @@ export default class CrankPush extends BaseCommand {
     if (crankPubkey.equals(PublicKey.default)) {
       throw new Error(`No crank key provided, try adding --crankKey`);
     }
+
     const [crankAccount, crank] = await CrankAccount.load(
       this.program,
       crankPubkey

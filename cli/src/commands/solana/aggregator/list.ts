@@ -1,6 +1,7 @@
+import { SolanaWithoutSignerBaseCommand as BaseCommand } from "../../../solana/index";
+
 import { Args, Flags } from "@oclif/core";
 import { PublicKey } from "@solana/web3.js";
-import { SolanaWithoutSignerBaseCommand as BaseCommand } from "../../../solana/index";
 
 export default class AggregatorList extends BaseCommand {
   static enableJsonFlag = true;
@@ -25,7 +26,7 @@ export default class AggregatorList extends BaseCommand {
     const authorityPubkey = new PublicKey(args.authorityKey);
 
     const accounts = await this.program.getProgramAccounts();
-    const aggregators = Array.from(accounts.aggregators.entries()).filter(
+    const aggregators = [...accounts.aggregators.entries()].filter(
       ([aggregatorKey, aggregator]) =>
         aggregator.authority.equals(authorityPubkey)
     );
@@ -36,7 +37,7 @@ export default class AggregatorList extends BaseCommand {
       return aggregatorKeys;
     }
 
-    aggregatorKeys.forEach((aggregatorKey) => console.log(aggregatorKey));
+    for (const aggregatorKey of aggregatorKeys) console.log(aggregatorKey);
   }
 
   async catch(error: any) {

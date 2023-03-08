@@ -1,5 +1,6 @@
-import { Args, Flags } from "@oclif/core";
 import { NearWithSignerBaseCommand as BaseCommand } from "../../../near";
+
+import { Args, Flags } from "@oclif/core";
 import { CrankAccount } from "@switchboard-xyz/near.js";
 
 export default class CrankCreate extends BaseCommand {

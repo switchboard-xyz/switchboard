@@ -1,7 +1,7 @@
-import { clusterApiUrl, Connection, PublicKey } from "@solana/web3.js";
+import { clusterApiUrl, Connection } from "@solana/web3.js";
+import { sleep } from "@switchboard-xyz/common";
 import { ChildProcess, execSync, spawn } from "child_process";
 import os from "os";
-import { promiseWithTimeout, sleep } from "@switchboard-xyz/common";
 
 export interface ISolanaTestValidator {
   detached?: boolean;
@@ -51,7 +51,6 @@ export class SolanaTestValidator implements ISolanaTestValidator {
     this.cloneJson = config.cloneJson ?? [];
     this.cloneAccounts = config.cloneAccounts ?? [];
     this.clonePrograms = config.clonePrograms ?? [];
-    this.additionalArgs = this.additionalArgs;
 
     this.args = [
       this.quiet ? "-q" : "",
@@ -156,6 +155,7 @@ export class SolanaTestValidator implements ISolanaTestValidator {
           return true;
         }
       } catch {}
+
       --numRetries;
       await sleep(500);
     }

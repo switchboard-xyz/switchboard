@@ -1,8 +1,9 @@
+import { SolanaWithoutSignerBaseCommand as BaseCommand } from "../../../solana";
+import { chalkString } from "../../../utils/misc";
+
 import { Args, Flags } from "@oclif/core";
 import { PublicKey } from "@solana/web3.js";
 import { AggregatorAccount } from "@switchboard-xyz/solana.js";
-import { SolanaWithoutSignerBaseCommand as BaseCommand } from "../../../solana";
-import { chalkString } from "../../../utils/misc";
 
 export default class AggregatorPrintHistory extends BaseCommand {
   static enableJsonFlag = true;
@@ -35,6 +36,7 @@ export default class AggregatorPrintHistory extends BaseCommand {
     if (aggregator.historyBuffer.equals(PublicKey.default)) {
       throw new Error(`Aggregator does not have history enabled`);
     }
+
     const history = await aggregatorAccount.loadHistory();
 
     const parsedHistory = history.map((row) => {
@@ -77,7 +79,7 @@ export default class AggregatorPrintHistory extends BaseCommand {
       this.logger.info(
         chalkString(
           "avgUpdateDelay",
-          Math.round(averageUpdateDelay * 10000) / 10000
+          Math.round(averageUpdateDelay * 10_000) / 10_000
         )
       );
       this.logger.info(

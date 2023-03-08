@@ -1,7 +1,8 @@
-import { Args, Flags } from "@oclif/core";
 import { AptosWithSignerBaseCommand as BaseCommand } from "../../../aptos";
-import { HexString } from "aptos";
+
+import { Args, Flags } from "@oclif/core";
 import { Permission, SwitchboardPermission } from "@switchboard-xyz/aptos.js";
+import { HexString } from "aptos";
 
 export default class PermissionCreate extends BaseCommand {
   static enableJsonFlag = true;
@@ -48,7 +49,7 @@ export default class PermissionCreate extends BaseCommand {
       );
     }
 
-    const grantee = flags.aggregator ?? flags.oracle ?? null;
+    const grantee = flags.aggregator ?? flags.oracle ?? undefined;
     if (!grantee) {
       throw new Error(`Failed to find grantee of '--aggregator' or '--oracle'`);
     }

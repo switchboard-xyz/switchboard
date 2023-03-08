@@ -1,5 +1,6 @@
-import { Args, Flags } from "@oclif/core";
 import { AptosWithSignerBaseCommand as BaseCommand } from "../../../aptos";
+
+import { Args, Flags } from "@oclif/core";
 import { createOracle } from "@switchboard-xyz/aptos.js";
 
 export default class CreateOracle extends BaseCommand {

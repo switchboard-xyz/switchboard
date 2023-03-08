@@ -1,8 +1,9 @@
+import { InvalidKeypairFsPathProvided, InvalidKeypairProvided } from "../types";
+
 import { SecretManagerServiceClient } from "@google-cloud/secret-manager";
 import { Keypair, PublicKey } from "@solana/web3.js";
 import * as fs from "fs";
 import * as path from "path";
-import { InvalidKeypairFsPathProvided, InvalidKeypairProvided } from "../types";
 
 export interface fromLocalKeypair {
   localPath: string;
@@ -70,7 +71,7 @@ export const loadGoogleSecretKeypair = async (
     throw new Error("Google secret not found.");
   }
 
-  let secretKey: Uint8Array | undefined = undefined;
+  let secretKey: Uint8Array | undefined;
 
   if (typeof secrets === "string") {
     secretKey = new Uint8Array(Buffer.from(secrets));
@@ -95,6 +96,7 @@ export const loadKeypair = async (
       );
       return walletKeypair;
     }
+
     try {
       const keypair = loadKeypairFs(keypairPath);
       return keypair;

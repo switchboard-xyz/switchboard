@@ -1,9 +1,10 @@
-import { Flags } from "@oclif/core";
 import { SolanaWithSignerBaseCommand as BaseCommand } from "../../../solana";
-import { DockerOracle } from "@switchboard-xyz/common";
 import { sleep } from "../../../utils";
-import { execSync } from "child_process";
+
+import { Flags } from "@oclif/core";
 import { clusterApiUrl } from "@solana/web3.js";
+import { DockerOracle } from "@switchboard-xyz/oracle";
+import { execSync } from "child_process";
 
 export default class SolanaDockerOracle extends BaseCommand {
   static description = "start a solana docker oracle";
@@ -48,23 +49,20 @@ export default class SolanaDockerOracle extends BaseCommand {
       return;
     }
 
-    const docker = new DockerOracle(
-      flags.nodeImage,
-      {
-        chain: "solana",
-        network: this.network,
-        rpcUrl:
-          flags.cluster === "localnet"
-            ? "http://host.docker.internal:8899"
-            : flags.rpcUrl ?? clusterApiUrl("devnet"),
-        oracleKey: flags.oracleKey,
-        secretPath: this.normalizePath(flags.keypair!),
-        arch: flags.arm ? "linux/arm64" : "linux/amd64",
-      },
-
-      flags.switchboardDir,
-      flags.silent
-    );
+    const docker = new DockerOracle({
+      chain: "solana",
+      network: this.network,
+      rpcUrl:
+        flags.cluster === "localnet"
+          ? "http://host.docker.internal:8899"
+          : flags.rpcUrl ?? clusterApiUrl("devnet"),
+      oracleKey: flags.oracleKey,
+      secretPath: this.normalizePath(flags.keypair!),
+      arch: flags.arm ? "linux/arm64" : "linux/amd64",
+      imageTag: flags.nodeImage,
+      switchboardDirectory: flags.switchboardDir,
+      silent: flags.silent,
+    });
 
     docker.start();
     await sleep(flags.timeout * 1000);

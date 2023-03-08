@@ -2,33 +2,22 @@ import shell from "shelljs";
 import fs from "fs";
 import path from "path";
 
+const binPath = path.join(__dirname, "..", "node_modules", ".bin");
+
 function generateTypedoc(
   entryPoint: string,
   relativeOutputPath: string,
   fileManager: "yarn" | "npm" = "yarn"
 ) {
-  if (fileManager === "yarn") {
-    if (
-      shell.exec(
-        `yarn install && typedoc ${entryPoint} --out ${relativeOutputPath} --githubPages --cleanOutputDir`
-      ).code !== 0
-    ) {
-      shell.echo(
-        `Error: Typedoc failed to generate documentation for ${relativeOutputPath}`
-      );
-      shell.exit(1);
-    }
-  } else {
-    if (
-      shell.exec(
-        `npm install && typedoc ${entryPoint} --out ${relativeOutputPath} --githubPages --cleanOutputDir`
-      ).code !== 0
-    ) {
-      shell.echo(
-        `Error: Typedoc failed to generate documentation for ${relativeOutputPath}`
-      );
-      shell.exit(1);
-    }
+  if (
+    shell.exec(
+      `pnpm install && ${binPath}/typedoc ${entryPoint} --out ${relativeOutputPath} --githubPages --cleanOutputDir`
+    ).code !== 0
+  ) {
+    shell.echo(
+      `Error: Typedoc failed to generate documentation for ${relativeOutputPath}`
+    );
+    shell.exit(1);
   }
 }
 

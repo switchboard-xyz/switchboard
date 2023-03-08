@@ -3,14 +3,14 @@
  * @return a promise that resolves when the sleep interval has elapsed
  */
 export const sleep = (ms: number): Promise<any> =>
-  new Promise((s) => setTimeout(s, ms));
+  new Promise(s => setTimeout(s, ms));
 
 export class TimeoutError extends Error {
   constructor(readonly ms: number, msg?: string) {
     super(
       `TimeoutError${
         msg
-          ? ": " + msg
+          ? ': ' + msg
           : `timed out after ${Math.round(ms / 1000).toFixed(3)} seconds`
       }`
     );

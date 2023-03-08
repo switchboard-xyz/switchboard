@@ -126,6 +126,7 @@ export class AggregatorJson implements IAggregatorJson {
     if (!fs.existsSync(normalizedPath)) {
       throw new Error(`Failed to find file at ${normalizedPath}`);
     }
+
     const json = JSON.parse(fs.readFileSync(normalizedPath, "utf-8"));
     // required fields
     // if (!("queueAddress" in json)) {
@@ -170,6 +171,7 @@ export class AggregatorJson implements IAggregatorJson {
       ) {
         throw new Error(`Job JSON should have at least one task defined`);
       }
+
       const jobAuthority = parseString(job, "authority");
       const jobName = parseString(job, "name");
       const jobMetadata = parseString(job, "metadata");
@@ -269,7 +271,7 @@ const parseInt = (
   optional = true
 ): number | undefined => {
   return key in object
-    ? Number.parseInt(object[key])
+    ? Number.parseInt(object[key], 10)
     : optional
     ? undefined
     : 0;
@@ -284,7 +286,7 @@ const parseFloat = (
     ? Number.parseFloat(object[key])
     : optional
     ? undefined
-    : 0.0;
+    : 0;
 };
 
 const parseBoolean = (

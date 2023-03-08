@@ -1,10 +1,11 @@
-import { Flags } from "@oclif/core";
-import { Keypair } from "@solana/web3.js";
 import { SolanaWithoutSignerBaseCommand as BaseCommand } from "../../../solana/index";
 import { CHECK_ICON } from "../../../utils/index";
+
+import { Flags } from "@oclif/core";
+import { Keypair } from "@solana/web3.js";
+import { QueueAccount, SwitchboardNetwork } from "@switchboard-xyz/solana.js";
 import chalk from "chalk";
 import fs from "fs";
-import { QueueAccount, SwitchboardNetwork } from "@switchboard-xyz/solana.js";
 
 export default class NetworkSave extends BaseCommand {
   static enableJsonFlag = true;
