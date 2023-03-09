@@ -33,7 +33,7 @@ importers:
       '@switchboard-xyz/common': workspace:^2.1.33
       '@switchboard-xyz/eslint-config': workspace:^0.1.8
       '@switchboard-xyz/near.js': ^2.0.76
-      '@switchboard-xyz/oracle': workspace:^2.1.11
+      '@switchboard-xyz/oracle': workspace:^2.1.12
       '@switchboard-xyz/solana.js': ^2.0.139
       '@types/bs58': ^4.0.1
       '@types/chai': ^4
