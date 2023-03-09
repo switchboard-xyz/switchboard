@@ -1,6 +1,5 @@
-import { SolanaBaseCommand } from "./BaseCommand";
-
 import { Input } from "@oclif/parser";
+import { SolanaBaseCommand } from "./BaseCommand";
 
 export abstract class SolanaWithoutSignerBaseCommand extends SolanaBaseCommand {
   static flags = {

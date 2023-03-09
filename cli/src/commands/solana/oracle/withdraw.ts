@@ -52,6 +52,7 @@ export default class OracleWithdraw extends BaseCommand {
     const txn = await oracleAccount.withdrawInstruction(this.payer, {
       amount: amount,
       authority,
+      unwrap: true,
     });
 
     const signature = await this.signAndSend(txn);

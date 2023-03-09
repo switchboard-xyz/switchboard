@@ -7,11 +7,13 @@ const binPath = path.join(__dirname, "..", "node_modules", ".bin");
 function generateTypedoc(
   entryPoint: string,
   relativeOutputPath: string,
-  fileManager: "yarn" | "npm" = "yarn"
+  fileManager: "pnpm" | "npm" = "pnpm"
 ) {
   if (
     shell.exec(
-      `pnpm install && ${binPath}/typedoc ${entryPoint} --out ${relativeOutputPath} --githubPages --cleanOutputDir`
+      `${
+        fileManager === "npm" ? "npm install" : "pnpm install"
+      } && ${binPath}/typedoc ${entryPoint} --out ${relativeOutputPath} --githubPages --cleanOutputDir`
     ).code !== 0
   ) {
     shell.echo(
@@ -25,7 +27,7 @@ export function generateGenericApiTypedocs(
   projectRoot: string,
   modulePaths: string[],
   outputPaths: string[],
-  fileManager: "yarn" | "npm" = "yarn",
+  fileManager: "pnpm" | "npm" = "pnpm",
   entry = "./src/index.ts"
 ) {
   const currentWorkingDir = process.cwd();

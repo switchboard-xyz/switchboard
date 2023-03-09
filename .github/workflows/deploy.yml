@@ -67,37 +67,42 @@ jobs:
         run: |
           sbv2-scripts cli ./cli/README.md ./website/docs/dev/cli
 
-      - name: Install @switchboard-xyz/aptos.js dependencies
-        working-directory: sdks/aptos/javascript/aptos.js
-        run: pnpm build
+      - name: Generate typedocs
+        working-directory: website
+        run: pnpm run docgen
 
-      - name: Install @switchboard-xyz/near.js dependencies
-        working-directory: sdks/near/javascript/near.js
-        run: pnpm build
+      # - name: Install @switchboard-xyz/aptos.js dependencies
+      #   working-directory: sdks/aptos/javascript/aptos.js
+      #   run: pnpm build
 
-      - name: Install @switchboard-xyz/switchboard-v2 dependencies
-        working-directory: sdks/solana/javascript/__deprecated__/switchboard-v2
-        run: npm ci
+      # - name: Install @switchboard-xyz/near.js dependencies
+      #   working-directory: sdks/near/javascript/near.js
+      #   run: pnpm build
 
-      - name: Install @switchboard-xyz/solana.js dependencies
-        working-directory: sdks/solana/javascript/solana.js
-        run: pnpm build
+      # - name: Install @switchboard-xyz/switchboard-v2 dependencies
+      #   working-directory: sdks/solana/javascript/__deprecated__/switchboard-v2
+      #   run: npm ci
 
-      - name: Install @switchboard-xyz/evm.js dependencies
-        working-directory: sdks/evm/javascript/evm.js
-        run: pnpm build
+      # - name: Install @switchboard-xyz/solana.js dependencies
+      #   working-directory: sdks/solana/javascript/solana.js
+      #   run: pnpm build
 
-      - name: Install @switchboard-xyz/starknet.js dependencies
-        working-directory: sdks/starknet/javascript/starknet.js
-        run: pnpm build
+      # - name: Install @switchboard-xyz/evm.js dependencies
+      #   working-directory: sdks/evm/javascript/evm.js
+      #   run: pnpm build
 
-      - name: Install @switchboard-xyz/sui.js dependencies
-        working-directory: sdks/sui/javascript/sui.js
-        run: pnpm build
+      # - name: Install @switchboard-xyz/starknet.js dependencies
+      #   working-directory: sdks/starknet/javascript/starknet.js
+      #   run: pnpm build
+
+      # - name: Install @switchboard-xyz/sui.js dependencies
+      #   working-directory: sdks/sui/javascript/sui.js
+      #   run: pnpm build
 
       - name: Build website
         working-directory: website
-        run: pnpm run build:all
+        run: pnpm run build
+
       # Popular action to deploy to GitHub Pages:
       # Docs: https://github.com/peaceiris/actions-gh-pages#%EF%B8%8F-docusaurus
       - name: Deploy to GitHub Pages

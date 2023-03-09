@@ -1,9 +1,9 @@
 {
   "editor.codeActionsOnSave": {
-    "source.fixAll.eslint": true
+    "source.fixAll.eslint": false
   },
   "files.eol": "\n",
-  "editor.formatOnSave": true
+  "editor.formatOnSave": false
   // "editor.wordWrap": "on"
   // "typescript.tsdk": "node_modules/typescript/lib"
 }

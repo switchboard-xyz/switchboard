@@ -19,16 +19,14 @@ const projectRoot = path.join(__dirname, "..", "..");
   generateGenericApiTypedocs(
     projectRoot,
     ["javascript", "common"],
-    ["@switchboard-xyz", "common"],
-    "npm"
+    ["@switchboard-xyz", "common"]
   );
 
   console.log(chalk.green(`Generating typedocs for @switchboard-xyz/oracle`));
   generateGenericApiTypedocs(
     projectRoot,
     ["javascript", "oracle"],
-    ["@switchboard-xyz", "oracle"],
-    "npm"
+    ["@switchboard-xyz", "oracle"]
   );
 
   console.log(chalk.green(`Generating typedocs for @switchboard-xyz/aptos.js`));
@@ -61,8 +59,7 @@ const projectRoot = path.join(__dirname, "..", "..");
   generateGenericApiTypedocs(
     projectRoot,
     ["sdks", "solana", "javascript", "solana.js"],
-    ["@switchboard-xyz", "solana.js"],
-    "npm"
+    ["@switchboard-xyz", "solana.js"]
   );
 
   console.log(
@@ -89,8 +86,7 @@ const projectRoot = path.join(__dirname, "..", "..");
   generateGenericApiTypedocs(
     projectRoot,
     ["sdks", "evm", "javascript", "evm.js"],
-    ["@switchboard-xyz", "evm.js"],
-    "npm"
+    ["@switchboard-xyz", "evm.js"]
   );
 
   console.log(
@@ -99,16 +95,14 @@ const projectRoot = path.join(__dirname, "..", "..");
   generateGenericApiTypedocs(
     projectRoot,
     ["sdks", "starknet", "javascript", "starknet.js"],
-    ["@switchboard-xyz", "starknet.js"],
-    "npm"
+    ["@switchboard-xyz", "starknet.js"]
   );
 
   console.log(chalk.green(`Generating typedocs for @switchboard-xyz/sui.js`));
   generateGenericApiTypedocs(
     projectRoot,
     ["sdks", "sui", "javascript", "sui.js"],
-    ["@switchboard-xyz", "sui.js"],
-    "npm"
+    ["@switchboard-xyz", "sui.js"]
   );
 
   console.log(chalk.green(`Generating documentation for @switchboard-xyz/cli`));
