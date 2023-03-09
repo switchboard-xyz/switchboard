@@ -1,31 +1,32 @@
+
 interact with switchboard on Aptos
 
-- [`sbv2 aptos account airdrop`](#sbv2-aptos-account-airdrop)
-- [`sbv2 aptos aggregator add job AGGREGATORHEXSTRING`](#sbv2-aptos-aggregator-add-job-aggregatorhexstring)
-- [`sbv2 aptos aggregator create QUEUEHEXSTRING`](#sbv2-aptos-aggregator-create-queuehexstring)
-- [`sbv2 aptos aggregator job add AGGREGATORHEXSTRING`](#sbv2-aptos-aggregator-job-add-aggregatorhexstring)
-- [`sbv2 aptos aggregator update AGGREGATORHEXSTRING`](#sbv2-aptos-aggregator-update-aggregatorhexstring)
-- [`sbv2 aptos crank create QUEUEHEXSTRING`](#sbv2-aptos-crank-create-queuehexstring)
-- [`sbv2 aptos crank list CRANKHEXSTRING`](#sbv2-aptos-crank-list-crankhexstring)
-- [`sbv2 aptos crank pop CRANKHEXSTRING`](#sbv2-aptos-crank-pop-crankhexstring)
-- [`sbv2 aptos crank push CRANKHEXSTRING`](#sbv2-aptos-crank-push-crankhexstring)
-- [`sbv2 aptos create aggregator QUEUEHEXSTRING`](#sbv2-aptos-create-aggregator-queuehexstring)
-- [`sbv2 aptos create crank QUEUEHEXSTRING`](#sbv2-aptos-create-crank-queuehexstring)
-- [`sbv2 aptos create job QUEUEHEXSTRING JOBDEFINITION`](#sbv2-aptos-create-job-queuehexstring-jobdefinition)
-- [`sbv2 aptos create oracle QUEUEHEXSTRING`](#sbv2-aptos-create-oracle-queuehexstring)
-- [`sbv2 aptos create queue`](#sbv2-aptos-create-queue)
-- [`sbv2 aptos job create QUEUEHEXSTRING JOBDEFINITION`](#sbv2-aptos-job-create-queuehexstring-jobdefinition)
-- [`sbv2 aptos list crank CRANKHEXSTRING`](#sbv2-aptos-list-crank-crankhexstring)
-- [`sbv2 aptos oracle create QUEUEHEXSTRING`](#sbv2-aptos-oracle-create-queuehexstring)
-- [`sbv2 aptos oracle metrics ORACLEHEXSTRING`](#sbv2-aptos-oracle-metrics-oraclehexstring)
-- [`sbv2 aptos oracle up ORACLEHEXSTRING`](#sbv2-aptos-oracle-up-oraclehexstring)
-- [`sbv2 aptos permission create GRANTER`](#sbv2-aptos-permission-create-granter)
-- [`sbv2 aptos permission set GRANTER`](#sbv2-aptos-permission-set-granter)
-- [`sbv2 aptos pop crank CRANKHEXSTRING`](#sbv2-aptos-pop-crank-crankhexstring)
-- [`sbv2 aptos print ACCOUNTTYPE ADDRESS`](#sbv2-aptos-print-accounttype-address)
-- [`sbv2 aptos push crank CRANKHEXSTRING`](#sbv2-aptos-push-crank-crankhexstring)
-- [`sbv2 aptos queue create`](#sbv2-aptos-queue-create)
-- [`sbv2 aptos update aggregator AGGREGATORHEXSTRING`](#sbv2-aptos-update-aggregator-aggregatorhexstring)
+* [`sbv2 aptos account airdrop`](#sbv2-aptos-account-airdrop)
+* [`sbv2 aptos aggregator add job AGGREGATORHEXSTRING`](#sbv2-aptos-aggregator-add-job-aggregatorhexstring)
+* [`sbv2 aptos aggregator create QUEUEHEXSTRING`](#sbv2-aptos-aggregator-create-queuehexstring)
+* [`sbv2 aptos aggregator job add AGGREGATORHEXSTRING`](#sbv2-aptos-aggregator-job-add-aggregatorhexstring)
+* [`sbv2 aptos aggregator update AGGREGATORHEXSTRING`](#sbv2-aptos-aggregator-update-aggregatorhexstring)
+* [`sbv2 aptos crank create QUEUEHEXSTRING`](#sbv2-aptos-crank-create-queuehexstring)
+* [`sbv2 aptos crank list CRANKHEXSTRING`](#sbv2-aptos-crank-list-crankhexstring)
+* [`sbv2 aptos crank pop CRANKHEXSTRING`](#sbv2-aptos-crank-pop-crankhexstring)
+* [`sbv2 aptos crank push CRANKHEXSTRING`](#sbv2-aptos-crank-push-crankhexstring)
+* [`sbv2 aptos create aggregator QUEUEHEXSTRING`](#sbv2-aptos-create-aggregator-queuehexstring)
+* [`sbv2 aptos create crank QUEUEHEXSTRING`](#sbv2-aptos-create-crank-queuehexstring)
+* [`sbv2 aptos create job QUEUEHEXSTRING JOBDEFINITION`](#sbv2-aptos-create-job-queuehexstring-jobdefinition)
+* [`sbv2 aptos create oracle QUEUEHEXSTRING`](#sbv2-aptos-create-oracle-queuehexstring)
+* [`sbv2 aptos create queue`](#sbv2-aptos-create-queue)
+* [`sbv2 aptos job create QUEUEHEXSTRING JOBDEFINITION`](#sbv2-aptos-job-create-queuehexstring-jobdefinition)
+* [`sbv2 aptos list crank CRANKHEXSTRING`](#sbv2-aptos-list-crank-crankhexstring)
+* [`sbv2 aptos oracle create QUEUEHEXSTRING`](#sbv2-aptos-oracle-create-queuehexstring)
+* [`sbv2 aptos oracle metrics ORACLEHEXSTRING`](#sbv2-aptos-oracle-metrics-oraclehexstring)
+* [`sbv2 aptos oracle up ORACLEHEXSTRING`](#sbv2-aptos-oracle-up-oraclehexstring)
+* [`sbv2 aptos permission create GRANTER`](#sbv2-aptos-permission-create-granter)
+* [`sbv2 aptos permission set GRANTER`](#sbv2-aptos-permission-set-granter)
+* [`sbv2 aptos pop crank CRANKHEXSTRING`](#sbv2-aptos-pop-crank-crankhexstring)
+* [`sbv2 aptos print ACCOUNTTYPE ADDRESS`](#sbv2-aptos-print-accounttype-address)
+* [`sbv2 aptos push crank CRANKHEXSTRING`](#sbv2-aptos-push-crank-crankhexstring)
+* [`sbv2 aptos queue create`](#sbv2-aptos-queue-create)
+* [`sbv2 aptos update aggregator AGGREGATORHEXSTRING`](#sbv2-aptos-update-aggregator-aggregatorhexstring)
 
 ## `sbv2 aptos account airdrop`
 
@@ -728,7 +729,7 @@ FLAGS
   --keypair=<value>             (required) Path to AptosAccount keypair or config.yaml file
   --networkId=<option>          [default: testnet] Aptos network to connect to
                                 <options: devnet|testnet|mainnet>
-  --nodeImage=<value>           [default: ] public key of the oracle to start-up
+  --nodeImage=<value>           [default: dev-v2-RC_02_24_23_18_43] public key of the oracle to start-up
   --profileName=<value>         [default: default] If --keypair is pointing to a yaml file, provide an optional profile
                                 to load. If none provided, default will be used
   --programId=<value>           Switchboard programId on the selected Aptos network
