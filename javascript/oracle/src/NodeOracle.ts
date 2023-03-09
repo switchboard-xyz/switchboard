@@ -186,12 +186,23 @@ export class NodeOracle extends ISwitchboardOracle {
     this.oracleProcess!.on('error', this.onErrorCallback);
     this.oracleProcess.on('close', this.onCloseCallback);
     this.oracleProcess.on('exit', this.onCloseCallback);
-    this.oracleProcess.on('exit', () => {
+
+    const killProcessCallback = () => {
+      if (this.isActive) {
+        this.isActive = false;
+        this.saveLogs();
+      }
+
       if (this.oracleProcess !== undefined) {
         this.oracleProcess.removeAllListeners();
-        this.oracleProcess = undefined;
+        const wasKilled = this.oracleProcess.kill();
+        if (wasKilled) {
+          this.oracleProcess = undefined;
+        }
       }
-    });
+    };
+    this.oracleProcess.on('exit', killProcessCallback);
+    process.on('exit', killProcessCallback);
   }
 
   stop(): boolean {
