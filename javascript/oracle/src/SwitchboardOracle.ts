@@ -71,6 +71,8 @@ export abstract class ISwitchboardOracle {
     envVariables['DISABLE_NONCE_QUEUE'] = '1';
     envVariables['DEBUG'] = '1';
     envVariables['VERBOSE'] = '1';
+    envVariables['DISABLE_METRICS'] = '1';
+    envVariables['ALLOW_LOCALHOST'] = '1';
 
     // set chain
     envVariables['CHAIN'] = config.chain ?? 'solana';
