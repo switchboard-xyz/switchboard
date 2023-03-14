@@ -14,6 +14,8 @@
 
 ## Args
 
-| Name   | Type                                                         | Description |
-| ------ | ------------------------------------------------------------ | ----------- |
-| params | [LeaseWithdrawParams](/solana/idl/types/leasewithdrawparams) |             |
+| Field     | Type | Description                                                                     |
+| --------- | ---- | ------------------------------------------------------------------------------- |
+| stateBump | u8   | The [SbState](/solana/idl/accounts/SbState) bump used to derive its public key. |
+| leaseBump | u8   |                                                                                 |
+| amount    | u64  | Token amount to withdraw from the lease escrow                                  |

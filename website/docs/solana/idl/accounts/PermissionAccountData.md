@@ -1,10 +1,10 @@
-<b>Size: </b>372 Bytes<br /><b>Rent Exemption: </b>0.003480000 SOL<br /><br />.
+<b>Size: </b>372 Bytes<br /><b>Rent Exemption: </b>0.003480000 SOL<br /><br />
 
-| Field       | Type      | Description                                                                                                                                                                                                                                           |
-| ----------- | --------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| authority   | publicKey | The authority that is allowed to set permissions for this account.                                                                                                                                                                                    |
-| permissions | u32       | The [SwitchboardPermission](/solana/idl/types/switchboardpermission) enumeration assigned by the granter to the grantee. The [SwitchboardPermission](/solana/idl/types/switchboardpermission) enumeration assigned by the `granter` to the `grantee`. |
-| granter     | publicKey | Public key of account that is granting permissions to use its resources.                                                                                                                                                                              |
-| grantee     | publicKey | Public key of account that is being assigned permissions to use a granters resources.                                                                                                                                                                 |
-| expiration  | i64       | unused currently. may want permission PDA per permission for. unique expiration periods, BUT currently only one permission. per account makes sense for the infra. Dont over engineer. Timestamp when the permissions expire.                         |
-| ebuf        | u8[256]   | Reserved for future info. Reserved.                                                                                                                                                                                                                   |
+| Field       | Type      | Description                                                                                                                  |
+| ----------- | --------- | ---------------------------------------------------------------------------------------------------------------------------- |
+| authority   | publicKey | The authority that is allowed to set permissions for this account.                                                           |
+| permissions | u32       | The [SwitchboardPermission](/solana/idl/types/SwitchboardPermission) enumeration assigned by the `granter` to the `grantee`. |
+| granter     | publicKey | Public key of account that is granting permissions to use its resources.                                                     |
+| grantee     | publicKey | Public key of account that is being assigned permissions to use a granters resources.                                        |
+| expiration  | i64       | Unix timestamp when the permissions expire.                                                                                  |
+| ebuf        | u8[256]   | Reserved for future info.                                                                                                    |

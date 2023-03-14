@@ -17,6 +17,8 @@
 
 ## Args
 
-| Name   | Type                                                                 | Description |
-| ------ | -------------------------------------------------------------------- | ----------- |
-| params | [BufferRelayerInitParams](/solana/idl/types/bufferrelayerinitparams) |             |
+| Field                 | Type   | Description |
+| --------------------- | ------ | ----------- |
+| name                  | u8[32] |             |
+| minUpdateDelaySeconds | u32    |             |
+| stateBump             | u8     |             |

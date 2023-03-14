@@ -8,6 +8,5 @@
 
 ## Args
 
-| Name   | Type                                                                   | Description |
-| ------ | ---------------------------------------------------------------------- | ----------- |
-| params | [AggregatorSetQueueParams](/solana/idl/types/aggregatorsetqueueparams) |             |
+| Field | Type | Description |
+| ----- | ---- | ----------- |

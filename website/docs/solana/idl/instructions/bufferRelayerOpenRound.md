@@ -11,6 +11,7 @@
 
 ## Args
 
-| Name   | Type                                                                           | Description |
-| ------ | ------------------------------------------------------------------------------ | ----------- |
-| params | [BufferRelayerOpenRoundParams](/solana/idl/types/bufferrelayeropenroundparams) |             |
+| Field          | Type | Description |
+| -------------- | ---- | ----------- |
+| stateBump      | u8   |             |
+| permissionBump | u8   |             |

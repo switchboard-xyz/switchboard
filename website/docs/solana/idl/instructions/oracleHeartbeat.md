@@ -14,6 +14,6 @@ Initiates a heartbeat for an OracleAccount, signifying oracle is still healthy.
 
 ## Args
 
-| Name   | Type                                                             | Description |
-| ------ | ---------------------------------------------------------------- | ----------- |
-| params | [OracleHeartbeatParams](/solana/idl/types/oracleheartbeatparams) |             |
+| Field          | Type | Description |
+| -------------- | ---- | ----------- |
+| permissionBump | u8   |             |

@@ -16,6 +16,9 @@ Adds fund to a LeaseAccount. Note that funds can always be withdrawn by the with
 
 ## Args
 
-| Name   | Type                                                     | Description |
-| ------ | -------------------------------------------------------- | ----------- |
-| params | [LeaseExtendParams](/solana/idl/types/leaseextendparams) |             |
+| Field       | Type  | Description                                                                     |
+| ----------- | ----- | ------------------------------------------------------------------------------- |
+| loadAmount  | u64   |                                                                                 |
+| leaseBump   | u8    |                                                                                 |
+| stateBump   | u8    | The [SbState](/solana/idl/accounts/SbState) bump used to derive its public key. |
+| walletBumps | bytes |                                                                                 |

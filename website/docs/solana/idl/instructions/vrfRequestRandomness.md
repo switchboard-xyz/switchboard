@@ -17,6 +17,7 @@
 
 ## Args
 
-| Name   | Type                                                                       | Description |
-| ------ | -------------------------------------------------------------------------- | ----------- |
-| params | [VrfRequestRandomnessParams](/solana/idl/types/vrfrequestrandomnessparams) |             |
+| Field          | Type | Description |
+| -------------- | ---- | ----------- |
+| permissionBump | u8   |             |
+| stateBump      | u8   |             |

@@ -10,6 +10,6 @@
 
 ## Args
 
-| Name   | Type                                                                                     | Description |
-| ------ | ---------------------------------------------------------------------------------------- | ----------- |
-| params | [AggregatorSetResolutionModeParams](/solana/idl/types/aggregatorsetresolutionmodeparams) |             |
+| Field | Type | Description |
+| ----- | ---- | ----------- |
+| mode  | u8   |             |

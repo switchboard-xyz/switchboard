@@ -10,6 +10,5 @@ Change the aggregator authority.
 
 ## Args
 
-| Name   | Type                                                                           | Description |
-| ------ | ------------------------------------------------------------------------------ | ----------- |
-| params | [AggregatorSetAuthorityParams](/solana/idl/types/aggregatorsetauthorityparams) |             |
+| Field | Type | Description |
+| ----- | ---- | ----------- |

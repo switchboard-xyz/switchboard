@@ -10,6 +10,7 @@
 
 ## Args
 
-| Name   | Type                                                         | Description |
-| ------ | ------------------------------------------------------------ | ----------- |
-| params | [VaultTransferParams](/solana/idl/types/vaulttransferparams) |             |
+| Field     | Type | Description                                                                     |
+| --------- | ---- | ------------------------------------------------------------------------------- |
+| stateBump | u8   | The [SbState](/solana/idl/accounts/SbState) bump used to derive its public key. |
+| amount    | u64  |                                                                                 |

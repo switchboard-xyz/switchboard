@@ -14,6 +14,6 @@
 
 ## Args
 
-| Name   | Type                                                   | Description |
+| Field  | Type                                                   | Description |
 | ------ | ------------------------------------------------------ | ----------- |
-| params | [CrankPopParamsV2](/solana/idl/types/crankpopparamsv2) |             |
+| params | [CrankPopParamsV2](/solana/idl/types/CrankPopParamsV2) |             |

@@ -10,6 +10,6 @@ Remove a job from an aggregator.
 
 ## Args
 
-| Name   | Type                                                                     | Description |
-| ------ | ------------------------------------------------------------------------ | ----------- |
-| params | [AggregatorRemoveJobParams](/solana/idl/types/aggregatorremovejobparams) |             |
+| Field  | Type | Description |
+| ------ | ---- | ----------- |
+| jobIdx | u32  |             |

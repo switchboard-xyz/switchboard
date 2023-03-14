@@ -8,6 +8,5 @@
 
 ## Args
 
-| Name   | Type                                                                                   | Description |
-| ------ | -------------------------------------------------------------------------------------- | ----------- |
-| params | [AggregatorSetHistoryBufferParams](/solana/idl/types/aggregatorsethistorybufferparams) |             |
+| Field | Type | Description |
+| ----- | ---- | ----------- |

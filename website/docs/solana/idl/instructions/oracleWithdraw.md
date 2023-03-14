@@ -17,6 +17,8 @@ Withdraw stake and/or rewards from an OracleAccount.
 
 ## Args
 
-| Name   | Type                                                           | Description |
-| ------ | -------------------------------------------------------------- | ----------- |
-| params | [OracleWithdrawParams](/solana/idl/types/oraclewithdrawparams) |             |
+| Field          | Type | Description                                                                     |
+| -------------- | ---- | ------------------------------------------------------------------------------- |
+| stateBump      | u8   | The [SbState](/solana/idl/accounts/SbState) bump used to derive its public key. |
+| permissionBump | u8   |                                                                                 |
+| amount         | u64  |                                                                                 |

@@ -1,4 +1,4 @@
-Opens a new round for the aggregator and will provide an incentivize reward to the caller.
+Opens a new round for the aggregator and will provide an incentivize reward to the caller
 
 ## Accounts
 
@@ -18,6 +18,9 @@ Opens a new round for the aggregator and will provide an incentivize reward to t
 
 ## Args
 
-| Name   | Type                                                                     | Description |
-| ------ | ------------------------------------------------------------------------ | ----------- |
-| params | [AggregatorOpenRoundParams](/solana/idl/types/aggregatoropenroundparams) |             |
+| Field          | Type | Description                                                                     |
+| -------------- | ---- | ------------------------------------------------------------------------------- |
+| stateBump      | u8   | The [SbState](/solana/idl/accounts/SbState) bump used to derive its public key. |
+| leaseBump      | u8   |                                                                                 |
+| permissionBump | u8   |                                                                                 |
+| jitter         | u8   |                                                                                 |
