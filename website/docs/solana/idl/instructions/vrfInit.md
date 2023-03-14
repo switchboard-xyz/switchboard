@@ -11,6 +11,7 @@
 
 ## Args
 
-| Name   | Type                                             | Description |
-| ------ | ------------------------------------------------ | ----------- |
-| params | [VrfInitParams](/solana/idl/types/vrfinitparams) |             |
+| Field     | Type                                   | Description |
+| --------- | -------------------------------------- | ----------- |
+| callback  | [Callback](/solana/idl/types/Callback) |             |
+| stateBump | u8                                     |             |

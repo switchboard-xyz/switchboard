@@ -1,5 +1,5 @@
 | Field | Type                                               | Description |
 | ----- | -------------------------------------------------- | ----------- |
-| gamma | [EdwardsPointZC](/solana/idl/types/edwardspointzc) |             |
-| c     | [Scalar](/solana/idl/types/scalar)                 |             |
-| s     | [Scalar](/solana/idl/types/scalar)                 |             |
+| gamma | [EdwardsPointZC](/solana/idl/types/EdwardsPointZC) |             |
+| c     | [Scalar](/solana/idl/types/Scalar)                 |             |
+| s     | [Scalar](/solana/idl/types/Scalar)                 |             |

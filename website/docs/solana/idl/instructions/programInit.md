@@ -1,4 +1,4 @@
-Create and initialize the [SbState](/solana/idl/accounts/sbstate).
+Create and initialize the [SbState](/solana/idl/accounts/SbState).
 
 ## Accounts
 
@@ -15,6 +15,6 @@ Create and initialize the [SbState](/solana/idl/accounts/sbstate).
 
 ## Args
 
-| Name   | Type                                                     | Description |
-| ------ | -------------------------------------------------------- | ----------- |
-| params | [ProgramInitParams](/solana/idl/types/programinitparams) |             |
+| Field     | Type | Description                                                                     |
+| --------- | ---- | ------------------------------------------------------------------------------- |
+| stateBump | u8   | The [SbState](/solana/idl/accounts/SbState) bump used to derive its public key. |

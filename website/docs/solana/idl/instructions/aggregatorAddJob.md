@@ -1,4 +1,4 @@
-Add a new job to an aggregator to be performed on feed updates.
+Add a new job to an aggregator to be performed on feed updates
 
 ## Accounts
 
@@ -10,6 +10,6 @@ Add a new job to an aggregator to be performed on feed updates.
 
 ## Args
 
-| Name   | Type                                                               | Description |
-| ------ | ------------------------------------------------------------------ | ----------- |
-| params | [AggregatorAddJobParams](/solana/idl/types/aggregatoraddjobparams) |             |
+| Field  | Type             | Description |
+| ------ | ---------------- | ----------- |
+| weight | Option&lt;u8&gt; |             |

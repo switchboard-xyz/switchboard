@@ -14,7 +14,7 @@
         },
         {
           "name": "reserved1",
-          "description": "Reserved."
+          "description": "Reserved for future info."
         },
         {
           "name": "queuePubkey",
@@ -50,7 +50,7 @@
         },
         {
           "name": "expiration",
-          "description": "Timestamp when the feed is no longer needed."
+          "description": "Unix timestamp when the feed is no longer needed."
         },
         {
           "name": "consecutiveFailureCount",
@@ -58,7 +58,7 @@
         },
         {
           "name": "nextAllowedUpdateTime",
-          "description": "Timestamp when the next update request will be available."
+          "description": "Unix timestamp when the next update request will be available."
         },
         {
           "name": "isLocked",
@@ -117,8 +117,32 @@
           "description": "Job weights used for the weighted median of the aggregator's assigned job accounts."
         },
         {
+          "name": "creationTimestamp",
+          "description": "Unix timestamp when the feed was created."
+        },
+        {
+          "name": "resolutionMode",
+          "description": "Use sliding window or round based resolution. NOTE: This changes result propogation in latest_round_result."
+        },
+        {
+          "name": "basePriorityFee",
+          "description": "The base priority fee to add to all save_result instructions, per oracle."
+        },
+        {
+          "name": "priorityFeeBump",
+          "description": "The amount of microlamports/compute_unit to bump the feed per priorityFeeBumpPeriod of staleness"
+        },
+        {
+          "name": "priorityFeeBumpPeriod",
+          "description": "The number of seconds of staleness before bumping the priority fee."
+        },
+        {
+          "name": "maxPriorityFeeMultiplier",
+          "description": "The maximum priorityFeeBumpPeriod(s) of staleness to bump the priority fee by."
+        },
+        {
           "name": "ebuf",
-          "description": "Reserved."
+          "description": "Reserved for future info."
         }
       ]
     },
@@ -202,7 +226,7 @@
         },
         {
           "name": "ebuf",
-          "description": "Reserved"
+          "description": "Reserved for future info."
         },
         {
           "name": "dataBuffer",
@@ -232,7 +256,7 @@
         },
         {
           "name": "expiration",
-          "description": "Timestamp when the job is considered invalid"
+          "description": "Unix timestamp when the job is considered invalid"
         },
         {
           "name": "hash",
@@ -248,11 +272,15 @@
         },
         {
           "name": "totalSpent",
-          "description": ""
+          "description": "The token amount funded into a feed that contains this job account."
         },
         {
           "name": "createdAt",
-          "description": "Timestamp when the job account was created."
+          "description": "Unix timestamp when the job account was created."
+        },
+        {
+          "name": "isInitializing",
+          "description": "Whether the JobAccount has finished initializing and locked for future updates."
         }
       ]
     },
@@ -286,7 +314,7 @@
         },
         {
           "name": "createdAt",
-          "description": "Timestamp when the lease contract was created"
+          "description": "Unix timestamp when the lease contract was created"
         },
         {
           "name": "updateCount",
@@ -298,7 +326,7 @@
         },
         {
           "name": "ebuf",
-          "description": "Reserved"
+          "description": "Reserved for future info."
         }
       ]
     },
@@ -320,7 +348,7 @@
         },
         {
           "name": "lastHeartbeat",
-          "description": "Timestamp when the oracle last heartbeated"
+          "description": "Unix timestamp when the oracle last heartbeated"
         },
         {
           "name": "numInUse",
@@ -340,7 +368,7 @@
         },
         {
           "name": "ebuf",
-          "description": "Reserved"
+          "description": "Reserved for future info."
         }
       ]
     },
@@ -430,7 +458,7 @@
         },
         {
           "name": "ebuf",
-          "description": "Reserved."
+          "description": "Reserved for future info."
         },
         {
           "name": "maxSize",
@@ -464,11 +492,11 @@
         },
         {
           "name": "expiration",
-          "description": "Timestamp when the permissions expire."
+          "description": "Unix timestamp when the permissions expire."
         },
         {
           "name": "ebuf",
-          "description": "Reserved."
+          "description": "Reserved for future info."
         }
       ]
     },
@@ -494,7 +522,7 @@
         },
         {
           "name": "ebuf",
-          "description": "Reserved."
+          "description": "Reserved for future info."
         }
       ]
     },
@@ -544,7 +572,123 @@
         },
         {
           "name": "ebuf",
-          "description": "Reserved."
+          "description": "Reserved for future info."
+        }
+      ]
+    },
+    {
+      "name": "VrfLiteAccountData",
+      "description": "",
+      "children": [
+        {
+          "name": "stateBump",
+          "description": "The SbState bump used to derive its public key."
+        },
+        {
+          "name": "permissionBump",
+          "description": "The PermissionAccount bump used to derive its public key."
+        },
+        {
+          "name": "vrfPool",
+          "description": "The public key of the VrfPoolAccountData that the VrfLiteAccount belongs to, if any."
+        },
+        {
+          "name": "status",
+          "description": "The current status of the VRF Lite account."
+        },
+        {
+          "name": "counter",
+          "description": "Incremental counter for tracking VRF rounds."
+        },
+        {
+          "name": "alpha",
+          "description": "The alpha bytes used to calculate the VRF proof."
+        },
+        {
+          "name": "alphaLen",
+          "description": "The number of bytes in the alpha buffer."
+        },
+        {
+          "name": "requestSlot",
+          "description": "The Slot when the VRF round was opened."
+        },
+        {
+          "name": "requestTimestamp",
+          "description": "The unix timestamp when the VRF round was opened."
+        },
+        {
+          "name": "result",
+          "description": "The VRF round result. Will be zeroized if still awaiting fulfillment."
+        },
+        {
+          "name": "authority",
+          "description": "On-chain account delegated for making account changes."
+        },
+        {
+          "name": "queue",
+          "description": "The OracleQueueAccountData that is assigned to fulfill VRF update request."
+        },
+        {
+          "name": "escrow",
+          "description": "The token account used to hold funds for VRF update request."
+        },
+        {
+          "name": "callback",
+          "description": "The callback that is invoked when an update request is successfully verified."
+        },
+        {
+          "name": "builder",
+          "description": "Struct containing the intermediate state between VRF crank actions."
+        },
+        {
+          "name": "expiration",
+          "description": "Unix timestamp when the VrfLiteAccount is no longer needed."
+        },
+        {
+          "name": "ebuf",
+          "description": "Reserved for future info."
+        }
+      ]
+    },
+    {
+      "name": "VrfPoolAccountData",
+      "description": "",
+      "children": [
+        {
+          "name": "authority",
+          "description": "On-chain account delegated for making account changes."
+        },
+        {
+          "name": "queue",
+          "description": "The OracleQueueAccountData that is assigned to fulfill VRF update request."
+        },
+        {
+          "name": "escrow",
+          "description": "The token account used to hold funds for VRF update request."
+        },
+        {
+          "name": "minInterval",
+          "description": "The minimum number of seconds between requesting a new VRF result for a given VrfLiteAccount."
+        },
+        {
+          "name": "maxRows",
+          "description": "The maximum number of rows the VrfPool can support."
+        },
+        {
+          "name": "size",
+          "description": "The current size of the VrfPool"
+        },
+        {
+          "name": "idx",
+          "description": "Incrementer used to track the pools position."
+        },
+        {
+          "name": "stateBump",
+          "description": "The SbState bump used to derive its public key."
+        },
+        {
+          "name": "ebuf",
+          "description": "Reserved for future info."
         }
       ]
     }
@@ -657,6 +801,20 @@
       ]
     },
     {
+      "name": "AggregatorResolutionMode",
+      "description": "",
+      "children": [
+        {
+          "name": "ModeRoundResolution",
+          "description": "Values are accepted on-chain after `aggregator.minOracleResults` have responded for a given AggregatorRound."
+        },
+        {
+          "name": "ModeSlidingResolution",
+          "description": "Values are accepted on-chain each time an oracle submits a response by taking the median of the last `aggregator.minOracleResults` stored in the SlidingWindowAccount."
+        }
+      ]
+    },
+    {
       "name": "AggregatorRound",
       "description": "",
       "children": [
@@ -678,7 +836,7 @@
         },
         {
           "name": "roundOpenTimestamp",
-          "description": "Timestamp when the update request round was open"
+          "description": "Unix timestamp when the update request round was open"
         },
         {
           "name": "result",
@@ -851,7 +1009,7 @@
         },
         {
           "name": "roundOpenTimestamp",
-          "description": "Timestamp when the buffer relayer round was opened"
+          "description": "Unix timestamp when the buffer relayer round was opened"
         },
         {
           "name": "oraclePubkey",
@@ -1036,6 +1194,10 @@
         {
           "name": "stateBump",
           "description": "The SbState bump used to derive its public key."
+        },
+        {
+          "name": "totalSpent",
+          "description": "The token amount funded into a feed that contains this job account."
         },
         {
           "name": "data",
@@ -1383,15 +1545,15 @@
       "children": [
         {
           "name": "producer",
-          "description": ""
+          "description": "The [OracleAccountData](/solana/idl/accounts/OracleAccountData) that is producing the randomness. "
         },
         {
           "name": "status",
-          "description": ""
+          "description": "The current status of the VRF verification."
         },
         {
           "name": "reprProof",
-          "description": ""
+          "description": "The VRF proof sourced from the producer."
         },
         {
           "name": "proof",
@@ -1523,15 +1685,15 @@
         },
         {
           "name": "txRemaining",
-          "description": ""
+          "description": "The number of transactions remaining to verify the VRF proof."
         },
         {
           "name": "verified",
-          "description": ""
+          "description": "Whether the VRF proof has been verified on-chain."
         },
         {
           "name": "result",
-          "description": ""
+          "description": "The VRF proof verification result. Will be zeroized if still awaiting fulfillment."
         }
       ]
     },
@@ -1570,32 +1732,36 @@
       "description": "",
       "children": [
         {
-          "name": "vrfProducer",
-          "description": "The oracle assigned to the VRF request."
-        },
-        {
-          "name": "reprProof",
-          "description": ""
-        },
-        {
-          "name": "proof",
-          "description": ""
-        },
-        {
           "name": "alpha",
-          "description": ""
+          "description": "The alpha bytes used to calculate the VRF proof."
         },
         {
           "name": "alphaLen",
-          "description": ""
+          "description": "The number of bytes in the alpha buffer."
         },
         {
           "name": "stage",
           "description": ""
         },
         {
+          "name": "requestSlot",
+          "description": "The Slot when the VRF round was opened."
+        },
+        {
+          "name": "requestTimestamp",
+          "description": "The unix timestamp when the VRF round was opened."
+        },
+        {
+          "name": "result",
+          "description": "The VRF round result. Will be zeroized if still awaiting fulfillment."
+        },
+        {
+          "name": "numVerified",
+          "description": "The number of builders who verified the VRF proof."
+        },
+        {
           "name": "ebuf",
-          "description": ""
+          "description": "Reserved for future info."
         }
       ]
     }

@@ -7,6 +7,7 @@
 
 ## Args
 
-| Name   | Type                                                   | Description |
-| ------ | ------------------------------------------------------ | ----------- |
-| params | [JobSetDataParams](/solana/idl/types/jobsetdataparams) |             |
+| Field    | Type  | Description |
+| -------- | ----- | ----------- |
+| data     | bytes |             |
+| chunkIdx | u8    |             |

@@ -12,6 +12,8 @@ Create and initialize the CrankAccount.
 
 ## Args
 
-| Name   | Type                                                 | Description |
-| ------ | ---------------------------------------------------- | ----------- |
-| params | [CrankInitParams](/solana/idl/types/crankinitparams) |             |
+| Field     | Type  | Description                              |
+| --------- | ----- | ---------------------------------------- |
+| name      | bytes |                                          |
+| metadata  | bytes | Metadata of the crank to store on-chain. |
+| crankSize | u32   |                                          |

@@ -1,4 +1,4 @@
-| Name                  | Value | Description |
-| --------------------- | ----- | ----------- |
-| ModeRoundResolution   | 1     |             |
-| ModeSlidingResolution | 2     |             |
+| Name                  | Value | Description                                                                                                                                                            |
+| --------------------- | ----- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| ModeRoundResolution   | 0     | Values are accepted on-chain after `aggregator.minOracleResults` have responded for a given [AggregatorRound](/solana/idl/types/AggregatorRound).                      |
+| ModeSlidingResolution | 1     | Values are accepted on-chain each time an oracle submits a response by taking the median of the last `aggregator.minOracleResults` stored in the SlidingWindowAccount. |

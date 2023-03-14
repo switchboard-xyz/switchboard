@@ -8,6 +8,5 @@
 
 ## Args
 
-| Name   | Type                                                                 | Description |
-| ------ | -------------------------------------------------------------------- | ----------- |
-| params | [LeaseSetAuthorityParams](/solana/idl/types/leasesetauthorityparams) |             |
+| Field | Type | Description |
+| ----- | ---- | ----------- |

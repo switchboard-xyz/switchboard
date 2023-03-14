@@ -13,6 +13,5 @@ Create and initialize the PermissionAccount.
 
 ## Args
 
-| Name   | Type                                                           | Description |
-| ------ | -------------------------------------------------------------- | ----------- |
-| params | [PermissionInitParams](/solana/idl/types/permissioninitparams) |             |
+| Field | Type | Description |
+| ----- | ---- | ----------- |

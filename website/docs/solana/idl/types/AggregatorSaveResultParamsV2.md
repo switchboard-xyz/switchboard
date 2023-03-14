@@ -2,10 +2,10 @@
 | -------------------- | ---------------------------------------------- | ----------- |
 | oracleIdx            | u32                                            |             |
 | error                | bool                                           |             |
-| value                | [BorshDecimal](/solana/idl/types/borshdecimal) |             |
+| value                | [BorshDecimal](/solana/idl/types/BorshDecimal) |             |
 | jobsChecksum         | u8[32]                                         |             |
-| minResponse          | [BorshDecimal](/solana/idl/types/borshdecimal) |             |
-| maxResponse          | [BorshDecimal](/solana/idl/types/borshdecimal) |             |
+| minResponse          | [BorshDecimal](/solana/idl/types/BorshDecimal) |             |
+| maxResponse          | [BorshDecimal](/solana/idl/types/BorshDecimal) |             |
 | feedPermissionBump   | u8                                             |             |
 | oraclePermissionBump | u8                                             |             |
 | leaseBump            | u8                                             |             |

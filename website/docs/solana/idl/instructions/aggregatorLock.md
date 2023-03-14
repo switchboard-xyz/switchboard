@@ -9,6 +9,5 @@ Prevent new jobs from being added to the feed.
 
 ## Args
 
-| Name   | Type                                                           | Description |
-| ------ | -------------------------------------------------------------- | ----------- |
-| params | [AggregatorLockParams](/solana/idl/types/aggregatorlockparams) |             |
+| Field | Type | Description |
+| ----- | ---- | ----------- |

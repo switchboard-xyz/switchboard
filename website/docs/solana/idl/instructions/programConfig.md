@@ -8,6 +8,8 @@
 
 ## Args
 
-| Name   | Type                                                         | Description |
-| ------ | ------------------------------------------------------------ | ----------- |
-| params | [ProgramConfigParams](/solana/idl/types/programconfigparams) |             |
+| Field   | Type      | Description |
+| ------- | --------- | ----------- |
+| token   | publicKey |             |
+| bump    | u8        |             |
+| daoMint | publicKey |             |

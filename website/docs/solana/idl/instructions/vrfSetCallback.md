@@ -7,6 +7,6 @@
 
 ## Args
 
-| Name   | Type                                                           | Description |
-| ------ | -------------------------------------------------------------- | ----------- |
-| params | [VrfSetCallbackParams](/solana/idl/types/vrfsetcallbackparams) |             |
+| Field    | Type                                   | Description |
+| -------- | -------------------------------------- | ----------- |
+| callback | [Callback](/solana/idl/types/Callback) |             |

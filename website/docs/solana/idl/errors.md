@@ -5,7 +5,8 @@ title: Errors
 
 ## Anchor Errors
 
-See [anchor.so/errors](https://anchor.so/errors) for a list of built-in Anchor errors.
+See [anchor.so/errors](https://anchor.so/errors) for a list of built-in Anchor
+errors.
 
 ## Switchboard Errors
 
@@ -102,3 +103,12 @@ See [anchor.so/errors](https://anchor.so/errors) for a list of built-in Anchor e
 | 6088 | 0x17c8 | JobNotInitialized                 | Job account has not finished initializing                                   |
 | 6089 | 0x17c9 | BufferRelayerIllegalRoundOpenCall | BufferRelayer round open called too early.                                  |
 | 6090 | 0x17ca | InvalidSliderAccount              | Invalid slider account.                                                     |
+| 6091 | 0x17cb | VrfLiteHasExistingPool            | VRF lite account belongs to an existing pool.                               |
+| 6092 | 0x17cc | VrfPoolFull                       | VRF pool is at max capacity.                                                |
+| 6093 | 0x17cd | VrfPoolEmpty                      | VRF pool is empty.                                                          |
+| 6094 | 0x17ce | VrfAccountNotFound                | Failed to find VRF account in remaining accounts array.                     |
+| 6095 | 0x17cf | AccountCloseNotReady              | Account is not ready to be closed.                                          |
+| 6096 | 0x17d0 | VrfPoolRequestTooSoon             | VRF requested too soon.                                                     |
+| 6097 | 0x17d1 | VrfPoolMiss                       | VRF pool miss.                                                              |
+| 6098 | 0x17d2 | VrfLiteOwnedByPool                | VRF lite belongs to a pool.                                                 |
+| 6099 | 0x17d3 | InsufficientTokenBalance          | Escrow has insufficient funds to perform this action.                       |
