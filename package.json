@@ -5,7 +5,8 @@
     "preinstall": "npx only-allow pnpm",
     "build": "pnpm -r build",
     "lint": "pnpm -r lint",
-    "fix": "pnpm -r fix"
+    "fix": "pnpm -r fix",
+    "uprev:sdk": "./scripts/uprev-sdks.sh"
   },
   "devDependencies": {
     "@commitlint/config-conventional": "^17.0.2",
