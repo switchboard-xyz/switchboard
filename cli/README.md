@@ -51,6 +51,7 @@ node bin/dev print GvDMxPzN1sCj7L26YDK2HnMRXEQmQ2aemov8YBtPS7vR
 **Commands**
 
 <!-- commands -->
+* [`sbv2 anchor test`](#sbv2-anchor-test)
 * [`sbv2 aptos account airdrop`](#sbv2-aptos-account-airdrop)
 * [`sbv2 aptos aggregator add job AGGREGATORHEXSTRING`](#sbv2-aptos-aggregator-add-job-aggregatorhexstring)
 * [`sbv2 aptos aggregator create QUEUEHEXSTRING`](#sbv2-aptos-aggregator-create-queuehexstring)
@@ -151,6 +152,7 @@ node bin/dev print GvDMxPzN1sCj7L26YDK2HnMRXEQmQ2aemov8YBtPS7vR
 * [`sbv2 solana aggregator update AGGREGATORKEY`](#sbv2-solana-aggregator-update-aggregatorkey)
 * [`sbv2 solana aggregator watch AGGREGATORKEY`](#sbv2-solana-aggregator-watch-aggregatorkey)
 * [`sbv2 solana aggregator withdraw AGGREGATORKEY`](#sbv2-solana-aggregator-withdraw-aggregatorkey)
+* [`sbv2 solana anchor test`](#sbv2-solana-anchor-test)
 * [`sbv2 solana buffer create QUEUEKEY`](#sbv2-solana-buffer-create-queuekey)
 * [`sbv2 solana buffer open-round BUFFERRELAYERKEY`](#sbv2-solana-buffer-open-round-bufferrelayerkey)
 * [`sbv2 solana buffer update BUFFERRELAYERKEY`](#sbv2-solana-buffer-update-bufferrelayerkey)
@@ -167,10 +169,14 @@ node bin/dev print GvDMxPzN1sCj7L26YDK2HnMRXEQmQ2aemov8YBtPS7vR
 * [`sbv2 solana lease print LEASEKEY`](#sbv2-solana-lease-print-leasekey)
 * [`sbv2 solana lease set AGGREGATORKEY`](#sbv2-solana-lease-set-aggregatorkey)
 * [`sbv2 solana lease withdraw AGGREGATORKEY`](#sbv2-solana-lease-withdraw-aggregatorkey)
+* [`sbv2 solana localnet env`](#sbv2-solana-localnet-env)
+* [`sbv2 solana localnet up`](#sbv2-solana-localnet-up)
 * [`sbv2 solana network create`](#sbv2-solana-network-create)
 * [`sbv2 solana network save`](#sbv2-solana-network-save)
+* [`sbv2 solana network start`](#sbv2-solana-network-start)
 * [`sbv2 solana oracle create QUEUEKEY`](#sbv2-solana-oracle-create-queuekey)
 * [`sbv2 solana oracle print ORACLEKEY`](#sbv2-solana-oracle-print-oraclekey)
+* [`sbv2 solana oracle up`](#sbv2-solana-oracle-up)
 * [`sbv2 solana oracle withdraw ORACLEKEY`](#sbv2-solana-oracle-withdraw-oraclekey)
 * [`sbv2 solana permission create`](#sbv2-solana-permission-create)
 * [`sbv2 solana permission grant PERMISSIONKEY`](#sbv2-solana-permission-grant-permissionkey)
@@ -186,6 +192,44 @@ node bin/dev print GvDMxPzN1sCj7L26YDK2HnMRXEQmQ2aemov8YBtPS7vR
 * [`sbv2 solana vrf update VRFKEY`](#sbv2-solana-vrf-update-vrfkey)
 * [`sbv2 update [CHANNEL]`](#sbv2-update-channel)
 * [`sbv2 version`](#sbv2-version)
+
+## `sbv2 anchor test`
+
+run anchor test and a switchboard oracle in parallel
+
+```
+USAGE
+  $ sbv2 anchor test [-h] [-v] [-s] [--mainnetBeta | --cluster localnet|devnet] [-u <value>] [--mainnetRpcUrl
+    <value>] [--programId <value>] [-d <value>] [--oracleKey <value>] [-k <value>] [--nodeImage <value>] [--arm] [-t
+    <value>] [--detach] [--testValidatorArgs <value>]
+
+FLAGS
+  -d, --switchboardDir=<value>  directory with switchboard.env to load a switchboard environment
+  -h, --help                    Show CLI help.
+  -k, --keypair=<value>         keypair that will pay for onchain transactions. defaults to new account authority if no
+                                alternate authority provided
+  -s, --silent                  suppress docker logging
+  -t, --timeout=<value>         [default: 120] number of seconds before ending the docker process
+  -u, --rpcUrl=<value>          alternate RPC url
+  -v, --verbose                 log everything
+  --arm                         apple silicon needs to use a docker image for linux/arm64
+  --cluster=<option>            [default: localnet] cluster
+                                <options: localnet|devnet>
+  --detach                      keep the localnet rpc running
+  --mainnetBeta                 WARNING: use mainnet-beta solana cluster
+  --mainnetRpcUrl=<value>       [default: https://api.mainnet-beta.solana.com/] Solana mainnet RPC URL to use for the
+                                oracle task runner
+  --nodeImage=<value>           [default: dev-v2-RC_02_24_23_18_43] public key of the oracle to start-up
+  --oracleKey=<value>           public key of the oracle to start-up
+  --programId=<value>           alternative Switchboard program ID to interact with
+  --testValidatorArgs=<value>   additional args passed to the local solana validator
+
+DESCRIPTION
+  run anchor test and a switchboard oracle in parallel
+
+ALIASES
+  $ sbv2 anchor test
+```
 
 ## `sbv2 aptos account airdrop`
 
@@ -220,7 +264,7 @@ add a job to an aggregator
 
 ```
 USAGE
-  $ sbv2 aptos aggregator add job [AGGREGATORHEXSTRING] --keypair <value> [-h] [-v] [-s] [--networkId devnet|testnet|mainnet]
+  $ sbv2 aptos aggregator add job AGGREGATORHEXSTRING --keypair <value> [-h] [-v] [-s] [--networkId devnet|testnet|mainnet]
     [--programId <value>] [-u <value>] [--profileName <value>] [-a <value>] [--name <value> | --jobKey <value>]
     [--metadata <value> | ] [--jobDefinition <value> | ] [--jobWeight <value>]
 
@@ -258,7 +302,7 @@ create an aptos aggregator for a given queue
 
 ```
 USAGE
-  $ sbv2 aptos aggregator create [QUEUEHEXSTRING] --keypair <value> --updateInterval <value> [-h] [-v] [-s] [--networkId
+  $ sbv2 aptos aggregator create QUEUEHEXSTRING --keypair <value> --updateInterval <value> [-h] [-v] [-s] [--networkId
     devnet|testnet|mainnet] [--programId <value>] [-u <value>] [--profileName <value>] [--json] [-a <value>]
     [--crankAddress <value>] [--name <value>] [--metadata <value>] [--forceReportPeriod <value>] [--batchSize <value>]
     [--minJobs <value>] [--minOracles <value>] [--varianceThreshold <value>] [-j <value>] [--new]
@@ -309,7 +353,7 @@ add a job to an aggregator
 
 ```
 USAGE
-  $ sbv2 aptos aggregator job add [AGGREGATORHEXSTRING] --keypair <value> [-h] [-v] [-s] [--networkId devnet|testnet|mainnet]
+  $ sbv2 aptos aggregator job add AGGREGATORHEXSTRING --keypair <value> [-h] [-v] [-s] [--networkId devnet|testnet|mainnet]
     [--programId <value>] [-u <value>] [--profileName <value>] [-a <value>] [--name <value> | --jobKey <value>]
     [--metadata <value> | ] [--jobDefinition <value> | ] [--jobWeight <value>]
 
@@ -347,7 +391,7 @@ request a new value on-chain for an aggregator
 
 ```
 USAGE
-  $ sbv2 aptos aggregator update [AGGREGATORHEXSTRING] --keypair <value> [-h] [-v] [-s] [--networkId devnet|testnet|mainnet]
+  $ sbv2 aptos aggregator update AGGREGATORHEXSTRING --keypair <value> [-h] [-v] [-s] [--networkId devnet|testnet|mainnet]
     [--programId <value>] [-u <value>] [--profileName <value>]
 
 ARGUMENTS
@@ -378,7 +422,7 @@ create a new crank
 
 ```
 USAGE
-  $ sbv2 aptos crank create [QUEUEHEXSTRING] --keypair <value> [-h] [-v] [-s] [--networkId devnet|testnet|mainnet]
+  $ sbv2 aptos crank create QUEUEHEXSTRING --keypair <value> [-h] [-v] [-s] [--networkId devnet|testnet|mainnet]
     [--programId <value>] [-u <value>] [--profileName <value>] [--json] [--name <value>] [--metadata <value>] [--maxRows
     <value>] [--new]
 
@@ -417,8 +461,8 @@ sort the crank
 
 ```
 USAGE
-  $ sbv2 aptos crank list [CRANKHEXSTRING] [-h] [-v] [-s] [--networkId devnet|testnet|mainnet] [--programId <value>]
-    [-u <value>] [--json]
+  $ sbv2 aptos crank list CRANKHEXSTRING [-h] [-v] [-s] [--networkId devnet|testnet|mainnet] [--programId <value>] [-u
+    <value>] [--json]
 
 ARGUMENTS
   CRANKHEXSTRING  HexString address of the crank
@@ -448,7 +492,7 @@ pop the crank
 
 ```
 USAGE
-  $ sbv2 aptos crank pop [CRANKHEXSTRING] --keypair <value> [-h] [-v] [-s] [--networkId devnet|testnet|mainnet]
+  $ sbv2 aptos crank pop CRANKHEXSTRING --keypair <value> [-h] [-v] [-s] [--networkId devnet|testnet|mainnet]
     [--programId <value>] [-u <value>] [--profileName <value>] [--json]
 
 ARGUMENTS
@@ -482,7 +526,7 @@ push an aggregator onto the crank
 
 ```
 USAGE
-  $ sbv2 aptos crank push [CRANKHEXSTRING] --keypair <value> -a <value> [-h] [-v] [-s] [--networkId
+  $ sbv2 aptos crank push CRANKHEXSTRING --keypair <value> -a <value> [-h] [-v] [-s] [--networkId
     devnet|testnet|mainnet] [--programId <value>] [-u <value>] [--profileName <value>] [--json]
 
 ARGUMENTS
@@ -517,7 +561,7 @@ create an aptos aggregator for a given queue
 
 ```
 USAGE
-  $ sbv2 aptos create aggregator [QUEUEHEXSTRING] --keypair <value> --updateInterval <value> [-h] [-v] [-s] [--networkId
+  $ sbv2 aptos create aggregator QUEUEHEXSTRING --keypair <value> --updateInterval <value> [-h] [-v] [-s] [--networkId
     devnet|testnet|mainnet] [--programId <value>] [-u <value>] [--profileName <value>] [--json] [-a <value>]
     [--crankAddress <value>] [--name <value>] [--metadata <value>] [--forceReportPeriod <value>] [--batchSize <value>]
     [--minJobs <value>] [--minOracles <value>] [--varianceThreshold <value>] [-j <value>] [--new]
@@ -568,7 +612,7 @@ create a new crank
 
 ```
 USAGE
-  $ sbv2 aptos create crank [QUEUEHEXSTRING] --keypair <value> [-h] [-v] [-s] [--networkId devnet|testnet|mainnet]
+  $ sbv2 aptos create crank QUEUEHEXSTRING --keypair <value> [-h] [-v] [-s] [--networkId devnet|testnet|mainnet]
     [--programId <value>] [-u <value>] [--profileName <value>] [--json] [--name <value>] [--metadata <value>] [--maxRows
     <value>] [--new]
 
@@ -607,7 +651,7 @@ create a new job
 
 ```
 USAGE
-  $ sbv2 aptos create job [QUEUEHEXSTRING] [JOBDEFINITION] --keypair <value> [-h] [-v] [-s] [--networkId
+  $ sbv2 aptos create job QUEUEHEXSTRING JOBDEFINITION --keypair <value> [-h] [-v] [-s] [--networkId
     devnet|testnet|mainnet] [--programId <value>] [-u <value>] [--profileName <value>] [--json] [-a <value>] [--name
     <value>] [--metadata <value>] [--new] [--weight <value>]
 
@@ -648,7 +692,7 @@ create a oracle for a given queue
 
 ```
 USAGE
-  $ sbv2 aptos create oracle [QUEUEHEXSTRING] --keypair <value> [-h] [-v] [-s] [--networkId devnet|testnet|mainnet]
+  $ sbv2 aptos create oracle QUEUEHEXSTRING --keypair <value> [-h] [-v] [-s] [--networkId devnet|testnet|mainnet]
     [--programId <value>] [-u <value>] [--profileName <value>] [--json] [-a <value>] [--name <value>] [--metadata
     <value>] [--new]
 
@@ -733,7 +777,7 @@ create a new job
 
 ```
 USAGE
-  $ sbv2 aptos job create [QUEUEHEXSTRING] [JOBDEFINITION] --keypair <value> [-h] [-v] [-s] [--networkId
+  $ sbv2 aptos job create QUEUEHEXSTRING JOBDEFINITION --keypair <value> [-h] [-v] [-s] [--networkId
     devnet|testnet|mainnet] [--programId <value>] [-u <value>] [--profileName <value>] [--json] [-a <value>] [--name
     <value>] [--metadata <value>] [--new] [--weight <value>]
 
@@ -774,8 +818,8 @@ sort the crank
 
 ```
 USAGE
-  $ sbv2 aptos list crank [CRANKHEXSTRING] [-h] [-v] [-s] [--networkId devnet|testnet|mainnet] [--programId <value>]
-    [-u <value>] [--json]
+  $ sbv2 aptos list crank CRANKHEXSTRING [-h] [-v] [-s] [--networkId devnet|testnet|mainnet] [--programId <value>] [-u
+    <value>] [--json]
 
 ARGUMENTS
   CRANKHEXSTRING  HexString address of the crank
@@ -805,7 +849,7 @@ create a oracle for a given queue
 
 ```
 USAGE
-  $ sbv2 aptos oracle create [QUEUEHEXSTRING] --keypair <value> [-h] [-v] [-s] [--networkId devnet|testnet|mainnet]
+  $ sbv2 aptos oracle create QUEUEHEXSTRING --keypair <value> [-h] [-v] [-s] [--networkId devnet|testnet|mainnet]
     [--programId <value>] [-u <value>] [--profileName <value>] [--json] [-a <value>] [--name <value>] [--metadata
     <value>] [--new]
 
@@ -844,7 +888,7 @@ list oracle metrics
 
 ```
 USAGE
-  $ sbv2 aptos oracle metrics [ORACLEHEXSTRING] [-h] [-v] [-s] [--networkId devnet|testnet|mainnet] [--programId <value>]
+  $ sbv2 aptos oracle metrics ORACLEHEXSTRING [-h] [-v] [-s] [--networkId devnet|testnet|mainnet] [--programId <value>]
     [-u <value>] [--json]
 
 ARGUMENTS
@@ -872,7 +916,7 @@ start an aptos docker oracle
 
 ```
 USAGE
-  $ sbv2 aptos oracle up [ORACLEHEXSTRING] --keypair <value> [-h] [-v] [-s] [--networkId devnet|testnet|mainnet]
+  $ sbv2 aptos oracle up ORACLEHEXSTRING --keypair <value> [-h] [-v] [-s] [--networkId devnet|testnet|mainnet]
     [--programId <value>] [-u <value>] [--profileName <value>] [-d <value>] [--nodeImage <value>] [--arm]
 
 ARGUMENTS
@@ -903,7 +947,7 @@ create a new permission
 
 ```
 USAGE
-  $ sbv2 aptos permission create [GRANTER] --keypair <value> [-h] [-v] [-s] [--networkId devnet|testnet|mainnet] [--programId
+  $ sbv2 aptos permission create GRANTER --keypair <value> [-h] [-v] [-s] [--networkId devnet|testnet|mainnet] [--programId
     <value>] [-u <value>] [--profileName <value>] [--json] [--aggregator <value> | --oracle <value>] [--enable]
 
 ARGUMENTS
@@ -937,7 +981,7 @@ create a new permission
 
 ```
 USAGE
-  $ sbv2 aptos permission set [GRANTER] --keypair <value> [-h] [-v] [-s] [--networkId devnet|testnet|mainnet] [--programId
+  $ sbv2 aptos permission set GRANTER --keypair <value> [-h] [-v] [-s] [--networkId devnet|testnet|mainnet] [--programId
     <value>] [-u <value>] [--profileName <value>] [--json] [--aggregator <value> | --oracle <value>] [--enable]
 
 ARGUMENTS
@@ -971,7 +1015,7 @@ pop the crank
 
 ```
 USAGE
-  $ sbv2 aptos pop crank [CRANKHEXSTRING] --keypair <value> [-h] [-v] [-s] [--networkId devnet|testnet|mainnet]
+  $ sbv2 aptos pop crank CRANKHEXSTRING --keypair <value> [-h] [-v] [-s] [--networkId devnet|testnet|mainnet]
     [--programId <value>] [-u <value>] [--profileName <value>] [--json]
 
 ARGUMENTS
@@ -1005,7 +1049,7 @@ print an aptos account
 
 ```
 USAGE
-  $ sbv2 aptos print [ACCOUNTTYPE] [ADDRESS] [-h] [-v] [-s] [--networkId devnet|testnet|mainnet] [--programId
+  $ sbv2 aptos print ACCOUNTTYPE ADDRESS [-h] [-v] [-s] [--networkId devnet|testnet|mainnet] [--programId
     <value>] [-u <value>] [--json]
 
 ARGUMENTS
@@ -1037,7 +1081,7 @@ push an aggregator onto the crank
 
 ```
 USAGE
-  $ sbv2 aptos push crank [CRANKHEXSTRING] --keypair <value> -a <value> [-h] [-v] [-s] [--networkId
+  $ sbv2 aptos push crank CRANKHEXSTRING --keypair <value> -a <value> [-h] [-v] [-s] [--networkId
     devnet|testnet|mainnet] [--programId <value>] [-u <value>] [--profileName <value>] [--json]
 
 ARGUMENTS
@@ -1118,7 +1162,7 @@ request a new value on-chain for an aggregator
 
 ```
 USAGE
-  $ sbv2 aptos update aggregator [AGGREGATORHEXSTRING] --keypair <value> [-h] [-v] [-s] [--networkId devnet|testnet|mainnet]
+  $ sbv2 aptos update aggregator AGGREGATORHEXSTRING --keypair <value> [-h] [-v] [-s] [--networkId devnet|testnet|mainnet]
     [--programId <value>] [-u <value>] [--profileName <value>]
 
 ARGUMENTS
@@ -1172,7 +1216,7 @@ set a configuration option
 
 ```
 USAGE
-  $ sbv2 config set [CHAIN] [NETWORK] [PARAMETER] [VALUE] [-h] [-v] [-s] [-r]
+  $ sbv2 config set CHAIN NETWORK PARAMETER [VALUE] [-h] [-v] [-s] [-r]
 
 ARGUMENTS
   CHAIN      (solana|near|aptos) chain to set a config parameter
@@ -1241,7 +1285,7 @@ add rows to a history vector
 
 ```
 USAGE
-  $ sbv2 near aggregator add history [AGGREGATORADDRESS] --accountName <value> [-h] [-v] [-s] [--networkId
+  $ sbv2 near aggregator add history AGGREGATORADDRESS --accountName <value> [-h] [-v] [-s] [--networkId
     testnet|mainnet|localnet] [--programId <value>] [-u <value>] [--nearCredentialsDir <value>] [--json] [--numRows
     <value>]
 
@@ -1277,7 +1321,7 @@ add a job to an aggregator
 
 ```
 USAGE
-  $ sbv2 near aggregator add job [AGGREGATORADDRESS] --accountName <value> [-h] [-v] [-s] [--networkId
+  $ sbv2 near aggregator add job AGGREGATORADDRESS --accountName <value> [-h] [-v] [-s] [--networkId
     testnet|mainnet|localnet] [--programId <value>] [-u <value>] [--nearCredentialsDir <value>] [--json] [-a <value>]
     [--name <value> | --jobKey <value>] [--metadata <value> | ] [--jobDefinition <value> | ] [--jobWeight <value>]
 
@@ -1318,7 +1362,7 @@ create a near aggregator for a given queue
 
 ```
 USAGE
-  $ sbv2 near aggregator create [QUEUEADDRESS] --accountName <value> --updateInterval <value> [-h] [-v] [-s] [--networkId
+  $ sbv2 near aggregator create QUEUEADDRESS --accountName <value> --updateInterval <value> [-h] [-v] [-s] [--networkId
     testnet|mainnet|localnet] [--programId <value>] [-u <value>] [--nearCredentialsDir <value>] [--json] [-a <value>]
     [--crankAddress <value>] [--name <value>] [--metadata <value>] [--forceReportPeriod <value>] [--batchSize <value>]
     [--minJobs <value>] [--minOracles <value>] [--varianceThreshold <value>] [--rewardEscrow <value>] [--enable]
@@ -1369,7 +1413,7 @@ view an aggregators escrow state
 
 ```
 USAGE
-  $ sbv2 near aggregator escrow [AGGREGATORADDRESS] [-h] [-v] [-s] [--networkId testnet|mainnet|localnet] [--programId
+  $ sbv2 near aggregator escrow AGGREGATORADDRESS [-h] [-v] [-s] [--networkId testnet|mainnet|localnet] [--programId
     <value>] [-u <value>] [--nearCredentialsDir <value>]
 
 ARGUMENTS
@@ -1425,7 +1469,7 @@ ALIASES
 
 ```
 USAGE
-  $ sbv2 near aggregator fund [AGGREGATORADDRESS] --accountName <value> -a <value> [-h] [-v] [-s] [--networkId
+  $ sbv2 near aggregator fund AGGREGATORADDRESS --accountName <value> -a <value> [-h] [-v] [-s] [--networkId
     testnet|mainnet|localnet] [--programId <value>] [-u <value>] [--nearCredentialsDir <value>] [--json]
 
 ARGUMENTS
@@ -1457,7 +1501,7 @@ add rows to a history vector
 
 ```
 USAGE
-  $ sbv2 near aggregator history add [AGGREGATORADDRESS] --accountName <value> [-h] [-v] [-s] [--networkId
+  $ sbv2 near aggregator history add AGGREGATORADDRESS --accountName <value> [-h] [-v] [-s] [--networkId
     testnet|mainnet|localnet] [--programId <value>] [-u <value>] [--nearCredentialsDir <value>] [--json] [--numRows
     <value>]
 
@@ -1493,7 +1537,7 @@ add a job to an aggregator
 
 ```
 USAGE
-  $ sbv2 near aggregator job add [AGGREGATORADDRESS] --accountName <value> [-h] [-v] [-s] [--networkId
+  $ sbv2 near aggregator job add AGGREGATORADDRESS --accountName <value> [-h] [-v] [-s] [--networkId
     testnet|mainnet|localnet] [--programId <value>] [-u <value>] [--nearCredentialsDir <value>] [--json] [-a <value>]
     [--name <value> | --jobKey <value>] [--metadata <value> | ] [--jobDefinition <value> | ] [--jobWeight <value>]
 
@@ -1534,7 +1578,7 @@ remove a job to an aggregator
 
 ```
 USAGE
-  $ sbv2 near aggregator job remove [AGGREGATORADDRESS] --accountName <value> [-h] [-v] [-s] [--networkId
+  $ sbv2 near aggregator job remove AGGREGATORADDRESS --accountName <value> [-h] [-v] [-s] [--networkId
     testnet|mainnet|localnet] [--programId <value>] [-u <value>] [--nearCredentialsDir <value>] [--json] [-a <value>]
     [-j <value>]
 
@@ -1571,7 +1615,7 @@ create a permission account for a near aggregator
 
 ```
 USAGE
-  $ sbv2 near aggregator permission create [AGGREGATORADDRESS] --accountName <value> [-h] [-v] [-s] [--networkId
+  $ sbv2 near aggregator permission create AGGREGATORADDRESS --accountName <value> [-h] [-v] [-s] [--networkId
     testnet|mainnet|localnet] [--programId <value>] [-u <value>] [--nearCredentialsDir <value>] [--json]
 
 ARGUMENTS
@@ -1605,7 +1649,7 @@ remove a job to an aggregator
 
 ```
 USAGE
-  $ sbv2 near aggregator remove job [AGGREGATORADDRESS] --accountName <value> [-h] [-v] [-s] [--networkId
+  $ sbv2 near aggregator remove job AGGREGATORADDRESS --accountName <value> [-h] [-v] [-s] [--networkId
     testnet|mainnet|localnet] [--programId <value>] [-u <value>] [--nearCredentialsDir <value>] [--json] [-a <value>]
     [-j <value>]
 
@@ -1642,7 +1686,7 @@ set a near aggregator's config
 
 ```
 USAGE
-  $ sbv2 near aggregator set [AGGREGATORADDRESS] --accountName <value> [-h] [-v] [-s] [--networkId
+  $ sbv2 near aggregator set AGGREGATORADDRESS --accountName <value> [-h] [-v] [-s] [--networkId
     testnet|mainnet|localnet] [--programId <value>] [-u <value>] [--nearCredentialsDir <value>] [--json] [-a <value>]
     [--crankAddress <value>] [--queueAddress <value>] [--name <value>] [--metadata <value>] [--forceReportPeriod
     <value>] [--batchSize <value>] [--minJobs <value>] [--minOracles <value>] [--updateInterval <value>]
@@ -1692,7 +1736,7 @@ request a new value on-chain for an aggregator
 
 ```
 USAGE
-  $ sbv2 near aggregator update [AGGREGATORADDRESS] --accountName <value> [-h] [-v] [-s] [--networkId
+  $ sbv2 near aggregator update AGGREGATORADDRESS --accountName <value> [-h] [-v] [-s] [--networkId
     testnet|mainnet|localnet] [--programId <value>] [-u <value>] [--nearCredentialsDir <value>] [--json]
 
 ARGUMENTS
@@ -1726,7 +1770,7 @@ create a new crank
 
 ```
 USAGE
-  $ sbv2 near crank create [QUEUEADDRESS] --accountName <value> [-h] [-v] [-s] [--networkId testnet|mainnet|localnet]
+  $ sbv2 near crank create QUEUEADDRESS --accountName <value> [-h] [-v] [-s] [--networkId testnet|mainnet|localnet]
     [--programId <value>] [-u <value>] [--nearCredentialsDir <value>] [--json] [--name <value>] [--metadata <value>]
     [--maxRows <value>]
 
@@ -1764,8 +1808,8 @@ pop the crank
 
 ```
 USAGE
-  $ sbv2 near crank list [CRANKADDRESS] [-h] [-v] [-s] [--networkId testnet|mainnet|localnet] [--programId <value>]
-    [-u <value>] [--nearCredentialsDir <value>]
+  $ sbv2 near crank list CRANKADDRESS [-h] [-v] [-s] [--networkId testnet|mainnet|localnet] [--programId <value>] [-u
+    <value>] [--nearCredentialsDir <value>]
 
 ARGUMENTS
   CRANKADDRESS  address of the crank in Uint8 or Base58 encoding
@@ -1794,7 +1838,7 @@ pop the crank
 
 ```
 USAGE
-  $ sbv2 near crank pop [CRANKADDRESS] --accountName <value> [-h] [-v] [-s] [--networkId testnet|mainnet|localnet]
+  $ sbv2 near crank pop CRANKADDRESS --accountName <value> [-h] [-v] [-s] [--networkId testnet|mainnet|localnet]
     [--programId <value>] [-u <value>] [--nearCredentialsDir <value>] [--json]
 
 ARGUMENTS
@@ -1828,7 +1872,7 @@ push an aggregator onto the crank
 
 ```
 USAGE
-  $ sbv2 near crank push [CRANKADDRESS] --accountName <value> -a <value> [-h] [-v] [-s] [--networkId
+  $ sbv2 near crank push CRANKADDRESS --accountName <value> -a <value> [-h] [-v] [-s] [--networkId
     testnet|mainnet|localnet] [--programId <value>] [-u <value>] [--nearCredentialsDir <value>] [--json]
 
 ARGUMENTS
@@ -1863,7 +1907,7 @@ create a near aggregator for a given queue
 
 ```
 USAGE
-  $ sbv2 near create aggregator [QUEUEADDRESS] --accountName <value> --updateInterval <value> [-h] [-v] [-s] [--networkId
+  $ sbv2 near create aggregator QUEUEADDRESS --accountName <value> --updateInterval <value> [-h] [-v] [-s] [--networkId
     testnet|mainnet|localnet] [--programId <value>] [-u <value>] [--nearCredentialsDir <value>] [--json] [-a <value>]
     [--crankAddress <value>] [--name <value>] [--metadata <value>] [--forceReportPeriod <value>] [--batchSize <value>]
     [--minJobs <value>] [--minOracles <value>] [--varianceThreshold <value>] [--rewardEscrow <value>] [--enable]
@@ -1914,7 +1958,7 @@ create a permission account for a near aggregator
 
 ```
 USAGE
-  $ sbv2 near create aggregator permission [AGGREGATORADDRESS] --accountName <value> [-h] [-v] [-s] [--networkId
+  $ sbv2 near create aggregator permission AGGREGATORADDRESS --accountName <value> [-h] [-v] [-s] [--networkId
     testnet|mainnet|localnet] [--programId <value>] [-u <value>] [--nearCredentialsDir <value>] [--json]
 
 ARGUMENTS
@@ -1948,7 +1992,7 @@ create a new crank
 
 ```
 USAGE
-  $ sbv2 near create crank [QUEUEADDRESS] --accountName <value> [-h] [-v] [-s] [--networkId testnet|mainnet|localnet]
+  $ sbv2 near create crank QUEUEADDRESS --accountName <value> [-h] [-v] [-s] [--networkId testnet|mainnet|localnet]
     [--programId <value>] [-u <value>] [--nearCredentialsDir <value>] [--json] [--name <value>] [--metadata <value>]
     [--maxRows <value>]
 
@@ -2019,7 +2063,7 @@ create a job on near
 
 ```
 USAGE
-  $ sbv2 near create job [JOBDEFINITION] --accountName <value> [-h] [-v] [-s] [--networkId testnet|mainnet|localnet]
+  $ sbv2 near create job JOBDEFINITION --accountName <value> [-h] [-v] [-s] [--networkId testnet|mainnet|localnet]
     [--programId <value>] [-u <value>] [--nearCredentialsDir <value>] [--json] [-a <value>] [--name <value>] [--metadata
     <value>]
 
@@ -2057,7 +2101,7 @@ create a near oracle for a given queue
 
 ```
 USAGE
-  $ sbv2 near create oracle [QUEUEADDRESS] --accountName <value> [-h] [-v] [-s] [--networkId testnet|mainnet|localnet]
+  $ sbv2 near create oracle QUEUEADDRESS --accountName <value> [-h] [-v] [-s] [--networkId testnet|mainnet|localnet]
     [--programId <value>] [-u <value>] [--nearCredentialsDir <value>] [--json] [-a <value>] [--name <value>] [--metadata
     <value>]
 
@@ -2268,7 +2312,7 @@ ALIASES
 
 ```
 USAGE
-  $ sbv2 near fund aggregator [AGGREGATORADDRESS] --accountName <value> -a <value> [-h] [-v] [-s] [--networkId
+  $ sbv2 near fund aggregator AGGREGATORADDRESS --accountName <value> -a <value> [-h] [-v] [-s] [--networkId
     testnet|mainnet|localnet] [--programId <value>] [-u <value>] [--nearCredentialsDir <value>] [--json]
 
 ARGUMENTS
@@ -2300,7 +2344,7 @@ create a job on near
 
 ```
 USAGE
-  $ sbv2 near job create [JOBDEFINITION] --accountName <value> [-h] [-v] [-s] [--networkId testnet|mainnet|localnet]
+  $ sbv2 near job create JOBDEFINITION --accountName <value> [-h] [-v] [-s] [--networkId testnet|mainnet|localnet]
     [--programId <value>] [-u <value>] [--nearCredentialsDir <value>] [--json] [-a <value>] [--name <value>] [--metadata
     <value>]
 
@@ -2338,8 +2382,8 @@ list aggregators for a given queue
 
 ```
 USAGE
-  $ sbv2 near list queue [QUEUEADDRESS] [-h] [-v] [-s] [--networkId testnet|mainnet|localnet] [--programId <value>]
-    [-u <value>] [--nearCredentialsDir <value>] [--json]
+  $ sbv2 near list queue QUEUEADDRESS [-h] [-v] [-s] [--networkId testnet|mainnet|localnet] [--programId <value>] [-u
+    <value>] [--nearCredentialsDir <value>] [--json]
 
 ARGUMENTS
   QUEUEADDRESS  address of the queue in Uint8 or Base58 encoding
@@ -2371,7 +2415,7 @@ create a near oracle for a given queue
 
 ```
 USAGE
-  $ sbv2 near oracle create [QUEUEADDRESS] --accountName <value> [-h] [-v] [-s] [--networkId testnet|mainnet|localnet]
+  $ sbv2 near oracle create QUEUEADDRESS --accountName <value> [-h] [-v] [-s] [--networkId testnet|mainnet|localnet]
     [--programId <value>] [-u <value>] [--nearCredentialsDir <value>] [--json] [-a <value>] [--name <value>] [--metadata
     <value>]
 
@@ -2409,7 +2453,7 @@ view an aggregators escrow state
 
 ```
 USAGE
-  $ sbv2 near oracle escrow [ORACLEADDRESS] [-h] [-v] [-s] [--networkId testnet|mainnet|localnet] [--programId <value>]
+  $ sbv2 near oracle escrow ORACLEADDRESS [-h] [-v] [-s] [--networkId testnet|mainnet|localnet] [--programId <value>]
     [-u <value>] [--nearCredentialsDir <value>] [--json]
 
 ARGUMENTS
@@ -2439,7 +2483,7 @@ deposit funds to an oracle's staking wallet
 
 ```
 USAGE
-  $ sbv2 near oracle stake [ORACLEADDRESS] --accountName <value> --amount <value> [-h] [-v] [-s] [--networkId
+  $ sbv2 near oracle stake ORACLEADDRESS --accountName <value> --amount <value> [-h] [-v] [-s] [--networkId
     testnet|mainnet|localnet] [--programId <value>] [-u <value>] [--nearCredentialsDir <value>] [--json]
 
 ARGUMENTS
@@ -2471,7 +2515,7 @@ deposit funds to an oracle's staking wallet
 
 ```
 USAGE
-  $ sbv2 near oracle unstake [ORACLEADDRESS] --accountName <value> --amount <value> [-h] [-v] [-s] [--networkId
+  $ sbv2 near oracle unstake ORACLEADDRESS --accountName <value> --amount <value> [-h] [-v] [-s] [--networkId
     testnet|mainnet|localnet] [--programId <value>] [-u <value>] [--nearCredentialsDir <value>] [--json]
 
 ARGUMENTS
@@ -2503,7 +2547,7 @@ start a near docker oracle
 
 ```
 USAGE
-  $ sbv2 near oracle up [ORACLEADDRESS] --accountName <value> [-h] [-v] [-s] [--networkId testnet|mainnet|localnet]
+  $ sbv2 near oracle up ORACLEADDRESS --accountName <value> [-h] [-v] [-s] [--networkId testnet|mainnet|localnet]
     [--programId <value>] [-u <value>] [--nearCredentialsDir <value>] [--json] [-d <value>] [--nodeImage <value>]
     [--arm]
 
@@ -2574,8 +2618,8 @@ pop the crank
 
 ```
 USAGE
-  $ sbv2 near pop crank [CRANKADDRESS] [-h] [-v] [-s] [--networkId testnet|mainnet|localnet] [--programId <value>]
-    [-u <value>] [--nearCredentialsDir <value>]
+  $ sbv2 near pop crank CRANKADDRESS [-h] [-v] [-s] [--networkId testnet|mainnet|localnet] [--programId <value>] [-u
+    <value>] [--nearCredentialsDir <value>]
 
 ARGUMENTS
   CRANKADDRESS  address of the crank in Uint8 or Base58 encoding
@@ -2604,7 +2648,7 @@ print a near switchboard account
 
 ```
 USAGE
-  $ sbv2 near print [ACCOUNTTYPE] [ADDRESS] [-h] [-v] [-s] [--networkId testnet|mainnet|localnet] [--programId
+  $ sbv2 near print ACCOUNTTYPE ADDRESS [-h] [-v] [-s] [--networkId testnet|mainnet|localnet] [--programId
     <value>] [-u <value>] [--nearCredentialsDir <value>] [--json] [--all]
 
 ARGUMENTS
@@ -2670,7 +2714,7 @@ push an aggregator onto the crank
 
 ```
 USAGE
-  $ sbv2 near push crank [CRANKADDRESS] --accountName <value> -a <value> [-h] [-v] [-s] [--networkId
+  $ sbv2 near push crank CRANKADDRESS --accountName <value> -a <value> [-h] [-v] [-s] [--networkId
     testnet|mainnet|localnet] [--programId <value>] [-u <value>] [--nearCredentialsDir <value>] [--json]
 
 ARGUMENTS
@@ -2705,8 +2749,8 @@ fetch all aggregators for a given queue account
 
 ```
 USAGE
-  $ sbv2 near queue aggregators [QUEUEADDRESS] [-h] [-v] [-s] [--networkId testnet|mainnet|localnet] [--programId <value>]
-    [-u <value>] [--nearCredentialsDir <value>] [--json]
+  $ sbv2 near queue aggregators QUEUEADDRESS [-h] [-v] [-s] [--networkId testnet|mainnet|localnet] [--programId <value>] [-u
+    <value>] [--nearCredentialsDir <value>] [--json]
 
 ARGUMENTS
   QUEUEADDRESS  address of the queue in Uint8 or Base58 encoding
@@ -2782,8 +2826,8 @@ fetch all aggregators for a given queue account
 
 ```
 USAGE
-  $ sbv2 near queue feeds [QUEUEADDRESS] [-h] [-v] [-s] [--networkId testnet|mainnet|localnet] [--programId <value>]
-    [-u <value>] [--nearCredentialsDir <value>] [--json]
+  $ sbv2 near queue feeds QUEUEADDRESS [-h] [-v] [-s] [--networkId testnet|mainnet|localnet] [--programId <value>] [-u
+    <value>] [--nearCredentialsDir <value>] [--json]
 
 ARGUMENTS
   QUEUEADDRESS  address of the queue in Uint8 or Base58 encoding
@@ -2815,8 +2859,8 @@ list aggregators for a given queue
 
 ```
 USAGE
-  $ sbv2 near queue list [QUEUEADDRESS] [-h] [-v] [-s] [--networkId testnet|mainnet|localnet] [--programId <value>]
-    [-u <value>] [--nearCredentialsDir <value>] [--json]
+  $ sbv2 near queue list QUEUEADDRESS [-h] [-v] [-s] [--networkId testnet|mainnet|localnet] [--programId <value>] [-u
+    <value>] [--nearCredentialsDir <value>] [--json]
 
 ARGUMENTS
   QUEUEADDRESS  address of the queue in Uint8 or Base58 encoding
@@ -2848,7 +2892,7 @@ create a new oracle queue
 
 ```
 USAGE
-  $ sbv2 near queue set [QUEUEADDRESS] --accountName <value> [-h] [-v] [-s] [--networkId testnet|mainnet|localnet]
+  $ sbv2 near queue set QUEUEADDRESS --accountName <value> [-h] [-v] [-s] [--networkId testnet|mainnet|localnet]
     [--programId <value>] [-u <value>] [--nearCredentialsDir <value>] [--json] [-a <value>] [--name <value>] [--metadata
     <value>] [--minStake <value>] [-r <value>] [--oracleTimeout <value>] [--slashingEnabled] [--unpermissionedFeeds]
     [--unpermissionedVrf] [--enableBufferRelayers]
@@ -2894,7 +2938,7 @@ set a near aggregator's config
 
 ```
 USAGE
-  $ sbv2 near set aggregator [AGGREGATORADDRESS] --accountName <value> [-h] [-v] [-s] [--networkId
+  $ sbv2 near set aggregator AGGREGATORADDRESS --accountName <value> [-h] [-v] [-s] [--networkId
     testnet|mainnet|localnet] [--programId <value>] [-u <value>] [--nearCredentialsDir <value>] [--json] [-a <value>]
     [--crankAddress <value>] [--queueAddress <value>] [--name <value>] [--metadata <value>] [--forceReportPeriod
     <value>] [--batchSize <value>] [--minJobs <value>] [--minOracles <value>] [--updateInterval <value>]
@@ -2944,7 +2988,7 @@ request a new value on-chain for an aggregator
 
 ```
 USAGE
-  $ sbv2 near update aggregator [AGGREGATORADDRESS] --accountName <value> [-h] [-v] [-s] [--networkId
+  $ sbv2 near update aggregator AGGREGATORADDRESS --accountName <value> [-h] [-v] [-s] [--networkId
     testnet|mainnet|localnet] [--programId <value>] [-u <value>] [--nearCredentialsDir <value>] [--json]
 
 ARGUMENTS
@@ -2978,7 +3022,7 @@ fetch logs for a switchboard oracle
 
 ```
 USAGE
-  $ sbv2 oracle logs [NETWORK] [SEARCHSTRING] -f <value> [-h] [-v] [-s] [--force] [--json] [--csv]
+  $ sbv2 oracle logs NETWORK SEARCHSTRING -f <value> [-h] [-v] [-s] [--force] [--json] [--csv]
 
 ARGUMENTS
   NETWORK       (solana-mainnet|solana-devnet|aptos-mainnet|aptos-testnet|near-mainnet|near-testnet) network to parse
@@ -3004,7 +3048,7 @@ add a history buffer to an aggregator
 
 ```
 USAGE
-  $ sbv2 solana aggregator add history [AGGREGATORKEY] --historyLimit <value> [-h] [-v] [-s] [--mainnetBeta | --cluster
+  $ sbv2 solana aggregator add history AGGREGATORKEY --historyLimit <value> [-h] [-v] [-s] [--mainnetBeta | --cluster
     devnet|mainnet-beta|mainnet|localnet] [-u <value>] [--programId <value>] [--commitment
     confirmed|finalized|processed] [-k <value>] [--ledgerPath <value> --ledger] [--force] [-a <value>]
 
@@ -3043,7 +3087,7 @@ add jobs to an aggregator
 
 ```
 USAGE
-  $ sbv2 solana aggregator add job [AGGREGATORKEY] [-h] [-v] [-s] [--mainnetBeta | --cluster
+  $ sbv2 solana aggregator add job AGGREGATORKEY [-h] [-v] [-s] [--mainnetBeta | --cluster
     devnet|mainnet-beta|mainnet|localnet] [-u <value>] [--programId <value>] [--commitment
     confirmed|finalized|processed] [-k <value>] [--ledgerPath <value> --ledger] [--jobDefinition <value>] [--jobKey
     <value>] [-a <value>]
@@ -3083,7 +3127,7 @@ create an aggregator account
 
 ```
 USAGE
-  $ sbv2 solana aggregator create [QUEUEKEY] --updateInterval <value> [-h] [-v] [-s] [--mainnetBeta | --cluster
+  $ sbv2 solana aggregator create QUEUEKEY --updateInterval <value> [-h] [-v] [-s] [--mainnetBeta | --cluster
     devnet|mainnet-beta|mainnet|localnet] [-u <value>] [--programId <value>] [--commitment
     confirmed|finalized|processed] [-k <value>] [--ledgerPath <value> --ledger] [--json] [-a <value>]
     [--aggregatorKeypair <value>] [--name <value>] [--metadata <value>] [--batchSize <value>] [--minJobs <value>]
@@ -3152,7 +3196,7 @@ create an aggregator from a json file
 
 ```
 USAGE
-  $ sbv2 solana aggregator create json [DEFINITIONFILE] [-h] [-v] [-s] [--mainnetBeta | --cluster
+  $ sbv2 solana aggregator create json DEFINITIONFILE [-h] [-v] [-s] [--mainnetBeta | --cluster
     devnet|mainnet-beta|mainnet|localnet] [-u <value>] [--programId <value>] [--commitment
     confirmed|finalized|processed] [-k <value>] [--ledgerPath <value> --ledger] [--json] [-q <value>] [-a <value>]
     [--leaseAmount <value>]
@@ -3198,7 +3242,7 @@ fund and re-enable an aggregator lease
 
 ```
 USAGE
-  $ sbv2 solana aggregator deposit [AGGREGATORKEY] --amount <value> [-h] [-v] [-s] [--mainnetBeta | --cluster
+  $ sbv2 solana aggregator deposit AGGREGATORKEY --amount <value> [-h] [-v] [-s] [--mainnetBeta | --cluster
     devnet|mainnet-beta|mainnet|localnet] [-u <value>] [--programId <value>] [--commitment
     confirmed|finalized|processed] [-k <value>] [--ledgerPath <value> --ledger]
 
@@ -3240,7 +3284,7 @@ fund and re-enable an aggregator lease
 
 ```
 USAGE
-  $ sbv2 solana aggregator extend [AGGREGATORKEY] --amount <value> [-h] [-v] [-s] [--mainnetBeta | --cluster
+  $ sbv2 solana aggregator extend AGGREGATORKEY --amount <value> [-h] [-v] [-s] [--mainnetBeta | --cluster
     devnet|mainnet-beta|mainnet|localnet] [-u <value>] [--programId <value>] [--commitment
     confirmed|finalized|processed] [-k <value>] [--ledgerPath <value> --ledger]
 
@@ -3282,7 +3326,7 @@ fund and re-enable an aggregator lease
 
 ```
 USAGE
-  $ sbv2 solana aggregator fund [AGGREGATORKEY] --amount <value> [-h] [-v] [-s] [--mainnetBeta | --cluster
+  $ sbv2 solana aggregator fund AGGREGATORKEY --amount <value> [-h] [-v] [-s] [--mainnetBeta | --cluster
     devnet|mainnet-beta|mainnet|localnet] [-u <value>] [--programId <value>] [--commitment
     confirmed|finalized|processed] [-k <value>] [--ledgerPath <value> --ledger]
 
@@ -3324,7 +3368,7 @@ print an aggregator's history'
 
 ```
 USAGE
-  $ sbv2 solana aggregator history [AGGREGATORKEY] [-h] [-v] [-s] [--mainnetBeta | --cluster
+  $ sbv2 solana aggregator history AGGREGATORKEY [-h] [-v] [-s] [--mainnetBeta | --cluster
     devnet|mainnet-beta|mainnet|localnet] [-u <value>] [--programId <value>] [--commitment
     confirmed|finalized|processed] [--json] [--metrics]
 
@@ -3357,7 +3401,7 @@ set a lease's withdraw authority
 
 ```
 USAGE
-  $ sbv2 solana aggregator lease set [AGGREGATORKEY] [-h] [-v] [-s] [--mainnetBeta | --cluster
+  $ sbv2 solana aggregator lease set AGGREGATORKEY [-h] [-v] [-s] [--mainnetBeta | --cluster
     devnet|mainnet-beta|mainnet|localnet] [-u <value>] [--programId <value>] [--commitment
     confirmed|finalized|processed] [-k <value>] [--ledgerPath <value> --ledger] [-a <value>] [--queuePubkey <value>]
     [--newAuthority <value>]
@@ -3401,9 +3445,8 @@ get a list of aggregators from a provided authority pubkey
 
 ```
 USAGE
-  $ sbv2 solana aggregator list [AUTHORITYKEY] [-h] [-v] [-s] [--mainnetBeta | --cluster
-    devnet|mainnet-beta|mainnet|localnet] [-u <value>] [--programId <value>] [--commitment
-    confirmed|finalized|processed] [--json]
+  $ sbv2 solana aggregator list AUTHORITYKEY [-h] [-v] [-s] [--mainnetBeta | --cluster devnet|mainnet-beta|mainnet|localnet]
+    [-u <value>] [--programId <value>] [--commitment confirmed|finalized|processed] [--json]
 
 ARGUMENTS
   AUTHORITYKEY  public key of the aggregator authority
@@ -3433,7 +3476,7 @@ lock an aggregator's configuration and prevent further changes
 
 ```
 USAGE
-  $ sbv2 solana aggregator lock [AGGREGATORKEY] [-h] [-v] [-s] [--mainnetBeta | --cluster
+  $ sbv2 solana aggregator lock AGGREGATORKEY [-h] [-v] [-s] [--mainnetBeta | --cluster
     devnet|mainnet-beta|mainnet|localnet] [-u <value>] [--programId <value>] [--commitment
     confirmed|finalized|processed] [-k <value>] [--ledgerPath <value> --ledger] [-a <value>]
 
@@ -3467,7 +3510,7 @@ print an aggregator's metrics'
 
 ```
 USAGE
-  $ sbv2 solana aggregator metrics [AGGREGATORKEY] [-h] [-v] [-s] [--mainnetBeta | --cluster
+  $ sbv2 solana aggregator metrics AGGREGATORKEY [-h] [-v] [-s] [--mainnetBeta | --cluster
     devnet|mainnet-beta|mainnet|localnet] [-u <value>] [--programId <value>] [--commitment
     confirmed|finalized|processed] [--json] [--period <value>]
 
@@ -3500,7 +3543,7 @@ request a new aggregator result from a set of oracles
 
 ```
 USAGE
-  $ sbv2 solana aggregator open-round [AGGREGATORKEY] [-h] [-v] [-s] [--mainnetBeta | --cluster
+  $ sbv2 solana aggregator open-round AGGREGATORKEY [-h] [-v] [-s] [--mainnetBeta | --cluster
     devnet|mainnet-beta|mainnet|localnet] [-u <value>] [--programId <value>] [--commitment
     confirmed|finalized|processed] [-k <value>] [--ledgerPath <value> --ledger]
 
@@ -3539,7 +3582,7 @@ create a permission account for an aggregator
 
 ```
 USAGE
-  $ sbv2 solana aggregator permission create [AGGREGATORKEY] [-h] [-v] [-s] [--mainnetBeta | --cluster
+  $ sbv2 solana aggregator permission create AGGREGATORKEY [-h] [-v] [-s] [--mainnetBeta | --cluster
     devnet|mainnet-beta|mainnet|localnet] [-u <value>] [--programId <value>] [--commitment
     confirmed|finalized|processed] [-k <value>] [--ledgerPath <value> --ledger]
 
@@ -3572,7 +3615,7 @@ print an aggregator and it's associated accounts
 
 ```
 USAGE
-  $ sbv2 solana aggregator print [AGGREGATORKEY] [-h] [-v] [-s] [--mainnetBeta | --cluster
+  $ sbv2 solana aggregator print AGGREGATORKEY [-h] [-v] [-s] [--mainnetBeta | --cluster
     devnet|mainnet-beta|mainnet|localnet] [-u <value>] [--programId <value>] [--commitment
     confirmed|finalized|processed] [--json] [--queuePubkey <value>]
 
@@ -3606,7 +3649,7 @@ remove a switchboard job account from an aggregator
 
 ```
 USAGE
-  $ sbv2 solana aggregator remove job [AGGREGATORKEY] [JOBKEY] [-h] [-v] [-s] [--mainnetBeta | --cluster
+  $ sbv2 solana aggregator remove job AGGREGATORKEY JOBKEY [-h] [-v] [-s] [--mainnetBeta | --cluster
     devnet|mainnet-beta|mainnet|localnet] [-u <value>] [--programId <value>] [--commitment
     confirmed|finalized|processed] [-k <value>] [--ledgerPath <value> --ledger] [-a <value>]
 
@@ -3641,7 +3684,7 @@ set an aggregators config
 
 ```
 USAGE
-  $ sbv2 solana aggregator set [AGGREGATORKEY] [-h] [-v] [-s] [--mainnetBeta | --cluster
+  $ sbv2 solana aggregator set AGGREGATORKEY [-h] [-v] [-s] [--mainnetBeta | --cluster
     devnet|mainnet-beta|mainnet|localnet] [-u <value>] [--programId <value>] [--commitment
     confirmed|finalized|processed] [-k <value>] [--ledgerPath <value> --ledger] [--json] [-a <value>] [--name <value>]
     [--metadata <value>] [--batchSize <value>] [--minJobs <value>] [--minOracles <value>] [--updateInterval <value>]
@@ -3697,7 +3740,7 @@ transfer an aggregator to a new queue
 
 ```
 USAGE
-  $ sbv2 solana aggregator transfer [AGGREGATORKEY] --newQueue <value> [-h] [-v] [-s] [--mainnetBeta | --cluster
+  $ sbv2 solana aggregator transfer AGGREGATORKEY --newQueue <value> [-h] [-v] [-s] [--mainnetBeta | --cluster
     devnet|mainnet-beta|mainnet|localnet] [-u <value>] [--programId <value>] [--commitment
     confirmed|finalized|processed] [-k <value>] [--ledgerPath <value> --ledger] [-a <value>] [--newCrank <value>]
     [--loadAmount <value>] [--enable] [--queueAuthority <value>] [--force]
@@ -3743,7 +3786,7 @@ request a new aggregator result from a set of oracles
 
 ```
 USAGE
-  $ sbv2 solana aggregator update [AGGREGATORKEY] [-h] [-v] [-s] [--mainnetBeta | --cluster
+  $ sbv2 solana aggregator update AGGREGATORKEY [-h] [-v] [-s] [--mainnetBeta | --cluster
     devnet|mainnet-beta|mainnet|localnet] [-u <value>] [--programId <value>] [--commitment
     confirmed|finalized|processed] [-k <value>] [--ledgerPath <value> --ledger]
 
@@ -3782,7 +3825,7 @@ watch an aggregator account and stream the results
 
 ```
 USAGE
-  $ sbv2 solana aggregator watch [AGGREGATORKEY] [-h] [-v] [-s] [--mainnetBeta | --cluster
+  $ sbv2 solana aggregator watch AGGREGATORKEY [-h] [-v] [-s] [--mainnetBeta | --cluster
     devnet|mainnet-beta|mainnet|localnet] [-u <value>] [--programId <value>] [--commitment
     confirmed|finalized|processed] [-t <value>] [-f <value>]
 
@@ -3813,7 +3856,7 @@ withdraw funds from an aggregator lease
 
 ```
 USAGE
-  $ sbv2 solana aggregator withdraw [AGGREGATORKEY] --amount <value> [-h] [-v] [-s] [--mainnetBeta | --cluster
+  $ sbv2 solana aggregator withdraw AGGREGATORKEY --amount <value> [-h] [-v] [-s] [--mainnetBeta | --cluster
     devnet|mainnet-beta|mainnet|localnet] [-u <value>] [--programId <value>] [--commitment
     confirmed|finalized|processed] [-k <value>] [--ledgerPath <value> --ledger] [-a <value>] [--queuePubkey <value>]
 
@@ -3850,14 +3893,52 @@ EXAMPLES
   $ sbv2 solana:aggregator:withdraw GvDMxPzN1sCj7L26YDK2HnMRXEQmQ2aemov8YBtPS7vR --amount 1.1 --keypair ../payer-keypair.json
 ```
 
+## `sbv2 solana anchor test`
+
+run anchor test and a switchboard oracle in parallel
+
+```
+USAGE
+  $ sbv2 solana anchor test [-h] [-v] [-s] [--mainnetBeta | --cluster localnet|devnet] [-u <value>] [--mainnetRpcUrl
+    <value>] [--programId <value>] [-d <value>] [--oracleKey <value>] [-k <value>] [--nodeImage <value>] [--arm] [-t
+    <value>] [--detach] [--testValidatorArgs <value>]
+
+FLAGS
+  -d, --switchboardDir=<value>  directory with switchboard.env to load a switchboard environment
+  -h, --help                    Show CLI help.
+  -k, --keypair=<value>         keypair that will pay for onchain transactions. defaults to new account authority if no
+                                alternate authority provided
+  -s, --silent                  suppress docker logging
+  -t, --timeout=<value>         [default: 120] number of seconds before ending the docker process
+  -u, --rpcUrl=<value>          alternate RPC url
+  -v, --verbose                 log everything
+  --arm                         apple silicon needs to use a docker image for linux/arm64
+  --cluster=<option>            [default: localnet] cluster
+                                <options: localnet|devnet>
+  --detach                      keep the localnet rpc running
+  --mainnetBeta                 WARNING: use mainnet-beta solana cluster
+  --mainnetRpcUrl=<value>       [default: https://api.mainnet-beta.solana.com/] Solana mainnet RPC URL to use for the
+                                oracle task runner
+  --nodeImage=<value>           [default: dev-v2-RC_02_24_23_18_43] public key of the oracle to start-up
+  --oracleKey=<value>           public key of the oracle to start-up
+  --programId=<value>           alternative Switchboard program ID to interact with
+  --testValidatorArgs=<value>   additional args passed to the local solana validator
+
+DESCRIPTION
+  run anchor test and a switchboard oracle in parallel
+
+ALIASES
+  $ sbv2 anchor test
+```
+
 ## `sbv2 solana buffer create QUEUEKEY`
 
 create a buffer relayer account
 
 ```
 USAGE
-  $ sbv2 solana buffer create [QUEUEKEY] [-h] [-v] [-s] [--mainnetBeta | --cluster devnet|mainnet-beta|mainnet|localnet]
-    [-u <value>] [--programId <value>] [--commitment confirmed|finalized|processed] [-k <value>] [--ledgerPath <value>
+  $ sbv2 solana buffer create QUEUEKEY [-h] [-v] [-s] [--mainnetBeta | --cluster devnet|mainnet-beta|mainnet|localnet] [-u
+    <value>] [--programId <value>] [--commitment confirmed|finalized|processed] [-k <value>] [--ledgerPath <value>
     --ledger] [--json] [--bufferKeypair <value>] [-a <value>] [-n <value>] [--minUpdateDelaySeconds <value>]
     [--jobDefinition <value> | --jobKey <value>]
 
@@ -3899,7 +3980,7 @@ request a new buffer relayer result
 
 ```
 USAGE
-  $ sbv2 solana buffer open-round [BUFFERRELAYERKEY] [-h] [-v] [-s] [--mainnetBeta | --cluster
+  $ sbv2 solana buffer open-round BUFFERRELAYERKEY [-h] [-v] [-s] [--mainnetBeta | --cluster
     devnet|mainnet-beta|mainnet|localnet] [-u <value>] [--programId <value>] [--commitment
     confirmed|finalized|processed] [-k <value>] [--ledgerPath <value> --ledger]
 
@@ -3938,7 +4019,7 @@ request a new buffer relayer result
 
 ```
 USAGE
-  $ sbv2 solana buffer update [BUFFERRELAYERKEY] [-h] [-v] [-s] [--mainnetBeta | --cluster
+  $ sbv2 solana buffer update BUFFERRELAYERKEY [-h] [-v] [-s] [--mainnetBeta | --cluster
     devnet|mainnet-beta|mainnet|localnet] [-u <value>] [--programId <value>] [--commitment
     confirmed|finalized|processed] [-k <value>] [--ledgerPath <value> --ledger]
 
@@ -3977,32 +4058,34 @@ create a new crank account
 
 ```
 USAGE
-  $ sbv2 solana crank create [QUEUEKEY] -s <value> [-h] [-v] [-s] [--mainnetBeta | --cluster
+  $ sbv2 solana crank create QUEUEKEY -s <value> [-h] [-v] [-s] [--mainnetBeta | --cluster
     devnet|mainnet-beta|mainnet|localnet] [-u <value>] [--programId <value>] [--commitment
     confirmed|finalized|processed] [-k <value>] [--ledgerPath <value> --ledger] [--json] [-n <value>] [--metadata
-    <value>]
+    <value>] [--crankKeypair <value>] [--dataBufferKeypair <value>]
 
 ARGUMENTS
   QUEUEKEY  public key of the oracle queue to create a crank on
 
 FLAGS
-  -h, --help             Show CLI help.
-  -k, --keypair=<value>  keypair that will pay for onchain transactions. defaults to new account authority if no
-                         alternate authority provided
-  -n, --name=<value>     name of the crank for easier identification
-  -s, --silent           suppress cli prompts
-  -s, --size=<value>     (required) maximum number of rows a crank can support
-  -u, --rpcUrl=<value>   alternate RPC url
-  -v, --verbose          log everything
-  --cluster=<option>     the solana cluster to connect to
-                         <options: devnet|mainnet-beta|mainnet|localnet>
-  --commitment=<option>  [default: confirmed] transaction commitment level to use
-                         <options: confirmed|finalized|processed>
-  --ledger               enable ledger support
-  --ledgerPath=<value>   HID path to the ledger
-  --mainnetBeta          WARNING: use mainnet-beta solana cluster
-  --metadata=<value>     metadata of the crank for easier identification
-  --programId=<value>    alternative Switchboard program ID to interact with
+  -h, --help                   Show CLI help.
+  -k, --keypair=<value>        keypair that will pay for onchain transactions. defaults to new account authority if no
+                               alternate authority provided
+  -n, --name=<value>           name of the crank for easier identification
+  -s, --silent                 suppress cli prompts
+  -s, --size=<value>           (required) maximum number of rows a crank can support
+  -u, --rpcUrl=<value>         alternate RPC url
+  -v, --verbose                log everything
+  --cluster=<option>           the solana cluster to connect to
+                               <options: devnet|mainnet-beta|mainnet|localnet>
+  --commitment=<option>        [default: confirmed] transaction commitment level to use
+                               <options: confirmed|finalized|processed>
+  --crankKeypair=<value>       keypair to use for the crank account. This will be the account's publicKey
+  --dataBufferKeypair=<value>  keypair to use for the crank data buffer account.
+  --ledger                     enable ledger support
+  --ledgerPath=<value>         HID path to the ledger
+  --mainnetBeta                WARNING: use mainnet-beta solana cluster
+  --metadata=<value>           metadata of the crank for easier identification
+  --programId=<value>          alternative Switchboard program ID to interact with
 
 GLOBAL FLAGS
   --json  Format output as json.
@@ -4017,7 +4100,7 @@ watch an aggregator account and stream the on-chain events
 
 ```
 USAGE
-  $ sbv2 solana crank events [AGGREGATORKEY] [-h] [-v] [-s] [--mainnetBeta | --cluster
+  $ sbv2 solana crank events AGGREGATORKEY [-h] [-v] [-s] [--mainnetBeta | --cluster
     devnet|mainnet-beta|mainnet|localnet] [-u <value>] [--programId <value>] [--commitment
     confirmed|finalized|processed] [-t <value>] [-f <value>]
 
@@ -4048,8 +4131,8 @@ pop the crank
 
 ```
 USAGE
-  $ sbv2 solana crank pop [CRANKKEY] [-h] [-v] [-s] [--mainnetBeta | --cluster devnet|mainnet-beta|mainnet|localnet]
-    [-u <value>] [--programId <value>] [--commitment confirmed|finalized|processed] [-k <value>] [--ledgerPath <value>
+  $ sbv2 solana crank pop CRANKKEY [-h] [-v] [-s] [--mainnetBeta | --cluster devnet|mainnet-beta|mainnet|localnet] [-u
+    <value>] [--programId <value>] [--commitment confirmed|finalized|processed] [-k <value>] [--ledgerPath <value>
     --ledger]
 
 ARGUMENTS
@@ -4081,8 +4164,8 @@ print a crank
 
 ```
 USAGE
-  $ sbv2 solana crank print [CRANKKEY] [-h] [-v] [-s] [--mainnetBeta | --cluster devnet|mainnet-beta|mainnet|localnet]
-    [-u <value>] [--programId <value>] [--commitment confirmed|finalized|processed] [--json] [--rows]
+  $ sbv2 solana crank print CRANKKEY [-h] [-v] [-s] [--mainnetBeta | --cluster devnet|mainnet-beta|mainnet|localnet] [-u
+    <value>] [--programId <value>] [--commitment confirmed|finalized|processed] [--json] [--rows]
 
 ARGUMENTS
   CRANKKEY  public key of the crank account
@@ -4113,7 +4196,7 @@ push the crank
 
 ```
 USAGE
-  $ sbv2 solana crank push [AGGREGATORKEY] [-h] [-v] [-s] [--mainnetBeta | --cluster
+  $ sbv2 solana crank push AGGREGATORKEY [-h] [-v] [-s] [--mainnetBeta | --cluster
     devnet|mainnet-beta|mainnet|localnet] [-u <value>] [--programId <value>] [--commitment
     confirmed|finalized|processed] [-k <value>] [--ledgerPath <value> --ledger] [--crankKey <value>]
 
@@ -4185,7 +4268,7 @@ print an job and it's associated accounts
 
 ```
 USAGE
-  $ sbv2 solana job print [JOBKEY] [-h] [-v] [-s] [--mainnetBeta | --cluster devnet|mainnet-beta|mainnet|localnet] [-u
+  $ sbv2 solana job print JOBKEY [-h] [-v] [-s] [--mainnetBeta | --cluster devnet|mainnet-beta|mainnet|localnet] [-u
     <value>] [--programId <value>] [--commitment confirmed|finalized|processed] [--json]
 
 ARGUMENTS
@@ -4216,7 +4299,7 @@ create an aggregator from a json file
 
 ```
 USAGE
-  $ sbv2 solana json create aggregator [DEFINITIONFILE] [-h] [-v] [-s] [--mainnetBeta | --cluster
+  $ sbv2 solana json create aggregator DEFINITIONFILE [-h] [-v] [-s] [--mainnetBeta | --cluster
     devnet|mainnet-beta|mainnet|localnet] [-u <value>] [--programId <value>] [--commitment
     confirmed|finalized|processed] [-k <value>] [--ledgerPath <value> --ledger] [--json] [-q <value>] [-a <value>]
     [--leaseAmount <value>]
@@ -4262,7 +4345,7 @@ fund and re-enable an aggregator lease
 
 ```
 USAGE
-  $ sbv2 solana lease create [AGGREGATORKEY] [-h] [-v] [-s] [--mainnetBeta | --cluster
+  $ sbv2 solana lease create AGGREGATORKEY [-h] [-v] [-s] [--mainnetBeta | --cluster
     devnet|mainnet-beta|mainnet|localnet] [-u <value>] [--programId <value>] [--commitment
     confirmed|finalized|processed] [-k <value>] [--ledgerPath <value> --ledger] [--amount <value>]
 
@@ -4300,7 +4383,7 @@ fund and re-enable an aggregator lease
 
 ```
 USAGE
-  $ sbv2 solana lease extend [AGGREGATORKEY] --amount <value> [-h] [-v] [-s] [--mainnetBeta | --cluster
+  $ sbv2 solana lease extend AGGREGATORKEY --amount <value> [-h] [-v] [-s] [--mainnetBeta | --cluster
     devnet|mainnet-beta|mainnet|localnet] [-u <value>] [--programId <value>] [--commitment
     confirmed|finalized|processed] [-k <value>] [--ledgerPath <value> --ledger]
 
@@ -4342,8 +4425,8 @@ print a lease account
 
 ```
 USAGE
-  $ sbv2 solana lease print [LEASEKEY] [-h] [-v] [-s] [--mainnetBeta | --cluster devnet|mainnet-beta|mainnet|localnet]
-    [-u <value>] [--programId <value>] [--commitment confirmed|finalized|processed] [--json]
+  $ sbv2 solana lease print LEASEKEY [-h] [-v] [-s] [--mainnetBeta | --cluster devnet|mainnet-beta|mainnet|localnet] [-u
+    <value>] [--programId <value>] [--commitment confirmed|finalized|processed] [--json]
 
 ARGUMENTS
   LEASEKEY  public key of the lease account
@@ -4373,7 +4456,7 @@ set a lease's withdraw authority
 
 ```
 USAGE
-  $ sbv2 solana lease set [AGGREGATORKEY] [-h] [-v] [-s] [--mainnetBeta | --cluster
+  $ sbv2 solana lease set AGGREGATORKEY [-h] [-v] [-s] [--mainnetBeta | --cluster
     devnet|mainnet-beta|mainnet|localnet] [-u <value>] [--programId <value>] [--commitment
     confirmed|finalized|processed] [-k <value>] [--ledgerPath <value> --ledger] [-a <value>] [--queuePubkey <value>]
     [--newAuthority <value>]
@@ -4417,7 +4500,7 @@ withdraw funds from an aggregator lease
 
 ```
 USAGE
-  $ sbv2 solana lease withdraw [AGGREGATORKEY] --amount <value> [-h] [-v] [-s] [--mainnetBeta | --cluster
+  $ sbv2 solana lease withdraw AGGREGATORKEY --amount <value> [-h] [-v] [-s] [--mainnetBeta | --cluster
     devnet|mainnet-beta|mainnet|localnet] [-u <value>] [--programId <value>] [--commitment
     confirmed|finalized|processed] [-k <value>] [--ledgerPath <value> --ledger] [-a <value>] [--queuePubkey <value>]
 
@@ -4452,6 +4535,91 @@ ALIASES
 
 EXAMPLES
   $ sbv2 solana:aggregator:withdraw GvDMxPzN1sCj7L26YDK2HnMRXEQmQ2aemov8YBtPS7vR --amount 1.1 --keypair ../payer-keypair.json
+```
+
+## `sbv2 solana localnet env`
+
+create a localnet switchboard environment
+
+```
+USAGE
+  $ sbv2 solana localnet env [-h] [-v] [-s] [--mainnetBeta | --cluster devnet|mainnet-beta|mainnet|localnet] [-u <value>]
+    [--programId <value>] [--commitment confirmed|finalized|processed] [-k <value>] [--ledgerPath <value> --ledger]
+    [--force] [-o <value>]
+
+FLAGS
+  -h, --help               Show CLI help.
+  -k, --keypair=<value>    keypair that will pay for onchain transactions. defaults to new account authority if no
+                           alternate authority provided
+  -o, --outputDir=<value>  [default: ./.switchboard] output directory for scripts
+  -s, --silent             suppress cli prompts
+  -u, --rpcUrl=<value>     alternate RPC url
+  -v, --verbose            log everything
+  --cluster=<option>       the solana cluster to connect to
+                           <options: devnet|mainnet-beta|mainnet|localnet>
+  --commitment=<option>    [default: confirmed] transaction commitment level to use
+                           <options: confirmed|finalized|processed>
+  --force                  overwrite output file if existing
+  --ledger                 enable ledger support
+  --ledgerPath=<value>     HID path to the ledger
+  --mainnetBeta            WARNING: use mainnet-beta solana cluster
+  --programId=<value>      alternative Switchboard program ID to interact with
+
+DESCRIPTION
+  create a localnet switchboard environment
+```
+
+## `sbv2 solana localnet up`
+
+start a local solana validator with a switchboard environment and oracle running alongside it
+
+```
+USAGE
+  $ sbv2 solana localnet up [-h] [-v] [-s] [--mainnetBeta | --cluster devnet|mainnet-beta|mainnet|localnet] [-u <value>]
+    [--programId <value>] [--commitment confirmed|finalized|processed] [-k <value>] [--ledgerPath <value> --ledger]
+    [--oracleStakingWalletKeypair <value> --queueKeypair <value>] [--nodeImage <value>] [--arm] [-t <value>] [--reward
+    <value>] [--minStake <value>] [--oracleTimeout <value>] [--slashingEnabled] [--permissionedFeeds]
+    [--unpermissionedVrf] [--enableBufferRelayers]
+
+FLAGS
+  -h, --help                            Show CLI help.
+  -k, --keypair=<value>                 keypair that will pay for onchain transactions. defaults to new account
+                                        authority if no alternate authority provided
+  -s, --silent                          suppress docker logging
+  -t, --timeout=<value>                 [default: 120] number of seconds before ending the docker process
+  -u, --rpcUrl=<value>                  alternate RPC url
+  -v, --verbose                         log everything
+  --arm                                 apple silicon needs to use a docker image for linux/arm64
+  --cluster=<option>                    the solana cluster to connect to
+                                        <options: devnet|mainnet-beta|mainnet|localnet>
+  --commitment=<option>                 [default: confirmed] transaction commitment level to use
+                                        <options: confirmed|finalized|processed>
+  --enableBufferRelayers                enabling this setting will allow buffer relayer accounts to call openRound.
+  --ledger                              enable ledger support
+  --ledgerPath=<value>                  HID path to the ledger
+  --mainnetBeta                         WARNING: use mainnet-beta solana cluster
+  --minStake=<value>                    [default: 0] the reward payed out to oracles for responding to an update request
+                                        on-chain, Ex: 2 requires oracles to have 2 wSOL in their staking wallet before
+                                        heartbeating
+  --nodeImage=<value>                   [default: dev-v2-RC_02_24_23_18_43] public key of the oracle to start-up
+  --oracleStakingWalletKeypair=<value>  keypair to use for the oracle staking wallet. Using a static staking wallet with
+                                        the same queue will produce the same oracle pubkey each time.
+  --oracleTimeout=<value>               [default: 180] time period (in seconds) we should remove an oracle after if no
+                                        response
+  --permissionedFeeds                   enabling this setting means data feeds need explicit permission to join the
+                                        queue.
+  --programId=<value>                   alternative Switchboard program ID to interact with
+  --queueKeypair=<value>                keypair to use for the oracle queue account. This will be the account's
+                                        publicKey
+  --reward=<value>                      [default: 0] the reward payed out to oracles for responding to an update request
+                                        on-chain, Ex: A reward of 0.0000075 with a feed with a batchSize of 4 would
+                                        deduct (4 * 0.0000075) wSOL from an aggregators lease each round.
+  --slashingEnabled                     whether slashing is enabled on this queue.
+  --unpermissionedVrf                   enabling this setting means data feeds do not need explicit permission to
+                                        request VRF proofs and verifications from this queue.
+
+DESCRIPTION
+  start a local solana validator with a switchboard environment and oracle running alongside it
 ```
 
 ## `sbv2 solana network create`
@@ -4522,15 +4690,57 @@ DESCRIPTION
   save an existing switchboard network
 ```
 
+## `sbv2 solana network start`
+
+start a switchboard network from a JSON file
+
+```
+USAGE
+  $ sbv2 solana network start [-h] [-v] [-s] [--mainnetBeta | --cluster devnet|mainnet-beta|mainnet|localnet] [-u <value>]
+    [--programId <value>] [--commitment confirmed|finalized|processed] [-k <value>] [--ledgerPath <value> --ledger]
+    [--json] [--configFile <value>] [--schemaFile <value>] [--nodeImage <value>] [--arm] [-t <value>] [--mainnetRpcUrl
+    <value>]
+
+FLAGS
+  -h, --help               Show CLI help.
+  -k, --keypair=<value>    keypair that will pay for onchain transactions. defaults to new account authority if no
+                           alternate authority provided
+  -s, --silent             suppress docker logging
+  -t, --timeout=<value>    [default: 300] number of seconds before ending the docker process
+  -u, --rpcUrl=<value>     alternate RPC url
+  -v, --verbose            log everything
+  --arm                    apple silicon needs to use a docker image for linux/arm64
+  --cluster=<option>       the solana cluster to connect to
+                           <options: devnet|mainnet-beta|mainnet|localnet>
+  --commitment=<option>    [default: confirmed] transaction commitment level to use
+                           <options: confirmed|finalized|processed>
+  --configFile=<value>
+  --ledger                 enable ledger support
+  --ledgerPath=<value>     HID path to the ledger
+  --mainnetBeta            WARNING: use mainnet-beta solana cluster
+  --mainnetRpcUrl=<value>  [default: https://api.mainnet-beta.solana.com/] Solana mainnet RPC URL to use for the oracle
+                           task runner
+  --nodeImage=<value>      [default: dev-v2-RC_02_24_23_18_43] public key of the oracle to start-up
+  --programId=<value>      alternative Switchboard program ID to interact with
+  --schemaFile=<value>
+
+GLOBAL FLAGS
+  --json  Format output as json.
+
+DESCRIPTION
+  start a switchboard network from a JSON file
+```
+
 ## `sbv2 solana oracle create QUEUEKEY`
 
 create a new oracle account for a given queue
 
 ```
 USAGE
-  $ sbv2 solana oracle create [QUEUEKEY] [-h] [-v] [-s] [--mainnetBeta | --cluster devnet|mainnet-beta|mainnet|localnet]
-    [-u <value>] [--programId <value>] [--commitment confirmed|finalized|processed] [-k <value>] [--ledgerPath <value>
-    --ledger] [--json] [-n <value>] [-a <value>] [--enable] [--queueAuthority <value>] [--stakeAmount <value>]
+  $ sbv2 solana oracle create QUEUEKEY [-h] [-v] [-s] [--mainnetBeta | --cluster devnet|mainnet-beta|mainnet|localnet] [-u
+    <value>] [--programId <value>] [--commitment confirmed|finalized|processed] [-k <value>] [--ledgerPath <value>
+    --ledger] [--json] [-n <value>] [--metadata <value>] [-a <value>] [--enable] [--queueAuthority <value>]
+    [--stakeAmount <value>]
 
 ARGUMENTS
   QUEUEKEY  public key of the oracle queue account
@@ -4552,6 +4762,7 @@ FLAGS
   --ledger                  enable ledger support
   --ledgerPath=<value>      HID path to the ledger
   --mainnetBeta             WARNING: use mainnet-beta solana cluster
+  --metadata=<value>        metadata of the oracle for easier identification
   --programId=<value>       alternative Switchboard program ID to interact with
   --queueAuthority=<value>  alternative keypair to use for queue authority
   --stakeAmount=<value>     token amount to load into the oracle's staking wallet.
@@ -4572,7 +4783,7 @@ print an oracle account
 
 ```
 USAGE
-  $ sbv2 solana oracle print [ORACLEKEY] [-h] [-v] [-s] [--mainnetBeta | --cluster devnet|mainnet-beta|mainnet|localnet]
+  $ sbv2 solana oracle print ORACLEKEY [-h] [-v] [-s] [--mainnetBeta | --cluster devnet|mainnet-beta|mainnet|localnet]
     [-u <value>] [--programId <value>] [--commitment confirmed|finalized|processed] [--json]
 
 ARGUMENTS
@@ -4597,13 +4808,48 @@ DESCRIPTION
   print an oracle account
 ```
 
+## `sbv2 solana oracle up`
+
+start a solana docker oracle
+
+```
+USAGE
+  $ sbv2 solana oracle up --oracleKey <value> [-h] [-v] [-s] [--mainnetBeta | --cluster
+    devnet|mainnet-beta|mainnet|localnet] [-u <value>] [--programId <value>] [--commitment
+    confirmed|finalized|processed] [-k <value>] [--ledgerPath <value> --ledger] [--nodeImage <value>] [--arm] [-t
+    <value>]
+
+FLAGS
+  -h, --help             Show CLI help.
+  -k, --keypair=<value>  keypair that will pay for onchain transactions. defaults to new account authority if no
+                         alternate authority provided
+  -s, --silent           suppress docker logging
+  -t, --timeout=<value>  [default: 120] number of seconds before ending the docker process
+  -u, --rpcUrl=<value>   alternate RPC url
+  -v, --verbose          log everything
+  --arm                  apple silicon needs to use a docker image for linux/arm64
+  --cluster=<option>     the solana cluster to connect to
+                         <options: devnet|mainnet-beta|mainnet|localnet>
+  --commitment=<option>  [default: confirmed] transaction commitment level to use
+                         <options: confirmed|finalized|processed>
+  --ledger               enable ledger support
+  --ledgerPath=<value>   HID path to the ledger
+  --mainnetBeta          WARNING: use mainnet-beta solana cluster
+  --nodeImage=<value>    [default: dev-v2-RC_02_24_23_18_43] public key of the oracle to start-up
+  --oracleKey=<value>    (required) public key of the oracle to start-up
+  --programId=<value>    alternative Switchboard program ID to interact with
+
+DESCRIPTION
+  start a solana docker oracle
+```
+
 ## `sbv2 solana oracle withdraw ORACLEKEY`
 
 withdraw from an oracle's staking wallet
 
 ```
 USAGE
-  $ sbv2 solana oracle withdraw [ORACLEKEY] --amount <value> [-h] [-v] [-s] [--mainnetBeta | --cluster
+  $ sbv2 solana oracle withdraw ORACLEKEY --amount <value> [-h] [-v] [-s] [--mainnetBeta | --cluster
     devnet|mainnet-beta|mainnet|localnet] [-u <value>] [--programId <value>] [--commitment
     confirmed|finalized|processed] [-k <value>] [--ledgerPath <value> --ledger] [-a <value>]
 
@@ -4677,7 +4923,7 @@ enable a resources permissions
 
 ```
 USAGE
-  $ sbv2 solana permission grant [PERMISSIONKEY] [-h] [-v] [-s] [--mainnetBeta | --cluster
+  $ sbv2 solana permission grant PERMISSIONKEY [-h] [-v] [-s] [--mainnetBeta | --cluster
     devnet|mainnet-beta|mainnet|localnet] [-u <value>] [--programId <value>] [--commitment
     confirmed|finalized|processed] [-k <value>] [--ledgerPath <value> --ledger] [-a <value>]
 
@@ -4711,7 +4957,7 @@ print a permission account
 
 ```
 USAGE
-  $ sbv2 solana permission print [PERMISSIONKEY] [-h] [-v] [-s] [--mainnetBeta | --cluster
+  $ sbv2 solana permission print PERMISSIONKEY [-h] [-v] [-s] [--mainnetBeta | --cluster
     devnet|mainnet-beta|mainnet|localnet] [-u <value>] [--programId <value>] [--commitment
     confirmed|finalized|processed] [--json]
 
@@ -4743,7 +4989,7 @@ disable a resources permissions
 
 ```
 USAGE
-  $ sbv2 solana permission revoke [PERMISSIONKEY] [-h] [-v] [-s] [--mainnetBeta | --cluster
+  $ sbv2 solana permission revoke PERMISSIONKEY [-h] [-v] [-s] [--mainnetBeta | --cluster
     devnet|mainnet-beta|mainnet|localnet] [-u <value>] [--programId <value>] [--commitment
     confirmed|finalized|processed] [-k <value>] [--ledgerPath <value> --ledger] [-a <value>]
 
@@ -4777,7 +5023,7 @@ print a Switchboard account
 
 ```
 USAGE
-  $ sbv2 solana print [PUBKEY] [-h] [-v] [-s] [--mainnetBeta | --cluster devnet|mainnet-beta|mainnet|localnet] [-u
+  $ sbv2 solana print PUBKEY [-h] [-v] [-s] [--mainnetBeta | --cluster devnet|mainnet-beta|mainnet|localnet] [-u
     <value>] [--programId <value>] [--commitment confirmed|finalized|processed] [--json]
 
 ARGUMENTS
@@ -4873,8 +5119,8 @@ print a queue account
 
 ```
 USAGE
-  $ sbv2 solana queue print [QUEUEKEY] [-h] [-v] [-s] [--mainnetBeta | --cluster devnet|mainnet-beta|mainnet|localnet]
-    [-u <value>] [--programId <value>] [--commitment confirmed|finalized|processed] [--json]
+  $ sbv2 solana queue print QUEUEKEY [-h] [-v] [-s] [--mainnetBeta | --cluster devnet|mainnet-beta|mainnet|localnet] [-u
+    <value>] [--programId <value>] [--commitment confirmed|finalized|processed] [--json]
 
 ARGUMENTS
   QUEUEKEY  public key of the queue account
@@ -4904,8 +5150,8 @@ set an oracle queue's config
 
 ```
 USAGE
-  $ sbv2 solana queue set [QUEUEKEY] [-h] [-v] [-s] [--mainnetBeta | --cluster devnet|mainnet-beta|mainnet|localnet]
-    [-u <value>] [--programId <value>] [--commitment confirmed|finalized|processed] [-k <value>] [--ledgerPath <value>
+  $ sbv2 solana queue set QUEUEKEY [-h] [-v] [-s] [--mainnetBeta | --cluster devnet|mainnet-beta|mainnet|localnet] [-u
+    <value>] [--programId <value>] [--commitment confirmed|finalized|processed] [-k <value>] [--ledgerPath <value>
     --ledger] [--json] [-a <value>] [--name <value>] [--metadata <value>] [--reward <value>] [--minStake <value>]
     [--oracleTimeout <value>] [--slashingEnabled] [--permissionedFeeds] [--unpermissionedVrf] [--enableBufferRelayers]
     [--consecutiveFeedFailureLimit <value>] [--consecutiveOracleFailureLimit <value>]
@@ -4961,7 +5207,7 @@ request a new vrf result from a set of oracles
 
 ```
 USAGE
-  $ sbv2 solana vrf open-round [VRFKEY] [-h] [-v] [-s] [--mainnetBeta | --cluster devnet|mainnet-beta|mainnet|localnet] [-u
+  $ sbv2 solana vrf open-round VRFKEY [-h] [-v] [-s] [--mainnetBeta | --cluster devnet|mainnet-beta|mainnet|localnet] [-u
     <value>] [--programId <value>] [--commitment confirmed|finalized|processed] [-k <value>] [--ledgerPath <value>
     --ledger] [--authority <value>]
 
@@ -5002,7 +5248,7 @@ print a VRF and it's associated accounts
 
 ```
 USAGE
-  $ sbv2 solana vrf print [VRFKEY] [-h] [-v] [-s] [--mainnetBeta | --cluster devnet|mainnet-beta|mainnet|localnet] [-u
+  $ sbv2 solana vrf print VRFKEY [-h] [-v] [-s] [--mainnetBeta | --cluster devnet|mainnet-beta|mainnet|localnet] [-u
     <value>] [--programId <value>] [--commitment confirmed|finalized|processed] [--json]
 
 ARGUMENTS
@@ -5033,7 +5279,7 @@ request a new vrf result from a set of oracles
 
 ```
 USAGE
-  $ sbv2 solana vrf request [VRFKEY] [-h] [-v] [-s] [--mainnetBeta | --cluster devnet|mainnet-beta|mainnet|localnet] [-u
+  $ sbv2 solana vrf request VRFKEY [-h] [-v] [-s] [--mainnetBeta | --cluster devnet|mainnet-beta|mainnet|localnet] [-u
     <value>] [--programId <value>] [--commitment confirmed|finalized|processed] [-k <value>] [--ledgerPath <value>
     --ledger] [--authority <value>]
 
@@ -5074,7 +5320,7 @@ request a new vrf result from a set of oracles
 
 ```
 USAGE
-  $ sbv2 solana vrf update [VRFKEY] [-h] [-v] [-s] [--mainnetBeta | --cluster devnet|mainnet-beta|mainnet|localnet] [-u
+  $ sbv2 solana vrf update VRFKEY [-h] [-v] [-s] [--mainnetBeta | --cluster devnet|mainnet-beta|mainnet|localnet] [-u
     <value>] [--programId <value>] [--commitment confirmed|finalized|processed] [-k <value>] [--ledgerPath <value>
     --ledger] [--authority <value>]
 

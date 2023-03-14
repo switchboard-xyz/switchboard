@@ -143,6 +143,7 @@ export default class AggregatorCreate extends BaseCommand {
     let keypair: Keypair | undefined;
     if (flags.aggregatorKeypair) {
       keypair = await this.loadKeypair(flags.aggregatorKeypair);
+      await this.program.verifyNewKeypair(keypair);
     }
 
     const tokenWallet = this.program.mint.getAssociatedAddress(

@@ -314,7 +314,7 @@ export function prettyPrintOracle(
   output.push(chalk.underline(chalkString("## Oracle", publicKey, SPACING)));
 
   output.push(chalkString("name", buf2String(oracle.name), SPACING));
-  output.push(chalkString("metadata", buf2String(oracle.name), SPACING));
+  output.push(chalkString("metadata", buf2String(oracle.metadata), SPACING));
   output.push(chalkString("authority", oracle.oracleAuthority, SPACING));
   output.push(chalkString("queue", oracle.queuePubkey, SPACING));
   output.push(chalkString("tokenWallet", oracle.tokenAccount, SPACING));

@@ -22,6 +22,10 @@ export default class OracleCreate extends BaseCommand {
       description: "name of the oracle for easier identification",
       default: "",
     }),
+    metadata: Flags.string({
+      description: "metadata of the oracle for easier identification",
+      default: "",
+    }),
     authority: Flags.string({
       char: "a",
       description:

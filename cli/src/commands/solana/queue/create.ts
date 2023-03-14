@@ -97,34 +97,16 @@ export default class QueueCreate extends BaseCommand {
       authority = await this.loadAuthority(flags.authority);
     }
 
-    let keypair: Keypair | undefined;
+    let queueKeypair: Keypair | undefined;
     if (flags.queueKeypair) {
-      keypair = await this.loadKeypair(flags.queueKeypair);
-      const keypairAccountInfo = await this.program.connection.getAccountInfo(
-        keypair.publicKey
-      );
-      if (keypairAccountInfo !== null) {
-        throw new Error(
-          `--queueKeypair must point to a non-existant account, ${this.toAccountUrl(
-            keypair.publicKey.toBase58()
-          )}`
-        );
-      }
+      queueKeypair = await this.loadKeypair(flags.queueKeypair);
+      await this.program.verifyNewKeypair(queueKeypair);
     }
 
     let dataBufferKeypair: Keypair | undefined;
     if (flags.dataBufferKeypair) {
       dataBufferKeypair = await this.loadKeypair(flags.dataBufferKeypair);
-      const keypairAccountInfo = await this.program.connection.getAccountInfo(
-        dataBufferKeypair.publicKey
-      );
-      if (keypairAccountInfo !== null) {
-        throw new Error(
-          `--dataBufferKeypair must point to a non-existant account, ${this.toAccountUrl(
-            dataBufferKeypair.publicKey.toBase58()
-          )}`
-        );
-      }
+      await this.program.verifyNewKeypair(dataBufferKeypair);
     }
 
     const [queueAccount, txn] = await QueueAccount.createInstructions(
@@ -145,7 +127,7 @@ export default class QueueCreate extends BaseCommand {
         unpermissionedVrf: flags.unpermissionedVrf,
         enableBufferRelayers: flags.enableBufferRelayers,
         authority: authority ? authority.publicKey : undefined,
-        keypair: keypair,
+        keypair: queueKeypair,
         dataBufferKeypair: dataBufferKeypair,
       }
     );
