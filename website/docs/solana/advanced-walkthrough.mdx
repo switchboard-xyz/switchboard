@@ -93,6 +93,7 @@ yarn add @coral-xyz/anchor \
 cargo add switchboard-v2
 cargo add bytemuck
 cargo add solana-program
+cargo add anchor-spl
 ```
 
 Create your program deploy keypair, then update `Anchor.toml` and
@@ -198,8 +199,10 @@ Now let's add some functionality to our `program_init` instruction. We will need
 to:
 
 - Allocate on-chain space for our ProgramState account
-- Deserialize the Switchboard ProgramStateAccount and store the bump on our account
-- Deserialize a provided Switchboard OracleQueueAccountData and ensure it has unpermissionedVrf set to true
+- Deserialize the Switchboard ProgramStateAccount and store the bump on our
+  account
+- Deserialize a provided Switchboard OracleQueueAccountData and ensure it has
+  unpermissionedVrf set to true
 
 ```rust title="programs/vrf-raffle/src/program_init.rs"
 
