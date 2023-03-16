@@ -104,6 +104,7 @@ const config = {
           "bash",
           "yaml",
           "asciidoc",
+          "diff",
         ],
       },
       navbar: {

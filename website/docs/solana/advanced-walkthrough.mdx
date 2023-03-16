@@ -1,0 +1,209 @@
+---
+sidebar_position: 12
+title: Advanced Walkthrough
+---
+
+This guide will walk you through building a ticket raffle on Solana, utilizing
+Switchboard oracles and VRF for provable fairness.
+
+## The Raffle Program
+
+We'll be building a basic ticket raffle that lets a user deposit 1 USDC worth of
+their favorite SPL Token and in return receive a raffle ticket. We'll utilize
+Switchboard oracles in order to determine the amount of SPL Tokens to deposit so
+the user is always exchanging 1 USDC worth. After some pre-determined amount of
+time, the raffle will close and the program will request randomness from
+Switchboard. Once the randomness is fulfilled, the Switchboard oracle will make
+a cross-program invocation into our program and select the winner. This is web3
+so we'll make it so any user can create their own lottery and invite users to
+participate.
+
+### Accounts
+
+Our program will need the following accounts:
+
+| Account      | Description                                                                                                                                                                                                                                                                                           |
+| ------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| ProgramState | Top level program PDA that will enforce all lotteries can only be created for a given Switchboard OracleQueue. <br /><br />This ensures a lottery authority cant create their own queue and oracles and cheat the users.                                                                              |
+| Lottery      | Contains the:<br /><ul><li><b>LotteryConfig:</b> the duration, closing timestamp, and number of participants</li><li><b>TokenConfig:</b> the token mint, escrow, and the Switchboard Aggregator to use for pricing data</li><li><b>VrfConfig:</b> the Switchboard VRF to settle the results</li></ul> |
+| Ticket       | Stores the user's raffle ticket and reward addresses.                                                                                                                                                                                                                                                 |
+
+### Instructions
+
+Our program will need the following instructions:
+
+| Instruction      | Description                                                                                                                                                     |
+| ---------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `program_init`   | Initialize the ProgramState account and set the Switchboard OracleQueue.                                                                                        |
+| `lottery_init`   | Initialize a lottery with a set of parameters.                                                                                                                  |
+| `ticket_init`    | Transfer 1 USDC worth of a user's tokens to the lottery controlled escrow address and initialize a ticket for the user.                                         |
+| `lottery_draw`   | Request randomness from the Switchboard OracleQueue.                                                                                                            |
+| `lottery_settle` | This will be invoked by the Switchboard oracle and handle any logic for determining the winner. <br /><br /><b>NOTE:</b> This will be our callback instruction. |
+| `lottery_close`  | After the lottery has been settled, allow a lottery authority to close a lottery and recoup any rent exemption.                                                 |
+| `ticket_close`   | After the lottery has been settled, allow a user to close their ticket account and recoup any rent exemption.                                                   |
+
+### Constraints
+
+Let's quickly sketch out some edge cases we may encounter.
+
+**No Users Enter the Lottery**
+
+- We should enforce some minimum number of participants for our lottery. We dont
+  want to request randomness if no one will win.
+
+**User Buys a Ticket After the Lottery Ends**
+
+- We should enforce an ending timestamp on the lottery so a user cannot purchase
+  a ticket after a certain timestamp.
+
+**Lottery Oracle Stale**
+
+- We should define an oracles config so it is updating at a regular cadence.
+- If the oracle is more than 5 minutes stale, we should prevent users from
+  purchasing any tickets.
+- If the oracle's confidence interval (standard deviation) exceeds some
+  threshold, we should prevent the user from purchasing any tickets.
+- **TWAP**: For more advanced cases we can utilize a Twap oracle so individual
+  price samples are averaged out.
+
+**VRF Request Failed**
+
+- We should have some logic to re-request randomness if a previous request has
+  failed.
+- We should prevent multiple concurrent requests by enforcing some minimum time
+  between requests.
+- We should have some maximum number of retries that closes the lottery and
+  let's users recoup their entrance fee.
+
+## Buidl
+
+Let's setup our anchor project and add some dependencies.
+
+```bash
+anchor init vrf-raffle
+cd vrf-raffle
+# javascript dependencies
+yarn remove @project-serum/anchor
+yarn add @coral-xyz/anchor \
+  @solana/web3.js \
+  @solana/spl-token \
+  @switchboard-xyz/solana.js \
+  @switchboard-xyz/common
+# rust dependencies
+cargo add switchboard-v2
+cargo add bytemuck
+cargo add solana-program
+cargo add anchor-spl
+```
+
+Create your program deploy keypair, then update `Anchor.toml` and
+`programs/vrf-raffle/src/lib.rs` with your unique program ID and build the
+program.
+
+```bash
+# create
+solana-keygen new -s --no-bip39-passphrase --outfile target/deploy/vrf_raffle-keypair.json
+export VRF_RAFFLE_PROGRAM_ID=$(solana-keygen pubkey target/deploy/vrf_raffle-keypair.json)
+sed -i '' 's/Fg6PaFpoGXkYsidMpWTK6W2BeZ7FEfcYkg476zPFsLnS/'"$VRF_RAFFLE_PROGRAM_ID"'/' Anchor.toml
+sed -i '' 's/Fg6PaFpoGXkYsidMpWTK6W2BeZ7FEfcYkg476zPFsLnS/'"$VRF_RAFFLE_PROGRAM_ID"'/' programs/vrf-raffle/src/lib.rs
+anchor build
+```
+
+Commit your changes
+
+```bash
+git add --all && git commit -m "init"
+```
+
+### `program_init`
+
+First, let's remove the generated initialize instruction and replace it with the
+boilerplate code for our `program_init` instruction. Then we'll add the
+ProgramState account layout. We'll be storing the Switchboard programState bump
+on our account so we dont need to provide it everytime we request randomness.
+
+```rust title="programs/vrf-raffle/src/program_init.rs"
+use anchor_lang::prelude::*;
+
+#[derive(Accounts)]
+pub struct ProgramInit {}
+
+#[derive(Clone, AnchorSerialize, AnchorDeserialize)]
+pub struct ProgramInitParams {}
+
+impl ProgramInit {
+    pub fn validate(
+        &self,
+        ctx: &Context<Self>,
+        params: &ProgramInitParams,
+    ) -> anchor_lang::Result<()> {
+        Ok(())
+    }
+
+    pub fn actuate(ctx: &Context<Self>, params: &ProgramInitParams) -> anchor_lang::Result<()> {
+        Ok(())
+    }
+}
+
+```
+
+```diff title="programs/vrf-raffle/src/lib.rs"
+use anchor_lang::prelude::*;
+
++ pub mod program_init;
++ pub use program_init::*;
+
+declare_id!("4frepJahiLDWX4apn4XErpXcHUWSJEsjDVmrmrhAGBQn");
+
+#[program]
+pub mod vrf_raffle {
+    use super::*;
+
+-     pub fn program_init(ctx: Context<Initialize>) -> Result<()> {
+-         Ok(())
+-     }
++     #[access_control(ctx.accounts.validate(&ctx, &params))]
++     pub fn program_init(
++         ctx: Context<ProgramInit>,
++         params: ProgramInitParams,
++     ) -> anchor_lang::Result<()> {
++         ProgramInit::actuate(&ctx, &params)
++     }
+}
+
+- #[derive(Accounts)]
+- pub struct Initialize {}
+
++ #[account(zero_copy)]
++ #[derive(AnchorSerialize)]
++ pub struct ProgramState {
++     pub bump: u8,
++     pub switchboard_state_bump: u8,
++     pub switchboard_queue: Pubkey,
++     // Buffer for future use
++     pub _ebuf: [u8; 1024],
++ }
+```
+
+:::tip
+
+Add explanation for zero_copy and why its needed
+
+:::
+
+Great, we created the empty `program_init` instruction. We'll be following this
+pattern for all of our instructions where each gets its own module which then
+gets mapped in lib.rs with an access control to validate the parameters.
+
+Now let's add some functionality to our `program_init` instruction. We will need
+to:
+
+- Allocate on-chain space for our ProgramState account
+- Deserialize the Switchboard ProgramStateAccount and store the bump on our
+  account
+- Deserialize a provided Switchboard OracleQueueAccountData and ensure it has
+  unpermissionedVrf set to true
+
+```rust title="programs/vrf-raffle/src/program_init.rs"
+
+```
