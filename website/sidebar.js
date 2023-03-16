@@ -379,7 +379,7 @@ module.exports = {
     { type: "doc", id: "solana/priority-fees" },
     { type: "doc", id: "solana/vrf-integration" },
     { type: "doc", id: "solana/test-integration" },
-    { type: "doc", id: "solana/advanced-walkthrough" },
+    // { type: "doc", id: "solana/advanced-walkthrough" },
     { type: "html", value: '<hr class="sidebar__separator">' },
     {
       type: "html",
