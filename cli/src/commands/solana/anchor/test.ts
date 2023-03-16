@@ -273,11 +273,10 @@ export default class AnchorTest extends BaseCommand {
         : SBV2_DEVNET_PID;
       const idlAddress = await getIdlAddress(programId);
       const programDataAddress = getProgramDataAddress(programId);
-      const [programStateAccount] =
-        anchor.utils.publicKey.findProgramAddressSync(
-          [Buffer.from("STATE")],
-          programId
-        );
+      const [programStateAccount] = PublicKey.findProgramAddressSync(
+        [Buffer.from("STATE")],
+        programId
+      );
       const vault = getRequiredVariable("SWITCHBOARD_VAULT");
       const queue = getRequiredVariable("ORACLE_QUEUE");
       const queueAuthority = getRequiredVariable("ORACLE_QUEUE_AUTHORITY");

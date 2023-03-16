@@ -128,7 +128,7 @@ export default class SolanaValidatorUp extends BaseCommand {
     fs.mkdirSync(path.join(".switchboard", "test-ledger"), { recursive: true });
 
     this.solanaChildProcess = exec(
-      `solana-test-validator -q -r --ledger .switchboard/test-ledger --mint ${this.program.walletPubkey} --bind-address 0.0.0.0 --url https://api.devnet.solana.com --rpc-port 8899 --clone 2TfB33aLaneQb5TNVwyDz3jSZXS6jdW2ARw1Dgf84XCG --clone J4CArpsbrZqu1axqQ4AnrqREs3jwoyA1M5LMiQQmAzB9 --clone CKwZcshn4XDvhaWVH9EXnk3iu19t6t5xP2Sy2pD6TRDp --clone BYM81n8HvTJuqZU1PmTVcwZ9G8uoji7FKM6EaPkwphPt --clone FVLfR6C2ckZhbSwBzZY4CX7YBcddUSge5BNeGQv5eKhy`,
+      `solana-test-validator -q -r --ledger .switchboard/test-ledger --mint ${this.program.walletPubkey} --bind-address 0.0.0.0 --url https://api.devnet.solana.com --rpc-port 8899 --clone SW1TCH7qEPTdLsDHRgPuMQjbQxKdH2aBStViMFnt64f --clone 7nYabs9dUhvxYwdTnrWVBL9MYviKSfrEbdWCUbcnwkpF --clone Fi8vncGpNKbq62gPo56G4toCehWNy77GgqGkTaAF5Lkk --clone CyZuD7RPDcrqCGbNvLCyqk6Py9cEZTKmNKujfPi3ynDd --clone 7hkp1xfPBcD2t1vZMoWWQPzipHVcXeLAAaiGXdPSfDie`,
       (error, stdout, stderr) => {
         // if (error) {
         //   console.error(`exec error: ${error}`);

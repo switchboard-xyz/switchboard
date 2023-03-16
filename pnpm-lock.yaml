@@ -16,7 +16,7 @@ importers:
     specifiers:
       '@aws-sdk/client-secrets-manager': ^3.154.0
       '@aws-sdk/credential-providers': ^3.157.0
-      '@coral-xyz/anchor': ^0.26.0
+      '@coral-xyz/anchor': ^0.27.0
       '@google-cloud/secret-manager': ^3.10.1
       '@ledgerhq/hw-app-solana': ^7.0.2
       '@ledgerhq/hw-transport-node-hid-singleton': ^6.28.5
@@ -34,7 +34,7 @@ importers:
       '@switchboard-xyz/eslint-config': workspace:^0.1.8
       '@switchboard-xyz/near.js': ^2.2.2
       '@switchboard-xyz/oracle': workspace:^2.1.12
-      '@switchboard-xyz/solana.js': ^2.0.140
+      '@switchboard-xyz/solana.js': ^2.1.0
       '@types/bs58': ^4.0.1
       '@types/chai': ^4
       '@types/listr': ^0.14.4
@@ -82,7 +82,7 @@ importers:
     dependencies:
       '@aws-sdk/client-secrets-manager': 3.159.0
       '@aws-sdk/credential-providers': 3.159.0
-      '@coral-xyz/anchor': 0.26.0
+      '@coral-xyz/anchor': 0.27.0
       '@google-cloud/secret-manager': 3.12.0
       '@ledgerhq/hw-app-solana': 7.0.2
       '@ledgerhq/hw-transport-node-hid-singleton': 6.28.5
@@ -98,7 +98,7 @@ importers:
       '@switchboard-xyz/common': link:../javascript/common
       '@switchboard-xyz/near.js': 2.2.2_typescript@4.9.5
       '@switchboard-xyz/oracle': link:../javascript/oracle
-      '@switchboard-xyz/solana.js': 2.0.140
+      '@switchboard-xyz/solana.js': 2.1.0
       aptos: 1.6.0
       aws-sdk: 2.1236.0
       bs58: 5.0.0
@@ -111,7 +111,7 @@ importers:
       near-units: 0.1.9
       node-fetch: 2.6.7
       npm-run-all: 4.1.5
-      oclif: 3.7.0_es7wegaxiyzm37ww5tnyxmuf4u
+      oclif: 3.7.0_qqdszkrtcshgbphghj7vnvrrby
       protobufjs: 7.1.2
       toml: 3.0.0
       winston: 3.8.1
@@ -3828,11 +3828,11 @@ packages:
       chalk: 4.1.2
     dev: true
 
-  /@coral-xyz/anchor/0.26.0:
-    resolution: {integrity: sha512-PxRl+wu5YyptWiR9F2MBHOLLibm87Z4IMUBPreX+DYBtPM+xggvcPi0KAN7+kIL4IrIhXI8ma5V0MCXxSN1pHg==}
+  /@coral-xyz/anchor/0.27.0:
+    resolution: {integrity: sha512-+P/vPdORawvg3A9Wj02iquxb4T0C5m4P6aZBVYysKl4Amk+r6aMPZkUhilBkD6E4Nuxnoajv3CFykUfkGE0n5g==}
     engines: {node: '>=11'}
     dependencies:
-      '@coral-xyz/borsh': 0.26.0_@solana+web3.js@1.73.0
+      '@coral-xyz/borsh': 0.27.0_@solana+web3.js@1.73.0
       '@solana/web3.js': 1.73.0
       base64-js: 1.5.1
       bn.js: 5.2.1
@@ -3854,8 +3854,8 @@ packages:
       - utf-8-validate
     dev: false
 
-  /@coral-xyz/borsh/0.26.0_@solana+web3.js@1.73.0:
-    resolution: {integrity: sha512-uCZ0xus0CszQPHYfWAqKS5swS1UxvePu83oOF+TWpUkedsNlg6p2p4azxZNSSqwXb9uXMFgxhuMBX9r3Xoi0vQ==}
+  /@coral-xyz/borsh/0.27.0_@solana+web3.js@1.73.0:
+    resolution: {integrity: sha512-tJKzhLukghTWPLy+n8K8iJKgBq1yLT/AxaNd10yJrX8mI56ao5+OFAKAqW/h0i79KCvb4BK0VGO5ECmmolFz9A==}
     engines: {node: '>=10'}
     peerDependencies:
       '@solana/web3.js': ^1.68.0
@@ -7113,12 +7113,12 @@ packages:
       - supports-color
     dev: false
 
-  /@switchboard-xyz/solana.js/2.0.140:
-    resolution: {integrity: sha512-YHGovh+2uTEqB9ERtKBNEFnvWI3WYK1KpXhE782Ksgr+44c8+SoKeGz1s5YhC8XDFExuIt9gpBVghk4jq2glXA==}
+  /@switchboard-xyz/solana.js/2.1.0:
+    resolution: {integrity: sha512-rVEgAvXCaiVnrh2UcpjTfsJNtwhNo+Am1ZhsahnzuxTDlKAKPjmMTilDeeQaIvs/tpIH/DE8MvSSsXbxWD4Jog==}
     engines: {node: '>=16.0.0', npm: '>=7.0.0'}
     dependencies:
-      '@coral-xyz/anchor': 0.26.0
-      '@coral-xyz/borsh': 0.26.0_@solana+web3.js@1.73.0
+      '@coral-xyz/anchor': 0.27.0
+      '@coral-xyz/borsh': 0.27.0_@solana+web3.js@1.73.0
       '@solana/spl-token': 0.3.7_@solana+web3.js@1.73.0
       '@solana/web3.js': 1.73.0
       '@switchboard-xyz/common': 2.1.33
@@ -16754,7 +16754,7 @@ packages:
     resolution: {integrity: sha512-PX1wu0AmAdPqOL1mWhqmlOd8kOIZQwGZw6rh7uby9fTc5lhaOWFLX3I6R1hrF9k3zUY40e6igsLGkDXK92LJNg==}
     dev: false
 
-  /oclif/3.7.0_es7wegaxiyzm37ww5tnyxmuf4u:
+  /oclif/3.7.0_qqdszkrtcshgbphghj7vnvrrby:
     resolution: {integrity: sha512-LtLc7/3lOQ0d6/JKGj8QriIK/MiIcjZXVX3WoynbXUswG/X8oIsSr1+F6Q69VVbXnjbYlbfiP+uYASr36Mrjzg==}
     engines: {node: '>=12.0.0'}
     hasBin: true
@@ -16775,7 +16775,7 @@ packages:
       semver: 7.3.8
       shelljs: 0.8.5
       tslib: 2.5.0
-      yeoman-environment: 3.12.1_7yoz4vugw4qcykie6sit5r22dm
+      yeoman-environment: 3.12.1
       yeoman-generator: 5.7.0_yeoman-environment@3.12.1
       yosay: 2.0.2
     transitivePeerDependencies:
@@ -16784,8 +16784,6 @@ packages:
       - '@types/node'
       - bluebird
       - encoding
-      - mem-fs
-      - mem-fs-editor
       - supports-color
       - typescript
     dev: false
@@ -21498,13 +21496,10 @@ packages:
       fd-slicer: 1.1.0
     dev: false
 
-  /yeoman-environment/3.12.1_7yoz4vugw4qcykie6sit5r22dm:
+  /yeoman-environment/3.12.1:
     resolution: {integrity: sha512-q5nC954SE4BEkWFXOwkifbelEZrza6z7vnXCC9bTWvfHjRiaG45eqzv/M6/u4l6PvB/KMmBPgMrACV2mBHE+PQ==}
     engines: {node: '>=12.10.0'}
     hasBin: true
-    peerDependencies:
-      mem-fs: ^1.2.0 || ^2.0.0
-      mem-fs-editor: ^8.1.2 || ^9.0.0
     dependencies:
       '@npmcli/arborist': 4.3.1
       are-we-there-yet: 2.0.0
@@ -21569,7 +21564,7 @@ packages:
       shelljs: 0.8.5
       sort-keys: 4.2.0
       text-table: 0.2.0
-      yeoman-environment: 3.12.1_7yoz4vugw4qcykie6sit5r22dm
+      yeoman-environment: 3.12.1
     transitivePeerDependencies:
       - encoding
       - supports-color
