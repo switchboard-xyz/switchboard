@@ -7,6 +7,23 @@ slug: .
 import RoundedCardGroup from "/src/components/RoundedCard/RoundedCardGroup";
 import useBaseUrl from "@docusaurus/useBaseUrl";
 import PublicKeyButton from "/src/components/PublicKeyButton";
+import { Alert, Link } from "@mui/material";
+
+<Alert severity="info">
+  The Switchboard devnet program was migrated on March 17 to a new program ID.
+  Make sure to upgrade your Switchboard dependencies to include this change.{" "}
+  <br />
+  <br />
+  Old Program ID: <b>2TfB33aLaneQb5TNVwyDz3jSZXS6jdW2ARw1Dgf84XCG</b>
+  <br />
+  New Program ID: <b>SW1TCH7qEPTdLsDHRgPuMQjbQxKdH2aBStViMFnt64f</b>
+  <br />
+  <br />
+  <i>*Also make sure to use the new oracle queue addresses here: </i>
+  <Link href={useBaseUrl("/solana/program/devnet")}>
+    <b>program/devnet</b>
+  </Link>
+</Alert>
 
 ## Getting Started
 
@@ -22,7 +39,7 @@ git clone https://github.com/switchboard-xyz/sbv2-solana
 | **Network**  | **Program ID**                                                                                                                                                  |
 | ------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | Mainnet-Beta | <PublicKeyButton publicKey="SW1TCH7qEPTdLsDHRgPuMQjbQxKdH2aBStViMFnt64f" /> <br />See [program/mainnet](solana/program/mainnet) for a full list of public keys. |
-| Devnet       | <PublicKeyButton publicKey="2TfB33aLaneQb5TNVwyDz3jSZXS6jdW2ARw1Dgf84XCG" /> <br />See [program/devnet](solana/program/devnet) for a full list of public keys.  |
+| Devnet       | <PublicKeyButton publicKey="SW1TCH7qEPTdLsDHRgPuMQjbQxKdH2aBStViMFnt64f" /> <br />See [program/devnet](solana/program/devnet) for a full list of public keys.   |
 
 ## Libraries
 

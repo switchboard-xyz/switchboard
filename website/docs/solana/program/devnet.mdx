@@ -13,9 +13,14 @@ import PublicKeyButton from "/src/components/PublicKeyButton";
 You can find a list of Devnet feeds in the
 [Switchboard Explorer](https://switchboard.xyz/explorer/).
 
-## Program ID
+<details>
 
-Below are the public keys associated with the Switchboard V2 deployment.
+<summary>
+  <b>Note:</b> The Solana devnet program was migrated on March 17 to a new
+  program ID. Click here to view the old pubkeys.
+</summary>
+
+<h2>Program ID</h2>
 
 <table>
   <thead>
@@ -75,7 +80,7 @@ Below are the public keys associated with the Switchboard V2 deployment.
   </tbody>
 </table>
 
-## Permissioned Queue
+<h2>Permissioned Queue</h2>
 
 The permissioned queue requires aggregators to have `PERMIT_ORACLE_QUEUE_USAGE`
 permissions before using the queue's resources.
@@ -185,7 +190,7 @@ permissions before using the queue's resources.
   </tbody>
 </table>
 
-## Permissionless Queue
+<h2>Permissionless Queue</h2>
 
 The permissionless queue does not require aggregators to have
 `PERMIT_ORACLE_QUEUE_USAGE` permissions before using a queue's resources.
@@ -235,6 +240,290 @@ The permissionless queue does not require aggregators to have
       </td>
       <td>
         <PublicKeyButton publicKey="GN9jjCy2THzZxhYqZETmPM3my8vg4R5JyNkgULddUMa5" />
+      </td>
+    </tr>
+    <tr>
+      <td colspan="2">
+        <div className="centeredText">
+          <b>Devnet Permissionless Queue Settings</b>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td colspan="2">
+        <table className="table_no_border">
+          <tr>
+            <td>
+              <b>unpermissionedFeedsEnabled</b>
+            </td>
+            <td>True</td>
+          </tr>
+          <tr>
+            <td>
+              <b>unpermissionedVrfEnabled</b>
+            </td>
+            <td>True</td>
+          </tr>
+          <tr>
+            <td>
+              <b>enableBufferRelayers</b>
+            </td>
+            <td>False</td>
+          </tr>
+          <tr>
+            <td>
+              <b>slashingEnabled</b>
+            </td>
+            <td>False</td>
+          </tr>
+          <tr>
+            <td>
+              <b>reward</b>
+            </td>
+            <td>12500</td>
+          </tr>
+          <tr>
+            <td>
+              <b>minStake</b>
+            </td>
+            <td>0</td>
+          </tr>
+          <tr>
+            <td>
+              <b>oracleTimeout</b>
+            </td>
+            <td>180</td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+</details>
+
+## Program ID
+
+Below are the public keys associated with the Switchboard V2 deployment.
+
+<table>
+  <thead>
+    <tr>
+      <th colspan="2">Devnet</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <b>Program ID</b>
+      </td>
+      <td>
+        <PublicKeyButton publicKey="SW1TCH7qEPTdLsDHRgPuMQjbQxKdH2aBStViMFnt64f" />
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <b>IDL Address</b>
+      </td>
+      <td>
+        <PublicKeyButton publicKey="Fi8vncGpNKbq62gPo56G4toCehWNy77GgqGkTaAF5Lkk" />
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <b>Program Data Address</b>
+      </td>
+      <td>
+        <PublicKeyButton publicKey="7nYabs9dUhvxYwdTnrWVBL9MYviKSfrEbdWCUbcnwkpF" />
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <b>Program State Account</b>
+      </td>
+      <td>
+        <PublicKeyButton publicKey="CyZuD7RPDcrqCGbNvLCyqk6Py9cEZTKmNKujfPi3ynDd" />
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <b>Mint</b>
+      </td>
+      <td>
+        <PublicKeyButton publicKey="So11111111111111111111111111111111111111112" />
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <b>Token Vault</b>
+      </td>
+      <td>
+        <PublicKeyButton publicKey="J7nSEX8ADf3pVVicd6yKy2Skvg8iLePEmkLUisAAaioD" />
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+## Permissioned Queue
+
+The permissioned queue requires aggregators to have `PERMIT_ORACLE_QUEUE_USAGE`
+permissions before using the queue's resources.
+
+<table>
+  <thead>
+    <tr>
+      <th colspan="2">Public Keys</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <b>Oracle Queue</b>
+      </td>
+      <td>
+        <PublicKeyButton publicKey="PeRMnAqNqHQYHUuCBEjhm1XPeVTh4BxjY4t4TPan1pG" />
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <b>Authority</b>
+      </td>
+      <td>
+        <PublicKeyButton publicKey="2KgowxogBrGqRcgXQEmqFvC3PGtCu66qERNJevYW8Ajh" />
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <b>Mint</b>
+      </td>
+      <td>
+        <PublicKeyButton publicKey="So11111111111111111111111111111111111111112" />
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <b>Oracle Buffer</b>
+      </td>
+      <td>
+        <PublicKeyButton publicKey="dBufSqtKN59Whpq3oeh6pyxJm1yzpf9XJTTubTKVQtf" />
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <b>Crank #1</b>
+      </td>
+      <td>
+        <PublicKeyButton publicKey="crnKsPsuP6f7uiDbAYYw66h2RNBrqoazmtZHwazkC6V" />
+      </td>
+    </tr>
+    <tr>
+      <td colspan="2">
+        <div className="centeredText">
+          <b>Devnet Permissioned Queue Settings</b>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td colspan="2">
+        <table className="table_no_border">
+          <tr>
+            <td>
+              <b>unpermissionedFeedsEnabled</b>
+            </td>
+            <td>False</td>
+          </tr>
+          <tr>
+            <td>
+              <b>unpermissionedVrfEnabled</b>
+            </td>
+            <td>False</td>
+          </tr>
+          <tr>
+            <td>
+              <b>enableBufferRelayers</b>
+            </td>
+            <td>False</td>
+          </tr>
+          <tr>
+            <td>
+              <b>slashingEnabled</b>
+            </td>
+            <td>False</td>
+          </tr>
+          <tr>
+            <td>
+              <b>reward</b>
+            </td>
+            <td>12500</td>
+          </tr>
+          <tr>
+            <td>
+              <b>minStake</b>
+            </td>
+            <td>0</td>
+          </tr>
+          <tr>
+            <td>
+              <b>oracleTimeout</b>
+            </td>
+            <td>180</td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+## Permissionless Queue
+
+The permissionless queue does not require aggregators to have
+`PERMIT_ORACLE_QUEUE_USAGE` permissions before using a queue's resources.
+
+<table>
+  <thead>
+    <tr>
+      <th colspan="2">Public Keys</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <b>Oracle Queue</b>
+      </td>
+      <td>
+        <PublicKeyButton publicKey="uPeRMdfPmrPqgRWSrjAnAkH78RqAhe5kXoW6vBYRqFX" />
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <b>Authority</b>
+      </td>
+      <td>
+        <PublicKeyButton publicKey="2KgowxogBrGqRcgXQEmqFvC3PGtCu66qERNJevYW8Ajh" />
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <b>Mint</b>
+      </td>
+      <td>
+        <PublicKeyButton publicKey="So11111111111111111111111111111111111111112" />
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <b>Oracle Buffer</b>
+      </td>
+      <td>
+        <PublicKeyButton publicKey="dBufJumLPqiEhSvVK9D8tp8vkDCgMXWfDnaHgGZUnBj" />
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <b>Crank #1</b>
+      </td>
+      <td>
+        <PublicKeyButton publicKey="UcrnK4w2HXCEjY8z6TcQ9tysYr3c9VcFLdYAU9YQP5e" />
       </td>
     </tr>
     <tr>
