@@ -96,6 +96,9 @@ export default class AggregatorSet extends BaseCommand {
       authority,
       name: flags.name,
       metadata: flags.metadata,
+      minUpdateDelaySeconds: flags.updateInterval
+        ? Number.parseInt(flags.updateInterval, 10)
+        : undefined,
       batchSize: flags.minOracles
         ? Number.parseInt(flags.minOracles, 10)
         : undefined,

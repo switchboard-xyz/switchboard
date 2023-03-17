@@ -133,6 +133,8 @@ node bin/dev print GvDMxPzN1sCj7L26YDK2HnMRXEQmQ2aemov8YBtPS7vR
 * [`sbv2 oracle logs NETWORK SEARCHSTRING`](#sbv2-oracle-logs-network-searchstring)
 * [`sbv2 solana aggregator add history AGGREGATORKEY`](#sbv2-solana-aggregator-add-history-aggregatorkey)
 * [`sbv2 solana aggregator add job AGGREGATORKEY`](#sbv2-solana-aggregator-add-job-aggregatorkey)
+* [`sbv2 solana aggregator authority AGGREGATORKEY`](#sbv2-solana-aggregator-authority-aggregatorkey)
+* [`sbv2 solana aggregator close AGGREGATORKEY`](#sbv2-solana-aggregator-close-aggregatorkey)
 * [`sbv2 solana aggregator create QUEUEKEY`](#sbv2-solana-aggregator-create-queuekey)
 * [`sbv2 solana aggregator create json DEFINITIONFILE`](#sbv2-solana-aggregator-create-json-definitionfile)
 * [`sbv2 solana aggregator deposit AGGREGATORKEY`](#sbv2-solana-aggregator-deposit-aggregatorkey)
@@ -3121,6 +3123,75 @@ EXAMPLES
   $ sbv2 solana aggregator add job
 ```
 
+## `sbv2 solana aggregator authority AGGREGATORKEY`
+
+```
+USAGE
+  $ sbv2 solana aggregator authority AGGREGATORKEY --newAuthority <value> [-h] [-v] [-s] [--mainnetBeta | --cluster
+    devnet|mainnet-beta|mainnet|localnet] [-u <value>] [--programId <value>] [--commitment
+    confirmed|finalized|processed] [-k <value>] [--ledgerPath <value> --ledger] [-a <value>]
+
+ARGUMENTS
+  AGGREGATORKEY  public key of the aggregator
+
+FLAGS
+  -a, --authority=<value>  alternate keypair that is the authority for the aggregator and required to make config
+                           changes
+  -h, --help               Show CLI help.
+  -k, --keypair=<value>    keypair that will pay for onchain transactions. defaults to new account authority if no
+                           alternate authority provided
+  -s, --silent             suppress cli prompts
+  -u, --rpcUrl=<value>     alternate RPC url
+  -v, --verbose            log everything
+  --cluster=<option>       the solana cluster to connect to
+                           <options: devnet|mainnet-beta|mainnet|localnet>
+  --commitment=<option>    [default: confirmed] transaction commitment level to use
+                           <options: confirmed|finalized|processed>
+  --ledger                 enable ledger support
+  --ledgerPath=<value>     HID path to the ledger
+  --mainnetBeta            WARNING: use mainnet-beta solana cluster
+  --newAuthority=<value>   (required)
+  --programId=<value>      alternative Switchboard program ID to interact with
+```
+
+## `sbv2 solana aggregator close AGGREGATORKEY`
+
+close an aggregator and associated PDA accounts on devnet
+
+```
+USAGE
+  $ sbv2 solana aggregator close AGGREGATORKEY [-h] [-v] [-s] [--mainnetBeta | --cluster
+    devnet|mainnet-beta|mainnet|localnet] [-u <value>] [--programId <value>] [--commitment
+    confirmed|finalized|processed] [-k <value>] [--ledgerPath <value> --ledger] [-a <value>]
+
+ARGUMENTS
+  AGGREGATORKEY  public key of the aggregator account
+
+FLAGS
+  -a, --authority=<value>  alternate keypair that is the authority for the aggregator and required to make config
+                           changes
+  -h, --help               Show CLI help.
+  -k, --keypair=<value>    keypair that will pay for onchain transactions. defaults to new account authority if no
+                           alternate authority provided
+  -s, --silent             suppress cli prompts
+  -u, --rpcUrl=<value>     alternate RPC url
+  -v, --verbose            log everything
+  --cluster=<option>       the solana cluster to connect to
+                           <options: devnet|mainnet-beta|mainnet|localnet>
+  --commitment=<option>    [default: confirmed] transaction commitment level to use
+                           <options: confirmed|finalized|processed>
+  --ledger                 enable ledger support
+  --ledgerPath=<value>     HID path to the ledger
+  --mainnetBeta            WARNING: use mainnet-beta solana cluster
+  --programId=<value>      alternative Switchboard program ID to interact with
+
+DESCRIPTION
+  close an aggregator and associated PDA accounts on devnet
+
+EXAMPLES
+  $ sbv2 solana aggregator close J7j9xX8JP2B2ErvUzuqGAKBGeggsxPyFXj5MqZcYDxfa --keypair ../payer-keypair.json
+```
+
 ## `sbv2 solana aggregator create QUEUEKEY`
 
 create an aggregator account
@@ -5153,8 +5224,8 @@ USAGE
   $ sbv2 solana queue set QUEUEKEY [-h] [-v] [-s] [--mainnetBeta | --cluster devnet|mainnet-beta|mainnet|localnet] [-u
     <value>] [--programId <value>] [--commitment confirmed|finalized|processed] [-k <value>] [--ledgerPath <value>
     --ledger] [--json] [-a <value>] [--name <value>] [--metadata <value>] [--reward <value>] [--minStake <value>]
-    [--oracleTimeout <value>] [--slashingEnabled] [--permissionedFeeds] [--unpermissionedVrf] [--enableBufferRelayers]
-    [--consecutiveFeedFailureLimit <value>] [--consecutiveOracleFailureLimit <value>]
+    [--oracleTimeout <value>] [--slashingEnabled] [--unpermissionedFeeds | --permissionedFeeds] [--unpermissionedVrf]
+    [--enableBufferRelayers] [--consecutiveFeedFailureLimit <value>] [--consecutiveOracleFailureLimit <value>]
 
 ARGUMENTS
   QUEUEKEY  public key of the queue account
@@ -5191,6 +5262,8 @@ FLAGS
                                            Ex: A reward of 0.0000075 with a feed with a batchSize of 4 would deduct (4 *
                                            0.0000075) wSOL from an aggregators lease each round.
   --slashingEnabled                        whether slashing is enabled on this queue.
+  --unpermissionedFeeds                    enabling this setting means data feeds do not need explicit permission to
+                                           join the queue.
   --unpermissionedVrf                      enabling this setting means data feeds do not need explicit permission to
                                            request VRF proofs and verifications from this queue.
 

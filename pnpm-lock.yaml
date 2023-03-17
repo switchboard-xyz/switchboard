@@ -34,7 +34,7 @@ importers:
       '@switchboard-xyz/eslint-config': workspace:^0.1.8
       '@switchboard-xyz/near.js': ^2.2.2
       '@switchboard-xyz/oracle': workspace:^2.1.12
-      '@switchboard-xyz/solana.js': ^2.1.0
+      '@switchboard-xyz/solana.js': ^2.1.1
       '@types/bs58': ^4.0.1
       '@types/chai': ^4
       '@types/listr': ^0.14.4
@@ -98,7 +98,7 @@ importers:
       '@switchboard-xyz/common': link:../javascript/common
       '@switchboard-xyz/near.js': 2.2.2_typescript@4.9.5
       '@switchboard-xyz/oracle': link:../javascript/oracle
-      '@switchboard-xyz/solana.js': 2.1.0
+      '@switchboard-xyz/solana.js': 2.1.1
       aptos: 1.6.0
       aws-sdk: 2.1236.0
       bs58: 5.0.0
@@ -7113,8 +7113,8 @@ packages:
       - supports-color
     dev: false
 
-  /@switchboard-xyz/solana.js/2.1.0:
-    resolution: {integrity: sha512-rVEgAvXCaiVnrh2UcpjTfsJNtwhNo+Am1ZhsahnzuxTDlKAKPjmMTilDeeQaIvs/tpIH/DE8MvSSsXbxWD4Jog==}
+  /@switchboard-xyz/solana.js/2.1.1:
+    resolution: {integrity: sha512-rfkriFRSZ6i5aH7rleJFo0iE5pu+9RrmE9YPP5eSVNvtib5RMYT4K2TvZf92nW8RUTrPQ11UkhHty5MqX2wM4A==}
     engines: {node: '>=16.0.0', npm: '>=7.0.0'}
     dependencies:
       '@coral-xyz/anchor': 0.27.0

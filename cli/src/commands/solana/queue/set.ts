@@ -39,9 +39,15 @@ export default class QueueSet extends BaseCommand {
     slashingEnabled: Flags.boolean({
       description: "whether slashing is enabled on this queue.",
     }),
+    unpermissionedFeeds: Flags.boolean({
+      description:
+        "enabling this setting means data feeds do not need explicit permission to join the queue.",
+      exclusive: ["permissionedFeeds"],
+    }),
     permissionedFeeds: Flags.boolean({
       description:
         "enabling this setting means data feeds need explicit permission to join the queue.",
+      exclusive: ["unpermissionedFeeds"],
     }),
     unpermissionedVrf: Flags.boolean({
       description:
@@ -81,6 +87,13 @@ export default class QueueSet extends BaseCommand {
       authority = await this.loadAuthority(flags.authority, queue.authority);
     }
 
+    let unpermissionedFeedsEnabled: boolean | undefined;
+    if (flags.unpermissionedFeeds !== undefined) {
+      unpermissionedFeedsEnabled = true;
+    } else if (flags.permissionedFeeds !== undefined) {
+      unpermissionedFeedsEnabled = false;
+    }
+
     const txn = await queueAccount.setConfigInstruction(this.payer, {
       name: flags.name,
       metadata: flags.metadata,
@@ -90,9 +103,7 @@ export default class QueueSet extends BaseCommand {
       slashingEnabled: flags.slashingEnabled,
       consecutiveFeedFailureLimit: flags.consecutiveFeedFailureLimit,
       consecutiveOracleFailureLimit: flags.consecutiveOracleFailureLimit,
-      unpermissionedFeedsEnabled: flags.permissionedFeeds
-        ? !flags.permissionedFeeds
-        : undefined,
+      unpermissionedFeedsEnabled: unpermissionedFeedsEnabled,
       unpermissionedVrfEnabled: flags.unpermissionedVrf,
       enableBufferRelayers: flags.enableBufferRelayers,
       authority: authority,
