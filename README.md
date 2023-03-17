@@ -40,14 +40,14 @@ pnpm install
 
 ## SDKs
 
-| **Chain**     | **Name**                                                        |
-| ------------- | --------------------------------------------------------------- |
-| Aptos         | [sbv2-aptos](https://github.com/switchboard-xyz/sbv2-aptos)     |
-| EVM (CoreDAO) | [sbv2-evm](https://github.com/switchboard-xyz/sbv2-evm)         |
-| NEAR          | [sbv2-near](https://github.com/switchboard-xyz/sbv2-near)       |
-| Solana        | [sbv2-solana](https://github.com/switchboard-xyz/sbv2-solana)   |
-| Starknet      | [sbv2-solana](https://github.com/switchboard-xyz/sbv2-starknet) |
-| Sui           | [sbv2-solana](https://github.com/switchboard-xyz/sbv2-sui)      |
+| **Chain**     | **Name**                                                          |
+| ------------- | ----------------------------------------------------------------- |
+| Aptos         | [sbv2-aptos](https://github.com/switchboard-xyz/sbv2-aptos)       |
+| EVM (CoreDAO) | [sbv2-evm](https://github.com/switchboard-xyz/sbv2-evm)           |
+| NEAR          | [sbv2-near](https://github.com/switchboard-xyz/sbv2-near)         |
+| Solana        | [sbv2-solana](https://github.com/switchboard-xyz/sbv2-solana)     |
+| Starknet      | [sbv2-starknet](https://github.com/switchboard-xyz/sbv2-starknet) |
+| Sui           | [sbv2-sui](https://github.com/switchboard-xyz/sbv2-sui)           |
 
 To add SDKs,
 
