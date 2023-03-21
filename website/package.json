@@ -30,6 +30,7 @@
     "docgen": "ts-node ./scripts/main.ts"
   },
   "dependencies": {
+    "@docsearch/react": "^3.3.3",
     "@docusaurus/core": "^2.3.1",
     "@docusaurus/module-type-aliases": "^2.3.1",
     "@docusaurus/preset-classic": "^2.3.1",

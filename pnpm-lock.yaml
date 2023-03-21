@@ -294,6 +294,7 @@ importers:
       '@algolia/client-search': '>= 4.9.1 < 6'
       '@babel/core': '>=7.13.0 <8.0.0'
       '@babel/preset-env': ^7.1.6
+      '@docsearch/react': ^3.3.3
       '@docusaurus/core': ^2.3.1
       '@docusaurus/module-type-aliases': ^2.3.1
       '@docusaurus/preset-classic': ^2.3.1
@@ -347,6 +348,7 @@ importers:
       webpack: '>=4.0.0 <5.0.0 || >=5.0.0 <6.0.0'
       zdog: '>=1.0'
     dependencies:
+      '@docsearch/react': 3.3.3_hnvib2fqsmgvwlrqueiklxww4e
       '@docusaurus/core': 2.3.1_qy6u2m3twle75rldwm5f2xep3a
       '@docusaurus/module-type-aliases': 2.3.1_sfoxds7t5ydpegc3knd667wn6m
       '@docusaurus/preset-classic': 2.3.1_vphgvkepqxhslqfs2temy3edu4
@@ -3658,6 +3660,7 @@ packages:
   /@colors/colors/1.5.0:
     resolution: {integrity: sha512-ooWCrlZP11i8GImSjTHYHLkvFDP48nS4+204nGb1RiX/WXYHmJA2III9/e2DWVabCESdW7hBAEzHRqUn9OUVvQ==}
     engines: {node: '>=0.1.90'}
+    requiresBuild: true
     dev: false
 
   /@commitlint/cli/17.4.4:
