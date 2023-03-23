@@ -6,7 +6,12 @@ import {
   OracleTagVersion,
   ReleaseChannelVersion,
 } from './types';
-import { downloadReleaseArtifact, normalizeFsPath, sleep } from './utils';
+import {
+  downloadReleaseArtifact,
+  getNodeImage,
+  normalizeFsPath,
+  sleep,
+} from './utils';
 
 import { ChildProcess, spawn } from 'child_process';
 import detect from 'detect-port';
@@ -108,9 +113,7 @@ export class NodeOracle extends ISwitchboardOracle {
     config: IOracleConfig & ReleaseChannelVersion
   ): Promise<NodeOracle> {
     try {
-      const nodeImage = await ISwitchboardOracle.getNodeImage(
-        config.releaseChannel
-      );
+      const nodeImage = await getNodeImage(config.releaseChannel);
       return new NodeOracle({
         ...config,
         imageTag: nodeImage,

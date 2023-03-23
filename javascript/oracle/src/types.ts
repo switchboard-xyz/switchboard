@@ -5,6 +5,7 @@ export type Chain =
   | 'solana'
   | 'starknet'
   | 'sui';
+
 export type Network = 'localnet' | 'devnet' | 'testnet' | 'mainnet' | 'mainnet';
 
 export type ReleaseChannel = 'testnet' | 'mainnet' | 'latest';
@@ -13,9 +14,11 @@ export type ReleaseChannelVersion = {
   // Release channel for the oracle version to run
   releaseChannel: ReleaseChannel;
 };
+
 export type OracleTagVersion = {
   imageTag: string;
 };
+
 export type Version = ReleaseChannelVersion | OracleTagVersion;
 
 export type IOracleConfig = {
