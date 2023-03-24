@@ -1,4 +1,4 @@
-import { ReleaseChannel } from '../dist/cjs/types';
+import { ReleaseChannel } from './types';
 
 import { downloadRelease } from '@terascope/fetch-github-release';
 import fs from 'fs';
