@@ -135,12 +135,9 @@ const ChatBot = (props: { open: boolean; onClose: () => void }) => {
     if (messagesFromStorage) setMessageHistory(JSON.parse(messagesFromStorage));
   }, []);
 
+  // save to sessionStorage & use a ref to scroll down to most recent message
   useEffect(() => {
     sessionStorage.setItem("messageHistory", JSON.stringify(messageHistory));
-  }, [messageHistory]);
-
-  // use a ref to scroll down to most recent message
-  useEffect(() => {
     endOfMessagesRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messageHistory]);
 
