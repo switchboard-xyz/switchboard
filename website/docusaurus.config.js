@@ -338,11 +338,8 @@ const config = {
             "aria-label": "GitHub repository",
           },
           {
-            type: "html",
+            type: "custom-chatBotNavbarItem",
             position: "right",
-            className: "header-askme-link",
-            value:
-              "<span><span class='header-askme-tooltip'>Need Help?<br/> Ask Switchboard Bot a Question!</span></span>",
           },
           {
             type: "search",
