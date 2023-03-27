@@ -12,9 +12,6 @@
   padding: 0 1vw;
   overflow-wrap: break-word;
 }
-.askme_btn {
-  border-radius: 16px;
-}
 
 html[data-theme="dark"] .navbar {
   border-bottom: solid 1px #8998aa;
