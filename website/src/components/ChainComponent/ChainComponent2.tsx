@@ -56,47 +56,45 @@ export default function ChainComponent2({ items }: ChainComponentProps) {
         >
           {items.map((item, index) => {
             return (
-              <>
-                <Box
-                  key={item.title + "Chain"}
-                  display="flex"
-                  flexDirection="column"
-                  alignItems="center"
-                  component={Link}
-                  href={item.to}
-                  style={{ textDecoration: "none" }}
+              <Box
+                key={item.title + "Chain"}
+                display="flex"
+                flexDirection="column"
+                alignItems="center"
+                component={Link}
+                href={item.to}
+                style={{ textDecoration: "none" }}
+                sx={{
+                  p: 2,
+                  transition: "transform 0.15s ease-in-out",
+                  "&&&:hover": {
+                    transform: "scale3d(1.25, 1.25, 1)",
+                  },
+                }}
+              >
+                <Avatar
+                  src={
+                    colorMode === "dark" && item.imageDark
+                      ? item.imageDark
+                      : item.image
+                  }
+                  style={{ width: 48, height: 48 }}
+                />
+                <Typography
+                  variant="body1"
+                  align="center"
                   sx={{
-                    p: 2,
-                    transition: "transform 0.15s ease-in-out",
-                    "&&&:hover": {
-                      transform: "scale3d(1.25, 1.25, 1)",
-                    },
+                    fontSize: "1.25rem",
+                    color:
+                      colorMode === "dark"
+                        ? "var(--ifm-navbar-link-color)"
+                        : "var(--ifm-color-primary-dark)",
+                    fontWeight: "var(--ifm-font-weight-bold)",
                   }}
                 >
-                  <Avatar
-                    src={
-                      colorMode === "dark" && item.imageDark
-                        ? item.imageDark
-                        : item.image
-                    }
-                    style={{ width: 48, height: 48 }}
-                  />
-                  <Typography
-                    variant="body1"
-                    align="center"
-                    sx={{
-                      fontSize: "1.25rem",
-                      color:
-                        colorMode === "dark"
-                          ? "var(--ifm-navbar-link-color)"
-                          : "var(--ifm-color-primary-dark)",
-                      fontWeight: "var(--ifm-font-weight-bold)",
-                    }}
-                  >
-                    {item.title}
-                  </Typography>
-                </Box>
-              </>
+                  {item.title}
+                </Typography>
+              </Box>
             );
           })}
         </Grid>

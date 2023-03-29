@@ -338,6 +338,10 @@ const config = {
             "aria-label": "GitHub repository",
           },
           {
+            type: "custom-chatBotNavbarItem",
+            position: "right",
+          },
+          {
             type: "search",
             position: "right",
           },

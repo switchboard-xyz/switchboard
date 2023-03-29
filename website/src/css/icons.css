@@ -14,6 +14,10 @@ html[data-theme="dark"] .instruction-icon {
   color: #ffcb4c;
 }
 
+.DocSearch-Search-Icon {
+  display: none;
+}
+
 /* Github Icon */
 .header-github-link:hover {
   opacity: 0.6;
@@ -34,7 +38,6 @@ html[data-theme="dark"] .instruction-icon {
 [data-theme="dark"] img[src$="#gh-light-mode-only"] {
   display: none;
 }
-
 
 /* Aptos Icon */
 .header-aptos-link::before {
