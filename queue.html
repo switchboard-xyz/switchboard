@@ -3,11 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="generator" content="Docusaurus v2.3.1">
-<title data-rh="true">Oracle Queue | Switchboard</title><meta data-rh="true" name="viewport" content="width=device-width,initial-scale=1"><meta data-rh="true" name="twitter:card" content="summary_large_image"><meta data-rh="true" property="og:url" content="https://docs.switchboard.xyz/queue"><meta data-rh="true" name="docusaurus_locale" content="en"><meta data-rh="true" name="docsearch:language" content="en"><meta data-rh="true" name="docusaurus_version" content="current"><meta data-rh="true" name="docusaurus_tag" content="docs-default-current"><meta data-rh="true" name="docsearch:version" content="current"><meta data-rh="true" name="docsearch:docusaurus_tag" content="docs-default-current"><meta data-rh="true" property="og:title" content="Oracle Queue | Switchboard"><meta data-rh="true" name="description" content="Each oracle queue is independent and maintain their own configurations, which"><meta data-rh="true" property="og:description" content="Each oracle queue is independent and maintain their own configurations, which"><link data-rh="true" rel="icon" href="/img/favicon.ico"><link data-rh="true" rel="canonical" href="https://docs.switchboard.xyz/queue"><link data-rh="true" rel="alternate" href="https://docs.switchboard.xyz/queue" hreflang="en"><link data-rh="true" rel="alternate" href="https://docs.switchboard.xyz/queue" hreflang="x-default"><link data-rh="true" rel="preconnect" href="https://XO84KDTPTB-dsn.algolia.net" crossorigin="anonymous"><link rel="search" type="application/opensearchdescription+xml" title="Switchboard" href="/opensearch.xml">
+<title data-rh="true">Oracle Queue | Switchboard</title><meta data-rh="true" name="viewport" content="width=device-width,initial-scale=1"><meta data-rh="true" name="twitter:card" content="summary_large_image"><meta data-rh="true" property="og:url" content="https://docs.switchboard.xyz/queue"><meta data-rh="true" name="docusaurus_locale" content="en"><meta data-rh="true" name="docsearch:language" content="en"><meta data-rh="true" name="docusaurus_version" content="current"><meta data-rh="true" name="docusaurus_tag" content="docs-default-current"><meta data-rh="true" name="docsearch:version" content="current"><meta data-rh="true" name="docsearch:docusaurus_tag" content="docs-default-current"><meta data-rh="true" property="og:title" content="Oracle Queue | Switchboard"><meta data-rh="true" name="description" content="Economic Security"><meta data-rh="true" property="og:description" content="Economic Security"><link data-rh="true" rel="icon" href="/img/favicon.ico"><link data-rh="true" rel="canonical" href="https://docs.switchboard.xyz/queue"><link data-rh="true" rel="alternate" href="https://docs.switchboard.xyz/queue" hreflang="en"><link data-rh="true" rel="alternate" href="https://docs.switchboard.xyz/queue" hreflang="x-default"><link data-rh="true" rel="preconnect" href="https://XO84KDTPTB-dsn.algolia.net" crossorigin="anonymous"><link rel="search" type="application/opensearchdescription+xml" title="Switchboard" href="/opensearch.xml">
 
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.13.24/dist/katex.min.css" integrity="sha384-odtC+0UGzzFL/6PNoE8rX/SPcQDXBJ+uRepguP4QkPCm2LBxH3FA3y+fKSiJ+AmM" crossorigin="anonymous"><link rel="stylesheet" href="/assets/css/styles.d7a372c9.css">
-<link rel="preload" href="/assets/js/runtime~main.5ed19c01.js" as="script">
-<link rel="preload" href="/assets/js/main.15304fde.js" as="script">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.13.24/dist/katex.min.css" integrity="sha384-odtC+0UGzzFL/6PNoE8rX/SPcQDXBJ+uRepguP4QkPCm2LBxH3FA3y+fKSiJ+AmM" crossorigin="anonymous"><link rel="stylesheet" href="/assets/css/styles.1af85ec3.css">
+<link rel="preload" href="/assets/js/runtime~main.f2909daf.js" as="script">
+<link rel="preload" href="/assets/js/main.84c6b9c5.js" as="script">
 </head>
 <body class="navigation-with-keyboard">
 <script>!function(){function e(e){document.documentElement.setAttribute("data-theme",e)}var t=function(){var e=null;try{e=localStorage.getItem("theme")}catch(e){}return e}();null!==t?e(t):window.matchMedia("(prefers-color-scheme: dark)").matches?e("dark"):(window.matchMedia("(prefers-color-scheme: light)").matches,e("light"))}()</script><div id="__docusaurus">
@@ -24,22 +24,16 @@ fashion, using <code>queue.currIdx</code> to track its position on the queue for
 resource update request. Once a buffer is full, oracles must be removed before
 new oracles can join the network. An oracle can be assigned to many update
 request simultaneously but must continuously heartbeat on-chain to signal
-readiness.</p><p>An oracle with <strong>PermitOracleHeartbeat</strong> permissions <em>MUST</em> periodically
-heartbeat on the queue to signal readiness, which adds the oracle to the queue
-and allows it to be assigned resource update requests. Oracle positions are
-periodically swapped in the OracleQueueBuffer account to mitigate oracles being
-assigned the same update requests on each iteration of the queue.</p><p>The queue uses <code>queue.gcIdx</code> to track its garbage collection index. When an
+readiness.</p><p>The queue uses <code>queue.gcIdx</code> to track its garbage collection index. When an
 oracle heartbeats on-chain, it passes the oracle account at index <code>queue.gcIdx</code>.
 If the oracle account has failed to heartbeat before <code>queue.oracleTimeout</code>, it
 is removed from the queue until its next successful heartbeat and will no longer
-be assigned resource update requests.</p><h2 class="anchor anchorWithStickyNavbar_zXjs" id="economic-security">Economic Security<a href="#economic-security" class="hash-link" aria-label="Direct link to Economic Security" title="Direct link to Economic Security">​</a></h2><p>An oracle queue uses economic incentives to entice oracles to act honestly,
-which dictate a queue&#x27;s security model.</p><h3 class="anchor anchorWithStickyNavbar_zXjs" id="stake">Stake<a href="#stake" class="hash-link" aria-label="Direct link to Stake" title="Direct link to Stake">​</a></h3><p>The queue&#x27;s <code>queue.minStake</code> is the raw token amount in the token mints base
-unit (<em>Ex: lamports or satoshis</em>) required by an oracle to heartbeat on a queue.
-If an oracle&#x27;s staking wallet falls below the minStake requirement, it is
-removed from the queue.</p><p>DeFi protocols with a significant Total Value Locked (TVL) should require
-oracles with a higher minimum stake to fulfill their update request. Oracles
-with a higher degree of <em>skin-in-the-game</em> have a greater incentive to respond
-honestly.</p><h3 class="anchor anchorWithStickyNavbar_zXjs" id="reward">Reward<a href="#reward" class="hash-link" aria-label="Direct link to Reward" title="Direct link to Reward">​</a></h3><p>The queue&#x27;s specified <code>queue.reward</code> is the number of tokens an oracle or crank
+be assigned resource update requests.</p><p>An oracle with <strong>PermitOracleHeartbeat</strong> permissions <em>MUST</em> periodically
+heartbeat on the queue to signal readiness, which adds the oracle to the queue
+and allows it to be assigned resource update requests. Oracle positions are
+periodically swapped in the OracleQueueBuffer account to mitigate oracles being
+assigned the same update requests on each iteration of the queue.</p><h2 class="anchor anchorWithStickyNavbar_zXjs" id="economic-security">Economic Security<a href="#economic-security" class="hash-link" aria-label="Direct link to Economic Security" title="Direct link to Economic Security">​</a></h2><p>An oracle queue uses economic incentives to entice oracles to act honestly,
+which dictate a queue&#x27;s security model.</p><h3 class="anchor anchorWithStickyNavbar_zXjs" id="stake">Stake<a href="#stake" class="hash-link" aria-label="Direct link to Stake" title="Direct link to Stake">​</a></h3><h3 class="anchor anchorWithStickyNavbar_zXjs" id="reward">Reward<a href="#reward" class="hash-link" aria-label="Direct link to Reward" title="Direct link to Reward">​</a></h3><p>The queue&#x27;s specified <code>queue.reward</code> is the number of tokens an oracle or crank
 turner receives for successfully completing an on-chain action. For a crank
 turner this is turning the crank and invoking a data feed update. For an oracle
 this is responding to an update request within the reliable margin from the
@@ -53,7 +47,7 @@ queue with slashing enabled.</p><h2 class="anchor anchorWithStickyNavbar_zXjs" i
 various queue configuration parameters, such as:</p><ul><li><code>queue.minStake</code> - require a higher up-front cost for oracles to entice honest
 behavior</li><li><code>queue.reward</code> - control the oracle reward payout for successfully fulfilling
 update request</li><li><code>queue.slashingEnabled</code> - to disincentivize malicious oracle behavior</li><li>Permit new oracles to join the network</li></ul></div></article><nav class="pagination-nav docusaurus-mt-lg" aria-label="Docs pages navigation"><a class="pagination-nav__link pagination-nav__link--prev" href="/network"><div class="pagination-nav__sublabel">Previous</div><div class="pagination-nav__label">Overview</div></a><a class="pagination-nav__link pagination-nav__link--next" href="/permissions"><div class="pagination-nav__sublabel">Next</div><div class="pagination-nav__label">Permissions</div></a></nav></div></div><div class="col col--3"><div class="tableOfContents_JdfB thin-scrollbar theme-doc-toc-desktop"><ul class="table-of-contents table-of-contents__left-border"><li><a href="#economic-security" class="table-of-contents__link toc-highlight">Economic Security</a><ul><li><a href="#stake" class="table-of-contents__link toc-highlight">Stake</a></li><li><a href="#reward" class="table-of-contents__link toc-highlight">Reward</a></li><li><a href="#slashing" class="table-of-contents__link toc-highlight">Slashing</a></li></ul></li><li><a href="#governance" class="table-of-contents__link toc-highlight">Governance</a></li></ul></div></div></div></div></main></div></div><footer class="footer footer--dark"><div class="container container-fluid"></div></footer></div>
-<script src="/assets/js/runtime~main.5ed19c01.js"></script>
-<script src="/assets/js/main.15304fde.js"></script>
+<script src="/assets/js/runtime~main.f2909daf.js"></script>
+<script src="/assets/js/main.84c6b9c5.js"></script>
 </body>
 </html>
