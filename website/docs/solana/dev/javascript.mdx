@@ -3,6 +3,18 @@ sidebar_position: 20
 title: "@switchboard-xyz/solana.js"
 ---
 
+import AddHistory from "/data/solana/js/add-a-history-buffer.md";
+import CreateAFeed from "/data/solana/js/create-a-feed.md";
+import CreateAQueue from "/data/solana/js/create-a-queue.md";
+import CreateAQueueParams from "/data/solana/js/create-a-queue.params.md";
+import CreateAnOracle from "/data/solana/js/create-an-oracle.md";
+import CreateAnOracleParams from "/data/solana/js/create-an-oracle.params.md";
+import LoadSwitchboardProgram from "/data/solana/js/load-switchboard-program.md";
+import LoadSwitchboardProgramParams from "/data/solana/js/load-switchboard-program.params.md";
+import ReadAFeed from "/data/solana/js/read-a-feed.md";
+import RequestFeedUpdate from "/data/solana/js/request-a-feed-update.md";
+import WatchAFeed from "/data/solana/js/watch-a-feed.md";
+
 <img
   style={{ padding: "0 5px" }}
   alt="Test Status"
@@ -59,154 +71,38 @@ for more examples.
 
 ### Load the Switchboard Program
 
-```ts
-import { Connection } from "@solana/web3.js";
-import {
-  SwitchboardProgram,
-  TransactionObject,
-} from "@switchboard-xyz/solana.js";
+<LoadSwitchboardProgram />
 
-const program = await SwitchboardProgram.load(
-  "mainnet-beta",
-  new Connection("https://api.mainnet-beta.solana.com"),
-  payerKeypair /** Optional, READ-ONLY if not provided */
-);
-```
+<LoadSwitchboardProgramParams />
 
 ### Create a queue
 
-```ts
-import { QueueAccount } from "@switchboard-xyz/solana.js";
+<CreateAQueue />
 
-const [queueAccount, txnSignature] = await QueueAccount.create(program, {
-  name: "My Queue",
-  metadata: "Top Secret",
-  queueSize: 100,
-  reward: 0.00001337,
-  minStake: 10,
-  oracleTimeout: 60,
-  slashingEnabled: false,
-  unpermissionedFeeds: true,
-  unpermissionedVrf: true,
-  enableBufferRelayers: false,
-});
-const queue = await queueAccount.loadData();
-```
+<CreateAQueueParams />
 
 ### Add an oracle
 
-```ts
-import { QueueAccount } from "@switchboard-xyz/solana.js";
+<CreateAnOracle />
 
-const queueAccount = new QueueAccount(program, queuePubkey);
-
-const [oracleAccount, oracleInitSignature] = await queueAccount.createOracle({
-  name: "My Oracle",
-  metadata: "Oracle #1",
-  stakeAmount: 10,
-});
-const oracle = await oracleAccount.loadData();
-
-await oracleAccount.heartbeat();
-```
+<CreateAnOracleParams />
 
 ### Add a data feed
 
-```ts
-import { QueueAccount } from "@switchboard-xyz/solana.js";
-
-const queueAccount = new QueueAccount(program, queuePubkey);
-
-const [aggregatorAccount, aggregatorInitSignatures] =
-  await queueAccount.createFeed({
-    batchSize: 1,
-    minRequiredOracleResults: 1,
-    minRequiredJobResults: 1,
-    minUpdateDelaySeconds: 60,
-    fundAmount: 2.5, // deposit 2.5 wSOL into the leaseAccount escrow
-    jobs: [
-      { pubkey: jobAccount.publicKey },
-      {
-        weight: 2,
-        data: OracleJob.encodeDelimited(
-          OracleJob.fromObject({
-            tasks: [
-              {
-                valueTask: {
-                  value: 1,
-                },
-              },
-            ],
-          })
-        ).finish(),
-      },
-    ],
-  });
-const aggregator = await aggregatorAccount.loadData();
-```
+<CreateAFeed />
 
 ### Update a Data Feed
 
-```ts
-import { AggregatorAccount } from "@switchboard-xyz/solana.js";
-
-const aggregatorAccount = new AggregatorAccount(program, aggregatorPubkey);
-
-await aggregatorAccount.openRound();
-```
+<RequestFeedUpdate />
 
 ### Read a Data Feed
 
-```ts
-import Big from "big.js";
-import { AggregatorAccount } from "@switchboard-xyz/solana.js";
-
-const aggregatorAccount = new AggregatorAccount(program, aggregatorPubkey);
-
-const result: Big | null = await aggregatorAccount.fetchLatestValue();
-if (result === null) {
-  throw new Error("Aggregator holds no value");
-}
-console.log(result.toString());
-```
+<ReadAFeed />
 
 ### History Buffer
 
-Optionally, add a history buffer to your feed to store the last N historical
-samples
-
-```ts
-import {
-  AggregatorAccount,
-  AggregatorHistoryBuffer,
-} from "@switchboard-xyz/solana.js";
-
-const aggregatorAccount = new AggregatorAccount(program, aggregatorPubkey);
-const aggregator = await aggregatorAccount.loadData();
-
-const [historyBuffer, addHistorySignature] =
-  await AggregatorHistoryBuffer.create(program, {
-    aggregatorAccount,
-    maxSamples: 10000,
-  });
-const history = await historyBuffer.loadData();
-```
+<AddHistory />
 
 ### Watch Switchboard
 
-Setup a websocket listener to invoke a callback whenever an aggregator is
-updated
-
-```ts
-import Big from "big.js";
-import { AggregatorAccount } from "@switchboard-xyz/solana.js";
-
-const aggregatorAccount = new AggregatorAccount(program, aggregatorPubkey);
-
-const ws = aggregatorAccount.onChange((aggregator) => {
-  const result = AggregatorAccount.decodeLatestValue(aggregator);
-  if (result !== null) {
-    console.log(result.toString());
-  }
-});
-```
+<WatchAFeed />

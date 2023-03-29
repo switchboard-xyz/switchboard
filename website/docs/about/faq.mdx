@@ -3,6 +3,15 @@ sidebar_position: 10
 slug: /faq
 ---
 
+import WhatIsSwitchboard from "/data/docs/faq_what_is_switchboard.md";
+import WhatIsAnOracle from "/data/docs/faq_what_is_an_oracle.md";
+import TheOracleProblem from "/data/docs/faq_the_oracle_problem.md";
+import SwitchboardAndTheOracleProblem from "/data/docs/faq_switchboard_and_the_oracle_problem.md";
+import ThePublisher from "/data/docs/faq_what_is_the_publisher.md";
+import WhatIsVRF from "/data/docs/faq_what_is_vrf.md";
+import ContactUs from "/data/docs/faq_contact_us.md";
+import Support from "/data/docs/faq_support.md";
+
 # FAQ
 
 Below are some frequently asked questions to help get you started with
@@ -17,17 +26,7 @@ Switchboard.
 
 </summary>
 
-Switchboard is a permission-less, customisable, multi-chain oracle protocol for
-general-purpose (price, sports, events data) data feeds and verifiable
-randomness.
-
-The idea behind the company name, Switchboard was derived from the early stages
-of phone networks. In the past, telephone operators shuffled telephone lines
-around a switchboard to complete a circuit and forward a dialer’s call to the
-next hop in the circut. Similarly, Switchboard is responsible for how data is
-fetched and published through an oracle to reach its program.
-
-Participants of the Switchboard protocol are named, Switchboard Operators.
+<WhatIsSwitchboard />
 
 </details>
 
@@ -51,54 +50,29 @@ to query information from the real world.
 
 </summary>
 
-An oracle is a gateway between blockchain and real world data.
-
-An oracle is not the data source, it is an infrastructure layer for querying,
-verifying and authenticating external data sources; which is relayed to the
-blockchain for a smart contract to read and carry out necessary course of action
-for its intended product.
+<WhatIsAnOracle />
 
 </details>
 
 <details>
 <summary>
 
-### What is the ‘oracle problem’?
+### What is the 'oracle problem'?
 
 </summary>
 
-Incorrect reporting can lead to devastating outcomes for on-chain applications
-dependent on the data feeds. Different oracle solutions vary in their approach
-to solving the problem, often making different tradeoffs between relying on
-highly centralized, trusted data providers, or more-decentralized networks with
-economic and cryptographic security measures. Similarly, different use cases
-vary in their requirements for speed, fidelity, and resolution of their data
-feeds.
-
-Other oracle solutions require developers to choose from a limited selection of
-data feeds, and offer no easy way to publish their own custom feed for the data
-sources they need. In a dynamic, changing world, this versatility is critical to
-unlock the full potential of decentralized applications.
+<TheOracleProblem />
 
 </details>
 
 <details>
 <summary>
 
-### How does Switchboard solves this?
+### How does Switchboard address the 'oracle problem'?
 
 </summary>
 
-**Permission-less**: Developers can build their own data feeds, and optionally
-spin up an application-specific free-standing oracle network for their feeds,
-called an _oracle queue._
-
-**Customization**: Different feeds and queues can be configured with a variety
-of parameters, allowing developers to decide for themselves how to optimally
-balance decentralization, security, and speed for their own unique use case.
-
-**Decentralization**: Developers can decide between flexible governance options,
-such as DAO governance, multisigs, privileged admins, or immutable definitions.
+<SwitchboardAndTheOracleProblem />
 
 </details>
 
@@ -109,10 +83,10 @@ such as DAO governance, multisigs, privileged admins, or immutable definitions.
 
 </summary>
 
-Switchboard's oracle architecture consists of multiple staked nodes, our network page
-[https://switchboard.xyz/network](https://switchboard.xyz/network) displays the number
-of oracles live. To understand the architecture better, navigate to the
-[Network docs](https://docs.switchboard.xyz/network) to deep dive.
+Switchboard's oracle architecture consists of multiple staked nodes, our network
+page [https://switchboard.xyz/network](https://switchboard.xyz/network) displays
+the number of oracles live. To understand the architecture better, navigate to
+the [Network docs](https://docs.switchboard.xyz/network) to deep dive.
 
 </details>
 
@@ -123,14 +97,14 @@ of oracles live. To understand the architecture better, navigate to the
 
 </summary>
 
-For operating data feeds, user has to fund an upfront capital (dependant on how the feed
-is configured) that consists of transaction fees and oracle incentives to ensure oracles
-are incentivised to publish good data.
-For a deeper look: [https://docs.switchboard.xyz/feeds/cost](https://docs.switchboard.xyz/feeds/cost)
-  
-For utilizing VRFs (currently only on Solana), user has to pay 0.002 SOL on every request
-of randomness, similar to data feeds, the fees consists of mainly transaction fees (math
-and compute costs) and oracle incentives.
+For operating data feeds, user has to fund an upfront capital (dependant on how
+the feed is configured) that consists of transaction fees and oracle incentives
+to ensure oracles are incentivised to publish good data. For a deeper look:
+[https://docs.switchboard.xyz/feeds/cost](https://docs.switchboard.xyz/feeds/cost)
+
+For utilizing VRFs (currently only on Solana), user has to pay 0.002 SOL on
+every request of randomness, similar to data feeds, the fees consists of mainly
+transaction fees (math and compute costs) and oracle incentives.
 
 </details>
 
@@ -141,11 +115,12 @@ and compute costs) and oracle incentives.
 
 </summary>
 
-Switchboard is a permissionless oracle protocol. Hence, all data feeds are different based
-on its use cases and types of data needed. It is a best practice to ensure data feed
-reliability before utilizing for all purposes.
-  
-For a deeper look a Best Practices: (https://docs.switchboard.xyz/feeds/best-practices)[https://docs.switchboard.xyz/feeds/best-practices]
+Switchboard is a permissionless oracle protocol. Hence, all data feeds are
+different based on its use cases and types of data needed. It is a best practice
+to ensure data feed reliability before utilizing for all purposes.
+
+For a deeper look a Best Practices:
+(https://docs.switchboard.xyz/feeds/best-practices)[https://docs.switchboard.xyz/feeds/best-practices]
 
 </details>
 
@@ -240,12 +215,7 @@ their programs.
 
 </summary>
 
-Publisher is a core application where users shop for **curated feed templates**.
-Other than looking for pre-curated/published feeds, Publisher has an in-built
-low-code developer tool to Build-Your-Own-Feed. After selecting a curated feed
-template or building out a feed, users will go through a configuration panel to
-customise their parameters to fit to specific use case. At the end, the user
-will sign 3 transactions to build, fund and gain authority to the feed.
+<ThePublisher />
 
 </details>
 
@@ -256,10 +226,7 @@ will sign 3 transactions to build, fund and gain authority to the feed.
 
 </summary>
 
-Blockchains are not hardware, hence, true randomness is not achievable.
-Switchboard’s VRF was modelled after Algorand’s **pseudo-random functio**n
-implementation allowing verifiable randomness to be generated on-chain. Use
-cases such as Casinos, game theory, NFT minting mechanism can be relied on VRF.
+<WhatIsVRF />
 
 </details>
 
@@ -272,20 +239,7 @@ cases such as Casinos, game theory, NFT minting mechanism can be relied on VRF.
 
 </summary>
 
-Switchboard has a diverse set of communication tools for our community. Check
-them out below to stay up to date!
-
-Twitter:
-[https://twitter.com/switchboardxyz](https://twitter.com/switchboardxyz)
-
-Medium: [https://switchboardxyz.medium.com](https://switchboardxyz.medium.com/)
-
-Discord: [https://discord.gg/switchboardxyz](https://discord.gg/switchboardxyz)
-
-Telegram: [https://t.me/switchboardxyz](https://t.me/switchboardxyz)
-
-For more links:
-[https://linktr.ee/switchboardxyz](https://linktr.ee/switchboardxyz)
+<ContactUs />
 
 </details>
 
@@ -312,8 +266,7 @@ Discord: [https://discord.gg/switchboardxyz](https://discord.gg/switchboardxyz)
 
 </summary>
 
-Switchboard [Discord](https://discord.gg/switchboardxyz) has a ticketing system
-to help us attend to your queries!
+<Support />
 
 </details>
 

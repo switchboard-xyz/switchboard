@@ -1,0 +1,15 @@
+{
+  "aggregator": "An aggregator, or data feed, dictates: how data is brought on-chain from it's assigned source, how often updates can be requested, and from which set of oracles updates can be requested from.",
+  "curator": "A curator is someone who scours the internet and builds on-chain job definitions from which publishers can use to build data feeds from.",
+  "crank": "A crank is a priority queue of aggregators and their next available update time. The crank is the scheduling mechanism that allows feeds to be updated at a regular interval and reward the update requester for jump starting the system.",
+  "history buffer": "A history buffer is an optional feature that can be added to an aggregator and stores the last N accepted results along with a timestamp.",
+  "job": "A job, or OracleJob, stores a list of Switchboard tasks which instructs the oracle on how to bring data on-chain.",
+  "lease": "A lease is a prefunded escrow used to reward oracles for successfully updating a data feed.",
+  "oracle": "An oracle, or node, sits between the internet and a blockchain and facilitates the flow of information. An oracle reads in a feeds job definitions, calculates the result, and submits its response on-chain.",
+  "oracle consensus": "Oracle consensus determines how oracles come to agreement on the accepted on-chain result. Switchboard oracles use the median oracle response as the accepted result. A feed authority can control how many oracles are requested and how many must respond to influence its security.",
+  "oracle queue": "An oracle queue is a round-robin queue of oracles actively heartbeating on-chain. When an update is requested from a queue, the next N oracles are assigned to the update request and cycled to the back of the queue.",
+  "publisher": "A publisher is someone who builds and creates a data feed on-chain. Typically this is a program or dApp that requires the data.",
+  "task": "An instruction an oracle executes. A task can fetch, parse, or transform data.",
+  "variance threshold": "A feed authority may specify a variance threshold to prevent redundant update requests and only allow oracle responses if the variance percentage between the last accepted result and the current value exceeds some threshold. Useful for conserving a lease's funds and extends the life of a feed.",
+  "verifiable random function": "Verifiable Random Function (VRF) is a prove-able cryptographic function that uses a private key to generate a pseudo-random value which can be verified by anyone with just the public key without leaking the VRF producer's secret key."
+}

@@ -6,23 +6,16 @@ keywords:
   [Switchboard, web3, oracle, data feeds, vrf, randomness, solana, aptos, near]
 ---
 
-# Introduction
-
 import MarkdownImage from "/src/components/MarkdownImage";
 import { Box, Typography, Grid } from "@mui/material";
 import Link from "@docusaurus/Link";
 
-An aggregator or data feed is what on-chain developers use when building smart
-contracts. A data feed is a collection of jobs that get aggregated to produce a
-single, deterministic result. Typically the first task in a job will fetch
-external data with subsequent tasks responsible for parsing the response and
-transforming the value into a single data type, like an integer or decimal.
+import FeedsOverview from "/data/docs/feeds_overview.md";
+import JobsOverview from "/data/docs/jobs_overview.md";
+import JobsWeights from "/data/docs/jobs_weights.md";
+import FeedsComposability from "/data/docs/feeds_composability.md";
 
-When an oracle is assigned to process a data feed update, the oracle executes
-the defined jobs, computes the weighted median of the job responses, and
-publishes the result on-chain. If sufficient oracles respond, the on-chain
-program computes the final result as the median of the assigned oracle
-responses.
+<FeedsOverview />
 
 ## Configuration
 
@@ -68,14 +61,9 @@ responses.
 
 ## Job Definitions
 
-An Aggregator Account stores a collection of Job Account public keys along with
-the hashes of the job definitions. This is to prevent malicious RPC nodes from
-providing incorrect task definitions to oracles before fulfillment.
+<JobsOverview />
 
-A Job Account is a collection of [Switchboard Tasks](/tasks) that get executed
-by an oracle sequentially. Each Job Account typically corresponds to a single
-data source. A data feed requires at least one job account and at most 16 job
-accounts. Switchboard Job Accounts can be used to source data from:
+Switchboard Job Accounts can be used to source data from:
 
 - HTTP endpoints, public or private$^{[1]}$
 - Websockets
@@ -92,12 +80,7 @@ $^{[1]}$ Endpoints requiring an API key require a
 
 ### Job Weights
 
-A data feed can assign job weights to a job account which will be used when the
-oracle calculates the median across the job responses. This is useful to weight
-data sources by some metric such as liquidity or a reliability score.
-
-It is **strongly** recommended to utilize job weights as _not all data sources
-are created equally_.
+<JobsWeights />
 
 :::info
 
@@ -108,23 +91,4 @@ account to a feed.
 
 ## Data Feed Composability
 
-Data feeds may reference other data feeds and build upon each other. It is
-**_strongly_** recommended that you own any feed that you reference in case of
-downstream impacts out of your control. While anyone can extend another feeds
-lease, a lease owner can always withdraw any lease funds and prevent future
-updates.
-
-As an example, you could construct the following feed definition:
-
-- Create a Switchboard feed that sources SOL/USD prices from a variety of
-  exchanges, each weighted by their 7d volume, along with a history buffer
-- Create a Switchboard feed that uses an OracleTask to fetch the Pyth SOL/USD
-  price every 10 seconds, along with a history buffer
-- Create a Switchboard feed that uses an OracleTask to fetch the Chainlink
-  SOL/USD price every 10 seconds, along with a history buffer
-- Finally, create a Switchboard feed that calculates the 1min TWAP of each
-  source above and returns the median of the results
-
-This is just a small window into how Switchboard feeds can build on each other
-and let the downstream consumer configure their feeds to meet their own use
-cases.
+<FeedsComposability />

@@ -3,7 +3,7 @@
     "source.fixAll.eslint": true
   },
   "files.eol": "\n",
-  "editor.formatOnSave": true
+  "editor.formatOnSave": true,
   // "editor.wordWrap": "on"
-  // "typescript.tsdk": "node_modules/typescript/lib"
+  "typescript.tsdk": "./website/node_modules/typescript/lib"
 }

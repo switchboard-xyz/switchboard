@@ -5,20 +5,11 @@ title: Cost Estimations
 
 import ChainNote from "/src/components/ChainNote";
 
-Each data feed has a LeaseContract, whcih is a pre-funded escrow account to
-reward oracles for fulfilling update request. The LeaseContract has a
-pre-specified `lease.withdrawAuthority` which is the only wallet allowed to
-withdraw funds from the lease escrow. Any user is able to contribute to a
-LeaseContract and keep the feed updating.
+import FeedsCost from "/data/docs/feeds_cost.md";
+import FeedsVarianceThreshold from "/data/docs/feeds_variance_threshold.md";
+import FeedsPriorityFees from "/data/docs/feeds_priority_fees.md";
 
-When a new openRound is successfully requested for a data feed, the user who
-requested it is transferred `queue.reward` tokens from the feeds LeaseContract.
-This is to incentivize users and crank turners to keep feeds updating based on a
-feeds config.
-
-When a data feed result is accepted on-chain by a batch of oracles, the oracle
-rewards, as specified by `queue.reward`, are automatically deducted from the
-`lease.escrow` and transferred to an `oracle.tokenAccount`.
+<FeedsCost />
 
 ## Update Request Cost
 
@@ -39,18 +30,7 @@ requester receives funds from the lease escrow.
 
 ## Variance Threshold
 
-A feed can set an `aggregator.varianceThreshold` to instruct an oracle to skip
-reporting a value on-chain if the percentage change between the current result
-and the `aggregator.previousConfirmedRoundResult` is not exceeded. This is a
-cost saving tool to conserve lease cost during low volatility.
-
-A feeds `aggregator.forceReportPeriod` is the compliment and instructs an oracle
-to always report a result if `aggregator.forceReportPeriod` seconds have elapsed
-since the last successful confirmed round. This can be thought of as the maximum
-allowable staleness for a feed.
-
-The two settings above can greatly increase the lifespan of a feed's lease but
-also makes it difficult to estimate the remaining time on a lease.
+<FeedsVarianceThreshold />
 
 ## Priority Fees
 
@@ -59,19 +39,4 @@ also makes it difficult to estimate the remaining time on a lease.
   note="Currently, only Solana supports priority fees."
 />
 
-During periods of network congestion, oracle responses may be dropped by the
-network. Solana added priority fees to combat this which aficts an extra fee on
-top of the transaction cost to incentivize the leader to process your
-transaction ahead of a lower cost transaction.
-
-A feed authority can specify a custom priority fee step function with the
-following fields:
-
-- **basePriorityFee**: A fee added to all oracle responses for a given feed
-- **priorityFeeBumpPeriod**: The number of seconds a feed is stale before
-  bumping the priority fee
-- **priorityFeeBump**: An extra fee to add for each period a feed has been stale
-- **maxPriorityFeeMultiplier**: The maximum bump periods
-
-The priority fee is deducted from a feed's lease with each successful oracle
-response.
+<FeedsPriorityFees />
