@@ -3,7 +3,12 @@ sidebar_position: 60
 title: Best Practices
 ---
 
-# Data Feed Best Practices
+import FeedsBestPracticesOverview from "/data/docs/feeds_best_practices_overview.md";
+import OracleConsensus from "/data/docs/oracle_consensus.md";
+import JobsDiversity from "/data/docs/jobs_diversity.md";
+import FeedsQueueSelection from "/data/docs/feeds_queue_selection.md";
+import FeedsDataAvailability from "/data/docs/feeds_data_availability.md";
+import FeedsOracleConsensus from "/data/docs/feeds_oracle_consensus.md";
 
 <!-- TODO
 - should split this content up into
@@ -17,44 +22,11 @@ title: Best Practices
 - add graphics
 -->
 
-Developers building real world applications for web3 rely on oracles to relay
-and publish data on-chain. Oracles are not a one size fit all solution, in fact
-redundancy should be used depending on your use cases and risk tolerance.
-Switchboard’s goal is to generalize data feeds and leave it up to the developer
-to configure and tune their data flow. Today’s article looks at how Switchboard
-feeds differ from other providers, and how you can configure your data feed to
-increase economic security.
-
-A Switchboard feed belongs to a single oracle queue, which is a realm of oracles
-that get assigned to update requests in a round-robin fashion. The feed’s config
-dictates how update requests are invoked and routed through the network, along
-with a set of job accounts that define how data is sourced off-chain.
-Switchboard data feeds can fetch data from http endpoints, websockets, or
-on-chain sources. Switchboard feeds are meant to be generic enough to meet any
-use case and leave it up to the on-chain consumers to configure.
+<FeedsBestPracticesOverview />
 
 ## Oracle Consensus
 
-Switchboard uses rounds to open and close a batch of oracle responses. A
-Switchboard feed has a specified minUpdateDelay which determines the minimum
-time a round is open for in order to give the oracles enough time to respond.
-When a new round is opened, the data feed gets assigned to a new batch of
-oracles, which is configurable with the parameter oracleRequestBatchSize. After
-minOracleResults responses are received, the on-chain program calculates the
-result using the median of the oracle responses. The median ensures large
-outliers do not drastically skew the accepted result, unlike averages. Oracles
-who responded within the queue’s configured parameters are rewarded, while the
-oracles who respond outside this threshold are slashed (if the queue has
-slashingEnabled). As you can see, the oracle consensus can be configured by the
-downstream user to provide the security necessary for their use case. Check out
-the data feed docs for more information on the lifecycle of Switchboard data
-feed updates.
-
-This differs from other oracle solutions like Pyth where data feeds are sourced
-from trusted market participants directly. This results in a faster update rate
-but makes no guarantees on the number of sources that responded. With
-Switchboard feeds you can guarantee a set number of sources and oracles have
-responded before accepting the result on-chain.
+<OracleConsensus />
 
 ## Democratizing Data Feeds
 
@@ -102,100 +74,21 @@ on-chain, let’s look at how to configure a Switchboard feed.
 
 ### Data Source Diversity
 
-The first step when building a feed is determining where you are sourcing your
-data from. Each data source should correspond to a job account, which is just a
-collection of Switchboard tasks, used to instruct the oracles on how to fetch
-and transform data. Checkout the job directory for some example definitions. You
-can also view a catalog of curated job definitions in the Switchboard publisher.
-
-- **Job Diversity** — Ensure you’re sourcing data from multiple, reliable
-  sources.
-- **Job Weights** — Add job weights for sources with a higher degree of truth,
-  such as exchanges where price discovery is likely to happen. Oracles submit
-  the weighted median as their final result so jobs with a higher weight have
-  more influence on the result.
-- **minJobResults** — Ensure the oracles have a reliable set of data before
-  responding on-chain. If only 1 out of 12 sources respond, you will not have a
-  reliable result. But if you set this to 12 out of 12 and one of your sources
-  is failing, you will encounter a stale feed, so ensure you have some margin
-  for single source failures.
+<JobsDiversity />
 
 ### Queue Selection
 
-You should select a queue that will provide your feed with a sufficient level of
-security.
-
-- **Oracle Reputation** — you should select a queue with a proven track record
-  of honest reporting. Oracles store various metrics on-chain that can be used
-  to determine their reliability. Oracles are assigned to update request in a
-  round robin fashion where assignment is pseudo-random but this gives a fairly
-  accurate picture of a queues overall reliability.
-- **Oracle minStake** — you should select a queue that requires oracles to stake
-  a respectable sum of capital before joining the queue. This will be used to
-  slash oracles for misreporting feeds.
-- **Queue Reward** — your selected queue should reward oracles sufficiently
-  enough such that they are incentivized to report honestly, yet not too high
-  where update request are prohibitively expensive. Switchboard DAO queues
-  currently use 12500 lamports as the oracle reward, per update request.
-- **Queue Permissions** — high availability feeds should be on a queue where
-  unpermissionedFeedsEnabled is set to false. This prevents data feeds from
-  being able to join and spam the queue with update requests.
-- **Slashing** — feeds securing financial applications should be on a queue with
-  slashingEnabled to dissuade oracles from malicious behavior.
-
-  You may notice Switchboard DAO queues do not have all of these settings
-  enabled yet. Switchboard DAO queues currently rely on vetting trusted oracle
-  operators to bootstrap the network. As the network grows, the queues will be
-  further decentralized and rely on these parameters to enforce security. Stay
-  tuned for more information on the Switchboard DAO and how new oracles will be
-  permitted by the network.
+<FeedsQueueSelection />
 
 ### Data Availability
 
-Configure when and how often you need new data on-chain.
-
-- **Crank / Automatic Updates** — any data feed that has sufficient queue
-  permissions is able to join a crank. A crank is a scheduling mechanism for
-  data feeds that will invoke a new round after each minUpdateDelay with some
-  added jitter to prevent predictable oracle assignment. Data feeds not on a
-  crank should set the option disableCrank and will need to manually requests
-  new updates or have their own scheduling mechanism.
-- **minUpdateDelay** — determines how often new data can be requested on-chain.
-  This should be set depending on your use case. Decentralized exchanges will
-  need faster updates than a lending protocol.
-- **varianceThreshold** — is the change percentage required between a previous
-  round and the current oracle result before a value is published on-chain. This
-  is used to conserve lease fees for the feed operator. Highly available feeds
-  should set this to 0 so values are always reported on-chain.
-- **forceReportPeriod** — is the max staleness for a feed. If the
-  varianceThreshold was not exceeded but a set number of seconds have passed,
-  the oracle will respond on-chain. This should almost always be used with
-  varianceThreshold to ensure your feed is updating as expected and not stale
-  for another reason.
+<FeedsDataAvailability />
 
 💡 NOTE: See the check_staleness function in the rust crate when integrating.
 
 ### Oracle Consensus
 
-Configure how many oracles are assigned to a request and how many must respond
-to accept a result.
-
-- **oracleRequestBatchSize** — sets the number of oracles assigned to each
-  update request. The quickest way to increase feed security is to request more
-  oracles each update round because it requires a higher degree of oracle
-  collusion in order to affect the on-chain result. In reality, this increases
-  the overall cost of a feed so it’s a careful consideration for feed operators
-  when configuring a feed.
-- **minOracleResults** — set the minimum number of oracles that must respond
-  before accepting a result on-chain. This ensures you have a sufficient data
-  set before the on-chain program takes the median of the oracle responses.
-
-  The number of oracles assigned to an update request should always be less than
-  the number of oracles required to respond. There are a variety of reasons that
-  may cause an oracle response to fail, such as Solana network degradation,
-  individual oracle network issues, or transaction spamming. Your feed’s lease
-  is only deducted when a round was successfully closed based on the feed’s
-  minOracleResults.
+<FeedsOracleConsensus />
 
 ### Cost
 

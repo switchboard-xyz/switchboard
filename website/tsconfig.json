@@ -4,9 +4,10 @@
   "compilerOptions": {
     "baseUrl": ".",
     "esModuleInterop": true,
+    "resolveJsonModule": true,
     "sourceMap": true,
     "types": ["node"]
   },
-  "include": ["src/**/*", "src/**/*.json", "scripts/**/*"],
+  "include": ["src", "src/**/*.json", "scripts", "./terms.json"],
   "exclude": ["static", "public", "node_modules"]
 }

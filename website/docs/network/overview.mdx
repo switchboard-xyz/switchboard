@@ -8,19 +8,15 @@ import MarkdownImage from "/src/components/MarkdownImage";
 import { Box, Typography, Grid } from "@mui/material";
 import Link from "@docusaurus/Link";
 
+import ProgramOverview from "/data/docs/program_overview.md";
+import QueueOverview from "/data/docs/queue_overview.md";
+
 ## Program State
 
 <Grid container spacing={3} justifyContent="center" alignItems="center">
   <Grid item md={4} sm={12} order={{ xs: 2, sm: 1 }}>
 
-Switchboard is a multi-chain oracle, currently deployed on Aptos, NEAR, and
-Solana. Each is a native implementation with subtle differences but the overall
-architecture remains the same. The top-level program state account controls the
-token mint used for oracle rewards and data feed update costs for each queue.
-
-Switchboard was architected to be permissionless and allow users to create and
-manage their own Switchboard network. Each chain can support many oracle queues,
-which can have varrying levels of security and trust assumptions.
+<ProgramOverview />
 
   </Grid>
   <Grid item md={8} sx={12} order={{ xs: 1, sm: 2 }}>
@@ -35,13 +31,7 @@ which can have varrying levels of security and trust assumptions.
 
 ## Oracle Queues
 
-An oracle queue is an independent realm of oracles, responsible for allocating
-oracle resources for update requests from data feeds, randomness, or buffer
-relayers. Oracle queue's act as an aggregator for on-chain consumers looking to
-publish data on-chain by specifying an upfront reward a requester is required to
-pay when a new update is requested by an oracle. Oracles act as an off-chain
-compute resource that can be utilized by on-chain programs needing a
-decentralized way to source data.
+<QueueOverview />
 
 <MarkdownImage
   img="/img/L1_Queue_Functional.png"
