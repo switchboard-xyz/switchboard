@@ -319,6 +319,7 @@ importers:
       '@types/node': ^18.7.18
       '@types/react': ^18.0.28
       '@types/shelljs': ^0.8.11
+      '@types/uuid': ^9.0.1
       babel-plugin-import: ^1.13.3
       chalk: '4'
       clsx: ^1.1.1
@@ -349,6 +350,7 @@ importers:
       typedoc: ^0.23.26
       typescript: ^4.7
       url-loader: ^4.1.1
+      uuid: ^9.0.0
       webpack: '>=4.0.0 <5.0.0 || >=5.0.0 <6.0.0'
       zdog: '>=1.0'
     dependencies:
@@ -384,6 +386,7 @@ importers:
       rehype-katex: 5.0.0
       remark-math: 3.0.1
       url-loader: 4.1.1_p5dl6emkcwslbw72e37w4ug7em
+      uuid: 9.0.0
     devDependencies:
       '@algolia/client-search': 4.15.0
       '@babel/core': 7.21.0
@@ -394,6 +397,7 @@ importers:
       '@types/node': 18.11.19
       '@types/react': 18.0.28
       '@types/shelljs': 0.8.11
+      '@types/uuid': 9.0.1
       babel-plugin-import: 1.13.6
       chalk: 4.1.2
       cspell: 5.21.2
@@ -7655,6 +7659,10 @@ packages:
   /@types/unist/2.0.6:
     resolution: {integrity: sha512-PBjIUxZHOuj0R15/xuwJYjFi+KZdNFrehocChv4g5hu6aFroHue8m0lBP0POdK2nKzbw0cgV1mws8+V/JAcEkQ==}
     dev: false
+
+  /@types/uuid/9.0.1:
+    resolution: {integrity: sha512-rFT3ak0/2trgvp4yYZo5iKFEPsET7vKydKF+VRCxlQ9bpheehyAJH89dAkaLEq/j/RZXJIqcgsmPJKUP1Z28HA==}
+    dev: true
 
   /@types/vinyl/2.0.6:
     resolution: {integrity: sha512-ayJ0iOCDNHnKpKTgBG6Q6JOnHTj9zFta+3j2b8Ejza0e4cvRyMn0ZoLEmbPrTHe5YYRlDYPvPWVdV4cTaRyH7g==}
@@ -20852,6 +20860,11 @@ packages:
 
   /uuid/8.3.2:
     resolution: {integrity: sha512-+NYs2QeMWy+GWFOEm9xnn6HCDp0l7QBD7ml8zLUmJ+93Q5NF0NocErnwkTkXVFNiX3/fpC6afS8Dhb/gz7R7eg==}
+    hasBin: true
+    dev: false
+
+  /uuid/9.0.0:
+    resolution: {integrity: sha512-MXcSTerfPa4uqyzStbRoTgt5XIe3x5+42+q1sDuy3R5MDk66URdLMOZe5aPX/SQd+kuYAh0FdP/pO28IkQyTeg==}
     hasBin: true
     dev: false
 

@@ -322,6 +322,7 @@ const ChatBot = (props: { open: boolean; onClose: () => void }) => {
         </div>
         {messageHistory.map((message: Message, idx: number) => {
           const userMessage = message.sender === Sender.user;
+          const html = {__html: formatRawString(message.message)};
           return (
             <div
               key={idx}
@@ -336,7 +337,7 @@ const ChatBot = (props: { open: boolean; onClose: () => void }) => {
               }}
               ref={messagesRef}
             >
-              <span>{message.message}</span>
+              <span dangerouslySetInnerHTML={html}></span>
             </div>
           );
         })}
@@ -417,3 +418,15 @@ const ChatBot = (props: { open: boolean; onClose: () => void }) => {
 };
 
 export default ChatBot;
+
+
+/**
+ * Remove leading and trailing whitespace and new lines
+ * Replace triple backticks with <pre> tags
+ * Replace any new line characters with <br /> elements
+ */
+function formatRawString(input: string): string {
+  const text = input.replace(/^\n+|\n+$/g, '').trim(); // remove leading/trailing new lines
+  const output = text.replace(/```([a-z]+)?\n([\s\S]*?)\n```/g, '<span>$2</span>').replace(/\n/g, "<br />");
+  return output
+}
