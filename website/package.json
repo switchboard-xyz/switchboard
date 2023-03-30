@@ -61,7 +61,8 @@
     "react-spring": "^9.3.2",
     "rehype-katex": "5",
     "remark-math": "3",
-    "url-loader": "^4.1.1"
+    "url-loader": "^4.1.1",
+    "uuid": "^9.0.0"
   },
   "devDependencies": {
     "@algolia/client-search": ">= 4.9.1 < 6",
@@ -73,6 +74,7 @@
     "@types/node": "^18.7.18",
     "@types/react": "^18.0.28",
     "@types/shelljs": "^0.8.11",
+    "@types/uuid": "^9.0.1",
     "babel-plugin-import": "^1.13.3",
     "chalk": "4",
     "cspell": "^5.15.2",
