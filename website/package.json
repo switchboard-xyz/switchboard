@@ -72,6 +72,7 @@
     "@tsconfig/docusaurus": "^1.0.4",
     "@types/eslint": "^8.4.5",
     "@types/node": "^18.7.18",
+    "@types/react": "^18.0.28",
     "@types/shelljs": "^0.8.11",
     "@types/uuid": "^9.0.1",
     "babel-plugin-import": "^1.13.3",

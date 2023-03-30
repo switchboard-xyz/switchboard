@@ -6,27 +6,17 @@ slug: /permissions
 
 import MarkdownImage from "/src/components/MarkdownImage";
 
+import PermissionsOverview from "/data/docs/permissions_overview.md";
+import QueuePermissionsTable from "/data/docs/queue_permissions_table.md";
+
 <MarkdownImage img="/img/L1_Queue_Functional.png" />
 
-Oracle queue resources, such as oracles, aggregators, VRF accounts, or buffer
-relayer accounts, _MUST_ have an associated PermissionAccount initialized before
-interacting with a queue. Permissions are granted by `queue.authority`, which
-could be a DAO controlled account to allow network participants to vote on new
-entrants.
-
-Oracles _MUST_ have **PermitOracleHeartbeat** permissions before heartbeating on
-a queue. This is to prevent a malicious actor from spinning up a plethora of
-oracles until it obtains the super majority, at which point it could misreport
-data feed results and cause honest oracles to be slashed.
+<PermissionsOverview />
 
 See the table below for the minimum required permissions for a resource based on
 the queues settings:
 
-| Queue Setting                | False (0)                                                                                                    | True (1)                                                                                  |
-| ---------------------------- | ------------------------------------------------------------------------------------------------------------ | ----------------------------------------------------------------------------------------- |
-| `unpermissionedFeedsEnabled` | Aggregators & Buffer Relayers _MUST_ have **PermitOracleQueueUsage** permissions before requesting an update | Aggregators & Buffer Relayers require no explicit permissions before requesting an update |
-| `unpermissionedVrfEnabled`   | VRF Accounts _MUST_ have **PermitVrfRequests** permissions before requesting an update                       | VRF Accounts require no explicit permissions before requesting an update                  |
-| `enableBufferRelayers`       | Buffer Relayers are _NOT_ permitted to request updates                                                       | Buffer Relayers are permitted to request updates                                          |
+<QueuePermissionsTable />
 
 <!--
 TODO:

@@ -7,7 +7,7 @@ import {
   OracleTagVersion,
   ReleaseChannelVersion,
 } from './types';
-import { normalizeFsPath, sleep } from './utils';
+import { getNodeImage, normalizeFsPath, sleep } from './utils';
 
 import type { ChildProcess } from 'child_process';
 import { execSync, spawn } from 'child_process';
@@ -149,9 +149,7 @@ export class DockerOracle extends ISwitchboardOracle {
     config: IOracleConfig & ReleaseChannelVersion
   ): Promise<DockerOracle> {
     try {
-      const nodeImage = await ISwitchboardOracle.getNodeImage(
-        config.releaseChannel
-      );
+      const nodeImage = await getNodeImage(config.releaseChannel);
       return new DockerOracle({
         ...config,
         imageTag: nodeImage,
