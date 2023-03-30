@@ -8,13 +8,18 @@ import path from 'path';
 import xdg from 'xdg-basedir';
 
 /** Sleep for a given number of milliseconds
- * @param ms number of milliseconds to sleep for
- * @return a promise that resolves when the sleep interval has elapsed
+ * @param {number} ms number of milliseconds to sleep for
+ * @return {Promise<any>} a promise that resolves when the sleep interval has elapsed
  */
 export const sleep = (ms: number): Promise<any> =>
   new Promise(s => setTimeout(s, ms));
 
-export function normalizeFsPath(fsPath: string) {
+/**
+ * Normalize a filesystem path and expand characters like '~'
+ * @param {string} fsPath the raw filesystem path
+ * @return {string} The expanded filesystem path
+ */
+export function normalizeFsPath(fsPath: string): string {
   return fsPath.startsWith('/') ||
     fsPath.startsWith('C:') ||
     fsPath.startsWith('D:')
@@ -24,7 +29,11 @@ export function normalizeFsPath(fsPath: string) {
     : path.join(process.cwd(), fsPath);
 }
 
-export function getCacheDir() {
+/**
+ * Gets the cache directory path depending on the platform.
+ * @return {string | null} The cache directory path for the current platform or null if the path cannot be determined.
+ */
+export function getCacheDir(): string | null {
   const appName = '@switchboard-xyz';
   const home = os.homedir();
 
@@ -42,8 +51,26 @@ export function getCacheDir() {
   return null;
 }
 
-/** Downloads a github release and stores in the current working directory */
-export async function downloadReleaseArtifact(oracleVersion: string) {
+/**
+ * Downloads a specific version of the sbv2-oracle from GitHub releases and stores it in the cache directory.
+ * @param {string} oracleVersion The version of the sbv2-oracle to be downloaded.
+ * @return {Promise<string>} A promise that resolves to the output location of the downloaded release.
+ *
+ * Basic usage example:
+ *
+ * ```ts
+ * import { getNodeImage, ReleaseChannel } from '@switchboard-xyz/oracle';
+ *
+ * (async () => {
+ *   const releaseChannel: ReleaseChannel = 'testnet';
+ *   const nodeImage = await getNodeImage(releaseChannel);
+ *   console.log(`Latest node image for the ${releaseChannel} release channel: ${nodeImage}`);
+ * })();
+ * ```
+ */
+export async function downloadReleaseArtifact(
+  oracleVersion: string
+): Promise<string> {
   const cacheDir = getCacheDir() ?? process.cwd();
   const outputLocation = path.join(cacheDir, 'sbv2-oracle', oracleVersion);
   fs.mkdirSync(outputLocation, { recursive: true });
@@ -73,7 +100,7 @@ export async function downloadReleaseArtifact(oracleVersion: string) {
   return outputLocation;
 }
 
-type ParsedRelease = {
+export type ParsedRelease = {
   imageName: string;
   releaseChannel: 'mainnet' | 'testnet' | undefined;
   name: string;
@@ -81,7 +108,7 @@ type ParsedRelease = {
   published: number;
 };
 
-type RawRelease = {
+export type RawRelease = {
   url: string;
   id: number;
   tag_name: string;
@@ -93,6 +120,19 @@ type RawRelease = {
   prerelease?: boolean;
 };
 
+/**
+ * Fetches an array of ParsedRelease objects from the sbv2-oracle-operators repository releases.
+ * @return {Promise<Array<ParsedRelease>>} A promise that resolves to an array of ParsedRelease objects.
+ *
+ *
+ * Basic usage example:
+ *
+ * ```ts
+ * import { fetchReleases, ParsedRelease } from '@switchboard-xyz/oracle';
+ *
+ * const releases: Array<ParsedRelease> = await fetchReleases();
+ * ```
+ */
 export async function fetchReleases(): Promise<Array<ParsedRelease>> {
   const response = await fetch(
     `https://api.github.com/repos/switchboard-xyz/sbv2-oracle-operators/releases`,
@@ -128,7 +168,26 @@ export async function fetchReleases(): Promise<Array<ParsedRelease>> {
   return sortedReleases;
 }
 
-export async function getNodeImage(releaseChannel: ReleaseChannel) {
+/**
+ * Retrieves the latest node image for the specified release channel.
+ * @param {ReleaseChannel} releaseChannel The release channel ('mainnet', 'testnet', or 'latest').
+ * @return {Promise<string>} A promise that resolves to the latest node image for the specified release channel.
+ *
+ * Basic usage example:
+ *
+ * ```ts
+ * import { getNodeImage, ReleaseChannel } from '@switchboard-xyz/oracle';
+ *
+ * (async () => {
+ *   const releaseChannel: ReleaseChannel = 'testnet';
+ *   const nodeImage = await getNodeImage(releaseChannel);
+ *   console.log(`Latest node image for the ${releaseChannel} release channel: ${nodeImage}`);
+ * })();
+ * ```
+ */
+export async function getNodeImage(
+  releaseChannel: ReleaseChannel
+): Promise<string> {
   const releases = await fetchReleases();
 
   if (releases.length === 0) {

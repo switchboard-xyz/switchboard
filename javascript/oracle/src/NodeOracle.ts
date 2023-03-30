@@ -5,6 +5,7 @@ import {
   Network,
   OracleTagVersion,
   ReleaseChannelVersion,
+  ReleaseChannel,
 } from './types';
 import {
   downloadReleaseArtifact,
@@ -19,6 +20,32 @@ import fs from 'fs';
 import fetch from 'node-fetch';
 import path from 'path';
 
+/**
+ * NodeOracle class downloads the latest version of the Switchboard oracle for a given {@link ReleaseChannel}.
+ * The oracle is a NodeJS bundle that can be run in CI.
+ *
+ * Usage example:
+ *
+ * ```ts
+ * import { NodeOracle } from '@switchboard-xyz/oracle';
+ *
+ * const oracle = await NodeOracle.fromReleaseChannel({
+ *     chain: "solana",
+ *     releaseChannel: "testnet",
+ *     network: "localnet",
+ *     rpcUrl: switchboardProgram.connection.rpcEndpoint,
+ *     oracleKey: oracleAccount.publicKey.toBase58(),
+ *     secretPath: switchboard.walletPath,
+ *     silent: false,
+ *     envVariables: {
+ *       VERBOSE: "1",
+ *       DEBUG: "1",
+ *       DISABLE_NONCE_QUEUE: "1",
+ *       DISABLE_METRICS: "1",
+ *     },
+ *   });
+ * ```
+ */
 export class NodeOracle extends ISwitchboardOracle {
   readonly imageTag: string;
 
@@ -208,6 +235,10 @@ export class NodeOracle extends ISwitchboardOracle {
     process.on('exit', killProcessCallback);
   }
 
+  /** Stop the oracle sub process
+   *
+   * @returns {boolean} returns a boolean dictating whether the oracle was successfully stopped
+   */
   stop(): boolean {
     this.isActive = false;
     this.saveLogs();
@@ -225,6 +256,7 @@ export class NodeOracle extends ISwitchboardOracle {
     return true;
   }
 
+  /** Force kill the oracle sub process */
   kill(exitCode: number | NodeJS.Signals = 'SIGINT') {
     if (this.oracleProcess) {
       this.oracleProcess.removeAllListeners();
@@ -234,7 +266,9 @@ export class NodeOracle extends ISwitchboardOracle {
   }
 
   /**
-   * @param timeout - the number of seconds to await for the oracle to start successfully heartbeating
+   * Start the oracle process and await for the oracle to start heartbeating on-chain.
+   *
+   * @param {number} timeout - the number of seconds to await for the oracle to start successfully heartbeating
    *
    * @throws if timeout is exceeded and oracle heartbeat was never detected
    */
