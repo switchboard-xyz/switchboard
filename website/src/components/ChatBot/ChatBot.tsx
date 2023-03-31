@@ -16,6 +16,7 @@ import MoreVertIcon from "@mui/icons-material/MoreVert";
 import ThumbUpIcon from "@mui/icons-material/ThumbUp";
 import ThumbDownIcon from "@mui/icons-material/ThumbDown";
 import SendIcon from "@mui/icons-material/Send";
+import CodeBlock from '@theme/CodeBlock';
 
 const TypingDiv = styled("div")({
   width: "5em",
@@ -322,7 +323,6 @@ const ChatBot = (props: { open: boolean; onClose: () => void }) => {
         </div>
         {messageHistory.map((message: Message, idx: number) => {
           const userMessage = message.sender === Sender.user;
-          const html = {__html: formatRawString(message.message)};
           return (
             <div
               key={idx}
@@ -337,7 +337,7 @@ const ChatBot = (props: { open: boolean; onClose: () => void }) => {
               }}
               ref={messagesRef}
             >
-              <span dangerouslySetInnerHTML={html}></span>
+              {formatRawString(message.message)}
             </div>
           );
         })}
@@ -425,8 +425,45 @@ export default ChatBot;
  * Replace triple backticks with <pre> tags
  * Replace any new line characters with <br /> elements
  */
-function formatRawString(input: string): string {
+function formatRawString(input: string): Array<React.ReactElement> {
   const text = input.replace(/^\n+|\n+$/g, '').trim(); // remove leading/trailing new lines
-  const output = text.replace(/```([a-z]+)?\n([\s\S]*?)\n```/g, '<span>$2</span>').replace(/\n/g, "<br />");
-  return output
+  const elements: Array<React.ReactElement> = [];
+  const lines = text.split("\n");
+  let currentText = "";
+  let inCodeBlock = false;
+  let codeLang = "";
+  for(const line of lines){
+    if(line.startsWith("```")) {
+      if(inCodeBlock) {
+        elements.push(<CodeBlock language={codeLang ?? "json"}>{currentText}</CodeBlock>)
+        currentText = "";
+        inCodeBlock = false;
+        codeLang = "";
+      } else {
+        elements.push(<span>{currentText}</span>)
+        currentText = ""
+        inCodeBlock = true;
+        codeLang = line.slice(0, 3) ?? "";
+      }
+    } else {
+      currentText += line + "\n"
+    }
+  }
+  if(inCodeBlock) {
+    elements.push(<CodeBlock language={codeLang ?? "json"}>{currentText}</CodeBlock>)
+    currentText = "";
+  } else {
+    elements.push(<span>{currentText}</span>)
+    currentText = ""
+  }
+  return elements
+
 }
+{/* <CodeBlock
+language="jsx"
+title="/src/components/HelloCodeTitle.js"
+showLineNumbers>
+{`function HelloCodeTitle(props) {
+return <h1>Hello, {props.name}</h1>;
+}`}
+</CodeBlock> */}
