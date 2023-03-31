@@ -1,17 +1,21 @@
 import React, { useState } from "react";
 import qaIcon from "../../../static/img/qa.png";
-import { IconButton, Tooltip } from "@mui/material";
+import { IconButton, Tooltip, Box } from "@mui/material";
 import { ChatBot } from "../ChatBot";
 
 const ChatBotIcon = () => {
-  const [openChatModal, setOpenChatModal] = useState(false);
+  const [openChatModal, setOpenChatModal] = useState<boolean>(false);
 
   const onClose = () => {
     setOpenChatModal(false);
   };
 
   return (
-    <>
+    <Box sx={{
+      "@media (max-width:640px)": {
+        marginRight: "10vw",
+      },
+    }}>
       <Tooltip
         title="Need help? Chat with our Switchboard AI!"
         placement="bottom"
@@ -34,13 +38,14 @@ const ChatBotIcon = () => {
               backgroundColor: "white",
               opacity: 0.6,
             },
+
           }}
         >
           <img src={qaIcon} height={32} width={32} />
         </IconButton>
       </Tooltip>
       <ChatBot open={openChatModal} onClose={onClose} />
-    </>
+    </Box>
   );
 };
 

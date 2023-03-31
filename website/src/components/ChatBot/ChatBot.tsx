@@ -64,11 +64,18 @@ const TypingDot = styled("div")({
 
 const StyledDialog = styled(Dialog)({
   "& .MuiDialog-paper": {
-    width: 650,
-    height: 600,
+    maxWidth: 1100,
+    maxHeight: 900,
+    width: "65vw",
+    height: "75vh",
     paddingBottom: "16px",
     display: "flex",
     flexDirection: "column",
+    [`@media screen and (max-width: 640px)`]: {
+      width: "90vw",
+      height: "90vh",
+      fontSize: "0.75rem"
+   },
   },
 });
 
@@ -82,12 +89,15 @@ const StyledHeader = styled("div")({
 
 const StyledTextField = styled(TextField)({
   "& .MuiOutlinedInput-root": {
-    height: 48,
+    minHeight: "100%",
+    maxHeight: 96,
     border: "solid 1px #6b7c9333",
     borderRadius: "8px",
     fontSize: "16px",
     fontFamily: "Source Sans Pro",
     color: "#425466",
+    overflowY: "scroll",
+    m: 1,
     "& fieldset": {
       borderColor: "transparent",
     },
@@ -157,14 +167,14 @@ const WELCOME_MESSAGE = {
 
 const ChatBot = (props: { open: boolean; onClose: () => void }) => {
   const [sessionId, setSessionId] = useState("");
-  const [sessionType, setSessionType] = useState("default");
+  const [sessionType, setSessionType] = useState<"default" | "oracle-job">("default");
   const [questionInput, setQuestionInput] = useState("");
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
   const [isTyping, setIsTyping] = useState(false);
   const [messageHistory, setMessageHistory] = useState<Message[]>([
     WELCOME_MESSAGE,
   ]);
-  const [feedbackSelected, setFeedBackSelected] = useState();
+  const [feedbackSelected, setFeedBackSelected] = useState<string>();
 
   const messagesRef = useRef();
   const endOfMessagesRef = useRef();
@@ -232,7 +242,11 @@ const ChatBot = (props: { open: boolean; onClose: () => void }) => {
 
   const onQuestionKeyDown = (event: React.KeyboardEvent<HTMLDivElement>) => {
     if (event.key === "Enter") {
-      submitQuestion();
+      if(!event.shiftKey){
+        submitQuestion();
+      } else {
+        // setQuestionInput(questionInput + "\r\n")
+      }
     }
   };
 
@@ -289,7 +303,6 @@ const ChatBot = (props: { open: boolean; onClose: () => void }) => {
           width: "100%",
           height: "100%",
           padding: "8px 32px 16px",
-          maxHeight: 500,
           overflowY: "scroll",
         }}
       >
@@ -305,7 +318,7 @@ const ChatBot = (props: { open: boolean; onClose: () => void }) => {
           <span style={{ fontSize: "14px" }}>Mode:</span>
           <StyledSelect
             value={sessionType}
-            onChange={(e) => setSessionType(e.target.value)}
+            onChange={(e) => setSessionType(e.target.value as "default" | "oracle-job")}
           >
             <MenuItem
               value="default"
@@ -334,10 +347,11 @@ const ChatBot = (props: { open: boolean; onClose: () => void }) => {
                 marginBottom: "8px",
                 maxWidth: "60%",
                 alignSelf: userMessage ? "flex-end" : "flex-start",
+                whiteSpace: userMessage ? "break-spaces" : undefined
               }}
               ref={messagesRef}
             >
-              {formatRawString(message.message)}
+              {userMessage ? message.message.replace(/\n{2,}/g, "\n") : formatRawString(message.message)}
             </div>
           );
         })}
@@ -367,6 +381,8 @@ const ChatBot = (props: { open: boolean; onClose: () => void }) => {
             placeholder="Type your question here..."
             sx={{ flexGrow: 1, marginRight: "12px" }}
             autoComplete="off"
+            multiline
+            margin="dense" 
           />
           <IconButton onClick={submitQuestion}>
             <SendIcon sx={{ color: "#8f95b2" }} />
@@ -459,11 +475,3 @@ function formatRawString(input: string): Array<React.ReactElement> {
   return elements
 
 }
-{/* <CodeBlock
-language="jsx"
-title="/src/components/HelloCodeTitle.js"
-showLineNumbers>
-{`function HelloCodeTitle(props) {
-return <h1>Hello, {props.name}</h1>;
-}`}
-</CodeBlock> */}
