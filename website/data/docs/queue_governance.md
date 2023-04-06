@@ -1,3 +1,7 @@
+---
+source: "https://docs.switchboard.xyz/queue"
+embedding-id: "queue-governance"
+---
 An oracle queue can be governed by its network participants to control the
 various queue configuration parameters, such as:
 

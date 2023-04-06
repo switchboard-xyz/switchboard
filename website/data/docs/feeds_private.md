@@ -1,3 +1,7 @@
+---
+source: "https://docs.switchboard.xyz/feeds/private-apis"
+embedding-id: "feeds-private"
+---
 A private queue is any Oracle Queue not controlled by the Switchboard DAO.
 
 Switchboard is architected to route off-chain data to an on-chain account. A

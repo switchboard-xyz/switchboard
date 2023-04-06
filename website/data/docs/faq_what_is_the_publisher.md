@@ -1,3 +1,7 @@
+---
+source: "https://docs.switchboard.xyz/faq"
+embedding-id: "faq-what-is-the-publisher"
+---
 The Publisher is a Switchboard application that allows a feed creator to bring
 any data they need on-chain in under 60 seconds. Before the publisher, feed
 creators would need to sign partnership deals with existing oracle providers

@@ -1,3 +1,7 @@
+---
+source: "https://docs.switchboard.xyz/feeds#job-definitions"
+embedding-id: "jobs-overview"
+---
 An Aggregator Account stores a collection of Job Account public keys along with
 the hashes of the job definitions. This is to prevent malicious RPC nodes from
 providing incorrect task definitions to oracles before fulfillment.

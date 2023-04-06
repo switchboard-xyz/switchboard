@@ -1,3 +1,7 @@
+---
+source: "https://docs.switchboard.xyz/feeds/updates#sliding-window-mode"
+embedding-id: "feeds-sliding-window"
+---
 During periods of network congestion, oracle responses may be delayed and
 processed by the network after the next round has started. This results in a
 data feed to be stale for a prolonged period of time even when an oracle

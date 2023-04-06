@@ -1,3 +1,7 @@
+---
+source: "https://docs.switchboard.xyz/faq"
+embedding-id: "faq-switchboard-and-the-oracle-problem"
+---
 Switchboard addresses the oracle problem in the following ways:
 
 **Permissionless**: Developers can build their own data feeds, and optionally

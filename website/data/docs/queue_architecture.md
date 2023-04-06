@@ -1,3 +1,7 @@
+---
+source: "https://docs.switchboard.xyz/queue"
+embedding-id: "queue-architecture"
+---
 Each oracle queue is independent and maintain their own configurations, which
 dictates its degree of security. Queue's can require update requesters to be
 pre-approved to use a queues resources or allow any requester access to a queue.

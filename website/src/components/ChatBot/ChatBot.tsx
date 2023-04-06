@@ -1,11 +1,9 @@
 import React, { useState, useEffect, useRef } from "react";
 import { styled } from "@mui/system";
 import {
-  Dialog,
   Divider,
   IconButton,
-  Menu,
-  MenuItem,
+  Tooltip,
   Select,
   TextField,
   Typography,
@@ -16,7 +14,10 @@ import MoreVertIcon from "@mui/icons-material/MoreVert";
 import ThumbUpIcon from "@mui/icons-material/ThumbUp";
 import ThumbDownIcon from "@mui/icons-material/ThumbDown";
 import SendIcon from "@mui/icons-material/Send";
-import CodeBlock from '@theme/CodeBlock';
+import CodeBlock from "@theme/CodeBlock";
+
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
 
 const TypingDiv = styled("div")({
   width: "5em",
@@ -59,23 +60,6 @@ const TypingDot = styled("div")({
   ":nth-of-type(3)": {
     animationDelay: "0.4s",
     marginRight: "0px",
-  },
-});
-
-const StyledDialog = styled(Dialog)({
-  "& .MuiDialog-paper": {
-    maxWidth: 1100,
-    maxHeight: 900,
-    width: "65vw",
-    height: "75vh",
-    paddingBottom: "16px",
-    display: "flex",
-    flexDirection: "column",
-    [`@media screen and (max-width: 640px)`]: {
-      width: "90vw",
-      height: "90vh",
-      fontSize: "0.75rem"
-   },
   },
 });
 
@@ -127,8 +111,8 @@ const StyledSelect = styled(Select)({
 });
 
 enum Sender {
-  "bot",
-  "user",
+  "support" = "support",
+  "user" = "user",
 }
 
 interface Message {
@@ -138,7 +122,11 @@ interface Message {
 
 const CHAT_URL = "https://chat.switchboard.xyz";
 
-const fetchChat = async (input: string, type: string, sessionId: string) => {
+const fetchChat = async (
+  input: string,
+  sessionId: string,
+  history: Message[]
+) => {
   return fetch(`${CHAT_URL}`, {
     method: "POST",
     headers: {
@@ -147,7 +135,15 @@ const fetchChat = async (input: string, type: string, sessionId: string) => {
     body: JSON.stringify({
       input,
       sessionId,
-      type,
+      type: "default",
+      history: history.map((h): { user: string; input: string } => {
+        const his = {
+          user: h.sender.toString(),
+          input: h.message,
+        };
+        console.log(his);
+        return his;
+      }),
     }),
   })
     .then((response) => {
@@ -161,13 +157,15 @@ const fetchChat = async (input: string, type: string, sessionId: string) => {
 };
 
 const WELCOME_MESSAGE = {
-  sender: Sender.bot,
+  sender: Sender.support,
   message: "Welcome to Switchboard Chat! Ask me a question below.",
 };
 
-const ChatBot = (props: { open: boolean; onClose: () => void }) => {
+const ChatBot = (props: {}) => {
   const [sessionId, setSessionId] = useState("");
-  const [sessionType, setSessionType] = useState<"default" | "oracle-job">("default");
+  const [sessionType, setSessionType] = useState<"default" | "oracle-job">(
+    "default"
+  );
   const [questionInput, setQuestionInput] = useState("");
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
   const [isTyping, setIsTyping] = useState(false);
@@ -193,7 +191,7 @@ const ChatBot = (props: { open: boolean; onClose: () => void }) => {
   // save to sessionStorage & use a ref to scroll down to most recent message
   useEffect(() => {
     sessionStorage.setItem("messageHistory", JSON.stringify(messageHistory));
-    endOfMessagesRef.current?.scrollIntoView({ behavior: "smooth" });
+    endOfMessagesRef.current.scrollIntoView({ behavior: "smooth" });
   }, [messageHistory]);
 
   useEffect(() => {
@@ -203,11 +201,11 @@ const ChatBot = (props: { open: boolean; onClose: () => void }) => {
 
   // need a timeout so that the ref exists when trying to
   // scroll down when you first open the modal
-  useEffect(() => {
-    setTimeout(() => {
-      endOfMessagesRef.current?.scrollIntoView({ behavior: "smooth" });
-    }, 100);
-  }, [props.open]);
+  // useEffect(() => {
+  //   setTimeout(() => {
+  //     endOfMessagesRef.current?.scrollIntoView({ behavior: "smooth" });
+  //   }, 100);
+  // }, [props.open]);
 
   const onQuestionInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setQuestionInput(e.target.value);
@@ -228,25 +226,23 @@ const ChatBot = (props: { open: boolean; onClose: () => void }) => {
       ...prevState,
       { sender: Sender.user, message },
     ]);
-    setQuestionInput("");
+    setTimeout(() => {
+      setQuestionInput("");
+    }, 100);
 
     // fetch response
     setIsTyping(true);
-    const response = await fetchChat(message, sessionType, sessionId);
+    const response = await fetchChat(message, sessionId, messageHistory);
     setIsTyping(false);
     setMessageHistory((prevState: Message[]) => [
       ...prevState,
-      { sender: Sender.bot, message: response },
+      { sender: Sender.support, message: response },
     ]);
   };
 
   const onQuestionKeyDown = (event: React.KeyboardEvent<HTMLDivElement>) => {
-    if (event.key === "Enter") {
-      if(!event.shiftKey){
-        submitQuestion();
-      } else {
-        // setQuestionInput(questionInput + "\r\n")
-      }
+    if (event.key === "Enter" && !event.shiftKey) {
+      submitQuestion();
     }
   };
 
@@ -261,7 +257,7 @@ const ChatBot = (props: { open: boolean; onClose: () => void }) => {
   };
 
   return (
-    <StyledDialog open={!!props.open} onClose={props.onClose}>
+    <>
       <StyledHeader>
         <div>
           <Typography
@@ -277,22 +273,33 @@ const ChatBot = (props: { open: boolean; onClose: () => void }) => {
             Ask a question and the Switchboard Bot will try to help!
           </Typography>
         </div>
-        <IconButton onClick={onMoreClick}>
-          <MoreVertIcon />
-        </IconButton>
-        <Menu
-          open={!!anchorEl}
-          onClose={() => setAnchorEl(null)}
-          anchorEl={anchorEl}
+        <Tooltip
+          title="Clear Chat History"
+          placement="bottom"
+          componentsProps={{
+            tooltip: {
+              sx: {
+                boxShadow: "rgba(100, 100, 111, 0.2) 0px 7px 29px 0px",
+                backgroundColor: "white",
+                color: "gray",
+                border: "solid 1px #8f95b2",
+                fontSize: "13px",
+              },
+            },
+          }}
         >
-          <MenuItem
+          <IconButton
             onClick={onClearChatClick}
-            sx={{ fontFamily: "Source Sans Pro", fontWeight: 600 }}
+            sx={{
+              ":hover": {
+                backgroundColor: "white",
+                opacity: 0.6,
+              },
+            }}
           >
-            Clear Chat History
             <HistoryIcon sx={{ marginLeft: "8px" }} />
-          </MenuItem>
-        </Menu>
+          </IconButton>
+        </Tooltip>
       </StyledHeader>
       <Divider sx={{ borderBottom: `solid 1px #ebf2fa` }} />
 
@@ -306,7 +313,7 @@ const ChatBot = (props: { open: boolean; onClose: () => void }) => {
           overflowY: "scroll",
         }}
       >
-        <div
+        {/* <div
           style={{
             display: "flex",
             alignItems: "center",
@@ -318,7 +325,9 @@ const ChatBot = (props: { open: boolean; onClose: () => void }) => {
           <span style={{ fontSize: "14px" }}>Mode:</span>
           <StyledSelect
             value={sessionType}
-            onChange={(e) => setSessionType(e.target.value as "default" | "oracle-job")}
+            onChange={(e) =>
+              setSessionType(e.target.value as "default" | "oracle-job")
+            }
           >
             <MenuItem
               value="default"
@@ -333,9 +342,10 @@ const ChatBot = (props: { open: boolean; onClose: () => void }) => {
               Job Builder
             </MenuItem>
           </StyledSelect>
-        </div>
+        </div> */}
         {messageHistory.map((message: Message, idx: number) => {
           const userMessage = message.sender === Sender.user;
+          console.log(message.message);
           return (
             <div
               key={idx}
@@ -347,11 +357,47 @@ const ChatBot = (props: { open: boolean; onClose: () => void }) => {
                 marginBottom: "8px",
                 maxWidth: "60%",
                 alignSelf: userMessage ? "flex-end" : "flex-start",
-                whiteSpace: userMessage ? "break-spaces" : undefined
+                whiteSpace: userMessage ? "break-spaces" : undefined,
               }}
               ref={messagesRef}
             >
-              {userMessage ? message.message.replace(/\n{2,}/g, "\n") : formatRawString(message.message)}
+              {userMessage ? (
+                message.message.trim()
+              ) : (
+                <ReactMarkdown
+                  children={message.message}
+                  remarkPlugins={[remarkGfm]}
+                  components={{
+                    code({ node, inline, className, children, ...props }) {
+                      const match = /language-(\w+)/.exec(className || "");
+                      const codeString =
+                        match[1] === "json" ||
+                        /^\s*\{(?:[\s\S]*\})?$/.test(String(children[0]).trim()) // test if string starts with and ends with { }
+                          ? JSON.stringify(
+                              JSON.parse(String(children[0])),
+                              undefined,
+                              2
+                            )
+                          : String(children[0]);
+                      console.log(codeString);
+                      return !inline && match ? (
+                        <CodeBlock
+                          children={codeString}
+                          lang={match[1]}
+                          PreTag="div"
+                          {...props}
+                        />
+                      ) : (
+                        <CodeBlock
+                          children={codeString}
+                          PreTag="div"
+                          {...props}
+                        />
+                      );
+                    },
+                  }}
+                />
+              )}
             </div>
           );
         })}
@@ -382,7 +428,7 @@ const ChatBot = (props: { open: boolean; onClose: () => void }) => {
             sx={{ flexGrow: 1, marginRight: "12px" }}
             autoComplete="off"
             multiline
-            margin="dense" 
+            margin="dense"
           />
           <IconButton onClick={submitQuestion}>
             <SendIcon sx={{ color: "#8f95b2" }} />
@@ -429,49 +475,95 @@ const ChatBot = (props: { open: boolean; onClose: () => void }) => {
           </span>
         </div>
       </div>
-    </StyledDialog>
+    </>
   );
 };
 
 export default ChatBot;
 
-
 /**
  * Remove leading and trailing whitespace and new lines
  * Replace triple backticks with <pre> tags
- * Replace any new line characters with <br /> elements
+ * Replace any new line characters with <br > elements
  */
 function formatRawString(input: string): Array<React.ReactElement> {
-  const text = input.replace(/^\n+|\n+$/g, '').trim(); // remove leading/trailing new lines
+  const text = input.replace(/^\n+|\n+$/g, "").trim(); // remove leading/trailing new lines
   const elements: Array<React.ReactElement> = [];
   const lines = text.split("\n");
   let currentText = "";
   let inCodeBlock = false;
   let codeLang = "";
-  for(const line of lines){
-    if(line.startsWith("```")) {
-      if(inCodeBlock) {
-        elements.push(<CodeBlock language={codeLang ?? "json"}>{currentText}</CodeBlock>)
+  let longHtmlString = "";
+  let id = 1;
+  for (const line of lines) {
+    if (line.startsWith("```")) {
+      if (inCodeBlock) {
+        elements.push(
+          <CodeBlock key={id} language={codeLang ?? "json"}>
+            {currentText.trim()}
+          </CodeBlock>
+        );
+        id += 1;
+        // longHtmlString += `<CodeBlock language="${
+        //   codeLang ?? "json"
+        // }">${currentText.trim()}</CodeBlock>`;
         currentText = "";
         inCodeBlock = false;
         codeLang = "";
       } else {
-        elements.push(<span>{currentText}</span>)
-        currentText = ""
+        elements.push(
+          <span key={id}>
+            {currentText
+              .trim()
+              .replace(/\[(.*?)\]\((.*?)\)/g, '<a href="$2">$1</a>')
+              .replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>")
+              .replaceAll("\n", " <br> ")}
+          </span>
+        );
+        id += 1;
+        // longHtmlString += `<span>${currentText
+        //   .trim()
+        //   .replace(/\[(.*?)\]\((.*?)\)/g, '<a href="$2">$1</a>')
+        //   .replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>")
+        //   .replaceAll("\n", " <br> ")}</span>`;
+        currentText = "";
         inCodeBlock = true;
+        console.log(`found code block`);
         codeLang = line.slice(0, 3) ?? "";
       }
     } else {
-      currentText += line + "\n"
+      currentText += line + "\n";
     }
   }
-  if(inCodeBlock) {
-    elements.push(<CodeBlock language={codeLang ?? "json"}>{currentText}</CodeBlock>)
+  if (inCodeBlock) {
+    elements.push(
+      <CodeBlock key={id} language={codeLang ?? "json"}>
+        {currentText.trim()}
+      </CodeBlock>
+    );
+    id += 1;
+    // longHtmlString += `<CodeBlock language="${
+    //   codeLang ?? "json"
+    // }">${currentText.trim()}</CodeBlock>`;
     currentText = "";
   } else {
-    elements.push(<span>{currentText}</span>)
-    currentText = ""
+    elements.push(
+      <span key={id}>
+        {currentText
+          .trim()
+          .replace(/\[(.*?)\]\((.*?)\)/g, '<a href="$2">$1</a>')
+          .replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>")
+          .replaceAll(/\n{1,}/g, " <br> ")}
+      </span>
+    );
+    id += 1;
+    // longHtmlString += `<span>${currentText
+    //   .trim()
+    //   .replace(/\[(.*?)\]\((.*?)\)/g, '<a href="$2">$1</a>')
+    //   .replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>")
+    //   .replaceAll(/\n{1,}/g, " <br> ")}</span>`;
+    currentText = "";
   }
-  return elements
-
+  return elements;
+  // return longHtmlString;
 }

@@ -1,3 +1,7 @@
+---
+source: "https://docs.switchboard.xyz/randomness"
+embedding-id: "vrf-overview"
+---
 While true-randomness on some computers can be made possible via atmospheric
 noise and special hardware modules, such solutions on blockchains are not
 possible since they are virtual machines without physical hardware. Thus,

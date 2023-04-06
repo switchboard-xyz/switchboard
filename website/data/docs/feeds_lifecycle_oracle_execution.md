@@ -1,3 +1,7 @@
+---
+source: "https://docs.switchboard.xyz/feeds/updates#oracle-execution"
+embedding-id: "feeds-lifecycle-oracle-execution"
+---
 - Oracle watches the chain for an **_AggregatorOpenRoundEvent_** with the
   oracle's public key assigned to the update
 - Oracle fetches the feed and job account definitions from its RPC Provider

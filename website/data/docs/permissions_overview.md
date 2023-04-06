@@ -1,3 +1,7 @@
+---
+source: "https://docs.switchboard.xyz/permissions"
+embedding-id: "permissions-overview"
+---
 Oracle queue resources, such as oracles, aggregators, VRF accounts, or buffer
 relayer accounts, _MUST_ have an associated PermissionAccount initialized before
 interacting with a queue. Permissions are granted by `queue.authority`, which

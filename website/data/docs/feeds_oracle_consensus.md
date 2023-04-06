@@ -1,3 +1,7 @@
+---
+source: "https://docs.switchboard.xyz/feeds/best-practices#oracle-consensus-1"
+embedding-id: "feeds-oracle-consensus"
+---
 Configure how many oracles are assigned to a request and how many must respond
 to accept a result.
 

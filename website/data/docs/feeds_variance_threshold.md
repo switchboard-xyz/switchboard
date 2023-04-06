@@ -1,3 +1,7 @@
+---
+source: "https://docs.switchboard.xyz/feeds/cost#variance-threshold"
+embedding-id: "feeds-variance-threshold"
+---
 A feed can set an `aggregator.varianceThreshold` to instruct an oracle to skip
 reporting a value on-chain if the percentage change between the current result
 and the `aggregator.previousConfirmedRoundResult` is not exceeded. This is a

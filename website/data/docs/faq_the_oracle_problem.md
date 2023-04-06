@@ -1,3 +1,7 @@
+---
+source: "https://docs.switchboard.xyz/faq"
+embedding-id: "faq-the-oracle-problem"
+---
 The oracle problem in blockchain is caused by the inability of blockchains to
 interact with external systems. Blockchains are isolated networks that only rely
 on data stored in their ledger to form a consensus on binary questions such as

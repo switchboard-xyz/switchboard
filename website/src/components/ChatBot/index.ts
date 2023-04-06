@@ -1,1 +1,1 @@
-export { default as ChatBot } from "./ChatBot";
+export { default as ChatModal } from "./ChatModal";

@@ -1,3 +1,8 @@
+---
+source: "https://docs.switchboard.xyz/queue"
+embedding-id: "queue-overview"
+---
+
 An oracle queue is an independent realm of oracles, responsible for allocating
 oracle resources for update requests from data feeds, randomness, or buffer
 relayers. Oracle queue's act as an aggregator for on-chain consumers looking to

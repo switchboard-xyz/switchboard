@@ -1,3 +1,7 @@
+---
+source: "https://docs.switchboard.xyz/faq"
+embedding-id: "faq-what-is-switchboard"
+---
 Switchboard is a multi-chain, permissionless oracle protocol for general purpose
 data feeds and verifiable randomness (VRF).
 

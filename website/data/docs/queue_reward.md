@@ -1,3 +1,7 @@
+---
+source: "https://docs.switchboard.xyz/queue#reward"
+embedding-id: "queue-reward"
+---
 The queue's specified `queue.reward` is the number of tokens an oracle or crank
 turner receives for successfully completing an on-chain action. For a crank
 turner this is turning the crank and invoking a data feed update. For an oracle

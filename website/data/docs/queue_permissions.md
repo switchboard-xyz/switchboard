@@ -1,3 +1,7 @@
+---
+source: "https://docs.switchboard.xyz/permissions"
+embedding-id: "queue-permissions"
+---
 An oracle with **PermitOracleHeartbeat** permissions _MUST_ periodically
 heartbeat on the queue to signal readiness, which adds the oracle to the queue
 and allows it to be assigned resource update requests. Oracle positions are

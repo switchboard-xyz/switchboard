@@ -1,3 +1,7 @@
+---
+source: "https://docs.switchboard.xyz/feeds"
+embedding-id: "feeds-overview"
+---
 An aggregator or data feed is what on-chain developers use when building smart
 contracts. A data feed is a collection of jobs that get aggregated to produce a
 single, deterministic result. Typically the first task in a job will fetch

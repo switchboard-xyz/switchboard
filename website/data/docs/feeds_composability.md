@@ -1,3 +1,7 @@
+---
+source: "https://docs.switchboard.xyz/feeds"
+embedding-id: "feeds-composability"
+---
 Data feeds may reference other data feeds and build upon each other. It is
 **_strongly_** recommended that you own any feed that you reference in case of
 downstream impacts out of your control. While anyone can extend another feeds

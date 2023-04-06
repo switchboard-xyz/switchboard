@@ -1,3 +1,7 @@
+---
+source: "https://docs.switchboard.xyz/feeds/history"
+embedding-id: "feeds-history"
+---
 A history buffer account stores a set number of accepted results for an
 aggregator, and given Solana’s maximum account size of 10MB, the maximum number
 of samples a single history buffer can support is ~350,000 samples. An

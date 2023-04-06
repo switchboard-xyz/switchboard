@@ -1,3 +1,7 @@
+---
+source: "https://docs.switchboard.xyz/network"
+embedding-id: "program-overview"
+---
 Switchboard is a multi-chain oracle, currently deployed on Aptos, CoreDAO, NEAR,
 Solana, Starknet, and Sui. Each is a native implementation with subtle
 differences but the overall architecture remains the same. The top-level program

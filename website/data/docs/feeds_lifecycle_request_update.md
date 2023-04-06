@@ -1,3 +1,7 @@
+---
+source: "https://docs.switchboard.xyz/feeds/updates#request-update"
+embedding-id: "feeds-lifecycle-request-update"
+---
 A feed is updated when someone calls `aggregatorOpenRound` on-chain. If
 openRound is called before `aggregator.minUpdateDelaySeconds` have elapsed, the
 openRound call will fail and the user will forfeit their transaction fees. If

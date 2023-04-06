@@ -1,3 +1,7 @@
+---
+source: "https://docs.switchboard.xyz/faq"
+embedding-id: "faq-contact-us"
+---
 Switchboard has a diverse set of communication tools for our community. Check
 them out below to stay up to date!
 

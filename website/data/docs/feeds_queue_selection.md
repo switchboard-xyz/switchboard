@@ -1,3 +1,7 @@
+---
+source: "https://docs.switchboard.xyz/feeds/best-practices#queue-selection"
+embedding-id: "feeds-queue-selection"
+---
 You should select a queue that will provide your feed with a sufficient level of
 security.
 

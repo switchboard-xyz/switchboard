@@ -1,3 +1,7 @@
+---
+source: "https://docs.switchboard.xyz/feeds/best-practices#data-source-diversity"
+embedding-id: "jobs-diversity"
+---
 The first step when building a feed is determining where you are sourcing your
 data from. Each data source should correspond to a job account, which is just a
 collection of Switchboard tasks, used to instruct the oracles on how to fetch

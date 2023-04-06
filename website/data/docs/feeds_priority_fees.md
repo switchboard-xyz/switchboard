@@ -1,3 +1,7 @@
+---
+source: "https://docs.switchboard.xyz/feeds/cost#priority-fees"
+embedding-id: "feeds-priority-fees"
+---
 During periods of network congestion, oracle responses may be dropped by the
 network. Solana added priority fees to combat this which aficts an extra fee on
 top of the transaction cost to incentivize the leader to process your

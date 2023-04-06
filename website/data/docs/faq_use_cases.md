@@ -1,3 +1,7 @@
+---
+source: "https://docs.switchboard.xyz/faq"
+embedding-id: "faq-use-cases"
+---
 With the power of off-chain data being brought on-chain, Switchboard has plugged
 into mulitple verticals to build blockchain based applications today, such as:
 

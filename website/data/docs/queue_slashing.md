@@ -1,3 +1,7 @@
+---
+source: "https://docs.switchboard.xyz/queue#slashing"
+embedding-id: "queue-slashing"
+---
 A queue may set `queue.slashingEnabled` to true in order to dissuade oracles
 from responding to update request outside a set margin of error.
 

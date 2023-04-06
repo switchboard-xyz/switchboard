@@ -1,3 +1,7 @@
+---
+source: "https://docs.switchboard.xyz/feeds/best-practices#oracle-consensus"
+embedding-id: "oracle-consensus"
+---
 Switchboard uses rounds to open and close a batch of oracle responses. A
 Switchboard feed has a specified minUpdateDelay which determines the minimum
 time a round is open for in order to give the oracles enough time to respond.

@@ -1,3 +1,13 @@
+---
+source: "https://docs.switchboard.xyz/crank"
+embedding-id: "crank-overview"
+tags:
+    - crank
+    - data feed
+    - jitter
+    - scheduling
+---
+
 A queue can choose to create one or many cranks. A crank is a scheduling
 mechanism that allows data feeds to request periodic updates. A crank can be
 turned by anyone, and if successful, the crank turner will be rewarded for jump

@@ -1,3 +1,7 @@
+---
+source: "https://docs.switchboard.xyz/feeds/best-practices"
+embedding-id: "feeds-best-practices-overview"
+---
 Developers building real world applications for web3 rely on oracles to relay
 and publish data on-chain. Oracles are not a one size fit all solution, in fact
 redundancy should be used depending on your use cases and risk tolerance.

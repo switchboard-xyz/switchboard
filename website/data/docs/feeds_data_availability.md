@@ -1,3 +1,7 @@
+---
+source: "https://docs.switchboard.xyz/feeds/best-practices#data-availability"
+embedding-id: "feeds-data-availability"
+---
 Configure when and how often you need new data on-chain.
 
 - **Crank / Automatic Updates** — any data feed that has sufficient queue

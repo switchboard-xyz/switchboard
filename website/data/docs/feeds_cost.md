@@ -1,3 +1,7 @@
+---
+source: "https://docs.switchboard.xyz/feeds/cost"
+embedding-id: "feeds-cost"
+---
 Each data feed has a LeaseContract, which is a pre-funded escrow account to
 reward oracles for fulfilling update request. The LeaseContract has a
 pre-specified `lease.withdrawAuthority` which is the only wallet allowed to

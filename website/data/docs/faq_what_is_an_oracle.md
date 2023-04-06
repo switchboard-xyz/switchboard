@@ -1,3 +1,7 @@
+---
+source: "https://docs.switchboard.xyz/faq"
+embedding-id: "faq-what-is-an-oracle"
+---
 Blockchains do not have the capability of directly relaying information from
 off-chain to on-chain. Hence, enter oracles, a gateway between blockchain and
 real world data.

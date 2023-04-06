@@ -1,3 +1,7 @@
+---
+source: "https://docs.switchboard.xyz/feeds/maintenance"
+embedding-id: "feeds-maintenance"
+---
 The following highlights some basic maintenance you should employ when creating
 your own Switchboard feed.
 

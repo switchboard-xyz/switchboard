@@ -1,3 +1,7 @@
+---
+source: "https://docs.switchboard.xyz/feeds/updates#oracle-consensus"
+embedding-id: "feeds-lifecycle-oracle-consensus"
+---
 When a new update is requested, the feeds `aggregator.currentRound` is zeroized.
 The AggregatorRound is updated each time an assigned oracle responds. After
 `aggregator.minOracleResponses` responses, the round is moved to

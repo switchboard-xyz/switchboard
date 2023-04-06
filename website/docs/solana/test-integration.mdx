@@ -99,13 +99,14 @@ describe("anchor-feed-parser test", () => {
 
   before(async () => {
     switchboard = await SwitchboardTestContext.loadFromProvider(provider, {
-      // You can provide a keypair to so the PDA schemes dont change between test runs
       name: "Test Queue",
+      // You can provide a keypair to so the PDA schemes dont change between test runs
       keypair: SwitchboardTestContext.loadKeypair("~/.keypairs/queue.json"),
       queueSize: 10,
       reward: 0,
       minStake: 0,
       oracleTimeout: 900,
+      // aggregators will not require PERMIT_ORACLE_QUEUE_USAGE before joining a queue
       unpermissionedFeeds: true,
       unpermissionedVrf: true,
       enableBufferRelayers: true,
@@ -120,12 +121,17 @@ describe("anchor-feed-parser test", () => {
 
     oracle = await NodeOracle.fromReleaseChannel({
       chain: "solana",
+      // use the latest testnet (devnet) version of the oracle
       releaseChannel: "testnet",
-      network: "localnet", // disables production capabilities like monitoring and alerts
-      rpcUrl: switchboard.program.connection.rpcEndpoint,
+      // disables production capabilities like monitoring and alerts
+      network: "localnet", 
+      rpcUrl: provider.connection.rpcEndpoint,
       oracleKey: switchboard.oracle.publicKey.toBase58(),
-      secretPath: switchboard.walletPath,
-      silent: false, // set to true to suppress oracle logs in the console
+      // path to the payer keypair so the oracle can pay for txns
+      secretPath: switchboard.walletPath || "~/.config/solana/id.json",
+      // set to true to suppress oracle logs in the console
+      silent: false, 
+      // optional env variables to speed up the workflow
       envVariables: {
         VERBOSE: "1",
         DEBUG: "1",
@@ -134,6 +140,7 @@ describe("anchor-feed-parser test", () => {
       },
     });
 
+    // start the oracle and wait for it to start heartbeating on-chain
     await oracle.startAndAwait();
   });
 
