@@ -366,7 +366,7 @@ const ChatBot = (props: {}) => {
                     code({ node, inline, className, children, ...props }) {
                       const match = /language-(\w+)/.exec(className || "");
                       const codeString =
-                        (match.length > 1 && match[1] === "json") ||
+                        (match && match.length > 1 && match[1] === "json") ||
                         /^\s*\{(?:[\s\S]*\})?$/.test(String(children[0]).trim()) // test if string starts with and ends with { }
                           ? JSON.stringify(
                               JSON.parse(String(children[0])),
