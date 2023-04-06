@@ -110,10 +110,7 @@ const StyledSelect = styled(Select)({
   },
 });
 
-enum Sender {
-  "support" = "support",
-  "user" = "user",
-}
+type Sender = "user" | "support";
 
 interface Message {
   sender: Sender;
@@ -155,8 +152,8 @@ const fetchChat = async (
     .catch(() => "Sorry, something went wrong. Please try again.");
 };
 
-const WELCOME_MESSAGE = {
-  sender: Sender.support,
+const WELCOME_MESSAGE: Message = {
+  sender: "support",
   message: "Welcome to Switchboard Chat! Ask me a question below.",
 };
 
@@ -223,7 +220,7 @@ const ChatBot = (props: {}) => {
 
     setMessageHistory((prevState: Message[]) => [
       ...prevState,
-      { sender: Sender.user, message },
+      { sender: "user", message },
     ]);
     setTimeout(() => {
       setQuestionInput("");
@@ -235,7 +232,7 @@ const ChatBot = (props: {}) => {
     setIsTyping(false);
     setMessageHistory((prevState: Message[]) => [
       ...prevState,
-      { sender: Sender.support, message: response },
+      { sender: "support", message: response },
     ]);
   };
 
@@ -343,7 +340,7 @@ const ChatBot = (props: {}) => {
           </StyledSelect>
         </div> */}
         {messageHistory.map((message: Message, idx: number) => {
-          const userMessage = message.sender === Sender.user;
+          const userMessage = message.sender === "user";
           return (
             <div
               key={idx}
@@ -369,7 +366,7 @@ const ChatBot = (props: {}) => {
                     code({ node, inline, className, children, ...props }) {
                       const match = /language-(\w+)/.exec(className || "");
                       const codeString =
-                        match[1] === "json" ||
+                        (match.length > 1 && match[1] === "json") ||
                         /^\s*\{(?:[\s\S]*\})?$/.test(String(children[0]).trim()) // test if string starts with and ends with { }
                           ? JSON.stringify(
                               JSON.parse(String(children[0])),
