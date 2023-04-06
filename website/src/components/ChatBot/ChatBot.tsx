@@ -141,7 +141,6 @@ const fetchChat = async (
           user: h.sender.toString(),
           input: h.message,
         };
-        console.log(his);
         return his;
       }),
     }),
@@ -345,7 +344,6 @@ const ChatBot = (props: {}) => {
         </div> */}
         {messageHistory.map((message: Message, idx: number) => {
           const userMessage = message.sender === Sender.user;
-          console.log(message.message);
           return (
             <div
               key={idx}
@@ -379,7 +377,6 @@ const ChatBot = (props: {}) => {
                               2
                             )
                           : String(children[0]);
-                      console.log(codeString);
                       return !inline && match ? (
                         <CodeBlock
                           children={codeString}
@@ -528,7 +525,6 @@ function formatRawString(input: string): Array<React.ReactElement> {
         //   .replaceAll("\n", " <br> ")}</span>`;
         currentText = "";
         inCodeBlock = true;
-        console.log(`found code block`);
         codeLang = line.slice(0, 3) ?? "";
       }
     } else {

@@ -18,8 +18,6 @@ export default function Term(props) {
     ? termsData[innerText]
     : "";
 
-  console.log(`${innerText}: ${definition}`);
-
   return definition ? (
     <Tooltip title={definition} arrow>
       <span style={textStyle}>{props.children}</span>
