@@ -3079,14 +3079,17 @@ export namespace OracleJob {
     /** JupiterSwapTask outTokenAddress */
     outTokenAddress?: string | null;
 
-    /** JupiterSwapTask baseAmount */
-    baseAmount?: number | null;
-
     /** JupiterSwapTask allowList */
     allowList?: OracleJob.JupiterSwapTask.IFilterList | null;
 
     /** JupiterSwapTask denyList */
     denyList?: OracleJob.JupiterSwapTask.IFilterList | null;
+
+    /** JupiterSwapTask baseAmount */
+    baseAmount?: number | null;
+
+    /** JupiterSwapTask quoteAmount */
+    quoteAmount?: number | null;
   }
 
   /** Represents a JupiterSwapTask. */
@@ -3103,17 +3106,23 @@ export namespace OracleJob {
     /** JupiterSwapTask outTokenAddress. */
     public outTokenAddress: string;
 
-    /** JupiterSwapTask baseAmount. */
-    public baseAmount: number;
-
     /** JupiterSwapTask allowList. */
     public allowList?: OracleJob.JupiterSwapTask.IFilterList | null;
 
     /** JupiterSwapTask denyList. */
     public denyList?: OracleJob.JupiterSwapTask.IFilterList | null;
 
+    /** JupiterSwapTask baseAmount. */
+    public baseAmount?: number | null;
+
+    /** JupiterSwapTask quoteAmount. */
+    public quoteAmount?: number | null;
+
     /** JupiterSwapTask RoutesFilters. */
     public RoutesFilters?: 'allowList' | 'denyList';
+
+    /** JupiterSwapTask SwapAmount. */
+    public SwapAmount?: 'baseAmount' | 'quoteAmount';
 
     /**
      * Creates a new JupiterSwapTask instance using the specified properties.

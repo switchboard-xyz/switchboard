@@ -7318,9 +7318,10 @@
        * @interface IJupiterSwapTask
        * @property {string|null} [inTokenAddress] JupiterSwapTask inTokenAddress
        * @property {string|null} [outTokenAddress] JupiterSwapTask outTokenAddress
-       * @property {number|null} [baseAmount] JupiterSwapTask baseAmount
        * @property {OracleJob.JupiterSwapTask.IFilterList|null} [allowList] JupiterSwapTask allowList
        * @property {OracleJob.JupiterSwapTask.IFilterList|null} [denyList] JupiterSwapTask denyList
+       * @property {number|null} [baseAmount] JupiterSwapTask baseAmount
+       * @property {number|null} [quoteAmount] JupiterSwapTask quoteAmount
        */
 
       /**
@@ -7355,14 +7356,6 @@
       JupiterSwapTask.prototype.outTokenAddress = '';
 
       /**
-       * JupiterSwapTask baseAmount.
-       * @member {number} baseAmount
-       * @memberof OracleJob.JupiterSwapTask
-       * @instance
-       */
-      JupiterSwapTask.prototype.baseAmount = 0;
-
-      /**
        * JupiterSwapTask allowList.
        * @member {OracleJob.JupiterSwapTask.IFilterList|null|undefined} allowList
        * @memberof OracleJob.JupiterSwapTask
@@ -7378,6 +7371,22 @@
        */
       JupiterSwapTask.prototype.denyList = null;
 
+      /**
+       * JupiterSwapTask baseAmount.
+       * @member {number|null|undefined} baseAmount
+       * @memberof OracleJob.JupiterSwapTask
+       * @instance
+       */
+      JupiterSwapTask.prototype.baseAmount = null;
+
+      /**
+       * JupiterSwapTask quoteAmount.
+       * @member {number|null|undefined} quoteAmount
+       * @memberof OracleJob.JupiterSwapTask
+       * @instance
+       */
+      JupiterSwapTask.prototype.quoteAmount = null;
+
       // OneOf field names bound to virtual getters and setters
       var $oneOfFields;
 
@@ -7389,6 +7398,17 @@
        */
       Object.defineProperty(JupiterSwapTask.prototype, 'RoutesFilters', {
         get: $util.oneOfGetter(($oneOfFields = ['allowList', 'denyList'])),
+        set: $util.oneOfSetter($oneOfFields),
+      });
+
+      /**
+       * JupiterSwapTask SwapAmount.
+       * @member {"baseAmount"|"quoteAmount"|undefined} SwapAmount
+       * @memberof OracleJob.JupiterSwapTask
+       * @instance
+       */
+      Object.defineProperty(JupiterSwapTask.prototype, 'SwapAmount', {
+        get: $util.oneOfGetter(($oneOfFields = ['baseAmount', 'quoteAmount'])),
         set: $util.oneOfSetter($oneOfFields),
       });
 
@@ -7450,6 +7470,11 @@
             message.denyList,
             writer.uint32(/* id 5, wireType 2 =*/ 42).fork()
           ).ldelim();
+        if (
+          message.quoteAmount != null &&
+          Object.hasOwnProperty.call(message, 'quoteAmount')
+        )
+          writer.uint32(/* id 6, wireType 1 =*/ 49).double(message.quoteAmount);
         return writer;
       };
 
@@ -7495,10 +7520,6 @@
               message.outTokenAddress = reader.string();
               break;
             }
-            case 3: {
-              message.baseAmount = reader.double();
-              break;
-            }
             case 4: {
               message.allowList =
                 $root.OracleJob.JupiterSwapTask.FilterList.decode(
@@ -7513,6 +7534,14 @@
                   reader,
                   reader.uint32()
                 );
+              break;
+            }
+            case 3: {
+              message.baseAmount = reader.double();
+              break;
+            }
+            case 6: {
+              message.quoteAmount = reader.double();
               break;
             }
             default:
@@ -7562,9 +7591,6 @@
         )
           if (!$util.isString(message.outTokenAddress))
             return 'outTokenAddress: string expected';
-        if (message.baseAmount != null && message.hasOwnProperty('baseAmount'))
-          if (typeof message.baseAmount !== 'number')
-            return 'baseAmount: number expected';
         if (message.allowList != null && message.hasOwnProperty('allowList')) {
           properties.RoutesFilters = 1;
           {
@@ -7585,6 +7611,23 @@
             if (error) return 'denyList.' + error;
           }
         }
+        if (
+          message.baseAmount != null &&
+          message.hasOwnProperty('baseAmount')
+        ) {
+          properties.SwapAmount = 1;
+          if (typeof message.baseAmount !== 'number')
+            return 'baseAmount: number expected';
+        }
+        if (
+          message.quoteAmount != null &&
+          message.hasOwnProperty('quoteAmount')
+        ) {
+          if (properties.SwapAmount === 1) return 'SwapAmount: multiple values';
+          properties.SwapAmount = 1;
+          if (typeof message.quoteAmount !== 'number')
+            return 'quoteAmount: number expected';
+        }
         return null;
       };
 
@@ -7603,8 +7646,6 @@
           message.inTokenAddress = String(object.inTokenAddress);
         if (object.outTokenAddress != null)
           message.outTokenAddress = String(object.outTokenAddress);
-        if (object.baseAmount != null)
-          message.baseAmount = Number(object.baseAmount);
         if (object.allowList != null) {
           if (typeof object.allowList !== 'object')
             throw TypeError(
@@ -7625,6 +7666,10 @@
               object.denyList
             );
         }
+        if (object.baseAmount != null)
+          message.baseAmount = Number(object.baseAmount);
+        if (object.quoteAmount != null)
+          message.quoteAmount = Number(object.quoteAmount);
         return message;
       };
 
@@ -7643,7 +7688,6 @@
         if (options.defaults) {
           object.inTokenAddress = '';
           object.outTokenAddress = '';
-          object.baseAmount = 0;
         }
         if (
           message.inTokenAddress != null &&
@@ -7655,11 +7699,16 @@
           message.hasOwnProperty('outTokenAddress')
         )
           object.outTokenAddress = message.outTokenAddress;
-        if (message.baseAmount != null && message.hasOwnProperty('baseAmount'))
+        if (
+          message.baseAmount != null &&
+          message.hasOwnProperty('baseAmount')
+        ) {
           object.baseAmount =
             options.json && !isFinite(message.baseAmount)
               ? String(message.baseAmount)
               : message.baseAmount;
+          if (options.oneofs) object.SwapAmount = 'baseAmount';
+        }
         if (message.allowList != null && message.hasOwnProperty('allowList')) {
           object.allowList =
             $root.OracleJob.JupiterSwapTask.FilterList.toObject(
@@ -7674,6 +7723,16 @@
             options
           );
           if (options.oneofs) object.RoutesFilters = 'denyList';
+        }
+        if (
+          message.quoteAmount != null &&
+          message.hasOwnProperty('quoteAmount')
+        ) {
+          object.quoteAmount =
+            options.json && !isFinite(message.quoteAmount)
+              ? String(message.quoteAmount)
+              : message.quoteAmount;
+          if (options.oneofs) object.SwapAmount = 'quoteAmount';
         }
         return object;
       };
