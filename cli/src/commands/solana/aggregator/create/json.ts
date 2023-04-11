@@ -121,7 +121,7 @@ export default class JsonCreateAggregator extends BaseCommand {
 
     const [aggregatorAccount, signatures] = await queueAccount.createFeed({
       // aggregator params
-      authority: authority,
+      authority: authority.publicKey,
       keypair: undefined, // An aggregatorKeypair will be generated for the new feed.
       name,
       metadata,

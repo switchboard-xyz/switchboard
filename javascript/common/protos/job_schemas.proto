@@ -322,6 +322,10 @@ message OracleJob {
       double base_amount = 3;
       // The amount of `out_token_address` tokens to swap.
       double quote_amount = 6;
+      // The amount of `in_token_address` tokens to swap.
+      string base_amount_string = 7;
+      // The amount of `out_token_address` tokens to swap.
+      string quote_amount_string = 8;
     }
   }
 

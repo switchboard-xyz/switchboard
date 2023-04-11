@@ -33,12 +33,12 @@ importers:
       '@oclif/plugin-warn-if-update-available': ^2.0.26
       '@oclif/test': ^2
       '@solana/web3.js': ^1.73.0
-      '@switchboard-xyz/aptos.js': ^2.6.6
-      '@switchboard-xyz/common': workspace:^2.1.33
+      '@switchboard-xyz/aptos.js': ^2.6.7
+      '@switchboard-xyz/common': workspace:^2.1.35
       '@switchboard-xyz/eslint-config': workspace:^0.1.8
-      '@switchboard-xyz/near.js': ^2.2.2
-      '@switchboard-xyz/oracle': workspace:^2.1.12
-      '@switchboard-xyz/solana.js': ^2.1.1
+      '@switchboard-xyz/near.js': ^2.2.3
+      '@switchboard-xyz/oracle': workspace:^2.1.13
+      '@switchboard-xyz/solana.js': ^2.1.8
       '@types/bs58': ^4.0.1
       '@types/chai': ^4
       '@types/listr': ^0.14.4
@@ -48,7 +48,7 @@ importers:
       '@types/node-fetch': ^2.6.2
       '@typescript-eslint/eslint-plugin': ^5.27.1
       '@typescript-eslint/parser': ^5.5.0
-      aptos: ^1.6.0
+      aptos: ^1.8.3
       aws-sdk: ^2.1167.0
       bs58: ^5.0.0
       chai: ^4
@@ -68,7 +68,7 @@ importers:
       listr: ^0.14.3
       lodash: ^4.17.21
       mocha: ^9
-      near-api-js: ^1.0.0
+      near-api-js: ^2.0.4
       near-units: ^0.1.9
       node-fetch: ^2.6.1
       npm-run-all: ^4.1.5
@@ -98,12 +98,12 @@ importers:
       '@oclif/plugin-version': 1.2.1_qqdszkrtcshgbphghj7vnvrrby
       '@oclif/plugin-warn-if-update-available': 2.0.26_qqdszkrtcshgbphghj7vnvrrby
       '@solana/web3.js': 1.73.0
-      '@switchboard-xyz/aptos.js': 2.6.6
+      '@switchboard-xyz/aptos.js': 2.6.7
       '@switchboard-xyz/common': link:../javascript/common
-      '@switchboard-xyz/near.js': 2.2.2_typescript@4.9.5
+      '@switchboard-xyz/near.js': 2.2.3_typescript@4.9.5
       '@switchboard-xyz/oracle': link:../javascript/oracle
-      '@switchboard-xyz/solana.js': 2.1.1
-      aptos: 1.6.0
+      '@switchboard-xyz/solana.js': 2.1.8
+      aptos: 1.8.3
       aws-sdk: 2.1236.0
       bs58: 5.0.0
       chalk: 4.1.2
@@ -111,7 +111,7 @@ importers:
       dotenv: 16.0.3
       listr: 0.14.3
       lodash: 4.17.21
-      near-api-js: 1.0.0
+      near-api-js: 2.0.4
       near-units: 0.1.9
       node-fetch: 2.6.7
       npm-run-all: 4.1.5
@@ -5098,7 +5098,7 @@ packages:
     engines: {node: ^8.13.0 || >=10.10.0}
     dependencies:
       '@grpc/proto-loader': 0.7.2
-      '@types/node': 18.11.19
+      '@types/node': 18.15.5
     dev: false
 
   /@grpc/proto-loader/0.6.13:
@@ -5759,6 +5759,121 @@ packages:
       prop-types: 15.8.1
       react: 17.0.2
       react-is: 18.2.0
+    dev: false
+
+  /@near-js/accounts/0.0.2:
+    resolution: {integrity: sha512-HCshQUI4LhkVXxR7AWNkaWcLkQQzEzefX/21+fACiVuLCYQ31GtNh+piyI9PVkPChAU/obf9zwwWNC2QCV/f6g==}
+    dependencies:
+      '@near-js/crypto': 0.0.2
+      '@near-js/providers': 0.0.2
+      '@near-js/signers': 0.0.2
+      '@near-js/transactions': 0.0.2
+      '@near-js/types': 0.0.2
+      '@near-js/utils': 0.0.2
+      ajv: 8.12.0
+      ajv-formats: 2.1.1
+      bn.js: 5.2.1
+      borsh: 0.7.0
+      depd: 2.0.0
+      near-abi: 0.1.1
+    transitivePeerDependencies:
+      - encoding
+    dev: false
+
+  /@near-js/crypto/0.0.2:
+    resolution: {integrity: sha512-hXEn4y73ifnde3c1nI/l8UCbQ7QVEdUw5RgBRYzOoloQeKjY97h/6q/Y+ZfeaKHtN+OEq6MZwkOj1RClmjyB2Q==}
+    dependencies:
+      '@near-js/types': 0.0.2
+      bn.js: 5.2.1
+      borsh: 0.7.0
+      tweetnacl: 1.0.3
+    dev: false
+
+  /@near-js/keystores-browser/0.0.2:
+    resolution: {integrity: sha512-k4HznJ0W3OvylWcNdRMQrKA+3bXH4HaAmI/4GSSPanj1N9Set5l8oEcbwx3yaaM16+JCvyY2uVJbFH5tLBGriw==}
+    dependencies:
+      '@near-js/crypto': 0.0.2
+      '@near-js/keystores': 0.0.2
+    dev: false
+
+  /@near-js/keystores-node/0.0.2:
+    resolution: {integrity: sha512-dBrzOViRF/fffF04oXaPnv3+nfFBcJeRbwWlof7pPlqanWwYvAwPg7wbzypJuZI9Y98voHb35ogHh1xYIFMDhg==}
+    dependencies:
+      '@near-js/crypto': 0.0.2
+      '@near-js/keystores': 0.0.2
+    dev: false
+
+  /@near-js/keystores/0.0.2:
+    resolution: {integrity: sha512-O3MNE2fE+mpxxJ8wLw0kxiAG65Pr37qegBM0JiIkRe7TsfBEz8AFTa0MB1+hypvuTCZvxL8wZKSBzMiDkEduHQ==}
+    dependencies:
+      '@near-js/crypto': 0.0.2
+      '@near-js/types': 0.0.2
+    dev: false
+
+  /@near-js/providers/0.0.2:
+    resolution: {integrity: sha512-w1sD4SUzYhEGBHLYjzMUoOvKpOHlydzSNYJd+khvY4T2/1r9MROFkgEwjOWKEtf3B6ox1BabEozuekEWS5/oQg==}
+    dependencies:
+      '@near-js/transactions': 0.0.2
+      '@near-js/types': 0.0.2
+      '@near-js/utils': 0.0.2
+      bn.js: 5.2.1
+      borsh: 0.7.0
+      http-errors: 1.8.1
+    optionalDependencies:
+      node-fetch: 2.6.9
+    transitivePeerDependencies:
+      - encoding
+    dev: false
+
+  /@near-js/signers/0.0.2:
+    resolution: {integrity: sha512-69nnrCs/jMOaLLLsGMG126nzANpkIA0fesJBzNtxyXqoVE+7nBMppMg41UKWetwn5AQhhkvugpFCe+OlcpOCHg==}
+    dependencies:
+      '@near-js/crypto': 0.0.2
+      '@near-js/keystores': 0.0.2
+      js-sha256: 0.9.0
+    dev: false
+
+  /@near-js/transactions/0.0.2:
+    resolution: {integrity: sha512-Pd687iAi0tooRi6r1a/i3zzcqrpkphtWsJcNlQTBlQbr5UumSPm9jwoOxajpqLYvUiP1P55eutaSODDGBk/eMQ==}
+    dependencies:
+      '@near-js/crypto': 0.0.2
+      '@near-js/signers': 0.0.2
+      '@near-js/types': 0.0.2
+      '@near-js/utils': 0.0.2
+      bn.js: 5.2.1
+      borsh: 0.7.0
+      js-sha256: 0.9.0
+    dev: false
+
+  /@near-js/types/0.0.2:
+    resolution: {integrity: sha512-+uZtc1ZsGAwK8udlUaHRJEjkRXkqwF4UaVXdaEpCoH0VyKc2W7DajECkIqAph7V80hJqoixLBUi/Pr/EP5WvYA==}
+    dependencies:
+      bn.js: 5.2.1
+    dev: false
+
+  /@near-js/utils/0.0.2:
+    resolution: {integrity: sha512-739GpXugsOMvkpsegF7M40PvIk2t1TnVpNU2b8VoLeB26e87q5n2+TbkLNeyMuX+zIPB9iBRI2a3CE/Yfoh0Lg==}
+    dependencies:
+      '@near-js/types': 0.0.2
+      bn.js: 5.2.1
+      depd: 2.0.0
+      mustache: 4.2.0
+    dev: false
+
+  /@near-js/wallet-account/0.0.2:
+    resolution: {integrity: sha512-GOtNWimOBIbkLd6hP8705jmVxcAMqeygEcpZZniiBzHxmxgsm/kAWXLNtL8WmUn/nyLRqYMdQVL+pKl8nHUMAw==}
+    dependencies:
+      '@near-js/accounts': 0.0.2
+      '@near-js/crypto': 0.0.2
+      '@near-js/keystores': 0.0.2
+      '@near-js/signers': 0.0.2
+      '@near-js/transactions': 0.0.2
+      '@near-js/types': 0.0.2
+      '@near-js/utils': 0.0.2
+      bn.js: 5.2.1
+      borsh: 0.7.0
+    transitivePeerDependencies:
+      - encoding
     dev: false
 
   /@noble/ed25519/1.7.1:
@@ -7060,13 +7175,12 @@ packages:
       - supports-color
     dev: false
 
-  /@switchboard-xyz/aptos.js/2.6.6:
-    resolution: {integrity: sha512-WkOrq0DzGsuCdPptZRvIB7UAHeyy74bURuJLtqMeT94bdg42ZUaQLiNqmYa1sLgUkoz7KzfXMj6QZEiOFG03yg==}
-    engines: {node: '>=10.4.0'}
-    hasBin: true
+  /@switchboard-xyz/aptos.js/2.6.7:
+    resolution: {integrity: sha512-vgaLxhjAu7D2GcKCJQPsDOCYhSUHJ0HKDQlBfIWoSAWGdn4Gl1VdqsWfzoAVyd6cIbFUjXKE9urt2gWHUUNspg==}
+    engines: {node: '>=12.0.0'}
     dependencies:
-      '@switchboard-xyz/common': 2.1.33
-      aptos: 1.6.0
+      '@switchboard-xyz/common': 2.1.35
+      aptos: 1.8.3
       big.js: 6.2.1
       bn.js: 5.2.1
       chalk: 5.1.2
@@ -7080,8 +7194,8 @@ packages:
       - utf-8-validate
     dev: false
 
-  /@switchboard-xyz/common/2.1.33:
-    resolution: {integrity: sha512-cZ+OPxYdD4Z3qBWlhWWgemXQDQoNiPh6mgd2bcF8mIGvdlJ1WzE5rD7UqfpuBM8Sq9bHe9c2oNDzGRGuNUtG0w==}
+  /@switchboard-xyz/common/2.1.35:
+    resolution: {integrity: sha512-EpRglSN53d/N62pAd9jDPNqh6aEyUA4cCuzYIitAThQr8eH91qPbmiMlLPPwX1sELuqDqe8WfhhPZMk3f9YJ3w==}
     dependencies:
       '@solana/web3.js': 1.73.0
       '@types/big.js': 6.1.6
@@ -7098,10 +7212,10 @@ packages:
       - utf-8-validate
     dev: false
 
-  /@switchboard-xyz/near.js/2.2.2_typescript@4.9.5:
-    resolution: {integrity: sha512-twk4odHwjhfm1p2rhttwPvoRdEszakuUapNpc4JYs0czLpxESDAazOuaeNCJxMOThwyLbjCEfZY30GoSQbZlkA==}
+  /@switchboard-xyz/near.js/2.2.3_typescript@4.9.5:
+    resolution: {integrity: sha512-E/ynDreAvK/jhY6me7/Ot9qXbWWyMwvRbjqTZ/J3F6R7SCFMRUvLO5F4cxZXZ5JBEdKp/kWabrDy3fGt+7QgPw==}
     dependencies:
-      '@switchboard-xyz/common': 2.1.33
+      '@switchboard-xyz/common': 2.1.35
       big.js: 6.2.1
       bn.js: 5.2.1
       bs58: 5.0.0
@@ -7109,7 +7223,7 @@ packages:
       isomorphic-ws: 5.0.0_ws@8.11.0
       js-sha256: 0.9.0
       lodash: 4.17.21
-      near-api-js: 1.0.0
+      near-api-js: 2.0.4
       near-lake-framework: 1.0.4
       near-units: 0.1.9
       reconnecting-websocket: 4.4.0
@@ -7126,28 +7240,15 @@ packages:
       - utf-8-validate
     dev: false
 
-  /@switchboard-xyz/oracle/2.1.13:
-    resolution: {integrity: sha512-ehuoC6PLNnIaU9a52/ZSsqioK9So6AraJZO1gxPn8V4PXGDi03i3n8N1d+/r/oESXQ6DKwNp2JXLcyGlmzk3Qg==}
-    dependencies:
-      '@terascope/fetch-github-release': 0.8.7
-      detect-port: 1.5.1
-      node-fetch: 2.6.9
-      xdg-basedir: 4.0.0
-    transitivePeerDependencies:
-      - encoding
-      - supports-color
-    dev: false
-
-  /@switchboard-xyz/solana.js/2.1.1:
-    resolution: {integrity: sha512-rfkriFRSZ6i5aH7rleJFo0iE5pu+9RrmE9YPP5eSVNvtib5RMYT4K2TvZf92nW8RUTrPQ11UkhHty5MqX2wM4A==}
+  /@switchboard-xyz/solana.js/2.1.8:
+    resolution: {integrity: sha512-BKxCfV7mLeiu88j9EqojDbraad0wk6q0G84HFnaCQmEdQkZBeNZB+ZRJuvjvew4b7jJzRD6hfZr3ynATO6rMdQ==}
     engines: {node: '>=16.0.0', npm: '>=7.0.0'}
     dependencies:
       '@coral-xyz/anchor': 0.27.0
       '@coral-xyz/borsh': 0.27.0_@solana+web3.js@1.73.0
       '@solana/spl-token': 0.3.7_@solana+web3.js@1.73.0
       '@solana/web3.js': 1.73.0
-      '@switchboard-xyz/common': 2.1.33
-      '@switchboard-xyz/oracle': 2.1.13
+      '@switchboard-xyz/common': 2.1.35
       dotenv: 16.0.3
       lodash: 4.17.21
     transitivePeerDependencies:
@@ -7252,7 +7353,7 @@ packages:
   /@types/bn.js/5.1.1:
     resolution: {integrity: sha512-qNrYbZqMx0uJAfKnKclPh+dTwK33KfLHYqtyODwd5HnXOjnkhc4qgn3BrK6RWyGZm5+sIFE7Q7Vz6QQtJB7w7g==}
     dependencies:
-      '@types/node': 18.14.6
+      '@types/node': 18.15.5
     dev: false
 
   /@types/body-parser/1.19.2:
@@ -7307,7 +7408,7 @@ packages:
   /@types/connect/3.4.35:
     resolution: {integrity: sha512-cdeYyv4KWoEgpBISTxWvqYsVy444DOqehiF3fM3ne10AmJ62RSyNkUnxMJXHQWRQQX2eR94m5y1IZyDwBjV9FQ==}
     dependencies:
-      '@types/node': 18.11.19
+      '@types/node': 18.15.5
     dev: false
 
   /@types/debug/4.1.7:
@@ -7435,7 +7536,7 @@ packages:
   /@types/keyv/3.1.4:
     resolution: {integrity: sha512-BQ5aZNSCpj7D6K2ksrRCTmKRLEpnPvWDiLPfoGyhZ++8YtiK9d/3DBKPJgry359X/P1PfruyYwvnvwFjuEiEIg==}
     dependencies:
-      '@types/node': 18.14.6
+      '@types/node': 18.15.5
     dev: false
 
   /@types/linkify-it/3.0.2:
@@ -7525,7 +7626,6 @@ packages:
 
   /@types/node/18.15.5:
     resolution: {integrity: sha512-Ark2WDjjZO7GmvsyFFf81MXuGTA/d6oP38anyxWOL6EREyBKAxKoFHwBhaZxCfLRLpO8JgVXwqOwSwa7jRcjew==}
-    dev: true
 
   /@types/normalize-package-data/2.4.1:
     resolution: {integrity: sha512-Gj7cI7z+98M282Tqmp2K5EIsoouUEzbBJhQQzDE3jSIRk6r9gsz0oUokqIUR4u1R3dMHo0pDHM7sNOHyhulypw==}
@@ -7682,7 +7782,7 @@ packages:
     resolution: {integrity: sha512-ayJ0iOCDNHnKpKTgBG6Q6JOnHTj9zFta+3j2b8Ejza0e4cvRyMn0ZoLEmbPrTHe5YYRlDYPvPWVdV4cTaRyH7g==}
     dependencies:
       '@types/expect': 1.20.4
-      '@types/node': 18.14.6
+      '@types/node': 18.15.5
     dev: false
 
   /@types/w3c-web-usb/1.0.6:
@@ -7692,7 +7792,7 @@ packages:
   /@types/ws/7.4.7:
     resolution: {integrity: sha512-JQbbmxZTZehdc2iszGKs5oC3NFnjeay7mtAWrdt7qNtAVK0g19muApzAy4bm9byz79xa2ZnO/BOBC2R8RC5Lww==}
     dependencies:
-      '@types/node': 18.11.19
+      '@types/node': 18.15.5
     dev: false
 
   /@types/ws/8.5.4:
@@ -8545,8 +8645,8 @@ packages:
     resolution: {integrity: sha512-lYe4Gx7QT+MKGbDsA+Z+he/Wtef0BiwDOlK/XkBrdfsh9J/jPPXbX0tE9x9cl27Tmu5gg3QUbUrQYa/y+KOHPQ==}
     dev: false
 
-  /aptos/1.6.0:
-    resolution: {integrity: sha512-5khjDwrDeNMDBFRcZAmETW20D+V2AqTdsgqkh6bvvl70BtRXdkitN0saM05gf1rK3atnO9PyUKO8iRaBDG5qtA==}
+  /aptos/1.8.3:
+    resolution: {integrity: sha512-lVnJwE+qx+YFJ2gXLvPnz67hJBkYwP0GnkBf1runkChs5FN/8Fxzmlf+q81eifCspC4Yk+03dH27exY1MIOjuA==}
     engines: {node: '>=11.0.0'}
     dependencies:
       '@noble/hashes': 1.1.3
@@ -16785,19 +16885,35 @@ packages:
     hasBin: true
     dev: true
 
-  /near-api-js/1.0.0:
-    resolution: {integrity: sha512-OYItaQIYlKK27FG5PrqqtkTI8Vv9TEOCi7gXePYigS4o6WofXciAXNjr4sihDJ8Vzi6s7+eEkf3zTNP3042FBw==}
+  /near-abi/0.1.1:
+    resolution: {integrity: sha512-RVDI8O+KVxRpC3KycJ1bpfVj9Zv+xvq9PlW1yIFl46GhrnLw83/72HqHGjGDjQ8DtltkcpSjY9X3YIGZ+1QyzQ==}
     dependencies:
+      '@types/json-schema': 7.0.11
+    dev: false
+
+  /near-api-js/2.0.4:
+    resolution: {integrity: sha512-JQjpcdJvnR9XdsXyZLXhh3mhe5tldL9pT9l1LNBE7cHw5sDZeQJPmlU2ZIBTQ0nE2jU4Us2XGpqetX5QH8EsPw==}
+    dependencies:
+      '@near-js/accounts': 0.0.2
+      '@near-js/crypto': 0.0.2
+      '@near-js/keystores': 0.0.2
+      '@near-js/keystores-browser': 0.0.2
+      '@near-js/keystores-node': 0.0.2
+      '@near-js/providers': 0.0.2
+      '@near-js/signers': 0.0.2
+      '@near-js/transactions': 0.0.2
+      '@near-js/types': 0.0.2
+      '@near-js/utils': 0.0.2
+      '@near-js/wallet-account': 0.0.2
+      ajv: 8.12.0
+      ajv-formats: 2.1.1
       bn.js: 5.2.1
       borsh: 0.7.0
-      bs58: 4.0.1
       depd: 2.0.0
       error-polyfill: 0.1.3
       http-errors: 1.8.1
-      js-sha256: 0.9.0
-      mustache: 4.2.0
+      near-abi: 0.1.1
       node-fetch: 2.6.9
-      text-encoding-utf-8: 1.0.2
       tweetnacl: 1.0.3
     transitivePeerDependencies:
       - encoding
@@ -18359,7 +18475,7 @@ packages:
       '@protobufjs/pool': 1.1.0
       '@protobufjs/utf8': 1.1.0
       '@types/long': 4.0.2
-      '@types/node': 18.11.19
+      '@types/node': 18.15.5
       long: 4.0.0
     dev: false
 

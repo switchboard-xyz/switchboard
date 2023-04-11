@@ -3090,6 +3090,12 @@ export namespace OracleJob {
 
     /** JupiterSwapTask quoteAmount */
     quoteAmount?: number | null;
+
+    /** JupiterSwapTask baseAmountString */
+    baseAmountString?: string | null;
+
+    /** JupiterSwapTask quoteAmountString */
+    quoteAmountString?: string | null;
   }
 
   /** Represents a JupiterSwapTask. */
@@ -3118,11 +3124,21 @@ export namespace OracleJob {
     /** JupiterSwapTask quoteAmount. */
     public quoteAmount?: number | null;
 
+    /** JupiterSwapTask baseAmountString. */
+    public baseAmountString?: string | null;
+
+    /** JupiterSwapTask quoteAmountString. */
+    public quoteAmountString?: string | null;
+
     /** JupiterSwapTask RoutesFilters. */
     public RoutesFilters?: 'allowList' | 'denyList';
 
     /** JupiterSwapTask SwapAmount. */
-    public SwapAmount?: 'baseAmount' | 'quoteAmount';
+    public SwapAmount?:
+      | 'baseAmount'
+      | 'quoteAmount'
+      | 'baseAmountString'
+      | 'quoteAmountString';
 
     /**
      * Creates a new JupiterSwapTask instance using the specified properties.

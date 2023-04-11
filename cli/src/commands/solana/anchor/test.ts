@@ -2,21 +2,38 @@ import { CliBaseCommand as BaseCommand } from "../../../BaseCommand";
 import { SolanaTestValidator } from "../../../providers/solana";
 import { loadKeypairFs } from "../../../utils/keypair";
 
-import * as anchor from "@coral-xyz/anchor";
 import { Flags } from "@oclif/core";
 import { clusterApiUrl, PublicKey } from "@solana/web3.js";
 import { sleep } from "@switchboard-xyz/common";
-import { DockerOracle } from "@switchboard-xyz/oracle";
-import {
-  getIdlAddress,
-  getProgramDataAddress,
-} from "@switchboard-xyz/solana.js";
+import { NodeOracle } from "@switchboard-xyz/oracle";
 import { SBV2_DEVNET_PID } from "@switchboard-xyz/solana.js";
 import { ChildProcess, spawn } from "child_process";
 import * as dotenv from "dotenv";
 import fs from "fs";
 import path from "path";
 import toml from "toml";
+
+/** Get the program data address for a given programId
+ * @param programId the programId for a given on-chain program
+ * @return the publicKey of the address holding the upgradeable program buffer
+ */
+export const getProgramDataAddress = (programId: PublicKey): PublicKey => {
+  return PublicKey.findProgramAddressSync(
+    [programId.toBytes()],
+    new PublicKey("BPFLoaderUpgradeab1e11111111111111111111111")
+  )[0];
+};
+
+/** Get the IDL address for a given programId
+ * @param programId the programId for a given on-chain program
+ * @return the publicKey of the IDL address
+ */
+export const getIdlAddress = async (
+  programId: PublicKey
+): Promise<PublicKey> => {
+  const base = PublicKey.findProgramAddressSync([], programId)[0];
+  return await PublicKey.createWithSeed(base, "anchor:idl", programId);
+};
 
 function getRequiredVariable(key: string): string {
   if (!(key in process.env)) {
@@ -67,7 +84,7 @@ export default class AnchorTest extends BaseCommand {
 
   solanaTestValidator?: SolanaTestValidator = undefined;
 
-  docker?: DockerOracle = undefined;
+  oracle?: NodeOracle = undefined;
 
   timestamp: number = Date.now();
 
@@ -321,22 +338,20 @@ export default class AnchorTest extends BaseCommand {
     /// /////////////////////////////////////////////////////////
     /// // SWITCHBOARD DOCKER ORACLE
     /// /////////////////////////////////////////////////////////
-    this.docker = new DockerOracle({
+    this.oracle = new NodeOracle({
       chain: "solana",
       network: cluster as "localnet" | "devnet",
       rpcUrl: rpcUrl,
       taskRunnerSolanaRpc: flags.mainnetRpcUrl,
       oracleKey: oracle,
       secretPath: keypairPath,
-      arch: flags.arm ? "linux/arm64" : "linux/amd64",
       imageTag: flags.nodeImage,
       switchboardDirectory: flags.switchboardDir,
       silent: flags.silent,
     });
 
     this.logger.info(`Starting oracle`);
-    this.docker.start();
-    await this.docker.awaitReady();
+    await this.oracle.startAndAwait(60);
 
     /// /////////////////////////////////////////////////////////
     /// // ANCHOR TEST
@@ -413,11 +428,11 @@ export default class AnchorTest extends BaseCommand {
       } catch {}
     }
 
-    if (this.docker) {
+    if (this.oracle) {
       try {
-        this.docker.stop();
+        this.oracle.stop();
         this.log(`Switchboard docker oracle killed`);
-        this.docker = undefined;
+        this.oracle = undefined;
       } catch {}
     }
   }

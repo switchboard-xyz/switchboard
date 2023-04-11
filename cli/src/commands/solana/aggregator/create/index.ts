@@ -167,7 +167,7 @@ export default class AggregatorCreate extends BaseCommand {
     const [aggregatorAccount, aggregatorInitTxns] =
       await queueAccount.createFeedInstructions(this.payer, {
         // aggregator params
-        authority: authority,
+        authority: authority.publicKey,
         keypair: keypair,
         name: flags.name,
         metadata: flags.metadata,

@@ -7322,6 +7322,8 @@
        * @property {OracleJob.JupiterSwapTask.IFilterList|null} [denyList] JupiterSwapTask denyList
        * @property {number|null} [baseAmount] JupiterSwapTask baseAmount
        * @property {number|null} [quoteAmount] JupiterSwapTask quoteAmount
+       * @property {string|null} [baseAmountString] JupiterSwapTask baseAmountString
+       * @property {string|null} [quoteAmountString] JupiterSwapTask quoteAmountString
        */
 
       /**
@@ -7387,6 +7389,22 @@
        */
       JupiterSwapTask.prototype.quoteAmount = null;
 
+      /**
+       * JupiterSwapTask baseAmountString.
+       * @member {string|null|undefined} baseAmountString
+       * @memberof OracleJob.JupiterSwapTask
+       * @instance
+       */
+      JupiterSwapTask.prototype.baseAmountString = null;
+
+      /**
+       * JupiterSwapTask quoteAmountString.
+       * @member {string|null|undefined} quoteAmountString
+       * @memberof OracleJob.JupiterSwapTask
+       * @instance
+       */
+      JupiterSwapTask.prototype.quoteAmountString = null;
+
       // OneOf field names bound to virtual getters and setters
       var $oneOfFields;
 
@@ -7403,12 +7421,19 @@
 
       /**
        * JupiterSwapTask SwapAmount.
-       * @member {"baseAmount"|"quoteAmount"|undefined} SwapAmount
+       * @member {"baseAmount"|"quoteAmount"|"baseAmountString"|"quoteAmountString"|undefined} SwapAmount
        * @memberof OracleJob.JupiterSwapTask
        * @instance
        */
       Object.defineProperty(JupiterSwapTask.prototype, 'SwapAmount', {
-        get: $util.oneOfGetter(($oneOfFields = ['baseAmount', 'quoteAmount'])),
+        get: $util.oneOfGetter(
+          ($oneOfFields = [
+            'baseAmount',
+            'quoteAmount',
+            'baseAmountString',
+            'quoteAmountString',
+          ])
+        ),
         set: $util.oneOfSetter($oneOfFields),
       });
 
@@ -7475,6 +7500,20 @@
           Object.hasOwnProperty.call(message, 'quoteAmount')
         )
           writer.uint32(/* id 6, wireType 1 =*/ 49).double(message.quoteAmount);
+        if (
+          message.baseAmountString != null &&
+          Object.hasOwnProperty.call(message, 'baseAmountString')
+        )
+          writer
+            .uint32(/* id 7, wireType 2 =*/ 58)
+            .string(message.baseAmountString);
+        if (
+          message.quoteAmountString != null &&
+          Object.hasOwnProperty.call(message, 'quoteAmountString')
+        )
+          writer
+            .uint32(/* id 8, wireType 2 =*/ 66)
+            .string(message.quoteAmountString);
         return writer;
       };
 
@@ -7542,6 +7581,14 @@
             }
             case 6: {
               message.quoteAmount = reader.double();
+              break;
+            }
+            case 7: {
+              message.baseAmountString = reader.string();
+              break;
+            }
+            case 8: {
+              message.quoteAmountString = reader.string();
               break;
             }
             default:
@@ -7628,6 +7675,24 @@
           if (typeof message.quoteAmount !== 'number')
             return 'quoteAmount: number expected';
         }
+        if (
+          message.baseAmountString != null &&
+          message.hasOwnProperty('baseAmountString')
+        ) {
+          if (properties.SwapAmount === 1) return 'SwapAmount: multiple values';
+          properties.SwapAmount = 1;
+          if (!$util.isString(message.baseAmountString))
+            return 'baseAmountString: string expected';
+        }
+        if (
+          message.quoteAmountString != null &&
+          message.hasOwnProperty('quoteAmountString')
+        ) {
+          if (properties.SwapAmount === 1) return 'SwapAmount: multiple values';
+          properties.SwapAmount = 1;
+          if (!$util.isString(message.quoteAmountString))
+            return 'quoteAmountString: string expected';
+        }
         return null;
       };
 
@@ -7670,6 +7735,10 @@
           message.baseAmount = Number(object.baseAmount);
         if (object.quoteAmount != null)
           message.quoteAmount = Number(object.quoteAmount);
+        if (object.baseAmountString != null)
+          message.baseAmountString = String(object.baseAmountString);
+        if (object.quoteAmountString != null)
+          message.quoteAmountString = String(object.quoteAmountString);
         return message;
       };
 
@@ -7733,6 +7802,20 @@
               ? String(message.quoteAmount)
               : message.quoteAmount;
           if (options.oneofs) object.SwapAmount = 'quoteAmount';
+        }
+        if (
+          message.baseAmountString != null &&
+          message.hasOwnProperty('baseAmountString')
+        ) {
+          object.baseAmountString = message.baseAmountString;
+          if (options.oneofs) object.SwapAmount = 'baseAmountString';
+        }
+        if (
+          message.quoteAmountString != null &&
+          message.hasOwnProperty('quoteAmountString')
+        ) {
+          object.quoteAmountString = message.quoteAmountString;
+          if (options.oneofs) object.SwapAmount = 'quoteAmountString';
         }
         return object;
       };
