@@ -128,6 +128,11 @@ const config = {
             to: "/network",
           },
           {
+            label: "V3",
+            position: "left",
+            to: "/v3",
+          },
+          {
             label: "Publish",
             position: "left",
             to: "/publisher",
