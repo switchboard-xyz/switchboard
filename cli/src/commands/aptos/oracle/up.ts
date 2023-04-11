@@ -2,7 +2,7 @@ import { AptosWithSignerBaseCommand as BaseCommand } from "../../../aptos";
 import { sleep } from "../../../utils";
 
 import { Args, Flags } from "@oclif/core";
-import { DockerOracle } from "@switchboard-xyz/oracle";
+import { IOracleConfig, NodeOracle } from "@switchboard-xyz/oracle";
 
 export default class AptosDockerOracle extends BaseCommand {
   static description = "start an aptos docker oracle";
@@ -14,12 +14,16 @@ export default class AptosDockerOracle extends BaseCommand {
       description:
         "directory with switchboard.env to load a switchboard environment",
     }),
+    releaseChannel: Flags.string({
+      description: "the oracle release channel",
+      default: "testnet",
+      options: ["testnet", "mainnet"],
+      exclusive: ["nodeImage"],
+    }),
     nodeImage: Flags.string({
       description: "public key of the oracle to start-up",
-      default: "dev-v2-RC_02_24_23_18_43",
-    }),
-    arm: Flags.boolean({
-      description: "apple silicon needs to use a docker image for linux/arm64",
+      default: "dev-v2-RC_04_11_23_17_12",
+      exclusive: ["releaseChannel"],
     }),
     silent: Flags.boolean({
       char: "s",
@@ -41,24 +45,37 @@ export default class AptosDockerOracle extends BaseCommand {
       args.oracleHexString
     );
 
-    // TODO: Add mounts for AWS creds
-    const docker = new DockerOracle({
+    const baseConfig: IOracleConfig = {
       chain: "aptos",
       network: flags.networkId as "testnet" | "devnet",
       rpcUrl: this.rpcUrl,
       oracleKey: oracleAccount.address.toString(),
       secretPath: this.normalizePath(flags.keypair!),
-      arch: flags.arm ? "linux/arm64" : "linux/amd64",
       envVariables: {
         PROGRAM_ID: this.programId.toString(),
       },
-      imageTag: flags.nodeImage,
       switchboardDirectory: flags.switchboardDir,
       silent: flags.silent,
-    });
-    docker.start();
+    };
+
+    const oracle = flags.nodeImage
+      ? new NodeOracle({ ...baseConfig, imageTag: flags.nodeImage })
+      : await NodeOracle.fromReleaseChannel({
+          ...baseConfig,
+          releaseChannel:
+            (flags.releaseChannel as "testnet" | "mainnet") || "testnet",
+        });
+
+    for (const signal of ["SIGTERM", "SIGEXIT", "exit"]) {
+      this.logger.debug(`${signal} received`);
+      oracle.stop();
+    }
+
+    await oracle.startAndAwait(60);
 
     await sleep(120_000);
+
+    oracle.stop();
   }
 
   async catch(error: any) {

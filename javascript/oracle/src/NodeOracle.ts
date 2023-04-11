@@ -4,8 +4,8 @@ import {
   IOracleConfig,
   Network,
   OracleTagVersion,
-  ReleaseChannelVersion,
   ReleaseChannel,
+  ReleaseChannelVersion,
 } from './types';
 import {
   downloadReleaseArtifact,

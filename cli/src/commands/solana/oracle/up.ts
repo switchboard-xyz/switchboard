@@ -3,7 +3,7 @@ import { sleep } from "../../../utils";
 
 import { Flags } from "@oclif/core";
 import { clusterApiUrl } from "@solana/web3.js";
-import { DockerOracle } from "@switchboard-xyz/oracle";
+import { IOracleConfig, NodeOracle } from "@switchboard-xyz/oracle";
 import { execSync } from "child_process";
 
 export default class SolanaDockerOracle extends BaseCommand {
@@ -15,12 +15,16 @@ export default class SolanaDockerOracle extends BaseCommand {
       description: "public key of the oracle to start-up",
       required: true,
     }),
+    releaseChannel: Flags.string({
+      description: "the oracle release channel",
+      default: "testnet",
+      options: ["testnet", "mainnet"],
+      exclusive: ["nodeImage"],
+    }),
     nodeImage: Flags.string({
       description: "public key of the oracle to start-up",
-      default: "dev-v2-RC_02_24_23_18_43",
-    }),
-    arm: Flags.boolean({
-      description: "apple silicon needs to use a docker image for linux/arm64",
+      default: "dev-v2-RC_04_11_23_17_12",
+      exclusive: ["releaseChannel"],
     }),
     timeout: Flags.integer({
       char: "t",
@@ -49,24 +53,36 @@ export default class SolanaDockerOracle extends BaseCommand {
       return;
     }
 
-    const docker = new DockerOracle({
+    const baseConfig: IOracleConfig = {
       chain: "solana",
       network: this.network,
       rpcUrl:
         flags.cluster === "localnet"
-          ? "http://host.docker.internal:8899"
+          ? "http://localhost:8899"
           : flags.rpcUrl ?? clusterApiUrl("devnet"),
       oracleKey: flags.oracleKey,
       secretPath: this.normalizePath(flags.keypair!),
-      arch: flags.arm ? "linux/arm64" : "linux/amd64",
-      imageTag: flags.nodeImage,
       switchboardDirectory: flags.switchboardDir,
       silent: flags.silent,
-    });
+    };
 
-    docker.start();
+    const oracle = flags.nodeImage
+      ? new NodeOracle({ ...baseConfig, imageTag: flags.nodeImage })
+      : await NodeOracle.fromReleaseChannel({
+          ...baseConfig,
+          releaseChannel:
+            (flags.releaseChannel as "testnet" | "mainnet") || "testnet",
+        });
+
+    for (const signal of ["SIGTERM", "SIGEXIT", "exit"]) {
+      this.logger.debug(`${signal} received`);
+      oracle.stop();
+    }
+
+    await oracle.startAndAwait(60);
+
     await sleep(flags.timeout * 1000);
-    docker.stop();
+    oracle.stop();
   }
 
   async catch(error: any) {

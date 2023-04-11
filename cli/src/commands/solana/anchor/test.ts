@@ -5,7 +5,7 @@ import { loadKeypairFs } from "../../../utils/keypair";
 import { Flags } from "@oclif/core";
 import { clusterApiUrl, PublicKey } from "@solana/web3.js";
 import { sleep } from "@switchboard-xyz/common";
-import { NodeOracle } from "@switchboard-xyz/oracle";
+import { IOracleConfig, NodeOracle } from "@switchboard-xyz/oracle";
 import { SBV2_DEVNET_PID } from "@switchboard-xyz/solana.js";
 import { ChildProcess, spawn } from "child_process";
 import * as dotenv from "dotenv";
@@ -128,12 +128,16 @@ export default class AnchorTest extends BaseCommand {
       description:
         "keypair that will pay for onchain transactions. defaults to new account authority if no alternate authority provided",
     }),
+    releaseChannel: Flags.string({
+      description: "the oracle release channel",
+      default: "testnet",
+      options: ["testnet", "mainnet"],
+      exclusive: ["nodeImage"],
+    }),
     nodeImage: Flags.string({
       description: "public key of the oracle to start-up",
-      default: "dev-v2-RC_02_24_23_18_43",
-    }),
-    arm: Flags.boolean({
-      description: "apple silicon needs to use a docker image for linux/arm64",
+      default: "dev-v2-RC_04_11_23_17_12",
+      exclusive: ["releaseChannel"],
     }),
     timeout: Flags.integer({
       char: "t",
@@ -219,7 +223,7 @@ export default class AnchorTest extends BaseCommand {
 
     const rpcUrl =
       cluster === "localnet"
-        ? "http://host.docker.internal:8899"
+        ? "http://localhost:8899"
         : flags.rpcUrl ?? clusterApiUrl(cluster);
 
     /// /////////////////////////////////////////////////////////
@@ -338,20 +342,35 @@ export default class AnchorTest extends BaseCommand {
     /// /////////////////////////////////////////////////////////
     /// // SWITCHBOARD DOCKER ORACLE
     /// /////////////////////////////////////////////////////////
-    this.oracle = new NodeOracle({
+    const baseConfig: IOracleConfig = {
       chain: "solana",
       network: cluster as "localnet" | "devnet",
       rpcUrl: rpcUrl,
       taskRunnerSolanaRpc: flags.mainnetRpcUrl,
       oracleKey: oracle,
       secretPath: keypairPath,
-      imageTag: flags.nodeImage,
       switchboardDirectory: flags.switchboardDir,
       silent: flags.silent,
-    });
+    };
+
+    this.oracle = flags.nodeImage
+      ? new NodeOracle({ ...baseConfig, imageTag: flags.nodeImage })
+      : await NodeOracle.fromReleaseChannel({
+          ...baseConfig,
+          releaseChannel:
+            (flags.releaseChannel as "testnet" | "mainnet") || "testnet",
+        });
+
+    for (const signal of ["SIGTERM", "SIGEXIT", "exit"]) {
+      this.logger.debug(`${signal} received`);
+      if (this.oracle) {
+        this.oracle.stop();
+        this.oracle = undefined;
+      }
+    }
 
     this.logger.info(`Starting oracle`);
-    await this.oracle.startAndAwait(60);
+    await this.oracle!.startAndAwait(60);
 
     /// /////////////////////////////////////////////////////////
     /// // ANCHOR TEST
