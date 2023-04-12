@@ -5,25 +5,42 @@
   "version": "2.1.35",
   "description": "common type definitions and utils for interacting with switchboard",
   "files": [
-    "lib",
-    "src",
-    "protos",
+    "lib/",
     "package.json",
-    "package-lock.json"
+    "index.cjs",
+    "index.js",
+    "index.d.ts",
+    "build.cjs",
+    "build.js",
+    "build.d.ts",
+    "utils.cjs",
+    "utils.js",
+    "utils.d.ts"
   ],
   "exports": {
     ".": {
-      "import": "./lib/esm/index.js",
-      "require": "./lib/cjs/index.js"
+      "types": "./index.d.ts",
+      "import": "./index.js",
+      "require": "./index.cjs"
+    },
+    "./build": {
+      "types": "./build.d.ts",
+      "import": "./build.js",
+      "require": "./build.cjs"
+    },
+    "./utils": {
+      "types": "./utils.d.ts",
+      "import": "./utils.js",
+      "require": "./utils.cjs"
     },
     "./package.json": "./package.json"
   },
-  "main": "lib/cjs/index.js",
-  "module": "lib/esm/index.js",
-  "types": "lib/cjs/index.d.ts",
+  "type": "module",
+  "main": "./index.js",
+  "types": "./index.d.ts",
   "scripts": {
     "watch": "tsc --watch",
-    "build": "node ./build.js",
+    "build": "node ./esbuild.js",
     "test": "jest",
     "prepack": "npm run lint && npm run build && npm run test",
     "lint": "gts lint ./src",

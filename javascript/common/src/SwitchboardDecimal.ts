@@ -1,4 +1,4 @@
-import Big from 'big.js';
+import { Big } from 'big.js';
 import BN from 'bn.js';
 /**
  * Switchboard precisioned representation of numbers.

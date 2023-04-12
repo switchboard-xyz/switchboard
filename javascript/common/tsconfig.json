@@ -2,10 +2,14 @@
   "extends": "./tsconfig.base.json",
   "compilerOptions": {
     "esModuleInterop": true,
-    "moduleResolution": "node",
-    "module": "es2022",
-    "target": "es2019",
-    "outDir": "lib/esm/",
-    "rootDir": "./src"
+    "module": "ESNext",
+    "outDir": "lib"
+  },
+  "typedocOptions": {
+    "entryPoints": [
+      "src/src/index.ts",
+      "src/src/build.ts",
+      "src/src/utils/index.ts"
+    ]
   }
 }

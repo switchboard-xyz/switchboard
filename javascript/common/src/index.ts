@@ -1,7 +1,7 @@
-export * from './OracleJob';
+export * from './OracleJob.js';
 export * from './protos/index.js';
-export * from './SwitchboardDecimal';
-export * from './utils';
+export * from './SwitchboardDecimal.js';
+export * from './utils/index.js';
 export { default as Big } from 'big.js';
 export { default as BN } from 'bn.js';
 

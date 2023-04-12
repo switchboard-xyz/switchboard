@@ -1,6 +1,6 @@
-import * as proto from './protos';
+import * as proto from './protos/index.js';
 
-import Big from 'big.js';
+import { Big } from 'big.js';
 
 /**
  * Serialize a stringified OracleJob and replace any json comments

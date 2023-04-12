@@ -1,8 +1,8 @@
-import { SwitchboardDecimal } from '../SwitchboardDecimal';
+import { SwitchboardDecimal } from '../SwitchboardDecimal.js';
 
-import { buf2String } from './string';
+import { buf2String } from './string.js';
 
-import Big from 'big.js';
+import { Big } from 'big.js';
 import BN from 'bn.js';
 
 function big2NumberOrString(big: Big): number | string {
