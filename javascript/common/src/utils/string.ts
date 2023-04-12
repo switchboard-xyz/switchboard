@@ -1,5 +1,9 @@
 /**
  * Converts to utf-8 encoding and removes null characters.
+ *
+ * @param buf - the buffer, byte array, or string to convert to utf-8 encoding
+ *
+ * @returns utf-8 encoded string
  */
 export const buf2String = (
   buf: Uint8Array | number[] | string | Buffer
@@ -9,12 +13,27 @@ export const buf2String = (
     .replace(/\u0000/g, '')
     .replace(/\0/g, '');
 
+/**
+ * Converts to utf-8 encoding and removes null characters.
+ *
+ * @param buf - the buffer, byte array, or string to convert to utf-8 encoding
+ *
+ * @returns utf-8 encoded string
+ */
 export const toUtf8 = buf2String;
 
-/** Determine whether a given string contains only base58 characters */
+/**
+ * Determine whether a given string contains only base58 characters
+ * @param value - the string to verify
+ * @returns boolean indicating if a value is base58 encoded
+ */
 export const isBase58 = (value: string): boolean =>
   /^[A-HJ-NP-Za-km-z1-9]*$/.test(value);
 
-/** Determine whether a given string contains a secretKey Uint8Array */
+/**
+ * Determine whether a given string contains a secretKey Uint8Array
+ * @param value - the string to verify
+ * @returns boolean indicating if a value contains a secretKey in byte array format
+ */
 export const isKeypairString = (value: string): boolean =>
   /^\[(\s)?[0-9]+((\s)?,(\s)?[0-9]+){31,}\]/.test(value);

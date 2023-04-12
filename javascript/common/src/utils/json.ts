@@ -17,6 +17,9 @@ function big2NumberOrString(big: Big): number | string {
   return big.toString();
 }
 
+/**
+ * Utility function for JSON.stringify to convert common types
+ */
 export function jsonReplacers(key: any, value: any): any {
   if (
     typeof value === 'string' ||

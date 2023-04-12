@@ -5,6 +5,21 @@
 export const sleep = (ms: number): Promise<any> =>
   new Promise(s => setTimeout(s, ms));
 
+/**
+ * Typescript assertion that a promise was successfully fulfilled
+ *
+ * Usage
+ * ```ts
+ * const promises: PromiseSettledResult<any> = await Promise.allSettled([..somePromises]);
+ * const resolvedPromises: PromiseFulfilledResult<any> = promises.filter(assertFulfilled);
+ * ```
+ */
+export function assertFulfilled<T>(
+  item: PromiseSettledResult<T>
+): item is PromiseFulfilledResult<T> {
+  return item.status === 'fulfilled';
+}
+
 export class TimeoutError extends Error {
   constructor(readonly ms: number, msg?: string) {
     super(
