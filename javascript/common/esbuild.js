@@ -184,13 +184,18 @@ async function main() {
     path.join(projectRoot, 'lib-cjs'),
     path.join(projectRoot, 'lib')
   );
-  generateEntrypoints(projectRoot, 'lib', {
-    index: 'src/index',
-    build: 'src/build',
-    utils: 'src/utils/index',
-    // 'big.js': 'src/big',
-    // 'bn.js': 'src/bn',
-  });
+  generateEntrypoints(
+    projectRoot,
+    'lib',
+    {
+      index: 'src/index',
+      build: 'src/build',
+      utils: 'src/utils/index',
+      // 'big.js': 'src/big',
+      // 'bn.js': 'src/bn',
+    },
+    true /** Include the src directory in the export */
+  );
   fs.rmSync(path.join(projectRoot, 'lib-cjs'), {
     recursive: true,
     force: true,
