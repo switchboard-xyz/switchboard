@@ -1,6 +1,6 @@
 {
   "name": "@switchboard-xyz/cli",
-  "version": "2.2.3",
+  "version": "2.2.4",
   "description": "command line tool to interact with switchboard",
   "author": "gallynaut @gallynaut",
   "bin": {
@@ -49,10 +49,10 @@
     "@oclif/plugin-warn-if-update-available": "^2.0.26",
     "@solana/web3.js": "^1.73.0",
     "@switchboard-xyz/aptos.js": "^2.6.7",
-    "@switchboard-xyz/common": "workspace:^2.1.35",
+    "@switchboard-xyz/common": "workspace:^2.1.45",
     "@switchboard-xyz/near.js": "^2.2.3",
     "@switchboard-xyz/oracle": "workspace:^2.1.13",
-    "@switchboard-xyz/solana.js": "^2.1.8",
+    "@switchboard-xyz/solana.js": "^2.1.9",
     "aptos": "^1.8.3",
     "aws-sdk": "^2.1167.0",
     "bs58": "^5.0.0",
