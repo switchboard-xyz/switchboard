@@ -1,10 +1,10 @@
-import * as proto from './protos';
+import * as proto from './protos/index.js';
 
-import Big from 'big.js';
+import { Big } from 'big.js';
 
 /**
  * Serialize a stringified OracleJob and replace any json comments
- * @param [job] Stringified OracleJob or object with an array of Switchboard tasks defined
+ * @param job - Stringified OracleJob or object with an array of Switchboard tasks defined
  * @throws {String}
  * @returns {proto.OracleJob }
  */
@@ -13,7 +13,7 @@ export function serializeOracleJob(
   job: string | proto.IOracleJob | Record<string, any>
 ): proto.OracleJob {
   if (!job) {
-    throw new Error('');
+    throw new Error(`No job to serialize`);
   }
 
   let jobObj: proto.IOracleJob;
@@ -29,7 +29,7 @@ export function serializeOracleJob(
     if (job.tasks.length === 0) {
       throw new Error(`OracleJob has no tasks defined`);
     }
-    jobObj = job;
+    jobObj = proto.OracleJob.fromObject(job);
   }
 
   try {
@@ -45,8 +45,8 @@ export function serializeOracleJob(
 
 /**
  * Deserialize an OracleJob from on-chain data
- * @param [jobData] Serialized OracleJob data
- * @returns {OracleJob}
+ * @param jobData - Serialized OracleJob data
+ * @returns {proto.OracleJob}
  */
 export function deserializeOracleJob(
   jobData: Buffer | Uint8Array
@@ -71,9 +71,15 @@ export type TaskRunnerResponse = TaskRunnerMeta & {
   result: Big;
 };
 
+/**
+ * Make an Http request to the task-runner endpoint to simulate an OracleJob result
+ * @param jobs - array of {@type proto.OracleJob} to run
+ * @param network - the task simulator network to use
+ * @returns the task simulator response
+ */
 export async function simulateOracleJobs(
   jobs: Array<proto.OracleJob>,
-  network: TaskSimulatorNetwork = 'devnet'
+  network: TaskSimulatorNetwork = 'mainnet-beta'
 ): Promise<TaskRunnerResponse> {
   const response = await fetch('https://task.switchboard.xyz/simulate', {
     method: 'POST',

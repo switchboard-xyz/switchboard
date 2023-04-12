@@ -1,8 +1,8 @@
-import { SwitchboardDecimal } from '../SwitchboardDecimal';
+import { SwitchboardDecimal } from '../SwitchboardDecimal.js';
 
-import { buf2String } from './string';
+import { buf2String } from './string.js';
 
-import Big from 'big.js';
+import { Big } from 'big.js';
 import BN from 'bn.js';
 
 function big2NumberOrString(big: Big): number | string {
@@ -17,6 +17,9 @@ function big2NumberOrString(big: Big): number | string {
   return big.toString();
 }
 
+/**
+ * Utility function for JSON.stringify to convert common types
+ */
 export function jsonReplacers(key: any, value: any): any {
   if (
     typeof value === 'string' ||

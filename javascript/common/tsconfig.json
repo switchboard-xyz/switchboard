@@ -1,11 +1,50 @@
 {
-  "extends": "./tsconfig.base.json",
+  "include": [
+    "./src/**/*"
+  ],
+  "exclude": [
+    "test/**/*",
+    "lib",
+    "node_modules"
+  ],
+  "files": [
+    "src/index.ts"
+  ],
   "compilerOptions": {
+    "module": "ESNext",
+    "outDir": "lib",
+    "rootDir": "./src",
+    "target": "es2022",
+    "lib": [
+      "ES2021",
+      "ES2022.Object",
+      "DOM"
+    ],
+    "moduleResolution": "nodenext",
+    "composite": false,
+    "inlineSources": true,
+    "inlineSourceMap": true,
+    "declaration": true,
+    "declarationMap": true,
+    "allowSyntheticDefaultImports": true,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
     "esModuleInterop": true,
-    "moduleResolution": "node",
-    "module": "es2022",
-    "target": "es2019",
-    "outDir": "lib/esm/",
-    "rootDir": "./src"
+    "resolveJsonModule": true,
+    "skipLibCheck": true,
+    "types": [
+      "node"
+    ],
+    "allowJs": true,
+    "checkJs": false,
+    "strict": true,
+    "noImplicitAny": true
+  },
+  "typedocOptions": {
+    "entryPoints": [
+      "src/index.ts",
+      "src/build.ts",
+      "src/utils/index.ts"
+    ]
   }
 }
