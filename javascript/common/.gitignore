@@ -7,3 +7,4 @@ build.d.ts
 utils.cjs
 utils.js
 utils.d.ts
+!src/build.js

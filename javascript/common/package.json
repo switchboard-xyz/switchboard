@@ -40,7 +40,7 @@
   "main": "./index.js",
   "types": "./index.d.ts",
   "scripts": {
-    "build": "rimraf lib && node ./esbuild.js",
+    "build": "rimraf lib && node ./esbuild.js && echo '!src/build.js' >> .gitignore",
     "test": "jest",
     "prepack": "npm run lint && npm run build && npm run test",
     "lint": "gts lint ./src",
