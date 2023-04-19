@@ -342,10 +342,10 @@ const config = {
             className: "header-github-link",
             "aria-label": "GitHub repository",
           },
-          {
-            type: "custom-chatBotNavbarItem",
-            position: "right",
-          },
+          // {
+          //   type: "custom-chatBotNavbarItem",
+          //   position: "right",
+          // },
           {
             type: "search",
             position: "right",
