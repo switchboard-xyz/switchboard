@@ -133,7 +133,7 @@ async function main() {
     encoding: 'utf-8',
   });
 
-  // Create protos in the lib/protos
+  // Create ESM protos in the lib/protos
   execSync(`${binPath}/tsc`, { encoding: 'utf-8' });
   execSync(
     `${binPath}/shx rm -rf lib/protos; ${binPath}/shx mkdir -p lib/protos; ${binPath}/pbjs --root sbv2Protos -t static-module --es6 -w \"es6\" -o lib/protos/index.js ./protos/*.proto && ${binPath}/pbts -o lib/protos/index.d.ts lib/protos/index.js && ${binPath}/shx --silent sed  -i 'protobufjs/minimal' 'protobufjs/minimal.js' lib/protos/index.js > '/dev/null' 2>&1 && ${binPath}/shx --silent sed -i 'import \\* as' 'import' lib/protos/index.js > '/dev/null' 2>&1`,
@@ -143,18 +143,20 @@ async function main() {
     path.join(projectRoot, 'lib', 'protos', 'index.js'),
     `OracleJob.HttpTask = (function() {`,
     `
+      import YAML from "yaml";
+    
       /**
        * Creates an OracleJob message from a YAML string.
        */
       OracleJob.fromYaml = function fromYaml(yamlString) {
-        return OracleJob.fromObject(require("yaml").parse(yamlString));
+        return OracleJob.fromObject(YAML.parse(yamlString));
       };
     
       /**
        * Converts this OracleJob to YAML.
        */
       OracleJob.prototype.toYaml = function toYaml() {
-        return require("yaml").stringify(this.toJSON());
+        return YAML.stringify(this.toJSON());
       };
     `
   );
