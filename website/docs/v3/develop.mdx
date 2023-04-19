@@ -1,0 +1,115 @@
+---
+sidebar_position: 80
+title: Develop
+---
+
+## Setup
+
+To get started, clone the Switchboard sgx-sdk:
+
+```bash
+git clone https://github.com/switchboard-xyz/sgx-sdk.git
+cd sgx-sdk
+```
+
+You will need a [Microsoft Azure](https://azure.microsoft.com) account to create
+an SGX virtual machine to compile some dependencies. Additional SGX cloud
+providers will be supported in the future.
+
+### Create Azure Development Environment
+
+The following script will create an SGX virtual machine to use as a development
+environment.
+
+1. Install the `azure-cli` package if its not installed
+2. Prompt you to login to Azure if not authenticated
+3. Create a new SSH key `id_azure_rsa`. Provide `-s id_rsa` to use a
+   pre-existing key at `~/.ssh/id_rsa`.
+4. Create a new SGX compatible Azure virtual machine in uksouth. Provide
+   `-l eastus` to change the azure location.
+5. Add the SSH key to the virtual machines `~/.ssh/known_hosts`
+6. Run a script at `~/setup_deps.sh` to install SGX dependencies
+
+```bash
+./scripts/create_azure_vm.sh -n my-sgx-vm
+```
+
+### Attach to Azure Development Environment
+
+The following script will:
+
+1. Use rsync to send the local SDK directory to the remote host directory
+   `/home/azureuser/workspace`
+2. Establish an SSH connection and open an interactive bash shell
+3. Upon an `exit` command, the shell will exit and sync and file changes from
+   the remote host to your local machine (exlcudes target, .git, node_modules
+   directories)
+
+```bash
+./scripts/attach_azure_vm.sh -n my-sgx-vm
+```
+
+#### Sync File Changes
+
+The following script will sync any file changes between the local SDK and the
+remote host:
+
+```bash
+./scripts/sync_azure_vm.sh -n my-sgx-vm
+```
+
+#### VSCode Remote SSH Extension
+
+You can attach your VS Code workspace to a virtual machine in Azure. Check out
+their guide for more information
+[VS Code - Remote Development using SSH](https://code.visualstudio.com/docs/remote/ssh).
+
+- Install the **Remote - SSH** extension in VS Code
+- Click the green arrows in the bottom left corner to pull up the remote
+  development options
+- Select _Connect Host_
+- You should see your Azure VM name populated in the lists of hosts. If not, you
+  may need to add your host to `~/.ssh/known_hosts` or manually input
+  `azureuser@YOUR_VM_IP_HERE`
+- Done! VS Code should now start a new workspace on the remote VM.
+
+Optionally, you can open your VS Code User settings.json and add the following
+lines to install a set of extensions on your remote host when you connect:
+
+```json
+{
+  "[rust]": {
+    "editor.defaultFormatter": "statiolake.vscode-rustfmt"
+  },
+  "remote.SSH.defaultExtensions": [
+    // Better TOML
+    "bungcip.better-toml",
+    // Rust Bundle
+    "1yib.rust-bundle",
+    // vscode-rustfmt
+    "statiolake.vscode-rustfmt",
+    // JS/TS Bundle
+    "ms-vscode.vscode-typescript-next",
+    // ESLint
+    "dbaeumer.vscode-eslint",
+    // Prettier
+    "esbenp.prettier-vscode",
+    // EditorConfig for VS Code
+    "editorconfig.editorconfig",
+    // Sync-Rsync (Sync between local and remote workstation)
+    "vscode-ext.sync-rsync"
+  ]
+}
+```
+
+Run the sync script above in a new shell anytime you need to update the changed
+files.
+
+## Example
+
+On your SGX compatible host, navigate to the basic example
+
+```bash
+cd examples/basic-example
+cargo build
+```

@@ -1,0 +1,48 @@
+---
+sidebar_position: 10
+title: Switchboard Attestation Program
+---
+
+The Switchboard Attestation Program is a Solana contract that verifies
+attestation quotes on-chain to grant or revoke oracle permissions. Switchboard
+oracles are required to submit a quote on-chain every 7 days or have this
+permissions revoked.
+
+The Switchboard Attestation Program is a vital component of the Switchboard V3
+ecosystem, aiming to enhance the security, trust, and decentralization of oracle
+services provided by Switchboard. The program leverages the power of Trusted
+Execution Environments (TEEs) to create a secure, verifiable, and trustless
+environment for oracles to operate within.
+
+In previous versions, Switchboard's security model relied on economic
+incentives, where data reporters were rewarded or penalized based on their
+proximity to the median of all reported data. Oracle operators were required to
+lock up a portion of economic stake and obtain explicit operating approval from
+the oracle queue's authority. While this model provided a certain level of
+decentralization and security, it faced limitations in aligning the incentives
+of oracles with the supported DeFi protocols.
+
+The Switchboard Attestation Program in V3 addresses these limitations by
+utilizing TEEs. TEEs enable the creation of unique digital signatures for the
+software running within them and the data generated from that software. This
+makes it possible to securely and verifiably confirm the integrity and
+authenticity of the oracles and their executions.
+
+With the Attestation Program, Switchboard V3 allows for:
+
+- **Oracle Verification**: Oracles are encapsulated within TEEs, generating a
+  unique digital signature that can be posted on-chain for public verification.
+  This ensures that the oracles can be trusted while maintaining a decentralized
+  and verifiable system.
+
+- **Execution Verification**: As the oracles participate in a queue and handle
+  user requests, the executions of data feeds, functions, and other tasks can be
+  verifiably carried out. This allows users to confirm that the transactions
+  being sent are strictly dictated by the code that created them, ensuring the
+  integrity and security of the system.
+
+The Switchboard Attestation Program is a crucial step forward in ensuring the
+security, trustworthiness, and decentralization of the Switchboard V3 ecosystem.
+By leveraging the power of TEEs and their unique attestation capabilities,
+Switchboard V3 empowers developers to build secure and feature-rich
+decentralized applications with confidence.

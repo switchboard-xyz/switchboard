@@ -1,7 +1,22 @@
 ---
-sidebar_position: 10
-title: TEE Overview
+sidebar_position: 1
+title: Switchboard V3
 slug: ./
 ---
 
-Coming Soon.
+import { Typography } from "@mui/material";
+
+Switchboard V3 uses Trusted Execution Environments (TEEs) like Intel SGX to
+verify the integrity of the code running within an enclave to prove it has not
+been tampered with, reducing the degree of trust needed in decentralized
+systems.
+
+<Typography variant="h5">Table of Contents</Typography>
+
+- [TEE Overview](/v3/tee): Overview of TEEs and Intel SGX
+- [Switchboard Attestation Program](/v3/attestation): How Switchboard verifies
+  attestation quotes on-chain to enable trusted execution of code
+- [Switchboard Services](/v3/services): Write and deploy your own Rust logic in
+  a secure enclave
+- [Develop](/v3/develop): Use the Switchboard SGX SDK and build your own
+  Switchboard service
