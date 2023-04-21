@@ -2,7 +2,7 @@
   "name": "@switchboard-xyz/common",
   "author": "",
   "license": "MIT",
-  "version": "2.1.46",
+  "version": "2.1.47",
   "description": "common type definitions and utils for interacting with switchboard",
   "files": [
     "lib/",

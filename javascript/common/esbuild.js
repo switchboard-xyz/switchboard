@@ -143,8 +143,6 @@ async function main() {
     path.join(projectRoot, 'lib', 'protos', 'index.js'),
     `OracleJob.HttpTask = (function() {`,
     `
-      import YAML from "yaml";
-    
       /**
        * Creates an OracleJob message from a YAML string.
        */
@@ -160,6 +158,17 @@ async function main() {
       };
     `
   );
+  // kind of hacky but were gonna re-read and write the file with the import statement after the linting line
+  const protoLines = fs
+    .readFileSync(path.join(projectRoot, 'lib', 'protos', 'index.js'), 'utf-8')
+    .split('\n');
+  const protoLintingLine = protoLines.shift();
+
+  fs.writeFileSync(
+    path.join(projectRoot, 'lib', 'protos', 'index.js'),
+    [protoLintingLine, `import YAML from "yaml";`, ...protoLines].join('\n')
+  );
+
   insertStringBeforeSync(
     path.join(projectRoot, 'lib', 'protos', 'index.d.ts'),
     `public static create(properties?: IOracleJob): OracleJob;`,
