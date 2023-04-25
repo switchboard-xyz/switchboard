@@ -88,12 +88,16 @@ const config = {
         indexName: "switchboard",
       },
       navbar: {
-        title: "Switchboard",
-        logo: {
-          alt: "Switchboard Logo",
-          src: "img/logo.svg",
-        },
+        // title: "Switchboard",
+        // logo: {
+        //   alt: "Switchboard Logo",
+        //   src: "img/logo.svg",
+        // },
         items: [
+          {
+            type: "custom-supportedChainsNavbarItem",
+            position: "left",
+          },
           {
             type: "docSidebar",
             sidebarId: "aboutSidebar",
@@ -102,20 +106,63 @@ const config = {
           },
           {
             type: "docSidebar",
+            sidebarId: "archSidebar",
+            position: "left",
+            label: "Architecture",
+          },
+          // {
+          //   type: "dropdown",
+          //   label: "Integrate",
+          //   position: "left",
+          //   items: [
+          //     {
+          //       label: " Aptos",
+          //       to: "/aptos",
+          //       className: "header-aptos-link",
+          //     },
+          //     {
+          //       label: " CoreDAO",
+          //       to: "/coredao",
+          //       className: "header-coredao-link",
+          //     },
+          //     {
+          //       label: " Near",
+          //       to: "/near",
+          //       className: "header-near-link",
+          //     },
+          //     {
+          //       label: " Solana",
+          //       to: "/solana",
+          //       className: "header-solana-link",
+          //     },
+          //     {
+          //       label: " Starknet",
+          //       to: "/starknet",
+          //       className: "header-starknet-link",
+          //     },
+          //     {
+          //       label: " Sui",
+          //       to: "/sui",
+          //       className: "header-sui-link",
+          //     },
+          //   ],
+          // },
+          {
+            type: "docSidebar",
             sidebarId: "apiSidebar",
             position: "left",
             label: "API",
           },
-          { to: "/blog", label: "Blog", position: "left" },
+          { to: "/blog", label: "Blog", position: "right" },
+          {
+            type: "search",
+            position: "right",
+          },
           {
             href: "https://github.com/switchboard-xyz",
             position: "right",
             className: "header-github-link",
             "aria-label": "GitHub repository",
-          },
-          {
-            type: "search",
-            position: "right",
           },
         ],
       },
