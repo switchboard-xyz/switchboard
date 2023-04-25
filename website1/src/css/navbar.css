@@ -1,0 +1,50 @@
+.navbar {
+  height: 80px;
+  width: 100vw;
+  /* display: flex; */
+  padding: 0 2.5vw;
+}
+
+.navbar__item {
+  max-width: 20rem;
+  font-size: 1.1rem;
+  font-weight: 500;
+  padding: 0 1vw;
+  overflow-wrap: break-word;
+}
+
+html[data-theme="dark"] .navbar {
+  border-bottom: solid 1px #8998aa;
+}
+
+.navbar__title {
+  font-size: 1.6rem;
+}
+
+.navbar__inner {
+  /* max-width: 1024px; */
+  margin: auto;
+}
+
+.navbar__logo {
+  margin-right: 1rem;
+  height: 48px;
+  width: 48px;
+}
+
+.navbar__link--active {
+  font-weight: 700;
+}
+
+.dropdown-separator {
+  margin: 0.3rem 0;
+}
+
+.dropdown-heading {
+  font-size: 0.875rem;
+  padding: 0.2rem 0.5rem;
+}
+
+[data-theme="dark"] .dropdown-heading {
+  color: whitesmoke;
+}
