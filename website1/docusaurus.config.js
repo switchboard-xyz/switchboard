@@ -77,8 +77,6 @@ const config = {
   themeConfig:
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
-      // Replace with your project's social card
-      image: "img/docusaurus-social-card.jpg",
       sidebar: {
         hideable: true,
       },
@@ -88,21 +86,24 @@ const config = {
         indexName: "switchboard",
       },
       navbar: {
-        // title: "Switchboard",
-        // logo: {
-        //   alt: "Switchboard Logo",
-        //   src: "img/logo.svg",
-        // },
+        title: "Switchboard",
+        logo: {
+          alt: "Switchboard Logo",
+          src: "img/logo.svg",
+          srcDark: "img/logo_white.svg",
+          width: 72,
+          height: 72,
+        },
         items: [
-          {
-            type: "custom-supportedChainsNavbarItem",
-            position: "left",
-          },
+          // {
+          //   type: "custom-supportedChainsNavbarItem",
+          //   position: "left",
+          // },
           {
             type: "docSidebar",
-            sidebarId: "aboutSidebar",
+            sidebarId: "gettingStartedSidebar",
             position: "left",
-            label: "About",
+            label: "Getting Started",
           },
           {
             type: "docSidebar",
@@ -110,49 +111,50 @@ const config = {
             position: "left",
             label: "Architecture",
           },
-          // {
-          //   type: "dropdown",
-          //   label: "Integrate",
-          //   position: "left",
-          //   items: [
-          //     {
-          //       label: " Aptos",
-          //       to: "/aptos",
-          //       className: "header-aptos-link",
-          //     },
-          //     {
-          //       label: " CoreDAO",
-          //       to: "/coredao",
-          //       className: "header-coredao-link",
-          //     },
-          //     {
-          //       label: " Near",
-          //       to: "/near",
-          //       className: "header-near-link",
-          //     },
-          //     {
-          //       label: " Solana",
-          //       to: "/solana",
-          //       className: "header-solana-link",
-          //     },
-          //     {
-          //       label: " Starknet",
-          //       to: "/starknet",
-          //       className: "header-starknet-link",
-          //     },
-          //     {
-          //       label: " Sui",
-          //       to: "/sui",
-          //       className: "header-sui-link",
-          //     },
-          //   ],
-          // },
           {
             type: "docSidebar",
             sidebarId: "apiSidebar",
             position: "left",
             label: "API",
           },
+          {
+            type: "dropdown",
+            label: "Networks",
+            position: "left",
+            items: [
+              {
+                label: " Aptos",
+                to: "/aptos",
+                className: "header-aptos-link",
+              },
+              {
+                label: " CoreDAO",
+                to: "/coredao",
+                className: "header-coredao-link",
+              },
+              {
+                label: " Near",
+                to: "/near",
+                className: "header-near-link",
+              },
+              {
+                label: " Solana",
+                to: "/solana",
+                className: "header-solana-link",
+              },
+              {
+                label: " Starknet",
+                to: "/starknet",
+                className: "header-starknet-link",
+              },
+              {
+                label: " Sui",
+                to: "/sui",
+                className: "header-sui-link",
+              },
+            ],
+          },
+
           { to: "/blog", label: "Blog", position: "right" },
           {
             type: "search",
@@ -163,6 +165,12 @@ const config = {
             position: "right",
             className: "header-github-link",
             "aria-label": "GitHub repository",
+          },
+          {
+            href: "https://twitter.com/switchboard-xyz",
+            position: "right",
+            className: "header-twitter-link",
+            "aria-label": "Twitter Link",
           },
         ],
       },
