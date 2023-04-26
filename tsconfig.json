@@ -14,8 +14,8 @@
         {
             "path": "cli"
         },
-        {
-            "path": "sdks/solana/javascript/solana.js"
-        }
+        // {
+        //     "path": "sdks/solana/javascript/solana.js"
+        // }
     ]
 }
