@@ -1,0 +1,21 @@
+{
+    "$schema": "https://json.schemastore.org/tsconfig",
+    "files": [],
+    "references": [
+        {
+            "path": "website"
+        },
+        {
+            "path": "javascript/common"
+        },
+        {
+            "path": "javascript/oracle"
+        },
+        {
+            "path": "cli"
+        },
+        {
+            "path": "sdks/solana/javascript/solana.js"
+        }
+    ]
+}

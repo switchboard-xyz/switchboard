@@ -22,5 +22,11 @@
     "type": "git",
     "url": "https://github.com/switchboard-xyz/sbv2-core.git"
   },
+  "workspaces": [
+    "javascript/*",
+    "cli",
+    "website",
+    "sdks/solana/javascript/*"
+  ],
   "packageManager": "pnpm@7.17.0"
 }

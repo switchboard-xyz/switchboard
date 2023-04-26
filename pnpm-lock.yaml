@@ -636,6 +636,9 @@ importers:
       clsx:
         specifier: ^1.2.1
         version: 1.2.1
+      docusaurus-plugin-typedoc-api:
+        specifier: ^3.0.0
+        version: 3.0.0(@docusaurus/core@2.4.0)(react-dom@17.0.2)(react@17.0.2)(typescript@4.9.5)
       dotenv:
         specifier: ^16.0.3
         version: 16.0.3
@@ -9229,6 +9232,10 @@ packages:
     resolution: {integrity: sha512-sL/cEvJWAnClXw0wHk85/2L0G6Sj8UB0Ctc1TEMbKSsmpRosqhwj9gWgFRZSrBr2f9tiXISwNhCPmlfqUqyb9Q==}
     dev: true
 
+  /@vscode/codicons@0.0.32:
+    resolution: {integrity: sha512-3lgSTWhAzzWN/EPURoY4ZDBEA80OPmnaknNujA3qnI4Iu7AONWd9xF3iE4L+4prIe8E3TUnLQ4pxoaFTEEZNwg==}
+    dev: false
+
   /@webassemblyjs/ast@1.11.1:
     resolution: {integrity: sha512-ukBh14qFLjxTQNTXocdyksN5QdM28S1CxHt2rdskFyL+xFV7VremuBLVbmCePj+URalXBENx/9Lm7lnhihtCSw==}
     dependencies:
@@ -12020,6 +12027,41 @@ packages:
     engines: {node: '>=6.0.0'}
     dependencies:
       esutils: 2.0.3
+
+  /docusaurus-plugin-typedoc-api@3.0.0(@docusaurus/core@2.4.0)(react-dom@17.0.2)(react@17.0.2)(typescript@4.9.5):
+    resolution: {integrity: sha512-2nYwWFvhSvV9AdJRyVwtVmRGe5PwfnXdSCyIoY8mC4bnEMWsdnFCf2CGO3YjZc+HC6myO7Arovtv+WlJQdsnTA==}
+    engines: {node: '>=16.12.0'}
+    peerDependencies:
+      '@docusaurus/core': ^2.0.0
+      react: '>=16.0.0'
+      typescript: ^4.0.0 || ^5.0.0
+    dependencies:
+      '@docusaurus/core': 2.4.0(@docusaurus/types@2.4.0)(react-dom@17.0.2)(react@17.0.2)(typescript@4.9.5)
+      '@docusaurus/plugin-content-docs': 2.4.0(react-dom@17.0.2)(react@17.0.2)(typescript@4.9.5)
+      '@docusaurus/types': 2.4.0(react-dom@17.0.2)(react@17.0.2)
+      '@docusaurus/utils': 2.4.0(@docusaurus/types@2.4.0)
+      '@vscode/codicons': 0.0.32
+      marked: 4.3.0
+      react: 17.0.2
+      typedoc: 0.23.28(typescript@4.9.5)
+      typescript: 4.9.5
+    transitivePeerDependencies:
+      - '@parcel/css'
+      - '@swc/core'
+      - '@swc/css'
+      - bufferutil
+      - csso
+      - debug
+      - esbuild
+      - eslint
+      - lightningcss
+      - react-dom
+      - supports-color
+      - uglify-js
+      - utf-8-validate
+      - vue-template-compiler
+      - webpack-cli
+    dev: false
 
   /docusaurus-protobuffet-plugin@0.3.3(@docusaurus/types@2.3.1):
     resolution: {integrity: sha512-cDu6Ne/XRjI4XqgFW1Ed1bviTbxQAxzRVAMHUNnYbllWIhqMkcQA/Q+SHFIW4kuRXDup5X7uRrPmd2xc6rVI1Q==}
@@ -16681,6 +16723,12 @@ packages:
     resolution: {integrity: sha512-yr8hSKa3Fv4D3jdZmtMMPghgVt6TWbk86WQaWhDloQjRSQhMMYCAro7jP7VDJrjjdV8pxVxMssXS8B8Y5DZ5aw==}
     engines: {node: '>= 12'}
     hasBin: true
+
+  /marked@4.3.0:
+    resolution: {integrity: sha512-PRsaiG84bK+AMvxziE/lCFss8juXjNaWzVbN5tXAm4XjeaS9NAHhop+PjQxz2A9h8Q4M/xGmzP8vqNwy6JeK0A==}
+    engines: {node: '>= 12'}
+    hasBin: true
+    dev: false
 
   /mdast-squeeze-paragraphs@4.0.0:
     resolution: {integrity: sha512-zxdPn69hkQ1rm4J+2Cs2j6wDEv7O17TfXTJ33tl/+JPIoEmtV9t2ZzBM5LPHE8QlHsmVD8t3vPKCyY3oH+H8MQ==}
@@ -22126,6 +22174,20 @@ packages:
       minimatch: 7.4.2
       shiki: 0.14.1
       typescript: 4.9.5
+
+  /typedoc@0.23.28(typescript@4.9.5):
+    resolution: {integrity: sha512-9x1+hZWTHEQcGoP7qFmlo4unUoVJLB0H/8vfO/7wqTnZxg4kPuji9y3uRzEu0ZKez63OJAUmiGhUrtukC6Uj3w==}
+    engines: {node: '>= 14.14'}
+    hasBin: true
+    peerDependencies:
+      typescript: 4.6.x || 4.7.x || 4.8.x || 4.9.x || 5.0.x
+    dependencies:
+      lunr: 2.3.9
+      marked: 4.3.0
+      minimatch: 7.4.2
+      shiki: 0.14.1
+      typescript: 4.9.5
+    dev: false
 
   /typescript@4.9.5:
     resolution: {integrity: sha512-1FXk9E2Hm+QzZQ7z+McJiHL4NW1F2EzMu9Nq9i3zAaGqibafqYwCVU6WyWAuyQRRzOlxou8xZSyXLEN8oKj24g==}

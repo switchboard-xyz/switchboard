@@ -39,6 +39,24 @@ const config = {
     locales: ["en"],
   },
 
+  plugins: [
+    [
+      "docusaurus-plugin-typedoc-api",
+      {
+        projectRoot: require("path").join(__dirname, ".."),
+        gitRefName: "main",
+        // Monorepo
+        packages: [
+          "cli",
+          "javascript/common",
+          "javascript/oracle",
+          "sdks/solana/javascript/solana.js",
+          "sdks/near/javascript/near.js",
+        ],
+      },
+    ],
+  ],
+
   presets: [
     [
       "classic",
@@ -112,10 +130,13 @@ const config = {
             label: "Architecture",
           },
           {
-            type: "docSidebar",
-            sidebarId: "apiSidebar",
-            position: "left",
+            // type: "docSidebar",
+            // sidebarId: "apiSidebar",
+            // position: "left",
+            // label: "API",
+            to: "api",
             label: "API",
+            position: "left",
           },
           {
             type: "dropdown",
