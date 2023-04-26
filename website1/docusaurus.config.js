@@ -17,7 +17,7 @@ const sortPackages = (a, b) => {
   if (aPri === bPri) {
     return aName.localeCompare(bName);
   }
-  return bPri - aPri;
+  return aPri - bPri;
 };
 
 const TwitterSvg =
