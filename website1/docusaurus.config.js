@@ -60,7 +60,7 @@ const config = {
       "docusaurus-plugin-typedoc-api",
       {
         projectRoot: require("path").join(__dirname, ".."),
-        lastVersion: "current",
+        // lastVersion: "current",
         gitRefName: "main",
         readmes: true,
         banner:
@@ -87,7 +87,7 @@ const config = {
       /** @type {import('@docusaurus/preset-classic').Options} */
       ({
         docs: {
-          lastVersion: "current", // ignore versioning, only needed for lastVersion
+          // lastVersion: "current", // ignore versioning, only needed for lastVersion
           routeBasePath: "/",
           sidebarPath: require.resolve("./sidebars.js"),
           remarkPlugins: [
