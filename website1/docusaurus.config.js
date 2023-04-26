@@ -47,7 +47,6 @@ const config = {
         gitRefName: "main",
         // Monorepo
         packages: [
-          "cli",
           "javascript/common",
           "javascript/oracle",
           // "sdks/solana/javascript/solana.js",
