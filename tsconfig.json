@@ -14,8 +14,23 @@
         {
             "path": "cli"
         },
-        // {
-        //     "path": "sdks/solana/javascript/solana.js"
-        // }
+        {
+            "path": "sdks/aptos/javascript/aptos.js"
+        },
+        {
+            "path": "sdks/evm/javascript/evm.js"
+        },
+        {
+            "path": "sdks/near/javascript/near.js"
+        },
+        {
+            "path": "sdks/solana/javascript/solana.js"
+        },
+        {
+            "path": "sdks/starknet/javascript/starknet.js"
+        },
+        {
+            "path": "sdks/sui/javascript/sui.js"
+        }
     ]
 }
