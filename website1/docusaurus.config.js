@@ -60,8 +60,11 @@ const config = {
       "docusaurus-plugin-typedoc-api",
       {
         projectRoot: require("path").join(__dirname, ".."),
+        lastVersion: "current",
         gitRefName: "main",
         readmes: true,
+        banner:
+          "This page contains the generated Typedocs for the <b>Switchboard NPM packages</b>.",
         sortPackages: sortPackages,
         // Monorepo
         packages: [
@@ -84,6 +87,7 @@ const config = {
       /** @type {import('@docusaurus/preset-classic').Options} */
       ({
         docs: {
+          lastVersion: "current", // ignore versioning, only needed for lastVersion
           routeBasePath: "/",
           sidebarPath: require.resolve("./sidebars.js"),
           remarkPlugins: [
