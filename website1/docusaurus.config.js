@@ -1,8 +1,8 @@
 // @ts-check
 // Note: type annotations allow type checking and IDEs autocompletion
 
-const lightCodeTheme = require("prism-react-renderer/themes/vsLight");
-const darkCodeTheme = require("prism-react-renderer/themes/vsDark");
+const lightCodeTheme = require("prism-react-renderer/themes/shadesOfPurple");
+const darkCodeTheme = require("prism-react-renderer/themes/shadesOfPurple"); // synthwave84
 
 const packageSortPriority = new Map([
   ["@switchboard-xyz/common", 1],

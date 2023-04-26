@@ -1,1 +1,5 @@
-{ "label": "CLI", "position": 10, "collapsible": false }
+{
+  "label": "CLI",
+  "position": 10,
+  "collapsible": false
+}
