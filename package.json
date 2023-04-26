@@ -26,8 +26,7 @@
   "workspaces": [
     "javascript/*",
     "cli",
-    "website",
-    "sdks/solana/javascript/*"
+    "website"
   ],
   "packageManager": "pnpm@7.17.0"
 }
