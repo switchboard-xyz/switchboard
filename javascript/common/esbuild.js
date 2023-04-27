@@ -187,6 +187,16 @@ async function main() {
       public toYaml(): string;
     `
   );
+
+  // replace @link with @apilink for our typedoc plugin
+  function replaceLinkTag(file) {
+    const fileString = fs.readFileSync(file, 'utf-8');
+    const updatedFileString = fileString.replace(/@link/g, '@apilink');
+    fs.writeFileSync(file, updatedFileString);
+  }
+  replaceLinkTag(path.join(projectRoot, 'src', 'protos', 'index.js'));
+  replaceLinkTag(path.join(projectRoot, 'src', 'protos', 'index.d.ts'));
+
   execSync(`${binPath}/prettier ./lib/protos --write`, {
     encoding: 'utf-8',
   });
@@ -201,8 +211,7 @@ async function main() {
     {
       index: 'src/index',
       build: 'src/build',
-      utils: 'src/utils/index',
-      protos: 'src/protos/index',
+      protos: 'src/protos',
       // 'big.js': 'src/big',
       // 'bn.js': 'src/bn',
     },

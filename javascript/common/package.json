@@ -14,9 +14,6 @@
     "build.cjs",
     "build.js",
     "build.d.ts",
-    "utils.cjs",
-    "utils.js",
-    "utils.d.ts",
     "protos.cjs",
     "protos.js",
     "protos.d.ts"
@@ -31,11 +28,6 @@
       "types": "./build.d.ts",
       "import": "./build.js",
       "require": "./build.cjs"
-    },
-    "./utils": {
-      "types": "./utils.d.ts",
-      "import": "./utils.js",
-      "require": "./utils.cjs"
     },
     "./protos": {
       "types": "./protos.d.ts",

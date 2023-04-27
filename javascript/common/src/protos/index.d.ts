@@ -39,7 +39,7 @@ export class OracleJob implements IOracleJob {
   public static create(properties?: IOracleJob): OracleJob;
 
   /**
-   * Encodes the specified OracleJob message. Does not implicitly {@link OracleJob.verify|verify} messages.
+   * Encodes the specified OracleJob message. Does not implicitly {@apilink OracleJob.verify|verify} messages.
    * @param message OracleJob message or plain object to encode
    * @param [writer] Writer to encode to
    * @returns Writer
@@ -50,7 +50,7 @@ export class OracleJob implements IOracleJob {
   ): $protobuf.Writer;
 
   /**
-   * Encodes the specified OracleJob message, length delimited. Does not implicitly {@link OracleJob.verify|verify} messages.
+   * Encodes the specified OracleJob message, length delimited. Does not implicitly {@apilink OracleJob.verify|verify} messages.
    * @param message OracleJob message or plain object to encode
    * @param [writer] Writer to encode to
    * @returns Writer
@@ -167,7 +167,7 @@ export namespace OracleJob {
     public static create(properties?: OracleJob.IHttpTask): OracleJob.HttpTask;
 
     /**
-     * Encodes the specified HttpTask message. Does not implicitly {@link OracleJob.HttpTask.verify|verify} messages.
+     * Encodes the specified HttpTask message. Does not implicitly {@apilink OracleJob.HttpTask.verify|verify} messages.
      * @param message HttpTask message or plain object to encode
      * @param [writer] Writer to encode to
      * @returns Writer
@@ -178,7 +178,7 @@ export namespace OracleJob {
     ): $protobuf.Writer;
 
     /**
-     * Encodes the specified HttpTask message, length delimited. Does not implicitly {@link OracleJob.HttpTask.verify|verify} messages.
+     * Encodes the specified HttpTask message, length delimited. Does not implicitly {@apilink OracleJob.HttpTask.verify|verify} messages.
      * @param message HttpTask message or plain object to encode
      * @param [writer] Writer to encode to
      * @returns Writer
@@ -292,7 +292,7 @@ export namespace OracleJob {
       ): OracleJob.HttpTask.Header;
 
       /**
-       * Encodes the specified Header message. Does not implicitly {@link OracleJob.HttpTask.Header.verify|verify} messages.
+       * Encodes the specified Header message. Does not implicitly {@apilink OracleJob.HttpTask.Header.verify|verify} messages.
        * @param message Header message or plain object to encode
        * @param [writer] Writer to encode to
        * @returns Writer
@@ -303,7 +303,7 @@ export namespace OracleJob {
       ): $protobuf.Writer;
 
       /**
-       * Encodes the specified Header message, length delimited. Does not implicitly {@link OracleJob.HttpTask.Header.verify|verify} messages.
+       * Encodes the specified Header message, length delimited. Does not implicitly {@apilink OracleJob.HttpTask.Header.verify|verify} messages.
        * @param message Header message or plain object to encode
        * @param [writer] Writer to encode to
        * @returns Writer
@@ -412,7 +412,7 @@ export namespace OracleJob {
     ): OracleJob.JsonParseTask;
 
     /**
-     * Encodes the specified JsonParseTask message. Does not implicitly {@link OracleJob.JsonParseTask.verify|verify} messages.
+     * Encodes the specified JsonParseTask message. Does not implicitly {@apilink OracleJob.JsonParseTask.verify|verify} messages.
      * @param message JsonParseTask message or plain object to encode
      * @param [writer] Writer to encode to
      * @returns Writer
@@ -423,7 +423,7 @@ export namespace OracleJob {
     ): $protobuf.Writer;
 
     /**
-     * Encodes the specified JsonParseTask message, length delimited. Does not implicitly {@link OracleJob.JsonParseTask.verify|verify} messages.
+     * Encodes the specified JsonParseTask message, length delimited. Does not implicitly {@apilink OracleJob.JsonParseTask.verify|verify} messages.
      * @param message JsonParseTask message or plain object to encode
      * @param [writer] Writer to encode to
      * @returns Writer
@@ -549,7 +549,7 @@ export namespace OracleJob {
     ): OracleJob.MedianTask;
 
     /**
-     * Encodes the specified MedianTask message. Does not implicitly {@link OracleJob.MedianTask.verify|verify} messages.
+     * Encodes the specified MedianTask message. Does not implicitly {@apilink OracleJob.MedianTask.verify|verify} messages.
      * @param message MedianTask message or plain object to encode
      * @param [writer] Writer to encode to
      * @returns Writer
@@ -560,7 +560,7 @@ export namespace OracleJob {
     ): $protobuf.Writer;
 
     /**
-     * Encodes the specified MedianTask message, length delimited. Does not implicitly {@link OracleJob.MedianTask.verify|verify} messages.
+     * Encodes the specified MedianTask message, length delimited. Does not implicitly {@apilink OracleJob.MedianTask.verify|verify} messages.
      * @param message MedianTask message or plain object to encode
      * @param [writer] Writer to encode to
      * @returns Writer
@@ -666,7 +666,7 @@ export namespace OracleJob {
     public static create(properties?: OracleJob.IMeanTask): OracleJob.MeanTask;
 
     /**
-     * Encodes the specified MeanTask message. Does not implicitly {@link OracleJob.MeanTask.verify|verify} messages.
+     * Encodes the specified MeanTask message. Does not implicitly {@apilink OracleJob.MeanTask.verify|verify} messages.
      * @param message MeanTask message or plain object to encode
      * @param [writer] Writer to encode to
      * @returns Writer
@@ -677,7 +677,7 @@ export namespace OracleJob {
     ): $protobuf.Writer;
 
     /**
-     * Encodes the specified MeanTask message, length delimited. Does not implicitly {@link OracleJob.MeanTask.verify|verify} messages.
+     * Encodes the specified MeanTask message, length delimited. Does not implicitly {@apilink OracleJob.MeanTask.verify|verify} messages.
      * @param message MeanTask message or plain object to encode
      * @param [writer] Writer to encode to
      * @returns Writer
@@ -781,7 +781,7 @@ export namespace OracleJob {
     public static create(properties?: OracleJob.IMaxTask): OracleJob.MaxTask;
 
     /**
-     * Encodes the specified MaxTask message. Does not implicitly {@link OracleJob.MaxTask.verify|verify} messages.
+     * Encodes the specified MaxTask message. Does not implicitly {@apilink OracleJob.MaxTask.verify|verify} messages.
      * @param message MaxTask message or plain object to encode
      * @param [writer] Writer to encode to
      * @returns Writer
@@ -792,7 +792,7 @@ export namespace OracleJob {
     ): $protobuf.Writer;
 
     /**
-     * Encodes the specified MaxTask message, length delimited. Does not implicitly {@link OracleJob.MaxTask.verify|verify} messages.
+     * Encodes the specified MaxTask message, length delimited. Does not implicitly {@apilink OracleJob.MaxTask.verify|verify} messages.
      * @param message MaxTask message or plain object to encode
      * @param [writer] Writer to encode to
      * @returns Writer
@@ -896,7 +896,7 @@ export namespace OracleJob {
     public static create(properties?: OracleJob.IMinTask): OracleJob.MinTask;
 
     /**
-     * Encodes the specified MinTask message. Does not implicitly {@link OracleJob.MinTask.verify|verify} messages.
+     * Encodes the specified MinTask message. Does not implicitly {@apilink OracleJob.MinTask.verify|verify} messages.
      * @param message MinTask message or plain object to encode
      * @param [writer] Writer to encode to
      * @returns Writer
@@ -907,7 +907,7 @@ export namespace OracleJob {
     ): $protobuf.Writer;
 
     /**
-     * Encodes the specified MinTask message, length delimited. Does not implicitly {@link OracleJob.MinTask.verify|verify} messages.
+     * Encodes the specified MinTask message, length delimited. Does not implicitly {@apilink OracleJob.MinTask.verify|verify} messages.
      * @param message MinTask message or plain object to encode
      * @param [writer] Writer to encode to
      * @returns Writer
@@ -1022,7 +1022,7 @@ export namespace OracleJob {
     ): OracleJob.ValueTask;
 
     /**
-     * Encodes the specified ValueTask message. Does not implicitly {@link OracleJob.ValueTask.verify|verify} messages.
+     * Encodes the specified ValueTask message. Does not implicitly {@apilink OracleJob.ValueTask.verify|verify} messages.
      * @param message ValueTask message or plain object to encode
      * @param [writer] Writer to encode to
      * @returns Writer
@@ -1033,7 +1033,7 @@ export namespace OracleJob {
     ): $protobuf.Writer;
 
     /**
-     * Encodes the specified ValueTask message, length delimited. Does not implicitly {@link OracleJob.ValueTask.verify|verify} messages.
+     * Encodes the specified ValueTask message, length delimited. Does not implicitly {@apilink OracleJob.ValueTask.verify|verify} messages.
      * @param message ValueTask message or plain object to encode
      * @param [writer] Writer to encode to
      * @returns Writer
@@ -1151,7 +1151,7 @@ export namespace OracleJob {
     ): OracleJob.WebsocketTask;
 
     /**
-     * Encodes the specified WebsocketTask message. Does not implicitly {@link OracleJob.WebsocketTask.verify|verify} messages.
+     * Encodes the specified WebsocketTask message. Does not implicitly {@apilink OracleJob.WebsocketTask.verify|verify} messages.
      * @param message WebsocketTask message or plain object to encode
      * @param [writer] Writer to encode to
      * @returns Writer
@@ -1162,7 +1162,7 @@ export namespace OracleJob {
     ): $protobuf.Writer;
 
     /**
-     * Encodes the specified WebsocketTask message, length delimited. Does not implicitly {@link OracleJob.WebsocketTask.verify|verify} messages.
+     * Encodes the specified WebsocketTask message, length delimited. Does not implicitly {@apilink OracleJob.WebsocketTask.verify|verify} messages.
      * @param message WebsocketTask message or plain object to encode
      * @param [writer] Writer to encode to
      * @returns Writer
@@ -1270,7 +1270,7 @@ export namespace OracleJob {
     ): OracleJob.ConditionalTask;
 
     /**
-     * Encodes the specified ConditionalTask message. Does not implicitly {@link OracleJob.ConditionalTask.verify|verify} messages.
+     * Encodes the specified ConditionalTask message. Does not implicitly {@apilink OracleJob.ConditionalTask.verify|verify} messages.
      * @param message ConditionalTask message or plain object to encode
      * @param [writer] Writer to encode to
      * @returns Writer
@@ -1281,7 +1281,7 @@ export namespace OracleJob {
     ): $protobuf.Writer;
 
     /**
-     * Encodes the specified ConditionalTask message, length delimited. Does not implicitly {@link OracleJob.ConditionalTask.verify|verify} messages.
+     * Encodes the specified ConditionalTask message, length delimited. Does not implicitly {@apilink OracleJob.ConditionalTask.verify|verify} messages.
      * @param message ConditionalTask message or plain object to encode
      * @param [writer] Writer to encode to
      * @returns Writer
@@ -1404,7 +1404,7 @@ export namespace OracleJob {
     ): OracleJob.DivideTask;
 
     /**
-     * Encodes the specified DivideTask message. Does not implicitly {@link OracleJob.DivideTask.verify|verify} messages.
+     * Encodes the specified DivideTask message. Does not implicitly {@apilink OracleJob.DivideTask.verify|verify} messages.
      * @param message DivideTask message or plain object to encode
      * @param [writer] Writer to encode to
      * @returns Writer
@@ -1415,7 +1415,7 @@ export namespace OracleJob {
     ): $protobuf.Writer;
 
     /**
-     * Encodes the specified DivideTask message, length delimited. Does not implicitly {@link OracleJob.DivideTask.verify|verify} messages.
+     * Encodes the specified DivideTask message, length delimited. Does not implicitly {@apilink OracleJob.DivideTask.verify|verify} messages.
      * @param message DivideTask message or plain object to encode
      * @param [writer] Writer to encode to
      * @returns Writer
@@ -1538,7 +1538,7 @@ export namespace OracleJob {
     ): OracleJob.MultiplyTask;
 
     /**
-     * Encodes the specified MultiplyTask message. Does not implicitly {@link OracleJob.MultiplyTask.verify|verify} messages.
+     * Encodes the specified MultiplyTask message. Does not implicitly {@apilink OracleJob.MultiplyTask.verify|verify} messages.
      * @param message MultiplyTask message or plain object to encode
      * @param [writer] Writer to encode to
      * @returns Writer
@@ -1549,7 +1549,7 @@ export namespace OracleJob {
     ): $protobuf.Writer;
 
     /**
-     * Encodes the specified MultiplyTask message, length delimited. Does not implicitly {@link OracleJob.MultiplyTask.verify|verify} messages.
+     * Encodes the specified MultiplyTask message, length delimited. Does not implicitly {@apilink OracleJob.MultiplyTask.verify|verify} messages.
      * @param message MultiplyTask message or plain object to encode
      * @param [writer] Writer to encode to
      * @returns Writer
@@ -1670,7 +1670,7 @@ export namespace OracleJob {
     public static create(properties?: OracleJob.IAddTask): OracleJob.AddTask;
 
     /**
-     * Encodes the specified AddTask message. Does not implicitly {@link OracleJob.AddTask.verify|verify} messages.
+     * Encodes the specified AddTask message. Does not implicitly {@apilink OracleJob.AddTask.verify|verify} messages.
      * @param message AddTask message or plain object to encode
      * @param [writer] Writer to encode to
      * @returns Writer
@@ -1681,7 +1681,7 @@ export namespace OracleJob {
     ): $protobuf.Writer;
 
     /**
-     * Encodes the specified AddTask message, length delimited. Does not implicitly {@link OracleJob.AddTask.verify|verify} messages.
+     * Encodes the specified AddTask message, length delimited. Does not implicitly {@apilink OracleJob.AddTask.verify|verify} messages.
      * @param message AddTask message or plain object to encode
      * @param [writer] Writer to encode to
      * @returns Writer
@@ -1802,7 +1802,7 @@ export namespace OracleJob {
     ): OracleJob.SubtractTask;
 
     /**
-     * Encodes the specified SubtractTask message. Does not implicitly {@link OracleJob.SubtractTask.verify|verify} messages.
+     * Encodes the specified SubtractTask message. Does not implicitly {@apilink OracleJob.SubtractTask.verify|verify} messages.
      * @param message SubtractTask message or plain object to encode
      * @param [writer] Writer to encode to
      * @returns Writer
@@ -1813,7 +1813,7 @@ export namespace OracleJob {
     ): $protobuf.Writer;
 
     /**
-     * Encodes the specified SubtractTask message, length delimited. Does not implicitly {@link OracleJob.SubtractTask.verify|verify} messages.
+     * Encodes the specified SubtractTask message, length delimited. Does not implicitly {@apilink OracleJob.SubtractTask.verify|verify} messages.
      * @param message SubtractTask message or plain object to encode
      * @param [writer] Writer to encode to
      * @returns Writer
@@ -1958,7 +1958,7 @@ export namespace OracleJob {
     ): OracleJob.LpTokenPriceTask;
 
     /**
-     * Encodes the specified LpTokenPriceTask message. Does not implicitly {@link OracleJob.LpTokenPriceTask.verify|verify} messages.
+     * Encodes the specified LpTokenPriceTask message. Does not implicitly {@apilink OracleJob.LpTokenPriceTask.verify|verify} messages.
      * @param message LpTokenPriceTask message or plain object to encode
      * @param [writer] Writer to encode to
      * @returns Writer
@@ -1969,7 +1969,7 @@ export namespace OracleJob {
     ): $protobuf.Writer;
 
     /**
-     * Encodes the specified LpTokenPriceTask message, length delimited. Does not implicitly {@link OracleJob.LpTokenPriceTask.verify|verify} messages.
+     * Encodes the specified LpTokenPriceTask message, length delimited. Does not implicitly {@apilink OracleJob.LpTokenPriceTask.verify|verify} messages.
      * @param message LpTokenPriceTask message or plain object to encode
      * @param [writer] Writer to encode to
      * @returns Writer
@@ -2122,7 +2122,7 @@ export namespace OracleJob {
     ): OracleJob.LpExchangeRateTask;
 
     /**
-     * Encodes the specified LpExchangeRateTask message. Does not implicitly {@link OracleJob.LpExchangeRateTask.verify|verify} messages.
+     * Encodes the specified LpExchangeRateTask message. Does not implicitly {@apilink OracleJob.LpExchangeRateTask.verify|verify} messages.
      * @param message LpExchangeRateTask message or plain object to encode
      * @param [writer] Writer to encode to
      * @returns Writer
@@ -2133,7 +2133,7 @@ export namespace OracleJob {
     ): $protobuf.Writer;
 
     /**
-     * Encodes the specified LpExchangeRateTask message, length delimited. Does not implicitly {@link OracleJob.LpExchangeRateTask.verify|verify} messages.
+     * Encodes the specified LpExchangeRateTask message, length delimited. Does not implicitly {@apilink OracleJob.LpExchangeRateTask.verify|verify} messages.
      * @param message LpExchangeRateTask message or plain object to encode
      * @param [writer] Writer to encode to
      * @returns Writer
@@ -2241,7 +2241,7 @@ export namespace OracleJob {
     ): OracleJob.RegexExtractTask;
 
     /**
-     * Encodes the specified RegexExtractTask message. Does not implicitly {@link OracleJob.RegexExtractTask.verify|verify} messages.
+     * Encodes the specified RegexExtractTask message. Does not implicitly {@apilink OracleJob.RegexExtractTask.verify|verify} messages.
      * @param message RegexExtractTask message or plain object to encode
      * @param [writer] Writer to encode to
      * @returns Writer
@@ -2252,7 +2252,7 @@ export namespace OracleJob {
     ): $protobuf.Writer;
 
     /**
-     * Encodes the specified RegexExtractTask message, length delimited. Does not implicitly {@link OracleJob.RegexExtractTask.verify|verify} messages.
+     * Encodes the specified RegexExtractTask message, length delimited. Does not implicitly {@apilink OracleJob.RegexExtractTask.verify|verify} messages.
      * @param message RegexExtractTask message or plain object to encode
      * @param [writer] Writer to encode to
      * @returns Writer
@@ -2363,7 +2363,7 @@ export namespace OracleJob {
     ): OracleJob.XStepPriceTask;
 
     /**
-     * Encodes the specified XStepPriceTask message. Does not implicitly {@link OracleJob.XStepPriceTask.verify|verify} messages.
+     * Encodes the specified XStepPriceTask message. Does not implicitly {@apilink OracleJob.XStepPriceTask.verify|verify} messages.
      * @param message XStepPriceTask message or plain object to encode
      * @param [writer] Writer to encode to
      * @returns Writer
@@ -2374,7 +2374,7 @@ export namespace OracleJob {
     ): $protobuf.Writer;
 
     /**
-     * Encodes the specified XStepPriceTask message, length delimited. Does not implicitly {@link OracleJob.XStepPriceTask.verify|verify} messages.
+     * Encodes the specified XStepPriceTask message, length delimited. Does not implicitly {@apilink OracleJob.XStepPriceTask.verify|verify} messages.
      * @param message XStepPriceTask message or plain object to encode
      * @param [writer] Writer to encode to
      * @returns Writer
@@ -2504,7 +2504,7 @@ export namespace OracleJob {
     public static create(properties?: OracleJob.ITwapTask): OracleJob.TwapTask;
 
     /**
-     * Encodes the specified TwapTask message. Does not implicitly {@link OracleJob.TwapTask.verify|verify} messages.
+     * Encodes the specified TwapTask message. Does not implicitly {@apilink OracleJob.TwapTask.verify|verify} messages.
      * @param message TwapTask message or plain object to encode
      * @param [writer] Writer to encode to
      * @returns Writer
@@ -2515,7 +2515,7 @@ export namespace OracleJob {
     ): $protobuf.Writer;
 
     /**
-     * Encodes the specified TwapTask message, length delimited. Does not implicitly {@link OracleJob.TwapTask.verify|verify} messages.
+     * Encodes the specified TwapTask message, length delimited. Does not implicitly {@apilink OracleJob.TwapTask.verify|verify} messages.
      * @param message TwapTask message or plain object to encode
      * @param [writer] Writer to encode to
      * @returns Writer
@@ -2615,7 +2615,7 @@ export namespace OracleJob {
     ): OracleJob.SerumSwapTask;
 
     /**
-     * Encodes the specified SerumSwapTask message. Does not implicitly {@link OracleJob.SerumSwapTask.verify|verify} messages.
+     * Encodes the specified SerumSwapTask message. Does not implicitly {@apilink OracleJob.SerumSwapTask.verify|verify} messages.
      * @param message SerumSwapTask message or plain object to encode
      * @param [writer] Writer to encode to
      * @returns Writer
@@ -2626,7 +2626,7 @@ export namespace OracleJob {
     ): $protobuf.Writer;
 
     /**
-     * Encodes the specified SerumSwapTask message, length delimited. Does not implicitly {@link OracleJob.SerumSwapTask.verify|verify} messages.
+     * Encodes the specified SerumSwapTask message, length delimited. Does not implicitly {@apilink OracleJob.SerumSwapTask.verify|verify} messages.
      * @param message SerumSwapTask message or plain object to encode
      * @param [writer] Writer to encode to
      * @returns Writer
@@ -2741,7 +2741,7 @@ export namespace OracleJob {
     public static create(properties?: OracleJob.IPowTask): OracleJob.PowTask;
 
     /**
-     * Encodes the specified PowTask message. Does not implicitly {@link OracleJob.PowTask.verify|verify} messages.
+     * Encodes the specified PowTask message. Does not implicitly {@apilink OracleJob.PowTask.verify|verify} messages.
      * @param message PowTask message or plain object to encode
      * @param [writer] Writer to encode to
      * @returns Writer
@@ -2752,7 +2752,7 @@ export namespace OracleJob {
     ): $protobuf.Writer;
 
     /**
-     * Encodes the specified PowTask message, length delimited. Does not implicitly {@link OracleJob.PowTask.verify|verify} messages.
+     * Encodes the specified PowTask message, length delimited. Does not implicitly {@apilink OracleJob.PowTask.verify|verify} messages.
      * @param message PowTask message or plain object to encode
      * @param [writer] Writer to encode to
      * @returns Writer
@@ -2864,7 +2864,7 @@ export namespace OracleJob {
     ): OracleJob.LendingRateTask;
 
     /**
-     * Encodes the specified LendingRateTask message. Does not implicitly {@link OracleJob.LendingRateTask.verify|verify} messages.
+     * Encodes the specified LendingRateTask message. Does not implicitly {@apilink OracleJob.LendingRateTask.verify|verify} messages.
      * @param message LendingRateTask message or plain object to encode
      * @param [writer] Writer to encode to
      * @returns Writer
@@ -2875,7 +2875,7 @@ export namespace OracleJob {
     ): $protobuf.Writer;
 
     /**
-     * Encodes the specified LendingRateTask message, length delimited. Does not implicitly {@link OracleJob.LendingRateTask.verify|verify} messages.
+     * Encodes the specified LendingRateTask message, length delimited. Does not implicitly {@apilink OracleJob.LendingRateTask.verify|verify} messages.
      * @param message LendingRateTask message or plain object to encode
      * @param [writer] Writer to encode to
      * @returns Writer
@@ -2985,7 +2985,7 @@ export namespace OracleJob {
     ): OracleJob.MangoPerpMarketTask;
 
     /**
-     * Encodes the specified MangoPerpMarketTask message. Does not implicitly {@link OracleJob.MangoPerpMarketTask.verify|verify} messages.
+     * Encodes the specified MangoPerpMarketTask message. Does not implicitly {@apilink OracleJob.MangoPerpMarketTask.verify|verify} messages.
      * @param message MangoPerpMarketTask message or plain object to encode
      * @param [writer] Writer to encode to
      * @returns Writer
@@ -2996,7 +2996,7 @@ export namespace OracleJob {
     ): $protobuf.Writer;
 
     /**
-     * Encodes the specified MangoPerpMarketTask message, length delimited. Does not implicitly {@link OracleJob.MangoPerpMarketTask.verify|verify} messages.
+     * Encodes the specified MangoPerpMarketTask message, length delimited. Does not implicitly {@apilink OracleJob.MangoPerpMarketTask.verify|verify} messages.
      * @param message MangoPerpMarketTask message or plain object to encode
      * @param [writer] Writer to encode to
      * @returns Writer
@@ -3150,7 +3150,7 @@ export namespace OracleJob {
     ): OracleJob.JupiterSwapTask;
 
     /**
-     * Encodes the specified JupiterSwapTask message. Does not implicitly {@link OracleJob.JupiterSwapTask.verify|verify} messages.
+     * Encodes the specified JupiterSwapTask message. Does not implicitly {@apilink OracleJob.JupiterSwapTask.verify|verify} messages.
      * @param message JupiterSwapTask message or plain object to encode
      * @param [writer] Writer to encode to
      * @returns Writer
@@ -3161,7 +3161,7 @@ export namespace OracleJob {
     ): $protobuf.Writer;
 
     /**
-     * Encodes the specified JupiterSwapTask message, length delimited. Does not implicitly {@link OracleJob.JupiterSwapTask.verify|verify} messages.
+     * Encodes the specified JupiterSwapTask message, length delimited. Does not implicitly {@apilink OracleJob.JupiterSwapTask.verify|verify} messages.
      * @param message JupiterSwapTask message or plain object to encode
      * @param [writer] Writer to encode to
      * @returns Writer
@@ -3264,7 +3264,7 @@ export namespace OracleJob {
       ): OracleJob.JupiterSwapTask.FilterList;
 
       /**
-       * Encodes the specified FilterList message. Does not implicitly {@link OracleJob.JupiterSwapTask.FilterList.verify|verify} messages.
+       * Encodes the specified FilterList message. Does not implicitly {@apilink OracleJob.JupiterSwapTask.FilterList.verify|verify} messages.
        * @param message FilterList message or plain object to encode
        * @param [writer] Writer to encode to
        * @returns Writer
@@ -3275,7 +3275,7 @@ export namespace OracleJob {
       ): $protobuf.Writer;
 
       /**
-       * Encodes the specified FilterList message, length delimited. Does not implicitly {@link OracleJob.JupiterSwapTask.FilterList.verify|verify} messages.
+       * Encodes the specified FilterList message, length delimited. Does not implicitly {@apilink OracleJob.JupiterSwapTask.FilterList.verify|verify} messages.
        * @param message FilterList message or plain object to encode
        * @param [writer] Writer to encode to
        * @returns Writer
@@ -3403,7 +3403,7 @@ export namespace OracleJob {
     ): OracleJob.PerpMarketTask;
 
     /**
-     * Encodes the specified PerpMarketTask message. Does not implicitly {@link OracleJob.PerpMarketTask.verify|verify} messages.
+     * Encodes the specified PerpMarketTask message. Does not implicitly {@apilink OracleJob.PerpMarketTask.verify|verify} messages.
      * @param message PerpMarketTask message or plain object to encode
      * @param [writer] Writer to encode to
      * @returns Writer
@@ -3414,7 +3414,7 @@ export namespace OracleJob {
     ): $protobuf.Writer;
 
     /**
-     * Encodes the specified PerpMarketTask message, length delimited. Does not implicitly {@link OracleJob.PerpMarketTask.verify|verify} messages.
+     * Encodes the specified PerpMarketTask message, length delimited. Does not implicitly {@apilink OracleJob.PerpMarketTask.verify|verify} messages.
      * @param message PerpMarketTask message or plain object to encode
      * @param [writer] Writer to encode to
      * @returns Writer
@@ -3540,7 +3540,7 @@ export namespace OracleJob {
     ): OracleJob.OracleTask;
 
     /**
-     * Encodes the specified OracleTask message. Does not implicitly {@link OracleJob.OracleTask.verify|verify} messages.
+     * Encodes the specified OracleTask message. Does not implicitly {@apilink OracleJob.OracleTask.verify|verify} messages.
      * @param message OracleTask message or plain object to encode
      * @param [writer] Writer to encode to
      * @returns Writer
@@ -3551,7 +3551,7 @@ export namespace OracleJob {
     ): $protobuf.Writer;
 
     /**
-     * Encodes the specified OracleTask message, length delimited. Does not implicitly {@link OracleJob.OracleTask.verify|verify} messages.
+     * Encodes the specified OracleTask message, length delimited. Does not implicitly {@apilink OracleJob.OracleTask.verify|verify} messages.
      * @param message OracleTask message or plain object to encode
      * @param [writer] Writer to encode to
      * @returns Writer
@@ -3659,7 +3659,7 @@ export namespace OracleJob {
     ): OracleJob.AnchorFetchTask;
 
     /**
-     * Encodes the specified AnchorFetchTask message. Does not implicitly {@link OracleJob.AnchorFetchTask.verify|verify} messages.
+     * Encodes the specified AnchorFetchTask message. Does not implicitly {@apilink OracleJob.AnchorFetchTask.verify|verify} messages.
      * @param message AnchorFetchTask message or plain object to encode
      * @param [writer] Writer to encode to
      * @returns Writer
@@ -3670,7 +3670,7 @@ export namespace OracleJob {
     ): $protobuf.Writer;
 
     /**
-     * Encodes the specified AnchorFetchTask message, length delimited. Does not implicitly {@link OracleJob.AnchorFetchTask.verify|verify} messages.
+     * Encodes the specified AnchorFetchTask message, length delimited. Does not implicitly {@apilink OracleJob.AnchorFetchTask.verify|verify} messages.
      * @param message AnchorFetchTask message or plain object to encode
      * @param [writer] Writer to encode to
      * @returns Writer
@@ -3764,7 +3764,7 @@ export namespace OracleJob {
     public static create(properties?: OracleJob.ITpsTask): OracleJob.TpsTask;
 
     /**
-     * Encodes the specified TpsTask message. Does not implicitly {@link OracleJob.TpsTask.verify|verify} messages.
+     * Encodes the specified TpsTask message. Does not implicitly {@apilink OracleJob.TpsTask.verify|verify} messages.
      * @param message TpsTask message or plain object to encode
      * @param [writer] Writer to encode to
      * @returns Writer
@@ -3775,7 +3775,7 @@ export namespace OracleJob {
     ): $protobuf.Writer;
 
     /**
-     * Encodes the specified TpsTask message, length delimited. Does not implicitly {@link OracleJob.TpsTask.verify|verify} messages.
+     * Encodes the specified TpsTask message, length delimited. Does not implicitly {@apilink OracleJob.TpsTask.verify|verify} messages.
      * @param message TpsTask message or plain object to encode
      * @param [writer] Writer to encode to
      * @returns Writer
@@ -3875,7 +3875,7 @@ export namespace OracleJob {
     ): OracleJob.SplStakePoolTask;
 
     /**
-     * Encodes the specified SplStakePoolTask message. Does not implicitly {@link OracleJob.SplStakePoolTask.verify|verify} messages.
+     * Encodes the specified SplStakePoolTask message. Does not implicitly {@apilink OracleJob.SplStakePoolTask.verify|verify} messages.
      * @param message SplStakePoolTask message or plain object to encode
      * @param [writer] Writer to encode to
      * @returns Writer
@@ -3886,7 +3886,7 @@ export namespace OracleJob {
     ): $protobuf.Writer;
 
     /**
-     * Encodes the specified SplStakePoolTask message, length delimited. Does not implicitly {@link OracleJob.SplStakePoolTask.verify|verify} messages.
+     * Encodes the specified SplStakePoolTask message, length delimited. Does not implicitly {@apilink OracleJob.SplStakePoolTask.verify|verify} messages.
      * @param message SplStakePoolTask message or plain object to encode
      * @param [writer] Writer to encode to
      * @returns Writer
@@ -3997,7 +3997,7 @@ export namespace OracleJob {
     ): OracleJob.SplTokenParseTask;
 
     /**
-     * Encodes the specified SplTokenParseTask message. Does not implicitly {@link OracleJob.SplTokenParseTask.verify|verify} messages.
+     * Encodes the specified SplTokenParseTask message. Does not implicitly {@apilink OracleJob.SplTokenParseTask.verify|verify} messages.
      * @param message SplTokenParseTask message or plain object to encode
      * @param [writer] Writer to encode to
      * @returns Writer
@@ -4008,7 +4008,7 @@ export namespace OracleJob {
     ): $protobuf.Writer;
 
     /**
-     * Encodes the specified SplTokenParseTask message, length delimited. Does not implicitly {@link OracleJob.SplTokenParseTask.verify|verify} messages.
+     * Encodes the specified SplTokenParseTask message, length delimited. Does not implicitly {@apilink OracleJob.SplTokenParseTask.verify|verify} messages.
      * @param message SplTokenParseTask message or plain object to encode
      * @param [writer] Writer to encode to
      * @returns Writer
@@ -4122,7 +4122,7 @@ export namespace OracleJob {
     ): OracleJob.DefiKingdomsTask;
 
     /**
-     * Encodes the specified DefiKingdomsTask message. Does not implicitly {@link OracleJob.DefiKingdomsTask.verify|verify} messages.
+     * Encodes the specified DefiKingdomsTask message. Does not implicitly {@apilink OracleJob.DefiKingdomsTask.verify|verify} messages.
      * @param message DefiKingdomsTask message or plain object to encode
      * @param [writer] Writer to encode to
      * @returns Writer
@@ -4133,7 +4133,7 @@ export namespace OracleJob {
     ): $protobuf.Writer;
 
     /**
-     * Encodes the specified DefiKingdomsTask message, length delimited. Does not implicitly {@link OracleJob.DefiKingdomsTask.verify|verify} messages.
+     * Encodes the specified DefiKingdomsTask message, length delimited. Does not implicitly {@apilink OracleJob.DefiKingdomsTask.verify|verify} messages.
      * @param message DefiKingdomsTask message or plain object to encode
      * @param [writer] Writer to encode to
      * @returns Writer
@@ -4242,7 +4242,7 @@ export namespace OracleJob {
       ): OracleJob.DefiKingdomsTask.Token;
 
       /**
-       * Encodes the specified Token message. Does not implicitly {@link OracleJob.DefiKingdomsTask.Token.verify|verify} messages.
+       * Encodes the specified Token message. Does not implicitly {@apilink OracleJob.DefiKingdomsTask.Token.verify|verify} messages.
        * @param message Token message or plain object to encode
        * @param [writer] Writer to encode to
        * @returns Writer
@@ -4253,7 +4253,7 @@ export namespace OracleJob {
       ): $protobuf.Writer;
 
       /**
-       * Encodes the specified Token message, length delimited. Does not implicitly {@link OracleJob.DefiKingdomsTask.Token.verify|verify} messages.
+       * Encodes the specified Token message, length delimited. Does not implicitly {@apilink OracleJob.DefiKingdomsTask.Token.verify|verify} messages.
        * @param message Token message or plain object to encode
        * @param [writer] Writer to encode to
        * @returns Writer
@@ -4380,7 +4380,7 @@ export namespace OracleJob {
     ): OracleJob.UniswapExchangeRateTask;
 
     /**
-     * Encodes the specified UniswapExchangeRateTask message. Does not implicitly {@link OracleJob.UniswapExchangeRateTask.verify|verify} messages.
+     * Encodes the specified UniswapExchangeRateTask message. Does not implicitly {@apilink OracleJob.UniswapExchangeRateTask.verify|verify} messages.
      * @param message UniswapExchangeRateTask message or plain object to encode
      * @param [writer] Writer to encode to
      * @returns Writer
@@ -4391,7 +4391,7 @@ export namespace OracleJob {
     ): $protobuf.Writer;
 
     /**
-     * Encodes the specified UniswapExchangeRateTask message, length delimited. Does not implicitly {@link OracleJob.UniswapExchangeRateTask.verify|verify} messages.
+     * Encodes the specified UniswapExchangeRateTask message, length delimited. Does not implicitly {@apilink OracleJob.UniswapExchangeRateTask.verify|verify} messages.
      * @param message UniswapExchangeRateTask message or plain object to encode
      * @param [writer] Writer to encode to
      * @returns Writer
@@ -4517,7 +4517,7 @@ export namespace OracleJob {
     ): OracleJob.SushiswapExchangeRateTask;
 
     /**
-     * Encodes the specified SushiswapExchangeRateTask message. Does not implicitly {@link OracleJob.SushiswapExchangeRateTask.verify|verify} messages.
+     * Encodes the specified SushiswapExchangeRateTask message. Does not implicitly {@apilink OracleJob.SushiswapExchangeRateTask.verify|verify} messages.
      * @param message SushiswapExchangeRateTask message or plain object to encode
      * @param [writer] Writer to encode to
      * @returns Writer
@@ -4528,7 +4528,7 @@ export namespace OracleJob {
     ): $protobuf.Writer;
 
     /**
-     * Encodes the specified SushiswapExchangeRateTask message, length delimited. Does not implicitly {@link OracleJob.SushiswapExchangeRateTask.verify|verify} messages.
+     * Encodes the specified SushiswapExchangeRateTask message, length delimited. Does not implicitly {@apilink OracleJob.SushiswapExchangeRateTask.verify|verify} messages.
      * @param message SushiswapExchangeRateTask message or plain object to encode
      * @param [writer] Writer to encode to
      * @returns Writer
@@ -4654,7 +4654,7 @@ export namespace OracleJob {
     ): OracleJob.PancakeswapExchangeRateTask;
 
     /**
-     * Encodes the specified PancakeswapExchangeRateTask message. Does not implicitly {@link OracleJob.PancakeswapExchangeRateTask.verify|verify} messages.
+     * Encodes the specified PancakeswapExchangeRateTask message. Does not implicitly {@apilink OracleJob.PancakeswapExchangeRateTask.verify|verify} messages.
      * @param message PancakeswapExchangeRateTask message or plain object to encode
      * @param [writer] Writer to encode to
      * @returns Writer
@@ -4665,7 +4665,7 @@ export namespace OracleJob {
     ): $protobuf.Writer;
 
     /**
-     * Encodes the specified PancakeswapExchangeRateTask message, length delimited. Does not implicitly {@link OracleJob.PancakeswapExchangeRateTask.verify|verify} messages.
+     * Encodes the specified PancakeswapExchangeRateTask message, length delimited. Does not implicitly {@apilink OracleJob.PancakeswapExchangeRateTask.verify|verify} messages.
      * @param message PancakeswapExchangeRateTask message or plain object to encode
      * @param [writer] Writer to encode to
      * @returns Writer
@@ -4767,7 +4767,7 @@ export namespace OracleJob {
     ): OracleJob.CacheTask;
 
     /**
-     * Encodes the specified CacheTask message. Does not implicitly {@link OracleJob.CacheTask.verify|verify} messages.
+     * Encodes the specified CacheTask message. Does not implicitly {@apilink OracleJob.CacheTask.verify|verify} messages.
      * @param message CacheTask message or plain object to encode
      * @param [writer] Writer to encode to
      * @returns Writer
@@ -4778,7 +4778,7 @@ export namespace OracleJob {
     ): $protobuf.Writer;
 
     /**
-     * Encodes the specified CacheTask message, length delimited. Does not implicitly {@link OracleJob.CacheTask.verify|verify} messages.
+     * Encodes the specified CacheTask message, length delimited. Does not implicitly {@apilink OracleJob.CacheTask.verify|verify} messages.
      * @param message CacheTask message or plain object to encode
      * @param [writer] Writer to encode to
      * @returns Writer
@@ -4885,7 +4885,7 @@ export namespace OracleJob {
       ): OracleJob.CacheTask.CacheItem;
 
       /**
-       * Encodes the specified CacheItem message. Does not implicitly {@link OracleJob.CacheTask.CacheItem.verify|verify} messages.
+       * Encodes the specified CacheItem message. Does not implicitly {@apilink OracleJob.CacheTask.CacheItem.verify|verify} messages.
        * @param message CacheItem message or plain object to encode
        * @param [writer] Writer to encode to
        * @returns Writer
@@ -4896,7 +4896,7 @@ export namespace OracleJob {
       ): $protobuf.Writer;
 
       /**
-       * Encodes the specified CacheItem message, length delimited. Does not implicitly {@link OracleJob.CacheTask.CacheItem.verify|verify} messages.
+       * Encodes the specified CacheItem message, length delimited. Does not implicitly {@apilink OracleJob.CacheTask.CacheItem.verify|verify} messages.
        * @param message CacheItem message or plain object to encode
        * @param [writer] Writer to encode to
        * @returns Writer
@@ -4993,7 +4993,7 @@ export namespace OracleJob {
     ): OracleJob.SysclockOffsetTask;
 
     /**
-     * Encodes the specified SysclockOffsetTask message. Does not implicitly {@link OracleJob.SysclockOffsetTask.verify|verify} messages.
+     * Encodes the specified SysclockOffsetTask message. Does not implicitly {@apilink OracleJob.SysclockOffsetTask.verify|verify} messages.
      * @param message SysclockOffsetTask message or plain object to encode
      * @param [writer] Writer to encode to
      * @returns Writer
@@ -5004,7 +5004,7 @@ export namespace OracleJob {
     ): $protobuf.Writer;
 
     /**
-     * Encodes the specified SysclockOffsetTask message, length delimited. Does not implicitly {@link OracleJob.SysclockOffsetTask.verify|verify} messages.
+     * Encodes the specified SysclockOffsetTask message, length delimited. Does not implicitly {@apilink OracleJob.SysclockOffsetTask.verify|verify} messages.
      * @param message SysclockOffsetTask message or plain object to encode
      * @param [writer] Writer to encode to
      * @returns Writer
@@ -5100,7 +5100,7 @@ export namespace OracleJob {
     ): OracleJob.MarinadeStateTask;
 
     /**
-     * Encodes the specified MarinadeStateTask message. Does not implicitly {@link OracleJob.MarinadeStateTask.verify|verify} messages.
+     * Encodes the specified MarinadeStateTask message. Does not implicitly {@apilink OracleJob.MarinadeStateTask.verify|verify} messages.
      * @param message MarinadeStateTask message or plain object to encode
      * @param [writer] Writer to encode to
      * @returns Writer
@@ -5111,7 +5111,7 @@ export namespace OracleJob {
     ): $protobuf.Writer;
 
     /**
-     * Encodes the specified MarinadeStateTask message, length delimited. Does not implicitly {@link OracleJob.MarinadeStateTask.verify|verify} messages.
+     * Encodes the specified MarinadeStateTask message, length delimited. Does not implicitly {@apilink OracleJob.MarinadeStateTask.verify|verify} messages.
      * @param message MarinadeStateTask message or plain object to encode
      * @param [writer] Writer to encode to
      * @returns Writer
@@ -5213,7 +5213,7 @@ export namespace OracleJob {
     ): OracleJob.SolanaAccountDataFetchTask;
 
     /**
-     * Encodes the specified SolanaAccountDataFetchTask message. Does not implicitly {@link OracleJob.SolanaAccountDataFetchTask.verify|verify} messages.
+     * Encodes the specified SolanaAccountDataFetchTask message. Does not implicitly {@apilink OracleJob.SolanaAccountDataFetchTask.verify|verify} messages.
      * @param message SolanaAccountDataFetchTask message or plain object to encode
      * @param [writer] Writer to encode to
      * @returns Writer
@@ -5224,7 +5224,7 @@ export namespace OracleJob {
     ): $protobuf.Writer;
 
     /**
-     * Encodes the specified SolanaAccountDataFetchTask message, length delimited. Does not implicitly {@link OracleJob.SolanaAccountDataFetchTask.verify|verify} messages.
+     * Encodes the specified SolanaAccountDataFetchTask message, length delimited. Does not implicitly {@apilink OracleJob.SolanaAccountDataFetchTask.verify|verify} messages.
      * @param message SolanaAccountDataFetchTask message or plain object to encode
      * @param [writer] Writer to encode to
      * @returns Writer
@@ -5338,7 +5338,7 @@ export namespace OracleJob {
     ): OracleJob.CronParseTask;
 
     /**
-     * Encodes the specified CronParseTask message. Does not implicitly {@link OracleJob.CronParseTask.verify|verify} messages.
+     * Encodes the specified CronParseTask message. Does not implicitly {@apilink OracleJob.CronParseTask.verify|verify} messages.
      * @param message CronParseTask message or plain object to encode
      * @param [writer] Writer to encode to
      * @returns Writer
@@ -5349,7 +5349,7 @@ export namespace OracleJob {
     ): $protobuf.Writer;
 
     /**
-     * Encodes the specified CronParseTask message, length delimited. Does not implicitly {@link OracleJob.CronParseTask.verify|verify} messages.
+     * Encodes the specified CronParseTask message, length delimited. Does not implicitly {@apilink OracleJob.CronParseTask.verify|verify} messages.
      * @param message CronParseTask message or plain object to encode
      * @param [writer] Writer to encode to
      * @returns Writer
@@ -5471,7 +5471,7 @@ export namespace OracleJob {
     ): OracleJob.BufferLayoutParseTask;
 
     /**
-     * Encodes the specified BufferLayoutParseTask message. Does not implicitly {@link OracleJob.BufferLayoutParseTask.verify|verify} messages.
+     * Encodes the specified BufferLayoutParseTask message. Does not implicitly {@apilink OracleJob.BufferLayoutParseTask.verify|verify} messages.
      * @param message BufferLayoutParseTask message or plain object to encode
      * @param [writer] Writer to encode to
      * @returns Writer
@@ -5482,7 +5482,7 @@ export namespace OracleJob {
     ): $protobuf.Writer;
 
     /**
-     * Encodes the specified BufferLayoutParseTask message, length delimited. Does not implicitly {@link OracleJob.BufferLayoutParseTask.verify|verify} messages.
+     * Encodes the specified BufferLayoutParseTask message, length delimited. Does not implicitly {@apilink OracleJob.BufferLayoutParseTask.verify|verify} messages.
      * @param message BufferLayoutParseTask message or plain object to encode
      * @param [writer] Writer to encode to
      * @returns Writer
@@ -5622,7 +5622,7 @@ export namespace OracleJob {
     ): OracleJob.HistoryFunctionTask;
 
     /**
-     * Encodes the specified HistoryFunctionTask message. Does not implicitly {@link OracleJob.HistoryFunctionTask.verify|verify} messages.
+     * Encodes the specified HistoryFunctionTask message. Does not implicitly {@apilink OracleJob.HistoryFunctionTask.verify|verify} messages.
      * @param message HistoryFunctionTask message or plain object to encode
      * @param [writer] Writer to encode to
      * @returns Writer
@@ -5633,7 +5633,7 @@ export namespace OracleJob {
     ): $protobuf.Writer;
 
     /**
-     * Encodes the specified HistoryFunctionTask message, length delimited. Does not implicitly {@link OracleJob.HistoryFunctionTask.verify|verify} messages.
+     * Encodes the specified HistoryFunctionTask message, length delimited. Does not implicitly {@apilink OracleJob.HistoryFunctionTask.verify|verify} messages.
      * @param message HistoryFunctionTask message or plain object to encode
      * @param [writer] Writer to encode to
      * @returns Writer
@@ -5753,7 +5753,7 @@ export namespace OracleJob {
     public static create(properties?: OracleJob.IVwapTask): OracleJob.VwapTask;
 
     /**
-     * Encodes the specified VwapTask message. Does not implicitly {@link OracleJob.VwapTask.verify|verify} messages.
+     * Encodes the specified VwapTask message. Does not implicitly {@apilink OracleJob.VwapTask.verify|verify} messages.
      * @param message VwapTask message or plain object to encode
      * @param [writer] Writer to encode to
      * @returns Writer
@@ -5764,7 +5764,7 @@ export namespace OracleJob {
     ): $protobuf.Writer;
 
     /**
-     * Encodes the specified VwapTask message, length delimited. Does not implicitly {@link OracleJob.VwapTask.verify|verify} messages.
+     * Encodes the specified VwapTask message, length delimited. Does not implicitly {@apilink OracleJob.VwapTask.verify|verify} messages.
      * @param message VwapTask message or plain object to encode
      * @param [writer] Writer to encode to
      * @returns Writer
@@ -5874,7 +5874,7 @@ export namespace OracleJob {
     public static create(properties?: OracleJob.IEwmaTask): OracleJob.EwmaTask;
 
     /**
-     * Encodes the specified EwmaTask message. Does not implicitly {@link OracleJob.EwmaTask.verify|verify} messages.
+     * Encodes the specified EwmaTask message. Does not implicitly {@apilink OracleJob.EwmaTask.verify|verify} messages.
      * @param message EwmaTask message or plain object to encode
      * @param [writer] Writer to encode to
      * @returns Writer
@@ -5885,7 +5885,7 @@ export namespace OracleJob {
     ): $protobuf.Writer;
 
     /**
-     * Encodes the specified EwmaTask message, length delimited. Does not implicitly {@link OracleJob.EwmaTask.verify|verify} messages.
+     * Encodes the specified EwmaTask message, length delimited. Does not implicitly {@apilink OracleJob.EwmaTask.verify|verify} messages.
      * @param message EwmaTask message or plain object to encode
      * @param [writer] Writer to encode to
      * @returns Writer
@@ -6051,7 +6051,7 @@ export namespace OracleJob {
     ): OracleJob.ComparisonTask;
 
     /**
-     * Encodes the specified ComparisonTask message. Does not implicitly {@link OracleJob.ComparisonTask.verify|verify} messages.
+     * Encodes the specified ComparisonTask message. Does not implicitly {@apilink OracleJob.ComparisonTask.verify|verify} messages.
      * @param message ComparisonTask message or plain object to encode
      * @param [writer] Writer to encode to
      * @returns Writer
@@ -6062,7 +6062,7 @@ export namespace OracleJob {
     ): $protobuf.Writer;
 
     /**
-     * Encodes the specified ComparisonTask message, length delimited. Does not implicitly {@link OracleJob.ComparisonTask.verify|verify} messages.
+     * Encodes the specified ComparisonTask message, length delimited. Does not implicitly {@apilink OracleJob.ComparisonTask.verify|verify} messages.
      * @param message ComparisonTask message or plain object to encode
      * @param [writer] Writer to encode to
      * @returns Writer
@@ -6179,7 +6179,7 @@ export namespace OracleJob {
     ): OracleJob.RoundTask;
 
     /**
-     * Encodes the specified RoundTask message. Does not implicitly {@link OracleJob.RoundTask.verify|verify} messages.
+     * Encodes the specified RoundTask message. Does not implicitly {@apilink OracleJob.RoundTask.verify|verify} messages.
      * @param message RoundTask message or plain object to encode
      * @param [writer] Writer to encode to
      * @returns Writer
@@ -6190,7 +6190,7 @@ export namespace OracleJob {
     ): $protobuf.Writer;
 
     /**
-     * Encodes the specified RoundTask message, length delimited. Does not implicitly {@link OracleJob.RoundTask.verify|verify} messages.
+     * Encodes the specified RoundTask message, length delimited. Does not implicitly {@apilink OracleJob.RoundTask.verify|verify} messages.
      * @param message RoundTask message or plain object to encode
      * @param [writer] Writer to encode to
      * @returns Writer
@@ -6340,7 +6340,7 @@ export namespace OracleJob {
     ): OracleJob.BoundTask;
 
     /**
-     * Encodes the specified BoundTask message. Does not implicitly {@link OracleJob.BoundTask.verify|verify} messages.
+     * Encodes the specified BoundTask message. Does not implicitly {@apilink OracleJob.BoundTask.verify|verify} messages.
      * @param message BoundTask message or plain object to encode
      * @param [writer] Writer to encode to
      * @returns Writer
@@ -6351,7 +6351,7 @@ export namespace OracleJob {
     ): $protobuf.Writer;
 
     /**
-     * Encodes the specified BoundTask message, length delimited. Does not implicitly {@link OracleJob.BoundTask.verify|verify} messages.
+     * Encodes the specified BoundTask message, length delimited. Does not implicitly {@apilink OracleJob.BoundTask.verify|verify} messages.
      * @param message BoundTask message or plain object to encode
      * @param [writer] Writer to encode to
      * @returns Writer
@@ -6761,7 +6761,7 @@ export namespace OracleJob {
     public static create(properties?: OracleJob.ITask): OracleJob.Task;
 
     /**
-     * Encodes the specified Task message. Does not implicitly {@link OracleJob.Task.verify|verify} messages.
+     * Encodes the specified Task message. Does not implicitly {@apilink OracleJob.Task.verify|verify} messages.
      * @param message Task message or plain object to encode
      * @param [writer] Writer to encode to
      * @returns Writer
@@ -6772,7 +6772,7 @@ export namespace OracleJob {
     ): $protobuf.Writer;
 
     /**
-     * Encodes the specified Task message, length delimited. Does not implicitly {@link OracleJob.Task.verify|verify} messages.
+     * Encodes the specified Task message, length delimited. Does not implicitly {@apilink OracleJob.Task.verify|verify} messages.
      * @param message Task message or plain object to encode
      * @param [writer] Writer to encode to
      * @returns Writer

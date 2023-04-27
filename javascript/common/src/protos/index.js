@@ -66,7 +66,7 @@
     };
 
     /**
-     * Encodes the specified OracleJob message. Does not implicitly {@link OracleJob.verify|verify} messages.
+     * Encodes the specified OracleJob message. Does not implicitly {@apilink OracleJob.verify|verify} messages.
      * @function encode
      * @memberof OracleJob
      * @static
@@ -86,7 +86,7 @@
     };
 
     /**
-     * Encodes the specified OracleJob message, length delimited. Does not implicitly {@link OracleJob.verify|verify} messages.
+     * Encodes the specified OracleJob message, length delimited. Does not implicitly {@apilink OracleJob.verify|verify} messages.
      * @function encodeDelimited
      * @memberof OracleJob
      * @static
@@ -327,7 +327,7 @@
       };
 
       /**
-       * Encodes the specified HttpTask message. Does not implicitly {@link OracleJob.HttpTask.verify|verify} messages.
+       * Encodes the specified HttpTask message. Does not implicitly {@apilink OracleJob.HttpTask.verify|verify} messages.
        * @function encode
        * @memberof OracleJob.HttpTask
        * @static
@@ -356,7 +356,7 @@
       };
 
       /**
-       * Encodes the specified HttpTask message, length delimited. Does not implicitly {@link OracleJob.HttpTask.verify|verify} messages.
+       * Encodes the specified HttpTask message, length delimited. Does not implicitly {@apilink OracleJob.HttpTask.verify|verify} messages.
        * @function encodeDelimited
        * @memberof OracleJob.HttpTask
        * @static
@@ -653,7 +653,7 @@
         };
 
         /**
-         * Encodes the specified Header message. Does not implicitly {@link OracleJob.HttpTask.Header.verify|verify} messages.
+         * Encodes the specified Header message. Does not implicitly {@apilink OracleJob.HttpTask.Header.verify|verify} messages.
          * @function encode
          * @memberof OracleJob.HttpTask.Header
          * @static
@@ -674,7 +674,7 @@
         };
 
         /**
-         * Encodes the specified Header message, length delimited. Does not implicitly {@link OracleJob.HttpTask.Header.verify|verify} messages.
+         * Encodes the specified Header message, length delimited. Does not implicitly {@apilink OracleJob.HttpTask.Header.verify|verify} messages.
          * @function encodeDelimited
          * @memberof OracleJob.HttpTask.Header
          * @static
@@ -877,7 +877,7 @@
       };
 
       /**
-       * Encodes the specified JsonParseTask message. Does not implicitly {@link OracleJob.JsonParseTask.verify|verify} messages.
+       * Encodes the specified JsonParseTask message. Does not implicitly {@apilink OracleJob.JsonParseTask.verify|verify} messages.
        * @function encode
        * @memberof OracleJob.JsonParseTask
        * @static
@@ -900,7 +900,7 @@
       };
 
       /**
-       * Encodes the specified JsonParseTask message, length delimited. Does not implicitly {@link OracleJob.JsonParseTask.verify|verify} messages.
+       * Encodes the specified JsonParseTask message, length delimited. Does not implicitly {@apilink OracleJob.JsonParseTask.verify|verify} messages.
        * @function encodeDelimited
        * @memberof OracleJob.JsonParseTask
        * @static
@@ -1193,7 +1193,7 @@
       };
 
       /**
-       * Encodes the specified MedianTask message. Does not implicitly {@link OracleJob.MedianTask.verify|verify} messages.
+       * Encodes the specified MedianTask message. Does not implicitly {@apilink OracleJob.MedianTask.verify|verify} messages.
        * @function encode
        * @memberof OracleJob.MedianTask
        * @static
@@ -1226,7 +1226,7 @@
       };
 
       /**
-       * Encodes the specified MedianTask message, length delimited. Does not implicitly {@link OracleJob.MedianTask.verify|verify} messages.
+       * Encodes the specified MedianTask message, length delimited. Does not implicitly {@apilink OracleJob.MedianTask.verify|verify} messages.
        * @function encodeDelimited
        * @memberof OracleJob.MedianTask
        * @static
@@ -1489,7 +1489,7 @@
       };
 
       /**
-       * Encodes the specified MeanTask message. Does not implicitly {@link OracleJob.MeanTask.verify|verify} messages.
+       * Encodes the specified MeanTask message. Does not implicitly {@apilink OracleJob.MeanTask.verify|verify} messages.
        * @function encode
        * @memberof OracleJob.MeanTask
        * @static
@@ -1515,7 +1515,7 @@
       };
 
       /**
-       * Encodes the specified MeanTask message, length delimited. Does not implicitly {@link OracleJob.MeanTask.verify|verify} messages.
+       * Encodes the specified MeanTask message, length delimited. Does not implicitly {@apilink OracleJob.MeanTask.verify|verify} messages.
        * @function encodeDelimited
        * @memberof OracleJob.MeanTask
        * @static
@@ -1760,7 +1760,7 @@
       };
 
       /**
-       * Encodes the specified MaxTask message. Does not implicitly {@link OracleJob.MaxTask.verify|verify} messages.
+       * Encodes the specified MaxTask message. Does not implicitly {@apilink OracleJob.MaxTask.verify|verify} messages.
        * @function encode
        * @memberof OracleJob.MaxTask
        * @static
@@ -1786,7 +1786,7 @@
       };
 
       /**
-       * Encodes the specified MaxTask message, length delimited. Does not implicitly {@link OracleJob.MaxTask.verify|verify} messages.
+       * Encodes the specified MaxTask message, length delimited. Does not implicitly {@apilink OracleJob.MaxTask.verify|verify} messages.
        * @function encodeDelimited
        * @memberof OracleJob.MaxTask
        * @static
@@ -2031,7 +2031,7 @@
       };
 
       /**
-       * Encodes the specified MinTask message. Does not implicitly {@link OracleJob.MinTask.verify|verify} messages.
+       * Encodes the specified MinTask message. Does not implicitly {@apilink OracleJob.MinTask.verify|verify} messages.
        * @function encode
        * @memberof OracleJob.MinTask
        * @static
@@ -2057,7 +2057,7 @@
       };
 
       /**
-       * Encodes the specified MinTask message, length delimited. Does not implicitly {@link OracleJob.MinTask.verify|verify} messages.
+       * Encodes the specified MinTask message, length delimited. Does not implicitly {@apilink OracleJob.MinTask.verify|verify} messages.
        * @function encodeDelimited
        * @memberof OracleJob.MinTask
        * @static
@@ -2325,7 +2325,7 @@
       };
 
       /**
-       * Encodes the specified ValueTask message. Does not implicitly {@link OracleJob.ValueTask.verify|verify} messages.
+       * Encodes the specified ValueTask message. Does not implicitly {@apilink OracleJob.ValueTask.verify|verify} messages.
        * @function encode
        * @memberof OracleJob.ValueTask
        * @static
@@ -2353,7 +2353,7 @@
       };
 
       /**
-       * Encodes the specified ValueTask message, length delimited. Does not implicitly {@link OracleJob.ValueTask.verify|verify} messages.
+       * Encodes the specified ValueTask message, length delimited. Does not implicitly {@apilink OracleJob.ValueTask.verify|verify} messages.
        * @function encodeDelimited
        * @memberof OracleJob.ValueTask
        * @static
@@ -2603,7 +2603,7 @@
       };
 
       /**
-       * Encodes the specified WebsocketTask message. Does not implicitly {@link OracleJob.WebsocketTask.verify|verify} messages.
+       * Encodes the specified WebsocketTask message. Does not implicitly {@apilink OracleJob.WebsocketTask.verify|verify} messages.
        * @function encode
        * @memberof OracleJob.WebsocketTask
        * @static
@@ -2638,7 +2638,7 @@
       };
 
       /**
-       * Encodes the specified WebsocketTask message, length delimited. Does not implicitly {@link OracleJob.WebsocketTask.verify|verify} messages.
+       * Encodes the specified WebsocketTask message, length delimited. Does not implicitly {@apilink OracleJob.WebsocketTask.verify|verify} messages.
        * @function encodeDelimited
        * @memberof OracleJob.WebsocketTask
        * @static
@@ -2879,7 +2879,7 @@
       };
 
       /**
-       * Encodes the specified ConditionalTask message. Does not implicitly {@link OracleJob.ConditionalTask.verify|verify} messages.
+       * Encodes the specified ConditionalTask message. Does not implicitly {@apilink OracleJob.ConditionalTask.verify|verify} messages.
        * @function encode
        * @memberof OracleJob.ConditionalTask
        * @static
@@ -2905,7 +2905,7 @@
       };
 
       /**
-       * Encodes the specified ConditionalTask message, length delimited. Does not implicitly {@link OracleJob.ConditionalTask.verify|verify} messages.
+       * Encodes the specified ConditionalTask message, length delimited. Does not implicitly {@apilink OracleJob.ConditionalTask.verify|verify} messages.
        * @function encodeDelimited
        * @memberof OracleJob.ConditionalTask
        * @static
@@ -3203,7 +3203,7 @@
       };
 
       /**
-       * Encodes the specified DivideTask message. Does not implicitly {@link OracleJob.DivideTask.verify|verify} messages.
+       * Encodes the specified DivideTask message. Does not implicitly {@apilink OracleJob.DivideTask.verify|verify} messages.
        * @function encode
        * @memberof OracleJob.DivideTask
        * @static
@@ -3236,7 +3236,7 @@
       };
 
       /**
-       * Encodes the specified DivideTask message, length delimited. Does not implicitly {@link OracleJob.DivideTask.verify|verify} messages.
+       * Encodes the specified DivideTask message, length delimited. Does not implicitly {@apilink OracleJob.DivideTask.verify|verify} messages.
        * @function encodeDelimited
        * @memberof OracleJob.DivideTask
        * @static
@@ -3526,7 +3526,7 @@
       };
 
       /**
-       * Encodes the specified MultiplyTask message. Does not implicitly {@link OracleJob.MultiplyTask.verify|verify} messages.
+       * Encodes the specified MultiplyTask message. Does not implicitly {@apilink OracleJob.MultiplyTask.verify|verify} messages.
        * @function encode
        * @memberof OracleJob.MultiplyTask
        * @static
@@ -3559,7 +3559,7 @@
       };
 
       /**
-       * Encodes the specified MultiplyTask message, length delimited. Does not implicitly {@link OracleJob.MultiplyTask.verify|verify} messages.
+       * Encodes the specified MultiplyTask message, length delimited. Does not implicitly {@apilink OracleJob.MultiplyTask.verify|verify} messages.
        * @function encodeDelimited
        * @memberof OracleJob.MultiplyTask
        * @static
@@ -3846,7 +3846,7 @@
       };
 
       /**
-       * Encodes the specified AddTask message. Does not implicitly {@link OracleJob.AddTask.verify|verify} messages.
+       * Encodes the specified AddTask message. Does not implicitly {@apilink OracleJob.AddTask.verify|verify} messages.
        * @function encode
        * @memberof OracleJob.AddTask
        * @static
@@ -3879,7 +3879,7 @@
       };
 
       /**
-       * Encodes the specified AddTask message, length delimited. Does not implicitly {@link OracleJob.AddTask.verify|verify} messages.
+       * Encodes the specified AddTask message, length delimited. Does not implicitly {@apilink OracleJob.AddTask.verify|verify} messages.
        * @function encodeDelimited
        * @memberof OracleJob.AddTask
        * @static
@@ -4166,7 +4166,7 @@
       };
 
       /**
-       * Encodes the specified SubtractTask message. Does not implicitly {@link OracleJob.SubtractTask.verify|verify} messages.
+       * Encodes the specified SubtractTask message. Does not implicitly {@apilink OracleJob.SubtractTask.verify|verify} messages.
        * @function encode
        * @memberof OracleJob.SubtractTask
        * @static
@@ -4199,7 +4199,7 @@
       };
 
       /**
-       * Encodes the specified SubtractTask message, length delimited. Does not implicitly {@link OracleJob.SubtractTask.verify|verify} messages.
+       * Encodes the specified SubtractTask message, length delimited. Does not implicitly {@apilink OracleJob.SubtractTask.verify|verify} messages.
        * @function encodeDelimited
        * @memberof OracleJob.SubtractTask
        * @static
@@ -4523,7 +4523,7 @@
       };
 
       /**
-       * Encodes the specified LpTokenPriceTask message. Does not implicitly {@link OracleJob.LpTokenPriceTask.verify|verify} messages.
+       * Encodes the specified LpTokenPriceTask message. Does not implicitly {@apilink OracleJob.LpTokenPriceTask.verify|verify} messages.
        * @function encode
        * @memberof OracleJob.LpTokenPriceTask
        * @static
@@ -4584,7 +4584,7 @@
       };
 
       /**
-       * Encodes the specified LpTokenPriceTask message, length delimited. Does not implicitly {@link OracleJob.LpTokenPriceTask.verify|verify} messages.
+       * Encodes the specified LpTokenPriceTask message, length delimited. Does not implicitly {@apilink OracleJob.LpTokenPriceTask.verify|verify} messages.
        * @function encodeDelimited
        * @memberof OracleJob.LpTokenPriceTask
        * @static
@@ -5035,7 +5035,7 @@
       };
 
       /**
-       * Encodes the specified LpExchangeRateTask message. Does not implicitly {@link OracleJob.LpExchangeRateTask.verify|verify} messages.
+       * Encodes the specified LpExchangeRateTask message. Does not implicitly {@apilink OracleJob.LpExchangeRateTask.verify|verify} messages.
        * @function encode
        * @memberof OracleJob.LpExchangeRateTask
        * @static
@@ -5105,7 +5105,7 @@
       };
 
       /**
-       * Encodes the specified LpExchangeRateTask message, length delimited. Does not implicitly {@link OracleJob.LpExchangeRateTask.verify|verify} messages.
+       * Encodes the specified LpExchangeRateTask message, length delimited. Does not implicitly {@apilink OracleJob.LpExchangeRateTask.verify|verify} messages.
        * @function encodeDelimited
        * @memberof OracleJob.LpExchangeRateTask
        * @static
@@ -5463,7 +5463,7 @@
       };
 
       /**
-       * Encodes the specified RegexExtractTask message. Does not implicitly {@link OracleJob.RegexExtractTask.verify|verify} messages.
+       * Encodes the specified RegexExtractTask message. Does not implicitly {@apilink OracleJob.RegexExtractTask.verify|verify} messages.
        * @function encode
        * @memberof OracleJob.RegexExtractTask
        * @static
@@ -5487,7 +5487,7 @@
       };
 
       /**
-       * Encodes the specified RegexExtractTask message, length delimited. Does not implicitly {@link OracleJob.RegexExtractTask.verify|verify} messages.
+       * Encodes the specified RegexExtractTask message, length delimited. Does not implicitly {@apilink OracleJob.RegexExtractTask.verify|verify} messages.
        * @function encodeDelimited
        * @memberof OracleJob.RegexExtractTask
        * @static
@@ -5715,7 +5715,7 @@
       };
 
       /**
-       * Encodes the specified XStepPriceTask message. Does not implicitly {@link OracleJob.XStepPriceTask.verify|verify} messages.
+       * Encodes the specified XStepPriceTask message. Does not implicitly {@apilink OracleJob.XStepPriceTask.verify|verify} messages.
        * @function encode
        * @memberof OracleJob.XStepPriceTask
        * @static
@@ -5744,7 +5744,7 @@
       };
 
       /**
-       * Encodes the specified XStepPriceTask message, length delimited. Does not implicitly {@link OracleJob.XStepPriceTask.verify|verify} messages.
+       * Encodes the specified XStepPriceTask message, length delimited. Does not implicitly {@apilink OracleJob.XStepPriceTask.verify|verify} messages.
        * @function encodeDelimited
        * @memberof OracleJob.XStepPriceTask
        * @static
@@ -6014,7 +6014,7 @@
       };
 
       /**
-       * Encodes the specified TwapTask message. Does not implicitly {@link OracleJob.TwapTask.verify|verify} messages.
+       * Encodes the specified TwapTask message. Does not implicitly {@apilink OracleJob.TwapTask.verify|verify} messages.
        * @function encode
        * @memberof OracleJob.TwapTask
        * @static
@@ -6067,7 +6067,7 @@
       };
 
       /**
-       * Encodes the specified TwapTask message, length delimited. Does not implicitly {@link OracleJob.TwapTask.verify|verify} messages.
+       * Encodes the specified TwapTask message, length delimited. Does not implicitly {@apilink OracleJob.TwapTask.verify|verify} messages.
        * @function encodeDelimited
        * @memberof OracleJob.TwapTask
        * @static
@@ -6351,7 +6351,7 @@
       };
 
       /**
-       * Encodes the specified SerumSwapTask message. Does not implicitly {@link OracleJob.SerumSwapTask.verify|verify} messages.
+       * Encodes the specified SerumSwapTask message. Does not implicitly {@apilink OracleJob.SerumSwapTask.verify|verify} messages.
        * @function encode
        * @memberof OracleJob.SerumSwapTask
        * @static
@@ -6372,7 +6372,7 @@
       };
 
       /**
-       * Encodes the specified SerumSwapTask message, length delimited. Does not implicitly {@link OracleJob.SerumSwapTask.verify|verify} messages.
+       * Encodes the specified SerumSwapTask message, length delimited. Does not implicitly {@apilink OracleJob.SerumSwapTask.verify|verify} messages.
        * @function encodeDelimited
        * @memberof OracleJob.SerumSwapTask
        * @static
@@ -6596,7 +6596,7 @@
       };
 
       /**
-       * Encodes the specified PowTask message. Does not implicitly {@link OracleJob.PowTask.verify|verify} messages.
+       * Encodes the specified PowTask message. Does not implicitly {@apilink OracleJob.PowTask.verify|verify} messages.
        * @function encode
        * @memberof OracleJob.PowTask
        * @static
@@ -6624,7 +6624,7 @@
       };
 
       /**
-       * Encodes the specified PowTask message, length delimited. Does not implicitly {@link OracleJob.PowTask.verify|verify} messages.
+       * Encodes the specified PowTask message, length delimited. Does not implicitly {@apilink OracleJob.PowTask.verify|verify} messages.
        * @function encodeDelimited
        * @memberof OracleJob.PowTask
        * @static
@@ -6865,7 +6865,7 @@
       };
 
       /**
-       * Encodes the specified LendingRateTask message. Does not implicitly {@link OracleJob.LendingRateTask.verify|verify} messages.
+       * Encodes the specified LendingRateTask message. Does not implicitly {@apilink OracleJob.LendingRateTask.verify|verify} messages.
        * @function encode
        * @memberof OracleJob.LendingRateTask
        * @static
@@ -6894,7 +6894,7 @@
       };
 
       /**
-       * Encodes the specified LendingRateTask message, length delimited. Does not implicitly {@link OracleJob.LendingRateTask.verify|verify} messages.
+       * Encodes the specified LendingRateTask message, length delimited. Does not implicitly {@apilink OracleJob.LendingRateTask.verify|verify} messages.
        * @function encodeDelimited
        * @memberof OracleJob.LendingRateTask
        * @static
@@ -7143,7 +7143,7 @@
       };
 
       /**
-       * Encodes the specified MangoPerpMarketTask message. Does not implicitly {@link OracleJob.MangoPerpMarketTask.verify|verify} messages.
+       * Encodes the specified MangoPerpMarketTask message. Does not implicitly {@apilink OracleJob.MangoPerpMarketTask.verify|verify} messages.
        * @function encode
        * @memberof OracleJob.MangoPerpMarketTask
        * @static
@@ -7164,7 +7164,7 @@
       };
 
       /**
-       * Encodes the specified MangoPerpMarketTask message, length delimited. Does not implicitly {@link OracleJob.MangoPerpMarketTask.verify|verify} messages.
+       * Encodes the specified MangoPerpMarketTask message, length delimited. Does not implicitly {@apilink OracleJob.MangoPerpMarketTask.verify|verify} messages.
        * @function encodeDelimited
        * @memberof OracleJob.MangoPerpMarketTask
        * @static
@@ -7450,7 +7450,7 @@
       };
 
       /**
-       * Encodes the specified JupiterSwapTask message. Does not implicitly {@link OracleJob.JupiterSwapTask.verify|verify} messages.
+       * Encodes the specified JupiterSwapTask message. Does not implicitly {@apilink OracleJob.JupiterSwapTask.verify|verify} messages.
        * @function encode
        * @memberof OracleJob.JupiterSwapTask
        * @static
@@ -7518,7 +7518,7 @@
       };
 
       /**
-       * Encodes the specified JupiterSwapTask message, length delimited. Does not implicitly {@link OracleJob.JupiterSwapTask.verify|verify} messages.
+       * Encodes the specified JupiterSwapTask message, length delimited. Does not implicitly {@apilink OracleJob.JupiterSwapTask.verify|verify} messages.
        * @function encodeDelimited
        * @memberof OracleJob.JupiterSwapTask
        * @static
@@ -7895,7 +7895,7 @@
         };
 
         /**
-         * Encodes the specified FilterList message. Does not implicitly {@link OracleJob.JupiterSwapTask.FilterList.verify|verify} messages.
+         * Encodes the specified FilterList message. Does not implicitly {@apilink OracleJob.JupiterSwapTask.FilterList.verify|verify} messages.
          * @function encode
          * @memberof OracleJob.JupiterSwapTask.FilterList
          * @static
@@ -7914,7 +7914,7 @@
         };
 
         /**
-         * Encodes the specified FilterList message, length delimited. Does not implicitly {@link OracleJob.JupiterSwapTask.FilterList.verify|verify} messages.
+         * Encodes the specified FilterList message, length delimited. Does not implicitly {@apilink OracleJob.JupiterSwapTask.FilterList.verify|verify} messages.
          * @function encodeDelimited
          * @memberof OracleJob.JupiterSwapTask.FilterList
          * @static
@@ -8162,7 +8162,7 @@
       };
 
       /**
-       * Encodes the specified PerpMarketTask message. Does not implicitly {@link OracleJob.PerpMarketTask.verify|verify} messages.
+       * Encodes the specified PerpMarketTask message. Does not implicitly {@apilink OracleJob.PerpMarketTask.verify|verify} messages.
        * @function encode
        * @memberof OracleJob.PerpMarketTask
        * @static
@@ -8204,7 +8204,7 @@
       };
 
       /**
-       * Encodes the specified PerpMarketTask message, length delimited. Does not implicitly {@link OracleJob.PerpMarketTask.verify|verify} messages.
+       * Encodes the specified PerpMarketTask message, length delimited. Does not implicitly {@apilink OracleJob.PerpMarketTask.verify|verify} messages.
        * @function encodeDelimited
        * @memberof OracleJob.PerpMarketTask
        * @static
@@ -8514,7 +8514,7 @@
       };
 
       /**
-       * Encodes the specified OracleTask message. Does not implicitly {@link OracleJob.OracleTask.verify|verify} messages.
+       * Encodes the specified OracleTask message. Does not implicitly {@apilink OracleJob.OracleTask.verify|verify} messages.
        * @function encode
        * @memberof OracleJob.OracleTask
        * @static
@@ -8554,7 +8554,7 @@
       };
 
       /**
-       * Encodes the specified OracleTask message, length delimited. Does not implicitly {@link OracleJob.OracleTask.verify|verify} messages.
+       * Encodes the specified OracleTask message, length delimited. Does not implicitly {@apilink OracleJob.OracleTask.verify|verify} messages.
        * @function encodeDelimited
        * @memberof OracleJob.OracleTask
        * @static
@@ -8823,7 +8823,7 @@
       };
 
       /**
-       * Encodes the specified AnchorFetchTask message. Does not implicitly {@link OracleJob.AnchorFetchTask.verify|verify} messages.
+       * Encodes the specified AnchorFetchTask message. Does not implicitly {@apilink OracleJob.AnchorFetchTask.verify|verify} messages.
        * @function encode
        * @memberof OracleJob.AnchorFetchTask
        * @static
@@ -8849,7 +8849,7 @@
       };
 
       /**
-       * Encodes the specified AnchorFetchTask message, length delimited. Does not implicitly {@link OracleJob.AnchorFetchTask.verify|verify} messages.
+       * Encodes the specified AnchorFetchTask message, length delimited. Does not implicitly {@apilink OracleJob.AnchorFetchTask.verify|verify} messages.
        * @function encodeDelimited
        * @memberof OracleJob.AnchorFetchTask
        * @static
@@ -9044,7 +9044,7 @@
       };
 
       /**
-       * Encodes the specified TpsTask message. Does not implicitly {@link OracleJob.TpsTask.verify|verify} messages.
+       * Encodes the specified TpsTask message. Does not implicitly {@apilink OracleJob.TpsTask.verify|verify} messages.
        * @function encode
        * @memberof OracleJob.TpsTask
        * @static
@@ -9058,7 +9058,7 @@
       };
 
       /**
-       * Encodes the specified TpsTask message, length delimited. Does not implicitly {@link OracleJob.TpsTask.verify|verify} messages.
+       * Encodes the specified TpsTask message, length delimited. Does not implicitly {@apilink OracleJob.TpsTask.verify|verify} messages.
        * @function encodeDelimited
        * @memberof OracleJob.TpsTask
        * @static
@@ -9224,7 +9224,7 @@
       };
 
       /**
-       * Encodes the specified SplStakePoolTask message. Does not implicitly {@link OracleJob.SplStakePoolTask.verify|verify} messages.
+       * Encodes the specified SplStakePoolTask message. Does not implicitly {@apilink OracleJob.SplStakePoolTask.verify|verify} messages.
        * @function encode
        * @memberof OracleJob.SplStakePoolTask
        * @static
@@ -9243,7 +9243,7 @@
       };
 
       /**
-       * Encodes the specified SplStakePoolTask message, length delimited. Does not implicitly {@link OracleJob.SplStakePoolTask.verify|verify} messages.
+       * Encodes the specified SplStakePoolTask message, length delimited. Does not implicitly {@apilink OracleJob.SplStakePoolTask.verify|verify} messages.
        * @function encodeDelimited
        * @memberof OracleJob.SplStakePoolTask
        * @static
@@ -9450,7 +9450,7 @@
       };
 
       /**
-       * Encodes the specified SplTokenParseTask message. Does not implicitly {@link OracleJob.SplTokenParseTask.verify|verify} messages.
+       * Encodes the specified SplTokenParseTask message. Does not implicitly {@apilink OracleJob.SplTokenParseTask.verify|verify} messages.
        * @function encode
        * @memberof OracleJob.SplTokenParseTask
        * @static
@@ -9476,7 +9476,7 @@
       };
 
       /**
-       * Encodes the specified SplTokenParseTask message, length delimited. Does not implicitly {@link OracleJob.SplTokenParseTask.verify|verify} messages.
+       * Encodes the specified SplTokenParseTask message, length delimited. Does not implicitly {@apilink OracleJob.SplTokenParseTask.verify|verify} messages.
        * @function encodeDelimited
        * @memberof OracleJob.SplTokenParseTask
        * @static
@@ -9711,7 +9711,7 @@
       };
 
       /**
-       * Encodes the specified DefiKingdomsTask message. Does not implicitly {@link OracleJob.DefiKingdomsTask.verify|verify} messages.
+       * Encodes the specified DefiKingdomsTask message. Does not implicitly {@apilink OracleJob.DefiKingdomsTask.verify|verify} messages.
        * @function encode
        * @memberof OracleJob.DefiKingdomsTask
        * @static
@@ -9746,7 +9746,7 @@
       };
 
       /**
-       * Encodes the specified DefiKingdomsTask message, length delimited. Does not implicitly {@link OracleJob.DefiKingdomsTask.verify|verify} messages.
+       * Encodes the specified DefiKingdomsTask message, length delimited. Does not implicitly {@apilink OracleJob.DefiKingdomsTask.verify|verify} messages.
        * @function encodeDelimited
        * @memberof OracleJob.DefiKingdomsTask
        * @static
@@ -9997,7 +9997,7 @@
         };
 
         /**
-         * Encodes the specified Token message. Does not implicitly {@link OracleJob.DefiKingdomsTask.Token.verify|verify} messages.
+         * Encodes the specified Token message. Does not implicitly {@apilink OracleJob.DefiKingdomsTask.Token.verify|verify} messages.
          * @function encode
          * @memberof OracleJob.DefiKingdomsTask.Token
          * @static
@@ -10021,7 +10021,7 @@
         };
 
         /**
-         * Encodes the specified Token message, length delimited. Does not implicitly {@link OracleJob.DefiKingdomsTask.Token.verify|verify} messages.
+         * Encodes the specified Token message, length delimited. Does not implicitly {@apilink OracleJob.DefiKingdomsTask.Token.verify|verify} messages.
          * @function encodeDelimited
          * @memberof OracleJob.DefiKingdomsTask.Token
          * @static
@@ -10254,7 +10254,7 @@
       };
 
       /**
-       * Encodes the specified UniswapExchangeRateTask message. Does not implicitly {@link OracleJob.UniswapExchangeRateTask.verify|verify} messages.
+       * Encodes the specified UniswapExchangeRateTask message. Does not implicitly {@apilink OracleJob.UniswapExchangeRateTask.verify|verify} messages.
        * @function encode
        * @memberof OracleJob.UniswapExchangeRateTask
        * @static
@@ -10299,7 +10299,7 @@
       };
 
       /**
-       * Encodes the specified UniswapExchangeRateTask message, length delimited. Does not implicitly {@link OracleJob.UniswapExchangeRateTask.verify|verify} messages.
+       * Encodes the specified UniswapExchangeRateTask message, length delimited. Does not implicitly {@apilink OracleJob.UniswapExchangeRateTask.verify|verify} messages.
        * @function encodeDelimited
        * @memberof OracleJob.UniswapExchangeRateTask
        * @static
@@ -10594,7 +10594,7 @@
       };
 
       /**
-       * Encodes the specified SushiswapExchangeRateTask message. Does not implicitly {@link OracleJob.SushiswapExchangeRateTask.verify|verify} messages.
+       * Encodes the specified SushiswapExchangeRateTask message. Does not implicitly {@apilink OracleJob.SushiswapExchangeRateTask.verify|verify} messages.
        * @function encode
        * @memberof OracleJob.SushiswapExchangeRateTask
        * @static
@@ -10639,7 +10639,7 @@
       };
 
       /**
-       * Encodes the specified SushiswapExchangeRateTask message, length delimited. Does not implicitly {@link OracleJob.SushiswapExchangeRateTask.verify|verify} messages.
+       * Encodes the specified SushiswapExchangeRateTask message, length delimited. Does not implicitly {@apilink OracleJob.SushiswapExchangeRateTask.verify|verify} messages.
        * @function encodeDelimited
        * @memberof OracleJob.SushiswapExchangeRateTask
        * @static
@@ -10936,7 +10936,7 @@
       };
 
       /**
-       * Encodes the specified PancakeswapExchangeRateTask message. Does not implicitly {@link OracleJob.PancakeswapExchangeRateTask.verify|verify} messages.
+       * Encodes the specified PancakeswapExchangeRateTask message. Does not implicitly {@apilink OracleJob.PancakeswapExchangeRateTask.verify|verify} messages.
        * @function encode
        * @memberof OracleJob.PancakeswapExchangeRateTask
        * @static
@@ -10981,7 +10981,7 @@
       };
 
       /**
-       * Encodes the specified PancakeswapExchangeRateTask message, length delimited. Does not implicitly {@link OracleJob.PancakeswapExchangeRateTask.verify|verify} messages.
+       * Encodes the specified PancakeswapExchangeRateTask message, length delimited. Does not implicitly {@apilink OracleJob.PancakeswapExchangeRateTask.verify|verify} messages.
        * @function encodeDelimited
        * @memberof OracleJob.PancakeswapExchangeRateTask
        * @static
@@ -11246,7 +11246,7 @@
       };
 
       /**
-       * Encodes the specified CacheTask message. Does not implicitly {@link OracleJob.CacheTask.verify|verify} messages.
+       * Encodes the specified CacheTask message. Does not implicitly {@apilink OracleJob.CacheTask.verify|verify} messages.
        * @function encode
        * @memberof OracleJob.CacheTask
        * @static
@@ -11266,7 +11266,7 @@
       };
 
       /**
-       * Encodes the specified CacheTask message, length delimited. Does not implicitly {@link OracleJob.CacheTask.verify|verify} messages.
+       * Encodes the specified CacheTask message, length delimited. Does not implicitly {@apilink OracleJob.CacheTask.verify|verify} messages.
        * @function encodeDelimited
        * @memberof OracleJob.CacheTask
        * @static
@@ -11493,7 +11493,7 @@
         };
 
         /**
-         * Encodes the specified CacheItem message. Does not implicitly {@link OracleJob.CacheTask.CacheItem.verify|verify} messages.
+         * Encodes the specified CacheItem message. Does not implicitly {@apilink OracleJob.CacheTask.CacheItem.verify|verify} messages.
          * @function encode
          * @memberof OracleJob.CacheTask.CacheItem
          * @static
@@ -11519,7 +11519,7 @@
         };
 
         /**
-         * Encodes the specified CacheItem message, length delimited. Does not implicitly {@link OracleJob.CacheTask.CacheItem.verify|verify} messages.
+         * Encodes the specified CacheItem message, length delimited. Does not implicitly {@apilink OracleJob.CacheTask.CacheItem.verify|verify} messages.
          * @function encodeDelimited
          * @memberof OracleJob.CacheTask.CacheItem
          * @static
@@ -11721,7 +11721,7 @@
       };
 
       /**
-       * Encodes the specified SysclockOffsetTask message. Does not implicitly {@link OracleJob.SysclockOffsetTask.verify|verify} messages.
+       * Encodes the specified SysclockOffsetTask message. Does not implicitly {@apilink OracleJob.SysclockOffsetTask.verify|verify} messages.
        * @function encode
        * @memberof OracleJob.SysclockOffsetTask
        * @static
@@ -11735,7 +11735,7 @@
       };
 
       /**
-       * Encodes the specified SysclockOffsetTask message, length delimited. Does not implicitly {@link OracleJob.SysclockOffsetTask.verify|verify} messages.
+       * Encodes the specified SysclockOffsetTask message, length delimited. Does not implicitly {@apilink OracleJob.SysclockOffsetTask.verify|verify} messages.
        * @function encodeDelimited
        * @memberof OracleJob.SysclockOffsetTask
        * @static
@@ -11895,7 +11895,7 @@
       };
 
       /**
-       * Encodes the specified MarinadeStateTask message. Does not implicitly {@link OracleJob.MarinadeStateTask.verify|verify} messages.
+       * Encodes the specified MarinadeStateTask message. Does not implicitly {@apilink OracleJob.MarinadeStateTask.verify|verify} messages.
        * @function encode
        * @memberof OracleJob.MarinadeStateTask
        * @static
@@ -11909,7 +11909,7 @@
       };
 
       /**
-       * Encodes the specified MarinadeStateTask message, length delimited. Does not implicitly {@link OracleJob.MarinadeStateTask.verify|verify} messages.
+       * Encodes the specified MarinadeStateTask message, length delimited. Does not implicitly {@apilink OracleJob.MarinadeStateTask.verify|verify} messages.
        * @function encodeDelimited
        * @memberof OracleJob.MarinadeStateTask
        * @static
@@ -12078,7 +12078,7 @@
       };
 
       /**
-       * Encodes the specified SolanaAccountDataFetchTask message. Does not implicitly {@link OracleJob.SolanaAccountDataFetchTask.verify|verify} messages.
+       * Encodes the specified SolanaAccountDataFetchTask message. Does not implicitly {@apilink OracleJob.SolanaAccountDataFetchTask.verify|verify} messages.
        * @function encode
        * @memberof OracleJob.SolanaAccountDataFetchTask
        * @static
@@ -12097,7 +12097,7 @@
       };
 
       /**
-       * Encodes the specified SolanaAccountDataFetchTask message, length delimited. Does not implicitly {@link OracleJob.SolanaAccountDataFetchTask.verify|verify} messages.
+       * Encodes the specified SolanaAccountDataFetchTask message, length delimited. Does not implicitly {@apilink OracleJob.SolanaAccountDataFetchTask.verify|verify} messages.
        * @function encodeDelimited
        * @memberof OracleJob.SolanaAccountDataFetchTask
        * @static
@@ -12305,7 +12305,7 @@
       };
 
       /**
-       * Encodes the specified CronParseTask message. Does not implicitly {@link OracleJob.CronParseTask.verify|verify} messages.
+       * Encodes the specified CronParseTask message. Does not implicitly {@apilink OracleJob.CronParseTask.verify|verify} messages.
        * @function encode
        * @memberof OracleJob.CronParseTask
        * @static
@@ -12334,7 +12334,7 @@
       };
 
       /**
-       * Encodes the specified CronParseTask message, length delimited. Does not implicitly {@link OracleJob.CronParseTask.verify|verify} messages.
+       * Encodes the specified CronParseTask message, length delimited. Does not implicitly {@apilink OracleJob.CronParseTask.verify|verify} messages.
        * @function encodeDelimited
        * @memberof OracleJob.CronParseTask
        * @static
@@ -12614,7 +12614,7 @@
       };
 
       /**
-       * Encodes the specified BufferLayoutParseTask message. Does not implicitly {@link OracleJob.BufferLayoutParseTask.verify|verify} messages.
+       * Encodes the specified BufferLayoutParseTask message. Does not implicitly {@apilink OracleJob.BufferLayoutParseTask.verify|verify} messages.
        * @function encode
        * @memberof OracleJob.BufferLayoutParseTask
        * @static
@@ -12640,7 +12640,7 @@
       };
 
       /**
-       * Encodes the specified BufferLayoutParseTask message, length delimited. Does not implicitly {@link OracleJob.BufferLayoutParseTask.verify|verify} messages.
+       * Encodes the specified BufferLayoutParseTask message, length delimited. Does not implicitly {@apilink OracleJob.BufferLayoutParseTask.verify|verify} messages.
        * @function encodeDelimited
        * @memberof OracleJob.BufferLayoutParseTask
        * @static
@@ -13035,7 +13035,7 @@
       };
 
       /**
-       * Encodes the specified HistoryFunctionTask message. Does not implicitly {@link OracleJob.HistoryFunctionTask.verify|verify} messages.
+       * Encodes the specified HistoryFunctionTask message. Does not implicitly {@apilink OracleJob.HistoryFunctionTask.verify|verify} messages.
        * @function encode
        * @memberof OracleJob.HistoryFunctionTask
        * @static
@@ -13066,7 +13066,7 @@
       };
 
       /**
-       * Encodes the specified HistoryFunctionTask message, length delimited. Does not implicitly {@link OracleJob.HistoryFunctionTask.verify|verify} messages.
+       * Encodes the specified HistoryFunctionTask message, length delimited. Does not implicitly {@apilink OracleJob.HistoryFunctionTask.verify|verify} messages.
        * @function encodeDelimited
        * @memberof OracleJob.HistoryFunctionTask
        * @static
@@ -13340,7 +13340,7 @@
       };
 
       /**
-       * Encodes the specified VwapTask message. Does not implicitly {@link OracleJob.VwapTask.verify|verify} messages.
+       * Encodes the specified VwapTask message. Does not implicitly {@apilink OracleJob.VwapTask.verify|verify} messages.
        * @function encode
        * @memberof OracleJob.VwapTask
        * @static
@@ -13373,7 +13373,7 @@
       };
 
       /**
-       * Encodes the specified VwapTask message, length delimited. Does not implicitly {@link OracleJob.VwapTask.verify|verify} messages.
+       * Encodes the specified VwapTask message, length delimited. Does not implicitly {@apilink OracleJob.VwapTask.verify|verify} messages.
        * @function encodeDelimited
        * @memberof OracleJob.VwapTask
        * @static
@@ -13613,7 +13613,7 @@
       };
 
       /**
-       * Encodes the specified EwmaTask message. Does not implicitly {@link OracleJob.EwmaTask.verify|verify} messages.
+       * Encodes the specified EwmaTask message. Does not implicitly {@apilink OracleJob.EwmaTask.verify|verify} messages.
        * @function encode
        * @memberof OracleJob.EwmaTask
        * @static
@@ -13644,7 +13644,7 @@
       };
 
       /**
-       * Encodes the specified EwmaTask message, length delimited. Does not implicitly {@link OracleJob.EwmaTask.verify|verify} messages.
+       * Encodes the specified EwmaTask message, length delimited. Does not implicitly {@apilink OracleJob.EwmaTask.verify|verify} messages.
        * @function encodeDelimited
        * @memberof OracleJob.EwmaTask
        * @static
@@ -13973,7 +13973,7 @@
       };
 
       /**
-       * Encodes the specified ComparisonTask message. Does not implicitly {@link OracleJob.ComparisonTask.verify|verify} messages.
+       * Encodes the specified ComparisonTask message. Does not implicitly {@apilink OracleJob.ComparisonTask.verify|verify} messages.
        * @function encode
        * @memberof OracleJob.ComparisonTask
        * @static
@@ -14052,7 +14052,7 @@
       };
 
       /**
-       * Encodes the specified ComparisonTask message, length delimited. Does not implicitly {@link OracleJob.ComparisonTask.verify|verify} messages.
+       * Encodes the specified ComparisonTask message, length delimited. Does not implicitly {@apilink OracleJob.ComparisonTask.verify|verify} messages.
        * @function encodeDelimited
        * @memberof OracleJob.ComparisonTask
        * @static
@@ -14479,7 +14479,7 @@
       };
 
       /**
-       * Encodes the specified RoundTask message. Does not implicitly {@link OracleJob.RoundTask.verify|verify} messages.
+       * Encodes the specified RoundTask message. Does not implicitly {@apilink OracleJob.RoundTask.verify|verify} messages.
        * @function encode
        * @memberof OracleJob.RoundTask
        * @static
@@ -14503,7 +14503,7 @@
       };
 
       /**
-       * Encodes the specified RoundTask message, length delimited. Does not implicitly {@link OracleJob.RoundTask.verify|verify} messages.
+       * Encodes the specified RoundTask message, length delimited. Does not implicitly {@apilink OracleJob.RoundTask.verify|verify} messages.
        * @function encodeDelimited
        * @memberof OracleJob.RoundTask
        * @static
@@ -14799,7 +14799,7 @@
       };
 
       /**
-       * Encodes the specified BoundTask message. Does not implicitly {@link OracleJob.BoundTask.verify|verify} messages.
+       * Encodes the specified BoundTask message. Does not implicitly {@apilink OracleJob.BoundTask.verify|verify} messages.
        * @function encode
        * @memberof OracleJob.BoundTask
        * @static
@@ -14873,7 +14873,7 @@
       };
 
       /**
-       * Encodes the specified BoundTask message, length delimited. Does not implicitly {@link OracleJob.BoundTask.verify|verify} messages.
+       * Encodes the specified BoundTask message, length delimited. Does not implicitly {@apilink OracleJob.BoundTask.verify|verify} messages.
        * @function encodeDelimited
        * @memberof OracleJob.BoundTask
        * @static
@@ -15692,7 +15692,7 @@
       };
 
       /**
-       * Encodes the specified Task message. Does not implicitly {@link OracleJob.Task.verify|verify} messages.
+       * Encodes the specified Task message. Does not implicitly {@apilink OracleJob.Task.verify|verify} messages.
        * @function encode
        * @memberof OracleJob.Task
        * @static
@@ -16066,7 +16066,7 @@
       };
 
       /**
-       * Encodes the specified Task message, length delimited. Does not implicitly {@link OracleJob.Task.verify|verify} messages.
+       * Encodes the specified Task message, length delimited. Does not implicitly {@apilink OracleJob.Task.verify|verify} messages.
        * @function encodeDelimited
        * @memberof OracleJob.Task
        * @static

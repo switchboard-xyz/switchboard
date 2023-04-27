@@ -44,8 +44,7 @@
     "entryPoints": [
       "src/index.ts",
       "src/build.ts",
-      "src/utils/index.ts",
-      "src/protos/index.ts"
+      "src/protos.ts"
     ]
   }
 }

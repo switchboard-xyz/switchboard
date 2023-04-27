@@ -4,9 +4,6 @@ index.d.ts
 build.cjs
 build.js
 build.d.ts
-utils.cjs
-utils.js
-utils.d.ts
 protos.cjs
 protos.js
 protos.d.ts

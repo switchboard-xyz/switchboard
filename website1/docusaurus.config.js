@@ -67,7 +67,17 @@ const config = {
         sortPackages: sortPackages,
         // Monorepo
         packages: [
-          "javascript/common",
+          {
+            path: "javascript/common",
+            entry: {
+              index: "src/index.ts",
+              protos: {
+                label: "/protos",
+                path: "src/protos.ts",
+              },
+            },
+          },
+          // "javascript/common",
           "javascript/oracle",
           "sdks/aptos/javascript/aptos.js",
           "sdks/evm/javascript/evm.js",
@@ -88,14 +98,14 @@ const config = {
         docs: {
           // ignore versioning, only needed for docusaurus-plugin-typedoc-api
           lastVersion: "current",
-          versions: {
-            current: {
-              badge: false,
-            },
-            "1.0.0": {
-              badge: false,
-            },
-          },
+          // versions: {
+          //   current: {
+          //     badge: false,
+          //   },
+          //   latest: {
+          //     badge: false,
+          //   },
+          // },
           routeBasePath: "/",
           sidebarPath: require.resolve("./sidebars.js"),
           remarkPlugins: [
