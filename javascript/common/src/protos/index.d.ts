@@ -2,11 +2,11 @@ import * as $protobuf from 'protobufjs';
 import Long = require('long');
 /** Properties of an OracleJob. */
 export interface IOracleJob {
-  /** OracleJob tasks */
+  /** The chain of tasks to perform for this OracleJob. */
   tasks?: OracleJob.ITask[] | null;
 }
 
-/** Represents an OracleJob. */
+/** Represnts a list of tasks to be performed by a switchboard oracle. */
 export class OracleJob implements IOracleJob {
   /**
    * Constructs a new OracleJob.
@@ -14,7 +14,7 @@ export class OracleJob implements IOracleJob {
    */
   constructor(properties?: IOracleJob);
 
-  /** OracleJob tasks. */
+  /** The chain of tasks to perform for this OracleJob. */
   public tasks: OracleJob.ITask[];
 
   /**
@@ -126,20 +126,34 @@ export class OracleJob implements IOracleJob {
 export namespace OracleJob {
   /** Properties of a HttpTask. */
   interface IHttpTask {
-    /** HttpTask url */
+    /** A string containing the URL to direct this HTTP request to. */
     url?: string | null;
 
-    /** HttpTask method */
+    /** The type of HTTP request to make. */
     method?: OracleJob.HttpTask.Method | null;
 
-    /** HttpTask headers */
+    /** A list of headers to add to this HttpTask. */
     headers?: OracleJob.HttpTask.IHeader[] | null;
 
-    /** HttpTask body */
+    /** A stringified body (if any) to add to this HttpTask. */
     body?: string | null;
   }
 
-  /** Represents a HttpTask. */
+  /**
+   * The adapter will report the text body of a successful HTTP request to the
+   * specified url, or return an error if the response status code is greater
+   * than or equal to 400.
+   *
+   * Input: None
+   *
+   * Returns: string representation of it's output.
+   *
+   * Example: HttpTask example with no headers
+   *
+   * ```json
+   * {"httpTask": {"url": "https://mywebsite.org/path"} }
+   * ```
+   */
   class HttpTask implements IHttpTask {
     /**
      * Constructs a new HttpTask.
@@ -147,16 +161,16 @@ export namespace OracleJob {
      */
     constructor(properties?: OracleJob.IHttpTask);
 
-    /** HttpTask url. */
+    /** A string containing the URL to direct this HTTP request to. */
     public url: string;
 
-    /** HttpTask method. */
+    /** The type of HTTP request to make. */
     public method: OracleJob.HttpTask.Method;
 
-    /** HttpTask headers. */
+    /** A list of headers to add to this HttpTask. */
     public headers: OracleJob.HttpTask.IHeader[];
 
-    /** HttpTask body. */
+    /** A stringified body (if any) to add to this HttpTask. */
     public body: string;
 
     /**
@@ -252,7 +266,7 @@ export namespace OracleJob {
   }
 
   namespace HttpTask {
-    /** Method enum. */
+    /** An enumeration representing the types of HTTP requests available to make. */
     enum Method {
       METHOD_UNKOWN = 0,
       METHOD_GET = 1,
@@ -268,7 +282,7 @@ export namespace OracleJob {
       value?: string | null;
     }
 
-    /** Represents a Header. */
+    /** An object that represents a header to add to an HTTP request. */
     class Header implements IHeader {
       /**
        * Constructs a new Header.
@@ -381,14 +395,27 @@ export namespace OracleJob {
 
   /** Properties of a JsonParseTask. */
   interface IJsonParseTask {
-    /** JsonParseTask path */
+    /**
+     * JSONPath formatted path to the element. https://t.ly/uLtw
+     * https://www.npmjs.com/package/jsonpath-plus
+     */
     path?: string | null;
 
-    /** JsonParseTask aggregationMethod */
+    /**
+     * The technique that will be used to aggregate the results if walking the specified path
+     * returns multiple numerical results.
+     */
     aggregationMethod?: OracleJob.JsonParseTask.AggregationMethod | null;
   }
 
-  /** Represents a JsonParseTask. */
+  /**
+   * The adapter walks the path specified and returns the value found at that result. If returning
+   * JSON data from the HttpGet or HttpPost adapters, you must use this adapter to parse the response.
+   *
+   * Input: string representation of a JSON object.
+   *
+   * Returns: a numerical result.
+   */
   class JsonParseTask implements IJsonParseTask {
     /**
      * Constructs a new JsonParseTask.
@@ -396,10 +423,16 @@ export namespace OracleJob {
      */
     constructor(properties?: OracleJob.IJsonParseTask);
 
-    /** JsonParseTask path. */
+    /**
+     * JSONPath formatted path to the element. https://t.ly/uLtw
+     * https://www.npmjs.com/package/jsonpath-plus
+     */
     public path: string;
 
-    /** JsonParseTask aggregationMethod. */
+    /**
+     * The technique that will be used to aggregate the results if walking the specified path
+     * returns multiple numerical results.
+     */
     public aggregationMethod: OracleJob.JsonParseTask.AggregationMethod;
 
     /**
@@ -499,7 +532,7 @@ export namespace OracleJob {
   }
 
   namespace JsonParseTask {
-    /** AggregationMethod enum. */
+    /** The methods of combining a list of numerical results. */
     enum AggregationMethod {
       NONE = 0,
       MIN = 1,
@@ -512,17 +545,17 @@ export namespace OracleJob {
 
   /** Properties of a MedianTask. */
   interface IMedianTask {
-    /** MedianTask tasks */
+    /** A list of subtasks to process and produce a list of result values. */
     tasks?: OracleJob.ITask[] | null;
 
-    /** MedianTask jobs */
+    /** A list of subjobs to process and produce a list of result values. */
     jobs?: IOracleJob[] | null;
 
     /** MedianTask minSuccessfulRequired */
     minSuccessfulRequired?: number | null;
   }
 
-  /** Represents a MedianTask. */
+  /** Returns the median of all the results returned by the provided subtasks and subjobs. Nested tasks must return a Number. */
   class MedianTask implements IMedianTask {
     /**
      * Constructs a new MedianTask.
@@ -530,10 +563,10 @@ export namespace OracleJob {
      */
     constructor(properties?: OracleJob.IMedianTask);
 
-    /** MedianTask tasks. */
+    /** A list of subtasks to process and produce a list of result values. */
     public tasks: OracleJob.ITask[];
 
-    /** MedianTask jobs. */
+    /** A list of subjobs to process and produce a list of result values. */
     public jobs: IOracleJob[];
 
     /** MedianTask minSuccessfulRequired. */
@@ -637,14 +670,14 @@ export namespace OracleJob {
 
   /** Properties of a MeanTask. */
   interface IMeanTask {
-    /** MeanTask tasks */
+    /** A list of subtasks to process and produce a list of result values. */
     tasks?: OracleJob.ITask[] | null;
 
-    /** MeanTask jobs */
+    /** A list of subjobs to process and produce a list of result values. */
     jobs?: IOracleJob[] | null;
   }
 
-  /** Represents a MeanTask. */
+  /** Returns the mean of all the results returned by the provided subtasks and subjobs. */
   class MeanTask implements IMeanTask {
     /**
      * Constructs a new MeanTask.
@@ -652,10 +685,10 @@ export namespace OracleJob {
      */
     constructor(properties?: OracleJob.IMeanTask);
 
-    /** MeanTask tasks. */
+    /** A list of subtasks to process and produce a list of result values. */
     public tasks: OracleJob.ITask[];
 
-    /** MeanTask jobs. */
+    /** A list of subjobs to process and produce a list of result values. */
     public jobs: IOracleJob[];
 
     /**
@@ -752,14 +785,14 @@ export namespace OracleJob {
 
   /** Properties of a MaxTask. */
   interface IMaxTask {
-    /** MaxTask tasks */
+    /** A list of subtasks to process and produce a list of result values. */
     tasks?: OracleJob.ITask[] | null;
 
-    /** MaxTask jobs */
+    /** A list of subjobs to process and produce a list of result values. */
     jobs?: IOracleJob[] | null;
   }
 
-  /** Represents a MaxTask. */
+  /** Returns the maximum value of all the results returned by the provided subtasks and subjobs. */
   class MaxTask implements IMaxTask {
     /**
      * Constructs a new MaxTask.
@@ -767,10 +800,10 @@ export namespace OracleJob {
      */
     constructor(properties?: OracleJob.IMaxTask);
 
-    /** MaxTask tasks. */
+    /** A list of subtasks to process and produce a list of result values. */
     public tasks: OracleJob.ITask[];
 
-    /** MaxTask jobs. */
+    /** A list of subjobs to process and produce a list of result values. */
     public jobs: IOracleJob[];
 
     /**
@@ -867,14 +900,14 @@ export namespace OracleJob {
 
   /** Properties of a MinTask. */
   interface IMinTask {
-    /** MinTask tasks */
+    /** A list of subtasks to process and produce a list of result values. */
     tasks?: OracleJob.ITask[] | null;
 
-    /** MinTask jobs */
+    /** A list of subjobs to process and produce a list of result values. */
     jobs?: IOracleJob[] | null;
   }
 
-  /** Represents a MinTask. */
+  /** Returns the minimum value of all the results returned by the provided subtasks and subjobs. */
   class MinTask implements IMinTask {
     /**
      * Constructs a new MinTask.
@@ -882,10 +915,10 @@ export namespace OracleJob {
      */
     constructor(properties?: OracleJob.IMinTask);
 
-    /** MinTask tasks. */
+    /** A list of subtasks to process and produce a list of result values. */
     public tasks: OracleJob.ITask[];
 
-    /** MinTask jobs. */
+    /** A list of subjobs to process and produce a list of result values. */
     public jobs: IOracleJob[];
 
     /**
@@ -982,17 +1015,17 @@ export namespace OracleJob {
 
   /** Properties of a ValueTask. */
   interface IValueTask {
-    /** ValueTask value */
+    /** The value that will be returned from this task. */
     value?: number | null;
 
-    /** ValueTask aggregatorPubkey */
+    /** Specifies an aggregatorr to pull the value of. */
     aggregatorPubkey?: string | null;
 
-    /** ValueTask big */
+    /** A stringified big.js. `Accepts variable expansion syntax.` */
     big?: string | null;
   }
 
-  /** Represents a ValueTask. */
+  /** Returns a specified value. */
   class ValueTask implements IValueTask {
     /**
      * Constructs a new ValueTask.
@@ -1000,13 +1033,13 @@ export namespace OracleJob {
      */
     constructor(properties?: OracleJob.IValueTask);
 
-    /** ValueTask value. */
+    /** The value that will be returned from this task. */
     public value?: number | null;
 
-    /** ValueTask aggregatorPubkey. */
+    /** Specifies an aggregatorr to pull the value of. */
     public aggregatorPubkey?: string | null;
 
-    /** ValueTask big. */
+    /** A stringified big.js. `Accepts variable expansion syntax.` */
     public big?: string | null;
 
     /** ValueTask Value. */
@@ -1108,20 +1141,23 @@ export namespace OracleJob {
 
   /** Properties of a WebsocketTask. */
   interface IWebsocketTask {
-    /** WebsocketTask url */
+    /** The websocket url. */
     url?: string | null;
 
-    /** WebsocketTask subscription */
+    /** The websocket message to notify of a new subscription. */
     subscription?: string | null;
 
-    /** WebsocketTask maxDataAgeSeconds */
+    /** Minimum amount of time required between when the horses are taking out. */
     maxDataAgeSeconds?: number | null;
 
-    /** WebsocketTask filter */
+    /**
+     * Incoming message JSONPath filter.
+     * Example: "$[?(@.channel == 'ticker' && @.market == 'BTC/USD')]"
+     */
     filter?: string | null;
   }
 
-  /** Represents a WebsocketTask. */
+  /** Opens and maintains a websocket for light speed data retrieval. */
   class WebsocketTask implements IWebsocketTask {
     /**
      * Constructs a new WebsocketTask.
@@ -1129,16 +1165,19 @@ export namespace OracleJob {
      */
     constructor(properties?: OracleJob.IWebsocketTask);
 
-    /** WebsocketTask url. */
+    /** The websocket url. */
     public url: string;
 
-    /** WebsocketTask subscription. */
+    /** The websocket message to notify of a new subscription. */
     public subscription: string;
 
-    /** WebsocketTask maxDataAgeSeconds. */
+    /** Minimum amount of time required between when the horses are taking out. */
     public maxDataAgeSeconds: number;
 
-    /** WebsocketTask filter. */
+    /**
+     * Incoming message JSONPath filter.
+     * Example: "$[?(@.channel == 'ticker' && @.market == 'BTC/USD')]"
+     */
     public filter: string;
 
     /**
@@ -1239,14 +1278,20 @@ export namespace OracleJob {
 
   /** Properties of a ConditionalTask. */
   interface IConditionalTask {
-    /** ConditionalTask attempt */
+    /** A list of subtasks to process in an attempt to produce a valid numerical result. */
     attempt?: OracleJob.ITask[] | null;
 
-    /** ConditionalTask onFailure */
+    /**
+     * A list of subtasks that will be run if `attempt` subtasks are unable to produce an acceptable
+     * result.
+     */
     onFailure?: OracleJob.ITask[] | null;
   }
 
-  /** Represents a ConditionalTask. */
+  /**
+   * This task will run the `attempt` subtasks in an effort to produce a valid numerical result. If
+   * `attempt` fails to produce an acceptable result, `on_failure` subtasks will be run instead.
+   */
   class ConditionalTask implements IConditionalTask {
     /**
      * Constructs a new ConditionalTask.
@@ -1254,10 +1299,13 @@ export namespace OracleJob {
      */
     constructor(properties?: OracleJob.IConditionalTask);
 
-    /** ConditionalTask attempt. */
+    /** A list of subtasks to process in an attempt to produce a valid numerical result. */
     public attempt: OracleJob.ITask[];
 
-    /** ConditionalTask onFailure. */
+    /**
+     * A list of subtasks that will be run if `attempt` subtasks are unable to produce an acceptable
+     * result.
+     */
     public onFailure: OracleJob.ITask[];
 
     /**
@@ -1358,20 +1406,23 @@ export namespace OracleJob {
 
   /** Properties of a DivideTask. */
   interface IDivideTask {
-    /** DivideTask scalar */
+    /** Specifies a basic scalar denominator to divide by. */
     scalar?: number | null;
 
-    /** DivideTask aggregatorPubkey */
+    /** Specifies another aggregator resut to divide by. */
     aggregatorPubkey?: string | null;
 
-    /** DivideTask job */
+    /** A job whose result is computed before dividing our numerical input by that result. */
     job?: IOracleJob | null;
 
-    /** DivideTask big */
+    /** A stringified big.js. `Accepts variable expansion syntax.` */
     big?: string | null;
   }
 
-  /** Represents a DivideTask. */
+  /**
+   * This task will divide a numerical input by a scalar value or by another
+   * aggregate.
+   */
   class DivideTask implements IDivideTask {
     /**
      * Constructs a new DivideTask.
@@ -1379,16 +1430,16 @@ export namespace OracleJob {
      */
     constructor(properties?: OracleJob.IDivideTask);
 
-    /** DivideTask scalar. */
+    /** Specifies a basic scalar denominator to divide by. */
     public scalar?: number | null;
 
-    /** DivideTask aggregatorPubkey. */
+    /** Specifies another aggregator resut to divide by. */
     public aggregatorPubkey?: string | null;
 
-    /** DivideTask job. */
+    /** A job whose result is computed before dividing our numerical input by that result. */
     public job?: IOracleJob | null;
 
-    /** DivideTask big. */
+    /** A stringified big.js. `Accepts variable expansion syntax.` */
     public big?: string | null;
 
     /** DivideTask Denominator. */
@@ -1492,20 +1543,20 @@ export namespace OracleJob {
 
   /** Properties of a MultiplyTask. */
   interface IMultiplyTask {
-    /** MultiplyTask scalar */
+    /** Specifies a scalar to multiply by. */
     scalar?: number | null;
 
-    /** MultiplyTask aggregatorPubkey */
+    /** Specifies an aggregator to multiply by. */
     aggregatorPubkey?: string | null;
 
-    /** MultiplyTask job */
+    /** A job whose result is computed before multiplying our numerical input by that result. */
     job?: IOracleJob | null;
 
-    /** MultiplyTask big */
+    /** A stringified big.js. `Accepts variable expansion syntax.` */
     big?: string | null;
   }
 
-  /** Represents a MultiplyTask. */
+  /** This task will multiply a numerical input by a scalar value or by another aggregator. */
   class MultiplyTask implements IMultiplyTask {
     /**
      * Constructs a new MultiplyTask.
@@ -1513,16 +1564,16 @@ export namespace OracleJob {
      */
     constructor(properties?: OracleJob.IMultiplyTask);
 
-    /** MultiplyTask scalar. */
+    /** Specifies a scalar to multiply by. */
     public scalar?: number | null;
 
-    /** MultiplyTask aggregatorPubkey. */
+    /** Specifies an aggregator to multiply by. */
     public aggregatorPubkey?: string | null;
 
-    /** MultiplyTask job. */
+    /** A job whose result is computed before multiplying our numerical input by that result. */
     public job?: IOracleJob | null;
 
-    /** MultiplyTask big. */
+    /** A stringified big.js. `Accepts variable expansion syntax.` */
     public big?: string | null;
 
     /** MultiplyTask Multiple. */
@@ -1626,20 +1677,23 @@ export namespace OracleJob {
 
   /** Properties of an AddTask. */
   interface IAddTask {
-    /** AddTask scalar */
+    /** Specifies a scalar to add by. */
     scalar?: number | null;
 
-    /** AddTask aggregatorPubkey */
+    /** Specifies an aggregator to add by. */
     aggregatorPubkey?: string | null;
 
-    /** AddTask job */
+    /** A job whose result is computed before adding our numerical input by that result. */
     job?: IOracleJob | null;
 
-    /** AddTask big */
+    /** A stringified big.js. `Accepts variable expansion syntax.` */
     big?: string | null;
   }
 
-  /** Represents an AddTask. */
+  /**
+   * This task will add a numerical input by a scalar value or by another
+   * aggregate.
+   */
   class AddTask implements IAddTask {
     /**
      * Constructs a new AddTask.
@@ -1647,16 +1701,16 @@ export namespace OracleJob {
      */
     constructor(properties?: OracleJob.IAddTask);
 
-    /** AddTask scalar. */
+    /** Specifies a scalar to add by. */
     public scalar?: number | null;
 
-    /** AddTask aggregatorPubkey. */
+    /** Specifies an aggregator to add by. */
     public aggregatorPubkey?: string | null;
 
-    /** AddTask job. */
+    /** A job whose result is computed before adding our numerical input by that result. */
     public job?: IOracleJob | null;
 
-    /** AddTask big. */
+    /** A stringified big.js. `Accepts variable expansion syntax.` */
     public big?: string | null;
 
     /** AddTask Addition. */
@@ -1756,20 +1810,23 @@ export namespace OracleJob {
 
   /** Properties of a SubtractTask. */
   interface ISubtractTask {
-    /** SubtractTask scalar */
+    /** Specifies a scalar to subtract by. */
     scalar?: number | null;
 
-    /** SubtractTask aggregatorPubkey */
+    /** Specifies an aggregator to subtract by. */
     aggregatorPubkey?: string | null;
 
-    /** SubtractTask job */
+    /** A job whose result is computed before subtracting our numerical input by that result. */
     job?: IOracleJob | null;
 
-    /** SubtractTask big */
+    /** A stringified big.js. `Accepts variable expansion syntax.` */
     big?: string | null;
   }
 
-  /** Represents a SubtractTask. */
+  /**
+   * This task will subtract a numerical input by a scalar value or by another
+   * aggregate.
+   */
   class SubtractTask implements ISubtractTask {
     /**
      * Constructs a new SubtractTask.
@@ -1777,16 +1834,16 @@ export namespace OracleJob {
      */
     constructor(properties?: OracleJob.ISubtractTask);
 
-    /** SubtractTask scalar. */
+    /** Specifies a scalar to subtract by. */
     public scalar?: number | null;
 
-    /** SubtractTask aggregatorPubkey. */
+    /** Specifies an aggregator to subtract by. */
     public aggregatorPubkey?: string | null;
 
-    /** SubtractTask job. */
+    /** A job whose result is computed before subtracting our numerical input by that result. */
     public job?: IOracleJob | null;
 
-    /** SubtractTask big. */
+    /** A stringified big.js. `Accepts variable expansion syntax.` */
     public big?: string | null;
 
     /** SubtractTask Subtraction. */
@@ -1890,29 +1947,29 @@ export namespace OracleJob {
 
   /** Properties of a LpTokenPriceTask. */
   interface ILpTokenPriceTask {
-    /** LpTokenPriceTask mercurialPoolAddress */
+    /** Mercurial finance pool address. A full list can be found here: https://github.com/mercurial-finance/stable-swap-n-pool-js */
     mercurialPoolAddress?: string | null;
 
-    /** LpTokenPriceTask saberPoolAddress */
+    /** Saber pool address. A full list can be found here: https://github.com/saber-hq/saber-registry-dist */
     saberPoolAddress?: string | null;
 
-    /** LpTokenPriceTask orcaPoolAddress */
+    /** Orca pool address. A full list can be found here: https://www.orca.so/pools */
     orcaPoolAddress?: string | null;
 
-    /** LpTokenPriceTask raydiumPoolAddress */
+    /** The Raydium liquidity pool ammId. A full list can be found here: https://sdk.raydium.io/liquidity/mainnet.json */
     raydiumPoolAddress?: string | null;
 
-    /** LpTokenPriceTask priceFeedAddresses */
+    /** A list of Switchboard aggregator accounts used to calculate the fair LP price. This ensures the price is based on the previous round to mitigate flash loan price manipulation. */
     priceFeedAddresses?: string[] | null;
 
     /** LpTokenPriceTask priceFeedJobs */
     priceFeedJobs?: IOracleJob[] | null;
 
-    /** LpTokenPriceTask useFairPrice */
+    /** If enabled and price_feed_addresses provided, the oracle will calculate the fair LP price based on the liquidity pool reserves. See our blog post for more information: https://switchboardxyz.medium.com/fair-lp-token-oracles-94a457c50239 */
     useFairPrice?: boolean | null;
   }
 
-  /** Represents a LpTokenPriceTask. */
+  /** Fetch LP token price info from a number of supported exchanges. */
   class LpTokenPriceTask implements ILpTokenPriceTask {
     /**
      * Constructs a new LpTokenPriceTask.
@@ -1920,25 +1977,25 @@ export namespace OracleJob {
      */
     constructor(properties?: OracleJob.ILpTokenPriceTask);
 
-    /** LpTokenPriceTask mercurialPoolAddress. */
+    /** Mercurial finance pool address. A full list can be found here: https://github.com/mercurial-finance/stable-swap-n-pool-js */
     public mercurialPoolAddress?: string | null;
 
-    /** LpTokenPriceTask saberPoolAddress. */
+    /** Saber pool address. A full list can be found here: https://github.com/saber-hq/saber-registry-dist */
     public saberPoolAddress?: string | null;
 
-    /** LpTokenPriceTask orcaPoolAddress. */
+    /** Orca pool address. A full list can be found here: https://www.orca.so/pools */
     public orcaPoolAddress?: string | null;
 
-    /** LpTokenPriceTask raydiumPoolAddress. */
+    /** The Raydium liquidity pool ammId. A full list can be found here: https://sdk.raydium.io/liquidity/mainnet.json */
     public raydiumPoolAddress?: string | null;
 
-    /** LpTokenPriceTask priceFeedAddresses. */
+    /** A list of Switchboard aggregator accounts used to calculate the fair LP price. This ensures the price is based on the previous round to mitigate flash loan price manipulation. */
     public priceFeedAddresses: string[];
 
     /** LpTokenPriceTask priceFeedJobs. */
     public priceFeedJobs: IOracleJob[];
 
-    /** LpTokenPriceTask useFairPrice. */
+    /** If enabled and price_feed_addresses provided, the oracle will calculate the fair LP price based on the liquidity pool reserves. See our blog post for more information: https://switchboardxyz.medium.com/fair-lp-token-oracles-94a457c50239 */
     public useFairPrice: boolean;
 
     /** LpTokenPriceTask PoolAddress. */
@@ -2046,32 +2103,35 @@ export namespace OracleJob {
 
   /** Properties of a LpExchangeRateTask. */
   interface ILpExchangeRateTask {
-    /** LpExchangeRateTask inTokenAddress */
+    /** Used alongside mercurial_pool_address to specify the input token for a swap. */
     inTokenAddress?: string | null;
 
-    /** LpExchangeRateTask outTokenAddress */
+    /** Used alongside mercurial_pool_address to specify the output token for a swap. */
     outTokenAddress?: string | null;
 
-    /** LpExchangeRateTask mercurialPoolAddress */
+    /** Mercurial finance pool address. A full list can be found here: https://github.com/mercurial-finance/stable-swap-n-pool-js */
     mercurialPoolAddress?: string | null;
 
-    /** LpExchangeRateTask saberPoolAddress */
+    /** Saber pool address. A full list can be found here: https://github.com/saber-hq/saber-registry-dist */
     saberPoolAddress?: string | null;
 
-    /** LpExchangeRateTask orcaPoolTokenMintAddress */
+    /** Orca pool address. */
     orcaPoolTokenMintAddress?: string | null;
 
-    /** LpExchangeRateTask raydiumPoolAddress */
+    /** The Raydium liquidity pool ammId. A full list can be found here: https://sdk.raydium.io/liquidity/mainnet.json */
     raydiumPoolAddress?: string | null;
 
-    /** LpExchangeRateTask orcaPoolAddress */
+    /**
+     * Pool address for an Orca LP pool or whirlpool.
+     * A full list of Orca LP pools can be found here: https://www.orca.so/pools
+     */
     orcaPoolAddress?: string | null;
 
-    /** LpExchangeRateTask portReserveAddress */
+    /** The Port reserve pubkey. A full list can be found here: https://api-v1.port.finance/reserves */
     portReserveAddress?: string | null;
   }
 
-  /** Represents a LpExchangeRateTask. */
+  /** Fetch the current swap price for a given liquidity pool */
   class LpExchangeRateTask implements ILpExchangeRateTask {
     /**
      * Constructs a new LpExchangeRateTask.
@@ -2079,28 +2139,31 @@ export namespace OracleJob {
      */
     constructor(properties?: OracleJob.ILpExchangeRateTask);
 
-    /** LpExchangeRateTask inTokenAddress. */
+    /** Used alongside mercurial_pool_address to specify the input token for a swap. */
     public inTokenAddress: string;
 
-    /** LpExchangeRateTask outTokenAddress. */
+    /** Used alongside mercurial_pool_address to specify the output token for a swap. */
     public outTokenAddress: string;
 
-    /** LpExchangeRateTask mercurialPoolAddress. */
+    /** Mercurial finance pool address. A full list can be found here: https://github.com/mercurial-finance/stable-swap-n-pool-js */
     public mercurialPoolAddress?: string | null;
 
-    /** LpExchangeRateTask saberPoolAddress. */
+    /** Saber pool address. A full list can be found here: https://github.com/saber-hq/saber-registry-dist */
     public saberPoolAddress?: string | null;
 
-    /** LpExchangeRateTask orcaPoolTokenMintAddress. */
+    /** Orca pool address. */
     public orcaPoolTokenMintAddress?: string | null;
 
-    /** LpExchangeRateTask raydiumPoolAddress. */
+    /** The Raydium liquidity pool ammId. A full list can be found here: https://sdk.raydium.io/liquidity/mainnet.json */
     public raydiumPoolAddress?: string | null;
 
-    /** LpExchangeRateTask orcaPoolAddress. */
+    /**
+     * Pool address for an Orca LP pool or whirlpool.
+     * A full list of Orca LP pools can be found here: https://www.orca.so/pools
+     */
     public orcaPoolAddress?: string | null;
 
-    /** LpExchangeRateTask portReserveAddress. */
+    /** The Port reserve pubkey. A full list can be found here: https://api-v1.port.finance/reserves */
     public portReserveAddress?: string | null;
 
     /** LpExchangeRateTask PoolAddress. */
@@ -2210,14 +2273,14 @@ export namespace OracleJob {
 
   /** Properties of a RegexExtractTask. */
   interface IRegexExtractTask {
-    /** RegexExtractTask pattern */
+    /** Regex pattern to find. */
     pattern?: string | null;
 
-    /** RegexExtractTask groupNumber */
+    /** Group number to extract. */
     groupNumber?: number | null;
   }
 
-  /** Represents a RegexExtractTask. */
+  /** Find a pattern within a string of a previous task and extract a group number. */
   class RegexExtractTask implements IRegexExtractTask {
     /**
      * Constructs a new RegexExtractTask.
@@ -2225,10 +2288,10 @@ export namespace OracleJob {
      */
     constructor(properties?: OracleJob.IRegexExtractTask);
 
-    /** RegexExtractTask pattern. */
+    /** Regex pattern to find. */
     public pattern: string;
 
-    /** RegexExtractTask groupNumber. */
+    /** Group number to extract. */
     public groupNumber: number;
 
     /**
@@ -2329,10 +2392,10 @@ export namespace OracleJob {
 
   /** Properties of a XStepPriceTask. */
   interface IXStepPriceTask {
-    /** XStepPriceTask stepJob */
+    /** median task containing the job definitions to fetch the STEP/USD price */
     stepJob?: OracleJob.IMedianTask | null;
 
-    /** XStepPriceTask stepAggregatorPubkey */
+    /** existing aggregator pubkey for STEP/USD */
     stepAggregatorPubkey?: string | null;
   }
 
@@ -2344,10 +2407,10 @@ export namespace OracleJob {
      */
     constructor(properties?: OracleJob.IXStepPriceTask);
 
-    /** XStepPriceTask stepJob. */
+    /** median task containing the job definitions to fetch the STEP/USD price */
     public stepJob?: OracleJob.IMedianTask | null;
 
-    /** XStepPriceTask stepAggregatorPubkey. */
+    /** existing aggregator pubkey for STEP/USD */
     public stepAggregatorPubkey?: string | null;
 
     /** XStepPriceTask StepSource. */
@@ -2451,26 +2514,26 @@ export namespace OracleJob {
 
   /** Properties of a TwapTask. */
   interface ITwapTask {
-    /** TwapTask aggregatorPubkey */
+    /** The target aggregator for the TWAP. */
     aggregatorPubkey?: string | null;
 
-    /** TwapTask period */
+    /** Period, in seconds, the twap should account for */
     period?: number | null;
 
-    /** TwapTask weightByPropagationTime */
+    /** Weight samples by their propagation time */
     weightByPropagationTime?: boolean | null;
 
-    /** TwapTask minSamples */
+    /** Minimum number of samples in the history to calculate a valid result */
     minSamples?: number | null;
 
-    /** TwapTask endingUnixTimestamp */
+    /** Ending unix timestamp to collect values up to */
     endingUnixTimestamp?: number | null;
 
-    /** TwapTask endingUnixTimestampTask */
+    /** Execute the task to get the ending unix timestamp */
     endingUnixTimestampTask?: OracleJob.ICronParseTask | null;
   }
 
-  /** Represents a TwapTask. */
+  /** Takes a twap over a set period for a certain aggregator. */
   class TwapTask implements ITwapTask {
     /**
      * Constructs a new TwapTask.
@@ -2478,22 +2541,22 @@ export namespace OracleJob {
      */
     constructor(properties?: OracleJob.ITwapTask);
 
-    /** TwapTask aggregatorPubkey. */
+    /** The target aggregator for the TWAP. */
     public aggregatorPubkey: string;
 
-    /** TwapTask period. */
+    /** Period, in seconds, the twap should account for */
     public period: number;
 
-    /** TwapTask weightByPropagationTime. */
+    /** Weight samples by their propagation time */
     public weightByPropagationTime: boolean;
 
-    /** TwapTask minSamples. */
+    /** Minimum number of samples in the history to calculate a valid result */
     public minSamples: number;
 
-    /** TwapTask endingUnixTimestamp. */
+    /** Ending unix timestamp to collect values up to */
     public endingUnixTimestamp: number;
 
-    /** TwapTask endingUnixTimestampTask. */
+    /** Execute the task to get the ending unix timestamp */
     public endingUnixTimestampTask?: OracleJob.ICronParseTask | null;
 
     /**
@@ -2590,11 +2653,11 @@ export namespace OracleJob {
 
   /** Properties of a SerumSwapTask. */
   interface ISerumSwapTask {
-    /** SerumSwapTask serumPoolAddress */
+    /** The serum pool to fetch swap price for */
     serumPoolAddress?: string | null;
   }
 
-  /** Represents a SerumSwapTask. */
+  /** Fetch the latest swap price on Serum's orderbook */
   class SerumSwapTask implements ISerumSwapTask {
     /**
      * Constructs a new SerumSwapTask.
@@ -2602,7 +2665,7 @@ export namespace OracleJob {
      */
     constructor(properties?: OracleJob.ISerumSwapTask);
 
-    /** SerumSwapTask serumPoolAddress. */
+    /** The serum pool to fetch swap price for */
     public serumPoolAddress: string;
 
     /**
@@ -2703,17 +2766,17 @@ export namespace OracleJob {
 
   /** Properties of a PowTask. */
   interface IPowTask {
-    /** PowTask scalar */
+    /** Take the working value to the exponent of value. */
     scalar?: number | null;
 
-    /** PowTask aggregatorPubkey */
+    /** Take the working value to the exponent of the aggregators value. */
     aggregatorPubkey?: string | null;
 
-    /** PowTask big */
+    /** A stringified big.js. `Accepts variable expansion syntax.` */
     big?: string | null;
   }
 
-  /** Represents a PowTask. */
+  /** Take the power of the working value. */
   class PowTask implements IPowTask {
     /**
      * Constructs a new PowTask.
@@ -2721,13 +2784,13 @@ export namespace OracleJob {
      */
     constructor(properties?: OracleJob.IPowTask);
 
-    /** PowTask scalar. */
+    /** Take the working value to the exponent of value. */
     public scalar?: number | null;
 
-    /** PowTask aggregatorPubkey. */
+    /** Take the working value to the exponent of the aggregators value. */
     public aggregatorPubkey?: string | null;
 
-    /** PowTask big. */
+    /** A stringified big.js. `Accepts variable expansion syntax.` */
     public big?: string | null;
 
     /** PowTask Exponent. */
@@ -2827,17 +2890,17 @@ export namespace OracleJob {
 
   /** Properties of a LendingRateTask. */
   interface ILendingRateTask {
-    /** LendingRateTask protocol */
+    /** 01, apricot, francium, jet, larix, mango, port, solend, tulip */
     protocol?: string | null;
 
-    /** LendingRateTask assetMint */
+    /** A token mint address supported by the chosen protocol */
     assetMint?: string | null;
 
     /** LendingRateTask field */
     field?: OracleJob.LendingRateTask.Field | null;
   }
 
-  /** Represents a LendingRateTask. */
+  /** Fetch the lending rates for various Solana protocols */
   class LendingRateTask implements ILendingRateTask {
     /**
      * Constructs a new LendingRateTask.
@@ -2845,10 +2908,10 @@ export namespace OracleJob {
      */
     constructor(properties?: OracleJob.ILendingRateTask);
 
-    /** LendingRateTask protocol. */
+    /** 01, apricot, francium, jet, larix, mango, port, solend, tulip */
     public protocol: string;
 
-    /** LendingRateTask assetMint. */
+    /** A token mint address supported by the chosen protocol */
     public assetMint: string;
 
     /** LendingRateTask field. */
@@ -2960,11 +3023,11 @@ export namespace OracleJob {
 
   /** Properties of a MangoPerpMarketTask. */
   interface IMangoPerpMarketTask {
-    /** MangoPerpMarketTask perpMarketAddress */
+    /** Mainnet address for a mango perpetual market. A full list can be found here: https://github.com/blockworks-foundation/mango-client-v3/blob/main/src/ids.json */
     perpMarketAddress?: string | null;
   }
 
-  /** Represents a MangoPerpMarketTask. */
+  /** Fetch the current price for a Mango perpetual market */
   class MangoPerpMarketTask implements IMangoPerpMarketTask {
     /**
      * Constructs a new MangoPerpMarketTask.
@@ -2972,7 +3035,7 @@ export namespace OracleJob {
      */
     constructor(properties?: OracleJob.IMangoPerpMarketTask);
 
-    /** MangoPerpMarketTask perpMarketAddress. */
+    /** Mainnet address for a mango perpetual market. A full list can be found here: https://github.com/blockworks-foundation/mango-client-v3/blob/main/src/ids.json */
     public perpMarketAddress: string;
 
     /**
@@ -3073,10 +3136,10 @@ export namespace OracleJob {
 
   /** Properties of a JupiterSwapTask. */
   interface IJupiterSwapTask {
-    /** JupiterSwapTask inTokenAddress */
+    /** The input token address. */
     inTokenAddress?: string | null;
 
-    /** JupiterSwapTask outTokenAddress */
+    /** The output token address. */
     outTokenAddress?: string | null;
 
     /** JupiterSwapTask allowList */
@@ -3085,20 +3148,20 @@ export namespace OracleJob {
     /** JupiterSwapTask denyList */
     denyList?: OracleJob.JupiterSwapTask.IFilterList | null;
 
-    /** JupiterSwapTask baseAmount */
+    /** The amount of `in_token_address` tokens to swap. */
     baseAmount?: number | null;
 
-    /** JupiterSwapTask quoteAmount */
+    /** The amount of `out_token_address` tokens to swap. */
     quoteAmount?: number | null;
 
-    /** JupiterSwapTask baseAmountString */
+    /** The amount of `in_token_address` tokens to swap. */
     baseAmountString?: string | null;
 
-    /** JupiterSwapTask quoteAmountString */
+    /** The amount of `out_token_address` tokens to swap. */
     quoteAmountString?: string | null;
   }
 
-  /** Represents a JupiterSwapTask. */
+  /** Fetch the simulated price for a swap on JupiterSwap. */
   class JupiterSwapTask implements IJupiterSwapTask {
     /**
      * Constructs a new JupiterSwapTask.
@@ -3106,10 +3169,10 @@ export namespace OracleJob {
      */
     constructor(properties?: OracleJob.IJupiterSwapTask);
 
-    /** JupiterSwapTask inTokenAddress. */
+    /** The input token address. */
     public inTokenAddress: string;
 
-    /** JupiterSwapTask outTokenAddress. */
+    /** The output token address. */
     public outTokenAddress: string;
 
     /** JupiterSwapTask allowList. */
@@ -3118,16 +3181,16 @@ export namespace OracleJob {
     /** JupiterSwapTask denyList. */
     public denyList?: OracleJob.JupiterSwapTask.IFilterList | null;
 
-    /** JupiterSwapTask baseAmount. */
+    /** The amount of `in_token_address` tokens to swap. */
     public baseAmount?: number | null;
 
-    /** JupiterSwapTask quoteAmount. */
+    /** The amount of `out_token_address` tokens to swap. */
     public quoteAmount?: number | null;
 
-    /** JupiterSwapTask baseAmountString. */
+    /** The amount of `in_token_address` tokens to swap. */
     public baseAmountString?: string | null;
 
-    /** JupiterSwapTask quoteAmountString. */
+    /** The amount of `out_token_address` tokens to swap. */
     public quoteAmountString?: string | null;
 
     /** JupiterSwapTask RoutesFilters. */
@@ -3243,7 +3306,7 @@ export namespace OracleJob {
       labels?: string[] | null;
     }
 
-    /** Represents a FilterList. */
+    /** A list of Jupiter AMM labels to allow or deny (e.g. 'Raydium', 'Orca') */
     class FilterList implements IFilterList {
       /**
        * Constructs a new FilterList.
@@ -3353,20 +3416,20 @@ export namespace OracleJob {
 
   /** Properties of a PerpMarketTask. */
   interface IPerpMarketTask {
-    /** PerpMarketTask mangoMarketAddress */
+    /** Market address for a mango perpetual market. A full list can be found here: https://github.com/blockworks-foundation/mango-client-v3/blob/main/src/ids.json */
     mangoMarketAddress?: string | null;
 
-    /** PerpMarketTask driftMarketAddress */
+    /** Market address for a drift perpetual market. A full list can be found here: https://github.com/drift-labs/protocol-v1/blob/master/sdk/src/constants/markets.ts */
     driftMarketAddress?: string | null;
 
-    /** PerpMarketTask zetaMarketAddress */
+    /** Market address for a zeta perpetual market. */
     zetaMarketAddress?: string | null;
 
-    /** PerpMarketTask zoMarketAddress */
+    /** Market address for a 01 protocol perpetual market. */
     zoMarketAddress?: string | null;
   }
 
-  /** Represents a PerpMarketTask. */
+  /** Fetch the current price of a perpetual market. */
   class PerpMarketTask implements IPerpMarketTask {
     /**
      * Constructs a new PerpMarketTask.
@@ -3374,16 +3437,16 @@ export namespace OracleJob {
      */
     constructor(properties?: OracleJob.IPerpMarketTask);
 
-    /** PerpMarketTask mangoMarketAddress. */
+    /** Market address for a mango perpetual market. A full list can be found here: https://github.com/blockworks-foundation/mango-client-v3/blob/main/src/ids.json */
     public mangoMarketAddress?: string | null;
 
-    /** PerpMarketTask driftMarketAddress. */
+    /** Market address for a drift perpetual market. A full list can be found here: https://github.com/drift-labs/protocol-v1/blob/master/sdk/src/constants/markets.ts */
     public driftMarketAddress?: string | null;
 
-    /** PerpMarketTask zetaMarketAddress. */
+    /** Market address for a zeta perpetual market. */
     public zetaMarketAddress?: string | null;
 
-    /** PerpMarketTask zoMarketAddress. */
+    /** Market address for a 01 protocol perpetual market. */
     public zoMarketAddress?: string | null;
 
     /** PerpMarketTask MarketAddress. */
@@ -3491,20 +3554,23 @@ export namespace OracleJob {
 
   /** Properties of an OracleTask. */
   interface IOracleTask {
-    /** OracleTask switchboardAddress */
+    /** Mainnet address of a Switchboard V2 feed. Switchboard is decentralized and allows anyone to build their own feed. A small subset of feeds is available here: https://switchboard.xyz/explorer */
     switchboardAddress?: string | null;
 
-    /** OracleTask pythAddress */
+    /** Mainnet address for a Pyth feed. A full list can be found here: https://pyth.network/price-feeds/ */
     pythAddress?: string | null;
 
-    /** OracleTask chainlinkAddress */
+    /** Mainnet address for a Chainlink feed. A full list can be found here: https://docs.chain.link/docs/solana/data-feeds-solana */
     chainlinkAddress?: string | null;
 
-    /** OracleTask pythAllowedConfidenceInterval */
+    /**
+     * Value (as a percentage) that the lower bound confidence interval is of the actual value.
+     * Confidence intervals that are larger that this treshold are rejected.
+     */
     pythAllowedConfidenceInterval?: number | null;
   }
 
-  /** Represents an OracleTask. */
+  /** Fetch the current price of a Solana oracle protocol. */
   class OracleTask implements IOracleTask {
     /**
      * Constructs a new OracleTask.
@@ -3512,16 +3578,19 @@ export namespace OracleJob {
      */
     constructor(properties?: OracleJob.IOracleTask);
 
-    /** OracleTask switchboardAddress. */
+    /** Mainnet address of a Switchboard V2 feed. Switchboard is decentralized and allows anyone to build their own feed. A small subset of feeds is available here: https://switchboard.xyz/explorer */
     public switchboardAddress?: string | null;
 
-    /** OracleTask pythAddress. */
+    /** Mainnet address for a Pyth feed. A full list can be found here: https://pyth.network/price-feeds/ */
     public pythAddress?: string | null;
 
-    /** OracleTask chainlinkAddress. */
+    /** Mainnet address for a Chainlink feed. A full list can be found here: https://docs.chain.link/docs/solana/data-feeds-solana */
     public chainlinkAddress?: string | null;
 
-    /** OracleTask pythAllowedConfidenceInterval. */
+    /**
+     * Value (as a percentage) that the lower bound confidence interval is of the actual value.
+     * Confidence intervals that are larger that this treshold are rejected.
+     */
     public pythAllowedConfidenceInterval: number;
 
     /** OracleTask AggregatorAddress. */
@@ -3628,14 +3697,14 @@ export namespace OracleJob {
 
   /** Properties of an AnchorFetchTask. */
   interface IAnchorFetchTask {
-    /** AnchorFetchTask programId */
+    /** Owning program of the account to parse. */
     programId?: string | null;
 
-    /** AnchorFetchTask accountAddress */
+    /** The account to parse. */
     accountAddress?: string | null;
   }
 
-  /** Represents an AnchorFetchTask. */
+  /** Load a parse an Anchor based solana account. */
   class AnchorFetchTask implements IAnchorFetchTask {
     /**
      * Constructs a new AnchorFetchTask.
@@ -3643,10 +3712,10 @@ export namespace OracleJob {
      */
     constructor(properties?: OracleJob.IAnchorFetchTask);
 
-    /** AnchorFetchTask programId. */
+    /** Owning program of the account to parse. */
     public programId: string;
 
-    /** AnchorFetchTask accountAddress. */
+    /** The account to parse. */
     public accountAddress: string;
 
     /**
@@ -3748,7 +3817,7 @@ export namespace OracleJob {
   /** Properties of a TpsTask. */
   interface ITpsTask {}
 
-  /** Represents a TpsTask. */
+  /** Fetch the current transactions per second. */
   class TpsTask implements ITpsTask {
     /**
      * Constructs a new TpsTask.
@@ -3850,11 +3919,11 @@ export namespace OracleJob {
 
   /** Properties of a SplStakePoolTask. */
   interface ISplStakePoolTask {
-    /** SplStakePoolTask pubkey */
+    /** The pubkey of the SPL Stake Pool. */
     pubkey?: string | null;
   }
 
-  /** Represents a SplStakePoolTask. */
+  /** Fetch the JSON representation of an SPL Stake Pool account. */
   class SplStakePoolTask implements ISplStakePoolTask {
     /**
      * Constructs a new SplStakePoolTask.
@@ -3862,7 +3931,7 @@ export namespace OracleJob {
      */
     constructor(properties?: OracleJob.ISplStakePoolTask);
 
-    /** SplStakePoolTask pubkey. */
+    /** The pubkey of the SPL Stake Pool. */
     public pubkey: string;
 
     /**
@@ -3963,14 +4032,14 @@ export namespace OracleJob {
 
   /** Properties of a SplTokenParseTask. */
   interface ISplTokenParseTask {
-    /** SplTokenParseTask tokenAccountAddress */
+    /** The publicKey of a token account to fetch the mintInfo for. */
     tokenAccountAddress?: string | null;
 
-    /** SplTokenParseTask mintAddress */
+    /** The publicKey of the token mint address. */
     mintAddress?: string | null;
   }
 
-  /** Represents a SplTokenParseTask. */
+  /** Fetch the JSON representation of an SPL token mint. */
   class SplTokenParseTask implements ISplTokenParseTask {
     /**
      * Constructs a new SplTokenParseTask.
@@ -3978,10 +4047,10 @@ export namespace OracleJob {
      */
     constructor(properties?: OracleJob.ISplTokenParseTask);
 
-    /** SplTokenParseTask tokenAccountAddress. */
+    /** The publicKey of a token account to fetch the mintInfo for. */
     public tokenAccountAddress?: string | null;
 
-    /** SplTokenParseTask mintAddress. */
+    /** The publicKey of the token mint address. */
     public mintAddress?: string | null;
 
     /** SplTokenParseTask AccountAddress. */
@@ -4085,17 +4154,17 @@ export namespace OracleJob {
 
   /** Properties of a DefiKingdomsTask. */
   interface IDefiKingdomsTask {
-    /** DefiKingdomsTask provider */
+    /** The RPC provider to use for the swap. */
     provider?: string | null;
 
-    /** DefiKingdomsTask inToken */
+    /** The input token of the swap. */
     inToken?: OracleJob.DefiKingdomsTask.IToken | null;
 
-    /** DefiKingdomsTask outToken */
+    /** The output token of the swap. */
     outToken?: OracleJob.DefiKingdomsTask.IToken | null;
   }
 
-  /** Represents a DefiKingdomsTask. */
+  /** Fetch the swap price from DefiKingdoms. */
   class DefiKingdomsTask implements IDefiKingdomsTask {
     /**
      * Constructs a new DefiKingdomsTask.
@@ -4103,13 +4172,13 @@ export namespace OracleJob {
      */
     constructor(properties?: OracleJob.IDefiKingdomsTask);
 
-    /** DefiKingdomsTask provider. */
+    /** The RPC provider to use for the swap. */
     public provider: string;
 
-    /** DefiKingdomsTask inToken. */
+    /** The input token of the swap. */
     public inToken?: OracleJob.DefiKingdomsTask.IToken | null;
 
-    /** DefiKingdomsTask outToken. */
+    /** The output token of the swap. */
     public outToken?: OracleJob.DefiKingdomsTask.IToken | null;
 
     /**
@@ -4211,10 +4280,10 @@ export namespace OracleJob {
   namespace DefiKingdomsTask {
     /** Properties of a Token. */
     interface IToken {
-      /** Token address */
+      /** The address of the token. */
       address?: string | null;
 
-      /** Token decimals */
+      /** The number of decimal places for a token. */
       decimals?: number | null;
     }
 
@@ -4226,10 +4295,10 @@ export namespace OracleJob {
        */
       constructor(properties?: OracleJob.DefiKingdomsTask.IToken);
 
-      /** Token address. */
+      /** The address of the token. */
       public address: string;
 
-      /** Token decimals. */
+      /** The number of decimal places for a token. */
       public decimals: number;
 
       /**
@@ -4331,23 +4400,23 @@ export namespace OracleJob {
 
   /** Properties of an UniswapExchangeRateTask. */
   interface IUniswapExchangeRateTask {
-    /** UniswapExchangeRateTask inTokenAddress */
+    /** The input token address. */
     inTokenAddress?: string | null;
 
-    /** UniswapExchangeRateTask outTokenAddress */
+    /** The output token address. */
     outTokenAddress?: string | null;
 
-    /** UniswapExchangeRateTask inTokenAmount */
+    /** The amount of tokens to swap. */
     inTokenAmount?: number | null;
 
-    /** UniswapExchangeRateTask slippage */
+    /** The allowable slippage in percent for the swap. */
     slippage?: number | null;
 
-    /** UniswapExchangeRateTask provider */
+    /** The RPC provider to use for the swap. */
     provider?: string | null;
   }
 
-  /** Represents an UniswapExchangeRateTask. */
+  /** Fetch the swap price from UniSwap. */
   class UniswapExchangeRateTask implements IUniswapExchangeRateTask {
     /**
      * Constructs a new UniswapExchangeRateTask.
@@ -4355,19 +4424,19 @@ export namespace OracleJob {
      */
     constructor(properties?: OracleJob.IUniswapExchangeRateTask);
 
-    /** UniswapExchangeRateTask inTokenAddress. */
+    /** The input token address. */
     public inTokenAddress: string;
 
-    /** UniswapExchangeRateTask outTokenAddress. */
+    /** The output token address. */
     public outTokenAddress: string;
 
-    /** UniswapExchangeRateTask inTokenAmount. */
+    /** The amount of tokens to swap. */
     public inTokenAmount: number;
 
-    /** UniswapExchangeRateTask slippage. */
+    /** The allowable slippage in percent for the swap. */
     public slippage: number;
 
-    /** UniswapExchangeRateTask provider. */
+    /** The RPC provider to use for the swap. */
     public provider: string;
 
     /**
@@ -4468,23 +4537,23 @@ export namespace OracleJob {
 
   /** Properties of a SushiswapExchangeRateTask. */
   interface ISushiswapExchangeRateTask {
-    /** SushiswapExchangeRateTask inTokenAddress */
+    /** The input token address. */
     inTokenAddress?: string | null;
 
-    /** SushiswapExchangeRateTask outTokenAddress */
+    /** The output token address. */
     outTokenAddress?: string | null;
 
-    /** SushiswapExchangeRateTask inTokenAmount */
+    /** The amount of tokens to swap. */
     inTokenAmount?: number | null;
 
-    /** SushiswapExchangeRateTask slippage */
+    /** The allowable slippage in percent for the swap. */
     slippage?: number | null;
 
-    /** SushiswapExchangeRateTask provider */
+    /** The RPC provider to use for the swap. */
     provider?: string | null;
   }
 
-  /** Represents a SushiswapExchangeRateTask. */
+  /** Fetch the swap price from SushiSwap. */
   class SushiswapExchangeRateTask implements ISushiswapExchangeRateTask {
     /**
      * Constructs a new SushiswapExchangeRateTask.
@@ -4492,19 +4561,19 @@ export namespace OracleJob {
      */
     constructor(properties?: OracleJob.ISushiswapExchangeRateTask);
 
-    /** SushiswapExchangeRateTask inTokenAddress. */
+    /** The input token address. */
     public inTokenAddress: string;
 
-    /** SushiswapExchangeRateTask outTokenAddress. */
+    /** The output token address. */
     public outTokenAddress: string;
 
-    /** SushiswapExchangeRateTask inTokenAmount. */
+    /** The amount of tokens to swap. */
     public inTokenAmount: number;
 
-    /** SushiswapExchangeRateTask slippage. */
+    /** The allowable slippage in percent for the swap. */
     public slippage: number;
 
-    /** SushiswapExchangeRateTask provider. */
+    /** The RPC provider to use for the swap. */
     public provider: string;
 
     /**
@@ -4605,23 +4674,23 @@ export namespace OracleJob {
 
   /** Properties of a PancakeswapExchangeRateTask. */
   interface IPancakeswapExchangeRateTask {
-    /** PancakeswapExchangeRateTask inTokenAddress */
+    /** The input token address. */
     inTokenAddress?: string | null;
 
-    /** PancakeswapExchangeRateTask outTokenAddress */
+    /** The output token address. */
     outTokenAddress?: string | null;
 
-    /** PancakeswapExchangeRateTask inTokenAmount */
+    /** The amount of tokens to swap. */
     inTokenAmount?: number | null;
 
-    /** PancakeswapExchangeRateTask slippage */
+    /** The allowable slippage in percent for the swap. */
     slippage?: number | null;
 
-    /** PancakeswapExchangeRateTask provider */
+    /** The RPC provider to use for the swap. */
     provider?: string | null;
   }
 
-  /** Represents a PancakeswapExchangeRateTask. */
+  /** Fetch the swap price from PancakeSwap. */
   class PancakeswapExchangeRateTask implements IPancakeswapExchangeRateTask {
     /**
      * Constructs a new PancakeswapExchangeRateTask.
@@ -4629,19 +4698,19 @@ export namespace OracleJob {
      */
     constructor(properties?: OracleJob.IPancakeswapExchangeRateTask);
 
-    /** PancakeswapExchangeRateTask inTokenAddress. */
+    /** The input token address. */
     public inTokenAddress: string;
 
-    /** PancakeswapExchangeRateTask outTokenAddress. */
+    /** The output token address. */
     public outTokenAddress: string;
 
-    /** PancakeswapExchangeRateTask inTokenAmount. */
+    /** The amount of tokens to swap. */
     public inTokenAmount: number;
 
-    /** PancakeswapExchangeRateTask slippage. */
+    /** The allowable slippage in percent for the swap. */
     public slippage: number;
 
-    /** PancakeswapExchangeRateTask provider. */
+    /** The RPC provider to use for the swap. */
     public provider: string;
 
     /**
@@ -4742,11 +4811,11 @@ export namespace OracleJob {
 
   /** Properties of a CacheTask. */
   interface ICacheTask {
-    /** CacheTask cacheItems */
+    /** A list of cached variables to reference in the job with `${VARIABLE_NAME}`. */
     cacheItems?: OracleJob.CacheTask.ICacheItem[] | null;
   }
 
-  /** Represents a CacheTask. */
+  /** Execute a job and store the result in a variable to reference later. */
   class CacheTask implements ICacheTask {
     /**
      * Constructs a new CacheTask.
@@ -4754,7 +4823,7 @@ export namespace OracleJob {
      */
     constructor(properties?: OracleJob.ICacheTask);
 
-    /** CacheTask cacheItems. */
+    /** A list of cached variables to reference in the job with `${VARIABLE_NAME}`. */
     public cacheItems: OracleJob.CacheTask.ICacheItem[];
 
     /**
@@ -4854,10 +4923,10 @@ export namespace OracleJob {
   namespace CacheTask {
     /** Properties of a CacheItem. */
     interface ICacheItem {
-      /** CacheItem variableName */
+      /** The name of the variable to store in cache to reference later with `${VARIABLE_NAME}`. */
       variableName?: string | null;
 
-      /** CacheItem job */
+      /** The OracleJob to execute to yield the value to store in cache. */
       job?: IOracleJob | null;
     }
 
@@ -4869,10 +4938,10 @@ export namespace OracleJob {
        */
       constructor(properties?: OracleJob.CacheTask.ICacheItem);
 
-      /** CacheItem variableName. */
+      /** The name of the variable to store in cache to reference later with `${VARIABLE_NAME}`. */
       public variableName: string;
 
-      /** CacheItem job. */
+      /** The OracleJob to execute to yield the value to store in cache. */
       public job?: IOracleJob | null;
 
       /**
@@ -4975,7 +5044,7 @@ export namespace OracleJob {
   /** Properties of a SysclockOffsetTask. */
   interface ISysclockOffsetTask {}
 
-  /** Represents a SysclockOffsetTask. */
+  /** Return the difference between an oracle's clock and the current timestamp at `SYSVAR_CLOCK_PUBKEY`. */
   class SysclockOffsetTask implements ISysclockOffsetTask {
     /**
      * Constructs a new SysclockOffsetTask.
@@ -5188,11 +5257,11 @@ export namespace OracleJob {
 
   /** Properties of a SolanaAccountDataFetchTask. */
   interface ISolanaAccountDataFetchTask {
-    /** SolanaAccountDataFetchTask pubkey */
+    /** The on-chain account to fetch the account data from. */
     pubkey?: string | null;
   }
 
-  /** Represents a SolanaAccountDataFetchTask. */
+  /** Fetch the account data in a stringified buffer format. */
   class SolanaAccountDataFetchTask implements ISolanaAccountDataFetchTask {
     /**
      * Constructs a new SolanaAccountDataFetchTask.
@@ -5200,7 +5269,7 @@ export namespace OracleJob {
      */
     constructor(properties?: OracleJob.ISolanaAccountDataFetchTask);
 
-    /** SolanaAccountDataFetchTask pubkey. */
+    /** The on-chain account to fetch the account data from. */
     public pubkey: string;
 
     /**
@@ -5301,17 +5370,20 @@ export namespace OracleJob {
 
   /** Properties of a CronParseTask. */
   interface ICronParseTask {
-    /** CronParseTask cronPattern */
+    /** the cron pattern to parse */
     cronPattern?: string | null;
 
-    /** CronParseTask clockOffset */
+    /**
+     * the timestamp offset
+     * to calculate the next run
+     */
     clockOffset?: number | null;
 
     /** CronParseTask clock */
     clock?: OracleJob.CronParseTask.ClockType | null;
   }
 
-  /** Represents a CronParseTask. */
+  /** return a timestamp from a crontab instruction */
   class CronParseTask implements ICronParseTask {
     /**
      * Constructs a new CronParseTask.
@@ -5319,10 +5391,13 @@ export namespace OracleJob {
      */
     constructor(properties?: OracleJob.ICronParseTask);
 
-    /** CronParseTask cronPattern. */
+    /** the cron pattern to parse */
     public cronPattern: string;
 
-    /** CronParseTask clockOffset. */
+    /**
+     * the timestamp offset
+     * to calculate the next run
+     */
     public clockOffset: number;
 
     /** CronParseTask clock. */
@@ -5425,7 +5500,7 @@ export namespace OracleJob {
   }
 
   namespace CronParseTask {
-    /** ClockType enum. */
+    /** which type of clock to use */
     enum ClockType {
       ORACLE = 0,
       SYSCLOCK = 1,
@@ -5434,17 +5509,17 @@ export namespace OracleJob {
 
   /** Properties of a BufferLayoutParseTask. */
   interface IBufferLayoutParseTask {
-    /** BufferLayoutParseTask offset */
+    /** The buffer offset to start deserializing from. */
     offset?: number | null;
 
-    /** BufferLayoutParseTask endian */
+    /** The endianness of the stored value. */
     endian?: OracleJob.BufferLayoutParseTask.Endian | null;
 
-    /** BufferLayoutParseTask type */
+    /** The type of value to deserialize. */
     type?: OracleJob.BufferLayoutParseTask.BufferParseType | null;
   }
 
-  /** Represents a BufferLayoutParseTask. */
+  /** Return the deserialized value from a stringified buffer. */
   class BufferLayoutParseTask implements IBufferLayoutParseTask {
     /**
      * Constructs a new BufferLayoutParseTask.
@@ -5452,13 +5527,13 @@ export namespace OracleJob {
      */
     constructor(properties?: OracleJob.IBufferLayoutParseTask);
 
-    /** BufferLayoutParseTask offset. */
+    /** The buffer offset to start deserializing from. */
     public offset: number;
 
-    /** BufferLayoutParseTask endian. */
+    /** The endianness of the stored value. */
     public endian: OracleJob.BufferLayoutParseTask.Endian;
 
-    /** BufferLayoutParseTask type. */
+    /** The type of value to deserialize. */
     public type: OracleJob.BufferLayoutParseTask.BufferParseType;
 
     /**
@@ -6426,10 +6501,31 @@ export namespace OracleJob {
 
   /** Properties of a Task. */
   interface ITask {
-    /** Task httpTask */
+    /**
+     * The adapter will report the text body of a successful HTTP request to the
+     * specified url, or return an error if the response status code is greater
+     * than or equal to 400.
+     *
+     * <strong>Input:</strong> None
+     *
+     * <b>Returns:</b> string representation of it's output.
+     *
+     * \***Example:** HttpTask example with no headers
+     *
+     * ```json
+     * {"httpTask": {"url": "https://mywebsite.org/path"} }
+     * ```
+     */
     httpTask?: OracleJob.IHttpTask | null;
 
-    /** Task jsonParseTask */
+    /**
+     * The adapter walks the path specified and returns the value found at that result. If returning
+     * JSON data from the HttpGet or HttpPost adapters, you must use this adapter to parse the response.
+     *
+     * Input: string representation of a JSON object.
+     *
+     * Eeturns: a numerical result.
+     */
     jsonParseTask?: OracleJob.IJsonParseTask | null;
 
     /** Task medianTask */
@@ -6562,7 +6658,7 @@ export namespace OracleJob {
     boundTask?: OracleJob.IBoundTask | null;
   }
 
-  /** Represents a Task. */
+  /** Represents a singular operation performed by an oracle to yield an eventual numerical result. */
   class Task implements ITask {
     /**
      * Constructs a new Task.
@@ -6570,10 +6666,31 @@ export namespace OracleJob {
      */
     constructor(properties?: OracleJob.ITask);
 
-    /** Task httpTask. */
+    /**
+     * The adapter will report the text body of a successful HTTP request to the
+     * specified url, or return an error if the response status code is greater
+     * than or equal to 400.
+     *
+     * <strong>Input:</strong> None
+     *
+     * <b>Returns:</b> string representation of it's output.
+     *
+     * \***Example:** HttpTask example with no headers
+     *
+     * ```json
+     * {"httpTask": {"url": "https://mywebsite.org/path"} }
+     * ```
+     */
     public httpTask?: OracleJob.IHttpTask | null;
 
-    /** Task jsonParseTask. */
+    /**
+     * The adapter walks the path specified and returns the value found at that result. If returning
+     * JSON data from the HttpGet or HttpPost adapters, you must use this adapter to parse the response.
+     *
+     * Input: string representation of a JSON object.
+     *
+     * Eeturns: a numerical result.
+     */
     public jsonParseTask?: OracleJob.IJsonParseTask | null;
 
     /** Task medianTask. */
