@@ -166,12 +166,12 @@ const config = {
             position: "left",
             label: "Getting Started",
           },
-          // {
-          //   type: "docSidebar",
-          //   sidebarId: "archSidebar",
-          //   position: "left",
-          //   label: "Architecture",
-          // },
+          {
+            type: "docSidebar",
+            sidebarId: "guidesSidebar",
+            position: "left",
+            label: "Guides",
+          },
           {
             // type: "docSidebar",
             // sidebarId: "apiSidebar",
