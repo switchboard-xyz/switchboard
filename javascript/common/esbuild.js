@@ -202,6 +202,7 @@ async function main() {
       index: 'src/index',
       build: 'src/build',
       utils: 'src/utils/index',
+      protos: 'src/protos/index',
       // 'big.js': 'src/big',
       // 'bn.js': 'src/bn',
     },

@@ -60,7 +60,6 @@ const config = {
       "docusaurus-plugin-typedoc-api",
       {
         projectRoot: require("path").join(__dirname, ".."),
-        // lastVersion: "current",
         gitRefName: "main",
         readmes: true,
         banner:
@@ -87,7 +86,16 @@ const config = {
       /** @type {import('@docusaurus/preset-classic').Options} */
       ({
         docs: {
-          // lastVersion: "current", // ignore versioning, only needed for lastVersion
+          // ignore versioning, only needed for docusaurus-plugin-typedoc-api
+          lastVersion: "current",
+          versions: {
+            current: {
+              badge: false,
+            },
+            "1.0.0": {
+              badge: false,
+            },
+          },
           routeBasePath: "/",
           sidebarPath: require.resolve("./sidebars.js"),
           remarkPlugins: [
@@ -148,12 +156,12 @@ const config = {
             position: "left",
             label: "Getting Started",
           },
-          {
-            type: "docSidebar",
-            sidebarId: "archSidebar",
-            position: "left",
-            label: "Architecture",
-          },
+          // {
+          //   type: "docSidebar",
+          //   sidebarId: "archSidebar",
+          //   position: "left",
+          //   label: "Architecture",
+          // },
           {
             // type: "docSidebar",
             // sidebarId: "apiSidebar",

@@ -13,7 +13,7 @@
     "write-translations": "docusaurus write-translations",
     "write-heading-ids": "docusaurus write-heading-ids",
     "typecheck": "tsc",
-    "version": "rm -rf versions.json versioned_docs versioned_sidebars; npx docusaurus docs:version 1.0.0 && npx docusaurus api:version 1.0.0"
+    "version": "rm -rf versions.json versioned_docs versioned_sidebars; npx docusaurus docs:version latest && npx docusaurus api:version latest"
   },
   "dependencies": {
     "@docusaurus/core": "2.4.0",
