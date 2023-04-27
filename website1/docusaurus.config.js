@@ -62,8 +62,8 @@ const config = {
         projectRoot: require("path").join(__dirname, ".."),
         gitRefName: "main",
         readmes: true,
-        banner:
-          "This page contains the generated Typedocs for the <b>Switchboard NPM packages</b>.",
+        // banner:
+        //   "This page contains the generated Typedocs for the <b>Switchboard NPM packages</b>.",
         sortPackages: sortPackages,
         // Monorepo
         packages: [

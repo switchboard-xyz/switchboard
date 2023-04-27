@@ -5,6 +5,8 @@ const sidebars = {
   // By default, Docusaurus generates a sidebar from the docs folder structure
   gettingStartedSidebar: [
     "about",
+    "oracles",
+    "network",
     "faq",
     "terminology",
     { type: "html", value: '<hr class="sidebar-separator">' },
