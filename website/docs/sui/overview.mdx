@@ -6,22 +6,29 @@ slug: .
 
 import RoundedCardGroup from "/src/components/RoundedCard/RoundedCardGroup";
 import useBaseUrl from "@docusaurus/useBaseUrl";
+import PublicKeyButton from "/src/components/PublicKeyButton";
 
-More information coming soon!
+## Getting Started
 
-## Networks
+To get started, clone the
+[sbv2-sui](https://github.com/switchboard-xyz/sbv2-sui) repository.
 
-<RoundedCardGroup
-  items={[
-    {
-      to: "/sui/program/testnet",
-      title: "Testnet",
-      description: "View the Testnet deployment accounts",
-      image: <img src={useBaseUrl("/img/icons/sui/logo.svg")} />,
-      imageDark: <img src={useBaseUrl("/img/icons/sui/dark.svg")} />,
-    },
-  ]}
-/>
+```bash
+git clone https://github.com/switchboard-xyz/sbv2-sui
+```
+
+## Program IDs
+
+| **Network** | **Program ID**                                                                                                                                                                    |
+| ----------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Mainnet     | <PublicKeyButton publicKey="TBD" /> <br />See [program/mainnet](sui/program/mainnet) for a full list of public keys.                                                              |
+| Testnet     | <PublicKeyButton publicKey="0xe54d5bd1eeb21780315d2c7ae3a5d7c10520b5a694b9f35d7db7f93541b1e9fb" /> <br />See [program/devnet](sui/program/devnet) for a full list of public keys. |
+
+## Libraries
+
+import SuiLibraries from "/docs/sui/_common/_libraries.mdx";
+
+<SuiLibraries />
 
 ## Resources
 
