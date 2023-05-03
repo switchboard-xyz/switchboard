@@ -1,0 +1,10 @@
+{
+  "label": "<h3>Products</h3>",
+  "position": 10,
+  "collapsible": false,
+  "className": "sidebar__custom_label",
+  "link": {
+    "type": "doc",
+    "id": "products"
+  }
+}

@@ -1,0 +1,24 @@
+.footer--dark {
+  /* background-color: #0a2540; */
+  width: 100%;
+  display: flex;
+  padding-left: 40px;
+  margin-top: auto;
+}
+
+.footer__link-item,
+.footer__title {
+  color: #8998aa;
+}
+
+.footer > .container {
+  max-width: 1024px;
+}
+
+.col.footer__col {
+  max-width: 300px;
+}
+
+.footer__link-item:hover {
+  color: white;
+}

@@ -1,7 +1,9 @@
 import { SolanaWithoutSignerBaseCommand as BaseCommand } from "../../../solana";
 
-import { Args } from "@oclif/core";
+import { Args, Flags } from "@oclif/core";
 import { QueueAccount } from "@switchboard-xyz/solana.js";
+import { chalkString } from "../../../utils";
+import chalk from "chalk";
 
 export default class QueuePrint extends BaseCommand {
   static enableJsonFlag = true;
@@ -10,6 +12,7 @@ export default class QueuePrint extends BaseCommand {
 
   static flags = {
     ...BaseCommand.flags,
+    oracles: Flags.boolean({ description: "print the queue oracles" }),
   };
 
   static args = {
@@ -26,12 +29,31 @@ export default class QueuePrint extends BaseCommand {
       this.program,
       args.queueKey
     );
+    const oracles = flags.oracles
+      ? await queueAccount.loadOracles()
+      : undefined;
 
     if (flags.json) {
-      return this.normalizeAccountData(queueAccount.publicKey, queue.toJSON());
+      return this.normalizeAccountData(queueAccount.publicKey, {
+        ...queue.toJSON(),
+        oracles,
+      });
     }
 
     this.prettyPrintQueue(queue, queueAccount.publicKey);
+
+    if (flags.oracles) {
+      this.log(
+        chalk.underline(chalkString("\n## Oracles", new Array(44).join(" ")))
+      );
+      if (oracles) {
+        for (const [n, oracle] of oracles.entries()) {
+          this.logger.info(chalkString(`# ${n + 1}`, oracle.toBase58()));
+        }
+      } else {
+        this.log("No oracles heartbeating");
+      }
+    }
   }
 
   async catch(error: any) {

@@ -1,0 +1,13 @@
+{
+  // This file is not used in compilation. It is here just for a nice editor experience.
+  "extends": "./node_modules/@tsconfig/docusaurus/tsconfig.json",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "resolveJsonModule": true
+  },
+  "references": [
+    {
+      "path": "../plugins/docusaurus-plugin-typedoc-api"
+    },
+  ]
+}

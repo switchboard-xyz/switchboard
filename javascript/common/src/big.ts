@@ -251,19 +251,3 @@ export function fromDecimal(decimal: Decimal, decimals = 20): Big {
   const big = new Big(decimal.toFixed(decimals, 0));
   return big;
 }
-
-// export {
-//   median,
-//   weightedAverage,
-//   weightedMedian,
-//   min,
-//   max,
-//   variance,
-//   safeMul,
-//   safeNthRoot,
-//   safeSqrt,
-//   safePow,
-//   fromBigint,
-//   toDecimal,
-//   fromDecimal,
-// };

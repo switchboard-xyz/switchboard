@@ -2,3 +2,7 @@ packages:
   - "javascript/*"
   - "cli"
   - "website"
+  - "plugins/docusaurus-plugin-typedoc-api"
+  - "plugins/docusaurus-plugin-typedoc-api-orig"
+  - "plugins/docusaurus-plugin-api-docs"
+  - "website1"

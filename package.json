@@ -3,9 +3,10 @@
   "private": true,
   "scripts": {
     "preinstall": "npx only-allow pnpm",
-    "build": "pnpm --filter=!website build",
+    "build": "pnpm --filter=!website* build",
     "lint": "pnpm -r lint",
     "fix": "pnpm -r fix",
+    "clean": "find . \\( -name 'node_modules' -o -name 'lib' -o -name 'dist' -o -name '.docusaurus' \\) -type d -prune -exec rm -rf '{}' +",
     "uprev:sdk": "./scripts/uprev-sdks.sh"
   },
   "devDependencies": {
@@ -13,7 +14,7 @@
     "@switchboard-xyz/eslint-config": "latest",
     "@types/node": "^18.15.5",
     "commitlint": "^17.4.2",
-    "typescript": "4.9.5"
+    "typescript": "5.0.2"
   },
   "engines": {
     "node": ">=14.0.0"
@@ -22,5 +23,14 @@
     "type": "git",
     "url": "https://github.com/switchboard-xyz/sbv2-core.git"
   },
-  "packageManager": "pnpm@7.17.0"
+  "workspaces": [
+    "javascript/*",
+    "cli",
+    "website"
+  ],
+  "packageManager": "pnpm@7.17.0",
+  "dependencies": {
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2"
+  }
 }

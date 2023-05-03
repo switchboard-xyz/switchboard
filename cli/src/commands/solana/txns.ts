@@ -35,6 +35,15 @@ const discriminatorMap = new Map([
     Buffer.from([10, 175, 217, 130, 111, 35, 117, 54]).toString(),
     "OracleHeartbeat",
   ],
+  [
+    Buffer.from([202, 70, 141, 29, 136, 142, 230, 118]).toString(),
+    "LeaseExtend",
+  ],
+  [Buffer.from([155, 175, 160, 18, 7, 147, 249, 16]).toString(), "CrankPush"],
+  [
+    Buffer.from([239, 69, 229, 179, 156, 246, 118, 191]).toString(),
+    "AggregatorOpenRound",
+  ],
 ]);
 
 export default class SolanaTransactions extends BaseCommand {

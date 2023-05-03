@@ -6,6 +6,10 @@ export * from './utils/index.js';
 export { Big } from 'big.js';
 export { default as BN } from 'bn.js';
 
+import { OracleJob } from './protos/index.js';
+export import ITask = OracleJob.ITask;
+export import Task = OracleJob.Task;
+
 import protobuf from 'protobufjs/minimal.js';
 protobuf.util.toJSONOptions = {
   longs: String,
