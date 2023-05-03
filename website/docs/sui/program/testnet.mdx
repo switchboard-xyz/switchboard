@@ -8,7 +8,7 @@ import PublicKeyButton from "/src/components/PublicKeyButton";
 
 ## Program ID
 
-Below are the public keys associated with the Switchboard V2 deployment.
+Below are the addresses associated with the Switchboard V2 deployment.
 
 <table>
   <thead>
@@ -22,89 +22,15 @@ Below are the public keys associated with the Switchboard V2 deployment.
         <b>Program ID</b>
       </td>
       <td>
-        <PublicKeyButton publicKey="" />
-      </td>
-    </tr>
-  </tbody>
-</table>
-
-## Permissioned Queue
-
-The permissioned queue requires aggregators to have `PERMIT_ORACLE_QUEUE_USAGE`
-permissions before using the queue's resources.
-
-<table>
-  <thead>
-    <tr>
-      <th colspan="2">Public Keys</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>
-        <b>Oracle Queue</b>
-      </td>
-      <td>
-        <PublicKeyButton publicKey="" />
+        <PublicKeyButton publicKey="0x271beaa1f36bf8812a778f0df5a7a9f67a757008512096862a128c42923671e2" />
       </td>
     </tr>
     <tr>
       <td>
-        <b>Authority</b>
+        <b>SwitchboardStdLib</b>
       </td>
       <td>
-        <PublicKeyButton publicKey="" />
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <b>Crank #1</b>
-      </td>
-      <td>
-        <PublicKeyButton publicKey="" />
-      </td>
-    </tr>
-    <tr>
-      <td colspan="2">
-        <div className="centeredText">
-          <b>Testnet Permissioned Queue Settings</b>
-        </div>
-      </td>
-    </tr>
-    <tr>
-      <td colspan="2">
-        <table className="table_no_border">
-          <tr>
-            <td>
-              <b>unpermissionedFeedsEnabled</b>
-            </td>
-            <td>False</td>
-          </tr>
-          <tr>
-            <td>
-              <b>slashingEnabled</b>
-            </td>
-            <td>False</td>
-          </tr>
-          <tr>
-            <td>
-              <b>reward</b>
-            </td>
-            <td></td>
-          </tr>
-          <tr>
-            <td>
-              <b>minStake</b>
-            </td>
-            <td></td>
-          </tr>
-          <tr>
-            <td>
-              <b>oracleTimeout</b>
-            </td>
-            <td></td>
-          </tr>
-        </table>
+        <PublicKeyButton publicKey="0x524c15a935d4c34474cdf2604ee42a6c47591d13c6ffb6b678f6b7eaffba12fe" />
       </td>
     </tr>
   </tbody>
@@ -118,7 +44,7 @@ The permissionless queue does not require aggregators to have
 <table>
   <thead>
     <tr>
-      <th colspan="2">Public Keys</th>
+      <th colspan="2">Address</th>
     </tr>
   </thead>
   <tbody>
@@ -127,7 +53,7 @@ The permissionless queue does not require aggregators to have
         <b>Oracle Queue</b>
       </td>
       <td>
-        <PublicKeyButton publicKey="" />
+        <PublicKeyButton publicKey="0xaabd44ddf31bd5ea2971777fc848c33411942d0128976e4e8d787d2d59e8259a" />
       </td>
     </tr>
     <tr>
@@ -135,15 +61,7 @@ The permissionless queue does not require aggregators to have
         <b>Authority</b>
       </td>
       <td>
-        <PublicKeyButton publicKey="" />
-      </td>
-    </tr>
-    <tr>
-      <td>
-        <b>Crank #1</b>
-      </td>
-      <td>
-        <PublicKeyButton publicKey="" />
+        <PublicKeyButton publicKey="0xc9c8e0d738d7f090144847b38a8283fbe8050923875771b8c315a461721c04a4" />
       </td>
     </tr>
     <tr>
@@ -172,19 +90,13 @@ The permissionless queue does not require aggregators to have
             <td>
               <b>reward</b>
             </td>
-            <td></td>
-          </tr>
-          <tr>
-            <td>
-              <b>minStake</b>
-            </td>
-            <td></td>
+            <td>5000000</td>
           </tr>
           <tr>
             <td>
               <b>oracleTimeout</b>
             </td>
-            <td></td>
+            <td>2700</td>
           </tr>
         </table>
       </td>
