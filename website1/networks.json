@@ -1,0 +1,42 @@
+{
+  "solana": {
+    "mainnet": {
+      "programId": "SW1TCH7qEPTdLsDHRgPuMQjbQxKdH2aBStViMFnt64f",
+      "programData": "7nYabs9dUhvxYwdTnrWVBL9MYviKSfrEbdWCUbcnwkpF",
+      "idlAddress": "Fi8vncGpNKbq62gPo56G4toCehWNy77GgqGkTaAF5Lkk",
+      "programStateAccount": "CyZuD7RPDcrqCGbNvLCyqk6Py9cEZTKmNKujfPi3ynDd",
+      "tokenVault": "J7nSEX8ADf3pVVicd6yKy2Skvg8iLePEmkLUisAAaioD",
+      "queues": [
+        {
+          "name": "Permissioned Queue",
+          "address": "3HBb2DQqDfuMdzWxNk1Eo9RTMkFYmuEAd32RiLKn9pAn",
+          "authority": "31Sof5r1xi7dfcaz4x9Kuwm8J9ueAdDduMcme59sP8gc",
+          "permissioned": true,
+          "settings": {
+            "unpermissionedFeedsEnabled": "False",
+            "unpermissionedVrfEnabled": "False"
+          }
+        }
+      ]
+    },
+    "devnet": {
+      "programId": "SW1TCH7qEPTdLsDHRgPuMQjbQxKdH2aBStViMFnt64f",
+      "programData": "7nYabs9dUhvxYwdTnrWVBL9MYviKSfrEbdWCUbcnwkpF",
+      "idlAddress": "Fi8vncGpNKbq62gPo56G4toCehWNy77GgqGkTaAF5Lkk",
+      "programStateAccount": "CyZuD7RPDcrqCGbNvLCyqk6Py9cEZTKmNKujfPi3ynDd",
+      "tokenVault": "7hkp1xfPBcD2t1vZMoWWQPzipHVcXeLAAaiGXdPSfDie",
+      "queues": [
+        {
+          "name": "Permissioned Queue",
+          "address": "PeRMnAqNqHQYHUuCBEjhm1XPeVTh4BxjY4t4TPan1pG",
+          "authority": "2KgowxogBrGqRcgXQEmqFvC3PGtCu66qERNJevYW8Ajh",
+          "permissioned": true,
+          "settings": {
+            "unpermissionedFeedsEnabled": "False",
+            "unpermissionedVrfEnabled": "False"
+          }
+        }
+      ]
+    }
+  }
+}
