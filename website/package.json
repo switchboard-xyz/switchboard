@@ -5,7 +5,7 @@
   "scripts": {
     "docusaurus": "docusaurus",
     "start": "pnpm run build:plugin && pnpm generate:protos && pnpm run reset:version && docusaurus start",
-    "build": "pnpm run reset:version && docusaurus build",
+    "build": "pnpm run reset:version && docusaurus build --out-dir public",
     "build:plugin": "cd ../plugins/docusaurus-plugin-api-docs && pnpm build",
     "swizzle": "docusaurus swizzle",
     "deploy": "docusaurus deploy",
