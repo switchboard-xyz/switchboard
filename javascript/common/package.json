@@ -14,9 +14,12 @@
     "build.cjs",
     "build.js",
     "build.d.ts",
-    "utils.cjs",
-    "utils.js",
-    "utils.d.ts"
+    "protos.cjs",
+    "protos.js",
+    "protos.d.ts",
+    "networks.cjs",
+    "networks.js",
+    "networks.d.ts"
   ],
   "exports": {
     ".": {
@@ -29,10 +32,15 @@
       "import": "./build.js",
       "require": "./build.cjs"
     },
-    "./utils": {
-      "types": "./utils.d.ts",
-      "import": "./utils.js",
-      "require": "./utils.cjs"
+    "./protos": {
+      "types": "./protos.d.ts",
+      "import": "./protos.js",
+      "require": "./protos.cjs"
+    },
+    "./networks": {
+      "types": "./networks.d.ts",
+      "import": "./networks.js",
+      "require": "./networks.cjs"
     },
     "./package.json": "./package.json"
   },
@@ -54,7 +62,7 @@
     "big.js": "^6.2.1",
     "bn.js": "^5.2.1",
     "decimal.js": "^10.4.3",
-    "protobufjs": "^7.1.2",
+    "protobufjs": "^7.2.3",
     "yaml": "^2.2.1"
   },
   "devDependencies": {

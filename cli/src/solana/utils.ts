@@ -332,35 +332,27 @@ export function prettyPrintOracle(
 
   output.push(chalk.underline(chalkString("## Metrics", "", SPACING)));
   output.push(
-    chalkString(
-      "consecutiveSuccess",
-      oracle.metrics.consecutiveSuccess,
-      SPACING
-    )
+    chalkString("consecSuccess", oracle.metrics.consecutiveSuccess, SPACING)
   );
   output.push(
-    chalkString("consecutiveError", oracle.metrics.consecutiveError, SPACING)
+    chalkString("consecError", oracle.metrics.consecutiveError, SPACING)
   );
   output.push(
     chalkString(
-      "consecutiveDisagreement",
+      "consecDisagreement",
       oracle.metrics.consecutiveDisagreement,
       SPACING
     )
   );
   output.push(
     chalkString(
-      "consecutiveLateResponse",
+      "consecLateResponse",
       oracle.metrics.consecutiveLateResponse,
       SPACING
     )
   );
   output.push(
-    chalkString(
-      "consecutiveFailure",
-      oracle.metrics.consecutiveFailure,
-      SPACING
-    )
+    chalkString("consecFailure", oracle.metrics.consecutiveFailure, SPACING)
   );
   output.push(
     chalkString("totalSuccess", oracle.metrics.totalSuccess, SPACING)
@@ -392,7 +384,7 @@ export function prettyPrintQueue(
   output.push(
     chalkString(
       "size",
-      `${queue.size.toString(10).padStart(4, " ")} / ${queue.maxSize
+      `${queue.size.toString(10)} / ${queue.maxSize
         .toString(10)
         .padEnd(4, " ")}`,
       SPACING
@@ -405,38 +397,30 @@ export function prettyPrintQueue(
   output.push(chalkString("slashingEnabled", queue.slashingEnabled, SPACING));
   output.push(
     chalkString(
-      "varianceToleranceMultiplier",
+      "varianceToleranceMultpl",
       queue.varianceToleranceMultiplier.toBig(),
       SPACING
     )
   );
   output.push(
-    chalkString(
-      "unpermissionedFeedsEnabled",
-      queue.unpermissionedFeedsEnabled,
-      SPACING
-    )
+    chalkString("unpermFeedsEnabled", queue.unpermissionedFeedsEnabled, SPACING)
   );
   output.push(
-    chalkString(
-      "unpermissionedVrfEnabled",
-      queue.unpermissionedVrfEnabled,
-      SPACING
-    )
+    chalkString("unpermVrfEnabled", queue.unpermissionedVrfEnabled, SPACING)
   );
   output.push(
     chalkString("enableBufferRelayers", queue.enableBufferRelayers, SPACING)
   );
   output.push(
     chalkString(
-      "consecutiveFeedFailureLimit",
+      "consecFeedFailureLimit",
       queue.consecutiveFeedFailureLimit,
       SPACING
     )
   );
   output.push(
     chalkString(
-      "consecutiveOracleFailureLimit",
+      "consecOracleFailureLimit",
       queue.consecutiveOracleFailureLimit,
       SPACING
     )

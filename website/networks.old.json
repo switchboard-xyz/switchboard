@@ -1,0 +1,276 @@
+{
+  "solana": {
+    "mainnet": {
+      "programId": "SW1TCH7qEPTdLsDHRgPuMQjbQxKdH2aBStViMFnt64f",
+      "authority": "2NvGRFswVx3GXxURNSfjbsWY4iP1ufj8LvAKJWGXSm4D",
+      "idlAddress": "Fi8vncGpNKbq62gPo56G4toCehWNy77GgqGkTaAF5Lkk",
+      "queues": [
+        {
+          "name": "Permissioned Queue",
+          "address": "3HBb2DQqDfuMdzWxNk1Eo9RTMkFYmuEAd32RiLKn9pAn",
+          "authority": "31Sof5r1xi7dfcaz4x9Kuwm8J9ueAdDduMcme59sP8gc",
+          "crankAddress": "GdNVLWzcE6h9SPuSbmu69YzxAj8enim9t6mjzuqTXgLd",
+          "permissioned": true,
+          "settings": {
+            "unpermissionedFeedsEnabled": false,
+            "unpermissionedVrfEnabled": false,
+            "enableBufferRelayers": false,
+            "slashingEnabled": false,
+            "reward": 12500,
+            "minStake": 0,
+            "oracleTimeout": 180
+          }
+        },
+        {
+          "name": "Permissionless Queue",
+          "address": "5JYwqvKkqp35w8Nq3ba4z1WYUeJQ1rB36V8XvaGp6zn1",
+          "authority": "31Sof5r1xi7dfcaz4x9Kuwm8J9ueAdDduMcme59sP8gc",
+          "crankAddress": "BKtF8yyQsj3Ft6jb2nkfpEKzARZVdGgdEPs6mFmZNmbA",
+          "permissioned": false,
+          "settings": {
+            "unpermissionedFeedsEnabled": true,
+            "unpermissionedVrfEnabled": true,
+            "enableBufferRelayers": false,
+            "slashingEnabled": false,
+            "reward": 12500,
+            "minStake": 0,
+            "oracleTimeout": 180
+          }
+        }
+      ]
+    },
+    "devnet": {
+      "programId": "SW1TCH7qEPTdLsDHRgPuMQjbQxKdH2aBStViMFnt64f",
+      "authority": "2KgowxogBrGqRcgXQEmqFvC3PGtCu66qERNJevYW8Ajh",
+      "idlAddress": "Fi8vncGpNKbq62gPo56G4toCehWNy77GgqGkTaAF5Lkk",
+      "queues": [
+        {
+          "name": "Permissioned Queue",
+          "address": "PeRMnAqNqHQYHUuCBEjhm1XPeVTh4BxjY4t4TPan1pG",
+          "authority": "2KgowxogBrGqRcgXQEmqFvC3PGtCu66qERNJevYW8Ajh",
+          "crankAddress": "crnKsPsuP6f7uiDbAYYw66h2RNBrqoazmtZHwazkC6V",
+          "permissioned": true,
+          "settings": {
+            "unpermissionedFeedsEnabled": false,
+            "unpermissionedVrfEnabled": false,
+            "enableBufferRelayers": false,
+            "slashingEnabled": false,
+            "reward": 12500,
+            "minStake": 0,
+            "oracleTimeout": 180
+          }
+        },
+        {
+          "name": "Permissionless Queue",
+          "address": "uPeRMdfPmrPqgRWSrjAnAkH78RqAhe5kXoW6vBYRqFX",
+          "authority": "2KgowxogBrGqRcgXQEmqFvC3PGtCu66qERNJevYW8Ajh",
+          "crankAddress": "UcrnK4w2HXCEjY8z6TcQ9tysYr3c9VcFLdYAU9YQP5e",
+          "permissioned": false,
+          "settings": {
+            "unpermissionedFeedsEnabled": true,
+            "unpermissionedVrfEnabled": true,
+            "enableBufferRelayers": false,
+            "slashingEnabled": false,
+            "reward": 12500,
+            "minStake": 0,
+            "oracleTimeout": 180
+          }
+        }
+      ]
+    }
+  },
+  "aptos": {
+    "mainnet": {
+      "programId": "0x7d7e436f0b2aafde60774efb26ccc432cf881b677aca7faaf2a01879bd19fb8",
+      "stateAddress": "0x7d7e436f0b2aafde60774efb26ccc432cf881b677aca7faaf2a01879bd19fb8",
+      "queues": [
+        {
+          "name": "Permissioned Queue",
+          "address": "0x11fbd91e4a718066891f37958f0b68d10e720f2edf8d57854fb20c299a119a8c",
+          "authority": "0xca62eccbbdb22b5de18165d0bdf2d7127569b91498f0a7f6944028793cef8137",
+          "crankAddress": "0xbc9576fedda51d33e8129b5f122ef4707c2079dfb11cd836e86adcb168cbd473",
+          "permissioned": true,
+          "settings": {
+            "unpermissionedFeedsEnabled": false,
+            "oracleTimeout": 1800,
+            "reward": 0
+          }
+        },
+        {
+          "name": "Permissionless Queue",
+          "address": "0xc887072e37f17f9cc7afc0a00e2b283775d703c610acca3997cb26e74bc53f3b",
+          "authority": "0xca62eccbbdb22b5de18165d0bdf2d7127569b91498f0a7f6944028793cef8137",
+          "crankAddress": "0x7d5ced8797f212c2eeb36486d5e5f30c1043530a340fe9debf4fc958559f3ec4",
+          "permissioned": false,
+          "settings": {
+            "unpermissionedFeedsEnabled": true,
+            "oracleTimeout": 1800,
+            "reward": 1665
+          }
+        }
+      ]
+    },
+    "testnet": {
+      "programId": "0xb91d3fef0eeb4e685dc85e739c7d3e2968784945be4424e92e2f86e2418bf271",
+      "stateAddress": "0xb91d3fef0eeb4e685dc85e739c7d3e2968784945be4424e92e2f86e2418bf271",
+      "queues": [
+        {
+          "name": "Permissionless Queue",
+          "address": "0x9190d0fad0520ef650caa1ef8bd89da660d6eb617feabd618039b9c6bf11e802",
+          "authority": "0xb91d3fef0eeb4e685dc85e739c7d3e2968784945be4424e92e2f86e2418bf271",
+          "crankAddress": "0xd08a5107feb5f2df15c913702b0969ae4e22b3653a98c14fcd5e9e00cf8a039d",
+          "permissioned": false,
+          "settings": {
+            "unpermissionedFeedsEnabled": true,
+            "oracleTimeout": 180,
+            "reward": 900000
+          }
+        }
+      ]
+    }
+  },
+  "near": {
+    "mainnet": {
+      "programId": "switchboard-v2.near",
+      "authority": "sbv2-authority.near",
+      "queues": [
+        {
+          "name": "Permissionless Queue",
+          "address": "Ztup1aJ8WTe81RZHx7nUP9zxUMrDe9r2TyTCzRzpRoY",
+          "authority": "sbv2-authority.near",
+          "crankAddress": "HeS3xrDqHA2CSHTmN9osstz8vbXfgh2mmcGixJ1v9NFx",
+          "permissioned": false,
+          "settings": {
+            "unpermissionedFeedsEnabled": true,
+            "slashingEnabled": false,
+            "minStake": 0,
+            "oracleTimeout": 600
+          }
+        }
+      ]
+    },
+    "testnet": {
+      "programId": "switchboard-v2.testnet",
+      "authority": "sbv2-authority.testnet",
+      "queues": [
+        {
+          "name": "Permissionless Queue",
+          "address": "HFSJrvA1w2uhciLGLUfE4sADGwGBpUiAjxZPgeFSs61M",
+          "authority": "sbv2-authority.testnet",
+          "crankAddress": "9Vzzu1Z74oPLctxwjRHwkKSd5H32AiQe32iMesuQwKnQ",
+          "permissioned": false,
+          "settings": {
+            "unpermissionedFeedsEnabled": true,
+            "minStake": 0,
+            "oracleTimeout": 180
+          }
+        }
+      ]
+    }
+  },
+  "coredao": {
+    "mainnet": {
+      "programId": "0x73d6C66874e570f058834cAA666b2c352F1C792D",
+      "queues": [
+        {
+          "name": "Permissioned Queue",
+          "address": "0x1e373Ac0a299E6CCfE6bd333025E5Ebef9Eca2Dd",
+          "authority": "",
+          "crankAddress": "",
+          "permissioned": true,
+          "settings": {
+            "unpermissionedFeedsEnabled": false
+          }
+        },
+        {
+          "name": "Permissionless Queue",
+          "address": "0x628D9A4109FD1B94348b7866923A4b7aae3D61c6",
+          "authority": "",
+          "crankAddress": "",
+          "permissioned": false,
+          "settings": {
+            "unpermissionedFeedsEnabled": true
+          }
+        }
+      ]
+    },
+    "testnet": {
+      "programId": "0xe9F5Ecb00BC437F061DF59d899F00f260740dC48",
+      "queues": [
+        {
+          "name": "Permissioned Queue",
+          "address": "",
+          "authority": "",
+          "crankAddress": "",
+          "permissioned": true,
+          "settings": {
+            "unpermissionedFeedsEnabled": false
+          }
+        },
+        {
+          "name": "Permissionless Queue",
+          "address": "",
+          "authority": "",
+          "crankAddress": "",
+          "permissioned": false,
+          "settings": {
+            "unpermissionedFeedsEnabled": true
+          }
+        }
+      ]
+    }
+  },
+  "sui": {
+    "mainnet": {
+      "programId": "0xfd2e0f4383df3ec9106326dcd9a20510cdce72146754296deed15403fcd3df8b",
+      "switchboardStdLib": "0x08d79f4d920b03d88faca1e421af023a87fbb1e4a6fd200248e6e9998d09e470",
+      "queues": [
+        {
+          "name": "Permissioned Queue",
+          "address": "0xea802bde1319363a27134a72a9d2f45e110fd60ef32ab2e10cdb06c973d6c64f",
+          "authority": "0xcf2d51b3ca8c23e0ba312392d213b1293a3121f691fa8e120f1a968fc2ad1c8b",
+          "crankAddress": "",
+          "permissioned": true,
+          "settings": {
+            "unpermissionedFeedsEnabled": false,
+            "slashingEnabled": false,
+            "reward": 0,
+            "oracleTimeout": 120
+          }
+        },
+        {
+          "name": "Permissionless Queue",
+          "address": "0xe9324b82374f18d17de601ae5a19cd72e8c9f57f54661bf9e41a76f8948e80b5",
+          "authority": "0xcf2d51b3ca8c23e0ba312392d213b1293a3121f691fa8e120f1a968fc2ad1c8b",
+          "crankAddress": "",
+          "permissioned": false,
+          "settings": {
+            "unpermissionedFeedsEnabled": true,
+            "slashingEnabled": false,
+            "reward": 5000000,
+            "oracleTimeout": 120
+          }
+        }
+      ]
+    },
+    "testnet": {
+      "programId": "0x271beaa1f36bf8812a778f0df5a7a9f67a757008512096862a128c42923671e2",
+      "switchboardStdLib": "0x524c15a935d4c34474cdf2604ee42a6c47591d13c6ffb6b678f6b7eaffba12fe",
+      "queues": [
+        {
+          "name": "Permissionless Queue",
+          "address": "0xaabd44ddf31bd5ea2971777fc848c33411942d0128976e4e8d787d2d59e8259a",
+          "authority": "0xc9c8e0d738d7f090144847b38a8283fbe8050923875771b8c315a461721c04a4",
+          "crankAddress": "",
+          "permissioned": false,
+          "settings": {
+            "unpermissionedFeedsEnabled": true,
+            "slashingEnabled": false,
+            "reward": 5000000,
+            "oracleTimeout": 2700
+          }
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,144 @@
+---
+title: "Using Switchboard: Creating Custom Data Feeds"
+description: ""
+authors: [gallynaut]
+tags: []
+hide_table_of_contents: true
+---
+
+# Using Switchboard: Creating Custom Data Feeds
+
+Switchboard is a permission-less Oracle network allowing anyone to spin up their
+own data feeds and publish on-chain. To accomplish this, data feeds can be
+configured from a collection of tasks in order to fetch data, parse a response,
+then determine a final result. You can find a list of available tasks in our
+documentation. Today’s article will walk you through spinning up your own data
+feed to fetch the current weather in Miami, FL using Switchboard’s publisher
+site. This could be used by an on-chain program to calculate and settle
+insurance contracts relating to weather events.
+
+<!--truncate-->
+
+## Build Job Definition
+
+### Data Sources
+
+A data feed should have multiple sources but for this example we’ll keep it
+simple. We’ll be using the
+[api.weather.gov/gridpoints](https://www.weather.gov/documentation/services-web-api#/default/gridpoint)
+endpoint to resolve our data feed. After doing some digging we’ve determined
+that the weather forecast office should be **MFL** and the latitude and
+longitude should be 111 and 50 respectively. So our full API endpoint should be
+[https://api.weather.gov/gridpoints/MFL/111,50/forecast](https://api.weather.gov/gridpoints/MFL/111,50/forecast).
+We’ll pass this URL as the argument to the httpTask.
+
+### Parse Response
+
+Now we need to extract the value from the API response. Here is what the
+response will look like:
+
+<iframe
+  src="https://medium.com/media/efe4c82a9487835fcd6d62c5d5dd9055"
+  frameborder="0"
+></iframe>
+
+We can use the JsonParseTask to extract this value. This relies on using
+JsonPath syntax to grab a value.[ https://jsonpath.com](https://jsonpath.com/)
+is a great resource to test your queries. After some trial and error we’ve
+determined that the JSON path query should be
+“$.properties.periods.0.temperature”. This will access the first array element
+in the properties.periods object and return that period’s temperature. So now
+we’ve figured out how to fetch the weather data and extract the latest
+temperature value.
+
+### Build Task Definitions
+
+Now we can put it all together. The httpTask will be used to fetch external
+data, then pass it to the jsonParseTask to extract the latest temperature value.
+The final definition will look like this:
+
+<iframe
+  src="https://medium.com/media/132f06aaba39e0b0e9f91d97cac4395b"
+  frameborder="0"
+></iframe>
+
+## Build Data Feed
+
+When building a Switchboard data feed, you will need to create the following
+accounts:
+
+- Aggregator — to manage the data feed configuration and store the result
+
+- Job(s) — to store each job definition (only one needed for our example)
+
+- Lease — to pre-fund oracles for any update request
+
+- Permission — permits an aggregator to use a set of oracles
+
+![](https://cdn-images-1.medium.com/max/3200/0*YaoRCEngI8vcvb00)
+
+Luckily the [Switchboard Publisher site](https://publish.switchboard.xyz/)
+streamlines the on-chain workflow and handles this for us. We’ll be creating a
+new data feed for Switchboard’s permission-less queue. Optionally, you can
+request permissions to Switchboard’s permissioned queue once you are satisfied
+with the feed’s configuration.
+
+### Configure Data Feed
+
+Connect your wallet, then locate and select the _Custom Feed_ button. The
+following popup lets you configure the name of your feed, as well as the job
+definitions. Our example uses a single job.
+
+![](https://cdn-images-1.medium.com/max/2000/0*RNVzR-Gv-tI9e8yx)
+
+Give your feed a name such as _MIA Temperature,_ then select _Add Job+_. Give
+the job a name, such as Weather.gov MIA, then paste in the job definition from
+above. You can hit _Test_ to simulate the result to ensure you are using the
+correct job definition.
+
+![](https://cdn-images-1.medium.com/max/2000/0*EdbEKh2EegG7kAQT)
+
+Select _Add Job_ to be taken back to the Build a Feed modal. Then select _Add
+Feed_ to add the feed to your basket.
+
+### Create Data Feed
+
+You should have the weather feed in your basket and ready for checkout.
+
+![](https://cdn-images-1.medium.com/max/2000/1*_Ywdq0LL75kJkZxO8vjTvQ.png)
+
+Select _Checkout_ to begin publishing your feed on-chain. You should see the
+following modal to fund your lease contract:
+
+![](https://cdn-images-1.medium.com/max/2000/1*9gB-dywmlXFRUY4qNrD1lA.png)
+
+This step will deposit the specified SOL amount into a lease contract. If the
+_Enable automatic updates_ checkbox is selected, your feed will be added to the
+crank and updated at a regular interval of your choosing. Note the exact update
+times are dependent on the Solana network and an added jitter. Each time your
+feed successfully updates, a portion of the lease contract will be dispersed to
+the oracles fulfilling the update request. When you are happy with the settings,
+select _Go to Checkout_.
+
+The Checkout Exchange modal will display a summary of the account creation cost.
+Select _Create Feed_ to start the on-chain account creation.
+
+![](https://cdn-images-1.medium.com/max/2000/1*EVfnM7Z2n-L-QoyIIWfNAA.png)
+
+Once complete, you should see your new data feed on the _Your Feeds_ page
+already updating!
+
+![](https://cdn-images-1.medium.com/max/2000/1*qN18XKbiGxeGyWrhSIHXSg.png)
+
+## Conclusion
+
+Switchboard allows developers to build and configure their own on-chain data
+feeds. If you’re building with Switchboard and need a new task type or
+additional functionality please reach out to us on Discord, Telegram, or
+Twitter.
+
+- [Job Directory](https://docs.switchboard.xyz/job-directory)
+
+- [Data Feeds Architecture](https://docs.switchboard.xyz/architecture/feeds)
+
+- [Switchboard Tasks](https://docs.switchboard.xyz/api/tasks)

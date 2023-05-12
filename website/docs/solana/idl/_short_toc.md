@@ -1,5 +1,0 @@
-- [Accounts](/solana/idl/accounts/)
-- [Instructions](/solana/idl/instructions)
-- [Events](/solana/idl/events)
-- [Types](/solana/idl/types)
-- [Errors](/solana/idl/errors)

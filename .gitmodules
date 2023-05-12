@@ -1,18 +1,23 @@
 [submodule "sdks/aptos"]
 	path = sdks/aptos
-	url = https://github.com/switchboard-xyz/sbv2-aptos.git
+	url = https://github.com/switchboard-xyz/sbv2-aptos
+	branch = main
 [submodule "sdks/solana"]
 	path = sdks/solana
 	url = https://github.com/switchboard-xyz/sbv2-solana
+	branch = main
 [submodule "sdks/near"]
 	path = sdks/near
 	url = https://github.com/switchboard-xyz/sbv2-near
+	branch = main
 [submodule "sdks/starknet"]
 	path = sdks/starknet
 	url = https://github.com/switchboard-xyz/sbv2-starknet
 [submodule "sdks/sui"]
 	path = sdks/sui
 	url = https://github.com/switchboard-xyz/sbv2-sui
+	branch = main
 [submodule "sdks/evm"]
 	path = sdks/evm
 	url = https://github.com/switchboard-xyz/sbv2-evm
+	branch = main

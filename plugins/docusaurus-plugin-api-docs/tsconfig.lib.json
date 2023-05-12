@@ -1,0 +1,23 @@
+{
+  "extends": "tsconfig-moon/tsconfig.projects.json",
+  "compilerOptions": {
+    "declarationDir": "lib",
+    "outDir": "lib",
+    "rootDir": "src",
+    "emitDeclarationOnly": true,
+    "esModuleInterop": true,
+    "resolveJsonModule": true,
+    "lib": [
+      "esnext",
+      "dom"
+    ],
+    "jsx": "react"
+  },
+  "exclude": [
+    "tests"
+  ],
+  "include": [
+    "src/**/*",
+  ],
+  "references": []
+}

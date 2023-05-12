@@ -24,16 +24,15 @@ jobs:
         with:
           submodules: recursive
 
-      - name: Install pnpm
-        uses: pnpm/action-setup@v2
-        with:
-          version: 7.28.0
-
       - name: Use Node.js
         uses: actions/setup-node@v3
         with:
           node-version: 18
-          cache: "pnpm"
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 7.28.0
 
       - name: Get pnpm store directory
         id: pnpm-cache
@@ -51,54 +50,13 @@ jobs:
 
       - name: Install global deps
         run: |
-          npm i -g typescript ts-node @types/node
+          npm i -g typescript ts-node tsx @types/node
 
       - name: Install sbv2-core Dependencies
         run: pnpm install --frozen-lockfile
 
       - name: Build sbv2-core
         run: pnpm -r --filter=!website build
-
-      - name: Install sbv2-scripts
-        working-directory: javascript/sbv2-scripts
-        run: npm link
-
-      - name: Generate CLI Docs
-        working-directory: .
-        run: |
-          sbv2-scripts cli ./cli/README.md ./website/docs/dev/cli
-
-      - name: Generate typedocs
-        working-directory: website
-        run: pnpm run docgen
-
-      # - name: Install @switchboard-xyz/aptos.js dependencies
-      #   working-directory: sdks/aptos/javascript/aptos.js
-      #   run: pnpm build
-
-      # - name: Install @switchboard-xyz/near.js dependencies
-      #   working-directory: sdks/near/javascript/near.js
-      #   run: pnpm build
-
-      # - name: Install @switchboard-xyz/switchboard-v2 dependencies
-      #   working-directory: sdks/solana/javascript/__deprecated__/switchboard-v2
-      #   run: npm ci
-
-      # - name: Install @switchboard-xyz/solana.js dependencies
-      #   working-directory: sdks/solana/javascript/solana.js
-      #   run: pnpm build
-
-      # - name: Install @switchboard-xyz/evm.js dependencies
-      #   working-directory: sdks/evm/javascript/evm.js
-      #   run: pnpm build
-
-      # - name: Install @switchboard-xyz/starknet.js dependencies
-      #   working-directory: sdks/starknet/javascript/starknet.js
-      #   run: pnpm build
-
-      # - name: Install @switchboard-xyz/sui.js dependencies
-      #   working-directory: sdks/sui/javascript/sui.js
-      #   run: pnpm build
 
       - name: Build website
         working-directory: website

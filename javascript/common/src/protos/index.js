@@ -27,13 +27,13 @@
      * Properties of an OracleJob.
      * @exports IOracleJob
      * @interface IOracleJob
-     * @property {Array.<OracleJob.ITask>|null} [tasks] OracleJob tasks
+     * @property {Array.<OracleJob.ITask>|null} [tasks] The chain of tasks to perform for this OracleJob.
      */
 
     /**
      * Constructs a new OracleJob.
      * @exports OracleJob
-     * @classdesc Represents an OracleJob.
+     * @classdesc Represnts a list of tasks to be performed by a switchboard oracle.
      * @implements IOracleJob
      * @constructor
      * @param {IOracleJob=} [properties] Properties to set
@@ -46,7 +46,7 @@
     }
 
     /**
-     * OracleJob tasks.
+     * The chain of tasks to perform for this OracleJob.
      * @member {Array.<OracleJob.ITask>} tasks
      * @memberof OracleJob
      * @instance
@@ -66,7 +66,7 @@
     };
 
     /**
-     * Encodes the specified OracleJob message. Does not implicitly {@link OracleJob.verify|verify} messages.
+     * Encodes the specified OracleJob message. Does not implicitly {@apilink OracleJob.verify|verify} messages.
      * @function encode
      * @memberof OracleJob
      * @static
@@ -86,7 +86,7 @@
     };
 
     /**
-     * Encodes the specified OracleJob message, length delimited. Does not implicitly {@link OracleJob.verify|verify} messages.
+     * Encodes the specified OracleJob message, length delimited. Does not implicitly {@apilink OracleJob.verify|verify} messages.
      * @function encodeDelimited
      * @memberof OracleJob
      * @static
@@ -260,16 +260,34 @@
        * Properties of a HttpTask.
        * @memberof OracleJob
        * @interface IHttpTask
-       * @property {string|null} [url] HttpTask url
-       * @property {OracleJob.HttpTask.Method|null} [method] HttpTask method
-       * @property {Array.<OracleJob.HttpTask.IHeader>|null} [headers] HttpTask headers
-       * @property {string|null} [body] HttpTask body
+       * @property {string|null} [url] A string containing the URL to direct this HTTP request to.
+       * @property {OracleJob.HttpTask.Method|null} [method] The type of HTTP request to make.
+       * @property {Array.<OracleJob.HttpTask.IHeader>|null} [headers] A list of headers to add to this HttpTask.
+       * @property {string|null} [body] A stringified body (if any) to add to this HttpTask.
        */
 
       /**
        * Constructs a new HttpTask.
        * @memberof OracleJob
-       * @classdesc Represents a HttpTask.
+       * @classdesc The adapter will report the text body of a successful HTTP request to the
+       * specified url, or return an error if the response status code is greater
+       * than or equal to 400.
+       *
+       * _**Input**_: None
+       *
+       * _**Returns**_: String representation of the http response.
+       *
+       * _**Example**_: Basic HttpTask
+       *
+       * ```json
+       * {"httpTask": {"url": "https://mywebsite.org/path"} }
+       * ```
+       *
+       * _**Example**_: HttpTask example with headers
+       *
+       * ```json
+       * { "httpTask": { "url": "https://mywebsite.org/path", "method": "METHOD_POST", "headers": [ { "key": "MY_HEADER_KEY", "value": "MY_HEADER_VALUE" } ], "body": "{\"MY_BODY_KEY\":\"MY_BODY_VALUE\"}" } }
+       * ```
        * @implements IHttpTask
        * @constructor
        * @param {OracleJob.IHttpTask=} [properties] Properties to set
@@ -283,7 +301,7 @@
       }
 
       /**
-       * HttpTask url.
+       * A string containing the URL to direct this HTTP request to.
        * @member {string} url
        * @memberof OracleJob.HttpTask
        * @instance
@@ -291,7 +309,7 @@
       HttpTask.prototype.url = '';
 
       /**
-       * HttpTask method.
+       * The type of HTTP request to make.
        * @member {OracleJob.HttpTask.Method} method
        * @memberof OracleJob.HttpTask
        * @instance
@@ -299,7 +317,7 @@
       HttpTask.prototype.method = 0;
 
       /**
-       * HttpTask headers.
+       * A list of headers to add to this HttpTask.
        * @member {Array.<OracleJob.HttpTask.IHeader>} headers
        * @memberof OracleJob.HttpTask
        * @instance
@@ -307,7 +325,7 @@
       HttpTask.prototype.headers = $util.emptyArray;
 
       /**
-       * HttpTask body.
+       * A stringified body (if any) to add to this HttpTask.
        * @member {string} body
        * @memberof OracleJob.HttpTask
        * @instance
@@ -327,7 +345,7 @@
       };
 
       /**
-       * Encodes the specified HttpTask message. Does not implicitly {@link OracleJob.HttpTask.verify|verify} messages.
+       * Encodes the specified HttpTask message. Does not implicitly {@apilink OracleJob.HttpTask.verify|verify} messages.
        * @function encode
        * @memberof OracleJob.HttpTask
        * @static
@@ -356,7 +374,7 @@
       };
 
       /**
-       * Encodes the specified HttpTask message, length delimited. Does not implicitly {@link OracleJob.HttpTask.verify|verify} messages.
+       * Encodes the specified HttpTask message, length delimited. Does not implicitly {@apilink OracleJob.HttpTask.verify|verify} messages.
        * @function encodeDelimited
        * @memberof OracleJob.HttpTask
        * @static
@@ -580,12 +598,12 @@
       };
 
       /**
-       * Method enum.
+       * An enumeration representing the types of HTTP requests available to make.
        * @name OracleJob.HttpTask.Method
        * @enum {number}
-       * @property {number} METHOD_UNKOWN=0 METHOD_UNKOWN value
-       * @property {number} METHOD_GET=1 METHOD_GET value
-       * @property {number} METHOD_POST=2 METHOD_POST value
+       * @property {number} METHOD_UNKOWN=0 Unset HTTP method will default to METHOD_GET
+       * @property {number} METHOD_GET=1 Perform an HTTP 'GET' request.
+       * @property {number} METHOD_POST=2 Perform an HTTP 'POST' request.
        */
       HttpTask.Method = (function () {
         var valuesById = {},
@@ -608,7 +626,7 @@
         /**
          * Constructs a new Header.
          * @memberof OracleJob.HttpTask
-         * @classdesc Represents a Header.
+         * @classdesc An object that represents a header to add to an HTTP request.
          * @implements IHeader
          * @constructor
          * @param {OracleJob.HttpTask.IHeader=} [properties] Properties to set
@@ -653,7 +671,7 @@
         };
 
         /**
-         * Encodes the specified Header message. Does not implicitly {@link OracleJob.HttpTask.Header.verify|verify} messages.
+         * Encodes the specified Header message. Does not implicitly {@apilink OracleJob.HttpTask.Header.verify|verify} messages.
          * @function encode
          * @memberof OracleJob.HttpTask.Header
          * @static
@@ -674,7 +692,7 @@
         };
 
         /**
-         * Encodes the specified Header message, length delimited. Does not implicitly {@link OracleJob.HttpTask.Header.verify|verify} messages.
+         * Encodes the specified Header message, length delimited. Does not implicitly {@apilink OracleJob.HttpTask.Header.verify|verify} messages.
          * @function encodeDelimited
          * @memberof OracleJob.HttpTask.Header
          * @static
@@ -829,14 +847,27 @@
        * Properties of a JsonParseTask.
        * @memberof OracleJob
        * @interface IJsonParseTask
-       * @property {string|null} [path] JsonParseTask path
-       * @property {OracleJob.JsonParseTask.AggregationMethod|null} [aggregationMethod] JsonParseTask aggregationMethod
+       * @property {string|null} [path] JSONPath formatted path to the element. https://t.ly/uLtw
+       * https://www.npmjs.com/package/jsonpath-plus
+       * @property {OracleJob.JsonParseTask.AggregationMethod|null} [aggregationMethod] The technique that will be used to aggregate the results if walking the specified path
+       * returns multiple numerical results.
        */
 
       /**
        * Constructs a new JsonParseTask.
        * @memberof OracleJob
-       * @classdesc Represents a JsonParseTask.
+       * @classdesc The adapter walks the path specified and returns the value found at that result. If returning
+       * JSON data from the HttpGet or HttpPost adapters, you must use this adapter to parse the response.
+       *
+       * _**Input**_: String representation of a JSON object.
+       *
+       * _**Returns**_: A numerical result.
+       *
+       * _**Example**_: Parses the price field from a JSON object
+       *
+       * ```json
+       * {"jsonParse": {"path": "$.price"} }
+       * ```
        * @implements IJsonParseTask
        * @constructor
        * @param {OracleJob.IJsonParseTask=} [properties] Properties to set
@@ -849,7 +880,8 @@
       }
 
       /**
-       * JsonParseTask path.
+       * JSONPath formatted path to the element. https://t.ly/uLtw
+       * https://www.npmjs.com/package/jsonpath-plus
        * @member {string} path
        * @memberof OracleJob.JsonParseTask
        * @instance
@@ -857,7 +889,8 @@
       JsonParseTask.prototype.path = '';
 
       /**
-       * JsonParseTask aggregationMethod.
+       * The technique that will be used to aggregate the results if walking the specified path
+       * returns multiple numerical results.
        * @member {OracleJob.JsonParseTask.AggregationMethod} aggregationMethod
        * @memberof OracleJob.JsonParseTask
        * @instance
@@ -877,7 +910,7 @@
       };
 
       /**
-       * Encodes the specified JsonParseTask message. Does not implicitly {@link OracleJob.JsonParseTask.verify|verify} messages.
+       * Encodes the specified JsonParseTask message. Does not implicitly {@apilink OracleJob.JsonParseTask.verify|verify} messages.
        * @function encode
        * @memberof OracleJob.JsonParseTask
        * @static
@@ -900,7 +933,7 @@
       };
 
       /**
-       * Encodes the specified JsonParseTask message, length delimited. Does not implicitly {@link OracleJob.JsonParseTask.verify|verify} messages.
+       * Encodes the specified JsonParseTask message, length delimited. Does not implicitly {@apilink OracleJob.JsonParseTask.verify|verify} messages.
        * @function encodeDelimited
        * @memberof OracleJob.JsonParseTask
        * @static
@@ -1104,15 +1137,15 @@
       };
 
       /**
-       * AggregationMethod enum.
+       * The methods of combining a list of numerical results.
        * @name OracleJob.JsonParseTask.AggregationMethod
        * @enum {number}
        * @property {number} NONE=0 NONE value
-       * @property {number} MIN=1 MIN value
-       * @property {number} MAX=2 MAX value
-       * @property {number} SUM=3 SUM value
-       * @property {number} MEAN=4 MEAN value
-       * @property {number} MEDIAN=5 MEDIAN value
+       * @property {number} MIN=1 Grab the minimum value of the results.
+       * @property {number} MAX=2 Grab the maximum value of the results.
+       * @property {number} SUM=3 Sum up all of the results.
+       * @property {number} MEAN=4 Average all of the results.
+       * @property {number} MEDIAN=5 Grab the median of the results.
        */
       JsonParseTask.AggregationMethod = (function () {
         var valuesById = {},
@@ -1134,15 +1167,15 @@
        * Properties of a MedianTask.
        * @memberof OracleJob
        * @interface IMedianTask
-       * @property {Array.<OracleJob.ITask>|null} [tasks] MedianTask tasks
-       * @property {Array.<IOracleJob>|null} [jobs] MedianTask jobs
+       * @property {Array.<OracleJob.ITask>|null} [tasks] A list of subtasks to process and produce a list of result values.
+       * @property {Array.<IOracleJob>|null} [jobs] A list of subjobs to process and produce a list of result values.
        * @property {number|null} [minSuccessfulRequired] MedianTask minSuccessfulRequired
        */
 
       /**
        * Constructs a new MedianTask.
        * @memberof OracleJob
-       * @classdesc Represents a MedianTask.
+       * @classdesc Returns the median of all the results returned by the provided subtasks and subjobs. Nested tasks must return a Number.
        * @implements IMedianTask
        * @constructor
        * @param {OracleJob.IMedianTask=} [properties] Properties to set
@@ -1157,7 +1190,7 @@
       }
 
       /**
-       * MedianTask tasks.
+       * A list of subtasks to process and produce a list of result values.
        * @member {Array.<OracleJob.ITask>} tasks
        * @memberof OracleJob.MedianTask
        * @instance
@@ -1165,7 +1198,7 @@
       MedianTask.prototype.tasks = $util.emptyArray;
 
       /**
-       * MedianTask jobs.
+       * A list of subjobs to process and produce a list of result values.
        * @member {Array.<IOracleJob>} jobs
        * @memberof OracleJob.MedianTask
        * @instance
@@ -1193,7 +1226,7 @@
       };
 
       /**
-       * Encodes the specified MedianTask message. Does not implicitly {@link OracleJob.MedianTask.verify|verify} messages.
+       * Encodes the specified MedianTask message. Does not implicitly {@apilink OracleJob.MedianTask.verify|verify} messages.
        * @function encode
        * @memberof OracleJob.MedianTask
        * @static
@@ -1226,7 +1259,7 @@
       };
 
       /**
-       * Encodes the specified MedianTask message, length delimited. Does not implicitly {@link OracleJob.MedianTask.verify|verify} messages.
+       * Encodes the specified MedianTask message, length delimited. Does not implicitly {@apilink OracleJob.MedianTask.verify|verify} messages.
        * @function encodeDelimited
        * @memberof OracleJob.MedianTask
        * @static
@@ -1439,14 +1472,14 @@
        * Properties of a MeanTask.
        * @memberof OracleJob
        * @interface IMeanTask
-       * @property {Array.<OracleJob.ITask>|null} [tasks] MeanTask tasks
-       * @property {Array.<IOracleJob>|null} [jobs] MeanTask jobs
+       * @property {Array.<OracleJob.ITask>|null} [tasks] A list of subtasks to process and produce a list of result values.
+       * @property {Array.<IOracleJob>|null} [jobs] A list of subjobs to process and produce a list of result values.
        */
 
       /**
        * Constructs a new MeanTask.
        * @memberof OracleJob
-       * @classdesc Represents a MeanTask.
+       * @classdesc Returns the mean of all the results returned by the provided subtasks and subjobs.
        * @implements IMeanTask
        * @constructor
        * @param {OracleJob.IMeanTask=} [properties] Properties to set
@@ -1461,7 +1494,7 @@
       }
 
       /**
-       * MeanTask tasks.
+       * A list of subtasks to process and produce a list of result values.
        * @member {Array.<OracleJob.ITask>} tasks
        * @memberof OracleJob.MeanTask
        * @instance
@@ -1469,7 +1502,7 @@
       MeanTask.prototype.tasks = $util.emptyArray;
 
       /**
-       * MeanTask jobs.
+       * A list of subjobs to process and produce a list of result values.
        * @member {Array.<IOracleJob>} jobs
        * @memberof OracleJob.MeanTask
        * @instance
@@ -1489,7 +1522,7 @@
       };
 
       /**
-       * Encodes the specified MeanTask message. Does not implicitly {@link OracleJob.MeanTask.verify|verify} messages.
+       * Encodes the specified MeanTask message. Does not implicitly {@apilink OracleJob.MeanTask.verify|verify} messages.
        * @function encode
        * @memberof OracleJob.MeanTask
        * @static
@@ -1515,7 +1548,7 @@
       };
 
       /**
-       * Encodes the specified MeanTask message, length delimited. Does not implicitly {@link OracleJob.MeanTask.verify|verify} messages.
+       * Encodes the specified MeanTask message, length delimited. Does not implicitly {@apilink OracleJob.MeanTask.verify|verify} messages.
        * @function encodeDelimited
        * @memberof OracleJob.MeanTask
        * @static
@@ -1710,14 +1743,14 @@
        * Properties of a MaxTask.
        * @memberof OracleJob
        * @interface IMaxTask
-       * @property {Array.<OracleJob.ITask>|null} [tasks] MaxTask tasks
-       * @property {Array.<IOracleJob>|null} [jobs] MaxTask jobs
+       * @property {Array.<OracleJob.ITask>|null} [tasks] A list of subtasks to process and produce a list of result values.
+       * @property {Array.<IOracleJob>|null} [jobs] A list of subjobs to process and produce a list of result values.
        */
 
       /**
        * Constructs a new MaxTask.
        * @memberof OracleJob
-       * @classdesc Represents a MaxTask.
+       * @classdesc Returns the maximum value of all the results returned by the provided subtasks and subjobs.
        * @implements IMaxTask
        * @constructor
        * @param {OracleJob.IMaxTask=} [properties] Properties to set
@@ -1732,7 +1765,7 @@
       }
 
       /**
-       * MaxTask tasks.
+       * A list of subtasks to process and produce a list of result values.
        * @member {Array.<OracleJob.ITask>} tasks
        * @memberof OracleJob.MaxTask
        * @instance
@@ -1740,7 +1773,7 @@
       MaxTask.prototype.tasks = $util.emptyArray;
 
       /**
-       * MaxTask jobs.
+       * A list of subjobs to process and produce a list of result values.
        * @member {Array.<IOracleJob>} jobs
        * @memberof OracleJob.MaxTask
        * @instance
@@ -1760,7 +1793,7 @@
       };
 
       /**
-       * Encodes the specified MaxTask message. Does not implicitly {@link OracleJob.MaxTask.verify|verify} messages.
+       * Encodes the specified MaxTask message. Does not implicitly {@apilink OracleJob.MaxTask.verify|verify} messages.
        * @function encode
        * @memberof OracleJob.MaxTask
        * @static
@@ -1786,7 +1819,7 @@
       };
 
       /**
-       * Encodes the specified MaxTask message, length delimited. Does not implicitly {@link OracleJob.MaxTask.verify|verify} messages.
+       * Encodes the specified MaxTask message, length delimited. Does not implicitly {@apilink OracleJob.MaxTask.verify|verify} messages.
        * @function encodeDelimited
        * @memberof OracleJob.MaxTask
        * @static
@@ -1981,14 +2014,14 @@
        * Properties of a MinTask.
        * @memberof OracleJob
        * @interface IMinTask
-       * @property {Array.<OracleJob.ITask>|null} [tasks] MinTask tasks
-       * @property {Array.<IOracleJob>|null} [jobs] MinTask jobs
+       * @property {Array.<OracleJob.ITask>|null} [tasks] A list of subtasks to process and produce a list of result values.
+       * @property {Array.<IOracleJob>|null} [jobs] A list of subjobs to process and produce a list of result values.
        */
 
       /**
        * Constructs a new MinTask.
        * @memberof OracleJob
-       * @classdesc Represents a MinTask.
+       * @classdesc Returns the minimum value of all the results returned by the provided subtasks and subjobs.
        * @implements IMinTask
        * @constructor
        * @param {OracleJob.IMinTask=} [properties] Properties to set
@@ -2003,7 +2036,7 @@
       }
 
       /**
-       * MinTask tasks.
+       * A list of subtasks to process and produce a list of result values.
        * @member {Array.<OracleJob.ITask>} tasks
        * @memberof OracleJob.MinTask
        * @instance
@@ -2011,7 +2044,7 @@
       MinTask.prototype.tasks = $util.emptyArray;
 
       /**
-       * MinTask jobs.
+       * A list of subjobs to process and produce a list of result values.
        * @member {Array.<IOracleJob>} jobs
        * @memberof OracleJob.MinTask
        * @instance
@@ -2031,7 +2064,7 @@
       };
 
       /**
-       * Encodes the specified MinTask message. Does not implicitly {@link OracleJob.MinTask.verify|verify} messages.
+       * Encodes the specified MinTask message. Does not implicitly {@apilink OracleJob.MinTask.verify|verify} messages.
        * @function encode
        * @memberof OracleJob.MinTask
        * @static
@@ -2057,7 +2090,7 @@
       };
 
       /**
-       * Encodes the specified MinTask message, length delimited. Does not implicitly {@link OracleJob.MinTask.verify|verify} messages.
+       * Encodes the specified MinTask message, length delimited. Does not implicitly {@apilink OracleJob.MinTask.verify|verify} messages.
        * @function encodeDelimited
        * @memberof OracleJob.MinTask
        * @static
@@ -2252,15 +2285,37 @@
        * Properties of a ValueTask.
        * @memberof OracleJob
        * @interface IValueTask
-       * @property {number|null} [value] ValueTask value
-       * @property {string|null} [aggregatorPubkey] ValueTask aggregatorPubkey
-       * @property {string|null} [big] ValueTask big
+       * @property {number|null} [value] The value that will be returned from this task.
+       * @property {string|null} [aggregatorPubkey] Specifies an aggregatorr to pull the value of.
+       * @property {string|null} [big] A stringified big.js. `Accepts variable expansion syntax.`
        */
 
       /**
        * Constructs a new ValueTask.
        * @memberof OracleJob
-       * @classdesc Represents a ValueTask.
+       * @classdesc Returns a specified value.
+       *
+       * _**Input**_: None
+       *
+       * _**Returns**_: A numerical result.
+       *
+       * _**Example**_: Returns the value 10
+       *
+       * ```json
+       * {"valueTask": {"value": 10} }
+       * ```
+       *
+       * _**Example**_: Returns the currentRound result of an aggregator
+       *
+       * ```json
+       * {"valueTask": {"aggregatorPubkey": "GvDMxPzN1sCj7L26YDK2HnMRXEQmQ2aemov8YBtPS7vR"} }
+       * ```
+       *
+       * _**Example**_: Returns the value stored in a CacheTask variable
+       *
+       * ```json
+       * {"valueTask": {"big": "${ONE}"} }
+       * ```
        * @implements IValueTask
        * @constructor
        * @param {OracleJob.IValueTask=} [properties] Properties to set
@@ -2273,7 +2328,7 @@
       }
 
       /**
-       * ValueTask value.
+       * The value that will be returned from this task.
        * @member {number|null|undefined} value
        * @memberof OracleJob.ValueTask
        * @instance
@@ -2281,7 +2336,7 @@
       ValueTask.prototype.value = null;
 
       /**
-       * ValueTask aggregatorPubkey.
+       * Specifies an aggregatorr to pull the value of.
        * @member {string|null|undefined} aggregatorPubkey
        * @memberof OracleJob.ValueTask
        * @instance
@@ -2289,7 +2344,7 @@
       ValueTask.prototype.aggregatorPubkey = null;
 
       /**
-       * ValueTask big.
+       * A stringified big.js. `Accepts variable expansion syntax.`
        * @member {string|null|undefined} big
        * @memberof OracleJob.ValueTask
        * @instance
@@ -2325,7 +2380,7 @@
       };
 
       /**
-       * Encodes the specified ValueTask message. Does not implicitly {@link OracleJob.ValueTask.verify|verify} messages.
+       * Encodes the specified ValueTask message. Does not implicitly {@apilink OracleJob.ValueTask.verify|verify} messages.
        * @function encode
        * @memberof OracleJob.ValueTask
        * @static
@@ -2353,7 +2408,7 @@
       };
 
       /**
-       * Encodes the specified ValueTask message, length delimited. Does not implicitly {@link OracleJob.ValueTask.verify|verify} messages.
+       * Encodes the specified ValueTask message, length delimited. Does not implicitly {@apilink OracleJob.ValueTask.verify|verify} messages.
        * @function encodeDelimited
        * @memberof OracleJob.ValueTask
        * @static
@@ -2537,16 +2592,27 @@
        * Properties of a WebsocketTask.
        * @memberof OracleJob
        * @interface IWebsocketTask
-       * @property {string|null} [url] WebsocketTask url
-       * @property {string|null} [subscription] WebsocketTask subscription
-       * @property {number|null} [maxDataAgeSeconds] WebsocketTask maxDataAgeSeconds
-       * @property {string|null} [filter] WebsocketTask filter
+       * @property {string|null} [url] The websocket url.
+       * @property {string|null} [subscription] The websocket message to notify of a new subscription.
+       * @property {number|null} [maxDataAgeSeconds] Minimum amount of time required between when the horses are taking out.
+       * @property {string|null} [filter] Incoming message JSONPath filter.
+       * Example: "$[?(@.channel == 'ticker' && @.market == 'BTC/USD')]"
        */
 
       /**
        * Constructs a new WebsocketTask.
        * @memberof OracleJob
-       * @classdesc Represents a WebsocketTask.
+       * @classdesc Opens and maintains a websocket for light speed data retrieval.
+       *
+       * _**Input**_: None
+       *
+       * _**Returns**_: String representation of the websocket subscription message.
+       *
+       * _**Example**_: Opens a coinbase websocket
+       *
+       * ```json
+       * { "websocketTask": { "url": "wss://ws-feed.pro.coinbase.com", "subscription": "{\"type\":\"subscribe\",\"product_ids\":[\"BTC-USD\"],\"channels\":[\"ticker\",{\"name\":\"ticker\",\"product_ids\":[\"BTC-USD\"]}]}", "maxDataAgeSeconds": 15, "filter": "$[?(@.type == 'ticker' && @.product_id == 'BTC-USD')]" } }
+       * ```
        * @implements IWebsocketTask
        * @constructor
        * @param {OracleJob.IWebsocketTask=} [properties] Properties to set
@@ -2559,7 +2625,7 @@
       }
 
       /**
-       * WebsocketTask url.
+       * The websocket url.
        * @member {string} url
        * @memberof OracleJob.WebsocketTask
        * @instance
@@ -2567,7 +2633,7 @@
       WebsocketTask.prototype.url = '';
 
       /**
-       * WebsocketTask subscription.
+       * The websocket message to notify of a new subscription.
        * @member {string} subscription
        * @memberof OracleJob.WebsocketTask
        * @instance
@@ -2575,7 +2641,7 @@
       WebsocketTask.prototype.subscription = '';
 
       /**
-       * WebsocketTask maxDataAgeSeconds.
+       * Minimum amount of time required between when the horses are taking out.
        * @member {number} maxDataAgeSeconds
        * @memberof OracleJob.WebsocketTask
        * @instance
@@ -2583,7 +2649,8 @@
       WebsocketTask.prototype.maxDataAgeSeconds = 0;
 
       /**
-       * WebsocketTask filter.
+       * Incoming message JSONPath filter.
+       * Example: "$[?(@.channel == 'ticker' && @.market == 'BTC/USD')]"
        * @member {string} filter
        * @memberof OracleJob.WebsocketTask
        * @instance
@@ -2603,7 +2670,7 @@
       };
 
       /**
-       * Encodes the specified WebsocketTask message. Does not implicitly {@link OracleJob.WebsocketTask.verify|verify} messages.
+       * Encodes the specified WebsocketTask message. Does not implicitly {@apilink OracleJob.WebsocketTask.verify|verify} messages.
        * @function encode
        * @memberof OracleJob.WebsocketTask
        * @static
@@ -2638,7 +2705,7 @@
       };
 
       /**
-       * Encodes the specified WebsocketTask message, length delimited. Does not implicitly {@link OracleJob.WebsocketTask.verify|verify} messages.
+       * Encodes the specified WebsocketTask message, length delimited. Does not implicitly {@apilink OracleJob.WebsocketTask.verify|verify} messages.
        * @function encodeDelimited
        * @memberof OracleJob.WebsocketTask
        * @static
@@ -2829,14 +2896,16 @@
        * Properties of a ConditionalTask.
        * @memberof OracleJob
        * @interface IConditionalTask
-       * @property {Array.<OracleJob.ITask>|null} [attempt] ConditionalTask attempt
-       * @property {Array.<OracleJob.ITask>|null} [onFailure] ConditionalTask onFailure
+       * @property {Array.<OracleJob.ITask>|null} [attempt] A list of subtasks to process in an attempt to produce a valid numerical result.
+       * @property {Array.<OracleJob.ITask>|null} [onFailure] A list of subtasks that will be run if `attempt` subtasks are unable to produce an acceptable
+       * result.
        */
 
       /**
        * Constructs a new ConditionalTask.
        * @memberof OracleJob
-       * @classdesc Represents a ConditionalTask.
+       * @classdesc This task will run the `attempt` subtasks in an effort to produce a valid numerical result. If
+       * `attempt` fails to produce an acceptable result, `on_failure` subtasks will be run instead.
        * @implements IConditionalTask
        * @constructor
        * @param {OracleJob.IConditionalTask=} [properties] Properties to set
@@ -2851,7 +2920,7 @@
       }
 
       /**
-       * ConditionalTask attempt.
+       * A list of subtasks to process in an attempt to produce a valid numerical result.
        * @member {Array.<OracleJob.ITask>} attempt
        * @memberof OracleJob.ConditionalTask
        * @instance
@@ -2859,7 +2928,8 @@
       ConditionalTask.prototype.attempt = $util.emptyArray;
 
       /**
-       * ConditionalTask onFailure.
+       * A list of subtasks that will be run if `attempt` subtasks are unable to produce an acceptable
+       * result.
        * @member {Array.<OracleJob.ITask>} onFailure
        * @memberof OracleJob.ConditionalTask
        * @instance
@@ -2879,7 +2949,7 @@
       };
 
       /**
-       * Encodes the specified ConditionalTask message. Does not implicitly {@link OracleJob.ConditionalTask.verify|verify} messages.
+       * Encodes the specified ConditionalTask message. Does not implicitly {@apilink OracleJob.ConditionalTask.verify|verify} messages.
        * @function encode
        * @memberof OracleJob.ConditionalTask
        * @static
@@ -2905,7 +2975,7 @@
       };
 
       /**
-       * Encodes the specified ConditionalTask message, length delimited. Does not implicitly {@link OracleJob.ConditionalTask.verify|verify} messages.
+       * Encodes the specified ConditionalTask message, length delimited. Does not implicitly {@apilink OracleJob.ConditionalTask.verify|verify} messages.
        * @function encodeDelimited
        * @memberof OracleJob.ConditionalTask
        * @static
@@ -3121,16 +3191,17 @@
        * Properties of a DivideTask.
        * @memberof OracleJob
        * @interface IDivideTask
-       * @property {number|null} [scalar] DivideTask scalar
-       * @property {string|null} [aggregatorPubkey] DivideTask aggregatorPubkey
-       * @property {IOracleJob|null} [job] DivideTask job
-       * @property {string|null} [big] DivideTask big
+       * @property {number|null} [scalar] Specifies a basic scalar denominator to divide by.
+       * @property {string|null} [aggregatorPubkey] Specifies another aggregator resut to divide by.
+       * @property {IOracleJob|null} [job] A job whose result is computed before dividing our numerical input by that result.
+       * @property {string|null} [big] A stringified big.js. `Accepts variable expansion syntax.`
        */
 
       /**
        * Constructs a new DivideTask.
        * @memberof OracleJob
-       * @classdesc Represents a DivideTask.
+       * @classdesc This task will divide a numerical input by a scalar value or by another
+       * aggregate.
        * @implements IDivideTask
        * @constructor
        * @param {OracleJob.IDivideTask=} [properties] Properties to set
@@ -3143,7 +3214,7 @@
       }
 
       /**
-       * DivideTask scalar.
+       * Specifies a basic scalar denominator to divide by.
        * @member {number|null|undefined} scalar
        * @memberof OracleJob.DivideTask
        * @instance
@@ -3151,7 +3222,7 @@
       DivideTask.prototype.scalar = null;
 
       /**
-       * DivideTask aggregatorPubkey.
+       * Specifies another aggregator resut to divide by.
        * @member {string|null|undefined} aggregatorPubkey
        * @memberof OracleJob.DivideTask
        * @instance
@@ -3159,7 +3230,7 @@
       DivideTask.prototype.aggregatorPubkey = null;
 
       /**
-       * DivideTask job.
+       * A job whose result is computed before dividing our numerical input by that result.
        * @member {IOracleJob|null|undefined} job
        * @memberof OracleJob.DivideTask
        * @instance
@@ -3167,7 +3238,7 @@
       DivideTask.prototype.job = null;
 
       /**
-       * DivideTask big.
+       * A stringified big.js. `Accepts variable expansion syntax.`
        * @member {string|null|undefined} big
        * @memberof OracleJob.DivideTask
        * @instance
@@ -3203,7 +3274,7 @@
       };
 
       /**
-       * Encodes the specified DivideTask message. Does not implicitly {@link OracleJob.DivideTask.verify|verify} messages.
+       * Encodes the specified DivideTask message. Does not implicitly {@apilink OracleJob.DivideTask.verify|verify} messages.
        * @function encode
        * @memberof OracleJob.DivideTask
        * @static
@@ -3236,7 +3307,7 @@
       };
 
       /**
-       * Encodes the specified DivideTask message, length delimited. Does not implicitly {@link OracleJob.DivideTask.verify|verify} messages.
+       * Encodes the specified DivideTask message, length delimited. Does not implicitly {@apilink OracleJob.DivideTask.verify|verify} messages.
        * @function encodeDelimited
        * @memberof OracleJob.DivideTask
        * @static
@@ -3444,16 +3515,16 @@
        * Properties of a MultiplyTask.
        * @memberof OracleJob
        * @interface IMultiplyTask
-       * @property {number|null} [scalar] MultiplyTask scalar
-       * @property {string|null} [aggregatorPubkey] MultiplyTask aggregatorPubkey
-       * @property {IOracleJob|null} [job] MultiplyTask job
-       * @property {string|null} [big] MultiplyTask big
+       * @property {number|null} [scalar] Specifies a scalar to multiply by.
+       * @property {string|null} [aggregatorPubkey] Specifies an aggregator to multiply by.
+       * @property {IOracleJob|null} [job] A job whose result is computed before multiplying our numerical input by that result.
+       * @property {string|null} [big] A stringified big.js. `Accepts variable expansion syntax.`
        */
 
       /**
        * Constructs a new MultiplyTask.
        * @memberof OracleJob
-       * @classdesc Represents a MultiplyTask.
+       * @classdesc This task will multiply a numerical input by a scalar value or by another aggregator.
        * @implements IMultiplyTask
        * @constructor
        * @param {OracleJob.IMultiplyTask=} [properties] Properties to set
@@ -3466,7 +3537,7 @@
       }
 
       /**
-       * MultiplyTask scalar.
+       * Specifies a scalar to multiply by.
        * @member {number|null|undefined} scalar
        * @memberof OracleJob.MultiplyTask
        * @instance
@@ -3474,7 +3545,7 @@
       MultiplyTask.prototype.scalar = null;
 
       /**
-       * MultiplyTask aggregatorPubkey.
+       * Specifies an aggregator to multiply by.
        * @member {string|null|undefined} aggregatorPubkey
        * @memberof OracleJob.MultiplyTask
        * @instance
@@ -3482,7 +3553,7 @@
       MultiplyTask.prototype.aggregatorPubkey = null;
 
       /**
-       * MultiplyTask job.
+       * A job whose result is computed before multiplying our numerical input by that result.
        * @member {IOracleJob|null|undefined} job
        * @memberof OracleJob.MultiplyTask
        * @instance
@@ -3490,7 +3561,7 @@
       MultiplyTask.prototype.job = null;
 
       /**
-       * MultiplyTask big.
+       * A stringified big.js. `Accepts variable expansion syntax.`
        * @member {string|null|undefined} big
        * @memberof OracleJob.MultiplyTask
        * @instance
@@ -3526,7 +3597,7 @@
       };
 
       /**
-       * Encodes the specified MultiplyTask message. Does not implicitly {@link OracleJob.MultiplyTask.verify|verify} messages.
+       * Encodes the specified MultiplyTask message. Does not implicitly {@apilink OracleJob.MultiplyTask.verify|verify} messages.
        * @function encode
        * @memberof OracleJob.MultiplyTask
        * @static
@@ -3559,7 +3630,7 @@
       };
 
       /**
-       * Encodes the specified MultiplyTask message, length delimited. Does not implicitly {@link OracleJob.MultiplyTask.verify|verify} messages.
+       * Encodes the specified MultiplyTask message, length delimited. Does not implicitly {@apilink OracleJob.MultiplyTask.verify|verify} messages.
        * @function encodeDelimited
        * @memberof OracleJob.MultiplyTask
        * @static
@@ -3764,16 +3835,17 @@
        * Properties of an AddTask.
        * @memberof OracleJob
        * @interface IAddTask
-       * @property {number|null} [scalar] AddTask scalar
-       * @property {string|null} [aggregatorPubkey] AddTask aggregatorPubkey
-       * @property {IOracleJob|null} [job] AddTask job
-       * @property {string|null} [big] AddTask big
+       * @property {number|null} [scalar] Specifies a scalar to add by.
+       * @property {string|null} [aggregatorPubkey] Specifies an aggregator to add by.
+       * @property {IOracleJob|null} [job] A job whose result is computed before adding our numerical input by that result.
+       * @property {string|null} [big] A stringified big.js. `Accepts variable expansion syntax.`
        */
 
       /**
        * Constructs a new AddTask.
        * @memberof OracleJob
-       * @classdesc Represents an AddTask.
+       * @classdesc This task will add a numerical input by a scalar value or by another
+       * aggregate.
        * @implements IAddTask
        * @constructor
        * @param {OracleJob.IAddTask=} [properties] Properties to set
@@ -3786,7 +3858,7 @@
       }
 
       /**
-       * AddTask scalar.
+       * Specifies a scalar to add by.
        * @member {number|null|undefined} scalar
        * @memberof OracleJob.AddTask
        * @instance
@@ -3794,7 +3866,7 @@
       AddTask.prototype.scalar = null;
 
       /**
-       * AddTask aggregatorPubkey.
+       * Specifies an aggregator to add by.
        * @member {string|null|undefined} aggregatorPubkey
        * @memberof OracleJob.AddTask
        * @instance
@@ -3802,7 +3874,7 @@
       AddTask.prototype.aggregatorPubkey = null;
 
       /**
-       * AddTask job.
+       * A job whose result is computed before adding our numerical input by that result.
        * @member {IOracleJob|null|undefined} job
        * @memberof OracleJob.AddTask
        * @instance
@@ -3810,7 +3882,7 @@
       AddTask.prototype.job = null;
 
       /**
-       * AddTask big.
+       * A stringified big.js. `Accepts variable expansion syntax.`
        * @member {string|null|undefined} big
        * @memberof OracleJob.AddTask
        * @instance
@@ -3846,7 +3918,7 @@
       };
 
       /**
-       * Encodes the specified AddTask message. Does not implicitly {@link OracleJob.AddTask.verify|verify} messages.
+       * Encodes the specified AddTask message. Does not implicitly {@apilink OracleJob.AddTask.verify|verify} messages.
        * @function encode
        * @memberof OracleJob.AddTask
        * @static
@@ -3879,7 +3951,7 @@
       };
 
       /**
-       * Encodes the specified AddTask message, length delimited. Does not implicitly {@link OracleJob.AddTask.verify|verify} messages.
+       * Encodes the specified AddTask message, length delimited. Does not implicitly {@apilink OracleJob.AddTask.verify|verify} messages.
        * @function encodeDelimited
        * @memberof OracleJob.AddTask
        * @static
@@ -4084,16 +4156,17 @@
        * Properties of a SubtractTask.
        * @memberof OracleJob
        * @interface ISubtractTask
-       * @property {number|null} [scalar] SubtractTask scalar
-       * @property {string|null} [aggregatorPubkey] SubtractTask aggregatorPubkey
-       * @property {IOracleJob|null} [job] SubtractTask job
-       * @property {string|null} [big] SubtractTask big
+       * @property {number|null} [scalar] Specifies a scalar to subtract by.
+       * @property {string|null} [aggregatorPubkey] Specifies an aggregator to subtract by.
+       * @property {IOracleJob|null} [job] A job whose result is computed before subtracting our numerical input by that result.
+       * @property {string|null} [big] A stringified big.js. `Accepts variable expansion syntax.`
        */
 
       /**
        * Constructs a new SubtractTask.
        * @memberof OracleJob
-       * @classdesc Represents a SubtractTask.
+       * @classdesc This task will subtract a numerical input by a scalar value or by another
+       * aggregate.
        * @implements ISubtractTask
        * @constructor
        * @param {OracleJob.ISubtractTask=} [properties] Properties to set
@@ -4106,7 +4179,7 @@
       }
 
       /**
-       * SubtractTask scalar.
+       * Specifies a scalar to subtract by.
        * @member {number|null|undefined} scalar
        * @memberof OracleJob.SubtractTask
        * @instance
@@ -4114,7 +4187,7 @@
       SubtractTask.prototype.scalar = null;
 
       /**
-       * SubtractTask aggregatorPubkey.
+       * Specifies an aggregator to subtract by.
        * @member {string|null|undefined} aggregatorPubkey
        * @memberof OracleJob.SubtractTask
        * @instance
@@ -4122,7 +4195,7 @@
       SubtractTask.prototype.aggregatorPubkey = null;
 
       /**
-       * SubtractTask job.
+       * A job whose result is computed before subtracting our numerical input by that result.
        * @member {IOracleJob|null|undefined} job
        * @memberof OracleJob.SubtractTask
        * @instance
@@ -4130,7 +4203,7 @@
       SubtractTask.prototype.job = null;
 
       /**
-       * SubtractTask big.
+       * A stringified big.js. `Accepts variable expansion syntax.`
        * @member {string|null|undefined} big
        * @memberof OracleJob.SubtractTask
        * @instance
@@ -4166,7 +4239,7 @@
       };
 
       /**
-       * Encodes the specified SubtractTask message. Does not implicitly {@link OracleJob.SubtractTask.verify|verify} messages.
+       * Encodes the specified SubtractTask message. Does not implicitly {@apilink OracleJob.SubtractTask.verify|verify} messages.
        * @function encode
        * @memberof OracleJob.SubtractTask
        * @static
@@ -4199,7 +4272,7 @@
       };
 
       /**
-       * Encodes the specified SubtractTask message, length delimited. Does not implicitly {@link OracleJob.SubtractTask.verify|verify} messages.
+       * Encodes the specified SubtractTask message, length delimited. Does not implicitly {@apilink OracleJob.SubtractTask.verify|verify} messages.
        * @function encodeDelimited
        * @memberof OracleJob.SubtractTask
        * @static
@@ -4407,19 +4480,45 @@
        * Properties of a LpTokenPriceTask.
        * @memberof OracleJob
        * @interface ILpTokenPriceTask
-       * @property {string|null} [mercurialPoolAddress] LpTokenPriceTask mercurialPoolAddress
-       * @property {string|null} [saberPoolAddress] LpTokenPriceTask saberPoolAddress
-       * @property {string|null} [orcaPoolAddress] LpTokenPriceTask orcaPoolAddress
-       * @property {string|null} [raydiumPoolAddress] LpTokenPriceTask raydiumPoolAddress
-       * @property {Array.<string>|null} [priceFeedAddresses] LpTokenPriceTask priceFeedAddresses
+       * @property {string|null} [mercurialPoolAddress] Mercurial finance pool address. A full list can be found here: https://github.com/mercurial-finance/stable-swap-n-pool-js
+       * @property {string|null} [saberPoolAddress] Saber pool address. A full list can be found here: https://github.com/saber-hq/saber-registry-dist
+       * @property {string|null} [orcaPoolAddress] Orca pool address. A full list can be found here: https://www.orca.so/pools
+       * @property {string|null} [raydiumPoolAddress] The Raydium liquidity pool ammId. A full list can be found here: https://sdk.raydium.io/liquidity/mainnet.json
+       * @property {Array.<string>|null} [priceFeedAddresses] A list of Switchboard aggregator accounts used to calculate the fair LP price. This ensures the price is based on the previous round to mitigate flash loan price manipulation.
        * @property {Array.<IOracleJob>|null} [priceFeedJobs] LpTokenPriceTask priceFeedJobs
-       * @property {boolean|null} [useFairPrice] LpTokenPriceTask useFairPrice
+       * @property {boolean|null} [useFairPrice] If enabled and price_feed_addresses provided, the oracle will calculate the fair LP price based on the liquidity pool reserves. See our blog post for more information: https://switchboardxyz.medium.com/fair-lp-token-oracles-94a457c50239
        */
 
       /**
        * Constructs a new LpTokenPriceTask.
        * @memberof OracleJob
-       * @classdesc Represents a LpTokenPriceTask.
+       * @classdesc Fetch LP token price info from a number of supported exchanges.
+       *
+       * See our blog post on [Fair LP Token Oracles](/blog/2022/01/20/Fair-LP-Token-Oracles)
+       *
+       * *NOTE**: This is not the swap price but the price of the underlying LP token.
+       *
+       * _**Input**_: None
+       *
+       * _**Returns**_: The price of an LP token for a given AMM pool.
+       *
+       * _**Example**_: Fetch the Orca LP token price of the SOL/USDC pool
+       *
+       * ```json
+       * { "lpTokenPriceTask": { "orcaPoolAddress": "APDFRM3HMr8CAGXwKHiu2f5ePSpaiEJhaURwhsRrUUt9" } }
+       * ```
+       *
+       * _**Example**_: Fetch the fair price Orca LP token price of the SOL/USDC pool
+       *
+       * ```json
+       * { "lpTokenPriceTask": { "orcaPoolAddress": "APDFRM3HMr8CAGXwKHiu2f5ePSpaiEJhaURwhsRrUUt9", "useFairPrice": true, "priceFeedAddresses": [ "GvDMxPzN1sCj7L26YDK2HnMRXEQmQ2aemov8YBtPS7vR", "BjUgj6YCnFBZ49wF54ddBVA9qu8TeqkFtkbqmZcee8uW" ] } }
+       * ```
+       *
+       * _**Example**_: Fetch the fair price Raydium LP token price of the SOL/USDC pool
+       *
+       * ```json
+       * { "lpTokenPriceTask": { "raydiumPoolAddress": "58oQChx4yWmvKdwLLZzBi4ChoCc2fqCUWBkwMihLYQo2", "useFairPrice": true,"priceFeedAddresses": ["GvDMxPzN1sCj7L26YDK2HnMRXEQmQ2aemov8YBtPS7vR","BjUgj6YCnFBZ49wF54ddBVA9qu8TeqkFtkbqmZcee8uW" ] } }
+       * ```
        * @implements ILpTokenPriceTask
        * @constructor
        * @param {OracleJob.ILpTokenPriceTask=} [properties] Properties to set
@@ -4434,7 +4533,7 @@
       }
 
       /**
-       * LpTokenPriceTask mercurialPoolAddress.
+       * Mercurial finance pool address. A full list can be found here: https://github.com/mercurial-finance/stable-swap-n-pool-js
        * @member {string|null|undefined} mercurialPoolAddress
        * @memberof OracleJob.LpTokenPriceTask
        * @instance
@@ -4442,7 +4541,7 @@
       LpTokenPriceTask.prototype.mercurialPoolAddress = null;
 
       /**
-       * LpTokenPriceTask saberPoolAddress.
+       * Saber pool address. A full list can be found here: https://github.com/saber-hq/saber-registry-dist
        * @member {string|null|undefined} saberPoolAddress
        * @memberof OracleJob.LpTokenPriceTask
        * @instance
@@ -4450,7 +4549,7 @@
       LpTokenPriceTask.prototype.saberPoolAddress = null;
 
       /**
-       * LpTokenPriceTask orcaPoolAddress.
+       * Orca pool address. A full list can be found here: https://www.orca.so/pools
        * @member {string|null|undefined} orcaPoolAddress
        * @memberof OracleJob.LpTokenPriceTask
        * @instance
@@ -4458,7 +4557,7 @@
       LpTokenPriceTask.prototype.orcaPoolAddress = null;
 
       /**
-       * LpTokenPriceTask raydiumPoolAddress.
+       * The Raydium liquidity pool ammId. A full list can be found here: https://sdk.raydium.io/liquidity/mainnet.json
        * @member {string|null|undefined} raydiumPoolAddress
        * @memberof OracleJob.LpTokenPriceTask
        * @instance
@@ -4466,7 +4565,7 @@
       LpTokenPriceTask.prototype.raydiumPoolAddress = null;
 
       /**
-       * LpTokenPriceTask priceFeedAddresses.
+       * A list of Switchboard aggregator accounts used to calculate the fair LP price. This ensures the price is based on the previous round to mitigate flash loan price manipulation.
        * @member {Array.<string>} priceFeedAddresses
        * @memberof OracleJob.LpTokenPriceTask
        * @instance
@@ -4482,7 +4581,7 @@
       LpTokenPriceTask.prototype.priceFeedJobs = $util.emptyArray;
 
       /**
-       * LpTokenPriceTask useFairPrice.
+       * If enabled and price_feed_addresses provided, the oracle will calculate the fair LP price based on the liquidity pool reserves. See our blog post for more information: https://switchboardxyz.medium.com/fair-lp-token-oracles-94a457c50239
        * @member {boolean} useFairPrice
        * @memberof OracleJob.LpTokenPriceTask
        * @instance
@@ -4523,7 +4622,7 @@
       };
 
       /**
-       * Encodes the specified LpTokenPriceTask message. Does not implicitly {@link OracleJob.LpTokenPriceTask.verify|verify} messages.
+       * Encodes the specified LpTokenPriceTask message. Does not implicitly {@apilink OracleJob.LpTokenPriceTask.verify|verify} messages.
        * @function encode
        * @memberof OracleJob.LpTokenPriceTask
        * @static
@@ -4584,7 +4683,7 @@
       };
 
       /**
-       * Encodes the specified LpTokenPriceTask message, length delimited. Does not implicitly {@link OracleJob.LpTokenPriceTask.verify|verify} messages.
+       * Encodes the specified LpTokenPriceTask message, length delimited. Does not implicitly {@apilink OracleJob.LpTokenPriceTask.verify|verify} messages.
        * @function encodeDelimited
        * @memberof OracleJob.LpTokenPriceTask
        * @static
@@ -4910,20 +5009,37 @@
        * Properties of a LpExchangeRateTask.
        * @memberof OracleJob
        * @interface ILpExchangeRateTask
-       * @property {string|null} [inTokenAddress] LpExchangeRateTask inTokenAddress
-       * @property {string|null} [outTokenAddress] LpExchangeRateTask outTokenAddress
-       * @property {string|null} [mercurialPoolAddress] LpExchangeRateTask mercurialPoolAddress
-       * @property {string|null} [saberPoolAddress] LpExchangeRateTask saberPoolAddress
-       * @property {string|null} [orcaPoolTokenMintAddress] LpExchangeRateTask orcaPoolTokenMintAddress
-       * @property {string|null} [raydiumPoolAddress] LpExchangeRateTask raydiumPoolAddress
-       * @property {string|null} [orcaPoolAddress] LpExchangeRateTask orcaPoolAddress
-       * @property {string|null} [portReserveAddress] LpExchangeRateTask portReserveAddress
+       * @property {string|null} [inTokenAddress] Used alongside mercurial_pool_address to specify the input token for a swap.
+       * @property {string|null} [outTokenAddress] Used alongside mercurial_pool_address to specify the output token for a swap.
+       * @property {string|null} [mercurialPoolAddress] Mercurial finance pool address. A full list can be found here: https://github.com/mercurial-finance/stable-swap-n-pool-js
+       * @property {string|null} [saberPoolAddress] Saber pool address. A full list can be found here: https://github.com/saber-hq/saber-registry-dist
+       * @property {string|null} [orcaPoolTokenMintAddress] **@deprecated** Use orcaPoolAddress
+       * @property {string|null} [raydiumPoolAddress] The Raydium liquidity pool ammId. A full list can be found here: https://sdk.raydium.io/liquidity/mainnet.json
+       * @property {string|null} [orcaPoolAddress] Pool address for an Orca LP pool or whirlpool.
+       * A full list of Orca LP pools can be found here: https://www.orca.so/pools
+       * @property {string|null} [portReserveAddress] The Port reserve pubkey. A full list can be found here: https://api-v1.port.finance/reserves
        */
 
       /**
        * Constructs a new LpExchangeRateTask.
        * @memberof OracleJob
-       * @classdesc Represents a LpExchangeRateTask.
+       * @classdesc Fetch the current swap price for a given liquidity pool
+       *
+       * _**Input**_: None
+       *
+       * _**Returns**_: The swap price for a given AMM pool.
+       *
+       * _**Example**_: Fetch the exchange rate from the Orca SOL/USDC pool
+       *
+       * ```json
+       * { "lpExchangeRateTask": { "orcaPoolAddress": "APDFRM3HMr8CAGXwKHiu2f5ePSpaiEJhaURwhsRrUUt9" } }
+       * ```
+       *
+       * _**Example**_: Fetch the exchange rate from the Raydium SOL/USDC pool
+       *
+       * ```json
+       * { "lpExchangeRateTask": { "raydiumPoolAddress": "58oQChx4yWmvKdwLLZzBi4ChoCc2fqCUWBkwMihLYQo2" } }
+       * ```
        * @implements ILpExchangeRateTask
        * @constructor
        * @param {OracleJob.ILpExchangeRateTask=} [properties] Properties to set
@@ -4936,7 +5052,7 @@
       }
 
       /**
-       * LpExchangeRateTask inTokenAddress.
+       * Used alongside mercurial_pool_address to specify the input token for a swap.
        * @member {string} inTokenAddress
        * @memberof OracleJob.LpExchangeRateTask
        * @instance
@@ -4944,7 +5060,7 @@
       LpExchangeRateTask.prototype.inTokenAddress = '';
 
       /**
-       * LpExchangeRateTask outTokenAddress.
+       * Used alongside mercurial_pool_address to specify the output token for a swap.
        * @member {string} outTokenAddress
        * @memberof OracleJob.LpExchangeRateTask
        * @instance
@@ -4952,7 +5068,7 @@
       LpExchangeRateTask.prototype.outTokenAddress = '';
 
       /**
-       * LpExchangeRateTask mercurialPoolAddress.
+       * Mercurial finance pool address. A full list can be found here: https://github.com/mercurial-finance/stable-swap-n-pool-js
        * @member {string|null|undefined} mercurialPoolAddress
        * @memberof OracleJob.LpExchangeRateTask
        * @instance
@@ -4960,7 +5076,7 @@
       LpExchangeRateTask.prototype.mercurialPoolAddress = null;
 
       /**
-       * LpExchangeRateTask saberPoolAddress.
+       * Saber pool address. A full list can be found here: https://github.com/saber-hq/saber-registry-dist
        * @member {string|null|undefined} saberPoolAddress
        * @memberof OracleJob.LpExchangeRateTask
        * @instance
@@ -4968,7 +5084,7 @@
       LpExchangeRateTask.prototype.saberPoolAddress = null;
 
       /**
-       * LpExchangeRateTask orcaPoolTokenMintAddress.
+       * **@deprecated** Use orcaPoolAddress
        * @member {string|null|undefined} orcaPoolTokenMintAddress
        * @memberof OracleJob.LpExchangeRateTask
        * @instance
@@ -4976,7 +5092,7 @@
       LpExchangeRateTask.prototype.orcaPoolTokenMintAddress = null;
 
       /**
-       * LpExchangeRateTask raydiumPoolAddress.
+       * The Raydium liquidity pool ammId. A full list can be found here: https://sdk.raydium.io/liquidity/mainnet.json
        * @member {string|null|undefined} raydiumPoolAddress
        * @memberof OracleJob.LpExchangeRateTask
        * @instance
@@ -4984,7 +5100,8 @@
       LpExchangeRateTask.prototype.raydiumPoolAddress = null;
 
       /**
-       * LpExchangeRateTask orcaPoolAddress.
+       * Pool address for an Orca LP pool or whirlpool.
+       * A full list of Orca LP pools can be found here: https://www.orca.so/pools
        * @member {string|null|undefined} orcaPoolAddress
        * @memberof OracleJob.LpExchangeRateTask
        * @instance
@@ -4992,7 +5109,7 @@
       LpExchangeRateTask.prototype.orcaPoolAddress = null;
 
       /**
-       * LpExchangeRateTask portReserveAddress.
+       * The Port reserve pubkey. A full list can be found here: https://api-v1.port.finance/reserves
        * @member {string|null|undefined} portReserveAddress
        * @memberof OracleJob.LpExchangeRateTask
        * @instance
@@ -5035,7 +5152,7 @@
       };
 
       /**
-       * Encodes the specified LpExchangeRateTask message. Does not implicitly {@link OracleJob.LpExchangeRateTask.verify|verify} messages.
+       * Encodes the specified LpExchangeRateTask message. Does not implicitly {@apilink OracleJob.LpExchangeRateTask.verify|verify} messages.
        * @function encode
        * @memberof OracleJob.LpExchangeRateTask
        * @static
@@ -5105,7 +5222,7 @@
       };
 
       /**
-       * Encodes the specified LpExchangeRateTask message, length delimited. Does not implicitly {@link OracleJob.LpExchangeRateTask.verify|verify} messages.
+       * Encodes the specified LpExchangeRateTask message, length delimited. Does not implicitly {@apilink OracleJob.LpExchangeRateTask.verify|verify} messages.
        * @function encodeDelimited
        * @memberof OracleJob.LpExchangeRateTask
        * @static
@@ -5415,14 +5532,14 @@
        * Properties of a RegexExtractTask.
        * @memberof OracleJob
        * @interface IRegexExtractTask
-       * @property {string|null} [pattern] RegexExtractTask pattern
-       * @property {number|null} [groupNumber] RegexExtractTask groupNumber
+       * @property {string|null} [pattern] Regex pattern to find.
+       * @property {number|null} [groupNumber] Group number to extract.
        */
 
       /**
        * Constructs a new RegexExtractTask.
        * @memberof OracleJob
-       * @classdesc Represents a RegexExtractTask.
+       * @classdesc Find a pattern within a string of a previous task and extract a group number.
        * @implements IRegexExtractTask
        * @constructor
        * @param {OracleJob.IRegexExtractTask=} [properties] Properties to set
@@ -5435,7 +5552,7 @@
       }
 
       /**
-       * RegexExtractTask pattern.
+       * Regex pattern to find.
        * @member {string} pattern
        * @memberof OracleJob.RegexExtractTask
        * @instance
@@ -5443,7 +5560,7 @@
       RegexExtractTask.prototype.pattern = '';
 
       /**
-       * RegexExtractTask groupNumber.
+       * Group number to extract.
        * @member {number} groupNumber
        * @memberof OracleJob.RegexExtractTask
        * @instance
@@ -5463,7 +5580,7 @@
       };
 
       /**
-       * Encodes the specified RegexExtractTask message. Does not implicitly {@link OracleJob.RegexExtractTask.verify|verify} messages.
+       * Encodes the specified RegexExtractTask message. Does not implicitly {@apilink OracleJob.RegexExtractTask.verify|verify} messages.
        * @function encode
        * @memberof OracleJob.RegexExtractTask
        * @static
@@ -5487,7 +5604,7 @@
       };
 
       /**
-       * Encodes the specified RegexExtractTask message, length delimited. Does not implicitly {@link OracleJob.RegexExtractTask.verify|verify} messages.
+       * Encodes the specified RegexExtractTask message, length delimited. Does not implicitly {@apilink OracleJob.RegexExtractTask.verify|verify} messages.
        * @function encodeDelimited
        * @memberof OracleJob.RegexExtractTask
        * @static
@@ -5651,8 +5768,8 @@
        * Properties of a XStepPriceTask.
        * @memberof OracleJob
        * @interface IXStepPriceTask
-       * @property {OracleJob.IMedianTask|null} [stepJob] XStepPriceTask stepJob
-       * @property {string|null} [stepAggregatorPubkey] XStepPriceTask stepAggregatorPubkey
+       * @property {OracleJob.IMedianTask|null} [stepJob] median task containing the job definitions to fetch the STEP/USD price
+       * @property {string|null} [stepAggregatorPubkey] existing aggregator pubkey for STEP/USD
        */
 
       /**
@@ -5671,7 +5788,7 @@
       }
 
       /**
-       * XStepPriceTask stepJob.
+       * median task containing the job definitions to fetch the STEP/USD price
        * @member {OracleJob.IMedianTask|null|undefined} stepJob
        * @memberof OracleJob.XStepPriceTask
        * @instance
@@ -5679,7 +5796,7 @@
       XStepPriceTask.prototype.stepJob = null;
 
       /**
-       * XStepPriceTask stepAggregatorPubkey.
+       * existing aggregator pubkey for STEP/USD
        * @member {string|null|undefined} stepAggregatorPubkey
        * @memberof OracleJob.XStepPriceTask
        * @instance
@@ -5715,7 +5832,7 @@
       };
 
       /**
-       * Encodes the specified XStepPriceTask message. Does not implicitly {@link OracleJob.XStepPriceTask.verify|verify} messages.
+       * Encodes the specified XStepPriceTask message. Does not implicitly {@apilink OracleJob.XStepPriceTask.verify|verify} messages.
        * @function encode
        * @memberof OracleJob.XStepPriceTask
        * @static
@@ -5744,7 +5861,7 @@
       };
 
       /**
-       * Encodes the specified XStepPriceTask message, length delimited. Does not implicitly {@link OracleJob.XStepPriceTask.verify|verify} messages.
+       * Encodes the specified XStepPriceTask message, length delimited. Does not implicitly {@apilink OracleJob.XStepPriceTask.verify|verify} messages.
        * @function encodeDelimited
        * @memberof OracleJob.XStepPriceTask
        * @static
@@ -5930,18 +6047,28 @@
        * Properties of a TwapTask.
        * @memberof OracleJob
        * @interface ITwapTask
-       * @property {string|null} [aggregatorPubkey] TwapTask aggregatorPubkey
-       * @property {number|null} [period] TwapTask period
-       * @property {boolean|null} [weightByPropagationTime] TwapTask weightByPropagationTime
-       * @property {number|null} [minSamples] TwapTask minSamples
-       * @property {number|null} [endingUnixTimestamp] TwapTask endingUnixTimestamp
-       * @property {OracleJob.ICronParseTask|null} [endingUnixTimestampTask] TwapTask endingUnixTimestampTask
+       * @property {string|null} [aggregatorPubkey] The target aggregator for the TWAP.
+       * @property {number|null} [period] Period, in seconds, the twap should account for
+       * @property {boolean|null} [weightByPropagationTime] Weight samples by their propagation time
+       * @property {number|null} [minSamples] Minimum number of samples in the history to calculate a valid result
+       * @property {number|null} [endingUnixTimestamp] Ending unix timestamp to collect values up to
+       * @property {OracleJob.ICronParseTask|null} [endingUnixTimestampTask] Execute the task to get the ending unix timestamp
        */
 
       /**
        * Constructs a new TwapTask.
        * @memberof OracleJob
-       * @classdesc Represents a TwapTask.
+       * @classdesc Takes a twap over a set period for a certain aggregator. Aggregators have an optional history buffer account storing the last N accepted results. The TwapTask will iterate over an aggregators history buffer and calculate the time weighted average of the samples within a given time period.
+       *
+       * _**Input**_: None
+       *
+       * _**Returns**_: The time weighted average of an aggregator over a given time period.
+       *
+       * _**Example**_: The 1hr Twap of the SOL/USD Aggregator, requiring at least 60 samples.
+       *
+       * ```json
+       * { "twapTask": { "aggregatorPubkey": "GvDMxPzN1sCj7L26YDK2HnMRXEQmQ2aemov8YBtPS7vR", "period": 3600, "minSamples": 60, "weightByPropagationTime": true  } }
+       * ```
        * @implements ITwapTask
        * @constructor
        * @param {OracleJob.ITwapTask=} [properties] Properties to set
@@ -5954,7 +6081,7 @@
       }
 
       /**
-       * TwapTask aggregatorPubkey.
+       * The target aggregator for the TWAP.
        * @member {string} aggregatorPubkey
        * @memberof OracleJob.TwapTask
        * @instance
@@ -5962,7 +6089,7 @@
       TwapTask.prototype.aggregatorPubkey = '';
 
       /**
-       * TwapTask period.
+       * Period, in seconds, the twap should account for
        * @member {number} period
        * @memberof OracleJob.TwapTask
        * @instance
@@ -5970,7 +6097,7 @@
       TwapTask.prototype.period = 0;
 
       /**
-       * TwapTask weightByPropagationTime.
+       * Weight samples by their propagation time
        * @member {boolean} weightByPropagationTime
        * @memberof OracleJob.TwapTask
        * @instance
@@ -5978,7 +6105,7 @@
       TwapTask.prototype.weightByPropagationTime = false;
 
       /**
-       * TwapTask minSamples.
+       * Minimum number of samples in the history to calculate a valid result
        * @member {number} minSamples
        * @memberof OracleJob.TwapTask
        * @instance
@@ -5986,7 +6113,7 @@
       TwapTask.prototype.minSamples = 0;
 
       /**
-       * TwapTask endingUnixTimestamp.
+       * Ending unix timestamp to collect values up to
        * @member {number} endingUnixTimestamp
        * @memberof OracleJob.TwapTask
        * @instance
@@ -5994,7 +6121,7 @@
       TwapTask.prototype.endingUnixTimestamp = 0;
 
       /**
-       * TwapTask endingUnixTimestampTask.
+       * Execute the task to get the ending unix timestamp
        * @member {OracleJob.ICronParseTask|null|undefined} endingUnixTimestampTask
        * @memberof OracleJob.TwapTask
        * @instance
@@ -6014,7 +6141,7 @@
       };
 
       /**
-       * Encodes the specified TwapTask message. Does not implicitly {@link OracleJob.TwapTask.verify|verify} messages.
+       * Encodes the specified TwapTask message. Does not implicitly {@apilink OracleJob.TwapTask.verify|verify} messages.
        * @function encode
        * @memberof OracleJob.TwapTask
        * @static
@@ -6067,7 +6194,7 @@
       };
 
       /**
-       * Encodes the specified TwapTask message, length delimited. Does not implicitly {@link OracleJob.TwapTask.verify|verify} messages.
+       * Encodes the specified TwapTask message, length delimited. Does not implicitly {@apilink OracleJob.TwapTask.verify|verify} messages.
        * @function encodeDelimited
        * @memberof OracleJob.TwapTask
        * @static
@@ -6312,13 +6439,13 @@
        * Properties of a SerumSwapTask.
        * @memberof OracleJob
        * @interface ISerumSwapTask
-       * @property {string|null} [serumPoolAddress] SerumSwapTask serumPoolAddress
+       * @property {string|null} [serumPoolAddress] The serum pool to fetch swap price for
        */
 
       /**
        * Constructs a new SerumSwapTask.
        * @memberof OracleJob
-       * @classdesc Represents a SerumSwapTask.
+       * @classdesc Fetch the latest swap price on Serum's orderbook
        * @implements ISerumSwapTask
        * @constructor
        * @param {OracleJob.ISerumSwapTask=} [properties] Properties to set
@@ -6331,7 +6458,7 @@
       }
 
       /**
-       * SerumSwapTask serumPoolAddress.
+       * The serum pool to fetch swap price for
        * @member {string} serumPoolAddress
        * @memberof OracleJob.SerumSwapTask
        * @instance
@@ -6351,7 +6478,7 @@
       };
 
       /**
-       * Encodes the specified SerumSwapTask message. Does not implicitly {@link OracleJob.SerumSwapTask.verify|verify} messages.
+       * Encodes the specified SerumSwapTask message. Does not implicitly {@apilink OracleJob.SerumSwapTask.verify|verify} messages.
        * @function encode
        * @memberof OracleJob.SerumSwapTask
        * @static
@@ -6372,7 +6499,7 @@
       };
 
       /**
-       * Encodes the specified SerumSwapTask message, length delimited. Does not implicitly {@link OracleJob.SerumSwapTask.verify|verify} messages.
+       * Encodes the specified SerumSwapTask message, length delimited. Does not implicitly {@apilink OracleJob.SerumSwapTask.verify|verify} messages.
        * @function encodeDelimited
        * @memberof OracleJob.SerumSwapTask
        * @static
@@ -6523,15 +6650,15 @@
        * Properties of a PowTask.
        * @memberof OracleJob
        * @interface IPowTask
-       * @property {number|null} [scalar] PowTask scalar
-       * @property {string|null} [aggregatorPubkey] PowTask aggregatorPubkey
-       * @property {string|null} [big] PowTask big
+       * @property {number|null} [scalar] Take the working value to the exponent of value.
+       * @property {string|null} [aggregatorPubkey] Take the working value to the exponent of the aggregators value.
+       * @property {string|null} [big] A stringified big.js. `Accepts variable expansion syntax.`
        */
 
       /**
        * Constructs a new PowTask.
        * @memberof OracleJob
-       * @classdesc Represents a PowTask.
+       * @classdesc Take the power of the working value.
        * @implements IPowTask
        * @constructor
        * @param {OracleJob.IPowTask=} [properties] Properties to set
@@ -6544,7 +6671,7 @@
       }
 
       /**
-       * PowTask scalar.
+       * Take the working value to the exponent of value.
        * @member {number|null|undefined} scalar
        * @memberof OracleJob.PowTask
        * @instance
@@ -6552,7 +6679,7 @@
       PowTask.prototype.scalar = null;
 
       /**
-       * PowTask aggregatorPubkey.
+       * Take the working value to the exponent of the aggregators value.
        * @member {string|null|undefined} aggregatorPubkey
        * @memberof OracleJob.PowTask
        * @instance
@@ -6560,7 +6687,7 @@
       PowTask.prototype.aggregatorPubkey = null;
 
       /**
-       * PowTask big.
+       * A stringified big.js. `Accepts variable expansion syntax.`
        * @member {string|null|undefined} big
        * @memberof OracleJob.PowTask
        * @instance
@@ -6596,7 +6723,7 @@
       };
 
       /**
-       * Encodes the specified PowTask message. Does not implicitly {@link OracleJob.PowTask.verify|verify} messages.
+       * Encodes the specified PowTask message. Does not implicitly {@apilink OracleJob.PowTask.verify|verify} messages.
        * @function encode
        * @memberof OracleJob.PowTask
        * @static
@@ -6624,7 +6751,7 @@
       };
 
       /**
-       * Encodes the specified PowTask message, length delimited. Does not implicitly {@link OracleJob.PowTask.verify|verify} messages.
+       * Encodes the specified PowTask message, length delimited. Does not implicitly {@apilink OracleJob.PowTask.verify|verify} messages.
        * @function encodeDelimited
        * @memberof OracleJob.PowTask
        * @static
@@ -6808,15 +6935,15 @@
        * Properties of a LendingRateTask.
        * @memberof OracleJob
        * @interface ILendingRateTask
-       * @property {string|null} [protocol] LendingRateTask protocol
-       * @property {string|null} [assetMint] LendingRateTask assetMint
+       * @property {string|null} [protocol] 01, apricot, francium, jet, larix, mango, port, solend, tulip
+       * @property {string|null} [assetMint] A token mint address supported by the chosen protocol
        * @property {OracleJob.LendingRateTask.Field|null} [field] LendingRateTask field
        */
 
       /**
        * Constructs a new LendingRateTask.
        * @memberof OracleJob
-       * @classdesc Represents a LendingRateTask.
+       * @classdesc Fetch the lending rates for various Solana protocols
        * @implements ILendingRateTask
        * @constructor
        * @param {OracleJob.ILendingRateTask=} [properties] Properties to set
@@ -6829,7 +6956,7 @@
       }
 
       /**
-       * LendingRateTask protocol.
+       * 01, apricot, francium, jet, larix, mango, port, solend, tulip
        * @member {string} protocol
        * @memberof OracleJob.LendingRateTask
        * @instance
@@ -6837,7 +6964,7 @@
       LendingRateTask.prototype.protocol = '';
 
       /**
-       * LendingRateTask assetMint.
+       * A token mint address supported by the chosen protocol
        * @member {string} assetMint
        * @memberof OracleJob.LendingRateTask
        * @instance
@@ -6865,7 +6992,7 @@
       };
 
       /**
-       * Encodes the specified LendingRateTask message. Does not implicitly {@link OracleJob.LendingRateTask.verify|verify} messages.
+       * Encodes the specified LendingRateTask message. Does not implicitly {@apilink OracleJob.LendingRateTask.verify|verify} messages.
        * @function encode
        * @memberof OracleJob.LendingRateTask
        * @static
@@ -6894,7 +7021,7 @@
       };
 
       /**
-       * Encodes the specified LendingRateTask message, length delimited. Does not implicitly {@link OracleJob.LendingRateTask.verify|verify} messages.
+       * Encodes the specified LendingRateTask message, length delimited. Does not implicitly {@apilink OracleJob.LendingRateTask.verify|verify} messages.
        * @function encodeDelimited
        * @memberof OracleJob.LendingRateTask
        * @static
@@ -7085,8 +7212,8 @@
        * Field enum.
        * @name OracleJob.LendingRateTask.Field
        * @enum {number}
-       * @property {number} FIELD_DEPOSIT_RATE=0 FIELD_DEPOSIT_RATE value
-       * @property {number} FIELD_BORROW_RATE=1 FIELD_BORROW_RATE value
+       * @property {number} FIELD_DEPOSIT_RATE=0 deposit lending rate
+       * @property {number} FIELD_BORROW_RATE=1 borrow lending rate
        */
       LendingRateTask.Field = (function () {
         var valuesById = {},
@@ -7104,13 +7231,13 @@
        * Properties of a MangoPerpMarketTask.
        * @memberof OracleJob
        * @interface IMangoPerpMarketTask
-       * @property {string|null} [perpMarketAddress] MangoPerpMarketTask perpMarketAddress
+       * @property {string|null} [perpMarketAddress] Mainnet address for a mango perpetual market. A full list can be found here: https://github.com/blockworks-foundation/mango-client-v3/blob/main/src/ids.json
        */
 
       /**
        * Constructs a new MangoPerpMarketTask.
        * @memberof OracleJob
-       * @classdesc Represents a MangoPerpMarketTask.
+       * @classdesc Fetch the current price for a Mango perpetual market
        * @implements IMangoPerpMarketTask
        * @constructor
        * @param {OracleJob.IMangoPerpMarketTask=} [properties] Properties to set
@@ -7123,7 +7250,7 @@
       }
 
       /**
-       * MangoPerpMarketTask perpMarketAddress.
+       * Mainnet address for a mango perpetual market. A full list can be found here: https://github.com/blockworks-foundation/mango-client-v3/blob/main/src/ids.json
        * @member {string} perpMarketAddress
        * @memberof OracleJob.MangoPerpMarketTask
        * @instance
@@ -7143,7 +7270,7 @@
       };
 
       /**
-       * Encodes the specified MangoPerpMarketTask message. Does not implicitly {@link OracleJob.MangoPerpMarketTask.verify|verify} messages.
+       * Encodes the specified MangoPerpMarketTask message. Does not implicitly {@apilink OracleJob.MangoPerpMarketTask.verify|verify} messages.
        * @function encode
        * @memberof OracleJob.MangoPerpMarketTask
        * @static
@@ -7164,7 +7291,7 @@
       };
 
       /**
-       * Encodes the specified MangoPerpMarketTask message, length delimited. Does not implicitly {@link OracleJob.MangoPerpMarketTask.verify|verify} messages.
+       * Encodes the specified MangoPerpMarketTask message, length delimited. Does not implicitly {@apilink OracleJob.MangoPerpMarketTask.verify|verify} messages.
        * @function encodeDelimited
        * @memberof OracleJob.MangoPerpMarketTask
        * @static
@@ -7316,20 +7443,36 @@
        * Properties of a JupiterSwapTask.
        * @memberof OracleJob
        * @interface IJupiterSwapTask
-       * @property {string|null} [inTokenAddress] JupiterSwapTask inTokenAddress
-       * @property {string|null} [outTokenAddress] JupiterSwapTask outTokenAddress
+       * @property {string|null} [inTokenAddress] The input token address.
+       * @property {string|null} [outTokenAddress] The output token address.
        * @property {OracleJob.JupiterSwapTask.IFilterList|null} [allowList] JupiterSwapTask allowList
        * @property {OracleJob.JupiterSwapTask.IFilterList|null} [denyList] JupiterSwapTask denyList
-       * @property {number|null} [baseAmount] JupiterSwapTask baseAmount
-       * @property {number|null} [quoteAmount] JupiterSwapTask quoteAmount
-       * @property {string|null} [baseAmountString] JupiterSwapTask baseAmountString
-       * @property {string|null} [quoteAmountString] JupiterSwapTask quoteAmountString
+       * @property {number|null} [baseAmount] The amount of `in_token_address` tokens to swap.
+       * @property {number|null} [quoteAmount] The amount of `out_token_address` tokens to swap.
+       * @property {string|null} [baseAmountString] The amount of `in_token_address` tokens to swap.
+       * @property {string|null} [quoteAmountString] The amount of `out_token_address` tokens to swap.
        */
 
       /**
        * Constructs a new JupiterSwapTask.
        * @memberof OracleJob
-       * @classdesc Represents a JupiterSwapTask.
+       * @classdesc Fetch the simulated price for a swap on JupiterSwap.
+       *
+       * _**Input**_: None
+       *
+       * _**Returns**_: The swap price on Jupiter for a given input and output token mint address.
+       *
+       * _**Example**_: Fetch the JupiterSwap price for exchanging 1 SOL into USDC.
+       *
+       * ```json
+       * { "jupiterSwapTask": { "inTokenAddress": "So11111111111111111111111111111111111111112", "outTokenAddress": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v" } }
+       * ```
+       *
+       * _**Example**_: Fetch the JupiterSwap price for exchanging 1000 SOL into USDC.
+       *
+       * ```json
+       * { "jupiterSwapTask": { "inTokenAddress": "So11111111111111111111111111111111111111112", "outTokenAddress": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v", "baseAmount": "1000" } }
+       * ```
        * @implements IJupiterSwapTask
        * @constructor
        * @param {OracleJob.IJupiterSwapTask=} [properties] Properties to set
@@ -7342,7 +7485,7 @@
       }
 
       /**
-       * JupiterSwapTask inTokenAddress.
+       * The input token address.
        * @member {string} inTokenAddress
        * @memberof OracleJob.JupiterSwapTask
        * @instance
@@ -7350,7 +7493,7 @@
       JupiterSwapTask.prototype.inTokenAddress = '';
 
       /**
-       * JupiterSwapTask outTokenAddress.
+       * The output token address.
        * @member {string} outTokenAddress
        * @memberof OracleJob.JupiterSwapTask
        * @instance
@@ -7374,7 +7517,7 @@
       JupiterSwapTask.prototype.denyList = null;
 
       /**
-       * JupiterSwapTask baseAmount.
+       * The amount of `in_token_address` tokens to swap.
        * @member {number|null|undefined} baseAmount
        * @memberof OracleJob.JupiterSwapTask
        * @instance
@@ -7382,7 +7525,7 @@
       JupiterSwapTask.prototype.baseAmount = null;
 
       /**
-       * JupiterSwapTask quoteAmount.
+       * The amount of `out_token_address` tokens to swap.
        * @member {number|null|undefined} quoteAmount
        * @memberof OracleJob.JupiterSwapTask
        * @instance
@@ -7390,7 +7533,7 @@
       JupiterSwapTask.prototype.quoteAmount = null;
 
       /**
-       * JupiterSwapTask baseAmountString.
+       * The amount of `in_token_address` tokens to swap.
        * @member {string|null|undefined} baseAmountString
        * @memberof OracleJob.JupiterSwapTask
        * @instance
@@ -7398,7 +7541,7 @@
       JupiterSwapTask.prototype.baseAmountString = null;
 
       /**
-       * JupiterSwapTask quoteAmountString.
+       * The amount of `out_token_address` tokens to swap.
        * @member {string|null|undefined} quoteAmountString
        * @memberof OracleJob.JupiterSwapTask
        * @instance
@@ -7450,7 +7593,7 @@
       };
 
       /**
-       * Encodes the specified JupiterSwapTask message. Does not implicitly {@link OracleJob.JupiterSwapTask.verify|verify} messages.
+       * Encodes the specified JupiterSwapTask message. Does not implicitly {@apilink OracleJob.JupiterSwapTask.verify|verify} messages.
        * @function encode
        * @memberof OracleJob.JupiterSwapTask
        * @static
@@ -7518,7 +7661,7 @@
       };
 
       /**
-       * Encodes the specified JupiterSwapTask message, length delimited. Does not implicitly {@link OracleJob.JupiterSwapTask.verify|verify} messages.
+       * Encodes the specified JupiterSwapTask message, length delimited. Does not implicitly {@apilink OracleJob.JupiterSwapTask.verify|verify} messages.
        * @function encodeDelimited
        * @memberof OracleJob.JupiterSwapTask
        * @static
@@ -7857,7 +8000,7 @@
         /**
          * Constructs a new FilterList.
          * @memberof OracleJob.JupiterSwapTask
-         * @classdesc Represents a FilterList.
+         * @classdesc A list of Jupiter AMM labels to allow or deny (e.g. 'Raydium', 'Orca')
          * @implements IFilterList
          * @constructor
          * @param {OracleJob.JupiterSwapTask.IFilterList=} [properties] Properties to set
@@ -7895,7 +8038,7 @@
         };
 
         /**
-         * Encodes the specified FilterList message. Does not implicitly {@link OracleJob.JupiterSwapTask.FilterList.verify|verify} messages.
+         * Encodes the specified FilterList message. Does not implicitly {@apilink OracleJob.JupiterSwapTask.FilterList.verify|verify} messages.
          * @function encode
          * @memberof OracleJob.JupiterSwapTask.FilterList
          * @static
@@ -7914,7 +8057,7 @@
         };
 
         /**
-         * Encodes the specified FilterList message, length delimited. Does not implicitly {@link OracleJob.JupiterSwapTask.FilterList.verify|verify} messages.
+         * Encodes the specified FilterList message, length delimited. Does not implicitly {@apilink OracleJob.JupiterSwapTask.FilterList.verify|verify} messages.
          * @function encodeDelimited
          * @memberof OracleJob.JupiterSwapTask.FilterList
          * @static
@@ -8075,16 +8218,16 @@
        * Properties of a PerpMarketTask.
        * @memberof OracleJob
        * @interface IPerpMarketTask
-       * @property {string|null} [mangoMarketAddress] PerpMarketTask mangoMarketAddress
-       * @property {string|null} [driftMarketAddress] PerpMarketTask driftMarketAddress
-       * @property {string|null} [zetaMarketAddress] PerpMarketTask zetaMarketAddress
-       * @property {string|null} [zoMarketAddress] PerpMarketTask zoMarketAddress
+       * @property {string|null} [mangoMarketAddress] Market address for a mango perpetual market. A full list can be found here: https://github.com/blockworks-foundation/mango-client-v3/blob/main/src/ids.json
+       * @property {string|null} [driftMarketAddress] Market address for a drift perpetual market. A full list can be found here: https://github.com/drift-labs/protocol-v1/blob/master/sdk/src/constants/markets.ts
+       * @property {string|null} [zetaMarketAddress] Market address for a zeta perpetual market.
+       * @property {string|null} [zoMarketAddress] Market address for a 01 protocol perpetual market.
        */
 
       /**
        * Constructs a new PerpMarketTask.
        * @memberof OracleJob
-       * @classdesc Represents a PerpMarketTask.
+       * @classdesc Fetch the current price of a perpetual market.
        * @implements IPerpMarketTask
        * @constructor
        * @param {OracleJob.IPerpMarketTask=} [properties] Properties to set
@@ -8097,7 +8240,7 @@
       }
 
       /**
-       * PerpMarketTask mangoMarketAddress.
+       * Market address for a mango perpetual market. A full list can be found here: https://github.com/blockworks-foundation/mango-client-v3/blob/main/src/ids.json
        * @member {string|null|undefined} mangoMarketAddress
        * @memberof OracleJob.PerpMarketTask
        * @instance
@@ -8105,7 +8248,7 @@
       PerpMarketTask.prototype.mangoMarketAddress = null;
 
       /**
-       * PerpMarketTask driftMarketAddress.
+       * Market address for a drift perpetual market. A full list can be found here: https://github.com/drift-labs/protocol-v1/blob/master/sdk/src/constants/markets.ts
        * @member {string|null|undefined} driftMarketAddress
        * @memberof OracleJob.PerpMarketTask
        * @instance
@@ -8113,7 +8256,7 @@
       PerpMarketTask.prototype.driftMarketAddress = null;
 
       /**
-       * PerpMarketTask zetaMarketAddress.
+       * Market address for a zeta perpetual market.
        * @member {string|null|undefined} zetaMarketAddress
        * @memberof OracleJob.PerpMarketTask
        * @instance
@@ -8121,7 +8264,7 @@
       PerpMarketTask.prototype.zetaMarketAddress = null;
 
       /**
-       * PerpMarketTask zoMarketAddress.
+       * Market address for a 01 protocol perpetual market.
        * @member {string|null|undefined} zoMarketAddress
        * @memberof OracleJob.PerpMarketTask
        * @instance
@@ -8162,7 +8305,7 @@
       };
 
       /**
-       * Encodes the specified PerpMarketTask message. Does not implicitly {@link OracleJob.PerpMarketTask.verify|verify} messages.
+       * Encodes the specified PerpMarketTask message. Does not implicitly {@apilink OracleJob.PerpMarketTask.verify|verify} messages.
        * @function encode
        * @memberof OracleJob.PerpMarketTask
        * @static
@@ -8204,7 +8347,7 @@
       };
 
       /**
-       * Encodes the specified PerpMarketTask message, length delimited. Does not implicitly {@link OracleJob.PerpMarketTask.verify|verify} messages.
+       * Encodes the specified PerpMarketTask message, length delimited. Does not implicitly {@apilink OracleJob.PerpMarketTask.verify|verify} messages.
        * @function encodeDelimited
        * @memberof OracleJob.PerpMarketTask
        * @static
@@ -8428,16 +8571,39 @@
        * Properties of an OracleTask.
        * @memberof OracleJob
        * @interface IOracleTask
-       * @property {string|null} [switchboardAddress] OracleTask switchboardAddress
-       * @property {string|null} [pythAddress] OracleTask pythAddress
-       * @property {string|null} [chainlinkAddress] OracleTask chainlinkAddress
-       * @property {number|null} [pythAllowedConfidenceInterval] OracleTask pythAllowedConfidenceInterval
+       * @property {string|null} [switchboardAddress] Mainnet address of a Switchboard V2 feed. Switchboard is decentralized and allows anyone to build their own feed. A small subset of feeds is available here: https://switchboard.xyz/explorer
+       * @property {string|null} [pythAddress] Mainnet address for a Pyth feed. A full list can be found here: https://pyth.network/price-feeds/
+       * @property {string|null} [chainlinkAddress] Mainnet address for a Chainlink feed. A full list can be found here: https://docs.chain.link/docs/solana/data-feeds-solana
+       * @property {number|null} [pythAllowedConfidenceInterval] Value (as a percentage) that the lower bound confidence interval is of the actual value.
+       * Confidence intervals that are larger that this treshold are rejected.
        */
 
       /**
        * Constructs a new OracleTask.
        * @memberof OracleJob
-       * @classdesc Represents an OracleTask.
+       * @classdesc Fetch the current price of a Solana oracle protocol.
+       *
+       * _**Input**_: None
+       *
+       * _**Returns**_: The current price of an on-chain oracle.
+       *
+       * _**Example**_: The Switchboard SOL/USD oracle price.
+       *
+       * ```json
+       * { "oracleTask": { "switchboardAddress": "GvDMxPzN1sCj7L26YDK2HnMRXEQmQ2aemov8YBtPS7vR" } }
+       * ```
+       *
+       * _**Example**_: The Pyth SOL/USD oracle price.
+       *
+       * ```json
+       * { "oracleTask": { "pythAddress": "H6ARHf6YXhGYeQfUzQNGk6rDNnLBQKrenN712K4AQJEG" } }
+       * ```
+       *
+       * _**Example**_: The Chainlink SOL/USD oracle price.
+       *
+       * ```json
+       * { "oracleTask": { "chainlinkAddress": "CcPVS9bqyXbD9cLnTbhhHazLsrua8QMFUHTutPtjyDzq" } }
+       * ```
        * @implements IOracleTask
        * @constructor
        * @param {OracleJob.IOracleTask=} [properties] Properties to set
@@ -8450,7 +8616,7 @@
       }
 
       /**
-       * OracleTask switchboardAddress.
+       * Mainnet address of a Switchboard V2 feed. Switchboard is decentralized and allows anyone to build their own feed. A small subset of feeds is available here: https://switchboard.xyz/explorer
        * @member {string|null|undefined} switchboardAddress
        * @memberof OracleJob.OracleTask
        * @instance
@@ -8458,7 +8624,7 @@
       OracleTask.prototype.switchboardAddress = null;
 
       /**
-       * OracleTask pythAddress.
+       * Mainnet address for a Pyth feed. A full list can be found here: https://pyth.network/price-feeds/
        * @member {string|null|undefined} pythAddress
        * @memberof OracleJob.OracleTask
        * @instance
@@ -8466,7 +8632,7 @@
       OracleTask.prototype.pythAddress = null;
 
       /**
-       * OracleTask chainlinkAddress.
+       * Mainnet address for a Chainlink feed. A full list can be found here: https://docs.chain.link/docs/solana/data-feeds-solana
        * @member {string|null|undefined} chainlinkAddress
        * @memberof OracleJob.OracleTask
        * @instance
@@ -8474,7 +8640,8 @@
       OracleTask.prototype.chainlinkAddress = null;
 
       /**
-       * OracleTask pythAllowedConfidenceInterval.
+       * Value (as a percentage) that the lower bound confidence interval is of the actual value.
+       * Confidence intervals that are larger that this treshold are rejected.
        * @member {number} pythAllowedConfidenceInterval
        * @memberof OracleJob.OracleTask
        * @instance
@@ -8514,7 +8681,7 @@
       };
 
       /**
-       * Encodes the specified OracleTask message. Does not implicitly {@link OracleJob.OracleTask.verify|verify} messages.
+       * Encodes the specified OracleTask message. Does not implicitly {@apilink OracleJob.OracleTask.verify|verify} messages.
        * @function encode
        * @memberof OracleJob.OracleTask
        * @static
@@ -8554,7 +8721,7 @@
       };
 
       /**
-       * Encodes the specified OracleTask message, length delimited. Does not implicitly {@link OracleJob.OracleTask.verify|verify} messages.
+       * Encodes the specified OracleTask message, length delimited. Does not implicitly {@apilink OracleJob.OracleTask.verify|verify} messages.
        * @function encodeDelimited
        * @memberof OracleJob.OracleTask
        * @static
@@ -8775,14 +8942,14 @@
        * Properties of an AnchorFetchTask.
        * @memberof OracleJob
        * @interface IAnchorFetchTask
-       * @property {string|null} [programId] AnchorFetchTask programId
-       * @property {string|null} [accountAddress] AnchorFetchTask accountAddress
+       * @property {string|null} [programId] Owning program of the account to parse.
+       * @property {string|null} [accountAddress] The account to parse.
        */
 
       /**
        * Constructs a new AnchorFetchTask.
        * @memberof OracleJob
-       * @classdesc Represents an AnchorFetchTask.
+       * @classdesc Load a parse an Anchor based solana account.
        * @implements IAnchorFetchTask
        * @constructor
        * @param {OracleJob.IAnchorFetchTask=} [properties] Properties to set
@@ -8795,7 +8962,7 @@
       }
 
       /**
-       * AnchorFetchTask programId.
+       * Owning program of the account to parse.
        * @member {string} programId
        * @memberof OracleJob.AnchorFetchTask
        * @instance
@@ -8803,7 +8970,7 @@
       AnchorFetchTask.prototype.programId = '';
 
       /**
-       * AnchorFetchTask accountAddress.
+       * The account to parse.
        * @member {string} accountAddress
        * @memberof OracleJob.AnchorFetchTask
        * @instance
@@ -8823,7 +8990,7 @@
       };
 
       /**
-       * Encodes the specified AnchorFetchTask message. Does not implicitly {@link OracleJob.AnchorFetchTask.verify|verify} messages.
+       * Encodes the specified AnchorFetchTask message. Does not implicitly {@apilink OracleJob.AnchorFetchTask.verify|verify} messages.
        * @function encode
        * @memberof OracleJob.AnchorFetchTask
        * @static
@@ -8849,7 +9016,7 @@
       };
 
       /**
-       * Encodes the specified AnchorFetchTask message, length delimited. Does not implicitly {@link OracleJob.AnchorFetchTask.verify|verify} messages.
+       * Encodes the specified AnchorFetchTask message, length delimited. Does not implicitly {@apilink OracleJob.AnchorFetchTask.verify|verify} messages.
        * @function encodeDelimited
        * @memberof OracleJob.AnchorFetchTask
        * @static
@@ -9019,7 +9186,7 @@
       /**
        * Constructs a new TpsTask.
        * @memberof OracleJob
-       * @classdesc Represents a TpsTask.
+       * @classdesc Fetch the current transactions per second.
        * @implements ITpsTask
        * @constructor
        * @param {OracleJob.ITpsTask=} [properties] Properties to set
@@ -9044,7 +9211,7 @@
       };
 
       /**
-       * Encodes the specified TpsTask message. Does not implicitly {@link OracleJob.TpsTask.verify|verify} messages.
+       * Encodes the specified TpsTask message. Does not implicitly {@apilink OracleJob.TpsTask.verify|verify} messages.
        * @function encode
        * @memberof OracleJob.TpsTask
        * @static
@@ -9058,7 +9225,7 @@
       };
 
       /**
-       * Encodes the specified TpsTask message, length delimited. Does not implicitly {@link OracleJob.TpsTask.verify|verify} messages.
+       * Encodes the specified TpsTask message, length delimited. Does not implicitly {@apilink OracleJob.TpsTask.verify|verify} messages.
        * @function encodeDelimited
        * @memberof OracleJob.TpsTask
        * @static
@@ -9185,13 +9352,13 @@
        * Properties of a SplStakePoolTask.
        * @memberof OracleJob
        * @interface ISplStakePoolTask
-       * @property {string|null} [pubkey] SplStakePoolTask pubkey
+       * @property {string|null} [pubkey] The pubkey of the SPL Stake Pool.
        */
 
       /**
        * Constructs a new SplStakePoolTask.
        * @memberof OracleJob
-       * @classdesc Represents a SplStakePoolTask.
+       * @classdesc Fetch the JSON representation of an SPL Stake Pool account.
        * @implements ISplStakePoolTask
        * @constructor
        * @param {OracleJob.ISplStakePoolTask=} [properties] Properties to set
@@ -9204,7 +9371,7 @@
       }
 
       /**
-       * SplStakePoolTask pubkey.
+       * The pubkey of the SPL Stake Pool.
        * @member {string} pubkey
        * @memberof OracleJob.SplStakePoolTask
        * @instance
@@ -9224,7 +9391,7 @@
       };
 
       /**
-       * Encodes the specified SplStakePoolTask message. Does not implicitly {@link OracleJob.SplStakePoolTask.verify|verify} messages.
+       * Encodes the specified SplStakePoolTask message. Does not implicitly {@apilink OracleJob.SplStakePoolTask.verify|verify} messages.
        * @function encode
        * @memberof OracleJob.SplStakePoolTask
        * @static
@@ -9243,7 +9410,7 @@
       };
 
       /**
-       * Encodes the specified SplStakePoolTask message, length delimited. Does not implicitly {@link OracleJob.SplStakePoolTask.verify|verify} messages.
+       * Encodes the specified SplStakePoolTask message, length delimited. Does not implicitly {@apilink OracleJob.SplStakePoolTask.verify|verify} messages.
        * @function encodeDelimited
        * @memberof OracleJob.SplStakePoolTask
        * @static
@@ -9386,14 +9553,14 @@
        * Properties of a SplTokenParseTask.
        * @memberof OracleJob
        * @interface ISplTokenParseTask
-       * @property {string|null} [tokenAccountAddress] SplTokenParseTask tokenAccountAddress
-       * @property {string|null} [mintAddress] SplTokenParseTask mintAddress
+       * @property {string|null} [tokenAccountAddress] The publicKey of a token account to fetch the mintInfo for.
+       * @property {string|null} [mintAddress] The publicKey of the token mint address.
        */
 
       /**
        * Constructs a new SplTokenParseTask.
        * @memberof OracleJob
-       * @classdesc Represents a SplTokenParseTask.
+       * @classdesc Fetch the JSON representation of an SPL token mint.
        * @implements ISplTokenParseTask
        * @constructor
        * @param {OracleJob.ISplTokenParseTask=} [properties] Properties to set
@@ -9406,7 +9573,7 @@
       }
 
       /**
-       * SplTokenParseTask tokenAccountAddress.
+       * The publicKey of a token account to fetch the mintInfo for.
        * @member {string|null|undefined} tokenAccountAddress
        * @memberof OracleJob.SplTokenParseTask
        * @instance
@@ -9414,7 +9581,7 @@
       SplTokenParseTask.prototype.tokenAccountAddress = null;
 
       /**
-       * SplTokenParseTask mintAddress.
+       * The publicKey of the token mint address.
        * @member {string|null|undefined} mintAddress
        * @memberof OracleJob.SplTokenParseTask
        * @instance
@@ -9450,7 +9617,7 @@
       };
 
       /**
-       * Encodes the specified SplTokenParseTask message. Does not implicitly {@link OracleJob.SplTokenParseTask.verify|verify} messages.
+       * Encodes the specified SplTokenParseTask message. Does not implicitly {@apilink OracleJob.SplTokenParseTask.verify|verify} messages.
        * @function encode
        * @memberof OracleJob.SplTokenParseTask
        * @static
@@ -9476,7 +9643,7 @@
       };
 
       /**
-       * Encodes the specified SplTokenParseTask message, length delimited. Does not implicitly {@link OracleJob.SplTokenParseTask.verify|verify} messages.
+       * Encodes the specified SplTokenParseTask message, length delimited. Does not implicitly {@apilink OracleJob.SplTokenParseTask.verify|verify} messages.
        * @function encodeDelimited
        * @memberof OracleJob.SplTokenParseTask
        * @static
@@ -9654,15 +9821,15 @@
        * Properties of a DefiKingdomsTask.
        * @memberof OracleJob
        * @interface IDefiKingdomsTask
-       * @property {string|null} [provider] DefiKingdomsTask provider
-       * @property {OracleJob.DefiKingdomsTask.IToken|null} [inToken] DefiKingdomsTask inToken
-       * @property {OracleJob.DefiKingdomsTask.IToken|null} [outToken] DefiKingdomsTask outToken
+       * @property {string|null} [provider] The RPC provider to use for the swap.
+       * @property {OracleJob.DefiKingdomsTask.IToken|null} [inToken] The input token of the swap.
+       * @property {OracleJob.DefiKingdomsTask.IToken|null} [outToken] The output token of the swap.
        */
 
       /**
        * Constructs a new DefiKingdomsTask.
        * @memberof OracleJob
-       * @classdesc Represents a DefiKingdomsTask.
+       * @classdesc Fetch the swap price from DefiKingdoms.
        * @implements IDefiKingdomsTask
        * @constructor
        * @param {OracleJob.IDefiKingdomsTask=} [properties] Properties to set
@@ -9675,7 +9842,7 @@
       }
 
       /**
-       * DefiKingdomsTask provider.
+       * The RPC provider to use for the swap.
        * @member {string} provider
        * @memberof OracleJob.DefiKingdomsTask
        * @instance
@@ -9683,7 +9850,7 @@
       DefiKingdomsTask.prototype.provider = '';
 
       /**
-       * DefiKingdomsTask inToken.
+       * The input token of the swap.
        * @member {OracleJob.DefiKingdomsTask.IToken|null|undefined} inToken
        * @memberof OracleJob.DefiKingdomsTask
        * @instance
@@ -9691,7 +9858,7 @@
       DefiKingdomsTask.prototype.inToken = null;
 
       /**
-       * DefiKingdomsTask outToken.
+       * The output token of the swap.
        * @member {OracleJob.DefiKingdomsTask.IToken|null|undefined} outToken
        * @memberof OracleJob.DefiKingdomsTask
        * @instance
@@ -9711,7 +9878,7 @@
       };
 
       /**
-       * Encodes the specified DefiKingdomsTask message. Does not implicitly {@link OracleJob.DefiKingdomsTask.verify|verify} messages.
+       * Encodes the specified DefiKingdomsTask message. Does not implicitly {@apilink OracleJob.DefiKingdomsTask.verify|verify} messages.
        * @function encode
        * @memberof OracleJob.DefiKingdomsTask
        * @static
@@ -9746,7 +9913,7 @@
       };
 
       /**
-       * Encodes the specified DefiKingdomsTask message, length delimited. Does not implicitly {@link OracleJob.DefiKingdomsTask.verify|verify} messages.
+       * Encodes the specified DefiKingdomsTask message, length delimited. Does not implicitly {@apilink OracleJob.DefiKingdomsTask.verify|verify} messages.
        * @function encodeDelimited
        * @memberof OracleJob.DefiKingdomsTask
        * @static
@@ -9945,8 +10112,8 @@
          * Properties of a Token.
          * @memberof OracleJob.DefiKingdomsTask
          * @interface IToken
-         * @property {string|null} [address] Token address
-         * @property {number|null} [decimals] Token decimals
+         * @property {string|null} [address] The address of the token.
+         * @property {number|null} [decimals] The number of decimal places for a token.
          */
 
         /**
@@ -9969,7 +10136,7 @@
         }
 
         /**
-         * Token address.
+         * The address of the token.
          * @member {string} address
          * @memberof OracleJob.DefiKingdomsTask.Token
          * @instance
@@ -9977,7 +10144,7 @@
         Token.prototype.address = '';
 
         /**
-         * Token decimals.
+         * The number of decimal places for a token.
          * @member {number} decimals
          * @memberof OracleJob.DefiKingdomsTask.Token
          * @instance
@@ -9997,7 +10164,7 @@
         };
 
         /**
-         * Encodes the specified Token message. Does not implicitly {@link OracleJob.DefiKingdomsTask.Token.verify|verify} messages.
+         * Encodes the specified Token message. Does not implicitly {@apilink OracleJob.DefiKingdomsTask.Token.verify|verify} messages.
          * @function encode
          * @memberof OracleJob.DefiKingdomsTask.Token
          * @static
@@ -10021,7 +10188,7 @@
         };
 
         /**
-         * Encodes the specified Token message, length delimited. Does not implicitly {@link OracleJob.DefiKingdomsTask.Token.verify|verify} messages.
+         * Encodes the specified Token message, length delimited. Does not implicitly {@apilink OracleJob.DefiKingdomsTask.Token.verify|verify} messages.
          * @function encodeDelimited
          * @memberof OracleJob.DefiKingdomsTask.Token
          * @static
@@ -10179,17 +10346,17 @@
        * Properties of an UniswapExchangeRateTask.
        * @memberof OracleJob
        * @interface IUniswapExchangeRateTask
-       * @property {string|null} [inTokenAddress] UniswapExchangeRateTask inTokenAddress
-       * @property {string|null} [outTokenAddress] UniswapExchangeRateTask outTokenAddress
-       * @property {number|null} [inTokenAmount] UniswapExchangeRateTask inTokenAmount
-       * @property {number|null} [slippage] UniswapExchangeRateTask slippage
-       * @property {string|null} [provider] UniswapExchangeRateTask provider
+       * @property {string|null} [inTokenAddress] The input token address.
+       * @property {string|null} [outTokenAddress] The output token address.
+       * @property {number|null} [inTokenAmount] The amount of tokens to swap.
+       * @property {number|null} [slippage] The allowable slippage in percent for the swap.
+       * @property {string|null} [provider] The RPC provider to use for the swap.
        */
 
       /**
        * Constructs a new UniswapExchangeRateTask.
        * @memberof OracleJob
-       * @classdesc Represents an UniswapExchangeRateTask.
+       * @classdesc Fetch the swap price from UniSwap.
        * @implements IUniswapExchangeRateTask
        * @constructor
        * @param {OracleJob.IUniswapExchangeRateTask=} [properties] Properties to set
@@ -10202,7 +10369,7 @@
       }
 
       /**
-       * UniswapExchangeRateTask inTokenAddress.
+       * The input token address.
        * @member {string} inTokenAddress
        * @memberof OracleJob.UniswapExchangeRateTask
        * @instance
@@ -10210,7 +10377,7 @@
       UniswapExchangeRateTask.prototype.inTokenAddress = '';
 
       /**
-       * UniswapExchangeRateTask outTokenAddress.
+       * The output token address.
        * @member {string} outTokenAddress
        * @memberof OracleJob.UniswapExchangeRateTask
        * @instance
@@ -10218,7 +10385,7 @@
       UniswapExchangeRateTask.prototype.outTokenAddress = '';
 
       /**
-       * UniswapExchangeRateTask inTokenAmount.
+       * The amount of tokens to swap.
        * @member {number} inTokenAmount
        * @memberof OracleJob.UniswapExchangeRateTask
        * @instance
@@ -10226,7 +10393,7 @@
       UniswapExchangeRateTask.prototype.inTokenAmount = 0;
 
       /**
-       * UniswapExchangeRateTask slippage.
+       * The allowable slippage in percent for the swap.
        * @member {number} slippage
        * @memberof OracleJob.UniswapExchangeRateTask
        * @instance
@@ -10234,7 +10401,7 @@
       UniswapExchangeRateTask.prototype.slippage = 0;
 
       /**
-       * UniswapExchangeRateTask provider.
+       * The RPC provider to use for the swap.
        * @member {string} provider
        * @memberof OracleJob.UniswapExchangeRateTask
        * @instance
@@ -10254,7 +10421,7 @@
       };
 
       /**
-       * Encodes the specified UniswapExchangeRateTask message. Does not implicitly {@link OracleJob.UniswapExchangeRateTask.verify|verify} messages.
+       * Encodes the specified UniswapExchangeRateTask message. Does not implicitly {@apilink OracleJob.UniswapExchangeRateTask.verify|verify} messages.
        * @function encode
        * @memberof OracleJob.UniswapExchangeRateTask
        * @static
@@ -10299,7 +10466,7 @@
       };
 
       /**
-       * Encodes the specified UniswapExchangeRateTask message, length delimited. Does not implicitly {@link OracleJob.UniswapExchangeRateTask.verify|verify} messages.
+       * Encodes the specified UniswapExchangeRateTask message, length delimited. Does not implicitly {@apilink OracleJob.UniswapExchangeRateTask.verify|verify} messages.
        * @function encodeDelimited
        * @memberof OracleJob.UniswapExchangeRateTask
        * @static
@@ -10519,17 +10686,17 @@
        * Properties of a SushiswapExchangeRateTask.
        * @memberof OracleJob
        * @interface ISushiswapExchangeRateTask
-       * @property {string|null} [inTokenAddress] SushiswapExchangeRateTask inTokenAddress
-       * @property {string|null} [outTokenAddress] SushiswapExchangeRateTask outTokenAddress
-       * @property {number|null} [inTokenAmount] SushiswapExchangeRateTask inTokenAmount
-       * @property {number|null} [slippage] SushiswapExchangeRateTask slippage
-       * @property {string|null} [provider] SushiswapExchangeRateTask provider
+       * @property {string|null} [inTokenAddress] The input token address.
+       * @property {string|null} [outTokenAddress] The output token address.
+       * @property {number|null} [inTokenAmount] The amount of tokens to swap.
+       * @property {number|null} [slippage] The allowable slippage in percent for the swap.
+       * @property {string|null} [provider] The RPC provider to use for the swap.
        */
 
       /**
        * Constructs a new SushiswapExchangeRateTask.
        * @memberof OracleJob
-       * @classdesc Represents a SushiswapExchangeRateTask.
+       * @classdesc Fetch the swap price from SushiSwap.
        * @implements ISushiswapExchangeRateTask
        * @constructor
        * @param {OracleJob.ISushiswapExchangeRateTask=} [properties] Properties to set
@@ -10542,7 +10709,7 @@
       }
 
       /**
-       * SushiswapExchangeRateTask inTokenAddress.
+       * The input token address.
        * @member {string} inTokenAddress
        * @memberof OracleJob.SushiswapExchangeRateTask
        * @instance
@@ -10550,7 +10717,7 @@
       SushiswapExchangeRateTask.prototype.inTokenAddress = '';
 
       /**
-       * SushiswapExchangeRateTask outTokenAddress.
+       * The output token address.
        * @member {string} outTokenAddress
        * @memberof OracleJob.SushiswapExchangeRateTask
        * @instance
@@ -10558,7 +10725,7 @@
       SushiswapExchangeRateTask.prototype.outTokenAddress = '';
 
       /**
-       * SushiswapExchangeRateTask inTokenAmount.
+       * The amount of tokens to swap.
        * @member {number} inTokenAmount
        * @memberof OracleJob.SushiswapExchangeRateTask
        * @instance
@@ -10566,7 +10733,7 @@
       SushiswapExchangeRateTask.prototype.inTokenAmount = 0;
 
       /**
-       * SushiswapExchangeRateTask slippage.
+       * The allowable slippage in percent for the swap.
        * @member {number} slippage
        * @memberof OracleJob.SushiswapExchangeRateTask
        * @instance
@@ -10574,7 +10741,7 @@
       SushiswapExchangeRateTask.prototype.slippage = 0;
 
       /**
-       * SushiswapExchangeRateTask provider.
+       * The RPC provider to use for the swap.
        * @member {string} provider
        * @memberof OracleJob.SushiswapExchangeRateTask
        * @instance
@@ -10594,7 +10761,7 @@
       };
 
       /**
-       * Encodes the specified SushiswapExchangeRateTask message. Does not implicitly {@link OracleJob.SushiswapExchangeRateTask.verify|verify} messages.
+       * Encodes the specified SushiswapExchangeRateTask message. Does not implicitly {@apilink OracleJob.SushiswapExchangeRateTask.verify|verify} messages.
        * @function encode
        * @memberof OracleJob.SushiswapExchangeRateTask
        * @static
@@ -10639,7 +10806,7 @@
       };
 
       /**
-       * Encodes the specified SushiswapExchangeRateTask message, length delimited. Does not implicitly {@link OracleJob.SushiswapExchangeRateTask.verify|verify} messages.
+       * Encodes the specified SushiswapExchangeRateTask message, length delimited. Does not implicitly {@apilink OracleJob.SushiswapExchangeRateTask.verify|verify} messages.
        * @function encodeDelimited
        * @memberof OracleJob.SushiswapExchangeRateTask
        * @static
@@ -10861,17 +11028,17 @@
        * Properties of a PancakeswapExchangeRateTask.
        * @memberof OracleJob
        * @interface IPancakeswapExchangeRateTask
-       * @property {string|null} [inTokenAddress] PancakeswapExchangeRateTask inTokenAddress
-       * @property {string|null} [outTokenAddress] PancakeswapExchangeRateTask outTokenAddress
-       * @property {number|null} [inTokenAmount] PancakeswapExchangeRateTask inTokenAmount
-       * @property {number|null} [slippage] PancakeswapExchangeRateTask slippage
-       * @property {string|null} [provider] PancakeswapExchangeRateTask provider
+       * @property {string|null} [inTokenAddress] The input token address.
+       * @property {string|null} [outTokenAddress] The output token address.
+       * @property {number|null} [inTokenAmount] The amount of tokens to swap.
+       * @property {number|null} [slippage] The allowable slippage in percent for the swap.
+       * @property {string|null} [provider] The RPC provider to use for the swap.
        */
 
       /**
        * Constructs a new PancakeswapExchangeRateTask.
        * @memberof OracleJob
-       * @classdesc Represents a PancakeswapExchangeRateTask.
+       * @classdesc Fetch the swap price from PancakeSwap.
        * @implements IPancakeswapExchangeRateTask
        * @constructor
        * @param {OracleJob.IPancakeswapExchangeRateTask=} [properties] Properties to set
@@ -10884,7 +11051,7 @@
       }
 
       /**
-       * PancakeswapExchangeRateTask inTokenAddress.
+       * The input token address.
        * @member {string} inTokenAddress
        * @memberof OracleJob.PancakeswapExchangeRateTask
        * @instance
@@ -10892,7 +11059,7 @@
       PancakeswapExchangeRateTask.prototype.inTokenAddress = '';
 
       /**
-       * PancakeswapExchangeRateTask outTokenAddress.
+       * The output token address.
        * @member {string} outTokenAddress
        * @memberof OracleJob.PancakeswapExchangeRateTask
        * @instance
@@ -10900,7 +11067,7 @@
       PancakeswapExchangeRateTask.prototype.outTokenAddress = '';
 
       /**
-       * PancakeswapExchangeRateTask inTokenAmount.
+       * The amount of tokens to swap.
        * @member {number} inTokenAmount
        * @memberof OracleJob.PancakeswapExchangeRateTask
        * @instance
@@ -10908,7 +11075,7 @@
       PancakeswapExchangeRateTask.prototype.inTokenAmount = 0;
 
       /**
-       * PancakeswapExchangeRateTask slippage.
+       * The allowable slippage in percent for the swap.
        * @member {number} slippage
        * @memberof OracleJob.PancakeswapExchangeRateTask
        * @instance
@@ -10916,7 +11083,7 @@
       PancakeswapExchangeRateTask.prototype.slippage = 0;
 
       /**
-       * PancakeswapExchangeRateTask provider.
+       * The RPC provider to use for the swap.
        * @member {string} provider
        * @memberof OracleJob.PancakeswapExchangeRateTask
        * @instance
@@ -10936,7 +11103,7 @@
       };
 
       /**
-       * Encodes the specified PancakeswapExchangeRateTask message. Does not implicitly {@link OracleJob.PancakeswapExchangeRateTask.verify|verify} messages.
+       * Encodes the specified PancakeswapExchangeRateTask message. Does not implicitly {@apilink OracleJob.PancakeswapExchangeRateTask.verify|verify} messages.
        * @function encode
        * @memberof OracleJob.PancakeswapExchangeRateTask
        * @static
@@ -10981,7 +11148,7 @@
       };
 
       /**
-       * Encodes the specified PancakeswapExchangeRateTask message, length delimited. Does not implicitly {@link OracleJob.PancakeswapExchangeRateTask.verify|verify} messages.
+       * Encodes the specified PancakeswapExchangeRateTask message, length delimited. Does not implicitly {@apilink OracleJob.PancakeswapExchangeRateTask.verify|verify} messages.
        * @function encodeDelimited
        * @memberof OracleJob.PancakeswapExchangeRateTask
        * @static
@@ -11206,13 +11373,23 @@
        * Properties of a CacheTask.
        * @memberof OracleJob
        * @interface ICacheTask
-       * @property {Array.<OracleJob.CacheTask.ICacheItem>|null} [cacheItems] CacheTask cacheItems
+       * @property {Array.<OracleJob.CacheTask.ICacheItem>|null} [cacheItems] A list of cached variables to reference in the job with `${VARIABLE_NAME}`.
        */
 
       /**
        * Constructs a new CacheTask.
        * @memberof OracleJob
-       * @classdesc Represents a CacheTask.
+       * @classdesc Execute a job and store the result in a variable to reference later.
+       *
+       * _**Input**_: None
+       *
+       * _**Returns**_: The input
+       *
+       * _**Example**_: CacheTask storing ${ONE} = 1
+       *
+       * ```json
+       * { "cacheTask": { "cacheItems": [ { "variableName": "ONE", "job": { "tasks": [ { "valueTask": { "value": 1 } } ] } } ] } }
+       * ```
        * @implements ICacheTask
        * @constructor
        * @param {OracleJob.ICacheTask=} [properties] Properties to set
@@ -11226,7 +11403,7 @@
       }
 
       /**
-       * CacheTask cacheItems.
+       * A list of cached variables to reference in the job with `${VARIABLE_NAME}`.
        * @member {Array.<OracleJob.CacheTask.ICacheItem>} cacheItems
        * @memberof OracleJob.CacheTask
        * @instance
@@ -11246,7 +11423,7 @@
       };
 
       /**
-       * Encodes the specified CacheTask message. Does not implicitly {@link OracleJob.CacheTask.verify|verify} messages.
+       * Encodes the specified CacheTask message. Does not implicitly {@apilink OracleJob.CacheTask.verify|verify} messages.
        * @function encode
        * @memberof OracleJob.CacheTask
        * @static
@@ -11266,7 +11443,7 @@
       };
 
       /**
-       * Encodes the specified CacheTask message, length delimited. Does not implicitly {@link OracleJob.CacheTask.verify|verify} messages.
+       * Encodes the specified CacheTask message, length delimited. Does not implicitly {@apilink OracleJob.CacheTask.verify|verify} messages.
        * @function encodeDelimited
        * @memberof OracleJob.CacheTask
        * @static
@@ -11441,8 +11618,8 @@
          * Properties of a CacheItem.
          * @memberof OracleJob.CacheTask
          * @interface ICacheItem
-         * @property {string|null} [variableName] CacheItem variableName
-         * @property {IOracleJob|null} [job] CacheItem job
+         * @property {string|null} [variableName] The name of the variable to store in cache to reference later with `${VARIABLE_NAME}`.
+         * @property {IOracleJob|null} [job] The OracleJob to execute to yield the value to store in cache.
          */
 
         /**
@@ -11465,7 +11642,7 @@
         }
 
         /**
-         * CacheItem variableName.
+         * The name of the variable to store in cache to reference later with `${VARIABLE_NAME}`.
          * @member {string} variableName
          * @memberof OracleJob.CacheTask.CacheItem
          * @instance
@@ -11473,7 +11650,7 @@
         CacheItem.prototype.variableName = '';
 
         /**
-         * CacheItem job.
+         * The OracleJob to execute to yield the value to store in cache.
          * @member {IOracleJob|null|undefined} job
          * @memberof OracleJob.CacheTask.CacheItem
          * @instance
@@ -11493,7 +11670,7 @@
         };
 
         /**
-         * Encodes the specified CacheItem message. Does not implicitly {@link OracleJob.CacheTask.CacheItem.verify|verify} messages.
+         * Encodes the specified CacheItem message. Does not implicitly {@apilink OracleJob.CacheTask.CacheItem.verify|verify} messages.
          * @function encode
          * @memberof OracleJob.CacheTask.CacheItem
          * @static
@@ -11519,7 +11696,7 @@
         };
 
         /**
-         * Encodes the specified CacheItem message, length delimited. Does not implicitly {@link OracleJob.CacheTask.CacheItem.verify|verify} messages.
+         * Encodes the specified CacheItem message, length delimited. Does not implicitly {@apilink OracleJob.CacheTask.CacheItem.verify|verify} messages.
          * @function encodeDelimited
          * @memberof OracleJob.CacheTask.CacheItem
          * @static
@@ -11696,7 +11873,7 @@
       /**
        * Constructs a new SysclockOffsetTask.
        * @memberof OracleJob
-       * @classdesc Represents a SysclockOffsetTask.
+       * @classdesc Return the difference between an oracle's clock and the current timestamp at `SYSVAR_CLOCK_PUBKEY`.
        * @implements ISysclockOffsetTask
        * @constructor
        * @param {OracleJob.ISysclockOffsetTask=} [properties] Properties to set
@@ -11721,7 +11898,7 @@
       };
 
       /**
-       * Encodes the specified SysclockOffsetTask message. Does not implicitly {@link OracleJob.SysclockOffsetTask.verify|verify} messages.
+       * Encodes the specified SysclockOffsetTask message. Does not implicitly {@apilink OracleJob.SysclockOffsetTask.verify|verify} messages.
        * @function encode
        * @memberof OracleJob.SysclockOffsetTask
        * @static
@@ -11735,7 +11912,7 @@
       };
 
       /**
-       * Encodes the specified SysclockOffsetTask message, length delimited. Does not implicitly {@link OracleJob.SysclockOffsetTask.verify|verify} messages.
+       * Encodes the specified SysclockOffsetTask message, length delimited. Does not implicitly {@apilink OracleJob.SysclockOffsetTask.verify|verify} messages.
        * @function encodeDelimited
        * @memberof OracleJob.SysclockOffsetTask
        * @static
@@ -11895,7 +12072,7 @@
       };
 
       /**
-       * Encodes the specified MarinadeStateTask message. Does not implicitly {@link OracleJob.MarinadeStateTask.verify|verify} messages.
+       * Encodes the specified MarinadeStateTask message. Does not implicitly {@apilink OracleJob.MarinadeStateTask.verify|verify} messages.
        * @function encode
        * @memberof OracleJob.MarinadeStateTask
        * @static
@@ -11909,7 +12086,7 @@
       };
 
       /**
-       * Encodes the specified MarinadeStateTask message, length delimited. Does not implicitly {@link OracleJob.MarinadeStateTask.verify|verify} messages.
+       * Encodes the specified MarinadeStateTask message, length delimited. Does not implicitly {@apilink OracleJob.MarinadeStateTask.verify|verify} messages.
        * @function encodeDelimited
        * @memberof OracleJob.MarinadeStateTask
        * @static
@@ -12039,13 +12216,13 @@
        * Properties of a SolanaAccountDataFetchTask.
        * @memberof OracleJob
        * @interface ISolanaAccountDataFetchTask
-       * @property {string|null} [pubkey] SolanaAccountDataFetchTask pubkey
+       * @property {string|null} [pubkey] The on-chain account to fetch the account data from.
        */
 
       /**
        * Constructs a new SolanaAccountDataFetchTask.
        * @memberof OracleJob
-       * @classdesc Represents a SolanaAccountDataFetchTask.
+       * @classdesc Fetch the account data in a stringified buffer format.
        * @implements ISolanaAccountDataFetchTask
        * @constructor
        * @param {OracleJob.ISolanaAccountDataFetchTask=} [properties] Properties to set
@@ -12058,7 +12235,7 @@
       }
 
       /**
-       * SolanaAccountDataFetchTask pubkey.
+       * The on-chain account to fetch the account data from.
        * @member {string} pubkey
        * @memberof OracleJob.SolanaAccountDataFetchTask
        * @instance
@@ -12078,7 +12255,7 @@
       };
 
       /**
-       * Encodes the specified SolanaAccountDataFetchTask message. Does not implicitly {@link OracleJob.SolanaAccountDataFetchTask.verify|verify} messages.
+       * Encodes the specified SolanaAccountDataFetchTask message. Does not implicitly {@apilink OracleJob.SolanaAccountDataFetchTask.verify|verify} messages.
        * @function encode
        * @memberof OracleJob.SolanaAccountDataFetchTask
        * @static
@@ -12097,7 +12274,7 @@
       };
 
       /**
-       * Encodes the specified SolanaAccountDataFetchTask message, length delimited. Does not implicitly {@link OracleJob.SolanaAccountDataFetchTask.verify|verify} messages.
+       * Encodes the specified SolanaAccountDataFetchTask message, length delimited. Does not implicitly {@apilink OracleJob.SolanaAccountDataFetchTask.verify|verify} messages.
        * @function encodeDelimited
        * @memberof OracleJob.SolanaAccountDataFetchTask
        * @static
@@ -12248,15 +12425,16 @@
        * Properties of a CronParseTask.
        * @memberof OracleJob
        * @interface ICronParseTask
-       * @property {string|null} [cronPattern] CronParseTask cronPattern
-       * @property {number|null} [clockOffset] CronParseTask clockOffset
+       * @property {string|null} [cronPattern] the cron pattern to parse
+       * @property {number|null} [clockOffset] the timestamp offset
+       * to calculate the next run
        * @property {OracleJob.CronParseTask.ClockType|null} [clock] CronParseTask clock
        */
 
       /**
        * Constructs a new CronParseTask.
        * @memberof OracleJob
-       * @classdesc Represents a CronParseTask.
+       * @classdesc return a timestamp from a crontab instruction
        * @implements ICronParseTask
        * @constructor
        * @param {OracleJob.ICronParseTask=} [properties] Properties to set
@@ -12269,7 +12447,7 @@
       }
 
       /**
-       * CronParseTask cronPattern.
+       * the cron pattern to parse
        * @member {string} cronPattern
        * @memberof OracleJob.CronParseTask
        * @instance
@@ -12277,7 +12455,8 @@
       CronParseTask.prototype.cronPattern = '';
 
       /**
-       * CronParseTask clockOffset.
+       * the timestamp offset
+       * to calculate the next run
        * @member {number} clockOffset
        * @memberof OracleJob.CronParseTask
        * @instance
@@ -12305,7 +12484,7 @@
       };
 
       /**
-       * Encodes the specified CronParseTask message. Does not implicitly {@link OracleJob.CronParseTask.verify|verify} messages.
+       * Encodes the specified CronParseTask message. Does not implicitly {@apilink OracleJob.CronParseTask.verify|verify} messages.
        * @function encode
        * @memberof OracleJob.CronParseTask
        * @static
@@ -12334,7 +12513,7 @@
       };
 
       /**
-       * Encodes the specified CronParseTask message, length delimited. Does not implicitly {@link OracleJob.CronParseTask.verify|verify} messages.
+       * Encodes the specified CronParseTask message, length delimited. Does not implicitly {@apilink OracleJob.CronParseTask.verify|verify} messages.
        * @function encodeDelimited
        * @memberof OracleJob.CronParseTask
        * @static
@@ -12535,7 +12714,7 @@
       };
 
       /**
-       * ClockType enum.
+       * which type of clock to use
        * @name OracleJob.CronParseTask.ClockType
        * @enum {number}
        * @property {number} ORACLE=0 ORACLE value
@@ -12557,15 +12736,15 @@
        * Properties of a BufferLayoutParseTask.
        * @memberof OracleJob
        * @interface IBufferLayoutParseTask
-       * @property {number|null} [offset] BufferLayoutParseTask offset
-       * @property {OracleJob.BufferLayoutParseTask.Endian|null} [endian] BufferLayoutParseTask endian
-       * @property {OracleJob.BufferLayoutParseTask.BufferParseType|null} [type] BufferLayoutParseTask type
+       * @property {number|null} [offset] The buffer offset to start deserializing from.
+       * @property {OracleJob.BufferLayoutParseTask.Endian|null} [endian] The endianness of the stored value.
+       * @property {OracleJob.BufferLayoutParseTask.BufferParseType|null} [type] The type of value to deserialize.
        */
 
       /**
        * Constructs a new BufferLayoutParseTask.
        * @memberof OracleJob
-       * @classdesc Represents a BufferLayoutParseTask.
+       * @classdesc Return the deserialized value from a stringified buffer.
        * @implements IBufferLayoutParseTask
        * @constructor
        * @param {OracleJob.IBufferLayoutParseTask=} [properties] Properties to set
@@ -12578,7 +12757,7 @@
       }
 
       /**
-       * BufferLayoutParseTask offset.
+       * The buffer offset to start deserializing from.
        * @member {number} offset
        * @memberof OracleJob.BufferLayoutParseTask
        * @instance
@@ -12586,7 +12765,7 @@
       BufferLayoutParseTask.prototype.offset = 0;
 
       /**
-       * BufferLayoutParseTask endian.
+       * The endianness of the stored value.
        * @member {OracleJob.BufferLayoutParseTask.Endian} endian
        * @memberof OracleJob.BufferLayoutParseTask
        * @instance
@@ -12594,7 +12773,7 @@
       BufferLayoutParseTask.prototype.endian = 0;
 
       /**
-       * BufferLayoutParseTask type.
+       * The type of value to deserialize.
        * @member {OracleJob.BufferLayoutParseTask.BufferParseType} type
        * @memberof OracleJob.BufferLayoutParseTask
        * @instance
@@ -12614,7 +12793,7 @@
       };
 
       /**
-       * Encodes the specified BufferLayoutParseTask message. Does not implicitly {@link OracleJob.BufferLayoutParseTask.verify|verify} messages.
+       * Encodes the specified BufferLayoutParseTask message. Does not implicitly {@apilink OracleJob.BufferLayoutParseTask.verify|verify} messages.
        * @function encode
        * @memberof OracleJob.BufferLayoutParseTask
        * @static
@@ -12640,7 +12819,7 @@
       };
 
       /**
-       * Encodes the specified BufferLayoutParseTask message, length delimited. Does not implicitly {@link OracleJob.BufferLayoutParseTask.verify|verify} messages.
+       * Encodes the specified BufferLayoutParseTask message, length delimited. Does not implicitly {@apilink OracleJob.BufferLayoutParseTask.verify|verify} messages.
        * @function encodeDelimited
        * @memberof OracleJob.BufferLayoutParseTask
        * @static
@@ -12935,20 +13114,20 @@
        * BufferParseType enum.
        * @name OracleJob.BufferLayoutParseTask.BufferParseType
        * @enum {number}
-       * @property {number} pubkey=1 pubkey value
-       * @property {number} bool=2 bool value
-       * @property {number} u8=3 u8 value
-       * @property {number} i8=4 i8 value
-       * @property {number} u16=5 u16 value
-       * @property {number} i16=6 i16 value
-       * @property {number} u32=7 u32 value
-       * @property {number} i32=8 i32 value
-       * @property {number} f32=9 f32 value
-       * @property {number} u64=10 u64 value
-       * @property {number} i64=11 i64 value
-       * @property {number} f64=12 f64 value
-       * @property {number} u128=13 u128 value
-       * @property {number} i128=14 i128 value
+       * @property {number} pubkey=1 A public key.
+       * @property {number} bool=2 A boolean.
+       * @property {number} u8=3 An 8-bit unsigned value.
+       * @property {number} i8=4 An 8-bit signed value.
+       * @property {number} u16=5 A 16-bit unsigned value.
+       * @property {number} i16=6 A 16-bit signed value.
+       * @property {number} u32=7 A 32-bit unsigned value.
+       * @property {number} i32=8 A 32-bit signed value.
+       * @property {number} f32=9 A 32-bit IEEE floating point value.
+       * @property {number} u64=10 A 64-bit unsigned value.
+       * @property {number} i64=11 A 64-bit signed value.
+       * @property {number} f64=12 A 64-bit IEEE floating point value.
+       * @property {number} u128=13 A 128-bit unsigned value.
+       * @property {number} i128=14 A 128-bit signed value.
        */
       BufferLayoutParseTask.BufferParseType = (function () {
         var valuesById = {},
@@ -13035,7 +13214,7 @@
       };
 
       /**
-       * Encodes the specified HistoryFunctionTask message. Does not implicitly {@link OracleJob.HistoryFunctionTask.verify|verify} messages.
+       * Encodes the specified HistoryFunctionTask message. Does not implicitly {@apilink OracleJob.HistoryFunctionTask.verify|verify} messages.
        * @function encode
        * @memberof OracleJob.HistoryFunctionTask
        * @static
@@ -13066,7 +13245,7 @@
       };
 
       /**
-       * Encodes the specified HistoryFunctionTask message, length delimited. Does not implicitly {@link OracleJob.HistoryFunctionTask.verify|verify} messages.
+       * Encodes the specified HistoryFunctionTask message, length delimited. Does not implicitly {@apilink OracleJob.HistoryFunctionTask.verify|verify} messages.
        * @function encodeDelimited
        * @memberof OracleJob.HistoryFunctionTask
        * @static
@@ -13340,7 +13519,7 @@
       };
 
       /**
-       * Encodes the specified VwapTask message. Does not implicitly {@link OracleJob.VwapTask.verify|verify} messages.
+       * Encodes the specified VwapTask message. Does not implicitly {@apilink OracleJob.VwapTask.verify|verify} messages.
        * @function encode
        * @memberof OracleJob.VwapTask
        * @static
@@ -13373,7 +13552,7 @@
       };
 
       /**
-       * Encodes the specified VwapTask message, length delimited. Does not implicitly {@link OracleJob.VwapTask.verify|verify} messages.
+       * Encodes the specified VwapTask message, length delimited. Does not implicitly {@apilink OracleJob.VwapTask.verify|verify} messages.
        * @function encodeDelimited
        * @memberof OracleJob.VwapTask
        * @static
@@ -13613,7 +13792,7 @@
       };
 
       /**
-       * Encodes the specified EwmaTask message. Does not implicitly {@link OracleJob.EwmaTask.verify|verify} messages.
+       * Encodes the specified EwmaTask message. Does not implicitly {@apilink OracleJob.EwmaTask.verify|verify} messages.
        * @function encode
        * @memberof OracleJob.EwmaTask
        * @static
@@ -13644,7 +13823,7 @@
       };
 
       /**
-       * Encodes the specified EwmaTask message, length delimited. Does not implicitly {@link OracleJob.EwmaTask.verify|verify} messages.
+       * Encodes the specified EwmaTask message, length delimited. Does not implicitly {@apilink OracleJob.EwmaTask.verify|verify} messages.
        * @function encodeDelimited
        * @memberof OracleJob.EwmaTask
        * @static
@@ -13973,7 +14152,7 @@
       };
 
       /**
-       * Encodes the specified ComparisonTask message. Does not implicitly {@link OracleJob.ComparisonTask.verify|verify} messages.
+       * Encodes the specified ComparisonTask message. Does not implicitly {@apilink OracleJob.ComparisonTask.verify|verify} messages.
        * @function encode
        * @memberof OracleJob.ComparisonTask
        * @static
@@ -14052,7 +14231,7 @@
       };
 
       /**
-       * Encodes the specified ComparisonTask message, length delimited. Does not implicitly {@link OracleJob.ComparisonTask.verify|verify} messages.
+       * Encodes the specified ComparisonTask message, length delimited. Does not implicitly {@apilink OracleJob.ComparisonTask.verify|verify} messages.
        * @function encodeDelimited
        * @memberof OracleJob.ComparisonTask
        * @static
@@ -14438,7 +14617,17 @@
       /**
        * Constructs a new RoundTask.
        * @memberof OracleJob
-       * @classdesc Represents a RoundTask.
+       * @classdesc Round the current running result to a set number of decimal places.
+       *
+       * _**Input**_: The current running numerical result.
+       *
+       * _**Returns**_: The running result rounded to a set number of decimal places.
+       *
+       * _**Example**_: Round down the running resul to 8 decimal places
+       *
+       * ```json
+       * { "roundTask": { "method": "METHOD_ROUND_DOWN", "decimals": 8 } }
+       * ```
        * @implements IRoundTask
        * @constructor
        * @param {OracleJob.IRoundTask=} [properties] Properties to set
@@ -14479,7 +14668,7 @@
       };
 
       /**
-       * Encodes the specified RoundTask message. Does not implicitly {@link OracleJob.RoundTask.verify|verify} messages.
+       * Encodes the specified RoundTask message. Does not implicitly {@apilink OracleJob.RoundTask.verify|verify} messages.
        * @function encode
        * @memberof OracleJob.RoundTask
        * @static
@@ -14503,7 +14692,7 @@
       };
 
       /**
-       * Encodes the specified RoundTask message, length delimited. Does not implicitly {@link OracleJob.RoundTask.verify|verify} messages.
+       * Encodes the specified RoundTask message, length delimited. Does not implicitly {@apilink OracleJob.RoundTask.verify|verify} messages.
        * @function encodeDelimited
        * @memberof OracleJob.RoundTask
        * @static
@@ -14710,7 +14899,17 @@
       /**
        * Constructs a new BoundTask.
        * @memberof OracleJob
-       * @classdesc Represents a BoundTask.
+       * @classdesc Bound the running result to an upper/lower bound. This is typically the last task in an OracleJob.
+       *
+       * _**Input**_: The current running numerical result.
+       *
+       * _**Returns**_: The running result bounded to an upper or lower bound if it exceeds a given threshold.
+       *
+       * _**Example**_: Bound the running result to a value between 0.90 and 1.10
+       *
+       * ```json
+       * { "boundTask": { "lowerBoundValue": "0.90","onExceedsLowerBoundValue": "0.90","upperBoundValue": "1.10","onExceedsUpperBoundValue": "1.10" } }
+       * ```
        * @implements IBoundTask
        * @constructor
        * @param {OracleJob.IBoundTask=} [properties] Properties to set
@@ -14799,7 +14998,7 @@
       };
 
       /**
-       * Encodes the specified BoundTask message. Does not implicitly {@link OracleJob.BoundTask.verify|verify} messages.
+       * Encodes the specified BoundTask message. Does not implicitly {@apilink OracleJob.BoundTask.verify|verify} messages.
        * @function encode
        * @memberof OracleJob.BoundTask
        * @static
@@ -14873,7 +15072,7 @@
       };
 
       /**
-       * Encodes the specified BoundTask message, length delimited. Does not implicitly {@link OracleJob.BoundTask.verify|verify} messages.
+       * Encodes the specified BoundTask message, length delimited. Does not implicitly {@apilink OracleJob.BoundTask.verify|verify} messages.
        * @function encodeDelimited
        * @memberof OracleJob.BoundTask
        * @static
@@ -15195,30 +15394,181 @@
        * Properties of a Task.
        * @memberof OracleJob
        * @interface ITask
-       * @property {OracleJob.IHttpTask|null} [httpTask] Task httpTask
-       * @property {OracleJob.IJsonParseTask|null} [jsonParseTask] Task jsonParseTask
+       * @property {OracleJob.IHttpTask|null} [httpTask] The adapter will report the text body of a successful HTTP request to the
+       * specified url, or return an error if the response status code is greater
+       * than or equal to 400.
+       *
+       * _**Input**_: None
+       *
+       * _**Returns**_: String representation of the http response.
+       *
+       * _**Example**_: Basic HttpTask
+       *
+       * ```json
+       * {"httpTask": {"url": "https://mywebsite.org/path"} }
+       * ```
+       *
+       * _**Example**_: HttpTask example with headers
+       *
+       * ```json
+       * { "httpTask": { "url": "https://mywebsite.org/path", "method": "METHOD_POST", "headers": [ { "key": "MY_HEADER_KEY", "value": "MY_HEADER_VALUE" } ], "body": "{\"MY_BODY_KEY\":\"MY_BODY_VALUE\"}" } }
+       * ```
+       * @property {OracleJob.IJsonParseTask|null} [jsonParseTask] The adapter walks the path specified and returns the value found at that result. If returning
+       * JSON data from the HttpGet or HttpPost adapters, you must use this adapter to parse the response.
+       *
+       * _**Input**_: String representation of a JSON object.
+       *
+       * _**Returns**_: A numerical result.
+       *
+       * _**Example**_: Parses the price field from a JSON object
+       *
+       * ```json
+       * {"jsonParse": {"path": "$.price"} }
+       * ```
        * @property {OracleJob.IMedianTask|null} [medianTask] Task medianTask
        * @property {OracleJob.IMeanTask|null} [meanTask] Task meanTask
-       * @property {OracleJob.IWebsocketTask|null} [websocketTask] Task websocketTask
+       * @property {OracleJob.IWebsocketTask|null} [websocketTask] Opens and maintains a websocket for light speed data retrieval.
+       *
+       * _**Input**_: None
+       *
+       * _**Returns**_: String representation of the websocket subscription message.
+       *
+       * _**Example**_: Opens a coinbase websocket
+       *
+       * ```json
+       * { "websocketTask": { "url": "wss://ws-feed.pro.coinbase.com", "subscription": "{\"type\":\"subscribe\",\"product_ids\":[\"BTC-USD\"],\"channels\":[\"ticker\",{\"name\":\"ticker\",\"product_ids\":[\"BTC-USD\"]}]}", "maxDataAgeSeconds": 15, "filter": "$[?(@.type == 'ticker' && @.product_id == 'BTC-USD')]" } }
+       * ```
        * @property {OracleJob.IDivideTask|null} [divideTask] Task divideTask
        * @property {OracleJob.IMultiplyTask|null} [multiplyTask] Task multiplyTask
-       * @property {OracleJob.ILpTokenPriceTask|null} [lpTokenPriceTask] Task lpTokenPriceTask
-       * @property {OracleJob.ILpExchangeRateTask|null} [lpExchangeRateTask] Task lpExchangeRateTask
+       * @property {OracleJob.ILpTokenPriceTask|null} [lpTokenPriceTask] Fetch LP token price info from a number of supported exchanges.
+       *
+       * See our blog post on [Fair LP Token Oracles](/blog/2022/01/20/Fair-LP-Token-Oracles)
+       *
+       * *NOTE**: This is not the swap price but the price of the underlying LP token.
+       *
+       * _**Input**_: None
+       *
+       * _**Returns**_: The price of an LP token for a given AMM pool.
+       *
+       * _**Example**_: Fetch the Orca LP token price of the SOL/USDC pool
+       *
+       * ```json
+       * { "lpTokenPriceTask": { "orcaPoolAddress": "APDFRM3HMr8CAGXwKHiu2f5ePSpaiEJhaURwhsRrUUt9" } }
+       * ```
+       *
+       * _**Example**_: Fetch the fair price Orca LP token price of the SOL/USDC pool
+       *
+       * ```json
+       * { "lpTokenPriceTask": { "orcaPoolAddress": "APDFRM3HMr8CAGXwKHiu2f5ePSpaiEJhaURwhsRrUUt9", "useFairPrice": true, "priceFeedAddresses": [ "GvDMxPzN1sCj7L26YDK2HnMRXEQmQ2aemov8YBtPS7vR", "BjUgj6YCnFBZ49wF54ddBVA9qu8TeqkFtkbqmZcee8uW" ] } }
+       * ```
+       *
+       * _**Example**_: Fetch the fair price Raydium LP token price of the SOL/USDC pool
+       *
+       * ```json
+       * { "lpTokenPriceTask": { "raydiumPoolAddress": "58oQChx4yWmvKdwLLZzBi4ChoCc2fqCUWBkwMihLYQo2", "useFairPrice": true,"priceFeedAddresses": ["GvDMxPzN1sCj7L26YDK2HnMRXEQmQ2aemov8YBtPS7vR","BjUgj6YCnFBZ49wF54ddBVA9qu8TeqkFtkbqmZcee8uW" ] } }
+       * ```
+       * @property {OracleJob.ILpExchangeRateTask|null} [lpExchangeRateTask] Fetch the current swap price for a given liquidity pool
+       *
+       * _**Input**_: None
+       *
+       * _**Returns**_: The swap price for a given AMM pool.
+       *
+       * _**Example**_: Fetch the exchange rate from the Orca SOL/USDC pool
+       *
+       * ```json
+       * { "lpExchangeRateTask": { "orcaPoolAddress": "APDFRM3HMr8CAGXwKHiu2f5ePSpaiEJhaURwhsRrUUt9" } }
+       * ```
+       *
+       * _**Example**_: Fetch the exchange rate from the Raydium SOL/USDC pool
+       *
+       * ```json
+       * { "lpExchangeRateTask": { "raydiumPoolAddress": "58oQChx4yWmvKdwLLZzBi4ChoCc2fqCUWBkwMihLYQo2" } }
+       * ```
        * @property {OracleJob.IConditionalTask|null} [conditionalTask] Task conditionalTask
-       * @property {OracleJob.IValueTask|null} [valueTask] Task valueTask
+       * @property {OracleJob.IValueTask|null} [valueTask] Returns a specified value.
+       *
+       * _**Input**_: None
+       *
+       * _**Returns**_: A numerical result.
+       *
+       * _**Example**_: Returns the value 10
+       *
+       * ```json
+       * {"valueTask": {"value": 10} }
+       * ```
+       *
+       * _**Example**_: Returns the currentRound result of an aggregator
+       *
+       * ```json
+       * {"valueTask": {"aggregatorPubkey": "GvDMxPzN1sCj7L26YDK2HnMRXEQmQ2aemov8YBtPS7vR"} }
+       * ```
+       *
+       * _**Example**_: Returns the value stored in a CacheTask variable
+       *
+       * ```json
+       * {"valueTask": {"big": "${ONE}"} }
+       * ```
        * @property {OracleJob.IMaxTask|null} [maxTask] Task maxTask
        * @property {OracleJob.IRegexExtractTask|null} [regexExtractTask] Task regexExtractTask
        * @property {OracleJob.IXStepPriceTask|null} [xstepPriceTask] Task xstepPriceTask
        * @property {OracleJob.IAddTask|null} [addTask] Task addTask
        * @property {OracleJob.ISubtractTask|null} [subtractTask] Task subtractTask
-       * @property {OracleJob.ITwapTask|null} [twapTask] Task twapTask
+       * @property {OracleJob.ITwapTask|null} [twapTask] Takes a twap over a set period for a certain aggregator. Aggregators have an optional history buffer account storing the last N accepted results. The TwapTask will iterate over an aggregators history buffer and calculate the time weighted average of the samples within a given time period.
+       *
+       * _**Input**_: None
+       *
+       * _**Returns**_: The time weighted average of an aggregator over a given time period.
+       *
+       * _**Example**_: The 1hr Twap of the SOL/USD Aggregator, requiring at least 60 samples.
+       *
+       * ```json
+       * { "twapTask": { "aggregatorPubkey": "GvDMxPzN1sCj7L26YDK2HnMRXEQmQ2aemov8YBtPS7vR", "period": 3600, "minSamples": 60, "weightByPropagationTime": true  } }
+       * ```
        * @property {OracleJob.ISerumSwapTask|null} [serumSwapTask] Task serumSwapTask
        * @property {OracleJob.IPowTask|null} [powTask] Task powTask
        * @property {OracleJob.ILendingRateTask|null} [lendingRateTask] Task lendingRateTask
        * @property {OracleJob.IMangoPerpMarketTask|null} [mangoPerpMarketTask] Task mangoPerpMarketTask
-       * @property {OracleJob.IJupiterSwapTask|null} [jupiterSwapTask] Task jupiterSwapTask
+       * @property {OracleJob.IJupiterSwapTask|null} [jupiterSwapTask] Fetch the simulated price for a swap on JupiterSwap.
+       *
+       * _**Input**_: None
+       *
+       * _**Returns**_: The swap price on Jupiter for a given input and output token mint address.
+       *
+       * _**Example**_: Fetch the JupiterSwap price for exchanging 1 SOL into USDC.
+       *
+       * ```json
+       * { "jupiterSwapTask": { "inTokenAddress": "So11111111111111111111111111111111111111112", "outTokenAddress": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v" } }
+       * ```
+       *
+       * _**Example**_: Fetch the JupiterSwap price for exchanging 1000 SOL into USDC.
+       *
+       * ```json
+       * { "jupiterSwapTask": { "inTokenAddress": "So11111111111111111111111111111111111111112", "outTokenAddress": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v", "baseAmount": "1000" } }
+       * ```
        * @property {OracleJob.IPerpMarketTask|null} [perpMarketTask] Task perpMarketTask
-       * @property {OracleJob.IOracleTask|null} [oracleTask] Task oracleTask
+       * @property {OracleJob.IOracleTask|null} [oracleTask] Fetch the current price of a Solana oracle protocol.
+       *
+       * _**Input**_: None
+       *
+       * _**Returns**_: The current price of an on-chain oracle.
+       *
+       * _**Example**_: The Switchboard SOL/USD oracle price.
+       *
+       * ```json
+       * { "oracleTask": { "switchboardAddress": "GvDMxPzN1sCj7L26YDK2HnMRXEQmQ2aemov8YBtPS7vR" } }
+       * ```
+       *
+       * _**Example**_: The Pyth SOL/USD oracle price.
+       *
+       * ```json
+       * { "oracleTask": { "pythAddress": "H6ARHf6YXhGYeQfUzQNGk6rDNnLBQKrenN712K4AQJEG" } }
+       * ```
+       *
+       * _**Example**_: The Chainlink SOL/USD oracle price.
+       *
+       * ```json
+       * { "oracleTask": { "chainlinkAddress": "CcPVS9bqyXbD9cLnTbhhHazLsrua8QMFUHTutPtjyDzq" } }
+       * ```
        * @property {OracleJob.IAnchorFetchTask|null} [anchorFetchTask] Task anchorFetchTask
        * @property {OracleJob.IDefiKingdomsTask|null} [defiKingdomsTask] Task defiKingdomsTask
        * @property {OracleJob.ITpsTask|null} [tpsTask] Task tpsTask
@@ -15227,7 +15577,17 @@
        * @property {OracleJob.IUniswapExchangeRateTask|null} [uniswapExchangeRateTask] Task uniswapExchangeRateTask
        * @property {OracleJob.ISushiswapExchangeRateTask|null} [sushiswapExchangeRateTask] Task sushiswapExchangeRateTask
        * @property {OracleJob.IPancakeswapExchangeRateTask|null} [pancakeswapExchangeRateTask] Task pancakeswapExchangeRateTask
-       * @property {OracleJob.ICacheTask|null} [cacheTask] Task cacheTask
+       * @property {OracleJob.ICacheTask|null} [cacheTask] Execute a job and store the result in a variable to reference later.
+       *
+       * _**Input**_: None
+       *
+       * _**Returns**_: The input
+       *
+       * _**Example**_: CacheTask storing ${ONE} = 1
+       *
+       * ```json
+       * { "cacheTask": { "cacheItems": [ { "variableName": "ONE", "job": { "tasks": [ { "valueTask": { "value": 1 } } ] } } ] } }
+       * ```
        * @property {OracleJob.ISysclockOffsetTask|null} [sysclockOffsetTask] Task sysclockOffsetTask
        * @property {OracleJob.IMarinadeStateTask|null} [marinadeStateTask] Task marinadeStateTask
        * @property {OracleJob.ISolanaAccountDataFetchTask|null} [solanaAccountDataFetchTask] Task solanaAccountDataFetchTask
@@ -15238,14 +15598,34 @@
        * @property {OracleJob.IVwapTask|null} [vwapTask] Task vwapTask
        * @property {OracleJob.IEwmaTask|null} [ewmaTask] Task ewmaTask
        * @property {OracleJob.IComparisonTask|null} [comparisonTask] Task comparisonTask
-       * @property {OracleJob.IRoundTask|null} [roundTask] Task roundTask
-       * @property {OracleJob.IBoundTask|null} [boundTask] Task boundTask
+       * @property {OracleJob.IRoundTask|null} [roundTask] Round the current running result to a set number of decimal places.
+       *
+       * _**Input**_: The current running numerical result.
+       *
+       * _**Returns**_: The running result rounded to a set number of decimal places.
+       *
+       * _**Example**_: Round down the running resul to 8 decimal places
+       *
+       * ```json
+       * { "roundTask": { "method": "METHOD_ROUND_DOWN", "decimals": 8 } }
+       * ```
+       * @property {OracleJob.IBoundTask|null} [boundTask] Bound the running result to an upper/lower bound. This is typically the last task in an OracleJob.
+       *
+       * _**Input**_: The current running numerical result.
+       *
+       * _**Returns**_: The running result bounded to an upper or lower bound if it exceeds a given threshold.
+       *
+       * _**Example**_: Bound the running result to a value between 0.90 and 1.10
+       *
+       * ```json
+       * { "boundTask": { "lowerBoundValue": "0.90","onExceedsLowerBoundValue": "0.90","upperBoundValue": "1.10","onExceedsUpperBoundValue": "1.10" } }
+       * ```
        */
 
       /**
        * Constructs a new Task.
        * @memberof OracleJob
-       * @classdesc Represents a Task.
+       * @classdesc Represents a singular operation performed by an oracle to yield an eventual numerical result.
        * @implements ITask
        * @constructor
        * @param {OracleJob.ITask=} [properties] Properties to set
@@ -15258,7 +15638,25 @@
       }
 
       /**
-       * Task httpTask.
+       * The adapter will report the text body of a successful HTTP request to the
+       * specified url, or return an error if the response status code is greater
+       * than or equal to 400.
+       *
+       * _**Input**_: None
+       *
+       * _**Returns**_: String representation of the http response.
+       *
+       * _**Example**_: Basic HttpTask
+       *
+       * ```json
+       * {"httpTask": {"url": "https://mywebsite.org/path"} }
+       * ```
+       *
+       * _**Example**_: HttpTask example with headers
+       *
+       * ```json
+       * { "httpTask": { "url": "https://mywebsite.org/path", "method": "METHOD_POST", "headers": [ { "key": "MY_HEADER_KEY", "value": "MY_HEADER_VALUE" } ], "body": "{\"MY_BODY_KEY\":\"MY_BODY_VALUE\"}" } }
+       * ```
        * @member {OracleJob.IHttpTask|null|undefined} httpTask
        * @memberof OracleJob.Task
        * @instance
@@ -15266,7 +15664,18 @@
       Task.prototype.httpTask = null;
 
       /**
-       * Task jsonParseTask.
+       * The adapter walks the path specified and returns the value found at that result. If returning
+       * JSON data from the HttpGet or HttpPost adapters, you must use this adapter to parse the response.
+       *
+       * _**Input**_: String representation of a JSON object.
+       *
+       * _**Returns**_: A numerical result.
+       *
+       * _**Example**_: Parses the price field from a JSON object
+       *
+       * ```json
+       * {"jsonParse": {"path": "$.price"} }
+       * ```
        * @member {OracleJob.IJsonParseTask|null|undefined} jsonParseTask
        * @memberof OracleJob.Task
        * @instance
@@ -15290,7 +15699,17 @@
       Task.prototype.meanTask = null;
 
       /**
-       * Task websocketTask.
+       * Opens and maintains a websocket for light speed data retrieval.
+       *
+       * _**Input**_: None
+       *
+       * _**Returns**_: String representation of the websocket subscription message.
+       *
+       * _**Example**_: Opens a coinbase websocket
+       *
+       * ```json
+       * { "websocketTask": { "url": "wss://ws-feed.pro.coinbase.com", "subscription": "{\"type\":\"subscribe\",\"product_ids\":[\"BTC-USD\"],\"channels\":[\"ticker\",{\"name\":\"ticker\",\"product_ids\":[\"BTC-USD\"]}]}", "maxDataAgeSeconds": 15, "filter": "$[?(@.type == 'ticker' && @.product_id == 'BTC-USD')]" } }
+       * ```
        * @member {OracleJob.IWebsocketTask|null|undefined} websocketTask
        * @memberof OracleJob.Task
        * @instance
@@ -15314,7 +15733,33 @@
       Task.prototype.multiplyTask = null;
 
       /**
-       * Task lpTokenPriceTask.
+       * Fetch LP token price info from a number of supported exchanges.
+       *
+       * See our blog post on [Fair LP Token Oracles](/blog/2022/01/20/Fair-LP-Token-Oracles)
+       *
+       * *NOTE**: This is not the swap price but the price of the underlying LP token.
+       *
+       * _**Input**_: None
+       *
+       * _**Returns**_: The price of an LP token for a given AMM pool.
+       *
+       * _**Example**_: Fetch the Orca LP token price of the SOL/USDC pool
+       *
+       * ```json
+       * { "lpTokenPriceTask": { "orcaPoolAddress": "APDFRM3HMr8CAGXwKHiu2f5ePSpaiEJhaURwhsRrUUt9" } }
+       * ```
+       *
+       * _**Example**_: Fetch the fair price Orca LP token price of the SOL/USDC pool
+       *
+       * ```json
+       * { "lpTokenPriceTask": { "orcaPoolAddress": "APDFRM3HMr8CAGXwKHiu2f5ePSpaiEJhaURwhsRrUUt9", "useFairPrice": true, "priceFeedAddresses": [ "GvDMxPzN1sCj7L26YDK2HnMRXEQmQ2aemov8YBtPS7vR", "BjUgj6YCnFBZ49wF54ddBVA9qu8TeqkFtkbqmZcee8uW" ] } }
+       * ```
+       *
+       * _**Example**_: Fetch the fair price Raydium LP token price of the SOL/USDC pool
+       *
+       * ```json
+       * { "lpTokenPriceTask": { "raydiumPoolAddress": "58oQChx4yWmvKdwLLZzBi4ChoCc2fqCUWBkwMihLYQo2", "useFairPrice": true,"priceFeedAddresses": ["GvDMxPzN1sCj7L26YDK2HnMRXEQmQ2aemov8YBtPS7vR","BjUgj6YCnFBZ49wF54ddBVA9qu8TeqkFtkbqmZcee8uW" ] } }
+       * ```
        * @member {OracleJob.ILpTokenPriceTask|null|undefined} lpTokenPriceTask
        * @memberof OracleJob.Task
        * @instance
@@ -15322,7 +15767,23 @@
       Task.prototype.lpTokenPriceTask = null;
 
       /**
-       * Task lpExchangeRateTask.
+       * Fetch the current swap price for a given liquidity pool
+       *
+       * _**Input**_: None
+       *
+       * _**Returns**_: The swap price for a given AMM pool.
+       *
+       * _**Example**_: Fetch the exchange rate from the Orca SOL/USDC pool
+       *
+       * ```json
+       * { "lpExchangeRateTask": { "orcaPoolAddress": "APDFRM3HMr8CAGXwKHiu2f5ePSpaiEJhaURwhsRrUUt9" } }
+       * ```
+       *
+       * _**Example**_: Fetch the exchange rate from the Raydium SOL/USDC pool
+       *
+       * ```json
+       * { "lpExchangeRateTask": { "raydiumPoolAddress": "58oQChx4yWmvKdwLLZzBi4ChoCc2fqCUWBkwMihLYQo2" } }
+       * ```
        * @member {OracleJob.ILpExchangeRateTask|null|undefined} lpExchangeRateTask
        * @memberof OracleJob.Task
        * @instance
@@ -15338,7 +15799,29 @@
       Task.prototype.conditionalTask = null;
 
       /**
-       * Task valueTask.
+       * Returns a specified value.
+       *
+       * _**Input**_: None
+       *
+       * _**Returns**_: A numerical result.
+       *
+       * _**Example**_: Returns the value 10
+       *
+       * ```json
+       * {"valueTask": {"value": 10} }
+       * ```
+       *
+       * _**Example**_: Returns the currentRound result of an aggregator
+       *
+       * ```json
+       * {"valueTask": {"aggregatorPubkey": "GvDMxPzN1sCj7L26YDK2HnMRXEQmQ2aemov8YBtPS7vR"} }
+       * ```
+       *
+       * _**Example**_: Returns the value stored in a CacheTask variable
+       *
+       * ```json
+       * {"valueTask": {"big": "${ONE}"} }
+       * ```
        * @member {OracleJob.IValueTask|null|undefined} valueTask
        * @memberof OracleJob.Task
        * @instance
@@ -15386,7 +15869,17 @@
       Task.prototype.subtractTask = null;
 
       /**
-       * Task twapTask.
+       * Takes a twap over a set period for a certain aggregator. Aggregators have an optional history buffer account storing the last N accepted results. The TwapTask will iterate over an aggregators history buffer and calculate the time weighted average of the samples within a given time period.
+       *
+       * _**Input**_: None
+       *
+       * _**Returns**_: The time weighted average of an aggregator over a given time period.
+       *
+       * _**Example**_: The 1hr Twap of the SOL/USD Aggregator, requiring at least 60 samples.
+       *
+       * ```json
+       * { "twapTask": { "aggregatorPubkey": "GvDMxPzN1sCj7L26YDK2HnMRXEQmQ2aemov8YBtPS7vR", "period": 3600, "minSamples": 60, "weightByPropagationTime": true  } }
+       * ```
        * @member {OracleJob.ITwapTask|null|undefined} twapTask
        * @memberof OracleJob.Task
        * @instance
@@ -15426,7 +15919,23 @@
       Task.prototype.mangoPerpMarketTask = null;
 
       /**
-       * Task jupiterSwapTask.
+       * Fetch the simulated price for a swap on JupiterSwap.
+       *
+       * _**Input**_: None
+       *
+       * _**Returns**_: The swap price on Jupiter for a given input and output token mint address.
+       *
+       * _**Example**_: Fetch the JupiterSwap price for exchanging 1 SOL into USDC.
+       *
+       * ```json
+       * { "jupiterSwapTask": { "inTokenAddress": "So11111111111111111111111111111111111111112", "outTokenAddress": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v" } }
+       * ```
+       *
+       * _**Example**_: Fetch the JupiterSwap price for exchanging 1000 SOL into USDC.
+       *
+       * ```json
+       * { "jupiterSwapTask": { "inTokenAddress": "So11111111111111111111111111111111111111112", "outTokenAddress": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v", "baseAmount": "1000" } }
+       * ```
        * @member {OracleJob.IJupiterSwapTask|null|undefined} jupiterSwapTask
        * @memberof OracleJob.Task
        * @instance
@@ -15442,7 +15951,29 @@
       Task.prototype.perpMarketTask = null;
 
       /**
-       * Task oracleTask.
+       * Fetch the current price of a Solana oracle protocol.
+       *
+       * _**Input**_: None
+       *
+       * _**Returns**_: The current price of an on-chain oracle.
+       *
+       * _**Example**_: The Switchboard SOL/USD oracle price.
+       *
+       * ```json
+       * { "oracleTask": { "switchboardAddress": "GvDMxPzN1sCj7L26YDK2HnMRXEQmQ2aemov8YBtPS7vR" } }
+       * ```
+       *
+       * _**Example**_: The Pyth SOL/USD oracle price.
+       *
+       * ```json
+       * { "oracleTask": { "pythAddress": "H6ARHf6YXhGYeQfUzQNGk6rDNnLBQKrenN712K4AQJEG" } }
+       * ```
+       *
+       * _**Example**_: The Chainlink SOL/USD oracle price.
+       *
+       * ```json
+       * { "oracleTask": { "chainlinkAddress": "CcPVS9bqyXbD9cLnTbhhHazLsrua8QMFUHTutPtjyDzq" } }
+       * ```
        * @member {OracleJob.IOracleTask|null|undefined} oracleTask
        * @memberof OracleJob.Task
        * @instance
@@ -15514,7 +16045,17 @@
       Task.prototype.pancakeswapExchangeRateTask = null;
 
       /**
-       * Task cacheTask.
+       * Execute a job and store the result in a variable to reference later.
+       *
+       * _**Input**_: None
+       *
+       * _**Returns**_: The input
+       *
+       * _**Example**_: CacheTask storing ${ONE} = 1
+       *
+       * ```json
+       * { "cacheTask": { "cacheItems": [ { "variableName": "ONE", "job": { "tasks": [ { "valueTask": { "value": 1 } } ] } } ] } }
+       * ```
        * @member {OracleJob.ICacheTask|null|undefined} cacheTask
        * @memberof OracleJob.Task
        * @instance
@@ -15602,7 +16143,17 @@
       Task.prototype.comparisonTask = null;
 
       /**
-       * Task roundTask.
+       * Round the current running result to a set number of decimal places.
+       *
+       * _**Input**_: The current running numerical result.
+       *
+       * _**Returns**_: The running result rounded to a set number of decimal places.
+       *
+       * _**Example**_: Round down the running resul to 8 decimal places
+       *
+       * ```json
+       * { "roundTask": { "method": "METHOD_ROUND_DOWN", "decimals": 8 } }
+       * ```
        * @member {OracleJob.IRoundTask|null|undefined} roundTask
        * @memberof OracleJob.Task
        * @instance
@@ -15610,7 +16161,17 @@
       Task.prototype.roundTask = null;
 
       /**
-       * Task boundTask.
+       * Bound the running result to an upper/lower bound. This is typically the last task in an OracleJob.
+       *
+       * _**Input**_: The current running numerical result.
+       *
+       * _**Returns**_: The running result bounded to an upper or lower bound if it exceeds a given threshold.
+       *
+       * _**Example**_: Bound the running result to a value between 0.90 and 1.10
+       *
+       * ```json
+       * { "boundTask": { "lowerBoundValue": "0.90","onExceedsLowerBoundValue": "0.90","upperBoundValue": "1.10","onExceedsUpperBoundValue": "1.10" } }
+       * ```
        * @member {OracleJob.IBoundTask|null|undefined} boundTask
        * @memberof OracleJob.Task
        * @instance
@@ -15692,7 +16253,7 @@
       };
 
       /**
-       * Encodes the specified Task message. Does not implicitly {@link OracleJob.Task.verify|verify} messages.
+       * Encodes the specified Task message. Does not implicitly {@apilink OracleJob.Task.verify|verify} messages.
        * @function encode
        * @memberof OracleJob.Task
        * @static
@@ -16066,7 +16627,7 @@
       };
 
       /**
-       * Encodes the specified Task message, length delimited. Does not implicitly {@link OracleJob.Task.verify|verify} messages.
+       * Encodes the specified Task message, length delimited. Does not implicitly {@apilink OracleJob.Task.verify|verify} messages.
        * @function encodeDelimited
        * @memberof OracleJob.Task
        * @static
