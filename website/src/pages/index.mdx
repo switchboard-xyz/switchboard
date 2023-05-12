@@ -20,13 +20,8 @@ import WhatIsAnOracle from "/data/docs/faq_what_is_an_oracle.md";
 import WhatMakesSwitchboardDifferent from "/data/docs/faq_what_makes_switchboard_different.md";
 import UseCases from "/data/docs/faq_use_cases.md";
 
-<Grid
-  container
-  spacing={3}
-  justifyContent="space-evenly"
-  alignItems="flex-start"
->
-  <Grid item xs={5}>
+<Grid container spacing={3} justifyContent="space-evenly" alignItems="center">
+  <Grid item xs={12} md={5}>
     <>
       <Typography
         sx={{ color: "var(--ifm-color-primary-light)", fontWeight: 600 }}
@@ -49,7 +44,7 @@ import UseCases from "/data/docs/faq_use_cases.md";
       </p>
     </>
   </Grid>
-  <Grid item xs={4}>
+  <Grid item xs={12} md={4}>
     <ChainComponent
       hideTitle
       items={[
