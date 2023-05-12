@@ -1,0 +1,98 @@
+---
+title: "Verifiable Randomness (VRF) on Solana"
+description: ""
+authors: [gallynaut]
+tags: []
+hide_table_of_contents: true
+---
+
+# Verifiable Randomness (VRF) on Solana
+
+Switchboard continues to be the only provider for verifiable randomness (VRF) on
+Solana and today we are excited to announce a fee reduction bringing the overall
+cost of a VRF request down to just under **0.002 SOL** — a 50x reduction!
+
+Initially, Switchboard set the cost of a VRF request to 0.1 SOL to protect the
+oracles from being overwhelmed with VRF requests, which could potentially crash
+the oracles as they awaited the VRF proof to confirm. Switchboard oracles have
+since migrated to using nonce accounts, or non-expiring transactions, to submit
+the necessary proofs, reducing the oracle’s memory footprint, and increasing the
+overall reliability of successfully completing the VRF proof. See the twitter
+thread below for more information.
+
+<iframe src="https://medium.com/media/6382c1a58c85f5921801b98283752f32" frameborder="0"></iframe>
+
+Switchboard will continue listening to the developer ecosystem in order to help
+power the next wave of projects on Solana. If you’re a developer that is
+integrating randomness into your application, we would love to connect and see
+how it can be further improved.
+
+## What is Randomness?
+
+Random numbers are a useful building block for many applications, such as gaming
+and some consensus protocols. Without an element of randomness, games and
+protocols can be cheated when adversaries are able to influence the outcome.
+
+![](https://cdn-images-1.medium.com/max/2000/1*7abFvsyHSLd4qos2ANkGiw.jpeg)
+
+While true-randomness on some computers can be made possible via _atmospheric
+noise_ and special hardware modules, such solutions on blockchains are not
+possible since they are *virtual machines *without physical hardware. Thus,
+pseudorandom-functions are needed to close this gap.
+
+Enter Verifiable Random Function (VRF). A VRF is a public-key pseudorandom
+function that provides proofs that its outputs were calculated correctly. This
+means we can use a cryptographic keypair to generate a random number with a
+proof, which can then be validated by anyone to ensure the value was calculated
+correctly without the possibility of leaking the producer’s secret key. You can
+read more about
+[VRF from the Algorand team](https://medium.com/algorand/algorand-releases-first-open-source-code-of-verifiable-random-function-93c2960abd61),
+whose founder was one of the authors on the original VRF paper.
+
+## Is Switchboard VRF Secure?
+
+Switchboard’s implementation adheres to volume 11 of the Internet Research Task
+Force’s (IRTFs) draft for VRF. If you like math feel free to check it out
+[here](https://datatracker.ietf.org/doc/html/draft-irtf-cfrg-vrf-11).
+
+Once the oracle has posted the proof on-chain, anyone is permitted to turn the
+crank and verify the proof. If a malicious oracle tries to submit a false proof,
+it will be rejected on-chain during the proof verification.
+
+Switchboard’s VRF implementation uses the VRF counter and the recent blockhash
+as the VRF input to prevent oracles from gaining an unfair advantage.
+Unfortunately, this means that just like any other blockchain VRF protocol,
+there exists a collusion vector between the oracle and the block-producer,
+however, it is much more secure than simply using the blockhash on its own on
+its own for randomness!
+
+## Should I use XYZ for Randomness?
+
+Many projects attempt to derive “randomness” from the latest blockhash.
+Unfortunately, while very low-cost, this is **_extremely insecure_** against an
+adversary with the ability to influence transaction ordering. Slot leaders could
+easily exploit your game or protocol by adding noise to the blocks they produce
+to result in “random” data favorable to themselves. With the advent of MEV tech
+such as Flashbots, Jito Labs, and proposer-builder-separation, this attack
+vector may become more accessible to unsophisticated adversaries.
+
+Another risk to be aware of is improper VRFs, such as those based on
+non-deterministic signature schemes, like EdDSA. See
+[@colludingnode’s thread](https://twitter.com/colludingnode/status/1536449312791707653)
+for more details.
+
+A few examples where VRF could have mitigated exploits:
+
+- [$COPE roulette exploited when using the recent blockhash for pseudo randomness](https://twitter.com/PierreArowana/status/1441552108734476290)
+
+- [Trash Panda mint sniped by bots due to predictable mint order](https://twitter.com/bardstocks/status/1469346361455923208?s=21)
+
+## How Do I Integrate Switchboard VRF?
+
+We have a number of resources to get started!
+
+- [Discord](https://discord.com/invite/sNeGymrabT)
+
+- [VRF Documentation](https://docs.switchboard.xyz/randomness)
+
+- [Anchor VRF Example Program](https://github.com/switchboard-xyz/switchboard-v2/tree/main/programs/anchor-vrf-parser)

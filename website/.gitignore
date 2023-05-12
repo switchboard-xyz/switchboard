@@ -1,0 +1,26 @@
+# Dependencies
+/node_modules
+
+# Production
+/build
+
+# Generated files
+.docusaurus
+.cache-loader
+
+# Misc
+.DS_Store
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Normally these are checked into source control
+# But we only need this for the typedoc plugin
+# If we start versioning our SDKs, we might want to remove this
+versioned_docs/*
+versioned_sidebars/*

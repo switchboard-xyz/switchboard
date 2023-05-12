@@ -1,0 +1,63 @@
+---
+sidebar_position: 1
+title: Data Feed Integration
+---
+
+import MarkdownImage from "/src/components/MarkdownImage";
+import { Box, Typography, Grid } from "@mui/material";
+import Link from "@docusaurus/Link";
+
+import CodeBlock from "@theme/CodeBlock";
+import Tabs from "@theme/Tabs";
+import TabItem from "@theme/TabItem";
+
+## Read a Feed On-Chain
+
+import ReadFeedRust from "!!raw-loader!../../../../sdks/solana/.docs/rust/switchboard-v2/usage/read-result.rs";
+
+<CodeBlock language="rust">{ReadFeedRust}</CodeBlock>
+
+See the [anchor-feed-parser](/solana/sdk/anchor/anchor-feed-parser) example for
+a full example.
+
+## Read a Feed with Typescript
+
+import ReadFeedTypescript from "!!raw-loader!../../../../sdks/solana/.docs/javascript/solana.js/usage/read-data-feed.ts";
+
+<CodeBlock language="typescript">{ReadFeedTypescript}</CodeBlock>
+
+## Create a Feed in Typescript
+
+import CreateFeedTypescript from "!!raw-loader!../../../../sdks/solana/.docs/javascript/solana.js/usage/create-a-data-feed.ts";
+
+<CodeBlock language="typescript">{CreateFeedTypescript}</CodeBlock>
+
+## Create a Feed with the CLI
+
+import CreateFeedCli from "../../../../sdks/solana/.docs/javascript/feed-walkthrough/usage/create-a-feed-with-cli.md";
+
+<CreateFeedCli />
+
+## More Resources
+
+- [anchor-feed-parser](https://github.com/switchboard-xyz/sbv2-solana/tree/main/programs/anchor-feed-parser):
+  View an anchor example showing how to deserialize and read a Switchboard data
+  feed
+- [aggregator.spec.ts](https://github.com/switchboard-xyz/sbv2-solana/blob/main/javascript/solana.js/test/aggregator.spec.ts):
+  View the javascript tests for an aggregator and see sample implementations
+
+## Troubleshooting
+
+<details>
+<summary>
+
+### Why is my feed stale?
+
+</summary>
+
+- Does the feed have enough funds in its lease account?
+- Does the feed have the right permissions for its queue?
+- Is the feed currently on a crank?
+- Is a new round being opened?
+
+</details>

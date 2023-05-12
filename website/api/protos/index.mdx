@@ -1,0 +1,36 @@
+Protobuf definitions to instruct an oracle how to fetch, parse, and transform
+data to bring it on-chain.
+
+Switchboard oracles read on-chain job accounts to determine how to fetch and
+respond to update request. An OracleJob is a collection of tasks that are
+chained together to arrive at a single numerical value.
+
+Switchboard tasks are executed sequentially with the output of the previous task
+provided as the input to the next task in a chain. After the final task, the
+TaskRunner will attempt to convert the running result to a numeric value.
+
+**NOTE**: Some task do not consume the running input such as HttpTask,
+WebsocketTask, and most of the fetch tasks. If the TaskRunner sees one of these
+task types in the middle of a job definition, it will effectively reset the
+running result.
+
+## <i className={`codicon codicon-symbol-method`} style={{ color: "var(--ifm-color-info)", fontSize: "1.5rem" }} /> OracleJob
+
+Represents a list of tasks to be performed by a Switchboard oracle.
+
+See the OracleJob typescript definition in
+[@switchboard-xyz/common](/api/common/class/OracleJob)
+
+| Name                                                                                                                          | Type                       | Description                                       |
+| ----------------------------------------------------------------------------------------------------------------------------- | -------------------------- | ------------------------------------------------- |
+| <i className={`codicon codicon-symbol-property`} style={{color: "var(--ifm-color-success)",fontSize: "1.25rem"}}/>&nbsp;tasks | [Task[]](/api/protos/Task) | The chain of tasks to perform for this OracleJob. |
+
+## <i className={`codicon codicon-symbol-method`} style={{ color: "var(--ifm-color-info)", fontSize: "1.5rem" }} /> Task
+
+Represents a singular operation performed by an oracle to yield an eventual
+numerical result.
+
+See a table of task types with examples: [OracleJob.Task](/api/protos/Task)
+
+See the Task typescript definition in
+[@switchboard-xyz/common](/api/common/class/Task)

@@ -44,7 +44,7 @@ async function main() {
 
   // Create protos in the src/protos directory
   execSync(
-    `${binPath}/shx mkdir -p src/protos; ${binPath}/pbjs --root sbv2Protos -t static-module -o src/protos/index.js ./protos/*.proto && ${binPath}/pbts -o src/protos/index.d.ts src/protos/index.js;`,
+    `${binPath}/shx mkdir -p src/protos; ${binPath}/pbjs --alt-comment --root sbv2Protos -t static-module -o src/protos/index.js ./protos/*.proto && ${binPath}/pbts -o src/protos/index.d.ts src/protos/index.js;`,
     { encoding: 'utf-8' }
   );
   insertStringBeforeSync(
@@ -89,7 +89,7 @@ async function main() {
   // Create protos in the lib-cjs/protos
   execSync(`${binPath}/tsc -p tsconfig.cjs.json`, { encoding: 'utf-8' });
   execSync(
-    `${binPath}/shx rm -rf lib-cjs/protos; ${binPath}/shx mkdir -p lib-cjs/protos; ${binPath}/pbjs --root sbv2Protos -t static-module -o lib-cjs/protos/index.js ./protos/*.proto && ${binPath}/pbts -o lib-cjs/protos/index.d.ts lib-cjs/protos/index.js`,
+    `${binPath}/shx rm -rf lib-cjs/protos; ${binPath}/shx mkdir -p lib-cjs/protos; ${binPath}/pbjs --alt-comment --root sbv2Protos -t static-module -o lib-cjs/protos/index.js ./protos/*.proto && ${binPath}/pbts -o lib-cjs/protos/index.d.ts lib-cjs/protos/index.js`,
     { encoding: 'utf-8' }
   );
   insertStringBeforeSync(
@@ -136,7 +136,7 @@ async function main() {
   // Create ESM protos in the lib/protos
   execSync(`${binPath}/tsc`, { encoding: 'utf-8' });
   execSync(
-    `${binPath}/shx rm -rf lib/protos; ${binPath}/shx mkdir -p lib/protos; ${binPath}/pbjs --root sbv2Protos -t static-module --es6 -w \"es6\" -o lib/protos/index.js ./protos/*.proto && ${binPath}/pbts -o lib/protos/index.d.ts lib/protos/index.js && ${binPath}/shx --silent sed  -i 'protobufjs/minimal' 'protobufjs/minimal.js' lib/protos/index.js > '/dev/null' 2>&1 && ${binPath}/shx --silent sed -i 'import \\* as' 'import' lib/protos/index.js > '/dev/null' 2>&1`,
+    `${binPath}/shx rm -rf lib/protos; ${binPath}/shx mkdir -p lib/protos; ${binPath}/pbjs --alt-comment --root sbv2Protos -t static-module --es6 -w \"es6\" -o lib/protos/index.js ./protos/*.proto && ${binPath}/pbts -o lib/protos/index.d.ts lib/protos/index.js && ${binPath}/shx --silent sed  -i 'protobufjs/minimal' 'protobufjs/minimal.js' lib/protos/index.js > '/dev/null' 2>&1 && ${binPath}/shx --silent sed -i 'import \\* as' 'import' lib/protos/index.js > '/dev/null' 2>&1`,
     { encoding: 'utf-8' }
   );
   insertStringBeforeSync(
@@ -187,6 +187,16 @@ async function main() {
       public toYaml(): string;
     `
   );
+
+  // replace @link with @apilink for our typedoc plugin
+  function replaceLinkTag(file) {
+    const fileString = fs.readFileSync(file, 'utf-8');
+    const updatedFileString = fileString.replace(/@link/g, '@apilink');
+    fs.writeFileSync(file, updatedFileString);
+  }
+  replaceLinkTag(path.join(projectRoot, 'src', 'protos', 'index.js'));
+  replaceLinkTag(path.join(projectRoot, 'src', 'protos', 'index.d.ts'));
+
   execSync(`${binPath}/prettier ./lib/protos --write`, {
     encoding: 'utf-8',
   });
@@ -201,7 +211,8 @@ async function main() {
     {
       index: 'src/index',
       build: 'src/build',
-      utils: 'src/utils/index',
+      protos: 'src/protos',
+      networks: 'src/networks/index',
       // 'big.js': 'src/big',
       // 'bn.js': 'src/bn',
     },

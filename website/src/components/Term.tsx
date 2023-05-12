@@ -1,7 +1,7 @@
 import React from "react";
 import { Tooltip } from "@mui/material";
 import { Link } from "react-router-dom";
-import termsData from "/terms.json";
+import termsData from "terms.json";
 
 const popupStyle = {
   fontSize: "14px",

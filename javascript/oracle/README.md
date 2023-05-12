@@ -1,6 +1,6 @@
 <div align="center">
   <a href="#">
-    <img height="170" src="https://github.com/switchboard-xyz/sbv2-core/raw/main/website/static/img/icons/switchboard/avatar.svg" />
+    <img src="https://github.com/switchboard-xyz/sbv2-core/raw/main/website/static/img/icons/switchboard/avatar.png" />
   </a>
 
   <h1>@switchboard-xyz/oracle</h1>
@@ -16,7 +16,7 @@
 
   <p>
     <a href="https://discord.gg/switchboardxyz">
-      <img alt="Discord" src="https://img.shields.io/discord/841525135311634443?color=blueviolet&logo=discord&logoColor=white">
+      <img alt="Discord" src="https://img.shields.io/discord/841525135311634443?color=blueviolet&logo=discord&logoColor=white" />
     </a>
     <a href="https://twitter.com/switchboardxyz">
       <img alt="Twitter" src="https://img.shields.io/twitter/follow/switchboardxyz?label=Follow+Switchboard" />
@@ -42,20 +42,20 @@ npm i --save-dev @switchboard-xyz/oracle
 ### NodeJS
 
 ```ts
-import { NodeOracle } from "@switchboard-xyz/oracle";
+import { NodeOracle } from '@switchboard-xyz/oracle';
 
 const oracle = await NodeOracle.fromReleaseChannel({
-  releaseChannel: "testnet",
-  chain: "solana",
-  network: "localnet",
-  rpcUrl: "http://0.0.0.0:8899",
-  oracleKey: "FKFPBD5WUUL5bSNwBH3AKY58KuY8nz2zkMCYR271CcVA",
-  secretPath: "~/.config/solana/id.json",
+  releaseChannel: 'testnet',
+  chain: 'solana',
+  network: 'localnet',
+  rpcUrl: 'http://0.0.0.0:8899',
+  oracleKey: 'FKFPBD5WUUL5bSNwBH3AKY58KuY8nz2zkMCYR271CcVA',
+  secretPath: '~/.config/solana/id.json',
 });
 
 try {
   await oracle.startAndAwait();
-  console.log("oracle ready");
+  console.log('oracle ready');
   await sleep(10000);
 } catch (error) {
   console.error(error);
@@ -67,20 +67,20 @@ oracle.stop();
 ### Docker
 
 ```ts
-import { DockerOracle } from "@switchboard-xyz/oracle";
+import { DockerOracle } from '@switchboard-xyz/oracle';
 
 const oracle = await DockerOracle.fromReleaseChannel({
-  releaseChannel: "testnet",
-  chain: "solana",
-  network: "localnet",
-  rpcUrl: "http://0.0.0.0:8899",
-  oracleKey: "FKFPBD5WUUL5bSNwBH3AKY58KuY8nz2zkMCYR271CcVA",
-  secretPath: "~/.config/solana/id.json",
+  releaseChannel: 'testnet',
+  chain: 'solana',
+  network: 'localnet',
+  rpcUrl: 'http://0.0.0.0:8899',
+  oracleKey: 'FKFPBD5WUUL5bSNwBH3AKY58KuY8nz2zkMCYR271CcVA',
+  secretPath: '~/.config/solana/id.json',
 });
 
 try {
   await oracle.startAndAwait();
-  console.log("oracle ready");
+  console.log('oracle ready');
   await sleep(10000);
 } catch (error) {
   console.error(error);

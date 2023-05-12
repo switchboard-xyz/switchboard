@@ -1,0 +1,201 @@
+---
+sidebar_position: 1
+slug: /v3
+title: What is Switchboard V3?
+---
+
+- [Switchboard Attestation Program: A Comprehensive Guide](#)
+  - [Introduction to the Switchboard Attestation Program](#introduction-to-the-switchboard-attestation-program)
+  - [Exploring SGX Attestation](#exploring-sgx-attestation)
+  - [SGX Runtime Environment](#sgx-runtime-environment)
+  - [Crucial Components in the Attestation Process](#crucial-components-in-the-attestation-process)
+  - [Attestation Lifecycle](#attestation-lifecycle)
+  - [Frequently Asked Questions](#frequently-asked-questions)
+    - [VerifierQueue's role in the attestation process](#verifierqueues-role-in-the-attestation-process)
+    - [Managing MRENCLAVE measurements](#managing-mrenclave-measurements)
+    - [PermissionAccount and its role in access control](#permissionaccount-and-its-role-in-access-control)
+    - [Attestation data (quote) generation for QuoteAccount](#attestation-data-quote-generation-for-quoteaccount)
+    - [Switchboard Attestation Program as a unique oracle](#switchboard-attestation-program-as-a-unique-oracle)
+    - [Maintaining an active SGX enclave with the heartbeat mechanism](#maintaining-an-active-sgx-enclave-with-the-heartbeat-mechanism)
+
+## Introduction to the Switchboard Attestation Program
+
+Previously, Switchboard's security model depended on economic incentives where
+data reporters were rewarded or penalized based on the proximity of their
+reported data to the median. Oracle operators had to lock up a portion of
+economic stake and receive explicit approval from the oracle queue's authority.
+Although this model provided a degree of decentralization and security, it faced
+challenges in aligning the incentives of oracles with DeFi protocols.
+
+The Switchboard Attestation Program builds upon Switchboard V2s enconomic
+incentives by leveraging TEEs. TEEs allow for unique digital signatures to be
+created for software running within its enclave, along with the data generated
+by that software. This ensures the secure and verifiable confirmation of the
+oracles' integrity and authenticity.
+
+The Switchboard Attestation Program is a sibling program to the Switchboard
+oracle program, and is responsible for verifying attestation quotes on-chain,
+which grants or revokes an oracle's permissions based on the contents within the
+secure enclave. By verifying the code's integrity inside the enclave, we can
+ensure the code hasn't been tampered with and that our application will behave
+as expected.
+
+A ServiceQueueAccount manages a set of valid
+[MRENCLAVE](./tee.mdx/#term-mrenclave) measurements, representing the permitted
+software versions an application can run. Any code changes will alter the
+enclave's state, necessitating the addition of a new measurement by the
+ServiceQueueAccount `authority` before oracles can upgrade. If a version is
+found to have a bug, it can be revoked, and oracles will automatically be
+removed.
+
+An oracle account represents a specific SGX enclave. When an oracle is
+provisioned, it creates a QuoteAccount on-chain with the MRENCLAVE measurement
+detailing the software version it runs. Quote verification oracles constantly
+monitor the chain for oracles requesting verification of their enclave. Upon
+detecting such an event, it calls the program and updates or revokes the
+associated PermissionAccount based on whether the measurement is allowed on the
+oracle's ServiceQueueAccount.
+
+ServiceQueueAccounts dictate how often oracles must verify their enclave,
+ensuring that enclaves consistently update and maintain software patches.
+
+With the Attestation Program, Switchboard V3 enables:
+
+- **Oracle Verification**: Oracles are encapsulated within TEEs, generating a
+  unique digital signature that can be posted on-chain for public verification.
+  This ensures that the oracles can be trusted while maintaining a decentralized
+  and verifiable system.
+- **Execution Verification**: As oracles participate in a queue and handle user
+  requests, the executions of data feeds, functions, and other tasks can be
+  verifiably carried out. This allows users to confirm that transactions are
+  strictly dictated by the code that created them, ensuring system integrity and
+  security.
+
+## Exploring SGX Attestation
+
+Intel Software Guard Extensions (SGX) offer a secure execution environment
+called an enclave, where sensitive code and data are protected from unauthorized
+access or tampering. The attestation process verifies the enclave's identity and
+validates its code and data, ensuring authenticity and integrity.
+
+The Switchboard Attestation Program uses SGX attestation to establish trust in
+oracle applications, providing a robust mechanism for verifying secure code
+execution within the Trusted Execution Environment (TEE).
+
+Switchboard services utilize Gramine for the runtime environment. Gramine allows
+SGX enclaves to operate as if they were running on a standard operating system,
+managing system calls and other essential interactions.
+
+## Crucial Components in the Attestation Process
+
+The Switchboard attestation process involves several components that work
+together to facilitate attestation and verification of SGX enclaves:
+
+- **ServiceQueueAccount**: Manages the list of allowed enclave measurements
+  (MRENCLAVEs) and maintains a dedicated VerifierQueue to verify attestations.
+- **NodeAccount**: Represents an individual SGX enclave, connects to the
+  ServiceQueueAccount, and has a 1:N relationship with QuoteAccount.
+- **PermissionAccount**: An account between the _ServiceQueueAccount_ and the
+  _NodeAccount_ dictating whether the _NodeAccount_ is permitted to perform
+  on-chain actions.
+- **QuoteAccount**: Stores the attestation data (quote) generated by the SGX
+  enclave for a given NodeAccount.
+
+## Attestation Lifecycle
+
+The Switchboard Attestation Program follows a structured lifecycle to ensure the
+secure and trustworthy execution of code within the TEE:
+
+1. Initialize the ServiceQueueAccount
+2. Register permitted MRENCLAVE measurements
+3. Create NodeAccount and PermissionAccount
+4. Run an SGX Switchboard function, creates QuoteAccount from compiled binary
+5. QuoteAccount emits a request to the VerifierQueue associated with the
+   ServiceQueue to verify its MRENCLAVE measurement
+6. The VerifierQueue verifies the MRENCLAVE measurement on-chain (attestation)
+7. The PermissionAccount associated with the NodeAccount has the permissions
+   enabled
+8. Maintain an active and trustworthy SGX enclave through heartbeats
+
+By adhering to this lifecycle, the Switchboard Attestation Program ensures the
+security, authenticity, and trustworthiness of SGX enclaves operating within the
+TEE.
+
+## Frequently Asked Questions
+
+Here, we address some common questions and provide in-depth explanations to help
+you better understand the Switchboard Attestation Program and its role in
+decentralized applications.
+
+1. [VerifierQueue's role in the attestation process](#faq-1)
+2. [Managing MRENCLAVE measurements](#faq-2)
+3. [PermissionAccount and its role in access control](#faq-3)
+4. [Attestation data (quote) generation for QuoteAccount](#faq-4)
+5. [Switchboard Attestation Program as a special oracle](#faq-5)
+6. [Heartbeat mechanism and maintaining an active SGX enclave](#faq-6)
+
+Please refer to the provided questions and answers to gain a deeper
+understanding of the Switchboard Attestation Program and its inner workings.
+This comprehensive guide aims to help you build secure and reliable
+decentralized applications by leveraging the SGX technology and attestation
+process.
+
+## Frequently Asked Questions
+
+<a name="faq-1"></a>
+
+### Role of VerifierQueue in the attestation process
+
+The VerifierQueue is a set of on-chain oracles that watch the chain for events
+from QuoteAccounts to verify their MRENCLAVE measurements. When verified
+on-chain, the associated PermissionAccounts' permission flags are enabled,
+indicating they have permission to operate on the queue and be delegated work or
+compute requests.
+
+<a name="faq-2"></a>
+
+### Adding, updating, and removing MRENCLAVE measurements
+
+The ServiceQueueAccount's `authority` field is allowed to make changes to the
+permitted enclave measurements. This could be a DAO-controlled account where
+participants vote on new trusted code to operate on their program or dApp.
+
+<a name="faq-3"></a>
+
+### Understanding PermissionAccount and its role in access control
+
+The PermissionAccount is a program-derived address between a ServiceQueueAccount
+and NodeAccount. When a NodeAccount attempts to operate on a
+ServiceQueueAccount, the PermissionAccount is loaded and its settings are
+verified against the ServiceQueueAccount settings.
+
+<a name="faq-4"></a>
+
+### How SGX enclaves generate attestation data (quote) for QuoteAccount
+
+The QuoteAccount keypair is generated during the initial execution of the code
+using entropy derived from within the SGX enclave. The quote is generated from
+the a fingerprint of the application binary running within the enclave to verify
+it hasn't been tampered with. The oracles use the Gramine runtime, which
+provides the abstraction to run the application.
+
+<a name="faq-5"></a>
+
+### Switchboard Attestation Program as a special oracle
+
+The attestation oracles verify the signed measurement against the queue's
+accepted MRENCLAVEs and invoke an on-chain transaction, which performs the
+account checks. If the measurement is invalid, the NodeAccount's associated
+PermissionAccount's permissions are revoked, and the Node is blocked from
+performing any access-controlled actions like heartbeating or being delegated
+work.
+
+<a name="faq-6"></a>
+
+### Heartbeat mechanism and maintaining an active SGX enclave
+
+A NodeAccount is required to heartbeat before the
+`service_queue.last_heartbeat`. If they do not, they are removed from the queue,
+and their permissions are revoked, meaning they will not be assigned any future
+work until they heartbeat again. A NodeAccount is also required to re-verify its
+MRENCLAVE measurement before the `service_queue.max_quote_verification_age`.

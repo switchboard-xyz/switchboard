@@ -15,6 +15,7 @@ export interface RoundedCardGroupProps {
     | "space-around"
     | "space-evenly";
   alignItems?: "flex-start" | "center" | "flex-end" | "stretch" | "baseline";
+  boxSx?: any;
 }
 
 export default function RoundedCardGroup({
@@ -24,6 +25,7 @@ export default function RoundedCardGroup({
   direction,
   justifyContent,
   alignItems,
+  boxSx,
 }: RoundedCardGroupProps) {
   // const lg = Math.floor(12 / Math.min(cols ?? 2, items.length));
 
@@ -34,6 +36,7 @@ export default function RoundedCardGroup({
       direction={direction ?? "row"}
       justifyContent={justifyContent}
       alignItems={alignItems}
+      sx={{ ...boxSx }}
     >
       {items.map((item) => (
         <Grid

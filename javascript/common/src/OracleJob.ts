@@ -56,7 +56,7 @@ export function deserializeOracleJob(
 
 export type TaskSimulatorNetwork = 'devnet' | 'mainnet-beta';
 
-export type TaskRunnerResponse1 = TaskRunnerError | TaskRunnerResponse;
+export type TaskRunnerResponse = TaskRunnerError | TaskRunnerSuccess;
 
 export type TaskRunnerMeta = {
   taskRunnerVersion: string;
@@ -66,7 +66,7 @@ export type TaskRunnerError = TaskRunnerMeta & {
   error: string;
 };
 
-export type TaskRunnerResponse = TaskRunnerMeta & {
+export type TaskRunnerSuccess = TaskRunnerMeta & {
   results: Array<Big>;
   result: Big;
 };

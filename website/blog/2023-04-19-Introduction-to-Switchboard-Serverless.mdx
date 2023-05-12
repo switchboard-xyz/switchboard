@@ -1,0 +1,171 @@
+---
+title: "Introduction to Switchboard Serverless"
+description:
+  "In the previous article, we covered the “Why build Switchboard v3?” and the
+  technology, Trusted Execution Environment (TEE) behind itIn this article,
+  we’ll discuss the whats and hows of v3."
+authors: [yy]
+tags: []
+hide_table_of_contents: true
+---
+
+# Introduction to Switchboard Serverless
+
+Switchboard Serverless offers a suite of computing services that enables
+developers to build the future of blockchain applications.
+
+In the previous [Switchboard-v3 article](/blog/2023/03/30/Switchboard-v3), we
+covered the “Why build Switchboard v3?” and the technology, Trusted Execution
+Environment (TEE) behind it. In this article, we’ll discuss the whats and hows
+of v3.
+
+In the previous iteration, v2 offers a great infrastructure — the standard
+“honest” staked nodes consensus model. Switchboard v3 introduces a new paradigm
+and a greater solution when building with oracles, providing a secure,
+verifiable and customizable solution to tailor fit to your data and off-chain
+execution needs.
+
+# About TEEs
+
+A Trusted Execution Environment (TEE) is a specialized hardware that specializes
+in **data software integrity and privacy**.
+
+## What are TEEs?
+
+TEEs represents a secure environment within a machine’s hardware or software
+that is isolated from the operating system and other applications. TEEs are
+designed to provide a trusted and secure environment where sensitive information
+can be processed without the risk of being accessed or modified by unauthorized
+parties. TEEs can attest another TEE to be running a particular software. TEEs
+are commonly used in mobile devices, banking or digital wallets to provide
+secure storage for sensitive data.
+
+In a blockchain context, TEEs can be used to securely store private keys for
+blockchain wallets, ensuring that they cannot be accessed by unauthorized
+parties. TEEs can also be used to securely process blockchain transactions,
+ensuring that they cannot be tampered with or modified by hackers or malicious
+actors.
+
+<!--truncate-->
+
+# Switchboard Attestation Program
+
+In the aforementioned [Switchboard-v3 article](/blog/2023/03/30/Switchboard-v3),
+Switchboard v2 was built around economic security models where data reporters
+are rewarded or slashed relative to how close or far they were to the median of
+all data reporters. To participate in a
+[Switchboard Queue](https://docs.switchboard.xyz/queue), oracle operators are
+required to **lock up some portion of economic stake** specified by the queue as
+well as **explicit operating approval** from the oracle queue’s authority.
+
+The economic stake combined with the authority-gated operating permission can be
+“sufficient” to fulfil decentralization BUT it limits oracle honesty incentives
+to the amount they staked.
+
+Take example where an oracle is supporting a 1 million dollar TVL DeFi protocol,
+can the oracle’s stake be aligned? Should the oracle be at risk of losing
+millions of dollars if it misreports? This method introduces additional
+challenges with capital efficiency, but Switchboard v3 aims to tackle this.
+
+By utilizing TEE’s technology, we can:
+
+- Create a digital signature of the software loaded into it;
+- Create a signature of any data generated from within the code.
+
+## Verifying the Oracles
+
+In Switchboard’s case, oracles are encapsulated within TEEs, allowing it to
+create a unique digital signature — a public key of a signing keypair, where we
+post on-chain for all to verify. In short, these oracles can be trusted but yet
+verifiable!
+
+## Verifying the Execution
+
+Once these oracles are verified and begin to participate in a queue. All user
+requests such as data feeds, functions, etc can be verifiably executed, where
+people can verify that the transactions being sent are strictly dictated by the
+code that created it.
+
+**_Read more about TEEs, Switchboard Attestation Program_**
+[**_here_**](https://docs.switchboard.xyz/v3/attestation)**_._**
+
+# Switchboard Serverless
+
+Attention developers! Yes, you saw that right. With Switchboard v3, apart from
+improving security by verifying oracles and its executions, Switchboard
+Serverless offers a suit of developer toolings through a serverless approach
+such that developers’ requests are matched with an oracle, eliminating the need
+to provision, operate, manage, or worry about any infrastructure or servers. The
+suite of developer toolings are mentioned in the following.
+
+## Switchboard Services
+
+Switchboard Services enables developers to write and deploy functions as part of
+data feeds — designed to perform specific tasks. With v3, developers can access
+powerful, customizable and scalable solutions to build and deploy services such
+as:
+
+Examples of Switchboard Services: Complex Risk Engines; Advanced Filtering;
+GameFi
+
+- Create complex risk engines that performs calculations based on private market
+  data which feeds directly into a DeFi protocol;
+- Develop advanced filtering functions to aggregate, verify and filter off-chain
+  data from multiple sources using custom logic to build dynamic applications;
+- Create complex automation flows for your application which can include
+  processing data, sending notifications, updating a database and more!
+
+## Switchboard Streams
+
+Switchboard Streams are data feeds and technically a subset of Services, but
+specifically designed to fetch data from on/off-chain data sources. The
+Switchboard Builder enables developers to create Streams seamlessly and with
+full customizability. With v3, the oracles’ execution of the jobs and tasks
+within each Streams are now verifiable — this helps DeFi protocols to align
+incentives with oracle operators.
+
+## Switchboard Secrets
+
+Switchboard Secrets provides developers a secure and confidential way to access
+private/gated APIs and data from off-chain sources. With v3, sensitive
+information can be processed and updated securely.
+
+Examples of Switchboard Secrets: Gated/private sports, price data; Off-chain API
+keys such as OpenAI and social media platforms
+
+- Accessibility to reliable sports, price data;
+- OpenAI API key;
+- Social media (Discord, Slack, Twitter) API key;
+- and so much more!
+
+## Switchboard pSeudorandomness
+
+Switchboard pSeudorandomness is a randomness service and Verifiable Random
+Function (VRF) for generating secure and verifiable on-chain randomness using
+TEE oracles.
+
+# Summary
+
+In conclusion, the Switchboard v3 oracle network paired with the suite of
+products offered through Switchboard Serverless enables developers to access
+verifiable off-chain computation and data, empowering them to build exceptional
+products for other developers and end-users.
+
+**_Join us to revolutionize the standard and plug in a new paradigm of
+oracles._**
+
+Fill up the beta form to test and experiment with Switchboard v3 today:
+[https://tinyurl.com/switchboardv3beta](https://tinyurl.com/switchboardv3beta)
+
+Contact us: [https://switchboard.xyz/contact](https://switchboard.xyz/contact)
+
+Twitter:
+[https://twitter.com/switchboardxyz](https://twitter.com/switchboardxyz)
+
+Discord: [https://discord.gg/switchboardxyz](https://discord.gg/switchboardxyz)
+
+Github: [https://github.com/switchboard-xyz](https://github.com/switchboard-xyz)
+
+Docs: [https://docs.switchboard.xyz](https://docs.switchboard.xyz/)
+
+More links: [https://linktr.ee/switchboardxyz](https://linktr.ee/switchboardxyz)

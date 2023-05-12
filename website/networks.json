@@ -1,0 +1,66 @@
+{
+  "solana": {
+    "github": "https://github.com/switchboard-xyz/sbv2-solana",
+    "libraries": {
+      "javascript": {
+        "name": "@switchboard-xyz/solana.js",
+        "description": "",
+        "docs": "/api/solana.js",
+        "git": "javascript/solana.js"
+      },
+      "rust": {
+        "name": "switchboard-v2",
+        "description": "",
+        "docs": "/api/solana.js",
+        "git": "rust/switchboard-v2"
+      }
+    },
+    "guides": {
+      "feeds": [
+        {
+          "name": "",
+          "description": "",
+          "docs": "/solana/guides/read-a-feed"
+        }
+      ]
+    },
+    "examples": [
+      {
+        "name": "JS Feed Walkthrough",
+        "description": "",
+        "docs": "/solana/examples/feed-walkthrough",
+        "git": "javascript/feed-walkthrough"
+      },
+      {
+        "name": "Anchor Feed Parser",
+        "description": "",
+        "docs": "/solana/examples/anchor-feed-parser",
+        "git": "programs/anchor-feed-parser"
+      },
+      {
+        "name": "Anchor VRF Parser",
+        "description": "",
+        "docs": "/solana/examples/anchor-vrf-parser",
+        "git": "programs/anchor-vrf-parser"
+      },
+      {
+        "name": "Anchor Buffer Parser",
+        "description": "",
+        "docs": "/solana/examples/anchor-buffer-parser",
+        "git": "programs/anchor-buffer-parser"
+      },
+      {
+        "name": "Anchor History Parser",
+        "description": "",
+        "docs": "/solana/examples/anchor-history-parser",
+        "git": "programs/anchor-history-parser"
+      },
+      {
+        "name": "VRF Flip",
+        "description": "",
+        "docs": "/solana/examples/vrf-flip",
+        "git": "https://github.com/switchboard-xyz/vrf-flip"
+      }
+    ]
+  }
+}

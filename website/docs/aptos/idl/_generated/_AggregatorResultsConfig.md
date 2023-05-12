@@ -1,6 +1,0 @@
-| Field             | Type                                                      | Description                                                                                                                                |
-| ----------------- | --------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------ |
-| varianceThreshold | [SwitchboardDecimal](/aptos/idl/types/SwitchboardDecimal) | Change percentage required between a previous round and the current round. If variance percentage is not met, reject new oracle responses. |
-| forceReportPeriod | u64                                                       | Number of seconds for which, even if the variance threshold is not passed, accept new responses from oracles.                              |
-| minJobResults     | u64                                                       | Minimum number of job results before an oracle accepts a result.                                                                           |
-| expiration        | u64                                                       | Timestamp when the feed is no longer needed.                                                                                               |

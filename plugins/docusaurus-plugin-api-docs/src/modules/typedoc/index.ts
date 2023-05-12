@@ -1,0 +1,1 @@
+export { TypedocGenerator } from "./generator";

@@ -1,0 +1,3486 @@
+{
+  "files": [
+    {
+      "name": "job_schemas.proto",
+      "description": "",
+      "package": "",
+      "hasEnums": false,
+      "hasExtensions": false,
+      "hasMessages": true,
+      "hasServices": false,
+      "enums": [
+        {
+          "name": "BufferParseType",
+          "longName": "OracleJob.BufferLayoutParseTask.BufferParseType",
+          "fullName": ".OracleJob.BufferLayoutParseTask.BufferParseType",
+          "description": "",
+          "values": [
+            {
+              "name": "pubkey",
+              "number": "1",
+              "description": "A public key."
+            },
+            {
+              "name": "bool",
+              "number": "2",
+              "description": "A boolean."
+            },
+            {
+              "name": "u8",
+              "number": "3",
+              "description": "An 8-bit unsigned value."
+            },
+            {
+              "name": "i8",
+              "number": "4",
+              "description": "An 8-bit signed value."
+            },
+            {
+              "name": "u16",
+              "number": "5",
+              "description": "A 16-bit unsigned value."
+            },
+            {
+              "name": "i16",
+              "number": "6",
+              "description": "A 16-bit signed value."
+            },
+            {
+              "name": "u32",
+              "number": "7",
+              "description": "A 32-bit unsigned value."
+            },
+            {
+              "name": "i32",
+              "number": "8",
+              "description": "A 32-bit signed value."
+            },
+            {
+              "name": "f32",
+              "number": "9",
+              "description": "A 32-bit IEEE floating point value."
+            },
+            {
+              "name": "u64",
+              "number": "10",
+              "description": "A 64-bit unsigned value."
+            },
+            {
+              "name": "i64",
+              "number": "11",
+              "description": "A 64-bit signed value."
+            },
+            {
+              "name": "f64",
+              "number": "12",
+              "description": "A 64-bit IEEE floating point value."
+            },
+            {
+              "name": "u128",
+              "number": "13",
+              "description": "A 128-bit unsigned value."
+            },
+            {
+              "name": "i128",
+              "number": "14",
+              "description": "A 128-bit signed value."
+            }
+          ]
+        },
+        {
+          "name": "Endian",
+          "longName": "OracleJob.BufferLayoutParseTask.Endian",
+          "fullName": ".OracleJob.BufferLayoutParseTask.Endian",
+          "description": "",
+          "values": [
+            {
+              "name": "LITTLE_ENDIAN",
+              "number": "0",
+              "description": ""
+            },
+            {
+              "name": "BIG_ENDIAN",
+              "number": "1",
+              "description": ""
+            }
+          ]
+        },
+        {
+          "name": "Operation",
+          "longName": "OracleJob.ComparisonTask.Operation",
+          "fullName": ".OracleJob.ComparisonTask.Operation",
+          "description": "",
+          "values": [
+            {
+              "name": "OPERATION_EQ",
+              "number": "0",
+              "description": ""
+            },
+            {
+              "name": "OPERATION_GT",
+              "number": "1",
+              "description": ""
+            },
+            {
+              "name": "OPERATION_LT",
+              "number": "2",
+              "description": ""
+            }
+          ]
+        },
+        {
+          "name": "ClockType",
+          "longName": "OracleJob.CronParseTask.ClockType",
+          "fullName": ".OracleJob.CronParseTask.ClockType",
+          "description": "which type of clock to use",
+          "values": [
+            {
+              "name": "ORACLE",
+              "number": "0",
+              "description": ""
+            },
+            {
+              "name": "SYSCLOCK",
+              "number": "1",
+              "description": ""
+            }
+          ]
+        },
+        {
+          "name": "Method",
+          "longName": "OracleJob.HistoryFunctionTask.Method",
+          "fullName": ".OracleJob.HistoryFunctionTask.Method",
+          "description": "",
+          "values": [
+            {
+              "name": "METHOD_MIN",
+              "number": "0",
+              "description": ""
+            },
+            {
+              "name": "METHOD_MAX",
+              "number": "1",
+              "description": ""
+            }
+          ]
+        },
+        {
+          "name": "Method",
+          "longName": "OracleJob.HttpTask.Method",
+          "fullName": ".OracleJob.HttpTask.Method",
+          "description": "An enumeration representing the types of HTTP requests available to make.",
+          "values": [
+            {
+              "name": "METHOD_UNKOWN",
+              "number": "0",
+              "description": "Unset HTTP method will default to METHOD_GET"
+            },
+            {
+              "name": "METHOD_GET",
+              "number": "1",
+              "description": "Perform an HTTP 'GET' request."
+            },
+            {
+              "name": "METHOD_POST",
+              "number": "2",
+              "description": "Perform an HTTP 'POST' request."
+            }
+          ]
+        },
+        {
+          "name": "AggregationMethod",
+          "longName": "OracleJob.JsonParseTask.AggregationMethod",
+          "fullName": ".OracleJob.JsonParseTask.AggregationMethod",
+          "description": "The methods of combining a list of numerical results.",
+          "values": [
+            {
+              "name": "NONE",
+              "number": "0",
+              "description": ""
+            },
+            {
+              "name": "MIN",
+              "number": "1",
+              "description": "Grab the minimum value of the results."
+            },
+            {
+              "name": "MAX",
+              "number": "2",
+              "description": "Grab the maximum value of the results."
+            },
+            {
+              "name": "SUM",
+              "number": "3",
+              "description": "Sum up all of the results."
+            },
+            {
+              "name": "MEAN",
+              "number": "4",
+              "description": "Average all of the results."
+            },
+            {
+              "name": "MEDIAN",
+              "number": "5",
+              "description": "Grab the median of the results."
+            }
+          ]
+        },
+        {
+          "name": "Field",
+          "longName": "OracleJob.LendingRateTask.Field",
+          "fullName": ".OracleJob.LendingRateTask.Field",
+          "description": "",
+          "values": [
+            {
+              "name": "FIELD_DEPOSIT_RATE",
+              "number": "0",
+              "description": "deposit lending rate"
+            },
+            {
+              "name": "FIELD_BORROW_RATE",
+              "number": "1",
+              "description": "borrow lending rate"
+            }
+          ]
+        },
+        {
+          "name": "Method",
+          "longName": "OracleJob.RoundTask.Method",
+          "fullName": ".OracleJob.RoundTask.Method",
+          "description": "",
+          "values": [
+            {
+              "name": "METHOD_ROUND_UP",
+              "number": "0",
+              "description": ""
+            },
+            {
+              "name": "METHOD_ROUND_DOWN",
+              "number": "1",
+              "description": ""
+            }
+          ]
+        }
+      ],
+      "extensions": [],
+      "messages": [
+        {
+          "name": "OracleJob",
+          "longName": "OracleJob",
+          "fullName": ".OracleJob",
+          "description": "Represnts a list of tasks to be performed by a switchboard oracle.",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "tasks",
+              "description": "The chain of tasks to perform for this OracleJob.",
+              "label": "repeated",
+              "type": "Task",
+              "longType": "OracleJob.Task",
+              "fullType": "OracleJob.Task",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "AddTask",
+          "longName": "OracleJob.AddTask",
+          "fullName": ".OracleJob.AddTask",
+          "description": "This task will add a numerical input by a scalar value or by another\n/ aggregate.",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": true,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "scalar",
+              "description": "Specifies a scalar to add by.",
+              "label": "optional",
+              "type": "double",
+              "longType": "double",
+              "fullType": "double",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "Addition",
+              "defaultValue": ""
+            },
+            {
+              "name": "aggregator_pubkey",
+              "description": "Specifies an aggregator to add by.",
+              "label": "optional",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "Addition",
+              "defaultValue": ""
+            },
+            {
+              "name": "job",
+              "description": "A job whose result is computed before adding our numerical input by that result.",
+              "label": "optional",
+              "type": "OracleJob",
+              "longType": "OracleJob",
+              "fullType": "OracleJob",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "Addition",
+              "defaultValue": ""
+            },
+            {
+              "name": "big",
+              "description": "A stringified big.js. `Accepts variable expansion syntax.`",
+              "label": "optional",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "Addition",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "AnchorFetchTask",
+          "longName": "OracleJob.AnchorFetchTask",
+          "fullName": ".OracleJob.AnchorFetchTask",
+          "description": "Load a parse an Anchor based solana account.",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "program_id",
+              "description": "Owning program of the account to parse.",
+              "label": "optional",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "account_address",
+              "description": "The account to parse.",
+              "label": "optional",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "BoundTask",
+          "longName": "OracleJob.BoundTask",
+          "fullName": ".OracleJob.BoundTask",
+          "description": "Bound the running result to an upper/lower bound. This is typically the last task in an OracleJob.\n\n_**Input**_: The current running numerical result.\n\n_**Returns**_: The running result bounded to an upper or lower bound if it exceeds a given threshold.\n\n_**Example**_: Bound the running result to a value between 0.90 and 1.10\n\n```json\n{ \"boundTask\": { \"lowerBoundValue\": \"0.90\",\"onExceedsLowerBoundValue\": \"0.90\",\"upperBoundValue\": \"1.10\",\"onExceedsUpperBoundValue\": \"1.10\" } }\n```",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "lower_bound",
+              "description": "",
+              "label": "optional",
+              "type": "OracleJob",
+              "longType": "OracleJob",
+              "fullType": "OracleJob",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "lower_bound_value",
+              "description": "",
+              "label": "optional",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "upper_bound",
+              "description": "",
+              "label": "optional",
+              "type": "OracleJob",
+              "longType": "OracleJob",
+              "fullType": "OracleJob",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "upper_bound_value",
+              "description": "",
+              "label": "optional",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "on_exceeds_upper_bound",
+              "description": "",
+              "label": "optional",
+              "type": "OracleJob",
+              "longType": "OracleJob",
+              "fullType": "OracleJob",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "on_exceeds_upper_bound_value",
+              "description": "",
+              "label": "optional",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "on_exceeds_lower_bound",
+              "description": "",
+              "label": "optional",
+              "type": "OracleJob",
+              "longType": "OracleJob",
+              "fullType": "OracleJob",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "on_exceeds_lower_bound_value",
+              "description": "",
+              "label": "optional",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "BufferLayoutParseTask",
+          "longName": "OracleJob.BufferLayoutParseTask",
+          "fullName": ".OracleJob.BufferLayoutParseTask",
+          "description": "Return the deserialized value from a stringified buffer.",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "offset",
+              "description": "The buffer offset to start deserializing from.",
+              "label": "optional",
+              "type": "uint32",
+              "longType": "uint32",
+              "fullType": "uint32",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "endian",
+              "description": "The endianness of the stored value.",
+              "label": "optional",
+              "type": "Endian",
+              "longType": "OracleJob.BufferLayoutParseTask.Endian",
+              "fullType": "OracleJob.BufferLayoutParseTask.Endian",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "type",
+              "description": "The type of value to deserialize.",
+              "label": "optional",
+              "type": "BufferParseType",
+              "longType": "OracleJob.BufferLayoutParseTask.BufferParseType",
+              "fullType": "OracleJob.BufferLayoutParseTask.BufferParseType",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "CacheTask",
+          "longName": "OracleJob.CacheTask",
+          "fullName": ".OracleJob.CacheTask",
+          "description": "Execute a job and store the result in a variable to reference later.\n\n_**Input**_: None\n\n_**Returns**_: The input\n\n_**Example**_: CacheTask storing ${ONE} = 1\n\n```json\n{ \"cacheTask\": { \"cacheItems\": [ { \"variableName\": \"ONE\", \"job\": { \"tasks\": [ { \"valueTask\": { \"value\": 1 } } ] } } ] } }\n```",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "cache_items",
+              "description": "A list of cached variables to reference in the job with `${VARIABLE_NAME}`.",
+              "label": "repeated",
+              "type": "CacheItem",
+              "longType": "OracleJob.CacheTask.CacheItem",
+              "fullType": "OracleJob.CacheTask.CacheItem",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "CacheItem",
+          "longName": "OracleJob.CacheTask.CacheItem",
+          "fullName": ".OracleJob.CacheTask.CacheItem",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "variable_name",
+              "description": "The name of the variable to store in cache to reference later with `${VARIABLE_NAME}`.",
+              "label": "optional",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "job",
+              "description": "The OracleJob to execute to yield the value to store in cache.",
+              "label": "optional",
+              "type": "OracleJob",
+              "longType": "OracleJob",
+              "fullType": "OracleJob",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "ComparisonTask",
+          "longName": "OracleJob.ComparisonTask",
+          "fullName": ".OracleJob.ComparisonTask",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": true,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "op",
+              "description": "",
+              "label": "optional",
+              "type": "Operation",
+              "longType": "OracleJob.ComparisonTask.Operation",
+              "fullType": "OracleJob.ComparisonTask.Operation",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "lhs",
+              "description": "",
+              "label": "optional",
+              "type": "OracleJob",
+              "longType": "OracleJob",
+              "fullType": "OracleJob",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "LHS",
+              "defaultValue": ""
+            },
+            {
+              "name": "lhs_value",
+              "description": "",
+              "label": "optional",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "LHS",
+              "defaultValue": ""
+            },
+            {
+              "name": "rhs",
+              "description": "",
+              "label": "optional",
+              "type": "OracleJob",
+              "longType": "OracleJob",
+              "fullType": "OracleJob",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "RHS",
+              "defaultValue": ""
+            },
+            {
+              "name": "rhs_value",
+              "description": "",
+              "label": "optional",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "RHS",
+              "defaultValue": ""
+            },
+            {
+              "name": "on_true",
+              "description": "",
+              "label": "optional",
+              "type": "OracleJob",
+              "longType": "OracleJob",
+              "fullType": "OracleJob",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "on_true_value",
+              "description": "",
+              "label": "optional",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "on_false",
+              "description": "",
+              "label": "optional",
+              "type": "OracleJob",
+              "longType": "OracleJob",
+              "fullType": "OracleJob",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "on_false_value",
+              "description": "",
+              "label": "optional",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "on_failure",
+              "description": "",
+              "label": "optional",
+              "type": "OracleJob",
+              "longType": "OracleJob",
+              "fullType": "OracleJob",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "on_failure_value",
+              "description": "",
+              "label": "optional",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "ConditionalTask",
+          "longName": "OracleJob.ConditionalTask",
+          "fullName": ".OracleJob.ConditionalTask",
+          "description": "This task will run the `attempt` subtasks in an effort to produce a valid numerical result. If\n/ `attempt` fails to produce an acceptable result, `on_failure` subtasks will be run instead.",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "attempt",
+              "description": "A list of subtasks to process in an attempt to produce a valid numerical result.",
+              "label": "repeated",
+              "type": "Task",
+              "longType": "OracleJob.Task",
+              "fullType": "OracleJob.Task",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "on_failure",
+              "description": "A list of subtasks that will be run if `attempt` subtasks are unable to produce an acceptable\n/ result.",
+              "label": "repeated",
+              "type": "Task",
+              "longType": "OracleJob.Task",
+              "fullType": "OracleJob.Task",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "CronParseTask",
+          "longName": "OracleJob.CronParseTask",
+          "fullName": ".OracleJob.CronParseTask",
+          "description": "return a timestamp from a crontab instruction",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "cron_pattern",
+              "description": "the cron pattern to parse",
+              "label": "optional",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "clock_offset",
+              "description": "the timestamp offset \n/ to calculate the next run",
+              "label": "optional",
+              "type": "int32",
+              "longType": "int32",
+              "fullType": "int32",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "clock",
+              "description": "",
+              "label": "optional",
+              "type": "ClockType",
+              "longType": "OracleJob.CronParseTask.ClockType",
+              "fullType": "OracleJob.CronParseTask.ClockType",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "DefiKingdomsTask",
+          "longName": "OracleJob.DefiKingdomsTask",
+          "fullName": ".OracleJob.DefiKingdomsTask",
+          "description": "Fetch the swap price from DefiKingdoms.",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "provider",
+              "description": "The RPC provider to use for the swap.",
+              "label": "optional",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "in_token",
+              "description": "The input token of the swap.",
+              "label": "optional",
+              "type": "Token",
+              "longType": "OracleJob.DefiKingdomsTask.Token",
+              "fullType": "OracleJob.DefiKingdomsTask.Token",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "out_token",
+              "description": "The output token of the swap.",
+              "label": "optional",
+              "type": "Token",
+              "longType": "OracleJob.DefiKingdomsTask.Token",
+              "fullType": "OracleJob.DefiKingdomsTask.Token",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "Token",
+          "longName": "OracleJob.DefiKingdomsTask.Token",
+          "fullName": ".OracleJob.DefiKingdomsTask.Token",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "address",
+              "description": "The address of the token.",
+              "label": "optional",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "decimals",
+              "description": "The number of decimal places for a token.",
+              "label": "optional",
+              "type": "int32",
+              "longType": "int32",
+              "fullType": "int32",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "DivideTask",
+          "longName": "OracleJob.DivideTask",
+          "fullName": ".OracleJob.DivideTask",
+          "description": "This task will divide a numerical input by a scalar value or by another\n/ aggregate.",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": true,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "scalar",
+              "description": "Specifies a basic scalar denominator to divide by.",
+              "label": "optional",
+              "type": "double",
+              "longType": "double",
+              "fullType": "double",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "Denominator",
+              "defaultValue": ""
+            },
+            {
+              "name": "aggregator_pubkey",
+              "description": "Specifies another aggregator resut to divide by.",
+              "label": "optional",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "Denominator",
+              "defaultValue": ""
+            },
+            {
+              "name": "job",
+              "description": "A job whose result is computed before dividing our numerical input by that result.",
+              "label": "optional",
+              "type": "OracleJob",
+              "longType": "OracleJob",
+              "fullType": "OracleJob",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "Denominator",
+              "defaultValue": ""
+            },
+            {
+              "name": "big",
+              "description": "A stringified big.js. `Accepts variable expansion syntax.`",
+              "label": "optional",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "Denominator",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "EwmaTask",
+          "longName": "OracleJob.EwmaTask",
+          "fullName": ".OracleJob.EwmaTask",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "aggregator_address",
+              "description": "",
+              "label": "optional",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "period",
+              "description": "",
+              "label": "optional",
+              "type": "int32",
+              "longType": "int32",
+              "fullType": "int32",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "lambda",
+              "description": "",
+              "label": "optional",
+              "type": "double",
+              "longType": "double",
+              "fullType": "double",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "HistoryFunctionTask",
+          "longName": "OracleJob.HistoryFunctionTask",
+          "fullName": ".OracleJob.HistoryFunctionTask",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "method",
+              "description": "",
+              "label": "optional",
+              "type": "Method",
+              "longType": "OracleJob.HistoryFunctionTask.Method",
+              "fullType": "OracleJob.HistoryFunctionTask.Method",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "aggregator_address",
+              "description": "",
+              "label": "optional",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "period",
+              "description": "",
+              "label": "optional",
+              "type": "uint32",
+              "longType": "uint32",
+              "fullType": "uint32",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "HttpTask",
+          "longName": "OracleJob.HttpTask",
+          "fullName": ".OracleJob.HttpTask",
+          "description": "The adapter will report the text body of a successful HTTP request to the \nspecified url, or return an error if the response status code is greater \nthan or equal to 400.\n\n_**Input**_: None\n\n_**Returns**_: String representation of the http response.\n\n_**Example**_: Basic HttpTask\n\n```json\n{\"httpTask\": {\"url\": \"https://mywebsite.org/path\"} }\n```\n\n_**Example**_: HttpTask example with headers\n\n```json\n{ \"httpTask\": { \"url\": \"https://mywebsite.org/path\", \"method\": \"METHOD_POST\", \"headers\": [ { \"key\": \"MY_HEADER_KEY\", \"value\": \"MY_HEADER_VALUE\" } ], \"body\": \"{\\\"MY_BODY_KEY\\\":\\\"MY_BODY_VALUE\\\"}\" } }\n```",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "url",
+              "description": "A string containing the URL to direct this HTTP request to.",
+              "label": "optional",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "method",
+              "description": "The type of HTTP request to make.",
+              "label": "optional",
+              "type": "Method",
+              "longType": "OracleJob.HttpTask.Method",
+              "fullType": "OracleJob.HttpTask.Method",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "headers",
+              "description": "A list of headers to add to this HttpTask.",
+              "label": "repeated",
+              "type": "Header",
+              "longType": "OracleJob.HttpTask.Header",
+              "fullType": "OracleJob.HttpTask.Header",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "body",
+              "description": "A stringified body (if any) to add to this HttpTask.",
+              "label": "optional",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "Header",
+          "longName": "OracleJob.HttpTask.Header",
+          "fullName": ".OracleJob.HttpTask.Header",
+          "description": "An object that represents a header to add to an HTTP request.",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "key",
+              "description": "",
+              "label": "optional",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "value",
+              "description": "",
+              "label": "optional",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "JsonParseTask",
+          "longName": "OracleJob.JsonParseTask",
+          "fullName": ".OracleJob.JsonParseTask",
+          "description": "The adapter walks the path specified and returns the value found at that result. If returning\nJSON data from the HttpGet or HttpPost adapters, you must use this adapter to parse the response.\n\n_**Input**_: String representation of a JSON object.\n\n_**Returns**_: A numerical result.\n\n_**Example**_: Parses the price field from a JSON object\n\n```json\n{\"jsonParse\": {\"path\": \"$.price\"} }\n```",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "path",
+              "description": "JSONPath formatted path to the element. https://t.ly/uLtw\n/ https://www.npmjs.com/package/jsonpath-plus",
+              "label": "optional",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "aggregation_method",
+              "description": "The technique that will be used to aggregate the results if walking the specified path\n/ returns multiple numerical results.",
+              "label": "optional",
+              "type": "AggregationMethod",
+              "longType": "OracleJob.JsonParseTask.AggregationMethod",
+              "fullType": "OracleJob.JsonParseTask.AggregationMethod",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "JupiterSwapTask",
+          "longName": "OracleJob.JupiterSwapTask",
+          "fullName": ".OracleJob.JupiterSwapTask",
+          "description": "Fetch the simulated price for a swap on JupiterSwap.\n\n_**Input**_: None\n\n_**Returns**_: The swap price on Jupiter for a given input and output token mint address.\n\n_**Example**_: Fetch the JupiterSwap price for exchanging 1 SOL into USDC.\n\n```json\n{ \"jupiterSwapTask\": { \"inTokenAddress\": \"So11111111111111111111111111111111111111112\", \"outTokenAddress\": \"EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v\" } }\n```\n\n_**Example**_: Fetch the JupiterSwap price for exchanging 1000 SOL into USDC.\n\n```json\n{ \"jupiterSwapTask\": { \"inTokenAddress\": \"So11111111111111111111111111111111111111112\", \"outTokenAddress\": \"EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v\", \"baseAmount\": \"1000\" } }\n```",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": true,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "in_token_address",
+              "description": "The input token address.",
+              "label": "optional",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "out_token_address",
+              "description": "The output token address.",
+              "label": "optional",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "allow_list",
+              "description": "",
+              "label": "optional",
+              "type": "FilterList",
+              "longType": "OracleJob.JupiterSwapTask.FilterList",
+              "fullType": "OracleJob.JupiterSwapTask.FilterList",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "RoutesFilters",
+              "defaultValue": ""
+            },
+            {
+              "name": "deny_list",
+              "description": "",
+              "label": "optional",
+              "type": "FilterList",
+              "longType": "OracleJob.JupiterSwapTask.FilterList",
+              "fullType": "OracleJob.JupiterSwapTask.FilterList",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "RoutesFilters",
+              "defaultValue": ""
+            },
+            {
+              "name": "base_amount",
+              "description": "The amount of `in_token_address` tokens to swap.",
+              "label": "optional",
+              "type": "double",
+              "longType": "double",
+              "fullType": "double",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "SwapAmount",
+              "defaultValue": ""
+            },
+            {
+              "name": "quote_amount",
+              "description": "The amount of `out_token_address` tokens to swap.",
+              "label": "optional",
+              "type": "double",
+              "longType": "double",
+              "fullType": "double",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "SwapAmount",
+              "defaultValue": ""
+            },
+            {
+              "name": "base_amount_string",
+              "description": "The amount of `in_token_address` tokens to swap.",
+              "label": "optional",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "SwapAmount",
+              "defaultValue": ""
+            },
+            {
+              "name": "quote_amount_string",
+              "description": "The amount of `out_token_address` tokens to swap.",
+              "label": "optional",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "SwapAmount",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "FilterList",
+          "longName": "OracleJob.JupiterSwapTask.FilterList",
+          "fullName": ".OracleJob.JupiterSwapTask.FilterList",
+          "description": "A list of Jupiter AMM labels to allow or deny (e.g. 'Raydium', 'Orca')",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "labels",
+              "description": "",
+              "label": "repeated",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "LendingRateTask",
+          "longName": "OracleJob.LendingRateTask",
+          "fullName": ".OracleJob.LendingRateTask",
+          "description": "Fetch the lending rates for various Solana protocols",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "protocol",
+              "description": "01, apricot, francium, jet, larix, mango, port, solend, tulip",
+              "label": "optional",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "asset_mint",
+              "description": "A token mint address supported by the chosen protocol",
+              "label": "optional",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "field",
+              "description": "",
+              "label": "optional",
+              "type": "Field",
+              "longType": "OracleJob.LendingRateTask.Field",
+              "fullType": "OracleJob.LendingRateTask.Field",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "LpExchangeRateTask",
+          "longName": "OracleJob.LpExchangeRateTask",
+          "fullName": ".OracleJob.LpExchangeRateTask",
+          "description": "Fetch the current swap price for a given liquidity pool\n\n_**Input**_: None\n\n_**Returns**_: The swap price for a given AMM pool.\n\n_**Example**_: Fetch the exchange rate from the Orca SOL/USDC pool\n\n```json\n{ \"lpExchangeRateTask\": { \"orcaPoolAddress\": \"APDFRM3HMr8CAGXwKHiu2f5ePSpaiEJhaURwhsRrUUt9\" } }\n```\n\n_**Example**_: Fetch the exchange rate from the Raydium SOL/USDC pool\n\n```json\n{ \"lpExchangeRateTask\": { \"raydiumPoolAddress\": \"58oQChx4yWmvKdwLLZzBi4ChoCc2fqCUWBkwMihLYQo2\" } }\n```",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": true,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "in_token_address",
+              "description": "Used alongside mercurial_pool_address to specify the input token for a swap.",
+              "label": "optional",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "out_token_address",
+              "description": "Used alongside mercurial_pool_address to specify the output token for a swap.",
+              "label": "optional",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "mercurial_pool_address",
+              "description": "Mercurial finance pool address. A full list can be found here: https://github.com/mercurial-finance/stable-swap-n-pool-js",
+              "label": "optional",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "PoolAddress",
+              "defaultValue": ""
+            },
+            {
+              "name": "saber_pool_address",
+              "description": "Saber pool address. A full list can be found here: https://github.com/saber-hq/saber-registry-dist",
+              "label": "optional",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "PoolAddress",
+              "defaultValue": ""
+            },
+            {
+              "name": "orca_pool_token_mint_address",
+              "description": "@deprecated** Use orcaPoolAddress",
+              "label": "optional",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "PoolAddress",
+              "defaultValue": "",
+              "options": {
+                "deprecated": true
+              }
+            },
+            {
+              "name": "raydium_pool_address",
+              "description": "The Raydium liquidity pool ammId. A full list can be found here: https://sdk.raydium.io/liquidity/mainnet.json",
+              "label": "optional",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "PoolAddress",
+              "defaultValue": ""
+            },
+            {
+              "name": "orca_pool_address",
+              "description": "Pool address for an Orca LP pool or whirlpool. \n/ A full list of Orca LP pools can be found here: https://www.orca.so/pools",
+              "label": "optional",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "PoolAddress",
+              "defaultValue": ""
+            },
+            {
+              "name": "port_reserve_address",
+              "description": "The Port reserve pubkey. A full list can be found here: https://api-v1.port.finance/reserves",
+              "label": "optional",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "PoolAddress",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "LpTokenPriceTask",
+          "longName": "OracleJob.LpTokenPriceTask",
+          "fullName": ".OracleJob.LpTokenPriceTask",
+          "description": "Fetch LP token price info from a number of supported exchanges. \n\nSee our blog post on [Fair LP Token Oracles](/blog/2022/01/20/Fair-LP-Token-Oracles)\n\n*NOTE**: This is not the swap price but the price of the underlying LP token.\n\n_**Input**_: None\n\n_**Returns**_: The price of an LP token for a given AMM pool. \n\n_**Example**_: Fetch the Orca LP token price of the SOL/USDC pool\n\n```json\n{ \"lpTokenPriceTask\": { \"orcaPoolAddress\": \"APDFRM3HMr8CAGXwKHiu2f5ePSpaiEJhaURwhsRrUUt9\" } }\n```\n\n_**Example**_: Fetch the fair price Orca LP token price of the SOL/USDC pool\n\n```json\n{ \"lpTokenPriceTask\": { \"orcaPoolAddress\": \"APDFRM3HMr8CAGXwKHiu2f5ePSpaiEJhaURwhsRrUUt9\", \"useFairPrice\": true, \"priceFeedAddresses\": [ \"GvDMxPzN1sCj7L26YDK2HnMRXEQmQ2aemov8YBtPS7vR\", \"BjUgj6YCnFBZ49wF54ddBVA9qu8TeqkFtkbqmZcee8uW\" ] } }\n```\n\n_**Example**_: Fetch the fair price Raydium LP token price of the SOL/USDC pool\n\n```json\n{ \"lpTokenPriceTask\": { \"raydiumPoolAddress\": \"58oQChx4yWmvKdwLLZzBi4ChoCc2fqCUWBkwMihLYQo2\", \"useFairPrice\": true,\"priceFeedAddresses\": [\"GvDMxPzN1sCj7L26YDK2HnMRXEQmQ2aemov8YBtPS7vR\",\"BjUgj6YCnFBZ49wF54ddBVA9qu8TeqkFtkbqmZcee8uW\" ] } }\n```",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": true,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "mercurial_pool_address",
+              "description": "Mercurial finance pool address. A full list can be found here: https://github.com/mercurial-finance/stable-swap-n-pool-js",
+              "label": "optional",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "PoolAddress",
+              "defaultValue": ""
+            },
+            {
+              "name": "saber_pool_address",
+              "description": "Saber pool address. A full list can be found here: https://github.com/saber-hq/saber-registry-dist",
+              "label": "optional",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "PoolAddress",
+              "defaultValue": ""
+            },
+            {
+              "name": "orca_pool_address",
+              "description": "Orca pool address. A full list can be found here: https://www.orca.so/pools",
+              "label": "optional",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "PoolAddress",
+              "defaultValue": ""
+            },
+            {
+              "name": "raydium_pool_address",
+              "description": "The Raydium liquidity pool ammId. A full list can be found here: https://sdk.raydium.io/liquidity/mainnet.json",
+              "label": "optional",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "PoolAddress",
+              "defaultValue": ""
+            },
+            {
+              "name": "price_feed_addresses",
+              "description": "A list of Switchboard aggregator accounts used to calculate the fair LP price. This ensures the price is based on the previous round to mitigate flash loan price manipulation.",
+              "label": "repeated",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "price_feed_jobs",
+              "description": "",
+              "label": "repeated",
+              "type": "OracleJob",
+              "longType": "OracleJob",
+              "fullType": "OracleJob",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "use_fair_price",
+              "description": "If enabled and price_feed_addresses provided, the oracle will calculate the fair LP price based on the liquidity pool reserves. See our blog post for more information: https://switchboardxyz.medium.com/fair-lp-token-oracles-94a457c50239",
+              "label": "optional",
+              "type": "bool",
+              "longType": "bool",
+              "fullType": "bool",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "MangoPerpMarketTask",
+          "longName": "OracleJob.MangoPerpMarketTask",
+          "fullName": ".OracleJob.MangoPerpMarketTask",
+          "description": "Fetch the current price for a Mango perpetual market",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "perp_market_address",
+              "description": "Mainnet address for a mango perpetual market. A full list can be found here: https://github.com/blockworks-foundation/mango-client-v3/blob/main/src/ids.json",
+              "label": "optional",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "MarinadeStateTask",
+          "longName": "OracleJob.MarinadeStateTask",
+          "fullName": ".OracleJob.MarinadeStateTask",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": false,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": []
+        },
+        {
+          "name": "MaxTask",
+          "longName": "OracleJob.MaxTask",
+          "fullName": ".OracleJob.MaxTask",
+          "description": "Returns the maximum value of all the results returned by the provided subtasks and subjobs.",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "tasks",
+              "description": "A list of subtasks to process and produce a list of result values.",
+              "label": "repeated",
+              "type": "Task",
+              "longType": "OracleJob.Task",
+              "fullType": "OracleJob.Task",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "jobs",
+              "description": "A list of subjobs to process and produce a list of result values.",
+              "label": "repeated",
+              "type": "OracleJob",
+              "longType": "OracleJob",
+              "fullType": "OracleJob",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "MeanTask",
+          "longName": "OracleJob.MeanTask",
+          "fullName": ".OracleJob.MeanTask",
+          "description": "Returns the mean of all the results returned by the provided subtasks and subjobs.",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "tasks",
+              "description": "A list of subtasks to process and produce a list of result values.",
+              "label": "repeated",
+              "type": "Task",
+              "longType": "OracleJob.Task",
+              "fullType": "OracleJob.Task",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "jobs",
+              "description": "A list of subjobs to process and produce a list of result values.",
+              "label": "repeated",
+              "type": "OracleJob",
+              "longType": "OracleJob",
+              "fullType": "OracleJob",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "MedianTask",
+          "longName": "OracleJob.MedianTask",
+          "fullName": ".OracleJob.MedianTask",
+          "description": "Returns the median of all the results returned by the provided subtasks and subjobs. Nested tasks must return a Number.",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "tasks",
+              "description": "A list of subtasks to process and produce a list of result values.",
+              "label": "repeated",
+              "type": "Task",
+              "longType": "OracleJob.Task",
+              "fullType": "OracleJob.Task",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "jobs",
+              "description": "A list of subjobs to process and produce a list of result values.",
+              "label": "repeated",
+              "type": "OracleJob",
+              "longType": "OracleJob",
+              "fullType": "OracleJob",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "min_successful_required",
+              "description": "",
+              "label": "optional",
+              "type": "int32",
+              "longType": "int32",
+              "fullType": "int32",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "MinTask",
+          "longName": "OracleJob.MinTask",
+          "fullName": ".OracleJob.MinTask",
+          "description": "Returns the minimum value of all the results returned by the provided subtasks and subjobs.",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "tasks",
+              "description": "A list of subtasks to process and produce a list of result values.",
+              "label": "repeated",
+              "type": "Task",
+              "longType": "OracleJob.Task",
+              "fullType": "OracleJob.Task",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "jobs",
+              "description": "A list of subjobs to process and produce a list of result values.",
+              "label": "repeated",
+              "type": "OracleJob",
+              "longType": "OracleJob",
+              "fullType": "OracleJob",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "MultiplyTask",
+          "longName": "OracleJob.MultiplyTask",
+          "fullName": ".OracleJob.MultiplyTask",
+          "description": "This task will multiply a numerical input by a scalar value or by another aggregator.",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": true,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "scalar",
+              "description": "Specifies a scalar to multiply by.",
+              "label": "optional",
+              "type": "double",
+              "longType": "double",
+              "fullType": "double",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "Multiple",
+              "defaultValue": ""
+            },
+            {
+              "name": "aggregator_pubkey",
+              "description": "Specifies an aggregator to multiply by.",
+              "label": "optional",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "Multiple",
+              "defaultValue": ""
+            },
+            {
+              "name": "job",
+              "description": "A job whose result is computed before multiplying our numerical input by that result.",
+              "label": "optional",
+              "type": "OracleJob",
+              "longType": "OracleJob",
+              "fullType": "OracleJob",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "Multiple",
+              "defaultValue": ""
+            },
+            {
+              "name": "big",
+              "description": "A stringified big.js. `Accepts variable expansion syntax.`",
+              "label": "optional",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "Multiple",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "OracleTask",
+          "longName": "OracleJob.OracleTask",
+          "fullName": ".OracleJob.OracleTask",
+          "description": "Fetch the current price of a Solana oracle protocol. \n\n_**Input**_: None\n\n_**Returns**_: The current price of an on-chain oracle.\n\n_**Example**_: The Switchboard SOL/USD oracle price.\n\n```json\n{ \"oracleTask\": { \"switchboardAddress\": \"GvDMxPzN1sCj7L26YDK2HnMRXEQmQ2aemov8YBtPS7vR\" } }\n```\n\n_**Example**_: The Pyth SOL/USD oracle price.\n\n```json\n{ \"oracleTask\": { \"pythAddress\": \"H6ARHf6YXhGYeQfUzQNGk6rDNnLBQKrenN712K4AQJEG\" } }\n```\n\n_**Example**_: The Chainlink SOL/USD oracle price.\n\n```json\n{ \"oracleTask\": { \"chainlinkAddress\": \"CcPVS9bqyXbD9cLnTbhhHazLsrua8QMFUHTutPtjyDzq\" } }\n```",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": true,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "switchboard_address",
+              "description": "Mainnet address of a Switchboard V2 feed. Switchboard is decentralized and allows anyone to build their own feed. A small subset of feeds is available here: https://switchboard.xyz/explorer",
+              "label": "optional",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "AggregatorAddress",
+              "defaultValue": ""
+            },
+            {
+              "name": "pyth_address",
+              "description": "Mainnet address for a Pyth feed. A full list can be found here: https://pyth.network/price-feeds/",
+              "label": "optional",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "AggregatorAddress",
+              "defaultValue": ""
+            },
+            {
+              "name": "chainlink_address",
+              "description": "Mainnet address for a Chainlink feed. A full list can be found here: https://docs.chain.link/docs/solana/data-feeds-solana",
+              "label": "optional",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "AggregatorAddress",
+              "defaultValue": ""
+            },
+            {
+              "name": "pyth_allowed_confidence_interval",
+              "description": "Value (as a percentage) that the lower bound confidence interval is of the actual value.\n/ Confidence intervals that are larger that this treshold are rejected.",
+              "label": "optional",
+              "type": "double",
+              "longType": "double",
+              "fullType": "double",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "PancakeswapExchangeRateTask",
+          "longName": "OracleJob.PancakeswapExchangeRateTask",
+          "fullName": ".OracleJob.PancakeswapExchangeRateTask",
+          "description": "Fetch the swap price from PancakeSwap.",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "in_token_address",
+              "description": "The input token address.",
+              "label": "optional",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "out_token_address",
+              "description": "The output token address.",
+              "label": "optional",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "in_token_amount",
+              "description": "The amount of tokens to swap.",
+              "label": "optional",
+              "type": "double",
+              "longType": "double",
+              "fullType": "double",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "slippage",
+              "description": "The allowable slippage in percent for the swap.",
+              "label": "optional",
+              "type": "double",
+              "longType": "double",
+              "fullType": "double",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "provider",
+              "description": "The RPC provider to use for the swap.",
+              "label": "optional",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "PerpMarketTask",
+          "longName": "OracleJob.PerpMarketTask",
+          "fullName": ".OracleJob.PerpMarketTask",
+          "description": "Fetch the current price of a perpetual market.",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": true,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "mango_market_address",
+              "description": "Market address for a mango perpetual market. A full list can be found here: https://github.com/blockworks-foundation/mango-client-v3/blob/main/src/ids.json",
+              "label": "optional",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "MarketAddress",
+              "defaultValue": ""
+            },
+            {
+              "name": "drift_market_address",
+              "description": "Market address for a drift perpetual market. A full list can be found here: https://github.com/drift-labs/protocol-v1/blob/master/sdk/src/constants/markets.ts",
+              "label": "optional",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "MarketAddress",
+              "defaultValue": ""
+            },
+            {
+              "name": "zeta_market_address",
+              "description": "Market address for a zeta perpetual market.",
+              "label": "optional",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "MarketAddress",
+              "defaultValue": ""
+            },
+            {
+              "name": "zo_market_address",
+              "description": "Market address for a 01 protocol perpetual market.",
+              "label": "optional",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "MarketAddress",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "PowTask",
+          "longName": "OracleJob.PowTask",
+          "fullName": ".OracleJob.PowTask",
+          "description": "Take the power of the working value.",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": true,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "scalar",
+              "description": "Take the working value to the exponent of value.",
+              "label": "optional",
+              "type": "double",
+              "longType": "double",
+              "fullType": "double",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "Exponent",
+              "defaultValue": ""
+            },
+            {
+              "name": "aggregator_pubkey",
+              "description": "Take the working value to the exponent of the aggregators value.",
+              "label": "optional",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "Exponent",
+              "defaultValue": ""
+            },
+            {
+              "name": "big",
+              "description": "A stringified big.js. `Accepts variable expansion syntax.`",
+              "label": "optional",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "Exponent",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "RegexExtractTask",
+          "longName": "OracleJob.RegexExtractTask",
+          "fullName": ".OracleJob.RegexExtractTask",
+          "description": "Find a pattern within a string of a previous task and extract a group number.",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "pattern",
+              "description": "Regex pattern to find.",
+              "label": "optional",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "group_number",
+              "description": "Group number to extract.",
+              "label": "optional",
+              "type": "int32",
+              "longType": "int32",
+              "fullType": "int32",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "RoundTask",
+          "longName": "OracleJob.RoundTask",
+          "fullName": ".OracleJob.RoundTask",
+          "description": "Round the current running result to a set number of decimal places.\n\n_**Input**_: The current running numerical result.\n\n_**Returns**_: The running result rounded to a set number of decimal places.\n\n_**Example**_: Round down the running resul to 8 decimal places\n\n```json\n{ \"roundTask\": { \"method\": \"METHOD_ROUND_DOWN\", \"decimals\": 8 } }\n```",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "method",
+              "description": "",
+              "label": "optional",
+              "type": "Method",
+              "longType": "OracleJob.RoundTask.Method",
+              "fullType": "OracleJob.RoundTask.Method",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "decimals",
+              "description": "",
+              "label": "optional",
+              "type": "int32",
+              "longType": "int32",
+              "fullType": "int32",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "SerumSwapTask",
+          "longName": "OracleJob.SerumSwapTask",
+          "fullName": ".OracleJob.SerumSwapTask",
+          "description": "Fetch the latest swap price on Serum's orderbook",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "serum_pool_address",
+              "description": "The serum pool to fetch swap price for",
+              "label": "optional",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "SolanaAccountDataFetchTask",
+          "longName": "OracleJob.SolanaAccountDataFetchTask",
+          "fullName": ".OracleJob.SolanaAccountDataFetchTask",
+          "description": "Fetch the account data in a stringified buffer format.",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "pubkey",
+              "description": "The on-chain account to fetch the account data from.",
+              "label": "optional",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "SplStakePoolTask",
+          "longName": "OracleJob.SplStakePoolTask",
+          "fullName": ".OracleJob.SplStakePoolTask",
+          "description": "Fetch the JSON representation of an SPL Stake Pool account.",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "pubkey",
+              "description": "The pubkey of the SPL Stake Pool.",
+              "label": "optional",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "SplTokenParseTask",
+          "longName": "OracleJob.SplTokenParseTask",
+          "fullName": ".OracleJob.SplTokenParseTask",
+          "description": "Fetch the JSON representation of an SPL token mint.",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": true,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "token_account_address",
+              "description": "The publicKey of a token account to fetch the mintInfo for.",
+              "label": "optional",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "AccountAddress",
+              "defaultValue": ""
+            },
+            {
+              "name": "mint_address",
+              "description": "The publicKey of the token mint address.",
+              "label": "optional",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "AccountAddress",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "SubtractTask",
+          "longName": "OracleJob.SubtractTask",
+          "fullName": ".OracleJob.SubtractTask",
+          "description": "This task will subtract a numerical input by a scalar value or by another\n/ aggregate.",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": true,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "scalar",
+              "description": "Specifies a scalar to subtract by.",
+              "label": "optional",
+              "type": "double",
+              "longType": "double",
+              "fullType": "double",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "Subtraction",
+              "defaultValue": ""
+            },
+            {
+              "name": "aggregator_pubkey",
+              "description": "Specifies an aggregator to subtract by.",
+              "label": "optional",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "Subtraction",
+              "defaultValue": ""
+            },
+            {
+              "name": "job",
+              "description": "A job whose result is computed before subtracting our numerical input by that result.",
+              "label": "optional",
+              "type": "OracleJob",
+              "longType": "OracleJob",
+              "fullType": "OracleJob",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "Subtraction",
+              "defaultValue": ""
+            },
+            {
+              "name": "big",
+              "description": "A stringified big.js. `Accepts variable expansion syntax.`",
+              "label": "optional",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "Subtraction",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "SushiswapExchangeRateTask",
+          "longName": "OracleJob.SushiswapExchangeRateTask",
+          "fullName": ".OracleJob.SushiswapExchangeRateTask",
+          "description": "Fetch the swap price from SushiSwap.",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "in_token_address",
+              "description": "The input token address.",
+              "label": "optional",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "out_token_address",
+              "description": "The output token address.",
+              "label": "optional",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "in_token_amount",
+              "description": "The amount of tokens to swap.",
+              "label": "optional",
+              "type": "double",
+              "longType": "double",
+              "fullType": "double",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "slippage",
+              "description": "The allowable slippage in percent for the swap.",
+              "label": "optional",
+              "type": "double",
+              "longType": "double",
+              "fullType": "double",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "provider",
+              "description": "The RPC provider to use for the swap.",
+              "label": "optional",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "SysclockOffsetTask",
+          "longName": "OracleJob.SysclockOffsetTask",
+          "fullName": ".OracleJob.SysclockOffsetTask",
+          "description": "Return the difference between an oracle's clock and the current timestamp at `SYSVAR_CLOCK_PUBKEY`.",
+          "hasExtensions": false,
+          "hasFields": false,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": []
+        },
+        {
+          "name": "Task",
+          "longName": "OracleJob.Task",
+          "fullName": ".OracleJob.Task",
+          "description": "Represents a singular operation performed by an oracle to yield an eventual numerical result.",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": true,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "http_task",
+              "description": "The adapter will report the text body of a successful HTTP request to the \nspecified url, or return an error if the response status code is greater \nthan or equal to 400.\n\n_**Input**_: None\n\n_**Returns**_: String representation of the http response.\n\n_**Example**_: Basic HttpTask\n\n```json\n{\"httpTask\": {\"url\": \"https://mywebsite.org/path\"} }\n```\n\n_**Example**_: HttpTask example with headers\n\n```json\n{ \"httpTask\": { \"url\": \"https://mywebsite.org/path\", \"method\": \"METHOD_POST\", \"headers\": [ { \"key\": \"MY_HEADER_KEY\", \"value\": \"MY_HEADER_VALUE\" } ], \"body\": \"{\\\"MY_BODY_KEY\\\":\\\"MY_BODY_VALUE\\\"}\" } }\n```",
+              "label": "optional",
+              "type": "HttpTask",
+              "longType": "OracleJob.HttpTask",
+              "fullType": "OracleJob.HttpTask",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "Task",
+              "defaultValue": ""
+            },
+            {
+              "name": "json_parse_task",
+              "description": "The adapter walks the path specified and returns the value found at that result. If returning\nJSON data from the HttpGet or HttpPost adapters, you must use this adapter to parse the response.\n\n_**Input**_: String representation of a JSON object.\n\n_**Returns**_: A numerical result.\n\n_**Example**_: Parses the price field from a JSON object\n\n```json\n{\"jsonParse\": {\"path\": \"$.price\"} }\n```",
+              "label": "optional",
+              "type": "JsonParseTask",
+              "longType": "OracleJob.JsonParseTask",
+              "fullType": "OracleJob.JsonParseTask",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "Task",
+              "defaultValue": ""
+            },
+            {
+              "name": "median_task",
+              "description": "",
+              "label": "optional",
+              "type": "MedianTask",
+              "longType": "OracleJob.MedianTask",
+              "fullType": "OracleJob.MedianTask",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "Task",
+              "defaultValue": ""
+            },
+            {
+              "name": "mean_task",
+              "description": "",
+              "label": "optional",
+              "type": "MeanTask",
+              "longType": "OracleJob.MeanTask",
+              "fullType": "OracleJob.MeanTask",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "Task",
+              "defaultValue": ""
+            },
+            {
+              "name": "websocket_task",
+              "description": "Opens and maintains a websocket for light speed data retrieval.\n\n_**Input**_: None\n\n_**Returns**_: String representation of the websocket subscription message.\n\n_**Example**_: Opens a coinbase websocket\n\n```json\n{ \"websocketTask\": { \"url\": \"wss://ws-feed.pro.coinbase.com\", \"subscription\": \"{\\\"type\\\":\\\"subscribe\\\",\\\"product_ids\\\":[\\\"BTC-USD\\\"],\\\"channels\\\":[\\\"ticker\\\",{\\\"name\\\":\\\"ticker\\\",\\\"product_ids\\\":[\\\"BTC-USD\\\"]}]}\", \"maxDataAgeSeconds\": 15, \"filter\": \"$[?(@.type == 'ticker' \u0026\u0026 @.product_id == 'BTC-USD')]\" } }\n```",
+              "label": "optional",
+              "type": "WebsocketTask",
+              "longType": "OracleJob.WebsocketTask",
+              "fullType": "OracleJob.WebsocketTask",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "Task",
+              "defaultValue": ""
+            },
+            {
+              "name": "divide_task",
+              "description": "",
+              "label": "optional",
+              "type": "DivideTask",
+              "longType": "OracleJob.DivideTask",
+              "fullType": "OracleJob.DivideTask",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "Task",
+              "defaultValue": ""
+            },
+            {
+              "name": "multiply_task",
+              "description": "",
+              "label": "optional",
+              "type": "MultiplyTask",
+              "longType": "OracleJob.MultiplyTask",
+              "fullType": "OracleJob.MultiplyTask",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "Task",
+              "defaultValue": ""
+            },
+            {
+              "name": "lp_token_price_task",
+              "description": "Fetch LP token price info from a number of supported exchanges. \n\nSee our blog post on [Fair LP Token Oracles](/blog/2022/01/20/Fair-LP-Token-Oracles)\n\n*NOTE**: This is not the swap price but the price of the underlying LP token.\n\n_**Input**_: None\n\n_**Returns**_: The price of an LP token for a given AMM pool. \n\n_**Example**_: Fetch the Orca LP token price of the SOL/USDC pool\n\n```json\n{ \"lpTokenPriceTask\": { \"orcaPoolAddress\": \"APDFRM3HMr8CAGXwKHiu2f5ePSpaiEJhaURwhsRrUUt9\" } }\n```\n\n_**Example**_: Fetch the fair price Orca LP token price of the SOL/USDC pool\n\n```json\n{ \"lpTokenPriceTask\": { \"orcaPoolAddress\": \"APDFRM3HMr8CAGXwKHiu2f5ePSpaiEJhaURwhsRrUUt9\", \"useFairPrice\": true, \"priceFeedAddresses\": [ \"GvDMxPzN1sCj7L26YDK2HnMRXEQmQ2aemov8YBtPS7vR\", \"BjUgj6YCnFBZ49wF54ddBVA9qu8TeqkFtkbqmZcee8uW\" ] } }\n```\n\n_**Example**_: Fetch the fair price Raydium LP token price of the SOL/USDC pool\n\n```json\n{ \"lpTokenPriceTask\": { \"raydiumPoolAddress\": \"58oQChx4yWmvKdwLLZzBi4ChoCc2fqCUWBkwMihLYQo2\", \"useFairPrice\": true,\"priceFeedAddresses\": [\"GvDMxPzN1sCj7L26YDK2HnMRXEQmQ2aemov8YBtPS7vR\",\"BjUgj6YCnFBZ49wF54ddBVA9qu8TeqkFtkbqmZcee8uW\" ] } }\n```",
+              "label": "optional",
+              "type": "LpTokenPriceTask",
+              "longType": "OracleJob.LpTokenPriceTask",
+              "fullType": "OracleJob.LpTokenPriceTask",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "Task",
+              "defaultValue": ""
+            },
+            {
+              "name": "lp_exchange_rate_task",
+              "description": "Fetch the current swap price for a given liquidity pool\n\n_**Input**_: None\n\n_**Returns**_: The swap price for a given AMM pool.\n\n_**Example**_: Fetch the exchange rate from the Orca SOL/USDC pool\n\n```json\n{ \"lpExchangeRateTask\": { \"orcaPoolAddress\": \"APDFRM3HMr8CAGXwKHiu2f5ePSpaiEJhaURwhsRrUUt9\" } }\n```\n\n_**Example**_: Fetch the exchange rate from the Raydium SOL/USDC pool\n\n```json\n{ \"lpExchangeRateTask\": { \"raydiumPoolAddress\": \"58oQChx4yWmvKdwLLZzBi4ChoCc2fqCUWBkwMihLYQo2\" } }\n```",
+              "label": "optional",
+              "type": "LpExchangeRateTask",
+              "longType": "OracleJob.LpExchangeRateTask",
+              "fullType": "OracleJob.LpExchangeRateTask",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "Task",
+              "defaultValue": ""
+            },
+            {
+              "name": "conditional_task",
+              "description": "",
+              "label": "optional",
+              "type": "ConditionalTask",
+              "longType": "OracleJob.ConditionalTask",
+              "fullType": "OracleJob.ConditionalTask",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "Task",
+              "defaultValue": ""
+            },
+            {
+              "name": "value_task",
+              "description": "Returns a specified value.\n\n_**Input**_: None\n\n_**Returns**_: A numerical result.\n\n_**Example**_: Returns the value 10\n\n```json\n{\"valueTask\": {\"value\": 10} }\n```\n\n_**Example**_: Returns the currentRound result of an aggregator\n\n```json\n{\"valueTask\": {\"aggregatorPubkey\": \"GvDMxPzN1sCj7L26YDK2HnMRXEQmQ2aemov8YBtPS7vR\"} }\n```\n\n_**Example**_: Returns the value stored in a CacheTask variable\n\n```json\n{\"valueTask\": {\"big\": \"${ONE}\"} }\n```",
+              "label": "optional",
+              "type": "ValueTask",
+              "longType": "OracleJob.ValueTask",
+              "fullType": "OracleJob.ValueTask",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "Task",
+              "defaultValue": ""
+            },
+            {
+              "name": "max_task",
+              "description": "",
+              "label": "optional",
+              "type": "MaxTask",
+              "longType": "OracleJob.MaxTask",
+              "fullType": "OracleJob.MaxTask",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "Task",
+              "defaultValue": ""
+            },
+            {
+              "name": "regex_extract_task",
+              "description": "",
+              "label": "optional",
+              "type": "RegexExtractTask",
+              "longType": "OracleJob.RegexExtractTask",
+              "fullType": "OracleJob.RegexExtractTask",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "Task",
+              "defaultValue": ""
+            },
+            {
+              "name": "xstep_price_task",
+              "description": "",
+              "label": "optional",
+              "type": "XStepPriceTask",
+              "longType": "OracleJob.XStepPriceTask",
+              "fullType": "OracleJob.XStepPriceTask",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "Task",
+              "defaultValue": ""
+            },
+            {
+              "name": "add_task",
+              "description": "",
+              "label": "optional",
+              "type": "AddTask",
+              "longType": "OracleJob.AddTask",
+              "fullType": "OracleJob.AddTask",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "Task",
+              "defaultValue": ""
+            },
+            {
+              "name": "subtract_task",
+              "description": "",
+              "label": "optional",
+              "type": "SubtractTask",
+              "longType": "OracleJob.SubtractTask",
+              "fullType": "OracleJob.SubtractTask",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "Task",
+              "defaultValue": ""
+            },
+            {
+              "name": "twap_task",
+              "description": "Takes a twap over a set period for a certain aggregator. Aggregators have an optional history buffer account storing the last N accepted results. The TwapTask will iterate over an aggregators history buffer and calculate the time weighted average of the samples within a given time period.\n\n_**Input**_: None\n\n_**Returns**_: The time weighted average of an aggregator over a given time period.\n\n_**Example**_: The 1hr Twap of the SOL/USD Aggregator, requiring at least 60 samples.\n\n```json\n{ \"twapTask\": { \"aggregatorPubkey\": \"GvDMxPzN1sCj7L26YDK2HnMRXEQmQ2aemov8YBtPS7vR\", \"period\": 3600, \"minSamples\": 60, \"weightByPropagationTime\": true  } }\n```",
+              "label": "optional",
+              "type": "TwapTask",
+              "longType": "OracleJob.TwapTask",
+              "fullType": "OracleJob.TwapTask",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "Task",
+              "defaultValue": ""
+            },
+            {
+              "name": "serum_swap_task",
+              "description": "",
+              "label": "optional",
+              "type": "SerumSwapTask",
+              "longType": "OracleJob.SerumSwapTask",
+              "fullType": "OracleJob.SerumSwapTask",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "Task",
+              "defaultValue": ""
+            },
+            {
+              "name": "pow_task",
+              "description": "",
+              "label": "optional",
+              "type": "PowTask",
+              "longType": "OracleJob.PowTask",
+              "fullType": "OracleJob.PowTask",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "Task",
+              "defaultValue": ""
+            },
+            {
+              "name": "lending_rate_task",
+              "description": "",
+              "label": "optional",
+              "type": "LendingRateTask",
+              "longType": "OracleJob.LendingRateTask",
+              "fullType": "OracleJob.LendingRateTask",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "Task",
+              "defaultValue": ""
+            },
+            {
+              "name": "mango_perp_market_task",
+              "description": "",
+              "label": "optional",
+              "type": "MangoPerpMarketTask",
+              "longType": "OracleJob.MangoPerpMarketTask",
+              "fullType": "OracleJob.MangoPerpMarketTask",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "Task",
+              "defaultValue": ""
+            },
+            {
+              "name": "jupiter_swap_task",
+              "description": "Fetch the simulated price for a swap on JupiterSwap.\n\n_**Input**_: None\n\n_**Returns**_: The swap price on Jupiter for a given input and output token mint address.\n\n_**Example**_: Fetch the JupiterSwap price for exchanging 1 SOL into USDC.\n\n```json\n{ \"jupiterSwapTask\": { \"inTokenAddress\": \"So11111111111111111111111111111111111111112\", \"outTokenAddress\": \"EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v\" } }\n```\n\n_**Example**_: Fetch the JupiterSwap price for exchanging 1000 SOL into USDC.\n\n```json\n{ \"jupiterSwapTask\": { \"inTokenAddress\": \"So11111111111111111111111111111111111111112\", \"outTokenAddress\": \"EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v\", \"baseAmount\": \"1000\" } }\n```",
+              "label": "optional",
+              "type": "JupiterSwapTask",
+              "longType": "OracleJob.JupiterSwapTask",
+              "fullType": "OracleJob.JupiterSwapTask",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "Task",
+              "defaultValue": ""
+            },
+            {
+              "name": "perp_market_task",
+              "description": "",
+              "label": "optional",
+              "type": "PerpMarketTask",
+              "longType": "OracleJob.PerpMarketTask",
+              "fullType": "OracleJob.PerpMarketTask",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "Task",
+              "defaultValue": ""
+            },
+            {
+              "name": "oracle_task",
+              "description": "Fetch the current price of a Solana oracle protocol. \n\n_**Input**_: None\n\n_**Returns**_: The current price of an on-chain oracle.\n\n_**Example**_: The Switchboard SOL/USD oracle price.\n\n```json\n{ \"oracleTask\": { \"switchboardAddress\": \"GvDMxPzN1sCj7L26YDK2HnMRXEQmQ2aemov8YBtPS7vR\" } }\n```\n\n_**Example**_: The Pyth SOL/USD oracle price.\n\n```json\n{ \"oracleTask\": { \"pythAddress\": \"H6ARHf6YXhGYeQfUzQNGk6rDNnLBQKrenN712K4AQJEG\" } }\n```\n\n_**Example**_: The Chainlink SOL/USD oracle price.\n\n```json\n{ \"oracleTask\": { \"chainlinkAddress\": \"CcPVS9bqyXbD9cLnTbhhHazLsrua8QMFUHTutPtjyDzq\" } }\n```",
+              "label": "optional",
+              "type": "OracleTask",
+              "longType": "OracleJob.OracleTask",
+              "fullType": "OracleJob.OracleTask",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "Task",
+              "defaultValue": ""
+            },
+            {
+              "name": "anchor_fetch_task",
+              "description": "",
+              "label": "optional",
+              "type": "AnchorFetchTask",
+              "longType": "OracleJob.AnchorFetchTask",
+              "fullType": "OracleJob.AnchorFetchTask",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "Task",
+              "defaultValue": ""
+            },
+            {
+              "name": "defi_kingdoms_task",
+              "description": "",
+              "label": "optional",
+              "type": "DefiKingdomsTask",
+              "longType": "OracleJob.DefiKingdomsTask",
+              "fullType": "OracleJob.DefiKingdomsTask",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "Task",
+              "defaultValue": ""
+            },
+            {
+              "name": "tps_task",
+              "description": "",
+              "label": "optional",
+              "type": "TpsTask",
+              "longType": "OracleJob.TpsTask",
+              "fullType": "OracleJob.TpsTask",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "Task",
+              "defaultValue": ""
+            },
+            {
+              "name": "spl_stake_pool_task",
+              "description": "",
+              "label": "optional",
+              "type": "SplStakePoolTask",
+              "longType": "OracleJob.SplStakePoolTask",
+              "fullType": "OracleJob.SplStakePoolTask",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "Task",
+              "defaultValue": ""
+            },
+            {
+              "name": "spl_token_parse_task",
+              "description": "",
+              "label": "optional",
+              "type": "SplTokenParseTask",
+              "longType": "OracleJob.SplTokenParseTask",
+              "fullType": "OracleJob.SplTokenParseTask",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "Task",
+              "defaultValue": ""
+            },
+            {
+              "name": "uniswap_exchange_rate_task",
+              "description": "",
+              "label": "optional",
+              "type": "UniswapExchangeRateTask",
+              "longType": "OracleJob.UniswapExchangeRateTask",
+              "fullType": "OracleJob.UniswapExchangeRateTask",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "Task",
+              "defaultValue": ""
+            },
+            {
+              "name": "sushiswap_exchange_rate_task",
+              "description": "",
+              "label": "optional",
+              "type": "SushiswapExchangeRateTask",
+              "longType": "OracleJob.SushiswapExchangeRateTask",
+              "fullType": "OracleJob.SushiswapExchangeRateTask",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "Task",
+              "defaultValue": ""
+            },
+            {
+              "name": "pancakeswap_exchange_rate_task",
+              "description": "",
+              "label": "optional",
+              "type": "PancakeswapExchangeRateTask",
+              "longType": "OracleJob.PancakeswapExchangeRateTask",
+              "fullType": "OracleJob.PancakeswapExchangeRateTask",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "Task",
+              "defaultValue": ""
+            },
+            {
+              "name": "cache_task",
+              "description": "Execute a job and store the result in a variable to reference later.\n\n_**Input**_: None\n\n_**Returns**_: The input\n\n_**Example**_: CacheTask storing ${ONE} = 1\n\n```json\n{ \"cacheTask\": { \"cacheItems\": [ { \"variableName\": \"ONE\", \"job\": { \"tasks\": [ { \"valueTask\": { \"value\": 1 } } ] } } ] } }\n```",
+              "label": "optional",
+              "type": "CacheTask",
+              "longType": "OracleJob.CacheTask",
+              "fullType": "OracleJob.CacheTask",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "Task",
+              "defaultValue": ""
+            },
+            {
+              "name": "sysclock_offset_task",
+              "description": "",
+              "label": "optional",
+              "type": "SysclockOffsetTask",
+              "longType": "OracleJob.SysclockOffsetTask",
+              "fullType": "OracleJob.SysclockOffsetTask",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "Task",
+              "defaultValue": ""
+            },
+            {
+              "name": "marinade_state_task",
+              "description": "",
+              "label": "optional",
+              "type": "MarinadeStateTask",
+              "longType": "OracleJob.MarinadeStateTask",
+              "fullType": "OracleJob.MarinadeStateTask",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "Task",
+              "defaultValue": ""
+            },
+            {
+              "name": "solana_account_data_fetch_task",
+              "description": "",
+              "label": "optional",
+              "type": "SolanaAccountDataFetchTask",
+              "longType": "OracleJob.SolanaAccountDataFetchTask",
+              "fullType": "OracleJob.SolanaAccountDataFetchTask",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "Task",
+              "defaultValue": ""
+            },
+            {
+              "name": "buffer_layout_parse_task",
+              "description": "",
+              "label": "optional",
+              "type": "BufferLayoutParseTask",
+              "longType": "OracleJob.BufferLayoutParseTask",
+              "fullType": "OracleJob.BufferLayoutParseTask",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "Task",
+              "defaultValue": ""
+            },
+            {
+              "name": "cron_parse_task",
+              "description": "",
+              "label": "optional",
+              "type": "CronParseTask",
+              "longType": "OracleJob.CronParseTask",
+              "fullType": "OracleJob.CronParseTask",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "Task",
+              "defaultValue": ""
+            },
+            {
+              "name": "min_task",
+              "description": "",
+              "label": "optional",
+              "type": "MinTask",
+              "longType": "OracleJob.MinTask",
+              "fullType": "OracleJob.MinTask",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "Task",
+              "defaultValue": ""
+            },
+            {
+              "name": "history_function_task",
+              "description": "",
+              "label": "optional",
+              "type": "HistoryFunctionTask",
+              "longType": "OracleJob.HistoryFunctionTask",
+              "fullType": "OracleJob.HistoryFunctionTask",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "Task",
+              "defaultValue": ""
+            },
+            {
+              "name": "vwap_task",
+              "description": "",
+              "label": "optional",
+              "type": "VwapTask",
+              "longType": "OracleJob.VwapTask",
+              "fullType": "OracleJob.VwapTask",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "Task",
+              "defaultValue": ""
+            },
+            {
+              "name": "ewma_task",
+              "description": "",
+              "label": "optional",
+              "type": "EwmaTask",
+              "longType": "OracleJob.EwmaTask",
+              "fullType": "OracleJob.EwmaTask",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "Task",
+              "defaultValue": ""
+            },
+            {
+              "name": "comparison_task",
+              "description": "",
+              "label": "optional",
+              "type": "ComparisonTask",
+              "longType": "OracleJob.ComparisonTask",
+              "fullType": "OracleJob.ComparisonTask",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "Task",
+              "defaultValue": ""
+            },
+            {
+              "name": "round_task",
+              "description": "Round the current running result to a set number of decimal places.\n\n_**Input**_: The current running numerical result.\n\n_**Returns**_: The running result rounded to a set number of decimal places.\n\n_**Example**_: Round down the running resul to 8 decimal places\n\n```json\n{ \"roundTask\": { \"method\": \"METHOD_ROUND_DOWN\", \"decimals\": 8 } }\n```",
+              "label": "optional",
+              "type": "RoundTask",
+              "longType": "OracleJob.RoundTask",
+              "fullType": "OracleJob.RoundTask",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "Task",
+              "defaultValue": ""
+            },
+            {
+              "name": "bound_task",
+              "description": "Bound the running result to an upper/lower bound. This is typically the last task in an OracleJob.\n\n_**Input**_: The current running numerical result.\n\n_**Returns**_: The running result bounded to an upper or lower bound if it exceeds a given threshold.\n\n_**Example**_: Bound the running result to a value between 0.90 and 1.10\n\n```json\n{ \"boundTask\": { \"lowerBoundValue\": \"0.90\",\"onExceedsLowerBoundValue\": \"0.90\",\"upperBoundValue\": \"1.10\",\"onExceedsUpperBoundValue\": \"1.10\" } }\n```",
+              "label": "optional",
+              "type": "BoundTask",
+              "longType": "OracleJob.BoundTask",
+              "fullType": "OracleJob.BoundTask",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "Task",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "TpsTask",
+          "longName": "OracleJob.TpsTask",
+          "fullName": ".OracleJob.TpsTask",
+          "description": "Fetch the current transactions per second.",
+          "hasExtensions": false,
+          "hasFields": false,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": []
+        },
+        {
+          "name": "TwapTask",
+          "longName": "OracleJob.TwapTask",
+          "fullName": ".OracleJob.TwapTask",
+          "description": "Takes a twap over a set period for a certain aggregator. Aggregators have an optional history buffer account storing the last N accepted results. The TwapTask will iterate over an aggregators history buffer and calculate the time weighted average of the samples within a given time period.\n\n_**Input**_: None\n\n_**Returns**_: The time weighted average of an aggregator over a given time period.\n\n_**Example**_: The 1hr Twap of the SOL/USD Aggregator, requiring at least 60 samples.\n\n```json\n{ \"twapTask\": { \"aggregatorPubkey\": \"GvDMxPzN1sCj7L26YDK2HnMRXEQmQ2aemov8YBtPS7vR\", \"period\": 3600, \"minSamples\": 60, \"weightByPropagationTime\": true  } }\n```",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "aggregator_pubkey",
+              "description": "The target aggregator for the TWAP.",
+              "label": "optional",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "period",
+              "description": "Period, in seconds, the twap should account for",
+              "label": "optional",
+              "type": "int32",
+              "longType": "int32",
+              "fullType": "int32",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "weight_by_propagation_time",
+              "description": "Weight samples by their propagation time",
+              "label": "optional",
+              "type": "bool",
+              "longType": "bool",
+              "fullType": "bool",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "min_samples",
+              "description": "Minimum number of samples in the history to calculate a valid result",
+              "label": "optional",
+              "type": "uint32",
+              "longType": "uint32",
+              "fullType": "uint32",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "ending_unix_timestamp",
+              "description": "Ending unix timestamp to collect values up to",
+              "label": "optional",
+              "type": "int32",
+              "longType": "int32",
+              "fullType": "int32",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "ending_unix_timestamp_task",
+              "description": "Execute the task to get the ending unix timestamp",
+              "label": "optional",
+              "type": "CronParseTask",
+              "longType": "OracleJob.CronParseTask",
+              "fullType": "OracleJob.CronParseTask",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "UniswapExchangeRateTask",
+          "longName": "OracleJob.UniswapExchangeRateTask",
+          "fullName": ".OracleJob.UniswapExchangeRateTask",
+          "description": "Fetch the swap price from UniSwap.",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "in_token_address",
+              "description": "The input token address.",
+              "label": "optional",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "out_token_address",
+              "description": "The output token address.",
+              "label": "optional",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "in_token_amount",
+              "description": "The amount of tokens to swap.",
+              "label": "optional",
+              "type": "double",
+              "longType": "double",
+              "fullType": "double",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "slippage",
+              "description": "The allowable slippage in percent for the swap.",
+              "label": "optional",
+              "type": "double",
+              "longType": "double",
+              "fullType": "double",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "provider",
+              "description": "The RPC provider to use for the swap.",
+              "label": "optional",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "ValueTask",
+          "longName": "OracleJob.ValueTask",
+          "fullName": ".OracleJob.ValueTask",
+          "description": "Returns a specified value.\n\n_**Input**_: None\n\n_**Returns**_: A numerical result.\n\n_**Example**_: Returns the value 10\n\n```json\n{\"valueTask\": {\"value\": 10} }\n```\n\n_**Example**_: Returns the currentRound result of an aggregator\n\n```json\n{\"valueTask\": {\"aggregatorPubkey\": \"GvDMxPzN1sCj7L26YDK2HnMRXEQmQ2aemov8YBtPS7vR\"} }\n```\n\n_**Example**_: Returns the value stored in a CacheTask variable\n\n```json\n{\"valueTask\": {\"big\": \"${ONE}\"} }\n```",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": true,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "value",
+              "description": "The value that will be returned from this task.",
+              "label": "optional",
+              "type": "double",
+              "longType": "double",
+              "fullType": "double",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "Value",
+              "defaultValue": ""
+            },
+            {
+              "name": "aggregator_pubkey",
+              "description": "Specifies an aggregatorr to pull the value of.",
+              "label": "optional",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "Value",
+              "defaultValue": ""
+            },
+            {
+              "name": "big",
+              "description": "A stringified big.js. `Accepts variable expansion syntax.`",
+              "label": "optional",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "Value",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "VwapTask",
+          "longName": "OracleJob.VwapTask",
+          "fullName": ".OracleJob.VwapTask",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "price_aggregator_address",
+              "description": "",
+              "label": "optional",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "volume_aggregator_address",
+              "description": "",
+              "label": "optional",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "period",
+              "description": "",
+              "label": "optional",
+              "type": "uint32",
+              "longType": "uint32",
+              "fullType": "uint32",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "WebsocketTask",
+          "longName": "OracleJob.WebsocketTask",
+          "fullName": ".OracleJob.WebsocketTask",
+          "description": "Opens and maintains a websocket for light speed data retrieval.\n\n_**Input**_: None\n\n_**Returns**_: String representation of the websocket subscription message.\n\n_**Example**_: Opens a coinbase websocket\n\n```json\n{ \"websocketTask\": { \"url\": \"wss://ws-feed.pro.coinbase.com\", \"subscription\": \"{\\\"type\\\":\\\"subscribe\\\",\\\"product_ids\\\":[\\\"BTC-USD\\\"],\\\"channels\\\":[\\\"ticker\\\",{\\\"name\\\":\\\"ticker\\\",\\\"product_ids\\\":[\\\"BTC-USD\\\"]}]}\", \"maxDataAgeSeconds\": 15, \"filter\": \"$[?(@.type == 'ticker' \u0026\u0026 @.product_id == 'BTC-USD')]\" } }\n```",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": false,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "url",
+              "description": "The websocket url.",
+              "label": "optional",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "subscription",
+              "description": "The websocket message to notify of a new subscription.",
+              "label": "optional",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "max_data_age_seconds",
+              "description": "Minimum amount of time required between when the horses are taking out.",
+              "label": "optional",
+              "type": "int32",
+              "longType": "int32",
+              "fullType": "int32",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            },
+            {
+              "name": "filter",
+              "description": "Incoming message JSONPath filter.\n/ Example: \"$[?(@.channel == 'ticker' \u0026\u0026 @.market == 'BTC/USD')]\"",
+              "label": "optional",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": false,
+              "oneofdecl": "",
+              "defaultValue": ""
+            }
+          ]
+        },
+        {
+          "name": "XStepPriceTask",
+          "longName": "OracleJob.XStepPriceTask",
+          "fullName": ".OracleJob.XStepPriceTask",
+          "description": "",
+          "hasExtensions": false,
+          "hasFields": true,
+          "hasOneofs": true,
+          "extensions": [],
+          "fields": [
+            {
+              "name": "step_job",
+              "description": "median task containing the job definitions to fetch the STEP/USD price",
+              "label": "optional",
+              "type": "MedianTask",
+              "longType": "OracleJob.MedianTask",
+              "fullType": "OracleJob.MedianTask",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "StepSource",
+              "defaultValue": ""
+            },
+            {
+              "name": "step_aggregator_pubkey",
+              "description": "existing aggregator pubkey for STEP/USD",
+              "label": "optional",
+              "type": "string",
+              "longType": "string",
+              "fullType": "string",
+              "ismap": false,
+              "isoneof": true,
+              "oneofdecl": "StepSource",
+              "defaultValue": ""
+            }
+          ]
+        }
+      ],
+      "services": []
+    }
+  ],
+  "scalarValueTypes": [
+    {
+      "protoType": "double",
+      "notes": "",
+      "cppType": "double",
+      "csType": "double",
+      "goType": "float64",
+      "javaType": "double",
+      "phpType": "float",
+      "pythonType": "float",
+      "rubyType": "Float"
+    },
+    {
+      "protoType": "float",
+      "notes": "",
+      "cppType": "float",
+      "csType": "float",
+      "goType": "float32",
+      "javaType": "float",
+      "phpType": "float",
+      "pythonType": "float",
+      "rubyType": "Float"
+    },
+    {
+      "protoType": "int32",
+      "notes": "Uses variable-length encoding. Inefficient for encoding negative numbers – if your field is likely to have negative values, use sint32 instead.",
+      "cppType": "int32",
+      "csType": "int",
+      "goType": "int32",
+      "javaType": "int",
+      "phpType": "integer",
+      "pythonType": "int",
+      "rubyType": "Bignum or Fixnum (as required)"
+    },
+    {
+      "protoType": "int64",
+      "notes": "Uses variable-length encoding. Inefficient for encoding negative numbers – if your field is likely to have negative values, use sint64 instead.",
+      "cppType": "int64",
+      "csType": "long",
+      "goType": "int64",
+      "javaType": "long",
+      "phpType": "integer/string",
+      "pythonType": "int/long",
+      "rubyType": "Bignum"
+    },
+    {
+      "protoType": "uint32",
+      "notes": "Uses variable-length encoding.",
+      "cppType": "uint32",
+      "csType": "uint",
+      "goType": "uint32",
+      "javaType": "int",
+      "phpType": "integer",
+      "pythonType": "int/long",
+      "rubyType": "Bignum or Fixnum (as required)"
+    },
+    {
+      "protoType": "uint64",
+      "notes": "Uses variable-length encoding.",
+      "cppType": "uint64",
+      "csType": "ulong",
+      "goType": "uint64",
+      "javaType": "long",
+      "phpType": "integer/string",
+      "pythonType": "int/long",
+      "rubyType": "Bignum or Fixnum (as required)"
+    },
+    {
+      "protoType": "sint32",
+      "notes": "Uses variable-length encoding. Signed int value. These more efficiently encode negative numbers than regular int32s.",
+      "cppType": "int32",
+      "csType": "int",
+      "goType": "int32",
+      "javaType": "int",
+      "phpType": "integer",
+      "pythonType": "int",
+      "rubyType": "Bignum or Fixnum (as required)"
+    },
+    {
+      "protoType": "sint64",
+      "notes": "Uses variable-length encoding. Signed int value. These more efficiently encode negative numbers than regular int64s.",
+      "cppType": "int64",
+      "csType": "long",
+      "goType": "int64",
+      "javaType": "long",
+      "phpType": "integer/string",
+      "pythonType": "int/long",
+      "rubyType": "Bignum"
+    },
+    {
+      "protoType": "fixed32",
+      "notes": "Always four bytes. More efficient than uint32 if values are often greater than 2^28.",
+      "cppType": "uint32",
+      "csType": "uint",
+      "goType": "uint32",
+      "javaType": "int",
+      "phpType": "integer",
+      "pythonType": "int",
+      "rubyType": "Bignum or Fixnum (as required)"
+    },
+    {
+      "protoType": "fixed64",
+      "notes": "Always eight bytes. More efficient than uint64 if values are often greater than 2^56.",
+      "cppType": "uint64",
+      "csType": "ulong",
+      "goType": "uint64",
+      "javaType": "long",
+      "phpType": "integer/string",
+      "pythonType": "int/long",
+      "rubyType": "Bignum"
+    },
+    {
+      "protoType": "sfixed32",
+      "notes": "Always four bytes.",
+      "cppType": "int32",
+      "csType": "int",
+      "goType": "int32",
+      "javaType": "int",
+      "phpType": "integer",
+      "pythonType": "int",
+      "rubyType": "Bignum or Fixnum (as required)"
+    },
+    {
+      "protoType": "sfixed64",
+      "notes": "Always eight bytes.",
+      "cppType": "int64",
+      "csType": "long",
+      "goType": "int64",
+      "javaType": "long",
+      "phpType": "integer/string",
+      "pythonType": "int/long",
+      "rubyType": "Bignum"
+    },
+    {
+      "protoType": "bool",
+      "notes": "",
+      "cppType": "bool",
+      "csType": "bool",
+      "goType": "bool",
+      "javaType": "boolean",
+      "phpType": "boolean",
+      "pythonType": "boolean",
+      "rubyType": "TrueClass/FalseClass"
+    },
+    {
+      "protoType": "string",
+      "notes": "A string must always contain UTF-8 encoded or 7-bit ASCII text.",
+      "cppType": "string",
+      "csType": "string",
+      "goType": "string",
+      "javaType": "String",
+      "phpType": "string",
+      "pythonType": "str/unicode",
+      "rubyType": "String (UTF-8)"
+    },
+    {
+      "protoType": "bytes",
+      "notes": "May contain any arbitrary sequence of bytes.",
+      "cppType": "string",
+      "csType": "ByteString",
+      "goType": "[]byte",
+      "javaType": "ByteString",
+      "phpType": "string",
+      "pythonType": "str",
+      "rubyType": "String (ASCII-8BIT)"
+    }
+  ]
+}
