@@ -1,75 +1,157 @@
 import React, { ReactNode } from "react";
 import Link from "@docusaurus/Link";
-import { Typography, Box, Avatar } from "@mui/material";
-import { styled } from "@mui/system";
+import { Typography, Box, Avatar, Grid, Tooltip } from "@mui/material";
 import { useColorMode } from "@docusaurus/theme-common";
+import useBaseUrl from "@docusaurus/useBaseUrl";
 
 export interface IChainProps {
   title: string;
   to: string;
   image: string;
   imageDark?: string;
+  comingSoon?: boolean;
   sx?: any;
 }
 
 export interface ChainComponentProps {
   items: Array<IChainProps>;
-  radius: number;
+  hideTitle?: boolean;
+  sx?: any;
 }
 
-export default function ChainComponent({ items, radius }: ChainComponentProps) {
+export default function ChainComponent({
+  items,
+  hideTitle,
+  sx,
+}: ChainComponentProps) {
   const { colorMode } = useColorMode();
-  const count = items.length;
-  const angle = 180 / (count - 1);
-  const center = radius + 50;
 
   return (
-    <Box sx={{ height: 1.25 * center, width: "100%" }}>
-      {items.map((item, index) => {
-        const x =
-          2 * radius + radius * Math.cos((angle * index * Math.PI) / 180);
-        const y =
-          2 * radius + radius * Math.sin((angle * index * Math.PI) / 180);
-        return (
-          <Box
-            display="flex"
-            flexDirection="column"
-            alignItems="center"
-            key={item.title + "Chain"}
-            component={Link}
-            href={item.to}
-            style={{ textDecoration: "none" }}
-            sx={{
-              position: "absolute",
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              top: y,
-              left: x,
-            }}
-          >
-            <Avatar
-              src={
-                colorMode === "dark" && item.imageDark
-                  ? item.imageDark
-                  : item.image
-              }
-              style={{ width: 48, height: 48 }}
-            />
-            <Typography
-              variant="body1"
-              align="center"
-              sx={{
-                fontSize: "1.25rem",
-                color: "var(--ifm-navbar-link-color)",
-                fontWeight: "var(--ifm-font-weight-bold)",
-              }}
-            >
-              {item.title}
-            </Typography>
-          </Box>
-        );
-      })}
-    </Box>
+    <>
+      <Grid
+        container
+        flexDirection="row"
+        justifyContent="flex-start"
+        alignItems="center"
+        spacing={3}
+        sx={{ ...sx }}
+      >
+        {hideTitle ?? (
+          <>
+            <Grid item xs={12} sm={12} md={3}>
+              <Typography
+                variant="body1"
+                align="center"
+                sx={{
+                  fontSize: "1.5rem",
+                  color:
+                    colorMode === "dark"
+                      ? "var(--ifm-navbar-link-color)"
+                      : "var(--ifm-navbar-link-color)",
+                  fontWeight: "var(--ifm-font-weight-bold)",
+                }}
+              >
+                Integrate Switchboard Today!
+              </Typography>
+            </Grid>
+          </>
+        )}
+
+        <Grid
+          container
+          item
+          xs={12}
+          sm={12}
+          md={hideTitle ? 12 : 9}
+          justifyContent="space-around"
+          alignItems="center"
+        >
+          {items.map((item, index) => {
+            return item.comingSoon ? (
+              <Tooltip title="Coming Soon!">
+                <Box
+                  key={item.title + "Chain"}
+                  display="flex"
+                  flexDirection="column"
+                  alignItems="center"
+                  component={Link}
+                  href={item.to}
+                  style={{ textDecoration: "none" }}
+                  sx={{
+                    p: 2,
+                    opacity: "0.5",
+                  }}
+                >
+                  <Avatar
+                    variant="rounded"
+                    src={
+                      colorMode === "dark" && item.imageDark
+                        ? item.imageDark
+                        : item.image
+                    }
+                    style={{ width: 48, height: 48 }}
+                  />
+                  <Typography
+                    variant="caption"
+                    align="center"
+                    sx={{
+                      fontSize: "1rem",
+                      color:
+                        colorMode === "dark"
+                          ? "var(--ifm-navbar-link-color)"
+                          : "var(--ifm-color-primary-dark)",
+                      // fontWeight: "var(--ifm-font-weight-semibold)",
+                    }}
+                  >
+                    {item.title}
+                  </Typography>
+                </Box>
+              </Tooltip>
+            ) : (
+              <Box
+                key={item.title + "Chain"}
+                display="flex"
+                flexDirection="column"
+                alignItems="center"
+                component={Link}
+                href={item.to}
+                style={{ textDecoration: "none" }}
+                sx={{
+                  p: 2,
+                  transition: "transform 0.15s ease-in-out",
+                  "&&&:hover": {
+                    transform: "scale3d(1.25, 1.25, 1)",
+                  },
+                }}
+              >
+                <Avatar
+                  variant="rounded"
+                  src={
+                    colorMode === "dark" && item.imageDark
+                      ? item.imageDark
+                      : item.image
+                  }
+                  style={{ width: 48, height: 48 }}
+                />
+                <Typography
+                  variant="caption"
+                  align="center"
+                  sx={{
+                    fontSize: "1rem",
+                    color:
+                      colorMode === "dark"
+                        ? "var(--ifm-navbar-link-color)"
+                        : "var(--ifm-color-primary-dark)",
+                    fontWeight: "var(--ifm-font-weight-semibold)",
+                  }}
+                >
+                  {item.title}
+                </Typography>
+              </Box>
+            );
+          })}
+        </Grid>
+      </Grid>
+    </>
   );
 }

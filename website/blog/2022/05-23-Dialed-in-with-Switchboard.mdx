@@ -1,0 +1,158 @@
+---
+title: "Dialed in with Switchboard: May 23, 2022"
+description: ""
+authors: [gallynaut]
+tags: []
+hide_table_of_contents: true
+---
+
+# Dialed in with Switchboard: 5–23–22
+
+## Switchboard V2 SDK is Here!
+
+[**github.com/switchboard-xyz/switchboard-v2**](https://github.com/switchboard-xyz/switchboard-v2)
+
+The Switchboard V2 SDK is here and includes the necessary tools to help you
+integrate Switchboard into your on-or-off chain applications. The SDK includes
+libraries for Typescript/Javascript, Python, and Rust, as well as example
+programs demonstrating how to read and interact with Switchboard V2. Below is
+the current overview of the Github repo structure:
+
+![Current Switchboard V2 SDK Layout](https://cdn-images-1.medium.com/max/2000/0*8ZTLoxVoz8Lgfhdc)_Current
+Switchboard V2 SDK Layout_
+
+### Setup
+
+Clone the repository
+
+```bash
+git clone [https://github.com/switchboard-xyz/switchboard-v2.git](https://github.com/switchboard-xyz/switchboard-v2.git) && cd switchboard-v2
+```
+
+Then, install and link the dependencies
+
+```bash
+yarn install
+yarn workspaces run build
+yarn workspace @switchboard-xyz/switchboardv2-cli link
+anchor build && node ./scripts/setup-example-programs.js
+```
+
+Finally, test the example programs
+
+```bash
+anchor test
+```
+
+### Quick Links
+
+- [Typescript Client](https://github.com/switchboard-xyz/switchboard-v2/tree/main/libraries/ts)
+
+- [Rust Client](https://github.com/switchboard-xyz/switchboard-v2/tree/main/libraries/rs)
+
+- [Python Client](https://github.com/switchboard-xyz/switchboard-v2/tree/main/libraries/py)
+
+- [Command Line Interface](https://github.com/switchboard-xyz/switchboard-v2/tree/main/cli)
+
+- [On-Chain Program Examples](https://github.com/switchboard-xyz/switchboard-v2/tree/main/programs)
+
+- [Off-Chain Client Examples](https://github.com/switchboard-xyz/switchboard-v2/tree/main/packages)
+
+- [Oracle Deployment Scripts](https://github.com/switchboard-xyz/switchboard-v2/tree/main/oracles)
+
+- [Job Directory](https://github.com/switchboard-xyz/switchboard-v2/tree/main/directory)
+
+- [Documentation Website](https://docs.switchboard.xyz/introduction)
+
+### Localnet Integration
+
+The SDK supports copying a Switchboard devnet environment to your localnet
+environment for integration testing. This is useful if you want to see how your
+program will react to Switchboard data feed updates.
+
+First, change the cluster to localnet in Anchor.toml.
+
+Next, create a Switchboard devnet queue and oracle.
+
+```bash
+sbv2 localnet:env --keypair ../payer-keypair.json -o .switchboard
+```
+
+This command will output:
+
+- **start-local-validator.sh**: starts a local Solana validator with the
+  Switchboard program, IDL, and our devnet environment pre-loaded
+
+- **start-oracle.sh**: start a Switchboard oracle and start heartbeating on the
+  localnet queue
+
+- **docker-compose.yml**: docker file with the Switchboard oracle environment
+
+- **switchboard.env**: contains your Switchboard accounts
+
+In three separate shells, run the following commands in this order:
+
+- .switchboard/start-local-validator.sh
+
+- .switchboard/start-oracle.sh
+
+- anchor test --skip-local-validator
+
+The anchor tests are configured to first fetch the account info for the
+Switchboard DAO controlled devnet permissionless queue. If the account info is
+not found, it assumes a localnet connection and looks for the switchboard.env
+with your Switchboard environment specific public keys. If a .switchboard
+directory or switchboard.env file is not found in the root project directory, it
+will look 2 levels higher until giving up.
+
+## Uniswap & SushiSwap Task Types
+
+Switchboard has added the
+[UniswapExchangeRateTask](https://docs.switchboard.xyz/api/tasks#uniswapexchangeratetask)
+and
+[SushiSwapExchangeRateTask](https://docs.switchboard.xyz/api/tasks#sushiswapexchangeratetask)
+to resolve the swap price of assets on Uniswap and SushiSwap. These new task
+types will allow Solana protocols to offer DeFi products using data sourced from
+Ethereum.
+
+<iframe src="https://medium.com/media/0d02ad6777d181dd0e633aa245a4761d" frameborder="0"></iframe>
+
+## xStepPriceTask
+
+Switchboard also ported over the [xStepPriceTask](http://xsteppricetask) from
+Switchboard V1 to Switchboard V2. The following is an example of how to use the
+new task type:
+
+<iframe src="https://medium.com/media/df6602bca382c16a430fcb92a649a4bd" frameborder="0"></iframe>
+
+## SplTokenParseTask & SplStakePoolTask
+
+Switchboard has added the
+[SplTokenParseTask](https://gist.github.com/gallynaut/1414b538090e29fe598ef4186445de0d)
+and [SplStakePoolTask](https://docs.switchboard.xyz/api/tasks#splstakepooltask)
+to resolve on-chain data in your Switchboard feeds. This will allow developers
+to build data feeds using live on-chain data. The following is an example of how
+to fetch the total token supply of the MonkeeDao stake pool:
+
+<iframe src="https://medium.com/media/d2e9490116b013c01959be8bf47c99bb" frameborder="0"></iframe>
+
+## Publisher
+
+The publisher got a facelift
+
+… more details soon™!
+
+[publish.switchboard.xyz](https://publish.switchboard.xyz/)
+
+## Conclusion
+
+The Switchboard V2 SDK is here to help developers integrate Switchboard into
+their applications. We welcome any PRs or feedback from the community!
+
+- [docs.switchboard.xyz](https://docs.switchboard.xyz/)
+
+- [discord.switchboard.xyz](http://discord.switchboard.xyz/)
+
+- [twitter.com/switchboardxyz](https://twitter.com/switchboardxyz)
+
+- [t.me/switchboardxyz](https://t.me/switchboardxyz)

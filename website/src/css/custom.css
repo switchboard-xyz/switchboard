@@ -6,12 +6,6 @@
  * work well for content-centric websites.
  */
 
-@import "admonitions.css";
-@import "footer.css";
-@import "icons.css";
-@import "navbar.css";
-@import "sidebar.css";
-
 :root {
   --ifm-color-primary: #117083;
   --ifm-color-primary-dark: #0f6576;
@@ -44,6 +38,13 @@
   --ifm-pages-background-color: var(--ifm-background-color);
 }
 
+@import "admonitions.css";
+@import "footer.css";
+@import "icons.css";
+@import "navbar.css";
+@import "sidebar.css";
+@import "my-icons.css";
+
 .alert--info {
   --ifm-alert-background-color: inherit;
 }
@@ -54,9 +55,9 @@
 } */
 
 /* Make last column in table full width */
-td:last-child {
+/* td:last-child {
   width: 100%;
-}
+} */
 
 .table_no_border td,
 .table_no_border tr {
@@ -93,26 +94,19 @@ html[data-theme="dark"] .docusaurus-highlight-code-line {
   white-space: nowrap;
 }
 
-a.link__nocolor,
+/* a.link__nocolor,
 a.link__nocolor:hover,
 a.link__nocolor:visited,
 a.link__nocolor:link,
 a.link__nocolor:active {
   color: inherit;
-}
+} */
 
 .vertical-rule {
   border-left: 2px solid var(--ifm-color-primary);
   margin: 0;
   padding: 0;
 }
-
-/* IS THIS NEEDED ?!?! */
-/* @media (max-width: 996px) {
-  .row .col.col.col {
-    --ifm-col-width: 180px;
-  }
-} */
 
 table li {
   list-style-type: "> ";
@@ -123,10 +117,17 @@ table li::marker {
   font-size: 1.25rem;
 }
 
-table a {
+/* table a {
   color: var(--ifm-navbar-link-color);
-}
+} */
 
-html[data-theme="dark"] a:hover {
+/* html[data-theme="dark"] a:hover {
   color: var(--ifm-color-primary-lightest);
-}
+} */
+
+/* table {
+  width: 100%;
+  table-layout: fixed;
+  overflow-x: auto;
+  display: block;
+} */

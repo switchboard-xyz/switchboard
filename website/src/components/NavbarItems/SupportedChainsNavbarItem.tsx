@@ -1,12 +1,12 @@
 import { useColorMode } from "@docusaurus/theme-common";
-import { useLocation } from "react-router-dom";
+import { useLocation } from "@docusaurus/router";
 import Link from "@docusaurus/Link";
 import useBaseUrl from "@docusaurus/useBaseUrl";
 import React from "react";
 import { styled } from "@mui/system";
 import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
-import { Box, Typography, Tooltip } from "@mui/material";
+import { Box, Tooltip, Grid, Typography } from "@mui/material";
 
 // TODO: Add another component that will go into the Sidebar and hide the Navbar component
 // For some reason we cant manually remove this element from the Navbar
@@ -42,6 +42,15 @@ const StyledLink = styled(Link)<{ dark: number; isLinkActive: boolean }>(
   })
 );
 
+const chains = [
+  { label: "Aptos", path: "/aptos", className: "heading_icon__aptos" },
+  { label: "CoreDAO", path: "/core", className: "heading_icon__coredao" },
+  { label: "NEAR", path: "/near", className: "heading_icon__near" },
+  { label: "Solana", path: "/solana", className: "heading_icon__solana" },
+  { label: "StarkNet", path: "/starknet", className: "heading_icon__starknet" },
+  { label: "Sui", path: "/sui", className: "heading_icon__sui" },
+];
+
 const SupportedChainsNavbarItem = () => {
   const theme = useTheme();
   const location = useLocation();
@@ -51,39 +60,36 @@ const SupportedChainsNavbarItem = () => {
   const { colorMode } = useColorMode();
 
   return (
-    <StyledBox className="navbar__item" dark={colorMode === "dark" ? 1 : 0}>
-      {isMobile ? <></> : <div>Chains</div>}
-      <Tooltip title={<h4>Aptos</h4>}>
-        <StyledLink
-          isLinkActive={
-            location.pathname.includes(useBaseUrl("/aptos")) ? true : false
-          }
-          dark={colorMode === "dark" ? 1 : 0}
-          className="navbar__link header-aptos-link "
-          to={useBaseUrl("/aptos")}
-        />
-      </Tooltip>
-      <Tooltip title={<h4>NEAR</h4>}>
-        <StyledLink
-          isLinkActive={
-            location.pathname.includes(useBaseUrl("/near")) ? true : false
-          }
-          dark={colorMode === "dark" ? 1 : 0}
-          className="navbar__link header-near-link"
-          to={useBaseUrl("/near")}
-        />
-      </Tooltip>
-      <Tooltip title={<h4>Solana</h4>}>
-        <StyledLink
-          isLinkActive={
-            location.pathname.startsWith(useBaseUrl("/solana")) ? true : false
-          }
-          dark={colorMode === "dark" ? 1 : 0}
-          className="navbar__link header-solana-link"
-          to={useBaseUrl("/solana")}
-        />
-      </Tooltip>
-    </StyledBox>
+    <>
+      <div className="navbar__logo">
+        <Link to="/">
+          <img src="/img/logo.svg" />
+        </Link>
+      </div>
+      <StyledBox className="navbar__item" dark={colorMode === "dark" ? 1 : 0}>
+        <Grid
+          container
+          rowSpacing={1}
+          justifyContent="flex-start"
+          alignItems="flex-start"
+          sx={{ maxWidth: "30vw", minWidth: "10vw" }}
+          xs={10}
+        >
+          {chains.map(({ label, path, className }) => (
+            <Grid item xs={3}>
+              <StyledLink
+                isLinkActive={
+                  location.pathname.includes(useBaseUrl(path)) ? true : false
+                }
+                dark={colorMode === "dark" ? 1 : 0}
+                className={`navbar__link ${className}`}
+                to={useBaseUrl(path)}
+              />
+            </Grid>
+          ))}
+        </Grid>
+      </StyledBox>
+    </>
   );
 };
 

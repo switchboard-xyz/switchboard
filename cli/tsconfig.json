@@ -13,7 +13,7 @@
     "esModuleInterop": true,
     "skipLibCheck": true,
     "strictPropertyInitialization": false,
-    "moduleResolution": "Node16"
+    "moduleResolution": "Node"
   },
   "files": ["src/index.ts"],
   "include": ["src/**/*"],

@@ -1,17 +1,13 @@
 {
   // This file is not used in compilation. It is here just for a nice editor experience.
-  "extends": "@tsconfig/docusaurus/tsconfig.json",
+  "extends": "./node_modules/@tsconfig/docusaurus/tsconfig.json",
   "compilerOptions": {
     "baseUrl": ".",
-    "lib": ["es2021"],
-    "esModuleInterop": true,
-    "resolveJsonModule": true,
-    "sourceMap": true,
-    "types": ["node"],
-    "paths": {
-      "@theme/*": ["./node_modules/"]
-    }
+    "resolveJsonModule": true
   },
-  "include": ["src", "src/**/*.json", "scripts", "src/types", "./terms.json"],
-  "exclude": ["static", "public", "node_modules"]
+  "references": [
+    {
+      "path": "../plugins/docusaurus-plugin-api-docs"
+    },
+  ]
 }

@@ -1,0 +1,148 @@
+---
+sidebar_position: 1
+title: Data Feed Integration
+---
+
+import MarkdownImage from "/src/components/MarkdownImage";
+import { Box, Typography, Grid } from "@mui/material";
+import Link from "@docusaurus/Link";
+
+import CodeBlock from "@theme/CodeBlock";
+import Tabs from "@theme/Tabs";
+import TabItem from "@theme/TabItem";
+
+<!-- ## Configuration
+
+<Grid container spacing={3}>
+  <Grid item md={4} sm={12} order={{ xs: 2, sm: 1 }}>
+    <Typography>Solana</Typography>
+  </Grid>
+  <Grid item md={8} sx={12} order={{ xs: 1, sm: 2 }}>
+    <MarkdownImage
+      img="/img/feeds/Aggregator_Accounts.png"
+      sx={{
+        display: "flex",
+      }}
+    />
+  </Grid>
+</Grid> -->
+
+## Read a Feed On-Chain
+
+import ReadFeedRust from "!!raw-loader!../../../../sdks/solana/.docs/rust/switchboard-v2/usage/read-result.rs";
+
+<CodeBlock language="rust">{ReadFeedRust}</CodeBlock>
+
+See the
+[anchor-feed-parser](http://localhost:3000/solana/sdk/anchor/anchor-feed-parser)
+example for a full example.
+
+## Read a Feed with Typescript
+
+import ReadFeedTypescript from "!!raw-loader!../../../../sdks/solana/.docs/javascript/solana.js/usage/read-data-feed.ts";
+
+<CodeBlock language="typescript">{ReadFeedTypescript}</CodeBlock>
+
+## Create a Feed in Typescript
+
+import CreateFeedTypescript from "!!raw-loader!../../../../sdks/solana/.docs/javascript/solana.js/usage/create-a-data-feed.ts";
+
+<CodeBlock language="typescript">{CreateFeedTypescript}</CodeBlock>
+
+## Create a Feed with the CLI
+
+import CreateFeedCli from "../../../../sdks/solana/.docs/javascript/feed-walkthrough/usage/create-a-feed-with-cli.md";
+
+<CreateFeedCli />
+
+<!-- 
+
+### Typescript SDK
+
+import ReadFeedTypescript from "!!raw-loader!../solana/code/javascript/read-feed.ts";
+import ReadFeedTypescriptPreview from "!!raw-loader!../solana/code/javascript/read-feed.preview.ts";
+
+<Tabs>
+  <TabItem value="preview" label="Preview">
+    <CodeBlock language="typescript">{ReadFeedTypescriptPreview}</CodeBlock>
+  </TabItem>
+  <TabItem value="full" label="Full">
+    <CodeBlock language="typescript">{ReadFeedTypescript}</CodeBlock>
+  </TabItem>
+</Tabs>
+
+### CLI
+
+```bash
+sbv2 solana aggregator print --mainnetBeta $AGGREGATOR_PUBKEY
+```
+
+:::tip CLI --json flag
+
+You can provide the `--json` flag to return a JSON object representing the
+account state which can then be piped to a file descriptor.
+
+:::
+
+## Create a Feed
+
+### UI
+
+See [Publisher](/publisher) for creating a feed with the UI.
+
+### Typescript SDK
+
+import CreateFeedTypescript from "!!raw-loader!../solana/code/javascript/create-feed.ts";
+import CreateeedTypescriptPreview from "!!raw-loader!../solana/code/javascript/create-feed.preview.ts";
+
+<Tabs>
+  <TabItem value="preview" label="Preview">
+    <CodeBlock language="typescript">{CreateeedTypescriptPreview}</CodeBlock>
+  </TabItem>
+  <TabItem value="full" label="Full">
+    <CodeBlock language="typescript">{CreateFeedTypescript}</CodeBlock>
+  </TabItem>
+</Tabs>
+
+### CLI
+
+```bash
+sbv2 solana aggregator create $QUEUE_PUBKEY \
+    --keypair ~/.config/solana/devnet.json \
+    --crankKey $CRANK_PUBKEY \
+    --name "My_Test_Feed" \
+    --updateInterval 10 \
+    --minOracles 1 \
+    --batchSize 1 \
+    --leaseAmount 1.337 \
+    --job ./directory/jobs/btc/binanceCom.json \
+    --job ./directory/jobs/btc/kraken.json \
+    --job ./directory/jobs/btc/bitfinex.json
+```
+
+## More Resources
+
+- [anchor-feed-parser](https://github.com/switchboard-xyz/sbv2-solana/tree/main/programs/anchor-feed-parser):
+  View an anchor example showing how to deserialize and read a Switchboard data
+  feed
+- [aggregator.spec.ts](https://github.com/switchboard-xyz/sbv2-solana/blob/main/javascript/solana.js/test/aggregator.spec.ts):
+  View the javascript tests for an aggregator and see sample implementations
+
+## Troubleshooting
+
+<details>
+<summary>
+
+### Why is my feed stale?
+
+</summary>
+
+- Does the feed have enough funds in its lease account?
+- Does the feed have the right permissions for its queue?
+- Is the feed currently on a crank?
+- Is a new round being opened?
+
+</details>
+
+
+-->

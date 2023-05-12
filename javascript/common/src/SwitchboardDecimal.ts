@@ -1,4 +1,6 @@
-import Big from 'big.js';
+import { fromBN } from './big.js';
+
+import { Big } from 'big.js';
 import BN from 'bn.js';
 /**
  * Switchboard precisioned representation of numbers.
@@ -76,28 +78,7 @@ export class SwitchboardDecimal {
    * @return Big representation
    */
   public toBig(): Big {
-    let mantissa: BN = new BN(this.mantissa, 10);
-    let s = 1;
-    const c: Array<number> = [];
-    const ZERO = new BN(0, 10);
-    const TEN = new BN(10, 10);
-    if (mantissa.lt(ZERO)) {
-      s = -1;
-      mantissa = mantissa.abs();
-    }
-    while (mantissa.gt(ZERO)) {
-      c.unshift(mantissa.mod(TEN).toNumber());
-      mantissa = mantissa.div(TEN);
-    }
-    const e = c.length - this.scale - 1;
-    const result = new Big(0);
-    if (c.length === 0) {
-      return result;
-    }
-    result.s = s;
-    result.c = c;
-    result.e = e;
-    return result;
+    return fromBN(this.mantissa, this.scale);
   }
 
   toString() {
