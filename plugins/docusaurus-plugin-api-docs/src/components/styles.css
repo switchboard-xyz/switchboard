@@ -1,0 +1,286 @@
+:root {
+  --tsd-muted-text: var(--ifm-color-secondary-darkest);
+  --tsd-font-small: var(--ifm-h6-font-size);
+  --tsd-spacing-vertical: 0.75rem;
+  --tsd-spacing-vertical-full: 2rem;
+  --tsd-spacing-horizontal: 1rem;
+}
+
+.tsd-panel {
+  border: 1px solid var(--ifm-card-background-color);
+  border-radius: var(--ifm-global-radius);
+  margin-bottom: var(--ifm-spacing-vertical);
+  overflow: hidden;
+}
+
+.tsd-panel > .tsd-panel {
+  margin: var(--tsd-spacing-horizontal);
+}
+
+.tsd-panel-header {
+  background-color: var(--ifm-card-background-color);
+  padding: var(--tsd-spacing-vertical) var(--tsd-spacing-horizontal);
+  margin: 0;
+  position: relative;
+}
+
+.tsd-panel-content {
+  margin: 0;
+  padding: var(--tsd-spacing-vertical) var(--tsd-spacing-horizontal);
+  border-bottom: 1px solid var(--ifm-card-background-color);
+}
+
+.tsd-panel-content:empty {
+  display: none;
+}
+
+.tsd-panel-content:last-child {
+  border-bottom: 0;
+}
+
+.tsd-panel-content > *:first-child {
+  margin-top: 0;
+}
+
+.tsd-panel-group,
+.tsd-footer {
+  margin-top: var(--tsd-spacing-vertical-full);
+}
+
+.tsd-panel-header .tsd-anchor {
+  margin-left: 0.5rem;
+  float: right;
+}
+
+.tsd-panel-header .tsd-anchor-id {
+  position: absolute;
+  top: -4.5rem;
+  right: 0;
+}
+
+.tsd-divider {
+  margin: var(--tsd-spacing-vertical) -1rem;
+  border: 1px solid var(--ifm-card-background-color);
+  border-bottom: 0;
+}
+
+.tsd-header-flags {
+  float: right;
+}
+
+.tsd-footer {
+  text-align: center;
+}
+
+html[data-theme="light"] .tsd-panel-header {
+  background-color: var(--ifm-hover-overlay);
+}
+
+html[data-theme="light"] .tsd-panel,
+html[data-theme="light"] .tsd-panel-content {
+  border-color: var(--ifm-hover-overlay);
+}
+
+/* LISTS */
+
+.tsd-hierarchy,
+.tsd-type-parameters {
+  list-style: square;
+  margin: 0;
+}
+
+.tsd-index-list,
+.tsd-signatures,
+.tsd-descriptions,
+.tsd-sources ul,
+.tsd-sources p {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.tsd-index-list {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.tsd-index-list li {
+  width: 100%;
+  padding-right: 1rem;
+}
+
+@media screen and (min-width: 576px) {
+  .tsd-index-list li {
+    width: 50%;
+  }
+}
+
+@media screen and (min-width: 997px) {
+  .tsd-index-list li {
+    width: 33%;
+  }
+}
+
+/* SPACING */
+
+.tsd-parameters h5,
+.tsd-type-parameters-title,
+.tsd-parameters-title,
+.tsd-returns-title {
+  margin: 0;
+}
+
+.tsd-comment,
+.tsd-comment > .markdown,
+.tsd-sources,
+.tsd-descriptions,
+.tsd-type-declaration,
+.tsd-type-parameters,
+.tsd-parameters {
+  margin-top: var(--tsd-spacing-vertical);
+  margin-bottom: 0;
+}
+
+.tsd-comment-root {
+  margin-top: 0;
+  margin-bottom: var(--tsd-spacing-vertical-full);
+}
+
+/* SOURCES */
+
+.tsd-sources,
+.tsd-footer {
+  color: var(--tsd-muted-text);
+  font-size: var(--tsd-font-small);
+}
+
+.tsd-sources ul,
+.tsd-sources p {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.tsd-footer a,
+.tsd-sources a {
+  color: var(--tsd-muted-text);
+  text-decoration: underline;
+}
+
+.tsd-footer a:hover,
+.tsd-sources a:hover {
+  color: var(--ifm-link-color);
+}
+
+/* SIGNATURES */
+
+.tsd-description > *,
+.tsd-parameters {
+  margin-top: var(--tsd-spacing-vertical);
+}
+
+.tsd-description > *:first-child {
+  margin-top: 0;
+}
+
+.tsd-signature-inactive {
+  opacity: 0.35;
+}
+
+/* FLAGS */
+
+.tsd-flag {
+  display: inline-block;
+  padding: 3px 6px;
+  border-radius: var(--ifm-global-radius);
+  color: var(--ifm-footer-title-color);
+  background-color: var(--ifm-footer-background-color);
+  text-indent: 0;
+  font-size: var(--tsd-font-small);
+  font-weight: normal;
+  margin-top: -1px;
+  margin-right: 0.5rem;
+  opacity: 0.65;
+  vertical-align: middle;
+}
+
+/* MODIFIERS */
+
+.badge-group {
+  font-size: var(--tsd-font-small);
+  vertical-align: middle;
+}
+
+.tsd-panel-header .badge-group {
+  display: inline-block;
+  margin-left: 0.25em;
+}
+
+.badge-group > span {
+  margin-right: 0.25rem;
+}
+
+/* SYNTAX */
+
+.tsd-generics {
+  font-weight: normal;
+}
+
+.tsd-signature-symbol,
+.tsd-signature-type-generic {
+  color: var(--tsd-muted-text);
+  font-weight: normal;
+}
+
+.tsd-signature-type {
+  font-style: italic;
+  font-weight: normal;
+}
+
+.tsd-pressable {
+  cursor: pointer;
+}
+
+.tsd-kind-icon .codicon {
+  margin-right: 0.5rem;
+}
+
+.codicon[class*="codicon-"] {
+  vertical-align: middle;
+  display: inline-block;
+}
+
+/*
+	This is copied from Docusaurus:
+	https://github.com/facebook/docusaurus/blob/master/packages/docusaurus-theme-classic/src/theme/DocItem/styles.module.css#L19
+*/
+
+@media only screen and (min-width: 997px) {
+  .apiItemCol {
+    max-width: 75% !important;
+  }
+
+  /* Prevent hydration FOUC, as the mobile TOC needs to be server-rendered */
+  .apiTocMobile {
+    display: none;
+  }
+}
+
+/* DOCUSAURUS */
+
+.tsd-kind-icon {
+  word-break: break-all;
+}
+
+.apiPage .menu__link:not(.menu__link--sublist),
+.apiPage .table-of-contents__link,
+.tsd-truncate {
+  display: block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.display-linebreak {
+  white-space: pre-line;
+}

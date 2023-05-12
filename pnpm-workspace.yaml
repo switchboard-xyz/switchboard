@@ -2,3 +2,4 @@ packages:
   - "javascript/*"
   - "cli"
   - "website"
+  - "plugins/docusaurus-plugin-api-docs"

@@ -1,0 +1,42 @@
+---
+title: "feed-parser"
+slug: "/aptos/sdk/move/feed-parser"
+hide_title: true
+sidebar_class_name: "sidebar__move"
+sidebar_position: 1
+---
+
+<div align="center">
+
+![Switchboard Logo](https://github.com/switchboard-xyz/sbv2-core/raw/main/website/static/img/icons/switchboard/avatar.png)
+
+# Aptos feed-parser
+
+> An example contract reading the price of a Switchboard data feed on-chain.
+
+</div>
+
+## Build
+
+```bash
+aptos move compile --named-addresses switchboard=default
+```
+
+## Install
+
+Add the following to your `Move.toml`.
+
+```toml
+[addresses]
+switchboard = "0x34e2eead0aefbc3d0af13c0522be94b002658f4bef8e0740a21086d22236ad77"
+
+[dependencies]
+MoveStdlib = { git = "https://github.com/aptos-labs/aptos-core.git", subdir = "aptos-move/framework/move-stdlib/", rev = "devnet" }
+AptosFramework = { git = "https://github.com/aptos-labs/aptos-core.git", subdir = "aptos-move/framework/aptos-framework/", rev = "devnet" }
+AptosStdlib = { git = "https://github.com/aptos-labs/aptos-core.git", subdir = "aptos-move/framework/aptos-stdlib/", rev = "devnet" }
+Switchboard = { git = "https://github.com/switchboard-xyz/sbv2-aptos.git", subdir = "move/switchboard/", rev = "main" }
+```
+
+## Usage
+
+N/A

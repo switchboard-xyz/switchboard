@@ -1,0 +1,97 @@
+---
+title: "Switchboard v3"
+description:
+  "Presenting Switchboard v3 — an oracle protocol using <strong>Trusted
+  Execution Environments</strong> (TEEs)."
+authors: [yy]
+tags: []
+hide_table_of_contents: true
+---
+
+# Introduction to Switchboard v3
+
+Presenting Switchboard v3 — an oracle protocol using **Trusted Execution
+Environments** (TEEs).
+
+# Current oracle consensus mechanisms
+
+Today, most oracle protocols achieve consensus using trusted nodes to aggregate
+results to publish on-chain. For example, a price feed involves a number of
+oracles aggregating a number of results from different sources and publishing
+the results on-chain.
+
+From the example, this carries the assumption of an honest majority of nodes
+answering correctly. This introduces additional overhead of additional network
+fees (to incentivise oracles) and latency waiting for sources to respond/network
+propagation.
+
+Additionally, if an oracle is responsible for securing millions of TVL on each
+update, shouldn’t the oracle be at risk of losing millions of dollars on each
+update to align on incentives? This form of economic majority introduces
+additional challenges with capital efficiency.
+
+What if there was a way to use verifiable computation and cryptography so that
+you didn’t need to rely exclusively on an economic majority for every
+transaction? What if you could rely on just 1 of N nodes to respond and know the
+result was accurate?
+
+# How is Switchboard v3 different?
+
+TRUST BUT VERIFY!
+
+Switchboard v3’s TEEs enable oracles to become verifiable, offering low latency,
+low cost and most importantly verifiable compute services.
+
+<!--truncate-->
+
+- Data retrieval was indeed from the configured source;
+- Code execution was executed as intended.
+
+To simply put it, when you tell the oracles to do XYZ, the oracles can execute
+the jobs and publish the data, all in a verifiable manner.
+
+# Current usage: Switchboard v2
+
+Since inception, Switchboard believes in a developer-first approach where we’ve
+empowered developers with the necessary tools to explore, build and manage data
+feeds — such as the Explorer and Publisher.
+
+[https://switchboard.xyz](https://switchboard.xyz)
+
+# Future usage: Switchboard v3
+
+Being able to offer verifiable compute services as part of feed creation allows
+for:
+
+- Fast & secure data feeds
+- Incorporate advanced calculations & risk metrics into price feeds
+- Customized logic & support for any API
+- and much more!
+
+A literal switchboard.
+
+Now, imagine yourself as a developer, in a world where a literal web3
+_switchboard_ is accessible, where you plug and play with data, tools, services,
+all provided by Switchboard Services!
+
+# Wen v3?
+
+Stay plugged in! We’re heads down finalizing on our Switchboard v3 iteration.
+Soon, we will be natively implemented on all of the chains we support and more
+to come!
+
+Looking to discuss TEEs, integrate with Switchboard v3 or partner with us?
+Follow our socials, check out our documentation and fill up our contact form!
+
+Contact us: [https://switchboard.xyz/contact](https://switchboard.xyz/contact)
+
+Twitter:
+[https://twitter.com/switchboardxyz](https://twitter.com/switchboardxyz)
+
+Discord: [https://discord.gg/switchboardxyz](https://discord.gg/switchboardxyz)
+
+Github: [https://github.com/switchboard-xyz](https://github.com/switchboard-xyz)
+
+Docs: [https://docs.switchboard.xyz](https://docs.switchboard.xyz)
+
+More links: [https://linktr.ee/switchboardxyz](https://linktr.ee/switchboardxyz)

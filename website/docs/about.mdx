@@ -1,0 +1,67 @@
+---
+sidebar_position: 1
+title: About
+keywords:
+  [Switchboard, web3, oracle, data feeds, vrf, randomness, solana, aptos, near]
+---
+
+# About Switchboard
+
+Switchboard is a decentralized oracle network designed to provide secure and
+reliable off-chain data to various blockchain platforms. By utilizing a flexible
+network structure, Switchboard facilitates the integration of different chains,
+enabling users to customize security levels and configuration parameters for
+their specific use cases.
+
+## Key Features
+
+- **Decentralized Oracle Network**: Switchboard connects blockchain platforms to
+  real-world data sources, ensuring reliable and secure access to off-chain
+  information.
+- **Independent Oracle Queues**: Each oracle queue operates independently,
+  maintaining its own configurations and determining the degree of security.
+  Queues can require pre-approval or allow any requester access.
+- **Economic Incentives**: The network uses economic incentives, such as rewards
+  and slashing, to encourage oracles to act honestly and maintain the integrity
+  of the network.
+- **Governance**: Switchboard is governed by its network participants, who
+  control various queue configuration parameters and determine the rules for
+  permitting new oracles to join the network.
+- **Access Control**: Oracles, aggregators, VRF accounts, and buffer relayer
+  accounts must have associated `PermissionAccount` initialized before
+  interacting with a queue. Permissions are granted by `queue.authority`.
+- **Trusted Execution**: With Switchboard V3, oracles are executed within a
+  trusted execution environment providing peace of mind that the running code
+  was not tampered with.
+
+## Use Cases
+
+By providing a flexible and adaptable decentralized oracle network, Switchboard
+empowers developers and users to harness the full potential of decentralized
+computing.
+
+Switchboard's versatile architecture makes it suitable for a wide range of use
+cases, including but not limited to:
+
+- **Data Feeds**: Access to real-world information, such as price data, weather
+  data, or sports scores, for blockchain-based applications.
+- **Random Number Generation**: Secure and unbiased random number generation for
+  on-chain applications, such as gaming and lottery platforms.
+- **Serverless Execution**: Triggering smart contracts based on specific
+  off-chain conditions, such as asset prices or real-world events, using your
+  own custom logic within a trusted execution environment.
+- **Decentralized Autonomous Organizations (DAOs)**: Facilitate transparent
+  governance and decision-making within decentralized organizations by providing
+  access to verifiable off-chain data.
+- **Escrow Services**: Create trustless, automated escrow systems for asset
+  transfers, real estate transactions, or other high-value deals, based on
+  pre-agreed conditions.
+- **Prediction Markets**: Decentralized platforms for forecasting future events,
+  leveraging verifiable off-chain data and trusted execution environments for
+  unbiased outcomes.
+- **Supply Chain Management**: Verify the authenticity and origin of goods in a
+  transparent and secure manner, allowing consumers to make informed purchasing
+  decisions.
+- **Energy Market**: Monitor real-time energy consumption and pricing data to
+  optimize smart grid management and facilitate decentralized energy trading
+  platforms.

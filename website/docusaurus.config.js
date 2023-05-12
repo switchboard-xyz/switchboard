@@ -1,6 +1,19 @@
 // @ts-check
 // Note: type annotations allow type checking and IDEs autocompletion
 
+const lightCodeTheme = require("prism-react-renderer/themes/shadesOfPurple");
+const darkCodeTheme = require("prism-react-renderer/themes/shadesOfPurple"); // synthwave84
+
+const getVersions = () => {
+  if (require("fs").existsSync("versions.json")) {
+    return [
+      "current",
+      ...JSON.parse(require("fs").readFileSync("versions.json", "utf-8")),
+    ];
+  }
+  return ["current"];
+};
+
 const TwitterSvg =
   '<svg style="fill: #1DA1F2; vertical-align: middle; margin-left: 3px;" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"></path></svg>';
 
@@ -8,27 +21,58 @@ const TwitterSvg =
 const config = {
   title: "Switchboard",
   tagline: "Community curated lightspeed data feeds on-chain",
+  favicon: "img/favicon.ico",
+
+  // Set the production url of your site here
   url:
     process.env.NODE_ENV === "production"
       ? "https://docs.switchboard.xyz"
       : "http://localhost",
+  // Set the /<baseUrl>/ pathname under which your site is served
+  // For GitHub pages deployment, it is often '/<projectName>/'
   baseUrl: "/",
-  // onBrokenLinks: "throw",
-  onBrokenLinks: "warn",
-  onBrokenMarkdownLinks: "warn",
-  favicon: "img/favicon.ico",
-  organizationName: "switchboard-xyz", // Usually your GitHub org/user name.
-  projectName: "switchboard-v2", // Usually your repo name.
+
+  // GitHub pages deployment config.
+  organizationName: "switchboard-xyz",
+  projectName: "switchboard",
   deploymentBranch: "gh-pages",
   trailingSlash: false,
+
+  onBrokenLinks: "warn",
+  onBrokenMarkdownLinks: "warn",
+
+  // Even if you don't use internalization, you can use this field to set useful
+  // metadata like html lang. For example, if your site is Chinese, you may want
+  // to replace "en" with "zh-Hans".
+  i18n: {
+    defaultLocale: "en",
+    locales: ["en"],
+  },
+
+  plugins: ["docusaurus-plugin-api-docs"],
+
   presets: [
     [
-      "@docusaurus/preset-classic",
+      "classic",
       /** @type {import('@docusaurus/preset-classic').Options} */
       ({
         docs: {
+          // ignore versioning, only needed for docusaurus-plugin-typedoc-api
+          // lastVersion: "current",
+          versions: Object.fromEntries(
+            getVersions().map((v) => {
+              return [
+                v,
+                {
+                  badge: false,
+                },
+              ];
+            })
+          ),
+          lastVersion: undefined,
+          onlyIncludeVersions: ["current"],
           routeBasePath: "/",
-          sidebarPath: require.resolve("./sidebar.js"),
+          sidebarPath: require.resolve("./sidebars.js"),
           remarkPlugins: [
             [require("@docusaurus/remark-plugin-npm2yarn"), { sync: true }],
             require("remark-math"),
@@ -42,38 +86,23 @@ const config = {
               },
             ],
           ],
-          // editUrl:
-          //   process.env.NODE_ENV === "production"
-          //     ? process.env.CI_PROJECT_URL + "/-/edit/main/"
-          //     : "/",
+        },
+        blog: {
+          showReadingTime: true,
+          include: ["**/*.md", "**/*.mdx"], // need double asterik for nested dirs
+          blogSidebarTitle: "All posts",
+          blogSidebarCount: "ALL",
+        },
+        theme: {
+          customCss: require.resolve("./src/css/custom.css"),
         },
         pages: {
           remarkPlugins: [require("@docusaurus/remark-plugin-npm2yarn")],
         },
-        theme: {
-          customCss: [require.resolve("./src/css/custom.css")],
-        },
       }),
     ],
-    // [
-    //   "docusaurus-protobuffet",
-    //   {
-    //     protobuffet: {
-    //       fileDescriptorsPath: "./oracle_job_protos.json",
-    //     },
-    //   },
-    // ],
   ],
-  stylesheets: [
-    {
-      href: "https://cdn.jsdelivr.net/npm/katex@0.13.24/dist/katex.min.css",
-      type: "text/css",
-      integrity:
-        "sha384-odtC+0UGzzFL/6PNoE8rX/SPcQDXBJ+uRepguP4QkPCm2LBxH3FA3y+fKSiJ+AmM",
-      crossorigin: "anonymous",
-    },
-  ],
-  plugins: ["my-loaders"],
+
   themeConfig:
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
@@ -85,31 +114,8 @@ const config = {
         apiKey: "def6c1d8ee548183d6c709055199e10d",
         indexName: "switchboard",
       },
-      // announcementBar: {
-      //   id: "announcementBar-2", // Increment on change
-      //   content: `⭐️ If you like Switchboard, give us a star on <a target="_blank" rel="noopener noreferrer" href="https://github.com/switchboard-xyz/sbv2-core">GitHub</a> and follow us on <a target="_blank" rel="noopener noreferrer" href="https://twitter.com/switchboardxyz">Twitter ${TwitterSvg}</a>`,
-      // },
-      colorMode: {
-        disableSwitch: false,
-        respectPrefersColorScheme: true,
-      },
-      // Only for code blocks
-      prism: {
-        theme: require("prism-react-renderer/themes/vsDark"),
-        darkTheme: require("prism-react-renderer/themes/vsDark"),
-        additionalLanguages: [
-          "rust",
-          "toml",
-          "docker",
-          "bash",
-          "yaml",
-          "asciidoc",
-          "diff",
-        ],
-      },
       navbar: {
         title: "Switchboard",
-        hideOnScroll: false,
         logo: {
           alt: "Switchboard Logo",
           src: "img/logo.svg",
@@ -118,204 +124,54 @@ const config = {
           height: 72,
         },
         items: [
-          // {
-          //   type: "custom-supportedChainsNavbarItem",
-          //   position: "left",
-          // },
           {
-            label: "Learn",
+            type: "docSidebar",
+            sidebarId: "gettingStartedSidebar",
             position: "left",
-            to: "/network",
+            label: "Getting Started",
           },
           {
-            label: "V3",
+            type: "docSidebar",
+            sidebarId: "guidesSidebar",
             position: "left",
-            to: "/v3",
+            label: "Guides",
           },
           {
-            label: "Publish",
+            to: "/api",
+            label: "API",
             position: "left",
-            to: "/publisher",
           },
-          // {
-          //   to: "protodocs/OracleJob.proto",
-          //   activeBasePath: "protodocs",
-          //   label: "Protodocs",
-          //   position: "left",
-          // },
           {
             type: "dropdown",
-            label: "Integrate",
+            label: "Networks",
             position: "left",
             items: [
               {
                 label: " Aptos",
                 to: "/aptos",
-                className: "header-aptos-link",
+                className: "heading_icon__aptos",
               },
               {
                 label: " CoreDAO",
                 to: "/coredao",
-                className: "header-coredao-link",
+                className: "heading_icon__coredao",
               },
               {
                 label: " Near",
                 to: "/near",
-                className: "header-near-link",
+                className: "heading_icon__near",
               },
               {
                 label: " Solana",
                 to: "/solana",
-                className: "header-solana-link",
-              },
-              {
-                label: " Starknet",
-                to: "/starknet",
-                className: "header-starknet-link",
+                className: "heading_icon__solana",
               },
               {
                 label: " Sui",
                 to: "/sui",
-                className: "header-sui-link",
+                className: "heading_icon__sui",
               },
             ],
-          },
-          {
-            type: "dropdown",
-            label: "Develop",
-            to: "/dev",
-            position: "left",
-            items: [
-              {
-                type: "html",
-                className: "dropdown-heading",
-                value: "<b>Common</b>",
-              },
-              {
-                label: "@switchboard-xyz/cli",
-                to: "/dev/cli",
-                className: "header-typescript-link",
-              },
-              {
-                label: "@switchboard-xyz/common",
-                to: "/dev/common",
-                className: "header-typescript-link",
-              },
-              {
-                label: "@switchboard-xyz/oracle",
-                to: "/dev/oracle",
-                className: "header-typescript-link",
-              },
-              {
-                type: "html",
-                value: '<hr class="dropdown-separator">',
-              },
-              {
-                type: "html",
-                className: "dropdown-heading",
-                value: "<b>Solana</b>",
-              },
-              {
-                label: "  switchboard-v2",
-                to: "/solana/dev/rust",
-                className: "header-rust-link",
-              },
-              {
-                label: "@switchboard-xyz/solana.js",
-                to: "/solana/dev/javascript",
-                className: "header-typescript-link",
-              },
-              {
-                label: "  switchboardpy",
-                to: "/solana/dev/python",
-                className: "header-python-link",
-              },
-              {
-                type: "html",
-                value: '<hr class="dropdown-separator">',
-              },
-              {
-                type: "html",
-                className: "dropdown-heading",
-                value: "<b>Aptos</b>",
-              },
-              {
-                label: "  sbv2-aptos",
-                to: "/aptos/dev/move",
-                className: "header-rust-link",
-              },
-              {
-                label: "@switchboard-xyz/aptos.js",
-                to: "/aptos/dev/javascript",
-                className: "header-typescript-link",
-              },
-              {
-                type: "html",
-                value: '<hr class="dropdown-separator">',
-              },
-              {
-                type: "html",
-                className: "dropdown-heading",
-                value: "<b>CoreDAO</b>",
-              },
-              {
-                label: "@switchboard-xyz/evm.js",
-                to: "/coredao/dev/javascript",
-                className: "header-typescript-link",
-              },
-              {
-                type: "html",
-                value: '<hr class="dropdown-separator">',
-              },
-              {
-                type: "html",
-                className: "dropdown-heading",
-                value: "<b>Near</b>",
-              },
-              {
-                label: "  sbv2-near",
-                to: "/near/dev/rust",
-                className: "header-rust-link",
-              },
-              {
-                label: "@switchboard-xyz/near.js",
-                to: "/near/dev/javascript",
-                className: "header-typescript-link",
-              },
-              {
-                type: "html",
-                value: '<hr class="dropdown-separator">',
-              },
-              {
-                type: "html",
-                className: "dropdown-heading",
-                value: "<b>Starknet</b>",
-              },
-              {
-                label: "@switchboard-xyz/starknet.js",
-                to: "/starknet/dev/javascript",
-                className: "header-typescript-link",
-              },
-              {
-                type: "html",
-                value: '<hr class="dropdown-separator">',
-              },
-              {
-                type: "html",
-                className: "dropdown-heading",
-                value: "<b>Sui</b>",
-              },
-              {
-                label: "@switchboard-xyz/sui.js",
-                to: "/sui/dev/javascript",
-                className: "header-typescript-link",
-              },
-            ],
-          },
-          {
-            label: "Operate",
-            position: "left",
-            to: "/operator",
           },
           {
             type: "dropdown",
@@ -334,31 +190,49 @@ const config = {
                 label: "🔎 Explorer",
                 to: "https://switchboard.xyz/explorer",
               },
+              {
+                label: "🤝 Ecosystem",
+                to: "https://switchboard.xyz/ecosystem",
+              },
             ],
           },
-          {
-            href: "https://github.com/switchboard-xyz",
-            position: "right",
-            className: "header-github-link",
-            "aria-label": "GitHub repository",
-          },
-          // {
-          //   type: "custom-chatBotNavbarItem",
-          //   position: "right",
-          // },
+
+          { to: "/blog", label: "Blog", position: "right" },
           {
             type: "search",
             position: "right",
           },
+          {
+            href: "https://github.com/switchboard-xyz",
+            position: "right",
+            className: "heading_icon__github",
+            "aria-label": "GitHub repository",
+          },
+          {
+            href: "https://twitter.com/switchboard-xyz",
+            position: "right",
+            className: "heading_icon__twitter",
+            "aria-label": "Twitter Link",
+          },
         ],
-      },
-      i18n: {
-        defaultLocale: "en",
-        locales: ["en", "fr", "es"],
       },
       footer: {
         style: "dark",
         links: [],
+      },
+      prism: {
+        theme: lightCodeTheme,
+        darkTheme: darkCodeTheme,
+        additionalLanguages: [
+          "rust",
+          "toml",
+          "docker",
+          "bash",
+          "yaml",
+          "asciidoc",
+          "diff",
+          "solidity",
+        ],
       },
     }),
 };

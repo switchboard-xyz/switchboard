@@ -1,0 +1,180 @@
+---
+sidebar_position: 10
+title: Test Integration
+---
+
+import Tabs from "@theme/Tabs";
+import TabItem from "@theme/TabItem";
+
+Switchboard provides some tools to streamline test integration. **This requires
+Docker to be installed and running on the host machine.**
+
+:::tip
+
+This is compatible with **localnet** and **devnet**.
+
+:::
+
+## Setup Localnet Environment
+
+You may wish to run a localnet version of Switchboard to watch how your program
+reacts to data feed updates. You will need to copy some Switchboard accounts
+from devnet to your local validator on the initial startup sequence. This can be
+done with Anchor by editing your Anchor.toml config or by starting the local
+validator with the accounts provided.
+
+<Tabs>
+  <TabItem value="Anchor" label="Anchor" default>
+
+```toml
+[test.validator]
+url = "https://api.mainnet-beta.solana.com"
+
+[test]
+startup_wait = 15000
+
+[[test.validator.clone]] # sbv2 programID
+address = "SW1TCH7qEPTdLsDHRgPuMQjbQxKdH2aBStViMFnt64f"
+
+[[test.validator.clone]] # sbv2 IDL
+address = "Fi8vncGpNKbq62gPo56G4toCehWNy77GgqGkTaAF5Lkk"
+
+[[test.validator.clone]] # sbv2 SbState
+address = "CyZuD7RPDcrqCGbNvLCyqk6Py9cEZTKmNKujfPi3ynDd"
+
+[[test.validator.clone]] # sbv2 SOL/USD Feed
+address="GvDMxPzN1sCj7L26YDK2HnMRXEQmQ2aemov8YBtPS7vR"
+```
+
+  </TabItem>
+  <TabItem value="CLI" label="solana-test-validator CLI">
+
+```bash
+solana-test-validator -r --bind-address 0.0.0.0 --rpc-port 8899 \
+  --url https://api.mainnet-beta.solana.com \
+  --clone SW1TCH7qEPTdLsDHRgPuMQjbQxKdH2aBStViMFnt64f `# programId` \
+  --clone 7nYabs9dUhvxYwdTnrWVBL9MYviKSfrEbdWCUbcnwkpF `# programDataAddress` \
+  --clone Fi8vncGpNKbq62gPo56G4toCehWNy77GgqGkTaAF5Lkk `# idlAddress` \
+  --clone CyZuD7RPDcrqCGbNvLCyqk6Py9cEZTKmNKujfPi3ynDd `# programState`
+```
+
+:::note
+
+Now start your tests with `anchor test --skip-local-validator`
+
+:::
+
+  </TabItem>
+</Tabs>
+
+## Test Suite
+
+Update your test file and add a before and after hook to create your Switchboard
+environment. You may omit the keypair arguements to create a brand new queue and
+oracle with each run. If no keypair is found at the path provided, one will be
+created for you.
+
+The start method lets you specify the version of the oracle to run along with a
+docker config.
+
+```ts
+import {
+  AggregatorAccount,
+  SwitchboardTestContext,
+} from "@switchboard-xyz/solana.js";
+import { NodeOracle } from "@switchboard-xyz/oracle";
+import { OracleJob } from "@switchboard-xyz/common";
+
+describe("anchor-feed-parser test", () => {
+  const provider = anchor.AnchorProvider.env();
+  anchor.setProvider(provider);
+
+  let switchboard: SwitchboardTestContext;
+  let oracle: NodeOracle;
+
+  let aggregatorAccount: AggregatorAccount;
+
+  before(async () => {
+    switchboard = await SwitchboardTestContext.loadFromProvider(provider, {
+      name: "Test Queue",
+      // You can provide a keypair to so the PDA schemes dont change between test runs
+      keypair: SwitchboardTestContext.loadKeypair("~/.keypairs/queue.json"),
+      queueSize: 10,
+      reward: 0,
+      minStake: 0,
+      oracleTimeout: 900,
+      // aggregators will not require PERMIT_ORACLE_QUEUE_USAGE before joining a queue
+      unpermissionedFeeds: true,
+      unpermissionedVrf: true,
+      enableBufferRelayers: true,
+      oracle: {
+        name: "Test Oracle",
+        enable: true,
+        stakingWalletKeypair: SwitchboardTestContext.loadKeypair(
+          "~/.keypairs/oracleWallet.json"
+        ),
+      },
+    });
+
+    oracle = await NodeOracle.fromReleaseChannel({
+      chain: "solana",
+      // use the latest testnet (devnet) version of the oracle
+      releaseChannel: "testnet",
+      // disables production capabilities like monitoring and alerts
+      network: "localnet",
+      rpcUrl: provider.connection.rpcEndpoint,
+      oracleKey: switchboard.oracle.publicKey.toBase58(),
+      // path to the payer keypair so the oracle can pay for txns
+      secretPath: switchboard.walletPath || "~/.config/solana/id.json",
+      // set to true to suppress oracle logs in the console
+      silent: false,
+      // optional env variables to speed up the workflow
+      envVariables: {
+        VERBOSE: "1",
+        DEBUG: "1",
+        DISABLE_NONCE_QUEUE: "1",
+        DISABLE_METRICS: "1",
+      },
+    });
+
+    // start the oracle and wait for it to start heartbeating on-chain
+    await oracle.startAndAwait();
+  });
+
+  after(() => {
+    oracle?.stop();
+  });
+
+  it("Creates a static feed that resolves to 100", async () => {
+    [aggregatorAccount] = await switchboard.queue.createFeed({
+      batchSize: 1,
+      minRequiredOracleResults: 1,
+      minRequiredJobResults: 1,
+      minUpdateDelaySeconds: 10,
+      fundAmount: 0.15,
+      enable: true,
+      slidingWindow: true,
+      jobs: [
+        {
+          data: OracleJob.encodeDelimited(
+            OracleJob.fromObject({
+              tasks: [
+                {
+                  valueTask: {
+                    value: 100,
+                  },
+                },
+              ],
+            })
+          ).finish(),
+        },
+      ],
+    });
+
+    const aggregator = await aggregatorAccount.loadData();
+    const [updatedState] = await aggregatorAccount.openRoundAndAwaitResult();
+    const result = AggregatorAccount.decodeLatestValue(updatedState);
+    assert(result.toNumber() === 100, "Aggregator result mismatch");
+  });
+});
+```

@@ -1,0 +1,211 @@
+---
+title: "Switchboard V2 (pt.3) — Incentives"
+description: ""
+authors: [gallynaut]
+tags: []
+hide_table_of_contents: true
+---
+
+# Switchboard V2 (pt.3) — Incentives
+
+When designing a decentralized protocol, it’s not enough to ensure your code is
+well tested — you must also align the various parties so no single entity can
+game the system. Today’s article will walk through the design of Switchboard V2
+and how incentives are aligned to minimize trust in the protocol. Check out some
+of our past articles for more background on Switchboard, and how it works.
+
+Incentives are mechanisms to influence an individual or group to behave in a
+certain manner. For example, tax cuts are a government incentive that reduces an
+entity’s operating cost to promote spending. Similarly, many food delivery
+companies subsidize delivery fees to capture future market share. These are all
+extrinsic incentives because you expect some kind of reward for your actions.
+Extrinsic incentives can only get you so far; eventually the food delivery
+companies will need to turn a profit. Decentralized projects cannot operate in
+the same manner as traditional companies where a single group can make the
+decision to sacrifice profit for future market share. Instead the incentives
+must be baked into the protocol and be known to all parties up front.
+
+Switchboard was created to level the playing field and provide equal access to
+on-chain data which allows anyone to suggest, approve, and update feeds. We hope
+the community will be intrinsically motivated to support this vision and
+actively participate to bring this to fruition. Switchboard will never whitelist
+participants and will rely on the community to make improvements as the network
+matures. The following paragraphs detail how Switchboard is designed and how the
+community is able to tweak the protocol to align everyone’s incentives.
+
+<!--truncate-->
+
+## Governance
+
+Let’s begin with the governance system. Switchboard is governed by its
+stakeholders via a democratic DAO (Decentralized Autonomous Organization).
+Switchboard participants are free to propose changes that fall into two
+categories: Protocol proposals and Queue proposals.
+
+Protocol proposals impact the overall architecture of Switchboard and have
+deeper impacts on the network. An example of this might be increasing the number
+of oracles a single queue can support or upgrading the on-chain program to add
+additional features requested by the community. Protocol proposals impact all
+queues on the network so changes should be carefully laid out and discussed
+before reaching consensus.
+
+Queue proposals impact a single oracle queue and can change various queue
+parameters to help reach equilibrium between oracles and data feed updates. Some
+of these parameters include:
+
+- Minimum stake required for an Oracle to join the queue
+
+- Criteria for a data feed to be automatically approved to use the queue
+
+- Admitting additional data feeds to use the queue’s Oracle resources
+
+- Slashing rates for misbehaving Oracles
+
+Giving the users of the protocol a stake in the network (“skin in the game”)
+aligns their incentives toward a common goal: providing permission-less on-chain
+data for smart contract developers to reliably build upon. It is **NOT** in the
+best interest of the switchboard community to implement changes that could
+weaken the protocol or allow oracles to report dishonest data. Therefore it is
+up to the community to remain an active participant and propose improvements
+that align with the common goal and keep all parties happy.
+
+Upon the launch of V2, the Switchboard DAO will provide at least three oracle
+queues with varying levels of security based on the publisher’s needs.
+Switchboard is a permission-less network so anyone can spin up their own Oracle
+queues and control these parameters themselves. This is especially useful for
+projects needing data from private endpoints or projects needing more
+centralized control over their data. The rest of this article will be focused on
+the Switchboard DAO and how oracle queues will be managed by the community.
+
+Initially, the Switchboard DAO quorum will consist of oracle operators as they
+are the most familiar with the protocol constraints. There is no shortage of
+potential data feeds that developers want on-chain, so it’s the number of
+oracles that will be the limiting factor as the network scales in the early
+days. Oracle operators are best positioned to evaluate the impact of new feeds
+and how it may impact their oracle’s performance or how changing oracle rewards
+may entice their peers to game the system. It is important to keep the initial
+quorum smaller in the early days of the network as it allows changes to be
+implemented faster. Future DAO proposals will expand the DAO and include the
+other network participants.
+
+## Incentives
+
+Switchboard at its fundamental level is a data provider for smart contracts.
+Developers expect to receive a single result that is sourced from multiple
+endpoints, confirmed by multiple oracles, and updated at a set interval. The
+publisher is usually an on-chain consumer of the data so they are responsible
+for setting the data feed configuration up-front to meet their use cases. The
+following paragraphs detail how the Switchboard protocol leverages incentives to
+give developers more confidence in the final oracle result.
+
+### Job Diversity
+
+As we are all too familiar with, the classical web lacks redundancy meaning a
+single network failure can crash an entire corporation, as we saw with Facebook
+a few weeks ago. This is not a concern for blockchains but being as Switchboard
+is the gateway between the two, it is up to the protocol to mitigate any outside
+network disruptions. To deal with potential data sources being unreachable,
+Switchboard incentivizes Curators to scour the internet and find redundant data
+sources. Switchboard will provide the initial, open source reference
+implementation that will allow anyone to submit potential data sources into a
+registry for the Publishers to aggregate and build data feeds from. In return,
+curators are rewarded with a percentage of the fees generated from a data feed.
+The goal is to give everyone a role in the network and reward them for improving
+the integrity of the network. When building a data feed, publishers can also
+specify the minimum number of endpoints that must respond before accepting a
+result. This flexibility gives the publisher more control over how a result is
+derived and gives them more confidence in the protocol.
+
+### Rate Limiting
+
+Requested data feed updates will often be hitting the same endpoint fairly
+frequently (e.g. FTX.com). To mitigate rate limiting, some level of
+pseudo-randomness jitter is introduced to the feed scheduler to prevent requests
+hitting the same endpoint at the exact configured update interval. This helps
+the network optimize for the lowest queries per second (QPS) and distributes
+external requests more efficiently.
+
+### Approving New Feeds
+
+Data feeds are added to the network by either a DAO vote or having a
+sufficiently long enough update interval. The update interval threshold is set
+by the DAO and ensures new feeds joining the network can only consume a finite
+amount of oracle resources in a set timeframe.
+
+Publishers are responsible for funding a lease contract which provides the
+upfront capital to reward oracle operators for processing their scheduled
+updates. This up-front capital incentivizes publishers to only publish feeds
+that are worthwhile and provide them some kind of value. A publisher is free to
+propose any feed and eat the capital cost, as long as the oracles are rewarded
+for their work. The lease contract amount is proportional to the length a
+publisher expects to receive updates, the number of oracles processing a given
+feed update, as well as the oracle rewards set by the DAO. Oracle rewards are an
+upfront agreement between the publisher and oracle operators and should remain
+static, at least in the initial DAO quorum where oracle operators could collude
+to raise prices. Publishers are free to choose a queue with a lower cost but
+they may be sacrificing security so it’s up to the publishers to find the right
+balance.
+
+### Extraneous Feeds
+
+There may be a need for multiple data feeds resolving the same value but needing
+different configurations depending on the publisher’s use case. For instance,
+one feed may need a higher fidelity of confidence requiring a greater number of
+oracle and job responses to dictate a final result, which in turn requires a
+higher up-front capital cost for the publisher and could cause slower updates in
+the event the set number of jobs fail to respond. Another feed may just need the
+closest approximation as fast as possible. Switchboard’s flexibility gives
+publishers a wide array of options to control how a value gets derived but like
+all products, a publisher’s use case may change over time. In this event, a
+publisher may elect to extend another publisher’s lease and spread the capital
+cost to multiple on-chain consumers. This results in the feeds with the most use
+having the lowest capital cost to the on-chain consumers. This also further
+incentivizes curators to find resilient endpoints that get used frequently. This
+positive feedback loop creates an environment where the strongest feeds get
+extended and the remaining fall off the stack.
+
+### Oracle Incentives
+
+Switchboard is an open network allowing anyone to run an oracle but there are
+many reasons an oracle may be incentivized to game the system. For example, if
+we know a smart contract is using a particular feed to calculate a collateral
+ratio, an oracle could under-report the asset price and cause a liquidation or
+cause someone to not get the fair market rate for a trade. There’s a myriad of
+reasons an oracle could try and cheat so careful consideration was given to
+incentivize honest oracle behavior.
+
+Oracles are required to stake the set amount of capital specified by the Queue’s
+DAO, which acts as an insurance policy to entice oracle operators to report
+honest results. Each oracle queue can have different staking requirements to
+influence its security. If the staking requirement is set too low it could
+attract dishonest oracles, but if set too high oracles may find a better use of
+their capital elsewhere.
+
+An oracle’s reward for a given round is determined by how many oracles respond
+and the oracles response compared to the accepted, median result. Oracles are
+rewarded each time they submit a result and then reevaluated when an accepted
+result has been accepted.
+
+When a result has been accepted, the oracle rewards are redistributed to the
+oracles that responded within the acceptable range. The median result filters
+the outliers and means an attacker needs to control the majority of the assigned
+oracles in order to skew a result. This is why increasing the oracle stake
+requirements increases the security of the network because the attacker will
+need more up-front capital to fund the attack. Oracle’s get assigned to data
+feeds in a round robin fashion with feeds scheduled at varying intervals and
+oracle amounts so even if an attacker controls 10% of the oracles, there is no
+guarantee their oracles will get assigned to the same feed.
+
+### Slashing
+
+After the on-chain contract has accepted a result, it rewards the oracles who
+responded within the acceptable range, which is set when the queue is
+initialized. Any oracle who responded outside the acceptable range will be
+slashed and lose a portion of their staked capital. The slashing amount can be
+changed by the DAO to further incentivize honest oracle behavior.
+
+## Conclusion
+
+Switchboard was designed to let the community dictate the protocol parameters at
+the protocol and oracle queue level to meet any developers use case. Stay tuned
+for more information on the initial DAO implementation.

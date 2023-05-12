@@ -1,0 +1,87 @@
+---
+title: "Dialed in with Switchboard: March 07, 2022"
+description: ""
+authors: [gallynaut]
+tags: []
+hide_table_of_contents: true
+---
+
+# Dialed in with Switchboard: Vol. 1
+
+> Dialed in with Switchboard will be a weekly newsletter about the various
+> on-going updates with Switchboard.
+
+## Lending Rate Task
+
+Last week Switchboard implemented the
+[lendingRateTask](https://docs.switchboard.xyz/api/tasks#lendingratetask) thanks
+to the work of JetLabs with their
+[@jet-lab/defi-yield-ts](https://github.com/jet-lab/defi-yield-ts) library.
+Developers can now source lending and borrowing rates for the top Solana lending
+protocols on-chain, opening the doors to new automated yield lending strategies.
+
+Check out
+[Switchboard’s Job Directory](https://docs.switchboard.xyz/job-directory#lending-rates)
+for some examples on how to use this new task. Also view the protobuf schema for
+[lendingRateTask](https://docs.switchboard.xyz/api/tasks#lendingratetask).
+
+## Mango Perps Task
+
+Switchboard also added the
+[mangoPerpMarketTask](https://docs.switchboard.xyz/api/tasks#mangoperpmarkettask)
+to resolve the current price of perpetual markets on mango. This can be combined
+with the twapTask to track the time weighted average price of a mango perp
+market and build automated strategies around it.
+
+Check out
+[Switchboard’s Job Directory](https://docs.switchboard.xyz/job-directory#mango-perps)
+for some examples. You can find Mango Market’s addresses in their
+[@blockworks-foundation/mango-client-v3](https://github.com/blockworks-foundation/mango-client-v3/blob/main/src/ids.json)
+repo.
+
+## Variance Threshold added to Publisher
+
+The [Publisher](https://docs.switchboard.xyz/publisher) was updated to allow a
+configurable variance threshold field. The
+[varianceThreshold](https://docs.switchboard.xyz/architecture/feeds#aggregatoraccountdata)
+dictates the change percentage required before an oracle reports a result
+on-chain. A Switchboard data feed includes a pre-funded escrow to reward oracles
+for each successful update. The varianceThreshold is a cost saving parameter to
+reduce excessive on-chain updates and extend the life of a feed. If an oracle
+resolves a value that is too similar to the last reported value, the oracle
+skips reporting a result and conserves the feed’s escrow. Note, some feeds may
+require the most up-to-date data so it is left up to the publisher based on
+their use case.
+
+![Switchboard Lease Configuration](https://cdn-images-1.medium.com/max/2000/0*uwaHVEVzPbH26MQe)_Switchboard
+Lease Configuration_
+
+## Query Aggregator History On-Chain
+
+The [switchboard-v2](https://docs.rs/switchboard-v2) crate was updated to 0.1.8,
+which updates the anchor dependency to 0.22 and added the ability to query an
+aggregator’s history buffer on-chain. An aggregator can be configured to store
+the last N results on-chain in a
+[history buffer account](https://docs.switchboard.xyz/architecture/feeds/history).
+The rust crate now lets you query a history buffer and return the previous
+results value and timestamp. You can add a history buffer to your data feed
+using the Publisher on the
+[My Feeds page](https://publish.switchboard.xyz/feeds).
+
+## VRF CPI Example
+
+The
+[@switchboard-xyz/vrf-cpi-example](https://github.com/switchboard-xyz/vrf-cpi-example)
+was updated to show how a Program Derived Address (PDA) can be used as a VRF
+Account’s authority and sign requestRandomness instructions on its behalf. This
+allows VRF Accounts to be controlled by a program and have predefined update
+logic.
+
+## Switchboard V2 CLI
+
+The
+[@switchboard-xyz/switchboardv2-cli](https://www.npmjs.com/package/@switchboard-xyz/switchboardv2-cli)
+was updated to support account deserialization on devnet and mainnet for
+convenient debugging. Once installed, run the command `sbv2 print PUBLICKEY`
+where PUBLICKEY is any switchboard account, and the CLI will output the
+deserialized account.
