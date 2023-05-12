@@ -1,5 +1,5 @@
-export * from './protos/index.js';
 export * from './OracleJob.js';
+export * from './protos/index.js';
 
 import protobuf from 'protobufjs/minimal.js';
 protobuf.util.toJSONOptions = {

@@ -1,8 +1,8 @@
 import { SolanaWithoutSignerBaseCommand as BaseCommand } from "../../../solana";
+import { chalkString } from "../../../utils";
 
 import { Args, Flags } from "@oclif/core";
 import { QueueAccount } from "@switchboard-xyz/solana.js";
-import { chalkString } from "../../../utils";
 import chalk from "chalk";
 
 export default class QueuePrint extends BaseCommand {
@@ -44,7 +44,9 @@ export default class QueuePrint extends BaseCommand {
 
     if (flags.oracles) {
       this.log(
-        chalk.underline(chalkString("\n## Oracles", new Array(44).join(" ")))
+        chalk.underline(
+          chalkString("\n## Oracles", Array.from({ length: 44 }).join(" "))
+        )
       );
       if (oracles) {
         for (const [n, oracle] of oracles.entries()) {

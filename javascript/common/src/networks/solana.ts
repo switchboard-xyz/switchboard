@@ -1,4 +1,4 @@
-import { IChainConfig, IChainNetworkConfig } from './types.js';
+import { IChainNetworkConfig, ISolanaConfig } from './types.js';
 
 export const SWITCHBOARD_SOLANA_MAINNET_CONFIG: IChainNetworkConfig = {
   programId: 'SW1TCH7qEPTdLsDHRgPuMQjbQxKdH2aBStViMFnt64f',
@@ -106,7 +106,7 @@ export const SWITCHBOARD_SOLANA_DEVNET_CONFIG: IChainNetworkConfig = {
 }
 ```
  */
-export const SWITCHBOARD_SOLANA_CONFIG: IChainConfig = {
+export const SWITCHBOARD_SOLANA_CONFIG: ISolanaConfig = {
   mainnet: SWITCHBOARD_SOLANA_MAINNET_CONFIG,
   devnet: SWITCHBOARD_SOLANA_DEVNET_CONFIG,
 };
