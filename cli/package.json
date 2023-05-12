@@ -1,6 +1,6 @@
 {
   "name": "@switchboard-xyz/cli",
-  "version": "2.2.4",
+  "version": "2.2.5",
   "description": "command line tool to interact with switchboard",
   "author": "gallynaut @gallynaut",
   "bin": {
@@ -31,7 +31,8 @@
     "version": "oclif readme && git add README.md",
     "lint": "gts lint ./src",
     "clean": "gts clean",
-    "fix": "gts fix ./src"
+    "fix": "gts fix ./src",
+    "uprev:sb": "pnpm add @switchboard-xyz/aptos.js@latest @switchboard-xyz/near.js@latest @switchboard-xyz/solana.js@latest"
   },
   "dependencies": {
     "@aws-sdk/client-secrets-manager": "^3.154.0",
@@ -48,11 +49,11 @@
     "@oclif/plugin-version": "^1.2.1",
     "@oclif/plugin-warn-if-update-available": "^2.0.26",
     "@solana/web3.js": "^1.73.0",
-    "@switchboard-xyz/aptos.js": "^2.6.7",
+    "@switchboard-xyz/aptos.js": "^2.6.8",
     "@switchboard-xyz/common": "workspace:^",
-    "@switchboard-xyz/near.js": "^2.2.3",
+    "@switchboard-xyz/near.js": "^2.2.4",
     "@switchboard-xyz/oracle": "workspace:^",
-    "@switchboard-xyz/solana.js": "^2.1.9",
+    "@switchboard-xyz/solana.js": "^2.1.13",
     "aptos": "^1.8.3",
     "aws-sdk": "^2.1167.0",
     "bs58": "^5.0.0",
