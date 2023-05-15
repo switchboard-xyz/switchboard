@@ -47,13 +47,16 @@ const sidebars = {
       value:
         '<h3 class="sidebar__custom_label sidebar__category_label">Solana</h3>',
     },
-    { type: "ref", id: "solana/guides/feeds", className: "sidebar__external" },
     {
       type: "ref",
-      id: "solana/guides/priority-fees",
+      id: "solana/guides/feeds/index",
       className: "sidebar__external",
     },
-    { type: "ref", id: "solana/guides/vrf", className: "sidebar__external" },
+    {
+      type: "ref",
+      id: "solana/guides/vrf/index",
+      className: "sidebar__external",
+    },
     {
       type: "ref",
       id: "solana/guides/test-integration",
