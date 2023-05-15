@@ -6,6 +6,7 @@ export const SWITCHBOARD_SOLANA_MAINNET_CONFIG: IChainNetworkConfig = {
   idlAddress: 'Fi8vncGpNKbq62gPo56G4toCehWNy77GgqGkTaAF5Lkk',
   metadata: {
     defaultRpcUrl: 'https://api.mainnet-beta.solana.com',
+    defaultExplorer: 'https://explorer.solana.com',
   },
   queues: [
     {
@@ -31,6 +32,7 @@ export const SWITCHBOARD_SOLANA_DEVNET_CONFIG: IChainNetworkConfig = {
   idlAddress: 'Fi8vncGpNKbq62gPo56G4toCehWNy77GgqGkTaAF5Lkk',
   metadata: {
     defaultRpcUrl: 'https://api.devnet.solana.com',
+    defaultExplorer: 'https://explorer.solana.com/?cluster=devnet',
   },
   queues: [
     {
@@ -60,7 +62,8 @@ export const SWITCHBOARD_SOLANA_DEVNET_CONFIG: IChainNetworkConfig = {
     "authority": "2NvGRFswVx3GXxURNSfjbsWY4iP1ufj8LvAKJWGXSm4D",
     "idlAddress": "Fi8vncGpNKbq62gPo56G4toCehWNy77GgqGkTaAF5Lkk",
     "metadata": {
-      "defaultRpcUrl": "https://api.mainnet-beta.solana.com"
+      "defaultRpcUrl": "https://api.mainnet-beta.solana.com",
+      "defaultExplorer": "https://explorer.solana.com"
     },
     "queues": [
       {
@@ -84,7 +87,8 @@ export const SWITCHBOARD_SOLANA_DEVNET_CONFIG: IChainNetworkConfig = {
     "authority": "2KgowxogBrGqRcgXQEmqFvC3PGtCu66qERNJevYW8Ajh",
     "idlAddress": "Fi8vncGpNKbq62gPo56G4toCehWNy77GgqGkTaAF5Lkk",
     "metadata": {
-      "defaultRpcUrl": "https://api.devnet.solana.com"
+      "defaultRpcUrl": "https://api.devnet.solana.com",
+      "defaultExplorer": "https://explorer.solana.com/?cluster=devnet"
     },
     "queues": [
       {

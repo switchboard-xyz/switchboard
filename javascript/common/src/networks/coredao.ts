@@ -5,6 +5,7 @@ export const SWITCHBOARD_COREDAO_MAINNET_CONFIG: IChainNetworkConfig = {
   authority: '',
   metadata: {
     defaultRpcUrl: 'https://rpc.coredao.org',
+    defaultExplorer: 'https://scan.coredao.org',
     chainId: 1116,
   },
   queues: [
@@ -26,17 +27,19 @@ export const SWITCHBOARD_COREDAO_MAINNET_CONFIG: IChainNetworkConfig = {
 };
 
 export const SWITCHBOARD_COREDAO_TESTNET_CONFIG: IChainNetworkConfig = {
-  programId: '0xe9F5Ecb00BC437F061DF59d899F00f260740dC48',
-  authority: '',
+  programId: '0x1bAB46734e02d25D9dF5EE725c0646b39C0c5224',
+  authority: '0xB76E3A368dA2B6E6E5F5F686046C7cb0a3e1Bd1A',
   metadata: {
     defaultRpcUrl: 'https://rpc.test.btcs.network',
+    defaultExplorer: 'https://scan.test.btcs.network',
     chainId: 1115,
   },
   queues: [
     {
       name: 'Permissionless Queue',
-      address: '',
-      authority: '',
+      address: '0x934eb1F9D0f59695050f761DC64e443E5030A569',
+      verifierQueue: '0x83Fb069B10426056Ef8Ca54750cB9bB552a59e7D',
+      authority: '0xB76E3A368dA2B6E6E5F5F686046C7cb0a3e1Bd1A',
       crankAddress: '',
       permissioned: false,
     },
@@ -53,6 +56,7 @@ export const SWITCHBOARD_COREDAO_TESTNET_CONFIG: IChainNetworkConfig = {
     "authority": "",
     "metadata": {
       "defaultRpcUrl": "https://rpc.coredao.org",
+      "defaultExplorer": "https://scan.coredao.org",
       "chainId": 1116
     },
     "queues": [
@@ -73,17 +77,19 @@ export const SWITCHBOARD_COREDAO_TESTNET_CONFIG: IChainNetworkConfig = {
     ]
   },
   "testnet": {
-    "programId": "0xe9F5Ecb00BC437F061DF59d899F00f260740dC48",
-    "authority": "",
+    "programId": "0x1bAB46734e02d25D9dF5EE725c0646b39C0c5224",
+    "authority": "0xB76E3A368dA2B6E6E5F5F686046C7cb0a3e1Bd1A",
     "metadata": {
       "defaultRpcUrl": "https://rpc.test.btcs.network",
+      "defaultExplorer": "https://scan.test.btcs.network",
       "chainId": 1115
     },
     "queues": [
       {
         "name": "Permissionless Queue",
-        "address": "",
-        "authority": "",
+        "address": "0x934eb1F9D0f59695050f761DC64e443E5030A569",
+        "verifierQueue": "0x83Fb069B10426056Ef8Ca54750cB9bB552a59e7D",
+        "authority": "0xB76E3A368dA2B6E6E5F5F686046C7cb0a3e1Bd1A",
         "crankAddress": "",
         "permissioned": false
       }

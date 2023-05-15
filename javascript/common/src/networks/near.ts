@@ -5,6 +5,7 @@ export const SWITCHBOARD_NEAR_MAINNET_CONFIG: IChainNetworkConfig = {
   authority: 'sbv2-authority.near',
   metadata: {
     defaultRpcUrl: 'https://rpc.mainnet.near.org',
+    defaultExplorer: 'https://explorer.near.org',
   },
   queues: [
     {
@@ -22,6 +23,7 @@ export const SWITCHBOARD_NEAR_TESTNET_CONFIG: IChainNetworkConfig = {
   authority: 'sbv2-authority.testnet',
   metadata: {
     defaultRpcUrl: 'https://rpc.testnet.near.org',
+    defaultExplorer: 'https://explorer.testnet.near.org',
   },
   queues: [
     {
@@ -43,7 +45,8 @@ export const SWITCHBOARD_NEAR_TESTNET_CONFIG: IChainNetworkConfig = {
     "programId": "switchboard-v2.near",
     "authority": "sbv2-authority.near",
     "metadata": {
-      "defaultRpcUrl": "https://rpc.mainnet.near.org"
+      "defaultRpcUrl": "https://rpc.mainnet.near.org",
+      "defaultExplorer": "https://explorer.near.org"
     },
     "queues": [
       {
@@ -59,7 +62,8 @@ export const SWITCHBOARD_NEAR_TESTNET_CONFIG: IChainNetworkConfig = {
     "programId": "switchboard-v2.testnet",
     "authority": "sbv2-authority.testnet",
     "metadata": {
-      "defaultRpcUrl": "https://rpc.testnet.near.org"
+      "defaultRpcUrl": "https://rpc.testnet.near.org",
+      "defaultExplorer": "https://explorer.testnet.near.org"
     },
     "queues": [
       {

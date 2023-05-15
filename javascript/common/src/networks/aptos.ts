@@ -9,6 +9,7 @@ export const SWITCHBOARD_APTOS_MAINNET_CONFIG: IChainNetworkConfig = {
     '0x7d7e436f0b2aafde60774efb26ccc432cf881b677aca7faaf2a01879bd19fb8',
   metadata: {
     defaultRpcUrl: 'https://fullnode.mainnet.aptoslabs.com/v1',
+    defaultExplorer: 'https://explorer.aptoslabs.com/?network=mainnet',
     chainId: 1,
   },
   queues: [
@@ -44,6 +45,7 @@ export const SWITCHBOARD_APTOS_TESTNET_CONFIG: IChainNetworkConfig = {
     '0xb91d3fef0eeb4e685dc85e739c7d3e2968784945be4424e92e2f86e2418bf271',
   metadata: {
     defaultRpcUrl: 'https://fullnode.testnet.aptoslabs.com/v1',
+    defaultExplorer: 'https://explorer.aptoslabs.com/?network=testnet',
     chainId: 2,
   },
   queues: [
@@ -71,6 +73,7 @@ export const SWITCHBOARD_APTOS_TESTNET_CONFIG: IChainNetworkConfig = {
     "stateAddress": "0x7d7e436f0b2aafde60774efb26ccc432cf881b677aca7faaf2a01879bd19fb8",
     "metadata": {
       "defaultRpcUrl": "https://fullnode.mainnet.aptoslabs.com/v1",
+      "defaultExplorer": "https://explorer.aptoslabs.com/?network=mainnet",
       "chainId": 1
     },
     "queues": [
@@ -96,6 +99,7 @@ export const SWITCHBOARD_APTOS_TESTNET_CONFIG: IChainNetworkConfig = {
     "stateAddress": "0xb91d3fef0eeb4e685dc85e739c7d3e2968784945be4424e92e2f86e2418bf271",
     "metadata": {
       "defaultRpcUrl": "https://fullnode.testnet.aptoslabs.com/v1",
+      "defaultExplorer": "https://explorer.aptoslabs.com/?network=testnet",
       "chainId": 2
     },
     "queues": [

@@ -9,6 +9,7 @@ export const SWITCHBOARD_SUI_MAINNET_CONFIG: IChainNetworkConfig = {
     '0x08d79f4d920b03d88faca1e421af023a87fbb1e4a6fd200248e6e9998d09e470',
   metadata: {
     defaultRpcUrl: 'https://fullnode.mainnet.sui.io:443',
+    defaultExplorer: 'https://suiexplorer.com',
   },
   queues: [
     {
@@ -41,6 +42,7 @@ export const SWITCHBOARD_SUI_TESTNET_CONFIG: IChainNetworkConfig = {
     '0x98670585b87e06628ef2d7f7cb1e7bee8ada65b43b82997935225a7e6e21d18e',
   metadata: {
     defaultRpcUrl: 'https://fullnode.testnet.sui.io:443',
+    defaultExplorer: 'https://suiexplorer.com/?network=testnet',
   },
   queues: [
     {
@@ -65,7 +67,8 @@ export const SWITCHBOARD_SUI_TESTNET_CONFIG: IChainNetworkConfig = {
     "authority": "0xcf2d51b3ca8c23e0ba312392d213b1293a3121f691fa8e120f1a968fc2ad1c8b",
     "switchboardStdLib": "0x08d79f4d920b03d88faca1e421af023a87fbb1e4a6fd200248e6e9998d09e470",
     "metadata": {
-      "defaultRpcUrl": "https://fullnode.mainnet.sui.io:443"
+      "defaultRpcUrl": "https://fullnode.mainnet.sui.io:443",
+      "defaultExplorer": "https://suiexplorer.com"
     },
     "queues": [
       {
@@ -89,7 +92,8 @@ export const SWITCHBOARD_SUI_TESTNET_CONFIG: IChainNetworkConfig = {
     "authority": "0xc9c8e0d738d7f090144847b38a8283fbe8050923875771b8c315a461721c04a4",
     "switchboardStdLib": "0x98670585b87e06628ef2d7f7cb1e7bee8ada65b43b82997935225a7e6e21d18e",
     "metadata": {
-      "defaultRpcUrl": "https://fullnode.testnet.sui.io:443"
+      "defaultRpcUrl": "https://fullnode.testnet.sui.io:443",
+      "defaultExplorer": "https://suiexplorer.com/?network=testnet"
     },
     "queues": [
       {
