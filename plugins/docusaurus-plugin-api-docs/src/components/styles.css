@@ -24,6 +24,11 @@
   position: relative;
 }
 
+.tsd-panel-header h3,
+.tsd-panel-header p {
+  display: inline;
+}
+
 .tsd-panel-content {
   margin: 0;
   padding: var(--tsd-spacing-vertical) var(--tsd-spacing-horizontal);

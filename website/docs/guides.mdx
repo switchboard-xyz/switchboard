@@ -1,19 +1,46 @@
 ---
 title: 📚 Guides
 id: guides
+hide_table_of_contents: true
 ---
 
-## General Guides
+import BasicCardGroup from "/src/components/BasicCardGroup";
 
-- [Data Feed Best Practices](./guides/feeds/best-practices.mdx)
-- [Private APIs](./guides/feeds/private-apis.mdx)
+<BasicCardGroup
+  title="General Guides"
+  items={[
+    {
+      label: "Data Feed Best Practices",
+      link: "./guides/feeds/best-practices",
+    },
+    { label: "Private APIs", link: "./guides/feeds/private-apis" },
+  ]}
+/>
 
-### Oracle Operators
+<BasicCardGroup
+  title="Oracle Operator Guides"
+  items={[
+    {
+      label: "How to Run an Oracle in Google Cloud Platform",
+      link: "./guides/oracles/gcp",
+    },
+  ]}
+/>
 
-- [How to Run an Oracle in Google Cloud Platform](./guides/oracles/gcp.mdx)
-
-## Solana
-
-- [Data Feed Integration](./solana/guides/feeds/index.mdx)
-- [VRF Integration](./solana/guides/vrf/index.mdx)
-- [Test Integration](./solana/guides/test-integration.mdx)
+<BasicCardGroup
+  title="Solana Guides"
+  items={[
+    {
+      label: "Data Feed Integration",
+      link: "./solana/guides/feeds",
+    },
+    {
+      label: "VRF Integration",
+      link: "./solana/guides/vrf",
+    },
+    {
+      label: "Test Integration",
+      link: "./solana/guides/test-integration",
+    },
+  ]}
+/>
