@@ -89,7 +89,26 @@ _**Example**_: Parses the price field from a JSON object
     /// returns multiple numerical results.
     optional AggregationMethod aggregation_method = 2;
   }
-  /// Returns the median of all the results returned by the provided subtasks and subjobs. Nested tasks must return a Number.
+  
+/*
+Returns the median of all the results returned by the provided subtasks and subjobs. Nested tasks must return a Number.
+
+_**Input**_: The current running numerical result output from a task or oracle job.
+
+_**Returns**_: A numerical result.
+
+_**Example**_: Returns the median numerical result from 3 tasks.
+
+```json
+{"medianTask": {"tasks": [{"valueTask": {"value": 10}},{"valueTask": {"value": 20}},{"valueTask": {"value": 30}}]}}
+```
+
+_**Example**_: Returns the median numerical result of 3 jobs.
+
+```json
+{"medianTask": {"jobs": [{"tasks": [{"httpTask": {"url": "https://www.binance.com/api/v3/ticker/price?symbol=SOLUSDT"}},{"jsonParseTask": {"path": "$.price"}}]},{"tasks": [{"httpTask": {"url": "https://www.binance.us/api/v3/ticker/price?symbol=SOLUSD"}},{"jsonParseTask": {"path": "$.price"}}]},{"tasks": [{"httpTask": {"url": "https://api-pub.bitfinex.com/v2/tickers?symbols=tSOLUSD"}},{"jsonParseTask": {"path": "$[0][7]"}}]}]}}
+```
+*/
   message MedianTask {
     /// A list of subtasks to process and produce a list of result values.
     repeated Task tasks = 1;
