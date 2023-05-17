@@ -5,63 +5,46 @@ keywords:
   [Switchboard, web3, oracle, data feeds, vrf, randomness, solana, aptos, near]
 ---
 
-# About Switchboard
+# Switchboard
 
-Switchboard is a decentralized oracle network designed to provide secure and
-reliable off-chain data to various blockchain platforms. By utilizing a flexible
-network structure, Switchboard facilitates the integration of different chains,
-enabling users to customize security levels and configuration parameters for
-their specific use cases.
+The oracle problem arises due to the inability of blockchains to interact
+directly with external systems. Blockchains are isolated networks that only rely
+on data stored in their ledger for consensus. The deterministic nature of smart
+contracts is a result of the narrow focus of blockchain consensus and their
+ability to execute exactly as written with a higher degree of certainty than
+traditional systems. Incorrect reporting of external data can lead to
+devastating outcomes for on-chain applications dependent on these data feeds.
+
+Switchboard is a multi-chain, permissionless oracle protocol that bridges the
+gap between off-chain data and on-chain smart contracts. It's designed to
+provide developers with the tools to create feature-rich decentralized
+applications (dApps).
 
 ## Key Features
 
-- **Decentralized Oracle Network**: Switchboard connects blockchain platforms to
-  real-world data sources, ensuring reliable and secure access to off-chain
-  information.
-- **Independent Oracle Queues**: Each oracle queue operates independently,
-  maintaining its own configurations and determining the degree of security.
-  Queues can require pre-approval or allow any requester access.
-- **Economic Incentives**: The network uses economic incentives, such as rewards
-  and slashing, to encourage oracles to act honestly and maintain the integrity
-  of the network.
-- **Governance**: Switchboard is governed by its network participants, who
-  control various queue configuration parameters and determine the rules for
-  permitting new oracles to join the network.
-- **Access Control**: Oracles, aggregators, VRF accounts, and buffer relayer
-  accounts must have associated `PermissionAccount` initialized before
-  interacting with a queue. Permissions are granted by `queue.authority`.
-- **Trusted Execution**: With Switchboard V3, oracles are executed within a
-  trusted execution environment providing peace of mind that the running code
-  was not tampered with.
+- **Decentralized Oracle Network**: Connects blockchain platforms to real-world
+  data sources.
+- **Independent Oracle Queues**: Allows customization of security levels and
+  configuration parameters.
+- **Economic Incentives**: Encourages honest behavior and network integrity.
+- **Governance**: Controlled by network participants.
+- **Access Control**: Ensures secure interactions with a queue.
+- **Trusted Execution**: With Switchboard V3, oracles operate within a trusted
+  execution environment.
 
 ## Use Cases
 
-By providing a flexible and adaptable decentralized oracle network, Switchboard
-empowers developers and users to harness the full potential of decentralized
-computing.
+Switchboard is versatile and adaptable, making it suitable for a wide range of
+use cases, including:
 
-Switchboard's versatile architecture makes it suitable for a wide range of use
-cases, including but not limited to:
-
-- **Data Feeds**: Access to real-world information, such as price data, weather
-  data, or sports scores, for blockchain-based applications.
+- **Data Feeds**: Access to real-world information for blockchain-based
+  applications.
 - **Random Number Generation**: Secure and unbiased random number generation for
-  on-chain applications, such as gaming and lottery platforms.
+  on-chain applications.
 - **Serverless Execution**: Triggering smart contracts based on specific
-  off-chain conditions, such as asset prices or real-world events, using your
-  own custom logic within a trusted execution environment.
-- **Decentralized Autonomous Organizations (DAOs)**: Facilitate transparent
-  governance and decision-making within decentralized organizations by providing
-  access to verifiable off-chain data.
-- **Escrow Services**: Create trustless, automated escrow systems for asset
-  transfers, real estate transactions, or other high-value deals, based on
-  pre-agreed conditions.
-- **Prediction Markets**: Decentralized platforms for forecasting future events,
-  leveraging verifiable off-chain data and trusted execution environments for
-  unbiased outcomes.
-- **Supply Chain Management**: Verify the authenticity and origin of goods in a
-  transparent and secure manner, allowing consumers to make informed purchasing
-  decisions.
-- **Energy Market**: Monitor real-time energy consumption and pricing data to
-  optimize smart grid management and facilitate decentralized energy trading
-  platforms.
+  off-chain conditions.
+- **Decentralized Autonomous Organizations (DAOs)**: Transparent governance and
+  decision-making within decentralized organizations.
+- **Escrow Services**: Creation of trustless, automated escrow systems.
+- **Prediction Markets**: Forecasting future events using verifiable off-chain
+  data and trusted execution environments.
