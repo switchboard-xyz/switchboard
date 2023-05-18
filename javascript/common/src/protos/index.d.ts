@@ -281,10 +281,10 @@ export namespace OracleJob {
 
     /** Properties of a Header. */
     interface IHeader {
-      /** Header key */
+      /** A header key such as `Authorization` or `Content-Type` */
       key?: string | null;
 
-      /** Header value */
+      /** A value for the given header key like `Basic MYAUTHKEY` or `application/json` */
       value?: string | null;
     }
 
@@ -296,10 +296,10 @@ export namespace OracleJob {
        */
       constructor(properties?: OracleJob.HttpTask.IHeader);
 
-      /** Header key. */
+      /** A header key such as `Authorization` or `Content-Type` */
       public key: string;
 
-      /** Header value. */
+      /** A value for the given header key like `Basic MYAUTHKEY` or `application/json` */
       public value: string;
 
       /**
@@ -407,10 +407,7 @@ export namespace OracleJob {
      */
     path?: string | null;
 
-    /**
-     * The technique that will be used to aggregate the results if walking the specified path
-     * returns multiple numerical results.
-     */
+    /** The technique that will be used to aggregate the results if walking the specified path returns multiple numerical results. */
     aggregationMethod?: OracleJob.JsonParseTask.AggregationMethod | null;
   }
 
@@ -441,10 +438,7 @@ export namespace OracleJob {
      */
     public path: string;
 
-    /**
-     * The technique that will be used to aggregate the results if walking the specified path
-     * returns multiple numerical results.
-     */
+    /** The technique that will be used to aggregate the results if walking the specified path returns multiple numerical results. */
     public aggregationMethod: OracleJob.JsonParseTask.AggregationMethod;
 
     /**
@@ -563,7 +557,7 @@ export namespace OracleJob {
     /** A list of subjobs to process and produce a list of result values. */
     jobs?: IOracleJob[] | null;
 
-    /** MedianTask minSuccessfulRequired */
+    /** The minimum number of values before a successful median can be yielded. */
     minSuccessfulRequired?: number | null;
   }
 
@@ -599,7 +593,7 @@ export namespace OracleJob {
     /** A list of subjobs to process and produce a list of result values. */
     public jobs: IOracleJob[];
 
-    /** MedianTask minSuccessfulRequired. */
+    /** The minimum number of values before a successful median can be yielded. */
     public minSuccessfulRequired: number;
 
     /**
@@ -2178,7 +2172,7 @@ export namespace OracleJob {
     /** A list of Switchboard aggregator accounts used to calculate the fair LP price. This ensures the price is based on the previous round to mitigate flash loan price manipulation. */
     priceFeedAddresses?: string[] | null;
 
-    /** LpTokenPriceTask priceFeedJobs */
+    /** A list of OracleJobs to execute in order to yield the price feed jobs to use for the fair price formula. */
     priceFeedJobs?: IOracleJob[] | null;
 
     /** If enabled and price_feed_addresses provided, the oracle will calculate the fair LP price based on the liquidity pool reserves. See our blog post for more information: https://switchboardxyz.medium.com/fair-lp-token-oracles-94a457c50239 */
@@ -2236,7 +2230,7 @@ export namespace OracleJob {
     /** A list of Switchboard aggregator accounts used to calculate the fair LP price. This ensures the price is based on the previous round to mitigate flash loan price manipulation. */
     public priceFeedAddresses: string[];
 
-    /** LpTokenPriceTask priceFeedJobs. */
+    /** A list of OracleJobs to execute in order to yield the price feed jobs to use for the fair price formula. */
     public priceFeedJobs: IOracleJob[];
 
     /** If enabled and price_feed_addresses provided, the oracle will calculate the fair LP price based on the liquidity pool reserves. See our blog post for more information: https://switchboardxyz.medium.com/fair-lp-token-oracles-94a457c50239 */
@@ -3050,7 +3044,19 @@ export namespace OracleJob {
     big?: string | null;
   }
 
-  /** Take the power of the working value. */
+  /**
+   * Round the current running result to an exponential power.
+   *
+   * _**Input**_: The current running numerical result.
+   *
+   * _**Returns**_: The input raised to an exponential power.
+   *
+   * _**Example**_: Raise 2 to the power of 3, 2^3
+   *
+   * ```json
+   * {"tasks":[{"valueTask":{"value":2}},{"powTask":{"scalar":3}}]}
+   * ```
+   */
   class PowTask implements IPowTask {
     /**
      * Constructs a new PowTask.
@@ -3416,10 +3422,10 @@ export namespace OracleJob {
     /** The output token address. */
     outTokenAddress?: string | null;
 
-    /** JupiterSwapTask allowList */
+    /** A list of AMM markets to allow. */
     allowList?: OracleJob.JupiterSwapTask.IFilterList | null;
 
-    /** JupiterSwapTask denyList */
+    /** A list of AMM markets to deny. */
     denyList?: OracleJob.JupiterSwapTask.IFilterList | null;
 
     /** The amount of `in_token_address` tokens to swap. */
@@ -3467,10 +3473,10 @@ export namespace OracleJob {
     /** The output token address. */
     public outTokenAddress: string;
 
-    /** JupiterSwapTask allowList. */
+    /** A list of AMM markets to allow. */
     public allowList?: OracleJob.JupiterSwapTask.IFilterList | null;
 
-    /** JupiterSwapTask denyList. */
+    /** A list of AMM markets to deny. */
     public denyList?: OracleJob.JupiterSwapTask.IFilterList | null;
 
     /** The amount of `in_token_address` tokens to swap. */
@@ -3594,11 +3600,11 @@ export namespace OracleJob {
   namespace JupiterSwapTask {
     /** Properties of a FilterList. */
     interface IFilterList {
-      /** FilterList labels */
+      /** A list of Jupiter AMM labels to allow or deny (e.g. 'Raydium', 'Orca') */
       labels?: string[] | null;
     }
 
-    /** A list of Jupiter AMM labels to allow or deny (e.g. 'Raydium', 'Orca') */
+    /** Represents a FilterList. */
     class FilterList implements IFilterList {
       /**
        * Constructs a new FilterList.
@@ -3606,7 +3612,7 @@ export namespace OracleJob {
        */
       constructor(properties?: OracleJob.JupiterSwapTask.IFilterList);
 
-      /** FilterList labels. */
+      /** A list of Jupiter AMM labels to allow or deny (e.g. 'Raydium', 'Orca') */
       public labels: string[];
 
       /**
@@ -5698,20 +5704,35 @@ export namespace OracleJob {
 
   /** Properties of a CronParseTask. */
   interface ICronParseTask {
-    /** the cron pattern to parse */
+    /** The cron pattern to parse. */
     cronPattern?: string | null;
 
-    /**
-     * the timestamp offset
-     * to calculate the next run
-     */
+    /** The timestamp offset to calculate the next run. */
     clockOffset?: number | null;
 
-    /** CronParseTask clock */
+    /** Use the TaskRunner's clock or the on-chain SYSCLOCK. */
     clock?: OracleJob.CronParseTask.ClockType | null;
   }
 
-  /** return a timestamp from a crontab instruction */
+  /**
+   * Return a timestamp from a crontab instruction.
+   *
+   * _**Input**_: None
+   *
+   * _**Returns**_: A timestamp
+   *
+   * _**Example**_: Return the unix timestamp for the on-chain SYSCLOCK
+   *
+   * ```json
+   * {"cronParseTask":{"cronPattern":"* * * * * *","clockOffset":0,"clock":"SYSCLOCK"}}
+   * ```
+   *
+   * _**Example**_: Return the unix timestamp for next friday at 5pm UTC
+   *
+   * ```json
+   * {"cronParseTask":{"cronPattern":"0 17 * * 5","clockOffset":0,"clock":0}}
+   * ```
+   */
   class CronParseTask implements ICronParseTask {
     /**
      * Constructs a new CronParseTask.
@@ -5719,16 +5740,13 @@ export namespace OracleJob {
      */
     constructor(properties?: OracleJob.ICronParseTask);
 
-    /** the cron pattern to parse */
+    /** The cron pattern to parse. */
     public cronPattern: string;
 
-    /**
-     * the timestamp offset
-     * to calculate the next run
-     */
+    /** The timestamp offset to calculate the next run. */
     public clockOffset: number;
 
-    /** CronParseTask clock. */
+    /** Use the TaskRunner's clock or the on-chain SYSCLOCK. */
     public clock: OracleJob.CronParseTask.ClockType;
 
     /**
@@ -5828,7 +5846,7 @@ export namespace OracleJob {
   }
 
   namespace CronParseTask {
-    /** which type of clock to use */
+    /** ClockType enum. */
     enum ClockType {
       ORACLE = 0,
       SYSCLOCK = 1,
@@ -6363,37 +6381,37 @@ export namespace OracleJob {
 
   /** Properties of a ComparisonTask. */
   interface IComparisonTask {
-    /** ComparisonTask op */
+    /** The type of operator to use on the left (lhs) and right (rhs) operand. */
     op?: OracleJob.ComparisonTask.Operation | null;
 
-    /** ComparisonTask lhs */
+    /** OracleJob where the executed result is equal to the left hand side operand. */
     lhs?: IOracleJob | null;
 
-    /** ComparisonTask lhsValue */
+    /** String or `${CACHE_KEY}` representing the left hand side operand. */
     lhsValue?: string | null;
 
-    /** ComparisonTask rhs */
+    /** OracleJob where the executed result is equal to the right hand side operand. */
     rhs?: IOracleJob | null;
 
-    /** ComparisonTask rhsValue */
+    /** String or `${CACHE_KEY}` representing the right hand side operand. */
     rhsValue?: string | null;
 
-    /** ComparisonTask onTrue */
+    /** The OracleJob to execute if the condition evaluates to true. */
     onTrue?: IOracleJob | null;
 
-    /** ComparisonTask onTrueValue */
+    /** The result to use if the condition evaluates to true. Can be set to a `${CACHE_KEY}`. */
     onTrueValue?: string | null;
 
-    /** ComparisonTask onFalse */
+    /** The OracleJob to execute if the condition evaluates to false. */
     onFalse?: IOracleJob | null;
 
-    /** ComparisonTask onFalseValue */
+    /** The result to use if the condition evaluates to false. Can be set to a `${CACHE_KEY}`. */
     onFalseValue?: string | null;
 
-    /** ComparisonTask onFailure */
+    /** The OracleJob to execute if the condition fails to evaluate. */
     onFailure?: IOracleJob | null;
 
-    /** ComparisonTask onFailureValue */
+    /** The result to use if the condition fails to evaluate. Can be set to a `${CACHE_KEY}`. */
     onFailureValue?: string | null;
   }
 
@@ -6405,37 +6423,37 @@ export namespace OracleJob {
      */
     constructor(properties?: OracleJob.IComparisonTask);
 
-    /** ComparisonTask op. */
+    /** The type of operator to use on the left (lhs) and right (rhs) operand. */
     public op: OracleJob.ComparisonTask.Operation;
 
-    /** ComparisonTask lhs. */
+    /** OracleJob where the executed result is equal to the left hand side operand. */
     public lhs?: IOracleJob | null;
 
-    /** ComparisonTask lhsValue. */
+    /** String or `${CACHE_KEY}` representing the left hand side operand. */
     public lhsValue?: string | null;
 
-    /** ComparisonTask rhs. */
+    /** OracleJob where the executed result is equal to the right hand side operand. */
     public rhs?: IOracleJob | null;
 
-    /** ComparisonTask rhsValue. */
+    /** String or `${CACHE_KEY}` representing the right hand side operand. */
     public rhsValue?: string | null;
 
-    /** ComparisonTask onTrue. */
+    /** The OracleJob to execute if the condition evaluates to true. */
     public onTrue?: IOracleJob | null;
 
-    /** ComparisonTask onTrueValue. */
+    /** The result to use if the condition evaluates to true. Can be set to a `${CACHE_KEY}`. */
     public onTrueValue: string;
 
-    /** ComparisonTask onFalse. */
+    /** The OracleJob to execute if the condition evaluates to false. */
     public onFalse?: IOracleJob | null;
 
-    /** ComparisonTask onFalseValue. */
+    /** The result to use if the condition evaluates to false. Can be set to a `${CACHE_KEY}`. */
     public onFalseValue: string;
 
-    /** ComparisonTask onFailure. */
+    /** The OracleJob to execute if the condition fails to evaluate. */
     public onFailure?: IOracleJob | null;
 
-    /** ComparisonTask onFailureValue. */
+    /** The result to use if the condition fails to evaluate. Can be set to a `${CACHE_KEY}`. */
     public onFailureValue: string;
 
     /** ComparisonTask LHS. */
@@ -6551,10 +6569,10 @@ export namespace OracleJob {
 
   /** Properties of a RoundTask. */
   interface IRoundTask {
-    /** RoundTask method */
+    /** The rounding method to use. */
     method?: OracleJob.RoundTask.Method | null;
 
-    /** RoundTask decimals */
+    /** The number of decimals to round to. */
     decimals?: number | null;
   }
 
@@ -6578,10 +6596,10 @@ export namespace OracleJob {
      */
     constructor(properties?: OracleJob.IRoundTask);
 
-    /** RoundTask method. */
+    /** The rounding method to use. */
     public method: OracleJob.RoundTask.Method;
 
-    /** RoundTask decimals. */
+    /** The number of decimals to round to. */
     public decimals: number;
 
     /**
@@ -6688,28 +6706,28 @@ export namespace OracleJob {
 
   /** Properties of a BoundTask. */
   interface IBoundTask {
-    /** BoundTask lowerBound */
+    /** The OracleJob to execute for the lower bound value. */
     lowerBound?: IOracleJob | null;
 
-    /** BoundTask lowerBoundValue */
+    /** The value to use for the lower bound. Can be set to a `${CACHE_KEY}`. */
     lowerBoundValue?: string | null;
 
-    /** BoundTask upperBound */
+    /** The OracleJob to execute for the upper bound value. */
     upperBound?: IOracleJob | null;
 
-    /** BoundTask upperBoundValue */
+    /** The value to use for the upper bound. Can be set to a `${CACHE_KEY}`. */
     upperBoundValue?: string | null;
 
-    /** BoundTask onExceedsUpperBound */
+    /** The OracleJob to execute if the upper bound is exceeded. */
     onExceedsUpperBound?: IOracleJob | null;
 
-    /** BoundTask onExceedsUpperBoundValue */
+    /** The value to use if the upper bound is exceeded. Can be set to a `${CACHE_KEY}`. */
     onExceedsUpperBoundValue?: string | null;
 
-    /** BoundTask onExceedsLowerBound */
+    /** The OracleJob to execute if the lower bound is exceeded. */
     onExceedsLowerBound?: IOracleJob | null;
 
-    /** BoundTask onExceedsLowerBoundValue */
+    /** The value to use if the lower bound is exceeded. Can be set to a `${CACHE_KEY}`. */
     onExceedsLowerBoundValue?: string | null;
   }
 
@@ -6733,28 +6751,28 @@ export namespace OracleJob {
      */
     constructor(properties?: OracleJob.IBoundTask);
 
-    /** BoundTask lowerBound. */
+    /** The OracleJob to execute for the lower bound value. */
     public lowerBound?: IOracleJob | null;
 
-    /** BoundTask lowerBoundValue. */
+    /** The value to use for the lower bound. Can be set to a `${CACHE_KEY}`. */
     public lowerBoundValue: string;
 
-    /** BoundTask upperBound. */
+    /** The OracleJob to execute for the upper bound value. */
     public upperBound?: IOracleJob | null;
 
-    /** BoundTask upperBoundValue. */
+    /** The value to use for the upper bound. Can be set to a `${CACHE_KEY}`. */
     public upperBoundValue: string;
 
-    /** BoundTask onExceedsUpperBound. */
+    /** The OracleJob to execute if the upper bound is exceeded. */
     public onExceedsUpperBound?: IOracleJob | null;
 
-    /** BoundTask onExceedsUpperBoundValue. */
+    /** The value to use if the upper bound is exceeded. Can be set to a `${CACHE_KEY}`. */
     public onExceedsUpperBoundValue: string;
 
-    /** BoundTask onExceedsLowerBound. */
+    /** The OracleJob to execute if the lower bound is exceeded. */
     public onExceedsLowerBound?: IOracleJob | null;
 
-    /** BoundTask onExceedsLowerBoundValue. */
+    /** The value to use if the lower bound is exceeded. Can be set to a `${CACHE_KEY}`. */
     public onExceedsLowerBoundValue: string;
 
     /**
@@ -7196,7 +7214,19 @@ export namespace OracleJob {
     /** Task serumSwapTask */
     serumSwapTask?: OracleJob.ISerumSwapTask | null;
 
-    /** Task powTask */
+    /**
+     * Round the current running result to an exponential power.
+     *
+     * _**Input**_: The current running numerical result.
+     *
+     * _**Returns**_: The input raised to an exponential power.
+     *
+     * _**Example**_: Raise 2 to the power of 3, 2^3
+     *
+     * ```json
+     * {"tasks":[{"valueTask":{"value":2}},{"powTask":{"scalar":3}}]}
+     * ```
+     */
     powTask?: OracleJob.IPowTask | null;
 
     /** Task lendingRateTask */
@@ -7307,7 +7337,25 @@ export namespace OracleJob {
     /** Task bufferLayoutParseTask */
     bufferLayoutParseTask?: OracleJob.IBufferLayoutParseTask | null;
 
-    /** Task cronParseTask */
+    /**
+     * Return a timestamp from a crontab instruction.
+     *
+     * _**Input**_: None
+     *
+     * _**Returns**_: A timestamp
+     *
+     * _**Example**_: Return the unix timestamp for the on-chain SYSCLOCK
+     *
+     * ```json
+     * {"cronParseTask":{"cronPattern":"* * * * * *","clockOffset":0,"clock":"SYSCLOCK"}}
+     * ```
+     *
+     * _**Example**_: Return the unix timestamp for next friday at 5pm UTC
+     *
+     * ```json
+     * {"cronParseTask":{"cronPattern":"0 17 * * 5","clockOffset":0,"clock":0}}
+     * ```
+     */
     cronParseTask?: OracleJob.ICronParseTask | null;
 
     /**
@@ -7725,7 +7773,19 @@ export namespace OracleJob {
     /** Task serumSwapTask. */
     public serumSwapTask?: OracleJob.ISerumSwapTask | null;
 
-    /** Task powTask. */
+    /**
+     * Round the current running result to an exponential power.
+     *
+     * _**Input**_: The current running numerical result.
+     *
+     * _**Returns**_: The input raised to an exponential power.
+     *
+     * _**Example**_: Raise 2 to the power of 3, 2^3
+     *
+     * ```json
+     * {"tasks":[{"valueTask":{"value":2}},{"powTask":{"scalar":3}}]}
+     * ```
+     */
     public powTask?: OracleJob.IPowTask | null;
 
     /** Task lendingRateTask. */
@@ -7836,7 +7896,25 @@ export namespace OracleJob {
     /** Task bufferLayoutParseTask. */
     public bufferLayoutParseTask?: OracleJob.IBufferLayoutParseTask | null;
 
-    /** Task cronParseTask. */
+    /**
+     * Return a timestamp from a crontab instruction.
+     *
+     * _**Input**_: None
+     *
+     * _**Returns**_: A timestamp
+     *
+     * _**Example**_: Return the unix timestamp for the on-chain SYSCLOCK
+     *
+     * ```json
+     * {"cronParseTask":{"cronPattern":"* * * * * *","clockOffset":0,"clock":"SYSCLOCK"}}
+     * ```
+     *
+     * _**Example**_: Return the unix timestamp for next friday at 5pm UTC
+     *
+     * ```json
+     * {"cronParseTask":{"cronPattern":"0 17 * * 5","clockOffset":0,"clock":0}}
+     * ```
+     */
     public cronParseTask?: OracleJob.ICronParseTask | null;
 
     /**

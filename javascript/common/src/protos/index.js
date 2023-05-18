@@ -619,8 +619,8 @@
          * Properties of a Header.
          * @memberof OracleJob.HttpTask
          * @interface IHeader
-         * @property {string|null} [key] Header key
-         * @property {string|null} [value] Header value
+         * @property {string|null} [key] A header key such as `Authorization` or `Content-Type`
+         * @property {string|null} [value] A value for the given header key like `Basic MYAUTHKEY` or `application/json`
          */
 
         /**
@@ -643,7 +643,7 @@
         }
 
         /**
-         * Header key.
+         * A header key such as `Authorization` or `Content-Type`
          * @member {string} key
          * @memberof OracleJob.HttpTask.Header
          * @instance
@@ -651,7 +651,7 @@
         Header.prototype.key = '';
 
         /**
-         * Header value.
+         * A value for the given header key like `Basic MYAUTHKEY` or `application/json`
          * @member {string} value
          * @memberof OracleJob.HttpTask.Header
          * @instance
@@ -849,8 +849,7 @@
        * @interface IJsonParseTask
        * @property {string|null} [path] JSONPath formatted path to the element. https://t.ly/uLtw
        * https://www.npmjs.com/package/jsonpath-plus
-       * @property {OracleJob.JsonParseTask.AggregationMethod|null} [aggregationMethod] The technique that will be used to aggregate the results if walking the specified path
-       * returns multiple numerical results.
+       * @property {OracleJob.JsonParseTask.AggregationMethod|null} [aggregationMethod] The technique that will be used to aggregate the results if walking the specified path returns multiple numerical results.
        */
 
       /**
@@ -889,8 +888,7 @@
       JsonParseTask.prototype.path = '';
 
       /**
-       * The technique that will be used to aggregate the results if walking the specified path
-       * returns multiple numerical results.
+       * The technique that will be used to aggregate the results if walking the specified path returns multiple numerical results.
        * @member {OracleJob.JsonParseTask.AggregationMethod} aggregationMethod
        * @memberof OracleJob.JsonParseTask
        * @instance
@@ -1169,7 +1167,7 @@
        * @interface IMedianTask
        * @property {Array.<OracleJob.ITask>|null} [tasks] A list of subtasks to process and produce a list of result values.
        * @property {Array.<IOracleJob>|null} [jobs] A list of subjobs to process and produce a list of result values.
-       * @property {number|null} [minSuccessfulRequired] MedianTask minSuccessfulRequired
+       * @property {number|null} [minSuccessfulRequired] The minimum number of values before a successful median can be yielded.
        */
 
       /**
@@ -1222,7 +1220,7 @@
       MedianTask.prototype.jobs = $util.emptyArray;
 
       /**
-       * MedianTask minSuccessfulRequired.
+       * The minimum number of values before a successful median can be yielded.
        * @member {number} minSuccessfulRequired
        * @memberof OracleJob.MedianTask
        * @instance
@@ -4643,7 +4641,7 @@
        * @property {string|null} [orcaPoolAddress] Orca pool address. A full list can be found here: https://www.orca.so/pools
        * @property {string|null} [raydiumPoolAddress] The Raydium liquidity pool ammId. A full list can be found here: https://sdk.raydium.io/liquidity/mainnet.json
        * @property {Array.<string>|null} [priceFeedAddresses] A list of Switchboard aggregator accounts used to calculate the fair LP price. This ensures the price is based on the previous round to mitigate flash loan price manipulation.
-       * @property {Array.<IOracleJob>|null} [priceFeedJobs] LpTokenPriceTask priceFeedJobs
+       * @property {Array.<IOracleJob>|null} [priceFeedJobs] A list of OracleJobs to execute in order to yield the price feed jobs to use for the fair price formula.
        * @property {boolean|null} [useFairPrice] If enabled and price_feed_addresses provided, the oracle will calculate the fair LP price based on the liquidity pool reserves. See our blog post for more information: https://switchboardxyz.medium.com/fair-lp-token-oracles-94a457c50239
        */
 
@@ -4731,7 +4729,7 @@
       LpTokenPriceTask.prototype.priceFeedAddresses = $util.emptyArray;
 
       /**
-       * LpTokenPriceTask priceFeedJobs.
+       * A list of OracleJobs to execute in order to yield the price feed jobs to use for the fair price formula.
        * @member {Array.<IOracleJob>} priceFeedJobs
        * @memberof OracleJob.LpTokenPriceTask
        * @instance
@@ -6816,7 +6814,17 @@
       /**
        * Constructs a new PowTask.
        * @memberof OracleJob
-       * @classdesc Take the power of the working value.
+       * @classdesc Round the current running result to an exponential power.
+       *
+       * _**Input**_: The current running numerical result.
+       *
+       * _**Returns**_: The input raised to an exponential power.
+       *
+       * _**Example**_: Raise 2 to the power of 3, 2^3
+       *
+       * ```json
+       * {"tasks":[{"valueTask":{"value":2}},{"powTask":{"scalar":3}}]}
+       * ```
        * @implements IPowTask
        * @constructor
        * @param {OracleJob.IPowTask=} [properties] Properties to set
@@ -7603,8 +7611,8 @@
        * @interface IJupiterSwapTask
        * @property {string|null} [inTokenAddress] The input token address.
        * @property {string|null} [outTokenAddress] The output token address.
-       * @property {OracleJob.JupiterSwapTask.IFilterList|null} [allowList] JupiterSwapTask allowList
-       * @property {OracleJob.JupiterSwapTask.IFilterList|null} [denyList] JupiterSwapTask denyList
+       * @property {OracleJob.JupiterSwapTask.IFilterList|null} [allowList] A list of AMM markets to allow.
+       * @property {OracleJob.JupiterSwapTask.IFilterList|null} [denyList] A list of AMM markets to deny.
        * @property {number|null} [baseAmount] The amount of `in_token_address` tokens to swap.
        * @property {number|null} [quoteAmount] The amount of `out_token_address` tokens to swap.
        * @property {string|null} [baseAmountString] The amount of `in_token_address` tokens to swap.
@@ -7659,7 +7667,7 @@
       JupiterSwapTask.prototype.outTokenAddress = '';
 
       /**
-       * JupiterSwapTask allowList.
+       * A list of AMM markets to allow.
        * @member {OracleJob.JupiterSwapTask.IFilterList|null|undefined} allowList
        * @memberof OracleJob.JupiterSwapTask
        * @instance
@@ -7667,7 +7675,7 @@
       JupiterSwapTask.prototype.allowList = null;
 
       /**
-       * JupiterSwapTask denyList.
+       * A list of AMM markets to deny.
        * @member {OracleJob.JupiterSwapTask.IFilterList|null|undefined} denyList
        * @memberof OracleJob.JupiterSwapTask
        * @instance
@@ -8152,13 +8160,13 @@
          * Properties of a FilterList.
          * @memberof OracleJob.JupiterSwapTask
          * @interface IFilterList
-         * @property {Array.<string>|null} [labels] FilterList labels
+         * @property {Array.<string>|null} [labels] A list of Jupiter AMM labels to allow or deny (e.g. 'Raydium', 'Orca')
          */
 
         /**
          * Constructs a new FilterList.
          * @memberof OracleJob.JupiterSwapTask
-         * @classdesc A list of Jupiter AMM labels to allow or deny (e.g. 'Raydium', 'Orca')
+         * @classdesc Represents a FilterList.
          * @implements IFilterList
          * @constructor
          * @param {OracleJob.JupiterSwapTask.IFilterList=} [properties] Properties to set
@@ -8176,7 +8184,7 @@
         }
 
         /**
-         * FilterList labels.
+         * A list of Jupiter AMM labels to allow or deny (e.g. 'Raydium', 'Orca')
          * @member {Array.<string>} labels
          * @memberof OracleJob.JupiterSwapTask.FilterList
          * @instance
@@ -12583,16 +12591,31 @@
        * Properties of a CronParseTask.
        * @memberof OracleJob
        * @interface ICronParseTask
-       * @property {string|null} [cronPattern] the cron pattern to parse
-       * @property {number|null} [clockOffset] the timestamp offset
-       * to calculate the next run
-       * @property {OracleJob.CronParseTask.ClockType|null} [clock] CronParseTask clock
+       * @property {string|null} [cronPattern] The cron pattern to parse.
+       * @property {number|null} [clockOffset] The timestamp offset to calculate the next run.
+       * @property {OracleJob.CronParseTask.ClockType|null} [clock] Use the TaskRunner's clock or the on-chain SYSCLOCK.
        */
 
       /**
        * Constructs a new CronParseTask.
        * @memberof OracleJob
-       * @classdesc return a timestamp from a crontab instruction
+       * @classdesc Return a timestamp from a crontab instruction.
+       *
+       * _**Input**_: None
+       *
+       * _**Returns**_: A timestamp
+       *
+       * _**Example**_: Return the unix timestamp for the on-chain SYSCLOCK
+       *
+       * ```json
+       * {"cronParseTask":{"cronPattern":"* * * * * *","clockOffset":0,"clock":"SYSCLOCK"}}
+       * ```
+       *
+       * _**Example**_: Return the unix timestamp for next friday at 5pm UTC
+       *
+       * ```json
+       * {"cronParseTask":{"cronPattern":"0 17 * * 5","clockOffset":0,"clock":0}}
+       * ```
        * @implements ICronParseTask
        * @constructor
        * @param {OracleJob.ICronParseTask=} [properties] Properties to set
@@ -12605,7 +12628,7 @@
       }
 
       /**
-       * the cron pattern to parse
+       * The cron pattern to parse.
        * @member {string} cronPattern
        * @memberof OracleJob.CronParseTask
        * @instance
@@ -12613,8 +12636,7 @@
       CronParseTask.prototype.cronPattern = '';
 
       /**
-       * the timestamp offset
-       * to calculate the next run
+       * The timestamp offset to calculate the next run.
        * @member {number} clockOffset
        * @memberof OracleJob.CronParseTask
        * @instance
@@ -12622,7 +12644,7 @@
       CronParseTask.prototype.clockOffset = 0;
 
       /**
-       * CronParseTask clock.
+       * Use the TaskRunner's clock or the on-chain SYSCLOCK.
        * @member {OracleJob.CronParseTask.ClockType} clock
        * @memberof OracleJob.CronParseTask
        * @instance
@@ -12872,11 +12894,11 @@
       };
 
       /**
-       * which type of clock to use
+       * ClockType enum.
        * @name OracleJob.CronParseTask.ClockType
        * @enum {number}
-       * @property {number} ORACLE=0 ORACLE value
-       * @property {number} SYSCLOCK=1 SYSCLOCK value
+       * @property {number} ORACLE=0 Use the TaskRunners system clock for the current time.
+       * @property {number} SYSCLOCK=1 Use the on-chain SYSCLOCK for the current time.
        */
       CronParseTask.ClockType = (function () {
         var valuesById = {},
@@ -13257,8 +13279,8 @@
        * Endian enum.
        * @name OracleJob.BufferLayoutParseTask.Endian
        * @enum {number}
-       * @property {number} LITTLE_ENDIAN=0 LITTLE_ENDIAN value
-       * @property {number} BIG_ENDIAN=1 BIG_ENDIAN value
+       * @property {number} LITTLE_ENDIAN=0 Use little endian byte order.
+       * @property {number} BIG_ENDIAN=1 Use big endian byte order.
        */
       BufferLayoutParseTask.Endian = (function () {
         var valuesById = {},
@@ -14156,17 +14178,17 @@
        * Properties of a ComparisonTask.
        * @memberof OracleJob
        * @interface IComparisonTask
-       * @property {OracleJob.ComparisonTask.Operation|null} [op] ComparisonTask op
-       * @property {IOracleJob|null} [lhs] ComparisonTask lhs
-       * @property {string|null} [lhsValue] ComparisonTask lhsValue
-       * @property {IOracleJob|null} [rhs] ComparisonTask rhs
-       * @property {string|null} [rhsValue] ComparisonTask rhsValue
-       * @property {IOracleJob|null} [onTrue] ComparisonTask onTrue
-       * @property {string|null} [onTrueValue] ComparisonTask onTrueValue
-       * @property {IOracleJob|null} [onFalse] ComparisonTask onFalse
-       * @property {string|null} [onFalseValue] ComparisonTask onFalseValue
-       * @property {IOracleJob|null} [onFailure] ComparisonTask onFailure
-       * @property {string|null} [onFailureValue] ComparisonTask onFailureValue
+       * @property {OracleJob.ComparisonTask.Operation|null} [op] The type of operator to use on the left (lhs) and right (rhs) operand.
+       * @property {IOracleJob|null} [lhs] OracleJob where the executed result is equal to the left hand side operand.
+       * @property {string|null} [lhsValue] String or `${CACHE_KEY}` representing the left hand side operand.
+       * @property {IOracleJob|null} [rhs] OracleJob where the executed result is equal to the right hand side operand.
+       * @property {string|null} [rhsValue] String or `${CACHE_KEY}` representing the right hand side operand.
+       * @property {IOracleJob|null} [onTrue] The OracleJob to execute if the condition evaluates to true.
+       * @property {string|null} [onTrueValue] The result to use if the condition evaluates to true. Can be set to a `${CACHE_KEY}`.
+       * @property {IOracleJob|null} [onFalse] The OracleJob to execute if the condition evaluates to false.
+       * @property {string|null} [onFalseValue] The result to use if the condition evaluates to false. Can be set to a `${CACHE_KEY}`.
+       * @property {IOracleJob|null} [onFailure] The OracleJob to execute if the condition fails to evaluate.
+       * @property {string|null} [onFailureValue] The result to use if the condition fails to evaluate. Can be set to a `${CACHE_KEY}`.
        */
 
       /**
@@ -14185,7 +14207,7 @@
       }
 
       /**
-       * ComparisonTask op.
+       * The type of operator to use on the left (lhs) and right (rhs) operand.
        * @member {OracleJob.ComparisonTask.Operation} op
        * @memberof OracleJob.ComparisonTask
        * @instance
@@ -14193,7 +14215,7 @@
       ComparisonTask.prototype.op = 0;
 
       /**
-       * ComparisonTask lhs.
+       * OracleJob where the executed result is equal to the left hand side operand.
        * @member {IOracleJob|null|undefined} lhs
        * @memberof OracleJob.ComparisonTask
        * @instance
@@ -14201,7 +14223,7 @@
       ComparisonTask.prototype.lhs = null;
 
       /**
-       * ComparisonTask lhsValue.
+       * String or `${CACHE_KEY}` representing the left hand side operand.
        * @member {string|null|undefined} lhsValue
        * @memberof OracleJob.ComparisonTask
        * @instance
@@ -14209,7 +14231,7 @@
       ComparisonTask.prototype.lhsValue = null;
 
       /**
-       * ComparisonTask rhs.
+       * OracleJob where the executed result is equal to the right hand side operand.
        * @member {IOracleJob|null|undefined} rhs
        * @memberof OracleJob.ComparisonTask
        * @instance
@@ -14217,7 +14239,7 @@
       ComparisonTask.prototype.rhs = null;
 
       /**
-       * ComparisonTask rhsValue.
+       * String or `${CACHE_KEY}` representing the right hand side operand.
        * @member {string|null|undefined} rhsValue
        * @memberof OracleJob.ComparisonTask
        * @instance
@@ -14225,7 +14247,7 @@
       ComparisonTask.prototype.rhsValue = null;
 
       /**
-       * ComparisonTask onTrue.
+       * The OracleJob to execute if the condition evaluates to true.
        * @member {IOracleJob|null|undefined} onTrue
        * @memberof OracleJob.ComparisonTask
        * @instance
@@ -14233,7 +14255,7 @@
       ComparisonTask.prototype.onTrue = null;
 
       /**
-       * ComparisonTask onTrueValue.
+       * The result to use if the condition evaluates to true. Can be set to a `${CACHE_KEY}`.
        * @member {string} onTrueValue
        * @memberof OracleJob.ComparisonTask
        * @instance
@@ -14241,7 +14263,7 @@
       ComparisonTask.prototype.onTrueValue = '';
 
       /**
-       * ComparisonTask onFalse.
+       * The OracleJob to execute if the condition evaluates to false.
        * @member {IOracleJob|null|undefined} onFalse
        * @memberof OracleJob.ComparisonTask
        * @instance
@@ -14249,7 +14271,7 @@
       ComparisonTask.prototype.onFalse = null;
 
       /**
-       * ComparisonTask onFalseValue.
+       * The result to use if the condition evaluates to false. Can be set to a `${CACHE_KEY}`.
        * @member {string} onFalseValue
        * @memberof OracleJob.ComparisonTask
        * @instance
@@ -14257,7 +14279,7 @@
       ComparisonTask.prototype.onFalseValue = '';
 
       /**
-       * ComparisonTask onFailure.
+       * The OracleJob to execute if the condition fails to evaluate.
        * @member {IOracleJob|null|undefined} onFailure
        * @memberof OracleJob.ComparisonTask
        * @instance
@@ -14265,7 +14287,7 @@
       ComparisonTask.prototype.onFailure = null;
 
       /**
-       * ComparisonTask onFailureValue.
+       * The result to use if the condition fails to evaluate. Can be set to a `${CACHE_KEY}`.
        * @member {string} onFailureValue
        * @memberof OracleJob.ComparisonTask
        * @instance
@@ -14747,9 +14769,9 @@
        * Operation enum.
        * @name OracleJob.ComparisonTask.Operation
        * @enum {number}
-       * @property {number} OPERATION_EQ=0 OPERATION_EQ value
-       * @property {number} OPERATION_GT=1 OPERATION_GT value
-       * @property {number} OPERATION_LT=2 OPERATION_LT value
+       * @property {number} OPERATION_EQ=0 Use the equals to '==' operator.
+       * @property {number} OPERATION_GT=1 Use the greater than '>' operator.
+       * @property {number} OPERATION_LT=2 Use the less than '<' operator.
        */
       ComparisonTask.Operation = (function () {
         var valuesById = {},
@@ -14768,8 +14790,8 @@
        * Properties of a RoundTask.
        * @memberof OracleJob
        * @interface IRoundTask
-       * @property {OracleJob.RoundTask.Method|null} [method] RoundTask method
-       * @property {number|null} [decimals] RoundTask decimals
+       * @property {OracleJob.RoundTask.Method|null} [method] The rounding method to use.
+       * @property {number|null} [decimals] The number of decimals to round to.
        */
 
       /**
@@ -14798,7 +14820,7 @@
       }
 
       /**
-       * RoundTask method.
+       * The rounding method to use.
        * @member {OracleJob.RoundTask.Method} method
        * @memberof OracleJob.RoundTask
        * @instance
@@ -14806,7 +14828,7 @@
       RoundTask.prototype.method = 0;
 
       /**
-       * RoundTask decimals.
+       * The number of decimals to round to.
        * @member {number} decimals
        * @memberof OracleJob.RoundTask
        * @instance
@@ -15025,8 +15047,8 @@
        * Method enum.
        * @name OracleJob.RoundTask.Method
        * @enum {number}
-       * @property {number} METHOD_ROUND_UP=0 METHOD_ROUND_UP value
-       * @property {number} METHOD_ROUND_DOWN=1 METHOD_ROUND_DOWN value
+       * @property {number} METHOD_ROUND_UP=0 Round the result down.
+       * @property {number} METHOD_ROUND_DOWN=1 Round the result up.
        */
       RoundTask.Method = (function () {
         var valuesById = {},
@@ -15044,14 +15066,14 @@
        * Properties of a BoundTask.
        * @memberof OracleJob
        * @interface IBoundTask
-       * @property {IOracleJob|null} [lowerBound] BoundTask lowerBound
-       * @property {string|null} [lowerBoundValue] BoundTask lowerBoundValue
-       * @property {IOracleJob|null} [upperBound] BoundTask upperBound
-       * @property {string|null} [upperBoundValue] BoundTask upperBoundValue
-       * @property {IOracleJob|null} [onExceedsUpperBound] BoundTask onExceedsUpperBound
-       * @property {string|null} [onExceedsUpperBoundValue] BoundTask onExceedsUpperBoundValue
-       * @property {IOracleJob|null} [onExceedsLowerBound] BoundTask onExceedsLowerBound
-       * @property {string|null} [onExceedsLowerBoundValue] BoundTask onExceedsLowerBoundValue
+       * @property {IOracleJob|null} [lowerBound] The OracleJob to execute for the lower bound value.
+       * @property {string|null} [lowerBoundValue] The value to use for the lower bound. Can be set to a `${CACHE_KEY}`.
+       * @property {IOracleJob|null} [upperBound] The OracleJob to execute for the upper bound value.
+       * @property {string|null} [upperBoundValue] The value to use for the upper bound. Can be set to a `${CACHE_KEY}`.
+       * @property {IOracleJob|null} [onExceedsUpperBound] The OracleJob to execute if the upper bound is exceeded.
+       * @property {string|null} [onExceedsUpperBoundValue] The value to use if the upper bound is exceeded. Can be set to a `${CACHE_KEY}`.
+       * @property {IOracleJob|null} [onExceedsLowerBound] The OracleJob to execute if the lower bound is exceeded.
+       * @property {string|null} [onExceedsLowerBoundValue] The value to use if the lower bound is exceeded. Can be set to a `${CACHE_KEY}`.
        */
 
       /**
@@ -15080,7 +15102,7 @@
       }
 
       /**
-       * BoundTask lowerBound.
+       * The OracleJob to execute for the lower bound value.
        * @member {IOracleJob|null|undefined} lowerBound
        * @memberof OracleJob.BoundTask
        * @instance
@@ -15088,7 +15110,7 @@
       BoundTask.prototype.lowerBound = null;
 
       /**
-       * BoundTask lowerBoundValue.
+       * The value to use for the lower bound. Can be set to a `${CACHE_KEY}`.
        * @member {string} lowerBoundValue
        * @memberof OracleJob.BoundTask
        * @instance
@@ -15096,7 +15118,7 @@
       BoundTask.prototype.lowerBoundValue = '';
 
       /**
-       * BoundTask upperBound.
+       * The OracleJob to execute for the upper bound value.
        * @member {IOracleJob|null|undefined} upperBound
        * @memberof OracleJob.BoundTask
        * @instance
@@ -15104,7 +15126,7 @@
       BoundTask.prototype.upperBound = null;
 
       /**
-       * BoundTask upperBoundValue.
+       * The value to use for the upper bound. Can be set to a `${CACHE_KEY}`.
        * @member {string} upperBoundValue
        * @memberof OracleJob.BoundTask
        * @instance
@@ -15112,7 +15134,7 @@
       BoundTask.prototype.upperBoundValue = '';
 
       /**
-       * BoundTask onExceedsUpperBound.
+       * The OracleJob to execute if the upper bound is exceeded.
        * @member {IOracleJob|null|undefined} onExceedsUpperBound
        * @memberof OracleJob.BoundTask
        * @instance
@@ -15120,7 +15142,7 @@
       BoundTask.prototype.onExceedsUpperBound = null;
 
       /**
-       * BoundTask onExceedsUpperBoundValue.
+       * The value to use if the upper bound is exceeded. Can be set to a `${CACHE_KEY}`.
        * @member {string} onExceedsUpperBoundValue
        * @memberof OracleJob.BoundTask
        * @instance
@@ -15128,7 +15150,7 @@
       BoundTask.prototype.onExceedsUpperBoundValue = '';
 
       /**
-       * BoundTask onExceedsLowerBound.
+       * The OracleJob to execute if the lower bound is exceeded.
        * @member {IOracleJob|null|undefined} onExceedsLowerBound
        * @memberof OracleJob.BoundTask
        * @instance
@@ -15136,7 +15158,7 @@
       BoundTask.prototype.onExceedsLowerBound = null;
 
       /**
-       * BoundTask onExceedsLowerBoundValue.
+       * The value to use if the lower bound is exceeded. Can be set to a `${CACHE_KEY}`.
        * @member {string} onExceedsLowerBoundValue
        * @memberof OracleJob.BoundTask
        * @instance
@@ -15829,7 +15851,17 @@
        * { "twapTask": { "aggregatorPubkey": "GvDMxPzN1sCj7L26YDK2HnMRXEQmQ2aemov8YBtPS7vR", "period": 3600, "minSamples": 60, "weightByPropagationTime": true  } }
        * ```
        * @property {OracleJob.ISerumSwapTask|null} [serumSwapTask] Task serumSwapTask
-       * @property {OracleJob.IPowTask|null} [powTask] Task powTask
+       * @property {OracleJob.IPowTask|null} [powTask] Round the current running result to an exponential power.
+       *
+       * _**Input**_: The current running numerical result.
+       *
+       * _**Returns**_: The input raised to an exponential power.
+       *
+       * _**Example**_: Raise 2 to the power of 3, 2^3
+       *
+       * ```json
+       * {"tasks":[{"valueTask":{"value":2}},{"powTask":{"scalar":3}}]}
+       * ```
        * @property {OracleJob.ILendingRateTask|null} [lendingRateTask] Task lendingRateTask
        * @property {OracleJob.IMangoPerpMarketTask|null} [mangoPerpMarketTask] Task mangoPerpMarketTask
        * @property {OracleJob.IJupiterSwapTask|null} [jupiterSwapTask] Fetch the simulated price for a swap on JupiterSwap.
@@ -15896,7 +15928,23 @@
        * @property {OracleJob.IMarinadeStateTask|null} [marinadeStateTask] Task marinadeStateTask
        * @property {OracleJob.ISolanaAccountDataFetchTask|null} [solanaAccountDataFetchTask] Task solanaAccountDataFetchTask
        * @property {OracleJob.IBufferLayoutParseTask|null} [bufferLayoutParseTask] Task bufferLayoutParseTask
-       * @property {OracleJob.ICronParseTask|null} [cronParseTask] Task cronParseTask
+       * @property {OracleJob.ICronParseTask|null} [cronParseTask] Return a timestamp from a crontab instruction.
+       *
+       * _**Input**_: None
+       *
+       * _**Returns**_: A timestamp
+       *
+       * _**Example**_: Return the unix timestamp for the on-chain SYSCLOCK
+       *
+       * ```json
+       * {"cronParseTask":{"cronPattern":"* * * * * *","clockOffset":0,"clock":"SYSCLOCK"}}
+       * ```
+       *
+       * _**Example**_: Return the unix timestamp for next friday at 5pm UTC
+       *
+       * ```json
+       * {"cronParseTask":{"cronPattern":"0 17 * * 5","clockOffset":0,"clock":0}}
+       * ```
        * @property {OracleJob.IMinTask|null} [minTask] Returns the minimum value of all the results returned by the provided subtasks and subjobs. Nested tasks or jobs must return a Number.
        *
        * _**Input**_: None
@@ -16361,7 +16409,17 @@
       Task.prototype.serumSwapTask = null;
 
       /**
-       * Task powTask.
+       * Round the current running result to an exponential power.
+       *
+       * _**Input**_: The current running numerical result.
+       *
+       * _**Returns**_: The input raised to an exponential power.
+       *
+       * _**Example**_: Raise 2 to the power of 3, 2^3
+       *
+       * ```json
+       * {"tasks":[{"valueTask":{"value":2}},{"powTask":{"scalar":3}}]}
+       * ```
        * @member {OracleJob.IPowTask|null|undefined} powTask
        * @memberof OracleJob.Task
        * @instance
@@ -16561,7 +16619,23 @@
       Task.prototype.bufferLayoutParseTask = null;
 
       /**
-       * Task cronParseTask.
+       * Return a timestamp from a crontab instruction.
+       *
+       * _**Input**_: None
+       *
+       * _**Returns**_: A timestamp
+       *
+       * _**Example**_: Return the unix timestamp for the on-chain SYSCLOCK
+       *
+       * ```json
+       * {"cronParseTask":{"cronPattern":"* * * * * *","clockOffset":0,"clock":"SYSCLOCK"}}
+       * ```
+       *
+       * _**Example**_: Return the unix timestamp for next friday at 5pm UTC
+       *
+       * ```json
+       * {"cronParseTask":{"cronPattern":"0 17 * * 5","clockOffset":0,"clock":0}}
+       * ```
        * @member {OracleJob.ICronParseTask|null|undefined} cronParseTask
        * @memberof OracleJob.Task
        * @instance

@@ -96,12 +96,12 @@
             {
               "name": "LITTLE_ENDIAN",
               "number": "0",
-              "description": ""
+              "description": "Use little endian byte order."
             },
             {
               "name": "BIG_ENDIAN",
               "number": "1",
-              "description": ""
+              "description": "Use big endian byte order."
             }
           ]
         },
@@ -114,17 +114,17 @@
             {
               "name": "OPERATION_EQ",
               "number": "0",
-              "description": ""
+              "description": "Use the equals to '==' operator."
             },
             {
               "name": "OPERATION_GT",
               "number": "1",
-              "description": ""
+              "description": "Use the greater than '\u003e' operator."
             },
             {
               "name": "OPERATION_LT",
               "number": "2",
-              "description": ""
+              "description": "Use the less than '\u003c' operator."
             }
           ]
         },
@@ -132,17 +132,17 @@
           "name": "ClockType",
           "longName": "OracleJob.CronParseTask.ClockType",
           "fullName": ".OracleJob.CronParseTask.ClockType",
-          "description": "which type of clock to use",
+          "description": "",
           "values": [
             {
               "name": "ORACLE",
               "number": "0",
-              "description": ""
+              "description": "Use the TaskRunners system clock for the current time."
             },
             {
               "name": "SYSCLOCK",
               "number": "1",
-              "description": ""
+              "description": "Use the on-chain SYSCLOCK for the current time."
             }
           ]
         },
@@ -252,12 +252,12 @@
             {
               "name": "METHOD_ROUND_UP",
               "number": "0",
-              "description": ""
+              "description": "Round the result down."
             },
             {
               "name": "METHOD_ROUND_DOWN",
               "number": "1",
-              "description": ""
+              "description": "Round the result up."
             }
           ]
         }
@@ -396,7 +396,7 @@
           "fields": [
             {
               "name": "lower_bound",
-              "description": "",
+              "description": "The OracleJob to execute for the lower bound value.",
               "label": "optional",
               "type": "OracleJob",
               "longType": "OracleJob",
@@ -408,7 +408,7 @@
             },
             {
               "name": "lower_bound_value",
-              "description": "",
+              "description": "The value to use for the lower bound. Can be set to a `${CACHE_KEY}`.",
               "label": "optional",
               "type": "string",
               "longType": "string",
@@ -420,7 +420,7 @@
             },
             {
               "name": "upper_bound",
-              "description": "",
+              "description": "The OracleJob to execute for the upper bound value.",
               "label": "optional",
               "type": "OracleJob",
               "longType": "OracleJob",
@@ -432,7 +432,7 @@
             },
             {
               "name": "upper_bound_value",
-              "description": "",
+              "description": "The value to use for the upper bound. Can be set to a `${CACHE_KEY}`.",
               "label": "optional",
               "type": "string",
               "longType": "string",
@@ -444,7 +444,7 @@
             },
             {
               "name": "on_exceeds_upper_bound",
-              "description": "",
+              "description": "The OracleJob to execute if the upper bound is exceeded.",
               "label": "optional",
               "type": "OracleJob",
               "longType": "OracleJob",
@@ -456,7 +456,7 @@
             },
             {
               "name": "on_exceeds_upper_bound_value",
-              "description": "",
+              "description": "The value to use if the upper bound is exceeded. Can be set to a `${CACHE_KEY}`.",
               "label": "optional",
               "type": "string",
               "longType": "string",
@@ -468,7 +468,7 @@
             },
             {
               "name": "on_exceeds_lower_bound",
-              "description": "",
+              "description": "The OracleJob to execute if the lower bound is exceeded.",
               "label": "optional",
               "type": "OracleJob",
               "longType": "OracleJob",
@@ -480,7 +480,7 @@
             },
             {
               "name": "on_exceeds_lower_bound_value",
-              "description": "",
+              "description": "The value to use if the lower bound is exceeded. Can be set to a `${CACHE_KEY}`.",
               "label": "optional",
               "type": "string",
               "longType": "string",
@@ -612,7 +612,7 @@
           "fields": [
             {
               "name": "op",
-              "description": "",
+              "description": "The type of operator to use on the left (lhs) and right (rhs) operand.",
               "label": "optional",
               "type": "Operation",
               "longType": "OracleJob.ComparisonTask.Operation",
@@ -624,7 +624,7 @@
             },
             {
               "name": "lhs",
-              "description": "",
+              "description": "OracleJob where the executed result is equal to the left hand side operand.",
               "label": "optional",
               "type": "OracleJob",
               "longType": "OracleJob",
@@ -636,7 +636,7 @@
             },
             {
               "name": "lhs_value",
-              "description": "",
+              "description": "String or `${CACHE_KEY}` representing the left hand side operand.",
               "label": "optional",
               "type": "string",
               "longType": "string",
@@ -648,7 +648,7 @@
             },
             {
               "name": "rhs",
-              "description": "",
+              "description": "OracleJob where the executed result is equal to the right hand side operand.",
               "label": "optional",
               "type": "OracleJob",
               "longType": "OracleJob",
@@ -660,7 +660,7 @@
             },
             {
               "name": "rhs_value",
-              "description": "",
+              "description": "String or `${CACHE_KEY}` representing the right hand side operand.",
               "label": "optional",
               "type": "string",
               "longType": "string",
@@ -672,7 +672,7 @@
             },
             {
               "name": "on_true",
-              "description": "",
+              "description": "The OracleJob to execute if the condition evaluates to true.",
               "label": "optional",
               "type": "OracleJob",
               "longType": "OracleJob",
@@ -684,7 +684,7 @@
             },
             {
               "name": "on_true_value",
-              "description": "",
+              "description": "The result to use if the condition evaluates to true. Can be set to a `${CACHE_KEY}`.",
               "label": "optional",
               "type": "string",
               "longType": "string",
@@ -696,7 +696,7 @@
             },
             {
               "name": "on_false",
-              "description": "",
+              "description": "The OracleJob to execute if the condition evaluates to false.",
               "label": "optional",
               "type": "OracleJob",
               "longType": "OracleJob",
@@ -708,7 +708,7 @@
             },
             {
               "name": "on_false_value",
-              "description": "",
+              "description": "The result to use if the condition evaluates to false. Can be set to a `${CACHE_KEY}`.",
               "label": "optional",
               "type": "string",
               "longType": "string",
@@ -720,7 +720,7 @@
             },
             {
               "name": "on_failure",
-              "description": "",
+              "description": "The OracleJob to execute if the condition fails to evaluate.",
               "label": "optional",
               "type": "OracleJob",
               "longType": "OracleJob",
@@ -732,7 +732,7 @@
             },
             {
               "name": "on_failure_value",
-              "description": "",
+              "description": "The result to use if the condition fails to evaluate. Can be set to a `${CACHE_KEY}`.",
               "label": "optional",
               "type": "string",
               "longType": "string",
@@ -784,7 +784,7 @@
           "name": "CronParseTask",
           "longName": "OracleJob.CronParseTask",
           "fullName": ".OracleJob.CronParseTask",
-          "description": "return a timestamp from a crontab instruction",
+          "description": "Return a timestamp from a crontab instruction.\n\n_**Input**_: None\n\n_**Returns**_: A timestamp\n\n_**Example**_: Return the unix timestamp for the on-chain SYSCLOCK\n\n```json\n{\"cronParseTask\":{\"cronPattern\":\"* * * * * *\",\"clockOffset\":0,\"clock\":\"SYSCLOCK\"}}\n```\n\n_**Example**_: Return the unix timestamp for next friday at 5pm UTC\n\n```json\n{\"cronParseTask\":{\"cronPattern\":\"0 17 * * 5\",\"clockOffset\":0,\"clock\":0}}\n```",
           "hasExtensions": false,
           "hasFields": true,
           "hasOneofs": false,
@@ -792,7 +792,7 @@
           "fields": [
             {
               "name": "cron_pattern",
-              "description": "the cron pattern to parse",
+              "description": "The cron pattern to parse.",
               "label": "optional",
               "type": "string",
               "longType": "string",
@@ -804,7 +804,7 @@
             },
             {
               "name": "clock_offset",
-              "description": "the timestamp offset \n/ to calculate the next run",
+              "description": "The timestamp offset to calculate the next run.",
               "label": "optional",
               "type": "int32",
               "longType": "int32",
@@ -816,7 +816,7 @@
             },
             {
               "name": "clock",
-              "description": "",
+              "description": "Use the TaskRunner's clock or the on-chain SYSCLOCK.",
               "label": "optional",
               "type": "ClockType",
               "longType": "OracleJob.CronParseTask.ClockType",
@@ -1140,7 +1140,7 @@
           "fields": [
             {
               "name": "key",
-              "description": "",
+              "description": "A header key such as `Authorization` or `Content-Type`",
               "label": "optional",
               "type": "string",
               "longType": "string",
@@ -1152,7 +1152,7 @@
             },
             {
               "name": "value",
-              "description": "",
+              "description": "A value for the given header key like `Basic MYAUTHKEY` or `application/json`",
               "label": "optional",
               "type": "string",
               "longType": "string",
@@ -1188,7 +1188,7 @@
             },
             {
               "name": "aggregation_method",
-              "description": "The technique that will be used to aggregate the results if walking the specified path\n/ returns multiple numerical results.",
+              "description": "The technique that will be used to aggregate the results if walking the specified path returns multiple numerical results.",
               "label": "optional",
               "type": "AggregationMethod",
               "longType": "OracleJob.JsonParseTask.AggregationMethod",
@@ -1236,7 +1236,7 @@
             },
             {
               "name": "allow_list",
-              "description": "",
+              "description": "A list of AMM markets to allow.",
               "label": "optional",
               "type": "FilterList",
               "longType": "OracleJob.JupiterSwapTask.FilterList",
@@ -1248,7 +1248,7 @@
             },
             {
               "name": "deny_list",
-              "description": "",
+              "description": "A list of AMM markets to deny.",
               "label": "optional",
               "type": "FilterList",
               "longType": "OracleJob.JupiterSwapTask.FilterList",
@@ -1312,7 +1312,7 @@
           "name": "FilterList",
           "longName": "OracleJob.JupiterSwapTask.FilterList",
           "fullName": ".OracleJob.JupiterSwapTask.FilterList",
-          "description": "A list of Jupiter AMM labels to allow or deny (e.g. 'Raydium', 'Orca')",
+          "description": "",
           "hasExtensions": false,
           "hasFields": true,
           "hasOneofs": false,
@@ -1320,7 +1320,7 @@
           "fields": [
             {
               "name": "labels",
-              "description": "",
+              "description": "A list of Jupiter AMM labels to allow or deny (e.g. 'Raydium', 'Orca')",
               "label": "repeated",
               "type": "string",
               "longType": "string",
@@ -1563,7 +1563,7 @@
             },
             {
               "name": "price_feed_jobs",
-              "description": "",
+              "description": "A list of OracleJobs to execute in order to yield the price feed jobs to use for the fair price formula.",
               "label": "repeated",
               "type": "OracleJob",
               "longType": "OracleJob",
@@ -1730,7 +1730,7 @@
             },
             {
               "name": "min_successful_required",
-              "description": "",
+              "description": "The minimum number of values before a successful median can be yielded.",
               "label": "optional",
               "type": "int32",
               "longType": "int32",
@@ -2034,7 +2034,7 @@
           "name": "PowTask",
           "longName": "OracleJob.PowTask",
           "fullName": ".OracleJob.PowTask",
-          "description": "Take the power of the working value.",
+          "description": "Round the current running result to an exponential power.\n\n_**Input**_: The current running numerical result.\n\n_**Returns**_: The input raised to an exponential power.\n\n_**Example**_: Raise 2 to the power of 3, 2^3\n\n```json\n{\"tasks\":[{\"valueTask\":{\"value\":2}},{\"powTask\":{\"scalar\":3}}]}\n```",
           "hasExtensions": false,
           "hasFields": true,
           "hasOneofs": true,
@@ -2126,7 +2126,7 @@
           "fields": [
             {
               "name": "method",
-              "description": "",
+              "description": "The rounding method to use.",
               "label": "optional",
               "type": "Method",
               "longType": "OracleJob.RoundTask.Method",
@@ -2138,7 +2138,7 @@
             },
             {
               "name": "decimals",
-              "description": "",
+              "description": "The number of decimals to round to.",
               "label": "optional",
               "type": "int32",
               "longType": "int32",
@@ -2629,7 +2629,7 @@
             },
             {
               "name": "pow_task",
-              "description": "",
+              "description": "Round the current running result to an exponential power.\n\n_**Input**_: The current running numerical result.\n\n_**Returns**_: The input raised to an exponential power.\n\n_**Example**_: Raise 2 to the power of 3, 2^3\n\n```json\n{\"tasks\":[{\"valueTask\":{\"value\":2}},{\"powTask\":{\"scalar\":3}}]}\n```",
               "label": "optional",
               "type": "PowTask",
               "longType": "OracleJob.PowTask",
@@ -2857,7 +2857,7 @@
             },
             {
               "name": "cron_parse_task",
-              "description": "",
+              "description": "Return a timestamp from a crontab instruction.\n\n_**Input**_: None\n\n_**Returns**_: A timestamp\n\n_**Example**_: Return the unix timestamp for the on-chain SYSCLOCK\n\n```json\n{\"cronParseTask\":{\"cronPattern\":\"* * * * * *\",\"clockOffset\":0,\"clock\":\"SYSCLOCK\"}}\n```\n\n_**Example**_: Return the unix timestamp for next friday at 5pm UTC\n\n```json\n{\"cronParseTask\":{\"cronPattern\":\"0 17 * * 5\",\"clockOffset\":0,\"clock\":0}}\n```",
               "label": "optional",
               "type": "CronParseTask",
               "longType": "OracleJob.CronParseTask",

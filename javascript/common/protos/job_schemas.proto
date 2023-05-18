@@ -36,7 +36,9 @@ _**Example**_: HttpTask example with headers
 
     /// An object that represents a header to add to an HTTP request.
     message Header {
+      /// A header key such as `Authorization` or `Content-Type`
       optional string key = 1;
+      /// A value for the given header key like `Basic MYAUTHKEY` or `application/json`
       optional string value = 2;
     }
     /// A string containing the URL to direct this HTTP request to.
@@ -85,8 +87,7 @@ _**Example**_: Parses the price field from a JSON object
       /// Grab the median of the results.
       MEDIAN = 5;
     } 
-    /// The technique that will be used to aggregate the results if walking the specified path
-    /// returns multiple numerical results.
+    /// The technique that will be used to aggregate the results if walking the specified path returns multiple numerical results.
     optional AggregationMethod aggregation_method = 2;
   }
   
@@ -114,6 +115,7 @@ _**Example**_: Returns the median numerical result of 3 jobs.
     repeated Task tasks = 1;
     /// A list of subjobs to process and produce a list of result values.
     repeated OracleJob jobs = 2;
+    /// The minimum number of values before a successful median can be yielded.
     optional int32 min_successful_required = 3;
   }
 
@@ -472,6 +474,7 @@ _**Example**_: Fetch the fair price Raydium LP token price of the SOL/USDC pool
     }
     /// A list of Switchboard aggregator accounts used to calculate the fair LP price. This ensures the price is based on the previous round to mitigate flash loan price manipulation.
     repeated string price_feed_addresses = 5;
+    /// A list of OracleJobs to execute in order to yield the price feed jobs to use for the fair price formula.
     repeated OracleJob price_feed_jobs = 6;
     /// If enabled and price_feed_addresses provided, the oracle will calculate the fair LP price based on the liquidity pool reserves. See our blog post for more information: https://switchboardxyz.medium.com/fair-lp-token-oracles-94a457c50239
     optional bool use_fair_price = 7;
@@ -640,14 +643,18 @@ _**Example**_: Fetch the JupiterSwap price for exchanging 1000 SOL into USDC.
     /// The output token address.
     optional string out_token_address = 2;
 
-    /// A list of Jupiter AMM labels to allow or deny (e.g. 'Raydium', 'Orca')
     message FilterList {
+      /// A list of Jupiter AMM labels to allow or deny (e.g. 'Raydium', 'Orca')
       repeated string labels = 1;
     }
+
     oneof RoutesFilters {
+      /// A list of AMM markets to allow.
       FilterList allow_list = 4;
+      /// A list of AMM markets to deny.
       FilterList deny_list = 5;
     }
+
     oneof SwapAmount {
       /// The amount of `in_token_address` tokens to swap.
       double base_amount = 3;
@@ -946,6 +953,7 @@ _**Example**_: Return the unix timestamp for next friday at 5pm UTC
       /// Use the less than '<' operator.
       OPERATION_LT = 2;
     }
+    /// The type of operator to use on the left (lhs) and right (rhs) operand.
     optional Operation op = 1;
     oneof LHS {
       /// OracleJob where the executed result is equal to the left hand side operand.
@@ -1013,13 +1021,21 @@ _**Example**_: Bound the running result to a value between 0.90 and 1.10
 ```
 */
   message BoundTask {
+    /// The OracleJob to execute for the lower bound value.
     optional OracleJob lower_bound = 1;
+    /// The value to use for the lower bound. Can be set to a `${CACHE_KEY}`.
     optional string lower_bound_value = 2;
+    /// The OracleJob to execute for the upper bound value.
     optional OracleJob upper_bound = 3;
+    /// The value to use for the upper bound. Can be set to a `${CACHE_KEY}`.
     optional string upper_bound_value = 4;
+    /// The OracleJob to execute if the upper bound is exceeded.
     optional OracleJob on_exceeds_upper_bound = 5;
+    /// The value to use if the upper bound is exceeded. Can be set to a `${CACHE_KEY}`.
     optional string on_exceeds_upper_bound_value = 6;
+    /// The OracleJob to execute if the lower bound is exceeded.
     optional OracleJob on_exceeds_lower_bound = 7;
+    /// The value to use if the lower bound is exceeded. Can be set to a `${CACHE_KEY}`.
     optional string on_exceeds_lower_bound_value = 8;
   }
 
