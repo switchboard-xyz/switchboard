@@ -91,13 +91,13 @@ _**Example**_: Parses the price field from a JSON object
   }
   
 /*
-Returns the median of all the results returned by the provided subtasks and subjobs. Nested tasks must return a Number.
+Returns the median (middle) of all the results returned by the provided subtasks and subjobs. Nested tasks must return a Number.
 
 _**Input**_: The current running numerical result output from a task or oracle job.
 
 _**Returns**_: A numerical result.
 
-_**Example**_: Returns the median numerical result from 3 tasks.
+_**Example**_: Returns the median numerical result of 3 tasks.
 
 ```json
 {"medianTask": {"tasks": [{"valueTask": {"value": 10}},{"valueTask": {"value": 20}},{"valueTask": {"value": 30}}]}}
@@ -117,7 +117,25 @@ _**Example**_: Returns the median numerical result of 3 jobs.
     optional int32 min_successful_required = 3;
   }
 
-  /// Returns the mean of all the results returned by the provided subtasks and subjobs.
+/*
+Returns the mean (average) of all the results returned by the provided subtasks and subjobs. Nested tasks or jobs must return a Number.
+
+_**Input**_: The current running numerical result output from a task or oracle job.
+
+_**Returns**_: A numerical result.
+
+_**Example**_: Returns the mean numerical result of 3 tasks.
+
+```json
+{"meanTask": {"tasks": [{"valueTask": {"value": 10}},{"valueTask": {"value": 20}},{"valueTask": {"value": 30}}]}}
+```
+
+_**Example**_: Returns the mean numerical result of 3 jobs.
+
+```json
+{"meanTask": {"jobs": [{"tasks": [{"httpTask": {"url": "https://www.binance.com/api/v3/ticker/price?symbol=SOLUSDT"}},{"jsonParseTask": {"path": "$.price"}}]},{"tasks": [{"httpTask": {"url": "https://www.binance.us/api/v3/ticker/price?symbol=SOLUSD"}},{"jsonParseTask": {"path": "$.price"}}]},{"tasks": [{"httpTask": {"url": "https://api-pub.bitfinex.com/v2/tickers?symbols=tSOLUSD"}},{"jsonParseTask": {"path": "$[0][7]"}}]}]}}
+```
+*/
   message MeanTask {
     /// A list of subtasks to process and produce a list of result values.
     repeated Task tasks = 1;
@@ -125,7 +143,25 @@ _**Example**_: Returns the median numerical result of 3 jobs.
     repeated OracleJob jobs = 2;
   }
 
-  /// Returns the maximum value of all the results returned by the provided subtasks and subjobs.
+/*
+Returns the maximum value of all the results returned by the provided subtasks and subjobs. Nested tasks or jobs must return a Number.
+
+_**Input**_: The current running numerical result output from a task or oracle job.
+
+_**Returns**_: A numerical result.
+
+_**Example**_: Returns the maximum numerical result from 3 tasks.
+
+```json
+{"maxTask": {"tasks": [{"valueTask": {"value": 10}},{"valueTask": {"value": 20}},{"valueTask": {"value": 30}}]}}
+```
+
+_**Example**_: Returns the maximum numerical result from 3 jobs.
+
+```json
+{"maxTask": {"jobs": [{"tasks": [{"httpTask": {"url": "https://www.binance.com/api/v3/ticker/price?symbol=SOLUSDT"}},{"jsonParseTask": {"path": "$.price"}}]},{"tasks": [{"httpTask": {"url": "https://www.binance.us/api/v3/ticker/price?symbol=SOLUSD"}},{"jsonParseTask": {"path": "$.price"}}]},{"tasks": [{"httpTask": {"url": "https://api-pub.bitfinex.com/v2/tickers?symbols=tSOLUSD"}},{"jsonParseTask": {"path": "$[0][7]"}}]}]}}
+```
+*/
   message MaxTask {
     /// A list of subtasks to process and produce a list of result values.
     repeated Task tasks = 1;
@@ -133,7 +169,25 @@ _**Example**_: Returns the median numerical result of 3 jobs.
     repeated OracleJob jobs = 2;
   }
 
-   /// Returns the minimum value of all the results returned by the provided subtasks and subjobs.
+/*
+Returns the minimum value of all the results returned by the provided subtasks and subjobs. Nested tasks or jobs must return a Number.
+
+_**Input**_: The current running numerical result output from a task or oracle job.
+
+_**Returns**_: A numerical result.
+
+_**Example**_: Returns the minimum numerical result from 3 tasks.
+
+```json
+{"minTask": {"tasks": [{"valueTask": {"value": 10}},{"valueTask": {"value": 20}},{"valueTask": {"value": 30}}]}}
+```
+
+_**Example**_: Returns the minimum numerical result from 3 jobs.
+
+```json
+{"minTask": {"jobs": [{"tasks": [{"httpTask": {"url": "https://www.binance.com/api/v3/ticker/price?symbol=SOLUSDT"}},{"jsonParseTask": {"path": "$.price"}}]},{"tasks": [{"httpTask": {"url": "https://www.binance.us/api/v3/ticker/price?symbol=SOLUSD"}},{"jsonParseTask": {"path": "$.price"}}]},{"tasks": [{"httpTask": {"url": "https://api-pub.bitfinex.com/v2/tickers?symbols=tSOLUSD"}},{"jsonParseTask": {"path": "$[0][7]"}}]}]}}
+```
+*/
   message MinTask {
     /// A list of subtasks to process and produce a list of result values.
     repeated Task tasks = 1;
@@ -202,8 +256,19 @@ _**Example**_: Opens a coinbase websocket
     optional string filter = 4;
   }
 
-  /// This task will run the `attempt` subtasks in an effort to produce a valid numerical result. If
-  /// `attempt` fails to produce an acceptable result, `on_failure` subtasks will be run instead. 
+/*
+This task will run the `attempt` on the subtasks in an effort to produce a valid numerical result. If `attempt`. fails to produce an acceptable result, `on_failure` subtasks will be run instead.
+
+_**Input**_: The current running numerical result output from a task.
+
+_**Returns**_: A numerical result, else run `on_failure` subtasks.
+
+_**Example**_: Returns the numerical result from the conditionalTask's subtasks, else `on_failure` returns the numerical result from its subtasks.
+
+```json
+{"conditionalTask":{"attempt":[{"tasks":[{"jupiterSwapTask":{"inTokenAddress":"EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v","outTokenAddress":"DUALa4FC2yREwZ59PHeu1un4wis36vHRv5hWVBmzykCJ"}}]}],"onFailure":[{"lpExchangeRateTask":{"orcaPoolAddress":"7yJ4gMRJhEoCR48aPE3EAWRmCoygakik81ZS1sajaTnE"}}]}}
+```
+*/
   message ConditionalTask {
     /// A list of subtasks to process in an attempt to produce a valid numerical result.
     repeated Task attempt = 1;
@@ -212,8 +277,31 @@ _**Example**_: Opens a coinbase websocket
     repeated Task on_failure = 2;
   }
 
-  /// This task will divide a numerical input by a scalar value or by another
-  /// aggregate.
+/*
+This task will divide a numerical input by a scalar value from a job of subtasks, an aggregator, or a big.
+
+_**Input**_: The current running numerical result output from a scalar value, an aggregator, a job of subtasks or a big.
+
+_**Returns**_: A numerical result.
+
+_**Example**_: Returns the numerical result by dividing by a job of subtasks.
+
+```json
+{"valueTask":{"value":100}},{"divideTask":{"job":{"tasks":[{"valueTask":{"value":10}}]}}}
+```
+
+_**Example**_: Returns the numerical result by dividing by an aggregator.
+
+```json
+{"valueTask":{"value":100}},{"divideTask":{"aggregatorPubkey":"GvDMxPzN1sCj7L26YDK2HnMRXEQmQ2aemov8YBtPS7vR"}}
+```
+
+_**Example**_: Returns the numerical result by dividing by a big.
+
+```json
+{"tasks":[{"cacheTask":{"cacheItems":[{"variableName":"TEN","job":{"tasks":[{"valueTask":{"value":10}}]}}]}},{"valueTask":{"value":100}},{"divideTask":{"big":"${TEN}"}}]}
+```
+*/
   message DivideTask {
     oneof Denominator {
       /// Specifies a basic scalar denominator to divide by.
@@ -227,7 +315,31 @@ _**Example**_: Opens a coinbase websocket
     }
   }
 
-  /// This task will multiply a numerical input by a scalar value or by another aggregator.
+/*
+This task will multiply a numerical input by a scalar value from a job of subtasks, an aggregator, or a big.
+
+_**Input**_: The current running numerical result output from a scalar value, an aggregator, a job of subtasks or a big.
+
+_**Returns**_: A numerical result.
+
+_**Example**_: Returns the numerical result by multiplying by a job of subtasks.
+
+```json
+{"valueTask":{"value":100}},{"multiplyTask":{"job":{"tasks":[{"valueTask":{"value":10}}]}}}
+```
+
+_**Example**_: Returns the numerical result by multiplying by an aggregator.
+
+```json
+{"valueTask":{"value":100}},{"multiplyTask":{"aggregatorPubkey":"GvDMxPzN1sCj7L26YDK2HnMRXEQmQ2aemov8YBtPS7vR"}}
+```
+
+_**Example**_: Returns the numerical result by multiplying by a big.
+
+```json
+{"tasks":[{"cacheTask":{"cacheItems":[{"variableName":"TEN","job":{"tasks":[{"valueTask":{"value":10}}]}}]}},{"valueTask":{"value":100}},{"multiplyTask":{"big":"${TEN}"}}]}
+```
+*/
   message MultiplyTask {
     oneof Multiple {
       /// Specifies a scalar to multiply by.
@@ -241,8 +353,31 @@ _**Example**_: Opens a coinbase websocket
     }
   }
 
-  /// This task will add a numerical input by a scalar value or by another
-  /// aggregate.
+/*
+This task will add a numerical input by a scalar value from a job of subtasks, an aggregator, or a big.
+
+_**Input**_: The current running numerical result output from a scalar value, an aggregator, a job of subtasks or a big.
+
+_**Returns**_: A numerical result.
+
+_**Example**_: Returns the numerical result by adding by a job of subtasks.
+
+```json
+{"valueTask":{"value":100}},{"addTask":{"job":{"tasks":[{"valueTask":{"value":10}}]}}}
+```
+
+_**Example**_: Returns the numerical result by multiplying by an aggregator.
+
+```json
+{"valueTask":{"value":100}},{"addTask":{"aggregatorPubkey":"GvDMxPzN1sCj7L26YDK2HnMRXEQmQ2aemov8YBtPS7vR"}}
+```
+
+_**Example**_: Returns the numerical result by multiplying by a big.
+
+```json
+{"tasks":[{"cacheTask":{"cacheItems":[{"variableName":"TEN","job":{"tasks":[{"valueTask":{"value":10}}]}}]}},{"valueTask":{"value":100}},{"addTask":{"big":"${TEN}"}}]}
+```
+*/
   message AddTask {
     oneof Addition {
       /// Specifies a scalar to add by.
@@ -256,8 +391,31 @@ _**Example**_: Opens a coinbase websocket
     }
   }
 
-  /// This task will subtract a numerical input by a scalar value or by another
-  /// aggregate.
+/*
+This task will subtract a numerical input by a scalar value from a job of subtasks, an aggregator, or a big.
+
+_**Input**_: The current running numerical result output from a scalar value, an aggregator, a job of subtasks or a big.
+
+_**Returns**_: A numerical result.
+
+_**Example**_: Returns the numerical result by subtracting by a job of subtasks.
+
+```json
+{"valueTask":{"value":100}},{"subtractTask":{"job":{"tasks":[{"valueTask":{"value":10}}]}}}
+```
+
+_**Example**_: Returns the numerical result by multiplying by an aggregator.
+
+```json
+{"valueTask":{"value":100}},{"subtractTask":{"aggregatorPubkey":"GvDMxPzN1sCj7L26YDK2HnMRXEQmQ2aemov8YBtPS7vR"}}
+```
+
+_**Example**_: Returns the numerical result by multiplying by a big.
+
+```json
+{"tasks":[{"cacheTask":{"cacheItems":[{"variableName":"TEN","job":{"tasks":[{"valueTask":{"value":10}}]}}]}},{"valueTask":{"value":100}},{"subtractTask":{"big":"${TEN}"}}]}
+```
+*/
   message SubtractTask {
     oneof Subtraction {
       /// Specifies a scalar to subtract by.
@@ -856,15 +1014,14 @@ _**Example**_: Parses the price field from a JSON object
 ```
 */
       JsonParseTask json_parse_task = 2;
-      MedianTask median_task = 4;
 /*
-Returns the median of all the results returned by the provided subtasks and subjobs. Nested tasks must return a Number.
+Returns the median (middle) of all the results returned by the provided subtasks and subjobs. Nested tasks or jobs must return a Number.
 
 _**Input**_: The current running numerical result output from a task or oracle job.
 
 _**Returns**_: A numerical result.
 
-_**Example**_: Returns the median numerical result from 3 tasks.
+_**Example**_: Returns the median numerical result of 3 tasks.
 
 ```json
 {"medianTask": {"tasks": [{"valueTask": {"value": 10}},{"valueTask": {"value": 20}},{"valueTask": {"value": 30}}]}}
@@ -874,6 +1031,26 @@ _**Example**_: Returns the median numerical result of 3 jobs.
 
 ```json
 {"medianTask": {"jobs": [{"tasks": [{"httpTask": {"url": "https://www.binance.com/api/v3/ticker/price?symbol=SOLUSDT"}},{"jsonParseTask": {"path": "$.price"}}]},{"tasks": [{"httpTask": {"url": "https://www.binance.us/api/v3/ticker/price?symbol=SOLUSD"}},{"jsonParseTask": {"path": "$.price"}}]},{"tasks": [{"httpTask": {"url": "https://api-pub.bitfinex.com/v2/tickers?symbols=tSOLUSD"}},{"jsonParseTask": {"path": "$[0][7]"}}]}]}}
+```
+*/
+      MedianTask median_task = 4;
+/*
+Returns the mean (average) of all the results returned by the provided subtasks and subjobs. Nested tasks or jobs must return a Number.
+
+_**Input**_: The current running numerical result output from a task or oracle job.
+
+_**Returns**_: A numerical result.
+
+_**Example**_: Returns the mean numerical result of 3 tasks.
+
+```json
+{"meanTask": {"tasks": [{"valueTask": {"value": 10}},{"valueTask": {"value": 20}},{"valueTask": {"value": 30}}]}}
+```
+
+_**Example**_: Returns the mean numerical result of 3 jobs.
+
+```json
+{"meanTask": {"jobs": [{"tasks": [{"httpTask": {"url": "https://www.binance.com/api/v3/ticker/price?symbol=SOLUSDT"}},{"jsonParseTask": {"path": "$.price"}}]},{"tasks": [{"httpTask": {"url": "https://www.binance.us/api/v3/ticker/price?symbol=SOLUSD"}},{"jsonParseTask": {"path": "$.price"}}]},{"tasks": [{"httpTask": {"url": "https://api-pub.bitfinex.com/v2/tickers?symbols=tSOLUSD"}},{"jsonParseTask": {"path": "$[0][7]"}}]}]}}
 ```
 */
       MeanTask mean_task = 5;
@@ -891,7 +1068,57 @@ _**Example**_: Opens a coinbase websocket
 ```
 */
       WebsocketTask websocket_task = 6;
+/*
+This task will divide a numerical input by a scalar value from a job of subtasks, an aggregator, or a big.
+
+_**Input**_: The current running numerical result output from a scalar value, an aggregator, a job of subtasks or a big.
+
+_**Returns**_: A numerical result.
+
+_**Example**_: Returns the numerical result by dividing by a job of subtasks.
+
+```json
+{"valueTask":{"value":100}},{"divideTask":{"job":{"tasks":[{"valueTask":{"value":10}}]}}}
+```
+
+_**Example**_: Returns the numerical result by multiplying by an aggregator.
+
+```json
+{"valueTask":{"value":100}},{"divideTask":{"aggregatorPubkey":"GvDMxPzN1sCj7L26YDK2HnMRXEQmQ2aemov8YBtPS7vR"}}
+```
+
+_**Example**_: Returns the numerical result by multiplying by a big.
+
+```json
+{"tasks":[{"cacheTask":{"cacheItems":[{"variableName":"TEN","job":{"tasks":[{"valueTask":{"value":10}}]}}]}},{"valueTask":{"value":100}},{"divideTask":{"big":"${TEN}"}}]}
+```
+*/
       DivideTask divide_task = 7;
+/*
+This task will multiply a numerical input by a scalar value from a job of subtasks, an aggregator, or a big.
+
+_**Input**_: The current running numerical result output from a scalar value, an aggregator, a job of subtasks or a big.
+
+_**Returns**_: A numerical result.
+
+_**Example**_: Returns the numerical result by multiplying by a job of subtasks.
+
+```json
+{"valueTask":{"value":100}},{"multiplyTask":{"job":{"tasks":[{"valueTask":{"value":10}}]}}}
+```
+
+_**Example**_: Returns the numerical result by multiplying by an aggregator.
+
+```json
+{"valueTask":{"value":100}},{"multiplyTask":{"aggregatorPubkey":"GvDMxPzN1sCj7L26YDK2HnMRXEQmQ2aemov8YBtPS7vR"}}
+```
+
+_**Example**_: Returns the numerical result by multiplying by a big.
+
+```json
+{"tasks":[{"cacheTask":{"cacheItems":[{"variableName":"TEN","job":{"tasks":[{"valueTask":{"value":10}}]}}]}},{"valueTask":{"value":100}},{"multiplyTask":{"big":"${TEN}"}}]}
+```
+*/
       MultiplyTask multiply_task = 8;
 /*
 Fetch LP token price info from a number of supported exchanges. 
@@ -943,6 +1170,19 @@ _**Example**_: Fetch the exchange rate from the Raydium SOL/USDC pool
 ```
 */
       LpExchangeRateTask lp_exchange_rate_task = 10;
+/*
+This task will run the `attempt` on the subtasks in an effort to produce a valid numerical result. If `attempt`. fails to produce an acceptable result, `on_failure` subtasks will be run instead.
+
+_**Input**_: The current running numerical result output from a task.
+
+_**Returns**_: A numerical result, else run `on_failure` subtasks.
+
+_**Example**_: Returns the numerical result from the conditionalTask's subtasks, else `on_failure` returns the numerical result from its subtasks.
+
+```json
+{"conditionalTask":{"attempt":[{"tasks":[{"jupiterSwapTask":{"inTokenAddress":"EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v","outTokenAddress":"DUALa4FC2yREwZ59PHeu1un4wis36vHRv5hWVBmzykCJ"}}]}],"onFailure":[{"lpExchangeRateTask":{"orcaPoolAddress":"7yJ4gMRJhEoCR48aPE3EAWRmCoygakik81ZS1sajaTnE"}}]}}
+```
+*/
       ConditionalTask conditional_task = 11;
 /*
 Returns a specified value.
@@ -970,10 +1210,79 @@ _**Example**_: Returns the value stored in a CacheTask variable
 ```
 */
       ValueTask value_task = 12;
+/*
+Returns the maximum value of all the results returned by the provided subtasks and subjobs. Nested tasks or jobs must return a Number.
+
+_**Input**_: The current running numerical result output from a task or oracle job.
+
+_**Returns**_: A numerical result.
+
+_**Example**_: Returns the maximum numerical result from 3 tasks.
+
+```json
+{"maxTask": {"tasks": [{"valueTask": {"value": 10}},{"valueTask": {"value": 20}},{"valueTask": {"value": 30}}]}}
+```
+
+_**Example**_: Returns the minimum numerical result from 3 jobs.
+
+```json
+{"maxTask": {"jobs": [{"tasks": [{"httpTask": {"url": "https://www.binance.com/api/v3/ticker/price?symbol=SOLUSDT"}},{"jsonParseTask": {"path": "$.price"}}]},{"tasks": [{"httpTask": {"url": "https://www.binance.us/api/v3/ticker/price?symbol=SOLUSD"}},{"jsonParseTask": {"path": "$.price"}}]},{"tasks": [{"httpTask": {"url": "https://api-pub.bitfinex.com/v2/tickers?symbols=tSOLUSD"}},{"jsonParseTask": {"path": "$[0][7]"}}]}]}}
+```
+*/
       MaxTask max_task = 13;
       RegexExtractTask regex_extract_task = 14;
       XStepPriceTask xstep_price_task = 15;
+/*
+This task will add a numerical input by a scalar value from a job of subtasks, an aggregator, or a big.
+
+_**Input**_: The current running numerical result output from a scalar value, an aggregator, a job of subtasks or a big.
+
+_**Returns**_: A numerical result.
+
+_**Example**_: Returns the numerical result by adding by a job of subtasks.
+
+```json
+{"valueTask":{"value":100}},{"addTask":{"job":{"tasks":[{"valueTask":{"value":10}}]}}}
+```
+
+_**Example**_: Returns the numerical result by multiplying by an aggregator.
+
+```json
+{"valueTask":{"value":100}},{"addTask":{"aggregatorPubkey":"GvDMxPzN1sCj7L26YDK2HnMRXEQmQ2aemov8YBtPS7vR"}}
+```
+
+_**Example**_: Returns the numerical result by multiplying by a big.
+
+```json
+{"tasks":[{"cacheTask":{"cacheItems":[{"variableName":"TEN","job":{"tasks":[{"valueTask":{"value":10}}]}}]}},{"valueTask":{"value":100}},{"addTask":{"big":"${TEN}"}}]}
+```
+*/
       AddTask add_task = 16;
+/*
+This task will subtract a numerical input by a scalar value from a job of subtasks, an aggregator, or a big.
+
+_**Input**_: The current running numerical result output from a scalar value, an aggregator, a job of subtasks or a big.
+
+_**Returns**_: A numerical result.
+
+_**Example**_: Returns the numerical result by subtracting by a job of subtasks.
+
+```json
+{"valueTask":{"value":100}},{"subtractTask":{"job":{"tasks":[{"valueTask":{"value":10}}]}}}
+```
+
+_**Example**_: Returns the numerical result by multiplying by an aggregator.
+
+```json
+{"valueTask":{"value":100}},{"subtractTask":{"aggregatorPubkey":"GvDMxPzN1sCj7L26YDK2HnMRXEQmQ2aemov8YBtPS7vR"}}
+```
+
+_**Example**_: Returns the numerical result by multiplying by a big.
+
+```json
+{"tasks":[{"cacheTask":{"cacheItems":[{"variableName":"TEN","job":{"tasks":[{"valueTask":{"value":10}}]}}]}},{"valueTask":{"value":100}},{"subtractTask":{"big":"${TEN}"}}]}
+```
+*/
       SubtractTask subtract_task = 17;
 /*
 Takes a twap over a set period for a certain aggregator. Aggregators have an optional history buffer account storing the last N accepted results. The TwapTask will iterate over an aggregators history buffer and calculate the time weighted average of the samples within a given time period.
@@ -1067,6 +1376,25 @@ _**Example**_: CacheTask storing ${ONE} = 1
       SolanaAccountDataFetchTask solana_account_data_fetch_task = 37;
       BufferLayoutParseTask buffer_layout_parse_task = 38;
       CronParseTask cron_parse_task = 39;
+/*
+Returns the minimum value of all the results returned by the provided subtasks and subjobs. Nested tasks or jobs must return a Number.
+
+_**Input**_: The current running numerical result output from a task or oracle job.
+
+_**Returns**_: A numerical result.
+
+_**Example**_: Returns the minimum numerical result from 3 tasks.
+
+```json
+{"minTask": {"tasks": [{"valueTask": {"value": 10}},{"valueTask": {"value": 20}},{"valueTask": {"value": 30}}]}}
+```
+
+_**Example**_: Returns the minimum numerical result from 3 jobs.
+
+```json
+{"minTask": {"jobs": [{"tasks": [{"httpTask": {"url": "https://www.binance.com/api/v3/ticker/price?symbol=SOLUSDT"}},{"jsonParseTask": {"path": "$.price"}}]},{"tasks": [{"httpTask": {"url": "https://www.binance.us/api/v3/ticker/price?symbol=SOLUSD"}},{"jsonParseTask": {"path": "$.price"}}]},{"tasks": [{"httpTask": {"url": "https://api-pub.bitfinex.com/v2/tickers?symbols=tSOLUSD"}},{"jsonParseTask": {"path": "$[0][7]"}}]}]}}
+```
+*/
       MinTask min_task = 40;
       HistoryFunctionTask history_function_task = 41;
       VwapTask vwap_task = 42;
