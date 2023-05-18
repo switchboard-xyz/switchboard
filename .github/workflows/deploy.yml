@@ -32,7 +32,7 @@ jobs:
         continue-on-error: true
         shell: bash
         run: |
-          go get -u github.com/pseudomuto/protoc-gen-doc/cmd/protoc-gen-doc
+          go install github.com/pseudomuto/protoc-gen-doc/cmd/protoc-gen-doc@latest
 
       - name: Use Node.js
         uses: actions/setup-node@v3
