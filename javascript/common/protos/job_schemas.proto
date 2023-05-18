@@ -570,7 +570,19 @@ _**Example**_: The 1hr Twap of the SOL/USD Aggregator, requiring at least 60 sam
     optional string serum_pool_address = 1;
   }
 
-  /// Take the power of the working value.
+/*
+Round the current running result to an exponential power.
+ 
+_**Input**_: The current running numerical result.
+
+_**Returns**_: The input raised to an exponential power.
+
+_**Example**_: Raise 2 to the power of 3, 2^3
+
+```json
+{"tasks":[{"valueTask":{"value":2}},{"powTask":{"scalar":3}}]}
+```
+*/
   message PowTask {
     oneof Exponent {
       /// Take the working value to the exponent of value.
@@ -831,7 +843,9 @@ _**Example**_: CacheTask storing ${ONE} = 1
     optional int32 clock_offset = 2;
     /// which type of clock to use
     enum ClockType {
+      // Use the TaskRunners system clock for the current time.
       ORACLE = 0;
+      // Use the on-chain SYSCLOCK for the current time.
       SYSCLOCK = 1;
     }
     optional ClockType clock = 3;
@@ -842,7 +856,9 @@ _**Example**_: CacheTask storing ${ONE} = 1
     /// The buffer offset to start deserializing from.
     optional uint32 offset = 1;
     enum Endian {
+      // Use little endian byte order.
       LITTLE_ENDIAN = 0;
+      // Use big endian byte order.
       BIG_ENDIAN = 1;
     }
     /// The endianness of the stored value.
@@ -883,6 +899,7 @@ _**Example**_: CacheTask storing ${ONE} = 1
 
   message HistoryFunctionTask {
     enum Method {
+
       METHOD_MIN = 0;
       METHOD_MAX = 1;
     }
@@ -905,24 +922,37 @@ _**Example**_: CacheTask storing ${ONE} = 1
 
   message ComparisonTask {
     enum Operation {
+      /// Use the equals to '==' operator.
       OPERATION_EQ = 0;
+      /// Use the greater than '>' operator.
       OPERATION_GT = 1;
+      /// Use the less than '<' operator.
       OPERATION_LT = 2;
     }
     optional Operation op = 1;
     oneof LHS {
+      /// OracleJob where the executed result is equal to the left hand side operand.
       OracleJob lhs = 2;
+      /// String or `${CACHE_KEY}` representing the left hand side operand.
       string lhs_value = 3;
     }
     oneof RHS {
+      /// OracleJob where the executed result is equal to the right hand side operand.
       OracleJob rhs = 4;
+      /// String or `${CACHE_KEY}` representing the right hand side operand.
       string rhs_value = 5;
     }
+    /// The OracleJob to execute if the condition evaluates to true. 
     optional OracleJob on_true = 6;
+    /// The result to use if the condition evaluates to true. Can be set to a `${CACHE_KEY}`.
     optional string on_true_value = 7;
+    /// The OracleJob to execute if the condition evaluates to false. 
     optional OracleJob on_false = 8;
+    /// The result to use if the condition evaluates to false. Can be set to a `${CACHE_KEY}`.
     optional string on_false_value = 9;
+    /// The OracleJob to execute if the condition fails to evaluate.
     optional OracleJob on_failure = 10;
+     /// The result to use if the condition fails to evaluate. Can be set to a `${CACHE_KEY}`.
     optional string on_failure_value = 11;
   }
 
@@ -941,10 +971,14 @@ _**Example**_: Round down the running resul to 8 decimal places
 */
   message RoundTask {
     enum Method {
+      /// Round the result down.
       METHOD_ROUND_UP = 0;
+      /// Round the result up.
       METHOD_ROUND_DOWN = 1;
     }
+    /// The rounding method to use.
     optional Method method = 1;
+    /// The number of decimals to round to.
     optional int32 decimals = 2;
   }
 
@@ -1299,6 +1333,19 @@ _**Example**_: The 1hr Twap of the SOL/USD Aggregator, requiring at least 60 sam
 */
       TwapTask twap_task = 18;
       SerumSwapTask serum_swap_task = 19;
+/*
+Round the current running result to an exponential power.
+ 
+_**Input**_: The current running numerical result.
+
+_**Returns**_: The input raised to an exponential power.
+
+_**Example**_: Raise 2 to the power of 3, 2^3
+
+```json
+{"tasks":[{"valueTask":{"value":2}},{"powTask":{"scalar":3}}]}
+```
+*/
       PowTask pow_task = 20;
       LendingRateTask lending_rate_task = 21;
       MangoPerpMarketTask mango_perp_market_task = 22;
