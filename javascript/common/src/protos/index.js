@@ -1175,7 +1175,23 @@
       /**
        * Constructs a new MedianTask.
        * @memberof OracleJob
-       * @classdesc Returns the median of all the results returned by the provided subtasks and subjobs. Nested tasks must return a Number.
+       * @classdesc Returns the median (middle) of all the results returned by the provided subtasks and subjobs. Nested tasks must return a Number.
+       *
+       * _**Input**_: None
+       *
+       * _**Returns**_: A numerical result.
+       *
+       * _**Example**_: Returns the median numerical result of 3 tasks.
+       *
+       * ```json
+       * {"medianTask": {"tasks": [{"valueTask": {"value": 10}},{"valueTask": {"value": 20}},{"valueTask": {"value": 30}}]}}
+       * ```
+       *
+       * _**Example**_: Returns the median numerical result of 3 jobs.
+       *
+       * ```json
+       * {"medianTask": {"jobs": [{"tasks": [{"httpTask": {"url": "https://www.binance.com/api/v3/ticker/price?symbol=SOLUSDT"}},{"jsonParseTask": {"path": "$.price"}}]},{"tasks": [{"httpTask": {"url": "https://www.binance.us/api/v3/ticker/price?symbol=SOLUSD"}},{"jsonParseTask": {"path": "$.price"}}]},{"tasks": [{"httpTask": {"url": "https://api-pub.bitfinex.com/v2/tickers?symbols=tSOLUSD"}},{"jsonParseTask": {"path": "$[0][7]"}}]}]}}
+       * ```
        * @implements IMedianTask
        * @constructor
        * @param {OracleJob.IMedianTask=} [properties] Properties to set
@@ -1479,7 +1495,23 @@
       /**
        * Constructs a new MeanTask.
        * @memberof OracleJob
-       * @classdesc Returns the mean of all the results returned by the provided subtasks and subjobs.
+       * @classdesc Returns the mean (average) of all the results returned by the provided subtasks and subjobs. Nested tasks or jobs must return a Number.
+       *
+       * _**Input**_: None
+       *
+       * _**Returns**_: A numerical result.
+       *
+       * _**Example**_: Returns the mean numerical result of 3 tasks.
+       *
+       * ```json
+       * {"meanTask": {"tasks": [{"valueTask": {"value": 10}},{"valueTask": {"value": 20}},{"valueTask": {"value": 30}}]}}
+       * ```
+       *
+       * _**Example**_: Returns the mean numerical result of 3 jobs.
+       *
+       * ```json
+       * {"meanTask": {"jobs": [{"tasks": [{"httpTask": {"url": "https://www.binance.com/api/v3/ticker/price?symbol=SOLUSDT"}},{"jsonParseTask": {"path": "$.price"}}]},{"tasks": [{"httpTask": {"url": "https://www.binance.us/api/v3/ticker/price?symbol=SOLUSD"}},{"jsonParseTask": {"path": "$.price"}}]},{"tasks": [{"httpTask": {"url": "https://api-pub.bitfinex.com/v2/tickers?symbols=tSOLUSD"}},{"jsonParseTask": {"path": "$[0][7]"}}]}]}}
+       * ```
        * @implements IMeanTask
        * @constructor
        * @param {OracleJob.IMeanTask=} [properties] Properties to set
@@ -1750,7 +1782,23 @@
       /**
        * Constructs a new MaxTask.
        * @memberof OracleJob
-       * @classdesc Returns the maximum value of all the results returned by the provided subtasks and subjobs.
+       * @classdesc Returns the maximum value of all the results returned by the provided subtasks and subjobs. Nested tasks or jobs must return a Number.
+       *
+       * _**Input**_: None
+       *
+       * _**Returns**_: A numerical result.
+       *
+       * _**Example**_: Returns the maximum numerical result from 3 tasks.
+       *
+       * ```json
+       * {"maxTask": {"tasks": [{"valueTask": {"value": 10}},{"valueTask": {"value": 20}},{"valueTask": {"value": 30}}]}}
+       * ```
+       *
+       * _**Example**_: Returns the maximum numerical result from 3 jobs.
+       *
+       * ```json
+       * {"maxTask": {"jobs": [{"tasks": [{"httpTask": {"url": "https://www.binance.com/api/v3/ticker/price?symbol=SOLUSDT"}},{"jsonParseTask": {"path": "$.price"}}]},{"tasks": [{"httpTask": {"url": "https://www.binance.us/api/v3/ticker/price?symbol=SOLUSD"}},{"jsonParseTask": {"path": "$.price"}}]},{"tasks": [{"httpTask": {"url": "https://api-pub.bitfinex.com/v2/tickers?symbols=tSOLUSD"}},{"jsonParseTask": {"path": "$[0][7]"}}]}]}}
+       * ```
        * @implements IMaxTask
        * @constructor
        * @param {OracleJob.IMaxTask=} [properties] Properties to set
@@ -2021,7 +2069,23 @@
       /**
        * Constructs a new MinTask.
        * @memberof OracleJob
-       * @classdesc Returns the minimum value of all the results returned by the provided subtasks and subjobs.
+       * @classdesc Returns the minimum value of all the results returned by the provided subtasks and subjobs. Nested tasks or jobs must return a Number.
+       *
+       * _**Input**_: None
+       *
+       * _**Returns**_: A numerical result.
+       *
+       * _**Example**_: Returns the minimum numerical result from 3 tasks.
+       *
+       * ```json
+       * {"minTask": {"tasks": [{"valueTask": {"value": 10}},{"valueTask": {"value": 20}},{"valueTask": {"value": 30}}]}}
+       * ```
+       *
+       * _**Example**_: Returns the minimum numerical result from 3 jobs.
+       *
+       * ```json
+       * {"minTask": {"jobs": [{"tasks": [{"httpTask": {"url": "https://www.binance.com/api/v3/ticker/price?symbol=SOLUSDT"}},{"jsonParseTask": {"path": "$.price"}}]},{"tasks": [{"httpTask": {"url": "https://www.binance.us/api/v3/ticker/price?symbol=SOLUSD"}},{"jsonParseTask": {"path": "$.price"}}]},{"tasks": [{"httpTask": {"url": "https://api-pub.bitfinex.com/v2/tickers?symbols=tSOLUSD"}},{"jsonParseTask": {"path": "$[0][7]"}}]}]}}
+       * ```
        * @implements IMinTask
        * @constructor
        * @param {OracleJob.IMinTask=} [properties] Properties to set
@@ -2904,8 +2968,17 @@
       /**
        * Constructs a new ConditionalTask.
        * @memberof OracleJob
-       * @classdesc This task will run the `attempt` subtasks in an effort to produce a valid numerical result. If
-       * `attempt` fails to produce an acceptable result, `on_failure` subtasks will be run instead.
+       * @classdesc This task will run the `attempt` on the subtasks in an effort to produce a valid numerical result. If `attempt`. fails to produce an acceptable result, `on_failure` subtasks will be run instead.
+       *
+       * _**Input**_: The current running numerical result output from a task.
+       *
+       * _**Returns**_: A numerical result, else run `on_failure` subtasks.
+       *
+       * _**Example**_: Returns the numerical result from the conditionalTask's subtasks, else `on_failure` returns the numerical result from its subtasks.
+       *
+       * ```json
+       * {"conditionalTask":{"attempt":[{"tasks":[{"jupiterSwapTask":{"inTokenAddress":"EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v","outTokenAddress":"DUALa4FC2yREwZ59PHeu1un4wis36vHRv5hWVBmzykCJ"}}]}],"onFailure":[{"lpExchangeRateTask":{"orcaPoolAddress":"7yJ4gMRJhEoCR48aPE3EAWRmCoygakik81ZS1sajaTnE"}}]}}
+       * ```
        * @implements IConditionalTask
        * @constructor
        * @param {OracleJob.IConditionalTask=} [properties] Properties to set
@@ -3200,8 +3273,29 @@
       /**
        * Constructs a new DivideTask.
        * @memberof OracleJob
-       * @classdesc This task will divide a numerical input by a scalar value or by another
-       * aggregate.
+       * @classdesc This task will divide a numerical input by a scalar value from a job of subtasks, an aggregator, or a big.
+       *
+       * _**Input**_: The current running numerical result output from a scalar value, an aggregator, a job of subtasks or a big.
+       *
+       * _**Returns**_: A numerical result.
+       *
+       * _**Example**_: Returns the numerical result by dividing by a job of subtasks.
+       *
+       * ```json
+       * {"tasks":[{"valueTask":{"value":100}},{"divideTask":{"job":{"tasks":[{"valueTask":{"value":10}}]}}}]}
+       * ```
+       *
+       * _**Example**_: Returns the numerical result by dividing by an aggregator.
+       *
+       * ```json
+       * {"tasks":[{"valueTask":{"value":100}},{"divideTask":{"aggregatorPubkey":"GvDMxPzN1sCj7L26YDK2HnMRXEQmQ2aemov8YBtPS7vR"}}]}
+       * ```
+       *
+       * _**Example**_: Returns the numerical result by dividing by a big.
+       *
+       * ```json
+       * {"tasks":[{"cacheTask":{"cacheItems":[{"variableName":"TEN","job":{"tasks":[{"valueTask":{"value":10}}]}}]}},{"valueTask":{"value":100}},{"divideTask":{"big":"${TEN}"}}]}
+       * ```
        * @implements IDivideTask
        * @constructor
        * @param {OracleJob.IDivideTask=} [properties] Properties to set
@@ -3524,7 +3618,29 @@
       /**
        * Constructs a new MultiplyTask.
        * @memberof OracleJob
-       * @classdesc This task will multiply a numerical input by a scalar value or by another aggregator.
+       * @classdesc This task will multiply a numerical input by a scalar value from a job of subtasks, an aggregator, or a big.
+       *
+       * _**Input**_: The current running numerical result output from a scalar value, an aggregator, a job of subtasks or a big.
+       *
+       * _**Returns**_: A numerical result.
+       *
+       * _**Example**_: Returns the numerical result by multiplying by a job of subtasks.
+       *
+       * ```json
+       * {"tasks":[{"valueTask":{"value":100}},{"multiplyTask":{"job":{"tasks":[{"valueTask":{"value":10}}]}}}]}
+       * ```
+       *
+       * _**Example**_: Returns the numerical result by multiplying by an aggregator.
+       *
+       * ```json
+       * {"tasks":[{"valueTask":{"value":100}},{"multiplyTask":{"aggregatorPubkey":"GvDMxPzN1sCj7L26YDK2HnMRXEQmQ2aemov8YBtPS7vR"}}]}
+       * ```
+       *
+       * _**Example**_: Returns the numerical result by multiplying by a big.
+       *
+       * ```json
+       * {"tasks":[{"cacheTask":{"cacheItems":[{"variableName":"TEN","job":{"tasks":[{"valueTask":{"value":10}}]}}]}},{"valueTask":{"value":100}},{"multiplyTask":{"big":"${TEN}"}}]}
+       * ```
        * @implements IMultiplyTask
        * @constructor
        * @param {OracleJob.IMultiplyTask=} [properties] Properties to set
@@ -3844,8 +3960,29 @@
       /**
        * Constructs a new AddTask.
        * @memberof OracleJob
-       * @classdesc This task will add a numerical input by a scalar value or by another
-       * aggregate.
+       * @classdesc This task will add a numerical input by a scalar value from a job of subtasks, an aggregator, or a big.
+       *
+       * _**Input**_: The current running numerical result output from a scalar value, an aggregator, a job of subtasks or a big.
+       *
+       * _**Returns**_: A numerical result.
+       *
+       * _**Example**_: Returns the numerical result by adding by a job of subtasks.
+       *
+       * ```json
+       * {"tasks":[{"valueTask":{"value":100}},{"addTask":{"job":{"tasks":[{"valueTask":{"value":10}}]}}}]}
+       * ```
+       *
+       * _**Example**_: Returns the numerical result by multiplying by an aggregator.
+       *
+       * ```json
+       * {"tasks":[{"valueTask":{"value":100}},{"addTask":{"aggregatorPubkey":"GvDMxPzN1sCj7L26YDK2HnMRXEQmQ2aemov8YBtPS7vR"}}]}
+       * ```
+       *
+       * _**Example**_: Returns the numerical result by multiplying by a big.
+       *
+       * ```json
+       * {"tasks":[{"cacheTask":{"cacheItems":[{"variableName":"TEN","job":{"tasks":[{"valueTask":{"value":10}}]}}]}},{"valueTask":{"value":100}},{"addTask":{"big":"${TEN}"}}]}
+       * ```
        * @implements IAddTask
        * @constructor
        * @param {OracleJob.IAddTask=} [properties] Properties to set
@@ -4165,8 +4302,29 @@
       /**
        * Constructs a new SubtractTask.
        * @memberof OracleJob
-       * @classdesc This task will subtract a numerical input by a scalar value or by another
-       * aggregate.
+       * @classdesc This task will subtract a numerical input by a scalar value from a job of subtasks, an aggregator, or a big.
+       *
+       * _**Input**_: The current running numerical result output from a scalar value, an aggregator, a job of subtasks or a big.
+       *
+       * _**Returns**_: A numerical result.
+       *
+       * _**Example**_: Returns the numerical result by subtracting by a job of subtasks.
+       *
+       * ```json
+       * {"tasks":[{"valueTask":{"value":100}},{"subtractTask":{"job":{"tasks":[{"valueTask":{"value":10}}]}}}]}
+       * ```
+       *
+       * _**Example**_: Returns the numerical result by multiplying by an aggregator.
+       *
+       * ```json
+       * {"tasks":[{"valueTask":{"value":100}},{"subtractTask":{"aggregatorPubkey":"GvDMxPzN1sCj7L26YDK2HnMRXEQmQ2aemov8YBtPS7vR"}}]}
+       * ```
+       *
+       * _**Example**_: Returns the numerical result by multiplying by a big.
+       *
+       * ```json
+       * {"tasks":[{"cacheTask":{"cacheItems":[{"variableName":"TEN","job":{"tasks":[{"valueTask":{"value":10}}]}}]}},{"valueTask":{"value":100}},{"subtractTask":{"big":"${TEN}"}}]}
+       * ```
        * @implements ISubtractTask
        * @constructor
        * @param {OracleJob.ISubtractTask=} [properties] Properties to set
@@ -15425,8 +15583,40 @@
        * ```json
        * {"jsonParse": {"path": "$.price"} }
        * ```
-       * @property {OracleJob.IMedianTask|null} [medianTask] Task medianTask
-       * @property {OracleJob.IMeanTask|null} [meanTask] Task meanTask
+       * @property {OracleJob.IMedianTask|null} [medianTask] Returns the median (middle) of all the results returned by the provided subtasks and subjobs. Nested tasks or jobs must return a Number.
+       *
+       * _**Input**_: None
+       *
+       * _**Returns**_: A numerical result.
+       *
+       * _**Example**_: Returns the median numerical result of 3 tasks.
+       *
+       * ```json
+       * {"medianTask": {"tasks": [{"valueTask": {"value": 10}},{"valueTask": {"value": 20}},{"valueTask": {"value": 30}}]}}
+       * ```
+       *
+       * _**Example**_: Returns the median numerical result of 3 jobs.
+       *
+       * ```json
+       * {"medianTask": {"jobs": [{"tasks": [{"httpTask": {"url": "https://www.binance.com/api/v3/ticker/price?symbol=SOLUSDT"}},{"jsonParseTask": {"path": "$.price"}}]},{"tasks": [{"httpTask": {"url": "https://www.binance.us/api/v3/ticker/price?symbol=SOLUSD"}},{"jsonParseTask": {"path": "$.price"}}]},{"tasks": [{"httpTask": {"url": "https://api-pub.bitfinex.com/v2/tickers?symbols=tSOLUSD"}},{"jsonParseTask": {"path": "$[0][7]"}}]}]}}
+       * ```
+       * @property {OracleJob.IMeanTask|null} [meanTask] Returns the mean (average) of all the results returned by the provided subtasks and subjobs. Nested tasks or jobs must return a Number.
+       *
+       * _**Input**_: None
+       *
+       * _**Returns**_: A numerical result.
+       *
+       * _**Example**_: Returns the mean numerical result of 3 tasks.
+       *
+       * ```json
+       * {"meanTask": {"tasks": [{"valueTask": {"value": 10}},{"valueTask": {"value": 20}},{"valueTask": {"value": 30}}]}}
+       * ```
+       *
+       * _**Example**_: Returns the mean numerical result of 3 jobs.
+       *
+       * ```json
+       * {"meanTask": {"jobs": [{"tasks": [{"httpTask": {"url": "https://www.binance.com/api/v3/ticker/price?symbol=SOLUSDT"}},{"jsonParseTask": {"path": "$.price"}}]},{"tasks": [{"httpTask": {"url": "https://www.binance.us/api/v3/ticker/price?symbol=SOLUSD"}},{"jsonParseTask": {"path": "$.price"}}]},{"tasks": [{"httpTask": {"url": "https://api-pub.bitfinex.com/v2/tickers?symbols=tSOLUSD"}},{"jsonParseTask": {"path": "$[0][7]"}}]}]}}
+       * ```
        * @property {OracleJob.IWebsocketTask|null} [websocketTask] Opens and maintains a websocket for light speed data retrieval.
        *
        * _**Input**_: None
@@ -15438,8 +15628,52 @@
        * ```json
        * { "websocketTask": { "url": "wss://ws-feed.pro.coinbase.com", "subscription": "{\"type\":\"subscribe\",\"product_ids\":[\"BTC-USD\"],\"channels\":[\"ticker\",{\"name\":\"ticker\",\"product_ids\":[\"BTC-USD\"]}]}", "maxDataAgeSeconds": 15, "filter": "$[?(@.type == 'ticker' && @.product_id == 'BTC-USD')]" } }
        * ```
-       * @property {OracleJob.IDivideTask|null} [divideTask] Task divideTask
-       * @property {OracleJob.IMultiplyTask|null} [multiplyTask] Task multiplyTask
+       * @property {OracleJob.IDivideTask|null} [divideTask] This task will divide a numerical input by a scalar value from a job of subtasks, an aggregator, or a big.
+       *
+       * _**Input**_: The current running numerical result output from a scalar value, an aggregator, a job of subtasks or a big.
+       *
+       * _**Returns**_: A numerical result.
+       *
+       * _**Example**_: Returns the numerical result by dividing by a job of subtasks.
+       *
+       * ```json
+       * {"tasks":[{"valueTask":{"value":100}},{"divideTask":{"job":{"tasks":[{"valueTask":{"value":10}}]}}}]}
+       * ```
+       *
+       * _**Example**_: Returns the numerical result by dividing by an aggregator.
+       *
+       * ```json
+       * {"tasks":[{"valueTask":{"value":100}},{"divideTask":{"aggregatorPubkey":"GvDMxPzN1sCj7L26YDK2HnMRXEQmQ2aemov8YBtPS7vR"}}]}
+       * ```
+       *
+       * _**Example**_: Returns the numerical result by dividing by a big.
+       *
+       * ```json
+       * {"tasks":[{"cacheTask":{"cacheItems":[{"variableName":"TEN","job":{"tasks":[{"valueTask":{"value":10}}]}}]}},{"valueTask":{"value":100}},{"divideTask":{"big":"${TEN}"}}]}
+       * ```
+       * @property {OracleJob.IMultiplyTask|null} [multiplyTask] This task will multiply a numerical input by a scalar value from a job of subtasks, an aggregator, or a big.
+       *
+       * _**Input**_: The current running numerical result output from a scalar value, an aggregator, a job of subtasks or a big.
+       *
+       * _**Returns**_: A numerical result.
+       *
+       * _**Example**_: Returns the numerical result by multiplying by a job of subtasks.
+       *
+       * ```json
+       * {"tasks":[{"valueTask":{"value":100}},{"multiplyTask":{"job":{"tasks":[{"valueTask":{"value":10}}]}}}]}
+       * ```
+       *
+       * _**Example**_: Returns the numerical result by multiplying by an aggregator.
+       *
+       * ```json
+       * {"tasks":[{"valueTask":{"value":100}},{"multiplyTask":{"aggregatorPubkey":"GvDMxPzN1sCj7L26YDK2HnMRXEQmQ2aemov8YBtPS7vR"}}]}
+       * ```
+       *
+       * _**Example**_: Returns the numerical result by multiplying by a big.
+       *
+       * ```json
+       * {"tasks":[{"cacheTask":{"cacheItems":[{"variableName":"TEN","job":{"tasks":[{"valueTask":{"value":10}}]}}]}},{"valueTask":{"value":100}},{"multiplyTask":{"big":"${TEN}"}}]}
+       * ```
        * @property {OracleJob.ILpTokenPriceTask|null} [lpTokenPriceTask] Fetch LP token price info from a number of supported exchanges.
        *
        * See our blog post on [Fair LP Token Oracles](/blog/2022/01/20/Fair-LP-Token-Oracles)
@@ -15484,7 +15718,17 @@
        * ```json
        * { "lpExchangeRateTask": { "raydiumPoolAddress": "58oQChx4yWmvKdwLLZzBi4ChoCc2fqCUWBkwMihLYQo2" } }
        * ```
-       * @property {OracleJob.IConditionalTask|null} [conditionalTask] Task conditionalTask
+       * @property {OracleJob.IConditionalTask|null} [conditionalTask] This task will run the `attempt` on the subtasks in an effort to produce a valid numerical result. If `attempt`. fails to produce an acceptable result, `on_failure` subtasks will be run instead.
+       *
+       * _**Input**_: The current running numerical result output from a task.
+       *
+       * _**Returns**_: A numerical result, else run `on_failure` subtasks.
+       *
+       * _**Example**_: Returns the numerical result from the conditionalTask's subtasks, else `on_failure` returns the numerical result from its subtasks.
+       *
+       * ```json
+       * {"conditionalTask":{"attempt":[{"tasks":[{"jupiterSwapTask":{"inTokenAddress":"EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v","outTokenAddress":"DUALa4FC2yREwZ59PHeu1un4wis36vHRv5hWVBmzykCJ"}}]}],"onFailure":[{"lpExchangeRateTask":{"orcaPoolAddress":"7yJ4gMRJhEoCR48aPE3EAWRmCoygakik81ZS1sajaTnE"}}]}}
+       * ```
        * @property {OracleJob.IValueTask|null} [valueTask] Returns a specified value.
        *
        * _**Input**_: None
@@ -15508,11 +15752,71 @@
        * ```json
        * {"valueTask": {"big": "${ONE}"} }
        * ```
-       * @property {OracleJob.IMaxTask|null} [maxTask] Task maxTask
+       * @property {OracleJob.IMaxTask|null} [maxTask] Returns the maximum value of all the results returned by the provided subtasks and subjobs. Nested tasks or jobs must return a Number.
+       *
+       * _**Input**_: None
+       *
+       * _**Returns**_: A numerical result.
+       *
+       * _**Example**_: Returns the maximum numerical result from 3 tasks.
+       *
+       * ```json
+       * {"maxTask": {"tasks": [{"valueTask": {"value": 10}},{"valueTask": {"value": 20}},{"valueTask": {"value": 30}}]}}
+       * ```
+       *
+       * _**Example**_: Returns the minimum numerical result from 3 jobs.
+       *
+       * ```json
+       * {"maxTask": {"jobs": [{"tasks": [{"httpTask": {"url": "https://www.binance.com/api/v3/ticker/price?symbol=SOLUSDT"}},{"jsonParseTask": {"path": "$.price"}}]},{"tasks": [{"httpTask": {"url": "https://www.binance.us/api/v3/ticker/price?symbol=SOLUSD"}},{"jsonParseTask": {"path": "$.price"}}]},{"tasks": [{"httpTask": {"url": "https://api-pub.bitfinex.com/v2/tickers?symbols=tSOLUSD"}},{"jsonParseTask": {"path": "$[0][7]"}}]}]}}
+       * ```
        * @property {OracleJob.IRegexExtractTask|null} [regexExtractTask] Task regexExtractTask
        * @property {OracleJob.IXStepPriceTask|null} [xstepPriceTask] Task xstepPriceTask
-       * @property {OracleJob.IAddTask|null} [addTask] Task addTask
-       * @property {OracleJob.ISubtractTask|null} [subtractTask] Task subtractTask
+       * @property {OracleJob.IAddTask|null} [addTask] This task will add a numerical input by a scalar value from a job of subtasks, an aggregator, or a big.
+       *
+       * _**Input**_: The current running numerical result output from a scalar value, an aggregator, a job of subtasks or a big.
+       *
+       * _**Returns**_: A numerical result.
+       *
+       * _**Example**_: Returns the numerical result by adding by a job of subtasks.
+       *
+       * ```json
+       * {"tasks":[{"valueTask":{"value":100}},{"addTask":{"job":{"tasks":[{"valueTask":{"value":10}}]}}}]}
+       * ```
+       *
+       * _**Example**_: Returns the numerical result by multiplying by an aggregator.
+       *
+       * ```json
+       * {"tasks":[{"valueTask":{"value":100}},{"addTask":{"aggregatorPubkey":"GvDMxPzN1sCj7L26YDK2HnMRXEQmQ2aemov8YBtPS7vR"}}]}
+       * ```
+       *
+       * _**Example**_: Returns the numerical result by multiplying by a big.
+       *
+       * ```json
+       * {"tasks":[{"cacheTask":{"cacheItems":[{"variableName":"TEN","job":{"tasks":[{"valueTask":{"value":10}}]}}]}},{"valueTask":{"value":100}},{"addTask":{"big":"${TEN}"}}]}
+       * ```
+       * @property {OracleJob.ISubtractTask|null} [subtractTask] This task will subtract a numerical input by a scalar value from a job of subtasks, an aggregator, or a big.
+       *
+       * _**Input**_: The current running numerical result output from a scalar value, an aggregator, a job of subtasks or a big.
+       *
+       * _**Returns**_: A numerical result.
+       *
+       * _**Example**_: Returns the numerical result by subtracting by a job of subtasks.
+       *
+       * ```json
+       * {"tasks":[{"valueTask":{"value":100}},{"subtractTask":{"job":{"tasks":[{"valueTask":{"value":10}}]}}}]}
+       * ```
+       *
+       * _**Example**_: Returns the numerical result by multiplying by an aggregator.
+       *
+       * ```json
+       * {"tasks":[{"valueTask":{"value":100}},{"subtractTask":{"aggregatorPubkey":"GvDMxPzN1sCj7L26YDK2HnMRXEQmQ2aemov8YBtPS7vR"}}]}
+       * ```
+       *
+       * _**Example**_: Returns the numerical result by multiplying by a big.
+       *
+       * ```json
+       * {"tasks":[{"cacheTask":{"cacheItems":[{"variableName":"TEN","job":{"tasks":[{"valueTask":{"value":10}}]}}]}},{"valueTask":{"value":100}},{"subtractTask":{"big":"${TEN}"}}]}
+       * ```
        * @property {OracleJob.ITwapTask|null} [twapTask] Takes a twap over a set period for a certain aggregator. Aggregators have an optional history buffer account storing the last N accepted results. The TwapTask will iterate over an aggregators history buffer and calculate the time weighted average of the samples within a given time period.
        *
        * _**Input**_: None
@@ -15593,7 +15897,23 @@
        * @property {OracleJob.ISolanaAccountDataFetchTask|null} [solanaAccountDataFetchTask] Task solanaAccountDataFetchTask
        * @property {OracleJob.IBufferLayoutParseTask|null} [bufferLayoutParseTask] Task bufferLayoutParseTask
        * @property {OracleJob.ICronParseTask|null} [cronParseTask] Task cronParseTask
-       * @property {OracleJob.IMinTask|null} [minTask] Task minTask
+       * @property {OracleJob.IMinTask|null} [minTask] Returns the minimum value of all the results returned by the provided subtasks and subjobs. Nested tasks or jobs must return a Number.
+       *
+       * _**Input**_: None
+       *
+       * _**Returns**_: A numerical result.
+       *
+       * _**Example**_: Returns the minimum numerical result from 3 tasks.
+       *
+       * ```json
+       * {"minTask": {"tasks": [{"valueTask": {"value": 10}},{"valueTask": {"value": 20}},{"valueTask": {"value": 30}}]}}
+       * ```
+       *
+       * _**Example**_: Returns the minimum numerical result from 3 jobs.
+       *
+       * ```json
+       * {"minTask": {"jobs": [{"tasks": [{"httpTask": {"url": "https://www.binance.com/api/v3/ticker/price?symbol=SOLUSDT"}},{"jsonParseTask": {"path": "$.price"}}]},{"tasks": [{"httpTask": {"url": "https://www.binance.us/api/v3/ticker/price?symbol=SOLUSD"}},{"jsonParseTask": {"path": "$.price"}}]},{"tasks": [{"httpTask": {"url": "https://api-pub.bitfinex.com/v2/tickers?symbols=tSOLUSD"}},{"jsonParseTask": {"path": "$[0][7]"}}]}]}}
+       * ```
        * @property {OracleJob.IHistoryFunctionTask|null} [historyFunctionTask] Task historyFunctionTask
        * @property {OracleJob.IVwapTask|null} [vwapTask] Task vwapTask
        * @property {OracleJob.IEwmaTask|null} [ewmaTask] Task ewmaTask
@@ -15683,7 +16003,23 @@
       Task.prototype.jsonParseTask = null;
 
       /**
-       * Task medianTask.
+       * Returns the median (middle) of all the results returned by the provided subtasks and subjobs. Nested tasks or jobs must return a Number.
+       *
+       * _**Input**_: None
+       *
+       * _**Returns**_: A numerical result.
+       *
+       * _**Example**_: Returns the median numerical result of 3 tasks.
+       *
+       * ```json
+       * {"medianTask": {"tasks": [{"valueTask": {"value": 10}},{"valueTask": {"value": 20}},{"valueTask": {"value": 30}}]}}
+       * ```
+       *
+       * _**Example**_: Returns the median numerical result of 3 jobs.
+       *
+       * ```json
+       * {"medianTask": {"jobs": [{"tasks": [{"httpTask": {"url": "https://www.binance.com/api/v3/ticker/price?symbol=SOLUSDT"}},{"jsonParseTask": {"path": "$.price"}}]},{"tasks": [{"httpTask": {"url": "https://www.binance.us/api/v3/ticker/price?symbol=SOLUSD"}},{"jsonParseTask": {"path": "$.price"}}]},{"tasks": [{"httpTask": {"url": "https://api-pub.bitfinex.com/v2/tickers?symbols=tSOLUSD"}},{"jsonParseTask": {"path": "$[0][7]"}}]}]}}
+       * ```
        * @member {OracleJob.IMedianTask|null|undefined} medianTask
        * @memberof OracleJob.Task
        * @instance
@@ -15691,7 +16027,23 @@
       Task.prototype.medianTask = null;
 
       /**
-       * Task meanTask.
+       * Returns the mean (average) of all the results returned by the provided subtasks and subjobs. Nested tasks or jobs must return a Number.
+       *
+       * _**Input**_: None
+       *
+       * _**Returns**_: A numerical result.
+       *
+       * _**Example**_: Returns the mean numerical result of 3 tasks.
+       *
+       * ```json
+       * {"meanTask": {"tasks": [{"valueTask": {"value": 10}},{"valueTask": {"value": 20}},{"valueTask": {"value": 30}}]}}
+       * ```
+       *
+       * _**Example**_: Returns the mean numerical result of 3 jobs.
+       *
+       * ```json
+       * {"meanTask": {"jobs": [{"tasks": [{"httpTask": {"url": "https://www.binance.com/api/v3/ticker/price?symbol=SOLUSDT"}},{"jsonParseTask": {"path": "$.price"}}]},{"tasks": [{"httpTask": {"url": "https://www.binance.us/api/v3/ticker/price?symbol=SOLUSD"}},{"jsonParseTask": {"path": "$.price"}}]},{"tasks": [{"httpTask": {"url": "https://api-pub.bitfinex.com/v2/tickers?symbols=tSOLUSD"}},{"jsonParseTask": {"path": "$[0][7]"}}]}]}}
+       * ```
        * @member {OracleJob.IMeanTask|null|undefined} meanTask
        * @memberof OracleJob.Task
        * @instance
@@ -15717,7 +16069,29 @@
       Task.prototype.websocketTask = null;
 
       /**
-       * Task divideTask.
+       * This task will divide a numerical input by a scalar value from a job of subtasks, an aggregator, or a big.
+       *
+       * _**Input**_: The current running numerical result output from a scalar value, an aggregator, a job of subtasks or a big.
+       *
+       * _**Returns**_: A numerical result.
+       *
+       * _**Example**_: Returns the numerical result by dividing by a job of subtasks.
+       *
+       * ```json
+       * {"tasks":[{"valueTask":{"value":100}},{"divideTask":{"job":{"tasks":[{"valueTask":{"value":10}}]}}}]}
+       * ```
+       *
+       * _**Example**_: Returns the numerical result by dividing by an aggregator.
+       *
+       * ```json
+       * {"tasks":[{"valueTask":{"value":100}},{"divideTask":{"aggregatorPubkey":"GvDMxPzN1sCj7L26YDK2HnMRXEQmQ2aemov8YBtPS7vR"}}]}
+       * ```
+       *
+       * _**Example**_: Returns the numerical result by dividing by a big.
+       *
+       * ```json
+       * {"tasks":[{"cacheTask":{"cacheItems":[{"variableName":"TEN","job":{"tasks":[{"valueTask":{"value":10}}]}}]}},{"valueTask":{"value":100}},{"divideTask":{"big":"${TEN}"}}]}
+       * ```
        * @member {OracleJob.IDivideTask|null|undefined} divideTask
        * @memberof OracleJob.Task
        * @instance
@@ -15725,7 +16099,29 @@
       Task.prototype.divideTask = null;
 
       /**
-       * Task multiplyTask.
+       * This task will multiply a numerical input by a scalar value from a job of subtasks, an aggregator, or a big.
+       *
+       * _**Input**_: The current running numerical result output from a scalar value, an aggregator, a job of subtasks or a big.
+       *
+       * _**Returns**_: A numerical result.
+       *
+       * _**Example**_: Returns the numerical result by multiplying by a job of subtasks.
+       *
+       * ```json
+       * {"tasks":[{"valueTask":{"value":100}},{"multiplyTask":{"job":{"tasks":[{"valueTask":{"value":10}}]}}}]}
+       * ```
+       *
+       * _**Example**_: Returns the numerical result by multiplying by an aggregator.
+       *
+       * ```json
+       * {"tasks":[{"valueTask":{"value":100}},{"multiplyTask":{"aggregatorPubkey":"GvDMxPzN1sCj7L26YDK2HnMRXEQmQ2aemov8YBtPS7vR"}}]}
+       * ```
+       *
+       * _**Example**_: Returns the numerical result by multiplying by a big.
+       *
+       * ```json
+       * {"tasks":[{"cacheTask":{"cacheItems":[{"variableName":"TEN","job":{"tasks":[{"valueTask":{"value":10}}]}}]}},{"valueTask":{"value":100}},{"multiplyTask":{"big":"${TEN}"}}]}
+       * ```
        * @member {OracleJob.IMultiplyTask|null|undefined} multiplyTask
        * @memberof OracleJob.Task
        * @instance
@@ -15791,7 +16187,17 @@
       Task.prototype.lpExchangeRateTask = null;
 
       /**
-       * Task conditionalTask.
+       * This task will run the `attempt` on the subtasks in an effort to produce a valid numerical result. If `attempt`. fails to produce an acceptable result, `on_failure` subtasks will be run instead.
+       *
+       * _**Input**_: The current running numerical result output from a task.
+       *
+       * _**Returns**_: A numerical result, else run `on_failure` subtasks.
+       *
+       * _**Example**_: Returns the numerical result from the conditionalTask's subtasks, else `on_failure` returns the numerical result from its subtasks.
+       *
+       * ```json
+       * {"conditionalTask":{"attempt":[{"tasks":[{"jupiterSwapTask":{"inTokenAddress":"EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v","outTokenAddress":"DUALa4FC2yREwZ59PHeu1un4wis36vHRv5hWVBmzykCJ"}}]}],"onFailure":[{"lpExchangeRateTask":{"orcaPoolAddress":"7yJ4gMRJhEoCR48aPE3EAWRmCoygakik81ZS1sajaTnE"}}]}}
+       * ```
        * @member {OracleJob.IConditionalTask|null|undefined} conditionalTask
        * @memberof OracleJob.Task
        * @instance
@@ -15829,7 +16235,23 @@
       Task.prototype.valueTask = null;
 
       /**
-       * Task maxTask.
+       * Returns the maximum value of all the results returned by the provided subtasks and subjobs. Nested tasks or jobs must return a Number.
+       *
+       * _**Input**_: None
+       *
+       * _**Returns**_: A numerical result.
+       *
+       * _**Example**_: Returns the maximum numerical result from 3 tasks.
+       *
+       * ```json
+       * {"maxTask": {"tasks": [{"valueTask": {"value": 10}},{"valueTask": {"value": 20}},{"valueTask": {"value": 30}}]}}
+       * ```
+       *
+       * _**Example**_: Returns the minimum numerical result from 3 jobs.
+       *
+       * ```json
+       * {"maxTask": {"jobs": [{"tasks": [{"httpTask": {"url": "https://www.binance.com/api/v3/ticker/price?symbol=SOLUSDT"}},{"jsonParseTask": {"path": "$.price"}}]},{"tasks": [{"httpTask": {"url": "https://www.binance.us/api/v3/ticker/price?symbol=SOLUSD"}},{"jsonParseTask": {"path": "$.price"}}]},{"tasks": [{"httpTask": {"url": "https://api-pub.bitfinex.com/v2/tickers?symbols=tSOLUSD"}},{"jsonParseTask": {"path": "$[0][7]"}}]}]}}
+       * ```
        * @member {OracleJob.IMaxTask|null|undefined} maxTask
        * @memberof OracleJob.Task
        * @instance
@@ -15853,7 +16275,29 @@
       Task.prototype.xstepPriceTask = null;
 
       /**
-       * Task addTask.
+       * This task will add a numerical input by a scalar value from a job of subtasks, an aggregator, or a big.
+       *
+       * _**Input**_: The current running numerical result output from a scalar value, an aggregator, a job of subtasks or a big.
+       *
+       * _**Returns**_: A numerical result.
+       *
+       * _**Example**_: Returns the numerical result by adding by a job of subtasks.
+       *
+       * ```json
+       * {"tasks":[{"valueTask":{"value":100}},{"addTask":{"job":{"tasks":[{"valueTask":{"value":10}}]}}}]}
+       * ```
+       *
+       * _**Example**_: Returns the numerical result by multiplying by an aggregator.
+       *
+       * ```json
+       * {"tasks":[{"valueTask":{"value":100}},{"addTask":{"aggregatorPubkey":"GvDMxPzN1sCj7L26YDK2HnMRXEQmQ2aemov8YBtPS7vR"}}]}
+       * ```
+       *
+       * _**Example**_: Returns the numerical result by multiplying by a big.
+       *
+       * ```json
+       * {"tasks":[{"cacheTask":{"cacheItems":[{"variableName":"TEN","job":{"tasks":[{"valueTask":{"value":10}}]}}]}},{"valueTask":{"value":100}},{"addTask":{"big":"${TEN}"}}]}
+       * ```
        * @member {OracleJob.IAddTask|null|undefined} addTask
        * @memberof OracleJob.Task
        * @instance
@@ -15861,7 +16305,29 @@
       Task.prototype.addTask = null;
 
       /**
-       * Task subtractTask.
+       * This task will subtract a numerical input by a scalar value from a job of subtasks, an aggregator, or a big.
+       *
+       * _**Input**_: The current running numerical result output from a scalar value, an aggregator, a job of subtasks or a big.
+       *
+       * _**Returns**_: A numerical result.
+       *
+       * _**Example**_: Returns the numerical result by subtracting by a job of subtasks.
+       *
+       * ```json
+       * {"tasks":[{"valueTask":{"value":100}},{"subtractTask":{"job":{"tasks":[{"valueTask":{"value":10}}]}}}]}
+       * ```
+       *
+       * _**Example**_: Returns the numerical result by multiplying by an aggregator.
+       *
+       * ```json
+       * {"tasks":[{"valueTask":{"value":100}},{"subtractTask":{"aggregatorPubkey":"GvDMxPzN1sCj7L26YDK2HnMRXEQmQ2aemov8YBtPS7vR"}}]}
+       * ```
+       *
+       * _**Example**_: Returns the numerical result by multiplying by a big.
+       *
+       * ```json
+       * {"tasks":[{"cacheTask":{"cacheItems":[{"variableName":"TEN","job":{"tasks":[{"valueTask":{"value":10}}]}}]}},{"valueTask":{"value":100}},{"subtractTask":{"big":"${TEN}"}}]}
+       * ```
        * @member {OracleJob.ISubtractTask|null|undefined} subtractTask
        * @memberof OracleJob.Task
        * @instance
@@ -16103,7 +16569,23 @@
       Task.prototype.cronParseTask = null;
 
       /**
-       * Task minTask.
+       * Returns the minimum value of all the results returned by the provided subtasks and subjobs. Nested tasks or jobs must return a Number.
+       *
+       * _**Input**_: None
+       *
+       * _**Returns**_: A numerical result.
+       *
+       * _**Example**_: Returns the minimum numerical result from 3 tasks.
+       *
+       * ```json
+       * {"minTask": {"tasks": [{"valueTask": {"value": 10}},{"valueTask": {"value": 20}},{"valueTask": {"value": 30}}]}}
+       * ```
+       *
+       * _**Example**_: Returns the minimum numerical result from 3 jobs.
+       *
+       * ```json
+       * {"minTask": {"jobs": [{"tasks": [{"httpTask": {"url": "https://www.binance.com/api/v3/ticker/price?symbol=SOLUSDT"}},{"jsonParseTask": {"path": "$.price"}}]},{"tasks": [{"httpTask": {"url": "https://www.binance.us/api/v3/ticker/price?symbol=SOLUSD"}},{"jsonParseTask": {"path": "$.price"}}]},{"tasks": [{"httpTask": {"url": "https://api-pub.bitfinex.com/v2/tickers?symbols=tSOLUSD"}},{"jsonParseTask": {"path": "$[0][7]"}}]}]}}
+       * ```
        * @member {OracleJob.IMinTask|null|undefined} minTask
        * @memberof OracleJob.Task
        * @instance

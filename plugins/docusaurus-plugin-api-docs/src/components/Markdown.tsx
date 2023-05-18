@@ -104,9 +104,15 @@ function convertAstToElements(ast: TokensList): React.ReactNode[] | undefined {
             key={counter}
             className={token.lang && ` language-${token.lang}`}
           >
-            {token.text.startsWith("{") && token.text.endsWith("}")
-              ? JSON.stringify(JSON.parse(token.text), undefined, 2)
-              : token.text}
+            {(() => {
+              // TODO: Add support for YAML conversions for protobufs
+              if (token.text.startsWith("{") && token.text.endsWith("}")) {
+                try {
+                  return JSON.stringify(JSON.parse(token.text), undefined, 2);
+                } catch {}
+              }
+              return token.text;
+            })()}
           </MDX.pre>
         );
         break;
