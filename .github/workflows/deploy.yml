@@ -28,6 +28,11 @@ jobs:
       - name: Install Protoc
         continue-on-error: true
         uses: arduino/setup-protoc@v1
+      - name: Install protoc-doc-gen
+        continue-on-error: true
+        shell: bash
+        run: |
+          go get -u github.com/pseudomuto/protoc-gen-doc/cmd/protoc-gen-doc
 
       - name: Use Node.js
         uses: actions/setup-node@v3
