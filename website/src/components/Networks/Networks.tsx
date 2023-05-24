@@ -23,7 +23,13 @@ function getNetworkTable(
   if (networkConfig.authority) {
     addresses.push(["Program Authority", networkConfig.authority]);
   }
-  const ignoreKeys = ["programId", "authority", "queues", "metadata"];
+  const ignoreKeys = [
+    "networkName",
+    "programId",
+    "authority",
+    "queues",
+    "metadata",
+  ];
   const restOfKeys = Object.keys(networkConfig).filter(
     (key) => !ignoreKeys.includes(key)
   );
