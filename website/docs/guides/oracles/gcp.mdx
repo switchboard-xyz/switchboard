@@ -5,7 +5,7 @@ title: Google Cloud Oracle
 
 Before deploying the application, you must first provision a kubernetes cluster
 with the relevant credentials. There are no exotic requirements for this cluster
-and to date, it has be able to run on an auto pilot GKE cluster without issue.
+and to date, it has been able to run on an auto pilot GKE cluster without issue.
 
 A Switchboard oracle can be run on any cloud provider who offers kubernetes
 services but this guide will currently be focused on Google Cloud. Feel free to
@@ -284,7 +284,7 @@ automate the GCP setup, run the following command:
 - `PROJECTNAME` will be the name of your GCP project and must contain no spaces
   or special characters
 
-The script will walk-through the google cloud setup, create your gcp project,
+The script will walk through the google cloud setup, create your gcp project,
 add your oracle keypair as a secret, create a service account and give it access
 to your keypair, then spin up a kubernetes cluster. The script will periodically
 prompt you for more information.
@@ -528,7 +528,7 @@ will be used to provision a TLS certificate.
 The following steps will walk you through provisioning a TLS certificate for
 your domain from letsencrypt. The
 [helm-manifest repo](https://github.com/switchboard-xyz/helm-manifests) contains
-a script to walk through creating the neccessary keys and certificate signing
+a script to walk through creating the necessary keys and certificate signing
 request (CSR).
 
 ```bash
