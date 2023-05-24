@@ -1,5 +1,6 @@
 export * as BigUtils from './big.js';
-export * as networks from './networks/index.js';
+export { default as networks } from './networks/index.js';
+export * from './networks/types.js';
 export * from './OracleJob.js';
 export * from './protos/index.js';
 export * from './SwitchboardDecimal.js';

@@ -1,6 +1,7 @@
 import { IChainConfig, IChainNetworkConfig } from './types.js';
 
 export const SWITCHBOARD_NEAR_MAINNET_CONFIG: IChainNetworkConfig = {
+  networkName: 'Mainnet',
   programId: 'switchboard-v2.near',
   authority: 'sbv2-authority.near',
   metadata: {
@@ -19,6 +20,7 @@ export const SWITCHBOARD_NEAR_MAINNET_CONFIG: IChainNetworkConfig = {
 };
 
 export const SWITCHBOARD_NEAR_TESTNET_CONFIG: IChainNetworkConfig = {
+  networkName: 'Testnet',
   programId: 'switchboard-v2.testnet',
   authority: 'sbv2-authority.testnet',
   metadata: {
@@ -42,6 +44,7 @@ export const SWITCHBOARD_NEAR_TESTNET_CONFIG: IChainNetworkConfig = {
 ```json
 {
   "mainnet": {
+    networkName: "Mainnet",
     "programId": "switchboard-v2.near",
     "authority": "sbv2-authority.near",
     "metadata": {
@@ -59,6 +62,7 @@ export const SWITCHBOARD_NEAR_TESTNET_CONFIG: IChainNetworkConfig = {
     ]
   },
   "testnet": {
+    "networkName": "Testnet",
     "programId": "switchboard-v2.testnet",
     "authority": "sbv2-authority.testnet",
     "metadata": {

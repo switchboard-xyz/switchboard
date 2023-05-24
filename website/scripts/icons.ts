@@ -122,6 +122,18 @@ function generateSidebarCSS(sidebarIcons: Array<IDirectoryData>): string {
 }
 `.trimStart();
     }
+
+    css += `
+    .navbar_icon__${name}::before {
+      display: inline-flex;
+      vertical-align: middle;
+      width: 24px;
+      height: 24px;
+      content: " ";
+      background: var(${varName})
+        no-repeat;
+    }
+    `.trimStart();
   });
 
   if (variables.length) {

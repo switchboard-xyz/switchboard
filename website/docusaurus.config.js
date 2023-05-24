@@ -106,6 +106,7 @@ const config = {
   themeConfig:
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
+      image: "icons/switchboard/logo.jpg",
       sidebar: {
         hideable: true,
       },
@@ -150,6 +151,11 @@ const config = {
                 label: " Aptos",
                 to: "/aptos",
                 className: "heading_icon__aptos",
+              },
+              {
+                label: " Arbitrum",
+                to: "/arbitrum",
+                className: "heading_icon__arbitrum",
               },
               {
                 label: " CoreDAO",
@@ -205,13 +211,13 @@ const config = {
           {
             href: "https://github.com/switchboard-xyz",
             position: "right",
-            className: "heading_icon__github",
+            className: "navbar_icon__github",
             "aria-label": "GitHub repository",
           },
           {
-            href: "https://twitter.com/switchboard-xyz",
+            href: "https://twitter.com/switchboardxyz",
             position: "right",
-            className: "heading_icon__twitter",
+            className: "navbar_icon__twitter",
             "aria-label": "Twitter Link",
           },
         ],

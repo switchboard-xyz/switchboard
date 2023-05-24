@@ -7710,6 +7710,76 @@
     "description": "push the crank"
   },
   {
+    "id": "solana-crank-reset",
+    "permalink": "/cli/solana/crank/reset",
+    "topic": "solana",
+    "command": "sbv2 solana crank reset",
+    "topics": [
+      "solana",
+      "crank",
+      "reset"
+    ],
+    "markdown": "USAGE\n  $ sbv2 solana crank reset AGGREGATORKEY [-h] [-v] [-s] [--mainnetBeta | --cluster\n    devnet|mainnet-beta|mainnet|localnet] [-u <value>] [--programId <value>] [--commitment\n    confirmed|finalized|processed] [-k <value>] [--ledgerPath <value> --ledger] [-a <value>]\n\nARGUMENTS\n  AGGREGATORKEY  public key of the aggregator account\n\nFLAGS\n  -a, --authority=<value>  alternate keypair that is the authority for the aggregator and required to make config\n                           changes\n  -h, --help               Show CLI help.\n  -k, --keypair=<value>    keypair that will pay for onchain transactions. defaults to new account authority if no\n                           alternate authority provided\n  -s, --silent             suppress cli prompts\n  -u, --rpcUrl=<value>     alternate RPC url\n  -v, --verbose            log everything\n  --cluster=<option>       the solana cluster to connect to\n                           <options: devnet|mainnet-beta|mainnet|localnet>\n  --commitment=<option>    [default: confirmed] transaction commitment level to use\n                           <options: confirmed|finalized|processed>\n  --ledger                 enable ledger support\n  --ledgerPath=<value>     HID path to the ledger\n  --mainnetBeta            WARNING: use mainnet-beta solana cluster\n  --programId=<value>      alternative Switchboard program ID to interact with\n\nDESCRIPTION\n  reset an aggregators crank\n",
+    "usage": "sbv2 solana crank reset AGGREGATORKEY [-h] [-v] [-s] [--mainnetBeta | --cluster\n    devnet|mainnet-beta|mainnet|localnet] [-u <value>] [--programId <value>] [--commitment\n    confirmed|finalized|processed] [-k <value>] [--ledgerPath <value> --ledger] [-a <value>]",
+    "args": [
+      {
+        "arg": "AGGREGATORKEY",
+        "description": "public key of the aggregator account"
+      }
+    ],
+    "flags": [
+      {
+        "flag": " -a, --authority=<value>",
+        "description": "alternate keypair that is the authority for the aggregator and required to make config changes"
+      },
+      {
+        "flag": "-h, --help",
+        "description": "Show CLI help."
+      },
+      {
+        "flag": "-k, --keypair=<value>",
+        "description": "keypair that will pay for onchain transactions. defaults to new account authority if no alternate authority provided"
+      },
+      {
+        "flag": "-s, --silent",
+        "description": "suppress cli prompts"
+      },
+      {
+        "flag": "-u, --rpcUrl=<value>",
+        "description": "alternate RPC url"
+      },
+      {
+        "flag": "-v, --verbose",
+        "description": "log everything"
+      },
+      {
+        "flag": "--cluster=<option>",
+        "description": "the solana cluster to connect to <options: devnet|mainnet-beta|mainnet|localnet>"
+      },
+      {
+        "flag": "--commitment=<option>",
+        "description": "[default: confirmed] transaction commitment level to use <options: confirmed|finalized|processed>"
+      },
+      {
+        "flag": "--ledger",
+        "description": "enable ledger support"
+      },
+      {
+        "flag": "--ledgerPath=<value>",
+        "description": "HID path to the ledger"
+      },
+      {
+        "flag": "--mainnetBeta",
+        "description": "WARNING: use mainnet-beta solana cluster"
+      },
+      {
+        "flag": "--programId=<value>",
+        "description": "alternative Switchboard program ID to interact with"
+      }
+    ],
+    "description": "reset an aggregators crank"
+  },
+  {
     "id": "solana-job-create",
     "permalink": "/cli/solana/job/create",
     "topic": "solana",

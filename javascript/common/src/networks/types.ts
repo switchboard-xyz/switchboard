@@ -3,12 +3,14 @@ export type NetworkType = (typeof CLUSTERS)[number];
 
 /** The current chains Switchboard is currently deployed on. */
 export const SWITCHBOARD_CHAINS = [
+  'arbitrum',
   'aptos',
   'coredao',
   'near',
   'solana',
   'sui',
 ] as const;
+
 /** The current chains Switchboard is currently deployed on. */
 export type ChainType = (typeof SWITCHBOARD_CHAINS)[number];
 
@@ -27,17 +29,13 @@ type Rename<T, K extends keyof T, N extends string> = Omit<T, K> & {
   [P in N]: T[K];
 };
 
-type OptionalKeys<T> = {
-  [K in keyof T]: T extends Record<K, T[K]> ? never : K;
-}[keyof T];
-type WithOptional<T, K extends keyof T> = Omit<T, K> & Partial<Pick<T, K>>;
-
 export type ISwitchboardQueueConfig = {
   [key: string]: JsonType | Record<string, JsonType> | undefined;
   name: string;
   address: string;
+  attestationQueue?: string;
   authority?: string;
-  crankAddress: string;
+  crankAddress?: string;
   permissioned: boolean;
   settings?: Record<string, JsonType>;
 };
@@ -53,7 +51,9 @@ export type IChainNetworkConfig = {
     | Array<ISwitchboardQueueConfig>
     | INetworkMetadata
     | undefined;
+  networkName: string;
   programId: string;
+  attestationService?: string;
   authority: string;
   metadata: INetworkMetadata;
   queues: Array<ISwitchboardQueueConfig>;
@@ -68,10 +68,15 @@ export type ISolanaConfig = Rename<IChainConfig, 'testnet', 'devnet'>;
 
 export type ChainConfig = IChainConfig | ISolanaConfig;
 
-export type SwitchboardNetworks = {
+export type ChainConfigs = {
   aptos: IChainConfig;
+  arbitrum: IChainConfig;
   coredao: IChainConfig;
   near: IChainConfig;
   solana: ISolanaConfig;
   sui: IChainConfig;
+};
+
+export type SwitchboardNetworks = {
+  [K in ChainType]: ChainConfigs[K];
 };

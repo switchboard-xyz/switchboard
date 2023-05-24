@@ -1,6 +1,7 @@
 import { IChainConfig, IChainNetworkConfig } from './types.js';
 
 export const SWITCHBOARD_COREDAO_MAINNET_CONFIG: IChainNetworkConfig = {
+  networkName: 'Mainnet',
   programId: '0x73d6C66874e570f058834cAA666b2c352F1C792D',
   authority: '',
   metadata: {
@@ -27,6 +28,7 @@ export const SWITCHBOARD_COREDAO_MAINNET_CONFIG: IChainNetworkConfig = {
 };
 
 export const SWITCHBOARD_COREDAO_TESTNET_CONFIG: IChainNetworkConfig = {
+  networkName: 'Testnet',
   programId: '0x1bAB46734e02d25D9dF5EE725c0646b39C0c5224',
   authority: '0xB76E3A368dA2B6E6E5F5F686046C7cb0a3e1Bd1A',
   metadata: {
@@ -38,7 +40,7 @@ export const SWITCHBOARD_COREDAO_TESTNET_CONFIG: IChainNetworkConfig = {
     {
       name: 'Permissionless Queue',
       address: '0x934eb1F9D0f59695050f761DC64e443E5030A569',
-      verifierQueue: '0x83Fb069B10426056Ef8Ca54750cB9bB552a59e7D',
+      attestationQueue: '0x83Fb069B10426056Ef8Ca54750cB9bB552a59e7D',
       authority: '0xB76E3A368dA2B6E6E5F5F686046C7cb0a3e1Bd1A',
       crankAddress: '',
       permissioned: false,
@@ -52,6 +54,7 @@ export const SWITCHBOARD_COREDAO_TESTNET_CONFIG: IChainNetworkConfig = {
 ```json
 {
   "mainnet": {
+    "networkName": "Mainnet",
     "programId": "0x73d6C66874e570f058834cAA666b2c352F1C792D",
     "authority": "",
     "metadata": {
@@ -77,6 +80,7 @@ export const SWITCHBOARD_COREDAO_TESTNET_CONFIG: IChainNetworkConfig = {
     ]
   },
   "testnet": {
+    "networkName": "Testnet",
     "programId": "0x1bAB46734e02d25D9dF5EE725c0646b39C0c5224",
     "authority": "0xB76E3A368dA2B6E6E5F5F686046C7cb0a3e1Bd1A",
     "metadata": {
@@ -88,7 +92,7 @@ export const SWITCHBOARD_COREDAO_TESTNET_CONFIG: IChainNetworkConfig = {
       {
         "name": "Permissionless Queue",
         "address": "0x934eb1F9D0f59695050f761DC64e443E5030A569",
-        "verifierQueue": "0x83Fb069B10426056Ef8Ca54750cB9bB552a59e7D",
+        "attestationQueue": "0x83Fb069B10426056Ef8Ca54750cB9bB552a59e7D",
         "authority": "0xB76E3A368dA2B6E6E5F5F686046C7cb0a3e1Bd1A",
         "crankAddress": "",
         "permissioned": false

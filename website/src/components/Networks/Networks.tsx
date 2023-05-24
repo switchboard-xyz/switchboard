@@ -2,11 +2,9 @@ import React from "react";
 import Tabs from "@theme/Tabs";
 import TabItem from "@theme/TabItem";
 import PublicKeyButton from "../PublicKeyButton";
-import networks from "./const";
-import type {
-  IChainNetworkConfig,
-  ISwitchboardQueueConfig,
-} from "@switchboard-xyz/common/networks";
+// import networks from "./const";
+
+import { type IChainNetworkConfig, networks } from "@switchboard-xyz/common";
 
 import type { SupportedChain } from "./types";
 
@@ -14,8 +12,12 @@ export interface IQueues {
   chain: SupportedChain;
 }
 
-function getNetworkTable(chain: SupportedChain, network: string): JSX.Element {
+function getNetworkTable(
+  chain: SupportedChain,
+  network: string
+): [string, string, JSX.Element] {
   const networkConfig: IChainNetworkConfig = networks[chain][network];
+  const networkName = networkConfig.networkName ?? capitalizeWords(network);
   const addresses: Array<[string, string]> = [];
   addresses.push(["Program ID", networkConfig.programId]);
   if (networkConfig.authority) {
@@ -29,7 +31,7 @@ function getNetworkTable(chain: SupportedChain, network: string): JSX.Element {
     addresses.push([capitalizeWords(key), networkConfig[key] as string])
   );
 
-  return (
+  const table = (
     <>
       <h3>Program Deployment</h3>
       <p>
@@ -88,19 +90,21 @@ function getNetworkTable(chain: SupportedChain, network: string): JSX.Element {
       </table>
     </>
   );
+
+  return [network, networkName, table];
 }
 
 export default function Networks({ chain }: IQueues) {
-  const networkTables: [string, JSX.Element][] = Object.keys(
+  const networkTables: [string, string, JSX.Element][] = Object.keys(
     networks[chain]
-  ).map((network) => [network, getNetworkTable(chain, network)]);
+  ).map((network) => getNetworkTable(chain, network));
 
   return (
     <>
-      <Tabs defaultValue="mainnet">
-        {networkTables.map(([label, table]) => {
+      <Tabs defaultValue="mainnet" className="networks_tabs ">
+        {networkTables.map(([label, displayName, table]) => {
           return (
-            <TabItem value={label} label={capitalizeWords(label)}>
+            <TabItem value={label} label={displayName}>
               {table}
             </TabItem>
           );

@@ -1,4 +1,5 @@
 import { SWITCHBOARD_APTOS_CONFIG } from './aptos.js';
+import { SWITCHBOARD_ARBITRUM_CONFIG } from './arbitrum.js';
 import { SWITCHBOARD_COREDAO_CONFIG } from './coredao.js';
 import { SWITCHBOARD_NEAR_CONFIG } from './near.js';
 import { SWITCHBOARD_SOLANA_CONFIG } from './solana.js';
@@ -11,6 +12,10 @@ The default network configurations for each supported chain.
 ```json
 {
   "aptos": {
+    "mainnet": {},
+    "testnet": {}
+  },
+  "arbitrum": {
     "mainnet": {},
     "testnet": {}
   },
@@ -34,6 +39,7 @@ The default network configurations for each supported chain.
 ```
  */
 export const SWITCHBOARD_NETWORKS: SwitchboardNetworks = {
+  arbitrum: SWITCHBOARD_ARBITRUM_CONFIG,
   aptos: SWITCHBOARD_APTOS_CONFIG,
   coredao: SWITCHBOARD_COREDAO_CONFIG,
   near: SWITCHBOARD_NEAR_CONFIG,

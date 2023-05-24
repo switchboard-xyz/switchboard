@@ -1,6 +1,7 @@
 import { IChainConfig, IChainNetworkConfig } from './types.js';
 
 export const SWITCHBOARD_APTOS_MAINNET_CONFIG: IChainNetworkConfig = {
+  networkName: 'Mainnet',
   programId:
     '0x7d7e436f0b2aafde60774efb26ccc432cf881b677aca7faaf2a01879bd19fb8',
   authority:
@@ -37,6 +38,7 @@ export const SWITCHBOARD_APTOS_MAINNET_CONFIG: IChainNetworkConfig = {
 };
 
 export const SWITCHBOARD_APTOS_TESTNET_CONFIG: IChainNetworkConfig = {
+  networkName: 'testnet',
   programId:
     '0xb91d3fef0eeb4e685dc85e739c7d3e2968784945be4424e92e2f86e2418bf271',
   authority:
@@ -68,6 +70,7 @@ export const SWITCHBOARD_APTOS_TESTNET_CONFIG: IChainNetworkConfig = {
 ```json
 {
   "mainnet": {
+    "networkName": "Mainnet",
     "programId": "0x7d7e436f0b2aafde60774efb26ccc432cf881b677aca7faaf2a01879bd19fb8",
     "authority": "0xca62eccbbdb22b5de18165d0bdf2d7127569b91498f0a7f6944028793cef8137",
     "stateAddress": "0x7d7e436f0b2aafde60774efb26ccc432cf881b677aca7faaf2a01879bd19fb8",
@@ -94,6 +97,7 @@ export const SWITCHBOARD_APTOS_TESTNET_CONFIG: IChainNetworkConfig = {
     ]
   },
   "testnet": {
+    "networkName": "Testnet",
     "programId": "0xb91d3fef0eeb4e685dc85e739c7d3e2968784945be4424e92e2f86e2418bf271",
     "authority": "0xb91d3fef0eeb4e685dc85e739c7d3e2968784945be4424e92e2f86e2418bf271",
     "stateAddress": "0xb91d3fef0eeb4e685dc85e739c7d3e2968784945be4424e92e2f86e2418bf271",

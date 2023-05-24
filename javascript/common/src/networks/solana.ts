@@ -1,6 +1,7 @@
 import { IChainNetworkConfig, ISolanaConfig } from './types.js';
 
 export const SWITCHBOARD_SOLANA_MAINNET_CONFIG: IChainNetworkConfig = {
+  networkName: 'Mainnet-Beta',
   programId: 'SW1TCH7qEPTdLsDHRgPuMQjbQxKdH2aBStViMFnt64f',
   authority: '2NvGRFswVx3GXxURNSfjbsWY4iP1ufj8LvAKJWGXSm4D',
   idlAddress: 'Fi8vncGpNKbq62gPo56G4toCehWNy77GgqGkTaAF5Lkk',
@@ -27,6 +28,7 @@ export const SWITCHBOARD_SOLANA_MAINNET_CONFIG: IChainNetworkConfig = {
 };
 
 export const SWITCHBOARD_SOLANA_DEVNET_CONFIG: IChainNetworkConfig = {
+  networkName: 'Devnet',
   programId: 'SW1TCH7qEPTdLsDHRgPuMQjbQxKdH2aBStViMFnt64f',
   authority: '2KgowxogBrGqRcgXQEmqFvC3PGtCu66qERNJevYW8Ajh',
   idlAddress: 'Fi8vncGpNKbq62gPo56G4toCehWNy77GgqGkTaAF5Lkk',
@@ -58,6 +60,7 @@ export const SWITCHBOARD_SOLANA_DEVNET_CONFIG: IChainNetworkConfig = {
 ```json
 {
   "mainnet": {
+    "networkName": "Mainnet-Beta",
     "programId": "SW1TCH7qEPTdLsDHRgPuMQjbQxKdH2aBStViMFnt64f",
     "authority": "2NvGRFswVx3GXxURNSfjbsWY4iP1ufj8LvAKJWGXSm4D",
     "idlAddress": "Fi8vncGpNKbq62gPo56G4toCehWNy77GgqGkTaAF5Lkk",
@@ -83,6 +86,7 @@ export const SWITCHBOARD_SOLANA_DEVNET_CONFIG: IChainNetworkConfig = {
     ]
   },
   "devnet": {
+    "networkName": "Devnet",
     "programId": "SW1TCH7qEPTdLsDHRgPuMQjbQxKdH2aBStViMFnt64f",
     "authority": "2KgowxogBrGqRcgXQEmqFvC3PGtCu66qERNJevYW8Ajh",
     "idlAddress": "Fi8vncGpNKbq62gPo56G4toCehWNy77GgqGkTaAF5Lkk",
