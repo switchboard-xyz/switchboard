@@ -77,6 +77,8 @@ function generateSidebarCSS(sidebarIcons: Array<IDirectoryData>): string {
     const varNameDark = `--${name}-icon-dark`;
 
     variables.push({ name: varName, value: `url("${logo}");` });
+
+    // Add sidbar icon
     css += `
 /* ${name.toUpperCase()} */
 .sidebar__${name} :is(a, li)::before {
@@ -89,7 +91,6 @@ function generateSidebarCSS(sidebarIcons: Array<IDirectoryData>): string {
     no-repeat;
 }
 `;
-
     if (logoDark) {
       variables.push({ name: varNameDark, value: `url("${logoDark}");` });
       css += `
@@ -102,6 +103,7 @@ function generateSidebarCSS(sidebarIcons: Array<IDirectoryData>): string {
 
     css = css + "\n";
 
+    // Add heading icon
     css += `
 .heading_icon__${name}::before {
   width: 16px;
@@ -123,17 +125,30 @@ function generateSidebarCSS(sidebarIcons: Array<IDirectoryData>): string {
 `.trimStart();
     }
 
+    css = css + "\n";
+
+    // Add navbar icon
+
     css += `
-    .navbar_icon__${name}::before {
-      display: inline-flex;
-      vertical-align: middle;
-      width: 24px;
-      height: 24px;
-      content: " ";
-      background: var(${varName})
-        no-repeat;
+.navbar_icon__${name}::before {
+  display: inline-flex;
+  vertical-align: middle;
+  width: 24px;
+  height: 24px;
+  content: " ";
+  background: var(${varName})
+    no-repeat;
+}
+`.trimStart();
+
+    if (logoDark) {
+      css += `
+[data-theme="dark"] .navbar_icon__${name}::before{
+  background: var(${varNameDark})
+    no-repeat;
+}
+`.trimStart();
     }
-    `.trimStart();
   });
 
   if (variables.length) {
