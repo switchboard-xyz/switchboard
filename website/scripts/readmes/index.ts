@@ -11,9 +11,10 @@ function sdkPath(chain: string): string {
     : path.join(__dirname, "..", "..", "..", "sdks", chain);
 }
 
-const evmChains: Array<SupportedChain> = ["coredao"];
+const evmChains: Array<SupportedChain> = ["coredao", "arbitrum"];
 const chains: Array<SupportedChain> = [
   "solana",
+  "arbitrum",
   "aptos",
   "sui",
   "near",
@@ -21,11 +22,14 @@ const chains: Array<SupportedChain> = [
 ];
 
 async function main() {
-  const networks = await import("@switchboard-xyz/common/networks");
+  const networks = (await import("@switchboard-xyz/common/networks"))
+    .SWITCHBOARD_NETWORKS;
+  console.log(networks);
 
   for (const chain of chains) {
     if (
       chain !== "solana" &&
+      chain !== "arbitrum" &&
       chain !== "aptos" &&
       chain !== "sui" &&
       chain !== "near" &&

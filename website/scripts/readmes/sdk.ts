@@ -68,7 +68,13 @@ export class Sdk implements LoadedSdk {
         if (networkConfig.authority) {
           addresses.push(["Program Authority", networkConfig.authority]);
         }
-        const ignoreKeys = ["programId", "authority", "queues", "metadata"];
+        const ignoreKeys = [
+          "programId",
+          "authority",
+          "networkName",
+          "queues",
+          "metadata",
+        ];
         const restOfKeys = Object.keys(networkConfig).filter(
           (key) => !ignoreKeys.includes(key)
         );

@@ -28,55 +28,90 @@ npm i --save @switchboard-xyz/evm.js
 
 **Directory**
 
-- [Create a Data Feed](#create-a-data-feed)
+- [Load Switchboard Program](#load-switchboard-program)
+- [Create a Queue](#create-a-queue)
+- [Add an Oracle](#add-an-oracle)
 - [Create a Job on IPFS](#create-a-job-on-ipfs)
+- [Create a Data Feed](#create-a-data-feed)
+- [Read a Data Feed](#read-a-data-feed)
+- [Watch Data Feed](#watch-data-feed)
 
-### Create a Data Feed
+### Load Switchboard Program
 
 ```ts
-import { AggregatorAccount, OracleJob } from "@switchboard-xyz/evm.js";
-import { BigNumber, Wallet } from "ethers";
+import ethers from "ethers";
+import { SwitchboardProgram } from "@switchboard-xyz/evm.js";
 
-const authorityAddress = "0x1"; // Add your address here
-const queueAddress = "0x83Fb069B10426056Ef8Ca54750cB9bB552a59e7D"; // Permissionless queue address
-const switchboardAddress = "0xe9F5Ecb00BC437F061DF59d899F00f260740dC48";
-
-const batchSize = 1; // 1 oracle will resolve a feed
-const minUpdateDelaySeconds = 30; // update every 30 seconds
-const minOracleResults = 1; // it should only take 1 oracle to resolve the feed
-const ipfsJobsAddress = ""; // OracleJobs stored in IPFS
-const varianceThreshold = 0; // Always update - but this is stored as a fixed scale factor decimal 18 digits represent the decimal portion of each num
-const minJobResults = 1; // It should only take 1 job to resolve a feed
-const forceReportPeriod = 0; // Force a result is off
-
-const tx = await switchboard.createAggregator(
-  "My BTC Feed",
-  authorityAddress,
-  oracleRequestBatchSize,
-  minUpdateDelaySeconds,
-  minOracleResults,
-  ipfsJobsAddress,
-  queueAddress,
-
-  /// Response Configs (not used on-chain)
-  varianceThreshold,
-  minJobResults,
-  forceReportPeriod,
-
-  false, // Aggregator V3 Inteface is off (makes updates more expensive)
-  {
-    value: BigNumber.from(
-      new Big(params.initialLoadAmount).mul(WEI_PER_ETH.toString()).toString()
-    ),
-  }
+// Instantiate SwitchboardProgram
+const signer = new ethers.Wallet(privateKey);
+const switchboardProgram = await SwitchboardProgram.load(
+  signer, // Signer instance
+  "0x73d6C66874e570f058834cAA666b2c352F1C792D" // Switchboard contract address
 );
 
-// get aggregator address from receipt
-const aggregatorAddress = tx.wait().then((logs) => {
-  const log = logs.logs[0];
-  const sbLog = switchboard.interface.parseLog(log);
-  return sbLog.args.accountAddress as string;
-});
+// Send a transaction to Switchboard
+const tx = await switchboard.sendSbTxn("createOracleQueue", [
+  name,
+  authority,
+  unpermissionedFeedsEnabled,
+  maxSize,
+  reward,
+  oracleTimeout,
+]);
+
+// Fetch all aggregator data for a given authority
+const authority = "0xabc123..."; // the public key of the authority
+const aggregatorData = await switchboardProgram.fetchAggregators(authority);
+
+// Connect a new signer to SwitchboardProgram
+const newSigner = new ethers.Wallet(newPrivateKey);
+const newSwitchboardProgram = switchboardProgram.connect(newSigner);
+```
+
+### Create a Queue
+
+```ts
+import { OracleQueueAccount } from "@switchboard-xyz/evm.js";
+
+const [oracleQueueAccount, tx] = await OracleQueueAccount.create(
+  switchboardProgram,
+  {
+    authority: "0xMyAuthority",
+    name: "my queue",
+    oracleTimeout: 3600,
+    reward: 10000000,
+    unpermissionedFeedsEnabled: true,
+    maxSize: 100,
+  }
+);
+const oracleQueue = await oracleQueueAccount.loadData();
+```
+
+### Add an Oracle
+
+```ts
+import { OracleQueueAccount } from "@switchboard-xyz/evm.js";
+
+const oracleQueueAccount = new OracleQueueAccount(
+  switchboardProgram,
+  queueAddress
+);
+
+const oracleAccount = await oracleQueueAccount.createOracle(
+  {
+    name: "my oracle",
+    authority: "0xMyOracleAuthority",
+  },
+  // enable the heartbeat permissions (requires msg.sender to be queueAuthority)
+  true,
+  // you can also explicitly provide the queueAuthority signer
+  {
+    signer: queueAuthoritySigner,
+  }
+);
+const oracle = await oracleAccount.loadData();
+
+await oracleAccount.heartbeat();
 ```
 
 ### Create a Job on IPFS
@@ -126,4 +161,73 @@ const content = new File([JSON.stringify(jobs)], "", {
 const cid = await client.put([content], {
   wrapWithDirectory: false,
 });
+```
+
+### Create a Data Feed
+
+```ts
+import { OracleQueueAccount } from "@switchboard-xyz/evm.js";
+
+const oracleQueueAccount = new OracleQueueAccount(
+  switchboardProgram,
+  queueAddress
+);
+
+const aggregatorAccount = await oracleQueueAccount.createAggregator(
+  {
+    authority: "0xYourAuthority",
+    name: "MyAggregator",
+    queueAddress: "0xQueueAddress",
+    batchSize: 10,
+    minOracleResults: 5,
+    minJobResults: 3,
+    minUpdateDelaySeconds: 60,
+    varianceThreshold: 0.05,
+    forceReportPeriod: 600,
+    jobsHash: "0xJobHash",
+    enableLegacyAdapter: false,
+    initialValue: 0,
+  },
+  // enable the oracle queue usage permissions (requires msg.sender to be queueAuthority)
+  true,
+  // you can also explicitly provide the queueAuthority signer
+  {
+    signer: queueAuthoritySigner,
+  }
+);
+const aggregator = await aggregatorAccount.loadData();
+```
+
+### Read a Data Feed
+
+After the oracles respond, read the feed result
+
+```ts
+import { AggregatorAccount } from "@switchboard-xyz/evm.js";
+
+const aggregatorAccount = new AggregatorAccount(
+  switchboardProgram,
+  aggregatorAddress
+);
+const result: number = await aggregatorAccount.latestValue();
+console.log(result);
+```
+
+### Watch Data Feed
+
+Setup a websocket listener to invoke a callback whenever an aggregator is updated
+
+```ts
+import { AggregatorAccount } from "@switchboard-xyz/evm.js";
+
+const watchHandle = AggregatorAccount.watch(
+  switchboardProgram,
+  "0xAggregatorAccountAddress",
+  (event) => {
+    console.log(event);
+  }
+);
+
+// To stop watching
+watchHandle.stop();
 ```
