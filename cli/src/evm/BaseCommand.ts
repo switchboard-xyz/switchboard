@@ -1,7 +1,7 @@
 import { CliBaseCommand as BaseCommand } from "../BaseCommand";
 import { AwsProvider, FsProvider, GcpProvider } from "../providers";
 import { IBaseChain } from "../types/chain";
-import { chalkString } from "../utils";
+import { chalkString, stripTrailingZeros } from "../utils";
 
 import { Flags } from "@oclif/core";
 import { Input } from "@oclif/parser";
@@ -336,7 +336,7 @@ export abstract class EvmBaseCommand extends BaseCommand implements IBaseChain {
   }
 
   prettyPrintAggregator(
-    aggregator: AggregatorData,
+    aggregator: AggregatorData & { permissions?: string },
     address: string,
     SPACING = 24
   ) {
@@ -346,6 +346,9 @@ export abstract class EvmBaseCommand extends BaseCommand implements IBaseChain {
       chalk.underline(chalkString("## Aggregator", address, SPACING))
     );
 
+    output.push(chalkString("name", aggregator.name, SPACING));
+    output.push(chalkString("metadata", aggregator.name, SPACING));
+
     let result: Big | undefined;
     let timestamp: number | undefined;
     try {
@@ -353,7 +356,13 @@ export abstract class EvmBaseCommand extends BaseCommand implements IBaseChain {
       timestamp = aggregator.latestResult.timestamp.toNumber();
     } catch {}
 
-    output.push(chalkString("latestResult", result ? result : "N/A", SPACING));
+    output.push(
+      chalkString(
+        "latestResult",
+        result ? `${stripTrailingZeros(result.toString())}` : "N/A",
+        SPACING
+      )
+    );
     output.push(
       chalkString(
         "lastUpdated",
@@ -361,10 +370,23 @@ export abstract class EvmBaseCommand extends BaseCommand implements IBaseChain {
         SPACING
       )
     );
-    output.push(chalkString("name", aggregator.name, SPACING));
-    output.push(chalkString("metadata", aggregator.name, SPACING));
+
+    output.push(
+      chalkString(
+        "balance",
+        `${stripTrailingZeros(
+          fromBigNumber(aggregator.balance).toString()
+        )} wETH`,
+        SPACING
+      )
+    );
+
     output.push(chalkString("authority", aggregator.authority, SPACING));
     output.push(chalkString("queueAddress", aggregator.queueAddress, SPACING));
+    if (aggregator.permissions) {
+      output.push(chalkString("permissions", aggregator.permissions, SPACING));
+    }
+
     output.push(
       chalkString(
         "minUpdateDelaySeconds",
@@ -422,7 +444,11 @@ export abstract class EvmBaseCommand extends BaseCommand implements IBaseChain {
     throw new Error(`Not implemented yet`);
   }
 
-  prettyPrintOracle(oracle: OracleData, address: string, SPACING = 24) {
+  prettyPrintOracle(
+    oracle: OracleData & { permissions?: string },
+    address: string,
+    SPACING = 24
+  ) {
     const output: string[] = [];
 
     output.push(chalk.underline(chalkString("## Oracle", address, SPACING)));
@@ -430,6 +456,9 @@ export abstract class EvmBaseCommand extends BaseCommand implements IBaseChain {
     output.push(chalkString("name", oracle.name, SPACING));
     output.push(chalkString("authority", oracle.authority, SPACING));
     output.push(chalkString("queueAddress", oracle.queueAddress, SPACING));
+    if (oracle.permissions) {
+      output.push(chalkString("permissions", oracle.permissions, SPACING));
+    }
 
     const lastHeartbeat: number | undefined = oracle.lastHeartbeat.gt(0)
       ? oracle.lastHeartbeat.toNumber()
