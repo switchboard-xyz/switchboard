@@ -1,11 +1,32 @@
 import { CliBaseCommand as BaseCommand } from "../BaseCommand";
 import { AwsProvider, FsProvider, GcpProvider } from "../providers";
 import { IBaseChain } from "../types/chain";
+import { chalkString } from "../utils";
 
 import { Flags } from "@oclif/core";
 import { Input } from "@oclif/parser";
-import { OracleJob, parseSecretString } from "@switchboard-xyz/common";
-import { providers, Wallet } from "ethers";
+import {
+  Big,
+  BN,
+  BNtoDateTimeString,
+  getSupportedNetwork,
+  IChainNetworkConfig,
+  OracleJob,
+  parseSecretString,
+} from "@switchboard-xyz/common";
+import {
+  AggregatorAccount,
+  AggregatorData,
+  fromBigNumber,
+  OracleAccount,
+  OracleData,
+  OracleQueueAccount,
+  OracleQueueData,
+  SwitchboardProgram,
+} from "@switchboard-xyz/evm.js";
+import chalk from "chalk";
+import { BigNumber, providers, Wallet } from "ethers";
+import path from "path";
 
 type EvmChain = "coredao" | "arbitrum";
 
@@ -17,7 +38,7 @@ export abstract class EvmBaseCommand extends BaseCommand implements IBaseChain {
     chain: Flags.string({
       description: "the evm chain to interact with",
       options: ["coredao", "arbitrum"],
-      required: true,
+      exclusive: ["coredao", "arbitrum"],
       // exclusive: ["chainId"],
     }),
     // chainId: Flags.string({
@@ -28,16 +49,15 @@ export abstract class EvmBaseCommand extends BaseCommand implements IBaseChain {
     // }),
     coredao: Flags.boolean({
       description: "use the coredao chain",
-      exclusive: ["chain", "coredao"],
+      exclusive: ["chain"],
     }),
     arbitrum: Flags.boolean({
       description: "use the arbitrum chain",
-      exclusive: ["chain", "arbitrum"],
+      exclusive: ["chain"],
     }),
     network: Flags.string({
       description: "the EVM network to connect to",
       options: ["mainnet", "testnet"],
-      required: true,
       exclusive: ["mainnet", "testnet"],
     }),
     mainnet: Flags.boolean({
@@ -65,9 +85,13 @@ export abstract class EvmBaseCommand extends BaseCommand implements IBaseChain {
 
   public network: EvmNetwork;
 
+  public networkConfig: IChainNetworkConfig;
+
   public rpcUrl: string;
 
   public programId: string;
+
+  public program: SwitchboardProgram;
 
   async init() {
     await super.init();
@@ -80,13 +104,19 @@ export abstract class EvmBaseCommand extends BaseCommand implements IBaseChain {
       (flags as any).arbitrum
     );
 
-    this.network = this.getNetwork((flags as any).cluster);
+    this.network = this.getNetwork(
+      (flags as any).network,
+      (flags as any).mainnet,
+      (flags as any).testnet
+    );
 
     this.rpcUrl = this.getRpcUrl(
       this.chain,
       this.network,
       (flags as any).rpcUrl
     );
+
+    this.networkConfig = getSupportedNetwork(this.chain, this.network);
 
     this.programId = this.getProgramId(
       this.chain,
@@ -174,13 +204,23 @@ export abstract class EvmBaseCommand extends BaseCommand implements IBaseChain {
   }
 
   toUrl(signature: string) {
+    const explorer: string | undefined =
+      (this.networkConfig.metadata?.defaultExplorer as string) ?? "";
+    if (explorer) {
+      return path.join(explorer, "tx", signature);
+    }
+
     return "NOT_SUPPORTED";
-    // return `https://explorer.solana.com/tx/${signature}?cluster=${this.network}`;
   }
 
-  toAccountUrl(account: string) {
+  toAccountUrl(address: string) {
+    const explorer: string | undefined =
+      (this.networkConfig.metadata?.defaultExplorer as string) ?? "";
+    if (explorer) {
+      return path.join(explorer, "address", address);
+    }
+
     return "NOT_SUPPORTED";
-    // return `https://explorer.solana.com/address/${account}?cluster=${this.network}`;
   }
 
   async getSigner(keypairPath: string): Promise<Wallet> {
@@ -237,24 +277,32 @@ export abstract class EvmBaseCommand extends BaseCommand implements IBaseChain {
     );
   }
 
+  convertRawNumber(num: BigNumber): Big {
+    return fromBigNumber(num);
+  }
+
   deserializeJobData(jobData: Uint8Array): OracleJob {
     return OracleJob.decodeDelimited(jobData);
   }
 
-  async loadQueue(address: string): Promise<[any, any]> {
-    throw new Error(`Not implemented yet`);
+  async loadQueue(
+    address: string
+  ): Promise<[OracleQueueAccount, OracleQueueData]> {
+    return await OracleQueueAccount.load(this.program, address);
   }
 
-  async loadAggregator(address: string): Promise<[any, any]> {
-    throw new Error(`Not implemented yet`);
+  async loadAggregator(
+    address: string
+  ): Promise<[AggregatorAccount, AggregatorData]> {
+    return await AggregatorAccount.load(this.program, address);
   }
 
   async loadCrank(address: string): Promise<[any, any]> {
-    throw new Error(`Not implemented yet`);
+    throw new Error(`EVM chains do not have a crank`);
   }
 
-  async loadOracle(address: string): Promise<[any, any]> {
-    throw new Error(`Not implemented yet`);
+  async loadOracle(address: string): Promise<[OracleAccount, OracleData]> {
+    return await OracleAccount.load(this.program, address);
   }
 
   async loadPermission(
@@ -269,7 +317,7 @@ export abstract class EvmBaseCommand extends BaseCommand implements IBaseChain {
     queue: string,
     aggregator: string
   ): Promise<[any, any, number]> {
-    throw new Error(`Not implemented yet`);
+    throw new Error(`EVM chains do not have a crank`);
   }
 
   async loadJob(address: string): Promise<[any, any, OracleJob]> {
@@ -287,8 +335,57 @@ export abstract class EvmBaseCommand extends BaseCommand implements IBaseChain {
     return JSON.parse(JSON.stringify(object, this.jsonReplacers, 2));
   }
 
-  prettyPrintAggregator(aggregator: any, address: string, SPACING = 24) {
-    throw new Error(`Not implemented yet`);
+  prettyPrintAggregator(
+    aggregator: AggregatorData,
+    address: string,
+    SPACING = 24
+  ) {
+    // throw new Error(`Not implemented yet`);
+    const output: string[] = [];
+    output.push(
+      chalk.underline(chalkString("## Aggregator", address, SPACING))
+    );
+
+    let result: Big | undefined;
+    let timestamp: number | undefined;
+    try {
+      result = fromBigNumber(aggregator.latestResult.value);
+      timestamp = aggregator.latestResult.timestamp.toNumber();
+    } catch {}
+
+    output.push(chalkString("latestResult", result ? result : "N/A", SPACING));
+    output.push(
+      chalkString(
+        "lastUpdated",
+        timestamp ? BNtoDateTimeString(new BN(timestamp)) : "N/A",
+        SPACING
+      )
+    );
+    output.push(chalkString("name", aggregator.name, SPACING));
+    output.push(chalkString("metadata", aggregator.name, SPACING));
+    output.push(chalkString("authority", aggregator.authority, SPACING));
+    output.push(chalkString("queueAddress", aggregator.queueAddress, SPACING));
+    output.push(
+      chalkString(
+        "minUpdateDelaySeconds",
+        aggregator.minUpdateDelaySeconds.toString(),
+        SPACING
+      )
+    );
+    output.push(
+      chalkString("batchSize", aggregator.batchSize.toString(), SPACING)
+    );
+    output.push(
+      chalkString(
+        "minOracleResults",
+        aggregator.minOracleResults.toString(),
+        SPACING
+      )
+    );
+
+    const logString = output.join("\n");
+
+    this.log(logString);
   }
 
   prettyPrintPermissions(permission: any, address: string, SPACING = 24) {
@@ -325,142 +422,74 @@ export abstract class EvmBaseCommand extends BaseCommand implements IBaseChain {
     throw new Error(`Not implemented yet`);
   }
 
-  // prettyPrintAggregatorAccounts(accounts: AggregatorAccounts, SPACING = 24) {
-  //   this.logger.info(prettyPrintAggregatorAccounts(accounts, SPACING));
-  // }
+  prettyPrintOracle(oracle: OracleData, address: string, SPACING = 24) {
+    const output: string[] = [];
 
-  prettyPrintOracle(
-    oracle: any,
+    output.push(chalk.underline(chalkString("## Oracle", address, SPACING)));
+
+    output.push(chalkString("name", oracle.name, SPACING));
+    output.push(chalkString("authority", oracle.authority, SPACING));
+    output.push(chalkString("queueAddress", oracle.queueAddress, SPACING));
+
+    const lastHeartbeat: number | undefined = oracle.lastHeartbeat.gt(0)
+      ? oracle.lastHeartbeat.toNumber()
+      : undefined;
+    output.push(
+      chalkString(
+        "lastHeartbeat",
+        lastHeartbeat ? BNtoDateTimeString(new BN(lastHeartbeat)) : "N/A",
+        SPACING
+      )
+    );
+
+    const logString = output.join("\n");
+
+    this.log(logString);
+  }
+
+  prettyPrintQueue(
+    queue: OracleQueueData & { oracles?: string[] },
     address: string,
-    balance?: number,
     SPACING = 24
   ) {
-    throw new Error(`Not implemented yet`);
+    const output: string[] = [];
+
+    output.push(chalk.underline(chalkString("## Queue", address, SPACING)));
+
+    output.push(chalkString("name", queue.name, SPACING));
+    output.push(chalkString("authority", queue.authority, SPACING));
+    output.push(
+      chalkString(
+        "unpermissionedFeeds",
+        queue.unpermissionedFeedsEnabled,
+        SPACING
+      )
+    );
+    if (queue.oracles) {
+      output.push(
+        chalkString(
+          "size",
+          `${queue.oracles.length} / ${queue.maxSize.toNumber()}`,
+          SPACING
+        )
+      );
+    } else {
+      output.push(chalkString("maxSize", queue.maxSize.toNumber(), SPACING));
+    }
+
+    output.push(
+      chalkString("oracleTimeout", queue.oracleTimeout.toNumber(), SPACING)
+    );
+    output.push(
+      chalkString(
+        "reward",
+        this.convertRawNumber(queue.reward).toNumber(),
+        SPACING
+      )
+    );
+
+    const logString = output.join("\n");
+
+    this.log(logString);
   }
-
-  prettyPrintQueue(queue: any, address: string, SPACING = 24) {
-    throw new Error(`Not implemented yet`);
-  }
-
-  prettyPrintCrank(crank: any, address: string, SPACING = 24) {
-    throw new Error(`Not implemented yet`);
-  }
-
-  prettyPrintSbstate(programState: any, address: string, SPACING = 24) {
-    throw new Error(`Not implemented yet`);
-  }
-
-  // async printAccount(
-  //   address: string,
-  //   accountInfo: AccountInfo<Buffer>,
-  //   jsonFlag?: boolean,
-  //   _accountType?: SwitchboardAccountType
-  // ) {
-  //   const accountType =
-  //     _accountType ?? SwitchboardProgram.getAccountType(accountInfo);
-  //   if (!accountType) {
-  //     throw new Error(`Not a valid Switchboard account`);
-  //   }
-
-  //   switch (accountType) {
-  //     case "Aggregator": {
-  //       const account = new AggregatorAccount(this.program, publicKey);
-  //       const accounts = await account.fetchAccounts();
-
-  //       if (jsonFlag) {
-  //         return accounts;
-  //       }
-
-  //       this.logger.info(prettyPrintAggregatorAccounts(accounts));
-  //       return;
-  //     }
-
-  //     case "Job": {
-  //       const job = types.JobAccountData.decode(accountInfo.data);
-  //       const oracleJob = OracleJob.decodeDelimited(job.data);
-
-  //       if (jsonFlag) {
-  //         return {
-  //           publicKey: publicKey.toBase58(),
-  //           data: job.toJSON(),
-  //           tasks: oracleJob.tasks,
-  //         };
-  //       }
-
-  //       this.logger.info(prettyPrintJob(job, publicKey, oracleJob.tasks));
-  //       return;
-  //     }
-
-  //     case "Permission": {
-  //       const permission = types.PermissionAccountData.decode(accountInfo.data);
-
-  //       if (jsonFlag) {
-  //         return {
-  //           publicKey: publicKey.toBase58(),
-  //           data: permission.toJSON(),
-  //         };
-  //       }
-
-  //       this.logger.info(prettyPrintPermissions(permission, publicKey));
-  //       return;
-  //     }
-
-  //     case "Lease": {
-  //       const lease = types.LeaseAccountData.decode(accountInfo.data);
-  //       const leaseAccount = new LeaseAccount(this.program, publicKey);
-  //       const balance = await leaseAccount.fetchBalance(lease.escrow);
-
-  //       if (jsonFlag) {
-  //         return {
-  //           publicKey: publicKey.toBase58(),
-  //           data: lease.toJSON(),
-  //           balance: balance,
-  //         };
-  //       }
-
-  //       this.logger.info(prettyPrintLease(lease, publicKey));
-  //       return;
-  //     }
-
-  //     case "Queue": {
-  //       const queue = types.OracleQueueAccountData.decode(accountInfo.data);
-
-  //       if (jsonFlag) {
-  //         return {
-  //           publicKey: publicKey.toBase58(),
-  //           data: queue.toJSON(),
-  //         };
-  //       }
-
-  //       this.logger.info(prettyPrintQueue(queue, publicKey));
-  //       return;
-  //     }
-
-  //     case "Crank": {
-  //       const crank = types.CrankAccountData.decode(accountInfo.data);
-
-  //       if (jsonFlag) {
-  //         return {
-  //           publicKey: publicKey.toBase58(),
-  //           data: crank.toJSON(),
-  //         };
-  //       }
-
-  //       this.logger.info(prettyPrintCrank(crank, publicKey));
-  //       return;
-  //     }
-
-  //     case "Vrf": {
-  //       const vrf = types.VrfAccountData.decode(accountInfo.data);
-  //       const vrfAccount = new VrfAccount(this.program, publicKey);
-  //       const accounts = await vrfAccount.fetchAccounts(vrf);
-
-  //       if (jsonFlag) {
-  //         return accounts;
-  //       }
-
-  //       this.logger.info(prettyPrintVrfAccounts(accounts));
-  //     }
-  //   }
-  // }
 }
