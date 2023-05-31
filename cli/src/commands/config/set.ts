@@ -18,12 +18,10 @@ export default class ConfigSet extends BaseCommand {
   static args = {
     chain: Args.string({
       required: true,
-      options: ["solana", "near", "aptos"],
       description: "chain to set a config parameter",
     }),
     network: Args.string({
       required: true,
-      options: ["localnet", "testnet", "betanet", "devnet", "mainnet"],
       description: "network of chain to set parameter",
     }),
     parameter: Args.string({

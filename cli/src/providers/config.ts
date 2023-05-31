@@ -1,498 +1,197 @@
+import { chalkString } from "../utils";
+
+import { networks } from "@switchboard-xyz/common";
 import chalk from "chalk";
 import fs from "fs";
 import path from "path";
 
-export type SolanaConfigParameter =
-  | "solana-devnet-rpc"
-  | "solana-mainnet-rpc"
-  | "solana-devnet-default-account"
-  | "solana-mainnet-default-account";
+export const LATEST_CONFIG_VERSION = 2;
 
-export type NearConfigParameter =
-  | "near-testnet-rpc"
-  | "near-mainnet-rpc"
-  | "near-testnet-default-account"
-  | "near-mainnet-default-account";
-
-export type AptosConfigParameter =
-  | "aptos-testnet-rpc"
-  | "aptos-testnet-default-account"
-  | "aptos-mainnet-rpc"
-  | "aptos-mainnet-default-account";
-
-export type ConfigParameter =
-  | SolanaConfigParameter
-  | NearConfigParameter
-  | AptosConfigParameter;
-
-export interface ISolanaClusterConfig {
+export interface INetworkConfig {
   rpcUrl: string;
   defaultAccount?: string;
 }
 
-export interface ISolanaConfig {
-  devnet?: ISolanaClusterConfig;
-  mainnet?: ISolanaClusterConfig;
-}
-
-export interface INearClusterConfig {
-  rpcUrl: string;
-  defaultAccount?: string;
-}
-
-export interface INearConfig {
-  testnet?: INearClusterConfig;
-  mainnet?: INearClusterConfig;
-  betanet?: INearClusterConfig;
-  local?: INearClusterConfig;
-}
-export interface IAptosNetworkConfig {
-  rpcUrl: string;
-  defaultAccount?: string;
-}
-
-export interface IAptosConfig {
-  testnet?: IAptosNetworkConfig;
-  mainnet?: IAptosNetworkConfig;
-}
-
-export interface IChainConfigs {
-  solana: ISolanaConfig;
-  near: INearConfig;
-  aptos: IAptosConfig;
+export interface IChainConfig {
+  [network: string]: INetworkConfig;
 }
 
 export interface IConfig {
-  version: number;
-  config: IChainConfigs;
+  [chain: string]: IChainConfig;
 }
 
-export const DEFAULT_SOLANA_DEVNET_RPC = "https://api.devnet.solana.com";
-export const DEFAULT_SOLANA_MAINNET_RPC = "https://api.mainnet-beta.solana.com";
-
-export const DEFAULT_NEAR_BETANET_RPC = "https://rpc.betanet.near.org";
-export const DEFAULT_NEAR_TESTNET_RPC = "https://rpc.testnet.near.org";
-export const DEFAULT_NEAR_MAINNET_RPC = "https://rpc.mainnet.near.org";
-
-export const DEFAULT_APTOS_TESTNET_RPC =
-  "https://fullnode.testnet.aptoslabs.com/v1";
-export const DEFAULT_APTOS_MAINNET_RPC =
-  "https://fullnode.mainnet.aptoslabs.com/v1";
-
-export const LATEST_CONFIG_VERSION = 1;
+export type VersionedConfig = {
+  version: number;
+  config: IConfig;
+};
 
 export class ConfigProvider {
-  public configDirectory: string;
-  // private _config: INetworkConfigs;
+  private config: IConfig;
 
-  // solana
-  solanaDevnetRpc = DEFAULT_SOLANA_DEVNET_RPC;
-  solanaDevnetDefaultAccount?: string;
+  private defaults: IConfig = {
+    aptos: {
+      mainnet: { rpcUrl: networks.aptos.mainnet.metadata.defaultRpcUrl },
+      testnet: { rpcUrl: networks.aptos.testnet.metadata.defaultRpcUrl },
+    },
+    coredao: {
+      mainnet: { rpcUrl: networks.coredao.mainnet.metadata.defaultRpcUrl },
+      testnet: { rpcUrl: networks.coredao.testnet.metadata.defaultRpcUrl },
+    },
+    near: {
+      mainnet: { rpcUrl: networks.near.mainnet.metadata.defaultRpcUrl },
+      testnet: { rpcUrl: networks.near.testnet.metadata.defaultRpcUrl },
+    },
+    solana: {
+      mainnet: { rpcUrl: networks.solana.mainnet.metadata.defaultRpcUrl },
+      devnet: { rpcUrl: networks.solana.devnet.metadata.defaultRpcUrl },
+    },
+    sui: {
+      mainnet: { rpcUrl: networks.sui.mainnet.metadata.defaultRpcUrl },
+      testnet: { rpcUrl: networks.sui.testnet.metadata.defaultRpcUrl },
+    },
+  };
 
-  solanaMainnetRpc = DEFAULT_SOLANA_MAINNET_RPC;
-  solanaMainnetDefaultAccount?: string;
-
-  // near
-  nearBetanetRpc = DEFAULT_NEAR_BETANET_RPC;
-  nearBetanetDefaultAccount?: string;
-
-  nearTestnetRpc = DEFAULT_NEAR_TESTNET_RPC;
-  nearTestnetDefaultAccount?: string;
-
-  nearMainnetRpc = DEFAULT_NEAR_MAINNET_RPC;
-  nearMainnetDefaultAccount?: string;
-
-  // aptos
-  aptosTestnetRpc = DEFAULT_APTOS_TESTNET_RPC;
-  aptosTestnetDefaultAccount?: string;
-
-  aptosMainnetRpc = DEFAULT_APTOS_MAINNET_RPC;
-  aptosMainnetDefaultAccount?: string;
-
-  constructor(configDirectory: string) {
-    this.configDirectory = configDirectory;
-    const configPath = path.join(configDirectory, "config.json");
-
-    if (
-      !fs.existsSync(configPath) ||
-      !("config" in JSON.parse(fs.readFileSync(configPath, "utf-8")))
-    ) {
-      // write default here
+  getDefaultConfig(chain: string, network: string): INetworkConfig | undefined {
+    if (!(chain in this.defaults)) {
       return;
     }
 
-    const config: IChainConfigs = JSON.parse(
-      fs.readFileSync(configPath, "utf-8")
-    ).config;
-
-    // solana
-    if (config.solana?.devnet?.rpcUrl) {
-      this.solanaDevnetRpc = config.solana.devnet.rpcUrl;
+    const chainConfig = this.defaults[chain];
+    if (!(network in chainConfig)) {
+      return;
     }
 
-    if (config.solana?.devnet?.defaultAccount) {
-      this.solanaDevnetDefaultAccount = config.solana.devnet.defaultAccount;
-    }
-
-    if (config.solana?.mainnet?.rpcUrl) {
-      this.solanaMainnetRpc = config.solana.mainnet.rpcUrl;
-    }
-
-    if (config.solana?.mainnet?.defaultAccount) {
-      this.solanaMainnetDefaultAccount = config.solana.mainnet.defaultAccount;
-    }
-
-    // near
-    if (config.near?.betanet?.rpcUrl) {
-      this.nearBetanetRpc = config.near.betanet.rpcUrl;
-    }
-
-    if (config.near?.betanet?.defaultAccount) {
-      this.nearBetanetDefaultAccount = config.near.betanet.defaultAccount;
-    }
-
-    if (config.near?.testnet?.rpcUrl) {
-      this.nearTestnetRpc = config.near.testnet.rpcUrl;
-    }
-
-    if (config.near?.testnet?.defaultAccount) {
-      this.nearTestnetDefaultAccount = config.near.testnet.defaultAccount;
-    }
-
-    if (config.near?.mainnet?.rpcUrl) {
-      this.nearMainnetRpc = config.near.mainnet.rpcUrl;
-    }
-
-    if (config.near?.mainnet?.defaultAccount) {
-      this.nearMainnetDefaultAccount = config.near.mainnet.defaultAccount;
-    }
-
-    // aptos
-    if (config.aptos?.testnet?.rpcUrl) {
-      this.aptosTestnetRpc = config.aptos.testnet.rpcUrl;
-    }
-
-    if (config.aptos?.testnet?.defaultAccount) {
-      this.aptosTestnetDefaultAccount = config.aptos.testnet.defaultAccount;
-    }
-
-    if (config.aptos?.mainnet?.rpcUrl) {
-      this.aptosMainnetRpc = config.aptos.mainnet.rpcUrl;
-    }
-
-    if (config.aptos?.mainnet?.defaultAccount) {
-      this.aptosMainnetDefaultAccount = config.aptos.mainnet.defaultAccount;
-    }
-
-    // ConfigProvider.write(config, configPath);
+    return chainConfig[network];
   }
 
-  get solanaDevnet(): ISolanaClusterConfig {
-    return {
-      rpcUrl: this.solanaDevnetRpc,
-      defaultAccount: this.solanaDevnetDefaultAccount,
-    };
+  constructor(private configDirectory: string) {
+    const configPath = path.join(configDirectory, "config.json");
+
+    if (fs.existsSync(configPath)) {
+      const savedConfig: VersionedConfig = JSON.parse(
+        fs.readFileSync(configPath, "utf-8")
+      );
+      this.config = { ...savedConfig.config };
+    } else {
+      this.config = {};
+    }
   }
 
-  get solanaMainnet(): ISolanaClusterConfig {
-    return {
-      rpcUrl: this.solanaMainnetRpc,
-      defaultAccount: this.solanaMainnetDefaultAccount,
-    };
+  getConfig(chain: string, network: string): INetworkConfig | undefined {
+    return this.config[chain]?.[network];
   }
 
-  get solana(): ISolanaConfig {
-    return {
-      devnet: this.solanaDevnet,
-      mainnet: this.solanaMainnet,
-    };
+  getRpcUrl(chain: string, network: string): string {
+    return this.getConfig(chain, network)?.rpcUrl || "";
   }
 
-  get nearBetanet(): INearClusterConfig {
-    return {
-      rpcUrl: this.nearBetanetRpc,
-      defaultAccount: this.nearBetanetDefaultAccount,
-    };
+  getDefaultAccount(chain: string, network: string): string | undefined {
+    return this.getConfig(chain, network)?.defaultAccount;
   }
 
-  get nearTestnet(): INearClusterConfig {
-    return {
-      rpcUrl: this.nearTestnetRpc,
-      defaultAccount: this.nearTestnetDefaultAccount,
-    };
+  setRpcUrl(chain: string, network: string, value: string | undefined) {
+    if (!this.config[chain]) {
+      this.config[chain] = {};
+    }
+
+    if (!this.config[chain][network]) {
+      this.config[chain][network] = { rpcUrl: "" };
+    }
+
+    this.config[chain][network].rpcUrl =
+      value || this.defaults[chain]?.[network]?.rpcUrl || "";
+
+    this.save();
   }
 
-  get nearMainnet(): INearClusterConfig {
-    return {
-      rpcUrl: this.nearMainnetRpc,
-      defaultAccount: this.nearMainnetDefaultAccount,
-    };
-  }
+  setDefaultAccount(chain: string, network: string, value: string | undefined) {
+    if (!this.config[chain]) {
+      this.config[chain] = {};
+    }
 
-  get near(): INearConfig {
-    return {
-      betanet: this.nearBetanet,
-      testnet: this.nearTestnet,
-      mainnet: this.nearMainnet,
-    };
-  }
+    if (!this.config[chain][network]) {
+      this.config[chain][network] = { rpcUrl: "", defaultAccount: "" };
+    }
 
-  get aptosTestnet(): IAptosNetworkConfig {
-    return {
-      rpcUrl: this.aptosTestnetRpc,
-      defaultAccount: this.aptosTestnetDefaultAccount,
-    };
-  }
+    this.config[chain][network].defaultAccount =
+      value || this.defaults[chain]?.[network]?.defaultAccount || undefined;
 
-  get aptosMainnet(): IAptosNetworkConfig {
-    return {
-      rpcUrl: this.aptosMainnetRpc,
-      defaultAccount: this.aptosMainnetDefaultAccount,
-    };
-  }
-
-  get aptos(): IAptosConfig {
-    return {
-      testnet: this.aptosTestnet,
-      mainnet: this.aptosMainnet,
-    };
-  }
-
-  toJSON(): IConfig {
-    return {
-      version: LATEST_CONFIG_VERSION,
-      config: {
-        solana: this.solana,
-        near: this.near,
-        aptos: this.aptos,
-      },
-    };
+    this.save();
   }
 
   get configPath(): string {
     return path.join(this.configDirectory, "config.json");
   }
 
-  write() {
+  save() {
     fs.writeFileSync(
       this.configPath,
       JSON.stringify(this.toJSON(), undefined, 2)
     );
-  }
-
-  save() {
-    this.write();
     console.info(chalk.green("Saved Config: ") + this.configPath);
   }
 
-  getRpcUrl(chain: "solana" | "near" | "aptos", network: string): string {
-    switch (chain) {
-      case "solana": {
-        switch (network) {
-          case "devnet":
-            return this.solanaDevnetRpc;
-          case "mainnet-beta":
-          case "mainnet":
-            return this.solanaMainnetRpc;
-
-          case "localnet":
-            return "http://0.0.0.0:8899";
-        }
-
-        break;
-      }
-
-      case "near": {
-        switch (network) {
-          case "betanet":
-            return this.nearBetanetRpc;
-          case "testnet":
-            return this.nearTestnetRpc;
-          case "mainnet":
-            return this.nearMainnetRpc;
-        }
-
-        break;
-      }
-
-      case "aptos": {
-        switch (network) {
-          case "testnet":
-            return this.aptosTestnetRpc;
-          case "mainnet":
-            return this.aptosMainnetRpc;
-        }
-
-        break;
-      }
-    }
-
-    return "";
+  toJSON(): VersionedConfig {
+    return {
+      version: LATEST_CONFIG_VERSION,
+      config: this.config,
+    };
   }
 
-  getDefaultAccount(
-    chain: "solana" | "near" | "aptos",
-    network: string
-  ): string | undefined {
-    switch (chain) {
-      case "solana": {
-        switch (network) {
-          case "devnet":
-            return this.solanaDevnetDefaultAccount;
-          case "mainnet":
-            return this.solanaMainnetDefaultAccount;
+  toPrettyString(PADDING = 24): string {
+    const outputLines: string[] = [];
+
+    for (const chain of Object.keys(this.config)) {
+      const chainConfig = this.config[chain];
+
+      for (const network of Object.keys(this.config[chain])) {
+        // write the header
+        // outputLines.push(
+        chalk.underline(
+          chalk.blue(
+            `## ${toTitleCase(chain)} ${toTitleCase(network)}`.padEnd(PADDING)
+          )
+        );
+        // );
+        // write the values
+        const networkConfig = chainConfig[network];
+        const defaultConfig = this.getDefaultConfig(chain, network);
+
+        const rpcUrl =
+          networkConfig.rpcUrl ?? defaultConfig?.rpcUrl ?? undefined;
+        if (rpcUrl) {
+          outputLines.push(
+            chalkString(
+              [chain, network, "rpc"].join("-").padEnd(PADDING, " "),
+              rpcUrl
+            )
+          );
         }
 
-        break;
-      }
-
-      case "near": {
-        switch (network) {
-          case "betanet":
-            return this.nearBetanetDefaultAccount;
-          case "testnet":
-            return this.nearTestnetDefaultAccount;
-          case "mainnet":
-            return this.nearMainnetDefaultAccount;
+        const defaultAccount =
+          networkConfig.defaultAccount ??
+          defaultConfig?.defaultAccount ??
+          undefined;
+        if (defaultAccount) {
+          outputLines.push(
+            chalkString(
+              [chain, network, "default-account"]
+                .join("-")
+                .padEnd(PADDING, " "),
+              defaultAccount
+            )
+          );
         }
-
-        break;
-      }
-
-      case "aptos": {
-        switch (network) {
-          case "testnet":
-            return this.aptosTestnetDefaultAccount;
-          case "mainnet":
-            return this.aptosMainnetDefaultAccount;
-        }
-
-        break;
-      }
-    }
-
-    return "";
-  }
-
-  setRpcUrl(
-    chain: "solana" | "near" | "aptos",
-    network: string,
-    value: string | undefined
-  ) {
-    switch (chain) {
-      case "solana": {
-        switch (network) {
-          case "devnet":
-            this.solanaDevnetRpc = value || DEFAULT_SOLANA_DEVNET_RPC;
-            this.save();
-            return;
-          case "mainnet":
-            this.solanaMainnetRpc = value || DEFAULT_SOLANA_MAINNET_RPC;
-            this.save();
-            return;
-        }
-
-        break;
-      }
-
-      case "near": {
-        switch (network) {
-          case "betanet":
-            this.nearBetanetRpc = value || DEFAULT_NEAR_BETANET_RPC;
-            this.save();
-            return;
-          case "testnet":
-            this.nearTestnetRpc = value || DEFAULT_NEAR_TESTNET_RPC;
-            this.save();
-            return;
-          case "mainnet":
-            this.nearMainnetRpc = value || DEFAULT_NEAR_MAINNET_RPC;
-            this.save();
-            return;
-        }
-
-        break;
-      }
-
-      case "aptos": {
-        switch (network) {
-          case "testnet":
-            this.aptosTestnetRpc = value || DEFAULT_APTOS_TESTNET_RPC;
-            this.save();
-            return;
-          case "mainnet":
-            this.aptosMainnetRpc = value || DEFAULT_APTOS_MAINNET_RPC;
-            this.save();
-            return;
-        }
-
-        break;
       }
     }
 
-    throw new Error(
-      `Failed to set config parameter for chain ${chain} and network ${network}`
-    );
-  }
-
-  setDefaultAccount(
-    chain: "solana" | "near" | "aptos",
-    network: string,
-    value: string | undefined
-  ) {
-    switch (chain) {
-      case "solana": {
-        switch (network) {
-          case "devnet":
-            this.solanaDevnetDefaultAccount = value || "";
-            this.save();
-            return;
-          case "mainnet":
-            this.solanaMainnetDefaultAccount = value || "";
-            this.save();
-            return;
-        }
-
-        break;
-      }
-
-      case "near": {
-        switch (network) {
-          case "betanet":
-            this.nearBetanetDefaultAccount = value || "";
-            this.save();
-            return;
-          case "testnet":
-            this.nearTestnetDefaultAccount = value || "";
-            this.save();
-            return;
-          case "mainnet":
-            this.nearMainnetDefaultAccount = value || "";
-            this.save();
-            return;
-        }
-
-        break;
-      }
-
-      case "aptos": {
-        switch (network) {
-          case "testnet":
-            this.aptosTestnetDefaultAccount = value || "";
-            this.save();
-            return;
-          case "mainnet":
-            this.aptosMainnetDefaultAccount = value || "";
-            this.save();
-            return;
-        }
-
-        break;
-      }
-    }
-
-    throw new Error(
-      `Failed to set config parameter for chain ${chain} and network ${network}`
-    );
+    return outputLines.join("\n");
   }
 }
+
+const toTitleCase = (input: string): string => {
+  return input
+    .split(" ")
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(" ");
+};
