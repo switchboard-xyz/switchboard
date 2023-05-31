@@ -47,7 +47,6 @@ export const SWITCHBOARD_NETWORKS: SwitchboardNetworks = {
   sui: SWITCHBOARD_SUI_CONFIG,
 };
 
-
 export { SWITCHBOARD_APTOS_CONFIG as aptos } from './aptos.js';
 export { SWITCHBOARD_ARBITRUM_CONFIG as arbitrum } from './arbitrum.js';
 export { SWITCHBOARD_COREDAO_CONFIG as coredao } from './coredao.js';

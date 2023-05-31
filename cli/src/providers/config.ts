@@ -1,6 +1,11 @@
 import { chalkString } from "../utils";
 
-import { networks } from "@switchboard-xyz/common";
+import {
+  ChainConfig,
+  getSupportedChain,
+  getSupportedNetwork,
+  networks,
+} from "@switchboard-xyz/common";
 import chalk from "chalk";
 import fs from "fs";
 import path from "path";
@@ -87,6 +92,14 @@ export class ConfigProvider {
 
   getDefaultAccount(chain: string, network: string): string | undefined {
     return this.getConfig(chain, network)?.defaultAccount;
+  }
+
+  getChain(chain: string): ChainConfig {
+    return getSupportedChain(chain);
+  }
+
+  getProgramId(chain: string, network: string): string {
+    return getSupportedNetwork(chain, network).programId;
   }
 
   setRpcUrl(chain: string, network: string, value: string | undefined) {

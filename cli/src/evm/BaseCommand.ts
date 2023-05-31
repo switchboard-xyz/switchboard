@@ -4,7 +4,12 @@ import { IBaseChain } from "../types/chain";
 
 import { Flags } from "@oclif/core";
 import { Input } from "@oclif/parser";
-import { OracleJob } from "@switchboard-xyz/common";
+import { OracleJob, parseSecretString } from "@switchboard-xyz/common";
+import { providers, Wallet } from "ethers";
+
+type EvmChain = "coredao" | "arbitrum";
+
+type EvmNetwork = "mainnet" | "testnet";
 
 export abstract class EvmBaseCommand extends BaseCommand implements IBaseChain {
   static flags = {
@@ -13,19 +18,37 @@ export abstract class EvmBaseCommand extends BaseCommand implements IBaseChain {
       description: "the evm chain to interact with",
       options: ["coredao", "arbitrum"],
       required: true,
-      exclusive: ["chainId"],
+      // exclusive: ["chainId"],
+    }),
+    // chainId: Flags.string({
+    //   description: "the evm chain to interact with",
+    //   options: ["coredao", "arbitrum"],
+    //   required: true,
+    //   exclusive: ["chain", "network"],
+    // }),
+    coredao: Flags.boolean({
+      description: "use the coredao chain",
+      exclusive: ["chain", "coredao"],
+    }),
+    arbitrum: Flags.boolean({
+      description: "use the arbitrum chain",
+      exclusive: ["chain", "arbitrum"],
     }),
     network: Flags.string({
       description: "the EVM network to connect to",
       options: ["mainnet", "testnet"],
       required: true,
-      exclusive: ["chainId"],
+      exclusive: ["mainnet", "testnet"],
     }),
-    chainId: Flags.string({
-      description: "the evm chain to interact with",
-      options: ["coredao", "arbitrum"],
-      required: true,
-      exclusive: ["chain", "network"],
+    mainnet: Flags.boolean({
+      description: "use the mainnet network",
+      default: false,
+      exclusive: ["network"],
+    }),
+    testnet: Flags.boolean({
+      description: "use the testnet network",
+      default: false,
+      exclusive: ["network"],
     }),
     rpcUrl: Flags.string({
       char: "u",
@@ -38,233 +61,181 @@ export abstract class EvmBaseCommand extends BaseCommand implements IBaseChain {
 
   public hasSigner = false;
 
-  public network: string;
+  public chain: EvmChain;
+
+  public network: EvmNetwork;
 
   public rpcUrl: string;
 
   public programId: string;
-
-  // public connection: Connection;
-
-  // public program: SwitchboardProgram;
-
-  public commitment: "confirmed" | "finalized" | "processed";
 
   async init() {
     await super.init();
     const { flags } = await this.parse((<Input<any>>this.constructor) as any);
     BaseCommand.flags = flags as any;
 
-    this.network = this.getNetwork(
-      (flags as any).cluster,
-      (flags as any).mainnetBeta
+    this.chain = this.getChain(
+      (flags as any).chain,
+      (flags as any).coredao,
+      (flags as any).arbitrum
     );
-    this.programId = this.getProgramId(this.network, (flags as any).programId);
 
-    this.rpcUrl = this.getRpcUrl(this.network, (flags as any).rpcUrl);
-    // this.commitment = (flags as any).commitment ?? "confirmed";
-    // this.connection = new Connection(this.rpcUrl, {
-    //   commitment: (flags as any).commitment ?? "confirmed",
-    // });
+    this.network = this.getNetwork((flags as any).cluster);
 
-    // TODO: Load connection params from config
+    this.rpcUrl = this.getRpcUrl(
+      this.chain,
+      this.network,
+      (flags as any).rpcUrl
+    );
+
+    this.programId = this.getProgramId(
+      this.chain,
+      this.network,
+      (flags as any).programId
+    );
+
     this.logConfig({
-      cluster: this.network,
+      chain: this.chain,
+      network: this.network,
       rpc: this.rpcUrl,
+      programId: this.programId,
     });
   }
 
-  toUrl(signature: string) {
-    return `https://explorer.solana.com/tx/${signature}?cluster=${this.network}`;
-  }
-
-  toAccountUrl(account: string) {
-    return `https://explorer.solana.com/address/${account}?cluster=${this.network}`;
-  }
-
-  getNetwork(clusterOption?: string, mainnetFlag?: string): string {
-    if (clusterOption) {
-      switch (clusterOption) {
-        case "mainnet":
-        case "mainnet-beta": {
-          return "mainnet-beta";
-        }
-
-        case "devnet": {
-          return "devnet";
-        }
-
-        case "localnet": {
-          return "localnet";
-        }
-      }
+  getChain(chain?: string, coredao?: boolean, arbitrum?: boolean): EvmChain {
+    if (coredao) {
+      return "coredao";
     }
 
-    if (mainnetFlag) {
-      return "mainnet-beta";
+    if (arbitrum) {
+      return "arbitrum";
     }
 
-    return "devnet";
+    if (!chain) {
+      throw new Error(`Need to provide --chain`);
+    }
+
+    if (chain !== "coredao" && chain !== "arbitrum") {
+      throw new Error(`--chain must be 'coredao' or 'arbitrum'`);
+    }
+
+    return chain;
   }
 
-  getRpcUrl(cluster: string, rpcUrlFlag?: string): string {
+  getRpcUrl(chain: EvmChain, network: EvmNetwork, rpcUrlFlag?: string): string {
     if (rpcUrlFlag) {
       return rpcUrlFlag;
     }
 
-    const rpcUrl = this.ctx.getRpcUrl("solana", cluster);
+    const rpcUrl = this.ctx.getRpcUrl(chain, network);
     if (!rpcUrl) {
       throw new Error(
-        `Failed to get Evm RPC URL for cluster ${cluster}. Try providing the --rpcUrl flag`
+        `Failed to get EVM RPC_URL for ${chain} ${network}. Try providing the --rpcUrl flag`
       );
     }
 
     return rpcUrl;
   }
 
-  getProgramId(cluster: string, programIdFlag: string): string {
+  getNetwork(
+    networkOption?: string,
+    mainnet?: boolean,
+    testnet?: boolean
+  ): EvmNetwork {
+    if (mainnet) {
+      return "mainnet";
+    }
+
+    if (testnet) {
+      return "testnet";
+    }
+
+    if (!networkOption) {
+      throw new Error(`Need to provide --network`);
+    }
+
+    if (networkOption !== "mainnet" && networkOption !== "testnet") {
+      throw new Error(`--network must be 'mainnet' or 'testnet'`);
+    }
+
+    return networkOption;
+  }
+
+  getProgramId(
+    chain: EvmChain,
+    network: EvmNetwork,
+    programIdFlag?: string
+  ): string {
     if (programIdFlag) {
       return programIdFlag;
     }
 
-    // if (cluster === "mainnet-beta") {
-    //   return SBV2_MAINNET_PID;
-    // }
-
-    // return SBV2_DEVNET_PID;
-
-    throw new Error(`Not implemented yet`);
+    return this.ctx.getProgramId(chain, network);
   }
 
-  // async loadProgram(
-  //   signer: Keypair = Keypair.fromSeed(new Uint8Array(32).fill(1))
-  // ): Promise<SwitchboardProgram> {
-  //   if (!this.connection) {
-  //     throw new Error(
-  //       `Need to load the connection before loading the Anchor program`
-  //     );
-  //   }
+  toUrl(signature: string) {
+    return "NOT_SUPPORTED";
+    // return `https://explorer.solana.com/tx/${signature}?cluster=${this.network}`;
+  }
 
-  //   if (!this.programId) {
-  //     throw new Error(
-  //       `Need to load the programId before loading the Anchor program`
-  //     );
-  //   }
+  toAccountUrl(account: string) {
+    return "NOT_SUPPORTED";
+    // return `https://explorer.solana.com/address/${account}?cluster=${this.network}`;
+  }
 
-  //   const program = await SwitchboardProgram.load(
-  //     this.network,
-  //     this.connection,
-  //     signer,
-  //     this.programId
-  //   );
+  async getSigner(keypairPath: string): Promise<Wallet> {
+    const parseKeypairString = (fileString: string): Wallet => {
+      const parsedSecret = parseSecretString(fileString);
+      if (parsedSecret) {
+        const provider = new providers.JsonRpcProvider(this.rpcUrl);
+        return new Wallet(parsedSecret.toString("hex"), provider);
+      }
 
-  //   return program;
-  // }
+      throw new Error(`Failed to derive secret key from input file`);
+    };
 
-  /** Load a keypair from a CLI flag and optionally check if it matches the expected account authority */
-  // async loadKeypair(
-  //   keypairPath: string,
-  //   expectedPubkey?: PublicKey
-  // ): Promise<Keypair> {
-  //   const keypair = await loadKeypair(keypairPath);
+    const errors: any[] = [];
 
-  //   if (expectedPubkey && !expectedPubkey.equals(keypair.publicKey)) {
-  //     throw new AuthorityMismatch();
-  //   }
-
-  //   return keypair;
-  // }
-
-  /** Load an authority from a CLI flag and optionally check if it matches the expected account authority */
-  // async loadAuthority(
-  //   authorityPath: string | unknown,
-  //   expectedAuthority?: PublicKey
-  // ): Promise<Keypair> {
-  //   const authority: Keypair =
-  //     typeof authorityPath === "string"
-  //       ? await loadKeypair(authorityPath)
-  //       : this.program.wallet.payer;
-
-  //   if (expectedAuthority && !expectedAuthority.equals(authority.publicKey)) {
-  //     throw new AuthorityMismatch();
-  //   }
-
-  //   return authority;
-  // }
-
-  mainnetCheck(): void {
-    if (this.network === "mainnet-beta") {
-      throw new Error(
-        "cli@^2 is still in beta, mainnet is disabled for this command."
+    // try loading keypair from filesystem
+    try {
+      const normalizedKeypairPath = this.normalizePath(keypairPath);
+      const wallet = FsProvider.getSecret(
+        normalizedKeypairPath,
+        parseKeypairString
       );
+      return wallet;
+    } catch (error) {
+      errors.push(error);
     }
+
+    // try loading keypair from gcp secret manager
+    try {
+      const wallet = await GcpProvider.getSecret(
+        keypairPath,
+        parseKeypairString
+      );
+      return wallet;
+    } catch (error) {
+      errors.push(error);
+    }
+
+    // try loading keypair from aws secrets
+    try {
+      const wallet = await AwsProvider.getSecret(
+        keypairPath,
+        parseKeypairString
+      );
+      return wallet;
+    } catch (error) {
+      errors.push(error);
+    }
+
+    throw new Error(
+      `Failed to load EVM keypair ${keypairPath}\n${errors
+        .map((e) => (e as any).toString())
+        .join("\n")}`
+    );
   }
-
-  // async getSigner(keypairPath: string): Promise<Keypair> {
-  //   const parseKeypairString = (fileString: string): Keypair => {
-  //     // check if bytes
-  //     const parsedFileString = fileString
-  //       .trim()
-  //       .replace(/\n/g, "")
-  //       .replace(/\s/g, "");
-  //     const bytesRegex = /^\[(\s)?\d+((\s)?,(\s)?\d+){31,}]/;
-  //     if (bytesRegex.test(parsedFileString)) {
-  //       return Keypair.fromSecretKey(
-  //         new Uint8Array(JSON.parse(parsedFileString))
-  //       );
-  //     }
-
-  //     try {
-  //       return Keypair.fromSecretKey(
-  //         new Uint8Array(JSON.parse(parsedFileString))
-  //       );
-  //     } catch {}
-
-  //     throw new Error(`Failed to derive secret key from input file`);
-  //   };
-
-  //   const errors: any[] = [];
-
-  //   // try loading keypair from filesystem
-  //   try {
-  //     const normalizedKeypairPath = this.normalizePath(keypairPath);
-  //     const keypair = FsProvider.getSecret(
-  //       normalizedKeypairPath,
-  //       parseKeypairString
-  //     );
-  //     return keypair;
-  //   } catch (error) {
-  //     errors.push(error);
-  //   }
-
-  //   // try loading keypair from gcp secret manager
-  //   try {
-  //     const keypair = await GcpProvider.getSecret(
-  //       keypairPath,
-  //       parseKeypairString
-  //     );
-  //     return keypair;
-  //   } catch (error) {
-  //     errors.push(error);
-  //   }
-
-  //   // try loading keypair from aws secrets
-  //   try {
-  //     const keypair = await AwsProvider.getSecret(
-  //       keypairPath,
-  //       parseKeypairString
-  //     );
-  //     return keypair;
-  //   } catch (error) {
-  //     errors.push(error);
-  //   }
-
-  //   throw new Error(
-  //     `Failed to load Evm keypair ${keypairPath}\n${errors
-  //       .map((error) => (error as any).toString())
-  //       .join("\n")}`
-  //   );
-  // }
 
   deserializeJobData(jobData: Uint8Array): OracleJob {
     return OracleJob.decodeDelimited(jobData);
