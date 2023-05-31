@@ -82,8 +82,8 @@ importers:
         specifier: workspace:^
         version: link:../javascript/common
       '@switchboard-xyz/evm.js':
-        specifier: ^3.10.5
-        version: 3.10.5
+        specifier: ^3.10.6
+        version: 3.10.6
       '@switchboard-xyz/near.js':
         specifier: ^2.2.4
         version: 2.2.4(typescript@4.9.5)
@@ -9243,8 +9243,8 @@ packages:
       - utf-8-validate
     dev: false
 
-  /@switchboard-xyz/evm.js@3.10.5:
-    resolution: {integrity: sha512-ncrqSTx5fGz6u/x6sXDBWpd8aseuR5m32DW/0VTssB5+th8UNPe6D8OYqZyQlqIPsEqy1AMapL9qdvjUPVKJ3w==}
+  /@switchboard-xyz/evm.js@3.10.6:
+    resolution: {integrity: sha512-aJIDWwEMAwd6lTgO8NUHX8LGZPqfPMOHZaYU1dajHa4tQ5S0zixdifneP3JzowtH7+QcjJA8GBAqLcB1BQsATQ==}
     engines: {node: '>=12.0.0'}
     dependencies:
       '@ethersproject/abi': 5.7.0

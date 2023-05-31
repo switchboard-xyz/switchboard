@@ -1,5 +1,6 @@
-import { OracleJob } from "../src";
-import { expect } from "chai";
+import { OracleJob } from '../src';
+
+import { expect } from 'chai';
 
 const yaml = `
 tasks:
@@ -19,15 +20,15 @@ const json = {
   tasks: [
     {
       httpTask: {
-        url: "https://api.gateio.ws/api/v4/spot/tickers?currency_pair=BTC_USDT",
+        url: 'https://api.gateio.ws/api/v4/spot/tickers?currency_pair=BTC_USDT',
       },
     },
     {
       medianTask: {
         tasks: [
-          { jsonParseTask: { path: "$.bid" } },
-          { jsonParseTask: { path: "$.ask" } },
-          { jsonParseTask: { path: "$.last" } },
+          { jsonParseTask: { path: '$.bid' } },
+          { jsonParseTask: { path: '$.ask' } },
+          { jsonParseTask: { path: '$.last' } },
         ],
       },
     },
@@ -35,22 +36,22 @@ const json = {
 };
 const oracleJob = OracleJob.create(json);
 
-describe("OracleJob Tests", () => {
-  describe("JSON", () => {
-    it("OracleJob.toJSON", () => {
+describe('OracleJob Tests', () => {
+  describe('JSON', () => {
+    it('OracleJob.toJSON', () => {
       expect(oracleJob.toJSON()).deep.equal(json);
     });
   });
-  describe("YAML", () => {
-    it("OracleJob.toYaml", () => {
+  describe('YAML', () => {
+    it('OracleJob.toYaml', () => {
       expect(oracleJob.toYaml().trim()).deep.equal(yaml);
     });
 
-    it("OracleJob.fromYaml", () => {
+    it('OracleJob.fromYaml', () => {
       expect(OracleJob.fromYaml(yaml).toJSON()).deep.equal(json);
     });
 
-    it("Accesses child properties", () => {
+    it('Accesses child properties', () => {
       const bufferParserType = (iTask: OracleJob) => {};
 
       expect(bufferParserType).not.throw();

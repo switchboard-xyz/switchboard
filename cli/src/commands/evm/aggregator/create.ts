@@ -3,7 +3,11 @@ import { EvmWithSignerBaseCommand as BaseCommand } from "../../../evm";
 import { Args, Flags } from "@oclif/core";
 import { Big } from "@switchboard-xyz/common";
 import { OracleJob } from "@switchboard-xyz/common";
-import { AggregatorAccount, SwitchboardProgram } from "@switchboard-xyz/evm.js";
+import {
+  EnablePermissions,
+  Permissions,
+  publishJobsToIPFS,
+} from "@switchboard-xyz/evm.js";
 
 export default class CreateAggregator extends BaseCommand {
   static enableJsonFlag = true;
@@ -17,7 +21,7 @@ export default class CreateAggregator extends BaseCommand {
     authority: Flags.string({
       char: "a",
       description:
-        "alternate named account that will be the authority for the oracle",
+        "alternate account that will be the authority for the aggregator",
     }),
     name: Flags.string({
       description: "name of the aggregator for easier identification",
@@ -54,6 +58,17 @@ export default class CreateAggregator extends BaseCommand {
       description: "filesystem path to job definition file",
       multiple: true,
     }),
+    enableHistory: Flags.boolean({
+      description: "enable history for the feed",
+    }),
+    enable: Flags.boolean({
+      description: "enable the oracles heartbeat permissions",
+    }),
+    queueAuthority: Flags.string({
+      description:
+        "override the default signer when setting oracle permissions",
+      dependsOn: ["enable"],
+    }),
   };
 
   static args = {
@@ -66,113 +81,88 @@ export default class CreateAggregator extends BaseCommand {
   async run() {
     const { flags, args } = await this.parse(CreateAggregator);
 
-    const [queue, queueData] = await this.loadQueue(args.queueAddress);
+    const authority = await this.getAuthority(flags.authority);
+    const authorityAddress = await authority.getAddress();
 
-    // const jobs: [JobAccount, string][] = flags.job
-    //   ? await Promise.all(
-    //       flags.job.map(async (jobDefinition) => {
-    //         const jobPayer = SwitchboardProgram.getAccount();
-    //         // await this.faucet.fundAccount(jobPayer.address(), 10000);
-    //         const oracleJob = this.loadJobDefinition(jobDefinition);
-    //         const oracleJobData = Buffer.from(
-    //           OracleJob.encodeDelimited(oracleJob).finish()
-    //         );
-    //         // console.log(`Serialized [${new Uint8Array(oracleJobData)}]`);
-    //         const jobAccount = await JobAccount.init(
-    //           this.aptos,
-    //           jobPayer,
-    //           {
-    //             name: flags.name || "",
-    //             metadata: flags.metadata || "",
-    //             authority: flags.authority
-    //               ? this.parseAddress(flags.authority)
-    //               : this.signer.address(),
-    //             data: oracleJobData.toString("hex"),
-    //           },
-    //           this.programId.toString()
-    //         );
+    let enableParams: EnablePermissions = false;
+    if (flags.enable) {
+      enableParams = true;
 
-    //         return jobAccount;
-    //       })
-    //     )
-    //   : [];
-    // const account = flags.new ? this.program.newAccount : this.signer;
+      if (flags.queueAuthority) {
+        const queueAuthoritySigner = await this.getAuthority(
+          flags.queueAuthority
+        );
+        enableParams = { queueAuthority: queueAuthoritySigner };
+      }
+    }
 
-    // const [aggregatorAccount, aggSig] = await AggregatorAccount.init(
-    //   this.aptos,
-    //   account,
-    //   {
-    //     authority: flags.authority || this.signer.address(),
-    //     name: flags.name || "",
-    //     metadata: flags.metadata || "",
-    //     queueAddress: queue.address,
-    //     batchSize: flags.batchSize ?? 1,
-    //     minOracleResults: flags.minOracles ?? 1,
-    //     minJobResults: flags.minJobs ?? 1,
-    //     minUpdateDelaySeconds: flags.updateInterval,
-    //     startAfter: 0,
-    //     varianceThreshold: new Big(flags.varianceThreshold),
-    //     forceReportPeriod: flags.forceReportPeriod,
-    //     coinType: "0x1::aptos_coin::AptosCoin",
-    //     crankAddress: flags.crankAddress ?? "0x0",
-    //   },
-    //   this.programId.toString()
-    // );
-    // const accountData = await aggregatorAccount.loadData();
+    const [queueAccount, queueData] = await this.loadQueue(args.queueAddress);
 
-    // // const [permissionAccount, sig2] = await Permission.init(
-    // //   this.aptos,
-    // //   account,
-    // //   {
-    // //     authority: queueData.authority,
-    // //     granter: queue.address,
-    // //     grantee: account.address(),
-    // //   },
-    // //   this.programId
-    // // );
-    // // this.logger.info(this.toUrl(sig2));
+    const jobs = flags.job
+      ? flags.job.map((defPath) => this.loadJobDefinitionWithMeta(defPath))
+      : [];
 
-    // for await (const [jobAccount] of jobs) {
-    //   await aggregatorAccount.addJob(this.signer, {
-    //     job: jobAccount.address,
-    //   });
-    // }
+    let jobsHash = "";
+    if (jobs.length > 0) {
+      jobsHash = await publishJobsToIPFS(
+        jobs.map((j) => {
+          return {
+            name: j.name ?? "",
+            weight: j.weight ?? 1,
+            data: Buffer.from(
+              OracleJob.encodeDelimited(j.job).finish()
+            ).toString(),
+          };
+        })
+      );
+    }
 
-    // // if (flags.crankAddress) {
-    // //   const [crank, crankData] = await this.loadCrank(flags.crankAddress);
-    // //   await crank.push(this.signer, {
-    // //     aggregatorAddress: aggregatorAccount.address.toString(),
-    // //   });
-    // // }
+    const aggregatorAccount = await queueAccount.createAggregator(
+      {
+        name: flags.name ?? "",
+        authority: authorityAddress,
+        batchSize: flags.batchSize ?? 1,
+        minUpdateDelaySeconds: flags.updateInterval ?? 30,
+        minOracleResults: flags.minOracles ?? 1,
+        minJobResults: flags.minJobs ?? 1,
+        jobsHash: jobsHash,
+        varianceThreshold: flags.varianceThreshold
+          ? Number.parseFloat(flags.varianceThreshold)
+          : 0,
+        forceReportPeriod: flags.forceReportPeriod ?? 0,
+        enableHistory: flags.enableHistory,
+      },
+      enableParams
+    );
 
-    // const fullJobsData = await Promise.all(
-    //   jobs.map(async ([job, _]) => {
-    //     const jobData = await job.loadData();
-    //     return {
-    //       ...jobData,
-    //       // data: this.deserializeJobData(jobData.data),
-    //     };
-    //   })
-    // );
+    const aggregator = await aggregatorAccount.loadData();
 
-    // if (flags.json) {
-    //   return this.normalizeAccountData(aggregatorAccount.address.toString(), {
-    //     ...accountData,
-    //     jobs: fullJobsData,
-    //   });
-    // }
+    let permissions: string | undefined;
+    try {
+      permissions = await Permissions.getSwitchboardPermissions(
+        this.program,
+        aggregator.queueAddress,
+        aggregatorAccount.address
+      );
+    } catch {}
 
-    // this.logger.info(`Aggregator HexString: ${aggregatorAccount.address}`);
-    // this.logger.info(
-    //   this.normalizeAccountData(aggregatorAccount.address.toString(), {
-    //     ...accountData,
-    //     jobs: fullJobsData,
-    //   })
-    // );
-    // this.logger.info(this.toUrl(aggSig));
+    const aggregatorData = {
+      ...aggregator,
+      permissions,
+      jobs,
+    };
+
+    if (flags.json) {
+      return this.normalizeAccountData(
+        aggregatorAccount.address,
+        aggregatorData
+      );
+    }
+
+    this.prettyPrintAggregator(aggregatorData, aggregatorAccount.address);
   }
 
   async catch(error: any) {
-    super.catch(error, "Failed to create aptos aggregator");
+    super.catch(error, "Failed to create aggregator");
   }
 }

@@ -10,8 +10,9 @@ import { Signer, Wallet } from "ethers";
 export abstract class EvmWithSignerBaseCommand extends BaseCommand {
   static flags = {
     ...BaseCommand.flags,
-    keypair: Flags.string({
-      description: "Path to EvmAccount keypair",
+    account: Flags.string({
+      description:
+        "Path to file containing the private key for the payer account",
       required: true,
     }),
   };
@@ -29,7 +30,7 @@ export abstract class EvmWithSignerBaseCommand extends BaseCommand {
     const { flags } = await this.parse((<Input<any>>this.constructor) as any);
     BaseCommand.flags = flags as any;
 
-    this._signer = await this.getSigner((flags as any).keypair);
+    this._signer = await this.getSigner((flags as any).account);
     this.program = await SwitchboardProgram.load(this.signer, this.programId);
     this.address = await this.signer.getAddress();
 

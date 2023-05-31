@@ -49,7 +49,7 @@ export default class QueueCreate extends BaseCommand {
       authority: await authority.getAddress(),
       oracleTimeout: flags.oracleTimeout,
       reward: flags.reward,
-      unpermissionedFeedsEnabled: flags.unpermissionedFeeds,
+      unpermissionedFeedsEnabled: !flags.unpermissionedFeeds,
       maxSize: flags.queueSize,
     });
 

@@ -11,6 +11,8 @@ import {
   BNtoDateTimeString,
   getSupportedNetwork,
   IChainNetworkConfig,
+  isBase64,
+  isHex,
   OracleJob,
   parseSecretString,
 } from "@switchboard-xyz/common";
@@ -26,6 +28,7 @@ import {
 } from "@switchboard-xyz/evm.js";
 import chalk from "chalk";
 import { BigNumber, providers, Wallet } from "ethers";
+import fs from "fs";
 import path from "path";
 
 type EvmChain = "coredao" | "arbitrum";
@@ -281,6 +284,47 @@ export abstract class EvmBaseCommand extends BaseCommand implements IBaseChain {
     return fromBigNumber(num);
   }
 
+  loadJobDefinitionWithMeta(definitionPath: string): {
+    name: string;
+    weight: number;
+    job: OracleJob;
+  } {
+    const fileString = fs.readFileSync(definitionPath, "utf-8");
+    const jobDef = JSON.parse(fileString);
+
+    let name = "";
+    if ("name" in jobDef && typeof jobDef.name === "string") {
+      name = jobDef.name;
+    }
+
+    let weight = 1;
+    if ("weight" in jobDef && typeof jobDef.weight === "number") {
+      weight = jobDef.weight;
+    }
+
+    if ("data" in jobDef && typeof jobDef.data === "string") {
+      const dataString: string = jobDef.data;
+      const oracleJob = OracleJob.decodeDelimited(
+        Buffer.from(
+          jobDef.data,
+          isBase64(dataString)
+            ? "base64"
+            : isHex(dataString)
+            ? "hex"
+            : undefined
+        )
+      );
+      return { name, weight, job: oracleJob };
+    }
+
+    if ("tasks" in jobDef && Array.isArray(jobDef.tasks)) {
+      const oracleJob = this.loadJobDefinition(definitionPath);
+      return { name, weight, job: oracleJob };
+    }
+
+    throw new Error(`Failed to parse job definition`);
+  }
+
   deserializeJobData(jobData: Uint8Array): OracleJob {
     return OracleJob.decodeDelimited(jobData);
   }
@@ -408,19 +452,6 @@ export abstract class EvmBaseCommand extends BaseCommand implements IBaseChain {
     const logString = output.join("\n");
 
     this.log(logString);
-  }
-
-  prettyPrintPermissions(permission: any, address: string, SPACING = 24) {
-    throw new Error(`Not implemented yet`);
-  }
-
-  prettyPrintLease(
-    lease: any,
-    address: string,
-    balance?: number,
-    SPACING = 24
-  ) {
-    throw new Error(`Not implemented yet`);
   }
 
   prettyPrintJob(

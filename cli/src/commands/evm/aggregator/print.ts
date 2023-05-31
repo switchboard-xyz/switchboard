@@ -2,7 +2,8 @@ import { EvmWithoutSignerBaseCommand as BaseCommand } from "../../../evm";
 import { chalkString, stripTrailingZeros } from "../../../utils";
 
 import { Args, Flags } from "@oclif/core";
-import { Permissions } from "@switchboard-xyz/evm.js";
+import { OracleJob } from "@switchboard-xyz/common";
+import { fetchJobsFromIPFS, Job, Permissions } from "@switchboard-xyz/evm.js";
 import chalk from "chalk";
 
 export default class AggregatorPrint extends BaseCommand {
@@ -12,6 +13,9 @@ export default class AggregatorPrint extends BaseCommand {
 
   static flags = {
     ...BaseCommand.flags,
+    jobs: Flags.boolean({
+      description: "print the job definitions for the aggregator",
+    }),
     results: Flags.boolean({
       description: "print the current results for the aggregator",
     }),
@@ -38,13 +42,48 @@ export default class AggregatorPrint extends BaseCommand {
         aggregator.queueAddress,
         aggregatorAccount.address
       );
-    } catch (error) {
-      console.error(error);
-    }
+    } catch {}
+
+    let jobs: { name: string; weight?: number; job: OracleJob }[] | undefined;
+    try {
+      if (aggregator.jobsHash && aggregator.jobsHash.length > 0) {
+        const parsedJobs: { name: string; weight?: number; job: OracleJob }[] =
+          [];
+        const jobDefinitions = await fetchJobsFromIPFS(aggregator.jobsHash);
+        for (const jobDef of jobDefinitions) {
+          let name = "";
+          if ("name" in jobDef && typeof jobDef.name === "string") {
+            name = jobDef.name;
+          }
+
+          let weight = 1;
+          if ("weight" in jobDef && typeof jobDef.weight === "number") {
+            weight = jobDef.weight;
+          }
+
+          if ("data" in jobDef && typeof jobDef.data === "string") {
+            const oracleJob = OracleJob.decodeDelimited(
+              Buffer.from(jobDef.data, "base64")
+            );
+            parsedJobs.push({ name, weight, job: oracleJob });
+          }
+        }
+
+        if (parsedJobs.length === jobDefinitions.length) {
+          jobs = parsedJobs;
+        } else {
+          this.logError(
+            `Only found ${parsedJobs.length} definitions, expected ${jobDefinitions.length}`
+          );
+        }
+        // TODO log error
+      }
+    } catch {}
 
     const aggregatorData = {
       ...aggregator,
       permissions,
+      jobs,
     };
 
     if (flags.json) {
@@ -74,6 +113,23 @@ export default class AggregatorPrint extends BaseCommand {
         }
       } else {
         this.log("No results found");
+      }
+    }
+
+    if (flags.jobs && jobs && (jobs?.length ?? 0) > 0) {
+      this.log(
+        chalk.underline(
+          chalkString("\n## Jobs", Array.from({ length: 44 }).join(" "))
+        )
+      );
+
+      for (const [n, job] of jobs.entries()) {
+        this.logger.info(
+          chalkString(
+            `${job.name}, weight = ${job.weight ?? 1}`,
+            "\n" + JSON.stringify(job.job.toJSON(), undefined, 2)
+          )
+        );
       }
     }
   }
