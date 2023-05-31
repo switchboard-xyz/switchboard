@@ -3,8 +3,10 @@ import { IChainNetworkConfig, ISolanaConfig } from './types.js';
 export const SWITCHBOARD_SOLANA_MAINNET_CONFIG: IChainNetworkConfig = {
   networkName: 'Mainnet-Beta',
   programId: 'SW1TCH7qEPTdLsDHRgPuMQjbQxKdH2aBStViMFnt64f',
+  attestationService: '2No5FVKPAAYqytpkEoq93tVh33fo4p6DgAnm4S6oZHo7',
   authority: '2NvGRFswVx3GXxURNSfjbsWY4iP1ufj8LvAKJWGXSm4D',
   idlAddress: 'Fi8vncGpNKbq62gPo56G4toCehWNy77GgqGkTaAF5Lkk',
+  attestationIdlAddress: 'th1SbXMTX3SrWJ1kbiSKqMDpTBaXkESxpcehXRa12T4',
   metadata: {
     defaultRpcUrl: 'https://api.mainnet-beta.solana.com',
     defaultExplorer: 'https://explorer.solana.com',
@@ -30,8 +32,10 @@ export const SWITCHBOARD_SOLANA_MAINNET_CONFIG: IChainNetworkConfig = {
 export const SWITCHBOARD_SOLANA_DEVNET_CONFIG: IChainNetworkConfig = {
   networkName: 'Devnet',
   programId: 'SW1TCH7qEPTdLsDHRgPuMQjbQxKdH2aBStViMFnt64f',
+  attestationService: '2No5FVKPAAYqytpkEoq93tVh33fo4p6DgAnm4S6oZHo7',
   authority: '2KgowxogBrGqRcgXQEmqFvC3PGtCu66qERNJevYW8Ajh',
   idlAddress: 'Fi8vncGpNKbq62gPo56G4toCehWNy77GgqGkTaAF5Lkk',
+  attestationIdlAddress: 'th1SbXMTX3SrWJ1kbiSKqMDpTBaXkESxpcehXRa12T4',
   metadata: {
     defaultRpcUrl: 'https://api.devnet.solana.com',
     defaultExplorer: 'https://explorer.solana.com/?cluster=devnet',
@@ -62,8 +66,10 @@ export const SWITCHBOARD_SOLANA_DEVNET_CONFIG: IChainNetworkConfig = {
   "mainnet": {
     "networkName": "Mainnet-Beta",
     "programId": "SW1TCH7qEPTdLsDHRgPuMQjbQxKdH2aBStViMFnt64f",
+    "attestationService": "2No5FVKPAAYqytpkEoq93tVh33fo4p6DgAnm4S6oZHo7",
     "authority": "2NvGRFswVx3GXxURNSfjbsWY4iP1ufj8LvAKJWGXSm4D",
     "idlAddress": "Fi8vncGpNKbq62gPo56G4toCehWNy77GgqGkTaAF5Lkk",
+    "attestationIdlAddress": "th1SbXMTX3SrWJ1kbiSKqMDpTBaXkESxpcehXRa12T4",
     "metadata": {
       "defaultRpcUrl": "https://api.mainnet-beta.solana.com",
       "defaultExplorer": "https://explorer.solana.com"
@@ -88,8 +94,10 @@ export const SWITCHBOARD_SOLANA_DEVNET_CONFIG: IChainNetworkConfig = {
   "devnet": {
     "networkName": "Devnet",
     "programId": "SW1TCH7qEPTdLsDHRgPuMQjbQxKdH2aBStViMFnt64f",
+    "attestationService": "2No5FVKPAAYqytpkEoq93tVh33fo4p6DgAnm4S6oZHo7",
     "authority": "2KgowxogBrGqRcgXQEmqFvC3PGtCu66qERNJevYW8Ajh",
     "idlAddress": "Fi8vncGpNKbq62gPo56G4toCehWNy77GgqGkTaAF5Lkk",
+    "attestationIdlAddress": "th1SbXMTX3SrWJ1kbiSKqMDpTBaXkESxpcehXRa12T4",
     "metadata": {
       "defaultRpcUrl": "https://api.devnet.solana.com",
       "defaultExplorer": "https://explorer.solana.com/?cluster=devnet"
