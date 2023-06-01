@@ -1,6 +1,6 @@
 import type { VersionMetadata } from "../../types";
 
-export const TOPICS = ["config", "aptos", "near", "solana"];
+export const TOPICS = ["config", "aptos", "evm", "near", "solana"];
 
 type CommandTopic = (typeof TOPICS)[number];
 
@@ -29,6 +29,7 @@ export interface Commands {
     set: ParsedCommand;
   };
   aptos: CommandSubTopic;
+  evm: CommandSubTopic;
   near: CommandSubTopic;
   solana: CommandSubTopic;
 }

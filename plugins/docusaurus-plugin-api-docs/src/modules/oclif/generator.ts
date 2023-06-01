@@ -91,40 +91,42 @@ export class OclifGenerator extends Generator<CliVersionMetadata> {
                 ],
               },
               // chain items
-              ...["aptos", "near", "solana"].map((chain): PropSidebarItem => {
-                return {
-                  type: "category",
-                  label: capitalizeWords(chain),
-                  collapsed: true,
-                  collapsible: true,
-                  items: [
-                    ...Object.entries(
-                      commands[chain as "aptos" | "near" | "solana"]
-                    ).map(([topic, cmds]): PropSidebarItem => {
-                      return {
-                        type: "category",
-                        label: capitalizeWords(topic),
-                        collapsed: true,
-                        collapsible: true,
-                        items: cmds.map((command): PropSidebarItem => {
-                          const subTopic =
-                            command.topics.length > 2
-                              ? command.topics.slice(2).join(" ")
-                              : "";
-                          return {
-                            type: "link",
-                            label: capitalizeWords(subTopic),
-                            href: normalizeUrl([
-                              v.versionPath,
-                              command.permalink,
-                            ]),
-                          };
-                        }),
-                      };
-                    }),
-                  ],
-                };
-              }),
+              ...["aptos", "evm", "near", "solana"].map(
+                (chain): PropSidebarItem => {
+                  return {
+                    type: "category",
+                    label: capitalizeWords(chain),
+                    collapsed: true,
+                    collapsible: true,
+                    items: [
+                      ...Object.entries(
+                        commands[chain as "aptos" | "evm" | "near" | "solana"]
+                      ).map(([topic, cmds]): PropSidebarItem => {
+                        return {
+                          type: "category",
+                          label: capitalizeWords(topic),
+                          collapsed: true,
+                          collapsible: true,
+                          items: cmds.map((command): PropSidebarItem => {
+                            const subTopic =
+                              command.topics.length > 2
+                                ? command.topics.slice(2).join(" ")
+                                : "";
+                            return {
+                              type: "link",
+                              label: capitalizeWords(subTopic),
+                              href: normalizeUrl([
+                                v.versionPath,
+                                command.permalink,
+                              ]),
+                            };
+                          }),
+                        };
+                      }),
+                    ],
+                  };
+                }
+              ),
             ],
           },
         ];

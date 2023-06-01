@@ -12,6 +12,7 @@ export function convertToCommands(
       set: {} as any,
     },
     aptos: {},
+    evm: {},
     near: {},
     solana: {},
   };
@@ -30,6 +31,7 @@ export function convertToCommands(
 
         break;
       case "aptos":
+      case "evm":
       case "near":
       case "solana":
         if (!commands[commandType][commandTopic]) {
