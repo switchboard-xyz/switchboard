@@ -116,7 +116,7 @@ html[data-theme="light"] .tsd-panel-content {
 
 @media screen and (min-width: 576px) {
   .tsd-index-list li {
-    width: 50%;
+    width: 100%;
   }
 }
 
@@ -126,6 +126,17 @@ html[data-theme="light"] .tsd-panel-content {
   }
 }
 
+@media screen and (min-width: 997px) {
+  .tsd-index-list__two_col li {
+    width: 50%;
+  }
+}
+
+@media screen and (min-width: 997px) {
+  .tsd-index-list__one_col li {
+    width: 100%;
+  }
+}
 /* SPACING */
 
 .tsd-parameters h5,

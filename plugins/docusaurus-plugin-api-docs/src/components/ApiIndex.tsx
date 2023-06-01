@@ -101,19 +101,77 @@ export default function ApiIndex({
             </section>
           )}
 
+          <p>The following Github repos contain the Switchboard SDKs:</p>
+          <section className="tsd-panel">
+            <h3 id="repositories" className="tsd-panel-header">
+              SDKs
+            </h3>
+            <div className="tsd-panel-content">
+              <ul className="tsd-index-list tsd-index-list__one_col">
+                <li key="sbv2-aptos" className="tsd-truncate">
+                  <Link
+                    className="tsd-kind-icon"
+                    to={"https://github.com/switchboard-xyz/sbv2-aptos"}
+                  >
+                    <span>sbv2-aptos</span>
+                  </Link>
+                </li>
+                <li key="sbv2-evm" className="tsd-truncate">
+                  <Link
+                    className="tsd-kind-icon"
+                    to={"https://github.com/switchboard-xyz/sbv2-evm"}
+                  >
+                    <span>sbv2-evm</span>
+                  </Link>
+                </li>
+                <li key="sbv2-near" className="tsd-truncate">
+                  <Link
+                    className="tsd-kind-icon"
+                    to={"https://github.com/switchboard-xyz/sbv2-near"}
+                  >
+                    <span>sbv2-near</span>
+                  </Link>
+                </li>
+                <li key="sbv2-solana" className="tsd-truncate">
+                  <Link
+                    className="tsd-kind-icon"
+                    to={"https://github.com/switchboard-xyz/sbv2-solana"}
+                  >
+                    <span>sbv2-solana</span>
+                  </Link>
+                </li>
+                <li key="sbv2-sui" className="tsd-truncate">
+                  <Link
+                    className="tsd-kind-icon"
+                    to={"https://github.com/switchboard-xyz/sbv2-sui"}
+                  >
+                    <span>sbv2-sui</span>
+                  </Link>
+                </li>
+              </ul>
+            </div>
+          </section>
+
           <h2 id="typescript">Typescript</h2>
           <section className="tsd-panel">
             <h3 id="packages" className="tsd-panel-header">
-              Packages
+              NPM Packages
             </h3>
             <div className="tsd-panel-content">
-              <ul className="tsd-index-list">
+              <ul className="tsd-index-list  tsd-index-list__two_col">
                 <li key="cli" className="tsd-truncate">
                   <Link className="tsd-kind-icon" to={"/api/cli"}>
-                    <span className="tsd-signature-symbol">v{"2.3.1"}</span>{" "}
+                    <span
+                      className="tsd-signature-symbol"
+                      style={{
+                        whiteSpace: "break-spaces",
+                      }}
+                    >
+                      v{"2.3.1".padEnd(9, " ")}
+                    </span>
                     <span>
                       {removeScopes("@switchboard-xyz/cli", [
-                        "switchboard-xyz",
+                        // "switchboard-xyz",
                         ...options.scopes,
                       ])}
                     </span>
@@ -125,12 +183,17 @@ export default function ApiIndex({
                       className="tsd-kind-icon"
                       to={pkg.entryPoints[0].reflection.permalink}
                     >
-                      <span className="tsd-signature-symbol">
-                        v{pkg.packageVersion}
-                      </span>{" "}
+                      <span
+                        className="tsd-signature-symbol"
+                        style={{
+                          whiteSpace: "break-spaces",
+                        }}
+                      >
+                        v{pkg.packageVersion.padEnd(9, " ")}
+                      </span>
                       <span>
                         {removeScopes(pkg.packageName, [
-                          "switchboard-xyz",
+                          // "switchboard-xyz",
                           ...options.scopes,
                         ])}
                       </span>
