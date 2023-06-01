@@ -112,7 +112,12 @@ export default function ApiIndex({
                   <Link
                     className="tsd-kind-icon"
                     to={"https://github.com/switchboard-xyz/sbv2-aptos"}
+                    style={{ fontSize: "1.10rem" }}
                   >
+                    <i
+                      className={`codicon codicon-symbol-method`}
+                      style={{ color: "inherit" }}
+                    />
                     <span>sbv2-aptos</span>
                   </Link>
                 </li>
@@ -120,7 +125,12 @@ export default function ApiIndex({
                   <Link
                     className="tsd-kind-icon"
                     to={"https://github.com/switchboard-xyz/sbv2-evm"}
+                    style={{ fontSize: "1.10rem" }}
                   >
+                    <i
+                      className={`codicon codicon-symbol-method`}
+                      style={{ color: "inherit" }}
+                    />
                     <span>sbv2-evm</span>
                   </Link>
                 </li>
@@ -128,7 +138,12 @@ export default function ApiIndex({
                   <Link
                     className="tsd-kind-icon"
                     to={"https://github.com/switchboard-xyz/sbv2-near"}
+                    style={{ fontSize: "1.10rem" }}
                   >
+                    <i
+                      className={`codicon codicon-symbol-method`}
+                      style={{ color: "inherit" }}
+                    />
                     <span>sbv2-near</span>
                   </Link>
                 </li>
@@ -136,7 +151,12 @@ export default function ApiIndex({
                   <Link
                     className="tsd-kind-icon"
                     to={"https://github.com/switchboard-xyz/sbv2-solana"}
+                    style={{ fontSize: "1.10rem" }}
                   >
+                    <i
+                      className={`codicon codicon-symbol-method`}
+                      style={{ color: "inherit" }}
+                    />
                     <span>sbv2-solana</span>
                   </Link>
                 </li>
@@ -144,7 +164,12 @@ export default function ApiIndex({
                   <Link
                     className="tsd-kind-icon"
                     to={"https://github.com/switchboard-xyz/sbv2-sui"}
+                    style={{ fontSize: "1.10rem" }}
                   >
+                    <i
+                      className={`codicon codicon-symbol-method`}
+                      style={{ color: "inherit" }}
+                    />
                     <span>sbv2-sui</span>
                   </Link>
                 </li>
