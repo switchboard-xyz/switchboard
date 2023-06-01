@@ -86,6 +86,7 @@ export default function CliIndex({
         { value: "Commands", id: "commands", level: 2 },
         { value: "Config", id: "config-commands", level: 3 },
         { value: "Apots", id: "aptos-commands", level: 3 },
+        { value: "EVM", id: "evm-commands", level: 3 },
         { value: "NEAR", id: "near-commands", level: 3 },
         { value: "Solana", id: "solana-commands", level: 3 },
       ]}
@@ -100,7 +101,7 @@ export default function CliIndex({
 
           <h2 id="commands">Commands</h2>
 
-          {["config", "aptos", "near", "solana"].map((topic) => {
+          {["config", "aptos", "evm", "near", "solana"].map((topic) => {
             const myCommands = commands.filter((c) => c.topic === topic);
             return (
               <>

@@ -37,6 +37,18 @@ sbv2 config set solana mainnet-beta rpc https://api.mainnet-beta.solana.com
 sbv2 config set solana mainnet-beta default-account "~/.config/solana/id.json"
 ```
 
+### Arbitrum
+
+```bash
+# Testnet
+sbv2 config set arbitrum testnet rpc https://goerli-rollup.arbitrum.io/rpc
+sbv2 config set arbitrum testnet default-account "~/.config/arbitrum/testnet.txt"
+
+# Devnet
+sbv2 config set arbitrum mainnet rpc https://arb1.arbitrum.io/rpc
+sbv2 config set arbitrum mainnet default-account "~/.config/arbitrum/mainnet.txt"
+```
+
 ### Aptos
 
 ```bash
@@ -47,6 +59,18 @@ sbv2 config set aptos testnet default-account ".aptos/config.yaml"
 # Devnet
 sbv2 config set aptos devnet rpc https://fullnode.devnet.aptoslabs.com/v1
 sbv2 config set aptos devnet default-account ".aptos/config.yaml"
+```
+
+### CoreDAO
+
+```bash
+# Testnet
+sbv2 config set coredao testnet rpc https://rpc.test.btcs.network
+sbv2 config set coredao testnet default-account "~/.config/coredao/testnet.txt"
+
+# Devnet
+sbv2 config set coredao mainnet rpc https://rpc.coredao.org
+sbv2 config set coredao mainnet default-account "~/.config/coredao/mainnet.txt"
 ```
 
 ### NEAR
