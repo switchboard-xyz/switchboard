@@ -1,0 +1,161 @@
+---
+sidebar_position: 40
+---
+
+# Events
+
+Switchboard oracles can be used to resolve the outcome of events. The following
+examples will resolve to the following values:
+
+- **0** - No Result
+- **1** - Home Team Win
+- **2** - Away Team Win
+
+<details>
+<summary>
+
+### European Premier League
+
+</summary>
+
+**ESPN**
+
+```json title="EPL_Man_United_v_Leicester_City_10_16_21.json"
+{
+  "name": "EPL MAN v LEI 10/16/2021",
+  "tasks": [
+    {
+      "httpTask": {
+        "url": "https://site.api.espn.com/apis/site/v2/sports/soccer/eng.1/scoreboard/605965"
+      }
+    },
+    {
+      "conditionalTask": {
+        "attempt": [
+          {
+            "conditionalTask": {
+              "attempt": [
+                {
+                  "jsonParseTask": {
+                    "path": "$.competitions[?(@.status.type.completed && @.id == '605965')].competitors[?(@.winner && @.homeAway == 'home')].id"
+                  }
+                },
+                {
+                  "valueTask": {
+                    "value": 1
+                  }
+                }
+              ],
+              "onFailure": [
+                {
+                  "jsonParseTask": {
+                    "path": "$.competitions[?(@.status.type.completed && @.id == '605965')].competitors[?(@.winner && @.homeAway == 'away')].id"
+                  }
+                },
+                {
+                  "valueTask": {
+                    "value": 2
+                  }
+                }
+              ]
+            }
+          }
+        ],
+        "onFailure": [
+          {
+            "conditionalTask": {
+              "attempt": [
+                {
+                  "jsonParseTask": {
+                    "path": "$.competitions[?(@.status.type.completed && @.id == '605965')].id"
+                  }
+                },
+                {
+                  "valueTask": {
+                    "value": 0
+                  }
+                }
+              ]
+            }
+          }
+        ]
+      }
+    }
+  ]
+}
+```
+
+**Yahoo**
+
+```json title="EPL_Man_United_v_Leicester_City_10_16_21.json"
+{
+  "name": "EPL MAN v LEI 10/16/2021",
+  "tasks": [
+    {
+      "httpTask": {
+        "url": "https://sports.yahoo.com/soccer/premier-league/leicester-city-manchester-united-2247085"
+      }
+    },
+    {
+      "regexExtractTask": {
+        "pattern": "root.App.main\\s+=\\s+(\\{.*\\})",
+        "groupNumber": 1
+      }
+    },
+    {
+      "conditionalTask": {
+        "attempt": [
+          {
+            "conditionalTask": {
+              "attempt": [
+                {
+                  "jsonParseTask": {
+                    "path": "$.context.dispatcher.stores.GamesStore.games[?(@.gameid == 'soccer.g.2247085' && @.status_type == 'final' && @.winning_team_id == @.home_team_id)].attendance"
+                  }
+                },
+                {
+                  "valueTask": {
+                    "value": 1
+                  }
+                }
+              ],
+              "onFailure": [
+                {
+                  "jsonParseTask": {
+                    "path": "$.context.dispatcher.stores.GamesStore.games[?(@.gameid == 'soccer.g.2247085' && @.status_type == 'final' && @.winning_team_id == @.away_team_id)].attendance"
+                  }
+                },
+                {
+                  "valueTask": {
+                    "value": 2
+                  }
+                }
+              ]
+            }
+          }
+        ],
+        "onFailure": [
+          {
+            "conditionalTask": {
+              "attempt": [
+                {
+                  "jsonParseTask": {
+                    "path": "$.context.dispatcher.stores.GamesStore.games[?(@.gameid == 'soccer.g.2247085' && @.status_type == 'final')].attendance"
+                  }
+                },
+                {
+                  "valueTask": {
+                    "value": 0
+                  }
+                }
+              ]
+            }
+          }
+        ]
+      }
+    }
+  ]
+}
+```
+
+</details>

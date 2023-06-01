@@ -174,6 +174,20 @@ export class ProtobufGenerator extends Generator<ProtobufVersionMetadata> {
       oracleJobTask: addHyperlinks(oracleJobTask, links),
     };
 
+    // load examples
+    // const examplesDir = normalizeUrl([
+    //   context.siteDir,
+    //   context.options.protoExamples?.examplesDir ?? "api/protos/examples",
+    // ]);
+
+    // const items: PropSidebarItem[] = [];
+
+    // if (fs.existsSync(examplesDir)) {
+    //   for (const item of context.options.protoExamples?.items ?? []) {
+
+    //   }
+    // }
+
     logger.info(`Found ${protobufs.tasks.length} OracleJob tasks`);
 
     const protobufGenerator = new ProtobufGenerator(

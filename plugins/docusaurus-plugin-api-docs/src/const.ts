@@ -50,4 +50,8 @@ export const DEFAULT_OPTIONS: Required<DocusaurusPluginTypeDocApiOptions> = {
   },
 
   protobufJson: "protos.json",
+  protoExamples: {
+    examplesDir: "api/protos/examples",
+    items: [],
+  },
 };

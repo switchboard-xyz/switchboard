@@ -1,0 +1,373 @@
+---
+sidebar_position: 1
+---
+
+# Exchanges
+
+Switchboard oracles can fetch the price of assets listed on various exchanges by
+using a combination of the httpTask, websocketTask, and the jsonParseTask. If
+the data is on a public API, Switchboard oracles can return it.
+
+<details>
+<summary>
+
+### Coinbase
+
+</summary>
+
+```json title="Coinbase_BTC_USD.json"
+{
+  "name": "Coinbase BTC/USD",
+  "tasks": [
+    {
+      "websocketTask": {
+        "url": "wss://ws-feed.pro.coinbase.com",
+        "subscription": "{\"type\":\"subscribe\",\"product_ids\":[\"BTC-USD\"],\"channels\":[\"ticker\",{\"name\":\"ticker\",\"product_ids\":[\"BTC-USD\"]}]}",
+        "maxDataAgeSeconds": 15,
+        "filter": "$[?(@.type == 'ticker' && @.product_id == 'BTC-USD')]"
+      }
+    },
+    {
+      "jsonParseTask": {
+        "path": "$.price"
+      }
+    }
+  ]
+}
+```
+
+</details>
+
+<details>
+<summary>
+
+### BinanceUs
+
+</summary>
+
+```json title="BinanceUs_BTC_USD.json"
+{
+  "name": "BinanceUs BTC/USD",
+  "tasks": [
+    {
+      "httpTask": {
+        "url": "https://www.binance.us/api/v3/ticker/price?symbol=BTCUSD"
+      }
+    },
+    {
+      "jsonParseTask": {
+        "path": "$.price"
+      }
+    }
+  ]
+}
+```
+
+</details>
+
+<details>
+<summary>
+
+### BinanceCom
+
+</summary>
+
+```json title="BinanceCom_BTC_USD.json"
+{
+  "name": "BinanceCom BTC/USD",
+  "tasks": [
+    {
+      "httpTask": {
+        "url": "https://www.binance.com/api/v3/ticker/price?symbol=BTCUSDT"
+      }
+    },
+    {
+      "jsonParseTask": {
+        "path": "$.price"
+      }
+    },
+    {
+      "multiplyTask": {
+        /* Mainnet USDT/USD Feed */
+        "aggregatorPubkey": "5mp8kbkTYwWWCsKSte8rURjTuyinsqBpJ9xAQsewPDD"
+      }
+    }
+  ]
+}
+```
+
+</details>
+
+<details>
+<summary>
+
+### Bitfinex
+
+</summary>
+
+```json title="Bitfinex_BTC_USD.json"
+{
+  "name": "Bitfinex BTC/USD",
+  "tasks": [
+    {
+      "httpTask": {
+        "url": "https://api-pub.bitfinex.com/v2/tickers?symbols=tBTCUSD"
+      }
+    },
+    {
+      "medianTask": {
+        "tasks": [
+          {
+            "jsonParseTask": {
+              "path": "$[0][1]"
+            }
+          },
+          {
+            "jsonParseTask": {
+              "path": "$[0][3]"
+            }
+          },
+          {
+            "jsonParseTask": {
+              "path": "$[0][7]"
+            }
+          }
+        ]
+      }
+    }
+  ]
+}
+```
+
+</details>
+
+<details>
+<summary>
+
+### Bitstamp
+
+</summary>
+
+```json title="Bitstamp_BTC_USD.json"
+{
+  "name": "Bitstamp BTC/USD",
+  "tasks": [
+    {
+      "httpTask": {
+        "url": "https://www.bitstamp.net/api/v2/ticker/btcusd"
+      }
+    },
+    {
+      "medianTask": {
+        "tasks": [
+          {
+            "jsonParseTask": {
+              "path": "$.ask"
+            }
+          },
+          {
+            "jsonParseTask": {
+              "path": "$.bid"
+            }
+          },
+          {
+            "jsonParseTask": {
+              "path": "$.last"
+            }
+          }
+        ]
+      }
+    }
+  ]
+}
+```
+
+</details>
+
+<details>
+<summary>
+
+### Kraken
+
+</summary>
+
+```json title="Kraken_BTC_USD.json"
+{
+  "name": "Kraken BTC/USD",
+  "tasks": [
+    {
+      "httpTask": {
+        "url": "https://api.kraken.com/0/public/Ticker?pair=XXBTZUSD"
+      }
+    },
+    {
+      "medianTask": {
+        "tasks": [
+          {
+            "jsonParseTask": {
+              "path": "$.result.XXBTZUSD.a[0]"
+            }
+          },
+          {
+            "jsonParseTask": {
+              "path": "$.result.XXBTZUSD.b[0]"
+            }
+          },
+          {
+            "jsonParseTask": {
+              "path": "$.result.XXBTZUSD.c[0]"
+            }
+          }
+        ]
+      }
+    }
+  ]
+}
+```
+
+</details>
+
+<details>
+<summary>
+
+### Okex
+
+</summary>
+
+```json title="Okex_BTC_USD.json"
+{
+  "name": "Okex BTC/USD",
+  "tasks": [
+    {
+      "websocketTask": {
+        "url": "wss://ws.okex.com:8443/ws/v5/public",
+        "subscription": "{\"op\":\"subscribe\",\"args\":[{\"channel\":\"tickers\",\"instId\":\"BTC-USDT\"}]}",
+        "maxDataAgeSeconds": 15,
+        "filter": "$[?(@.event != 'subscribe' && @.arg.channel == 'tickers' && @.arg.instId == 'BTC-USDT' && @.data[0].instType == 'SPOT' && @.data[0].instId == 'BTC-USDT')]"
+      }
+    },
+    {
+      "medianTask": {
+        "tasks": [
+          {
+            "jsonParseTask": {
+              "path": "$.data[0].bidPx"
+            }
+          },
+          {
+            "jsonParseTask": {
+              "path": "$.data[0].askPx"
+            }
+          },
+          {
+            "jsonParseTask": {
+              "path": "$.data[0].last"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "multiplyTask": {
+        /* Mainnet USDT/USD Feed */
+        "aggregatorPubkey": "5mp8kbkTYwWWCsKSte8rURjTuyinsqBpJ9xAQsewPDD"
+      }
+    }
+  ]
+}
+```
+
+</details>
+
+<details>
+<summary>
+
+### Huobi
+
+</summary>
+
+```json title="Huobi_BTC_USD.json"
+{
+  "name": "Huobi BTC/USD",
+  "tasks": [
+    {
+      "httpTask": {
+        "url": "https://api.huobi.pro/market/detail/merged?symbol=btcusdt"
+      }
+    },
+    {
+      "medianTask": {
+        "tasks": [
+          {
+            "jsonParseTask": {
+              "path": "$.tick.bid[0]"
+            }
+          },
+          {
+            "jsonParseTask": {
+              "path": "$.tick.ask[0]"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "multiplyTask": {
+        /* Mainnet USDT/USD Feed */
+        "aggregatorPubkey": "5mp8kbkTYwWWCsKSte8rURjTuyinsqBpJ9xAQsewPDD"
+      }
+    }
+  ]
+}
+```
+
+</details>
+
+<details>
+<summary>
+
+### Mxc
+
+</summary>
+
+```json title="Mxc_BTC_USD.json"
+{
+  "name": "Mxc BTC/USD",
+  "tasks": [
+    {
+      "httpTask": {
+        "url": "https://www.mxc.com/open/api/v2/market/ticker?symbol=BTC_USDT"
+      }
+    },
+    {
+      "medianTask": {
+        "tasks": [
+          {
+            "jsonParseTask": {
+              "path": "$.data[0].ask"
+            }
+          },
+          {
+            "jsonParseTask": {
+              "path": "$.data[0].bid"
+            }
+          },
+          {
+            "jsonParseTask": {
+              "path": "$.data[0].last"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "multiplyTask": {
+        /* Mainnet USDT/USD Feed */
+        "aggregatorPubkey": "5mp8kbkTYwWWCsKSte8rURjTuyinsqBpJ9xAQsewPDD"
+      }
+    }
+  ]
+}
+```
+
+</details>

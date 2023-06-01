@@ -1,6 +1,7 @@
 import type { JSONOutput, TypeDocOptions } from "typedoc";
 import type {
   PropSidebarItem,
+  PropSidebarItemCategory,
   VersionBanner,
   VersionsOptions,
   LoadedVersion as DocsLoadedVersion,
@@ -121,6 +122,10 @@ export interface DocusaurusPluginTypeDocApiOptions
   };
 
   protobufJson?: string;
+  protoExamples?: {
+    examplesDir?: string;
+    items?: SidebarItem[];
+  };
 }
 
 // CONFIG
