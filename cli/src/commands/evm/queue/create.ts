@@ -10,6 +10,10 @@ export default class QueueCreate extends BaseCommand {
 
   static aliases = ["evm:create:queue"];
 
+  static examples = [
+    "$ sbv2 evm queue create --arbitrum --testnet --account ~/.config/arbitrum/testnet.txt --name 'my queue' --oracleTimeout 3600 --queueSize 8",
+  ];
+
   static flags = {
     ...BaseCommand.flags,
     authority: Flags.string({
@@ -61,7 +65,7 @@ export default class QueueCreate extends BaseCommand {
       return this.normalizeAccountData(queueAccount.address, queueData);
     }
 
-    this.prettyPrintQueue(queueData, queueAccount.address);
+    this.prettyPrintQueue(queueAccount.address, queueData);
 
     this.logger.info(this.toUrl(tx.hash));
   }

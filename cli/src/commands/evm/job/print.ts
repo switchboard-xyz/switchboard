@@ -8,6 +8,10 @@ export default class JobPrint extends BaseCommand {
 
   static description = "print an IPFS job hash";
 
+  static examples = [
+    "$ sbv2 evm job print bafkreih4ots3go2ytcvp74cvshnmlikw2mtm47pugpnlzuf36vr6emoov4 --arbitrum --testnet",
+  ];
+
   static flags = {
     ...BaseCommand.flags,
   };

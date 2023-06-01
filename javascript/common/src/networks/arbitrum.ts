@@ -13,7 +13,7 @@ export const SWITCHBOARD_ARBITRUM_MAINNET_CONFIG: IChainNetworkConfig = {
   queues: [
     {
       name: 'Permissionless Queue',
-      address: '0x127f24013CaADF770F4b514c86344dD4f38d80c2',
+      address: '0x74f44B7e43319931ff9ae8CFCDCba09dc7F89f95',
       attestationQueue: '0xf0A09d8D44942AE0aD9Ac35B07D8b3e5Af693EE6',
       authority: '0x127f24013CaADF770F4b514c86344dD4f38d80c2',
       permissioned: false,

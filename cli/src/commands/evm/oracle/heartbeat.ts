@@ -9,6 +9,10 @@ export default class OracleHeartbeat extends BaseCommand {
 
   static description = "heartbeat on-chain and signal readiness";
 
+  static examples = [
+    "$ sbv2 evm oracle heartbeat 0x5eeFE1CA9D1093a59aC9278cC6D296A4eeDd6385 --arbitrum --testnet --account ~/.config/arbitrum/testnet.txt",
+  ];
+
   static flags = {
     ...BaseCommand.flags,
     authority: Flags.string({

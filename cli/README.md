@@ -1334,7 +1334,8 @@ FLAGS
   --enableHistory              enable history for the feed
   --forceReportPeriod=<value>  Number of seconds for which, even if the variance threshold is not passed, accept new
                                responses from oracles.
-  --fundAmount=<value>         [default: 0.0] fund the aggregator with some wETH
+  --fundAmount=<value>         [default: 0.0] fund the aggregator escrow with the native token, used to reward oracles
+                               for publishing updates
   --mainnet                    use the mainnet network
   --minJobs=<value>            [default: 1] number of jobs that must respond before an oracle responds
   --minOracles=<value>         [default: 1] number of oracles that must respond before a value is accepted on-chain
@@ -1357,6 +1358,9 @@ DESCRIPTION
 
 ALIASES
   $ sbv2 evm create aggregator
+
+EXAMPLES
+  $  sbv2 evm aggregator create --arbitrum --testnet --account ~/.config/arbitrum/testnet.txt 0xB1c6E716ACae35200Dc8278A63a424f58417954c --name 'my feed' --batchSize 1 --updateInterval 90 --fundAmount 0.25 --job my_job.json
 ```
 
 ## `sbv2 evm aggregator print AGGREGATORADDRESS`
@@ -1393,6 +1397,11 @@ GLOBAL FLAGS
 
 DESCRIPTION
   print an aggregator
+
+EXAMPLES
+  $ sbv2 evm aggregator print 0x4Aa86c11Ad9493c84fd6C6469F6FA494272AdB4a --arbitrum --mainnet
+
+  $ sbv2 evm aggregator print 0x7892F7326291F3Bc17680956B476701DF76d52Da --coredao --testnet --jobs
 ```
 
 ## `sbv2 evm aggregator set AGGREGATORADDRESS`
@@ -1448,6 +1457,9 @@ DESCRIPTION
 
 ALIASES
   $ sbv2 evm set aggregator
+
+EXAMPLES
+  $  sbv2 evm aggregator set --arbitrum --testnet --account ~/.config/arbitrum/testnet.txt 0xB1c6E716ACae35200Dc8278A63a424f58417954c --name 'my updated feed' --batchSize 2 --job ./my_new_job.json
 ```
 
 ## `sbv2 evm create aggregator QUEUEADDRESS`
@@ -1482,7 +1494,8 @@ FLAGS
   --enableHistory              enable history for the feed
   --forceReportPeriod=<value>  Number of seconds for which, even if the variance threshold is not passed, accept new
                                responses from oracles.
-  --fundAmount=<value>         [default: 0.0] fund the aggregator with some wETH
+  --fundAmount=<value>         [default: 0.0] fund the aggregator escrow with the native token, used to reward oracles
+                               for publishing updates
   --mainnet                    use the mainnet network
   --minJobs=<value>            [default: 1] number of jobs that must respond before an oracle responds
   --minOracles=<value>         [default: 1] number of oracles that must respond before a value is accepted on-chain
@@ -1505,6 +1518,9 @@ DESCRIPTION
 
 ALIASES
   $ sbv2 evm create aggregator
+
+EXAMPLES
+  $  sbv2 evm aggregator create --arbitrum --testnet --account ~/.config/arbitrum/testnet.txt 0xB1c6E716ACae35200Dc8278A63a424f58417954c --name 'my feed' --batchSize 1 --updateInterval 90 --fundAmount 0.25 --job my_job.json
 ```
 
 ## `sbv2 evm create jobs`
@@ -1543,6 +1559,11 @@ DESCRIPTION
 
 ALIASES
   $ sbv2 evm create jobs
+
+EXAMPLES
+  $ sbv2 evm job create --arbitrum --testnet --job my_job.json
+
+  $ sbv2 evm job create --arbitrum --testnet --hash bafkreihvxeb7rwyrilzmouid2onuwajkkng4ykdwrr6vaxjgg3zv3cghdy --removeJob my_job.json
 ```
 
 ## `sbv2 evm create oracle QUEUEADDRESS`
@@ -1586,6 +1607,9 @@ DESCRIPTION
 
 ALIASES
   $ sbv2 evm create oracle
+
+EXAMPLES
+  $ sbv2 evm oracle create 0xB1c6E716ACae35200Dc8278A63a424f58417954c --arbitrum --testnet --account ~/.config/arbitrum/testnet.txt --name 'my oracle' --enable
 ```
 
 ## `sbv2 evm create queue`
@@ -1628,6 +1652,9 @@ DESCRIPTION
 
 ALIASES
   $ sbv2 evm create queue
+
+EXAMPLES
+  $ sbv2 evm queue create --arbitrum --testnet --account ~/.config/arbitrum/testnet.txt --name 'my queue' --oracleTimeout 3600 --queueSize 8
 ```
 
 ## `sbv2 evm job create`
@@ -1666,6 +1693,11 @@ DESCRIPTION
 
 ALIASES
   $ sbv2 evm create jobs
+
+EXAMPLES
+  $ sbv2 evm job create --arbitrum --testnet --job my_job.json
+
+  $ sbv2 evm job create --arbitrum --testnet --hash bafkreihvxeb7rwyrilzmouid2onuwajkkng4ykdwrr6vaxjgg3zv3cghdy --removeJob my_job.json
 ```
 
 ## `sbv2 evm job print JOBHASH`
@@ -1700,6 +1732,9 @@ GLOBAL FLAGS
 
 DESCRIPTION
   print an IPFS job hash
+
+EXAMPLES
+  $ sbv2 evm job print bafkreih4ots3go2ytcvp74cvshnmlikw2mtm47pugpnlzuf36vr6emoov4 --arbitrum --testnet
 ```
 
 ## `sbv2 evm oracle create QUEUEADDRESS`
@@ -1743,6 +1778,9 @@ DESCRIPTION
 
 ALIASES
   $ sbv2 evm create oracle
+
+EXAMPLES
+  $ sbv2 evm oracle create 0xB1c6E716ACae35200Dc8278A63a424f58417954c --arbitrum --testnet --account ~/.config/arbitrum/testnet.txt --name 'my oracle' --enable
 ```
 
 ## `sbv2 evm oracle heartbeat ORACLEADDRESS`
@@ -1780,6 +1818,9 @@ GLOBAL FLAGS
 
 DESCRIPTION
   heartbeat on-chain and signal readiness
+
+EXAMPLES
+  $ sbv2 evm oracle heartbeat 0x5eeFE1CA9D1093a59aC9278cC6D296A4eeDd6385 --arbitrum --testnet --account ~/.config/arbitrum/testnet.txt
 ```
 
 ## `sbv2 evm oracle print ORACLEADDRESS`
@@ -1814,6 +1855,9 @@ GLOBAL FLAGS
 
 DESCRIPTION
   print an oracle
+
+EXAMPLES
+  $ sbv2 evm oracle print 0x5eeFE1CA9D1093a59aC9278cC6D296A4eeDd6385 --arbitrum --testnet
 ```
 
 ## `sbv2 evm queue create`
@@ -1856,6 +1900,9 @@ DESCRIPTION
 
 ALIASES
   $ sbv2 evm create queue
+
+EXAMPLES
+  $ sbv2 evm queue create --arbitrum --testnet --account ~/.config/arbitrum/testnet.txt --name 'my queue' --oracleTimeout 3600 --queueSize 8
 ```
 
 ## `sbv2 evm queue print QUEUEADDRESS`
@@ -1891,6 +1938,11 @@ GLOBAL FLAGS
 
 DESCRIPTION
   print a queue
+
+EXAMPLES
+  $ sbv2 evm queue print --arbitrum --mainnet 0x74f44B7e43319931ff9ae8CFCDCba09dc7F89f95
+
+  $ sbv2 evm queue print --arbitrum --testnet 0xB1c6E716ACae35200Dc8278A63a424f58417954c --oracles
 ```
 
 ## `sbv2 evm set aggregator AGGREGATORADDRESS`
@@ -1946,6 +1998,9 @@ DESCRIPTION
 
 ALIASES
   $ sbv2 evm set aggregator
+
+EXAMPLES
+  $  sbv2 evm aggregator set --arbitrum --testnet --account ~/.config/arbitrum/testnet.txt 0xB1c6E716ACae35200Dc8278A63a424f58417954c --name 'my updated feed' --batchSize 2 --job ./my_new_job.json
 ```
 
 ## `sbv2 help [COMMANDS]`

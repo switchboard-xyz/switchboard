@@ -15,6 +15,10 @@ export default class OracleCreate extends BaseCommand {
 
   static aliases = ["evm:create:oracle"];
 
+  static examples = [
+    "$ sbv2 evm oracle create 0xB1c6E716ACae35200Dc8278A63a424f58417954c --arbitrum --testnet --account ~/.config/arbitrum/testnet.txt --name 'my oracle' --enable",
+  ];
+
   static flags = {
     ...BaseCommand.flags,
     authority: Flags.string({
@@ -75,7 +79,7 @@ export default class OracleCreate extends BaseCommand {
       return this.normalizeAccountData(oracleAccount.address, oracleData);
     }
 
-    this.prettyPrintOracle(oracleData, oracleAccount.address);
+    this.prettyPrintOracle(oracleAccount.address, oracleData);
 
     let permissions: string | undefined;
     try {

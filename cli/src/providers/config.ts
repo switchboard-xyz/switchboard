@@ -87,7 +87,18 @@ export class ConfigProvider {
   }
 
   getRpcUrl(chain: string, network: string): string {
-    return this.getConfig(chain, network)?.rpcUrl || "";
+    const configRpcUrl = this.getConfig(chain, network)?.rpcUrl;
+    if (configRpcUrl) {
+      return configRpcUrl;
+    }
+
+    const defaultConfig = getSupportedNetwork(chain, network);
+    const defaultRpcUrl = defaultConfig.metadata?.defaultRpcUrl;
+    if (defaultRpcUrl) {
+      return defaultRpcUrl;
+    }
+
+    return "";
   }
 
   getDefaultAccount(chain: string, network: string): string | undefined {

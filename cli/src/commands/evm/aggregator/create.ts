@@ -15,6 +15,10 @@ export default class CreateAggregator extends BaseCommand {
 
   static aliases = ["evm:create:aggregator"];
 
+  static examples = [
+    "$  sbv2 evm aggregator create --arbitrum --testnet --account ~/.config/arbitrum/testnet.txt 0xB1c6E716ACae35200Dc8278A63a424f58417954c --name 'my feed' --batchSize 1 --updateInterval 90 --fundAmount 0.25 --job my_job.json",
+  ];
+
   static flags = {
     ...BaseCommand.flags,
     authority: Flags.string({
@@ -69,7 +73,8 @@ export default class CreateAggregator extends BaseCommand {
       dependsOn: ["enable"],
     }),
     fundAmount: Flags.string({
-      description: "fund the aggregator with some wETH",
+      description:
+        "fund the aggregator escrow with the native token, used to reward oracles for publishing updates",
       default: "0.0",
     }),
   };
@@ -154,7 +159,12 @@ export default class CreateAggregator extends BaseCommand {
       );
     }
 
-    this.prettyPrintAggregator(aggregatorData, aggregatorAccount.address);
+    this.prettyPrintAggregator(
+      aggregatorAccount.address,
+      aggregatorData,
+      await aggregatorAccount.loadReadConfig().catch(),
+      await aggregatorAccount.loadResponseSettings().catch()
+    );
 
     this.logger.info("\n");
     this.logger.info(this.toUrl(aggregatorInit.hash));

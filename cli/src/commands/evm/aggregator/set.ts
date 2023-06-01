@@ -18,6 +18,10 @@ export default class SetAggregator extends BaseCommand {
 
   static aliases = ["evm:set:aggregator"];
 
+  static examples = [
+    "$  sbv2 evm aggregator set --arbitrum --testnet --account ~/.config/arbitrum/testnet.txt 0xB1c6E716ACae35200Dc8278A63a424f58417954c --name 'my updated feed' --batchSize 2 --job ./my_new_job.json",
+  ];
+
   static flags = {
     ...BaseCommand.flags,
     authority: Flags.string({
@@ -153,7 +157,12 @@ export default class SetAggregator extends BaseCommand {
       );
     }
 
-    this.prettyPrintAggregator(aggregatorData, aggregatorAccount.address);
+    this.prettyPrintAggregator(
+      aggregatorAccount.address,
+      aggregatorData,
+      await aggregatorAccount.loadReadConfig().catch(),
+      await aggregatorAccount.loadResponseSettings().catch()
+    );
 
     this.logger.info("\n");
     this.logger.info(this.toUrl(tx.hash));

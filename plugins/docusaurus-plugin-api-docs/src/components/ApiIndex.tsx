@@ -110,7 +110,7 @@ export default function ApiIndex({
               <ul className="tsd-index-list">
                 <li key="cli" className="tsd-truncate">
                   <Link className="tsd-kind-icon" to={"/api/cli"}>
-                    <span className="tsd-signature-symbol">v{"2.3.0"}</span>{" "}
+                    <span className="tsd-signature-symbol">v{"2.3.1"}</span>{" "}
                     <span>
                       {removeScopes("@switchboard-xyz/cli", [
                         "switchboard-xyz",

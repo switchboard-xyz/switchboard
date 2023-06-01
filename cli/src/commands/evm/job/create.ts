@@ -10,6 +10,11 @@ export default class CreateJob extends BaseCommand {
 
   static aliases = ["evm:create:jobs"];
 
+  static examples = [
+    "$ sbv2 evm job create --arbitrum --testnet --job my_job.json",
+    "$ sbv2 evm job create --arbitrum --testnet --hash bafkreihvxeb7rwyrilzmouid2onuwajkkng4ykdwrr6vaxjgg3zv3cghdy --removeJob my_job.json",
+  ];
+
   static flags = {
     ...BaseCommand.flags,
     hash: Flags.string({ description: "existing ipfs hash to modify" }),
