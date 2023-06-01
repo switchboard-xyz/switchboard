@@ -7,6 +7,7 @@ export * from './SwitchboardDecimal.js';
 export * from './utils/index.js';
 export { Big } from 'big.js';
 export { default as BN } from 'bn.js';
+export { default as bs58 } from 'bs58';
 
 import { OracleJob } from './protos/index.js';
 export import ITask = OracleJob.ITask;

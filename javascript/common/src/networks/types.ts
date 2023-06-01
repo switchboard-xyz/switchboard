@@ -1,5 +1,5 @@
-export const CLUSTERS = ['mainnet', 'testnet', 'devnet'] as const;
-export type NetworkType = (typeof CLUSTERS)[number];
+export const SUPPPORTED_NETWORKS = ['mainnet', 'testnet', 'devnet'] as const;
+export type NetworkType = (typeof SUPPPORTED_NETWORKS)[number];
 
 /** The current chains Switchboard is currently deployed on. */
 export const SWITCHBOARD_CHAINS = [

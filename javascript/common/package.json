@@ -1,8 +1,7 @@
 {
   "name": "@switchboard-xyz/common",
-  "author": "",
   "license": "MIT",
-  "version": "2.2.1",
+  "version": "2.2.2",
   "description": "common type definitions and utils for interacting with switchboard",
   "files": [
     "lib/",
@@ -61,6 +60,7 @@
     "@types/bn.js": "^5.1.1",
     "big.js": "^6.2.1",
     "bn.js": "^5.2.1",
+    "bs58": "^5.0.0",
     "decimal.js": "^10.4.3",
     "protobufjs": "^7.2.3",
     "yaml": "^2.2.1"

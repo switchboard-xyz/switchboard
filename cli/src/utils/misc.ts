@@ -40,3 +40,7 @@ export const chalkString = (
     valueString
   )}`;
 };
+
+export const stripTrailingZeros = (value: string) => {
+  return value.replace(/0+$/, "");
+};

@@ -1,4 +1,5 @@
 {
+  "name": "Kraken BTC/USD",
   "tasks": [
     {
       "httpTask": {

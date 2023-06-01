@@ -101,32 +101,6 @@ export default function ApiIndex({
             </section>
           )}
 
-          <h2 id="protobufs">Protobufs</h2>
-          <section className="tsd-panel">
-            <h3 className="tsd-panel-header">
-              <Link href="/api/protos/Task">Task Types</Link>
-            </h3>
-            <div className="tsd-panel-content">
-              <ul className="tsd-index-list">
-                {tasks
-                  .filter(
-                    (task) => task.name !== "OracleJob" && task.name !== "Task"
-                  )
-                  .sort((a, b) => a.name.localeCompare(b.name))
-                  .map((task) => (
-                    <li key={task.id} className="tsd-truncate">
-                      {/* <LinkWithDescription
-                        label={task.name}
-                        href={"/api/" + task.permalink}
-                        description={task.description}
-                      /> */}
-                      <Link href={"/api/" + task.permalink}>{task.name}</Link>
-                    </li>
-                  ))}
-              </ul>
-            </div>
-          </section>
-
           <h2 id="typescript">Typescript</h2>
           <section className="tsd-panel">
             <h3 id="packages" className="tsd-panel-header">
@@ -136,7 +110,7 @@ export default function ApiIndex({
               <ul className="tsd-index-list">
                 <li key="cli" className="tsd-truncate">
                   <Link className="tsd-kind-icon" to={"/api/cli"}>
-                    <span className="tsd-signature-symbol">v{"2.2.4"}</span>{" "}
+                    <span className="tsd-signature-symbol">v{"2.3.0"}</span>{" "}
                     <span>
                       {removeScopes("@switchboard-xyz/cli", [
                         "switchboard-xyz",
@@ -163,6 +137,32 @@ export default function ApiIndex({
                     </Link>
                   </li>
                 ))}
+              </ul>
+            </div>
+          </section>
+
+          <h2 id="protobufs">Protobufs</h2>
+          <section className="tsd-panel">
+            <h3 className="tsd-panel-header">
+              <Link href="/api/protos/Task">Task Types</Link>
+            </h3>
+            <div className="tsd-panel-content">
+              <ul className="tsd-index-list">
+                {tasks
+                  .filter(
+                    (task) => task.name !== "OracleJob" && task.name !== "Task"
+                  )
+                  .sort((a, b) => a.name.localeCompare(b.name))
+                  .map((task) => (
+                    <li key={task.id} className="tsd-truncate">
+                      {/* <LinkWithDescription
+                        label={task.name}
+                        href={"/api/" + task.permalink}
+                        description={task.description}
+                      /> */}
+                      <Link href={"/api/" + task.permalink}>{task.name}</Link>
+                    </li>
+                  ))}
               </ul>
             </div>
           </section>
