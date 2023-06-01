@@ -10,31 +10,54 @@ import {
   SWITCHBOARD_CHAINS,
 } from '../networks/types.js';
 
-export const isSupportedChain = (chain: string): chain is ChainType => {
-  return SWITCHBOARD_CHAINS.includes(chain as ChainType);
+/**
+ * Determines whether a given chain is supported by the Switchboard network
+ * @param _chain - the target chain
+ */
+export const isSupportedChain = (_chain: string): _chain is ChainType => {
+  return SWITCHBOARD_CHAINS.includes(_chain as ChainType);
 };
 
-export const validateSupportedChain = (chain: string): ChainType => {
-  if (!isSupportedChain(chain)) {
+/**
+ * Type assertion for whether the given chain is supported. Throws an error if Switchboard is not deployed on the target chain.
+ * @param _chain - the target chain
+ */
+export const validateSupportedChain = (_chain: string): ChainType => {
+  if (!isSupportedChain(_chain)) {
     const supportedChainsString = `'${SWITCHBOARD_CHAINS.slice(0, -1).join(
       "', '"
     )}', or '${SWITCHBOARD_CHAINS[SWITCHBOARD_CHAINS.length - 1]}'`;
     throw new Error(
-      `chain ${chain} is not supported, the currently supported chains are ${supportedChainsString}`
+      `chain ${_chain} is not supported, the currently supported chains are ${supportedChainsString}`
     );
   }
-  return chain;
+  return _chain;
 };
 
+/**
+ * Return the chain config for a Switchboard implementation. Throws an error if Switchboard is not deployed on the target chain.
+ * @param _chain - the target chain
+ */
 export const getSupportedChain = (_chain: string): ChainConfig => {
   const chain: ChainType = validateSupportedChain(_chain);
   return SWITCHBOARD_NETWORKS[chain];
 };
 
-export const isSupportedNetwork = (network: string): network is NetworkType => {
-  return SUPPPORTED_NETWORKS.includes(network as NetworkType);
+/**
+ * Type assertion for whether the given network is valid.
+ * @param _network - the target network
+ */
+export const isSupportedNetwork = (
+  _network: string
+): _network is NetworkType => {
+  return SUPPPORTED_NETWORKS.includes(_network as NetworkType);
 };
 
+/**
+ * Return the network config for a Switchboard deployment. Throws an error if Switchboard is not deployed on the target chain.
+ * @param _chain - the target chain
+ * @param _network - the target network
+ */
 export const getSupportedNetwork = (
   _chain: string,
   _network: string
@@ -58,4 +81,27 @@ export const getSupportedNetwork = (
   }
 
   return (chainConfig as IChainConfig)[_network];
+};
+
+/**
+ * Determines whether a given chain, network, and queue is managed by SwitchboardLabs
+ * @param _chain - the target chain of the queue (Ex. solana or arbitrum)
+ * @param _network - the target network of the queue (Ex. mainnet or testnet)
+ * @param _queue - the address of the queue
+ * @returns a boolean indicating whether the queue is operated by SwitchboardLabs
+ */
+export const isSwitchboardLabsQueue = (
+  _chain: string,
+  _network: string,
+  _queue: string
+): boolean => {
+  try {
+    const networkConfig = getSupportedNetwork(_chain, _network);
+    for (const queue of networkConfig.queues) {
+      if (queue.address === _queue) {
+        return true;
+      }
+    }
+  } catch {}
+  return false;
 };
