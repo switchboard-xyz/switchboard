@@ -3,17 +3,20 @@ import { EvmWithSignerBaseCommand as BaseCommand } from "../../../evm";
 import { Args, Flags } from "@oclif/core";
 import { Big } from "@switchboard-xyz/common";
 import {
+  AggregatorAccount,
   EnablePermissions,
+  fetchJobsFromIPFS,
+  Job,
   Permissions,
   toBigNumber,
 } from "@switchboard-xyz/evm.js";
 
-export default class CreateAggregator extends BaseCommand {
+export default class SetAggregator extends BaseCommand {
   static enableJsonFlag = true;
 
-  static description = "create an aggregator for a given queue";
+  static description = "set an aggregators config";
 
-  static aliases = ["evm:create:aggregator"];
+  static aliases = ["evm:set:aggregator"];
 
   static flags = {
     ...BaseCommand.flags,
@@ -28,7 +31,6 @@ export default class CreateAggregator extends BaseCommand {
     forceReportPeriod: Flags.integer({
       description:
         "Number of seconds for which, even if the variance threshold is not passed, accept new responses from oracles.",
-      default: 0,
     }),
     batchSize: Flags.integer({
       description: "number of oracles requested for each open round call",
@@ -57,78 +59,70 @@ export default class CreateAggregator extends BaseCommand {
       description: "filesystem path to job definition file",
       multiple: true,
     }),
+    removeJob: Flags.string({
+      description: "job definitions to remove from the hash",
+      multiple: true,
+    }),
     enableHistory: Flags.boolean({
       description: "enable history for the feed",
-    }),
-    enable: Flags.boolean({
-      description: "enable the oracles heartbeat permissions",
-    }),
-    queueAuthority: Flags.string({
-      description:
-        "override the default signer when setting oracle permissions",
-      dependsOn: ["enable"],
-    }),
-    fundAmount: Flags.string({
-      description: "fund the aggregator with some wETH",
-      default: "0.0",
     }),
   };
 
   static args = {
-    queueAddress: Args.string({
-      description: "address of the oracle queue",
+    aggregatorAddress: Args.string({
+      description: "address of the aggregator",
       required: true,
     }),
   };
 
   async run() {
-    const { flags, args } = await this.parse(CreateAggregator);
+    const { flags, args } = await this.parse(SetAggregator);
 
-    const authority = await this.getAuthority(flags.authority);
-    const authorityAddress = await authority.getAddress();
+    const [aggregatorAccount, initialAggregatorState] =
+      await this.loadAggregator(args.aggregatorAddress);
 
-    let enableParams: EnablePermissions = false;
-    if (flags.enable) {
-      enableParams = true;
+    const authority = await this.getAuthority(
+      flags.authority,
+      initialAggregatorState.authority
+    );
 
-      if (flags.queueAuthority) {
-        const queueAuthoritySigner = await this.getAuthority(
-          flags.queueAuthority
-        );
-        enableParams = { queueAuthority: queueAuthoritySigner };
-      }
-    }
+    const addJobs = (flags.job ?? [])
+      .map((jobDefPath) => this.loadJobDefinitionWithMeta(jobDefPath))
+      .map((iJob) => this.convertJob(iJob));
 
-    const [queueAccount, queueData] = await this.loadQueue(args.queueAddress);
-
-    const jobs = (flags.job ?? [])
+    const removeJobs = (flags.removeJob ?? [])
       .map((jobDefPath) => this.loadJobDefinitionWithMeta(jobDefPath))
       .map((iJob) => this.convertJob(iJob));
 
     const jobsHash =
-      jobs.length > 0
-        ? (await this.getUpdatedJobsHash(undefined, jobs))[0]
-        : "";
+      addJobs.length > 0 || removeJobs.length > 0
+        ? (
+            await this.getUpdatedJobsHash(
+              initialAggregatorState.jobsHash,
+              addJobs,
+              removeJobs
+            )
+          )[0]
+        : initialAggregatorState.jobsHash;
 
-    const [aggregatorAccount, aggregatorInit] =
-      await queueAccount.createAggregator(
-        {
-          name: flags.name ?? "",
-          authority: authorityAddress,
-          batchSize: flags.batchSize ?? 1,
-          minUpdateDelaySeconds: flags.updateInterval ?? 30,
-          minOracleResults: flags.minOracles ?? 1,
-          minJobResults: flags.minJobs ?? 1,
-          jobsHash: jobsHash,
-          varianceThreshold: flags.varianceThreshold
-            ? Number.parseFloat(flags.varianceThreshold)
-            : 0,
-          forceReportPeriod: flags.forceReportPeriod ?? 0,
-          enableHistory: flags.enableHistory,
-          fundAmount: toBigNumber(new Big(flags.fundAmount ?? 0)),
-        },
-        enableParams
-      );
+    const tx = await aggregatorAccount.setConfig(
+      {
+        name: flags.name,
+        batchSize: flags.batchSize,
+        minUpdateDelaySeconds: flags.updateInterval,
+        minOracleResults: flags.minOracles,
+        minJobResults: flags.minJobs,
+        jobsHash: jobsHash,
+        varianceThreshold: flags.varianceThreshold
+          ? Number.parseFloat(flags.varianceThreshold)
+          : 0,
+        forceReportPeriod: flags.forceReportPeriod,
+        enableHistory: flags.enableHistory,
+      },
+      {
+        signer: authority,
+      }
+    );
 
     const aggregator = await aggregatorAccount.loadData();
 
@@ -141,10 +135,15 @@ export default class CreateAggregator extends BaseCommand {
       );
     } catch {}
 
+    let jobs: Job[] | undefined;
+    try {
+      jobs = await fetchJobsFromIPFS(jobsHash);
+    } catch {}
+
     const aggregatorData = {
       ...aggregator,
       permissions,
-      jobs,
+      jobs: jobs ? this.jobsToJson(jobs) : undefined,
     };
 
     if (flags.json) {
@@ -157,10 +156,10 @@ export default class CreateAggregator extends BaseCommand {
     this.prettyPrintAggregator(aggregatorData, aggregatorAccount.address);
 
     this.logger.info("\n");
-    this.logger.info(this.toUrl(aggregatorInit.hash));
+    this.logger.info(this.toUrl(tx.hash));
   }
 
   async catch(error: any) {
-    super.catch(error, "Failed to create aggregator");
+    super.catch(error, "Failed to set the aggregators config");
   }
 }

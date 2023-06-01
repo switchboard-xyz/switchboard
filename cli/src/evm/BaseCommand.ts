@@ -3,6 +3,8 @@ import { AwsProvider, FsProvider, GcpProvider } from "../providers";
 import { IBaseChain } from "../types/chain";
 import { chalkString, stripTrailingZeros } from "../utils";
 
+import { BaseJob, JobDefinition, RawJobDefinition } from "./types";
+
 import { Flags } from "@oclif/core";
 import { Input } from "@oclif/parser";
 import {
@@ -19,12 +21,14 @@ import {
 import {
   AggregatorAccount,
   AggregatorData,
+  fetchJobsFromIPFS,
   fromBigNumber,
   Job,
   OracleAccount,
   OracleData,
   OracleQueueAccount,
   OracleQueueData,
+  publishJobsToIPFS,
   SwitchboardProgram,
 } from "@switchboard-xyz/evm.js";
 import chalk from "chalk";
@@ -286,11 +290,7 @@ export abstract class EvmBaseCommand extends BaseCommand implements IBaseChain {
     return fromBigNumber(num);
   }
 
-  loadJobDefinitionWithMeta(definitionPath: string): {
-    name: string;
-    weight: number;
-    job: OracleJob;
-  } {
+  loadJobDefinitionWithMeta(definitionPath: string): JobDefinition {
     const normalizedPath = this.normalizePath(definitionPath);
     const jobDef = JSON.parse(
       fs
@@ -320,12 +320,12 @@ export abstract class EvmBaseCommand extends BaseCommand implements IBaseChain {
             : undefined
         )
       );
-      return { name, weight, job: oracleJob };
+      return { name, weight, job: oracleJob, path: definitionPath };
     }
 
     if ("tasks" in jobDef && Array.isArray(jobDef.tasks)) {
       const oracleJob = this.loadJobDefinition(definitionPath);
-      return { name, weight, job: oracleJob };
+      return { name, weight, job: oracleJob, path: definitionPath };
     }
 
     throw new Error(`Failed to parse job definition`);
@@ -459,25 +459,50 @@ export abstract class EvmBaseCommand extends BaseCommand implements IBaseChain {
     this.log(logString);
   }
 
-  prettyPrintJob(
-    job: any,
-    address: string,
-    tasks: Array<OracleJob.ITask>,
-    label?: string,
-    SPACING = 24
-  ) {
-    throw new Error(`Not implemented yet`);
+  prettyPrintJobs(jobs: Array<Job>, SPACING = 24) {
+    const output: string[] = [];
+
+    output.push(
+      chalk.underline(
+        chalkString("\n## Jobs", Array.from({ length: 44 }).join(" "), SPACING)
+      )
+    );
+
+    for (const [n, job] of jobs.entries()) {
+      const oracleJob = OracleJob.decodeDelimited(
+        new Uint8Array(Buffer.from(job.data, "base64"))
+      );
+      output.push(
+        chalkString(
+          `${job.name}, weight = ${job.weight ?? 1}`,
+          "\n" + JSON.stringify(oracleJob.toJSON(), undefined, 2),
+          SPACING
+        )
+      );
+    }
+
+    const logString = output.join("\n");
+
+    this.log(logString);
   }
 
-  prettyPrintJobs(
-    jobs: Array<{
-      address: string;
-      data: any;
-      tasks: Array<OracleJob.ITask>;
-    }>,
-    SPACING = 24
-  ) {
-    throw new Error(`Not implemented yet`);
+  jobsToJson(jobs: Job[]): Array<{
+    name: string;
+    weight: number;
+    data: string;
+    tasks: OracleJob.ITask[];
+  }> {
+    return jobs.map((job) => {
+      const oracleJob = OracleJob.decodeDelimited(
+        new Uint8Array(Buffer.from(job.data, "base64"))
+      );
+      return {
+        name: job.name,
+        weight: job.weight,
+        data: job.data,
+        tasks: oracleJob.tasks,
+      };
+    });
   }
 
   prettyPrintOracle(
@@ -558,7 +583,7 @@ export abstract class EvmBaseCommand extends BaseCommand implements IBaseChain {
     this.log(logString);
   }
 
-  convertJob(job: { name: string; weight: number; job: OracleJob }): Job {
+  convertJob(job: JobDefinition): BaseJob {
     const serializedJob = Buffer.from(
       OracleJob.encodeDelimited(job.job).finish()
     ).toString("base64");
@@ -567,7 +592,54 @@ export abstract class EvmBaseCommand extends BaseCommand implements IBaseChain {
       name: job.name ?? base64ToPseudoUniqueID(serializedJob),
       weight: job.weight ?? 1,
       data: serializedJob,
+      path: job.path,
     };
+  }
+
+  // TODO: Dedupe
+  async getUpdatedJobsHash(
+    hash?: string,
+    addJobs?: BaseJob[],
+    removeJobs?: BaseJob[]
+  ): Promise<[string, Omit<Required<RawJobDefinition>, "path">[]]> {
+    let jobs: Job[] = [];
+    if (hash) {
+      const existingJobs = await fetchJobsFromIPFS(hash);
+      jobs.push(...existingJobs);
+    }
+
+    for (const rmJob of removeJobs ?? []) {
+      const idx = jobs.findIndex((j) => j.data === rmJob.data);
+      if (idx === -1) {
+        // TODO: Store file path for easier identification
+        throw new Error(`Failed to remove job from job list, ${rmJob.path}`);
+      }
+
+      jobs = [...jobs.slice(0, idx), ...jobs.slice(idx + 1)];
+    }
+
+    jobs.push(...(addJobs ?? []));
+
+    if (jobs.length === 0) {
+      throw new Error(`No jobs to publish to IPFS`);
+    }
+
+    const jobsHash = await publishJobsToIPFS(
+      jobs,
+      "https://api.switchboard.xyz/api/ipfs"
+    );
+
+    const finalJobs = jobs.map((job) => {
+      const oracleJob = OracleJob.decodeDelimited(
+        new Uint8Array(Buffer.from(job.data, "base64"))
+      );
+      return {
+        ...job,
+        ...oracleJob,
+      };
+    });
+
+    return [jobsHash, finalJobs];
   }
 }
 

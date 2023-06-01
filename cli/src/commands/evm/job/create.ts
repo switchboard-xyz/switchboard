@@ -1,17 +1,7 @@
 import { EvmWithoutSignerBaseCommand as BaseCommand } from "../../../evm";
 import { chalkString } from "../../../utils";
 
-import { Args, Flags } from "@oclif/core";
-import { Big } from "@switchboard-xyz/common";
-import { OracleJob } from "@switchboard-xyz/common";
-import {
-  EnablePermissions,
-  fetchJobsFromIPFS,
-  Job,
-  Permissions,
-  publishJobsToIPFS,
-  toBigNumber,
-} from "@switchboard-xyz/evm.js";
+import { Flags } from "@oclif/core";
 
 export default class CreateJob extends BaseCommand {
   static enableJsonFlag = true;
@@ -37,50 +27,19 @@ export default class CreateJob extends BaseCommand {
   async run() {
     const { flags } = await this.parse(CreateJob);
 
-    let jobs: Job[] = [];
-    if (flags.hash) {
-      const existingJobs = await fetchJobsFromIPFS(flags.hash);
-      jobs.push(...existingJobs);
-    }
+    const addJobs = (flags.job ?? [])
+      .map((jobDefPath) => this.loadJobDefinitionWithMeta(jobDefPath))
+      .map((iJob) => this.convertJob(iJob));
 
     const removeJobs = (flags.removeJob ?? [])
       .map((jobDefPath) => this.loadJobDefinitionWithMeta(jobDefPath))
       .map((iJob) => this.convertJob(iJob));
 
-    for (const rmJob of removeJobs) {
-      const idx = jobs.findIndex((j) => j.data === rmJob.data);
-      if (idx === -1) {
-        // TODO: Store file path for easier identification
-        throw new Error(`Failed to remove job from job list`);
-      }
-
-      jobs = [...jobs.slice(0, idx), ...jobs.slice(idx + 1)];
-    }
-
-    const addJobs = (flags.job ?? [])
-      .map((jobDefPath) => this.loadJobDefinitionWithMeta(jobDefPath))
-      .map((iJob) => this.convertJob(iJob));
-
-    jobs.push(...addJobs);
-
-    if (jobs.length === 0) {
-      throw new Error(`No jobs to publish to IPFS`);
-    }
-
-    const jobsHash = await publishJobsToIPFS(
-      jobs,
-      "https://api.switchboard.xyz/api/ipfs"
+    const [jobsHash, finalJobs] = await this.getUpdatedJobsHash(
+      flags.hash,
+      addJobs,
+      removeJobs
     );
-
-    const finalJobs = jobs.map((job) => {
-      const oracleJob = OracleJob.decodeDelimited(
-        new Uint8Array(Buffer.from(job.data, "base64"))
-      );
-      return {
-        ...job,
-        ...oracleJob,
-      };
-    });
 
     if (flags.json) {
       return {
@@ -89,7 +48,10 @@ export default class CreateJob extends BaseCommand {
       };
     }
 
-    this.success(`Created IPFS job hash for ${jobs.length} jobs: `, jobsHash);
+    this.success(
+      `Created IPFS job hash for ${finalJobs.length} jobs: `,
+      jobsHash
+    );
 
     for (const [n, job] of finalJobs.entries()) {
       this.logger.info(

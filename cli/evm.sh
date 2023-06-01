@@ -51,3 +51,10 @@ sbv2 evm job create --arbitrum --testnet \
   --removeJob ../directory/jobs/btc/okex.jsonc \
   --json > my_updated_jobs.json
 
+sbv2 evm job print bafkreih4ots3go2ytcvp74cvshnmlikw2mtm47pugpnlzuf36vr6emoov4 --arbitrum --testnet
+
+
+sbv2 evm aggregator set 0x7892F7326291F3Bc17680956B476701DF76d52Da --arbitrum --testnet --account ~/.config/arbitrum/testnet.txt \
+  --name "gally test BTC feed v2" \
+  --updateInterval 180 \
+  --removeJob ../directory/jobs/btc/okex.jsonc

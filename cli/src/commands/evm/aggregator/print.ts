@@ -44,40 +44,9 @@ export default class AggregatorPrint extends BaseCommand {
       );
     } catch {}
 
-    let jobs: { name: string; weight?: number; job: OracleJob }[] | undefined;
+    let jobs: Job[] | undefined;
     try {
-      if (aggregator.jobsHash && aggregator.jobsHash.length > 0) {
-        const parsedJobs: { name: string; weight?: number; job: OracleJob }[] =
-          [];
-        const jobDefinitions = await fetchJobsFromIPFS(aggregator.jobsHash);
-        for (const jobDef of jobDefinitions) {
-          let name = "";
-          if ("name" in jobDef && typeof jobDef.name === "string") {
-            name = jobDef.name;
-          }
-
-          let weight = 1;
-          if ("weight" in jobDef && typeof jobDef.weight === "number") {
-            weight = jobDef.weight;
-          }
-
-          if ("data" in jobDef && typeof jobDef.data === "string") {
-            const oracleJob = OracleJob.decodeDelimited(
-              Buffer.from(jobDef.data, "base64")
-            );
-            parsedJobs.push({ name, weight, job: oracleJob });
-          }
-        }
-
-        if (parsedJobs.length === jobDefinitions.length) {
-          jobs = parsedJobs;
-        } else {
-          this.logError(
-            `Only found ${parsedJobs.length} definitions, expected ${jobDefinitions.length}`
-          );
-        }
-        // TODO log error
-      }
+      jobs = await fetchJobsFromIPFS(aggregator.jobsHash);
     } catch {}
 
     const aggregatorData = {
@@ -117,20 +86,7 @@ export default class AggregatorPrint extends BaseCommand {
     }
 
     if (flags.jobs && jobs && (jobs?.length ?? 0) > 0) {
-      this.log(
-        chalk.underline(
-          chalkString("\n## Jobs", Array.from({ length: 44 }).join(" "))
-        )
-      );
-
-      for (const [n, job] of jobs.entries()) {
-        this.logger.info(
-          chalkString(
-            `${job.name}, weight = ${job.weight ?? 1}`,
-            "\n" + JSON.stringify(job.job.toJSON(), undefined, 2)
-          )
-        );
-      }
+      this.prettyPrintJobs(jobs);
     }
   }
 
