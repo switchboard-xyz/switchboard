@@ -20,6 +20,7 @@ import {
   AggregatorAccount,
   AggregatorData,
   fromBigNumber,
+  Job,
   OracleAccount,
   OracleData,
   OracleQueueAccount,
@@ -27,6 +28,7 @@ import {
   SwitchboardProgram,
 } from "@switchboard-xyz/evm.js";
 import chalk from "chalk";
+import { createHash } from "crypto";
 import { BigNumber, providers, Wallet } from "ethers";
 import fs from "fs";
 import path from "path";
@@ -289,8 +291,12 @@ export abstract class EvmBaseCommand extends BaseCommand implements IBaseChain {
     weight: number;
     job: OracleJob;
   } {
-    const fileString = fs.readFileSync(definitionPath, "utf-8");
-    const jobDef = JSON.parse(fileString);
+    const normalizedPath = this.normalizePath(definitionPath);
+    const jobDef = JSON.parse(
+      fs
+        .readFileSync(normalizedPath, "utf-8")
+        .replace(/\/\*[\S\s]*?\*\/|([^:\\]|^)\/\/.*$/g, "")
+    );
 
     let name = "";
     if ("name" in jobDef && typeof jobDef.name === "string") {
@@ -391,7 +397,6 @@ export abstract class EvmBaseCommand extends BaseCommand implements IBaseChain {
     );
 
     output.push(chalkString("name", aggregator.name, SPACING));
-    output.push(chalkString("metadata", aggregator.name, SPACING));
 
     let result: Big | undefined;
     let timestamp: number | undefined;
@@ -552,4 +557,22 @@ export abstract class EvmBaseCommand extends BaseCommand implements IBaseChain {
 
     this.log(logString);
   }
+
+  convertJob(job: { name: string; weight: number; job: OracleJob }): Job {
+    const serializedJob = Buffer.from(
+      OracleJob.encodeDelimited(job.job).finish()
+    ).toString("base64");
+
+    return {
+      name: job.name ?? base64ToPseudoUniqueID(serializedJob),
+      weight: job.weight ?? 1,
+      data: serializedJob,
+    };
+  }
+}
+
+export function base64ToPseudoUniqueID(base64String: string): string {
+  const binaryData = Buffer.from(base64String, "base64");
+  const hash = createHash("sha256").update(binaryData).digest("hex");
+  return hash.slice(0, 16);
 }

@@ -12,6 +12,7 @@ import {
 import {
   baseJsonReplacers,
   chalkString,
+  CHECK_ICON,
   FAILED_ICON,
   normalizeFilePath,
 } from "./utils";
@@ -115,6 +116,11 @@ export abstract class CliBaseCommand extends Command {
   logError(message: string) {
     const logger = this.logger ?? console;
     logger.info(chalk.red(`${FAILED_ICON}${message}`));
+  }
+
+  success(message: string, info?: string) {
+    const logger = this.logger ?? console;
+    logger.info(chalk.green(`${CHECK_ICON}${message}`) + info);
   }
 
   async catch(error: unknown, message?: string) {

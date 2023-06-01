@@ -45,7 +45,7 @@ export default class OraclePrint extends BaseCommand {
 
     this.prettyPrintOracle(oracleData, oracleAccount.address);
 
-    this.log(chalkString("permissions", permissions));
+    this.log(chalkString("permissions", permissions, 24));
   }
 
   async catch(error: any) {

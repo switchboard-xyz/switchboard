@@ -2,7 +2,11 @@ import { EvmWithSignerBaseCommand as BaseCommand } from "../../../evm";
 import { chalkString } from "../../../utils";
 
 import { Args, Flags } from "@oclif/core";
-import { EnablePermissions, OracleAccount } from "@switchboard-xyz/evm.js";
+import {
+  EnablePermissions,
+  OracleAccount,
+  Permissions,
+} from "@switchboard-xyz/evm.js";
 
 export default class OracleCreate extends BaseCommand {
   static enableJsonFlag = true;
@@ -57,7 +61,7 @@ export default class OracleCreate extends BaseCommand {
       }
     }
 
-    const oracleAccount = await queueAccount.createOracle(
+    const [oracleAccount, oracleInit] = await queueAccount.createOracle(
       {
         name: flags.name ?? "",
         authority: await authority.getAddress(),
@@ -73,16 +77,19 @@ export default class OracleCreate extends BaseCommand {
 
     this.prettyPrintOracle(oracleData, oracleAccount.address);
 
-    let permissions: string = "N/A";
+    let permissions: string | undefined;
     try {
-      const permissionBignum = await this.program.sb.permissions(
+      permissions = await Permissions.getSwitchboardPermissions(
+        this.program,
         queueAccount.address,
         oracleAccount.address
       );
-      permissions = permissionBignum.toNumber().toString();
     } catch {}
 
-    this.log(chalkString("permissions", permissions));
+    this.log(chalkString("permissions", permissions, 24));
+
+    this.logger.info("\n");
+    this.logger.info(this.toUrl(oracleInit.hash));
   }
 
   async catch(error: any) {

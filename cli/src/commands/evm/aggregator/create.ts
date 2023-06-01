@@ -5,8 +5,10 @@ import { Big } from "@switchboard-xyz/common";
 import { OracleJob } from "@switchboard-xyz/common";
 import {
   EnablePermissions,
+  Job,
   Permissions,
   publishJobsToIPFS,
+  toBigNumber,
 } from "@switchboard-xyz/evm.js";
 
 export default class CreateAggregator extends BaseCommand {
@@ -36,13 +38,16 @@ export default class CreateAggregator extends BaseCommand {
     }),
     batchSize: Flags.integer({
       description: "number of oracles requested for each open round call",
+      default: 1,
     }),
     minJobs: Flags.integer({
       description: "number of jobs that must respond before an oracle responds",
+      default: 1,
     }),
     minOracles: Flags.integer({
       description:
         "number of oracles that must respond before a value is accepted on-chain",
+      default: 1,
     }),
     updateInterval: Flags.integer({
       description: "set an aggregator's minimum update delay",
@@ -68,6 +73,10 @@ export default class CreateAggregator extends BaseCommand {
       description:
         "override the default signer when setting oracle permissions",
       dependsOn: ["enable"],
+    }),
+    fundAmount: Flags.string({
+      description: "fund the aggregator with some wETH",
+      default: "0.0",
     }),
   };
 
@@ -105,35 +114,30 @@ export default class CreateAggregator extends BaseCommand {
     let jobsHash = "";
     if (jobs.length > 0) {
       jobsHash = await publishJobsToIPFS(
-        jobs.map((j) => {
-          return {
-            name: j.name ?? "",
-            weight: j.weight ?? 1,
-            data: Buffer.from(
-              OracleJob.encodeDelimited(j.job).finish()
-            ).toString(),
-          };
-        })
+        jobs.map((j, i): Job => this.convertJob(j)),
+        "https://api.switchboard.xyz/api/ipfs"
       );
     }
 
-    const aggregatorAccount = await queueAccount.createAggregator(
-      {
-        name: flags.name ?? "",
-        authority: authorityAddress,
-        batchSize: flags.batchSize ?? 1,
-        minUpdateDelaySeconds: flags.updateInterval ?? 30,
-        minOracleResults: flags.minOracles ?? 1,
-        minJobResults: flags.minJobs ?? 1,
-        jobsHash: jobsHash,
-        varianceThreshold: flags.varianceThreshold
-          ? Number.parseFloat(flags.varianceThreshold)
-          : 0,
-        forceReportPeriod: flags.forceReportPeriod ?? 0,
-        enableHistory: flags.enableHistory,
-      },
-      enableParams
-    );
+    const [aggregatorAccount, aggregatorInit] =
+      await queueAccount.createAggregator(
+        {
+          name: flags.name ?? "",
+          authority: authorityAddress,
+          batchSize: flags.batchSize ?? 1,
+          minUpdateDelaySeconds: flags.updateInterval ?? 30,
+          minOracleResults: flags.minOracles ?? 1,
+          minJobResults: flags.minJobs ?? 1,
+          jobsHash: jobsHash,
+          varianceThreshold: flags.varianceThreshold
+            ? Number.parseFloat(flags.varianceThreshold)
+            : 0,
+          forceReportPeriod: flags.forceReportPeriod ?? 0,
+          enableHistory: flags.enableHistory,
+          fundAmount: toBigNumber(new Big(flags.fundAmount ?? 0)),
+        },
+        enableParams
+      );
 
     const aggregator = await aggregatorAccount.loadData();
 
@@ -160,6 +164,9 @@ export default class CreateAggregator extends BaseCommand {
     }
 
     this.prettyPrintAggregator(aggregatorData, aggregatorAccount.address);
+
+    this.logger.info("\n");
+    this.logger.info(this.toUrl(aggregatorInit.hash));
   }
 
   async catch(error: any) {
