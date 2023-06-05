@@ -1360,7 +1360,7 @@ ALIASES
   $ sbv2 evm create aggregator
 
 EXAMPLES
-  $  sbv2 evm aggregator create --arbitrum --testnet --account ~/.config/arbitrum/testnet.txt 0xB1c6E716ACae35200Dc8278A63a424f58417954c --name 'my feed' --batchSize 1 --updateInterval 90 --fundAmount 0.25 --job my_job.json
+  $ sbv2 evm aggregator create --arbitrum --testnet --account ~/.config/arbitrum/testnet.txt 0xB1c6E716ACae35200Dc8278A63a424f58417954c --name 'my feed' --batchSize 1 --updateInterval 90 --fundAmount 0.25 --job my_job.json
 ```
 
 ## `sbv2 evm aggregator print AGGREGATORADDRESS`
@@ -1520,7 +1520,7 @@ ALIASES
   $ sbv2 evm create aggregator
 
 EXAMPLES
-  $  sbv2 evm aggregator create --arbitrum --testnet --account ~/.config/arbitrum/testnet.txt 0xB1c6E716ACae35200Dc8278A63a424f58417954c --name 'my feed' --batchSize 1 --updateInterval 90 --fundAmount 0.25 --job my_job.json
+  $ sbv2 evm aggregator create --arbitrum --testnet --account ~/.config/arbitrum/testnet.txt 0xB1c6E716ACae35200Dc8278A63a424f58417954c --name 'my feed' --batchSize 1 --updateInterval 90 --fundAmount 0.25 --job my_job.json
 ```
 
 ## `sbv2 evm create jobs`
@@ -1655,6 +1655,8 @@ ALIASES
 
 EXAMPLES
   $ sbv2 evm queue create --arbitrum --testnet --account ~/.config/arbitrum/testnet.txt --name 'my queue' --oracleTimeout 3600 --queueSize 8
+
+  $ sbv2 evm queue create --arbitrum --testnet --account ~/.config/arbitrum/testnet.txt --unpermissionedFeeds
 ```
 
 ## `sbv2 evm job create`
@@ -1903,6 +1905,8 @@ ALIASES
 
 EXAMPLES
   $ sbv2 evm queue create --arbitrum --testnet --account ~/.config/arbitrum/testnet.txt --name 'my queue' --oracleTimeout 3600 --queueSize 8
+
+  $ sbv2 evm queue create --arbitrum --testnet --account ~/.config/arbitrum/testnet.txt --unpermissionedFeeds
 ```
 
 ## `sbv2 evm queue print QUEUEADDRESS`

@@ -159,7 +159,10 @@ export abstract class SolanaBaseCommand
       return rpcUrlFlag;
     }
 
-    const rpcUrl = this.ctx.getRpcUrl("solana", cluster);
+    const rpcUrl = this.ctx.getRpcUrl(
+      "solana",
+      cluster === "mainnet-beta" ? "mainnet" : cluster
+    );
     if (!rpcUrl) {
       throw new Error(
         `Failed to get Solana RPC URL for cluster ${cluster}. Try providing the --rpcUrl flag`
