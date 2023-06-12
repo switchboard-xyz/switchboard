@@ -39,8 +39,6 @@ import {
   OracleAccount,
   PermissionAccount,
   QueueAccount,
-  SBV2_DEVNET_PID,
-  SBV2_MAINNET_PID,
   SwitchboardAccountType,
   SwitchboardProgram,
   types,
@@ -67,7 +65,7 @@ export abstract class SolanaBaseCommand
       options: ["devnet", "mainnet-beta", "mainnet", "localnet"],
       required: false,
       exclusive: ["mainnetBeta"],
-      aliases: ["networkId"],
+      aliases: ["network"],
     }),
     rpcUrl: Flags.string({
       char: "u",
@@ -130,6 +128,10 @@ export abstract class SolanaBaseCommand
   }
 
   getNetwork(clusterOption?: string, mainnetFlag?: string): SolanaNetwork {
+    if (mainnetFlag) {
+      return "mainnet-beta";
+    }
+
     if (clusterOption) {
       switch (clusterOption) {
         case "mainnet":
@@ -145,10 +147,6 @@ export abstract class SolanaBaseCommand
           return "localnet";
         }
       }
-    }
-
-    if (mainnetFlag) {
-      return "mainnet-beta";
     }
 
     return "devnet";
@@ -177,11 +175,12 @@ export abstract class SolanaBaseCommand
       return new PublicKey(programIdFlag);
     }
 
-    if (cluster === "mainnet-beta") {
-      return SBV2_MAINNET_PID;
-    }
-
-    return SBV2_DEVNET_PID;
+    return new PublicKey(
+      this.ctx.getProgramId(
+        "solana",
+        cluster === "mainnet-beta" ? "mainnet" : cluster
+      )
+    );
   }
 
   async loadProgram(

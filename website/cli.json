@@ -2002,7 +2002,7 @@
       "aggregator",
       "create"
     ],
-    "markdown": "USAGE\n  $ sbv2 evm aggregator create QUEUEADDRESS --account <value> --updateInterval <value> [-h] [-v] [-s] [--chain\n    coredao|arbitrum | --coredao | --arbitrum] [--network mainnet|testnet | --mainnet | --testnet] [-u <value>]\n    [--programId <value>] [--json] [-a <value>] [--name <value>] [--forceReportPeriod <value>] [--batchSize <value>]\n    [--minJobs <value>] [--minOracles <value>] [--varianceThreshold <value>] [-j <value>] [--enableHistory]\n    [--queueAuthority <value> --enable] [--fundAmount <value>]\n\nARGUMENTS\n  QUEUEADDRESS  address of the oracle queue\n\nFLAGS\n  -a, --authority=<value>      alternate account that will be the authority for the aggregator\n  -h, --help                   Show CLI help.\n  -j, --job=<value>...         filesystem path to job definition file\n  -s, --silent                 suppress cli prompts\n  -u, --rpcUrl=<value>         alternate RPC url\n  -v, --verbose                log everything\n  --account=<value>            (required) Path to file containing the private key for the payer account\n  --arbitrum                   use the arbitrum chain\n  --batchSize=<value>          [default: 1] number of oracles requested for each open round call\n  --chain=<option>             the evm chain to interact with\n                               <options: coredao|arbitrum>\n  --coredao                    use the coredao chain\n  --enable                     enable the oracles heartbeat permissions\n  --enableHistory              enable history for the feed\n  --forceReportPeriod=<value>  Number of seconds for which, even if the variance threshold is not passed, accept new\n                               responses from oracles.\n  --fundAmount=<value>         [default: 0.0] fund the aggregator escrow with the native token, used to reward oracles\n                               for publishing updates\n  --mainnet                    use the mainnet network\n  --minJobs=<value>            [default: 1] number of jobs that must respond before an oracle responds\n  --minOracles=<value>         [default: 1] number of oracles that must respond before a value is accepted on-chain\n  --name=<value>               name of the aggregator for easier identification\n  --network=<option>           the EVM network to connect to\n                               <options: mainnet|testnet>\n  --programId=<value>          alternative Switchboard program ID to interact with\n  --queueAuthority=<value>     override the default signer when setting oracle permissions\n  --testnet                    use the testnet network\n  --updateInterval=<value>     (required) set an aggregator's minimum update delay\n  --varianceThreshold=<value>  [default: 0] percentage change between a previous accepted result and the next round\n                               before an oracle reports a value on-chain. Used to conserve lease cost during low\n                               volatility\n\nGLOBAL FLAGS\n  --json  Format output as json.\n\nDESCRIPTION\n  create an aggregator for a given queue\n\nALIASES\n  $ sbv2 evm create aggregator\n\nEXAMPLES\n  $  sbv2 evm aggregator create --arbitrum --testnet --account ~/.config/arbitrum/testnet.txt 0xB1c6E716ACae35200Dc8278A63a424f58417954c --name 'my feed' --batchSize 1 --updateInterval 90 --fundAmount 0.25 --job my_job.json\n",
+    "markdown": "USAGE\n  $ sbv2 evm aggregator create QUEUEADDRESS --account <value> --updateInterval <value> [-h] [-v] [-s] [--chain\n    coredao|arbitrum | --coredao | --arbitrum] [--network mainnet|testnet | --mainnet | --testnet] [-u <value>]\n    [--programId <value>] [--json] [-a <value>] [--name <value>] [--forceReportPeriod <value>] [--batchSize <value>]\n    [--minJobs <value>] [--minOracles <value>] [--varianceThreshold <value>] [-j <value>] [--enableHistory]\n    [--queueAuthority <value> --enable] [--fundAmount <value>]\n\nARGUMENTS\n  QUEUEADDRESS  address of the oracle queue\n\nFLAGS\n  -a, --authority=<value>      alternate account that will be the authority for the aggregator\n  -h, --help                   Show CLI help.\n  -j, --job=<value>...         filesystem path to job definition file\n  -s, --silent                 suppress cli prompts\n  -u, --rpcUrl=<value>         alternate RPC url\n  -v, --verbose                log everything\n  --account=<value>            (required) Path to file containing the private key for the payer account\n  --arbitrum                   use the arbitrum chain\n  --batchSize=<value>          [default: 1] number of oracles requested for each open round call\n  --chain=<option>             the evm chain to interact with\n                               <options: coredao|arbitrum>\n  --coredao                    use the coredao chain\n  --enable                     enable the oracles heartbeat permissions\n  --enableHistory              enable history for the feed\n  --forceReportPeriod=<value>  Number of seconds for which, even if the variance threshold is not passed, accept new\n                               responses from oracles.\n  --fundAmount=<value>         [default: 0.0] fund the aggregator escrow with the native token, used to reward oracles\n                               for publishing updates\n  --mainnet                    use the mainnet network\n  --minJobs=<value>            [default: 1] number of jobs that must respond before an oracle responds\n  --minOracles=<value>         [default: 1] number of oracles that must respond before a value is accepted on-chain\n  --name=<value>               name of the aggregator for easier identification\n  --network=<option>           the EVM network to connect to\n                               <options: mainnet|testnet>\n  --programId=<value>          alternative Switchboard program ID to interact with\n  --queueAuthority=<value>     override the default signer when setting oracle permissions\n  --testnet                    use the testnet network\n  --updateInterval=<value>     (required) set an aggregator's minimum update delay\n  --varianceThreshold=<value>  [default: 0] percentage change between a previous accepted result and the next round\n                               before an oracle reports a value on-chain. Used to conserve lease cost during low\n                               volatility\n\nGLOBAL FLAGS\n  --json  Format output as json.\n\nDESCRIPTION\n  create an aggregator for a given queue\n\nALIASES\n  $ sbv2 evm create aggregator\n\nEXAMPLES\n  $ sbv2 evm aggregator create --arbitrum --testnet --account ~/.config/arbitrum/testnet.txt 0xB1c6E716ACae35200Dc8278A63a424f58417954c --name 'my feed' --batchSize 1 --updateInterval 90 --fundAmount 0.25 --job my_job.json\n",
     "usage": "sbv2 evm aggregator create QUEUEADDRESS --account <value> --updateInterval <value> [-h] [-v] [-s] [--chain\n    coredao|arbitrum | --coredao | --arbitrum] [--network mainnet|testnet | --mainnet | --testnet] [-u <value>]\n    [--programId <value>] [--json] [-a <value>] [--name <value>] [--forceReportPeriod <value>] [--batchSize <value>]\n    [--minJobs <value>] [--minOracles <value>] [--varianceThreshold <value>] [-j <value>] [--enableHistory]\n    [--queueAuthority <value> --enable] [--fundAmount <value>]",
     "args": [
       {
@@ -2121,7 +2121,7 @@
       "sbv2 evm create aggregator"
     ],
     "examples": [
-      " sbv2 evm aggregator create --arbitrum --testnet --account ~/.config/arbitrum/testnet.txt 0xB1c6E716ACae35200Dc8278A63a424f58417954c --name 'my feed' --batchSize 1 --updateInterval 90 --fundAmount 0.25 --job my_job.json"
+      "sbv2 evm aggregator create --arbitrum --testnet --account ~/.config/arbitrum/testnet.txt 0xB1c6E716ACae35200Dc8278A63a424f58417954c --name 'my feed' --batchSize 1 --updateInterval 90 --fundAmount 0.25 --job my_job.json"
     ]
   },
   {
@@ -2341,7 +2341,7 @@
       "create",
       "aggregator"
     ],
-    "markdown": "USAGE\n  $ sbv2 evm create aggregator QUEUEADDRESS --account <value> --updateInterval <value> [-h] [-v] [-s] [--chain\n    coredao|arbitrum | --coredao | --arbitrum] [--network mainnet|testnet | --mainnet | --testnet] [-u <value>]\n    [--programId <value>] [--json] [-a <value>] [--name <value>] [--forceReportPeriod <value>] [--batchSize <value>]\n    [--minJobs <value>] [--minOracles <value>] [--varianceThreshold <value>] [-j <value>] [--enableHistory]\n    [--queueAuthority <value> --enable] [--fundAmount <value>]\n\nARGUMENTS\n  QUEUEADDRESS  address of the oracle queue\n\nFLAGS\n  -a, --authority=<value>      alternate account that will be the authority for the aggregator\n  -h, --help                   Show CLI help.\n  -j, --job=<value>...         filesystem path to job definition file\n  -s, --silent                 suppress cli prompts\n  -u, --rpcUrl=<value>         alternate RPC url\n  -v, --verbose                log everything\n  --account=<value>            (required) Path to file containing the private key for the payer account\n  --arbitrum                   use the arbitrum chain\n  --batchSize=<value>          [default: 1] number of oracles requested for each open round call\n  --chain=<option>             the evm chain to interact with\n                               <options: coredao|arbitrum>\n  --coredao                    use the coredao chain\n  --enable                     enable the oracles heartbeat permissions\n  --enableHistory              enable history for the feed\n  --forceReportPeriod=<value>  Number of seconds for which, even if the variance threshold is not passed, accept new\n                               responses from oracles.\n  --fundAmount=<value>         [default: 0.0] fund the aggregator escrow with the native token, used to reward oracles\n                               for publishing updates\n  --mainnet                    use the mainnet network\n  --minJobs=<value>            [default: 1] number of jobs that must respond before an oracle responds\n  --minOracles=<value>         [default: 1] number of oracles that must respond before a value is accepted on-chain\n  --name=<value>               name of the aggregator for easier identification\n  --network=<option>           the EVM network to connect to\n                               <options: mainnet|testnet>\n  --programId=<value>          alternative Switchboard program ID to interact with\n  --queueAuthority=<value>     override the default signer when setting oracle permissions\n  --testnet                    use the testnet network\n  --updateInterval=<value>     (required) set an aggregator's minimum update delay\n  --varianceThreshold=<value>  [default: 0] percentage change between a previous accepted result and the next round\n                               before an oracle reports a value on-chain. Used to conserve lease cost during low\n                               volatility\n\nGLOBAL FLAGS\n  --json  Format output as json.\n\nDESCRIPTION\n  create an aggregator for a given queue\n\nALIASES\n  $ sbv2 evm create aggregator\n\nEXAMPLES\n  $  sbv2 evm aggregator create --arbitrum --testnet --account ~/.config/arbitrum/testnet.txt 0xB1c6E716ACae35200Dc8278A63a424f58417954c --name 'my feed' --batchSize 1 --updateInterval 90 --fundAmount 0.25 --job my_job.json\n",
+    "markdown": "USAGE\n  $ sbv2 evm create aggregator QUEUEADDRESS --account <value> --updateInterval <value> [-h] [-v] [-s] [--chain\n    coredao|arbitrum | --coredao | --arbitrum] [--network mainnet|testnet | --mainnet | --testnet] [-u <value>]\n    [--programId <value>] [--json] [-a <value>] [--name <value>] [--forceReportPeriod <value>] [--batchSize <value>]\n    [--minJobs <value>] [--minOracles <value>] [--varianceThreshold <value>] [-j <value>] [--enableHistory]\n    [--queueAuthority <value> --enable] [--fundAmount <value>]\n\nARGUMENTS\n  QUEUEADDRESS  address of the oracle queue\n\nFLAGS\n  -a, --authority=<value>      alternate account that will be the authority for the aggregator\n  -h, --help                   Show CLI help.\n  -j, --job=<value>...         filesystem path to job definition file\n  -s, --silent                 suppress cli prompts\n  -u, --rpcUrl=<value>         alternate RPC url\n  -v, --verbose                log everything\n  --account=<value>            (required) Path to file containing the private key for the payer account\n  --arbitrum                   use the arbitrum chain\n  --batchSize=<value>          [default: 1] number of oracles requested for each open round call\n  --chain=<option>             the evm chain to interact with\n                               <options: coredao|arbitrum>\n  --coredao                    use the coredao chain\n  --enable                     enable the oracles heartbeat permissions\n  --enableHistory              enable history for the feed\n  --forceReportPeriod=<value>  Number of seconds for which, even if the variance threshold is not passed, accept new\n                               responses from oracles.\n  --fundAmount=<value>         [default: 0.0] fund the aggregator escrow with the native token, used to reward oracles\n                               for publishing updates\n  --mainnet                    use the mainnet network\n  --minJobs=<value>            [default: 1] number of jobs that must respond before an oracle responds\n  --minOracles=<value>         [default: 1] number of oracles that must respond before a value is accepted on-chain\n  --name=<value>               name of the aggregator for easier identification\n  --network=<option>           the EVM network to connect to\n                               <options: mainnet|testnet>\n  --programId=<value>          alternative Switchboard program ID to interact with\n  --queueAuthority=<value>     override the default signer when setting oracle permissions\n  --testnet                    use the testnet network\n  --updateInterval=<value>     (required) set an aggregator's minimum update delay\n  --varianceThreshold=<value>  [default: 0] percentage change between a previous accepted result and the next round\n                               before an oracle reports a value on-chain. Used to conserve lease cost during low\n                               volatility\n\nGLOBAL FLAGS\n  --json  Format output as json.\n\nDESCRIPTION\n  create an aggregator for a given queue\n\nALIASES\n  $ sbv2 evm create aggregator\n\nEXAMPLES\n  $ sbv2 evm aggregator create --arbitrum --testnet --account ~/.config/arbitrum/testnet.txt 0xB1c6E716ACae35200Dc8278A63a424f58417954c --name 'my feed' --batchSize 1 --updateInterval 90 --fundAmount 0.25 --job my_job.json\n",
     "usage": "sbv2 evm create aggregator QUEUEADDRESS --account <value> --updateInterval <value> [-h] [-v] [-s] [--chain\n    coredao|arbitrum | --coredao | --arbitrum] [--network mainnet|testnet | --mainnet | --testnet] [-u <value>]\n    [--programId <value>] [--json] [-a <value>] [--name <value>] [--forceReportPeriod <value>] [--batchSize <value>]\n    [--minJobs <value>] [--minOracles <value>] [--varianceThreshold <value>] [-j <value>] [--enableHistory]\n    [--queueAuthority <value> --enable] [--fundAmount <value>]",
     "args": [
       {
@@ -2460,7 +2460,7 @@
       "sbv2 evm create aggregator"
     ],
     "examples": [
-      " sbv2 evm aggregator create --arbitrum --testnet --account ~/.config/arbitrum/testnet.txt 0xB1c6E716ACae35200Dc8278A63a424f58417954c --name 'my feed' --batchSize 1 --updateInterval 90 --fundAmount 0.25 --job my_job.json"
+      "sbv2 evm aggregator create --arbitrum --testnet --account ~/.config/arbitrum/testnet.txt 0xB1c6E716ACae35200Dc8278A63a424f58417954c --name 'my feed' --batchSize 1 --updateInterval 90 --fundAmount 0.25 --job my_job.json"
     ]
   },
   {
@@ -2653,7 +2653,7 @@
       "create",
       "queue"
     ],
-    "markdown": "USAGE\n  $ sbv2 evm create queue --account <value> [-h] [-v] [-s] [--chain coredao|arbitrum | --coredao | --arbitrum]\n    [--network mainnet|testnet | --mainnet | --testnet] [-u <value>] [--programId <value>] [--json] [-a <value>] [--name\n    <value>] [-r <value>] [--oracleTimeout <value>] [--queueSize <value>] [--unpermissionedFeeds]\n\nFLAGS\n  -a, --authority=<value>  alternate account that will be the authority for the queue\n  -h, --help               Show CLI help.\n  -r, --reward=<value>     oracle rewards for successfully responding to an update request\n  -s, --silent             suppress cli prompts\n  -u, --rpcUrl=<value>     alternate RPC url\n  -v, --verbose            log everything\n  --account=<value>        (required) Path to file containing the private key for the payer account\n  --arbitrum               use the arbitrum chain\n  --chain=<option>         the evm chain to interact with\n                           <options: coredao|arbitrum>\n  --coredao                use the coredao chain\n  --mainnet                use the mainnet network\n  --name=<value>           name of the queue for easier identification\n  --network=<option>       the EVM network to connect to\n                           <options: mainnet|testnet>\n  --oracleTimeout=<value>  [default: 180] number of oracles to add to the queue\n  --programId=<value>      alternative Switchboard program ID to interact with\n  --queueSize=<value>      [default: 100] maximum number of oracles the queue can support\n  --testnet                use the testnet network\n  --unpermissionedFeeds    permit unpermissioned feeds\n\nGLOBAL FLAGS\n  --json  Format output as json.\n\nDESCRIPTION\n  create a new oracle queue\n\nALIASES\n  $ sbv2 evm create queue\n\nEXAMPLES\n  $ sbv2 evm queue create --arbitrum --testnet --account ~/.config/arbitrum/testnet.txt --name 'my queue' --oracleTimeout 3600 --queueSize 8\n",
+    "markdown": "USAGE\n  $ sbv2 evm create queue --account <value> [-h] [-v] [-s] [--chain coredao|arbitrum | --coredao | --arbitrum]\n    [--network mainnet|testnet | --mainnet | --testnet] [-u <value>] [--programId <value>] [--json] [-a <value>] [--name\n    <value>] [-r <value>] [--oracleTimeout <value>] [--queueSize <value>] [--unpermissionedFeeds]\n\nFLAGS\n  -a, --authority=<value>  alternate account that will be the authority for the queue\n  -h, --help               Show CLI help.\n  -r, --reward=<value>     oracle rewards for successfully responding to an update request\n  -s, --silent             suppress cli prompts\n  -u, --rpcUrl=<value>     alternate RPC url\n  -v, --verbose            log everything\n  --account=<value>        (required) Path to file containing the private key for the payer account\n  --arbitrum               use the arbitrum chain\n  --chain=<option>         the evm chain to interact with\n                           <options: coredao|arbitrum>\n  --coredao                use the coredao chain\n  --mainnet                use the mainnet network\n  --name=<value>           name of the queue for easier identification\n  --network=<option>       the EVM network to connect to\n                           <options: mainnet|testnet>\n  --oracleTimeout=<value>  [default: 180] number of oracles to add to the queue\n  --programId=<value>      alternative Switchboard program ID to interact with\n  --queueSize=<value>      [default: 100] maximum number of oracles the queue can support\n  --testnet                use the testnet network\n  --unpermissionedFeeds    permit unpermissioned feeds\n\nGLOBAL FLAGS\n  --json  Format output as json.\n\nDESCRIPTION\n  create a new oracle queue\n\nALIASES\n  $ sbv2 evm create queue\n\nEXAMPLES\n  $ sbv2 evm queue create --arbitrum --testnet --account ~/.config/arbitrum/testnet.txt --name 'my queue' --oracleTimeout 3600 --queueSize 8\n\n  $ sbv2 evm queue create --arbitrum --testnet --account ~/.config/arbitrum/testnet.txt --unpermissionedFeeds\n",
     "usage": "sbv2 evm create queue --account <value> [-h] [-v] [-s] [--chain coredao|arbitrum | --coredao | --arbitrum]\n    [--network mainnet|testnet | --mainnet | --testnet] [-u <value>] [--programId <value>] [--json] [-a <value>] [--name\n    <value>] [-r <value>] [--oracleTimeout <value>] [--queueSize <value>] [--unpermissionedFeeds]",
     "flags": [
       {
@@ -2738,7 +2738,9 @@
       "sbv2 evm create queue"
     ],
     "examples": [
-      "sbv2 evm queue create --arbitrum --testnet --account ~/.config/arbitrum/testnet.txt --name 'my queue' --oracleTimeout 3600 --queueSize 8"
+      "sbv2 evm queue create --arbitrum --testnet --account ~/.config/arbitrum/testnet.txt --name 'my queue' --oracleTimeout 3600 --queueSize 8",
+      "",
+      "sbv2 evm queue create --arbitrum --testnet --account ~/.config/arbitrum/testnet.txt --unpermissionedFeeds"
     ]
   },
   {
@@ -3158,7 +3160,7 @@
       "queue",
       "create"
     ],
-    "markdown": "USAGE\n  $ sbv2 evm queue create --account <value> [-h] [-v] [-s] [--chain coredao|arbitrum | --coredao | --arbitrum]\n    [--network mainnet|testnet | --mainnet | --testnet] [-u <value>] [--programId <value>] [--json] [-a <value>] [--name\n    <value>] [-r <value>] [--oracleTimeout <value>] [--queueSize <value>] [--unpermissionedFeeds]\n\nFLAGS\n  -a, --authority=<value>  alternate account that will be the authority for the queue\n  -h, --help               Show CLI help.\n  -r, --reward=<value>     oracle rewards for successfully responding to an update request\n  -s, --silent             suppress cli prompts\n  -u, --rpcUrl=<value>     alternate RPC url\n  -v, --verbose            log everything\n  --account=<value>        (required) Path to file containing the private key for the payer account\n  --arbitrum               use the arbitrum chain\n  --chain=<option>         the evm chain to interact with\n                           <options: coredao|arbitrum>\n  --coredao                use the coredao chain\n  --mainnet                use the mainnet network\n  --name=<value>           name of the queue for easier identification\n  --network=<option>       the EVM network to connect to\n                           <options: mainnet|testnet>\n  --oracleTimeout=<value>  [default: 180] number of oracles to add to the queue\n  --programId=<value>      alternative Switchboard program ID to interact with\n  --queueSize=<value>      [default: 100] maximum number of oracles the queue can support\n  --testnet                use the testnet network\n  --unpermissionedFeeds    permit unpermissioned feeds\n\nGLOBAL FLAGS\n  --json  Format output as json.\n\nDESCRIPTION\n  create a new oracle queue\n\nALIASES\n  $ sbv2 evm create queue\n\nEXAMPLES\n  $ sbv2 evm queue create --arbitrum --testnet --account ~/.config/arbitrum/testnet.txt --name 'my queue' --oracleTimeout 3600 --queueSize 8\n",
+    "markdown": "USAGE\n  $ sbv2 evm queue create --account <value> [-h] [-v] [-s] [--chain coredao|arbitrum | --coredao | --arbitrum]\n    [--network mainnet|testnet | --mainnet | --testnet] [-u <value>] [--programId <value>] [--json] [-a <value>] [--name\n    <value>] [-r <value>] [--oracleTimeout <value>] [--queueSize <value>] [--unpermissionedFeeds]\n\nFLAGS\n  -a, --authority=<value>  alternate account that will be the authority for the queue\n  -h, --help               Show CLI help.\n  -r, --reward=<value>     oracle rewards for successfully responding to an update request\n  -s, --silent             suppress cli prompts\n  -u, --rpcUrl=<value>     alternate RPC url\n  -v, --verbose            log everything\n  --account=<value>        (required) Path to file containing the private key for the payer account\n  --arbitrum               use the arbitrum chain\n  --chain=<option>         the evm chain to interact with\n                           <options: coredao|arbitrum>\n  --coredao                use the coredao chain\n  --mainnet                use the mainnet network\n  --name=<value>           name of the queue for easier identification\n  --network=<option>       the EVM network to connect to\n                           <options: mainnet|testnet>\n  --oracleTimeout=<value>  [default: 180] number of oracles to add to the queue\n  --programId=<value>      alternative Switchboard program ID to interact with\n  --queueSize=<value>      [default: 100] maximum number of oracles the queue can support\n  --testnet                use the testnet network\n  --unpermissionedFeeds    permit unpermissioned feeds\n\nGLOBAL FLAGS\n  --json  Format output as json.\n\nDESCRIPTION\n  create a new oracle queue\n\nALIASES\n  $ sbv2 evm create queue\n\nEXAMPLES\n  $ sbv2 evm queue create --arbitrum --testnet --account ~/.config/arbitrum/testnet.txt --name 'my queue' --oracleTimeout 3600 --queueSize 8\n\n  $ sbv2 evm queue create --arbitrum --testnet --account ~/.config/arbitrum/testnet.txt --unpermissionedFeeds\n",
     "usage": "sbv2 evm queue create --account <value> [-h] [-v] [-s] [--chain coredao|arbitrum | --coredao | --arbitrum]\n    [--network mainnet|testnet | --mainnet | --testnet] [-u <value>] [--programId <value>] [--json] [-a <value>] [--name\n    <value>] [-r <value>] [--oracleTimeout <value>] [--queueSize <value>] [--unpermissionedFeeds]",
     "flags": [
       {
@@ -3243,7 +3245,9 @@
       "sbv2 evm create queue"
     ],
     "examples": [
-      "sbv2 evm queue create --arbitrum --testnet --account ~/.config/arbitrum/testnet.txt --name 'my queue' --oracleTimeout 3600 --queueSize 8"
+      "sbv2 evm queue create --arbitrum --testnet --account ~/.config/arbitrum/testnet.txt --name 'my queue' --oracleTimeout 3600 --queueSize 8",
+      "",
+      "sbv2 evm queue create --arbitrum --testnet --account ~/.config/arbitrum/testnet.txt --unpermissionedFeeds"
     ]
   },
   {
@@ -7777,6 +7781,88 @@
       }
     ],
     "description": "print an aggregator's metrics'"
+  },
+  {
+    "id": "solana-aggregator-mode",
+    "permalink": "/cli/solana/aggregator/mode",
+    "topic": "solana",
+    "command": "sbv2 solana aggregator mode",
+    "topics": [
+      "solana",
+      "aggregator",
+      "mode"
+    ],
+    "markdown": "USAGE\n  $ sbv2 solana aggregator mode AGGREGATORKEY [-h] [-v] [-s] [--mainnetBeta | --cluster\n    devnet|mainnet-beta|mainnet|localnet] [-u <value>] [--programId <value>] [--commitment\n    confirmed|finalized|processed] [-k <value>] [--ledgerPath <value> --ledger] [--json] [-a <value>] [--slidingWindow |\n    --roundResolution]\n\nARGUMENTS\n  AGGREGATORKEY  public key of the aggregator account\n\nFLAGS\n  -a, --authority=<value>  alternate keypair that is the authority for the aggregator and required to make config\n                           changes\n  -h, --help               Show CLI help.\n  -k, --keypair=<value>    keypair that will pay for onchain transactions. defaults to new account authority if no\n                           alternate authority provided\n  -s, --silent             suppress cli prompts\n  -u, --rpcUrl=<value>     alternate RPC url\n  -v, --verbose            log everything\n  --cluster=<option>       the solana cluster to connect to\n                           <options: devnet|mainnet-beta|mainnet|localnet>\n  --commitment=<option>    [default: confirmed] transaction commitment level to use\n                           <options: confirmed|finalized|processed>\n  --ledger                 enable ledger support\n  --ledgerPath=<value>     HID path to the ledger\n  --mainnetBeta            WARNING: use mainnet-beta solana cluster\n  --programId=<value>      alternative Switchboard program ID to interact with\n  --roundResolution        enable sliding window mode\n  --slidingWindow          enable sliding window mode\n\nGLOBAL FLAGS\n  --json  Format output as json.\n\nDESCRIPTION\n  set an aggregators resolution mode config\n",
+    "usage": "sbv2 solana aggregator mode AGGREGATORKEY [-h] [-v] [-s] [--mainnetBeta | --cluster\n    devnet|mainnet-beta|mainnet|localnet] [-u <value>] [--programId <value>] [--commitment\n    confirmed|finalized|processed] [-k <value>] [--ledgerPath <value> --ledger] [--json] [-a <value>] [--slidingWindow |\n    --roundResolution]",
+    "args": [
+      {
+        "arg": "AGGREGATORKEY",
+        "description": "public key of the aggregator account"
+      }
+    ],
+    "flags": [
+      {
+        "flag": " -a, --authority=<value>",
+        "description": "alternate keypair that is the authority for the aggregator and required to make config changes"
+      },
+      {
+        "flag": "-h, --help",
+        "description": "Show CLI help."
+      },
+      {
+        "flag": "-k, --keypair=<value>",
+        "description": "keypair that will pay for onchain transactions. defaults to new account authority if no alternate authority provided"
+      },
+      {
+        "flag": "-s, --silent",
+        "description": "suppress cli prompts"
+      },
+      {
+        "flag": "-u, --rpcUrl=<value>",
+        "description": "alternate RPC url"
+      },
+      {
+        "flag": "-v, --verbose",
+        "description": "log everything"
+      },
+      {
+        "flag": "--cluster=<option>",
+        "description": "the solana cluster to connect to <options: devnet|mainnet-beta|mainnet|localnet>"
+      },
+      {
+        "flag": "--commitment=<option>",
+        "description": "[default: confirmed] transaction commitment level to use <options: confirmed|finalized|processed>"
+      },
+      {
+        "flag": "--ledger",
+        "description": "enable ledger support"
+      },
+      {
+        "flag": "--ledgerPath=<value>",
+        "description": "HID path to the ledger"
+      },
+      {
+        "flag": "--mainnetBeta",
+        "description": "WARNING: use mainnet-beta solana cluster"
+      },
+      {
+        "flag": "--programId=<value>",
+        "description": "alternative Switchboard program ID to interact with"
+      },
+      {
+        "flag": "--roundResolution",
+        "description": "enable sliding window mode"
+      },
+      {
+        "flag": "--slidingWindow",
+        "description": "enable sliding window mode GLOBAL FLAGS"
+      },
+      {
+        "flag": "--json",
+        "description": "Format output as json."
+      }
+    ],
+    "description": "set an aggregators resolution mode config"
   },
   {
     "id": "solana-aggregator-open",

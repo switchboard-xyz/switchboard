@@ -1,5 +1,6 @@
 packages:
   - "javascript/*"
+  - "rust/*"
   - "cli"
   - "website"
   - "plugins/docusaurus-plugin-api-docs"
