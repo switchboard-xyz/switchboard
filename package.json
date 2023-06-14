@@ -4,6 +4,7 @@
   "scripts": {
     "preinstall": "npx only-allow pnpm",
     "build": "pnpm --filter=!website* build",
+    "build:all": "pnpm --filter=!website* build && pnpm --filter=!website* build:cargo",
     "lint": "pnpm -r lint",
     "fix": "pnpm -r fix",
     "clean": "find . \\( -name 'node_modules' -o -name 'lib' -o -name 'dist' -o -name '.docusaurus' \\) -type d -prune -exec rm -rf '{}' +",

@@ -4,6 +4,15 @@ slug: "/solana/sdk/javascript/"
 hide_title: true
 sidebar_class_name: "sidebar__typescript"
 sidebar_position: 2
+keywords:
+  [
+    Solana,
+    Solana SDK,
+    Javascript,
+    Switchboard Solana SDK,
+    "@switchboard-xyz/solana.js",
+    solana.js overview,
+  ]
 ---
 
 <div align="center">
@@ -159,7 +168,8 @@ console.log(result.toString());
 
 ### Add a History Buffer
 
-Optionally, add a history buffer to your feed to store the last N historical samples
+Optionally, add a history buffer to your feed to store the last N historical
+samples
 
 ```ts
 import {
@@ -180,7 +190,8 @@ const history = await historyBuffer.loadData();
 
 ### Watch Data Feed
 
-Setup a websocket listener to invoke a callback whenever an aggregator is updated
+Setup a websocket listener to invoke a callback whenever an aggregator is
+updated
 
 ```ts
 import Big from "big.js";
