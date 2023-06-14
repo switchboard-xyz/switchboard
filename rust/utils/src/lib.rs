@@ -1,16 +1,17 @@
-pub mod error;
-pub use error::Error;
+pub mod protobufs {
+    include!(concat!(env!("OUT_DIR"), "/_.rs"));
+}
 
-#[cfg(feature = "solana")]
-pub mod solana;
-#[cfg(feature = "solana")]
-pub use solana::*;
+pub use protobufs::oracle_job;
 
 pub mod task;
 pub use task::*;
 
 pub use jsonpath_rust as jsonpath;
 pub use reqwest;
+
+pub mod runner;
+pub use runner::*;
 
 #[cfg(test)]
 mod tests {

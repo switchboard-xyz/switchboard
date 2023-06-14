@@ -1,9 +1,7 @@
-use std::str::FromStr;
-
 use jsonpath_rust::{JsonPathFinder, JsonPathInst};
 use serde_json::Value;
-
-use crate::error::Error;
+use std::str::FromStr;
+use switchboard_common::error::Error;
 
 pub fn json_parse_task(json: Value, path: &str) -> Result<Value, Error> {
     let json_path = JsonPathInst::from_str(path).map_err(|err| Error::CustomMessage(err))?;

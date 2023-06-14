@@ -1,13 +1,10 @@
-use crate::error::Error;
 use crate::task::json::json_parse_task;
 use reqwest;
 use serde_json::Value;
+use switchboard_common::error::Error;
 
 pub async fn http_task(url: &str, path: Option<&str>) -> Result<Value, Error> {
-    let response = reqwest::get(url)
-        .await?
-        .error_for_status()
-        .map_err(|err| Error::from(err))?;
+    let response = reqwest::get(url).await?.error_for_status()?;
 
     // Get the response text as a string
     let text = response.text().await?;
