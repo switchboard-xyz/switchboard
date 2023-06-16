@@ -1,7 +1,8 @@
-pub mod protobufs {
-    include!(concat!(env!("OUT_DIR"), "/_.rs"));
-}
+// pub mod protobufs {
+//     include!(concat!(env!("OUT_DIR"), "/_.rs"));
+// }
 
+pub mod protobufs;
 pub use protobufs::oracle_job;
 
 pub mod task;

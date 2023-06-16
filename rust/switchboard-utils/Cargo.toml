@@ -1,16 +1,21 @@
 [package]
 name = "switchboard-utils"
-version = "0.3.0"
+version = "0.5.1"
 edition = "2021"
+include = ["src/**/*", "Cargo.toml", "../../protos/job_schemas.proto"]
+description = "Switchboard utilities for custom functions and OracleJob protobuf definitions"
+readme = "README.md"
+homepage = "https://switchboard.xyz"
+repository = "https://github.com/switchboard-xyz/sbv2-core/tree/main/rust/switchboard-utils"
+license = "MIT"
 
-# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 [features]
 default = []
 
 [dependencies]
-switchboard-common = { version = "0.0.1", path = "../common" }
-prost = "*"
-bytes = "*"
+switchboard-common = { version = "0.5.0", path = "../switchboard-common" }
+prost = "0.11.9"
+bytes = "1.4.0"
 reqwest = { version = "0.11", features = ["json"] }
 tokio = { version = "1", features = ["full"] }
 jsonpath-rust = "0.3.0"
@@ -32,4 +37,7 @@ serde_derive = "^1"
 mockito = "^1.0.2"
 
 [build-dependencies]
-prost-build = { version = "*", features = ["cleanup-markdown"] }
+prost-build = { version = "0.11.9", features = ["cleanup-markdown"] }
+
+[package.metadata.docs.rs]
+rustdoc-args = ["--cfg", "doc_cfg"]

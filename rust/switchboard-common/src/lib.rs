@@ -1,10 +1,13 @@
+#![cfg_attr(doc_cfg, feature(doc_cfg))]
+mod macros;
+
 pub mod error;
 pub use error::*;
 
-#[cfg(feature = "sgx")]
-pub mod sgx;
-#[cfg(feature = "sgx")]
-pub use sgx::*;
+cfg_sgx! {
+    pub mod sgx;
+    pub use sgx::*;
+}
 
 use serde::{Deserialize, Serialize};
 

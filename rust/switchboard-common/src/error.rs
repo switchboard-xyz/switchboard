@@ -2,6 +2,7 @@ use reqwest::{Error as ReqwestError, StatusCode};
 use serde_json::Error as SerdeJsonError;
 use std::error::Error as StdError;
 use std::fmt;
+use std::fmt::Debug;
 
 #[derive(Debug)]
 pub enum Error {

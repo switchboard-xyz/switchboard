@@ -204,10 +204,10 @@ const config = {
           },
 
           { to: "/blog", label: "Blog", position: "right" },
-          {
-            type: "search",
-            position: "right",
-          },
+          // {
+          //   type: "search",
+          //   position: "right",
+          // },
           {
             href: "https://github.com/switchboard-xyz",
             position: "right",
