@@ -8,3 +8,14 @@ macro_rules! cfg_sgx {
         )*
     }
 }
+
+#[macro_export]
+macro_rules! cfg_not_sgx {
+    ($($item:item)*) => {
+        $(
+            #[cfg(not(feature = "sgx"))]
+            #[cfg_attr(doc_cfg, doc(cfg(not(feature = "sgx"))))]
+            $item
+        )*
+    }
+}

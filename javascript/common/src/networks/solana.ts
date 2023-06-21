@@ -51,7 +51,7 @@ export const SWITCHBOARD_SOLANA_DEVNET_CONFIG: IChainNetworkConfig = {
     {
       name: 'Permissionless Queue',
       address: 'uPeRMdfPmrPqgRWSrjAnAkH78RqAhe5kXoW6vBYRqFX',
-      attestationQueue: '3GicnsrHzoewHc67XTf9tLhL9R4qFjCp42iaQTVQ1xvm',
+      attestationQueue: 'vv1gTnfuUiroqgJHS4xsRASsRQqqixCv1su85VWvcP9',
       authority: '2KgowxogBrGqRcgXQEmqFvC3PGtCu66qERNJevYW8Ajh',
       crankAddress: 'UcrnK4w2HXCEjY8z6TcQ9tysYr3c9VcFLdYAU9YQP5e',
       permissioned: false,
