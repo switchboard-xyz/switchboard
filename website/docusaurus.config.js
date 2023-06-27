@@ -94,7 +94,10 @@ const config = {
           blogSidebarCount: "ALL",
         },
         theme: {
-          customCss: require.resolve("./src/css/custom.css"),
+          customCss: [
+            require.resolve("./src/css/custom.css"),
+            require.resolve("./src/pages/index.module.css"),
+          ],
         },
         pages: {
           remarkPlugins: [require("@docusaurus/remark-plugin-npm2yarn")],

@@ -1,0 +1,149 @@
+---
+sidebar_position: 1
+id: introduction
+slug: /about
+hide_table_of_contents: true
+title: 📚 Introduction
+keywords:
+  [Switchboard, web3, oracle, data feeds, vrf, randomness, solana, aptos, near]
+---
+
+import ChainComponent from "/src/components/ChainComponent/ChainComponent";
+import RoundedCardGroup from "/src/components/RoundedCard/RoundedCardGroup";
+import useBaseUrl from "@docusaurus/useBaseUrl";
+import { Box, Container } from "@mui/system";
+import { Grid, Typography } from "@mui/material";
+
+<Grid container spacing={3} justifyContent="space-evenly" alignItems="center">
+  <Grid item xs={12} md={5}>
+    <>
+      <Typography
+        sx={{
+          color: "var(--ifm-color-primary-light)",
+          fontWeight: 600,
+        }}
+        variant="h1"
+      >
+        Switchboard
+      </Typography>
+      <p>
+        A multi-chain, permissionless oracle protocol delivering secure,
+        reliable, and trustless off-chain data to on-chain smart contracts
+        across Aptos, CoreDAO, NEAR, Solana, Starknet, and Sui. Switchboard
+        empowers developers to build robust and feature-rich dApps with
+        confidence and flexibility.
+      </p>
+      <p>
+        <strong>Switchboard V3</strong> brings secure, off-chain computation,
+        enabling developers to harness the power of trusted execution
+        environments with verifiable, tamper-proof code execution, fostering
+        trust, security, and endless possibilities for summoning data on-chain.
+      </p>
+    </>
+  </Grid>
+  <Grid item xs={12} md={4}>
+    <ChainComponent
+      hideTitle
+      items={[
+        {
+          to: "/aptos",
+          title: "Aptos",
+          description: "Integrate Switchboard on Aptos.",
+          image: useBaseUrl("/img/icons/aptos/logo.svg"),
+          imageDark: useBaseUrl("/img/icons/aptos/dark.svg"),
+        },
+        {
+          to: "/arbitrum",
+          title: "Arbitrum",
+          description: "Integrate Switchboard on Abitrum.",
+          image: useBaseUrl("/img/icons/arbitrum/logo.svg"),
+          imageDark: useBaseUrl("/img/icons/arbitrum/logo.svg"),
+        },
+        {
+          to: "/coredao",
+          title: "CoreDAO",
+          description: "Integrate Switchboard on CoreDAO.",
+          image: useBaseUrl("/img/icons/coredao/logo.svg"),
+          imageDark: useBaseUrl("/img/icons/coredao/dark.svg"),
+        },
+        {
+          to: "/near",
+          title: "Near",
+          description: "Integrate Switchboard on Near.",
+          image: useBaseUrl("/img/icons/near/logo.svg"),
+          imageDark: useBaseUrl("/img/icons/near/dark.svg"),
+        },
+        {
+          to: "/solana",
+          title: "Solana",
+          description: "Integrate Switchboard on Solana.",
+          image: useBaseUrl("/img/icons/solana/logo.svg"),
+          imageDark: useBaseUrl("/img/icons/solana/logo.svg"),
+        },
+        {
+          to: "/sui",
+          title: "Sui",
+          description: "Integrate Switchboard on Sui.",
+          image: useBaseUrl("/img/icons/sui/logo.svg"),
+          imageDark: useBaseUrl("/img/icons/sui/dark.svg"),
+        },
+        {
+          to: "#",
+          title: "StarkNet",
+          description: "Integrate Switchboard on StarkNet.",
+          image: useBaseUrl("/img/icons/starknet/logo.svg"),
+          imageDark: useBaseUrl("/img/icons/starknet/dark.svg"),
+          comingSoon: true,
+        },
+      ]}
+    />
+  </Grid>
+</Grid>
+
+<Box sx={{ minHeight: "3rem" }}></Box>
+
+<RoundedCardGroup
+  cols={2}
+  justifyContent="center"
+  sx={{
+    border: "1px solid var(--ifm-color-primary-dark)",
+    boxShadow: "2px 2px 5px var(--ifm-color-primary-dark)",
+    borderRadius: "10px",
+  }}
+  boxSx={{
+    justifyContent: "space-evenly",
+    alignItems: "flex-start",
+  }}
+  items={[
+    {
+      to: "/about",
+      title: "Learn",
+      description:
+        "Learn about Switchboard and how it enables the community to dictate what data lives on-chain.",
+      image: <img src={useBaseUrl("/img/icons/design/teal.svg")} />,
+      imageDark: <img src={useBaseUrl("/img/icons/design/dark.svg")} />,
+    },
+    {
+      to: "/products",
+      title: "Products",
+      description:
+        "Learn about Switchboard products and the different use cases each enables.",
+      image: <img src={useBaseUrl("/img/icons/publish/teal.svg")} />,
+      imageDark: <img src={useBaseUrl("/img/icons/publish/dark.svg")} />,
+    },
+    {
+      to: "/guides",
+      title: "Integrate",
+      description: "Learn how to integrate Switchboard into your application.",
+      image: <img src={useBaseUrl("/img/icons/play/teal.svg")} />,
+      imageDark: <img src={useBaseUrl("/img/icons/play/dark.svg")} />,
+    },
+    {
+      to: "/api",
+      title: "Develop",
+      description: "Learn how to develop with Switchboard and use the APIs.",
+      image: <img src={useBaseUrl("/img/icons/develop/teal.svg")} />,
+      imageDark: <img src={useBaseUrl("/img/icons/develop/dark.svg")} />,
+    },
+  ]}
+/>

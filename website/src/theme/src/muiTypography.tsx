@@ -1,12 +1,14 @@
-import { TypographyClasses } from "@mui/material";
-import { OverridesStyleRules } from "@mui/material/styles/overrides";
-import { theme } from "./theme";
+import { theme } from ".";
+import firaCodeFamily from "./typography/firaCode";
+import snasmFamily from "./typography/snasm";
+import createTypography from "@mui/material/styles/createTypography";
+import Palette from "./palette";
 
-export const MuiTypography: Partial<
-  OverridesStyleRules<keyof TypographyClasses>
-> = {
+export const MuiTypography = createTypography(Palette, (palette) => ({
+  fontFamily: ["Source Sans Pro", firaCodeFamily, snasmFamily].join(","),
+  fontPrimary: "Source Sans Pro",
   root: {
-    fontFamily: "Source Sans Pro",
+    fontFamily: "Snasm",
     fontSize: 16,
     fontWeight: "normal",
     fontStretch: "normal",
@@ -18,7 +20,7 @@ export const MuiTypography: Partial<
   },
 
   h1: {
-    fontFamily: "Source Sans Pro",
+    fontFamily: "Snasm",
     fontSize: 56,
     fontWeight: 500,
     fontStretch: "normal",
@@ -104,4 +106,6 @@ export const MuiTypography: Partial<
   gutterBottom: {
     marginBottom: "8px",
   },
-};
+}));
+
+export default MuiTypography;
