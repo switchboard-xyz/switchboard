@@ -210,7 +210,6 @@ const ChatBot = (props: { chat?: string }) => {
 
   const submitQuestion = async () => {
     const message = questionInput; // temp to keep track of current message
-    console.log("message: ", message);
     if (messageHistory.length === 1) {
       // want to save the chat session id to local storage after user sends first message
       const sessionIds =
@@ -236,11 +235,6 @@ const ChatBot = (props: { chat?: string }) => {
       { sender: "support", message: response },
     ]);
   };
-
-  useEffect(() => {
-    if (props.chat) {
-    }
-  }, [props.chat]);
 
   const onQuestionKeyDown = (event: React.KeyboardEvent<HTMLDivElement>) => {
     if (event.key === "Enter" && !event.shiftKey) {

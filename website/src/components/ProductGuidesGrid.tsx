@@ -1,17 +1,7 @@
-import React from "react";
 import { Grid, IconButton, Typography, styled } from "@mui/material";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import { useColorMode } from "@docusaurus/theme-common";
 import Link from "@docusaurus/Link";
-
-// import builder from "../../static/img/products-icons/builder.png";
-// import explorer from "../../static/img/products-icons/explorer.png";
-// import feeds from "../../static/img/products-icons/feeds.png";
-// import functions from "../../static/img/products-icons/functions.png";
-// import oracles from "../../static/img/products-icons/oracles.png";
-// import randomness from "../../static/img/products-icons/randomness.png";
-// import scheduler from "../../static/img/products-icons/scheduler.png";
-// import secrets from "../../static/img/products-icons/secrets.png";
 
 interface Card {
   title: string;
