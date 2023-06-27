@@ -1,23 +1,22 @@
 ---
 sidebar_position: 1
 id: introduction
-slug: /about
 hide_table_of_contents: true
 title: 📚 Introduction
 keywords:
   [Switchboard, web3, oracle, data feeds, vrf, randomness, solana, aptos, near]
 ---
 
+import react from "react";
 import useBaseUrl from "@docusaurus/useBaseUrl";
 import { Box, Container } from "@mui/system";
 import { Button, Grid, Typography } from "@mui/material";
-import styles from "./index.module.css";
 import {
   ChainComponent,
   DocsSearch,
   ProductGuidesGrid,
   RoundedCardGroup,
-} from "/src/components";
+} from "../components";
 
 <div
   style={{
