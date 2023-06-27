@@ -15,7 +15,7 @@ export interface IChainProps {
 
 interface ChainComponentProps {
   hideTitle: boolean;
-  sx: CSSProperties;
+  sx?: CSSProperties;
 }
 
 export default function ChainComponent({ hideTitle, sx }: ChainComponentProps) {
@@ -97,9 +97,8 @@ export default function ChainComponent({ hideTitle, sx }: ChainComponentProps) {
 
       {items.map((item, index) => {
         return item.comingSoon ? (
-          <Tooltip title="Coming Soon!">
+          <Tooltip key={item.title + "Chain"} title="Coming Soon!">
             <Box
-              key={item.title + "Chain"}
               display="flex"
               flexDirection="column"
               alignItems="center"

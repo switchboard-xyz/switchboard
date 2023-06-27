@@ -3,6 +3,7 @@ import { Grid, IconButton, Typography, styled } from "@mui/material";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import { useColorMode } from "@docusaurus/theme-common";
 import Link from "@docusaurus/Link";
+import useBaseUrl from "@docusaurus/useBaseUrl";
 
 interface Card {
   title: string;
@@ -16,14 +17,14 @@ const cards: Card[] = [
     description:
       "3-step process to build streams that fetch data from both public and private sources.",
     icon: "feeds.png",
-    link: "/arch/feeds",
+    link: "/data-feeds",
   },
   {
-    title: "Functions",
+    title: "Randomness",
     description:
-      "Create serverless, single-purpose functions that respond to events.",
-    icon: "functions.png",
-    link: "/functions",
+      "Request verifiable on-chain randomness generated from Switchboard’s TEE oracles.",
+    icon: "randomness.png",
+    link: "/randomness",
   },
   {
     title: "Secrets",
@@ -32,25 +33,11 @@ const cards: Card[] = [
     link: "/secrets",
   },
   {
-    title: "Randomness",
+    title: "Functions",
     description:
-      "Request verifiable on-chain randomness generated from Switchboard’s TEE oracles.",
-    icon: "randomness.png",
-    link: "/arch/randomness",
-  },
-  {
-    title: "Scheduler",
-    description:
-      "2-step process to automate smart contracts in a trusted execution environment.",
-    icon: "scheduler.png",
-    link: "",
-  },
-  {
-    title: "Oracle-as-a-service",
-    description:
-      "Custom node solutions Switchboard manages so you can focus on building.",
-    icon: "oracles.png",
-    link: "",
+      "Create serverless, single-purpose functions that respond to events.",
+    icon: "functions.png",
+    link: "/functions",
   },
 ];
 
@@ -59,14 +46,14 @@ const appCards: Card[] = [
     title: "Explorer",
     description: "Explore feeds and functions across chains.",
     icon: "explorer.png",
-    link: "",
+    link: "https://switchboard.xyz/explorer",
   },
   {
     title: "Builder",
     description:
       "Build in a frictionless and permissionless manner using our Builder.",
     icon: "builder.png",
-    link: "",
+    link: "https://app.switchboard.xyz/build",
   },
 ];
 
@@ -118,7 +105,10 @@ const GridItem = (props: { card: Card }) => {
           <SectionTypography sx={{ fontSize: 24 }}>
             {card.title}
           </SectionTypography>
-          <Link to={card.link} style={{ marginLeft: "auto" }}>
+          <Link
+            to={card.link.startsWith("/") ? useBaseUrl(card.link) : card.link}
+            style={{ marginLeft: "auto" }}
+          >
             <IconButton sx={{ color: "#4C6FFF" }}>
               <ArrowForwardIcon />
             </IconButton>
@@ -138,13 +128,13 @@ const ProductGuidesGrid = () => {
       <SectionTypography>Product Guides</SectionTypography>
       <Grid container spacing={2} sx={{ margin: "0px 0px 16px" }}>
         {cards.map((card) => (
-          <GridItem card={card} />
+          <GridItem key={card.title} card={card} />
         ))}
       </Grid>
-      <SectionTypography>Switchboard App</SectionTypography>
+      <SectionTypography>Switchboard Apps</SectionTypography>
       <Grid container spacing={2} sx={{ margin: "0px 0px 16px" }}>
         {appCards.map((appCard) => (
-          <GridItem card={appCard} />
+          <GridItem key={appCard.title} card={appCard} />
         ))}
       </Grid>
     </div>

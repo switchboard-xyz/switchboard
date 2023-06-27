@@ -10,10 +10,7 @@ export default function Home(): JSX.Element {
   const { siteConfig } = useDocusaurusContext();
 
   return (
-    <Layout
-      title={"📚 Introduction"}
-      description={"Getting started with Switchboard"}
-    >
+    <Layout description={"Getting started with Switchboard"}>
       <div
         style={{
           display: "flex",
@@ -28,6 +25,19 @@ export default function Home(): JSX.Element {
               Switchboard Docs
             </span>
           </h1>
+          <div
+            style={{
+              display: "flex",
+              width: "600px",
+              maxWidth: "100%",
+            }}
+          >
+            <p>
+              A trust-minimized, decentralized compute network enabling
+              verifiable, off-chain compute providing smart contract developers
+              with the tools to write more resilient smart contracts.
+            </p>
+          </div>
           {/** @TODO add once Chatbot is ready
      <DocsSearch /> 
      */}

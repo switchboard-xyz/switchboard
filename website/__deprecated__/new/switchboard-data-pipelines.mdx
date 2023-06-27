@@ -1,0 +1,115 @@
+---
+sidebar_position: 30
+title: Exploring, Monitoring and Managing Data Feeds
+---
+
+# Switchboard Data Pipelines
+
+In this page, we cover the different methods of data pipelines that our
+oracle network can support. Oracles are becoming more sophisticated and
+offer multi-dimensional toolings to developers. Traditional oracles utilizes
+the Push method to constantly stream data on-chain, while the recent emergence
+introduces a Pull method that we will explore.
+
+:::note
+
+New to Switchboard’s architecture and its moving parts? Check this [page](https://docs.switchboard.xyz/arch/queues)
+
+:::
+
+Before we deep dive into the different data pipelines, we first have to
+understand the key considerations on the protocol side and why they are important.
+
+## Key Considerations
+
+- **Cost**: The method of bringing data on-chain and the frequency of updates
+  directly influences the costs of running a data feed.
+- **Steps for Data Retrieval**: The number of steps a protocol needs to take
+  to read the data affects latency and MEV-resistibility.
+- **Integration**: The architecture of the oracles and the method of bringing
+  data on-chain affects the integration complexities.
+- **End user effects**: The ultimate impact lays on the end users, where the
+  method of data pipeline can alter different experiences.
+
+## Push
+
+The Push pipeline is a process of constant streaming of data directly from
+the data source to the blockchain. All data updates propagated directly on-chain
+by oracles lead to the most efficient in terms of latency. However, due to the
+design of constant pushing of data, it is more expensive.
+
+### How it works
+
+// insert diagram
+
+- Protocol creates and funds an **on-chain** data feed with specific parameters
+  such as update frequency and job definitions.
+- // Insert queue and crank details
+- Based on the configurations of each data feed, the oracles will fetch data to
+  update the results directly on-chain.
+- Protocols read the data feed and utilize the data for its end users.
+
+## Pull
+
+The Pull pipeline is a process of active off-chain data updates and oracle
+signatures into a decentralized datastore while protocols passively requests
+for updates by pulling the results on-chain. The method suggests that a less
+expensive method as data is updated on a global layer and only fetched on-chain
+when necessary.
+
+### How it works
+
+// insert diagram
+
+- Protocol creates and funds an **off-chain** data feed with specific
+  parameters such as update frequency and job definitions that lives
+  in the decentralized datastore.
+- Based on the configurations of each data feed, the oracles will fetch
+  data to update the results with its oracle signature into the decentralized
+  datastore.
+- Protocols **pulls** the data and oracle signature from the off-chain
+  datastore which gets verified and utilized.
+
+## Callback
+
+The Callback pipeline is a process of on-demand data updates invoked by a
+user action where the data is directly propagated on-chain into a data bucket
+as part of the receiving protocol. The method suggests a new approach to receiving
+data on-chain which means oracles update only when necessary providing MEV resistance.
+
+### How it works
+
+// insert diagram
+
+- Protocol writes and deploys an on-chain data feed built as a Function.
+- Function Manager constantly watches for the data feed that are ready in order to
+  execute.
+- Function Manager spins up an enclave container within an oracle for the data feed.
+- User interacts with the protocol which creates a data bucket and invokes a callback.
+- Each data feed runs, creating a signed transaction which is sent to the quote
+  verifier daemon for verification.
+- Quote verifier approves and signs the output, triggering a callback to update
+  the on-chain data bucket.
+- Finally, the callback with the data update fulfills the pending user action.
+
+## Summary
+
+To conclude, each data pipeline model is unique and has its own advantages/disadvantages.
+At Switchboard, we believe the in the idea of Bring Your Own Oracle (BYOO) where the
+ultimate decision of integration style is up to the protocol itself. To assist you in
+having a better understanding of the core differences of each data pipeline model, here's
+a table of the aforementioned key considerations.
+
+| Method   | Data Feed Ownership                                          | Cost                                                                    | Steps for Data Retrieval                                              | Protocol Integration                                        | End User Effects                                                                           |
+| -------- | ------------------------------------------------------------ | ----------------------------------------------------------------------- | --------------------------------------------------------------------- | ----------------------------------------------------------- | ------------------------------------------------------------------------------------------ |
+| Push     | User created and self-funded data feed                       | Expensive due to constant streaming                                     | Oracles propagate data directly on-chain                              | Read immediately on-chain                                   | Always get latest price (limited by update frequency configured by authority of data feed) |
+| Pull     | User created and self-funded data feed                       | Inexpensive due to passive requests of updates from off-chain datastore | Oracles propagate data into datastore and pulled on-chain by protocol | SDK provided to fetch from datastore                        | Always get latest price                                                                    |
+| Callback | User created and self-funded function working as a data feed | Inexpensive due to on-demand updates triggered by user actions          | Oracles propagate data directly on-chain based on user actions        | Require re-audits due to new method of oracle data pipeline | User actions are not atomic as they rely on the oracle callback to settle actions          |
+
+| Method                       | Push                                                                                       | Pull                                                                    | Callback                                                                          |
+| ---------------------------- | ------------------------------------------------------------------------------------------ | ----------------------------------------------------------------------- | --------------------------------------------------------------------------------- |
+| **Data Feed Ownership**      | User created and self-funded data feed                                                     | User created and self-funded data feed                                  | User created and self-funded function working as a data feed                      |
+| **Cost**                     | Expensive due to constant streaming                                                        | Inexpensive due to passive requests of updates from off-chain datastore | Inexpensive due to on-demand updates triggered by user actions                    |
+| **Data Updates & Retrieval** | Oracles propagate data directly on-chain                                                   | Oracles propagate data into datastore and pulled on-chain by protocol   | Oracles propagate data directly on-chain based on user actions                    |
+| **Protocol Integration**     | Read immediately on-chain                                                                  | SDK provided to fetch from datastore                                    | Require re-audits due to new method of oracle data pipeline                       |
+| **End User Effects**         | Always get latest price (limited by update frequency configured by authority of data feed) | Always get latest price                                                 | User actions are not atomic as they rely on the oracle callback to settle actions |

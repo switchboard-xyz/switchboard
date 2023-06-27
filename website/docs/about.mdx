@@ -1,50 +1,76 @@
 ---
 sidebar_position: 1
-title: About
+title: Switchboard
 keywords:
   [Switchboard, web3, oracle, data feeds, vrf, randomness, solana, aptos, near]
 ---
 
-# Switchboard
+> A trust-minimized, decentralized compute network enabling verifiable,
+> off-chain compute providing smart contract developers with the tools to write
+> more resilient smart contracts.
 
-The oracle problem arises due to the inability of blockchains to interact
-directly with external systems. Blockchains are isolated networks that only rely
-on data stored in their ledger for consensus. The deterministic nature of smart
-contracts is a result of the narrow focus of blockchain consensus and their
-ability to execute exactly as written with a higher degree of certainty than
-traditional systems. Incorrect reporting of external data can lead to
-devastating outcomes for on-chain applications dependent on these data feeds.
+Switchboard gets its name from the early days of phone networks, where operators
+would shuffle telephone lines around a 'switchboard' to complete a circuit and
+forward a dialer’s call to the next hop in the circuit. Similarly, Switchboard
+the oracle protocol is responsible for how external data gets updated and routed
+through a blockchain until it reaches its appropriate destination.
 
-Switchboard is a multi-chain, permissionless oracle protocol that bridges the
-gap between off-chain data and on-chain smart contracts. It's designed to
-provide developers with the tools to create feature-rich decentralized
-applications (dApps).
+## What is an Oracle?
 
-## Key Features
+A blockchain is a deterministic, decentralized network of computers that compute
+and store data in a shared ledger. Users interact with the chain via smart
+contracts, which provide discrete instructions to modify the global ledger. The
+quorom of validators, which enforces the security of the chain, needs to have
+access to the same set of information so smart contracts are limited to only
+consuming data currently stored on-chain. On-chain storage costs and bandwidth
+limitations prevents us from relaying a large amount of data so we need a trust
+minimized mechanism to efficiently route data on-chain without sacrificing
+security.
 
-- **Decentralized Oracle Network**: Connects blockchain platforms to real-world
-  data sources.
-- **Independent Oracle Queues**: Allows customization of security levels and
-  configuration parameters.
-- **Economic Incentives**: Encourages honest behavior and network integrity.
-- **Governance**: Controlled by network participants.
-- **Access Control**: Ensures secure interactions with a queue.
-- **Trusted Execution**: With Switchboard V3, oracles operate within a trusted
-  execution environment.
+Enter Oracles -- a trust minimized data pipeline which facilitates the flow of
+information to on-chain smart contracts.
 
-## Use Cases
+## Why do we need Oracles?
 
-Switchboard is versatile and adaptable, making it suitable for a wide range of
-use cases, including:
+Let's start with the most basic principle of an oracle: an oracle makes data
+available on a blockchain in order to execute some downstream ingestion of this
+information. For example, Alice will transfer $100 to Bob if $BTC price >
+$30,000 at the time of the transaction.
 
-- **Data Feeds**: Access to real-world information for blockchain-based
-  applications.
-- **Random Number Generation**: Secure and unbiased random number generation for
-  on-chain applications.
-- **Serverless Execution**: Triggering smart contracts based on specific
-  off-chain conditions.
-- **Decentralized Autonomous Organizations (DAOs)**: Transparent governance and
-  decision-making within decentralized organizations.
-- **Escrow Services**: Creation of trustless, automated escrow systems.
-- **Prediction Markets**: Forecasting future events using verifiable off-chain
-  data and trusted execution environments.
+Simple concept! Not simple to build. In the world of trustlessness, the above
+model hands off complete trust in execution to the operator of oracle `O`.
+
+A single party trust model is unacceptable and reduces the trust model of the
+application down to the trust in the oracle. Luckily, the next iteration of the
+solution is not much more difficult to grasp.
+
+Instead of having a single operator of oracle O, let's make this a multiparty
+system:
+
+By taking the median of multiple oracles, agreeing on a non-deterministic price,
+such as the price of BTC, is as simple as taking the median of the reports.
+
+But where is the incentive for these oracles? Can the oracle protocol prove to
+the user applications that they arent reporting the same value sourced from a
+single machine? Whats the incentive for these oracles to be honest if the
+operators could make some form of profit by nefariously modifying their reports?
+This is where oracle staking comes into play.
+
+What if, on each report, oracle were mandated to put up stake S. On every
+response, if they deviate more than .5% from the accepted result, their stake is
+taken by the protocol and they could no longer report.
+
+This is a great improvement! Now if the oracle stake is $1 million, you can have
+confidence that all oracles have no incentive to collude if the downstream
+application has less than $1 million of total volume.
+
+But now, we have 2 persisting problems:
+
+- Requiring each oracle to stake $1 million puts a high infrastructure cost for
+  supporting an actual oracle and limits the scalability of delivering
+  information on chain
+- What if the TVL of the downstream applications are greater than the oracle
+  allocated stake? Are they not still incentivized to collude?
+
+These 2 problems continue to exist in all oracle protocols to date. And this is
+exactly what Switchboard solves.

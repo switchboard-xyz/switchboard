@@ -1,0 +1,24 @@
+{
+  "chains": [
+    "solana",
+    "aptos",
+    "sui",
+    "coredao",
+    "arbitrum",
+    "evm",
+    "near",
+    "starknet"
+  ],
+  "languages": ["javascript", "rust", "move", "solidity"],
+  "categories": [
+    "chain-overview",
+    "data-feeds",
+    "randomness",
+    "secrets",
+    "functions",
+    "infra",
+    "queues"
+  ],
+  "generalGuides": [],
+  "solanaGuides": []
+}
