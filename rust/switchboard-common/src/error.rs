@@ -1,14 +1,13 @@
-use crate::{cfg_not_sgx, cfg_sgx};
+use crate::{cfg_client, cfg_not_client};
 
 use serde_json::Error as SerdeJsonError;
 use std::error::Error as StdError;
 use std::fmt;
 use std::fmt::Debug;
 
-cfg_sgx! {
+cfg_client! {
     use reqwest::{Error as ReqwestError, StatusCode};
 
-    #[cfg(feature = "sgx")]
     #[derive(Debug)]
     pub enum Error {
         CustomMessage(String),
@@ -82,7 +81,7 @@ cfg_sgx! {
     }
 }
 
-cfg_not_sgx! {
+cfg_not_client! {
     #[derive(Debug)]
     pub enum Error {
         CustomMessage(String),

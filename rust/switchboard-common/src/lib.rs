@@ -4,7 +4,7 @@ mod macros;
 pub mod error;
 pub use error::*;
 
-cfg_sgx! {
+cfg_client! {
     pub mod sgx;
     pub use sgx::*;
 }

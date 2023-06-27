@@ -1,20 +1,20 @@
 #[macro_export]
-macro_rules! cfg_sgx {
+macro_rules! cfg_client {
     ($($item:item)*) => {
         $(
-            #[cfg(feature = "sgx")]
-            #[cfg_attr(doc_cfg, doc(cfg(feature = "sgx")))]
+            #[cfg(feature = "client")]
+            #[cfg_attr(doc_cfg, doc(cfg(feature = "client")))]
             $item
         )*
     }
 }
 
 #[macro_export]
-macro_rules! cfg_not_sgx {
+macro_rules! cfg_not_client {
     ($($item:item)*) => {
         $(
-            #[cfg(not(feature = "sgx"))]
-            #[cfg_attr(doc_cfg, doc(cfg(not(feature = "sgx"))))]
+            #[cfg(not(feature = "client"))]
+            #[cfg_attr(doc_cfg, doc(cfg(not(feature = "client"))))]
             $item
         )*
     }
