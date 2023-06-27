@@ -1,4 +1,4 @@
-lockfileVersion: '6.1'
+lockfileVersion: '6.0'
 
 settings:
   autoInstallPeers: true
@@ -545,6 +545,10 @@ importers:
       typescript:
         specifier: ^5.0.2
         version: 5.0.2
+
+  rust/switchboard-common: {}
+
+  rust/switchboard-utils: {}
 
   website:
     dependencies:
