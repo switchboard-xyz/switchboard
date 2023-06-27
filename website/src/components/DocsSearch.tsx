@@ -1,5 +1,5 @@
-import { styled, Button, TextField, IconButton } from "@mui/material";
 import React, { useState, ChangeEvent } from "react";
+import { styled, Button, TextField, IconButton } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 import SendIcon from "@mui/icons-material/Send";
 import { ChatModal } from "./ChatBot";

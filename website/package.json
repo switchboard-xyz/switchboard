@@ -19,16 +19,16 @@
     "publish:beta": "pnpm build && gsutil rsync -r -d build gs://beta.docs.switchboard.xyz"
   },
   "peerDependencies": {
-    "react": "=17.0.2",
-    "react-dom": "=17.0.2"
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2"
   },
   "dependencies": {
-    "@docusaurus/core": "2.4.1",
+    "@docusaurus/core": "^2.4.1",
     "@docusaurus/plugin-content-docs": "^2.4.1",
-    "@docusaurus/preset-classic": "2.4.1",
-    "@docusaurus/remark-plugin-npm2yarn": "2.4.1",
+    "@docusaurus/preset-classic": "^2.4.1",
+    "@docusaurus/remark-plugin-npm2yarn": "^2.4.1",
     "@docusaurus/theme-classic": "^2.4.1",
-    "@docusaurus/theme-common": "2.4.1",
+    "@docusaurus/theme-common": "^2.4.1",
     "@emotion/react": "^11.4.1",
     "@emotion/styled": "^11.3.0",
     "@mdx-js/react": "^1.6.22",
@@ -51,7 +51,7 @@
     "uuid": "^9.0.0"
   },
   "devDependencies": {
-    "@docusaurus/module-type-aliases": "2.4.1",
+    "@docusaurus/module-type-aliases": "^2.4.1",
     "@tsconfig/docusaurus": "^1.0.7",
     "@types/js-yaml": "^4.0.5",
     "@types/react": "^18.2.13",

@@ -1,3 +1,4 @@
+import React from "react";
 import { Grid, IconButton, Typography, styled } from "@mui/material";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import { useColorMode } from "@docusaurus/theme-common";

@@ -46,18 +46,18 @@
   },
   "peerDependencies": {
     "@docusaurus/core": "^2.0.0",
-    "react": ">=16.0.0",
-    "react-dom": ">=16.0.0",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
     "typescript": "^4.0.0 || ^5.0.0"
   },
   "dependencies": {
-    "@docusaurus/logger": "^2.4.0",
-    "@docusaurus/mdx-loader": "^2.4.0",
-    "@docusaurus/plugin-content-docs": "^2.4.0",
-    "@docusaurus/theme-classic": "^2.4.0",
-    "@docusaurus/types": "^2.4.0",
-    "@docusaurus/utils": "^2.4.0",
-    "@docusaurus/utils-validation": "^2.4.0",
+    "@docusaurus/logger": "^2.4.1",
+    "@docusaurus/mdx-loader": "^2.4.1",
+    "@docusaurus/plugin-content-docs": "^2.4.1",
+    "@docusaurus/theme-classic": "^2.4.1",
+    "@docusaurus/types": "^2.4.1",
+    "@docusaurus/utils": "^2.4.1",
+    "@docusaurus/utils-validation": "^2.4.1",
     "@vscode/codicons": "^0.0.32",
     "combine-promises": "^1.1.0",
     "commander": "^5.1.0",
@@ -71,7 +71,7 @@
     "utility-types": "^3.10.0"
   },
   "devDependencies": {
-    "@docusaurus/module-type-aliases": "^2.4.0",
+    "@docusaurus/module-type-aliases": "^2.4.1",
     "@types/commander": "^2.12.2",
     "@types/fs-extra": "^11.0.1",
     "@types/js-yaml": "^4.0.5",
