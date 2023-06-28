@@ -12,19 +12,18 @@ The following sections depict the different ways developers can integrate
 Switchboard to have full control over how data is sourced on-chain for their
 smart contracts.
 
+<MarkdownImage
+  img="/img/data/comparison_table.png"
+  sx={{
+    display: "flex",
+  }}
+/>
+
 ## Push
 
 Data is _**pushed**_ on-chain by the oracle at a routine interval. The
 integrater just needs to verify the data was recently pushed and doesn't need to
 handle any off-chain requesting.
-
-- **Integration Effort**: Low
-- **Cost**: Med-High, depends on feed configuration and data availability
-  requirements
-- **Reliability**: Low-Med, risk of data being stale. requires multiple oracles
-  to be online.
-- **Security**: Med, depends on feeds configuration and the oracle queue it
-  belongs to.
 
 See [Data Feeds](/data-feeds) for more information.
 
@@ -39,11 +38,6 @@ See [Data Feeds](/data-feeds) for more information.
 
 Data is maintained in a data store and _**pulled**_ on-chain by the integrator.
 
-- **Integration Effort**: Low-Med
-- **Cost**: Low-Med
-- **Reliability**: Med, requires clients to pull in signatures themselves.
-- **Security**: Med
-
 <MarkdownImage
   img="/img/data/pull.png"
   sx={{
@@ -57,13 +51,6 @@ Data is sourced off-chain each time it is requested and populated on-chain with
 a callback into the callers smart contract. This method is more complex to
 integrate but is less susceptible to oracle attacks because the data is only
 sourced when the user requests it.
-
-- **Integration Effort**: High, requires an interface into your program for
-  Switchboard verifiers to call.
-- **Cost**: Low, only requires a single oracle to fulfill.
-- **Reliability**: High, anyone can run a node and fulfill the update as long as
-  it is running code specified by the functions MrEnclave.
-- **Security**: High, code is verified during each execution.
 
 See [Switchboard Functions](/functions) for more information.
 
