@@ -138,7 +138,7 @@ const SupportedNetworks = () => {
   return (
     <div>
       <Grid container spacing={2}>
-        <Grid item sm={2} xs={12}>
+        <Grid item sm={2} xs={5}>
           <div>
             <FormControl>
               <FormLabel>Network</FormLabel>
@@ -159,7 +159,7 @@ const SupportedNetworks = () => {
             </FormControl>
           </div>
         </Grid>
-        <Grid item sm={2} xs={12}>
+        <Grid item sm={2} xs={7}>
           <div>
             <FormControl>
               <FormLabel>Chain</FormLabel>
