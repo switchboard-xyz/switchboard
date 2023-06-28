@@ -1,0 +1,69 @@
+---
+title: 📚 Guides
+hide_table_of_contents: true
+---
+
+import BasicCardGroup from "@site/src/components/BasicCardGroup.tsx";
+
+<BasicCardGroup
+  title="General Guides"
+  items={[
+    {
+      label: "Data Feed Best Practices",
+      link: "/guides/feeds/best-practices",
+    },
+    { label: "Private APIs", link: "/guides/guides/feeds/private-apis" },
+  ]}
+/>
+
+<BasicCardGroup
+  title="Oracle Operator Guides"
+  items={[
+    {
+      label: "How to Run an Oracle in Google Cloud Platform",
+      link: "/guides/oracles/gcp",
+    },
+  ]}
+/>
+
+<BasicCardGroup
+  title="Solana Guides"
+  items={[
+    {
+      label: "Rust: switchboard-v2 crate",
+      link: "/guides/solana/sdk/rust",
+    },
+    {
+      label: "Javascript: @switchboard-xyz/solana.js",
+      link: "/guides/solana/sdk/javascript",
+    },
+    {
+      label: "Native Rust: Read Feed On-Chain",
+      link: "/guides/solana/feeds/rust",
+      tooltip:
+        "Learn how to use the native Solana rust runtime to deserialize and read a Switchboard data feed",
+    },
+    {
+      label: "Anchor: Read Feed On-Chain",
+      link: "/guides/solana/feeds/anchor",
+      tooltip:
+        "Learn how to use the Anchor framework to deserialize and read a Switchboard data feed",
+    },
+    {
+      label: "Data Feeds: Priority Fees",
+      link: "/guides/solana/feeds/priority-fees",
+      tooltip:
+        "Learn how to configure priority fees for a Switchboard data feed",
+    },
+    {
+      label: "VRF Integration",
+      link: "/guides/solana/vrf",
+    },
+    {
+      label: "Test Integration",
+      link: "/guides/solana/test-integration",
+    },
+  ]}
+/>
+
+<BasicCardGroup title="EVM Guides" items={[]} />

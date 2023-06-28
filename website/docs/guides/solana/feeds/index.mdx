@@ -1,0 +1,40 @@
+---
+sidebar_position: 1
+hide_table_of_contents: true
+title: Data Feeds
+---
+
+Use one of the following guides to get started with Switchboard data feeds:
+
+import BasicCardGroup from "@site/src/components/BasicCardGroup.tsx";
+import useBaseUrl from "@docusaurus/useBaseUrl";
+
+<BasicCardGroup
+  title="Solana - Data Feed Guides"
+  items={[
+    {
+      label: "Native Rust: Read Feed On-Chain",
+      link: "/guides/solana/feeds/rust",
+      tooltip:
+        "Learn how to use the native Solana rust runtime to deserialize and read a Switchboard data feed",
+    },
+    {
+      label: "Anchor: Read Feed On-Chain",
+      link: "/guides/solana/feeds/anchor",
+      tooltip:
+        "Learn how to use the Anchor framework to deserialize and read a Switchboard data feed",
+    },
+    {
+      label: "Data Feeds: Priority Fees",
+      link: "/guides/solana/feeds/priority-fees",
+      tooltip:
+        "Learn how to configure priority fees for a Switchboard data feed",
+    },
+  ]}
+/>
+
+<!--
+import DocCardList from "@theme/DocCardList";
+
+<DocCardList />
+-->

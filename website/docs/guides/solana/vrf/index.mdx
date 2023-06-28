@@ -1,0 +1,1148 @@
+---
+sidebar_position: 5
+title: VRF Integration
+---
+
+This guide contains a step-by-step walkthrough to integrate Switchboard's VRF in
+a brand new anchor program.
+
+import TOCInline from "@theme/TOCInline";
+
+<TOCInline toc={toc} />
+
+Switchboard's Verifiable Randomness Function (VRF) allows a user to request an
+oracle to produce a randomness output on-chain. Once the oracle has responded,
+the VRF proof must be verified before using it. The VRF proof takes 276
+instructions (~48 transactions) to fully verify on-chain. Once the proof is
+verified, the Switchboard program will execute the callback defined by the VRF
+Account during account creation.
+
+Our client program will be very basic. It will initialize a state account to
+hold our randomness result. It will then request randomness from our Switchboard
+oracle. Once verified, the Switchboard program will call the consume_randomness
+instruction which will update our client's state.
+
+So the full flow will look like this,
+
+- derive our client program derived address, `vrfClientKey`
+- create a Switchboard VRF Account with `vrfClientKey` as the authority. This
+  will allow the client program to sign and request randomness.
+- invoke `init_client` for our `vrfClientKey` with our VRF Account
+- invoke `request_randomness`, which will assign an oracle to our VRF request
+- oracle watches the chain then responds to our VRF request with the proof
+  calculated using its secret key
+- oracle executes the 276 instructions to verify the VRF proof
+- when VRF proof is verified, the Switchboard program will invoke our client
+  program's `consume_randomness` instruction
+- Done!
+
+:::tip
+
+View the
+[anchor-vrf-parser](https://github.com/switchboard-xyz/sbv2-solana/tree/main/programs/anchor-vrf-parser)
+example on Github.
+
+:::
+
+## 1. Anchor Init
+
+Let's create a new anchor project and setup the directory
+
+```bash
+anchor init vrf-client
+cd vrf-client
+rm -rf app migrations
+```
+
+We'll need to update our program ID to our unique deploy keypair. First build
+the example program to generate the target directory and deploy keypair. Then
+grab your program ID and update `Anchor.toml` and
+`programs/vrf-client/src/lib.rs`.
+
+```bash
+$ anchor build
+$ solana-keygen pubkey target/deploy/vrf_client-keypair.json
+EmPZGD34KDCtdwtqJU5VGoqidDQLyW1eyBXvj4yb2W9i
+```
+
+## 2. Add Dependencies
+
+We'll be using the switchboard CLI. Install it if you haven't already
+
+```bash
+npm i -g @switchboard-xyz/cli@^2
+```
+
+In `programs/vrf-client/Cargo.toml` add the following lines
+
+```toml
+[dependencies]
+anchor-lang = "~0.27.0"
+anchor-spl = "~0.27.0"
+solana-program = "~1.14.0"
+switchboard-v2 = "^0.1.23"
+bytemuck = "1.7.2"
+```
+
+Install npm packages
+
+```bash
+yarn add \
+        @switchboard-xyz/solana.js^2.1.4 \
+        @solana/web3.js \
+        @coral-xyz/anchor@^0.27.0 \
+        @coral-xyz/borsh^0.27.0 \
+        bn.js
+yarn add -D \
+        @switchboard-xyz/cli@^2 \
+        @switchboard-xyz/oracle \
+        anchor-client-gen \
+        @types/bn.js \
+        shx
+```
+
+## 3. Initial Program Scaffolding
+
+This program will be fairly simple and contain only 3 instructions:
+
+- **init_client** will initialize an on-chain program derived account to hold
+  our state and VRF result
+- **request_randomness** will make a cross program invocation to Switchboard to
+  request an oracle to fulfill a VRF update request
+- **consume_randomness** will be a cross program invocation from Switchboard
+  into our VRF client program to let us know a new randomness value was produced
+  and verified successfully
+
+Each instruction will be contained in its own module in
+`programs/vrf-client/actions` to breakup any program logic. Each action will
+contain a validate function to do any validation before calling actuate which
+contains the core instruction logic. In `programs/vrf-client/src/lib.rs`, we'll
+map each action to our program struct so anchor knows each instructions entry
+point.
+
+First start by creating the folder structure
+
+```bash
+mkdir -p programs/vrf-client/src/actions
+touch programs/vrf-client/src/actions/mod.rs programs/vrf-client/src/actions/init_client.rs
+```
+
+In `programs/vrf-client/src/actions/mod.rs`, import the init_client module which
+will house our first instruction.
+
+```rust
+pub mod init_client;
+pub use init_client::*;
+```
+
+In `programs/vrf-client/src/actions/init_client.rs`, add the initial instruction
+structs which we will populate later.
+
+```rust
+use crate::*;
+
+#[derive(Accounts)]
+#[instruction(params: InitClientParams)]
+pub struct InitClient {}
+
+#[derive(Clone, AnchorSerialize, AnchorDeserialize)]
+pub struct InitClientParams {}
+
+impl InitClient {
+    pub fn validate(&self, _ctx: &Context<Self>, params: &InitClientParams) -> Result<()> {
+        msg!("init_client validate");
+        Ok(())
+    }
+
+    pub fn actuate(ctx: &Context<Self>, params: &InitClientParams) -> Result<()> {
+        msg!("init_client actuate");
+
+        Ok(())
+    }
+}
+```
+
+Then we'll map this instruction in `programs/vrf-client/src/lib.rs`
+
+```rust
+use anchor_lang::prelude::*;
+
+pub mod actions;
+pub use actions::*;
+
+pub use anchor_lang::solana_program::clock;
+pub use anchor_spl::token::{Token, TokenAccount};
+pub use switchboard_v2::{
+    OracleQueueAccountData, PermissionAccountData, SbState, VrfAccountData, VrfRequestRandomness,
+};
+
+declare_id!("Fg6PaFpoGXkYsidMpWTK6W2BeZ7FEfcYkg476zPFsLnS");
+
+#[program]
+pub mod vrf_client {
+    use super::*;
+
+    #[access_control(ctx.accounts.validate(&ctx, &params))]
+    pub fn init_client(ctx: Context<InitClient>, params: InitClientParams) -> Result<()> {
+        InitClient::actuate(&ctx, &params)
+    }
+}
+```
+
+And finally we'll fix up and run the test. Update `tests/vrf-client.ts`
+
+```typescript
+import "mocha";
+
+import * as anchor from "@coral-xyz/anchor";
+import { AnchorProvider } from "@coral-xyz/anchor";
+import * as sbv2 from "@switchboard-xyz/solana.js";
+import { VrfClient } from "../target/types/vrf_client";
+import { assert } from "chai";
+import { BN } from "bn.js";
+
+describe("vrf-client", () => {
+  // Configure the client to use the local cluster.
+  const provider = AnchorProvider.env();
+  anchor.setProvider(provider);
+
+  const program: anchor.Program<VrfClient> = anchor.workspace.VrfClient;
+  const payer = (provider.wallet as sbv2.AnchorWallet).payer;
+
+  it("init_client", async () => {
+    // Add your test here.
+    const tx = await program.methods.initClient({}).rpc();
+    console.log("init_client transaction signature", tx);
+  });
+});
+```
+
+Build the program and run the test
+
+```bash
+$ anchor test
+
+  vrf-client
+init_client transaction signature Db5TfiWLT269ehpEXgT4dQntjGxj4PytYWPg1XCANcDGqseedGmqq4S5xkQ3RWkHx1FsdmpxSP1p5HKUYomiqAJ
+    ✔ init_client (499ms)
+
+
+  1 passing (501ms)
+```
+
+## 4. Setup Switchboard Environment
+
+In your Anchor.toml, add the following to clone the switchboard program and
+context when using a localnet environment:
+
+```toml
+[test]
+startup_wait = 10000
+
+[test.validator]
+url = "https://api.devnet.solana.com"
+
+[[test.validator.clone]] # sbv2 devnet programID
+address = "SW1TCH7qEPTdLsDHRgPuMQjbQxKdH2aBStViMFnt64f"
+
+[[test.validator.clone]] # sbv2 devnet IDL
+address = "Fi8vncGpNKbq62gPo56G4toCehWNy77GgqGkTaAF5Lkk"
+
+[[test.validator.clone]] # sbv2 devnet SbState
+address = "CyZuD7RPDcrqCGbNvLCyqk6Py9cEZTKmNKujfPi3ynDd"
+
+[[test.validator.clone]] # sbv2 devnet tokenVault
+address = "7hkp1xfPBcD2t1vZMoWWQPzipHVcXeLAAaiGXdPSfDie"
+
+```
+
+Now let's update our test and print out our oracle queue to the console.
+
+Open `tests/vrf-client.ts` and add the following before hook. This will:
+
+- Create a new Switchboard queue and oracle
+- Startup a Docker container in the background with your newly created oracle
+- Wait for the Docker container to signal readiness
+
+```typescript
+import "mocha";
+
+import * as anchor from "@coral-xyz/anchor";
+import { AnchorProvider } from "@coral-xyz/anchor";
+import * as sbv2 from "@switchboard-xyz/solana.js";
+import { VrfClient } from "../target/types/vrf_client";
+import { assert } from "chai";
+import { BN } from "bn.js";
+import { PublicKey } from "@solana/web3.js";
+import { NodeOracle } from "@switchboard-xyz/oracle";
+
+describe("vrf-client", () => {
+  const provider = AnchorProvider.env();
+  anchor.setProvider(provider);
+
+  const program: anchor.Program<VrfClient> = anchor.workspace.VrfClient;
+  const payer = (provider.wallet as sbv2.AnchorWallet).payer;
+
+  const vrfSecret = anchor.web3.Keypair.generate();
+  console.log(`VRF Account: ${vrfSecret.publicKey}`);
+
+  const [vrfClientKey] = PublicKey.findProgramAddressSync(
+    [Buffer.from("CLIENTSEED"), vrfSecret.publicKey.toBytes()],
+    program.programId
+  );
+  console.log(`VRF Client: ${vrfClientKey}`);
+
+  const vrfIxCoder = new anchor.BorshInstructionCoder(program.idl);
+  const vrfClientCallback: sbv2.Callback = {
+    programId: program.programId,
+    accounts: [
+      // ensure all accounts in consumeRandomness are populated
+      { pubkey: vrfClientKey, isSigner: false, isWritable: true },
+      { pubkey: vrfSecret.publicKey, isSigner: false, isWritable: false },
+    ],
+    ixData: vrfIxCoder.encode("consumeRandomness", ""), // pass any params for instruction here
+  };
+
+  let switchboard: sbv2.SwitchboardTestContext;
+  let oracle: NodeOracle;
+  let vrfAccount: sbv2.VrfAccount;
+
+  before(async () => {
+    switchboard = await sbv2.SwitchboardTestContext.loadFromProvider(provider, {
+      // You can provide a keypair to so the PDA schemes dont change between test runs
+      name: "Test Queue",
+      keypair: sbv2.SwitchboardTestContextV2.loadKeypair(
+        "~/.keypairs/queue.json"
+      ),
+      queueSize: 10,
+      reward: 0,
+      minStake: 0,
+      oracleTimeout: 900,
+      unpermissionedFeeds: true,
+      unpermissionedVrf: true,
+      enableBufferRelayers: true,
+      oracle: {
+        name: "Test Oracle",
+        enable: true,
+        stakingWalletKeypair: sbv2.SwitchboardTestContextV2.loadKeypair(
+          "~/.keypairs/oracleWallet.json"
+        ),
+      },
+    });
+
+    oracle = await NodeOracle.fromReleaseChannel({
+      chain: "solana",
+      releaseChannel: "testnet",
+      network: "localnet", // disables production capabilities like monitoring and alerts
+      rpcUrl: switchboard.program.connection.rpcEndpoint,
+      oracleKey: switchboard.oracle.publicKey.toBase58(),
+      secretPath: switchboard.walletPath,
+      silent: false, // set to true to suppress oracle logs in the console
+      envVariables: {
+        VERBOSE: "1",
+        DEBUG: "1",
+        DISABLE_NONCE_QUEUE: "1",
+        DISABLE_METRICS: "1",
+      },
+    });
+
+    await oracle.startAndAwait();
+  });
+
+  after(async () => {
+    oracle?.stop();
+  });
+
+  it("init_client", async () => {
+    const tx = await program.methods.initClient({}).rpc();
+    console.log("init_client transaction signature", tx);
+  });
+});
+```
+
+Then run the test
+
+```bash
+anchor test
+```
+
+## 5. Add init_client Instruction
+
+In `programs/vrf-client/src/lib.rs`, add the seed we'll use to derive our client
+PDA pubkey, the VrfClientState struct, and some errors we'll be using.
+
+```rust
+const STATE_SEED: &[u8] = b"CLIENTSEED";
+
+#[repr(packed)]
+#[account(zero_copy(unsafe))]
+#[derive(Default)]
+pub struct VrfClientState {
+    pub bump: u8,
+    pub max_result: u64,
+    pub result_buffer: [u8; 32],
+    pub result: u128,
+    pub timestamp: i64,
+    pub vrf: Pubkey,
+}
+```
+
+add some errors we'll use
+
+```rust
+#[error_code]
+#[derive(Eq, PartialEq)]
+pub enum VrfClientErrorCode {
+    #[msg("Switchboard VRF Account's authority should be set to the client's state pubkey")]
+    InvalidVrfAuthorityError,
+    #[msg("The max result must not exceed u64")]
+    MaxResultExceedsMaximum,
+}
+```
+
+then add an AnchorEvent we'll trigger when a new VRF Client is created
+
+```rust
+#[event]
+pub struct VrfClientCreated {
+    pub vrf_client: Pubkey,
+    pub max_result: u64,
+    pub timestamp: i64,
+}
+```
+
+In `programs/vrf-client/src/actions/init_client.rs`, add the following code for
+the init_client instruction.
+
+```rust
+use crate::*;
+
+#[derive(Accounts)]
+#[instruction(params: InitClientParams)]
+pub struct InitClient<'info> {
+    #[account(
+        init,
+        seeds = [
+            STATE_SEED,
+            vrf.key().as_ref()
+        ],
+        payer = payer,
+        space = 8 + std::mem::size_of::<VrfClientState>(),
+        bump,
+    )]
+    pub state: AccountLoader<'info, VrfClientState>,
+    #[account(
+        constraint = vrf.load()?.authority == state.key() @ VrfClientErrorCode::InvalidVrfAuthorityError
+    )]
+    pub vrf: AccountLoader<'info, VrfAccountData>,
+    #[account(mut)]
+    pub payer: Signer<'info>,
+    pub system_program: Program<'info, System>,
+}
+
+#[derive(Clone, AnchorSerialize, AnchorDeserialize)]
+pub struct InitClientParams {
+    pub max_result: u64,
+}
+
+impl InitClient<'_>  {
+    pub fn validate(&self, _ctx: &Context<Self>, params: &InitClientParams) -> Result<()> {
+        msg!("init_client validate");
+        if params.max_result > 1337 {
+            return Err(error!(VrfClientErrorCode::MaxResultExceedsMaximum));
+        }
+
+        Ok(())
+    }
+
+    pub fn actuate(ctx: &Context<Self>, params: &InitClientParams) -> Result<()> {
+        msg!("init_client actuate");
+
+        let mut state = ctx.accounts.state.load_init()?;
+        *state = VrfClientState::default();
+        state.bump = ctx.bumps.get("state").unwrap().clone();
+        state.vrf = ctx.accounts.vrf.key();
+
+        if params.max_result == 0 {
+            state.max_result = 1337;
+        } else {
+            state.max_result = params.max_result;
+        }
+
+        emit!(VrfClientCreated{
+            vrf_client: ctx.accounts.state.key(),
+            max_result: params.max_result,
+            timestamp: clock::Clock::get().unwrap().unix_timestamp
+        });
+
+        Ok(())
+    }
+}
+```
+
+Then update the init_client test.
+
+```typescript
+it("init_client", async () => {
+  const queue = await switchboard.queue.loadData();
+
+  // Create Switchboard VRF and Permission account
+  [vrfAccount] = await switchboard.queue.createVrf({
+    callback: vrfClientCallback,
+    authority: vrfClientKey, // vrf authority
+    vrfKeypair: vrfSecret,
+    enable: !queue.unpermissionedVrfEnabled, // only set permissions if required
+  });
+
+  console.log(`Created VRF Account: ${vrfAccount.publicKey}`);
+
+  // Create VRF Client account
+  await program.methods
+    .initClient({
+      maxResult: new anchor.BN(1337),
+    })
+    .accounts({
+      state: vrfClientKey,
+      vrf: vrfAccount.publicKey,
+      payer: payer.publicKey,
+      systemProgram: anchor.web3.SystemProgram.programId,
+    })
+    .rpc();
+  console.log(`Created VrfClient Account: ${vrfClientKey}`);
+});
+```
+
+Now run the test
+
+```bash
+anchor test
+```
+
+_Optionally, add `-s` to suppress the Switchboard oracle logs_
+
+## 6. Add Request Randomness Instruction
+
+We will now request randomness for our VRF Account that is controlled by our
+client program. We will make a cross program invocation (CPI) into the
+Switchboard program. The Switchboard program will validate the request then
+assign an oracle to fulfill the randomness request. The oracle is constantly
+watching the chain for oracle assignment, and when assigned, will calculate the
+VRF result using the VRF Account's public key and the recent blockhash.
+
+In `programs/vrf-client/src/lib.rs`, add the mapping for our request_randomness
+action.
+
+```diff
+#[program]
+pub mod vrf_client {
+    use super::*;
+
+    #[access_control(ctx.accounts.validate(&ctx, &params))]
+    pub fn init_client(ctx: Context<InitClient>, params: InitClientParams) -> Result<()> {
+        InitClient::actuate(&ctx, &params)
+    }
+
++    #[access_control(ctx.accounts.validate(&ctx, &params))]
++    pub fn request_randomness(
++        ctx: Context<RequestRandomness>,
++        params: RequestRandomnessParams,
++    ) -> Result<()> {
++        RequestRandomness::actuate(&ctx, &params)
++    }
+}
+```
+
+add some errors we'll use to validate the instruction
+
+```diff
+#[error_code]
+#[derive(Eq, PartialEq)]
+pub enum VrfClientErrorCode {
+    #[msg("Switchboard VRF Account's authority should be set to the client's state pubkey")]
+    InvalidVrfAuthorityError,
+    #[msg("The max result must not exceed u64")]
+    MaxResultExceedsMaximum,
++    #[msg("Invalid VRF account provided.")]
++    InvalidVrfAccount,
++    #[msg("Not a valid Switchboard account")]
++    InvalidSwitchboardAccount,
+}
+
+```
+
+add an event we'll trigger when a VRF Client successfully requests randomness
+from a Switchboard queue
+
+```rust
+#[event]
+pub struct RandomnessRequested {
+    pub vrf_client: Pubkey,
+    pub max_result: u64,
+    pub timestamp: i64,
+}
+```
+
+In `programs/vrf-client/src/actions/mod.rs`, add the exports
+
+```rust
+pub mod request_randomness;
+pub use request_randomness::*;
+```
+
+Add the request_randomness instruction in
+`programs/vrf-client/src/actions/request_randomness.rs`
+
+```rust
+use crate::*;
+
+#[derive(Accounts)]
+#[instruction(params: RequestRandomnessParams)] // rpc parameters hint
+pub struct RequestRandomness<'info> {
+    #[account(
+        mut,
+        seeds = [
+            STATE_SEED,
+            vrf.key().as_ref(),
+        ],
+        bump = state.load()?.bump,
+        has_one = vrf @ VrfClientErrorCode::InvalidVrfAccount
+    )]
+    pub state: AccountLoader<'info, VrfClientState>,
+
+    // SWITCHBOARD ACCOUNTS
+    #[account(mut,
+        has_one = escrow
+    )]
+    pub vrf: AccountLoader<'info, VrfAccountData>,
+    #[account(mut,
+        has_one = data_buffer
+    )]
+    pub oracle_queue: AccountLoader<'info, OracleQueueAccountData>,
+    /// CHECK:
+    #[account(mut,
+        constraint =
+            oracle_queue.load()?.authority == queue_authority.key()
+    )]
+    pub queue_authority: UncheckedAccount<'info>,
+    /// CHECK
+    #[account(mut)]
+    pub data_buffer: AccountInfo<'info>,
+    #[account(mut)]
+    pub permission: AccountLoader<'info, PermissionAccountData>,
+    #[account(mut,
+        constraint =
+            escrow.owner == program_state.key()
+            && escrow.mint == program_state.load()?.token_mint
+    )]
+    pub escrow: Account<'info, TokenAccount>,
+    #[account(mut)]
+    pub program_state: AccountLoader<'info, SbState>,
+    /// CHECK:
+    #[account(
+        address = *vrf.to_account_info().owner,
+        constraint = switchboard_program.executable == true
+    )]
+    pub switchboard_program: AccountInfo<'info>,
+
+    // PAYER ACCOUNTS
+    #[account(mut,
+        constraint =
+            payer_wallet.owner == payer_authority.key()
+            && escrow.mint == program_state.load()?.token_mint
+    )]
+    pub payer_wallet: Account<'info, TokenAccount>,
+    /// CHECK:
+    #[account(signer)]
+    pub payer_authority: AccountInfo<'info>,
+
+    // SYSTEM ACCOUNTS
+    /// CHECK:
+    #[account(address = solana_program::sysvar::recent_blockhashes::ID)]
+    pub recent_blockhashes: AccountInfo<'info>,
+    pub token_program: Program<'info, Token>,
+}
+
+#[derive(Clone, AnchorSerialize, AnchorDeserialize)]
+pub struct RequestRandomnessParams {
+    pub permission_bump: u8,
+    pub switchboard_state_bump: u8,
+}
+
+impl RequestRandomness<'_> {
+    pub fn validate(&self, _ctx: &Context<Self>, _params: &RequestRandomnessParams) -> Result<()> {
+        Ok(())
+    }
+
+    pub fn actuate(ctx: &Context<Self>, params: &RequestRandomnessParams) -> Result<()> {
+        let client_state = ctx.accounts.state.load()?;
+        let bump = client_state.bump.clone();
+        let max_result = client_state.max_result;
+        drop(client_state);
+
+        let switchboard_program = ctx.accounts.switchboard_program.to_account_info();
+
+        let vrf_request_randomness = VrfRequestRandomness {
+            authority: ctx.accounts.state.to_account_info(),
+            vrf: ctx.accounts.vrf.to_account_info(),
+            oracle_queue: ctx.accounts.oracle_queue.to_account_info(),
+            queue_authority: ctx.accounts.queue_authority.to_account_info(),
+            data_buffer: ctx.accounts.data_buffer.to_account_info(),
+            permission: ctx.accounts.permission.to_account_info(),
+            escrow: ctx.accounts.escrow.clone(),
+            payer_wallet: ctx.accounts.payer_wallet.clone(),
+            payer_authority: ctx.accounts.payer_authority.to_account_info(),
+            recent_blockhashes: ctx.accounts.recent_blockhashes.to_account_info(),
+            program_state: ctx.accounts.program_state.to_account_info(),
+            token_program: ctx.accounts.token_program.to_account_info(),
+        };
+
+        let vrf_key = ctx.accounts.vrf.key();
+        let state_seeds: &[&[&[u8]]] = &[&[
+            &STATE_SEED,
+            vrf_key.as_ref(),
+            &[bump],
+        ]];
+
+        msg!("requesting randomness");
+        vrf_request_randomness.invoke_signed(
+            switchboard_program,
+            params.switchboard_state_bump,
+            params.permission_bump,
+            state_seeds,
+        )?;
+
+        let mut client_state = ctx.accounts.state.load_mut()?;
+        client_state.result = 0;
+
+        emit!(RandomnessRequested{
+            vrf_client: ctx.accounts.state.key(),
+            max_result: max_result,
+            timestamp: clock::Clock::get().unwrap().unix_timestamp
+        });
+
+        msg!("randomness requested successfully");
+        Ok(())
+    }
+}
+```
+
+Now let's add some client tests in `tests/vrf-client.ts`
+
+```typescript
+it("request_randomness", async () => {
+  const queue = await switchboard.queue.loadData();
+  const vrf = await vrfAccount.loadData();
+
+  // derive the existing VRF permission account using the seeds
+  const [permissionAccount, permissionBump] = sbv2.PermissionAccount.fromSeed(
+    switchboard.program,
+    queue.authority,
+    switchboard.queue.publicKey,
+    vrfAccount.publicKey
+  );
+
+  const [payerTokenWallet] =
+    await switchboard.program.mint.getOrCreateWrappedUser(
+      switchboard.program.walletPubkey,
+      { fundUpTo: 0.002 }
+    );
+
+  // Request randomness
+  await program.methods
+    .requestRandomness({
+      switchboardStateBump: switchboard.program.programState.bump,
+      permissionBump,
+    })
+    .accounts({
+      state: vrfClientKey,
+      vrf: vrfAccount.publicKey,
+      oracleQueue: switchboard.queue.publicKey,
+      queueAuthority: queue.authority,
+      dataBuffer: queue.dataBuffer,
+      permission: permissionAccount.publicKey,
+      escrow: vrf.escrow,
+      programState: switchboard.program.programState.publicKey,
+      switchboardProgram: switchboard.program.programId,
+      payerWallet: payerTokenWallet,
+      payerAuthority: payer.publicKey,
+      recentBlockhashes: anchor.web3.SYSVAR_RECENT_BLOCKHASHES_PUBKEY,
+      tokenProgram: anchor.utils.token.TOKEN_PROGRAM_ID,
+    })
+    .rpc();
+});
+```
+
+Then run the test
+
+```bash
+anchor test
+```
+
+## 7. Add Consume Randomness Instruction
+
+Right now our program can request randomness but we never configured the
+callback into our program so we have no way to know when the randomness value
+was produced. So we will need to add a new instruction that the Switchboard
+oracle will call in order to update our client's state.
+
+In `programs/vrf-client/src/lib.rs`, add the mapping for our consume_randomness
+action.
+
+```diff
+#[program]
+pub mod vrf_client {
+    use super::*;
+
+    #[access_control(ctx.accounts.validate(&ctx, &params))]
+    pub fn init_client(ctx: Context<initClient>, params: initClientParams) -> Result<()> {
+        initClient::actuate(&ctx, &params)
+    }
+
+    #[access_control(ctx.accounts.validate(&ctx, &params))]
+    pub fn request_randomness(
+        ctx: Context<RequestRandomness>,
+        params: RequestRandomnessParams,
+    ) -> Result<()> {
+        RequestRandomness::actuate(&ctx, &params)
+    }
+
++    #[access_control(ctx.accounts.validate(&ctx, &params))]
++    pub fn consume_randomness(
++        ctx: Context<ConsumeRandomness>,
++        params: ConsumeRandomnessParams,
++    ) -> Result<()> {
++        ConsumeRandomness::actuate(&ctx, &params)
++    }
+}
+```
+
+add an event we'll trigger when a VRF Client successfully consumes randomness
+from a Switchboard queue
+
+```rust
+#[event]
+pub struct VrfClientUpdated {
+    pub vrf_client: Pubkey,
+    pub max_result: u64,
+    pub result_buffer: [u8; 32],
+    pub result: u128,
+    pub timestamp: i64,
+}
+```
+
+In `programs/vrf-client/src/actions/mod.rs`, add the exports
+
+```rust
+pub mod consume_randomness;
+pub use consume_randomness::*;
+```
+
+Add the consume_randomness instruction in
+`programs/vrf-client/src/actions/consume_randomness.rs`
+
+```rust
+use crate::*;
+
+#[derive(Accounts)]
+#[instruction(params: ConsumeRandomnessParams)] // rpc parameters hint
+pub struct ConsumeRandomness<'info> {
+    #[account(
+        mut,
+        seeds = [
+            STATE_SEED,
+            vrf.key().as_ref(),
+        ],
+        bump = state.load()?.bump,
+        has_one = vrf @ VrfClientErrorCode::InvalidVrfAccount
+    )]
+    pub state: AccountLoader<'info, VrfClientState>,
+    pub vrf: AccountLoader<'info, VrfAccountData>,
+}
+
+#[derive(Clone, AnchorSerialize, AnchorDeserialize)]
+pub struct ConsumeRandomnessParams {}
+
+impl ConsumeRandomness<'_> {
+    pub fn validate(&self, _ctx: &Context<Self>, _params: &ConsumeRandomnessParams) -> Result<()> {
+        Ok(())
+    }
+
+    pub fn actuate(ctx: &Context<Self>, _params: &ConsumeRandomnessParams) -> Result<()> {
+        let vrf = ctx.accounts.vrf.load()?;
+        let result_buffer = vrf.get_result()?;
+        if result_buffer == [0u8; 32] {
+            msg!("vrf buffer empty");
+            return Ok(());
+        }
+
+        let state = &mut ctx.accounts.state.load_mut()?;
+        let max_result = state.max_result;
+        if result_buffer == state.result_buffer {
+            msg!("result_buffer unchanged");
+            return Ok(());
+        }
+
+        msg!("Result buffer is {:?}", result_buffer);
+        let value: &[u128] = bytemuck::cast_slice(&result_buffer[..]);
+        msg!("u128 buffer {:?}", value);
+        let result = value[0] % max_result as u128 + 1;
+        msg!("Current VRF Value [1 - {}) = {}!", max_result, result);
+
+        if state.result != result {
+            state.result_buffer = result_buffer;
+            state.result = result;
+            state.timestamp = clock::Clock::get().unwrap().unix_timestamp;
+
+            emit!(VrfClientUpdated {
+                vrf_client: ctx.accounts.state.key(),
+                max_result: state.max_result,
+                result: state.result,
+                result_buffer: result_buffer,
+                timestamp: state.timestamp,
+            });
+        }
+
+        Ok(())
+    }
+}
+```
+
+Ok, now we need to update our tests. Let's look at `tests/vrf-client.ts`. When
+we created our VrfAccount we didn't define a callback so our oracle will never
+let our program know when a new value is available. You could watch the chain
+and call the consume_randomness instruction yourself but that is extra overhead
+and complexity.
+
+Instead we will define a callback so the oracle will call our program each time
+a new value is accepted. The consume_randomness instruction includes two
+accounts, our client and the VRF Account, and has no parameters. You may be
+thinking the ixData will be empty but Anchor adds a unique 8 byte discriminator
+to all instructions (and accounts) which is a hash of the instruction name. This
+helps map the instruction to your programs interface.
+
+```diff
+const [vrfAccount] = await switchboard.queue.createVrf({
+    vrfKeypair,
+    callback: {
+        programId: program.programId,
+-       accounts: [],
++       accounts: [
++           { pubkey: vrfClientKey, isSigner: false, isWritable: true },
++           { pubkey: vrfKeypair.publicKey, isSigner: false, isWritable: false },
++       ],
+-       ixData: Buffer.from(""),
++       ixData: new anchor.BorshInstructionCoder(program.idl).encode(
++           "consumeRandomness",
++           ""
++       ),
+    },
+    enable: true,
+});
+```
+
+Now let's add some logic to await the randomness result from the oracle. This
+function will invoke our programs request randomness instruction then open a
+websocket and await the result. If the result is not populated in 45s then it
+will throw an error.
+
+```typescript
+it("request_randomness", async () => {
+  // ... request randomness
+
+  const result = await vrfAccount.nextResult(
+    new anchor.BN(vrf.counter.toNumber() + 1),
+    45_000
+  );
+  if (!result.success) {
+    throw new Error(`Failed to get VRF Result: ${result.status}`);
+  }
+
+  const vrfClientState = await program.account.vrfClientState.fetch(
+    vrfClientKey
+  );
+  console.log(`VrfClient Result: ${vrfClientState.result.toString(10)}`);
+
+  const callbackTxnMeta = await vrfAccount.getCallbackTransactions();
+  console.log(
+    JSON.stringify(
+      callbackTxnMeta.map((tx) => tx.meta.logMessages),
+      undefined,
+      2
+    )
+  );
+
+  assert(!vrfClientState.result.eq(new BN(0)), "Vrf Client holds no result");
+});
+```
+
+And finally run the test!
+
+```bash
+$ anchor test
+
+VRF Account: BJe3Y8WQUnT4wx9owBSxwRTuXFHk3deJAMFVPzFTWAxd
+VRF Client: 8tNNmjT8QxRabWeQKSqTXtR296h8fg8p8rDvAnYKsssW
+
+
+  vrf-client
+Starting Switchboard oracle ...
+Created VRF Account: BJe3Y8WQUnT4wx9owBSxwRTuXFHk3deJAMFVPzFTWAxd
+Created VrfClient Account: 8tNNmjT8QxRabWeQKSqTXtR296h8fg8p8rDvAnYKsssW
+    ✔ init_client (868ms)
+
+VrfClient Result: 423
+[
+  [
+    "Program ComputeBudget111111111111111111111111111111 invoke [1]",
+    "Program ComputeBudget111111111111111111111111111111 success",
+    "Program ComputeBudget111111111111111111111111111111 invoke [1]",
+    "Program ComputeBudget111111111111111111111111111111 success",
+    "Program 2TfB33aLaneQb5TNVwyDz3jSZXS6jdW2ARw1Dgf84XCG invoke [1]",
+    "Program log: Instruction: VrfProveAndVerify",
+    "Program log: Invoking callback",
+    "Program EmPZGD34KDCtdwtqJU5VGoqidDQLyW1eyBXvj4yb2W9i invoke [2]",
+    "Program log: Instruction: ConsumeRandomness",
+    "Program log: Result buffer is [154, 219, 184, 150, 38, 3, 191, 10, 24, 94, 122, 191, 243, 220, 46, 3, 127, 16, 168, 132, 253, 154, 220, 201, 165, 215, 50, 80, 44, 155, 227, 59]",
+    "Program log: u128 buffer [4231011084663214195166609165078027162, 79606250422545424453288202565814063231]",
+    "Program log: Current VRF Value [1 - 1337) = 423!",
+    "Program data: V8IkGhLydDZ1KplU2NCJUISD3i6LBt01IwAMyruAYBhFe04y+lhyiTkFAAAAAAAAmtu4liYDvwoYXnq/89wuA38QqIT9mtzJpdcyUCyb4zunAQAAAAAAAAAAAAAAAAAAsmbQYwAAAAA=",
+    "Program EmPZGD34KDCtdwtqJU5VGoqidDQLyW1eyBXvj4yb2W9i consumed 24439 of 1386272 compute units",
+    "Program EmPZGD34KDCtdwtqJU5VGoqidDQLyW1eyBXvj4yb2W9i success",
+    "Program data: KT1kCMGFQ4WZGaDlpbqimoe3KXzhbQ4vGtkw9W7vNVyMmAaYkEE3BlCuBj8iwJHMZ46bwLeQsva1G43tyWLKwk8Gi9F77RPrAAAAAAAAAAA=",
+    "Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA invoke [2]",
+    "Program log: Instruction: Transfer",
+    "Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA consumed 4785 of 1358285 compute units",
+    "Program TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA success",
+    "Program 2TfB33aLaneQb5TNVwyDz3jSZXS6jdW2ARw1Dgf84XCG consumed 47533 of 1400000 compute units",
+    "Program 2TfB33aLaneQb5TNVwyDz3jSZXS6jdW2ARw1Dgf84XCG success"
+  ]
+]
+    ✔ request_randomness (4340ms)
+
+
+  2 passing (27s)
+
+✨  Done in 28.30s.
+```
+
+And just like that you have integrated Switchboard's VRF into your very own
+Anchor program!
+
+## 8. Deployment Instructions
+
+### Deploying to Devnet
+
+Update the cluster in `Anchor.toml` to devnet
+
+```diff
+[provider]
+- cluster = "localnet"
++ cluster = "devnet"
+wallet = "~/.config/solana/id.json"
+```
+
+In our test we use the SwitchboardTestContext to load our personal Switchboard
+environment. If you are deploying to devnet you may not want to run your own
+oracles and instead can opt in to using the Switchboard DAO queues. When
+creating a VRF Account, use Switchboard's devnet permissionless queue located at
+`uPeRMdfPmrPqgRWSrjAnAkH78RqAhe5kXoW6vBYRqFX`.
+
+```diff
+describe("vrf-client", () => {
+     ixData: vrfIxCoder.encode("consumeRandomness", ""), // pass any params for instruction here
+   };
+
+-  let switchboard: sbv2.SwitchboardTestContext;
++  let switchboard: {
++    program: sbv2.SwitchboardProgram;
++    queue: sbv2.QueueAccount;
++  };
+   let oracle: NodeOracle;
+   let vrfAccount: sbv2.VrfAccount;
+
+   before(async () => {
+-    switchboard = await sbv2.SwitchboardTestContext.loadFromProvider(
+-      provider,
+-      {
+-        // You can provide a keypair to so the PDA schemes dont change between test runs
+-        name: "Test Queue",
+-        keypair: sbv2.SwitchboardTestContext.loadKeypair(
+-          "~/.keypairs/queue.json"
+-        ),
+-        queueSize: 10,
+-        reward: 0,
+-        minStake: 0,
+-        oracleTimeout: 900,
+-        unpermissionedFeeds: true,
+-        unpermissionedVrf: true,
+-        enableBufferRelayers: true,
+-        oracle: {
+-          name: "Test Oracle",
+-          enable: true,
+-          stakingWalletKeypair: sbv2.SwitchboardTestContext.loadKeypair(
+-            "~/.keypairs/oracleWallet.json"
+-          ),
+-        },
+-      }
++    const switchboardProgram = await sbv2.SwitchboardProgram.fromProvider(
++      provider
+     );
+-
+-    oracle = await NodeOracle.fromReleaseChannel({
+-      chain: "solana",
+-      releaseChannel: "testnet",
+-      network: "localnet", // disables production capabilities like monitoring and alerts
+-      rpcUrl: switchboard.program.connection.rpcEndpoint,
+-      oracleKey: switchboard.oracle.publicKey.toBase58(),
+-      secretPath: switchboard.walletPath,
+-      silent: false, // set to true to suppress oracle logs in the console
+-      envVariables: {
+-        VERBOSE: "1",
+-        DEBUG: "1",
+-        DISABLE_NONCE_QUEUE: "1",
+-        DISABLE_METRICS: "1",
+-      },
+-    });
+-
+-    await oracle.startAndAwait();
+-  });
+-
+-  after(async () => {
+-    oracle?.stop();
++    const [queueAccount, queue] = await sbv2.QueueAccount.load(
++      switchboardProgram,
++      "uPeRMdfPmrPqgRWSrjAnAkH78RqAhe5kXoW6vBYRqFX"
++    );
++    switchboard = { program: switchboardProgram, queue: queueAccount };
+   });
+
+   it("init_client", async () => {
+
+```
+
+Run the following command to deploy your program to devnet
+
+```bash
+anchor deploy
+```
+
+### Deploying to Mainnet
+
+Update the cluster in `Anchor.toml` to mainnet
+
+```diff
+[provider]
+- cluster = "localnet"
++ cluster = "mainnet"
+wallet = "~/.config/solana/id.json"
+```
+
+Like above, you will want to create VRF Accounts for a mainnet queue. You may
+use Switchboard's mainnet permissionless queue located at
+`3HBb2DQqDfuMdzWxNk1Eo9RTMkFYmuEAd32RiLKn9pAn`.
+
+Run the following command to deploy your program to mainnet
+
+```bash
+anchor deploy
+```

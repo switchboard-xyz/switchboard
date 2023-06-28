@@ -183,3 +183,9 @@ h1 {
 .container {
   max-width: none;
 }
+
+.menu__list-item,
+.menu__link--sublist,
+.menu__link {
+  width: "100%";
+}

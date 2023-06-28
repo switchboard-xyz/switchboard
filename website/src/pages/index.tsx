@@ -34,8 +34,8 @@ export default function Home(): JSX.Element {
           >
             <p>
               A trust-minimized, decentralized compute network enabling
-              verifiable, off-chain compute providing smart contract developers
-              with the tools to write more resilient smart contracts.
+              verifiable, off-chain compute. Switchboard gives smart contract
+              developers the tools to write more resilient smart contracts.
             </p>
           </div>
           {/** @TODO add once Chatbot is ready

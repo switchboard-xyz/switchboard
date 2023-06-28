@@ -39,6 +39,13 @@ const cards: Card[] = [
     icon: "functions.png",
     link: "/functions",
   },
+  {
+    title: "Scheduler",
+    description:
+      "2-step process to automate smart contracts in a trusted execution environment.",
+    icon: "scheduler.png",
+    link: "/scheduler",
+  },
 ];
 
 const appCards: Card[] = [
