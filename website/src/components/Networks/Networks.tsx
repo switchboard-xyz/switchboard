@@ -12,7 +12,7 @@ export interface IQueues {
   chain: SupportedChain;
 }
 
-function getNetworkTable(
+export function getNetworkTable(
   chain: SupportedChain,
   network: string
 ): [string, string, JSX.Element] {
