@@ -51,4 +51,4 @@ RUN cargo install cargo-strip
 
 WORKDIR /app
 
-CMD ["bash", "/boot.sh"]
+ENTRYPOINT ["/bin/bash", "/boot.sh"]

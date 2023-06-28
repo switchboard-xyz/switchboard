@@ -7,10 +7,10 @@ set -euo pipefail
 #     exit 1
 # fi
 
-if [ ! -e "/sgx-detect/sgx-detect" ]; then
-    echo "ERROR: sgx-detect not found"
-    exit 1
-fi
+# if [ ! -e "/sgx-detect/sgx-detect" ]; then
+#     echo "ERROR: sgx-detect not found"
+#     exit 1
+# fi
 
 if [ ! -e "/sgx/app" ]; then
     echo "ERROR: function binary not found at /sgx/app"
