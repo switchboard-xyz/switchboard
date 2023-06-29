@@ -8,5 +8,5 @@ if [ ! -e "/sgx/app" ]; then
 fi
 
 # Start SGX-enabled application
-echo "Starting enclave.."
-gramine-sgx /sgx/app
+echo "Starting virtual enclave.."
+gramine-direct /sgx/app
