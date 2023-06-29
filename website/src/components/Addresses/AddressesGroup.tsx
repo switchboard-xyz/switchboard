@@ -11,7 +11,7 @@ import { SupportedChain } from "./types";
 import { networks } from "@switchboard-xyz/common";
 import { getNetworkTable, capitalizeFirstLetterOfEachWord } from "./utils";
 
-const NetworksGroup = () => {
+export default function AddressesGroup() {
   const [selectedChain, setSelectedChain] = useState<SupportedChain>("solana");
   const [selectedNetwork, setSelectedNetwork] = useState<string>("mainnet");
   const [tableElement, setTableElement] = useState<JSX.Element>(
@@ -83,6 +83,4 @@ const NetworksGroup = () => {
       </Grid>
     </div>
   );
-};
-
-export default NetworksGroup;
+}

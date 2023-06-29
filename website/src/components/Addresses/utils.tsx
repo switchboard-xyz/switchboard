@@ -103,3 +103,7 @@ export function getNetworkTable(
 
   return table;
 }
+
+function capitalizeWords(str: string): string {
+  return str.replace(/\b\w/g, (match) => match.toUpperCase());
+}

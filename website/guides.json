@@ -5,20 +5,18 @@
     "sui",
     "coredao",
     "arbitrum",
-    "evm",
     "near",
     "starknet"
   ],
   "languages": ["javascript", "rust", "move", "solidity"],
   "categories": [
-    "chain-overview",
     "sdk",
     "example",
-    "data-feeds",
+    "data feeds",
     "randomness",
     "secrets",
     "functions",
-    "infra",
+    "infrastructure",
     "queues"
   ],
   "guides": [
@@ -35,7 +33,7 @@
     {
       "label": "How to Run an Oracle in Google Cloud Platform",
       "link": "/guides/oracles/gcp",
-      "tags": ["infra"]
+      "tags": ["infrastructure"]
     },
     {
       "label": "Rust: switchboard-v2 crate",
