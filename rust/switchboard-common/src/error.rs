@@ -1,30 +1,21 @@
-use crate::cfg_client;
-
 use serde_json::Error as SerdeJsonError;
 use std::error::Error as StdError;
 use std::fmt;
 use std::fmt::Debug;
+use std::sync::Arc;
 
-#[derive(Debug)]
+#[derive(Clone, Debug)]
 pub enum Error {
-    // only import the reqwest library when the client feature is enabled
-    #[cfg(feature = "client")]
-    #[cfg_attr(doc_cfg, doc(cfg(feature = "client")))]
-    HttpError {
-        status_code: reqwest::StatusCode,
-        status_text: String,
-        source: reqwest::Error,
-    },
-    EnvVariableMissing(String),
+    // Generics
+    Generic,
     CustomMessage(String),
     CustomError {
         message: String,
-        source: Box<dyn StdError + 'static>,
+        source: Arc<dyn StdError + 'static>,
     },
-    // Generics
-    Generic,
 
     // Environment Errors
+    EnvVariableMissing(String),
     InvalidKeypairFile,
     KeyParseError,
 
@@ -78,21 +69,8 @@ pub enum Error {
 impl fmt::Display for Error {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
         match self {
-            #[cfg(feature = "client")]
-            #[cfg_attr(doc_cfg, doc(cfg(feature = "client")))]
-            Error::HttpError {
-                status_code,
-                status_text,
-                ..
-            } => write!(
-                f,
-                "Reqwest error: {} - {}",
-                status_code.as_str(),
-                status_text
-            ),
-
             Error::EnvVariableMissing(message) => {
-                write!(f, "Env variable missing {}", message.as_str())
+                write!(f, "Env variable missing: {}", message.as_str())
             }
             Error::CustomMessage(message) => write!(f, "error: {}", message.as_str()),
             Error::CustomError {
@@ -114,7 +92,7 @@ impl From<hex::FromHexError> for Error {
     fn from(error: hex::FromHexError) -> Self {
         Error::CustomError {
             message: "hex error".to_string(),
-            source: Box::new(error),
+            source: Arc::new(error),
         }
     }
 }
@@ -132,28 +110,51 @@ impl From<SerdeJsonError> for Error {
     fn from(error: SerdeJsonError) -> Self {
         Error::CustomError {
             message: "serde_json error".to_string(),
-            source: Box::new(error),
+            source: Arc::new(error),
         }
     }
 }
 
-cfg_client! {
-    impl From<reqwest::Error> for Error {
-        fn from(error: reqwest::Error) -> Self {
-            if let Some(status) = error.status() {
-                Error::HttpError {
-                    status_code: status,
-                    status_text: status.canonical_reason().unwrap_or("Unknown").to_string(),
-                    source: error,
-                }
-            } else {
-                // You can choose to handle non-HTTP errors differently or use the same variant
-                Error::HttpError {
-                    status_code: reqwest::StatusCode::default(),
-                    status_text: "Non-HTTP error".to_string(),
-                    source: error,
-                }
-            }
-        }
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn display_generic() {
+        let error = Error::Generic;
+        assert_eq!(format!("{}", error), "Generic");
+    }
+
+    #[test]
+    fn display_custom_message() {
+        let error = Error::CustomMessage("my custom message".to_string());
+        assert_eq!(format!("{}", error), "error: my custom message");
+    }
+
+    #[test]
+    fn display_env_variable_missing() {
+        let error = Error::EnvVariableMissing("MY_ENV_VAR".to_string());
+        assert_eq!(format!("{}", error), "Env variable missing: MY_ENV_VAR");
+    }
+
+    #[test]
+    fn from_str() {
+        let error: Error = "my custom message".into();
+        assert_eq!(format!("{}", error), "error: my custom message");
+    }
+
+    #[test]
+    fn from_hex_error() {
+        let hex_error = hex::FromHexError::OddLength;
+        let error: Error = hex_error.into();
+        assert_eq!(format!("{}", error), "error: hex error - OddLength");
+    }
+
+    #[test]
+    fn from_serde_json_error() {
+        let json = "\"";
+        let serde_json_error = serde_json::from_str::<serde_json::Value>(json).unwrap_err();
+        let error: Error = serde_json_error.into();
+        assert!(format!("{}", error).starts_with("error: serde_json error - "));
     }
 }

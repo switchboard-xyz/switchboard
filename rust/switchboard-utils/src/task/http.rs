@@ -3,14 +3,30 @@ use reqwest;
 use serde_json::Value;
 use switchboard_common::error::Error;
 
+fn handle_reqwest_err(e: reqwest::Error) -> Error {
+    let status = e.status().unwrap_or(reqwest::StatusCode::default());
+    return Error::CustomError {
+        message: format!(
+            "reqwest_error: code = {}, message = {}",
+            status,
+            status.canonical_reason().unwrap_or("Unknown").to_string()
+        ),
+        source: std::sync::Arc::new(e),
+    };
+}
+
 pub async fn http_task(url: &str, path: Option<&str>) -> Result<Value, Error> {
-    let response = reqwest::get(url).await?.error_for_status()?;
+    let response = reqwest::get(url)
+        .await
+        .map_err(handle_reqwest_err)?
+        .error_for_status()
+        .map_err(handle_reqwest_err)?;
 
     // Get the response text as a string
-    let text = response.text().await?;
+    let text = response.text().await.map_err(handle_reqwest_err)?;
 
     // Parse the string into a serde_json Value
-    let value = serde_json::from_str::<Value>(&text).unwrap_or(Value::String(text));
+    let value = serde_json::from_str::<Value>(&text).unwrap_or(Value::String(text.to_string()));
 
     if let Some(p) = path {
         return json_parse_task(value, p);
