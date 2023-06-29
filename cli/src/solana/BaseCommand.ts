@@ -157,6 +157,10 @@ export abstract class SolanaBaseCommand
       return rpcUrlFlag;
     }
 
+    if (cluster === "localnet") {
+      return "http://127.0.0.1:8899";
+    }
+
     const rpcUrl = this.ctx.getRpcUrl(
       "solana",
       cluster === "mainnet-beta" ? "mainnet" : cluster

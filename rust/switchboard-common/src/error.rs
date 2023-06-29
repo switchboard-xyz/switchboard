@@ -1,123 +1,98 @@
-use crate::{cfg_client, cfg_not_client};
-
 use serde_json::Error as SerdeJsonError;
 use std::error::Error as StdError;
 use std::fmt;
 use std::fmt::Debug;
+use std::sync::Arc;
 
-cfg_client! {
-    use reqwest::{Error as ReqwestError, StatusCode};
+#[derive(Clone, Debug)]
+pub enum Error {
+    // Generics
+    Generic,
+    CustomMessage(String),
+    CustomError {
+        message: String,
+        source: Arc<dyn StdError + 'static>,
+    },
 
-    #[derive(Debug)]
-    pub enum Error {
-        CustomMessage(String),
-        CustomError {
-            message: String,
-            source: Box<dyn StdError + 'static>,
-        },
-        HttpError {
-            status_code: StatusCode,
-            status_text: String,
-            source: ReqwestError,
-        },
-        // Add other error variants as needed
-        SgxError,
-        SgxWriteError,
-        TxFailure,
-        NetworkErr,
-        InvalidQuoteError,
-        TxCompileErr,
-        EnvVariableMissing(String),
-    }
+    // Environment Errors
+    EnvVariableMissing(String),
+    InvalidKeypairFile,
+    KeyParseError,
 
-    impl fmt::Display for Error {
-        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-            match self {
-                Error::CustomMessage(message) => write!(f, "error: {}", message.as_str()),
-                Error::CustomError {
-                    message, source, ..
-                } => write!(f, "error: {} - {:?}", message.as_str(), source),
-                // Handle other error variants as needed
-                Error::HttpError {
-                    status_code,
-                    status_text,
-                    ..
-                } => write!(
-                    f,
-                    "Reqwest error: {} - {}",
-                    status_code.as_str(),
-                    status_text
-                ),
-                Error::SgxError => write!(f, "SGX error"),
-                Error::SgxWriteError => write!(f, "SGX write error"),
-                Error::TxFailure => write!(f, "Tx failure"),
-                Error::NetworkErr => write!(f, "Network error"),
-                Error::InvalidQuoteError => write!(f, "Invalid Quote"),
-                Error::TxCompileErr => write!(f, "Tx compile error"),
-                Error::EnvVariableMissing(message) => {
-                    write!(f, "Env variable missing {}", message.as_str())
-                }
+    // SGX Errors
+    SgxError,
+    SgxWriteError,
+
+    // Network Errors
+    NetworkError,
+
+    // Quote Errors
+    QuoteParseError,
+    InvalidQuoteError,
+
+    // Docker/Container Errors
+    DockerError,
+    ContainerStartError,
+    ContainerCreateError,
+    ContainerResultParseError,
+    AttachError,
+
+    // Function Errors
+    FunctionResultParseError,
+    IllegalFunctionOutput,
+    FunctionVerifyFailure,
+    FunctionResultIllegalAccount,
+    FunctionResultAccountsMismatch,
+    FunctionResultInvalidData,
+    FunctionResultInvalidPid,
+    FunctionResultEmptyInstructions,
+
+    // Transaction Errors
+    TxFailure,
+    TxCompileErr,
+    TxDeserializationError,
+    QvnTxSendFailure,
+    InvalidInstructionError,
+
+    // Chain specific Errors
+    AnchorParse,
+    AnchorParseError,
+    EvmError,
+
+    // Misc
+    IpfsParseError,
+    IpfsNetworkError,
+    HeartbeatRoutineFailure,
+    EventListenerRoutineFailure,
+}
+
+impl fmt::Display for Error {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        match self {
+            Error::EnvVariableMissing(message) => {
+                write!(f, "Env variable missing: {}", message.as_str())
             }
-        }
-    }
-
-    impl From<ReqwestError> for Error {
-        fn from(error: ReqwestError) -> Self {
-            if let Some(status) = error.status() {
-                Error::HttpError {
-                    status_code: status,
-                    status_text: status.canonical_reason().unwrap_or("Unknown").to_string(),
-                    source: error,
-                }
-            } else {
-                // You can choose to handle non-HTTP errors differently or use the same variant
-                Error::HttpError {
-                    status_code: StatusCode::default(),
-                    status_text: "Non-HTTP error".to_string(),
-                    source: error,
-                }
-            }
+            Error::CustomMessage(message) => write!(f, "error: {}", message.as_str()),
+            Error::CustomError {
+                message, source, ..
+            } => write!(f, "error: {} - {:?}", message.as_str(), source),
+            // Handle other error variants as needed
+            _ => write!(f, "{:#?}", self),
         }
     }
 }
 
-cfg_not_client! {
-    #[derive(Debug)]
-    pub enum Error {
-        CustomMessage(String),
-        CustomError {
-            message: String,
-            source: Box<dyn StdError + 'static>,
-        },
-        // Add other error variants as needed
-        SgxError,
-        SgxWriteError,
-        TxFailure,
-        NetworkErr,
-        InvalidQuoteError,
-        TxCompileErr,
-        EnvVariableMissing(String),
+impl From<&str> for Error {
+    fn from(error: &str) -> Self {
+        Error::CustomMessage(error.to_string())
     }
+}
 
-
-    impl fmt::Display for Error {
-        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-            match self {
-                Error::CustomMessage(message) => write!(f, "error: {}", message.as_str()),
-                Error::CustomError {
-                    message, source, ..
-                } => write!(f, "error: {} - {:?}", message.as_str(), source),
-                // Handle other error variants as needed
-                Error::SgxError => write!(f, "SGX error"),
-                Error::SgxWriteError => write!(f, "SGX write error"),
-                Error::TxFailure => write!(f, "Tx failure"),
-                Error::NetworkErr => write!(f, "Network error"),
-                Error::InvalidQuoteError => write!(f, "Invalid Quote"),
-                Error::TxCompileErr => write!(f, "Tx compile error"),
-                Error::EnvVariableMissing(message) => {
-                    write!(f, "Env variable missing {}", message.as_str())
-                }
-            }
+impl From<hex::FromHexError> for Error {
+    fn from(error: hex::FromHexError) -> Self {
+        Error::CustomError {
+            message: "hex error".to_string(),
+            source: Arc::new(error),
         }
     }
 }
@@ -135,7 +110,51 @@ impl From<SerdeJsonError> for Error {
     fn from(error: SerdeJsonError) -> Self {
         Error::CustomError {
             message: "serde_json error".to_string(),
-            source: Box::new(error),
+            source: Arc::new(error),
         }
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn display_generic() {
+        let error = Error::Generic;
+        assert_eq!(format!("{}", error), "Generic");
+    }
+
+    #[test]
+    fn display_custom_message() {
+        let error = Error::CustomMessage("my custom message".to_string());
+        assert_eq!(format!("{}", error), "error: my custom message");
+    }
+
+    #[test]
+    fn display_env_variable_missing() {
+        let error = Error::EnvVariableMissing("MY_ENV_VAR".to_string());
+        assert_eq!(format!("{}", error), "Env variable missing: MY_ENV_VAR");
+    }
+
+    #[test]
+    fn from_str() {
+        let error: Error = "my custom message".into();
+        assert_eq!(format!("{}", error), "error: my custom message");
+    }
+
+    #[test]
+    fn from_hex_error() {
+        let hex_error = hex::FromHexError::OddLength;
+        let error: Error = hex_error.into();
+        assert_eq!(format!("{}", error), "error: hex error - OddLength");
+    }
+
+    #[test]
+    fn from_serde_json_error() {
+        let json = "\"";
+        let serde_json_error = serde_json::from_str::<serde_json::Value>(json).unwrap_err();
+        let error: Error = serde_json_error.into();
+        assert!(format!("{}", error).starts_with("error: serde_json error - "));
     }
 }

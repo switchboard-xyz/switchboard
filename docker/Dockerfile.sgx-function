@@ -12,9 +12,10 @@ RUN mkdir -p /data/protected_files && mkdir /sgx
 
 # Add startup files, user can overwrite these
 COPY --chown=root:root ./configs/boot.sh /boot.sh
+COPY --chown=root:root ./configs/boot.sh /virtual_boot.sh
 COPY --chown=root:root ./configs/app.manifest.template /app.manifest.template
 COPY --chown=root:root ./configs/get_measurement.sh /get_measurement.sh
-RUN chmod a+x /boot.sh && chmod a+x /get_measurement.sh
+RUN chmod a+x /boot.sh && chmod a+x /virtual_boot.sh && chmod a+x /get_measurement.sh
 
 # Add Azure DCAP registry
 RUN curl -fsSLo /usr/share/keyrings/microsoft.asc https://packages.microsoft.com/keys/microsoft.asc && \
@@ -51,4 +52,4 @@ RUN cargo install cargo-strip
 
 WORKDIR /app
 
-CMD ["bash", "/boot.sh"]
+ENTRYPOINT ["/bin/bash", "/boot.sh"]

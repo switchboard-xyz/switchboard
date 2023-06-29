@@ -17,7 +17,7 @@ docker_set_builder "sgxbuilder"
 
 docker buildx build \
     -t switchboardlabs/sgx-function \
-    --platform "linux/amd64,linux/arm64" \
+    --platform "linux/amd64" \
     --push \
     -f "$(normalize_project_path docker/Dockerfile.sgx-function)" \
     "$(normalize_project_path docker)"
