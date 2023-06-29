@@ -23,21 +23,56 @@ pub enum Error {
     },
     // Generics
     Generic,
+
+    // Environment Errors
+    InvalidKeypairFile,
+    KeyParseError,
+
+    // SGX Errors
     SgxError,
     SgxWriteError,
+
+    // Network Errors
+    NetworkError,
+
+    // Quote Errors
     QuoteParseError,
+    InvalidQuoteError,
+
+    // Docker/Container Errors
     DockerError,
-    BollardError,
     ContainerStartError,
     ContainerCreateError,
-    AttachError,
     ContainerResultParseError,
+    AttachError,
+
+    // Function Errors
     FunctionResultParseError,
     IllegalFunctionOutput,
-    NetworkError,
+    FunctionVerifyFailure,
+    FunctionResultIllegalAccount,
+    FunctionResultAccountsMismatch,
+    FunctionResultInvalidData,
+    FunctionResultInvalidPid,
+    FunctionResultEmptyInstructions,
+
+    // Transaction Errors
     TxFailure,
-    InvalidQuoteError,
     TxCompileErr,
+    TxDeserializationError,
+    QvnTxSendFailure,
+    InvalidInstructionError,
+
+    // Chain specific Errors
+    AnchorParse,
+    AnchorParseError,
+    EvmError,
+
+    // Misc
+    IpfsParseError,
+    IpfsNetworkError,
+    HeartbeatRoutineFailure,
+    EventListenerRoutineFailure,
 }
 
 impl fmt::Display for Error {
@@ -64,22 +99,7 @@ impl fmt::Display for Error {
                 message, source, ..
             } => write!(f, "error: {} - {:?}", message.as_str(), source),
             // Handle other error variants as needed
-            Error::Generic => write!(f, "Generic Error"),
-            Error::SgxError => write!(f, "Sgx Error"),
-            Error::SgxWriteError => write!(f, "SgxWriteError"),
-            Error::QuoteParseError => write!(f, "QuoteParseError"),
-            Error::DockerError => write!(f, "DockerError"),
-            Error::BollardError => write!(f, "BollardError"),
-            Error::ContainerStartError => write!(f, "ContainerStartError"),
-            Error::ContainerCreateError => write!(f, "ContainerCreateError"),
-            Error::AttachError => write!(f, "AttachError"),
-            Error::ContainerResultParseError => write!(f, "ContainerResultParseError"),
-            Error::FunctionResultParseError => write!(f, "FunctionResultParseError"),
-            Error::IllegalFunctionOutput => write!(f, "IllegalFunctionOutput"),
-            Error::NetworkError => write!(f, "NetworkError"),
-            Error::TxFailure => write!(f, "TxFailure"),
-            Error::InvalidQuoteError => write!(f, "InvalidQuoteError"),
-            Error::TxCompileErr => write!(f, "TxCompileErr"),
+            _ => write!(f, "{:#?}", self),
         }
     }
 }
