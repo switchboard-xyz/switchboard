@@ -1,6 +1,6 @@
 [package]
 name = "switchboard-utils"
-version = "0.6.0"
+version = "0.6.1"
 edition = "2021"
 include = ["src/**/*", "Cargo.toml", "../../protos/job_schemas.proto"]
 description = "Switchboard utilities for custom functions and OracleJob protobuf definitions"
@@ -13,7 +13,7 @@ license = "MIT"
 default = []
 
 [dependencies]
-switchboard-common = { version = "0.6.0", path = "../switchboard-common", features = [
+switchboard-common = { version = "0.6.1", path = "../switchboard-common", features = [
     "client"
 ] }
 prost = "0.11.9"

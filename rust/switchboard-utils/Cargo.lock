@@ -1226,7 +1226,7 @@ checksum = "a2eb9349b6444b326872e140eb1cf5e7c522154d69e7a0ffb0fb81c06b37543f"
 
 [[package]]
 name = "switchboard-common"
-version = "0.6.0"
+version = "0.6.1"
 dependencies = [
  "getrandom",
  "hex",
@@ -1239,7 +1239,7 @@ dependencies = [
 
 [[package]]
 name = "switchboard-utils"
-version = "0.6.0"
+version = "0.6.1"
 dependencies = [
  "bytes",
  "bytestring",

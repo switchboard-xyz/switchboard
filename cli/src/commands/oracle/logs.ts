@@ -40,9 +40,11 @@ export default class OracleLogs extends OutputFileBaseCommand {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        network: args.network,
+        cluster: args.network,
         query:
           args.searchString ?? "GvDMxPzN1sCj7L26YDK2HnMRXEQmQ2aemov8YBtPS7vR",
+        number: 10,
+        severity: "INFO",
       }),
     });
 
@@ -50,9 +52,13 @@ export default class OracleLogs extends OutputFileBaseCommand {
       throw new Error(`Failed to fetch Switchboard oracle logs`);
     }
 
+    console.log(await response.text());
+    console.log(await response.json());
+    console.log(JSON.stringify(response.body, undefined, 2));
+
     const payload = await response.json();
     // this.logger.info(JSON.stringify(payload, undefined, 2));
-    this.logger.info(payload);
+    this.logger.info(JSON.stringify(payload, undefined, 2));
   }
 
   async catch(error: any) {
