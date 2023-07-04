@@ -1,0 +1,87 @@
+{
+  "chains": [
+    "solana",
+    "aptos",
+    "sui",
+    "coredao",
+    "arbitrum",
+    "near",
+    "starknet"
+  ],
+  "languages": ["javascript", "rust", "move", "solidity"],
+  "categories": [
+    "sdk",
+    "example",
+    "data feeds",
+    "randomness",
+    "secrets",
+    "functions",
+    "infrastructure",
+    "queues"
+  ],
+  "guides": [
+    {
+      "label": "Data Feed Best Practices",
+      "link": "/guides/feeds/best-practices",
+      "tags": ["data-feeds"]
+    },
+    {
+      "label": "Private APIs",
+      "link": "/guides/feeds/private-apis",
+      "tags": ["queues", "data-feeds"]
+    },
+    {
+      "label": "How to Run an Oracle in Google Cloud Platform",
+      "link": "/guides/oracles/gcp",
+      "tags": ["infrastructure"]
+    },
+    {
+      "label": "Rust: switchboard-v2 crate",
+      "link": "/guides/solana/sdk/rust",
+      "language": "rust",
+      "tags": ["sdk"],
+      "chain": "solana"
+    },
+    {
+      "label": "Javascript: @switchboard-xyz/solana.js",
+      "link": "/guides/solana/sdk/javascript",
+      "language": "javascript",
+      "tags": ["sdk"],
+      "chain": "solana"
+    },
+    {
+      "label": "Native Rust: Read Feed On-Chain",
+      "link": "/guides/solana/feeds/rust",
+      "tooltip": "Learn how to use the native Solana rust runtime to deserialize and read a Switchboard data feed",
+      "tags": ["example", "data-feeds"],
+      "language": "rust",
+      "chain": "solana"
+    },
+    {
+      "label": "Anchor: Read Feed On-Chain",
+      "link": "/guides/solana/feeds/anchor",
+      "tooltip": "Learn how to use the Anchor framework to deserialize and read a Switchboard data feed",
+      "tags": ["example", "data-feeds"],
+      "language": "rust",
+      "chain": "solana"
+    },
+    {
+      "label": "Data Feeds: Priority Fees",
+      "link": "/guides/solana/feeds/priority-fees",
+      "tooltip": "Learn how to configure priority fees for a Switchboard data feed",
+      "tags": ["data-feeds"],
+      "chain": "solana"
+    },
+    {
+      "label": "VRF Integration",
+      "link": "/guides/solana/vrf",
+      "tags": ["randomness"],
+      "chain": "solana"
+    },
+    {
+      "label": "Test Integration",
+      "link": "/guides/solana/test-integration",
+      "chain": "solana"
+    }
+  ]
+}

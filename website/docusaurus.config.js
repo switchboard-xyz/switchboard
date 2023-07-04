@@ -94,7 +94,7 @@ const config = {
           blogSidebarCount: "ALL",
         },
         theme: {
-          customCss: require.resolve("./src/css/custom.css"),
+          customCss: [require.resolve("./src/css/custom.css")],
         },
         pages: {
           remarkPlugins: [require("@docusaurus/remark-plugin-npm2yarn")],
@@ -129,7 +129,7 @@ const config = {
             type: "docSidebar",
             sidebarId: "gettingStartedSidebar",
             position: "left",
-            label: "Getting Started",
+            label: "Learn",
           },
           {
             type: "docSidebar",

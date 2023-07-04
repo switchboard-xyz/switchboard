@@ -1,6 +1,11 @@
 {
   "name": "sbv2-core",
   "private": true,
+  "workspaces": [
+    "javascript/*",
+    "cli",
+    "website"
+  ],
   "scripts": {
     "preinstall": "npx only-allow pnpm",
     "build": "pnpm --filter=!website* build",
@@ -10,6 +15,10 @@
     "clean": "find . \\( -name 'node_modules' -o -name 'lib' -o -name 'dist' -o -name '.docusaurus' \\) -type d -prune -exec rm -rf '{}' +",
     "uprev:sdk": "./scripts/uprev-sdks.sh",
     "website": "pnpm --filter=website start"
+  },
+  "dependencies": {
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2"
   },
   "devDependencies": {
     "@commitlint/config-conventional": "^17.0.2",
@@ -25,14 +34,11 @@
     "type": "git",
     "url": "https://github.com/switchboard-xyz/sbv2-core.git"
   },
-  "workspaces": [
-    "javascript/*",
-    "cli",
-    "website"
-  ],
   "packageManager": "pnpm@8.6.0",
-  "dependencies": {
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2"
+  "pnpm": {
+    "overrides": {
+      "react": "$react",
+      "react-dom": "$react-dom"
+    }
   }
 }

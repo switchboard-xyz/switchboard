@@ -1,8 +1,6 @@
 import React from "react";
 import { styled } from "@mui/system";
-import {
-  Dialog,
-} from "@mui/material";
+import { Dialog } from "@mui/material";
 import ChatBot from "./ChatBot";
 
 const StyledDialog = styled(Dialog)({
@@ -17,18 +15,21 @@ const StyledDialog = styled(Dialog)({
     [`@media screen and (max-width: 640px)`]: {
       width: "90vw",
       height: "90vh",
-      fontSize: "0.75rem"
-   },
+      fontSize: "0.75rem",
+    },
   },
 });
 
-const ChatModal = (props: { open: boolean; onClose: () => void }) => {
+const ChatModal = (props: {
+  open: boolean;
+  chat?: string;
+  onClose: () => void;
+}) => {
   return (
     <StyledDialog open={!!props.open} onClose={props.onClose}>
-      <ChatBot />
+      <ChatBot chat={props.chat} />
     </StyledDialog>
   );
 };
 
 export default ChatModal;
-

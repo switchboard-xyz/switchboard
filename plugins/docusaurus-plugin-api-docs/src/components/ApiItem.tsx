@@ -80,10 +80,10 @@ export default function ApiItem({ readme: Readme, route }: ApiItemProps) {
     <ApiItemLayout
       heading={
         <>
-          <span className="tsd-header-flags">
+          {/* <span className="tsd-header-flags">
             <Flags flags={item.flags} />
           </span>
-          {item.name} <TypeParametersGeneric params={item.typeParameters} />
+          {item.name} <TypeParametersGeneric params={item.typeParameters} /> */}
         </>
       }
       pageMetadata={

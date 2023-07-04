@@ -1,6 +1,6 @@
-import React, { ReactNode } from "react";
+import React, { CSSProperties, ReactNode } from "react";
 import Link from "@docusaurus/Link";
-import { Typography, Box, Avatar, Grid, Tooltip } from "@mui/material";
+import { Typography, Box, Avatar, Grid, Tooltip, SxProps } from "@mui/material";
 import { useColorMode } from "@docusaurus/theme-common";
 import useBaseUrl from "@docusaurus/useBaseUrl";
 
@@ -10,148 +10,168 @@ export interface IChainProps {
   image: string;
   imageDark?: string;
   comingSoon?: boolean;
-  sx?: any;
+  sx?: CSSProperties;
 }
 
-export interface ChainComponentProps {
-  items: Array<IChainProps>;
-  hideTitle?: boolean;
-  sx?: any;
+interface ChainComponentProps {
+  hideTitle: boolean;
+  sx?: CSSProperties;
 }
 
-export default function ChainComponent({
-  items,
-  hideTitle,
-  sx,
-}: ChainComponentProps) {
+export default function ChainComponent({ hideTitle, sx }: ChainComponentProps) {
   const { colorMode } = useColorMode();
 
+  const items: Array<IChainProps> = [
+    {
+      to: "/aptos",
+      title: "Aptos",
+      image: useBaseUrl("/img/icons/aptos/logo.svg"),
+      imageDark: useBaseUrl("/img/icons/aptos/dark.svg"),
+    },
+    {
+      to: "/arbitrum",
+      title: "Arbitrum",
+      image: useBaseUrl("/img/icons/arbitrum/logo.svg"),
+      imageDark: useBaseUrl("/img/icons/arbitrum/logo.svg"),
+    },
+    {
+      to: "/coredao",
+      title: "CoreDAO",
+      image: useBaseUrl("/img/icons/coredao/logo.svg"),
+      imageDark: useBaseUrl("/img/icons/coredao/dark.svg"),
+    },
+    {
+      to: "/near",
+      title: "Near",
+      image: useBaseUrl("/img/icons/near/logo.svg"),
+      imageDark: useBaseUrl("/img/icons/near/dark.svg"),
+    },
+    {
+      to: "/solana",
+      title: "Solana",
+      image: useBaseUrl("/img/icons/solana/logo.svg"),
+      imageDark: useBaseUrl("/img/icons/solana/logo.svg"),
+    },
+    {
+      to: "/sui",
+      title: "Sui",
+      image: useBaseUrl("/img/icons/sui/logo.svg"),
+      imageDark: useBaseUrl("/img/icons/sui/dark.svg"),
+    },
+    {
+      to: "#",
+      title: "StarkNet",
+      image: useBaseUrl("/img/icons/starknet/logo.svg"),
+      imageDark: useBaseUrl("/img/icons/starknet/dark.svg"),
+      comingSoon: true,
+    },
+  ];
+
   return (
-    <>
-      <Grid
-        container
-        flexDirection="row"
-        justifyContent="flex-start"
-        alignItems="center"
-        spacing={3}
-        sx={{ ...sx }}
-      >
-        {hideTitle ?? (
-          <>
-            <Grid item xs={12} sm={12} md={3}>
+    <div
+      style={{
+        ...sx,
+        display: "flex",
+        alignItems: "center",
+        width: "100%",
+        maxWidth: 900,
+        justifyContent: "space-between",
+      }}
+    >
+      {hideTitle ?? (
+        <Typography
+          variant="body1"
+          align="center"
+          sx={{
+            fontSize: "1.5rem",
+            color:
+              colorMode === "dark"
+                ? "var(--ifm-navbar-link-color)"
+                : "var(--ifm-navbar-link-color)",
+            fontWeight: "var(--ifm-font-weight-bold)",
+          }}
+        >
+          Integrate Switchboard Today!
+        </Typography>
+      )}
+
+      {items.map((item, index) => {
+        return item.comingSoon ? (
+          <Tooltip key={item.title + "Chain"} title="Coming Soon!">
+            <Box
+              display="flex"
+              flexDirection="column"
+              alignItems="center"
+              component={Link}
+              href={item.to}
+              style={{ textDecoration: "none" }}
+              sx={{
+                p: 2,
+                opacity: "0.5",
+              }}
+            >
+              <Avatar
+                variant="rounded"
+                src={
+                  colorMode === "dark" && item.imageDark
+                    ? item.imageDark
+                    : item.image
+                }
+                style={{ width: 48, height: 48, marginBottom: "8px" }}
+              />
               <Typography
-                variant="body1"
                 align="center"
                 sx={{
-                  fontSize: "1.5rem",
-                  color:
-                    colorMode === "dark"
-                      ? "var(--ifm-navbar-link-color)"
-                      : "var(--ifm-navbar-link-color)",
-                  fontWeight: "var(--ifm-font-weight-bold)",
+                  fontFamily: "Source Sans Pro",
+                  fontSize: 16,
+                  fontWeight: 600,
+                  color: colorMode === "dark" ? "white" : "#172B4D", // fontWeight: "var(--ifm-font-weight-semibold)",
                 }}
               >
-                Integrate Switchboard Today!
+                {item.title}
               </Typography>
-            </Grid>
-          </>
-        )}
-
-        <Grid
-          container
-          item
-          xs={12}
-          sm={12}
-          md={hideTitle ? 12 : 9}
-          justifyContent="space-around"
-          alignItems="center"
-        >
-          {items.map((item, index) => {
-            return item.comingSoon ? (
-              <Tooltip title="Coming Soon!">
-                <Box
-                  key={item.title + "Chain"}
-                  display="flex"
-                  flexDirection="column"
-                  alignItems="center"
-                  component={Link}
-                  href={item.to}
-                  style={{ textDecoration: "none" }}
-                  sx={{
-                    p: 2,
-                    opacity: "0.5",
-                  }}
-                >
-                  <Avatar
-                    variant="rounded"
-                    src={
-                      colorMode === "dark" && item.imageDark
-                        ? item.imageDark
-                        : item.image
-                    }
-                    style={{ width: 48, height: 48 }}
-                  />
-                  <Typography
-                    variant="caption"
-                    align="center"
-                    sx={{
-                      fontSize: "1rem",
-                      color:
-                        colorMode === "dark"
-                          ? "var(--ifm-navbar-link-color)"
-                          : "var(--ifm-color-primary-dark)",
-                      // fontWeight: "var(--ifm-font-weight-semibold)",
-                    }}
-                  >
-                    {item.title}
-                  </Typography>
-                </Box>
-              </Tooltip>
-            ) : (
-              <Box
-                key={item.title + "Chain"}
-                display="flex"
-                flexDirection="column"
-                alignItems="center"
-                component={Link}
-                href={item.to}
-                style={{ textDecoration: "none" }}
-                sx={{
-                  p: 2,
-                  transition: "transform 0.15s ease-in-out",
-                  "&&&:hover": {
-                    transform: "scale3d(1.25, 1.25, 1)",
-                  },
-                }}
-              >
-                <Avatar
-                  variant="rounded"
-                  src={
-                    colorMode === "dark" && item.imageDark
-                      ? item.imageDark
-                      : item.image
-                  }
-                  style={{ width: 48, height: 48 }}
-                />
-                <Typography
-                  variant="caption"
-                  align="center"
-                  sx={{
-                    fontSize: "1rem",
-                    color:
-                      colorMode === "dark"
-                        ? "var(--ifm-navbar-link-color)"
-                        : "var(--ifm-color-primary-dark)",
-                    fontWeight: "var(--ifm-font-weight-semibold)",
-                  }}
-                >
-                  {item.title}
-                </Typography>
-              </Box>
-            );
-          })}
-        </Grid>
-      </Grid>
-    </>
+            </Box>
+          </Tooltip>
+        ) : (
+          <Box
+            key={item.title + "Chain"}
+            display="flex"
+            flexDirection="column"
+            alignItems="center"
+            component={Link}
+            href={item.to}
+            style={{ textDecoration: "none" }}
+            sx={{
+              p: 2,
+              transition: "transform 0.15s ease-in-out",
+              "&&&:hover": {
+                transform: "scale3d(1.25, 1.25, 1)",
+              },
+            }}
+          >
+            <Avatar
+              variant="rounded"
+              src={
+                colorMode === "dark" && item.imageDark
+                  ? item.imageDark
+                  : item.image
+              }
+              style={{ width: 48, height: 48, marginBottom: "8px" }}
+            />
+            <Typography
+              align="center"
+              sx={{
+                fontFamily: "Source Sans Pro",
+                fontSize: 16,
+                fontWeight: 600,
+                color: colorMode === "dark" ? "white" : "#172B4D",
+              }}
+            >
+              {item.title}
+            </Typography>
+          </Box>
+        );
+      })}
+    </div>
   );
 }

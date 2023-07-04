@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useRef } from "react";
-import { styled } from "@mui/system";
 import {
   Divider,
   IconButton,
@@ -7,9 +6,11 @@ import {
   Select,
   TextField,
   Typography,
+  styled,
 } from "@mui/material";
 import { v4 as uuid } from "uuid";
 import HistoryIcon from "@mui/icons-material/History";
+
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import ThumbUpIcon from "@mui/icons-material/ThumbUp";
 import ThumbDownIcon from "@mui/icons-material/ThumbDown";
@@ -157,12 +158,12 @@ const WELCOME_MESSAGE: Message = {
   message: "Welcome to Switchboard Chat! Ask me a question below.",
 };
 
-const ChatBot = (props: {}) => {
+const ChatBot = (props: { chat?: string }) => {
   const [sessionId, setSessionId] = useState("");
   const [sessionType, setSessionType] = useState<"default" | "oracle-job">(
     "default"
   );
-  const [questionInput, setQuestionInput] = useState("");
+  const [questionInput, setQuestionInput] = useState(props.chat || "");
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
   const [isTyping, setIsTyping] = useState(false);
   const [messageHistory, setMessageHistory] = useState<Message[]>([
@@ -171,7 +172,7 @@ const ChatBot = (props: {}) => {
   const [feedbackSelected, setFeedBackSelected] = useState<string>();
 
   const messagesRef = useRef();
-  const endOfMessagesRef = useRef();
+  const endOfMessagesRef = useRef<HTMLDivElement>();
 
   useEffect(() => {}, [sessionId, messageHistory]);
 
@@ -209,7 +210,6 @@ const ChatBot = (props: {}) => {
 
   const submitQuestion = async () => {
     const message = questionInput; // temp to keep track of current message
-
     if (messageHistory.length === 1) {
       // want to save the chat session id to local storage after user sends first message
       const sessionIds =
@@ -377,16 +377,11 @@ const ChatBot = (props: {}) => {
                       return !inline && match ? (
                         <CodeBlock
                           children={codeString}
-                          lang={match[1]}
-                          PreTag="div"
+                          language={match[1]}
                           {...props}
                         />
                       ) : (
-                        <CodeBlock
-                          children={codeString}
-                          PreTag="div"
-                          {...props}
-                        />
+                        <CodeBlock children={codeString} {...props} />
                       );
                     },
                   }}

@@ -2,12 +2,17 @@
   // This file is not used in compilation. It is here just for a nice editor experience.
   "extends": "./node_modules/@tsconfig/docusaurus/tsconfig.json",
   "compilerOptions": {
+    "target": "ESNext",
+    "lib": ["DOM", "DOM.Iterable", "ESNext"],
+    "module": "ESNext",
+    "moduleResolution": "node",
     "baseUrl": ".",
-    "resolveJsonModule": true
+    "resolveJsonModule": true,
+    "jsx": "react-jsx"
   },
   "references": [
     {
       "path": "../plugins/docusaurus-plugin-api-docs"
-    },
+    }
   ]
 }

@@ -38,7 +38,7 @@ export const SWITCHBOARD_APTOS_MAINNET_CONFIG: IChainNetworkConfig = {
 };
 
 export const SWITCHBOARD_APTOS_TESTNET_CONFIG: IChainNetworkConfig = {
-  networkName: 'testnet',
+  networkName: 'Testnet',
   programId:
     '0xb91d3fef0eeb4e685dc85e739c7d3e2968784945be4424e92e2f86e2418bf271',
   authority:

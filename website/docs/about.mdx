@@ -1,50 +1,130 @@
 ---
 sidebar_position: 1
-title: About
+title: Switchboard
 keywords:
   [Switchboard, web3, oracle, data feeds, vrf, randomness, solana, aptos, near]
 ---
 
-# Switchboard
+# Synopsis
 
-The oracle problem arises due to the inability of blockchains to interact
-directly with external systems. Blockchains are isolated networks that only rely
-on data stored in their ledger for consensus. The deterministic nature of smart
-contracts is a result of the narrow focus of blockchain consensus and their
-ability to execute exactly as written with a higher degree of certainty than
-traditional systems. Incorrect reporting of external data can lead to
-devastating outcomes for on-chain applications dependent on these data feeds.
+A blockchain is a deterministic, decentralized network of computers that
+computes and stores data in a shared ledger. This suggests that blockchain nodes
+are limited to reaching consensus on simple binary questions using data stored
+on the blockchain. Hence, blockchains are isolated networks where it cannot
+access information outside of its own network.
 
-Switchboard is a multi-chain, permissionless oracle protocol that bridges the
-gap between off-chain data and on-chain smart contracts. It's designed to
-provide developers with the tools to create feature-rich decentralized
-applications (dApps).
+Enter Oracles -- essentially acts as a "bridge" to connect smart contracts on
+blockchains to the off-chain world.
 
-## Key Features
+## About Switchboard
 
-- **Decentralized Oracle Network**: Connects blockchain platforms to real-world
-  data sources.
-- **Independent Oracle Queues**: Allows customization of security levels and
-  configuration parameters.
-- **Economic Incentives**: Encourages honest behavior and network integrity.
-- **Governance**: Controlled by network participants.
-- **Access Control**: Ensures secure interactions with a queue.
-- **Trusted Execution**: With Switchboard V3, oracles operate within a trusted
-  execution environment.
+In the traditional context of telecommunications, a switchboard is a device
+which consists of physical hardware such as series of sockets, cords, plugs and
+switches. A human operator would manually plug in cords to establish connections
+between callers to allow communication.
 
-## Use Cases
+Introducing Switchboard, in the context of blockchains, we have taken on the
+metaphorical meaning of traditional switchboard systems where Switchboard acts
+as a "bridge" to enable smart contracts to connect to off-chain data,
+computations, randomness and more.
 
-Switchboard is versatile and adaptable, making it suitable for a wide range of
-use cases, including:
+# Oracle Problem
 
-- **Data Feeds**: Access to real-world information for blockchain-based
-  applications.
-- **Random Number Generation**: Secure and unbiased random number generation for
-  on-chain applications.
-- **Serverless Execution**: Triggering smart contracts based on specific
-  off-chain conditions.
-- **Decentralized Autonomous Organizations (DAOs)**: Transparent governance and
-  decision-making within decentralized organizations.
-- **Escrow Services**: Creation of trustless, automated escrow systems.
-- **Prediction Markets**: Forecasting future events using verifiable off-chain
-  data and trusted execution environments.
+In order to plug in data from off-chain to smart contracts, oracles take on the
+responsibility to ensure data correctness, uptime and trustlessness.
+
+## How does traditional oracle systems work?
+
+Let's dive into some of the commonly seen representation of oracles.
+
+### Single party trust model
+
+A single party trust model is unacceptable as it reduces the trust model of the
+application down to the trust in the oracle. To put it simply, if the oracle
+fails to propagate, the application fails entirely. This is similar to a
+protocol's self-provisioned internal oracle system where it relies on a single,
+centralized oracle.
+
+![Single Party Diagram](/img/data/singleparty.svg)
+
+### Multiparty trust model
+
+A multiparty trust model prevents a single point of failure and introduces a
+consensus mechanism to allow oracles to come to an agreement on 1 final result.
+For example, oracles fetch the data of BTC and a median is calculated to report
+back as final result.
+
+However, if we introduce a multiparty trust model, oracles can still report
+dishonestly if there is no stake to lose.
+
+![Multi Party Diagram](/img/data/multiparty.svg)
+
+### Stake-weighted multiparty trust model
+
+Today, most oracle protocols achieve consensus using some form of economic
+security where oracles are required a stake before participation. On every
+response, if an oracle deviates by X% from the accepted result, their stake is
+taken by the protocol and could no longer report.
+
+This is great. Hypothetically, if the oracle stake is $1 million, and the
+downstream application has less than $1 million of total value involved, it is
+confident to say that all oracles have no misalignment of incentives to collude
+and conduct any malicious acts.
+
+Now , we have 2 persisting problems in all oracle protocols to date:
+
+- **High infrastructure cost**: Requiring each oracle to stake $1 million limits
+  the scalability of delivering information on-chain.
+
+- **Misalignment of incentives**: If the total value involved of the downstream
+  applications are greate than the oracles' allocated stake, how can we still
+  ensure oracles are not incentivized to collude?
+
+![Stake Weighted Multi Party Diagram](/img/data/stake-weighted-multiparty.svg)
+
+# Switchboard Solution
+
+Enter Switchboard V3 -- a stake weighted multiparty trust model of classical
+oracle protocols combined with a new TEE-as-a-primitive toolkit developed
+in-house.
+
+## What are TEEs?
+
+TEE (Trusted Execution Environment) is a secure environment isolated from the
+rest of the system, where sensitive code can be executed and sensitive data can
+be processed with additional protection against unauthorized access or
+modification.
+
+In simple terms, given a program and an input, TEEs can execute and generate an
+output along with a proof.
+
+## How does Switchboard solve the oracle problem?
+
+In the context of oracles, by introducing TEEs on top of stake weighted
+multiparty oracle protocols, Switchboard is able to verify each oracle's
+software to allow particpation and its executions to prevent from acting
+dishonestly.
+
+- **Verifiable code execution**: Requires a lower stake based operational cost
+  for oracles.
+
+- **Alignment of incentives**: If an oracle operator acts maliciously and
+  attempts to change the operation of the approved code, a quote verification
+  will fail.
+
+Switchboard oracles are now verifiable and has an aligned incentive, this allows
+the oracles to operate beyond quantitative value reporting, such as functions --
+running off-chain custom and confidential computations.
+
+# Overview of Documentation
+
+Through this documentation, you should learn about these components before
+integrating.
+
+- V3 Architecture
+- Switchboard Attestation Program
+- Oracle Data Pipelines
+- Switchboard Tools
+  - Functions
+  - Data Feeds
+  - Randomness
