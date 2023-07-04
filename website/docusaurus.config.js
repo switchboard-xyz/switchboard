@@ -114,6 +114,7 @@ const config = {
         appId: "XO84KDTPTB",
         apiKey: "def6c1d8ee548183d6c709055199e10d",
         indexName: "switchboard",
+        contextualSearch: true,
       },
       navbar: {
         title: "Switchboard",
@@ -204,10 +205,6 @@ const config = {
           },
 
           { to: "/blog", label: "Blog", position: "right" },
-          // {
-          //   type: "search",
-          //   position: "right",
-          // },
           {
             href: "https://github.com/switchboard-xyz",
             position: "right",
