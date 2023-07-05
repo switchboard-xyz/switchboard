@@ -175,9 +175,15 @@ table li::marker {
 h1 {
   font-family: "Snasm";
   font-weight: 400;
-  color: "#1C2E4A";
   font-size: 52px;
   line-height: 62.4px;
+}
+
+@media screen and (max-width: 640px) {
+  h1 {
+    font-size: 26px;
+    line-height: normal;
+  }
 }
 
 .container {

@@ -1,7 +1,7 @@
 import React from "react";
 import useDocusaurusContext from "@docusaurus/useDocusaurusContext";
 import Layout from "@theme/Layout";
-import { Button, Typography } from "@mui/material";
+import { Button } from "@mui/material";
 import { ChainComponent, ProductGuidesGrid } from "../components";
 
 import styles from "./index.module.css";
@@ -16,6 +16,7 @@ export default function Home(): JSX.Element {
           display: "flex",
           flexDirection: "column",
           height: "100%",
+          paddingBottom: "40px",
         }}
       >
         <div className={styles.headerImg}>
@@ -28,8 +29,7 @@ export default function Home(): JSX.Element {
           <div
             style={{
               display: "flex",
-              width: "600px",
-              maxWidth: "100%",
+              maxWidth: 600,
             }}
           >
             <p>
@@ -46,12 +46,11 @@ export default function Home(): JSX.Element {
             <Button
               variant="contained"
               sx={{
-                color: "#2A466F",
+                color: "white",
                 fontFamily: "Source Sans Pro",
                 fontWeight: 600,
                 fontSize: "18px",
-                backgroundColor: "white",
-                border: "1px solid gray",
+                backgroundColor: "var(--ifm-color-primary-dark)",
                 borderRadius: "8px",
                 textTransform: "none",
                 padding: "4px 48px",
@@ -59,24 +58,21 @@ export default function Home(): JSX.Element {
                 boxShadow: "0 11px 15px 0 rgba(164, 164, 164, 0.21)",
                 ":hover": {
                   backgroundColor: "var(--ifm-color-primary-dark)",
-                  color: "white",
-                  border: "solid 1px var(--ifm-color-primary-dark)",
+                  filter: "brightness(120%)",
                 },
               }}
             >
               Get Started
             </Button>
           </a>
-          <Typography
+          <h3
             style={{
-              fontSize: "25px",
-              fontWeight: 600,
-              fontFamily: "Source Sans Pro",
               marginBottom: "8px",
+              marginTop: "24px",
             }}
           >
             Quick Start Guides by Network
-          </Typography>
+          </h3>
           <ChainComponent hideTitle />
         </div>
         <ProductGuidesGrid />
