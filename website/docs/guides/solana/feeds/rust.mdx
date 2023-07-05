@@ -6,7 +6,7 @@ description: "Learn how to read a feed using the native Rust runtime."
 
 import CodeBlock from "@theme/CodeBlock";
 
-import NativeFeedParser from "!!raw-loader!../../../../../sdks/solana/programs/native-feed-parser/src/lib.rs";
+import NativeFeedParser from "!!raw-loader!../../../../../sdks/solana/examples/feeds/02_spl_native/src/lib.rs";
 
 This guide will walk you through how to read a Switchboard data feed using pure
 Rust.
@@ -21,7 +21,7 @@ In order to read a Switchboard data feed, we will need to:
 :::tip
 
 View the
-[native-feed-parser](https://github.com/switchboard-xyz/sbv2-solana/tree/main/programs/native-feed-parser)
+[native-feed-parser](https://github.com/switchboard-xyz/sbv2-solana/tree/main/examples/feeds/02_spl_native)
 example on Github.
 
 :::
@@ -43,13 +43,13 @@ switchboard-v2 = "0.1"
 switchboard-v2 crate.
 
 **Then**, deserialize the AccountInfo into the
-[AggregatorAccountData (docs.rs)](https://docs.rs/switchboard-v2/0.1.22/switchboard_v2/aggregator/struct.AggregatorAccountData.html)
+[AggregatorAccountData (docs.rs)](https://docs.rs/switchboard-v2/latest/switchboard_v2/aggregator/struct.AggregatorAccountData.html)
 struct.
 
 **Then**, verify the aggregator was updated in the last 300 seconds.
 
 **Finally**, use the TryInto trait to convert the
-[SwitchboardDecimal (docs.rs)](https://docs.rs/switchboard-v2/0.1.22/switchboard_v2/decimal/struct.SwitchboardDecimal.html)
+[SwitchboardDecimal (docs.rs)](https://docs.rs/switchboard-v2/latest/switchboard_v2/decimal/struct.SwitchboardDecimal.html)
 into the `f64` primitive because it's easier to work with.
 
 <CodeBlock language="rust">{NativeFeedParser}</CodeBlock>
