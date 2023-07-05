@@ -26,6 +26,7 @@ const StyledContainer = styled("div")(({ theme }) => ({
   [theme.breakpoints.down("sm")]: {
     border: "solid 1px #E8E8E8",
     borderRadius: "16px",
+    justifyContent: "flex-start",
   },
 }));
 
