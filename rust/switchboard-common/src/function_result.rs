@@ -1,30 +1,45 @@
 use crate::*;
 use serde::{Deserialize, Serialize};
 
-#[derive(Clone, Debug, Default, PartialEq, Serialize, Deserialize)]
-pub enum Chain {
-    #[default]
-    None = 0,
-    Aptos,
-    Arbitrum,
-    Bsc,
-    Coredao,
-    Near,
-    Solana,
-    Starknet,
-    Sui,
+#[derive(Clone, PartialEq, Debug, Serialize, Deserialize)]
+pub struct EvmTransaction {
+    pub expiration_time_seconds: u64,
+    pub gas_limit: String,
+    pub value: String, // Not sure how to represent this type
+    pub to: Vec<u8>,
+    pub from: Vec<u8>,
+    pub data: Vec<u8>,
 }
 
-#[derive(Default, Clone, Debug, PartialEq, Serialize, Deserialize)]
-pub struct FunctionResult {
-    pub version: u32,
-    pub chain: Chain,
-    pub key: [u8; 32],
-    pub signer: [u8; 32],
+#[derive(Clone, PartialEq, Debug, Serialize, Deserialize)]
+pub struct EVMFunctionResult {
+    // NOTE: tx.len() == signatures.len() must be true
+    pub txs: Vec<EvmTransaction>,
+    pub signatures: Vec<Vec<u8>>,
+}
+
+#[derive(Clone, PartialEq, Debug, Serialize, Deserialize)]
+pub struct SOLFunctionResult {
     pub serialized_tx: Vec<u8>,
-    pub quote: Vec<u8>,
     pub program: Vec<u8>,
     pub data: Vec<u8>,
+}
+
+#[derive(Default, PartialEq, Clone, Debug, Serialize, Deserialize)]
+pub enum ChainResultInfo {
+    #[default]
+    None,
+    Solana(SOLFunctionResult),
+    Evm(EVMFunctionResult),
+}
+
+#[derive(Clone, PartialEq, Default, Debug, Serialize, Deserialize)]
+pub struct FunctionResult {
+    pub version: u32,
+    pub quote: Vec<u8>,
+    pub key: Vec<u8>,
+    pub signer: Vec<u8>,
+    pub chain_result_info: ChainResultInfo,
 }
 
 pub static FUNCTION_RESULT_PREFIX: &str = "FN_OUT: ";
@@ -56,16 +71,7 @@ mod tests {
 
     #[test]
     fn test_decode() {
-        let fr = FunctionResult {
-            version: 1,
-            chain: Chain::Solana,
-            key: [0; 32],
-            signer: [0; 32],
-            serialized_tx: vec![],
-            quote: vec![],
-            program: vec![],
-            data: vec![],
-        };
+        let fr = FunctionResult::default();
 
         let encoded = format!(
             "FN_OUT: {}",
@@ -74,13 +80,6 @@ mod tests {
 
         let decoded = FunctionResult::decode(&encoded).unwrap();
 
-        assert_eq!(fr.version, decoded.version);
-        assert_eq!(fr.chain, decoded.chain);
-        assert_eq!(fr.key, decoded.key);
-        assert_eq!(fr.signer, decoded.signer);
-        assert_eq!(fr.serialized_tx, decoded.serialized_tx);
-        assert_eq!(fr.quote, decoded.quote);
-        assert_eq!(fr.program, decoded.program);
-        assert_eq!(fr.data, decoded.data);
+        assert_eq!(fr, FunctionResult::default());
     }
 }
