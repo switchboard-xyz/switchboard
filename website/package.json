@@ -16,7 +16,7 @@
     "typecheck": "tsc",
     "reset:version": "rm -rf versions.json versioned_docs versioned_sidebars; docusaurus docs:version 1.0.0 && docusaurus api:version 1.0.0",
     "generate:protos": "cd ../javascript/common; pnpm build; cd ../../website; protoc --proto_path=../protos --doc_out=./ --doc_opt=json,protos.json ../protos/job_schemas.proto || true",
-    "publish:beta": "pnpm build && gsutil rsync -r -d build gs://beta.docs.switchboard.xyz"
+    "publish:beta": "pnpm build && gsutil rsync -r -d public gs://beta.docs.switchboard.xyz"
   },
   "peerDependencies": {
     "react": "^17.0.2",
