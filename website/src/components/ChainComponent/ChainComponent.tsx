@@ -1,6 +1,6 @@
 import React, { CSSProperties, ReactNode } from "react";
 import Link from "@docusaurus/Link";
-import { Typography, Box, Avatar, Grid, Tooltip, SxProps } from "@mui/material";
+import { Typography, Box, Avatar, Tooltip, styled } from "@mui/material";
 import { useColorMode } from "@docusaurus/theme-common";
 import useBaseUrl from "@docusaurus/useBaseUrl";
 
@@ -8,7 +8,6 @@ export interface IChainProps {
   title: string;
   to: string;
   image: string;
-  imageDark?: string;
   comingSoon?: boolean;
   sx?: CSSProperties;
 }
@@ -17,6 +16,38 @@ interface ChainComponentProps {
   hideTitle: boolean;
   sx?: CSSProperties;
 }
+const StyledContainer = styled("div")(({ theme }) => ({
+  display: "flex",
+  alignItems: "center",
+  width: "100%",
+  maxWidth: 900,
+  justifyContent: "space-between",
+  flexWrap: "wrap",
+  [theme.breakpoints.down("sm")]: {
+    border: "solid 1px #E8E8E8",
+    borderRadius: "16px",
+  },
+}));
+
+const StyledAvatar = styled(Avatar)(({ theme }) => ({
+  width: 48,
+  height: 48,
+  marginBottom: "8px",
+  backgroundColor: "white",
+  boxShadow: "0px 1px 3px 0px rgba(33, 27, 78, 0.15)",
+  [theme.breakpoints.down("md")]: {
+    width: 32,
+    height: 32,
+  },
+  "& .MuiAvatar-img": {
+    width: 24,
+    height: 24,
+    [theme.breakpoints.down("md")]: {
+      width: 16,
+      height: 16,
+    },
+  },
+}));
 
 export default function ChainComponent({ hideTitle, sx }: ChainComponentProps) {
   const { colorMode } = useColorMode();
@@ -26,58 +57,42 @@ export default function ChainComponent({ hideTitle, sx }: ChainComponentProps) {
       to: "/aptos",
       title: "Aptos",
       image: useBaseUrl("/img/icons/aptos/logo.svg"),
-      imageDark: useBaseUrl("/img/icons/aptos/dark.svg"),
     },
     {
       to: "/arbitrum",
       title: "Arbitrum",
       image: useBaseUrl("/img/icons/arbitrum/logo.svg"),
-      imageDark: useBaseUrl("/img/icons/arbitrum/logo.svg"),
     },
     {
       to: "/coredao",
       title: "CoreDAO",
       image: useBaseUrl("/img/icons/coredao/logo.svg"),
-      imageDark: useBaseUrl("/img/icons/coredao/dark.svg"),
     },
     {
       to: "/near",
       title: "Near",
       image: useBaseUrl("/img/icons/near/logo.svg"),
-      imageDark: useBaseUrl("/img/icons/near/dark.svg"),
     },
     {
       to: "/solana",
       title: "Solana",
       image: useBaseUrl("/img/icons/solana/logo.svg"),
-      imageDark: useBaseUrl("/img/icons/solana/logo.svg"),
     },
     {
       to: "/sui",
       title: "Sui",
       image: useBaseUrl("/img/icons/sui/logo.svg"),
-      imageDark: useBaseUrl("/img/icons/sui/dark.svg"),
     },
     {
       to: "#",
       title: "StarkNet",
       image: useBaseUrl("/img/icons/starknet/logo.svg"),
-      imageDark: useBaseUrl("/img/icons/starknet/dark.svg"),
       comingSoon: true,
     },
   ];
 
   return (
-    <div
-      style={{
-        ...sx,
-        display: "flex",
-        alignItems: "center",
-        width: "100%",
-        maxWidth: 900,
-        justifyContent: "space-between",
-      }}
-    >
+    <StyledContainer sx={sx}>
       {hideTitle ?? (
         <Typography
           variant="body1"
@@ -110,15 +125,7 @@ export default function ChainComponent({ hideTitle, sx }: ChainComponentProps) {
                 opacity: "0.5",
               }}
             >
-              <Avatar
-                variant="rounded"
-                src={
-                  colorMode === "dark" && item.imageDark
-                    ? item.imageDark
-                    : item.image
-                }
-                style={{ width: 48, height: 48, marginBottom: "8px" }}
-              />
+              <StyledAvatar src={item.image} style={{}} />
               <Typography
                 align="center"
                 sx={{
@@ -149,15 +156,7 @@ export default function ChainComponent({ hideTitle, sx }: ChainComponentProps) {
               },
             }}
           >
-            <Avatar
-              variant="rounded"
-              src={
-                colorMode === "dark" && item.imageDark
-                  ? item.imageDark
-                  : item.image
-              }
-              style={{ width: 48, height: 48, marginBottom: "8px" }}
-            />
+            <StyledAvatar src={item.image} />
             <Typography
               align="center"
               sx={{
@@ -172,6 +171,6 @@ export default function ChainComponent({ hideTitle, sx }: ChainComponentProps) {
           </Box>
         );
       })}
-    </div>
+    </StyledContainer>
   );
 }

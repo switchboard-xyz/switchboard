@@ -69,7 +69,7 @@ const StyledCard = styled("div")<{ dark: number }>(({ dark }) => ({
   width: "100%",
   height: "100%",
   padding: "32px",
-  gap: "32px",
+  gap: "16px",
   border: "solid 1px #E8E8E8",
   borderRadius: "16px",
   flexDirection: "column",
@@ -88,11 +88,14 @@ const StyledIconContainer = styled("div")<{ dark?: number }>(({ dark }) => ({
   marginRight: "16px",
 }));
 
-const SectionTypography = styled(Typography)({
-  fontSize: 36,
-  fontWeight: 600,
-  fontFamily: "Source Sans Pro",
-});
+const StyledContainer = styled("div")(({ theme }) => ({
+  padding: "16px 84px",
+  display: "flex",
+  flexDirection: "column",
+  [theme.breakpoints.down("sm")]: {
+    padding: "16px",
+  },
+}));
 
 const GridItem = (props: { card: Card }) => {
   const { card } = props;
@@ -109,9 +112,7 @@ const GridItem = (props: { card: Card }) => {
               width={20}
             />
           </StyledIconContainer>
-          <SectionTypography sx={{ fontSize: 24 }}>
-            {card.title}
-          </SectionTypography>
+          <h3>{card.title}</h3>
           <Link
             to={card.link.startsWith("/") ? useBaseUrl(card.link) : card.link}
             style={{ marginLeft: "auto" }}
@@ -131,20 +132,20 @@ const GridItem = (props: { card: Card }) => {
 
 const ProductGuidesGrid = () => {
   return (
-    <div style={{ padding: "16px 84px" }}>
-      <SectionTypography>Product Guides</SectionTypography>
-      <Grid container spacing={2} sx={{ margin: "0px 0px 16px" }}>
+    <StyledContainer>
+      <h2>Product Guides</h2>
+      <Grid container spacing={2} sx={{ marginBottom: "24px" }}>
         {cards.map((card) => (
           <GridItem key={card.title} card={card} />
         ))}
       </Grid>
-      <SectionTypography>Switchboard Apps</SectionTypography>
-      <Grid container spacing={2} sx={{ margin: "0px 0px 16px" }}>
+      <h2>Switchboard Apps</h2>
+      <Grid container spacing={2} sx={{ marginBottom: "24px" }}>
         {appCards.map((appCard) => (
           <GridItem key={appCard.title} card={appCard} />
         ))}
       </Grid>
-    </div>
+    </StyledContainer>
   );
 };
 

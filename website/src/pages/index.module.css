@@ -4,16 +4,32 @@
  */
 
 .headerImg {
-  height: 500px;
+  margin-top: 32px;
+  height: 550px;
   padding: 48px 84px;
-  width: 100vw;
   margin-left: calc(-1 * var(--ifm-spacing-horizontal));
   margin-bottom: 32px;
   background-repeat: no-repeat;
-  background-size: 100vw 500px;
+  background-size: 100vw 550px;
+  min-width: 1200px;
+  max-width: 100vw;
   background-image: url(/static/img/homepage_bg.png);
 }
 
 [data-theme="dark"] .headerImg {
   background-image: url(/static/img/homepage_bg_dark.png);
+}
+
+@media screen and (max-width: 640px) {
+  .headerImg {
+    flex-wrap: wrap;
+    overflow: hidden;
+    margin-top: 24px;
+    height: 550px;
+    padding: 24px 16px;
+    margin-left: 0px;
+    margin-bottom: 0px;
+    background-size: 600px 300px;
+    min-width: 100vw;
+  }
 }
