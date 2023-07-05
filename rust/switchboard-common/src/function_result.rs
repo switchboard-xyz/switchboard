@@ -21,8 +21,6 @@ pub struct EVMFunctionResult {
 #[derive(Clone, PartialEq, Debug, Serialize, Deserialize)]
 pub struct SOLFunctionResult {
     pub serialized_tx: Vec<u8>,
-    pub program: Vec<u8>,
-    pub data: Vec<u8>,
 }
 
 #[derive(Default, PartialEq, Clone, Debug, Serialize, Deserialize)]
@@ -37,8 +35,10 @@ pub enum ChainResultInfo {
 pub struct FunctionResult {
     pub version: u32,
     pub quote: Vec<u8>,
-    pub key: Vec<u8>,
+    pub fn_key: Vec<u8>,
     pub signer: Vec<u8>,
+    pub params_key: Vec<u8>,
+    pub params_hash: Vec<u8>,
     pub chain_result_info: ChainResultInfo,
 }
 
