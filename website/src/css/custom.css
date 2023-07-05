@@ -179,34 +179,10 @@ h1 {
   line-height: 62.4px;
 }
 
-h2 {
-  font-size: 36px;
-  font-weight: 600;
-}
-
-h3 {
-  font-size: 25px;
-  font-weight: 600;
-  margin-bottom: 0px;
-}
-
-body {
-  font-size: 18px;
-}
-
 @media screen and (max-width: 640px) {
   h1 {
     font-size: 26px;
     line-height: normal;
-  }
-  h2 {
-    font-size: 24px;
-  }
-  h3 {
-    font-size: 20px;
-  }
-  body {
-    font-size: 14px;
   }
 }
 
