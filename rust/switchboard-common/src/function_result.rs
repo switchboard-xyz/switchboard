@@ -11,14 +11,14 @@ pub struct EvmTransaction {
     pub data: Vec<u8>,
 }
 
-#[derive(Clone, PartialEq, Debug, Serialize, Deserialize)]
+#[derive(Default, Clone, PartialEq, Debug, Serialize, Deserialize)]
 pub struct EVMFunctionResult {
     // NOTE: tx.len() == signatures.len() must be true
     pub txs: Vec<EvmTransaction>,
     pub signatures: Vec<Vec<u8>>,
 }
 
-#[derive(Clone, PartialEq, Debug, Serialize, Deserialize)]
+#[derive(Default, Clone, PartialEq, Debug, Serialize, Deserialize)]
 pub struct SOLFunctionResult {
     pub serialized_tx: Vec<u8>,
 }
@@ -37,8 +37,8 @@ pub struct FunctionResult {
     pub quote: Vec<u8>,
     pub fn_key: Vec<u8>,
     pub signer: Vec<u8>,
-    pub params_key: Vec<u8>,
-    pub params_hash: Vec<u8>,
+    pub fn_request_key: Vec<u8>,
+    pub fn_request_hash: Vec<u8>,
     pub chain_result_info: ChainResultInfo,
 }
 
