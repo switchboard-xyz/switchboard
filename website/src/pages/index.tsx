@@ -1,7 +1,7 @@
 import React from "react";
 import useDocusaurusContext from "@docusaurus/useDocusaurusContext";
 import Layout from "@theme/Layout";
-import { Button } from "@mui/material";
+import { Button, Typography } from "@mui/material";
 import { ChainComponent, ProductGuidesGrid } from "../components";
 
 import styles from "./index.module.css";
@@ -32,7 +32,7 @@ export default function Home(): JSX.Element {
               maxWidth: 600,
             }}
           >
-            <p>
+            <p className="landing_page">
               A trust-minimized, decentralized compute network enabling
               verifiable, off-chain code execution. Switchboard gives smart
               contract developers the tools to write more resilient smart
@@ -66,6 +66,7 @@ export default function Home(): JSX.Element {
             </Button>
           </a>
           <h3
+            className="landing_page"
             style={{
               marginBottom: "8px",
               marginTop: "24px",

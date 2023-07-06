@@ -25,6 +25,10 @@ secure enclave. By verifying the code's integrity inside the enclave, we can
 ensure the code hasn't been tampered with and that our application will behave
 as expected.
 
+<!--
+![Attestation Program Account Decomposition](/img/arch/Attestation_Program_Account_Decomposition.png)
+-->
+
 A AttestationQueueAccount manages a set of valid MRENCLAVE measurements,
 representing the permitted software versions an application can run. Any code
 changes will alter the enclave's state, necessitating the addition of a new

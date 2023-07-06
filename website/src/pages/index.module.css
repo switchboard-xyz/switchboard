@@ -32,29 +32,29 @@
   }
 }
 
-h2 {
+h2.landing_page {
   font-size: 36px;
   font-weight: 600;
 }
 
-h3 {
+h3.landing_page {
   font-size: 25px;
   font-weight: 600;
   margin-bottom: 0px;
 }
 
-body {
+p.landing_page {
   font-size: 18px;
 }
 
 @media screen and (max-width: 640px) {
-  h2 {
+  h2.landing_page {
     font-size: 24px;
   }
-  h3 {
+  h3.landing_page {
     font-size: 20px;
   }
-  body {
+  body.landing_page {
     font-size: 14px;
   }
 }

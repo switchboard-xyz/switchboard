@@ -1,14 +1,14 @@
 ---
-title: "Rust: switchboard-solana"
+title: "Rust: switchboard-v2"
 hide_title: true
 sidebar_class_name: "sidebar__rust"
-sidebar_position: 1
+sidebar_position: 2
 keywords:
   [
     Solana,
     Solana SDK,
     Switchboard Solana SDK,
-    switchboard-solana crate,
+    switchboard-v2 crate,
     solana rust crate,
   ]
 ---
@@ -17,27 +17,37 @@ keywords:
 
 ![Switchboard Logo](https://github.com/switchboard-xyz/sbv2-core/raw/main/website/static/img/icons/switchboard/avatar.png)
 
-# switchboard-solana
+# switchboard-v2
 
 > A Rust library to interact with Switchboard accounts on Solana.
 
-[![Crates.io](https://img.shields.io/crates/v/switchboard-solana?label=switchboard-solana&logo=rust)](https://crates.io/crates/switchboard-solana)
+[![Crates.io](https://img.shields.io/crates/v/switchboard-v2?label=switchboard-v2&logo=rust)](https://crates.io/crates/switchboard-v2)
 
 </div>
+
+:::info
+
+**Important**
+
+This library is being deprecated in favor of
+[switchboard-solana](/guides/solana/sdk/rust). The new library is backwards
+compatible with switchboard-v2.
+
+:::
 
 ## Install
 
 Run the following Cargo command in your project directory:
 
 ```bash
-cargo add switchboard-solana
+cargo add switchboard-v2
 ```
 
 Or add the following line to your Cargo.toml:
 
 ```toml
 [dependencies]
-switchboard-solana = "0.8.10"
+switchboard-v2 = "0.4.0"
 ```
 
 ## Usage
@@ -48,6 +58,7 @@ switchboard-solana = "0.8.10"
 - [Read History Buffer](#read-history-buffer)
 - [Read VRF](#read-vrf)
 - [Request Randomness CPI](#request-randomness-cpi)
+- [Read Buffer Relayer](#read-buffer-relayer)
 
 ### Read Latest Result
 
@@ -56,7 +67,7 @@ Read an aggregator result on-chain
 ```rust
 use anchor_lang::solana_program::clock;
 use std::convert::TryInto;
-use switchboard_solana::{AggregatorAccountData, SwitchboardDecimal, SWITCHBOARD_PROGRAM_ID};
+use switchboard_v2::{AggregatorAccountData, SwitchboardDecimal, SWITCHBOARD_PROGRAM_ID};
 
 // check feed owner
 let owner = *aggregator.owner;
@@ -89,7 +100,7 @@ feed.check_confidence_interval(SwitchboardDecimal::from_f64(0.80))?;
 **_Note: The Aggregator must have a history buffer initialized before using_**
 
 ```rust
-use switchboard_solana::AggregatorHistoryBuffer;
+use switchboard_v2::AggregatorHistoryBuffer;
 use std::convert::TryInto;
 
 let history_buffer = AggregatorHistoryBuffer::new(history_account_info)?;
@@ -100,7 +111,7 @@ let one_hour_ago: f64 = history_buffer.lower_bound(current_timestamp - 3600).unw
 ### Read VRF
 
 ```rust
-use switchboard_solana::VrfAccountData;
+use switchboard_v2::VrfAccountData;
 
 // deserialize the account info
 let vrf = ctx.accounts.vrf.load()?;
@@ -121,7 +132,7 @@ let result = value[0] % 256000 as u128;
 ### Request Randomness CPI
 
 ```rust
-pub use switchboard_solana::{VrfAccountData, VrfRequestRandomness};
+pub use switchboard_v2::{VrfAccountData, VrfRequestRandomness};
 
 let switchboard_program = ctx.accounts.switchboard_program.to_account_info();
 

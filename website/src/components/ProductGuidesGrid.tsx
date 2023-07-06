@@ -112,7 +112,7 @@ const GridItem = (props: { card: Card }) => {
               width={20}
             />
           </StyledIconContainer>
-          <h3>{card.title}</h3>
+          <h3 className="landing_page">{card.title}</h3>
           <Link
             to={card.link.startsWith("/") ? useBaseUrl(card.link) : card.link}
             style={{ marginLeft: "auto" }}
@@ -133,13 +133,13 @@ const GridItem = (props: { card: Card }) => {
 const ProductGuidesGrid = () => {
   return (
     <StyledContainer>
-      <h2>Product Guides</h2>
+      <h2 className="landing_page">Product Guides</h2>
       <Grid container spacing={2} sx={{ marginBottom: "24px" }}>
         {cards.map((card) => (
           <GridItem key={card.title} card={card} />
         ))}
       </Grid>
-      <h2>Switchboard Apps</h2>
+      <h2 className="landing_page">Switchboard Apps</h2>
       <Grid container spacing={2} sx={{ marginBottom: "24px" }}>
         {appCards.map((appCard) => (
           <GridItem key={appCard.title} card={appCard} />

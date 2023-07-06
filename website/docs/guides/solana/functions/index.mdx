@@ -1,0 +1,227 @@
+---
+sidebar_position: 3
+title: "Functions: Getting Started"
+description:
+  "Learn how to use Switchboard Functions to push data to your on-chain programs
+  on a schedule or on-demand"
+---
+
+import MarkdownImage from "/src/components/MarkdownImage";
+import Link from "@docusaurus/Link";
+
+import CodeBlock from "@theme/CodeBlock";
+import Tabs from "@theme/Tabs";
+import TabItem from "@theme/TabItem";
+
+Switchboard functions allow you to write your own Rust code in order to push
+data to your program. You can choose to execute these functions on a pre-defined
+schedule, on-demand with custom parameters, or both!
+
+In this example we will build a custom oracle that pushes the latest price of
+BTC, ETH, and SOL to your program every 5 seconds.
+
+**Integration Checklist:**
+
+- [ ] Define Switchboard interface in your program
+- [ ] Write our custom function
+- [ ] Deploy function to Docker container
+- [ ] Create Switchboard function account
+
+## Define Switchboard interface in your program
+
+The Attestation Program contains a set of verifier oracles which watch the chain
+for attestation requests. When a request is found the verifier oracles will
+execute your container within a secure enclave. The container contains your
+custom off-chain logic and needs to return a list of instructions along with a
+quote generated from within the enclave. The verifier oracles will attest, or
+"verify", that the code running within the enclave matches the expected enclave
+values you control.
+
+The very first instruction returned by your function should be the Switchboard
+**_functionVerify_** instruction. This instruction is signed by the verifier
+oracle which is also run within an enclave and has its verifier codebase
+attested on-chain. If we can prove the keypair never left the enclave and the
+keypair signed the transaction, then we can be sure that the code was executed
+securely.
+
+Your on-chain program needs to have an instruction which verifies the
+`function.enclaveSigner` has signed the transaction.
+
+```rust
+use switchboard_solana::{EnclaveAccountData, FunctionAccountData};
+
+#[derive(Accounts)]
+pub struct SaveDataInstruction<'info> {
+    // ... your required accounts to modify your program's state
+
+    // We use this to derive and verify the functions enclave state
+    #[account(
+        constraint =
+            FunctionAccountData::validate_enclave(
+                &function.to_account_info(),
+                &enclave.to_account_info(),
+                &enclave_signer.to_account_info()
+            )?
+    )]
+    pub function: AccountLoader<'info, FunctionAccountData>,
+    pub enclave: AccountLoader<'info, EnclaveAccountData>,
+    pub enclave_signer: Signer<'info>,
+}
+
+```
+
+The `validate_enclave` method will verify:
+
+1. The provided enclave account corresponds to the provided function account
+2. The provided signer matches the function's enclave signer and has signed the
+   transaction
+3. The provided enclave accounts mr_enclave value is present in the function
+   accounts mr_enclaves array.
+
+## Write our custom function
+
+Now we need to write our custom function which will invoke our program and save
+the trading prices to our program state.
+
+Clone the
+[solana-functions-template](https://github.com/switchboard-xyz/solana-functions-template)
+repository:
+
+```bash
+gh repo create myrepo --template switchboard-xyz/solana-functions-template
+# or just git clone
+git clone https://github.com/switchboard-xyz/solana-functions-template.git
+```
+
+You should see a file in `src/main.rs` similar to:
+
+```rust
+pub use switchboard_solana::prelude::*;
+
+#[tokio::main(worker_threads = 12)]
+async fn main() {
+    // First, initialize the runner instance with a freshly generated Gramine keypair
+    let runner = FunctionRunner::new_from_cluster(Cluster::Devnet, None).unwrap();
+
+    // Then, write your own Rust logic and build a Vec of instructions.
+    // Should  be under 700 bytes after serialization
+    let ixs: Vec<solana_program::instruction::Instruction> = vec![];
+
+    // Finally, emit the signed quote and partially signed transaction to the functionRunner oracle
+    // The functionRunner oracle will use the last outputted word to stdout as the serialized result. This is what gets executed on-chain.
+    runner.emit(ixs).await.unwrap();
+}
+```
+
+To write your custom Switchboard function just append instructions to the `ixs`
+array. The FunctionRunner will automatically prepend the `function_verify`
+instruction with the quote generated from the enclave. The quote verifier oracle
+running the function will verify this instruction before sending your
+transaction.
+
+See
+[examples/functions/01_basic_oracle/sgx-function/src/main.rs](https://github.com/switchboard-xyz/sbv2-solana/blob/main/examples/functions/01_basic_oracle/sgx-function/src/main.rs)
+in Switchboard's Solana SDK for the full example code.
+
+## Deploy function to Docker container
+
+The template repository includes a Makefile to streamline publishing your
+container to the docker repository along with outputting your MrEnclave
+measurement. This measurement corresponds to the code fingerprint of the
+outputted Rust binary. You should store this value in the function account we
+create in the following step. This will ensure that the only code that is
+allowed to add data to your smart contract must be generated from a binary with
+this signature. You can add multiple MrEnclave values to your function account
+to allow backwards compatibility and make upgrades easier.
+
+Edit the Makefile and add your docker registry.
+
+```makefile
+# Variables
+## Cargo.toml name of the compiled binary
+CARGO_NAME=switchboard-function
+## Docker registry image name (Ex: switchboardlabs/basic-oracle-function)
+DOCKER_IMAGE_NAME=switchboard-function
+```
+
+Use one of the following commands to compile your function:
+
+| Command        | Description                                                                  |
+| -------------- | ---------------------------------------------------------------------------- |
+| `make`         | Build the container locally and output the MrEnclave measurement             |
+| `make publish` | Publish the container to the provided docker repository under the latest tag |
+
+## Create Switchboard function account
+
+Finally we just need to create our function account on-chain. We will define a
+cron schedule of `5 * * * * *` which will invoke our function every 5 seconds.
+We will need to pre-fund our function escrow account in order to reward verifier
+oracles for running our function.
+
+<Tabs>
+  <TabItem attributes={{className: "navbar_icon__switchboard"}} value="ui" label="Web App" default>
+
+Visit the Switchboard app:
+[beta.app.switchboard.xyz](https://beta.app.switchboard.xyz/)
+
+In the top right, sign in to your Solana wallet for the selected cluster.
+
+![Switchboard App Sign-in Solana](/img/guides/solana/functions/explorer-sign-in.png)
+
+Then click build and start configuring your function
+
+![Switchboard App Function Config Modal](/img/guides/solana/functions/explorer-function-config.png)
+
+  </TabItem>
+  {/* <TabItem attributes={{className: "navbar_icon__rust"}} value="rust" label="switchboard-solana" default>
+
+TODO: add code block for creating & funding a function account
+
+  </TabItem> */}
+  <TabItem attributes={{className: "navbar_icon__javascript"}} value="javascript" label="@switchboard-xyz/solana.js" default>
+
+```typescript
+import {
+  AttestationQueueAccount,
+  FunctionAccount,
+  parseMrEnclave,
+  SwitchboardProgram,
+} from "@switchboard-xyz/solana.js";
+
+// Load the Switchboard program and an existing Attestation Queue
+const program = await SwitchboardProgram.load(
+  "devnet",
+  new Connection("https://api.devnet.solana.com"),
+  payerKeypair
+);
+const [attestationQueueAccount, queueAccountData] =
+  await AttestationQueueAccount.load(program, "My Attestation Queue Pubkey");
+
+// Create the FunctionAccount
+const [functionAccount, txnSignature] = await FunctionAccount.create(
+  ctx.program,
+  {
+    name: "FUNCTION_NAME",
+    metadata: "FUNCTION_METADATA",
+    schedule: "5 * * * * *",
+    container: "switchboardlabs/basic-oracle-function",
+    containerRegistry: "docker",
+    version: "latest",
+    mrEnclave: parseMrEnclave("my MrEnclave value"),
+    attestationQueue: attestationQueueAccount,
+  }
+);
+
+// Wrap 0.25 SOL into the functionAccount wallet
+await functionAccount.wrap(0.25);
+```
+
+  </TabItem>
+  <TabItem attributes={{className: "navbar_icon__terminal"}} value="CLI" label="sbv2 CLI">
+
+```bash
+sbv2 solana function create
+```
+
+  </TabItem>
+</Tabs>
