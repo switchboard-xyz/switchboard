@@ -221,7 +221,15 @@ await functionAccount.wrap(0.25);
   <TabItem attributes={{className: "navbar_icon__terminal"}} value="CLI" label="sbv2 CLI">
 
 ```bash
-sbv2 solana function create
+sbv2 solana function create F8ce7MsckeZAbAGmxjJNetxYXQa9mKr9nnrC3qKubyYy \
+  --name "My Function" \
+  --metadata "Basic binance oracle with TWAP" \
+  --fundAmount 0.25 \
+  --schedule "30 * * * * *" \
+  --container switchboardlabs/basic-oracle-function \
+  --containerRegistry docker \
+  --version solana \
+  --keypair ~/.config/id/solana.json
 ```
 
   </TabItem>
