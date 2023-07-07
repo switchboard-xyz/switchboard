@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from "react";
 import {
   Checkbox,
+  Divider,
   FormControlLabel,
   Grid,
   Button,
   IconButton,
   FormGroup,
+  FormLabel,
   styled,
 } from "@mui/material";
 import { capitalizeFirstLetterOfEachWord } from "./Addresses/utils";
@@ -171,119 +173,98 @@ export default function GuidesComponent() {
 
   return (
     <div>
-      <hr />
-      <StyledContainer>
-        <Grid container spacing={3}>
-          <Grid
-            item
-            xs={2}
-            md={3}
-            justifyContent="space-evenly"
-            alignItems="flex-start"
-          >
-            <div>
-              <h2>Chains</h2>
-              <IconButton
-                onClick={() => {
-                  setSelectedChains([]);
-                }}
-                aria-label="clear-chains-filter"
-              >
-                <ClearIcon />
-                &nbsp;<span style={{ fontSize: "1.1rem" }}>Clear</span>
-              </IconButton>
-            </div>
-          </Grid>
-          <Grid
-            item
-            md={8}
-            container
-            spacing={3}
-            justifyContent="space-around"
-            alignItems="center"
-          >
-            {ALL_CHAINS.map((chain) => (
-              <Grid item>
-                <FormGroup>
-                  <FormControlLabel
-                    className={`navbar_icon__${
-                      chain === "evm" ? "solidity" : chain
-                    }`}
-                    control={
-                      <Checkbox checked={selectedChains.includes(chain)} />
-                    }
-                    label={capitalizeFirstLetterOfEachWord(chain)}
-                    onChange={() => {
-                      setSelectedChains((prev) =>
-                        prev.includes(chain)
-                          ? prev.filter((c) => c !== chain)
-                          : [...prev, chain]
-                      );
-                    }}
-                  />
-                </FormGroup>
+      <Grid container justifyContent="space-between" alignItems="center">
+        <Grid item xs={4}>
+          <StyledContainer>
+            <FormLabel component="legend">Categories</FormLabel>
+            <Grid
+              container
+              direction={"row"}
+              justifyContent="space-evenly"
+              alignItems="center"
+            >
+              {ALL_TAGS.map((category) => (
+                <Grid item xs={12} sm={6}>
+                  <FormGroup>
+                    <FormControlLabel
+                      control={
+                        <Checkbox
+                          checked={selectedCategories.includes(category)}
+                        />
+                      }
+                      label={capitalizeFirstLetterOfEachWord(category)}
+                      onChange={() => {
+                        setSelectedCategories((prev) =>
+                          prev.includes(category)
+                            ? prev.filter((c) => c !== category)
+                            : [...prev, category]
+                        );
+                      }}
+                    />
+                  </FormGroup>
+                </Grid>
+              ))}
+              <Grid item xs={12}>
+                <IconButton
+                  onClick={() => {
+                    setSelectedCategories([]);
+                  }}
+                  aria-label="clear-chains-filter"
+                >
+                  <ClearIcon />
+                  &nbsp;<span style={{ fontSize: "1.1rem" }}>Clear</span>
+                </IconButton>
               </Grid>
-            ))}
-          </Grid>
+            </Grid>
+          </StyledContainer>
         </Grid>
-      </StyledContainer>
-
-      <hr />
-
-      <StyledContainer>
-        <Grid container spacing={3}>
-          <Grid
-            item
-            xs={2}
-            md={3}
-            justifyContent="space-evenly"
-            alignItems="flex-start"
-          >
-            <div>
-              <h2>Categories</h2>
-              <IconButton
-                onClick={() => {
-                  setSelectedCategories([]);
-                }}
-                aria-label="clear-chains-filter"
-              >
-                <ClearIcon />
-                &nbsp;<span style={{ fontSize: "1.1rem" }}>Clear</span>
-              </IconButton>
-            </div>
-          </Grid>
-          <Grid
-            item
-            md={8}
-            container
-            spacing={3}
-            justifyContent="space-around"
-            alignItems="center"
-          >
-            {ALL_TAGS.map((category) => (
-              <Grid item>
-                <FormGroup>
-                  <FormControlLabel
-                    control={
-                      <Checkbox
-                        checked={selectedCategories.includes(category)}
-                      />
-                    }
-                    label={capitalizeFirstLetterOfEachWord(category)}
-                    onChange={() => {
-                      setSelectedCategories((prev) =>
-                        prev.includes(category)
-                          ? prev.filter((c) => c !== category)
-                          : [...prev, category]
-                      );
-                    }}
-                  />
-                </FormGroup>
+        <Divider orientation="vertical" flexItem />
+        <Grid item xs={7}>
+          <StyledContainer>
+            <FormLabel component="legend">Chains</FormLabel>
+            <Grid
+              container
+              direction={"row"}
+              justifyContent="space-evenly"
+              alignItems="flex-start"
+            >
+              {ALL_CHAINS.map((chain) => (
+                <Grid item xs={12} sm={6} md={4}>
+                  <FormGroup>
+                    <FormControlLabel
+                      className={`navbar_icon__${
+                        chain === "evm" ? "solidity" : chain
+                      }`}
+                      control={
+                        <Checkbox checked={selectedChains.includes(chain)} />
+                      }
+                      label={capitalizeFirstLetterOfEachWord(chain)}
+                      onChange={() => {
+                        setSelectedChains((prev) =>
+                          prev.includes(chain)
+                            ? prev.filter((c) => c !== chain)
+                            : [...prev, chain]
+                        );
+                      }}
+                    />
+                  </FormGroup>
+                </Grid>
+              ))}
+              <Grid item xs={12} md={12}>
+                <IconButton
+                  onClick={() => {
+                    setSelectedChains([]);
+                  }}
+                  aria-label="clear-chains-filter"
+                >
+                  <ClearIcon />
+                  &nbsp;<span style={{ fontSize: "1.1rem" }}>Clear</span>
+                </IconButton>
               </Grid>
-            ))}
-          </Grid>
+            </Grid>
+          </StyledContainer>
         </Grid>
-      </StyledContainer>
+      </Grid>
 
       <hr />
 
