@@ -55,8 +55,11 @@ export default function apiDocsPlugin(
   logger.info(`Using custom api docs plugin`);
 
   const localOptionsFile = path.join(context.siteDir, "api-docs.config.js");
-  const localOptions: Partial<DocusaurusPluginTypeDocApiOptions> =
-    fs.existsSync(localOptionsFile) ? require(localOptionsFile) : undefined;
+  const localOptions: Partial<DocusaurusPluginTypeDocApiOptions> = fs.existsSync(
+    localOptionsFile
+  )
+    ? require(localOptionsFile)
+    : undefined;
   if (localOptions) {
     logger.info(`Loaded custom api doc options from config file`);
   }
@@ -403,8 +406,25 @@ export default function apiDocsPlugin(
           },
           {
             type: "link",
+            label: "switchboard-common",
+            href:
+              "https://docs.rs/switchboard-common/latest/switchboard_common/",
+          },
+          {
+            type: "link",
+            label: "switchboard-utils",
+            href: "https://docs.rs/switchboard-utils/latest/switchboard_utils/",
+          },
+          {
+            type: "link",
+            label: "switchboard-solana",
+            href:
+              "https://docs.rs/switchboard-solana/latest/switchboard_solana/",
+          },
+          {
+            type: "link",
             label: "switchboard-v2",
-            href: "https://docs.rs/crate/switchboard-v2",
+            href: "https://docs.rs/switchboard-v2/latest/switchboard_v2/",
           },
           // {
           //   type: "html",
@@ -452,8 +472,10 @@ export default function apiDocsPlugin(
       });
 
       // This is where the sidebar gets created
-      const pluginData: Record<string, PluginRouteData> =
-        await createPluginData(content.typedocs.loadedVersions);
+      const pluginData: Record<
+        string,
+        PluginRouteData
+      > = await createPluginData(content.typedocs.loadedVersions);
 
       const typedocVersionsRoutes = await content.typedocs.fetchRoutes();
       const oclifVersionsRoutes = await content.oclif.fetchRoutes();

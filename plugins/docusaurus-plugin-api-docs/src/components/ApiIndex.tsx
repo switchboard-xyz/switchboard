@@ -86,9 +86,9 @@ export default function ApiIndex({
       heading={<h1>{"API"}</h1>}
       route={route}
       toc={[
-        { value: "Repositories", id: "repositories", level: 2 },
-        { value: "Protobufs", id: "protobufs", level: 2 },
         { value: "Typescript", id: "typescript", level: 2 },
+        { value: "Protobufs", id: "protobufs", level: 2 },
+        { value: "Rust", id: "rust", level: 2 },
       ]}
     >
       <article>
@@ -101,7 +101,7 @@ export default function ApiIndex({
             </section>
           )}
 
-          <p>The following Github repos contain the Switchboard SDKs:</p>
+          {/* <p>The following Github repos contain the Switchboard SDKs:</p>
           <section className="tsd-panel">
             <h3 id="repositories" className="tsd-panel-header">
               SDKs
@@ -175,10 +175,10 @@ export default function ApiIndex({
                 </li>
               </ul>
             </div>
-          </section>
+          </section> */}
 
-          <h2 id="typescript">Typescript</h2>
-          <section className="tsd-panel">
+          {/* <h2 id="typescript">Typescript</h2> */}
+          <section id="typescript" className="tsd-panel">
             <h3 id="packages" className="tsd-panel-header">
               NPM Packages
             </h3>
@@ -229,8 +229,8 @@ export default function ApiIndex({
             </div>
           </section>
 
-          <h2 id="protobufs">Protobufs</h2>
-          <section className="tsd-panel">
+          {/* <h2 id="protobufs">Protobufs</h2> */}
+          <section id="protobufs" className="tsd-panel">
             <h3 className="tsd-panel-header">
               <Link href="/api/protos/Task">Task Types</Link>
             </h3>
@@ -251,6 +251,50 @@ export default function ApiIndex({
                       <Link href={"/api/" + task.permalink}>{task.name}</Link>
                     </li>
                   ))}
+              </ul>
+            </div>
+          </section>
+
+          <section id="rust" className="tsd-panel">
+            <h3 className="tsd-panel-header">Rust Crates</h3>
+            <div className="tsd-panel-content">
+              <ul className="tsd-index-list">
+                <li className="tsd-truncate">
+                  <Link
+                    href={
+                      "https://docs.rs/switchboard-common/latest/switchboard_common/"
+                    }
+                  >
+                    switchboard-common
+                  </Link>
+                </li>
+                <li className="tsd-truncate">
+                  <Link
+                    href={
+                      "https://docs.rs/switchboard-utils/latest/switchboard_utils/"
+                    }
+                  >
+                    switchboard-utils
+                  </Link>
+                </li>
+                <li className="tsd-truncate">
+                  <Link
+                    href={
+                      "https://docs.rs/switchboard-solana/latest/switchboard_solana/"
+                    }
+                  >
+                    switchboard-solana
+                  </Link>
+                </li>
+                <li className="tsd-truncate">
+                  <Link
+                    href={
+                      "https://docs.rs/switchboard-v2/latest/switchboard_v2/"
+                    }
+                  >
+                    switchboard-v2
+                  </Link>
+                </li>
               </ul>
             </div>
           </section>
