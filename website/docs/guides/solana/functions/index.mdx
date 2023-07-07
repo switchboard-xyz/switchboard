@@ -13,9 +13,10 @@ import CodeBlock from "@theme/CodeBlock";
 import Tabs from "@theme/Tabs";
 import TabItem from "@theme/TabItem";
 
-Switchboard functions allow you to write your own Rust code in order to push
-data to your program. You can choose to execute these functions on a pre-defined
-schedule, on-demand with custom parameters, or both!
+Switchboard Functions allow you to verifiably execute your own Rust code
+off-chain and submit transactions either on a pre-defined cron schedule or
+on-demand. Switchboard Functions gives smart contracts greater flexibility as
+they can delegate execution to an off-chain computational layer.
 
 In this example we will build a custom oracle that pushes the latest price of
 BTC, ETH, and SOL to your program every 5 seconds.
@@ -23,7 +24,7 @@ BTC, ETH, and SOL to your program every 5 seconds.
 **Integration Checklist:**
 
 - [ ] Define Switchboard interface in your program
-- [ ] Write our custom function
+- [ ] Write a custom function in Rust
 - [ ] Deploy function to Docker container
 - [ ] Create Switchboard function account
 
@@ -78,7 +79,7 @@ The `validate_enclave` method will verify:
 3. The provided enclave accounts mr_enclave value is present in the function
    accounts mr_enclaves array.
 
-## Write our custom function
+## Write a custom function in Rust
 
 Now we need to write our custom function which will invoke our program and save
 the trading prices to our program state.
