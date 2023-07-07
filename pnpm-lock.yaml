@@ -5734,7 +5734,7 @@ packages:
       '@types/istanbul-reports': 3.0.1
       '@types/node': 18.15.5
       '@types/yargs': 15.0.15
-      chalk: 4.0.0
+      chalk: 4.1.2
     dev: false
 
   /@jest/types@27.5.1:
@@ -5745,7 +5745,7 @@ packages:
       '@types/istanbul-reports': 3.0.1
       '@types/node': 18.15.5
       '@types/yargs': 16.0.5
-      chalk: 4.0.0
+      chalk: 4.1.2
     dev: false
 
   /@jest/types@29.6.1:
@@ -6171,7 +6171,7 @@ packages:
       borsh: 0.7.0
       http-errors: 1.8.1
     optionalDependencies:
-      node-fetch: 2.6.9
+      node-fetch: 2.6.12
     transitivePeerDependencies:
       - encoding
     dev: false
@@ -6802,7 +6802,7 @@ packages:
       '@octokit/request-error': 2.1.0
       '@octokit/types': 6.41.0
       is-plain-object: 5.0.0
-      node-fetch: 2.6.9
+      node-fetch: 2.6.12
       universal-user-agent: 6.0.0
     transitivePeerDependencies:
       - encoding
@@ -6924,7 +6924,7 @@ packages:
       strip-ansi: 5.2.0
       sudo-prompt: 9.2.1
       wcwidth: 1.0.1
-      yaml: 2.2.1
+      yaml: 2.3.1
     transitivePeerDependencies:
       - encoding
     dev: false
@@ -7014,7 +7014,7 @@ packages:
       chalk: 4.1.2
       find-up: 5.0.0
       mime: 2.6.0
-      node-fetch: 2.6.9
+      node-fetch: 2.6.12
       open: 6.4.0
       ora: 5.4.1
       semver: 6.3.0
@@ -13692,7 +13692,7 @@ packages:
       extend: 3.0.2
       https-proxy-agent: 5.0.1
       is-stream: 2.0.1
-      node-fetch: 2.6.9
+      node-fetch: 2.6.12
     transitivePeerDependencies:
       - encoding
       - supports-color
@@ -15691,7 +15691,7 @@ packages:
     dependencies:
       '@jest/types': 27.5.1
       '@types/node': 18.15.5
-      chalk: 4.0.0
+      chalk: 4.1.2
       ci-info: 3.8.0
       graceful-fs: 4.2.11
       picomatch: 2.3.1
@@ -16924,7 +16924,7 @@ packages:
     dependencies:
       connect: 3.7.0
       debug: 2.6.9
-      node-fetch: 2.6.9
+      node-fetch: 2.6.12
       ws: 7.5.9
       yargs: 17.7.2
     transitivePeerDependencies:
@@ -17108,7 +17108,7 @@ packages:
       '@babel/types': 7.22.5
       accepts: 1.3.8
       async: 3.2.4
-      chalk: 4.0.0
+      chalk: 4.1.2
       ci-info: 2.0.0
       connect: 3.7.0
       debug: 2.6.9
@@ -17138,7 +17138,7 @@ packages:
       metro-transform-plugins: 0.76.5
       metro-transform-worker: 0.76.5
       mime-types: 2.1.35
-      node-fetch: 2.6.9
+      node-fetch: 2.6.12
       nullthrows: 1.1.1
       rimraf: 3.0.2
       serialize-error: 2.1.0
@@ -23417,7 +23417,6 @@ packages:
   /yaml@2.3.1:
     resolution: {integrity: sha512-2eHWfjaoXgTBC2jNM1LRef62VQa0umtvRiDSk6HSzW7RvS5YtkabJrwYLLEKWBc8a5U2PTSCs+dJjUTJdlHsWQ==}
     engines: {node: '>= 14'}
-    dev: true
 
   /yargs-parser@18.1.3:
     resolution: {integrity: sha512-o50j0JeToy/4K6OZcaQmW6lyXXKhq7csREXcDwk2omFPJEwUNOVtJKvmDr9EI1fAJZUyZcRF7kxGBWmRXudrCQ==}

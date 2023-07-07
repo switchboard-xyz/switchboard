@@ -1,5 +1,5 @@
-import * as $protobuf from 'protobufjs';
-import Long = require('long');
+import * as $protobuf from "protobufjs";
+import Long = require("long");
 /** Properties of an OracleJob. */
 export interface IOracleJob {
   /** The chain of tasks to perform for this OracleJob. */
@@ -1145,7 +1145,7 @@ export namespace OracleJob {
     public big?: string | null;
 
     /** ValueTask Value. */
-    public Value?: 'value' | 'aggregatorPubkey' | 'big';
+    public Value?: "value" | "aggregatorPubkey" | "big";
 
     /**
      * Creates a new ValueTask instance using the specified properties.
@@ -1587,7 +1587,7 @@ export namespace OracleJob {
     public big?: string | null;
 
     /** DivideTask Denominator. */
-    public Denominator?: 'scalar' | 'aggregatorPubkey' | 'job' | 'big';
+    public Denominator?: "scalar" | "aggregatorPubkey" | "job" | "big";
 
     /**
      * Creates a new DivideTask instance using the specified properties.
@@ -1745,7 +1745,7 @@ export namespace OracleJob {
     public big?: string | null;
 
     /** MultiplyTask Multiple. */
-    public Multiple?: 'scalar' | 'aggregatorPubkey' | 'job' | 'big';
+    public Multiple?: "scalar" | "aggregatorPubkey" | "job" | "big";
 
     /**
      * Creates a new MultiplyTask instance using the specified properties.
@@ -1903,7 +1903,7 @@ export namespace OracleJob {
     public big?: string | null;
 
     /** AddTask Addition. */
-    public Addition?: 'scalar' | 'aggregatorPubkey' | 'job' | 'big';
+    public Addition?: "scalar" | "aggregatorPubkey" | "job" | "big";
 
     /**
      * Creates a new AddTask instance using the specified properties.
@@ -2057,7 +2057,7 @@ export namespace OracleJob {
     public big?: string | null;
 
     /** SubtractTask Subtraction. */
-    public Subtraction?: 'scalar' | 'aggregatorPubkey' | 'job' | 'big';
+    public Subtraction?: "scalar" | "aggregatorPubkey" | "job" | "big";
 
     /**
      * Creates a new SubtractTask instance using the specified properties.
@@ -2238,10 +2238,10 @@ export namespace OracleJob {
 
     /** LpTokenPriceTask PoolAddress. */
     public PoolAddress?:
-      | 'mercurialPoolAddress'
-      | 'saberPoolAddress'
-      | 'orcaPoolAddress'
-      | 'raydiumPoolAddress';
+      | "mercurialPoolAddress"
+      | "saberPoolAddress"
+      | "orcaPoolAddress"
+      | "raydiumPoolAddress";
 
     /**
      * Creates a new LpTokenPriceTask instance using the specified properties.
@@ -2424,12 +2424,12 @@ export namespace OracleJob {
 
     /** LpExchangeRateTask PoolAddress. */
     public PoolAddress?:
-      | 'mercurialPoolAddress'
-      | 'saberPoolAddress'
-      | 'orcaPoolTokenMintAddress'
-      | 'raydiumPoolAddress'
-      | 'orcaPoolAddress'
-      | 'portReserveAddress';
+      | "mercurialPoolAddress"
+      | "saberPoolAddress"
+      | "orcaPoolTokenMintAddress"
+      | "raydiumPoolAddress"
+      | "orcaPoolAddress"
+      | "portReserveAddress";
 
     /**
      * Creates a new LpExchangeRateTask instance using the specified properties.
@@ -2670,7 +2670,7 @@ export namespace OracleJob {
     public stepAggregatorPubkey?: string | null;
 
     /** XStepPriceTask StepSource. */
-    public StepSource?: 'stepJob' | 'stepAggregatorPubkey';
+    public StepSource?: "stepJob" | "stepAggregatorPubkey";
 
     /**
      * Creates a new XStepPriceTask instance using the specified properties.
@@ -3074,7 +3074,7 @@ export namespace OracleJob {
     public big?: string | null;
 
     /** PowTask Exponent. */
-    public Exponent?: 'scalar' | 'aggregatorPubkey' | 'big';
+    public Exponent?: "scalar" | "aggregatorPubkey" | "big";
 
     /**
      * Creates a new PowTask instance using the specified properties.
@@ -3492,14 +3492,14 @@ export namespace OracleJob {
     public quoteAmountString?: string | null;
 
     /** JupiterSwapTask RoutesFilters. */
-    public RoutesFilters?: 'allowList' | 'denyList';
+    public RoutesFilters?: "allowList" | "denyList";
 
     /** JupiterSwapTask SwapAmount. */
     public SwapAmount?:
-      | 'baseAmount'
-      | 'quoteAmount'
-      | 'baseAmountString'
-      | 'quoteAmountString';
+      | "baseAmount"
+      | "quoteAmount"
+      | "baseAmountString"
+      | "quoteAmountString";
 
     /**
      * Creates a new JupiterSwapTask instance using the specified properties.
@@ -3749,10 +3749,10 @@ export namespace OracleJob {
 
     /** PerpMarketTask MarketAddress. */
     public MarketAddress?:
-      | 'mangoMarketAddress'
-      | 'driftMarketAddress'
-      | 'zetaMarketAddress'
-      | 'zoMarketAddress';
+      | "mangoMarketAddress"
+      | "driftMarketAddress"
+      | "zetaMarketAddress"
+      | "zoMarketAddress";
 
     /**
      * Creates a new PerpMarketTask instance using the specified properties.
@@ -3917,9 +3917,9 @@ export namespace OracleJob {
 
     /** OracleTask AggregatorAddress. */
     public AggregatorAddress?:
-      | 'switchboardAddress'
-      | 'pythAddress'
-      | 'chainlinkAddress';
+      | "switchboardAddress"
+      | "pythAddress"
+      | "chainlinkAddress";
 
     /**
      * Creates a new OracleTask instance using the specified properties.
@@ -4376,7 +4376,7 @@ export namespace OracleJob {
     public mintAddress?: string | null;
 
     /** SplTokenParseTask AccountAddress. */
-    public AccountAddress?: 'tokenAccountAddress' | 'mintAddress';
+    public AccountAddress?: "tokenAccountAddress" | "mintAddress";
 
     /**
      * Creates a new SplTokenParseTask instance using the specified properties.
@@ -6457,10 +6457,10 @@ export namespace OracleJob {
     public onFailureValue: string;
 
     /** ComparisonTask LHS. */
-    public LHS?: 'lhs' | 'lhsValue';
+    public LHS?: "lhs" | "lhsValue";
 
     /** ComparisonTask RHS. */
-    public RHS?: 'rhs' | 'rhsValue';
+    public RHS?: "rhs" | "rhsValue";
 
     /**
      * Creates a new ComparisonTask instance using the specified properties.
@@ -7982,51 +7982,51 @@ export namespace OracleJob {
 
     /** Task Task. */
     public Task?:
-      | 'httpTask'
-      | 'jsonParseTask'
-      | 'medianTask'
-      | 'meanTask'
-      | 'websocketTask'
-      | 'divideTask'
-      | 'multiplyTask'
-      | 'lpTokenPriceTask'
-      | 'lpExchangeRateTask'
-      | 'conditionalTask'
-      | 'valueTask'
-      | 'maxTask'
-      | 'regexExtractTask'
-      | 'xstepPriceTask'
-      | 'addTask'
-      | 'subtractTask'
-      | 'twapTask'
-      | 'serumSwapTask'
-      | 'powTask'
-      | 'lendingRateTask'
-      | 'mangoPerpMarketTask'
-      | 'jupiterSwapTask'
-      | 'perpMarketTask'
-      | 'oracleTask'
-      | 'anchorFetchTask'
-      | 'defiKingdomsTask'
-      | 'tpsTask'
-      | 'splStakePoolTask'
-      | 'splTokenParseTask'
-      | 'uniswapExchangeRateTask'
-      | 'sushiswapExchangeRateTask'
-      | 'pancakeswapExchangeRateTask'
-      | 'cacheTask'
-      | 'sysclockOffsetTask'
-      | 'marinadeStateTask'
-      | 'solanaAccountDataFetchTask'
-      | 'bufferLayoutParseTask'
-      | 'cronParseTask'
-      | 'minTask'
-      | 'historyFunctionTask'
-      | 'vwapTask'
-      | 'ewmaTask'
-      | 'comparisonTask'
-      | 'roundTask'
-      | 'boundTask';
+      | "httpTask"
+      | "jsonParseTask"
+      | "medianTask"
+      | "meanTask"
+      | "websocketTask"
+      | "divideTask"
+      | "multiplyTask"
+      | "lpTokenPriceTask"
+      | "lpExchangeRateTask"
+      | "conditionalTask"
+      | "valueTask"
+      | "maxTask"
+      | "regexExtractTask"
+      | "xstepPriceTask"
+      | "addTask"
+      | "subtractTask"
+      | "twapTask"
+      | "serumSwapTask"
+      | "powTask"
+      | "lendingRateTask"
+      | "mangoPerpMarketTask"
+      | "jupiterSwapTask"
+      | "perpMarketTask"
+      | "oracleTask"
+      | "anchorFetchTask"
+      | "defiKingdomsTask"
+      | "tpsTask"
+      | "splStakePoolTask"
+      | "splTokenParseTask"
+      | "uniswapExchangeRateTask"
+      | "sushiswapExchangeRateTask"
+      | "pancakeswapExchangeRateTask"
+      | "cacheTask"
+      | "sysclockOffsetTask"
+      | "marinadeStateTask"
+      | "solanaAccountDataFetchTask"
+      | "bufferLayoutParseTask"
+      | "cronParseTask"
+      | "minTask"
+      | "historyFunctionTask"
+      | "vwapTask"
+      | "ewmaTask"
+      | "comparisonTask"
+      | "roundTask"
+      | "boundTask";
 
     /**
      * Creates a new Task instance using the specified properties.

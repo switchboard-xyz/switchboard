@@ -1,11 +1,7 @@
 import React, { useState, useEffect } from "react";
 import {
-  FormControl,
-  FormLabel,
-  RadioGroup,
   Checkbox,
   FormControlLabel,
-  Radio,
   Grid,
   Button,
   IconButton,
@@ -13,8 +9,6 @@ import {
   styled,
 } from "@mui/material";
 import { capitalizeFirstLetterOfEachWord } from "./Addresses/utils";
-import { SupportedChain } from "./Addresses/types";
-import PublicKeyButton from "./PublicKeyButton";
 import BasicCardGroup from "./BasicCardGroup";
 import ClearIcon from "@mui/icons-material/Clear";
 
@@ -158,7 +152,7 @@ const getGuides = (
   return filteredData;
 };
 
-const App = () => {
+export default function GuidesComponent() {
   const [selectedChains, setSelectedChains] = useState<string[]>([]);
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
 
@@ -324,15 +318,4 @@ const App = () => {
       )}
     </div>
   );
-};
-
-export default App;
-// const chains = ["Solana", "Aptos", "NEAR", "Arbitrum", "CoreDAO"];
-// const categories = ["Data Feeds", "Randomness", "Functions", "SDK"];
-
-// const initialData = [
-//   // You will replace this data with your actual data
-//   { chain: "Solana", category: "Data Feeds", otherData: "..." },
-//   { chain: "Aptos", category: "Randomness", otherData: "..." },
-//   // ...
-// ];
+}
