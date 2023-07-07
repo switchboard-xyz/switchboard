@@ -6,7 +6,7 @@ import { Flags } from "@oclif/core";
 import { clusterApiUrl, PublicKey } from "@solana/web3.js";
 import { sleep } from "@switchboard-xyz/common";
 import { IOracleConfig, NodeOracle } from "@switchboard-xyz/oracle";
-import { SBV2_DEVNET_PID } from "@switchboard-xyz/solana.js";
+import { SB_V2_PID } from "@switchboard-xyz/solana.js";
 import { ChildProcess, spawn } from "child_process";
 import * as dotenv from "dotenv";
 import fs from "fs";
@@ -291,7 +291,7 @@ export default class AnchorTest extends BaseCommand {
 
       const programId = process.env.SWITCHBOARD_PROGRAM_ID
         ? new PublicKey(process.env.SWITCHBOARD_PROGRAM_ID)
-        : SBV2_DEVNET_PID;
+        : SB_V2_PID;
       const idlAddress = await getIdlAddress(programId);
       const programDataAddress = getProgramDataAddress(programId);
       const [programStateAccount] = PublicKey.findProgramAddressSync(

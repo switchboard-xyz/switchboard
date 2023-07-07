@@ -5,7 +5,6 @@ import { clusterApiUrl } from "@solana/web3.js";
 import { DockerOracle } from "@switchboard-xyz/oracle";
 import {
   LoadedSwitchboardNetwork,
-  NetworkJSON,
   SwitchboardNetwork,
   TransactionObject,
 } from "@switchboard-xyz/solana.js";
@@ -82,111 +81,100 @@ export default class NetworkStart extends BaseCommand {
     return loadedNetwork;
   }
 
-  async configToNetwork(
-    configFilePath: string
-  ): Promise<[SwitchboardNetwork, Array<TransactionObject>]> {
-    const configFile = this.normalizePath(configFilePath);
-    if (!this.verifyFileExists(configFile)) {
-      throw new Error(`ConfigFile does not exist, ${configFile}`);
-    }
+  // async configToNetwork(
+  //   configFilePath: string
+  // ): Promise<[SwitchboardNetwork, Array<TransactionObject>]> {
+  //   const configFile = this.normalizePath(configFilePath);
+  //   if (!this.verifyFileExists(configFile)) {
+  //     throw new Error(`ConfigFile does not exist, ${configFile}`);
+  //   }
 
-    const json: NetworkJSON = new NetworkJSON(
-      JSON.parse(fs.readFileSync(configFile, "utf8"))
-    );
+  //   const json: NetworkJSON = new NetworkJSON(
+  //     JSON.parse(fs.readFileSync(configFile, "utf8"))
+  //   );
 
-    const [txns, network] = await SwitchboardNetwork.createInstructions(
-      this.program,
-      this.payer,
-      {
-        name: json.queue.name,
-        metadata: json.queue.metadata,
-        reward: json.queue.reward,
-        minStake: json.queue.minStake,
-        feedProbationPeriod: json.queue.feedProbationPeriod,
-        oracleTimeout: json.queue.oracleTimeout,
-        slashingEnabled: json.queue.slashingEnabled,
-        consecutiveFeedFailureLimit: json.queue.consecutiveFeedFailureLimit,
-        consecutiveOracleFailureLimit: json.queue.consecutiveOracleFailureLimit,
-        queueSize: json.queue.queueSize,
-        unpermissionedFeeds: json.queue.unpermissionedFeeds,
-        unpermissionedVrf: json.queue.unpermissionedVrf,
-        enableBufferRelayers: json.queue.enableBufferRelayers,
-        keypair: json.queue.keypair,
-        dataBufferKeypair: json.queue.dataBufferKeypair,
-        authority: json.queue.authority,
-        cranks: json.cranks,
-        oracles: json.oracles,
-        aggregators: json.aggregators,
-        vrfs: json.vrfs,
-      }
-    );
+  //   const [txns, network] = await SwitchboardNetwork.createInstructions(
+  //     this.program,
+  //     this.payer,
+  //     {
+  //       name: json.queue.name,
+  //       metadata: json.queue.metadata,
+  //       reward: json.queue.reward,
+  //       minStake: json.queue.minStake,
+  //       feedProbationPeriod: json.queue.feedProbationPeriod,
+  //       oracleTimeout: json.queue.oracleTimeout,
+  //       slashingEnabled: json.queue.slashingEnabled,
+  //       consecutiveFeedFailureLimit: json.queue.consecutiveFeedFailureLimit,
+  //       consecutiveOracleFailureLimit: json.queue.consecutiveOracleFailureLimit,
+  //       queueSize: json.queue.queueSize,
+  //       unpermissionedFeeds: json.queue.unpermissionedFeeds,
+  //       unpermissionedVrf: json.queue.unpermissionedVrf,
+  //       enableBufferRelayers: json.queue.enableBufferRelayers,
+  //       keypair: json.queue.keypair,
+  //       dataBufferKeypair: json.queue.dataBufferKeypair,
+  //       authority: json.queue.authority,
+  //       cranks: json.cranks,
+  //       oracles: json.oracles,
+  //       aggregators: json.aggregators,
+  //       vrfs: json.vrfs,
+  //     }
+  //   );
 
-    return [network, txns];
-  }
+  //   return [network, txns];
+  // }
 
   async run() {
-    const { flags } = await this.parse(NetworkStart);
-
-    let loadedNetwork: LoadedSwitchboardNetwork | undefined;
-
-    if (flags.schemaFile) {
-      loadedNetwork = await this.loadFromSchema(flags.schemaFile);
-    }
-
-    if (flags.configFile) {
-      const [network, txns] = await this.configToNetwork(flags.configFile);
-
-      try {
-        loadedNetwork = await network.load();
-      } catch {
-        // try to create
-        await this.signAndSendAll(
-          txns,
-          { skipPreflight: true },
-          undefined,
-          "Creating Switchboard Network"
-        );
-        loadedNetwork = await network.load();
-      }
-    }
-
-    if (loadedNetwork === undefined || loadedNetwork.oracles.length === 0) {
-      throw new Error(`No oracles to start`);
-    }
-
-    for (const oracle of loadedNetwork.oracles ?? []) {
-      if (!oracle.state.oracleAuthority.equals(this.program.walletPubkey)) {
-        throw new Error(`Oracle authority must match --keypair flag`);
-      }
-
-      this.oracles.push(
-        new DockerOracle({
-          chain: "solana",
-          network: this.network as any,
-          rpcUrl:
-            flags.cluster === "localnet"
-              ? "http://host.docker.internal:8899"
-              : flags.rpcUrl ?? clusterApiUrl("devnet"),
-          oracleKey: oracle.account.publicKey.toBase58(),
-          secretPath: this.normalizePath(flags.keypair!),
-          arch: flags.arm ? "linux/arm64" : "linux/amd64",
-          imageTag: flags.nodeImage,
-          silent: flags.silent,
-        })
-      );
-    }
-
-    // console.log(`Starting ${this.oracles.length} oracles ...`);
-    this.startOracles();
-
-    await Promise.all(this.oracles.map(async (o) => await o.awaitReady()));
-
-    // console.log(`Sleeping for ${flags.timeout} seconds`);
-    // await sleep(flags.timeout * 1000);
-
-    // console.log(`Stopping ${this.oracles.length} oracles ...`);
-    // this.stopOracles();
-    process.exit();
+    // const { flags } = await this.parse(NetworkStart);
+    // let loadedNetwork: LoadedSwitchboardNetwork | undefined;
+    // if (flags.schemaFile) {
+    //   loadedNetwork = await this.loadFromSchema(flags.schemaFile);
+    // }
+    // if (flags.configFile) {
+    //   const [network, txns] = await this.configToNetwork(flags.configFile);
+    //   try {
+    //     loadedNetwork = await network.load();
+    //   } catch {
+    //     // try to create
+    //     await this.signAndSendAll(
+    //       txns,
+    //       { skipPreflight: true },
+    //       undefined,
+    //       "Creating Switchboard Network"
+    //     );
+    //     loadedNetwork = await network.load();
+    //   }
+    // }
+    // if (loadedNetwork === undefined || loadedNetwork.oracles.length === 0) {
+    //   throw new Error(`No oracles to start`);
+    // }
+    // for (const oracle of loadedNetwork.oracles ?? []) {
+    //   if (!oracle.state.oracleAuthority.equals(this.program.walletPubkey)) {
+    //     throw new Error(`Oracle authority must match --keypair flag`);
+    //   }
+    //   this.oracles.push(
+    //     new DockerOracle({
+    //       chain: "solana",
+    //       network: this.network as any,
+    //       rpcUrl:
+    //         flags.cluster === "localnet"
+    //           ? "http://host.docker.internal:8899"
+    //           : flags.rpcUrl ?? clusterApiUrl("devnet"),
+    //       oracleKey: oracle.account.publicKey.toBase58(),
+    //       secretPath: this.normalizePath(flags.keypair!),
+    //       arch: flags.arm ? "linux/arm64" : "linux/amd64",
+    //       imageTag: flags.nodeImage,
+    //       silent: flags.silent,
+    //     })
+    //   );
+    // }
+    // // console.log(`Starting ${this.oracles.length} oracles ...`);
+    // this.startOracles();
+    // await Promise.all(this.oracles.map(async (o) => await o.awaitReady()));
+    // // console.log(`Sleeping for ${flags.timeout} seconds`);
+    // // await sleep(flags.timeout * 1000);
+    // // console.log(`Stopping ${this.oracles.length} oracles ...`);
+    // // this.stopOracles();
+    // process.exit();
   }
 
   async catch(error: any) {

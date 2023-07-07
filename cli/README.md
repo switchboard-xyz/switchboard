@@ -229,6 +229,7 @@ node bin/dev print GvDMxPzN1sCj7L26YDK2HnMRXEQmQ2aemov8YBtPS7vR
 * [`sbv2 solana crank print CRANKKEY`](#sbv2-solana-crank-print-crankkey)
 * [`sbv2 solana crank push AGGREGATORKEY`](#sbv2-solana-crank-push-aggregatorkey)
 * [`sbv2 solana crank reset AGGREGATORKEY`](#sbv2-solana-crank-reset-aggregatorkey)
+* [`sbv2 solana function create QUEUEKEY`](#sbv2-solana-function-create-queuekey)
 * [`sbv2 solana job create`](#sbv2-solana-job-create)
 * [`sbv2 solana job print JOBKEY`](#sbv2-solana-job-print-jobkey)
 * [`sbv2 solana json create aggregator DEFINITIONFILE`](#sbv2-solana-json-create-aggregator-definitionfile)
@@ -5143,6 +5144,68 @@ FLAGS
 
 DESCRIPTION
   reset an aggregators crank
+```
+
+## `sbv2 solana function create QUEUEKEY`
+
+create a new function account for a given queue
+
+```
+USAGE
+  $ sbv2 solana function create QUEUEKEY --container <value> [-h] [-v] [-s] [--mainnetBeta | --cluster
+    devnet|mainnet-beta|mainnet|localnet] [-u <value>] [--programId <value>] [--commitment
+    confirmed|finalized|processed] [-k <value>] [--ledgerPath <value> --ledger] [--json] [-n <value>] [--metadata
+    <value>] [-a <value>] [--fundAmount <value>] [--schedule <value>] [--containerRegistry <value>] [--version <value>]
+    [--mrEnclave <value>] [--requestsDisabled <value>] [--requestsFee <value>] [--requestsRequireAuthorization <value>]
+    [--enable] [--queueAuthority <value>]
+
+ARGUMENTS
+  QUEUEKEY  public key of the attestation queue account
+
+FLAGS
+  -a, --authority=<value>                 keypair or public key to delegate authority to for managing the function
+                                          account
+  -h, --help                              Show CLI help.
+  -k, --keypair=<value>                   keypair that will pay for onchain transactions. defaults to new account
+                                          authority if no alternate authority provided
+  -n, --name=<value>                      name of the function for easier identification
+  -s, --silent                            suppress cli prompts
+  -u, --rpcUrl=<value>                    alternate RPC url
+  -v, --verbose                           log everything
+  --cluster=<option>                      the solana cluster to connect to
+                                          <options: devnet|mainnet-beta|mainnet|localnet>
+  --commitment=<option>                   [default: confirmed] transaction commitment level to use
+                                          <options: confirmed|finalized|processed>
+  --container=<value>                     (required) the location of the container (Ex.
+                                          switchboardlabs/basic-oracle-function)
+  --containerRegistry=<value>             [default: docker] the registry to pull the container from (Ex. Docker or IPFS)
+  --enable                                enable oracle heartbeat permissions
+  --fundAmount=<value>                    [default: 0.0] token amount to load into the function's escrow wallet.
+  --ledger                                enable ledger support
+  --ledgerPath=<value>                    HID path to the ledger
+  --mainnetBeta                           WARNING: use mainnet-beta solana cluster
+  --metadata=<value>                      metadata of the function for easier identification
+  --mrEnclave=<value>                     the MrEnclave value to set for the function - if not provided, will be set
+                                          automatically after its first run
+  --programId=<value>                     alternative Switchboard program ID to interact with
+  --queueAuthority=<value>                alternative keypair to use for queue authority
+  --requestsDisabled=<value>              whether custom requests can be created for this function
+  --requestsFee=<value>                   [default: 0.0] the costs each request must pay the function authority for each
+                                          sub-request (Ex. 0.00002)
+  --requestsRequireAuthorization=<value>  whether custom requests require the function authority to authorize
+  --schedule=<value>                      the cron schedule to execute the function periodically (Ex. '15 * * * * *'
+                                          will execute the function every 15 seconds)
+  --version=<value>                       [default: latest] the version of the container to pull from the registry (Ex.
+                                          'latest' or 'mainnet')
+
+GLOBAL FLAGS
+  --json  Format output as json.
+
+DESCRIPTION
+  create a new function account for a given queue
+
+EXAMPLES
+  $ sbv2 solana function create F8ce7MsckeZAbAGmxjJNetxYXQa9mKr9nnrC3qKubyYy --name function-1 --fundAmount 1.25 --container switchboardlabs/basic-oracle-function --version solana
 ```
 
 ## `sbv2 solana job create`

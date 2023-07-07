@@ -1,6 +1,6 @@
 {
   "name": "@switchboard-xyz/cli",
-  "version": "2.3.3",
+  "version": "2.4.0",
   "description": "command line tool to interact with switchboard",
   "author": "gallynaut @gallynaut",
   "bin": {
@@ -26,7 +26,7 @@
     "build": "shx rm -rf dist || true; tsc -b",
     "watch": "tsc --watch",
     "postpack": "shx rm -f oclif.manifest.json",
-    "prepack": "yarn lint && yarn build && oclif manifest && oclif readme",
+    "prepack": "pnpm lint && pnpm build && oclif manifest && oclif readme",
     "test": "mocha --forbid-only \"test/**/*.test.ts\"",
     "version": "oclif readme && git add README.md",
     "lint": "gts lint ./src",
@@ -54,7 +54,7 @@
     "@switchboard-xyz/evm.js": "^3.10.10",
     "@switchboard-xyz/near.js": "^2.2.4",
     "@switchboard-xyz/oracle": "workspace:^",
-    "@switchboard-xyz/solana.js": "^2.1.18",
+    "@switchboard-xyz/solana.js": "^2.3.2",
     "aptos": "^1.9.1",
     "aws-sdk": "^2.1167.0",
     "bs58": "^5.0.0",
