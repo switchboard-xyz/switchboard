@@ -195,8 +195,10 @@ const program = await SwitchboardProgram.load(
   new Connection("https://api.devnet.solana.com"),
   payerKeypair
 );
-const [attestationQueueAccount, queueAccountData] =
-  await AttestationQueueAccount.load(program, "My Attestation Queue Pubkey");
+const [
+  attestationQueueAccount,
+  queueAccountData,
+] = await AttestationQueueAccount.load(program, "My Attestation Queue Pubkey");
 
 // Create the FunctionAccount
 const [functionAccount, txnSignature] = await FunctionAccount.create(
@@ -221,7 +223,7 @@ await functionAccount.wrap(0.25);
   <TabItem attributes={{className: "navbar_icon__terminal"}} value="CLI" label="sbv2 CLI">
 
 ```bash
-sbv2 solana function create F8ce7MsckeZAbAGmxjJNetxYXQa9mKr9nnrC3qKubyYy \
+sbv2 solana function create CkvizjVnm2zA5Wuwan34NhVT3zFc7vqUyGnA6tuEF5aE \
   --name "My Function" \
   --metadata "Basic binance oracle with TWAP" \
   --fundAmount 0.25 \
@@ -229,6 +231,11 @@ sbv2 solana function create F8ce7MsckeZAbAGmxjJNetxYXQa9mKr9nnrC3qKubyYy \
   --container switchboardlabs/basic-oracle-function \
   --containerRegistry docker \
   --version solana \
+  --keypair ~/.config/id/solana.json
+
+# or fund an existing function
+sbv2 solana function fund $MY_FUNCTION_PUBKEY \
+  --fundAmount 0.25 \
   --keypair ~/.config/id/solana.json
 ```
 
