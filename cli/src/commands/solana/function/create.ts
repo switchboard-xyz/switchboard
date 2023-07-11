@@ -124,8 +124,10 @@ export default class FunctionCreate extends BaseCommand {
       throw new Error("amount to fund must be greater than 0");
     }
 
-    const [attestationQueueAccount, attestationQueue] =
-      await AttestationQueueAccount.load(this.program, args.queueKey);
+    const [
+      attestationQueueAccount,
+      attestationQueue,
+    ] = await AttestationQueueAccount.load(this.program, args.queueKey);
 
     let queueAuthority: Keypair | undefined;
     if (flags.queueAuthority) {
@@ -148,20 +150,22 @@ export default class FunctionCreate extends BaseCommand {
       containerRegistry = flags.containerRegistry;
     }
 
-    const [functionAccount, txn] =
-      await attestationQueueAccount.createFunctionInstruction(this.payer, {
-        name: flags.name,
-        metadata: flags.metadata,
-        authority: authority,
-        schedule: flags.schedule,
-        container: flags.container,
-        containerRegistry: containerRegistry,
-        version: flags.version,
-        mrEnclave: parseMrEnclave(flags.mrEnclave ?? ""),
-        enable: flags.enable ?? false,
-        queueAuthority: queueAuthority,
-        queueAuthorityPubkey: attestationQueue.authority,
-      });
+    const [
+      functionAccount,
+      txn,
+    ] = await attestationQueueAccount.createFunctionInstruction(this.payer, {
+      name: flags.name,
+      metadata: flags.metadata,
+      authority: authority,
+      schedule: flags.schedule,
+      container: flags.container,
+      containerRegistry: containerRegistry,
+      version: flags.version,
+      mrEnclave: parseMrEnclave(flags.mrEnclave ?? ""),
+      enable: flags.enable ?? false,
+      queueAuthority: queueAuthority,
+      queueAuthorityPubkey: attestationQueue.authority,
+    });
 
     if (fundAmount) {
       const wallet = await functionAccount.wallet;

@@ -152,8 +152,9 @@ export default class AggregatorCreate extends BaseCommand {
       this.program.walletPubkey
     );
 
-    const jobs: Array<{ pubkey: PublicKey; weight?: number } | JobInitParams> =
-      [];
+    const jobs: Array<
+      { pubkey: PublicKey; weight?: number } | JobInitParams
+    > = [];
     for await (const jobKey of flags?.jobKey ?? []) {
       const [jobAccount, job] = await this.loadJob(jobKey);
       jobs.push({ pubkey: jobAccount.publicKey });
@@ -166,37 +167,39 @@ export default class AggregatorCreate extends BaseCommand {
       });
     }
 
-    const [aggregatorAccount, aggregatorInitTxns] =
-      await queueAccount.createFeedInstructions(this.payer, {
-        // aggregator params
-        authority: authority.publicKey,
-        keypair: keypair,
-        name: flags.name,
-        metadata: flags.metadata,
-        batchSize: flags.batchSize,
-        minRequiredOracleResults: flags.minOracles,
-        minRequiredJobResults: flags.minJobs,
-        minUpdateDelaySeconds: flags.updateInterval,
-        varianceThreshold: Number(flags.varianceThreshold ?? "0"),
-        forceReportPeriod: flags.forceReportPeriod ?? 0,
-        historyLimit: flags.historyLimit,
-        // fees
-        slidingWindow: flags.slidingWindow,
-        basePriorityFee: flags.basePriorityFee,
-        priorityFeeBump: flags.priorityFeeBump,
-        priorityFeeBumpPeriod: flags.priorityFeeBumpPeriod,
-        maxPriorityFeeMultiplier: flags.maxPriorityFeeMultiplier,
-        // crank params
-        crankPubkey: flags.crankKey ? new PublicKey(flags.crankKey) : undefined,
-        // lease params
-        fundAmount: Number(flags.leaseAmount),
-        funderTokenWallet: tokenWallet,
-        // permission params
-        enable: flags.enable ?? false,
-        queueAuthority: queueAuthority,
-        // job params
-        jobs: jobs,
-      });
+    const [
+      aggregatorAccount,
+      aggregatorInitTxns,
+    ] = await queueAccount.createFeedInstructions(this.payer, {
+      // aggregator params
+      authority: authority.publicKey,
+      keypair: keypair,
+      name: flags.name,
+      metadata: flags.metadata,
+      batchSize: flags.batchSize,
+      minRequiredOracleResults: flags.minOracles,
+      minRequiredJobResults: flags.minJobs,
+      minUpdateDelaySeconds: flags.updateInterval,
+      varianceThreshold: Number(flags.varianceThreshold ?? "0"),
+      forceReportPeriod: flags.forceReportPeriod ?? 0,
+      historyLimit: flags.historyLimit,
+      // fees
+      slidingWindow: flags.slidingWindow,
+      basePriorityFee: flags.basePriorityFee,
+      priorityFeeBump: flags.priorityFeeBump,
+      priorityFeeBumpPeriod: flags.priorityFeeBumpPeriod,
+      maxPriorityFeeMultiplier: flags.maxPriorityFeeMultiplier,
+      // crank params
+      crankPubkey: flags.crankKey ? new PublicKey(flags.crankKey) : undefined,
+      // lease params
+      fundAmount: Number(flags.leaseAmount),
+      funderTokenWallet: tokenWallet,
+      // permission params
+      enable: flags.enable ?? false,
+      queueAuthority: queueAuthority,
+      // job params
+      jobs: jobs,
+    });
 
     const signatures = await this.signAndSendAll(aggregatorInitTxns);
 

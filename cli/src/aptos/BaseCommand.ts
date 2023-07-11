@@ -29,10 +29,8 @@ import { AptosAccount, HexString } from "aptos";
 import fs from "fs";
 import YAML from "yaml";
 
-export abstract class AptosBaseCommand
-  extends BaseCommand
-  implements IBaseChain
-{
+export abstract class AptosBaseCommand extends BaseCommand
+  implements IBaseChain {
   static flags = {
     ...BaseCommand.flags,
     networkId: Flags.string({
@@ -166,8 +164,7 @@ export abstract class AptosBaseCommand
       }
 
       // check if base64 encoded
-      const base64Regex =
-        /^(?:[\d+/A-Za-z]{4})*(?:[\d+/A-Za-z]{3}=|[\d+/A-Za-z]{2}==)?/g;
+      const base64Regex = /^(?:[\d+/A-Za-z]{4})*(?:[\d+/A-Za-z]{3}=|[\d+/A-Za-z]{2}==)?/g;
       if (base64Regex.test(parsedFileString)) {
         return SwitchboardProgram.getAccount(
           new Uint8Array(Buffer.from(parsedFileString, "base64"))

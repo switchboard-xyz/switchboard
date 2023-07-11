@@ -63,10 +63,12 @@ export default class LeaseExtend extends BaseCommand {
       throw new Error(`Failed to load lease account. Has it been created yet?`);
     });
 
-    const [funderTokenWallet, wrapFundsTxn] =
-      await this.program.mint.getOrCreateWrappedUserInstructions(this.payer, {
-        fundUpTo: amount,
-      });
+    const [
+      funderTokenWallet,
+      wrapFundsTxn,
+    ] = await this.program.mint.getOrCreateWrappedUserInstructions(this.payer, {
+      fundUpTo: amount,
+    });
 
     const initialLeaseBalance = await this.program.mint.fetchBalance(
       lease.escrow

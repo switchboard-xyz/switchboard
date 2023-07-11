@@ -541,7 +541,9 @@ export abstract class EvmBaseCommand extends BaseCommand implements IBaseChain {
     this.log(logString);
   }
 
-  jobsToJson(jobs: Job[]): Array<{
+  jobsToJson(
+    jobs: Job[]
+  ): Array<{
     name: string;
     weight: number;
     data: string;

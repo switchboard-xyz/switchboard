@@ -72,11 +72,13 @@ export default class AggregatorTransfer extends BaseCommand {
       args.aggregatorKey
     );
 
-    const [payerTokenWallet, wrapIxns] =
-      await this.program.mint.getOrCreateWrappedUserInstructions(
-        this.program.walletPubkey,
-        { fundUpTo: loadAmount }
-      );
+    const [
+      payerTokenWallet,
+      wrapIxns,
+    ] = await this.program.mint.getOrCreateWrappedUserInstructions(
+      this.program.walletPubkey,
+      { fundUpTo: loadAmount }
+    );
     if (wrapIxns) {
       txns.push(wrapIxns);
     }
@@ -126,24 +128,26 @@ export default class AggregatorTransfer extends BaseCommand {
     );
     if (newLeaseAccountInfo === null) {
       // create lease for the new queue but dont transfer any balance
-      const [_newLeaseAccount, leaseInit] =
-        await LeaseAccount.createInstructions(
-          this.program,
-          this.program.walletPubkey,
-          {
-            disableWrap: true, // already included
-            aggregatorAccount: aggregatorAccount,
-            queueAccount: newQueueAccount,
-            funderTokenWallet: payerTokenWallet ?? undefined,
-            jobAuthorities,
-            fundAmount: loadAmount,
-            withdrawAuthority: aggregator.authority, // set to current authority
-            jobPubkeys: aggregator.jobPubkeysData.slice(
-              0,
-              aggregator.jobPubkeysSize
-            ),
-          }
-        );
+      const [
+        _newLeaseAccount,
+        leaseInit,
+      ] = await LeaseAccount.createInstructions(
+        this.program,
+        this.program.walletPubkey,
+        {
+          disableWrap: true, // already included
+          aggregatorAccount: aggregatorAccount,
+          queueAccount: newQueueAccount,
+          funderTokenWallet: payerTokenWallet ?? undefined,
+          jobAuthorities,
+          fundAmount: loadAmount,
+          withdrawAuthority: aggregator.authority, // set to current authority
+          jobPubkeys: aggregator.jobPubkeysData.slice(
+            0,
+            aggregator.jobPubkeysSize
+          ),
+        }
+      );
 
       txns.push(leaseInit);
     } else {
@@ -170,10 +174,9 @@ export default class AggregatorTransfer extends BaseCommand {
       newQueueAccount.publicKey,
       aggregatorAccount.publicKey
     );
-    const newPermissionAccountInfo =
-      await this.program.connection.getAccountInfo(
-        newPermissionAccount.publicKey
-      );
+    const newPermissionAccountInfo = await this.program.connection.getAccountInfo(
+      newPermissionAccount.publicKey
+    );
     // if existing, check permissions
     if (newPermissionAccountInfo !== null) {
       const newPermission = types.PermissionAccountData.decode(
@@ -196,8 +199,7 @@ export default class AggregatorTransfer extends BaseCommand {
             {
               enable: true,
               queueAuthority: queueAuthority,
-              permission:
-                new types.SwitchboardPermission.PermitOracleQueueUsage(),
+              permission: new types.SwitchboardPermission.PermitOracleQueueUsage(),
             }
           );
           txns.push(permissionSet);
@@ -209,16 +211,18 @@ export default class AggregatorTransfer extends BaseCommand {
         }
       }
     } else {
-      const [_newPermissionAccount, permissionInitTxn] =
-        PermissionAccount.createInstruction(
-          this.program,
-          this.program.walletPubkey,
-          {
-            authority: newQueue.authority,
-            granter: newQueueAccount.publicKey,
-            grantee: aggregatorAccount.publicKey,
-          }
-        );
+      const [
+        _newPermissionAccount,
+        permissionInitTxn,
+      ] = PermissionAccount.createInstruction(
+        this.program,
+        this.program.walletPubkey,
+        {
+          authority: newQueue.authority,
+          granter: newQueueAccount.publicKey,
+          grantee: aggregatorAccount.publicKey,
+        }
+      );
       txns.push(permissionInitTxn);
 
       if (flags.enable) {
@@ -232,8 +236,7 @@ export default class AggregatorTransfer extends BaseCommand {
             {
               enable: true,
               queueAuthority: queueAuthority,
-              permission:
-                new types.SwitchboardPermission.PermitOracleQueueUsage(),
+              permission: new types.SwitchboardPermission.PermitOracleQueueUsage(),
             }
           );
           txns.push(permissionSet);

@@ -63,8 +63,9 @@ export default class PermissionCreate extends BaseCommand {
       throw new AccountNotFoundError("Grantee", new PublicKey(flags.grantee));
     }
 
-    const granteeAccountType =
-      SwitchboardProgram.getAccountType(granteeAccountInfo);
+    const granteeAccountType = SwitchboardProgram.getAccountType(
+      granteeAccountInfo
+    );
 
     let permission: types.SwitchboardPermissionKind;
     switch (granteeAccountType) {
@@ -91,12 +92,14 @@ export default class PermissionCreate extends BaseCommand {
       }
     }
 
-    const [permissionAccount, permissionInit] =
-      PermissionAccount.createInstruction(this.program, this.payer, {
-        grantee: new PublicKey(flags.grantee),
-        granter: queueAccount.publicKey,
-        authority: authority.publicKey,
-      });
+    const [
+      permissionAccount,
+      permissionInit,
+    ] = PermissionAccount.createInstruction(this.program, this.payer, {
+      grantee: new PublicKey(flags.grantee),
+      granter: queueAccount.publicKey,
+      authority: authority.publicKey,
+    });
 
     if (flags.enable) {
       permissionInit.combine(

@@ -33,14 +33,18 @@ export default class BufferRelayerUpdate extends BaseCommand {
   async run() {
     const { args } = await this.parse(BufferRelayerUpdate);
 
-    const [bufferRelayerAccount, bufferRelayer] =
-      await BufferRelayerAccount.load(this.program, args.bufferRelayerKey);
+    const [
+      bufferRelayerAccount,
+      bufferRelayer,
+    ] = await BufferRelayerAccount.load(this.program, args.bufferRelayerKey);
 
-    const [payerTokenWallet, wrapTxn] =
-      await this.program.mint.getOrCreateWrappedUserInstructions(
-        this.payer,
-        { fundUpTo: 0.0002 } // TODO: Calculate the real value
-      );
+    const [
+      payerTokenWallet,
+      wrapTxn,
+    ] = await this.program.mint.getOrCreateWrappedUserInstructions(
+      this.payer,
+      { fundUpTo: 0.0002 } // TODO: Calculate the real value
+    );
 
     const updateTxn = await bufferRelayerAccount.openRoundInstructions(
       this.payer,

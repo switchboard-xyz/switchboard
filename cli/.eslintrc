@@ -9,10 +9,18 @@
     "prettier",
     "@switchboard-xyz"
   ],
-  "plugins": ["@typescript-eslint", "prettier", "unicorn", "import"],
+  "plugins": [
+    "@typescript-eslint",
+    "prettier",
+    "unicorn",
+    "import"
+  ],
   // "parserOptions": { "project": ["./tsconfig.json"] },
-  "ignorePatterns": ["test/**/*.ts"],
+  "ignorePatterns": [
+    "test/**/*.ts"
+  ],
   "rules": {
+    "no-use-before-define": "off",
     "valid-jsdoc": "off",
     "camelcase": "off",
     "max-params": "off",

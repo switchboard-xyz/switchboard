@@ -57,8 +57,9 @@ export default class PermissionGrant extends BaseCommand {
       throw new AccountNotFoundError("Grantee", permissionData.grantee);
     }
 
-    const granteeAccountType =
-      SwitchboardProgram.getAccountType(granteeAccountInfo);
+    const granteeAccountType = SwitchboardProgram.getAccountType(
+      granteeAccountInfo
+    );
 
     let permission: types.SwitchboardPermissionKind;
     switch (granteeAccountType) {

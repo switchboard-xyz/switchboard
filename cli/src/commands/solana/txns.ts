@@ -89,11 +89,13 @@ export default class SolanaTransactions extends BaseCommand {
     const signatures: Array<ConfirmedSignatureInfo> = [];
     let lastSig: string | undefined;
     while (signatures.length < flags.limit) {
-      const signatureBatch: ConfirmedSignatureInfo[] =
-        await this.program.connection.getSignaturesForAddress(pubkey, {
+      const signatureBatch: ConfirmedSignatureInfo[] = await this.program.connection.getSignaturesForAddress(
+        pubkey,
+        {
           before: lastSig,
           limit: 1000,
-        });
+        }
+      );
       lastSig = signatureBatch.slice(-1)[0].signature;
       signatures.push(...signatureBatch);
     }

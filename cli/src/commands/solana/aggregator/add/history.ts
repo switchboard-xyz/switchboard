@@ -63,16 +63,18 @@ export default class AggregatorAddHistory extends BaseCommand {
       throw new Error(`--historyLimit must be greater than 0`);
     }
 
-    const [historyBuffer, setHistoryTxn] =
-      await AggregatorHistoryBuffer.createInstructions(
-        this.program,
-        this.payer,
-        {
-          maxSamples: flags.historyLimit,
-          aggregatorAccount,
-          aggregatorAuthority: authority,
-        }
-      );
+    const [
+      historyBuffer,
+      setHistoryTxn,
+    ] = await AggregatorHistoryBuffer.createInstructions(
+      this.program,
+      this.payer,
+      {
+        maxSamples: flags.historyLimit,
+        aggregatorAccount,
+        aggregatorAuthority: authority,
+      }
+    );
 
     const signature = await this.signAndSend(setHistoryTxn);
 
