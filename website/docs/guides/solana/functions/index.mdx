@@ -7,6 +7,7 @@ description:
 ---
 
 import MarkdownImage from "/src/components/MarkdownImage";
+import PublicKeyButton from "/src/components/PublicKeyButton";
 import Link from "@docusaurus/Link";
 
 import CodeBlock from "@theme/CodeBlock";
@@ -28,7 +29,7 @@ BTC, ETH, and SOL to your program every 5 seconds.
 - [ ] Deploy function to Docker container
 - [ ] Create Switchboard function account
 
-## Define Switchboard interface in your program
+## Switchboard Functions Overview
 
 The Attestation Program contains a set of verifier oracles which watch the chain
 for attestation requests. When a request is found the verifier oracles will
@@ -44,6 +45,29 @@ oracle which is also run within an enclave and has its verifier codebase
 attested on-chain. If we can prove the keypair never left the enclave and the
 keypair signed the transaction, then we can be sure that the code was executed
 securely.
+
+Below are the current parameters set for the Switchboard Labs Attestation Queue:
+
+| Param                       | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |
+| --------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Minimum Update Interval     | **_1 second!_** <br /><br />The minimum time between requesting a function update. You can set a cron schedule of `1 * * * * *` to request an update every second!                                                                                                                                                                                                                                                                                                                                                                                                                                            |
+| Cost                        | **20_000 Lamports (0.00002 SOL)**<br /><br />The amount of lamports that is charged for each `function_verify` call.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |
+| Maximum Instruction(s) Size | **548 Bytes (667 Bytes soon)** <br /><br />The maximum size of instruction(s) you can return including all extra signers. The `function_verify` ixn currently uses 684 Bytes. Address lookup tables will be supported allowing you to fit more accounts per transaction; this will free ~100 bytes giving you 667 bytes for your custom instructions. <br /><br /> Transaction bundles will be supported when a common standard is agreed upon at the protocol level; this will allow you to return an arbitrary number of instructions which get executed in-order and rolled back if any instruction fails. |
+
+:::info
+
+**Below are the Switchboard Labs Attestation Queue addresses**
+
+<h4>Mainnet-Beta</h4>
+
+<PublicKeyButton publicKey="2ie3JZfKcvsRLsJaP5fSo43gUo1vsurnUAtAgUdUAiDG" />
+
+<h4>Devnet</h4>
+
+<PublicKeyButton publicKey="CkvizjVnm2zA5Wuwan34NhVT3zFc7vqUyGnA6tuEF5aE" />
+:::
+
+## Define Switchboard interface in your program
 
 Your on-chain program needs to have an instruction which verifies the
 `function.enclaveSigner` has signed the transaction.
@@ -195,10 +219,8 @@ const program = await SwitchboardProgram.load(
   new Connection("https://api.devnet.solana.com"),
   payerKeypair
 );
-const [
-  attestationQueueAccount,
-  queueAccountData,
-] = await AttestationQueueAccount.load(program, "My Attestation Queue Pubkey");
+const [attestationQueueAccount, queueAccountData] =
+  await AttestationQueueAccount.load(program, "My Attestation Queue Pubkey");
 
 // Create the FunctionAccount
 const [functionAccount, txnSignature] = await FunctionAccount.create(
@@ -208,8 +230,6 @@ const [functionAccount, txnSignature] = await FunctionAccount.create(
     metadata: "FUNCTION_METADATA",
     schedule: "5 * * * * *",
     container: "switchboardlabs/basic-oracle-function",
-    containerRegistry: "docker",
-    version: "latest",
     mrEnclave: parseMrEnclave("my MrEnclave value"),
     attestationQueue: attestationQueueAccount,
   }

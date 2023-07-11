@@ -9332,8 +9332,8 @@
       "function",
       "create"
     ],
-    "markdown": "USAGE\n  $ sbv2 solana function create QUEUEKEY --container <value> [-h] [-v] [-s] [--mainnetBeta | --cluster\n    devnet|mainnet-beta|mainnet|localnet] [-u <value>] [--programId <value>] [--commitment\n    confirmed|finalized|processed] [-k <value>] [--ledgerPath <value> --ledger] [--json] [-n <value>] [--metadata\n    <value>] [-a <value>] [--fundAmount <value>] [--schedule <value>] [--containerRegistry <value>] [--version <value>]\n    [--mrEnclave <value>] [--requestsDisabled <value>] [--requestsFee <value>] [--requestsRequireAuthorization <value>]\n    [--enable] [--queueAuthority <value>]\n\nARGUMENTS\n  QUEUEKEY  public key of the attestation queue account\n\nFLAGS\n  -a, --authority=<value>                 keypair or public key to delegate authority to for managing the function\n                                          account\n  -h, --help                              Show CLI help.\n  -k, --keypair=<value>                   keypair that will pay for onchain transactions. defaults to new account\n                                          authority if no alternate authority provided\n  -n, --name=<value>                      name of the function for easier identification\n  -s, --silent                            suppress cli prompts\n  -u, --rpcUrl=<value>                    alternate RPC url\n  -v, --verbose                           log everything\n  --cluster=<option>                      the solana cluster to connect to\n                                          <options: devnet|mainnet-beta|mainnet|localnet>\n  --commitment=<option>                   [default: confirmed] transaction commitment level to use\n                                          <options: confirmed|finalized|processed>\n  --container=<value>                     (required) the location of the container (Ex.\n                                          switchboardlabs/basic-oracle-function)\n  --containerRegistry=<value>             [default: docker] the registry to pull the container from (Ex. Docker or IPFS)\n  --enable                                enable oracle heartbeat permissions\n  --fundAmount=<value>                    [default: 0.0] token amount to load into the function's escrow wallet.\n  --ledger                                enable ledger support\n  --ledgerPath=<value>                    HID path to the ledger\n  --mainnetBeta                           WARNING: use mainnet-beta solana cluster\n  --metadata=<value>                      metadata of the function for easier identification\n  --mrEnclave=<value>                     the MrEnclave value to set for the function - if not provided, will be set\n                                          automatically after its first run\n  --programId=<value>                     alternative Switchboard program ID to interact with\n  --queueAuthority=<value>                alternative keypair to use for queue authority\n  --requestsDisabled=<value>              whether custom requests can be created for this function\n  --requestsFee=<value>                   [default: 0.0] the costs each request must pay the function authority for each\n                                          sub-request (Ex. 0.00002)\n  --requestsRequireAuthorization=<value>  whether custom requests require the function authority to authorize\n  --schedule=<value>                      the cron schedule to execute the function periodically (Ex. '15 * * * * *'\n                                          will execute the function every 15 seconds)\n  --version=<value>                       [default: latest] the version of the container to pull from the registry (Ex.\n                                          'latest' or 'mainnet')\n\nGLOBAL FLAGS\n  --json  Format output as json.\n\nDESCRIPTION\n  create a new function account for a given queue\n\nEXAMPLES\n  $ sbv2 solana function create F8ce7MsckeZAbAGmxjJNetxYXQa9mKr9nnrC3qKubyYy --name function-1 --fundAmount 1.25 --container switchboardlabs/basic-oracle-function --version solana\n",
-    "usage": "sbv2 solana function create QUEUEKEY --container <value> [-h] [-v] [-s] [--mainnetBeta | --cluster\n    devnet|mainnet-beta|mainnet|localnet] [-u <value>] [--programId <value>] [--commitment\n    confirmed|finalized|processed] [-k <value>] [--ledgerPath <value> --ledger] [--json] [-n <value>] [--metadata\n    <value>] [-a <value>] [--fundAmount <value>] [--schedule <value>] [--containerRegistry <value>] [--version <value>]\n    [--mrEnclave <value>] [--requestsDisabled <value>] [--requestsFee <value>] [--requestsRequireAuthorization <value>]\n    [--enable] [--queueAuthority <value>]",
+    "markdown": "USAGE\n  $ sbv2 solana function create QUEUEKEY --container <value> [-h] [-v] [-s] [--mainnetBeta | --cluster\n    devnet|mainnet-beta|mainnet|localnet] [-u <value>] [--programId <value>] [--commitment\n    confirmed|finalized|processed] [-k <value>] [--ledgerPath <value> --ledger] [--json] [-n <value>] [--metadata\n    <value>] [-a <value>] [--fundAmount <value>] [--schedule <value>] [--containerRegistry dockerhub|ipfs] [--version\n    <value>] [--mrEnclave <value>] [--requestsDisabled <value>] [--requestsFee <value>] [--requestsRequireAuthorization\n    <value>] [--enable] [--queueAuthority <value>]\n\nARGUMENTS\n  QUEUEKEY  public key of the attestation queue account\n\nFLAGS\n  -a, --authority=<value>                 keypair or public key to delegate authority to for managing the function\n                                          account\n  -h, --help                              Show CLI help.\n  -k, --keypair=<value>                   keypair that will pay for onchain transactions. defaults to new account\n                                          authority if no alternate authority provided\n  -n, --name=<value>                      name of the function for easier identification\n  -s, --silent                            suppress cli prompts\n  -u, --rpcUrl=<value>                    alternate RPC url\n  -v, --verbose                           log everything\n  --cluster=<option>                      the solana cluster to connect to\n                                          <options: devnet|mainnet-beta|mainnet|localnet>\n  --commitment=<option>                   [default: confirmed] transaction commitment level to use\n                                          <options: confirmed|finalized|processed>\n  --container=<value>                     (required) the location of the container (Ex.\n                                          switchboardlabs/basic-oracle-function)\n  --containerRegistry=<option>            [default: docker] the registry to pull the container from (Ex. Docker or IPFS)\n                                          <options: dockerhub|ipfs>\n  --enable                                enable oracle heartbeat permissions\n  --fundAmount=<value>                    [default: 0.0] token amount to load into the function's escrow wallet.\n  --ledger                                enable ledger support\n  --ledgerPath=<value>                    HID path to the ledger\n  --mainnetBeta                           WARNING: use mainnet-beta solana cluster\n  --metadata=<value>                      metadata of the function for easier identification\n  --mrEnclave=<value>                     the MrEnclave value to set for the function - if not provided, will be set\n                                          automatically after its first run\n  --programId=<value>                     alternative Switchboard program ID to interact with\n  --queueAuthority=<value>                alternative keypair to use for queue authority\n  --requestsDisabled=<value>              whether custom requests can be created for this function\n  --requestsFee=<value>                   [default: 0.0] the costs each request must pay the function authority for each\n                                          sub-request (Ex. 0.00002)\n  --requestsRequireAuthorization=<value>  whether custom requests require the function authority to authorize\n  --schedule=<value>                      the cron schedule to execute the function periodically (Ex. '15 * * * * *'\n                                          will execute the function every 15 seconds)\n  --version=<value>                       [default: latest] the version of the container to pull from the registry (Ex.\n                                          'latest' or 'mainnet')\n\nGLOBAL FLAGS\n  --json  Format output as json.\n\nDESCRIPTION\n  create a new function account for a given queue\n\nEXAMPLES\n  $ sbv2 solana function create F8ce7MsckeZAbAGmxjJNetxYXQa9mKr9nnrC3qKubyYy --name function-1 --fundAmount 1.25 --container switchboardlabs/basic-oracle-function --version solana\n",
+    "usage": "sbv2 solana function create QUEUEKEY --container <value> [-h] [-v] [-s] [--mainnetBeta | --cluster\n    devnet|mainnet-beta|mainnet|localnet] [-u <value>] [--programId <value>] [--commitment\n    confirmed|finalized|processed] [-k <value>] [--ledgerPath <value> --ledger] [--json] [-n <value>] [--metadata\n    <value>] [-a <value>] [--fundAmount <value>] [--schedule <value>] [--containerRegistry dockerhub|ipfs] [--version\n    <value>] [--mrEnclave <value>] [--requestsDisabled <value>] [--requestsFee <value>] [--requestsRequireAuthorization\n    <value>] [--enable] [--queueAuthority <value>]",
     "args": [
       {
         "arg": "QUEUEKEY",
@@ -9382,8 +9382,8 @@
         "description": "(required) the location of the container (Ex. switchboardlabs/basic-oracle-function)"
       },
       {
-        "flag": "--containerRegistry=<value>",
-        "description": "[default: docker] the registry to pull the container from (Ex. Docker or IPFS)"
+        "flag": "--containerRegistry=<option>",
+        "description": "[default: docker] the registry to pull the container from (Ex. Docker or IPFS) <options: dockerhub|ipfs>"
       },
       {
         "flag": "--enable",
@@ -9450,6 +9450,138 @@
     "examples": [
       "sbv2 solana function create F8ce7MsckeZAbAGmxjJNetxYXQa9mKr9nnrC3qKubyYy --name function-1 --fundAmount 1.25 --container switchboardlabs/basic-oracle-function --version solana"
     ]
+  },
+  {
+    "id": "solana-function-fund",
+    "permalink": "/cli/solana/function/fund",
+    "topic": "solana",
+    "command": "sbv2 solana function fund",
+    "topics": [
+      "solana",
+      "function",
+      "fund"
+    ],
+    "markdown": "USAGE\n  $ sbv2 solana function fund FUNCTIONKEY [-h] [-v] [-s] [--mainnetBeta | --cluster devnet|mainnet-beta|mainnet|localnet]\n    [-u <value>] [--programId <value>] [--commitment confirmed|finalized|processed] [-k <value>] [--ledgerPath <value>\n    --ledger] [--json] [--fundAmount <value>]\n\nARGUMENTS\n  FUNCTIONKEY  public key of the function account\n\nFLAGS\n  -h, --help             Show CLI help.\n  -k, --keypair=<value>  keypair that will pay for onchain transactions. defaults to new account authority if no\n                         alternate authority provided\n  -s, --silent           suppress cli prompts\n  -u, --rpcUrl=<value>   alternate RPC url\n  -v, --verbose          log everything\n  --cluster=<option>     the solana cluster to connect to\n                         <options: devnet|mainnet-beta|mainnet|localnet>\n  --commitment=<option>  [default: confirmed] transaction commitment level to use\n                         <options: confirmed|finalized|processed>\n  --fundAmount=<value>   [default: 0.0]\n  --ledger               enable ledger support\n  --ledgerPath=<value>   HID path to the ledger\n  --mainnetBeta          WARNING: use mainnet-beta solana cluster\n  --programId=<value>    alternative Switchboard program ID to interact with\n\nGLOBAL FLAGS\n  --json  Format output as json.\n\nDESCRIPTION\n  wrap SOL into a function accounts escrow wallet\n",
+    "usage": "sbv2 solana function fund FUNCTIONKEY [-h] [-v] [-s] [--mainnetBeta | --cluster devnet|mainnet-beta|mainnet|localnet]\n    [-u <value>] [--programId <value>] [--commitment confirmed|finalized|processed] [-k <value>] [--ledgerPath <value>\n    --ledger] [--json] [--fundAmount <value>]",
+    "args": [
+      {
+        "arg": "FUNCTIONKEY",
+        "description": "public key of the function account"
+      }
+    ],
+    "flags": [
+      {
+        "flag": " -h, --help",
+        "description": "Show CLI help."
+      },
+      {
+        "flag": "-k, --keypair=<value>",
+        "description": "keypair that will pay for onchain transactions. defaults to new account authority if no alternate authority provided"
+      },
+      {
+        "flag": "-s, --silent",
+        "description": "suppress cli prompts"
+      },
+      {
+        "flag": "-u, --rpcUrl=<value>",
+        "description": "alternate RPC url"
+      },
+      {
+        "flag": "-v, --verbose",
+        "description": "log everything"
+      },
+      {
+        "flag": "--cluster=<option>",
+        "description": "the solana cluster to connect to <options: devnet|mainnet-beta|mainnet|localnet>"
+      },
+      {
+        "flag": "--commitment=<option>",
+        "description": "[default: confirmed] transaction commitment level to use <options: confirmed|finalized|processed>"
+      },
+      {
+        "flag": "--fundAmount=<value>",
+        "description": "[default: 0.0]"
+      },
+      {
+        "flag": "--ledger",
+        "description": "enable ledger support"
+      },
+      {
+        "flag": "--ledgerPath=<value>",
+        "description": "HID path to the ledger"
+      },
+      {
+        "flag": "--mainnetBeta",
+        "description": "WARNING: use mainnet-beta solana cluster"
+      },
+      {
+        "flag": "--programId=<value>",
+        "description": "alternative Switchboard program ID to interact with GLOBAL FLAGS"
+      },
+      {
+        "flag": "--json",
+        "description": "Format output as json."
+      }
+    ],
+    "description": "wrap SOL into a function accounts escrow wallet"
+  },
+  {
+    "id": "solana-function-print",
+    "permalink": "/cli/solana/function/print",
+    "topic": "solana",
+    "command": "sbv2 solana function print",
+    "topics": [
+      "solana",
+      "function",
+      "print"
+    ],
+    "markdown": "USAGE\n  $ sbv2 solana function print FUNCTIONKEY [-h] [-v] [-s] [--mainnetBeta | --cluster devnet|mainnet-beta|mainnet|localnet]\n    [-u <value>] [--programId <value>] [--commitment confirmed|finalized|processed] [--json]\n\nARGUMENTS\n  FUNCTIONKEY  public key of the function account\n\nFLAGS\n  -h, --help             Show CLI help.\n  -s, --silent           suppress cli prompts\n  -u, --rpcUrl=<value>   alternate RPC url\n  -v, --verbose          log everything\n  --cluster=<option>     the solana cluster to connect to\n                         <options: devnet|mainnet-beta|mainnet|localnet>\n  --commitment=<option>  [default: confirmed] transaction commitment level to use\n                         <options: confirmed|finalized|processed>\n  --mainnetBeta          WARNING: use mainnet-beta solana cluster\n  --programId=<value>    alternative Switchboard program ID to interact with\n\nGLOBAL FLAGS\n  --json  Format output as json.\n\nDESCRIPTION\n  print a function account\n",
+    "usage": "sbv2 solana function print FUNCTIONKEY [-h] [-v] [-s] [--mainnetBeta | --cluster devnet|mainnet-beta|mainnet|localnet]\n    [-u <value>] [--programId <value>] [--commitment confirmed|finalized|processed] [--json]",
+    "args": [
+      {
+        "arg": "FUNCTIONKEY",
+        "description": "public key of the function account"
+      }
+    ],
+    "flags": [
+      {
+        "flag": " -h, --help",
+        "description": "Show CLI help."
+      },
+      {
+        "flag": "-s, --silent",
+        "description": "suppress cli prompts"
+      },
+      {
+        "flag": "-u, --rpcUrl=<value>",
+        "description": "alternate RPC url"
+      },
+      {
+        "flag": "-v, --verbose",
+        "description": "log everything"
+      },
+      {
+        "flag": "--cluster=<option>",
+        "description": "the solana cluster to connect to <options: devnet|mainnet-beta|mainnet|localnet>"
+      },
+      {
+        "flag": "--commitment=<option>",
+        "description": "[default: confirmed] transaction commitment level to use <options: confirmed|finalized|processed>"
+      },
+      {
+        "flag": "--mainnetBeta",
+        "description": "WARNING: use mainnet-beta solana cluster"
+      },
+      {
+        "flag": "--programId=<value>",
+        "description": "alternative Switchboard program ID to interact with GLOBAL FLAGS"
+      },
+      {
+        "flag": "--json",
+        "description": "Format output as json."
+      }
+    ],
+    "description": "print a function account"
   },
   {
     "id": "solana-job-create",
