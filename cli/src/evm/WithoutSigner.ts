@@ -1,7 +1,7 @@
 import { EvmBaseCommand as BaseCommand } from "./BaseCommand";
 
 import { Flags } from "@oclif/core";
-import { Input } from "@oclif/parser";
+import type { Input } from "@oclif/parser";
 import { SwitchboardProgram } from "@switchboard-xyz/evm.js";
 import { providers } from "ethers";
 

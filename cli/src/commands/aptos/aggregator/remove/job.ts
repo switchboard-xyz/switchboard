@@ -2,7 +2,7 @@ import { AptosWithSignerBaseCommand as BaseCommand } from "../../../../aptos";
 
 import { Args, Flags } from "@oclif/core";
 import { JobAccount } from "@switchboard-xyz/aptos.js";
-import { HexString } from "aptos";
+import type { HexString } from "aptos";
 
 export default class AggregatorRemoveJob extends BaseCommand {
   static hidden = true;

@@ -1,18 +1,18 @@
-import { ReleaseChannel } from './types';
+import type { ReleaseChannel } from "./types";
 
-import { downloadRelease } from '@terascope/fetch-github-release';
-import fs from 'fs';
-import fetch from 'node-fetch';
-import os from 'os';
-import path from 'path';
-import xdg from 'xdg-basedir';
+import { downloadRelease } from "@terascope/fetch-github-release";
+import fs from "fs";
+import fetch from "node-fetch";
+import os from "os";
+import path from "path";
+import xdg from "xdg-basedir";
 
 /** Sleep for a given number of milliseconds
  * @param {number} ms number of milliseconds to sleep for
  * @return {Promise<any>} a promise that resolves when the sleep interval has elapsed
  */
 export const sleep = (ms: number): Promise<any> =>
-  new Promise(s => setTimeout(s, ms));
+  new Promise((s) => setTimeout(s, ms));
 
 /**
  * Normalize a filesystem path and expand characters like '~'
@@ -20,11 +20,11 @@ export const sleep = (ms: number): Promise<any> =>
  * @return {string} The expanded filesystem path
  */
 export function normalizeFsPath(fsPath: string): string {
-  return fsPath.startsWith('/') ||
-    fsPath.startsWith('C:') ||
-    fsPath.startsWith('D:')
+  return fsPath.startsWith("/") ||
+    fsPath.startsWith("C:") ||
+    fsPath.startsWith("D:")
     ? fsPath
-    : fsPath.startsWith('~')
+    : fsPath.startsWith("~")
     ? path.join(os.homedir(), fsPath.slice(1))
     : path.join(process.cwd(), fsPath);
 }
@@ -34,17 +34,17 @@ export function normalizeFsPath(fsPath: string): string {
  * @return {string | null} The cache directory path for the current platform or null if the path cannot be determined.
  */
 export function getCacheDir(): string | null {
-  const appName = '@switchboard-xyz';
+  const appName = "@switchboard-xyz";
   const home = os.homedir();
 
   switch (os.platform()) {
-    case 'win32':
+    case "win32":
       return process.env.APPDATA
         ? path.join(process.env.APPDATA, appName)
         : null;
-    case 'darwin':
-      return home ? path.join(home, 'Library/Caches', appName) : null;
-    case 'linux':
+    case "darwin":
+      return home ? path.join(home, "Library/Caches", appName) : null;
+    case "linux":
       return xdg.cache ? path.join(xdg.cache, appName) : null;
   }
 
@@ -72,27 +72,27 @@ export async function downloadReleaseArtifact(
   oracleVersion: string
 ): Promise<string> {
   const cacheDir = getCacheDir() ?? process.cwd();
-  const outputLocation = path.join(cacheDir, 'sbv2-oracle', oracleVersion);
+  const outputLocation = path.join(cacheDir, "sbv2-oracle", oracleVersion);
   fs.mkdirSync(outputLocation, { recursive: true });
   if (
     fs.existsSync(outputLocation) &&
-    fs.existsSync(path.join(outputLocation, 'index.js'))
+    fs.existsSync(path.join(outputLocation, "index.js"))
   ) {
     return outputLocation;
   }
   await downloadRelease(
-    'switchboard-xyz',
-    'sbv2-oracle-operators',
+    "switchboard-xyz",
+    "sbv2-oracle-operators",
     outputLocation,
-    release => release.name === `Sbv2 Oracle ${oracleVersion}`,
-    asset => asset.name === 'sbv2-oracle.zip',
+    (release) => release.name === `Sbv2 Oracle ${oracleVersion}`,
+    (asset) => asset.name === "sbv2-oracle.zip",
     false,
     false
   );
 
   if (
     !fs.existsSync(outputLocation) ||
-    !fs.existsSync(path.join(outputLocation, 'index.js'))
+    !fs.existsSync(path.join(outputLocation, "index.js"))
   ) {
     throw new Error(`Failed to fetch the sbv2-oracle`);
   }
@@ -102,7 +102,7 @@ export async function downloadReleaseArtifact(
 
 export type ParsedRelease = {
   imageName: string;
-  releaseChannel: 'mainnet' | 'testnet' | undefined;
+  releaseChannel: "mainnet" | "testnet" | undefined;
   name: string;
   tag_name: string;
   published: number;
@@ -138,19 +138,19 @@ export async function fetchReleases(): Promise<Array<ParsedRelease>> {
     `https://api.github.com/repos/switchboard-xyz/sbv2-oracle-operators/releases`,
     {
       headers: {
-        Accept: 'application/vnd.github.v3+json',
+        Accept: "application/vnd.github.v3+json",
       },
     }
   );
   const releases: Array<ParsedRelease> = (await response.json()).map(
     (release: RawRelease) => {
-      const imageName = release.tag_name.startsWith('oracle/')
+      const imageName = release.tag_name.startsWith("oracle/")
         ? release.tag_name.slice(7)
         : release.tag_name;
-      const releaseChannel = imageName.startsWith('mainnet-')
-        ? 'mainnet'
-        : imageName.startsWith('testnet-')
-        ? 'testnet'
+      const releaseChannel = imageName.startsWith("mainnet-")
+        ? "mainnet"
+        : imageName.startsWith("testnet-")
+        ? "testnet"
         : undefined;
       const myRelease: ParsedRelease = {
         imageName,
@@ -196,7 +196,7 @@ export async function getNodeImage(
     );
   }
 
-  if (releaseChannel === 'latest') {
+  if (releaseChannel === "latest") {
     return releases[0].imageName;
   }
 
@@ -209,8 +209,8 @@ export async function getNodeImage(
       continue;
     }
 
-    const version = release.imageName.split('-', 2)[1];
-    const [major, minor, patch] = version.split('.', 3).map(Number);
+    const version = release.imageName.split("-", 2)[1];
+    const [major, minor, patch] = version.split(".", 3).map(Number);
 
     if (major > highestMajor) {
       highestMajor = major;

@@ -1,41 +1,43 @@
 import { CliBaseCommand as BaseCommand } from "../BaseCommand";
 import { AwsProvider, FsProvider, GcpProvider } from "../providers";
-import { IBaseChain } from "../types/chain";
+import type { IBaseChain } from "../types/chain";
 import { chalkString, stripTrailingZeros } from "../utils";
 
-import { BaseJob, JobDefinition, RawJobDefinition } from "./types";
+import type { BaseJob, JobDefinition, RawJobDefinition } from "./types";
 
 import { Flags } from "@oclif/core";
-import { Input } from "@oclif/parser";
+import type { Input } from "@oclif/parser";
+import type { Big, IChainNetworkConfig } from "@switchboard-xyz/common";
 import {
-  Big,
   BN,
   BNtoDateTimeString,
   getSupportedNetwork,
-  IChainNetworkConfig,
   isBase64,
   isHex,
   OracleJob,
   parseSecretString,
 } from "@switchboard-xyz/common";
-import {
-  AggregatorAccount,
+import type {
   AggregatorData,
   AggregatorReadConfig,
   AggregatorResponseConfig,
+  Job,
+  OracleData,
+  OracleQueueData,
+  SwitchboardProgram,
+} from "@switchboard-xyz/evm.js";
+import {
+  AggregatorAccount,
   fetchJobsFromIPFS,
   fromBigNumber,
-  Job,
   OracleAccount,
-  OracleData,
   OracleQueueAccount,
-  OracleQueueData,
   publishJobsToIPFS,
-  SwitchboardProgram,
 } from "@switchboard-xyz/evm.js";
 import chalk from "chalk";
 import { createHash } from "crypto";
-import { BigNumber, providers, Wallet } from "ethers";
+import type { BigNumber } from "ethers";
+import { providers, Wallet } from "ethers";
 import fs from "fs";
 import path from "path";
 

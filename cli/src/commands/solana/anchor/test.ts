@@ -5,13 +5,33 @@ import { loadKeypairFs } from "../../../utils/keypair";
 import { Flags } from "@oclif/core";
 import { clusterApiUrl, PublicKey } from "@solana/web3.js";
 import { sleep } from "@switchboard-xyz/common";
-import { IOracleConfig, NodeOracle } from "@switchboard-xyz/oracle";
+import type { IOracleConfig } from "@switchboard-xyz/oracle";
+import { NodeOracle } from "@switchboard-xyz/oracle";
 import { SB_V2_PID } from "@switchboard-xyz/solana.js";
-import { ChildProcess, spawn } from "child_process";
+import type { ChildProcess } from "child_process";
+import { spawn } from "child_process";
 import * as dotenv from "dotenv";
 import fs from "fs";
 import path from "path";
 import toml from "toml";
+
+interface AnchorToml {
+  workspace?: { members?: Array<string> };
+  features: { seeds?: boolean; "skip-lint"?: boolean };
+  programs?: { localnet?: Record<string, string> };
+  registry?: { url?: string };
+  provider?: { cluster?: string; wallet?: string };
+  scripts?: Record<string, string>;
+  test?: {
+    startup_wait?: number;
+    genesis?: Array<{ address?: string; program?: string }>;
+    validator?: {
+      url?: string;
+      clone?: Array<{ address?: string }>;
+      account?: Array<{ address?: string; filename?: string }>;
+    };
+  };
+}
 
 /** Get the program data address for a given programId
  * @param programId the programId for a given on-chain program
@@ -55,24 +75,6 @@ function getAnchorToml(filePath: string): AnchorToml | undefined {
   const rawToml = toml.parse(fs.readFileSync(filePath, "utf-8"));
   const anchorToml: AnchorToml = JSON.parse(JSON.stringify(rawToml));
   return anchorToml;
-}
-
-interface AnchorToml {
-  workspace?: { members?: Array<string> };
-  features: { seeds?: boolean; "skip-lint"?: boolean };
-  programs?: { localnet?: Record<string, string> };
-  registry?: { url?: string };
-  provider?: { cluster?: string; wallet?: string };
-  scripts?: Record<string, string>;
-  test?: {
-    startup_wait?: number;
-    genesis?: Array<{ address?: string; program?: string }>;
-    validator?: {
-      url?: string;
-      clone?: Array<{ address?: string }>;
-      account?: Array<{ address?: string; filename?: string }>;
-    };
-  };
 }
 
 export default class AnchorTest extends BaseCommand {

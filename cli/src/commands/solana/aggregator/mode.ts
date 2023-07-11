@@ -58,7 +58,7 @@ export default class AggregatorMode extends BaseCommand {
       throw new Error(`need to provide --slidingWindow or --roundResolution`);
     }
 
-    const setResolutionModeTxn = aggregatorAccount.setSlidingWindowInstruction(
+    const setResolutionModeTxn = aggregatorAccount.setResolutionModeInstruction(
       this.payer,
       {
         authority,

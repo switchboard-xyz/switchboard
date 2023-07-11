@@ -1,14 +1,14 @@
 export type Chain =
-  | 'aptos'
-  | 'coredao'
-  | 'near'
-  | 'solana'
-  | 'starknet'
-  | 'sui';
+  | "aptos"
+  | "coredao"
+  | "near"
+  | "solana"
+  | "starknet"
+  | "sui";
 
-export type Network = 'localnet' | 'devnet' | 'testnet' | 'mainnet' | 'mainnet';
+export type Network = "localnet" | "devnet" | "testnet" | "mainnet" | "mainnet";
 
-export type ReleaseChannel = 'testnet' | 'mainnet' | 'latest';
+export type ReleaseChannel = "testnet" | "mainnet" | "latest";
 
 export type ReleaseChannelVersion = {
   // Release channel for the oracle version to run
@@ -40,7 +40,7 @@ export type IOracleConfig = {
 };
 
 export interface IDockerConfig {
-  arch?: 'linux/arm64' | 'linux/amd64';
+  arch?: "linux/arm64" | "linux/amd64";
   // extra flags to pass to docker run
   dockerRunFlags?: Array<string>;
 }

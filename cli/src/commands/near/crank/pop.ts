@@ -3,7 +3,7 @@ import { NearWithSignerBaseCommand as BaseCommand } from "../../../near";
 import { Args } from "@oclif/core";
 import { BN } from "@switchboard-xyz/common";
 import { CrankAccount } from "@switchboard-xyz/near.js";
-import { FinalExecutionOutcome } from "near-api-js/lib/providers";
+import type { FinalExecutionOutcome } from "near-api-js/lib/providers";
 
 export const parseTxn = (
   txnReceipt: FinalExecutionOutcome

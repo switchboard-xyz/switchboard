@@ -1,7 +1,7 @@
 import { CliBaseCommand as BaseCommand } from "../../BaseCommand";
 
 import { Command, Flags } from "@oclif/core";
-import { OracleJob } from "@switchboard-xyz/common";
+import type { OracleJob } from "@switchboard-xyz/common";
 import fetch from "node-fetch";
 
 export default class JobTest extends BaseCommand {

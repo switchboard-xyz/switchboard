@@ -1,5 +1,5 @@
-import { PublicKey } from "@solana/web3.js";
-import { BN } from "@switchboard-xyz/common";
+import type { PublicKey } from "@solana/web3.js";
+import type { BN } from "@switchboard-xyz/common";
 import assert from "assert";
 
 export interface ICrankRow {

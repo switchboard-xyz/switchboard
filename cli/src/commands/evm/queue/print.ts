@@ -2,7 +2,7 @@ import { EvmWithoutSignerBaseCommand as BaseCommand } from "../../../evm";
 import { chalkString } from "../../../utils";
 
 import { Args, Flags } from "@oclif/core";
-import { OracleQueueData } from "@switchboard-xyz/evm.js";
+import type { OracleQueueData } from "@switchboard-xyz/evm.js";
 import chalk from "chalk";
 
 export default class QueuePrint extends BaseCommand {

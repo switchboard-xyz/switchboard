@@ -3,9 +3,9 @@ import { AuthorityMismatch } from "../types";
 import { EvmBaseCommand as BaseCommand } from "./BaseCommand";
 
 import { Flags } from "@oclif/core";
-import { Input } from "@oclif/parser";
+import type { Input } from "@oclif/parser";
 import { SwitchboardProgram } from "@switchboard-xyz/evm.js";
-import { Signer, Wallet } from "ethers";
+import type { Signer, Wallet } from "ethers";
 
 export abstract class EvmWithSignerBaseCommand extends BaseCommand {
   static flags = {

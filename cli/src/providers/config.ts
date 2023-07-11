@@ -1,7 +1,7 @@
 import { chalkString } from "../utils";
 
+import type { ChainConfig } from "@switchboard-xyz/common";
 import {
-  ChainConfig,
   getSupportedChain,
   getSupportedNetwork,
   networks,

@@ -1,4 +1,4 @@
-import * as anchor from "@coral-xyz/anchor";
+import type * as anchor from "@coral-xyz/anchor";
 import { PublicKey } from "@solana/web3.js";
 import { Big } from "@switchboard-xyz/common";
 import { BN } from "@switchboard-xyz/common";

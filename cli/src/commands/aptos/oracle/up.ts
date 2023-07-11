@@ -2,7 +2,8 @@ import { AptosWithSignerBaseCommand as BaseCommand } from "../../../aptos";
 import { sleep } from "../../../utils";
 
 import { Args, Flags } from "@oclif/core";
-import { IOracleConfig, NodeOracle } from "@switchboard-xyz/oracle";
+import type { IOracleConfig } from "@switchboard-xyz/oracle";
+import { NodeOracle } from "@switchboard-xyz/oracle";
 
 export default class AptosDockerOracle extends BaseCommand {
   static description = "start an aptos docker oracle";

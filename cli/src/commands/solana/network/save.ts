@@ -2,7 +2,7 @@ import { SolanaWithoutSignerBaseCommand as BaseCommand } from "../../../solana/i
 import { CHECK_ICON } from "../../../utils/index";
 
 import { Flags } from "@oclif/core";
-import { Keypair } from "@solana/web3.js";
+import type { Keypair } from "@solana/web3.js";
 import { QueueAccount, SwitchboardNetwork } from "@switchboard-xyz/solana.js";
 import chalk from "chalk";
 import fs from "fs";

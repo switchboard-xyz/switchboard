@@ -1,6 +1,6 @@
-import { Big } from 'big.js';
-import BN from 'bn.js';
-import { Decimal } from 'decimal.js';
+import { Big } from "big.js";
+import BN from "bn.js";
+import { Decimal } from "decimal.js";
 
 export interface WeightedValue {
   idx: number;
@@ -19,7 +19,7 @@ function comparator(a: Big, b: Big): number {
 }
 
 export function median(results: Array<Big>): Big {
-  if (!results?.length) throw new Error('Cannot take median of empty array.');
+  if (!results?.length) throw new Error("Cannot take median of empty array.");
 
   const arrSort = results.slice().sort(comparator);
   const mid = Math.ceil(arrSort.length / 2);
@@ -35,7 +35,7 @@ export function weightedAverage(v1: Big, w1: Big, v2: Big, w2: Big): Big {
 }
 
 export function weightedMedian(results: Array<WeightedValue>): Big {
-  if (!results?.length) throw new Error('Cannot take median of empty array.');
+  if (!results?.length) throw new Error("Cannot take median of empty array.");
   for (let i = 0; i < results.length; ++i) {
     if (results[i].weight === 0) {
       results[i].weight = 1;
@@ -68,7 +68,7 @@ export function weightedMedian(results: Array<WeightedValue>): Big {
 
 export function min(results: Array<Big>): Big {
   if (results.length === 0) {
-    throw new Error('Cannot reduce empty array.');
+    throw new Error("Cannot reduce empty array.");
   }
   return results.reduce(
     (val, current) => (val.lt(current) ? val : current),
@@ -78,7 +78,7 @@ export function min(results: Array<Big>): Big {
 
 export function max(results: Array<Big>): Big {
   if (results.length === 0) {
-    throw new Error('Cannot reduce empty array.');
+    throw new Error("Cannot reduce empty array.");
   }
   return results.reduce(
     (val, current) => (val.gt(current) ? val : current),
@@ -90,7 +90,7 @@ export function max(results: Array<Big>): Big {
 // If we pull data that may be negative, this information is not entirely relevant.
 export function variance(results: Array<Big>): Big {
   if (results?.length === 0) {
-    throw new Error('Cannot take variance of empty array');
+    throw new Error("Cannot take variance of empty array");
   }
   const arrSort = results
     .slice()

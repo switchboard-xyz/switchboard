@@ -3,7 +3,7 @@ import { NearWithSignerBaseCommand as BaseCommand } from "../../../../near";
 import { Args, Flags } from "@oclif/core";
 import { AggregatorAccount, JobAccount } from "@switchboard-xyz/near.js";
 import base58 from "bs58";
-import { FinalExecutionOutcome } from "near-api-js/lib/providers";
+import type { FinalExecutionOutcome } from "near-api-js/lib/providers";
 
 export default class AggregatorRemoveJob extends BaseCommand {
   static description = "remove a job to an aggregator";

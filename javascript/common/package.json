@@ -1,7 +1,7 @@
 {
   "name": "@switchboard-xyz/common",
   "license": "MIT",
-  "version": "2.2.4",
+  "version": "2.2.5",
   "description": "common type definitions and utils for interacting with switchboard",
   "files": [
     "lib/",
@@ -10,9 +10,9 @@
     "index.cjs",
     "index.js",
     "index.d.ts",
-    "build.cjs",
-    "build.js",
-    "build.d.ts",
+    "esm-utils.cjs",
+    "esm-utils.js",
+    "esm-utils.d.ts",
     "protos.cjs",
     "protos.js",
     "protos.d.ts",
@@ -26,10 +26,10 @@
       "import": "./index.js",
       "require": "./index.cjs"
     },
-    "./build": {
-      "types": "./build.d.ts",
-      "import": "./build.js",
-      "require": "./build.cjs"
+    "./esm-utils": {
+      "types": "./esm-utils.d.ts",
+      "import": "./esm-utils.js",
+      "require": "./esm-utils.cjs"
     },
     "./protos": {
       "types": "./protos.d.ts",
@@ -47,12 +47,12 @@
   "main": "./index.js",
   "types": "./index.d.ts",
   "scripts": {
-    "build": "rimraf lib && node ./esbuild.js && echo '!src/build.js' >> .gitignore",
-    "test": "jest",
-    "prepack": "npm run lint && npm run build && npm run test",
-    "lint": "gts lint ./src",
-    "clean": "gts clean",
-    "fix": "gts fix ./src"
+    "build": "pnpm exec rimraf lib && node ./compile-protos.js && echo '!src/esm-utils.js' >> .gitignore",
+    "test": "pnpm exec jest",
+    "prepack": "pnpm lint && pnpm build && pnpm test",
+    "lint": "pnpm exec eslint src/**/*.ts",
+    "clean": "pnpm exec rimraf node_modules lib .turbo",
+    "fix": "pnpm exec eslint --fix src/**/*.ts"
   },
   "dependencies": {
     "@solana/web3.js": "^1.66.2",

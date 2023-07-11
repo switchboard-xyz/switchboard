@@ -43,7 +43,7 @@
   "typedocOptions": {
     "entryPoints": [
       "src/index.ts",
-      "src/build.ts",
+      "src/esm-utils.ts",
       "src/protos.ts",
       "src/networks/index.ts"
     ]

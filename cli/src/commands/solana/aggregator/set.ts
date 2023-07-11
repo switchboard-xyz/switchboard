@@ -125,7 +125,7 @@ export default class AggregatorSet extends BaseCommand {
       aggregatorData.resolutionMode.kind !==
         types.AggregatorResolutionMode.ModeSlidingResolution.kind
     ) {
-      const setResolutionMode = aggregatorAccount.setSlidingWindowInstruction(
+      const setResolutionMode = aggregatorAccount.setResolutionModeInstruction(
         this.payer,
         {
           authority,

@@ -1,13 +1,14 @@
 import { CliBaseCommand as BaseCommand } from "../BaseCommand";
 import { AwsProvider, FsProvider, GcpProvider } from "../providers";
 import { AuthorityMismatch } from "../types";
-import { IBaseChain } from "../types/chain";
+import type { IBaseChain } from "../types/chain";
 import { loadKeypair } from "../utils";
 
 import {
   prettyPrintAggregator,
   prettyPrintAggregatorAccounts,
   prettyPrintCrank,
+  prettyPrintFunction,
   prettyPrintJob,
   prettyPrintJobs,
   prettyPrintLease,
@@ -19,39 +20,35 @@ import {
   prettyPrintVrfAccounts,
 } from "./utils";
 
-import * as anchor from "@coral-xyz/anchor";
+import type * as anchor from "@coral-xyz/anchor";
 import { Flags } from "@oclif/core";
-import { Input } from "@oclif/parser";
-import {
-  AccountInfo,
-  Cluster,
-  Connection,
-  Keypair,
-  PublicKey,
-} from "@solana/web3.js";
+import type { Input } from "@oclif/parser";
+import type { AccountInfo, Cluster } from "@solana/web3.js";
+import { Connection, Keypair, PublicKey } from "@solana/web3.js";
 import { OracleJob } from "@switchboard-xyz/common";
+import type {
+  AggregatorAccounts,
+  attestationTypes,
+  SwitchboardAccountType,
+  VrfAccounts,
+} from "@switchboard-xyz/solana.js";
 import {
   AggregatorAccount,
-  AggregatorAccounts,
   CrankAccount,
   JobAccount,
   LeaseAccount,
   OracleAccount,
   PermissionAccount,
   QueueAccount,
-  SwitchboardAccountType,
   SwitchboardProgram,
   types,
   VrfAccount,
-  VrfAccounts,
 } from "@switchboard-xyz/solana.js";
 
 export type SolanaNetwork = Cluster | "localnet";
 
-export abstract class SolanaBaseCommand
-  extends BaseCommand
-  implements IBaseChain
-{
+export abstract class SolanaBaseCommand extends BaseCommand
+  implements IBaseChain {
   static flags = {
     ...BaseCommand.flags,
     mainnetBeta: Flags.boolean({
@@ -486,6 +483,14 @@ export abstract class SolanaBaseCommand
     SPACING = 24
   ) {
     this.logger.info(prettyPrintSbstate(programState, publicKey, SPACING));
+  }
+
+  prettyPrintFunction(
+    functionState: attestationTypes.FunctionAccountData,
+    publicKey: PublicKey,
+    SPACING = 24
+  ) {
+    this.logger.info(prettyPrintFunction(functionState, publicKey, SPACING));
   }
 
   async printAccount(

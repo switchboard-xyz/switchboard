@@ -5,15 +5,15 @@ import { SolanaBaseCommand } from "./BaseCommand";
 import Solana from "@ledgerhq/hw-app-solana";
 import TransportNodeHid from "@ledgerhq/hw-transport-node-hid-singleton";
 import { Flags, ux } from "@oclif/core";
-import { flags, Input } from "@oclif/parser";
-import {
+import type { Input } from "@oclif/parser";
+import { flags } from "@oclif/parser";
+import type {
   ConfirmOptions,
   Keypair,
-  PublicKey,
-  sendAndConfirmRawTransaction,
   TransactionSignature,
 } from "@solana/web3.js";
-import { TransactionObject } from "@switchboard-xyz/solana.js";
+import { PublicKey, sendAndConfirmRawTransaction } from "@solana/web3.js";
+import type { TransactionObject } from "@switchboard-xyz/solana.js";
 import bs58 from "bs58";
 import chalk from "chalk";
 

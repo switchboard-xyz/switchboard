@@ -1,6 +1,6 @@
-import { PublicKey } from "@solana/web3.js";
-import { OracleJob } from "@switchboard-xyz/common";
-import { HexString } from "aptos";
+import type { PublicKey } from "@solana/web3.js";
+import type { OracleJob } from "@switchboard-xyz/common";
+import type { HexString } from "aptos";
 
 /** Interfaces each chain must support */
 export interface IBaseChain {

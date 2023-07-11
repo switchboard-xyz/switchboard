@@ -4,19 +4,18 @@
 import { NoPayerKeypairProvided } from "../types";
 import { chalkString } from "../utils";
 
-import { AccountMeta, Keypair, PublicKey } from "@solana/web3.js";
-import {
-  BNtoDateTimeString,
-  buf2String,
-  OracleJob,
-} from "@switchboard-xyz/common";
+import type { AccountMeta } from "@solana/web3.js";
+import { Keypair, PublicKey } from "@solana/web3.js";
+import type { OracleJob } from "@switchboard-xyz/common";
+import { BNtoDateTimeString, buf2String } from "@switchboard-xyz/common";
 import { BN } from "@switchboard-xyz/common";
-import {
+import type {
   AggregatorAccounts,
+  attestationTypes,
   SwitchboardProgram,
-  types,
   VrfAccounts,
 } from "@switchboard-xyz/solana.js";
+import { types } from "@switchboard-xyz/solana.js";
 import chalk from "chalk";
 
 export const programHasPayer = (program: SwitchboardProgram): boolean => {
@@ -594,6 +593,82 @@ export function prettyPrintSbstate(
   output.push(chalkString("tokenMint", programState.tokenMint, SPACING));
   output.push(chalkString("tokenVault", programState.tokenVault, SPACING));
   output.push(chalkString("daoMint", programState.daoMint, SPACING));
+
+  return output.join("\n");
+}
+
+const emptyEnclave = Array.from({ length: 32 }).fill(0);
+
+export function prettyPrintFunction(
+  functionState: attestationTypes.FunctionAccountData,
+  publicKey: PublicKey,
+  SPACING = 24
+): string {
+  const output: string[] = [];
+
+  const mrEnclaves = functionState.mrEnclaves.filter(
+    (mrEnclave) => mrEnclave !== emptyEnclave
+  );
+
+  output.push(chalk.underline(chalkString("## Function", publicKey, SPACING)));
+
+  output.push(chalkString("name", buf2String(functionState.name), SPACING));
+  output.push(
+    chalkString("metadata", buf2String(functionState.metadata), SPACING)
+  );
+  output.push(
+    chalkString(
+      "createdAt",
+      BNtoDateTimeString(functionState.createdAt),
+      SPACING
+    )
+  );
+  output.push(
+    chalkString(
+      "updatedAt",
+      BNtoDateTimeString(functionState.updatedAt),
+      SPACING
+    )
+  );
+  output.push(
+    chalkString("mrEnclave", `[${functionState.enclave.mrEnclave!}]`, SPACING)
+  );
+  output.push(
+    chalkString("mrEnclaveLen", mrEnclaves.length + " / 32", SPACING)
+  );
+  output.push(chalkString("authority", functionState.authority, SPACING));
+  output.push(
+    chalkString("attestationQueue", functionState.attestationQueue, SPACING)
+  );
+  output.push(chalkString("escrowWallet", functionState.escrowWallet, SPACING));
+  output.push(
+    chalkString("container", buf2String(functionState.container), SPACING)
+  );
+  output.push(
+    chalkString(
+      "containerRegistry",
+      buf2String(functionState.containerRegistry),
+      SPACING
+    )
+  );
+  output.push(
+    chalkString("version", buf2String(functionState.version), SPACING)
+  );
+  output.push(chalkString("triggerCount", functionState.triggerCount, SPACING));
+  output.push(
+    chalkString(
+      "lastExecution",
+      BNtoDateTimeString(functionState.lastExecutionTimestamp),
+      SPACING
+    )
+  );
+  output.push(
+    chalkString(
+      "nextAllowed",
+      BNtoDateTimeString(functionState.nextAllowedTimestamp),
+      SPACING
+    )
+  );
 
   return output.join("\n");
 }

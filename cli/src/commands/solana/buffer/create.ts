@@ -4,11 +4,8 @@ import { CHECK_ICON } from "../../../utils/icons";
 import { Args, Flags } from "@oclif/core";
 import { Keypair } from "@solana/web3.js";
 import { OracleJob } from "@switchboard-xyz/common";
-import {
-  JobAccount,
-  JobInitParams,
-  QueueAccount,
-} from "@switchboard-xyz/solana.js";
+import type { JobInitParams } from "@switchboard-xyz/solana.js";
+import { JobAccount, QueueAccount } from "@switchboard-xyz/solana.js";
 import chalk from "chalk";
 
 export default class BufferCreate extends BaseCommand {

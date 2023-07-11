@@ -3,7 +3,7 @@
  * @return a promise that resolves when the sleep interval has elapsed
  */
 export const sleep = (ms: number): Promise<any> =>
-  new Promise(s => setTimeout(s, ms));
+  new Promise((s) => setTimeout(s, ms));
 
 /**
  * Typescript assertion that a promise was successfully fulfilled
@@ -17,7 +17,7 @@ export const sleep = (ms: number): Promise<any> =>
 export function assertFulfilled<T>(
   item: PromiseSettledResult<T>
 ): item is PromiseFulfilledResult<T> {
-  return item.status === 'fulfilled';
+  return item.status === "fulfilled";
 }
 
 export class TimeoutError extends Error {
@@ -25,7 +25,7 @@ export class TimeoutError extends Error {
     super(
       `TimeoutError${
         msg
-          ? ': ' + msg
+          ? ": " + msg
           : `timed out after ${Math.round(ms / 1000).toFixed(3)} seconds`
       }`
     );

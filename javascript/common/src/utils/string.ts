@@ -1,4 +1,4 @@
-import bs58 from 'bs58';
+import bs58 from "bs58";
 /**
  * Converts to utf-8 encoding and removes null characters.
  *
@@ -10,9 +10,9 @@ export const buf2String = (
   buf: Uint8Array | number[] | string | Buffer
 ): string =>
   Buffer.from(buf)
-    .toString('utf8')
-    .replace(/\u0000/g, '')
-    .replace(/\0/g, '');
+    .toString("utf8")
+    .replace(/\u0000/g, "")
+    .replace(/\0/g, "");
 
 /**
  * Converts to utf-8 encoding and removes null characters.
@@ -38,7 +38,7 @@ export const isBase58 = (value: string): boolean =>
  * @returns boolean indicating if a value contains a secretKey in byte array format
  */
 export const isBytes = (value: string, length?: number): boolean => {
-  const lengthPattern = length ? `{${length},}` : '*';
+  const lengthPattern = length ? `{${length},}` : "*";
   const bytesRegexPattern = new RegExp(
     `^\\[\\s*(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)((\\s*,\\s*(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?))${lengthPattern})?\\s*\\]$`
   );
@@ -104,15 +104,15 @@ export const parseSecretString = (
 
   if (isHex(secretString)) {
     return Buffer.from(
-      secretString.startsWith('0x') || secretString.startsWith('0X')
+      secretString.startsWith("0x") || secretString.startsWith("0X")
         ? secretString.slice(2)
         : secretString,
-      'hex'
+      "hex"
     );
   }
 
   if (isBase64(secretString)) {
-    return Buffer.from(secretString, 'base64');
+    return Buffer.from(secretString, "base64");
   }
 
   if (isBase58(secretString)) {

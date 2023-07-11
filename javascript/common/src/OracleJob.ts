@@ -1,6 +1,6 @@
-import * as proto from './protos/index.js';
+import * as proto from "./protos/index.js";
 
-import { Big } from 'big.js';
+import { Big } from "big.js";
 
 /**
  * Serialize a stringified OracleJob and replace any json comments
@@ -17,13 +17,13 @@ export function serializeOracleJob(
   }
 
   let jobObj: proto.IOracleJob;
-  if (typeof job === 'string') {
+  if (typeof job === "string") {
     const parsedFileString = job
       // replace all json comments https://regex101.com/r/B8WkuX/1
-      .replace(/\/\*[\s\S]*?\*\/|([^\\:]|^)\/\/.*$/g, '');
+      .replace(/\/\*[\s\S]*?\*\/|([^\\:]|^)\/\/.*$/g, "");
     jobObj = proto.OracleJob.fromObject(JSON.parse(parsedFileString));
   } else {
-    if (!('tasks' in job) || !Array.isArray(job.tasks)) {
+    if (!("tasks" in job) || !Array.isArray(job.tasks)) {
       throw new Error(`OracleJob is missing the 'tasks' property`);
     }
     if (job.tasks.length === 0) {
@@ -54,7 +54,7 @@ export function deserializeOracleJob(
   return proto.OracleJob.decodeDelimited(jobData);
 }
 
-export type TaskSimulatorNetwork = 'devnet' | 'mainnet-beta';
+export type TaskSimulatorNetwork = "devnet" | "mainnet-beta";
 
 export type TaskRunnerResponse = TaskRunnerError | TaskRunnerSuccess;
 
@@ -79,13 +79,13 @@ export type TaskRunnerSuccess = TaskRunnerMeta & {
  */
 export async function simulateOracleJobs(
   jobs: Array<proto.OracleJob>,
-  network: TaskSimulatorNetwork = 'mainnet-beta'
+  network: TaskSimulatorNetwork = "mainnet-beta"
 ): Promise<TaskRunnerResponse> {
-  const response = await fetch('https://task.switchboard.xyz/simulate', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
+  const response = await fetch("https://task.switchboard.xyz/simulate", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
-      jobs: jobs.map(j => j.toJSON()),
+      jobs: jobs.map((j) => j.toJSON()),
       cluster: network,
     }),
   });
@@ -102,7 +102,7 @@ export async function simulateOracleJobs(
   } = await response.json();
 
   return {
-    results: payload.results.map(r => new Big(r)),
+    results: payload.results.map((r) => new Big(r)),
     result: new Big(payload.result),
     taskRunnerVersion: payload.task_runner_version,
   };

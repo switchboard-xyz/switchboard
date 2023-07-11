@@ -2,9 +2,9 @@ import { SolanaWithSignerBaseCommand as BaseCommand } from "../../../solana/inde
 
 import { Flags } from "@oclif/core";
 import { clusterApiUrl } from "@solana/web3.js";
-import { DockerOracle } from "@switchboard-xyz/oracle";
+import type { DockerOracle } from "@switchboard-xyz/oracle";
+import type { LoadedSwitchboardNetwork } from "@switchboard-xyz/solana.js";
 import {
-  LoadedSwitchboardNetwork,
   SwitchboardNetwork,
   TransactionObject,
 } from "@switchboard-xyz/solana.js";

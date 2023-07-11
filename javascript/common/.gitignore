@@ -1,13 +1,13 @@
 index.cjs
 index.js
 index.d.ts
-build.cjs
-build.js
-build.d.ts
+esm-utils.cjs
+esm-utils.js
+esm-utils.d.ts
 protos.cjs
 protos.js
 protos.d.ts
 networks.cjs
 networks.js
 networks.d.ts
-!src/build.js
+!src/esm-utils.js

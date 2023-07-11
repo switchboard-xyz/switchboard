@@ -3,7 +3,8 @@ import { CHECK_ICON } from "../../../utils";
 
 import * as anchor from "@coral-xyz/anchor";
 import { Args, Flags } from "@oclif/core";
-import { Keypair, PublicKey } from "@solana/web3.js";
+import type { Keypair } from "@solana/web3.js";
+import { PublicKey } from "@solana/web3.js";
 import { isBase58 } from "@switchboard-xyz/common";
 import {
   AttestationQueueAccount,
@@ -57,6 +58,7 @@ export default class FunctionCreate extends BaseCommand {
     containerRegistry: Flags.string({
       description:
         "the registry to pull the container from (Ex. Docker or IPFS)",
+      options: ["dockerhub", "ipfs"],
       default: "docker",
     }),
     version: Flags.string({
@@ -133,6 +135,19 @@ export default class FunctionCreate extends BaseCommand {
       );
     }
 
+    let containerRegistry: "dockerhub" | "ipfs" | undefined;
+    if (flags.containerRegistry) {
+      if (
+        flags.containerRegistry !== "dockerhub" &&
+        flags.containerRegistry !== "ipfs"
+      ) {
+        throw new Error(
+          `--containerRegistry needs to be 'dockerhub' or 'ipfs'`
+        );
+      }
+      containerRegistry = flags.containerRegistry;
+    }
+
     const [functionAccount, txn] =
       await attestationQueueAccount.createFunctionInstruction(this.payer, {
         name: flags.name,
@@ -140,7 +155,7 @@ export default class FunctionCreate extends BaseCommand {
         authority: authority,
         schedule: flags.schedule,
         container: flags.container,
-        containerRegistry: flags.containerRegistry,
+        containerRegistry: containerRegistry,
         version: flags.version,
         mrEnclave: parseMrEnclave(flags.mrEnclave ?? ""),
         enable: flags.enable ?? false,

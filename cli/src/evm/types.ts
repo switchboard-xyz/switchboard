@@ -1,5 +1,5 @@
-import { OracleJob } from "@switchboard-xyz/common";
-import { Job } from "@switchboard-xyz/evm.js";
+import type { OracleJob } from "@switchboard-xyz/common";
+import type { Job } from "@switchboard-xyz/evm.js";
 
 export type BaseDefinition = {
   path: string;

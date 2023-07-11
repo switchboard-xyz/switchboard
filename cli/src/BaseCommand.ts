@@ -1,14 +1,5 @@
-/** BaseCommand
- * - Config
- * - Logger
- * - Filesystem Utils
- */
-import {
-  ConfigProvider,
-  FsProvider,
-  LoggerParameters,
-  LogProvider,
-} from "./providers";
+import type { LoggerParameters } from "./providers";
+import { ConfigProvider, FsProvider, LogProvider } from "./providers";
 import {
   baseJsonReplacers,
   chalkString,
@@ -18,7 +9,7 @@ import {
 } from "./utils";
 
 import { Command, Flags } from "@oclif/core";
-import { Input } from "@oclif/parser";
+import type { Input } from "@oclif/parser";
 import { PublicKey } from "@solana/web3.js";
 import { Big } from "@switchboard-xyz/common";
 import { OracleJob, toUtf8 } from "@switchboard-xyz/common";

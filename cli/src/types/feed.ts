@@ -1,4 +1,4 @@
-import { OracleJob } from "@switchboard-xyz/common";
+import type { OracleJob } from "@switchboard-xyz/common";
 import { Big } from "@switchboard-xyz/common";
 import fs from "fs";
 import path from "path";

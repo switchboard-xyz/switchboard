@@ -3,10 +3,10 @@ import { chalkString } from "../../../utils/misc";
 
 import { Args, Flags } from "@oclif/core";
 import { PublicKey } from "@solana/web3.js";
+import type { AggregatorHistoryMetrics } from "@switchboard-xyz/solana.js";
 import {
   AggregatorAccount,
   AggregatorHistoryBuffer,
-  AggregatorHistoryMetrics,
 } from "@switchboard-xyz/solana.js";
 
 export default class AggregatorMetrics extends BaseCommand {

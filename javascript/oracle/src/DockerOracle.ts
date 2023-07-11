@@ -1,20 +1,20 @@
-import { ISwitchboardOracle } from './SwitchboardOracle';
-import {
+import { ISwitchboardOracle } from "./SwitchboardOracle";
+import type {
   Chain,
   IDockerOracleConfig,
   IOracleConfig,
   Network,
   OracleTagVersion,
   ReleaseChannelVersion,
-} from './types';
-import { getNodeImage, normalizeFsPath, sleep } from './utils';
+} from "./types";
+import { getNodeImage, normalizeFsPath, sleep } from "./utils";
 
-import type { ChildProcess } from 'child_process';
-import { execSync, spawn } from 'child_process';
-import crypto from 'crypto';
-import fs from 'fs';
-import os from 'os';
-import path from 'path';
+import type { ChildProcess } from "child_process";
+import { execSync, spawn } from "child_process";
+import crypto from "crypto";
+import fs from "fs";
+import os from "os";
+import path from "path";
 
 export class DockerOracle extends ISwitchboardOracle {
   readonly imageTag: string;
@@ -23,7 +23,7 @@ export class DockerOracle extends ISwitchboardOracle {
   readonly silent: boolean;
 
   readonly image: string;
-  readonly arch: 'linux/arm64' | 'linux/amd64';
+  readonly arch: "linux/arm64" | "linux/amd64";
   readonly dockerRunFlags: Array<string>;
 
   readonly chain: Chain;
@@ -47,7 +47,7 @@ export class DockerOracle extends ISwitchboardOracle {
     // set config
     this.chain = config.chain;
     this.network = config.network;
-    this.arch = config.arch ?? 'linux/amd64';
+    this.arch = config.arch ?? "linux/amd64";
     this.imageTag = config.imageTag;
     this.silent = config.silent ?? false;
 
@@ -64,22 +64,22 @@ export class DockerOracle extends ISwitchboardOracle {
 
     // Set environment variables for docker image
     this.envVariables = ISwitchboardOracle.parseEnvVariables(config);
-    if (this.envVariables['RPC_URL'].includes('localhost')) {
-      this.envVariables['RPC_URL'] = this.envVariables['RPC_URL'].replace(
-        'localhost',
-        'host.docker.internal'
+    if (this.envVariables["RPC_URL"].includes("localhost")) {
+      this.envVariables["RPC_URL"] = this.envVariables["RPC_URL"].replace(
+        "localhost",
+        "host.docker.internal"
       );
     }
-    if (this.envVariables['RPC_URL'].includes('0.0.0.0')) {
-      this.envVariables['RPC_URL'] = this.envVariables['RPC_URL'].replace(
-        '0.0.0.0',
-        'host.docker.internal'
+    if (this.envVariables["RPC_URL"].includes("0.0.0.0")) {
+      this.envVariables["RPC_URL"] = this.envVariables["RPC_URL"].replace(
+        "0.0.0.0",
+        "host.docker.internal"
       );
     }
 
     // log config
     this.switchboardDirectory =
-      config.switchboardDirectory ?? path.join(process.cwd(), '.switchboard');
+      config.switchboardDirectory ?? path.join(process.cwd(), ".switchboard");
     if (!fs.existsSync(this.switchboardDirectory)) {
       fs.mkdirSync(this.switchboardDirectory, { recursive: true });
     }
@@ -89,7 +89,7 @@ export class DockerOracle extends ISwitchboardOracle {
     );
 
     // build image name from a hash of provided args
-    const shaHash = crypto.createHash('sha256');
+    const shaHash = crypto.createHash("sha256");
     shaHash.update(
       Buffer.from(
         [
@@ -98,24 +98,24 @@ export class DockerOracle extends ISwitchboardOracle {
           this.secretPath,
           this.arch,
           this.imageTag,
-        ].join(' ') + JSON.stringify(this.envVariables)
+        ].join(" ") + JSON.stringify(this.envVariables)
       )
     );
-    const hash = shaHash.digest().toString('hex');
+    const hash = shaHash.digest().toString("hex");
 
     this.image = `sbv2-${this.chain}-${this.network}-${this.imageTag.replace(
-      'dev-v2-',
-      ''
+      "dev-v2-",
+      ""
     )}-${hash.slice(0, 16)}`;
 
     // callback config
-    this.onDataCallback = data => {
+    this.onDataCallback = (data) => {
       this.addLog(data.toString());
       if (!this.silent) {
         console.log(`\u001B[34m${data.toString()}\u001B[0m`);
       }
     };
-    this.onErrorCallback = error => {
+    this.onErrorCallback = (error) => {
       this.addLog(error.toString());
       if (!this.silent) {
         console.error(`\u001B[31m${error.toString()}\u001B[0m`);
@@ -135,7 +135,7 @@ export class DockerOracle extends ISwitchboardOracle {
         console.error(
           `\u001B[31mDocker image exited with code ${code}\u001B[0m`
         );
-        console.log(`\u001B[34m${'Restarting oracle ...'}\u001B[0m`);
+        console.log(`\u001B[34m${"Restarting oracle ..."}\u001B[0m`);
         this.startOracle();
       } else if (code !== 0 && code !== 1) {
         console.error(
@@ -164,7 +164,7 @@ export class DockerOracle extends ISwitchboardOracle {
   public static isDockerRunning() {
     // Check docker is running
     try {
-      execSync(`docker ps`, { stdio: ['pipe', 'pipe', 'pipe'] });
+      execSync(`docker ps`, { stdio: ["pipe", "pipe", "pipe"] });
     } catch (error) {
       throw new Error(`Is Docker running?`);
     }
@@ -176,15 +176,15 @@ export class DockerOracle extends ISwitchboardOracle {
   start() {
     // Kill all existing switchboard oracles
     try {
-      if (os.type() === 'Windows_NT') {
+      if (os.type() === "Windows_NT") {
         execSync(
           `FOR /F "tokens=*" %i IN ('docker ps -q -f "ancestor=switchboardlabs/node"') DO (docker container stop %i)`,
-          { stdio: ['pipe', 'pipe', 'pipe'], shell: 'powershell.exe' }
+          { stdio: ["pipe", "pipe", "pipe"], shell: "powershell.exe" }
         );
       } else {
         execSync(
           `docker container stop $(docker ps | grep "switchboardlabs/node" | awk '{ print $1 }')`,
-          { stdio: ['pipe', 'pipe', 'pipe'] }
+          { stdio: ["pipe", "pipe", "pipe"] }
         );
       }
     } catch (error) {
@@ -214,7 +214,7 @@ export class DockerOracle extends ISwitchboardOracle {
 
     try {
       execSync(`docker container stop ${this.image}`, {
-        stdio: ['pipe', 'pipe', 'pipe'],
+        stdio: ["pipe", "pipe", "pipe"],
       });
       return true;
     } catch (error) {
@@ -250,31 +250,31 @@ export class DockerOracle extends ISwitchboardOracle {
     // If the container is running with --privileged flag it will have full access to the host, including the /proc filesystem, so the check would return false
     // Checking the presence of this file only verifies that the process is running in a cgroup, not that it is running in a container.
     try {
-      if (fs.existsSync('/proc/self/cgroup')) {
+      if (fs.existsSync("/proc/self/cgroup")) {
         return true;
       }
     } catch (error) {}
 
     try {
-      const stdout = execSync('ps -o pid,args', {
-        encoding: 'utf-8',
+      const stdout = execSync("ps -o pid,args", {
+        encoding: "utf-8",
       });
-      if (stdout.includes('dockerd') || stdout.includes('containerd')) {
+      if (stdout.includes("dockerd") || stdout.includes("containerd")) {
         return true;
       }
     } catch (error) {}
 
     try {
-      const stdout = execSync('lsof -p $$', {
-        encoding: 'utf-8',
+      const stdout = execSync("lsof -p $$", {
+        encoding: "utf-8",
       });
-      if (stdout.includes('/var/run/docker.sock')) {
+      if (stdout.includes("/var/run/docker.sock")) {
         return true;
       }
     } catch (error) {}
 
     // not a reliable way to check as it's not only depend on the container, it's depend on the environment variable set by the host or other config
-    if (process.env.container && process.env.container === 'docekr') {
+    if (process.env.container && process.env.container === "docekr") {
       return true;
     }
 
@@ -307,7 +307,7 @@ export class DockerOracle extends ISwitchboardOracle {
       dockerRunFlags.add(`-e ${key.toUpperCase()}=${value}`);
     }
 
-    if (os.type() === 'Linux') {
+    if (os.type() === "Linux") {
       dockerRunFlags.add(`--add-host=host.docker.internal:host-gateway`);
     }
 
@@ -316,9 +316,9 @@ export class DockerOracle extends ISwitchboardOracle {
       dockerRunFlags.add(`-v /var/run/docker.sock:/var/run/docker.sock`);
     }
 
-    if (this.chain === 'aptos') {
+    if (this.chain === "aptos") {
       return [
-        'run',
+        "run",
         ...Array.from(dockerRunFlags),
         `-e APTOS_FS_PAYER_SECRET_PATH=/home/node/sbv2-oracle/payer_secrets.json`,
         `--mount type=bind,source=${this.secretPath},target=/home/node/sbv2-oracle/payer_secrets.json`,
@@ -326,9 +326,9 @@ export class DockerOracle extends ISwitchboardOracle {
       ].filter(Boolean);
     }
 
-    if (this.chain === 'near') {
+    if (this.chain === "near") {
       return [
-        'run',
+        "run",
         ...Array.from(dockerRunFlags),
         `-e NEAR_FS_PAYER_SECRET_PATH=/home/node/sbv2-oracle/payer_secrets.json`,
         `--mount type=bind,source=${this.secretPath},target=/home/node/sbv2-oracle/payer_secrets.json`,
@@ -336,9 +336,9 @@ export class DockerOracle extends ISwitchboardOracle {
       ].filter(Boolean);
     }
 
-    if (this.chain === 'solana') {
+    if (this.chain === "solana") {
       return [
-        'run',
+        "run",
         ...Array.from(dockerRunFlags),
         `-e SOLANA_FS_PAYER_SECRET_PATH=/home/node/sbv2-oracle/payer_secrets.json`,
         `--mount type=bind,source=${this.secretPath},target=/home/node/sbv2-oracle/payer_secrets.json`,
@@ -351,14 +351,14 @@ export class DockerOracle extends ISwitchboardOracle {
 
   createOracle() {
     // this.ready = false;
-    this.dockerOracleProcess = spawn('docker', this.getArgs(), {
+    this.dockerOracleProcess = spawn("docker", this.getArgs(), {
       shell: true,
       env: process.env,
-      stdio: this.silent ? undefined : ['inherit', 'pipe', 'pipe'],
+      stdio: this.silent ? undefined : ["inherit", "pipe", "pipe"],
     });
 
-    this.dockerOracleProcess!.stdout!.on('data', this.onDataCallback);
-    this.dockerOracleProcess!.stderr!.on('data', error => {
+    this.dockerOracleProcess!.stdout!.on("data", this.onDataCallback);
+    this.dockerOracleProcess!.stderr!.on("data", (error) => {
       if (
         !error
           .toString()
@@ -370,7 +370,7 @@ export class DockerOracle extends ISwitchboardOracle {
         this.addLog(error.toString());
       }
     });
-    this.dockerOracleProcess!.stderr!.on('error', error => {
+    this.dockerOracleProcess!.stderr!.on("error", (error) => {
       if (
         !error
           .toString()
@@ -382,8 +382,8 @@ export class DockerOracle extends ISwitchboardOracle {
         this.addLog(error.toString());
       }
     });
-    this.dockerOracleProcess.on('close', this.onCloseCallback);
-    this.dockerOracleProcess.on('exit', this.onCloseCallback);
+    this.dockerOracleProcess.on("close", this.onCloseCallback);
+    this.dockerOracleProcess.on("exit", this.onCloseCallback);
   }
 
   private startOracle() {
@@ -391,32 +391,32 @@ export class DockerOracle extends ISwitchboardOracle {
       this.dockerOracleProcess.removeAllListeners();
     }
     this.dockerOracleProcess = spawn(
-      'docker',
-      ['start', '--attach', this.image],
+      "docker",
+      ["start", "--attach", this.image],
       {
         shell: true,
         env: process.env,
-        stdio: this.silent ? undefined : ['inherit', 'pipe', 'pipe'],
+        stdio: this.silent ? undefined : ["inherit", "pipe", "pipe"],
       }
     );
 
-    this.dockerOracleProcess!.stdout!.on('data', this.onDataCallback);
-    this.dockerOracleProcess!.stderr!.on('error', this.onErrorCallback);
-    this.dockerOracleProcess!.on('close', this.onCloseCallback);
-    this.dockerOracleProcess!.on('exit', this.onCloseCallback);
+    this.dockerOracleProcess!.stdout!.on("data", this.onDataCallback);
+    this.dockerOracleProcess!.stderr!.on("error", this.onErrorCallback);
+    this.dockerOracleProcess!.on("close", this.onCloseCallback);
+    this.dockerOracleProcess!.on("exit", this.onCloseCallback);
   }
 
   public static checkDockerHealthStatus(containerName: string): boolean {
     try {
       const inspectResponseBuffer = execSync(
         `docker inspect --format='{{json .State.Health.Status}}' ${containerName}`,
-        { stdio: ['pipe', 'pipe', 'pipe'] }
+        { stdio: ["pipe", "pipe", "pipe"] }
       );
       const response = Buffer.from(inspectResponseBuffer)
-        .toString('utf-8')
-        .replace(/\"/g, '') // remove double quotes
+        .toString("utf-8")
+        .replace(/\"/g, "") // remove double quotes
         .trim(); // trim new line
-      return response === 'healthy' ? true : false;
+      return response === "healthy" ? true : false;
     } catch (error) {}
 
     return false;

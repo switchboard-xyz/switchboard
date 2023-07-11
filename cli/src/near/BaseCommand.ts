@@ -1,10 +1,10 @@
 import { CliBaseCommand as BaseCommand } from "../BaseCommand";
-import { IBaseChain } from "../types/chain";
+import type { IBaseChain } from "../types/chain";
 
-import { NearNetwork } from ".";
+import type { NearNetwork } from ".";
 
 import { Flags } from "@oclif/core";
-import { Input } from "@oclif/parser";
+import type { Input } from "@oclif/parser";
 import {
   Big,
   BN,
@@ -12,6 +12,7 @@ import {
   SwitchboardDecimal,
   toUtf8,
 } from "@switchboard-xyz/common";
+import type { types } from "@switchboard-xyz/near.js";
 import {
   AggregatorAccount,
   CrankAccount,
@@ -23,7 +24,6 @@ import {
   SwitchboardPermission,
   SwitchboardProgram,
   TESTNET_PROGRAM_ID,
-  types,
 } from "@switchboard-xyz/near.js";
 import bs58 from "bs58";
 import { Account, connect } from "near-api-js";

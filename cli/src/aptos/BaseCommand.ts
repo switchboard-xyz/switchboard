@@ -1,11 +1,12 @@
 import { CliBaseCommand as BaseCommand } from "../BaseCommand";
 import { AwsProvider, FsProvider, GcpProvider } from "../providers";
-import { IBaseChain } from "../types/chain";
+import type { IBaseChain } from "../types/chain";
 
-import { AptosNetwork } from ".";
+import type { AptosNetwork } from ".";
 
 import { Flags } from "@oclif/core";
-import { Input } from "@oclif/parser";
+import type { Input } from "@oclif/parser";
+import type { types } from "@switchboard-xyz/aptos.js";
 import {
   AggregatorAccount,
   AptosDecimal,
@@ -16,7 +17,6 @@ import {
   OracleQueueAccount,
   StateAccount,
   SwitchboardProgram,
-  types,
 } from "@switchboard-xyz/aptos.js";
 import {
   Big,
@@ -24,7 +24,8 @@ import {
   OracleJob,
   SwitchboardDecimal,
 } from "@switchboard-xyz/common";
-import { AptosAccount, HexString, MaybeHexString } from "aptos";
+import type { MaybeHexString } from "aptos";
+import { AptosAccount, HexString } from "aptos";
 import fs from "fs";
 import YAML from "yaml";
 

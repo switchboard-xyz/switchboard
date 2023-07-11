@@ -3,7 +3,8 @@ import { sleep } from "../../../utils";
 
 import { Flags } from "@oclif/core";
 import { clusterApiUrl } from "@solana/web3.js";
-import { IOracleConfig, NodeOracle } from "@switchboard-xyz/oracle";
+import type { IOracleConfig } from "@switchboard-xyz/oracle";
+import { NodeOracle } from "@switchboard-xyz/oracle";
 import { execSync } from "child_process";
 
 export default class SolanaDockerOracle extends BaseCommand {

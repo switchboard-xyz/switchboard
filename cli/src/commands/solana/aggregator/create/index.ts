@@ -2,9 +2,11 @@ import { SolanaWithSignerBaseCommand as BaseCommand } from "../../../../solana";
 import { CHECK_ICON } from "../../../../utils";
 
 import { Args, Flags } from "@oclif/core";
-import { Keypair, PublicKey } from "@solana/web3.js";
+import type { Keypair } from "@solana/web3.js";
+import { PublicKey } from "@solana/web3.js";
 import { OracleJob } from "@switchboard-xyz/common";
-import { JobInitParams, QueueAccount } from "@switchboard-xyz/solana.js";
+import type { JobInitParams } from "@switchboard-xyz/solana.js";
+import { QueueAccount } from "@switchboard-xyz/solana.js";
 import chalk from "chalk";
 
 export default class AggregatorCreate extends BaseCommand {

@@ -2,7 +2,8 @@ import { SolanaWithoutSignerBaseCommand as BaseCommand } from "../../../solana/i
 import { sleep } from "../../../utils/index";
 
 import { Args, Flags } from "@oclif/core";
-import { PublicKey, SYSVAR_CLOCK_PUBKEY } from "@solana/web3.js";
+import type { PublicKey } from "@solana/web3.js";
+import { SYSVAR_CLOCK_PUBKEY } from "@solana/web3.js";
 import { OracleAccount, SolanaClock, types } from "@switchboard-xyz/solana.js";
 import chalk from "chalk";
 

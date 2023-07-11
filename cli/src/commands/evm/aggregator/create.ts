@@ -2,11 +2,8 @@ import { EvmWithSignerBaseCommand as BaseCommand } from "../../../evm";
 
 import { Args, Flags } from "@oclif/core";
 import { Big } from "@switchboard-xyz/common";
-import {
-  EnablePermissions,
-  Permissions,
-  toBigNumber,
-} from "@switchboard-xyz/evm.js";
+import type { EnablePermissions } from "@switchboard-xyz/evm.js";
+import { Permissions, toBigNumber } from "@switchboard-xyz/evm.js";
 
 export default class CreateAggregator extends BaseCommand {
   static enableJsonFlag = true;

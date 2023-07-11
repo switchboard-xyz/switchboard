@@ -1,14 +1,14 @@
-export const SUPPPORTED_NETWORKS = ['mainnet', 'testnet', 'devnet'] as const;
+export const SUPPPORTED_NETWORKS = ["mainnet", "testnet", "devnet"] as const;
 export type NetworkType = (typeof SUPPPORTED_NETWORKS)[number];
 
 /** The current chains Switchboard is currently deployed on. */
 export const SWITCHBOARD_CHAINS = [
-  'arbitrum',
-  'aptos',
-  'coredao',
-  'near',
-  'solana',
-  'sui',
+  "arbitrum",
+  "aptos",
+  "coredao",
+  "near",
+  "solana",
+  "sui",
 ] as const;
 
 /** The current chains Switchboard is currently deployed on. */
@@ -64,7 +64,7 @@ export type IChainConfig = {
   testnet: IChainNetworkConfig;
 };
 
-export type ISolanaConfig = Rename<IChainConfig, 'testnet', 'devnet'>;
+export type ISolanaConfig = Rename<IChainConfig, "testnet", "devnet">;
 
 export type ChainConfig = IChainConfig | ISolanaConfig;
 

@@ -15,8 +15,8 @@ import {
 } from "@switchboard-xyz/near.js";
 import base58 from "bs58";
 import fs from "fs";
-import { FinalExecutionOutcome } from "near-api-js/lib/providers";
-import { Action } from "near-api-js/lib/transaction";
+import type { FinalExecutionOutcome } from "near-api-js/lib/providers";
+import type { Action } from "near-api-js/lib/transaction";
 
 export default class EnvCreate extends BaseCommand {
   static enableJsonFlag = true;

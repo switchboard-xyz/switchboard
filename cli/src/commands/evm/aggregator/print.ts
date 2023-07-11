@@ -3,7 +3,8 @@ import { chalkString, stripTrailingZeros } from "../../../utils";
 
 import { Args, Flags } from "@oclif/core";
 import { OracleJob } from "@switchboard-xyz/common";
-import { fetchJobsFromIPFS, Job, Permissions } from "@switchboard-xyz/evm.js";
+import type { Job } from "@switchboard-xyz/evm.js";
+import { fetchJobsFromIPFS, Permissions } from "@switchboard-xyz/evm.js";
 import chalk from "chalk";
 
 export default class AggregatorPrint extends BaseCommand {

@@ -1,7 +1,7 @@
-export * from './OracleJob.js';
-export * from './protos/index.js';
+export * from "./OracleJob.js";
+export * from "./protos/index.js";
 
-import protobuf from 'protobufjs/minimal.js';
+import protobuf from "protobufjs/minimal.js";
 protobuf.util.toJSONOptions = {
   longs: String,
   enums: String,
@@ -10,7 +10,7 @@ protobuf.util.toJSONOptions = {
 };
 
 // Re-export the most common task types so they are easier to work with
-import { OracleJob } from './protos/index.js';
+import { OracleJob } from "./protos/index.js";
 
 export import ITask = OracleJob.ITask;
 export import Task = OracleJob.Task;

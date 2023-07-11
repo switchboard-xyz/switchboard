@@ -1,6 +1,7 @@
 import { clusterApiUrl, Connection } from "@solana/web3.js";
 import { sleep } from "@switchboard-xyz/common";
-import { ChildProcess, execSync, spawn } from "child_process";
+import type { ChildProcess } from "child_process";
+import { execSync, spawn } from "child_process";
 import os from "os";
 
 export interface ISolanaTestValidator {

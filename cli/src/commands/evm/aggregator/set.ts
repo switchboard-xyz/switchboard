@@ -2,11 +2,11 @@ import { EvmWithSignerBaseCommand as BaseCommand } from "../../../evm";
 
 import { Args, Flags } from "@oclif/core";
 import { Big } from "@switchboard-xyz/common";
+import type { Job } from "@switchboard-xyz/evm.js";
 import {
   AggregatorAccount,
   EnablePermissions,
   fetchJobsFromIPFS,
-  Job,
   Permissions,
   toBigNumber,
 } from "@switchboard-xyz/evm.js";

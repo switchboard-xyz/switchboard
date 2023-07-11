@@ -1,7 +1,8 @@
 import { SolanaWithoutSignerBaseCommand as BaseCommand } from "../../solana/index";
 
 import { Args, Flags } from "@oclif/core";
-import { ConfirmedSignatureInfo, PublicKey } from "@solana/web3.js";
+import type { ConfirmedSignatureInfo } from "@solana/web3.js";
+import { PublicKey } from "@solana/web3.js";
 import {
   BN,
   BNtoDateTimeString,

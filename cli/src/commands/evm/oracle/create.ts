@@ -2,11 +2,8 @@ import { EvmWithSignerBaseCommand as BaseCommand } from "../../../evm";
 import { chalkString } from "../../../utils";
 
 import { Args, Flags } from "@oclif/core";
-import {
-  EnablePermissions,
-  OracleAccount,
-  Permissions,
-} from "@switchboard-xyz/evm.js";
+import type { EnablePermissions } from "@switchboard-xyz/evm.js";
+import { OracleAccount, Permissions } from "@switchboard-xyz/evm.js";
 
 export default class OracleCreate extends BaseCommand {
   static enableJsonFlag = true;

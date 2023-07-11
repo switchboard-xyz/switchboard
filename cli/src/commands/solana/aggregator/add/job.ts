@@ -3,11 +3,8 @@ import { CHECK_ICON } from "../../../../utils";
 
 import { Args, Flags } from "@oclif/core";
 import { OracleJob } from "@switchboard-xyz/common";
-import {
-  AggregatorAccount,
-  JobAccount,
-  TransactionObject,
-} from "@switchboard-xyz/solana.js";
+import type { TransactionObject } from "@switchboard-xyz/solana.js";
+import { AggregatorAccount, JobAccount } from "@switchboard-xyz/solana.js";
 import chalk from "chalk";
 
 export default class AggregatorAddJob extends BaseCommand {

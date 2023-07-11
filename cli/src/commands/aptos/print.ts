@@ -1,7 +1,7 @@
 import { AptosWithoutSignerBaseCommand as BaseCommand } from "../../aptos";
 
 import { Args } from "@oclif/core";
-import { OracleJob } from "@switchboard-xyz/common";
+import type { OracleJob } from "@switchboard-xyz/common";
 import { HexString } from "aptos";
 
 export default class AptosPrint extends BaseCommand {

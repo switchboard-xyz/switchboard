@@ -3,9 +3,9 @@ import { AuthorityMismatch } from "../types";
 import { AptosBaseCommand as BaseCommand } from "./BaseCommand";
 
 import { Flags } from "@oclif/core";
-import { Input } from "@oclif/parser";
+import type { Input } from "@oclif/parser";
 import { SwitchboardProgram } from "@switchboard-xyz/aptos.js";
-import { AptosAccount } from "aptos";
+import type { AptosAccount } from "aptos";
 
 export abstract class AptosWithSignerBaseCommand extends BaseCommand {
   static flags = {

@@ -2,7 +2,8 @@ import { SolanaWithoutSignerBaseCommand as BaseCommand } from "../../../solana";
 import { chalkString } from "../../../utils/misc";
 
 import { Args, Flags } from "@oclif/core";
-import { CrankAccount, SolanaClock, types } from "@switchboard-xyz/solana.js";
+import type { types } from "@switchboard-xyz/solana.js";
+import { CrankAccount, SolanaClock } from "@switchboard-xyz/solana.js";
 
 export default class CrankPrint extends BaseCommand {
   static enableJsonFlag = true;

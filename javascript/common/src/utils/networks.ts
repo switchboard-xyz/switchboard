@@ -1,14 +1,13 @@
-import SWITCHBOARD_NETWORKS from '../networks/index.js';
-import {
+import SWITCHBOARD_NETWORKS from "../networks/index.js";
+import type {
   ChainConfig,
   ChainType,
   IChainConfig,
   IChainNetworkConfig,
   ISolanaConfig,
   NetworkType,
-  SUPPPORTED_NETWORKS,
-  SWITCHBOARD_CHAINS,
-} from '../networks/types.js';
+} from "../networks/types.js";
+import { SUPPPORTED_NETWORKS, SWITCHBOARD_CHAINS } from "../networks/types.js";
 
 /**
  * Determines whether a given chain is supported by the Switchboard network
@@ -65,8 +64,8 @@ export const getSupportedNetwork = (
   const chain: ChainType = validateSupportedChain(_chain);
   const chainConfig: ChainConfig = SWITCHBOARD_NETWORKS[chain];
 
-  if (chain === 'solana') {
-    if (_network !== 'mainnet' && _network !== 'devnet') {
+  if (chain === "solana") {
+    if (_network !== "mainnet" && _network !== "devnet") {
       throw new Error(
         `UnsupportedNetwork: network needs to be 'mainnet' or 'devnet'`
       );
@@ -74,7 +73,7 @@ export const getSupportedNetwork = (
     return (chainConfig as ISolanaConfig)[_network];
   }
 
-  if (_network !== 'mainnet' && _network !== 'testnet') {
+  if (_network !== "mainnet" && _network !== "testnet") {
     throw new Error(
       `UnsupportedNetwork: network needs to be 'mainnet' or 'testnet'`
     );

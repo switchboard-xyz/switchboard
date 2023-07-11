@@ -4,7 +4,8 @@ import { SolanaWithoutSignerBaseCommand as BaseCommand } from "../../solana";
 import { chalkString, normalizeFilePath } from "../../utils";
 
 import { Flags } from "@oclif/core";
-import { AggregatorAccount, types } from "@switchboard-xyz/solana.js";
+import type { types } from "@switchboard-xyz/solana.js";
+import { AggregatorAccount } from "@switchboard-xyz/solana.js";
 import chalk from "chalk";
 import fs from "fs";
 import path from "path";

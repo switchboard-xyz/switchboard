@@ -1,4 +1,5 @@
-import { DEFAULT_LOGGER, ILogProvider } from "./logging";
+import type { ILogProvider } from "./logging";
+import { DEFAULT_LOGGER } from "./logging";
 
 import * as anchor from "@coral-xyz/anchor";
 import { Keypair } from "@solana/web3.js";

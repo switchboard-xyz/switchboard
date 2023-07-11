@@ -3,7 +3,8 @@ import { sleep } from "../../../utils";
 
 import { Args, Flags } from "@oclif/core";
 import { toBase58 } from "@switchboard-xyz/near.js";
-import { IOracleConfig, NodeOracle } from "@switchboard-xyz/oracle";
+import type { IOracleConfig } from "@switchboard-xyz/oracle";
+import { NodeOracle } from "@switchboard-xyz/oracle";
 import path from "path";
 
 export default class NearDockerOracle extends BaseCommand {

@@ -1,7 +1,8 @@
 import { InvalidKeypairFsPathProvided, InvalidKeypairProvided } from "../types";
 
 import { SecretManagerServiceClient } from "@google-cloud/secret-manager";
-import { Keypair, PublicKey } from "@solana/web3.js";
+import type { PublicKey } from "@solana/web3.js";
+import { Keypair } from "@solana/web3.js";
 import * as fs from "fs";
 import * as path from "path";
 

@@ -2,7 +2,7 @@ import { CliBaseCommand } from "./BaseCommand";
 
 import * as anchor from "@coral-xyz/anchor";
 import { Flags } from "@oclif/core";
-import { Input } from "@oclif/parser";
+import type { Input } from "@oclif/parser";
 import { SwitchboardDecimal } from "@switchboard-xyz/common";
 import { Big } from "@switchboard-xyz/common";
 import fs from "fs";
