@@ -28,9 +28,6 @@
   <h4>
     <strong>Typedocs: </strong><a href="https://docs.switchboard.xyz/api/@switchboard-xyz/common">docs.switchboard.xyz/api/@switchboard-xyz/common</a>
   </h4>
-  <h4>
-    <strong>Sbv2 Core SDK: </strong><a href="https://github.com/switchboard-xyz/sbv2-core">github.com/switchboard-xyz/sbv2-core</a>
-  </h4>
 </div>
 
 ## Install
