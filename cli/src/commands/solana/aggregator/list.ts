@@ -26,10 +26,9 @@ export default class AggregatorList extends BaseCommand {
     const authorityPubkey = new PublicKey(args.authorityKey);
 
     const accounts = await this.program.getProgramAccounts();
-    const aggregators = [
-      ...accounts.aggregators.entries(),
-    ].filter(([aggregatorKey, aggregator]) =>
-      aggregator.authority.equals(authorityPubkey)
+    const aggregators = [...accounts.aggregators.entries()].filter(
+      ([aggregatorKey, aggregator]) =>
+        aggregator.authority.equals(authorityPubkey)
     );
 
     const aggregatorKeys = aggregators.map((a) => a[0]);

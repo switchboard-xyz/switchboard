@@ -82,10 +82,8 @@ export default class SetAggregator extends BaseCommand {
   async run() {
     const { flags, args } = await this.parse(SetAggregator);
 
-    const [
-      aggregatorAccount,
-      initialAggregatorState,
-    ] = await this.loadAggregator(args.aggregatorAddress);
+    const [aggregatorAccount, initialAggregatorState] =
+      await this.loadAggregator(args.aggregatorAddress);
 
     const authority = await this.getAuthority(
       flags.authority,

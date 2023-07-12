@@ -69,12 +69,10 @@ export default class AggregatorLeaseWithdraw extends BaseCommand {
       aggregatorData.authority
     );
 
-    const [
-      tokenWallet,
-      userInitTxn,
-    ] = await this.program.mint.getOrCreateWrappedUserInstructions(this.payer, {
-      fundUpTo: 0,
-    });
+    const [tokenWallet, userInitTxn] =
+      await this.program.mint.getOrCreateWrappedUserInstructions(this.payer, {
+        fundUpTo: 0,
+      });
     if (!this.silent) {
       const [withdrawerBalance, leaseBalance] = await Promise.all([
         this.program.mint.fetchBalance(tokenWallet),

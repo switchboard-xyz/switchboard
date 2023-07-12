@@ -37,11 +37,8 @@ export default class OraclePrint extends BaseCommand {
 
     this.prettyPrintOracle(oracle, oracleAccount.publicKey, balance);
 
-    const [
-      permissionAccount,
-      bump,
-      permissions,
-    ] = await oracleAccount.getPermissions(oracle);
+    const [permissionAccount, bump, permissions] =
+      await oracleAccount.getPermissions(oracle);
     this.prettyPrintPermissions(permissions, permissionAccount.publicKey);
   }
 

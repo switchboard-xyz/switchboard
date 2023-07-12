@@ -21,10 +21,8 @@ export default class CreateEscrow extends BaseCommand {
   async run() {
     const { flags, args } = await this.parse(CreateEscrow);
 
-    const [
-      escrowAccount,
-      createEscrowAction,
-    ] = await EscrowAccount.getOrCreateStaticAccountAction(this.program);
+    const [escrowAccount, createEscrowAction] =
+      await EscrowAccount.getOrCreateStaticAccountAction(this.program);
     if (createEscrowAction) {
       throw new Error(
         `Failed to find user's escrow account for ${flags.accountName}`

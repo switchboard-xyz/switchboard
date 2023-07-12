@@ -1,4 +1,5 @@
 {
+  "root": true,
   "extends": [
     "oclif",
     "oclif-typescript",
@@ -9,18 +10,10 @@
     "prettier",
     "@switchboard-xyz"
   ],
-  "plugins": [
-    "@typescript-eslint",
-    "prettier",
-    "unicorn",
-    "import"
-  ],
+  "plugins": ["@typescript-eslint", "prettier", "unicorn", "import"],
   // "parserOptions": { "project": ["./tsconfig.json"] },
-  "ignorePatterns": [
-    "test/**/*.ts"
-  ],
+  "ignorePatterns": ["test/**/*.ts"],
   "rules": {
-    "no-use-before-define": "off",
     "valid-jsdoc": "off",
     "camelcase": "off",
     "max-params": "off",
@@ -47,6 +40,8 @@
     "no-await-in-loop": "off",
     "no-control-regex": "off",
     "new-cap": "off",
-    "unicorn/no-array-push-push": "off"
+    "unicorn/no-array-push-push": "off",
+    "unicorn/expiring-todo-comments": "off",
+    "no-use-before-define": "off"
   }
 }

@@ -34,12 +34,10 @@ export default class VrfRequest extends BaseCommand {
 
     const authority = await this.loadAuthority(flags.authority, vrf.authority);
 
-    const [
-      payerTokenWallet,
-      userInitTxn,
-    ] = await this.program.mint.getOrCreateWrappedUserInstructions(this.payer, {
-      fundUpTo: 0.002,
-    });
+    const [payerTokenWallet, userInitTxn] =
+      await this.program.mint.getOrCreateWrappedUserInstructions(this.payer, {
+        fundUpTo: 0.002,
+      });
 
     const txn = await vrfAccount.requestRandomnessInstruction(this.payer, {
       authority,

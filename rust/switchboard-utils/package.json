@@ -4,6 +4,5 @@
     "build:cargo": "cargo build -p switchboard-utils",
     "lint": "cargo fmt -p switchboard-utils",
     "test": "cargo test -p switchboard-utils"
-  },
-  "version": "null"
+  }
 }

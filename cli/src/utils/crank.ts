@@ -1,6 +1,7 @@
 import type { PublicKey } from "@solana/web3.js";
 import type { BN } from "@switchboard-xyz/common";
 import assert from "assert";
+import _ from "lodash";
 
 export interface ICrankRow {
   nextTimestamp: BN;
@@ -11,8 +12,8 @@ export function pqPop<T extends ICrankRow>(crankData: Array<T>): T | undefined {
     return undefined;
   }
 
-  const ret = crankData[0];
-  crankData[0] = crankData.at(-1)!;
+  const ret = _.first(crankData)!;
+  crankData[0] = _.last(crankData)!;
   crankData.pop();
   let current = 0;
   // eslint-disable-next-line no-constant-condition

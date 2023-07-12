@@ -42,20 +42,20 @@ npm i --save-dev @switchboard-xyz/oracle
 ### NodeJS
 
 ```ts
-import { NodeOracle } from '@switchboard-xyz/oracle';
+import { NodeOracle } from "@switchboard-xyz/oracle";
 
 const oracle = await NodeOracle.fromReleaseChannel({
-  releaseChannel: 'testnet',
-  chain: 'solana',
-  network: 'localnet',
-  rpcUrl: 'http://0.0.0.0:8899',
-  oracleKey: 'FKFPBD5WUUL5bSNwBH3AKY58KuY8nz2zkMCYR271CcVA',
-  secretPath: '~/.config/solana/id.json',
+  releaseChannel: "testnet",
+  chain: "solana",
+  network: "localnet",
+  rpcUrl: "http://0.0.0.0:8899",
+  oracleKey: "FKFPBD5WUUL5bSNwBH3AKY58KuY8nz2zkMCYR271CcVA",
+  secretPath: "~/.config/solana/id.json",
 });
 
 try {
   await oracle.startAndAwait();
-  console.log('oracle ready');
+  console.log("oracle ready");
   await sleep(10000);
 } catch (error) {
   console.error(error);
@@ -67,20 +67,20 @@ oracle.stop();
 ### Docker
 
 ```ts
-import { DockerOracle } from '@switchboard-xyz/oracle';
+import { DockerOracle } from "@switchboard-xyz/oracle";
 
 const oracle = await DockerOracle.fromReleaseChannel({
-  releaseChannel: 'testnet',
-  chain: 'solana',
-  network: 'localnet',
-  rpcUrl: 'http://0.0.0.0:8899',
-  oracleKey: 'FKFPBD5WUUL5bSNwBH3AKY58KuY8nz2zkMCYR271CcVA',
-  secretPath: '~/.config/solana/id.json',
+  releaseChannel: "testnet",
+  chain: "solana",
+  network: "localnet",
+  rpcUrl: "http://0.0.0.0:8899",
+  oracleKey: "FKFPBD5WUUL5bSNwBH3AKY58KuY8nz2zkMCYR271CcVA",
+  secretPath: "~/.config/solana/id.json",
 });
 
 try {
   await oracle.startAndAwait();
-  console.log('oracle ready');
+  console.log("oracle ready");
   await sleep(10000);
 } catch (error) {
   console.error(error);
