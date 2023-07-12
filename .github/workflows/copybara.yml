@@ -11,9 +11,7 @@ jobs:
 
     steps:
       - name: Check out code
-        uses: actions/checkout@v2
-        with:
-          persist-credentials: false # This is important to make sure the action does not trigger another action
+        uses: actions/checkout@v3
 
       - name: Use Node.js
         uses: actions/setup-node@v3
@@ -46,5 +44,6 @@ jobs:
         uses: stefanzweifel/git-auto-commit-action@v4
         with:
           commit_message: "chore: Update pnpm lockfile"
-          commit_options: "--no-verify"
+          skip_dirty_check: false
+          file_pattern: "pnpm-lock.yaml"
           branch: copybara-sbv2-core-push # Push changes to the same branch
