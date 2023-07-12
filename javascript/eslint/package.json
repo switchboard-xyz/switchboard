@@ -1,27 +1,22 @@
 {
   "name": "@switchboard-xyz/eslint-config",
-  "version": "0.1.8",
+  "version": "0.1.9",
   "author": "",
   "license": "MIT",
   "description": "Switchboard eslint-config",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/switchboard-xyz/sbv2-core",
-    "directory": "javascript/eslint"
-  },
   "homepage": "https://docs.switchboard.xyz",
   "main": "index.js",
   "dependencies": {
-    "@typescript-eslint/eslint-plugin": "^5.54.1",
-    "@typescript-eslint/parser": "^5.54.1",
-    "@typescript-eslint/type-utils": "^5.54.1",
-    "eslint": "^8.18.0",
-    "eslint-config-prettier": "^8.5.0",
-    "eslint-plugin-import": "^2.26.0",
-    "eslint-plugin-node": "^11.1.0",
-    "eslint-plugin-prettier": "^4.2.1",
-    "eslint-plugin-simple-import-sort": "^10.0.0",
-    "prettier": ">=2.0.0",
-    "typescript": ">=2.8.0 "
+    "@typescript-eslint/eslint-plugin": "latest",
+    "@typescript-eslint/parser": "latest",
+    "@typescript-eslint/type-utils": "latest",
+    "eslint": "latest",
+    "eslint-config-prettier": "latest",
+    "eslint-plugin-import": "latest",
+    "eslint-plugin-node": "latest",
+    "eslint-plugin-prettier": "latest",
+    "eslint-plugin-simple-import-sort": "latest",
+    "prettier": "^2.8.8",
+    "typescript": "^5.0.4"
   }
 }
