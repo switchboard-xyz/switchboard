@@ -4,6 +4,7 @@ dist
 lib
 build
 tsconfig.tsbuildinfo
+.turbo
 
 oracle_job_protos.json
 

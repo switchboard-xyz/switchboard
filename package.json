@@ -8,11 +8,16 @@
   ],
   "scripts": {
     "preinstall": "npx only-allow pnpm",
-    "build": "pnpm --filter=!website* build",
-    "build:all": "pnpm --filter=!website* build && pnpm --filter=!website* build:cargo",
-    "lint": "pnpm -r lint",
-    "fix": "pnpm -r fix",
-    "clean": "find . \\( -name 'node_modules' -o -name 'lib' -o -name 'dist' -o -name '.docusaurus' \\) -type d -prune -exec rm -rf '{}' +",
+    "build": "turbo run build --filter=!website*",
+    "build:lib": "turbo run build:lib",
+    "build:rust": "cargo build",
+    "dev": "turbo run dev",
+    "test": "turbo run test",
+    "lint": "turbo run lint",
+    "fix": "turbo run fix",
+    "clean": "turbo run clean",
+    "clean:cargo": "find . -type d \\( -name \"target\" -o -name \"test-ledger\" -o -name \".anchor\" \\) -exec rm -rf {} +",
+    "clean:js": "find . -type d \\( -name \"node_modules\" -o -name \"dist\" -o -name \".docusaurus\" \\) -exec rm -rf {} +",
     "uprev:sdk": "./scripts/uprev-sdks.sh",
     "website": "pnpm --filter=website start"
   },
@@ -21,16 +26,20 @@
     "react-dom": "^17.0.2"
   },
   "devDependencies": {
-    "@commitlint/config-conventional": "^17.0.2",
-    "@switchboard-xyz/eslint-config": "latest",
+    "@switchboard-xyz/eslint-config": "^0.1.9",
     "@types/node": "^18.15.5",
-    "commitlint": "^17.4.2",
-    "eslint": "^8.44.0",
-    "prettier": ">=2.0.0",
-    "shx": "^0.3.4",
+    "esbuild": "^0.17.19",
+    "eslint": "latest",
+    "eslint-config-prettier": "^8.8.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "prettier": "^2.8.8",
+    "rimraf": "latest",
+    "shelljs": "latest",
+    "shx": "latest",
     "ts-node": "^10.9.1",
     "tsx": "^3.12.7",
-    "typescript": "5.0.2"
+    "turbo": "latest",
+    "typescript": "^5.1.6"
   },
   "engines": {
     "node": ">=14.0.0"

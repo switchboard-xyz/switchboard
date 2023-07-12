@@ -1,0 +1,13 @@
+{
+  "extends": "@switchboard-xyz",
+  "root": true,
+  "rules": {
+    "quotes": "off",
+    "@typescript-eslint/ban-ts-comment": "off",
+    "no-control-regex": "off"
+  },
+  "parserOptions": {
+    "sourceType": "module",
+    "allowImportExportEverywhere": true
+  }
+}

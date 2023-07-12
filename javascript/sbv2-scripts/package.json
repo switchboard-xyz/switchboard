@@ -11,9 +11,6 @@
     "sbv2-scripts": "./src/index.ts"
   },
   "scripts": {
-    "lint": "gts lint ./src",
-    "clean": "gts clean",
-    "fix": "gts fix ./src"
   },
   "dependencies": {
     "chalk": "4",
@@ -24,7 +21,7 @@
     "typescript": "^4.8.3"
   },
   "devDependencies": {
-    "@switchboard-xyz/eslint-config": "workspace:^0.1.8",
+    "@switchboard-xyz/eslint-config": "^0.1.9",
     "@types/fs-extra": "^9.0.13",
     "@types/node": "^18.14.6",
     "@types/shelljs": "^0.8.11",

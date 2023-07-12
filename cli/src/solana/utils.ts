@@ -1,7 +1,6 @@
 /* eslint unicorn/no-array-push-push: 0 */
 /* eslint new-cap: 0 */
 
-import { FunctionAccountData } from "../../../solana.js/src/generated/attestation-program/accounts/FunctionAccountData";
 import { NoPayerKeypairProvided } from "../types";
 import { chalkString } from "../utils";
 

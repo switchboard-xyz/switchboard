@@ -1,4 +1,3 @@
-import { FunctionAccountData } from "../../../solana.js/src/generated/attestation-program/accounts/FunctionAccountData";
 import { CliBaseCommand as BaseCommand } from "../BaseCommand";
 import { AwsProvider, FsProvider, GcpProvider } from "../providers";
 import { AuthorityMismatch } from "../types";

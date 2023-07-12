@@ -60,13 +60,13 @@ jobs:
 
       - name: Install global deps
         run: |
-          npm i -g typescript ts-node tsx @types/node
+          npm i -g typescript ts-node tsx @types/node turbo
 
       - name: Install sbv2-core Dependencies
         run: pnpm install --frozen-lockfile
 
       - name: Build sbv2-core
-        run: pnpm -r --filter=!website build
+        run: pnpm build
 
       - name: Generate Protobuf JSON
         working-directory: website
