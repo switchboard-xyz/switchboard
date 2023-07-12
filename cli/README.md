@@ -100,167 +100,166 @@ node bin/dev print GvDMxPzN1sCj7L26YDK2HnMRXEQmQ2aemov8YBtPS7vR
 **Commands**
 
 <!-- commands -->
-* [`sbv2 anchor test`](#sbv2-anchor-test)
-* [`sbv2 aptos account airdrop`](#sbv2-aptos-account-airdrop)
-* [`sbv2 aptos aggregator add job AGGREGATORHEXSTRING`](#sbv2-aptos-aggregator-add-job-aggregatorhexstring)
-* [`sbv2 aptos aggregator create QUEUEHEXSTRING`](#sbv2-aptos-aggregator-create-queuehexstring)
-* [`sbv2 aptos aggregator job add AGGREGATORHEXSTRING`](#sbv2-aptos-aggregator-job-add-aggregatorhexstring)
-* [`sbv2 aptos aggregator update AGGREGATORHEXSTRING`](#sbv2-aptos-aggregator-update-aggregatorhexstring)
-* [`sbv2 aptos crank create QUEUEHEXSTRING`](#sbv2-aptos-crank-create-queuehexstring)
-* [`sbv2 aptos crank list CRANKHEXSTRING`](#sbv2-aptos-crank-list-crankhexstring)
-* [`sbv2 aptos crank pop CRANKHEXSTRING`](#sbv2-aptos-crank-pop-crankhexstring)
-* [`sbv2 aptos crank push CRANKHEXSTRING`](#sbv2-aptos-crank-push-crankhexstring)
-* [`sbv2 aptos create aggregator QUEUEHEXSTRING`](#sbv2-aptos-create-aggregator-queuehexstring)
-* [`sbv2 aptos create crank QUEUEHEXSTRING`](#sbv2-aptos-create-crank-queuehexstring)
-* [`sbv2 aptos create job QUEUEHEXSTRING JOBDEFINITION`](#sbv2-aptos-create-job-queuehexstring-jobdefinition)
-* [`sbv2 aptos create oracle QUEUEHEXSTRING`](#sbv2-aptos-create-oracle-queuehexstring)
-* [`sbv2 aptos create queue`](#sbv2-aptos-create-queue)
-* [`sbv2 aptos job create QUEUEHEXSTRING JOBDEFINITION`](#sbv2-aptos-job-create-queuehexstring-jobdefinition)
-* [`sbv2 aptos list crank CRANKHEXSTRING`](#sbv2-aptos-list-crank-crankhexstring)
-* [`sbv2 aptos oracle create QUEUEHEXSTRING`](#sbv2-aptos-oracle-create-queuehexstring)
-* [`sbv2 aptos oracle metrics ORACLEHEXSTRING`](#sbv2-aptos-oracle-metrics-oraclehexstring)
-* [`sbv2 aptos oracle up ORACLEHEXSTRING`](#sbv2-aptos-oracle-up-oraclehexstring)
-* [`sbv2 aptos permission create GRANTER`](#sbv2-aptos-permission-create-granter)
-* [`sbv2 aptos permission set GRANTER`](#sbv2-aptos-permission-set-granter)
-* [`sbv2 aptos pop crank CRANKHEXSTRING`](#sbv2-aptos-pop-crank-crankhexstring)
-* [`sbv2 aptos print ACCOUNTTYPE ADDRESS`](#sbv2-aptos-print-accounttype-address)
-* [`sbv2 aptos push crank CRANKHEXSTRING`](#sbv2-aptos-push-crank-crankhexstring)
-* [`sbv2 aptos queue create`](#sbv2-aptos-queue-create)
-* [`sbv2 aptos update aggregator AGGREGATORHEXSTRING`](#sbv2-aptos-update-aggregator-aggregatorhexstring)
-* [`sbv2 config print`](#sbv2-config-print)
-* [`sbv2 config set CHAIN NETWORK PARAMETER [VALUE]`](#sbv2-config-set-chain-network-parameter-value)
-* [`sbv2 evm aggregator create QUEUEADDRESS`](#sbv2-evm-aggregator-create-queueaddress)
-* [`sbv2 evm aggregator print AGGREGATORADDRESS`](#sbv2-evm-aggregator-print-aggregatoraddress)
-* [`sbv2 evm aggregator set AGGREGATORADDRESS`](#sbv2-evm-aggregator-set-aggregatoraddress)
-* [`sbv2 evm create aggregator QUEUEADDRESS`](#sbv2-evm-create-aggregator-queueaddress)
-* [`sbv2 evm create jobs`](#sbv2-evm-create-jobs)
-* [`sbv2 evm create oracle QUEUEADDRESS`](#sbv2-evm-create-oracle-queueaddress)
-* [`sbv2 evm create queue`](#sbv2-evm-create-queue)
-* [`sbv2 evm job create`](#sbv2-evm-job-create)
-* [`sbv2 evm job print JOBHASH`](#sbv2-evm-job-print-jobhash)
-* [`sbv2 evm oracle create QUEUEADDRESS`](#sbv2-evm-oracle-create-queueaddress)
-* [`sbv2 evm oracle heartbeat ORACLEADDRESS`](#sbv2-evm-oracle-heartbeat-oracleaddress)
-* [`sbv2 evm oracle print ORACLEADDRESS`](#sbv2-evm-oracle-print-oracleaddress)
-* [`sbv2 evm queue create`](#sbv2-evm-queue-create)
-* [`sbv2 evm queue print QUEUEADDRESS`](#sbv2-evm-queue-print-queueaddress)
-* [`sbv2 evm set aggregator AGGREGATORADDRESS`](#sbv2-evm-set-aggregator-aggregatoraddress)
-* [`sbv2 help [COMMANDS]`](#sbv2-help-commands)
-* [`sbv2 job test`](#sbv2-job-test)
-* [`sbv2 near aggregator add history AGGREGATORADDRESS`](#sbv2-near-aggregator-add-history-aggregatoraddress)
-* [`sbv2 near aggregator add job AGGREGATORADDRESS`](#sbv2-near-aggregator-add-job-aggregatoraddress)
-* [`sbv2 near aggregator create QUEUEADDRESS`](#sbv2-near-aggregator-create-queueaddress)
-* [`sbv2 near aggregator escrow AGGREGATORADDRESS`](#sbv2-near-aggregator-escrow-aggregatoraddress)
-* [`sbv2 near aggregator fetch`](#sbv2-near-aggregator-fetch)
-* [`sbv2 near aggregator fund AGGREGATORADDRESS`](#sbv2-near-aggregator-fund-aggregatoraddress)
-* [`sbv2 near aggregator history add AGGREGATORADDRESS`](#sbv2-near-aggregator-history-add-aggregatoraddress)
-* [`sbv2 near aggregator job add AGGREGATORADDRESS`](#sbv2-near-aggregator-job-add-aggregatoraddress)
-* [`sbv2 near aggregator job remove AGGREGATORADDRESS`](#sbv2-near-aggregator-job-remove-aggregatoraddress)
-* [`sbv2 near aggregator permission create AGGREGATORADDRESS`](#sbv2-near-aggregator-permission-create-aggregatoraddress)
-* [`sbv2 near aggregator remove job AGGREGATORADDRESS`](#sbv2-near-aggregator-remove-job-aggregatoraddress)
-* [`sbv2 near aggregator set AGGREGATORADDRESS`](#sbv2-near-aggregator-set-aggregatoraddress)
-* [`sbv2 near aggregator update AGGREGATORADDRESS`](#sbv2-near-aggregator-update-aggregatoraddress)
-* [`sbv2 near crank create QUEUEADDRESS`](#sbv2-near-crank-create-queueaddress)
-* [`sbv2 near crank list CRANKADDRESS`](#sbv2-near-crank-list-crankaddress)
-* [`sbv2 near crank pop CRANKADDRESS`](#sbv2-near-crank-pop-crankaddress)
-* [`sbv2 near crank push CRANKADDRESS`](#sbv2-near-crank-push-crankaddress)
-* [`sbv2 near create aggregator QUEUEADDRESS`](#sbv2-near-create-aggregator-queueaddress)
-* [`sbv2 near create aggregator permission AGGREGATORADDRESS`](#sbv2-near-create-aggregator-permission-aggregatoraddress)
-* [`sbv2 near create crank QUEUEADDRESS`](#sbv2-near-create-crank-queueaddress)
-* [`sbv2 near create escrow`](#sbv2-near-create-escrow)
-* [`sbv2 near create job JOBDEFINITION`](#sbv2-near-create-job-jobdefinition)
-* [`sbv2 near create oracle QUEUEADDRESS`](#sbv2-near-create-oracle-queueaddress)
-* [`sbv2 near create oracle permission`](#sbv2-near-create-oracle-permission)
-* [`sbv2 near create queue`](#sbv2-near-create-queue)
-* [`sbv2 near escrow create`](#sbv2-near-escrow-create)
-* [`sbv2 near escrow print`](#sbv2-near-escrow-print)
-* [`sbv2 near fetch aggregators`](#sbv2-near-fetch-aggregators)
-* [`sbv2 near fund aggregator AGGREGATORADDRESS`](#sbv2-near-fund-aggregator-aggregatoraddress)
-* [`sbv2 near job create JOBDEFINITION`](#sbv2-near-job-create-jobdefinition)
-* [`sbv2 near list queue QUEUEADDRESS`](#sbv2-near-list-queue-queueaddress)
-* [`sbv2 near oracle create QUEUEADDRESS`](#sbv2-near-oracle-create-queueaddress)
-* [`sbv2 near oracle escrow ORACLEADDRESS`](#sbv2-near-oracle-escrow-oracleaddress)
-* [`sbv2 near oracle stake ORACLEADDRESS`](#sbv2-near-oracle-stake-oracleaddress)
-* [`sbv2 near oracle unstake ORACLEADDRESS`](#sbv2-near-oracle-unstake-oracleaddress)
-* [`sbv2 near oracle up ORACLEADDRESS`](#sbv2-near-oracle-up-oracleaddress)
-* [`sbv2 near permission create`](#sbv2-near-permission-create)
-* [`sbv2 near pop crank CRANKADDRESS`](#sbv2-near-pop-crank-crankaddress)
-* [`sbv2 near print ACCOUNTTYPE ADDRESS`](#sbv2-near-print-accounttype-address)
-* [`sbv2 near print escrow`](#sbv2-near-print-escrow)
-* [`sbv2 near push crank CRANKADDRESS`](#sbv2-near-push-crank-crankaddress)
-* [`sbv2 near queue aggregators QUEUEADDRESS`](#sbv2-near-queue-aggregators-queueaddress)
-* [`sbv2 near queue create`](#sbv2-near-queue-create)
-* [`sbv2 near queue feeds QUEUEADDRESS`](#sbv2-near-queue-feeds-queueaddress)
-* [`sbv2 near queue list QUEUEADDRESS`](#sbv2-near-queue-list-queueaddress)
-* [`sbv2 near queue set QUEUEADDRESS`](#sbv2-near-queue-set-queueaddress)
-* [`sbv2 near set aggregator AGGREGATORADDRESS`](#sbv2-near-set-aggregator-aggregatoraddress)
-* [`sbv2 near update aggregator AGGREGATORADDRESS`](#sbv2-near-update-aggregator-aggregatoraddress)
-* [`sbv2 oracle logs NETWORK SEARCHSTRING`](#sbv2-oracle-logs-network-searchstring)
-* [`sbv2 solana aggregator add history AGGREGATORKEY`](#sbv2-solana-aggregator-add-history-aggregatorkey)
-* [`sbv2 solana aggregator add job AGGREGATORKEY`](#sbv2-solana-aggregator-add-job-aggregatorkey)
-* [`sbv2 solana aggregator authority AGGREGATORKEY`](#sbv2-solana-aggregator-authority-aggregatorkey)
-* [`sbv2 solana aggregator close AGGREGATORKEY`](#sbv2-solana-aggregator-close-aggregatorkey)
-* [`sbv2 solana aggregator create QUEUEKEY`](#sbv2-solana-aggregator-create-queuekey)
-* [`sbv2 solana aggregator create json DEFINITIONFILE`](#sbv2-solana-aggregator-create-json-definitionfile)
-* [`sbv2 solana aggregator deposit AGGREGATORKEY`](#sbv2-solana-aggregator-deposit-aggregatorkey)
-* [`sbv2 solana aggregator extend AGGREGATORKEY`](#sbv2-solana-aggregator-extend-aggregatorkey)
-* [`sbv2 solana aggregator fund AGGREGATORKEY`](#sbv2-solana-aggregator-fund-aggregatorkey)
-* [`sbv2 solana aggregator history AGGREGATORKEY`](#sbv2-solana-aggregator-history-aggregatorkey)
-* [`sbv2 solana aggregator lease set AGGREGATORKEY`](#sbv2-solana-aggregator-lease-set-aggregatorkey)
-* [`sbv2 solana aggregator list AUTHORITYKEY`](#sbv2-solana-aggregator-list-authoritykey)
-* [`sbv2 solana aggregator lock AGGREGATORKEY`](#sbv2-solana-aggregator-lock-aggregatorkey)
-* [`sbv2 solana aggregator metrics AGGREGATORKEY`](#sbv2-solana-aggregator-metrics-aggregatorkey)
-* [`sbv2 solana aggregator mode AGGREGATORKEY`](#sbv2-solana-aggregator-mode-aggregatorkey)
-* [`sbv2 solana aggregator open-round AGGREGATORKEY`](#sbv2-solana-aggregator-open-round-aggregatorkey)
-* [`sbv2 solana aggregator permission create AGGREGATORKEY`](#sbv2-solana-aggregator-permission-create-aggregatorkey)
-* [`sbv2 solana aggregator print AGGREGATORKEY`](#sbv2-solana-aggregator-print-aggregatorkey)
-* [`sbv2 solana aggregator remove job AGGREGATORKEY JOBKEY`](#sbv2-solana-aggregator-remove-job-aggregatorkey-jobkey)
-* [`sbv2 solana aggregator set AGGREGATORKEY`](#sbv2-solana-aggregator-set-aggregatorkey)
-* [`sbv2 solana aggregator transfer AGGREGATORKEY`](#sbv2-solana-aggregator-transfer-aggregatorkey)
-* [`sbv2 solana aggregator update AGGREGATORKEY`](#sbv2-solana-aggregator-update-aggregatorkey)
-* [`sbv2 solana aggregator watch AGGREGATORKEY`](#sbv2-solana-aggregator-watch-aggregatorkey)
-* [`sbv2 solana aggregator withdraw AGGREGATORKEY`](#sbv2-solana-aggregator-withdraw-aggregatorkey)
-* [`sbv2 solana anchor test`](#sbv2-solana-anchor-test)
-* [`sbv2 solana buffer create QUEUEKEY`](#sbv2-solana-buffer-create-queuekey)
-* [`sbv2 solana buffer open-round BUFFERRELAYERKEY`](#sbv2-solana-buffer-open-round-bufferrelayerkey)
-* [`sbv2 solana buffer update BUFFERRELAYERKEY`](#sbv2-solana-buffer-update-bufferrelayerkey)
-* [`sbv2 solana crank create QUEUEKEY`](#sbv2-solana-crank-create-queuekey)
-* [`sbv2 solana crank events AGGREGATORKEY`](#sbv2-solana-crank-events-aggregatorkey)
-* [`sbv2 solana crank pop CRANKKEY`](#sbv2-solana-crank-pop-crankkey)
-* [`sbv2 solana crank print CRANKKEY`](#sbv2-solana-crank-print-crankkey)
-* [`sbv2 solana crank push AGGREGATORKEY`](#sbv2-solana-crank-push-aggregatorkey)
-* [`sbv2 solana crank reset AGGREGATORKEY`](#sbv2-solana-crank-reset-aggregatorkey)
-* [`sbv2 solana function create QUEUEKEY`](#sbv2-solana-function-create-queuekey)
-* [`sbv2 solana function fund FUNCTIONKEY`](#sbv2-solana-function-fund-functionkey)
-* [`sbv2 solana function print FUNCTIONKEY`](#sbv2-solana-function-print-functionkey)
-* [`sbv2 solana job create`](#sbv2-solana-job-create)
-* [`sbv2 solana job print JOBKEY`](#sbv2-solana-job-print-jobkey)
-* [`sbv2 solana json create aggregator DEFINITIONFILE`](#sbv2-solana-json-create-aggregator-definitionfile)
-* [`sbv2 solana lease create AGGREGATORKEY`](#sbv2-solana-lease-create-aggregatorkey)
-* [`sbv2 solana lease extend AGGREGATORKEY`](#sbv2-solana-lease-extend-aggregatorkey)
-* [`sbv2 solana lease print LEASEKEY`](#sbv2-solana-lease-print-leasekey)
-* [`sbv2 solana lease set AGGREGATORKEY`](#sbv2-solana-lease-set-aggregatorkey)
-* [`sbv2 solana lease withdraw AGGREGATORKEY`](#sbv2-solana-lease-withdraw-aggregatorkey)
-* [`sbv2 solana network create`](#sbv2-solana-network-create)
-* [`sbv2 solana network save`](#sbv2-solana-network-save)
-* [`sbv2 solana network start`](#sbv2-solana-network-start)
-* [`sbv2 solana oracle create QUEUEKEY`](#sbv2-solana-oracle-create-queuekey)
-* [`sbv2 solana oracle print ORACLEKEY`](#sbv2-solana-oracle-print-oraclekey)
-* [`sbv2 solana oracle up`](#sbv2-solana-oracle-up)
-* [`sbv2 solana oracle withdraw ORACLEKEY`](#sbv2-solana-oracle-withdraw-oraclekey)
-* [`sbv2 solana permission create`](#sbv2-solana-permission-create)
-* [`sbv2 solana permission grant PERMISSIONKEY`](#sbv2-solana-permission-grant-permissionkey)
-* [`sbv2 solana permission print PERMISSIONKEY`](#sbv2-solana-permission-print-permissionkey)
-* [`sbv2 solana permission revoke PERMISSIONKEY`](#sbv2-solana-permission-revoke-permissionkey)
-* [`sbv2 solana print PUBKEY`](#sbv2-solana-print-pubkey)
-* [`sbv2 solana queue create`](#sbv2-solana-queue-create)
-* [`sbv2 solana queue print QUEUEKEY`](#sbv2-solana-queue-print-queuekey)
-* [`sbv2 solana queue set QUEUEKEY`](#sbv2-solana-queue-set-queuekey)
-* [`sbv2 solana vrf open-round VRFKEY`](#sbv2-solana-vrf-open-round-vrfkey)
-* [`sbv2 solana vrf print VRFKEY`](#sbv2-solana-vrf-print-vrfkey)
-* [`sbv2 solana vrf request VRFKEY`](#sbv2-solana-vrf-request-vrfkey)
-* [`sbv2 solana vrf update VRFKEY`](#sbv2-solana-vrf-update-vrfkey)
-* [`sbv2 update [CHANNEL]`](#sbv2-update-channel)
-* [`sbv2 version`](#sbv2-version)
+
+- [`sbv2 anchor test`](#sbv2-anchor-test)
+- [`sbv2 aptos account airdrop`](#sbv2-aptos-account-airdrop)
+- [`sbv2 aptos aggregator add job AGGREGATORHEXSTRING`](#sbv2-aptos-aggregator-add-job-aggregatorhexstring)
+- [`sbv2 aptos aggregator create QUEUEHEXSTRING`](#sbv2-aptos-aggregator-create-queuehexstring)
+- [`sbv2 aptos aggregator job add AGGREGATORHEXSTRING`](#sbv2-aptos-aggregator-job-add-aggregatorhexstring)
+- [`sbv2 aptos aggregator update AGGREGATORHEXSTRING`](#sbv2-aptos-aggregator-update-aggregatorhexstring)
+- [`sbv2 aptos crank create QUEUEHEXSTRING`](#sbv2-aptos-crank-create-queuehexstring)
+- [`sbv2 aptos crank list CRANKHEXSTRING`](#sbv2-aptos-crank-list-crankhexstring)
+- [`sbv2 aptos crank pop CRANKHEXSTRING`](#sbv2-aptos-crank-pop-crankhexstring)
+- [`sbv2 aptos crank push CRANKHEXSTRING`](#sbv2-aptos-crank-push-crankhexstring)
+- [`sbv2 aptos create aggregator QUEUEHEXSTRING`](#sbv2-aptos-create-aggregator-queuehexstring)
+- [`sbv2 aptos create crank QUEUEHEXSTRING`](#sbv2-aptos-create-crank-queuehexstring)
+- [`sbv2 aptos create job QUEUEHEXSTRING JOBDEFINITION`](#sbv2-aptos-create-job-queuehexstring-jobdefinition)
+- [`sbv2 aptos create oracle QUEUEHEXSTRING`](#sbv2-aptos-create-oracle-queuehexstring)
+- [`sbv2 aptos create queue`](#sbv2-aptos-create-queue)
+- [`sbv2 aptos job create QUEUEHEXSTRING JOBDEFINITION`](#sbv2-aptos-job-create-queuehexstring-jobdefinition)
+- [`sbv2 aptos list crank CRANKHEXSTRING`](#sbv2-aptos-list-crank-crankhexstring)
+- [`sbv2 aptos oracle create QUEUEHEXSTRING`](#sbv2-aptos-oracle-create-queuehexstring)
+- [`sbv2 aptos oracle metrics ORACLEHEXSTRING`](#sbv2-aptos-oracle-metrics-oraclehexstring)
+- [`sbv2 aptos oracle up ORACLEHEXSTRING`](#sbv2-aptos-oracle-up-oraclehexstring)
+- [`sbv2 aptos permission create GRANTER`](#sbv2-aptos-permission-create-granter)
+- [`sbv2 aptos permission set GRANTER`](#sbv2-aptos-permission-set-granter)
+- [`sbv2 aptos pop crank CRANKHEXSTRING`](#sbv2-aptos-pop-crank-crankhexstring)
+- [`sbv2 aptos print ACCOUNTTYPE ADDRESS`](#sbv2-aptos-print-accounttype-address)
+- [`sbv2 aptos push crank CRANKHEXSTRING`](#sbv2-aptos-push-crank-crankhexstring)
+- [`sbv2 aptos queue create`](#sbv2-aptos-queue-create)
+- [`sbv2 aptos update aggregator AGGREGATORHEXSTRING`](#sbv2-aptos-update-aggregator-aggregatorhexstring)
+- [`sbv2 config print`](#sbv2-config-print)
+- [`sbv2 config set CHAIN NETWORK PARAMETER [VALUE]`](#sbv2-config-set-chain-network-parameter-value)
+- [`sbv2 evm aggregator create QUEUEADDRESS`](#sbv2-evm-aggregator-create-queueaddress)
+- [`sbv2 evm aggregator print AGGREGATORADDRESS`](#sbv2-evm-aggregator-print-aggregatoraddress)
+- [`sbv2 evm aggregator set AGGREGATORADDRESS`](#sbv2-evm-aggregator-set-aggregatoraddress)
+- [`sbv2 evm create aggregator QUEUEADDRESS`](#sbv2-evm-create-aggregator-queueaddress)
+- [`sbv2 evm create jobs`](#sbv2-evm-create-jobs)
+- [`sbv2 evm create oracle QUEUEADDRESS`](#sbv2-evm-create-oracle-queueaddress)
+- [`sbv2 evm create queue`](#sbv2-evm-create-queue)
+- [`sbv2 evm job create`](#sbv2-evm-job-create)
+- [`sbv2 evm job print JOBHASH`](#sbv2-evm-job-print-jobhash)
+- [`sbv2 evm oracle create QUEUEADDRESS`](#sbv2-evm-oracle-create-queueaddress)
+- [`sbv2 evm oracle heartbeat ORACLEADDRESS`](#sbv2-evm-oracle-heartbeat-oracleaddress)
+- [`sbv2 evm oracle print ORACLEADDRESS`](#sbv2-evm-oracle-print-oracleaddress)
+- [`sbv2 evm queue create`](#sbv2-evm-queue-create)
+- [`sbv2 evm queue print QUEUEADDRESS`](#sbv2-evm-queue-print-queueaddress)
+- [`sbv2 evm set aggregator AGGREGATORADDRESS`](#sbv2-evm-set-aggregator-aggregatoraddress)
+- [`sbv2 help [COMMANDS]`](#sbv2-help-commands)
+- [`sbv2 job test`](#sbv2-job-test)
+- [`sbv2 near aggregator add history AGGREGATORADDRESS`](#sbv2-near-aggregator-add-history-aggregatoraddress)
+- [`sbv2 near aggregator add job AGGREGATORADDRESS`](#sbv2-near-aggregator-add-job-aggregatoraddress)
+- [`sbv2 near aggregator create QUEUEADDRESS`](#sbv2-near-aggregator-create-queueaddress)
+- [`sbv2 near aggregator escrow AGGREGATORADDRESS`](#sbv2-near-aggregator-escrow-aggregatoraddress)
+- [`sbv2 near aggregator fetch`](#sbv2-near-aggregator-fetch)
+- [`sbv2 near aggregator fund AGGREGATORADDRESS`](#sbv2-near-aggregator-fund-aggregatoraddress)
+- [`sbv2 near aggregator history add AGGREGATORADDRESS`](#sbv2-near-aggregator-history-add-aggregatoraddress)
+- [`sbv2 near aggregator job add AGGREGATORADDRESS`](#sbv2-near-aggregator-job-add-aggregatoraddress)
+- [`sbv2 near aggregator job remove AGGREGATORADDRESS`](#sbv2-near-aggregator-job-remove-aggregatoraddress)
+- [`sbv2 near aggregator permission create AGGREGATORADDRESS`](#sbv2-near-aggregator-permission-create-aggregatoraddress)
+- [`sbv2 near aggregator remove job AGGREGATORADDRESS`](#sbv2-near-aggregator-remove-job-aggregatoraddress)
+- [`sbv2 near aggregator set AGGREGATORADDRESS`](#sbv2-near-aggregator-set-aggregatoraddress)
+- [`sbv2 near aggregator update AGGREGATORADDRESS`](#sbv2-near-aggregator-update-aggregatoraddress)
+- [`sbv2 near crank create QUEUEADDRESS`](#sbv2-near-crank-create-queueaddress)
+- [`sbv2 near crank list CRANKADDRESS`](#sbv2-near-crank-list-crankaddress)
+- [`sbv2 near crank pop CRANKADDRESS`](#sbv2-near-crank-pop-crankaddress)
+- [`sbv2 near crank push CRANKADDRESS`](#sbv2-near-crank-push-crankaddress)
+- [`sbv2 near create aggregator QUEUEADDRESS`](#sbv2-near-create-aggregator-queueaddress)
+- [`sbv2 near create aggregator permission AGGREGATORADDRESS`](#sbv2-near-create-aggregator-permission-aggregatoraddress)
+- [`sbv2 near create crank QUEUEADDRESS`](#sbv2-near-create-crank-queueaddress)
+- [`sbv2 near create escrow`](#sbv2-near-create-escrow)
+- [`sbv2 near create job JOBDEFINITION`](#sbv2-near-create-job-jobdefinition)
+- [`sbv2 near create oracle QUEUEADDRESS`](#sbv2-near-create-oracle-queueaddress)
+- [`sbv2 near create oracle permission`](#sbv2-near-create-oracle-permission)
+- [`sbv2 near create queue`](#sbv2-near-create-queue)
+- [`sbv2 near escrow create`](#sbv2-near-escrow-create)
+- [`sbv2 near escrow print`](#sbv2-near-escrow-print)
+- [`sbv2 near fetch aggregators`](#sbv2-near-fetch-aggregators)
+- [`sbv2 near fund aggregator AGGREGATORADDRESS`](#sbv2-near-fund-aggregator-aggregatoraddress)
+- [`sbv2 near job create JOBDEFINITION`](#sbv2-near-job-create-jobdefinition)
+- [`sbv2 near list queue QUEUEADDRESS`](#sbv2-near-list-queue-queueaddress)
+- [`sbv2 near oracle create QUEUEADDRESS`](#sbv2-near-oracle-create-queueaddress)
+- [`sbv2 near oracle escrow ORACLEADDRESS`](#sbv2-near-oracle-escrow-oracleaddress)
+- [`sbv2 near oracle stake ORACLEADDRESS`](#sbv2-near-oracle-stake-oracleaddress)
+- [`sbv2 near oracle unstake ORACLEADDRESS`](#sbv2-near-oracle-unstake-oracleaddress)
+- [`sbv2 near oracle up ORACLEADDRESS`](#sbv2-near-oracle-up-oracleaddress)
+- [`sbv2 near permission create`](#sbv2-near-permission-create)
+- [`sbv2 near pop crank CRANKADDRESS`](#sbv2-near-pop-crank-crankaddress)
+- [`sbv2 near print ACCOUNTTYPE ADDRESS`](#sbv2-near-print-accounttype-address)
+- [`sbv2 near print escrow`](#sbv2-near-print-escrow)
+- [`sbv2 near push crank CRANKADDRESS`](#sbv2-near-push-crank-crankaddress)
+- [`sbv2 near queue aggregators QUEUEADDRESS`](#sbv2-near-queue-aggregators-queueaddress)
+- [`sbv2 near queue create`](#sbv2-near-queue-create)
+- [`sbv2 near queue feeds QUEUEADDRESS`](#sbv2-near-queue-feeds-queueaddress)
+- [`sbv2 near queue list QUEUEADDRESS`](#sbv2-near-queue-list-queueaddress)
+- [`sbv2 near queue set QUEUEADDRESS`](#sbv2-near-queue-set-queueaddress)
+- [`sbv2 near set aggregator AGGREGATORADDRESS`](#sbv2-near-set-aggregator-aggregatoraddress)
+- [`sbv2 near update aggregator AGGREGATORADDRESS`](#sbv2-near-update-aggregator-aggregatoraddress)
+- [`sbv2 oracle logs NETWORK SEARCHSTRING`](#sbv2-oracle-logs-network-searchstring)
+- [`sbv2 solana aggregator add history AGGREGATORKEY`](#sbv2-solana-aggregator-add-history-aggregatorkey)
+- [`sbv2 solana aggregator add job AGGREGATORKEY`](#sbv2-solana-aggregator-add-job-aggregatorkey)
+- [`sbv2 solana aggregator authority AGGREGATORKEY`](#sbv2-solana-aggregator-authority-aggregatorkey)
+- [`sbv2 solana aggregator close AGGREGATORKEY`](#sbv2-solana-aggregator-close-aggregatorkey)
+- [`sbv2 solana aggregator create QUEUEKEY`](#sbv2-solana-aggregator-create-queuekey)
+- [`sbv2 solana aggregator create json DEFINITIONFILE`](#sbv2-solana-aggregator-create-json-definitionfile)
+- [`sbv2 solana aggregator deposit AGGREGATORKEY`](#sbv2-solana-aggregator-deposit-aggregatorkey)
+- [`sbv2 solana aggregator extend AGGREGATORKEY`](#sbv2-solana-aggregator-extend-aggregatorkey)
+- [`sbv2 solana aggregator fund AGGREGATORKEY`](#sbv2-solana-aggregator-fund-aggregatorkey)
+- [`sbv2 solana aggregator history AGGREGATORKEY`](#sbv2-solana-aggregator-history-aggregatorkey)
+- [`sbv2 solana aggregator lease set AGGREGATORKEY`](#sbv2-solana-aggregator-lease-set-aggregatorkey)
+- [`sbv2 solana aggregator list AUTHORITYKEY`](#sbv2-solana-aggregator-list-authoritykey)
+- [`sbv2 solana aggregator lock AGGREGATORKEY`](#sbv2-solana-aggregator-lock-aggregatorkey)
+- [`sbv2 solana aggregator metrics AGGREGATORKEY`](#sbv2-solana-aggregator-metrics-aggregatorkey)
+- [`sbv2 solana aggregator mode AGGREGATORKEY`](#sbv2-solana-aggregator-mode-aggregatorkey)
+- [`sbv2 solana aggregator open-round AGGREGATORKEY`](#sbv2-solana-aggregator-open-round-aggregatorkey)
+- [`sbv2 solana aggregator permission create AGGREGATORKEY`](#sbv2-solana-aggregator-permission-create-aggregatorkey)
+- [`sbv2 solana aggregator print AGGREGATORKEY`](#sbv2-solana-aggregator-print-aggregatorkey)
+- [`sbv2 solana aggregator remove job AGGREGATORKEY JOBKEY`](#sbv2-solana-aggregator-remove-job-aggregatorkey-jobkey)
+- [`sbv2 solana aggregator set AGGREGATORKEY`](#sbv2-solana-aggregator-set-aggregatorkey)
+- [`sbv2 solana aggregator transfer AGGREGATORKEY`](#sbv2-solana-aggregator-transfer-aggregatorkey)
+- [`sbv2 solana aggregator update AGGREGATORKEY`](#sbv2-solana-aggregator-update-aggregatorkey)
+- [`sbv2 solana aggregator watch AGGREGATORKEY`](#sbv2-solana-aggregator-watch-aggregatorkey)
+- [`sbv2 solana aggregator withdraw AGGREGATORKEY`](#sbv2-solana-aggregator-withdraw-aggregatorkey)
+- [`sbv2 solana anchor test`](#sbv2-solana-anchor-test)
+- [`sbv2 solana buffer create QUEUEKEY`](#sbv2-solana-buffer-create-queuekey)
+- [`sbv2 solana buffer open-round BUFFERRELAYERKEY`](#sbv2-solana-buffer-open-round-bufferrelayerkey)
+- [`sbv2 solana buffer update BUFFERRELAYERKEY`](#sbv2-solana-buffer-update-bufferrelayerkey)
+- [`sbv2 solana crank create QUEUEKEY`](#sbv2-solana-crank-create-queuekey)
+- [`sbv2 solana crank events AGGREGATORKEY`](#sbv2-solana-crank-events-aggregatorkey)
+- [`sbv2 solana crank pop CRANKKEY`](#sbv2-solana-crank-pop-crankkey)
+- [`sbv2 solana crank print CRANKKEY`](#sbv2-solana-crank-print-crankkey)
+- [`sbv2 solana crank push AGGREGATORKEY`](#sbv2-solana-crank-push-aggregatorkey)
+- [`sbv2 solana crank reset AGGREGATORKEY`](#sbv2-solana-crank-reset-aggregatorkey)
+- [`sbv2 solana function create QUEUEKEY`](#sbv2-solana-function-create-queuekey)
+- [`sbv2 solana job create`](#sbv2-solana-job-create)
+- [`sbv2 solana job print JOBKEY`](#sbv2-solana-job-print-jobkey)
+- [`sbv2 solana json create aggregator DEFINITIONFILE`](#sbv2-solana-json-create-aggregator-definitionfile)
+- [`sbv2 solana lease create AGGREGATORKEY`](#sbv2-solana-lease-create-aggregatorkey)
+- [`sbv2 solana lease extend AGGREGATORKEY`](#sbv2-solana-lease-extend-aggregatorkey)
+- [`sbv2 solana lease print LEASEKEY`](#sbv2-solana-lease-print-leasekey)
+- [`sbv2 solana lease set AGGREGATORKEY`](#sbv2-solana-lease-set-aggregatorkey)
+- [`sbv2 solana lease withdraw AGGREGATORKEY`](#sbv2-solana-lease-withdraw-aggregatorkey)
+- [`sbv2 solana network create`](#sbv2-solana-network-create)
+- [`sbv2 solana network save`](#sbv2-solana-network-save)
+- [`sbv2 solana network start`](#sbv2-solana-network-start)
+- [`sbv2 solana oracle create QUEUEKEY`](#sbv2-solana-oracle-create-queuekey)
+- [`sbv2 solana oracle print ORACLEKEY`](#sbv2-solana-oracle-print-oraclekey)
+- [`sbv2 solana oracle up`](#sbv2-solana-oracle-up)
+- [`sbv2 solana oracle withdraw ORACLEKEY`](#sbv2-solana-oracle-withdraw-oraclekey)
+- [`sbv2 solana permission create`](#sbv2-solana-permission-create)
+- [`sbv2 solana permission grant PERMISSIONKEY`](#sbv2-solana-permission-grant-permissionkey)
+- [`sbv2 solana permission print PERMISSIONKEY`](#sbv2-solana-permission-print-permissionkey)
+- [`sbv2 solana permission revoke PERMISSIONKEY`](#sbv2-solana-permission-revoke-permissionkey)
+- [`sbv2 solana print PUBKEY`](#sbv2-solana-print-pubkey)
+- [`sbv2 solana queue create`](#sbv2-solana-queue-create)
+- [`sbv2 solana queue print QUEUEKEY`](#sbv2-solana-queue-print-queuekey)
+- [`sbv2 solana queue set QUEUEKEY`](#sbv2-solana-queue-set-queuekey)
+- [`sbv2 solana vrf open-round VRFKEY`](#sbv2-solana-vrf-open-round-vrfkey)
+- [`sbv2 solana vrf print VRFKEY`](#sbv2-solana-vrf-print-vrfkey)
+- [`sbv2 solana vrf request VRFKEY`](#sbv2-solana-vrf-request-vrfkey)
+- [`sbv2 solana vrf update VRFKEY`](#sbv2-solana-vrf-update-vrfkey)
+- [`sbv2 update [CHANNEL]`](#sbv2-update-channel)
+- [`sbv2 version`](#sbv2-version)
 
 ## `sbv2 anchor test`
 
@@ -5157,9 +5156,9 @@ USAGE
   $ sbv2 solana function create QUEUEKEY --container <value> [-h] [-v] [-s] [--mainnetBeta | --cluster
     devnet|mainnet-beta|mainnet|localnet] [-u <value>] [--programId <value>] [--commitment
     confirmed|finalized|processed] [-k <value>] [--ledgerPath <value> --ledger] [--json] [-n <value>] [--metadata
-    <value>] [-a <value>] [--fundAmount <value>] [--schedule <value>] [--containerRegistry dockerhub|ipfs] [--version
-    <value>] [--mrEnclave <value>] [--requestsDisabled <value>] [--requestsFee <value>] [--requestsRequireAuthorization
-    <value>] [--enable] [--queueAuthority <value>]
+    <value>] [-a <value>] [--fundAmount <value>] [--schedule <value>] [--containerRegistry <value>] [--version <value>]
+    [--mrEnclave <value>] [--requestsDisabled <value>] [--requestsFee <value>] [--requestsRequireAuthorization <value>]
+    [--enable] [--queueAuthority <value>]
 
 ARGUMENTS
   QUEUEKEY  public key of the attestation queue account
@@ -5180,8 +5179,7 @@ FLAGS
                                           <options: confirmed|finalized|processed>
   --container=<value>                     (required) the location of the container (Ex.
                                           switchboardlabs/basic-oracle-function)
-  --containerRegistry=<option>            [default: docker] the registry to pull the container from (Ex. Docker or IPFS)
-                                          <options: dockerhub|ipfs>
+  --containerRegistry=<value>             [default: docker] the registry to pull the container from (Ex. Docker or IPFS)
   --enable                                enable oracle heartbeat permissions
   --fundAmount=<value>                    [default: 0.0] token amount to load into the function's escrow wallet.
   --ledger                                enable ledger support
@@ -5209,74 +5207,6 @@ DESCRIPTION
 
 EXAMPLES
   $ sbv2 solana function create F8ce7MsckeZAbAGmxjJNetxYXQa9mKr9nnrC3qKubyYy --name function-1 --fundAmount 1.25 --container switchboardlabs/basic-oracle-function --version solana
-```
-
-## `sbv2 solana function fund FUNCTIONKEY`
-
-wrap SOL into a function accounts escrow wallet
-
-```
-USAGE
-  $ sbv2 solana function fund FUNCTIONKEY [-h] [-v] [-s] [--mainnetBeta | --cluster devnet|mainnet-beta|mainnet|localnet]
-    [-u <value>] [--programId <value>] [--commitment confirmed|finalized|processed] [-k <value>] [--ledgerPath <value>
-    --ledger] [--json] [--fundAmount <value>]
-
-ARGUMENTS
-  FUNCTIONKEY  public key of the function account
-
-FLAGS
-  -h, --help             Show CLI help.
-  -k, --keypair=<value>  keypair that will pay for onchain transactions. defaults to new account authority if no
-                         alternate authority provided
-  -s, --silent           suppress cli prompts
-  -u, --rpcUrl=<value>   alternate RPC url
-  -v, --verbose          log everything
-  --cluster=<option>     the solana cluster to connect to
-                         <options: devnet|mainnet-beta|mainnet|localnet>
-  --commitment=<option>  [default: confirmed] transaction commitment level to use
-                         <options: confirmed|finalized|processed>
-  --fundAmount=<value>   [default: 0.0]
-  --ledger               enable ledger support
-  --ledgerPath=<value>   HID path to the ledger
-  --mainnetBeta          WARNING: use mainnet-beta solana cluster
-  --programId=<value>    alternative Switchboard program ID to interact with
-
-GLOBAL FLAGS
-  --json  Format output as json.
-
-DESCRIPTION
-  wrap SOL into a function accounts escrow wallet
-```
-
-## `sbv2 solana function print FUNCTIONKEY`
-
-print a function account
-
-```
-USAGE
-  $ sbv2 solana function print FUNCTIONKEY [-h] [-v] [-s] [--mainnetBeta | --cluster devnet|mainnet-beta|mainnet|localnet]
-    [-u <value>] [--programId <value>] [--commitment confirmed|finalized|processed] [--json]
-
-ARGUMENTS
-  FUNCTIONKEY  public key of the function account
-
-FLAGS
-  -h, --help             Show CLI help.
-  -s, --silent           suppress cli prompts
-  -u, --rpcUrl=<value>   alternate RPC url
-  -v, --verbose          log everything
-  --cluster=<option>     the solana cluster to connect to
-                         <options: devnet|mainnet-beta|mainnet|localnet>
-  --commitment=<option>  [default: confirmed] transaction commitment level to use
-                         <options: confirmed|finalized|processed>
-  --mainnetBeta          WARNING: use mainnet-beta solana cluster
-  --programId=<value>    alternative Switchboard program ID to interact with
-
-GLOBAL FLAGS
-  --json  Format output as json.
-
-DESCRIPTION
-  print a function account
 ```
 
 ## `sbv2 solana job create`
@@ -6385,4 +6315,5 @@ FLAG DESCRIPTIONS
 ```
 
 _See code: [@oclif/plugin-version](https://github.com/oclif/plugin-version/blob/v1.2.1/src/commands/version.ts)_
+
 <!-- commandsstop -->

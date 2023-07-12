@@ -1,3 +1,4 @@
+import { FunctionAccountData } from "../../../solana.js/src/generated/attestation-program/accounts/FunctionAccountData";
 import { CliBaseCommand as BaseCommand } from "../BaseCommand";
 import { AwsProvider, FsProvider, GcpProvider } from "../providers";
 import { AuthorityMismatch } from "../types";
@@ -47,8 +48,10 @@ import {
 
 export type SolanaNetwork = Cluster | "localnet";
 
-export abstract class SolanaBaseCommand extends BaseCommand
-  implements IBaseChain {
+export abstract class SolanaBaseCommand
+  extends BaseCommand
+  implements IBaseChain
+{
   static flags = {
     ...BaseCommand.flags,
     mainnetBeta: Flags.boolean({

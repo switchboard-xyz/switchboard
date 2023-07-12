@@ -110,9 +110,9 @@ export default class JsonCreateAggregator extends BaseCommand {
       : undefined;
 
     const aggregatorJobs = aggregatorDefinition.jobs;
-    const jobs = (_.isArray(aggregatorJobs) ? aggregatorJobs : []).map<
-      JobInitParams
-    >((job: any) => ({
+    const jobs = (
+      _.isArray(aggregatorJobs) ? aggregatorJobs : []
+    ).map<JobInitParams>((job: any) => ({
       name: job.name ?? "",
       authority: authority,
       data: Buffer.from(

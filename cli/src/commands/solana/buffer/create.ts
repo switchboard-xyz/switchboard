@@ -79,16 +79,14 @@ export default class BufferCreate extends BaseCommand {
       throw new Error(`Must provide --jobDefinition or --jobKey`);
     }
 
-    const [
-      bufferRelayerAccount,
-      txn,
-    ] = await queueAccount.createBufferRelayerInstructions(this.payer, {
-      name: flags.name ?? "",
-      minUpdateDelaySeconds: flags.minUpdateDelaySeconds,
-      authority: authority.publicKey,
-      keypair: bufferKeypair,
-      job,
-    });
+    const [bufferRelayerAccount, txn] =
+      await queueAccount.createBufferRelayerInstructions(this.payer, {
+        name: flags.name ?? "",
+        minUpdateDelaySeconds: flags.minUpdateDelaySeconds,
+        authority: authority.publicKey,
+        keypair: bufferKeypair,
+        job,
+      });
 
     const signature = await this.signAndSend(txn);
 

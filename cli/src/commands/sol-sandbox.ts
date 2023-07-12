@@ -45,9 +45,8 @@ export default class SandboxCommand extends BaseCommand {
     const idlAddress = await getIdlAddress(programId);
 
     const space = 15_686;
-    const lamports = await this.program.connection.getMinimumBalanceForRentExemption(
-      space
-    );
+    const lamports =
+      await this.program.connection.getMinimumBalanceForRentExemption(space);
 
     const baseKeypair = Keypair.generate();
 

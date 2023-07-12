@@ -1,6 +1,7 @@
 /* eslint unicorn/no-array-push-push: 0 */
 /* eslint new-cap: 0 */
 
+import { FunctionAccountData } from "../../../solana.js/src/generated/attestation-program/accounts/FunctionAccountData";
 import { NoPayerKeypairProvided } from "../types";
 import { chalkString } from "../utils";
 
@@ -631,7 +632,7 @@ export function prettyPrintFunction(
     )
   );
   output.push(
-    chalkString("mrEnclave", `[${functionState.enclave.mrEnclave!}]`, SPACING)
+    chalkString("mrEnclave", `[${functionState.enclave.mrEnclave}]`, SPACING)
   );
   output.push(
     chalkString("mrEnclaveLen", mrEnclaves.length + " / 32", SPACING)

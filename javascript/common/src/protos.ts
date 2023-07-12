@@ -1,6 +1,3 @@
-export * from "./OracleJob.js";
-export * from "./protos/index.js";
-
 import protobuf from "protobufjs/minimal.js";
 protobuf.util.toJSONOptions = {
   longs: String,
@@ -10,13 +7,13 @@ protobuf.util.toJSONOptions = {
 };
 
 // Re-export the most common task types so they are easier to work with
-import { OracleJob } from "./protos/index.js";
+// import { IOracleJob, OracleJob } from "./protos/index.js";
+import * as protos from "./protos/index.js";
+
+export import OracleJob = protos.OracleJob;
 
 export import ITask = OracleJob.ITask;
 export import Task = OracleJob.Task;
-
-// export type ITask = OracleJob.ITask;
-// export type Task = OracleJob.Task;
 
 export import IHttpTask = OracleJob.IHttpTask;
 export import HttpTask = OracleJob.HttpTask;
@@ -152,3 +149,6 @@ export import RoundTask = OracleJob.RoundTask;
 
 export import IBoundTask = OracleJob.IBoundTask;
 export import BoundTask = OracleJob.BoundTask;
+
+export * from "./OracleJob.js";
+export * from "./protos/index.js";

@@ -29,8 +29,10 @@ import bs58 from "bs58";
 import { Account, connect } from "near-api-js";
 import { homedir } from "os";
 
-export abstract class NearBaseCommand extends BaseCommand
-  implements IBaseChain {
+export abstract class NearBaseCommand
+  extends BaseCommand
+  implements IBaseChain
+{
   static flags = {
     ...BaseCommand.flags,
     networkId: Flags.string({

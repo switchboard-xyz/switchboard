@@ -134,14 +134,12 @@ export default class EnvCreate extends BaseCommand {
     );
     queueActions.push(createOracleAction);
 
-    const [
-      createOraclePermissionAction,
-      oraclePermissionAccount,
-    ] = PermissionAccount.createAction(this.program, {
-      authority: flags.authority || this.program.account.accountId,
-      granter: queueAccount.address,
-      grantee: oracleAccount.address,
-    });
+    const [createOraclePermissionAction, oraclePermissionAccount] =
+      PermissionAccount.createAction(this.program, {
+        authority: flags.authority || this.program.account.accountId,
+        granter: queueAccount.address,
+        grantee: oracleAccount.address,
+      });
 
     queueActions.push(
       createOraclePermissionAction,
@@ -221,30 +219,28 @@ export default class EnvCreate extends BaseCommand {
 
         const feedActions: Action[] = [];
 
-        const [
-          createAggregatorAction,
-          aggregatorAccount,
-        ] = AggregatorAccount.createAction(this.program, {
-          queue: queueAccount.address,
-          crank: crankAccount.address,
-          authority: flags.authority || this.program.account.accountId,
-          name: Buffer.from(flags.name || ""),
-          metadata: Buffer.from(flags.metadata || ""),
-          batchSize: feedDefinition.batchSize || 1,
-          minOracleResults: feedDefinition.minOracleResponses || 1,
-          minJobResults: feedDefinition.minJobResponses || 1,
-          minUpdateDelaySeconds: feedDefinition.minUpdateDelaySeconds || 30,
-          startAfter: 0,
-          rewardEscrow: escrow.address,
-          varianceThreshold: feedDefinition.varianceThreshold
-            ? SwitchboardDecimal.fromBig(
-                new Big(feedDefinition.varianceThreshold)
-              )
-            : SwitchboardDecimal.fromBig(new Big(0)),
-          forceReportPeriod: feedDefinition.forceReportPeriod
-            ? Number.parseInt(feedDefinition.forceReportPeriod, 10)
-            : 0,
-        });
+        const [createAggregatorAction, aggregatorAccount] =
+          AggregatorAccount.createAction(this.program, {
+            queue: queueAccount.address,
+            crank: crankAccount.address,
+            authority: flags.authority || this.program.account.accountId,
+            name: Buffer.from(flags.name || ""),
+            metadata: Buffer.from(flags.metadata || ""),
+            batchSize: feedDefinition.batchSize || 1,
+            minOracleResults: feedDefinition.minOracleResponses || 1,
+            minJobResults: feedDefinition.minJobResponses || 1,
+            minUpdateDelaySeconds: feedDefinition.minUpdateDelaySeconds || 30,
+            startAfter: 0,
+            rewardEscrow: escrow.address,
+            varianceThreshold: feedDefinition.varianceThreshold
+              ? SwitchboardDecimal.fromBig(
+                  new Big(feedDefinition.varianceThreshold)
+                )
+              : SwitchboardDecimal.fromBig(new Big(0)),
+            forceReportPeriod: feedDefinition.forceReportPeriod
+              ? Number.parseInt(feedDefinition.forceReportPeriod, 10)
+              : 0,
+          });
 
         // add jobs
         feedActions.push(
@@ -253,14 +249,12 @@ export default class EnvCreate extends BaseCommand {
         );
 
         // add permissions
-        const [
-          aggregatorPermissionAction,
-          aggregatorPermissionAccount,
-        ] = PermissionAccount.createAction(this.program, {
-          authority: flags.authority || this.program.account.accountId,
-          granter: queueAccount.address,
-          grantee: aggregatorAccount.address,
-        });
+        const [aggregatorPermissionAction, aggregatorPermissionAccount] =
+          PermissionAccount.createAction(this.program, {
+            authority: flags.authority || this.program.account.accountId,
+            granter: queueAccount.address,
+            grantee: aggregatorAccount.address,
+          });
         feedActions.push(aggregatorPermissionAction);
 
         // set permissions if required

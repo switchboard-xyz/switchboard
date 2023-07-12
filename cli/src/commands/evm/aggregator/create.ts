@@ -112,27 +112,25 @@ export default class CreateAggregator extends BaseCommand {
         ? (await this.getUpdatedJobsHash(undefined, jobs))[0]
         : "";
 
-    const [
-      aggregatorAccount,
-      aggregatorInit,
-    ] = await queueAccount.createAggregator(
-      {
-        name: flags.name ?? "",
-        authority: authorityAddress,
-        batchSize: flags.batchSize ?? 1,
-        minUpdateDelaySeconds: flags.updateInterval ?? 30,
-        minOracleResults: flags.minOracles ?? 1,
-        minJobResults: flags.minJobs ?? 1,
-        jobsHash: jobsHash,
-        varianceThreshold: flags.varianceThreshold
-          ? Number.parseFloat(flags.varianceThreshold)
-          : 0,
-        forceReportPeriod: flags.forceReportPeriod ?? 0,
-        enableHistory: flags.enableHistory,
-        fundAmount: toBigNumber(new Big(flags.fundAmount ?? 0)),
-      },
-      enableParams
-    );
+    const [aggregatorAccount, aggregatorInit] =
+      await queueAccount.createAggregator(
+        {
+          name: flags.name ?? "",
+          authority: authorityAddress,
+          batchSize: flags.batchSize ?? 1,
+          minUpdateDelaySeconds: flags.updateInterval ?? 30,
+          minOracleResults: flags.minOracles ?? 1,
+          minJobResults: flags.minJobs ?? 1,
+          jobsHash: jobsHash,
+          varianceThreshold: flags.varianceThreshold
+            ? Number.parseFloat(flags.varianceThreshold)
+            : 0,
+          forceReportPeriod: flags.forceReportPeriod ?? 0,
+          enableHistory: flags.enableHistory,
+          fundAmount: toBigNumber(new Big(flags.fundAmount ?? 0)),
+        },
+        enableParams
+      );
 
     const aggregator = await aggregatorAccount.loadData();
 
