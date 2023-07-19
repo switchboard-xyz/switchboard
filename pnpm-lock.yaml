@@ -5821,7 +5821,7 @@ packages:
       '@ledgerhq/errors': 6.12.7
       '@ledgerhq/logs': 6.10.1
       rxjs: 6.6.7
-      semver: 7.5.3
+      semver: 7.5.4
     dev: false
 
   /@ledgerhq/devices@8.0.4:
