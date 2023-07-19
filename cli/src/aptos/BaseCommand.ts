@@ -24,7 +24,7 @@ import {
   OracleJob,
   SwitchboardDecimal,
 } from "@switchboard-xyz/common";
-import type { MaybeHexString } from "aptos";
+import type { AptosClient, MaybeHexString } from "aptos";
 import { AptosAccount, HexString } from "aptos";
 import fs from "fs";
 import YAML from "yaml";
@@ -88,7 +88,7 @@ export abstract class AptosBaseCommand
     });
   }
 
-  get aptos() {
+  get aptos(): AptosClient {
     return this.program.client;
   }
 
