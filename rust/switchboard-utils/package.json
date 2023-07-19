@@ -1,8 +1,8 @@
 {
   "name": "switchboard-utils",
   "scripts": {
-    "build:cargo": "cargo build -p switchboard-utils",
-    "lint": "cargo fmt -p switchboard-utils",
-    "test": "cargo test -p switchboard-utils"
+    "cargo:build": "cargo build",
+    "fix": "cargo fmt",
+    "test": "cargo test"
   }
 }

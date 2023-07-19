@@ -78,6 +78,8 @@ mod tests {
             hex::encode(serde_json::to_string(&fr).unwrap())
         );
 
+        println!("Encoded: {:?}", encoded);
+
         let decoded = FunctionResult::decode(&encoded).unwrap();
 
         assert_eq!(fr, FunctionResult::default());
