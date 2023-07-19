@@ -1,18 +1,19 @@
-import React, { useState, useEffect } from "react";
+import ClearIcon from "@mui/icons-material/Clear";
 import {
+  Button,
   Checkbox,
   Divider,
   FormControlLabel,
-  Grid,
-  Button,
-  IconButton,
   FormGroup,
   FormLabel,
+  Grid,
+  IconButton,
   styled,
 } from "@mui/material";
+import React, { useEffect, useState } from "react";
+
 import { capitalizeFirstLetterOfEachWord } from "./Addresses/utils";
 import BasicCardGroup from "./BasicCardGroup";
-import ClearIcon from "@mui/icons-material/Clear";
 
 const StyledContainer = styled("div")(({ theme }) => ({
   display: "flex",
@@ -107,6 +108,16 @@ const DEFAULT_FILTERED_GUIDES: FilteredGuides = {
       description: "",
       guides: getChainGuides("evm"),
     },
+    {
+      title: "Aptos",
+      description: "",
+      guides: getChainGuides("aptos"),
+    },
+    {
+      title: "NEAR",
+      description: "",
+      guides: getChainGuides("near"),
+    },
   ],
 };
 
@@ -173,14 +184,30 @@ export default function GuidesComponent() {
 
   return (
     <div>
-      <Grid container justifyContent="space-between" alignItems="center">
-        <Grid item xs={4}>
+      <Grid
+        container
+        spacing={0}
+        justifyContent="flex-start"
+        alignItems="flex-start"
+      >
+        <Grid item xs={2}>
+          <IconButton
+            onClick={() => {
+              clearAllFilters();
+            }}
+            aria-label="clear-chains-filter"
+          >
+            <ClearIcon />
+            <div style={{ fontSize: "1.1rem" }}>Clear all filters</div>
+          </IconButton>
+        </Grid>
+        <Grid item xs={3}>
           <StyledContainer>
             <FormLabel component="legend">Categories</FormLabel>
             <Grid
               container
               direction={"row"}
-              justifyContent="space-evenly"
+              justifyContent="space-around"
               alignItems="center"
             >
               {ALL_TAGS.map((category) => (
@@ -204,22 +231,13 @@ export default function GuidesComponent() {
                   </FormGroup>
                 </Grid>
               ))}
-              <Grid item xs={12}>
-                <IconButton
-                  onClick={() => {
-                    setSelectedCategories([]);
-                  }}
-                  aria-label="clear-chains-filter"
-                >
-                  <ClearIcon />
-                  &nbsp;<span style={{ fontSize: "1.1rem" }}>Clear</span>
-                </IconButton>
-              </Grid>
             </Grid>
           </StyledContainer>
         </Grid>
-        <Divider orientation="vertical" flexItem />
-        <Grid item xs={7}>
+        <Grid item xs={1} md={1} sx={{ minHeight: "50px", minWidth: "20px" }}>
+          <Divider orientation="vertical" />
+        </Grid>
+        <Grid item xs={6}>
           <StyledContainer>
             <FormLabel component="legend">Chains</FormLabel>
             <Grid
@@ -250,23 +268,12 @@ export default function GuidesComponent() {
                   </FormGroup>
                 </Grid>
               ))}
-              <Grid item xs={12} md={12}>
-                <IconButton
-                  onClick={() => {
-                    setSelectedChains([]);
-                  }}
-                  aria-label="clear-chains-filter"
-                >
-                  <ClearIcon />
-                  &nbsp;<span style={{ fontSize: "1.1rem" }}>Clear</span>
-                </IconButton>
-              </Grid>
             </Grid>
           </StyledContainer>
         </Grid>
       </Grid>
 
-      <hr />
+      <Divider />
 
       {filteredData.sections.length === 0 ? (
         <>

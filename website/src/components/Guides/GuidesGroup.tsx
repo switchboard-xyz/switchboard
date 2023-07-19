@@ -1,20 +1,19 @@
-import React, { useEffect, useState } from "react";
 import {
-  FormControl,
-  FormLabel,
-  RadioGroup,
-  FormControlLabel,
-  Radio,
-  Grid,
   Checkbox,
+  FormControl,
+  FormControlLabel,
+  FormLabel,
+  Grid,
+  Radio,
+  RadioGroup,
 } from "@mui/material";
-
-import { SupportedChain } from "../Addresses/types";
-import PublicKeyButton from "../PublicKeyButton";
+import React, { useEffect, useState } from "react";
 
 // Assuming the data is imported from a JSON file.
 import guides from "../../../guides.json";
+import { SupportedChain } from "../Addresses/types";
 import { capitalizeFirstLetterOfEachWord } from "../Addresses/utils";
+import PublicKeyButton from "../PublicKeyButton";
 
 interface IGuide {
   label: string;

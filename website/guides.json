@@ -2,29 +2,11 @@
   "chains": ["solana", "evm", "aptos", "near", "starknet", "sui"],
   "languages": ["javascript", "rust", "move", "solidity"],
   "categories": ["data feeds", "randomness", "secrets", "functions"],
-  "g": {
-    "General": {
-      "name": "General",
-      "description": "",
-      "guides": [
-        {
-          "label": "Data Feed Best Practices",
-          "link": "/guides/feeds/best-practices",
-          "tags": ["data-feeds"]
-        }
-      ]
-    }
-  },
   "guides": [
     {
       "label": "Data Feed Best Practices",
       "link": "/guides/feeds/best-practices",
       "tags": ["data feeds"]
-    },
-    {
-      "label": "Private APIs",
-      "link": "/guides/feeds/private-apis",
-      "tags": ["queues", "data feeds"]
     },
     {
       "label": "How to Run an Oracle in Google Cloud Platform",
@@ -33,28 +15,28 @@
     },
     {
       "label": "Rust: switchboard-solana crate",
-      "link": "/guides/solana/sdk/rust",
+      "link": "/solana/rust",
       "language": "rust",
       "tags": ["data feeds", "randomness", "functions"],
       "chain": "solana"
     },
     {
       "label": "Rust: switchboard-v2 crate",
-      "link": "/guides/solana/sdk/switchboard-v2",
+      "link": "/solana/switchboard-v2",
       "language": "rust",
       "tags": ["data feeds", "randomness"],
       "chain": "solana"
     },
     {
       "label": "Javascript: @switchboard-xyz/solana.js",
-      "link": "/guides/solana/sdk/javascript",
+      "link": "/solana/javascript",
       "language": "javascript",
       "tags": ["data feeds", "randomness", "functions"],
       "chain": "solana"
     },
     {
       "label": "Native Rust: Read Feed On-Chain",
-      "link": "/guides/solana/feeds/rust",
+      "link": "/solana/feeds/rust",
       "tooltip": "Learn how to use the native Solana rust runtime to deserialize and read a Switchboard data feed",
       "tags": ["example", "data feeds"],
       "language": "rust",
@@ -62,7 +44,7 @@
     },
     {
       "label": "Anchor: Read Feed On-Chain",
-      "link": "/guides/solana/feeds/anchor",
+      "link": "/solana/feeds/anchor",
       "tooltip": "Learn how to use the Anchor framework to deserialize and read a Switchboard data feed",
       "tags": ["example", "data feeds"],
       "language": "rust",
@@ -70,28 +52,91 @@
     },
     {
       "label": "Data Feeds: Priority Fees",
-      "link": "/guides/solana/feeds/priority-fees",
+      "link": "/solana/feeds/priority-fees",
       "tooltip": "Learn how to configure priority fees for a Switchboard data feed",
       "tags": ["data feeds"],
       "chain": "solana"
     },
     {
       "label": "VRF Integration",
-      "link": "/guides/solana/vrf",
+      "link": "/solana/vrf",
       "tags": ["example", "randomness"],
       "chain": "solana"
     },
     {
       "label": "Functions: Getting Started",
-      "link": "/guides/solana/functions",
+      "link": "/solana/functions",
       "tags": ["functions"],
       "chain": "solana"
     },
     {
       "label": "Test Integration",
-      "link": "/guides/solana/test-integration",
+      "link": "/solana/test-integration",
       "chain": "solana",
       "tags": ["data feeds", "randomness", "functions"]
+    },
+    {
+      "label": "Javascript: @switchboard-xyz/evm.js",
+      "link": "/evm/javascript",
+      "language": "javascript",
+      "tags": ["data feeds", "functions"],
+      "chain": "evm"
+    },
+    {
+      "label": "Solidity: ISwitchboard",
+      "link": "/evm/ISwitchboard",
+      "language": "solidity",
+      "tags": ["data feeds", "functions"],
+      "chain": "evm"
+    },
+    {
+      "label": "Solidity: ILegacyOracle",
+      "link": "/evm/ILegacyOracle",
+      "language": "solidity",
+      "tags": ["data feeds"],
+      "chain": "evm"
+    },
+    {
+      "label": "Javascript: @switchboard-xyz/aptos.js",
+      "link": "/aptos/javascript",
+      "language": "javascript",
+      "tags": ["data feeds"],
+      "chain": "aptos"
+    },
+    {
+      "label": "Move: switchboard",
+      "link": "/aptos/move",
+      "language": "move",
+      "tags": ["data feeds"],
+      "chain": "aptos"
+    },
+    {
+      "label": "Example: feed-parser",
+      "link": "/aptos/move/feed-parser",
+      "language": "move",
+      "tags": ["data feeds"],
+      "chain": "aptos"
+    },
+    {
+      "label": "Javascript: @switchboard-xyz/near.js",
+      "link": "/near/javascript",
+      "language": "javascript",
+      "tags": ["data feeds"],
+      "chain": "near"
+    },
+    {
+      "label": "Rust: sbv2-near",
+      "link": "/near/rust",
+      "language": "rust",
+      "tags": ["data feeds"],
+      "chain": "near"
+    },
+    {
+      "label": "Example: feed-parser",
+      "link": "/near/rust",
+      "language": "rust",
+      "tags": ["data feeds"],
+      "chain": "near"
     }
   ]
 }

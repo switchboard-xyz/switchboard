@@ -1,9 +1,9 @@
-import React from "react";
 import useDocusaurusContext from "@docusaurus/useDocusaurusContext";
-import Layout from "@theme/Layout";
 import { Button, Typography } from "@mui/material";
-import { ChainComponent, ProductGuidesGrid } from "../components";
+import Layout from "@theme/Layout";
+import React from "react";
 
+import { ChainComponent, ProductGuidesGrid } from "../components";
 import styles from "./index.module.css";
 
 export default function Home(): JSX.Element {
@@ -40,7 +40,7 @@ export default function Home(): JSX.Element {
             </p>
           </div>
           {/** @TODO add once Chatbot is ready
-     <DocsSearch /> 
+     <DocsSearch />
      */}
           <a href="/about">
             <Button

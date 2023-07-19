@@ -1,0 +1,62 @@
+---
+sidebar_position: 1
+hide_title: true
+title: Switchboard x Sui
+sidebar_class_name: "sidebar__sui"
+---
+
+import ChainAddresses from "/src/components/Addresses/ChainAddresses";
+
+<div align="center">
+
+![Switchboard Logo](https://github.com/switchboard-xyz/sbv2-core/raw/main/website/static/img/icons/switchboard/avatar.png)
+
+# Switchboard x Sui
+
+> A collection of libraries and examples for interacting with Switchboard V2 on
+> Sui.
+
+[![NPM Badge](https://img.shields.io/github/package-json/v/switchboard-xyz/sbv2-sui?color=red&filename=javascript%2Fsui.js%2Fpackage.json&label=%40switchboard-xyz%2Fsui.js&logo=npm)](https://www.npmjs.com/package/@switchboard-xyz/sui.js)
+
+</div>
+
+## Getting Started
+
+To get started, clone the
+[sbv2-sui](https://github.com/switchboard-xyz/sbv2-sui) repository.
+
+```bash
+git clone https://github.com/switchboard-xyz/sbv2-sui
+```
+
+Then install the dependencies
+
+```bash
+cd sbv2-sui
+pnpm install
+```
+
+## Addresses
+
+<ChainAddresses chain="sui" />
+
+## Clients
+
+| **Lang**   | **Name**                                      | **Description**                                            |
+| ---------- | --------------------------------------------- | ---------------------------------------------------------- |
+| Move       | [SwitchboardStd](/sui/move/)                  | A Move module to interact with Switchboard on Sui mainnet. |
+| Move       | [SwitchboardStd (testnet)](/sui/move/testnet) | A Move module to interact with Switchboard on Sui testnet. |
+| Javascript | [@switchboard-xyz/sui.js](/sui/javascript/)   | A Typescript client to interact with Switchboard on Sui.   |
+
+## Example Programs
+
+| **Lang** | **Name**                                               | **Description**                         |
+| -------- | ------------------------------------------------------ | --------------------------------------- |
+| Move     | [feed-parser](/sui/move/feed-parser)                   | Read a Switchboard feed on Sui"         |
+| Move     | [feed-parser (testnet)](/sui/move/feed-parser-testnet) | Read a Switchboard feed on Sui testnet" |
+
+## Troubleshooting
+
+1. File a [GitHub Issue](https://github.com/switchboard-xyz/sbv2-sui/issues/new)
+2. Ask a question in
+   [Discord #dev-support](https://discord.com/channels/841525135311634443/984343400377647144)

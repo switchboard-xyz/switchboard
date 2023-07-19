@@ -1,8 +1,9 @@
-import React, { CSSProperties, ReactNode } from "react";
 import Link from "@docusaurus/Link";
-import { Typography, Box, Avatar, Tooltip, styled } from "@mui/material";
 import { useColorMode } from "@docusaurus/theme-common";
 import useBaseUrl from "@docusaurus/useBaseUrl";
+import { Avatar, Box, styled, Tooltip, Typography } from "@mui/material";
+import type { CSSProperties } from "react";
+import React, { ReactNode } from "react";
 
 export interface IChainProps {
   title: string;
@@ -60,12 +61,12 @@ export default function ChainComponent({ hideTitle, sx }: ChainComponentProps) {
       image: useBaseUrl("/img/icons/aptos/logo.svg"),
     },
     {
-      to: "/arbitrum",
+      to: "/evm",
       title: "Arbitrum",
       image: useBaseUrl("/img/icons/arbitrum/logo.svg"),
     },
     {
-      to: "/coredao",
+      to: "/evm",
       title: "CoreDAO",
       image: useBaseUrl("/img/icons/coredao/logo.svg"),
     },
