@@ -20,7 +20,7 @@ li > a.menu__link {
 }
 
 .sidebar-separator {
-  margin: 0.8rem 0 0 0;
+  margin: 0.25rem 0 0 0;
 }
 
 .sidebar__custom_doc_label {
@@ -29,7 +29,7 @@ li > a.menu__link {
 }
 
 hr.sidebar__separator {
-  margin: 0.5rem;
+  margin: 0.25rem;
   opacity: 0.4;
 }
 
@@ -45,4 +45,102 @@ hr.sidebar__double-separator {
 
 .sidebar-buffer {
   padding: 0.5rem;
+}
+
+.sidebar__heading-label {
+  margin: 0;
+  padding: 10px 10px 0px 10px; /* top right bottom left */
+  font-weight: bold;
+  line-height: 1;
+  font-size: large;
+}
+
+/* .sidebar__heading-label .menu__list-item-collapsible:hover {
+  background: var(--ifm-pages-background-color);
+} */
+
+/* .menu__list-item-collapsible .menu__link:hover, .menu__list-item-collapsible .menu__link--active {
+
+}
+
+.menu__list-item-collapsible:hover {} */
+
+.sidebar__heading-label-level-2 {
+  margin: 0;
+  padding: 0px 10px 0px 10px; /* top right bottom left */
+  line-height: 1;
+}
+
+.sidebar__heading-label-level-2 div a.menu__link {
+  font-weight: bold;
+  margin: 0;
+  padding: 0;
+  line-height: 1;
+}
+.sidebar__heading-label-level-2 div a.menu__link--active {
+  font-weight: bold;
+  margin: 0;
+  padding: 0;
+  line-height: 1;
+  color: var(--ifm-menu-color);
+}
+
+/* .theme-doc-sidebar-item-category {
+  line-height: 0.8;
+  font-size: 0.9rem;
+} */
+
+.menu__link--sublist-caret {
+  line-height: 1;
+  padding-bottom: 5px;
+}
+
+.menu__list-item-collapsible a {
+  line-height: 1;
+  padding-bottom: 5px;
+}
+
+/* .menu__link {
+  padding: 0;
+  line-height: 1;
+} */
+
+@media screen and (min-width: 640px) {
+  .theme-doc-sidebar-item {
+    padding: 0;
+    margin: 0;
+    line-height: 1;
+  }
+
+  .theme-doc-sidebar-item-link {
+    padding: 0;
+    margin: 0;
+    line-height: 1;
+  }
+
+  .theme-doc-sidebar-item-link-level-2 {
+    font-size: 1rem;
+    line-height: 1;
+  }
+  .theme-doc-sidebar-item-link-level-2 {
+    font-size: 0.95rem;
+    line-height: 1;
+  }
+  .theme-doc-sidebar-item-link-level-3 {
+    font-size: 0.9rem;
+    line-height: 1;
+  }
+  .theme-doc-sidebar-item-link-level-4 {
+    font-size: 0.85rem;
+    line-height: 1;
+  }
+}
+/* theme-doc-sidebar-item-category-level-2 */
+
+.tight-sidebar {
+  line-height: 0.5;
+}
+
+li.tight-sidebar a.menu__link {
+  line-height: 0.75;
 }

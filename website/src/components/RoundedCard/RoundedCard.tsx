@@ -1,17 +1,18 @@
-import React, { ReactNode } from "react";
 import Link from "@docusaurus/Link";
+import { useColorMode } from "@docusaurus/theme-common";
+import useBaseUrl from "@docusaurus/useBaseUrl";
+import MoreVertIcon from "@mui/icons-material/MoreVert";
 import {
-  Typography,
   Card,
   CardContent,
   CardHeader,
   Divider,
+  Typography,
 } from "@mui/material";
-import { styled } from "@mui/system";
-import { useColorMode } from "@docusaurus/theme-common";
-import useBaseUrl from "@docusaurus/useBaseUrl";
 import IconButton, { IconButtonProps } from "@mui/material/IconButton";
-import MoreVertIcon from "@mui/icons-material/MoreVert";
+import { styled } from "@mui/system";
+import type { ReactNode } from "react";
+import React from "react";
 
 const StyledCard = styled(Card)<{ dark: number }>(({ theme, dark }) => ({
   display: "flex",

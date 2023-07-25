@@ -1,8 +1,6 @@
-import * as React from "react";
-import { SvgIcon } from "@mui/material";
 import { Stop } from "@mui/icons-material";
-
-
+import { SvgIcon } from "@mui/material";
+import * as React from "react";
 
 export function SolanaIcon(props) {
   return (

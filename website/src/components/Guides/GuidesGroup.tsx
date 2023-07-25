@@ -13,7 +13,6 @@ import React, { useEffect, useState } from "react";
 import guides from "../../../guides.json";
 import { SupportedChain } from "../Addresses/types";
 import { capitalizeFirstLetterOfEachWord } from "../Addresses/utils";
-import PublicKeyButton from "../PublicKeyButton";
 
 interface IGuide {
   label: string;

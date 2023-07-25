@@ -59,7 +59,7 @@ html[data-theme="dark"] .alert--warning p,
 }
 
 .admonition-note h5 {
-  /*color: var(--dark-200);*/
+  color: var(--dark-200);
   font-weight: bold;
 }
 

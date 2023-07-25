@@ -2,5 +2,9 @@
   "label": "Solana",
   "position": 10,
   "collapsible": true,
-  "collapsed": false
+  "collapsed": false,
+  "link": {
+    "type": "doc",
+    "id": "solana/index"
+  }
 }

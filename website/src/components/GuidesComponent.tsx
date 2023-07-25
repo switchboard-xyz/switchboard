@@ -118,6 +118,11 @@ const DEFAULT_FILTERED_GUIDES: FilteredGuides = {
       description: "",
       guides: getChainGuides("near"),
     },
+    {
+      title: "Sui",
+      description: "",
+      guides: getChainGuides("sui"),
+    },
   ],
 };
 
@@ -198,10 +203,10 @@ export default function GuidesComponent() {
             aria-label="clear-chains-filter"
           >
             <ClearIcon />
-            <div style={{ fontSize: "1.1rem" }}>Clear all filters</div>
+            <div style={{ fontSize: "1.1rem" }}>Clear filters</div>
           </IconButton>
         </Grid>
-        <Grid item xs={3}>
+        {/* <Grid item xs={3}>
           <StyledContainer>
             <FormLabel component="legend">Categories</FormLabel>
             <Grid
@@ -236,8 +241,11 @@ export default function GuidesComponent() {
         </Grid>
         <Grid item xs={1} md={1} sx={{ minHeight: "50px", minWidth: "20px" }}>
           <Divider orientation="vertical" />
+        </Grid> */}
+        <Grid item xs={0} md={1} sx={{ minHeight: "50px", minWidth: "20px" }}>
+          <Divider orientation="vertical" />
         </Grid>
-        <Grid item xs={6}>
+        <Grid item xs={8}>
           <StyledContainer>
             <FormLabel component="legend">Chains</FormLabel>
             <Grid
@@ -247,7 +255,7 @@ export default function GuidesComponent() {
               alignItems="flex-start"
             >
               {ALL_CHAINS.map((chain) => (
-                <Grid item xs={12} sm={6} md={4}>
+                <Grid item xl={2} lg={4} sm={6} xs={12}>
                   <FormGroup>
                     <FormControlLabel
                       className={`navbar_icon__${

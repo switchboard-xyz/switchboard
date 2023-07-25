@@ -4,6 +4,7 @@ keywords: [Switchboard, web3, oracle, serverless]
 description:
   "Learn about Switchboard Functions and how they can be used to write custom
   off-chain logic for your smart contracts"
+hide_table_of_contents: true
 ---
 
 :::info
@@ -23,6 +24,8 @@ they can delegate execution to an off-chain computational layer.
 Switchboard Functions are executed within its own Trusted Execution Environment
 (TEE) which provides verification that the code being executed matches the
 expected **_measurement_** (MrEnclave) authorized by the function's owner.
+
+![Scheduled Switchboard Functions](/img/arch/Functions_Execution_Flow.png)
 
 ### Scheduled
 
@@ -51,6 +54,8 @@ custom params and points to the parent `FunctionAccount`. This allows you to
 manage user params and management in isolated accounts.
 
 ![On-Demand Switchboard Functions](/img/arch/Functions_On_Demand.png)
+
+### Managing Switchboard Functions
 
 ## More Info
 

@@ -1,6 +1,8 @@
-import React from "react";
 import { Grid } from "@mui/material";
-import RoundedCard, { RoundedCardProps } from "./RoundedCard";
+import React from "react";
+
+import type { RoundedCardProps } from "./RoundedCard";
+import RoundedCard from "./RoundedCard";
 
 export interface RoundedCardGroupProps {
   items: RoundedCardProps[];

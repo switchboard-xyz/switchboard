@@ -2,12 +2,13 @@ import ContentCopyIcon from "@mui/icons-material/ContentCopy";
 import { Button, Tooltip, Typography } from "@mui/material";
 import React from "react";
 
-interface PublicKeyButtonProps {
-  publicKey: string;
+interface AddressButtonProps {
+  address: string;
+  trim?: number;
   sx?: any;
 }
 
-const PublicKeyButton = (props: PublicKeyButtonProps) => {
+export default function AddressButton(props: AddressButtonProps) {
   let sx: any = {
     textTransform: "none",
     color: "var(--ifm-color-primary-light)",
@@ -23,7 +24,7 @@ const PublicKeyButton = (props: PublicKeyButtonProps) => {
 
   const copyToClipboard = () => {
     const el = document.createElement("textarea");
-    el.value = props.publicKey;
+    el.value = props.address;
     document.body.appendChild(el);
     el.select();
     document.execCommand("copy");
@@ -44,11 +45,32 @@ const PublicKeyButton = (props: PublicKeyButtonProps) => {
         onClick={copyToClipboard}
       >
         <Typography sx={sx} color="textSecondary">
-          {props.publicKey}
+          {trimString(props.address, props.trim)}
         </Typography>
       </Button>
     </Tooltip>
   );
-};
+}
 
-export default PublicKeyButton;
+function trimString(str: string, trim?: number): string {
+  if (!trim || trim === 0 || str.length === 0 || str.length < trim) {
+    return str;
+  }
+
+  const trimCount = trim;
+
+  const trimIndex = Math.floor(str.length / 2);
+
+  const startingIndex =
+    trimCount % 2 === 0
+      ? trimIndex - trimCount / 2
+      : trimIndex - Math.floor(trimCount / 2) - 1;
+  const endingIndex =
+    trimCount % 2 === 0
+      ? trimIndex + trimCount / 2
+      : trimIndex - Math.floor(trimCount / 2);
+  return `${str.slice(0, startingIndex)}...${str.slice(
+    endingIndex,
+    str.length
+  )}`;
+}

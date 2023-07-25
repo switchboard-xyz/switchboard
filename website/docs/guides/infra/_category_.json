@@ -1,0 +1,10 @@
+{
+  "label": "Infra",
+  "position": 20,
+  "collapsible": false,
+  "link": {
+    "type": "generated-index",
+    "title": "Infrastructure Guides",
+    "description": "Learn how to create and operate Switchboard infrastructure."
+  }
+}

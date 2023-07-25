@@ -49,6 +49,14 @@ const config = {
     locales: ["en"],
   },
 
+  // stylesheets: [
+  //   "https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.css",
+  //   "https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap",
+  //   "https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css",
+  //   "https://unpkg.com/aos@next/dist/aos.css",
+  //   "https://fonts.googleapis.com/icon?family=Material+Icons",
+  // ],
+
   plugins: ["docusaurus-plugin-api-docs"],
 
   presets: [
@@ -130,7 +138,7 @@ const config = {
             type: "docSidebar",
             sidebarId: "gettingStartedSidebar",
             position: "left",
-            label: "Learn",
+            label: "Docs",
           },
           // {
           //   type: "docSidebar",
@@ -138,51 +146,54 @@ const config = {
           //   position: "left",
           //   label: "Guides",
           // },
-          {
-            type: "dropdown",
-            sidebarId: "guidesSidebar",
-            to: "/guides",
-            label: "Integrate",
-            position: "left",
-            items: [
-              {
-                label: " Aptos",
-                to: "/aptos",
-                className: "heading_icon__aptos",
-              },
-              {
-                label: " Arbitrum",
-                to: "/evm",
-                className: "heading_icon__arbitrum",
-              },
-              {
-                label: " CoreDAO",
-                to: "/evm",
-                className: "heading_icon__coredao",
-              },
-              {
-                label: " Near",
-                to: "/near",
-                className: "heading_icon__near",
-              },
-              {
-                label: " Solana",
-                to: "/solana",
-                className: "heading_icon__solana",
-              },
-              {
-                label: " Sui",
-                to: "/sui",
-                className: "heading_icon__sui",
-              },
-            ],
-          },
+          // {
+          //   type: "dropdown",
+          //   sidebarId: "guidesSidebar",
+          //   to: "/guides",
+          //   label: "Integrate",
+          //   position: "left",
+          //   items: [
+          //     {
+          //       label: " Aptos",
+          //       to: "/aptos",
+          //       className: "heading_icon__aptos",
+          //     },
+          //     {
+          //       label: " Arbitrum",
+          //       to: "/evm",
+          //       className: "heading_icon__arbitrum",
+          //     },
+          //     {
+          //       label: " CoreDAO",
+          //       to: "/evm",
+          //       className: "heading_icon__coredao",
+          //     },
+          //     {
+          //       label: " Near",
+          //       to: "/near",
+          //       className: "heading_icon__near",
+          //     },
+          //     {
+          //       label: " Solana",
+          //       to: "/solana",
+          //       className: "heading_icon__solana",
+          //     },
+          //     {
+          //       label: " Sui",
+          //       to: "/sui",
+          //       className: "heading_icon__sui",
+          //     },
+          //   ],
+          // },
           {
             to: "/api",
             label: "API",
             position: "left",
           },
-
+          {
+            type: "search",
+            position: "left",
+          },
           // {
           //   type: "dropdown",
           //   label: "More",

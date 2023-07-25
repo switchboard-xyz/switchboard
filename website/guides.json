@@ -10,41 +10,17 @@
     },
     {
       "label": "How to Run an Oracle in Google Cloud Platform",
-      "link": "/guides/oracles/gcp",
+      "link": "/guides/infra/gcp-oracle",
       "tags": ["infrastructure"]
     },
     {
-      "label": "Rust: switchboard-solana crate",
-      "link": "/solana/rust",
-      "language": "rust",
-      "tags": ["data feeds", "randomness", "functions"],
-      "chain": "solana"
+      "label": "How to Run an Oracle Locally with NodeJS",
+      "link": "/guides/infra/nodejs-oracle",
+      "tags": ["infrastructure"]
     },
     {
-      "label": "Rust: switchboard-v2 crate",
-      "link": "/solana/switchboard-v2",
-      "language": "rust",
-      "tags": ["data feeds", "randomness"],
-      "chain": "solana"
-    },
-    {
-      "label": "Javascript: @switchboard-xyz/solana.js",
-      "link": "/solana/javascript",
-      "language": "javascript",
-      "tags": ["data feeds", "randomness", "functions"],
-      "chain": "solana"
-    },
-    {
-      "label": "Native Rust: Read Feed On-Chain",
-      "link": "/solana/feeds/rust",
-      "tooltip": "Learn how to use the native Solana rust runtime to deserialize and read a Switchboard data feed",
-      "tags": ["example", "data feeds"],
-      "language": "rust",
-      "chain": "solana"
-    },
-    {
-      "label": "Anchor: Read Feed On-Chain",
-      "link": "/solana/feeds/anchor",
+      "label": "Ex: Read Data Feed On-Chain",
+      "link": "/solana/feeds/examples/read-data-feed",
       "tooltip": "Learn how to use the Anchor framework to deserialize and read a Switchboard data feed",
       "tags": ["example", "data feeds"],
       "language": "rust",
@@ -67,6 +43,22 @@
       "label": "Functions: Getting Started",
       "link": "/solana/functions",
       "tags": ["functions"],
+      "chain": "solana"
+    },
+    {
+      "label": "Ex: Basic Oracle Function",
+      "link": "/solana/functions/examples/basic-oracle-example",
+      "tooltip": "Learn how to use Switchboard Functions to push data to your on-chain programs on a schedule or on-demand",
+      "tags": ["example", "functions"],
+      "language": "rust",
+      "chain": "solana"
+    },
+    {
+      "label": "Ex: Randomness Callback Function",
+      "link": "/solana/functions/examples/randomness-callback",
+      "tooltip": "",
+      "tags": ["example", "functions"],
+      "language": "rust",
       "chain": "solana"
     },
     {
@@ -97,14 +89,14 @@
       "chain": "evm"
     },
     {
-      "label": "Javascript: @switchboard-xyz/aptos.js",
+      "label": "Javascript SDK: @switchboard-xyz/aptos.js",
       "link": "/aptos/javascript",
       "language": "javascript",
       "tags": ["data feeds"],
       "chain": "aptos"
     },
     {
-      "label": "Move: switchboard",
+      "label": "Move SDK: switchboard",
       "link": "/aptos/move",
       "language": "move",
       "tags": ["data feeds"],
@@ -118,14 +110,14 @@
       "chain": "aptos"
     },
     {
-      "label": "Javascript: @switchboard-xyz/near.js",
+      "label": "Javascript SDK: @switchboard-xyz/near.js",
       "link": "/near/javascript",
       "language": "javascript",
       "tags": ["data feeds"],
       "chain": "near"
     },
     {
-      "label": "Rust: sbv2-near",
+      "label": "Rust SDK: sbv2-near",
       "link": "/near/rust",
       "language": "rust",
       "tags": ["data feeds"],
@@ -137,6 +129,27 @@
       "language": "rust",
       "tags": ["data feeds"],
       "chain": "near"
+    },
+    {
+      "label": "Javascript SDK: @switchboard-xyz/sui.js",
+      "link": "/sui/javascript",
+      "language": "javascript",
+      "tags": ["data feeds"],
+      "chain": "sui"
+    },
+    {
+      "label": "Move SDK: switchboard",
+      "link": "/sui/move",
+      "language": "move",
+      "tags": ["data feeds"],
+      "chain": "sui"
+    },
+    {
+      "label": "Example: feed-parser",
+      "link": "/sui/move/feed-parser",
+      "language": "move",
+      "tags": ["data feeds"],
+      "chain": "sui"
     }
   ]
 }

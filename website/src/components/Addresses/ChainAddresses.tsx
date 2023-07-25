@@ -1,12 +1,14 @@
-import React from "react";
-import Tabs from "@theme/Tabs";
-import TabItem from "@theme/TabItem";
 import { type IChainNetworkConfig, networks } from "@switchboard-xyz/common";
+import TabItem from "@theme/TabItem";
+import Tabs from "@theme/Tabs";
+import React from "react";
+
 import type { SupportedChain } from "./types";
 import { capitalizeFirstLetterOfEachWord, getNetworkTable } from "./utils";
 
 export interface IQueues {
   chain: SupportedChain;
+  hideQueues?: boolean;
 }
 
 interface INetworkTable {
@@ -16,14 +18,14 @@ interface INetworkTable {
   table: JSX.Element;
 }
 
-export default function ChainAddresses({ chain }: IQueues) {
+export default function ChainAddresses({ chain, hideQueues }: IQueues) {
   const ALL_NETWORKS = Object.keys(networks[chain]);
 
   const data: INetworkTable[] = ALL_NETWORKS.map((n) => {
     const config: IChainNetworkConfig = networks[chain][n];
     const displayName =
       config.networkName ?? capitalizeFirstLetterOfEachWord(n);
-    const table = getNetworkTable(chain, n);
+    const table = getNetworkTable(chain, n, hideQueues);
 
     return {
       chain: chain,

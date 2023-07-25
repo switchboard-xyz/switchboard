@@ -1,6 +1,7 @@
-import React from "react";
-import { styled } from "@mui/system";
 import { Dialog } from "@mui/material";
+import { styled } from "@mui/system";
+import React from "react";
+
 import ChatBot from "./ChatBot";
 
 const StyledDialog = styled(Dialog)({

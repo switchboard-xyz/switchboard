@@ -1,0 +1,56 @@
+---
+sidebar_position: 1
+hide_title: true
+hide_table_of_contents: true
+title: Switchboard x Solana
+# sidebar_class_name: "sidebar__solana"
+keywords: [Solana, Solana SDK, Switchboard Solana SDK]
+---
+
+import ChainAddresses from "/src/components/Addresses/ChainAddresses";
+import SdkPage from "/src/components/SDK/SdkPage";
+import AddressButton from "/src/components/AddressButton";
+import { Grid } from "@mui/material";
+
+<SdkPage chain="solana" repo="sbv2-solana" sdks={[]} />
+
+## Oracle Program
+
+The Oracle Program was deployed to Solana mainnet in January of 2022.
+The Oracle Program supports Data Feeds and Verifiable Randomness Functions (VRF) in a permissioned and permissionless manner.
+
+**Program ID**: <AddressButton address="SW1TCH7qEPTdLsDHRgPuMQjbQxKdH2aBStViMFnt64f" trim={12} />
+
+**IDL Address**: <AddressButton address="Fi8vncGpNKbq62gPo56G4toCehWNy77GgqGkTaAF5Lkk" trim={12} />
+
+## The Attestation Program
+
+The Attestation Program supports Switchboard Functions, Secrets, and legacy Data Feeds.
+Data Feeds on an oracle queue with the sgx setting enabled enforces oracles to heartbeat weekly with an
+attestation report signaling that they are running within a secure enclave.
+
+**Program ID**: <AddressButton address="sbattyXrzedoNATfc4L31wC9Mhxsi1BmFhTiN8gDshx" trim={12} />
+
+**IDL Address**: <AddressButton address="5ExuoQR69trmKQfB95fDsUGsUrrChbGq9PFgt8qouncz" trim={12} />
+
+## SDKs
+
+### Javascript
+
+The npm package [@switchboard-xyz/solana.js](/api/solana.js) can be used to build and manage Switchboard accounts on Solana.
+
+### Rust
+
+The rust crate [switchboard-solana](https://crates.io/crates/switchboard-solana) can be used on-chain and off-chain.
+The previous crate [switchboard-v2](https://crates.io/crates/switchboard-v2) is only compatible with Switchboard V2 accounts and does not support Switchboard Functions.
+
+### CLI
+
+The [Switchboard CLI](/api/cli) can be used to help debug your Switchboard deployments with a command line interface or be used in automation scripts for custom alerting.
+
+## Troubleshooting
+
+1. File a
+   [GitHub Issue](https://github.com/switchboard-xyz/sbv2-solana/issues/new)
+2. Ask a question in
+   [Discord #dev-support](https://discord.com/channels/841525135311634443/984343400377647144)
