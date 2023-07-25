@@ -1,9 +1,29 @@
 {
+  "files.eol": "\n",
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
   "editor.codeActionsOnSave": {
+    "source.fixAll": true,
     "source.fixAll.eslint": true
   },
-  "files.eol": "\n",
   "editor.formatOnSave": true,
-  // "editor.wordWrap": "on"
-  "typescript.tsdk": "./website/node_modules/typescript/lib"
+  "[javascript]": {
+    "editor.formatOnSave": true
+  },
+  "[typescript]": {
+    "editor.formatOnSave": true
+  },
+  "[rust]": {
+    "editor.formatOnSave": true
+  },
+  "[markdown, markdownreact, mdx]": {
+    "editor.formatOnSave": true,
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.wordWrap": "on",
+    "editor.wordWrapColumn": 120,
+    "editor.quickSuggestions": {
+      "other": true,
+      "comments": true,
+      "strings": true
+    }
+  }
 }

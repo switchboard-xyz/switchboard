@@ -14,7 +14,7 @@ interface MarkdownImageProps {
 const MarkdownImage = (props: MarkdownImageProps) => {
   const { colorMode } = useColorMode();
 
-  let img = useBaseUrl(
+  const img = useBaseUrl(
     colorMode === "dark" && props.darkImg ? props.darkImg : props.img
   );
 

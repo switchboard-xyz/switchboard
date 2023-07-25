@@ -1,4 +1,6 @@
-import SnasmRegular from "../../../../../static/fonts/Snasm/Snasm-400.woff2";
+/* eslint-disable */
+import SnasmRegular from "@site/static/fonts/Snasm/Snasm-400.woff2";
+/* eslint-enable */
 
 export const snasmFamily = "Snasm";
 

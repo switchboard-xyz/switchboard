@@ -1,7 +1,8 @@
-import React from "react";
-import { SupportedChain } from "./types";
-import PublicKeyButton from "../PublicKeyButton";
 import { type IChainNetworkConfig, networks } from "@switchboard-xyz/common";
+import React from "react";
+
+import AddressButton from "../AddressButton";
+import type { SupportedChain } from "./types";
 
 export function capitalizeFirstLetterOfEachWord(str: string): string {
   const titleCase = str
@@ -16,7 +17,8 @@ export function capitalizeFirstLetterOfEachWord(str: string): string {
 
 export function getNetworkTable(
   chain: SupportedChain,
-  network: string
+  network: string,
+  hideQueues = false
 ): JSX.Element {
   const networkConfig: IChainNetworkConfig = networks[chain][network];
   const addresses: Array<[string, string]> = [];
@@ -58,46 +60,52 @@ export function getNetworkTable(
             <tr key={label}>
               <td>{capitalizeFirstLetterOfEachWord(label)}</td>
               <td>
-                <PublicKeyButton publicKey={address} />
+                <AddressButton address={address} />
               </td>
             </tr>
           );
         })}
       </table>
 
-      <h3>Queues</h3>
-
-      <table>
-        <tr>
-          <th>Queue</th>
-          <th>Address</th>
-        </tr>
-
-        {networkConfig.queues.map((queueConfig) => {
-          return (
+      {hideQueues ? (
+        <></>
+      ) : (
+        <>
+          {" "}
+          <h3>Queues</h3>
+          <table>
             <tr>
-              <td>{queueConfig.name}</td>
-              <td>
-                <PublicKeyButton publicKey={queueConfig.address} /> <br />
-                {queueConfig.permissioned ? (
-                  <p>
-                    The permissioned queue requires aggregators to have{" "}
-                    <code>PERMIT_ORACLE_QUEUE_USAGE</code> permissions before
-                    using the queue's resources.
-                  </p>
-                ) : (
-                  <p>
-                    The permissionless queue does not require aggregators to
-                    have <code>PERMIT_ORACLE_QUEUE_USAGE</code> permissions
-                    before using a queue's resources. This is the default queue
-                    when building feeds in the publisher.
-                  </p>
-                )}
-              </td>
+              <th>Queue</th>
+              <th>Address</th>
             </tr>
-          );
-        })}
-      </table>
+
+            {networkConfig.queues.map((queueConfig) => {
+              return (
+                <tr>
+                  <td>{queueConfig.name}</td>
+                  <td>
+                    <AddressButton address={queueConfig.address} /> <br />
+                    {queueConfig.permissioned ? (
+                      <p>
+                        The permissioned queue requires aggregators to have{" "}
+                        <code>PERMIT_ORACLE_QUEUE_USAGE</code> permissions
+                        before using the queue's resources.
+                      </p>
+                    ) : (
+                      <p>
+                        The permissionless queue does not require aggregators to
+                        have <code>PERMIT_ORACLE_QUEUE_USAGE</code> permissions
+                        before using a queue's resources. This is the default
+                        queue when building feeds in the publisher.
+                      </p>
+                    )}
+                  </td>
+                </tr>
+              );
+            })}
+          </table>
+        </>
+      )}
     </>
   );
 

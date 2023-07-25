@@ -1,18 +1,22 @@
 ---
-sidebar_position: 3
-title: "Functions: Getting Started"
+title: "Ex. 01: Basic Oracle Example"
+sidebar_position: 100
+hide_title: true
+slug: /solana/functions/examples/basic-oracle-example
 description:
   "Learn how to use Switchboard Functions to push data to your on-chain programs
   on a schedule or on-demand"
 ---
 
 import MarkdownImage from "/src/components/MarkdownImage";
-import PublicKeyButton from "/src/components/PublicKeyButton";
+import AddressButton from "/src/components/AddressButton";
 import Link from "@docusaurus/Link";
 
 import CodeBlock from "@theme/CodeBlock";
 import Tabs from "@theme/Tabs";
 import TabItem from "@theme/TabItem";
+
+# Basic Oracle Example
 
 Switchboard Functions allow you to verifiably execute your own Rust code
 off-chain and submit transactions either on a pre-defined cron schedule or
@@ -29,51 +33,13 @@ BTC, ETH, and SOL to your program every 5 seconds.
 - [ ] Deploy function to Docker container
 - [ ] Create Switchboard function account
 
-## Switchboard Functions Overview
-
-The Attestation Program contains a set of verifier oracles which watch the chain
-for attestation requests. When a request is found the verifier oracles will
-execute your container within a secure enclave. The container contains your
-custom off-chain logic and needs to return a list of instructions along with a
-quote generated from within the enclave. The verifier oracles will attest, or
-"verify", that the code running within the enclave matches the expected enclave
-values you control.
-
-The very first instruction returned by your function should be the Switchboard
-**_functionVerify_** instruction. This instruction is signed by the verifier
-oracle which is also run within an enclave and has its verifier codebase
-attested on-chain. If we can prove the keypair never left the enclave and the
-keypair signed the transaction, then we can be sure that the code was executed
-securely.
-
-Below are the current parameters set for the Switchboard Labs Attestation Queue:
-
-| Param                       | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |
-| --------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Minimum Update Interval     | **_1 second!_** <br /><br />The minimum time between requesting a function update. You can set a cron schedule of `1 * * * * *` to request an update every second!                                                                                                                                                                                                                                                                                                                                                                                                                                            |
-| Cost                        | **20_000 Lamports (0.00002 SOL)**<br /><br />The amount of lamports that is charged for each `function_verify` call.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |
-| Maximum Instruction(s) Size | **548 Bytes (667 Bytes soon)** <br /><br />The maximum size of instruction(s) you can return including all extra signers. The `function_verify` ixn currently uses 684 Bytes. Address lookup tables will be supported allowing you to fit more accounts per transaction; this will free ~100 bytes giving you 667 bytes for your custom instructions. <br /><br /> Transaction bundles will be supported when a common standard is agreed upon at the protocol level; this will allow you to return an arbitrary number of instructions which get executed in-order and rolled back if any instruction fails. |
-
-:::info
-
-**Below are the Switchboard Labs Attestation Queue addresses**
-
-<h4>Mainnet-Beta</h4>
-
-<PublicKeyButton publicKey="2ie3JZfKcvsRLsJaP5fSo43gUo1vsurnUAtAgUdUAiDG" />
-
-<h4>Devnet</h4>
-
-<PublicKeyButton publicKey="CkvizjVnm2zA5Wuwan34NhVT3zFc7vqUyGnA6tuEF5aE" />
-:::
-
 ## Define Switchboard interface in your program
 
 Your on-chain program needs to have an instruction which verifies the
 `function.enclaveSigner` has signed the transaction.
 
 ```rust
-use switchboard_solana::{EnclaveAccountData, FunctionAccountData};
+use switchboard_solana::{FunctionAccountData};
 
 #[derive(Accounts)]
 pub struct SaveDataInstruction<'info> {
@@ -82,14 +48,11 @@ pub struct SaveDataInstruction<'info> {
     // We use this to derive and verify the functions enclave state
     #[account(
         constraint =
-            FunctionAccountData::validate_enclave(
-                &function.to_account_info(),
-                &enclave.to_account_info(),
-                &enclave_signer.to_account_info()
+            function.load()?.validate(
+              &enclave_signer.to_account_info()
             )?
     )]
     pub function: AccountLoader<'info, FunctionAccountData>,
-    pub enclave: AccountLoader<'info, EnclaveAccountData>,
     pub enclave_signer: Signer<'info>,
 }
 
@@ -249,12 +212,12 @@ sbv2 solana function create CkvizjVnm2zA5Wuwan34NhVT3zFc7vqUyGnA6tuEF5aE \
   --fundAmount 0.25 \
   --schedule "30 * * * * *" \
   --container switchboardlabs/basic-oracle-function \
-  --keypair ~/.config/id/solana.json
+  --keypair ~/.config/solana/id.json
 
 # or fund an existing function
 sbv2 solana function fund $MY_FUNCTION_PUBKEY \
   --fundAmount 0.25 \
-  --keypair ~/.config/id/solana.json
+  --keypair ~/.config/solana/id.json
 ```
 
   </TabItem>

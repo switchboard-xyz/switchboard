@@ -1,6 +1,8 @@
 ---
-sidebar_position: 3
-title: "Anchor: Read Feed On-Chain"
+title: "Ex. 01: Read Data Feed On-Chain"
+sidebar_position: 100
+hide_title: true
+slug: /solana/feeds/examples/read-data-feed
 description: "Learn how to read a feed using the Anchor framework."
 ---
 
@@ -14,11 +16,13 @@ import TabItem from "@theme/TabItem";
 
 import AnchorFeedParser from "!!raw-loader!../../../../sdks/solana/examples/feeds/01_feed_client/src/lib.rs";
 
+# Read Data Feed On-Chain
+
 This guide will show you how to read a Switchboard data feed.
 
 In order to read a Switchboard data feed using Anchor, we will need to:
 
-1. Add the switchboard-v2 dependency
+1. Add the switchboard-solana dependency
 2. Create the `ReadResult` Accounts context containing the Switchboard data feed
 3. Create the `read_result` instruction with the `ReadResult` Accounts context
 4. Submit a transaction on-chain with the `read_result` instruction
@@ -26,18 +30,24 @@ In order to read a Switchboard data feed using Anchor, we will need to:
 :::tip
 
 View the
-[anchor-feed-parser](https://github.com/switchboard-xyz/sbv2-solana/tree/main/programs/anchor-feed-parser)
+[01_feed_client](https://github.com/switchboard-xyz/sbv2-solana/tree/main/examples/feeds/01_feed_client)
+example on Github.
+
+**Not using Anchor?**
+
+View the
+[02_spl_native](https://github.com/switchboard-xyz/sbv2-solana/tree/main/examples/feeds/02_spl_native)
 example on Github.
 
 :::
 
-## 1. Add switchboard-v2
+## 1. Add switchboard-solana
 
-Add the `switchboard-v2` crate to your Cargo.toml file:
+Add the `switchboard-solana` crate to your Cargo.toml file:
 
 ```toml
 [dependencies]
-switchboard-v2 = "0.1"
+switchboard-solana = "0.9"
 ```
 
 ## 2. `ReadResult` Context
@@ -48,13 +58,13 @@ trait to:
 
 - verify the account has the correct discriminator (all AggregatorAccounts share
   the same first 8 bytes)
-- the account is owned by the program ID defined in the switchboard-v2 crate
+- the account is owned by the program ID defined in the switchboard-solana crate
 
 The `ReadResult` Accounts context would look like:
 
 ```rust
 use anchor_lang::prelude::*;
-use switchboard_v2::{AggregatorAccountData};
+use switchboard_solana::{AggregatorAccountData};
 
 #[derive(Accounts)]
 pub struct ReadResult<'info> {
@@ -73,7 +83,7 @@ can then verify this pubkey in the Accounts context like the following:
 
 ```rust
 use anchor_lang::prelude::*;
-use switchboard_v2::{AggregatorAccountData};
+use switchboard_solana::{AggregatorAccountData};
 
 #[account(zero_copy)]
 pub struct MyMarket {
@@ -99,11 +109,11 @@ Now lets add a `read_result` instruction to our program and pass in the
 `ReadResult` context.
 
 **First**, we will deserialize the account data into the
-[AggregatorAccountData (docs.rs)](https://docs.rs/switchboard-v2/0.1.22/switchboard_v2/aggregator/struct.AggregatorAccountData.html)
+[AggregatorAccountData (docs.rs)](https://docs.rs/switchboard-solana/latest/switchboard_solana/oracle_program/accounts/aggregator/struct.AggregatorAccountData.html)
 struct.
 
 **Next**, we will use the TryInto trait to convert the
-[SwitchboardDecimal (docs.rs)](https://docs.rs/switchboard-v2/0.1.22/switchboard_v2/decimal/struct.SwitchboardDecimal.html)
+[SwitchboardDecimal (docs.rs)](https://docs.rs/switchboard-solana/latest/switchboard_solana/decimal/struct.SwitchboardDecimal.html)
 into the `f64` primitive because it's easier to work with.
 
 :::note
@@ -164,10 +174,7 @@ to read.
 ```ts
 import * as anchor from "@coral-xyz/anchor";
 import { sleep } from "@switchboard-xyz/common";
-import {
-  AggregatorAccount,
-  SwitchboardProgram,
-} from "@switchboard-xyz/solana.js";
+import { AggregatorAccount, SwitchboardProgram } from "@switchboard-xyz/solana.js";
 import assert from "assert";
 import { AnchorFeedParser } from "../target/types/anchor_feed_parser";
 
@@ -175,8 +182,7 @@ describe("anchor-feed-parser test", () => {
   const provider = anchor.AnchorProvider.env();
   anchor.setProvider(provider);
 
-  const feedParserProgram: anchor.Program<AnchorFeedParser> =
-    anchor.workspace.AnchorFeedParser;
+  const feedParserProgram: anchor.Program<AnchorFeedParser> = anchor.workspace.AnchorFeedParser;
 
   let switchboard: SwitchboardProgram;
   let aggregatorAccount: AggregatorAccount;
@@ -190,10 +196,7 @@ describe("anchor-feed-parser test", () => {
     // wait for RPC
     await sleep(2000);
 
-    const logs = await provider.connection.getParsedTransaction(
-      signature,
-      "confirmed"
-    );
+    const logs = await provider.connection.getParsedTransaction(signature, "confirmed");
 
     console.log(JSON.stringify(logs?.meta?.logMessages, undefined, 2));
 

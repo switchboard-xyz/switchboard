@@ -1,5 +1,7 @@
+/* eslint-disable */
 import FiraCodeRegular from "../../../../../static/fonts/Fira_Code/FiraCode-400.woff2";
 import FiraCodeBold from "../../../../../static/fonts/Fira_Code/FiraCode-700.woff2";
+/* eslint-enable */
 
 export const firaCodeFamily = "Fira Code";
 

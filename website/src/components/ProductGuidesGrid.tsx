@@ -1,9 +1,9 @@
-import React from "react";
-import { Grid, IconButton, Typography, styled } from "@mui/material";
-import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
-import { useColorMode } from "@docusaurus/theme-common";
 import Link from "@docusaurus/Link";
+import { useColorMode } from "@docusaurus/theme-common";
 import useBaseUrl from "@docusaurus/useBaseUrl";
+import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
+import { Grid, IconButton, styled, Typography } from "@mui/material";
+import React from "react";
 
 interface Card {
   title: string;
@@ -38,13 +38,6 @@ const cards: Card[] = [
       "Create serverless, single-purpose functions that respond to events.",
     icon: "functions.png",
     link: "/functions",
-  },
-  {
-    title: "Scheduler",
-    description:
-      "2-step process to automate smart contracts in a trusted execution environment.",
-    icon: "scheduler.png",
-    link: "/scheduler",
   },
 ];
 

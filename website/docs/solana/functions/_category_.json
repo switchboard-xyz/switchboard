@@ -1,5 +1,6 @@
 {
-  "position": 30,
-  "collapsible": true,
-  "collapsed": true
+  "label": "Functions",
+  "position": 10,
+  "collapsible": false,
+  "className": "sidebar__heading-label-level-2"
 }

@@ -1,0 +1,60 @@
+---
+sidebar_position: 5
+hide_title: true
+hide_table_of_contents: true
+title: Accounts
+keywords: [Solana, Solana SDK, Switchboard Solana Accounts]
+---
+
+import { Grid } from "@mui/material";
+
+# Switchboard Accounts
+
+<Grid container spacing={2}>
+  <Grid item lg={4} sm={12}>
+
+## Oracle Queues
+
+Yada yada yada
+
+  </Grid>
+    <Grid item lg={8} sm={12}>
+
+### Oracle Account(s)
+
+Oracle Accounts represent an off-chain node which watch the chain for events and respond to aggregator and VRF update requests.
+
+#### Permission Account
+
+An Oracle Account is required to have a Permission Account initialized and be granted `PERMIT_ORACLE_HEARTBEAT` permissions from the queue authority. Oracles are always required to be granted these permissions to prevent malicous nodes from joining.
+
+### Aggregator Account(s)
+
+Aggregator Accounts (or **data feeds**) represent a collection of job accounts instruction the oracle on how to fetch data off-chain as well as a configuration dictating how often updates may be requested.
+
+#### Job Account(s)
+
+Job Accounts represent a single data source and instruct the oracle on how to fetch data off-chain.
+
+#### Lease Account
+
+A lease account is a pre-funded escrow to reward Oracle Accounts for updating an aggregator.
+
+#### Permission Account
+
+### VRF Account(s)
+
+#### Permission Account
+
+  </Grid>
+</Grid>
+
+## Attestation Queue
+
+### Verifier Account
+
+#### Permission Account
+
+### Function Account
+
+#### Function Request Account(s)

@@ -1,12 +1,12 @@
-import { useColorMode } from "@docusaurus/theme-common";
-import { useLocation } from "@docusaurus/router";
 import Link from "@docusaurus/Link";
+import { useLocation } from "@docusaurus/router";
+import { useColorMode } from "@docusaurus/theme-common";
 import useBaseUrl from "@docusaurus/useBaseUrl";
-import React from "react";
-import { styled } from "@mui/system";
+import { Box, Grid, Tooltip, Typography } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
-import { Box, Tooltip, Grid, Typography } from "@mui/material";
+import { styled } from "@mui/system";
+import React from "react";
 
 // TODO: Add another component that will go into the Sidebar and hide the Navbar component
 // For some reason we cant manually remove this element from the Navbar

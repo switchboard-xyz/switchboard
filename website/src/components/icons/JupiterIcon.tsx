@@ -1,5 +1,5 @@
-import * as React from "react";
 import { SvgIcon } from "@mui/material";
+import * as React from "react";
 
 export function JupiterIcon(props) {
   return (

@@ -1,5 +1,5 @@
-import React from "react";
 import { Tooltip } from "@mui/material";
+import React from "react";
 import { Link } from "react-router-dom";
 import termsData from "terms.json";
 

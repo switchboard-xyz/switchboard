@@ -1,12 +1,12 @@
+import termsData from "@site/terms.json";
 import React from "react";
-import termsData from "/terms.json";
 
 function TermsTable() {
   const rows = [];
 
   // Loop through each term/definition pair in the data
   for (const term in termsData) {
-    if (termsData.hasOwnProperty(term)) {
+    if (Object.prototype.hasOwnProperty.call(termsData, term)) {
       const definition = termsData[term];
 
       // Add a row to the table for the current term/definition pair

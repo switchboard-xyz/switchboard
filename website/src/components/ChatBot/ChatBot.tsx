@@ -1,24 +1,22 @@
-import React, { useState, useEffect, useRef } from "react";
+import HistoryIcon from "@mui/icons-material/History";
+import MoreVertIcon from "@mui/icons-material/MoreVert";
+import SendIcon from "@mui/icons-material/Send";
+import ThumbDownIcon from "@mui/icons-material/ThumbDown";
+import ThumbUpIcon from "@mui/icons-material/ThumbUp";
 import {
   Divider,
   IconButton,
-  Tooltip,
   Select,
-  TextField,
-  Typography,
   styled,
+  TextField,
+  Tooltip,
+  Typography,
 } from "@mui/material";
-import { v4 as uuid } from "uuid";
-import HistoryIcon from "@mui/icons-material/History";
-
-import MoreVertIcon from "@mui/icons-material/MoreVert";
-import ThumbUpIcon from "@mui/icons-material/ThumbUp";
-import ThumbDownIcon from "@mui/icons-material/ThumbDown";
-import SendIcon from "@mui/icons-material/Send";
 import CodeBlock from "@theme/CodeBlock";
-
+import React, { useEffect, useRef, useState } from "react";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
+import { v4 as uuid } from "uuid";
 
 const TypingDiv = styled("div")({
   width: "5em",
@@ -482,7 +480,7 @@ function formatRawString(input: string): Array<React.ReactElement> {
   let currentText = "";
   let inCodeBlock = false;
   let codeLang = "";
-  let longHtmlString = "";
+  const longHtmlString = "";
   let id = 1;
   for (const line of lines) {
     if (line.startsWith("```")) {

@@ -1,5 +1,6 @@
 {
-  "position": 10,
-  "collapsible": true,
-  "collapsed": true
+  "label": "Data Feeds",
+  "position": 30,
+  "collapsible": false,
+  "className": "sidebar__heading-label-level-2"
 }

@@ -38,33 +38,12 @@ const config = {
         },
       },
     },
-    // "javascript/common",
     "javascript/oracle",
     "sdks/aptos/javascript/aptos.js",
     "sdks/evm/javascript/evm.js",
     "sdks/near/javascript/near.js",
-    // {
-    //   path: "sdks/solana/javascript/solana.js",
-    //   entry: {
-    //     index: "src/index.ts",
-    //     program: {
-    //       label: "/program",
-    //       path: "src/SwitchboardProgram.ts",
-    //     },
-    //     generated: {
-    //       label: "/generated",
-    //       path: "src/generated/index.ts",
-    //     },
-    //     accounts: {
-    //       label: "/accounts",
-    //       path: "src/accounts/index.ts",
-    //     },
-    //   },
-    // },
     "sdks/solana/javascript/solana.js",
-    // "sdks/starknet/javascript/starknet.js",
     "sdks/sui/javascript/sui.js",
-    // "sdks/sgx/javascript/sgx-sdk",
   ],
   apiIndexMarkdown: "api/index.mdx",
 };

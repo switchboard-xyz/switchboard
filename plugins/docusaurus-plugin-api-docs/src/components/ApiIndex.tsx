@@ -1,16 +1,17 @@
-import React, { useEffect } from "react";
 import Link from "@docusaurus/Link";
 import type { PropVersionMetadata } from "@docusaurus/plugin-content-docs";
-import { ThemeClassNames } from "@docusaurus/theme-common";
 import type { GlobalVersion } from "@docusaurus/plugin-content-docs/client";
+import { ThemeClassNames } from "@docusaurus/theme-common";
 import { useDocsPreferredVersion } from "@docusaurus/theme-common";
 import { useDocsVersion } from "@docusaurus/theme-common/internal";
 import type { Props as DocItemProps } from "@theme/DocItem";
+import MDXContent from "@theme/MDXContent";
+import React, { useEffect } from "react";
+
+import type { ParsedProtobufMessage } from "../modules/protobufs";
 import type { ApiOptions, PackageReflectionGroup } from "../types";
 import { removeScopes } from "../utils/links";
-import MDXContent from "@theme/MDXContent";
 import ApiItemLayout from "./ApiItemLayout";
-import type { ParsedProtobufMessage } from "../modules/protobufs";
 
 export interface ApiIndexProps extends Pick<DocItemProps, "route"> {
   history: {
@@ -34,8 +35,7 @@ function addVersionToUrl(
     preferredVersion &&
     preferredVersion.name !== latestVersion.version
   ) {
-    const version =
-      preferredVersion.name === "current" ? "next" : preferredVersion.name;
+    const version = preferredVersion.name === "current" ? "next" : preferredVersion.name;
 
     if (url.endsWith("/api")) {
       return `${url}/${version}`;
@@ -47,14 +47,7 @@ function addVersionToUrl(
   return url;
 }
 
-export default function ApiIndex({
-  history,
-  options,
-  packages,
-  tasks,
-  readme: Readme,
-  route,
-}: ApiIndexProps) {
+export default function ApiIndex({ history, options, packages, tasks, readme: Readme, route }: ApiIndexProps) {
   const latestVersion = useDocsVersion();
   const { preferredVersion } = useDocsPreferredVersion(latestVersion.pluginId);
 
@@ -62,22 +55,12 @@ export default function ApiIndex({
     // Redirect to package when only 1
     if (packages.length === 1) {
       history.replace(
-        addVersionToUrl(
-          packages[0].entryPoints[0].reflection.permalink,
-          latestVersion,
-          preferredVersion
-        )
+        addVersionToUrl(packages[0].entryPoints[0].reflection.permalink, latestVersion, preferredVersion)
       );
 
       // Redirect to preferred version
     } else if (preferredVersion) {
-      history.replace(
-        addVersionToUrl(
-          history.location.pathname,
-          latestVersion,
-          preferredVersion
-        )
-      );
+      history.replace(addVersionToUrl(history.location.pathname, latestVersion, preferredVersion));
     }
   }, [packages, history, latestVersion, preferredVersion]);
 
@@ -204,10 +187,7 @@ export default function ApiIndex({
                 </li>
                 {packages.map((pkg) => (
                   <li key={pkg.packageName} className="tsd-truncate">
-                    <Link
-                      className="tsd-kind-icon"
-                      to={pkg.entryPoints[0].reflection.permalink}
-                    >
+                    <Link className="tsd-kind-icon" to={pkg.entryPoints[0].reflection.permalink}>
                       <span
                         className="tsd-signature-symbol"
                         style={{
@@ -237,9 +217,7 @@ export default function ApiIndex({
             <div className="tsd-panel-content">
               <ul className="tsd-index-list">
                 {tasks
-                  .filter(
-                    (task) => task.name !== "OracleJob" && task.name !== "Task"
-                  )
+                  .filter((task) => task.name !== "OracleJob" && task.name !== "Task")
                   .sort((a, b) => a.name.localeCompare(b.name))
                   .map((task) => (
                     <li key={task.id} className="tsd-truncate">
@@ -260,40 +238,16 @@ export default function ApiIndex({
             <div className="tsd-panel-content">
               <ul className="tsd-index-list">
                 <li className="tsd-truncate">
-                  <Link
-                    href={
-                      "https://docs.rs/switchboard-common/latest/switchboard_common/"
-                    }
-                  >
-                    switchboard-common
-                  </Link>
+                  <Link href={"https://docs.rs/switchboard-common/latest/switchboard_common/"}>switchboard-common</Link>
                 </li>
                 <li className="tsd-truncate">
-                  <Link
-                    href={
-                      "https://docs.rs/switchboard-utils/latest/switchboard_utils/"
-                    }
-                  >
-                    switchboard-utils
-                  </Link>
+                  <Link href={"https://docs.rs/switchboard-utils/latest/switchboard_utils/"}>switchboard-utils</Link>
                 </li>
                 <li className="tsd-truncate">
-                  <Link
-                    href={
-                      "https://docs.rs/switchboard-solana/latest/switchboard_solana/"
-                    }
-                  >
-                    switchboard-solana
-                  </Link>
+                  <Link href={"https://docs.rs/switchboard-solana/latest/switchboard_solana/"}>switchboard-solana</Link>
                 </li>
                 <li className="tsd-truncate">
-                  <Link
-                    href={
-                      "https://docs.rs/switchboard-v2/latest/switchboard_v2/"
-                    }
-                  >
-                    switchboard-v2
-                  </Link>
+                  <Link href={"https://docs.rs/switchboard-v2/latest/switchboard_v2/"}>switchboard-v2</Link>
                 </li>
               </ul>
             </div>

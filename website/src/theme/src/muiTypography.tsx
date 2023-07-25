@@ -1,8 +1,9 @@
+import createTypography from "@mui/material/styles/createTypography";
+
 import { theme } from ".";
+import Palette from "./palette";
 import firaCodeFamily from "./typography/firaCode";
 import snasmFamily from "./typography/snasm";
-import createTypography from "@mui/material/styles/createTypography";
-import Palette from "./palette";
 
 export const MuiTypography = createTypography(Palette, (palette) => ({
   fontFamily: ["Source Sans Pro", firaCodeFamily, snasmFamily].join(","),

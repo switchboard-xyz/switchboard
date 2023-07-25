@@ -1,8 +1,8 @@
-import * as React from "react";
+import AccessTimeIcon from "@mui/icons-material/AccessTime";
+import { Box } from "@mui/material";
 import Popover from "@mui/material/Popover";
 import Typography from "@mui/material/Typography";
-import { Box } from "@mui/material";
-import AccessTimeIcon from "@mui/icons-material/AccessTime";
+import * as React from "react";
 
 export default function ComingSoonPopover() {
   return (

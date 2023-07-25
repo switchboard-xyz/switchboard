@@ -1,6 +1,7 @@
-import { ButtonClasses, IconButtonClasses } from "@mui/material";
-import { OverridesStyleRules } from "@mui/material/styles/overrides";
 import { theme } from ".";
+
+import type { ButtonClasses, IconButtonClasses } from "@mui/material";
+import type { OverridesStyleRules } from "@mui/material/styles/overrides";
 
 export const MuiIconButton: Partial<
   OverridesStyleRules<keyof IconButtonClasses>

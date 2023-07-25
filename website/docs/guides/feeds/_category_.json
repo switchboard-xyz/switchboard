@@ -1,0 +1,10 @@
+{
+  "label": "Data Feeds",
+  "position": 10,
+  "collapsible": false,
+  "link": {
+    "type": "generated-index",
+    "title": "Data Feed Guides",
+    "description": "Learn how to use Switchboard Data Feeds."
+  }
+}
