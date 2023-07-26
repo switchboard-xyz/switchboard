@@ -24,19 +24,14 @@ program will wrap any funds from the `payer` account provided with the Cross Pro
 In this example we will build a program which allows a user to request randomness then await the result
 off-chain and determine if the user is correct.
 
-**Integration Checklist:**
+:::info
 
-- [ ] Define Switchboard interface in your program
-- [ ] Write a custom function in Rust
-- [ ] Deploy function to Docker container
-- [ ] Create Switchboard function account
-- [ ] Create user and request account
-- [ ] Request randomness
+See the example on Github! **[switchboard-xyz/sbv2-solana:examples/functions/04_randomness_callback](https://github.com/switchboard-xyz/sbv2-solana/tree/main/examples/functions/04_randomness_callback)**
 
-## Define Switchboard interface in your program
+:::
 
-For our program we will have a basic User PDA setup that will keep track of our programs User that will interact with our program.
-In our example we first make a `house_init` instruction to initialize the top level program state and store the expected Function for our program.
+For our program we will have a basic User PDA setup that will keep track of our programs User.
+First make a `house_init` instruction to initialize the top level program state and store the expected Function for our program.
 For each randomness request we will make a `FunctionRequestAccount` pointing to this function, indicating which instruction to execute.
 
 To integrate Switchboard Function requests you will need the following instructions:
@@ -58,6 +53,17 @@ pub struct ContainerParams {
     pub user_key: Pubkey,
 }
 ```
+
+**Integration Checklist:**
+
+- [ ] Build instruction to request randomness
+- [ ] Build instruction to settle randomness request
+- [ ] Write the Switchboard Function
+- [ ] Deploy function to Docker container
+- [ ] Create Switchboard function account
+- [ ] Request randomness
+
+## Build instruction to request randomness
 
 <details>
 
@@ -213,6 +219,8 @@ pub fn user_guess(ctx: Context<UserGuess>, guess: u8, wager: u64) -> Result<()> 
 
 </details>
 
+## Build instruction to settle randomness request
+
 <details>
 
 <summary>
@@ -288,9 +296,9 @@ pub fn user_settle(ctx: Context<UserSettle>, result: u8) -> Result<()> {
 
 </details>
 
-## Write a custom function in Rust
+## Write the Switchboard Function
 
-Our function is verify simple because we are able to generate randomness within the enclave. **All you need to generate randomness is one line ` Gramine::read_rand(&mut bytes)`!**
+Our function is very simple because we are able to generate randomness within the enclave. **All you need to generate randomness is one line ` Gramine::read_rand(&mut bytes)`!**
 
 ```rust
 use std::str::FromStr;
@@ -460,6 +468,13 @@ sbv2 solana function create CkvizjVnm2zA5Wuwan34NhVT3zFc7vqUyGnA6tuEF5aE \
   </TabItem>
 </Tabs>
 
-## Create user and request account
-
 ## Request randomness
+
+**DONE!**
+
+Now just call `user_init` to initialize your User then call `user_guess` to request randomness!
+After ~5 seconds you should see your `user_settle` callback land on-chain.
+
+View the [example program tests](https://github.com/switchboard-xyz/sbv2-solana/blob/main/examples/functions/04_randomness_callback/tests/custom_randomness_request.ts) for more context.
+
+There is also a [request script](https://github.com/switchboard-xyz/sbv2-solana/blob/main/examples/functions/04_randomness_callback/request.ts) to help you test.
