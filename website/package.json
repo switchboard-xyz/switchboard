@@ -19,7 +19,7 @@
     "publish:beta": "pnpm build && gsutil rsync -r -d public gs://beta.docs.switchboard.xyz",
     "lint": "pnpm exec eslint src",
     "clean": "pnpm exec rimraf node_modules .docusaurus .turbo public",
-    "fix": "pnpm exec eslint --fix src"
+    "fix": "pnpm exec eslint --fix src docs"
   },
   "peerDependencies": {
     "react": "^17.0.2",

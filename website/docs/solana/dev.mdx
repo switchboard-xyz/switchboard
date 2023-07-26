@@ -1,0 +1,300 @@
+---
+sidebar_position: 5
+hide_table_of_contents: true
+title: Developer Resources
+keywords: [Solana, Solana SDK]
+---
+
+import Tabs from "@theme/Tabs";
+import TabItem from "@theme/TabItem";
+
+## Table of Contents
+
+- **Functions**
+  - [Create a Scheduled Function](#create-a-scheduled-function)
+  - [On-Demand Functions](#on-demand-functions)
+  - [Read a Function](#read-a-function)
+  - [Debug a Function](#debug-a-function)
+- **DataFeeds**
+  - [Create a Data Feed](#create-a-data-feed)
+  - [Read a Data Feed](#read-a-data-feed)
+
+## Functions
+
+### Create a Scheduled Function
+
+The examples below show how to create a Switchboard Function that
+runs the `switchboardlabs/basic-binance-oracle:latest` container from dockerhub every 30 seconds.
+
+<Tabs>
+  {/* <TabItem value="UI (Builder)" label="UI (Builder)">
+    TODO.
+  </TabItem> */}
+  <TabItem value="Javascript" label="Javascript">
+
+```typescript
+import {
+  FunctionAccount,
+  SwitchboardProgram,
+} from "@switchboard-xyz/solana.js";
+import { parseMrEnclave } from "@switchboard-xyz/common";
+
+let program: SwitchboardProgram;
+
+const [functionAccount] = await FunctionAccount.create(program, {
+  name: "FUNCTION_NAME",
+  metadata: "FUNCTION_METADATA",
+  schedule: "30 * * * * *", // every 30 seconds
+  container: "switchboardlabs/basic-binance-oracle",
+  containerRegistry: "dockerhub",
+  version: "latest",
+  mrEnclave: parseMrEnclave("0xABC123"),
+  attestationQueue: attestationQueueAccount,
+});
+```
+
+  </TabItem>
+  <TabItem value="CLI" label="CLI">
+
+```bash
+sbv2 solana function create CkvizjVnm2zA5Wuwan34NhVT3zFc7vqUyGnA6tuEF5aE \
+  --name "My Function" \
+  --metadata "Randomness Callback" \
+  --schedule "30 * * * * *" \
+  --containerRegistry dockerhub \
+  --container "switchboardlabs/basic-binance-oracle" \
+  --keypair ~/.config/solana/id.json
+```
+
+  </TabItem>
+</Tabs>
+
+### Read a Function
+
+Switchboard Functions allow you to execute arbitrary instructions as long as the
+functions `enclave.signer` has signed the transaction. This keypair gets generated within
+the enclave so we can prove the transaction was built securely.
+
+<Tabs>
+  <TabItem value="Rust" label="Rust" default default>
+
+This example shows how to verify that the functions `enclave.signer` has signed your custom instructions.
+
+```rust
+use switchboard_solana::{FunctionAccountData};
+
+#[derive(Accounts)]
+pub struct SaveDataInstruction<'info> {
+    // ... your required accounts to modify your program's state
+
+    // We use this to derive and verify the functions enclave state
+    #[account(
+        constraint =
+            function.load()?.validate(
+              &enclave_signer.to_account_info()
+            )?
+    )]
+    pub function: AccountLoader<'info, FunctionAccountData>,
+    pub enclave_signer: Signer<'info>,
+}
+```
+
+  </TabItem>
+  <TabItem value="UI (Explorer)" label="UI (Explorer)">
+  You can use the Switchboard Labs Explorer to view the status of your function.
+
+TODO.
+
+  </TabItem>
+  <TabItem value="Javascript" label="Javascript">
+
+```typescript
+import {
+  FunctionAccount,
+  SwitchboardProgram,
+  attestationTypes,
+} from "@swtichboard-xyz/solana.js";
+
+let program: SwitchboardProgram;
+
+const functionAccount = new FunctionAccount(program, "My_Function_Pubkey");
+const functionState: attestationTypes.FunctionAccountData =
+  await functionAccount.loadData();
+```
+
+  </TabItem>
+  <TabItem value="CLI" label="CLI">
+
+```bash
+sbv2 solana function print My_Function_Pubkey
+```
+
+You need to add `--mainnetBeta` to view a function for the mainnet-beta network. The default network is devnet.
+
+  </TabItem>
+</Tabs>
+
+### Debug a Function
+
+**Coming Soon!** The Switchboard Function developer tooling is still in its early stages. By the end of Q3 we will support
+a function simulation server, an endpoint to view container logs, and some helper scripts to manage your protocols functions.
+
+## Data Feeds
+
+### Create a Data Feed
+
+<Tabs>
+  {/* <TabItem value="UI (Builder)" label="UI (Builder)" default>
+    TODO.
+  </TabItem> */}
+  <TabItem value="Javascript" label="Javascript">
+
+```typescript
+import {
+  FunctionAccount,
+  OracleQueueAccount,
+  SwitchboardProgram,
+} from "@switchboard-xyz/solana.js";
+
+let program: SwitchboardProgram;
+
+const queueAccount = new OracleQueueAccount(
+  program,
+  "uPeRMdfPmrPqgRWSrjAnAkH78RqAhe5kXoW6vBYRqFX"
+); // devnet
+
+const [aggregatorAccount] = await queueAccount.createFeed({
+  queueAuthority: queueAuthority,
+  batchSize: 1,
+  minRequiredOracleResults: 1,
+  minRequiredJobResults: 1,
+  minUpdateDelaySeconds: 60,
+  fundAmount: 2.5,
+  enable: true,
+  jobs: [
+    // existing job account
+    { pubkey: jobAccount.publicKey },
+    // or create a new job account with the feed
+    {
+      weight: 2,
+      data: OracleJob.encodeDelimited(
+        OracleJob.fromObject({
+          tasks: [
+            {
+              valueTask: {
+                value: 1,
+              },
+            },
+          ],
+        })
+      ).finish(),
+    },
+  ],
+});
+```
+
+  </TabItem>
+  <TabItem value="CLI" label="CLI">
+
+```bash
+export QUEUE_KEY=uPeRMdfPmrPqgRWSrjAnAkH78RqAhe5kXoW6vBYRqFX
+export CRANK_KEY=GN9jjCy2THzZxhYqZETmPM3my8vg4R5JyNkgULddUMa5
+sbv2 solana aggregator create "$QUEUE_KEY" \
+    --keypair ~/.config/solana/id.json \
+    --crankKey "$CRANK_KEY" \
+    --name "My_Test_Feed" \
+    --updateInterval 10 \
+    --minOracles 1 \
+    --batchSize 1 \
+    --leaseAmount 0.1 \
+    --job ./src/oracle-job.json \
+    --verbose
+```
+
+  </TabItem>
+</Tabs>
+
+### Read a Data Feed
+
+<Tabs>
+  <TabItem value="Rust" label="Rust" default>
+
+```rust
+use anchor_lang::prelude::*;
+use anchor_lang::solana_program::clock;
+
+use std::convert::TryInto;
+
+// Instruction accounts
+#[derive(Accounts)]
+#[instruction(params: ReadFeedParams)]
+pub struct ReadFeed<'info> {
+    pub aggregator: AccountLoader<'info, AggregatorAccountData>,
+}
+
+// Instruction params
+#[derive(Clone, AnchorSerialize, AnchorDeserialize)]
+pub struct ReadFeedParams {
+    pub max_confidence_interval: Option<f64>,
+}
+
+// Instruction logic
+pub fn read_result(
+    ctx: Context<ReadResult>
+) -> anchor_lang::Result<()> {
+    let feed = &ctx.accounts.switchboard_aggregator.load()?;
+
+    // get result
+    let val: f64 = feed.get_result()?.try_into()?;
+
+    // check whether the feed has been updated in the last 300 seconds
+    feed.check_staleness(clock::Clock::get().unwrap().unix_timestamp, 300)
+        .map_err(|_| error!(FeedErrorCode::StaleFeed))?;
+
+    msg!("Current feed result is {}!", val);
+
+    // Your custom logic here
+
+    Ok(())
+}
+
+#[error_code]
+#[derive(Eq, PartialEq)]
+pub enum FeedErrorCode {
+    #[msg("Switchboard feed has not been updated in 5 minutes")]
+    StaleFeed,
+}
+```
+
+  </TabItem>
+  <TabItem value="UI (Explorer)" label="UI (Explorer)">
+    TODO.
+  </TabItem>
+  <TabItem value="Javascript" label="Javascript">
+
+```typescript
+import {
+  AggregatorAccount,
+  SwitchboardProgram,
+  types,
+} from "@swtichboard-xyz/solana.js";
+
+let program: SwitchboardProgram;
+
+const aggregatorAccount = new AggregatorAccount(program, "My_Data_Feed_Pubkey");
+const aggregatorState: types.AggregatorAccountData =
+  await aggregatorAccount.loadData();
+```
+
+  </TabItem>
+  <TabItem value="CLI" label="CLI">
+
+```bash
+sbv2 solana function print My_Function_Pubkey
+```
+
+You need to add `--mainnetBeta` to view a function for the mainnet-beta network. The default network is devnet.
+
+  </TabItem>
+</Tabs>
+```
