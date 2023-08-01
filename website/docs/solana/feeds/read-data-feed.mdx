@@ -30,13 +30,13 @@ In order to read a Switchboard data feed using Anchor, we will need to:
 :::tip
 
 View the
-[01_feed_client](https://github.com/switchboard-xyz/sbv2-solana/tree/main/examples/feeds/01_feed_client)
+[01_feed_client](https://github.com/switchboard-xyz/solana-sdk/tree/main/examples/feeds/01_feed_client)
 example on Github.
 
 **Not using Anchor?**
 
 View the
-[02_spl_native](https://github.com/switchboard-xyz/sbv2-solana/tree/main/examples/feeds/02_spl_native)
+[02_spl_native](https://github.com/switchboard-xyz/solana-sdk/tree/main/examples/feeds/02_spl_native)
 example on Github.
 
 :::
@@ -174,7 +174,10 @@ to read.
 ```ts
 import * as anchor from "@coral-xyz/anchor";
 import { sleep } from "@switchboard-xyz/common";
-import { AggregatorAccount, SwitchboardProgram } from "@switchboard-xyz/solana.js";
+import {
+  AggregatorAccount,
+  SwitchboardProgram,
+} from "@switchboard-xyz/solana.js";
 import assert from "assert";
 import { AnchorFeedParser } from "../target/types/anchor_feed_parser";
 
@@ -182,7 +185,8 @@ describe("anchor-feed-parser test", () => {
   const provider = anchor.AnchorProvider.env();
   anchor.setProvider(provider);
 
-  const feedParserProgram: anchor.Program<AnchorFeedParser> = anchor.workspace.AnchorFeedParser;
+  const feedParserProgram: anchor.Program<AnchorFeedParser> =
+    anchor.workspace.AnchorFeedParser;
 
   let switchboard: SwitchboardProgram;
   let aggregatorAccount: AggregatorAccount;
@@ -196,7 +200,10 @@ describe("anchor-feed-parser test", () => {
     // wait for RPC
     await sleep(2000);
 
-    const logs = await provider.connection.getParsedTransaction(signature, "confirmed");
+    const logs = await provider.connection.getParsedTransaction(
+      signature,
+      "confirmed"
+    );
 
     console.log(JSON.stringify(logs?.meta?.logMessages, undefined, 2));
 
