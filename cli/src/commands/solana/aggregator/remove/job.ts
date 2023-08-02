@@ -9,7 +9,7 @@ import chalk from "chalk";
 export default class AggregatorRemoveJob extends BaseCommand {
   static description = "remove a switchboard job account from an aggregator";
 
-  // static examples = ["$ sbv2 solana aggregator remove job"];
+  // static examples = ["$ sb solana aggregator remove job"];
 
   static flags = {
     ...BaseCommand.flags,

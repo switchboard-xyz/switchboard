@@ -120,14 +120,14 @@ export default class SolanaTransactions extends BaseCommand {
               ? Buffer.from(base58.decode(ixn.data))
               : Buffer.from(ixn.data, "base64");
 
-            const sbv2IxnName =
+            const sbIxnName =
               discriminatorMap.get(ixnData.slice(0, 8).toString()) ??
               "Switchboard Unknown";
-            if (sbv2IxnName !== "") {
-              ixnName = sbv2IxnName;
+            if (sbIxnName !== "") {
+              ixnName = sbIxnName;
             }
 
-            switch (sbv2IxnName) {
+            switch (sbIxnName) {
               case "AggregatorOpenRound":
               case "OracleHeartbeat":
               case "AggregatorSaveResultV2":
@@ -148,7 +148,7 @@ export default class SolanaTransactions extends BaseCommand {
 
             return {
               ...ixn,
-              ixnName: sbv2IxnName,
+              ixnName: sbIxnName,
             };
           }
 

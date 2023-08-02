@@ -12,7 +12,7 @@ export default class AggregatorSet extends BaseCommand {
 
   static description = "set an aggregators config";
 
-  // static examples = ["$ sbv2 solana:aggregator:add:job"];
+  // static examples = ["$ sb solana:aggregator:add:job"];
 
   static flags = {
     ...BaseCommand.flags,

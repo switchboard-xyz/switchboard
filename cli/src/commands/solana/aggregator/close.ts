@@ -11,7 +11,7 @@ export default class AggregatorClose extends BaseCommand {
     "close an aggregator and associated PDA accounts on devnet";
 
   static examples = [
-    "$ sbv2 solana aggregator close J7j9xX8JP2B2ErvUzuqGAKBGeggsxPyFXj5MqZcYDxfa --keypair ../payer-keypair.json",
+    "$ sb solana aggregator close J7j9xX8JP2B2ErvUzuqGAKBGeggsxPyFXj5MqZcYDxfa --keypair ../payer-keypair.json",
   ];
 
   static flags = {

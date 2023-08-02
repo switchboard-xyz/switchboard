@@ -9,7 +9,7 @@ export default class OracleWithdraw extends BaseCommand {
   static description = "withdraw from an oracle's staking wallet";
 
   // static examples = [
-  //   "$ sbv2 solana:oracle:create F8ce7MsckeZAbAGmxjJNetxYXQa9mKr9nnrC3qKubyYy --name oracle-1 --stakeAmount 1",
+  //   "$ sb solana:oracle:create F8ce7MsckeZAbAGmxjJNetxYXQa9mKr9nnrC3qKubyYy --name oracle-1 --stakeAmount 1",
   // ];
 
   static flags = {

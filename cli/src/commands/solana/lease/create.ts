@@ -14,7 +14,7 @@ export default class LeaseCreate extends BaseCommand {
   static description = "fund and re-enable an aggregator lease";
 
   static examples = [
-    "$ sbv2 solana lease create GvDMxPzN1sCj7L26YDK2HnMRXEQmQ2aemov8YBtPS7vR --amount 1.5 --keypair ../payer-keypair.json",
+    "$ sb solana lease create GvDMxPzN1sCj7L26YDK2HnMRXEQmQ2aemov8YBtPS7vR --amount 1.5 --keypair ../payer-keypair.json",
   ];
 
   static flags = {

@@ -11,8 +11,8 @@ export default class QueuePrint extends BaseCommand {
   static description = "print a queue";
 
   static examples = [
-    "$ sbv2 evm queue print --arbitrum --mainnet 0x74f44B7e43319931ff9ae8CFCDCba09dc7F89f95",
-    "$ sbv2 evm queue print --arbitrum --testnet 0xB1c6E716ACae35200Dc8278A63a424f58417954c --oracles",
+    "$ sb evm queue print --arbitrum --mainnet 0x74f44B7e43319931ff9ae8CFCDCba09dc7F89f95",
+    "$ sb evm queue print --arbitrum --testnet 0xB1c6E716ACae35200Dc8278A63a424f58417954c --oracles",
   ];
 
   static flags = {

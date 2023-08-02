@@ -34,7 +34,7 @@ export default class AggregatorLeaseSet extends BaseCommand {
   };
 
   static examples = [
-    "$ sbv2 solana:lease:set GvDMxPzN1sCj7L26YDK2HnMRXEQmQ2aemov8YBtPS7vR --keypair ../payer-keypair.json",
+    "$ sb solana:lease:set GvDMxPzN1sCj7L26YDK2HnMRXEQmQ2aemov8YBtPS7vR --keypair ../payer-keypair.json",
   ];
 
   async run() {

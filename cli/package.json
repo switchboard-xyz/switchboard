@@ -1,19 +1,19 @@
 {
   "name": "@switchboard-xyz/cli",
-  "version": "2.4.1",
+  "version": "3.0.0",
   "description": "command line tool to interact with switchboard",
   "author": "gallynaut @gallynaut",
   "bin": {
-    "sbv2": "./bin/run"
+    "sb": "./bin/run"
   },
   "homepage": "https://docs.switchboard.xyz",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/switchboard-xyz/sbv2-core",
+    "url": "https://github.com/switchboard-xyz/core-sdk",
     "directory": "cli"
   },
-  "bugs": "https://github.com/switchboard-xyz/sbv2-core/tree/main/cli/issues",
+  "bugs": "https://github.com/switchboard-xyz/core-sdk/tree/main/cli/issues",
   "files": [
     "/bin",
     "/dist",
@@ -50,10 +50,10 @@
     "@oclif/plugin-warn-if-update-available": "^2.0.26",
     "@solana/web3.js": "^1.73.0",
     "@switchboard-xyz/aptos.js": "^2.6.10",
-    "@switchboard-xyz/common": "workspace:^2.2.5",
+    "@switchboard-xyz/common": "^2.2.5",
     "@switchboard-xyz/evm.js": "^3.10.10",
     "@switchboard-xyz/near.js": "^2.2.4",
-    "@switchboard-xyz/oracle": "workspace:^2.1.13",
+    "@switchboard-xyz/oracle": "^2.1.13",
     "@switchboard-xyz/solana.js": "^2.4.4",
     "aptos": "^1.11.0",
     "aws-sdk": "^2.1167.0",
@@ -76,7 +76,7 @@
   },
   "devDependencies": {
     "@oclif/test": "^2",
-    "@switchboard-xyz/eslint-config": "latest",
+    "@switchboard-xyz/eslint-config": "*",
     "@types/bs58": "^4.0.1",
     "@types/chai": "^4",
     "@types/listr": "^0.14.4",
@@ -107,11 +107,11 @@
       "-h"
     ],
     "commands": "./dist/commands",
-    "bin": "sbv2",
-    "dirname": "@switchboard-xyz/sbv2-cli",
+    "bin": "sb",
+    "dirname": "@switchboard-xyz/cli",
     "topicSeparator": " ",
     "macos": {
-      "identifier": "com.sbv2.cli"
+      "identifier": "com.switchboard.cli"
     },
     "plugins": [
       "@oclif/plugin-update",
@@ -121,7 +121,7 @@
     ],
     "update": {
       "s3": {
-        "bucket": "sbv2-cli",
+        "bucket": "sb-cli",
         "templates": {
           "target": {
             "unversioned": "tarballs/<%- bin %>/<%- channel === 'stable' ? '' : 'channels/' + channel + '/' %><%- bin %>-<%- platform %>-<%- arch %><%- ext %>",

@@ -1,7 +1,7 @@
 <!-- template -->
 <div align="center">
   <a href="#">
-    <img src="https://github.com/switchboard-xyz/sbv2-core/raw/main/website/static/img/icons/switchboard/avatar.png" />
+    <img src="https://github.com/switchboard-xyz/sb-core/raw/main/website/static/img/icons/switchboard/avatar.png" />
   </a>
 
   <h1>@switchboard-xyz/cli</h1>
@@ -13,7 +13,7 @@
 [![oclif](https://img.shields.io/badge/cli-oclif-brightgreen.svg)](https://oclif.io)
 [![Version](https://img.shields.io/npm/v/@switchboard-xyz/cli.svg)](https://npmjs.org/package/@switchboard-xyz/cli)
 [![Downloads/week](https://img.shields.io/npm/dw/@switchboard-xyz/cli.svg)](https://npmjs.org/package/@switchboard-xyz/cli)
-[![License](https://img.shields.io/npm/l/@switchboard-xyz/cli.svg)](https://github.com/switchboard-xyz/sbv2-core/blob/main/cli/LICENSE)
+[![License](https://img.shields.io/npm/l/@switchboard-xyz/cli.svg)](https://github.com/switchboard-xyz/sb-core/blob/main/cli/LICENSE)
 
   </p>
 
@@ -36,7 +36,7 @@
 
 ## Install
 
-Run the following command to install the `sbv2` binary in your $PATH.
+Run the following command to install the `sb` binary in your $PATH.
 
 ```bash npm2yarn
 npm install -g @switchboard-xyz/cli
@@ -45,7 +45,7 @@ npm install -g @switchboard-xyz/cli
 You can re-run this command to upgrade your CLI version or run the command:
 
 ```bash
-sbv2 update stable
+sb update stable
 ```
 
 ## Setup
@@ -54,36 +54,36 @@ sbv2 update stable
 
 ```bash
 # Devnet
-sbv2 config set solana devnet rpc https://api.devnet.solana.com
-sbv2 config set solana devnet default-account "~/.config/solana/id.json"
+sb config set solana devnet rpc https://api.devnet.solana.com
+sb config set solana devnet default-account "~/.config/solana/id.json"
 
 # Mainnet
-sbv2 config set solana mainnet-beta rpc https://api.mainnet-beta.solana.com
-sbv2 config set solana mainnet-beta default-account "~/.config/solana/id.json"
+sb config set solana mainnet-beta rpc https://api.mainnet-beta.solana.com
+sb config set solana mainnet-beta default-account "~/.config/solana/id.json"
 ```
 
 ### Aptos
 
 ```bash
 # Testnet
-sbv2 config set aptos testnet rpc https://fullnode.testnet.aptoslabs.com/v1
-sbv2 config set aptos testnet default-account ".aptos/config.yaml"
+sb config set aptos testnet rpc https://fullnode.testnet.aptoslabs.com/v1
+sb config set aptos testnet default-account ".aptos/config.yaml"
 
 # Devnet
-sbv2 config set aptos devnet rpc https://fullnode.devnet.aptoslabs.com/v1
-sbv2 config set aptos devnet default-account ".aptos/config.yaml"
+sb config set aptos devnet rpc https://fullnode.devnet.aptoslabs.com/v1
+sb config set aptos devnet default-account ".aptos/config.yaml"
 ```
 
 ### NEAR
 
 ```bash
 # Testnet
-sbv2 config set near testnet rpc https://rpc.testnet.near.org
-sbv2 config set near testnet default-account my-named-account.testnet
+sb config set near testnet rpc https://rpc.testnet.near.org
+sb config set near testnet default-account my-named-account.testnet
 
 # Mainnet
-sbv2 config set near mainnet rpc https://rpc.mainnet.near.org
-sbv2 config set near mainnet default-account my-named-account.near
+sb config set near mainnet rpc https://rpc.mainnet.near.org
+sb config set near mainnet default-account my-named-account.near
 ```
 
 <!-- templatestop -->
@@ -100,174 +100,175 @@ node bin/dev print GvDMxPzN1sCj7L26YDK2HnMRXEQmQ2aemov8YBtPS7vR
 **Commands**
 
 <!-- commands -->
+* [`sb anchor test`](#sb-anchor-test)
+* [`sb aptos account airdrop`](#sb-aptos-account-airdrop)
+* [`sb aptos aggregator add job AGGREGATORHEXSTRING`](#sb-aptos-aggregator-add-job-aggregatorhexstring)
+* [`sb aptos aggregator create QUEUEHEXSTRING`](#sb-aptos-aggregator-create-queuehexstring)
+* [`sb aptos aggregator job add AGGREGATORHEXSTRING`](#sb-aptos-aggregator-job-add-aggregatorhexstring)
+* [`sb aptos aggregator update AGGREGATORHEXSTRING`](#sb-aptos-aggregator-update-aggregatorhexstring)
+* [`sb aptos crank create QUEUEHEXSTRING`](#sb-aptos-crank-create-queuehexstring)
+* [`sb aptos crank list CRANKHEXSTRING`](#sb-aptos-crank-list-crankhexstring)
+* [`sb aptos crank pop CRANKHEXSTRING`](#sb-aptos-crank-pop-crankhexstring)
+* [`sb aptos crank push CRANKHEXSTRING`](#sb-aptos-crank-push-crankhexstring)
+* [`sb aptos create aggregator QUEUEHEXSTRING`](#sb-aptos-create-aggregator-queuehexstring)
+* [`sb aptos create crank QUEUEHEXSTRING`](#sb-aptos-create-crank-queuehexstring)
+* [`sb aptos create job QUEUEHEXSTRING JOBDEFINITION`](#sb-aptos-create-job-queuehexstring-jobdefinition)
+* [`sb aptos create oracle QUEUEHEXSTRING`](#sb-aptos-create-oracle-queuehexstring)
+* [`sb aptos create queue`](#sb-aptos-create-queue)
+* [`sb aptos job create QUEUEHEXSTRING JOBDEFINITION`](#sb-aptos-job-create-queuehexstring-jobdefinition)
+* [`sb aptos list crank CRANKHEXSTRING`](#sb-aptos-list-crank-crankhexstring)
+* [`sb aptos oracle create QUEUEHEXSTRING`](#sb-aptos-oracle-create-queuehexstring)
+* [`sb aptos oracle metrics ORACLEHEXSTRING`](#sb-aptos-oracle-metrics-oraclehexstring)
+* [`sb aptos oracle up ORACLEHEXSTRING`](#sb-aptos-oracle-up-oraclehexstring)
+* [`sb aptos permission create GRANTER`](#sb-aptos-permission-create-granter)
+* [`sb aptos permission set GRANTER`](#sb-aptos-permission-set-granter)
+* [`sb aptos pop crank CRANKHEXSTRING`](#sb-aptos-pop-crank-crankhexstring)
+* [`sb aptos print ACCOUNTTYPE ADDRESS`](#sb-aptos-print-accounttype-address)
+* [`sb aptos push crank CRANKHEXSTRING`](#sb-aptos-push-crank-crankhexstring)
+* [`sb aptos queue create`](#sb-aptos-queue-create)
+* [`sb aptos update aggregator AGGREGATORHEXSTRING`](#sb-aptos-update-aggregator-aggregatorhexstring)
+* [`sb config print`](#sb-config-print)
+* [`sb config set CHAIN NETWORK PARAMETER [VALUE]`](#sb-config-set-chain-network-parameter-value)
+* [`sb evm aggregator create QUEUEADDRESS`](#sb-evm-aggregator-create-queueaddress)
+* [`sb evm aggregator print AGGREGATORADDRESS`](#sb-evm-aggregator-print-aggregatoraddress)
+* [`sb evm aggregator set AGGREGATORADDRESS`](#sb-evm-aggregator-set-aggregatoraddress)
+* [`sb evm create aggregator QUEUEADDRESS`](#sb-evm-create-aggregator-queueaddress)
+* [`sb evm create jobs`](#sb-evm-create-jobs)
+* [`sb evm create oracle QUEUEADDRESS`](#sb-evm-create-oracle-queueaddress)
+* [`sb evm create queue`](#sb-evm-create-queue)
+* [`sb evm job create`](#sb-evm-job-create)
+* [`sb evm job print JOBHASH`](#sb-evm-job-print-jobhash)
+* [`sb evm oracle create QUEUEADDRESS`](#sb-evm-oracle-create-queueaddress)
+* [`sb evm oracle heartbeat ORACLEADDRESS`](#sb-evm-oracle-heartbeat-oracleaddress)
+* [`sb evm oracle print ORACLEADDRESS`](#sb-evm-oracle-print-oracleaddress)
+* [`sb evm queue create`](#sb-evm-queue-create)
+* [`sb evm queue print QUEUEADDRESS`](#sb-evm-queue-print-queueaddress)
+* [`sb evm set aggregator AGGREGATORADDRESS`](#sb-evm-set-aggregator-aggregatoraddress)
+* [`sb help [COMMANDS]`](#sb-help-commands)
+* [`sb job test`](#sb-job-test)
+* [`sb near aggregator add history AGGREGATORADDRESS`](#sb-near-aggregator-add-history-aggregatoraddress)
+* [`sb near aggregator add job AGGREGATORADDRESS`](#sb-near-aggregator-add-job-aggregatoraddress)
+* [`sb near aggregator create QUEUEADDRESS`](#sb-near-aggregator-create-queueaddress)
+* [`sb near aggregator escrow AGGREGATORADDRESS`](#sb-near-aggregator-escrow-aggregatoraddress)
+* [`sb near aggregator fetch`](#sb-near-aggregator-fetch)
+* [`sb near aggregator fund AGGREGATORADDRESS`](#sb-near-aggregator-fund-aggregatoraddress)
+* [`sb near aggregator history add AGGREGATORADDRESS`](#sb-near-aggregator-history-add-aggregatoraddress)
+* [`sb near aggregator job add AGGREGATORADDRESS`](#sb-near-aggregator-job-add-aggregatoraddress)
+* [`sb near aggregator job remove AGGREGATORADDRESS`](#sb-near-aggregator-job-remove-aggregatoraddress)
+* [`sb near aggregator permission create AGGREGATORADDRESS`](#sb-near-aggregator-permission-create-aggregatoraddress)
+* [`sb near aggregator remove job AGGREGATORADDRESS`](#sb-near-aggregator-remove-job-aggregatoraddress)
+* [`sb near aggregator set AGGREGATORADDRESS`](#sb-near-aggregator-set-aggregatoraddress)
+* [`sb near aggregator update AGGREGATORADDRESS`](#sb-near-aggregator-update-aggregatoraddress)
+* [`sb near crank create QUEUEADDRESS`](#sb-near-crank-create-queueaddress)
+* [`sb near crank list CRANKADDRESS`](#sb-near-crank-list-crankaddress)
+* [`sb near crank pop CRANKADDRESS`](#sb-near-crank-pop-crankaddress)
+* [`sb near crank push CRANKADDRESS`](#sb-near-crank-push-crankaddress)
+* [`sb near create aggregator QUEUEADDRESS`](#sb-near-create-aggregator-queueaddress)
+* [`sb near create aggregator permission AGGREGATORADDRESS`](#sb-near-create-aggregator-permission-aggregatoraddress)
+* [`sb near create crank QUEUEADDRESS`](#sb-near-create-crank-queueaddress)
+* [`sb near create escrow`](#sb-near-create-escrow)
+* [`sb near create job JOBDEFINITION`](#sb-near-create-job-jobdefinition)
+* [`sb near create oracle QUEUEADDRESS`](#sb-near-create-oracle-queueaddress)
+* [`sb near create oracle permission`](#sb-near-create-oracle-permission)
+* [`sb near create queue`](#sb-near-create-queue)
+* [`sb near escrow create`](#sb-near-escrow-create)
+* [`sb near escrow print`](#sb-near-escrow-print)
+* [`sb near fetch aggregators`](#sb-near-fetch-aggregators)
+* [`sb near fund aggregator AGGREGATORADDRESS`](#sb-near-fund-aggregator-aggregatoraddress)
+* [`sb near job create JOBDEFINITION`](#sb-near-job-create-jobdefinition)
+* [`sb near list queue QUEUEADDRESS`](#sb-near-list-queue-queueaddress)
+* [`sb near oracle create QUEUEADDRESS`](#sb-near-oracle-create-queueaddress)
+* [`sb near oracle escrow ORACLEADDRESS`](#sb-near-oracle-escrow-oracleaddress)
+* [`sb near oracle stake ORACLEADDRESS`](#sb-near-oracle-stake-oracleaddress)
+* [`sb near oracle unstake ORACLEADDRESS`](#sb-near-oracle-unstake-oracleaddress)
+* [`sb near oracle up ORACLEADDRESS`](#sb-near-oracle-up-oracleaddress)
+* [`sb near permission create`](#sb-near-permission-create)
+* [`sb near pop crank CRANKADDRESS`](#sb-near-pop-crank-crankaddress)
+* [`sb near print ACCOUNTTYPE ADDRESS`](#sb-near-print-accounttype-address)
+* [`sb near print escrow`](#sb-near-print-escrow)
+* [`sb near push crank CRANKADDRESS`](#sb-near-push-crank-crankaddress)
+* [`sb near queue aggregators QUEUEADDRESS`](#sb-near-queue-aggregators-queueaddress)
+* [`sb near queue create`](#sb-near-queue-create)
+* [`sb near queue feeds QUEUEADDRESS`](#sb-near-queue-feeds-queueaddress)
+* [`sb near queue list QUEUEADDRESS`](#sb-near-queue-list-queueaddress)
+* [`sb near queue set QUEUEADDRESS`](#sb-near-queue-set-queueaddress)
+* [`sb near set aggregator AGGREGATORADDRESS`](#sb-near-set-aggregator-aggregatoraddress)
+* [`sb near update aggregator AGGREGATORADDRESS`](#sb-near-update-aggregator-aggregatoraddress)
+* [`sb oracle logs NETWORK SEARCHSTRING`](#sb-oracle-logs-network-searchstring)
+* [`sb solana aggregator add history AGGREGATORKEY`](#sb-solana-aggregator-add-history-aggregatorkey)
+* [`sb solana aggregator add job AGGREGATORKEY`](#sb-solana-aggregator-add-job-aggregatorkey)
+* [`sb solana aggregator authority AGGREGATORKEY`](#sb-solana-aggregator-authority-aggregatorkey)
+* [`sb solana aggregator close AGGREGATORKEY`](#sb-solana-aggregator-close-aggregatorkey)
+* [`sb solana aggregator create QUEUEKEY`](#sb-solana-aggregator-create-queuekey)
+* [`sb solana aggregator create json DEFINITIONFILE`](#sb-solana-aggregator-create-json-definitionfile)
+* [`sb solana aggregator deposit AGGREGATORKEY`](#sb-solana-aggregator-deposit-aggregatorkey)
+* [`sb solana aggregator extend AGGREGATORKEY`](#sb-solana-aggregator-extend-aggregatorkey)
+* [`sb solana aggregator fund AGGREGATORKEY`](#sb-solana-aggregator-fund-aggregatorkey)
+* [`sb solana aggregator history AGGREGATORKEY`](#sb-solana-aggregator-history-aggregatorkey)
+* [`sb solana aggregator lease set AGGREGATORKEY`](#sb-solana-aggregator-lease-set-aggregatorkey)
+* [`sb solana aggregator list AUTHORITYKEY`](#sb-solana-aggregator-list-authoritykey)
+* [`sb solana aggregator lock AGGREGATORKEY`](#sb-solana-aggregator-lock-aggregatorkey)
+* [`sb solana aggregator metrics AGGREGATORKEY`](#sb-solana-aggregator-metrics-aggregatorkey)
+* [`sb solana aggregator mode AGGREGATORKEY`](#sb-solana-aggregator-mode-aggregatorkey)
+* [`sb solana aggregator open-round AGGREGATORKEY`](#sb-solana-aggregator-open-round-aggregatorkey)
+* [`sb solana aggregator permission create AGGREGATORKEY`](#sb-solana-aggregator-permission-create-aggregatorkey)
+* [`sb solana aggregator print AGGREGATORKEY`](#sb-solana-aggregator-print-aggregatorkey)
+* [`sb solana aggregator remove job AGGREGATORKEY JOBKEY`](#sb-solana-aggregator-remove-job-aggregatorkey-jobkey)
+* [`sb solana aggregator set AGGREGATORKEY`](#sb-solana-aggregator-set-aggregatorkey)
+* [`sb solana aggregator transfer AGGREGATORKEY`](#sb-solana-aggregator-transfer-aggregatorkey)
+* [`sb solana aggregator update AGGREGATORKEY`](#sb-solana-aggregator-update-aggregatorkey)
+* [`sb solana aggregator watch AGGREGATORKEY`](#sb-solana-aggregator-watch-aggregatorkey)
+* [`sb solana aggregator withdraw AGGREGATORKEY`](#sb-solana-aggregator-withdraw-aggregatorkey)
+* [`sb solana anchor test`](#sb-solana-anchor-test)
+* [`sb solana buffer create QUEUEKEY`](#sb-solana-buffer-create-queuekey)
+* [`sb solana buffer open-round BUFFERRELAYERKEY`](#sb-solana-buffer-open-round-bufferrelayerkey)
+* [`sb solana buffer update BUFFERRELAYERKEY`](#sb-solana-buffer-update-bufferrelayerkey)
+* [`sb solana crank create QUEUEKEY`](#sb-solana-crank-create-queuekey)
+* [`sb solana crank events AGGREGATORKEY`](#sb-solana-crank-events-aggregatorkey)
+* [`sb solana crank pop CRANKKEY`](#sb-solana-crank-pop-crankkey)
+* [`sb solana crank print CRANKKEY`](#sb-solana-crank-print-crankkey)
+* [`sb solana crank push AGGREGATORKEY`](#sb-solana-crank-push-aggregatorkey)
+* [`sb solana crank reset AGGREGATORKEY`](#sb-solana-crank-reset-aggregatorkey)
+* [`sb solana function create QUEUEKEY`](#sb-solana-function-create-queuekey)
+* [`sb solana function fund FUNCTIONKEY`](#sb-solana-function-fund-functionkey)
+* [`sb solana function print FUNCTIONKEY`](#sb-solana-function-print-functionkey)
+* [`sb solana job create`](#sb-solana-job-create)
+* [`sb solana job print JOBKEY`](#sb-solana-job-print-jobkey)
+* [`sb solana json create aggregator DEFINITIONFILE`](#sb-solana-json-create-aggregator-definitionfile)
+* [`sb solana lease create AGGREGATORKEY`](#sb-solana-lease-create-aggregatorkey)
+* [`sb solana lease extend AGGREGATORKEY`](#sb-solana-lease-extend-aggregatorkey)
+* [`sb solana lease print LEASEKEY`](#sb-solana-lease-print-leasekey)
+* [`sb solana lease set AGGREGATORKEY`](#sb-solana-lease-set-aggregatorkey)
+* [`sb solana lease withdraw AGGREGATORKEY`](#sb-solana-lease-withdraw-aggregatorkey)
+* [`sb solana network create`](#sb-solana-network-create)
+* [`sb solana network save`](#sb-solana-network-save)
+* [`sb solana network start`](#sb-solana-network-start)
+* [`sb solana oracle create QUEUEKEY`](#sb-solana-oracle-create-queuekey)
+* [`sb solana oracle print ORACLEKEY`](#sb-solana-oracle-print-oraclekey)
+* [`sb solana oracle up`](#sb-solana-oracle-up)
+* [`sb solana oracle withdraw ORACLEKEY`](#sb-solana-oracle-withdraw-oraclekey)
+* [`sb solana permission create`](#sb-solana-permission-create)
+* [`sb solana permission grant PERMISSIONKEY`](#sb-solana-permission-grant-permissionkey)
+* [`sb solana permission print PERMISSIONKEY`](#sb-solana-permission-print-permissionkey)
+* [`sb solana permission revoke PERMISSIONKEY`](#sb-solana-permission-revoke-permissionkey)
+* [`sb solana print PUBKEY`](#sb-solana-print-pubkey)
+* [`sb solana queue create`](#sb-solana-queue-create)
+* [`sb solana queue print QUEUEKEY`](#sb-solana-queue-print-queuekey)
+* [`sb solana queue set QUEUEKEY`](#sb-solana-queue-set-queuekey)
+* [`sb solana vrf open-round VRFKEY`](#sb-solana-vrf-open-round-vrfkey)
+* [`sb solana vrf print VRFKEY`](#sb-solana-vrf-print-vrfkey)
+* [`sb solana vrf request VRFKEY`](#sb-solana-vrf-request-vrfkey)
+* [`sb solana vrf update VRFKEY`](#sb-solana-vrf-update-vrfkey)
+* [`sb update [CHANNEL]`](#sb-update-channel)
+* [`sb version`](#sb-version)
 
-- [`sbv2 anchor test`](#sbv2-anchor-test)
-- [`sbv2 aptos account airdrop`](#sbv2-aptos-account-airdrop)
-- [`sbv2 aptos aggregator add job AGGREGATORHEXSTRING`](#sbv2-aptos-aggregator-add-job-aggregatorhexstring)
-- [`sbv2 aptos aggregator create QUEUEHEXSTRING`](#sbv2-aptos-aggregator-create-queuehexstring)
-- [`sbv2 aptos aggregator job add AGGREGATORHEXSTRING`](#sbv2-aptos-aggregator-job-add-aggregatorhexstring)
-- [`sbv2 aptos aggregator update AGGREGATORHEXSTRING`](#sbv2-aptos-aggregator-update-aggregatorhexstring)
-- [`sbv2 aptos crank create QUEUEHEXSTRING`](#sbv2-aptos-crank-create-queuehexstring)
-- [`sbv2 aptos crank list CRANKHEXSTRING`](#sbv2-aptos-crank-list-crankhexstring)
-- [`sbv2 aptos crank pop CRANKHEXSTRING`](#sbv2-aptos-crank-pop-crankhexstring)
-- [`sbv2 aptos crank push CRANKHEXSTRING`](#sbv2-aptos-crank-push-crankhexstring)
-- [`sbv2 aptos create aggregator QUEUEHEXSTRING`](#sbv2-aptos-create-aggregator-queuehexstring)
-- [`sbv2 aptos create crank QUEUEHEXSTRING`](#sbv2-aptos-create-crank-queuehexstring)
-- [`sbv2 aptos create job QUEUEHEXSTRING JOBDEFINITION`](#sbv2-aptos-create-job-queuehexstring-jobdefinition)
-- [`sbv2 aptos create oracle QUEUEHEXSTRING`](#sbv2-aptos-create-oracle-queuehexstring)
-- [`sbv2 aptos create queue`](#sbv2-aptos-create-queue)
-- [`sbv2 aptos job create QUEUEHEXSTRING JOBDEFINITION`](#sbv2-aptos-job-create-queuehexstring-jobdefinition)
-- [`sbv2 aptos list crank CRANKHEXSTRING`](#sbv2-aptos-list-crank-crankhexstring)
-- [`sbv2 aptos oracle create QUEUEHEXSTRING`](#sbv2-aptos-oracle-create-queuehexstring)
-- [`sbv2 aptos oracle metrics ORACLEHEXSTRING`](#sbv2-aptos-oracle-metrics-oraclehexstring)
-- [`sbv2 aptos oracle up ORACLEHEXSTRING`](#sbv2-aptos-oracle-up-oraclehexstring)
-- [`sbv2 aptos permission create GRANTER`](#sbv2-aptos-permission-create-granter)
-- [`sbv2 aptos permission set GRANTER`](#sbv2-aptos-permission-set-granter)
-- [`sbv2 aptos pop crank CRANKHEXSTRING`](#sbv2-aptos-pop-crank-crankhexstring)
-- [`sbv2 aptos print ACCOUNTTYPE ADDRESS`](#sbv2-aptos-print-accounttype-address)
-- [`sbv2 aptos push crank CRANKHEXSTRING`](#sbv2-aptos-push-crank-crankhexstring)
-- [`sbv2 aptos queue create`](#sbv2-aptos-queue-create)
-- [`sbv2 aptos update aggregator AGGREGATORHEXSTRING`](#sbv2-aptos-update-aggregator-aggregatorhexstring)
-- [`sbv2 config print`](#sbv2-config-print)
-- [`sbv2 config set CHAIN NETWORK PARAMETER [VALUE]`](#sbv2-config-set-chain-network-parameter-value)
-- [`sbv2 evm aggregator create QUEUEADDRESS`](#sbv2-evm-aggregator-create-queueaddress)
-- [`sbv2 evm aggregator print AGGREGATORADDRESS`](#sbv2-evm-aggregator-print-aggregatoraddress)
-- [`sbv2 evm aggregator set AGGREGATORADDRESS`](#sbv2-evm-aggregator-set-aggregatoraddress)
-- [`sbv2 evm create aggregator QUEUEADDRESS`](#sbv2-evm-create-aggregator-queueaddress)
-- [`sbv2 evm create jobs`](#sbv2-evm-create-jobs)
-- [`sbv2 evm create oracle QUEUEADDRESS`](#sbv2-evm-create-oracle-queueaddress)
-- [`sbv2 evm create queue`](#sbv2-evm-create-queue)
-- [`sbv2 evm job create`](#sbv2-evm-job-create)
-- [`sbv2 evm job print JOBHASH`](#sbv2-evm-job-print-jobhash)
-- [`sbv2 evm oracle create QUEUEADDRESS`](#sbv2-evm-oracle-create-queueaddress)
-- [`sbv2 evm oracle heartbeat ORACLEADDRESS`](#sbv2-evm-oracle-heartbeat-oracleaddress)
-- [`sbv2 evm oracle print ORACLEADDRESS`](#sbv2-evm-oracle-print-oracleaddress)
-- [`sbv2 evm queue create`](#sbv2-evm-queue-create)
-- [`sbv2 evm queue print QUEUEADDRESS`](#sbv2-evm-queue-print-queueaddress)
-- [`sbv2 evm set aggregator AGGREGATORADDRESS`](#sbv2-evm-set-aggregator-aggregatoraddress)
-- [`sbv2 help [COMMANDS]`](#sbv2-help-commands)
-- [`sbv2 job test`](#sbv2-job-test)
-- [`sbv2 near aggregator add history AGGREGATORADDRESS`](#sbv2-near-aggregator-add-history-aggregatoraddress)
-- [`sbv2 near aggregator add job AGGREGATORADDRESS`](#sbv2-near-aggregator-add-job-aggregatoraddress)
-- [`sbv2 near aggregator create QUEUEADDRESS`](#sbv2-near-aggregator-create-queueaddress)
-- [`sbv2 near aggregator escrow AGGREGATORADDRESS`](#sbv2-near-aggregator-escrow-aggregatoraddress)
-- [`sbv2 near aggregator fetch`](#sbv2-near-aggregator-fetch)
-- [`sbv2 near aggregator fund AGGREGATORADDRESS`](#sbv2-near-aggregator-fund-aggregatoraddress)
-- [`sbv2 near aggregator history add AGGREGATORADDRESS`](#sbv2-near-aggregator-history-add-aggregatoraddress)
-- [`sbv2 near aggregator job add AGGREGATORADDRESS`](#sbv2-near-aggregator-job-add-aggregatoraddress)
-- [`sbv2 near aggregator job remove AGGREGATORADDRESS`](#sbv2-near-aggregator-job-remove-aggregatoraddress)
-- [`sbv2 near aggregator permission create AGGREGATORADDRESS`](#sbv2-near-aggregator-permission-create-aggregatoraddress)
-- [`sbv2 near aggregator remove job AGGREGATORADDRESS`](#sbv2-near-aggregator-remove-job-aggregatoraddress)
-- [`sbv2 near aggregator set AGGREGATORADDRESS`](#sbv2-near-aggregator-set-aggregatoraddress)
-- [`sbv2 near aggregator update AGGREGATORADDRESS`](#sbv2-near-aggregator-update-aggregatoraddress)
-- [`sbv2 near crank create QUEUEADDRESS`](#sbv2-near-crank-create-queueaddress)
-- [`sbv2 near crank list CRANKADDRESS`](#sbv2-near-crank-list-crankaddress)
-- [`sbv2 near crank pop CRANKADDRESS`](#sbv2-near-crank-pop-crankaddress)
-- [`sbv2 near crank push CRANKADDRESS`](#sbv2-near-crank-push-crankaddress)
-- [`sbv2 near create aggregator QUEUEADDRESS`](#sbv2-near-create-aggregator-queueaddress)
-- [`sbv2 near create aggregator permission AGGREGATORADDRESS`](#sbv2-near-create-aggregator-permission-aggregatoraddress)
-- [`sbv2 near create crank QUEUEADDRESS`](#sbv2-near-create-crank-queueaddress)
-- [`sbv2 near create escrow`](#sbv2-near-create-escrow)
-- [`sbv2 near create job JOBDEFINITION`](#sbv2-near-create-job-jobdefinition)
-- [`sbv2 near create oracle QUEUEADDRESS`](#sbv2-near-create-oracle-queueaddress)
-- [`sbv2 near create oracle permission`](#sbv2-near-create-oracle-permission)
-- [`sbv2 near create queue`](#sbv2-near-create-queue)
-- [`sbv2 near escrow create`](#sbv2-near-escrow-create)
-- [`sbv2 near escrow print`](#sbv2-near-escrow-print)
-- [`sbv2 near fetch aggregators`](#sbv2-near-fetch-aggregators)
-- [`sbv2 near fund aggregator AGGREGATORADDRESS`](#sbv2-near-fund-aggregator-aggregatoraddress)
-- [`sbv2 near job create JOBDEFINITION`](#sbv2-near-job-create-jobdefinition)
-- [`sbv2 near list queue QUEUEADDRESS`](#sbv2-near-list-queue-queueaddress)
-- [`sbv2 near oracle create QUEUEADDRESS`](#sbv2-near-oracle-create-queueaddress)
-- [`sbv2 near oracle escrow ORACLEADDRESS`](#sbv2-near-oracle-escrow-oracleaddress)
-- [`sbv2 near oracle stake ORACLEADDRESS`](#sbv2-near-oracle-stake-oracleaddress)
-- [`sbv2 near oracle unstake ORACLEADDRESS`](#sbv2-near-oracle-unstake-oracleaddress)
-- [`sbv2 near oracle up ORACLEADDRESS`](#sbv2-near-oracle-up-oracleaddress)
-- [`sbv2 near permission create`](#sbv2-near-permission-create)
-- [`sbv2 near pop crank CRANKADDRESS`](#sbv2-near-pop-crank-crankaddress)
-- [`sbv2 near print ACCOUNTTYPE ADDRESS`](#sbv2-near-print-accounttype-address)
-- [`sbv2 near print escrow`](#sbv2-near-print-escrow)
-- [`sbv2 near push crank CRANKADDRESS`](#sbv2-near-push-crank-crankaddress)
-- [`sbv2 near queue aggregators QUEUEADDRESS`](#sbv2-near-queue-aggregators-queueaddress)
-- [`sbv2 near queue create`](#sbv2-near-queue-create)
-- [`sbv2 near queue feeds QUEUEADDRESS`](#sbv2-near-queue-feeds-queueaddress)
-- [`sbv2 near queue list QUEUEADDRESS`](#sbv2-near-queue-list-queueaddress)
-- [`sbv2 near queue set QUEUEADDRESS`](#sbv2-near-queue-set-queueaddress)
-- [`sbv2 near set aggregator AGGREGATORADDRESS`](#sbv2-near-set-aggregator-aggregatoraddress)
-- [`sbv2 near update aggregator AGGREGATORADDRESS`](#sbv2-near-update-aggregator-aggregatoraddress)
-- [`sbv2 oracle logs NETWORK SEARCHSTRING`](#sbv2-oracle-logs-network-searchstring)
-- [`sbv2 solana aggregator add history AGGREGATORKEY`](#sbv2-solana-aggregator-add-history-aggregatorkey)
-- [`sbv2 solana aggregator add job AGGREGATORKEY`](#sbv2-solana-aggregator-add-job-aggregatorkey)
-- [`sbv2 solana aggregator authority AGGREGATORKEY`](#sbv2-solana-aggregator-authority-aggregatorkey)
-- [`sbv2 solana aggregator close AGGREGATORKEY`](#sbv2-solana-aggregator-close-aggregatorkey)
-- [`sbv2 solana aggregator create QUEUEKEY`](#sbv2-solana-aggregator-create-queuekey)
-- [`sbv2 solana aggregator create json DEFINITIONFILE`](#sbv2-solana-aggregator-create-json-definitionfile)
-- [`sbv2 solana aggregator deposit AGGREGATORKEY`](#sbv2-solana-aggregator-deposit-aggregatorkey)
-- [`sbv2 solana aggregator extend AGGREGATORKEY`](#sbv2-solana-aggregator-extend-aggregatorkey)
-- [`sbv2 solana aggregator fund AGGREGATORKEY`](#sbv2-solana-aggregator-fund-aggregatorkey)
-- [`sbv2 solana aggregator history AGGREGATORKEY`](#sbv2-solana-aggregator-history-aggregatorkey)
-- [`sbv2 solana aggregator lease set AGGREGATORKEY`](#sbv2-solana-aggregator-lease-set-aggregatorkey)
-- [`sbv2 solana aggregator list AUTHORITYKEY`](#sbv2-solana-aggregator-list-authoritykey)
-- [`sbv2 solana aggregator lock AGGREGATORKEY`](#sbv2-solana-aggregator-lock-aggregatorkey)
-- [`sbv2 solana aggregator metrics AGGREGATORKEY`](#sbv2-solana-aggregator-metrics-aggregatorkey)
-- [`sbv2 solana aggregator mode AGGREGATORKEY`](#sbv2-solana-aggregator-mode-aggregatorkey)
-- [`sbv2 solana aggregator open-round AGGREGATORKEY`](#sbv2-solana-aggregator-open-round-aggregatorkey)
-- [`sbv2 solana aggregator permission create AGGREGATORKEY`](#sbv2-solana-aggregator-permission-create-aggregatorkey)
-- [`sbv2 solana aggregator print AGGREGATORKEY`](#sbv2-solana-aggregator-print-aggregatorkey)
-- [`sbv2 solana aggregator remove job AGGREGATORKEY JOBKEY`](#sbv2-solana-aggregator-remove-job-aggregatorkey-jobkey)
-- [`sbv2 solana aggregator set AGGREGATORKEY`](#sbv2-solana-aggregator-set-aggregatorkey)
-- [`sbv2 solana aggregator transfer AGGREGATORKEY`](#sbv2-solana-aggregator-transfer-aggregatorkey)
-- [`sbv2 solana aggregator update AGGREGATORKEY`](#sbv2-solana-aggregator-update-aggregatorkey)
-- [`sbv2 solana aggregator watch AGGREGATORKEY`](#sbv2-solana-aggregator-watch-aggregatorkey)
-- [`sbv2 solana aggregator withdraw AGGREGATORKEY`](#sbv2-solana-aggregator-withdraw-aggregatorkey)
-- [`sbv2 solana anchor test`](#sbv2-solana-anchor-test)
-- [`sbv2 solana buffer create QUEUEKEY`](#sbv2-solana-buffer-create-queuekey)
-- [`sbv2 solana buffer open-round BUFFERRELAYERKEY`](#sbv2-solana-buffer-open-round-bufferrelayerkey)
-- [`sbv2 solana buffer update BUFFERRELAYERKEY`](#sbv2-solana-buffer-update-bufferrelayerkey)
-- [`sbv2 solana crank create QUEUEKEY`](#sbv2-solana-crank-create-queuekey)
-- [`sbv2 solana crank events AGGREGATORKEY`](#sbv2-solana-crank-events-aggregatorkey)
-- [`sbv2 solana crank pop CRANKKEY`](#sbv2-solana-crank-pop-crankkey)
-- [`sbv2 solana crank print CRANKKEY`](#sbv2-solana-crank-print-crankkey)
-- [`sbv2 solana crank push AGGREGATORKEY`](#sbv2-solana-crank-push-aggregatorkey)
-- [`sbv2 solana crank reset AGGREGATORKEY`](#sbv2-solana-crank-reset-aggregatorkey)
-- [`sbv2 solana function create QUEUEKEY`](#sbv2-solana-function-create-queuekey)
-- [`sbv2 solana job create`](#sbv2-solana-job-create)
-- [`sbv2 solana job print JOBKEY`](#sbv2-solana-job-print-jobkey)
-- [`sbv2 solana json create aggregator DEFINITIONFILE`](#sbv2-solana-json-create-aggregator-definitionfile)
-- [`sbv2 solana lease create AGGREGATORKEY`](#sbv2-solana-lease-create-aggregatorkey)
-- [`sbv2 solana lease extend AGGREGATORKEY`](#sbv2-solana-lease-extend-aggregatorkey)
-- [`sbv2 solana lease print LEASEKEY`](#sbv2-solana-lease-print-leasekey)
-- [`sbv2 solana lease set AGGREGATORKEY`](#sbv2-solana-lease-set-aggregatorkey)
-- [`sbv2 solana lease withdraw AGGREGATORKEY`](#sbv2-solana-lease-withdraw-aggregatorkey)
-- [`sbv2 solana network create`](#sbv2-solana-network-create)
-- [`sbv2 solana network save`](#sbv2-solana-network-save)
-- [`sbv2 solana network start`](#sbv2-solana-network-start)
-- [`sbv2 solana oracle create QUEUEKEY`](#sbv2-solana-oracle-create-queuekey)
-- [`sbv2 solana oracle print ORACLEKEY`](#sbv2-solana-oracle-print-oraclekey)
-- [`sbv2 solana oracle up`](#sbv2-solana-oracle-up)
-- [`sbv2 solana oracle withdraw ORACLEKEY`](#sbv2-solana-oracle-withdraw-oraclekey)
-- [`sbv2 solana permission create`](#sbv2-solana-permission-create)
-- [`sbv2 solana permission grant PERMISSIONKEY`](#sbv2-solana-permission-grant-permissionkey)
-- [`sbv2 solana permission print PERMISSIONKEY`](#sbv2-solana-permission-print-permissionkey)
-- [`sbv2 solana permission revoke PERMISSIONKEY`](#sbv2-solana-permission-revoke-permissionkey)
-- [`sbv2 solana print PUBKEY`](#sbv2-solana-print-pubkey)
-- [`sbv2 solana queue create`](#sbv2-solana-queue-create)
-- [`sbv2 solana queue print QUEUEKEY`](#sbv2-solana-queue-print-queuekey)
-- [`sbv2 solana queue set QUEUEKEY`](#sbv2-solana-queue-set-queuekey)
-- [`sbv2 solana vrf open-round VRFKEY`](#sbv2-solana-vrf-open-round-vrfkey)
-- [`sbv2 solana vrf print VRFKEY`](#sbv2-solana-vrf-print-vrfkey)
-- [`sbv2 solana vrf request VRFKEY`](#sbv2-solana-vrf-request-vrfkey)
-- [`sbv2 solana vrf update VRFKEY`](#sbv2-solana-vrf-update-vrfkey)
-- [`sbv2 update [CHANNEL]`](#sbv2-update-channel)
-- [`sbv2 version`](#sbv2-version)
-
-## `sbv2 anchor test`
+## `sb anchor test`
 
 run anchor test and a switchboard oracle in parallel
 
 ```
 USAGE
-  $ sbv2 anchor test [-h] [-v] [-s] [--mainnetBeta | --cluster localnet|devnet] [-u <value>] [--mainnetRpcUrl
+  $ sb anchor test [-h] [-v] [-s] [--mainnetBeta | --cluster localnet|devnet] [-u <value>] [--mainnetRpcUrl
     <value>] [--programId <value>] [-d <value>] [--oracleKey <value>] [-k <value>] [--releaseChannel testnet|mainnet |
     --nodeImage <value>] [-t <value>] [--detach] [--testValidatorArgs <value>]
 
@@ -297,16 +298,16 @@ DESCRIPTION
   run anchor test and a switchboard oracle in parallel
 
 ALIASES
-  $ sbv2 anchor test
+  $ sb anchor test
 ```
 
-## `sbv2 aptos account airdrop`
+## `sb aptos account airdrop`
 
 request an airdrop
 
 ```
 USAGE
-  $ sbv2 aptos account airdrop --address <value> [-h] [-v] [-s] [--networkId devnet|testnet|mainnet] [--programId <value>]
+  $ sb aptos account airdrop --address <value> [-h] [-v] [-s] [--networkId devnet|testnet|mainnet] [--programId <value>]
     [-u <value>] [--json] [-n <value>]
 
 FLAGS
@@ -327,13 +328,13 @@ DESCRIPTION
   request an airdrop
 ```
 
-## `sbv2 aptos aggregator add job AGGREGATORHEXSTRING`
+## `sb aptos aggregator add job AGGREGATORHEXSTRING`
 
 add a job to an aggregator
 
 ```
 USAGE
-  $ sbv2 aptos aggregator add job AGGREGATORHEXSTRING --keypair <value> [-h] [-v] [-s] [--networkId devnet|testnet|mainnet]
+  $ sb aptos aggregator add job AGGREGATORHEXSTRING --keypair <value> [-h] [-v] [-s] [--networkId devnet|testnet|mainnet]
     [--programId <value>] [-u <value>] [--profileName <value>] [-a <value>] [--name <value> | --jobKey <value>]
     [--metadata <value> | ] [--jobDefinition <value> | ] [--jobWeight <value>]
 
@@ -362,16 +363,16 @@ DESCRIPTION
   add a job to an aggregator
 
 ALIASES
-  $ sbv2 aptos aggregator job add
+  $ sb aptos aggregator job add
 ```
 
-## `sbv2 aptos aggregator create QUEUEHEXSTRING`
+## `sb aptos aggregator create QUEUEHEXSTRING`
 
 create an aptos aggregator for a given queue
 
 ```
 USAGE
-  $ sbv2 aptos aggregator create QUEUEHEXSTRING --keypair <value> --updateInterval <value> [-h] [-v] [-s] [--networkId
+  $ sb aptos aggregator create QUEUEHEXSTRING --keypair <value> --updateInterval <value> [-h] [-v] [-s] [--networkId
     devnet|testnet|mainnet] [--programId <value>] [-u <value>] [--profileName <value>] [--json] [-a <value>]
     [--crankAddress <value>] [--name <value>] [--metadata <value>] [--forceReportPeriod <value>] [--batchSize <value>]
     [--minJobs <value>] [--minOracles <value>] [--varianceThreshold <value>] [-j <value>] [--new]
@@ -413,16 +414,16 @@ DESCRIPTION
   create an aptos aggregator for a given queue
 
 ALIASES
-  $ sbv2 aptos create aggregator
+  $ sb aptos create aggregator
 ```
 
-## `sbv2 aptos aggregator job add AGGREGATORHEXSTRING`
+## `sb aptos aggregator job add AGGREGATORHEXSTRING`
 
 add a job to an aggregator
 
 ```
 USAGE
-  $ sbv2 aptos aggregator job add AGGREGATORHEXSTRING --keypair <value> [-h] [-v] [-s] [--networkId devnet|testnet|mainnet]
+  $ sb aptos aggregator job add AGGREGATORHEXSTRING --keypair <value> [-h] [-v] [-s] [--networkId devnet|testnet|mainnet]
     [--programId <value>] [-u <value>] [--profileName <value>] [-a <value>] [--name <value> | --jobKey <value>]
     [--metadata <value> | ] [--jobDefinition <value> | ] [--jobWeight <value>]
 
@@ -451,16 +452,16 @@ DESCRIPTION
   add a job to an aggregator
 
 ALIASES
-  $ sbv2 aptos aggregator job add
+  $ sb aptos aggregator job add
 ```
 
-## `sbv2 aptos aggregator update AGGREGATORHEXSTRING`
+## `sb aptos aggregator update AGGREGATORHEXSTRING`
 
 request a new value on-chain for an aggregator
 
 ```
 USAGE
-  $ sbv2 aptos aggregator update AGGREGATORHEXSTRING --keypair <value> [-h] [-v] [-s] [--networkId devnet|testnet|mainnet]
+  $ sb aptos aggregator update AGGREGATORHEXSTRING --keypair <value> [-h] [-v] [-s] [--networkId devnet|testnet|mainnet]
     [--programId <value>] [-u <value>] [--profileName <value>]
 
 ARGUMENTS
@@ -482,16 +483,16 @@ DESCRIPTION
   request a new value on-chain for an aggregator
 
 ALIASES
-  $ sbv2 aptos update aggregator
+  $ sb aptos update aggregator
 ```
 
-## `sbv2 aptos crank create QUEUEHEXSTRING`
+## `sb aptos crank create QUEUEHEXSTRING`
 
 create a new crank
 
 ```
 USAGE
-  $ sbv2 aptos crank create QUEUEHEXSTRING --keypair <value> [-h] [-v] [-s] [--networkId devnet|testnet|mainnet]
+  $ sb aptos crank create QUEUEHEXSTRING --keypair <value> [-h] [-v] [-s] [--networkId devnet|testnet|mainnet]
     [--programId <value>] [-u <value>] [--profileName <value>] [--json] [--name <value>] [--metadata <value>] [--maxRows
     <value>] [--new]
 
@@ -521,16 +522,16 @@ DESCRIPTION
   create a new crank
 
 ALIASES
-  $ sbv2 aptos create crank
+  $ sb aptos create crank
 ```
 
-## `sbv2 aptos crank list CRANKHEXSTRING`
+## `sb aptos crank list CRANKHEXSTRING`
 
 sort the crank
 
 ```
 USAGE
-  $ sbv2 aptos crank list CRANKHEXSTRING [-h] [-v] [-s] [--networkId devnet|testnet|mainnet] [--programId <value>] [-u
+  $ sb aptos crank list CRANKHEXSTRING [-h] [-v] [-s] [--networkId devnet|testnet|mainnet] [--programId <value>] [-u
     <value>] [--json]
 
 ARGUMENTS
@@ -552,16 +553,16 @@ DESCRIPTION
   sort the crank
 
 ALIASES
-  $ sbv2 aptos list crank
+  $ sb aptos list crank
 ```
 
-## `sbv2 aptos crank pop CRANKHEXSTRING`
+## `sb aptos crank pop CRANKHEXSTRING`
 
 pop the crank
 
 ```
 USAGE
-  $ sbv2 aptos crank pop CRANKHEXSTRING --keypair <value> [-h] [-v] [-s] [--networkId devnet|testnet|mainnet]
+  $ sb aptos crank pop CRANKHEXSTRING --keypair <value> [-h] [-v] [-s] [--networkId devnet|testnet|mainnet]
     [--programId <value>] [-u <value>] [--profileName <value>] [--json]
 
 ARGUMENTS
@@ -586,16 +587,16 @@ DESCRIPTION
   pop the crank
 
 ALIASES
-  $ sbv2 aptos pop crank
+  $ sb aptos pop crank
 ```
 
-## `sbv2 aptos crank push CRANKHEXSTRING`
+## `sb aptos crank push CRANKHEXSTRING`
 
 push an aggregator onto the crank
 
 ```
 USAGE
-  $ sbv2 aptos crank push CRANKHEXSTRING --keypair <value> -a <value> [-h] [-v] [-s] [--networkId
+  $ sb aptos crank push CRANKHEXSTRING --keypair <value> -a <value> [-h] [-v] [-s] [--networkId
     devnet|testnet|mainnet] [--programId <value>] [-u <value>] [--profileName <value>] [--json]
 
 ARGUMENTS
@@ -621,16 +622,16 @@ DESCRIPTION
   push an aggregator onto the crank
 
 ALIASES
-  $ sbv2 aptos push crank
+  $ sb aptos push crank
 ```
 
-## `sbv2 aptos create aggregator QUEUEHEXSTRING`
+## `sb aptos create aggregator QUEUEHEXSTRING`
 
 create an aptos aggregator for a given queue
 
 ```
 USAGE
-  $ sbv2 aptos create aggregator QUEUEHEXSTRING --keypair <value> --updateInterval <value> [-h] [-v] [-s] [--networkId
+  $ sb aptos create aggregator QUEUEHEXSTRING --keypair <value> --updateInterval <value> [-h] [-v] [-s] [--networkId
     devnet|testnet|mainnet] [--programId <value>] [-u <value>] [--profileName <value>] [--json] [-a <value>]
     [--crankAddress <value>] [--name <value>] [--metadata <value>] [--forceReportPeriod <value>] [--batchSize <value>]
     [--minJobs <value>] [--minOracles <value>] [--varianceThreshold <value>] [-j <value>] [--new]
@@ -672,16 +673,16 @@ DESCRIPTION
   create an aptos aggregator for a given queue
 
 ALIASES
-  $ sbv2 aptos create aggregator
+  $ sb aptos create aggregator
 ```
 
-## `sbv2 aptos create crank QUEUEHEXSTRING`
+## `sb aptos create crank QUEUEHEXSTRING`
 
 create a new crank
 
 ```
 USAGE
-  $ sbv2 aptos create crank QUEUEHEXSTRING --keypair <value> [-h] [-v] [-s] [--networkId devnet|testnet|mainnet]
+  $ sb aptos create crank QUEUEHEXSTRING --keypair <value> [-h] [-v] [-s] [--networkId devnet|testnet|mainnet]
     [--programId <value>] [-u <value>] [--profileName <value>] [--json] [--name <value>] [--metadata <value>] [--maxRows
     <value>] [--new]
 
@@ -711,16 +712,16 @@ DESCRIPTION
   create a new crank
 
 ALIASES
-  $ sbv2 aptos create crank
+  $ sb aptos create crank
 ```
 
-## `sbv2 aptos create job QUEUEHEXSTRING JOBDEFINITION`
+## `sb aptos create job QUEUEHEXSTRING JOBDEFINITION`
 
 create a new job
 
 ```
 USAGE
-  $ sbv2 aptos create job QUEUEHEXSTRING JOBDEFINITION --keypair <value> [-h] [-v] [-s] [--networkId
+  $ sb aptos create job QUEUEHEXSTRING JOBDEFINITION --keypair <value> [-h] [-v] [-s] [--networkId
     devnet|testnet|mainnet] [--programId <value>] [-u <value>] [--profileName <value>] [--json] [-a <value>] [--name
     <value>] [--metadata <value>] [--new] [--weight <value>]
 
@@ -752,16 +753,16 @@ DESCRIPTION
   create a new job
 
 ALIASES
-  $ sbv2 aptos create job
+  $ sb aptos create job
 ```
 
-## `sbv2 aptos create oracle QUEUEHEXSTRING`
+## `sb aptos create oracle QUEUEHEXSTRING`
 
 create a oracle for a given queue
 
 ```
 USAGE
-  $ sbv2 aptos create oracle QUEUEHEXSTRING --keypair <value> [-h] [-v] [-s] [--networkId devnet|testnet|mainnet]
+  $ sb aptos create oracle QUEUEHEXSTRING --keypair <value> [-h] [-v] [-s] [--networkId devnet|testnet|mainnet]
     [--programId <value>] [-u <value>] [--profileName <value>] [--json] [-a <value>] [--name <value>] [--metadata
     <value>] [--new]
 
@@ -791,16 +792,16 @@ DESCRIPTION
   create a oracle for a given queue
 
 ALIASES
-  $ sbv2 aptos create oracle
+  $ sb aptos create oracle
 ```
 
-## `sbv2 aptos create queue`
+## `sb aptos create queue`
 
 create a new oracle queue
 
 ```
 USAGE
-  $ sbv2 aptos create queue --keypair <value> [-h] [-v] [-s] [--networkId devnet|testnet|mainnet] [--programId <value>]
+  $ sb aptos create queue --keypair <value> [-h] [-v] [-s] [--networkId devnet|testnet|mainnet] [--programId <value>]
     [-u <value>] [--profileName <value>] [--json] [-a <value>] [--name <value>] [--metadata <value>] [--minStake
     <value>] [-r <value>] [--oracleTimeout <value>] [--queueSize <value>] [--slashingEnabled] [--unpermissionedFeeds]
     [--unpermissionedVrf] [--enableBufferRelayers] [--lockLeaseFunding] [--new]
@@ -837,16 +838,16 @@ DESCRIPTION
   create a new oracle queue
 
 ALIASES
-  $ sbv2 aptos create queue
+  $ sb aptos create queue
 ```
 
-## `sbv2 aptos job create QUEUEHEXSTRING JOBDEFINITION`
+## `sb aptos job create QUEUEHEXSTRING JOBDEFINITION`
 
 create a new job
 
 ```
 USAGE
-  $ sbv2 aptos job create QUEUEHEXSTRING JOBDEFINITION --keypair <value> [-h] [-v] [-s] [--networkId
+  $ sb aptos job create QUEUEHEXSTRING JOBDEFINITION --keypair <value> [-h] [-v] [-s] [--networkId
     devnet|testnet|mainnet] [--programId <value>] [-u <value>] [--profileName <value>] [--json] [-a <value>] [--name
     <value>] [--metadata <value>] [--new] [--weight <value>]
 
@@ -878,16 +879,16 @@ DESCRIPTION
   create a new job
 
 ALIASES
-  $ sbv2 aptos create job
+  $ sb aptos create job
 ```
 
-## `sbv2 aptos list crank CRANKHEXSTRING`
+## `sb aptos list crank CRANKHEXSTRING`
 
 sort the crank
 
 ```
 USAGE
-  $ sbv2 aptos list crank CRANKHEXSTRING [-h] [-v] [-s] [--networkId devnet|testnet|mainnet] [--programId <value>] [-u
+  $ sb aptos list crank CRANKHEXSTRING [-h] [-v] [-s] [--networkId devnet|testnet|mainnet] [--programId <value>] [-u
     <value>] [--json]
 
 ARGUMENTS
@@ -909,16 +910,16 @@ DESCRIPTION
   sort the crank
 
 ALIASES
-  $ sbv2 aptos list crank
+  $ sb aptos list crank
 ```
 
-## `sbv2 aptos oracle create QUEUEHEXSTRING`
+## `sb aptos oracle create QUEUEHEXSTRING`
 
 create a oracle for a given queue
 
 ```
 USAGE
-  $ sbv2 aptos oracle create QUEUEHEXSTRING --keypair <value> [-h] [-v] [-s] [--networkId devnet|testnet|mainnet]
+  $ sb aptos oracle create QUEUEHEXSTRING --keypair <value> [-h] [-v] [-s] [--networkId devnet|testnet|mainnet]
     [--programId <value>] [-u <value>] [--profileName <value>] [--json] [-a <value>] [--name <value>] [--metadata
     <value>] [--new]
 
@@ -948,17 +949,17 @@ DESCRIPTION
   create a oracle for a given queue
 
 ALIASES
-  $ sbv2 aptos create oracle
+  $ sb aptos create oracle
 ```
 
-## `sbv2 aptos oracle metrics ORACLEHEXSTRING`
+## `sb aptos oracle metrics ORACLEHEXSTRING`
 
 list oracle metrics
 
 ```
 USAGE
-  $ sbv2 aptos oracle metrics ORACLEHEXSTRING [-h] [-v] [-s] [--networkId devnet|testnet|mainnet] [--programId <value>]
-    [-u <value>] [--json]
+  $ sb aptos oracle metrics ORACLEHEXSTRING [-h] [-v] [-s] [--networkId devnet|testnet|mainnet] [--programId <value>] [-u
+    <value>] [--json]
 
 ARGUMENTS
   ORACLEHEXSTRING  HexString address of the oracle
@@ -979,13 +980,13 @@ DESCRIPTION
   list oracle metrics
 ```
 
-## `sbv2 aptos oracle up ORACLEHEXSTRING`
+## `sb aptos oracle up ORACLEHEXSTRING`
 
 start an aptos docker oracle
 
 ```
 USAGE
-  $ sbv2 aptos oracle up ORACLEHEXSTRING --keypair <value> [-h] [-v] [-s] [--networkId devnet|testnet|mainnet]
+  $ sb aptos oracle up ORACLEHEXSTRING --keypair <value> [-h] [-v] [-s] [--networkId devnet|testnet|mainnet]
     [--programId <value>] [-u <value>] [--profileName <value>] [-d <value>] [--releaseChannel testnet|mainnet |
     --nodeImage <value>]
 
@@ -1012,13 +1013,13 @@ DESCRIPTION
   start an aptos docker oracle
 ```
 
-## `sbv2 aptos permission create GRANTER`
+## `sb aptos permission create GRANTER`
 
 create a new permission
 
 ```
 USAGE
-  $ sbv2 aptos permission create GRANTER --keypair <value> [-h] [-v] [-s] [--networkId devnet|testnet|mainnet] [--programId
+  $ sb aptos permission create GRANTER --keypair <value> [-h] [-v] [-s] [--networkId devnet|testnet|mainnet] [--programId
     <value>] [-u <value>] [--profileName <value>] [--json] [--aggregator <value> | --oracle <value>] [--enable]
 
 ARGUMENTS
@@ -1046,13 +1047,13 @@ DESCRIPTION
   create a new permission
 ```
 
-## `sbv2 aptos permission set GRANTER`
+## `sb aptos permission set GRANTER`
 
 create a new permission
 
 ```
 USAGE
-  $ sbv2 aptos permission set GRANTER --keypair <value> [-h] [-v] [-s] [--networkId devnet|testnet|mainnet] [--programId
+  $ sb aptos permission set GRANTER --keypair <value> [-h] [-v] [-s] [--networkId devnet|testnet|mainnet] [--programId
     <value>] [-u <value>] [--profileName <value>] [--json] [--aggregator <value> | --oracle <value>] [--enable]
 
 ARGUMENTS
@@ -1080,13 +1081,13 @@ DESCRIPTION
   create a new permission
 ```
 
-## `sbv2 aptos pop crank CRANKHEXSTRING`
+## `sb aptos pop crank CRANKHEXSTRING`
 
 pop the crank
 
 ```
 USAGE
-  $ sbv2 aptos pop crank CRANKHEXSTRING --keypair <value> [-h] [-v] [-s] [--networkId devnet|testnet|mainnet]
+  $ sb aptos pop crank CRANKHEXSTRING --keypair <value> [-h] [-v] [-s] [--networkId devnet|testnet|mainnet]
     [--programId <value>] [-u <value>] [--profileName <value>] [--json]
 
 ARGUMENTS
@@ -1111,17 +1112,17 @@ DESCRIPTION
   pop the crank
 
 ALIASES
-  $ sbv2 aptos pop crank
+  $ sb aptos pop crank
 ```
 
-## `sbv2 aptos print ACCOUNTTYPE ADDRESS`
+## `sb aptos print ACCOUNTTYPE ADDRESS`
 
 print an aptos account
 
 ```
 USAGE
-  $ sbv2 aptos print ACCOUNTTYPE ADDRESS [-h] [-v] [-s] [--networkId devnet|testnet|mainnet] [--programId
-    <value>] [-u <value>] [--json]
+  $ sb aptos print ACCOUNTTYPE ADDRESS [-h] [-v] [-s] [--networkId devnet|testnet|mainnet] [--programId <value>]
+    [-u <value>] [--json]
 
 ARGUMENTS
   ACCOUNTTYPE  (queue|aggregator|crank|oracle|permission|lease|job|state) account type to print
@@ -1143,16 +1144,16 @@ DESCRIPTION
   print an aptos account
 
 ALIASES
-  $ sbv2 aptos print
+  $ sb aptos print
 ```
 
-## `sbv2 aptos push crank CRANKHEXSTRING`
+## `sb aptos push crank CRANKHEXSTRING`
 
 push an aggregator onto the crank
 
 ```
 USAGE
-  $ sbv2 aptos push crank CRANKHEXSTRING --keypair <value> -a <value> [-h] [-v] [-s] [--networkId
+  $ sb aptos push crank CRANKHEXSTRING --keypair <value> -a <value> [-h] [-v] [-s] [--networkId
     devnet|testnet|mainnet] [--programId <value>] [-u <value>] [--profileName <value>] [--json]
 
 ARGUMENTS
@@ -1178,16 +1179,16 @@ DESCRIPTION
   push an aggregator onto the crank
 
 ALIASES
-  $ sbv2 aptos push crank
+  $ sb aptos push crank
 ```
 
-## `sbv2 aptos queue create`
+## `sb aptos queue create`
 
 create a new oracle queue
 
 ```
 USAGE
-  $ sbv2 aptos queue create --keypair <value> [-h] [-v] [-s] [--networkId devnet|testnet|mainnet] [--programId <value>]
+  $ sb aptos queue create --keypair <value> [-h] [-v] [-s] [--networkId devnet|testnet|mainnet] [--programId <value>]
     [-u <value>] [--profileName <value>] [--json] [-a <value>] [--name <value>] [--metadata <value>] [--minStake
     <value>] [-r <value>] [--oracleTimeout <value>] [--queueSize <value>] [--slashingEnabled] [--unpermissionedFeeds]
     [--unpermissionedVrf] [--enableBufferRelayers] [--lockLeaseFunding] [--new]
@@ -1224,16 +1225,16 @@ DESCRIPTION
   create a new oracle queue
 
 ALIASES
-  $ sbv2 aptos create queue
+  $ sb aptos create queue
 ```
 
-## `sbv2 aptos update aggregator AGGREGATORHEXSTRING`
+## `sb aptos update aggregator AGGREGATORHEXSTRING`
 
 request a new value on-chain for an aggregator
 
 ```
 USAGE
-  $ sbv2 aptos update aggregator AGGREGATORHEXSTRING --keypair <value> [-h] [-v] [-s] [--networkId devnet|testnet|mainnet]
+  $ sb aptos update aggregator AGGREGATORHEXSTRING --keypair <value> [-h] [-v] [-s] [--networkId devnet|testnet|mainnet]
     [--programId <value>] [-u <value>] [--profileName <value>]
 
 ARGUMENTS
@@ -1255,16 +1256,16 @@ DESCRIPTION
   request a new value on-chain for an aggregator
 
 ALIASES
-  $ sbv2 aptos update aggregator
+  $ sb aptos update aggregator
 ```
 
-## `sbv2 config print`
+## `sb config print`
 
 print cli config
 
 ```
 USAGE
-  $ sbv2 config print [-h] [-v] [-s] [--json]
+  $ sb config print [-h] [-v] [-s] [--json]
 
 FLAGS
   -h, --help     Show CLI help.
@@ -1278,16 +1279,16 @@ DESCRIPTION
   print cli config
 
 EXAMPLES
-  $ sbv2 config:print
+  $ sb config:print
 ```
 
-## `sbv2 config set CHAIN NETWORK PARAMETER [VALUE]`
+## `sb config set CHAIN NETWORK PARAMETER [VALUE]`
 
 set a configuration option
 
 ```
 USAGE
-  $ sbv2 config set CHAIN NETWORK PARAMETER [VALUE] [-h] [-v] [-s] [-r]
+  $ sb config set CHAIN NETWORK PARAMETER [VALUE] [-h] [-v] [-s] [-r]
 
 ARGUMENTS
   CHAIN      chain to set a config parameter
@@ -1305,13 +1306,13 @@ DESCRIPTION
   set a configuration option
 ```
 
-## `sbv2 evm aggregator create QUEUEADDRESS`
+## `sb evm aggregator create QUEUEADDRESS`
 
 create an aggregator for a given queue
 
 ```
 USAGE
-  $ sbv2 evm aggregator create QUEUEADDRESS --account <value> --updateInterval <value> [-h] [-v] [-s] [--chain
+  $ sb evm aggregator create QUEUEADDRESS --account <value> --updateInterval <value> [-h] [-v] [-s] [--chain
     coredao|arbitrum | --coredao | --arbitrum] [--network mainnet|testnet | --mainnet | --testnet] [-u <value>]
     [--programId <value>] [--json] [-a <value>] [--name <value>] [--forceReportPeriod <value>] [--batchSize <value>]
     [--minJobs <value>] [--minOracles <value>] [--varianceThreshold <value>] [-j <value>] [--enableHistory]
@@ -1360,19 +1361,19 @@ DESCRIPTION
   create an aggregator for a given queue
 
 ALIASES
-  $ sbv2 evm create aggregator
+  $ sb evm create aggregator
 
 EXAMPLES
-  $ sbv2 evm aggregator create --arbitrum --testnet --account ~/.config/arbitrum/testnet.txt 0xB1c6E716ACae35200Dc8278A63a424f58417954c --name 'my feed' --batchSize 1 --updateInterval 90 --fundAmount 0.25 --job my_job.json
+  $ sb evm aggregator create --arbitrum --testnet --account ~/.config/arbitrum/testnet.txt 0xB1c6E716ACae35200Dc8278A63a424f58417954c --name 'my feed' --batchSize 1 --updateInterval 90 --fundAmount 0.25 --job my_job.json
 ```
 
-## `sbv2 evm aggregator print AGGREGATORADDRESS`
+## `sb evm aggregator print AGGREGATORADDRESS`
 
 print an aggregator
 
 ```
 USAGE
-  $ sbv2 evm aggregator print AGGREGATORADDRESS [-h] [-v] [-s] [--chain coredao|arbitrum | --coredao | --arbitrum]
+  $ sb evm aggregator print AGGREGATORADDRESS [-h] [-v] [-s] [--chain coredao|arbitrum | --coredao | --arbitrum]
     [--network mainnet|testnet | --mainnet | --testnet] [-u <value>] [--programId <value>] [--json] [--jobs] [--results]
 
 ARGUMENTS
@@ -1402,18 +1403,18 @@ DESCRIPTION
   print an aggregator
 
 EXAMPLES
-  $ sbv2 evm aggregator print 0x4Aa86c11Ad9493c84fd6C6469F6FA494272AdB4a --arbitrum --mainnet
+  $ sb evm aggregator print 0x4Aa86c11Ad9493c84fd6C6469F6FA494272AdB4a --arbitrum --mainnet
 
-  $ sbv2 evm aggregator print 0x7892F7326291F3Bc17680956B476701DF76d52Da --coredao --testnet --jobs
+  $ sb evm aggregator print 0x7892F7326291F3Bc17680956B476701DF76d52Da --coredao --testnet --jobs
 ```
 
-## `sbv2 evm aggregator set AGGREGATORADDRESS`
+## `sb evm aggregator set AGGREGATORADDRESS`
 
 set an aggregators config
 
 ```
 USAGE
-  $ sbv2 evm aggregator set AGGREGATORADDRESS --account <value> --updateInterval <value> [-h] [-v] [-s] [--chain
+  $ sb evm aggregator set AGGREGATORADDRESS --account <value> --updateInterval <value> [-h] [-v] [-s] [--chain
     coredao|arbitrum | --coredao | --arbitrum] [--network mainnet|testnet | --mainnet | --testnet] [-u <value>]
     [--programId <value>] [--json] [-a <value>] [--name <value>] [--forceReportPeriod <value>] [--batchSize <value>]
     [--minJobs <value>] [--minOracles <value>] [--varianceThreshold <value>] [-j <value>] [--removeJob <value>]
@@ -1459,19 +1460,19 @@ DESCRIPTION
   set an aggregators config
 
 ALIASES
-  $ sbv2 evm set aggregator
+  $ sb evm set aggregator
 
 EXAMPLES
-  $  sbv2 evm aggregator set --arbitrum --testnet --account ~/.config/arbitrum/testnet.txt 0xB1c6E716ACae35200Dc8278A63a424f58417954c --name 'my updated feed' --batchSize 2 --job ./my_new_job.json
+  $  sb evm aggregator set --arbitrum --testnet --account ~/.config/arbitrum/testnet.txt 0xB1c6E716ACae35200Dc8278A63a424f58417954c --name 'my updated feed' --batchSize 2 --job ./my_new_job.json
 ```
 
-## `sbv2 evm create aggregator QUEUEADDRESS`
+## `sb evm create aggregator QUEUEADDRESS`
 
 create an aggregator for a given queue
 
 ```
 USAGE
-  $ sbv2 evm create aggregator QUEUEADDRESS --account <value> --updateInterval <value> [-h] [-v] [-s] [--chain
+  $ sb evm create aggregator QUEUEADDRESS --account <value> --updateInterval <value> [-h] [-v] [-s] [--chain
     coredao|arbitrum | --coredao | --arbitrum] [--network mainnet|testnet | --mainnet | --testnet] [-u <value>]
     [--programId <value>] [--json] [-a <value>] [--name <value>] [--forceReportPeriod <value>] [--batchSize <value>]
     [--minJobs <value>] [--minOracles <value>] [--varianceThreshold <value>] [-j <value>] [--enableHistory]
@@ -1520,21 +1521,21 @@ DESCRIPTION
   create an aggregator for a given queue
 
 ALIASES
-  $ sbv2 evm create aggregator
+  $ sb evm create aggregator
 
 EXAMPLES
-  $ sbv2 evm aggregator create --arbitrum --testnet --account ~/.config/arbitrum/testnet.txt 0xB1c6E716ACae35200Dc8278A63a424f58417954c --name 'my feed' --batchSize 1 --updateInterval 90 --fundAmount 0.25 --job my_job.json
+  $ sb evm aggregator create --arbitrum --testnet --account ~/.config/arbitrum/testnet.txt 0xB1c6E716ACae35200Dc8278A63a424f58417954c --name 'my feed' --batchSize 1 --updateInterval 90 --fundAmount 0.25 --job my_job.json
 ```
 
-## `sbv2 evm create jobs`
+## `sb evm create jobs`
 
 create the hash for a set of jobs
 
 ```
 USAGE
-  $ sbv2 evm create jobs [-h] [-v] [-s] [--chain coredao|arbitrum | --coredao | --arbitrum] [--network
-    mainnet|testnet | --mainnet | --testnet] [-u <value>] [--programId <value>] [--json] [--hash <value>] [-j <value>]
-    [--removeJob <value>]
+  $ sb evm create jobs [-h] [-v] [-s] [--chain coredao|arbitrum | --coredao | --arbitrum] [--network mainnet|testnet
+    | --mainnet | --testnet] [-u <value>] [--programId <value>] [--json] [--hash <value>] [-j <value>] [--removeJob
+    <value>]
 
 FLAGS
   -h, --help              Show CLI help.
@@ -1561,21 +1562,21 @@ DESCRIPTION
   create the hash for a set of jobs
 
 ALIASES
-  $ sbv2 evm create jobs
+  $ sb evm create jobs
 
 EXAMPLES
-  $ sbv2 evm job create --arbitrum --testnet --job my_job.json
+  $ sb evm job create --arbitrum --testnet --job my_job.json
 
-  $ sbv2 evm job create --arbitrum --testnet --hash bafkreihvxeb7rwyrilzmouid2onuwajkkng4ykdwrr6vaxjgg3zv3cghdy --removeJob my_job.json
+  $ sb evm job create --arbitrum --testnet --hash bafkreihvxeb7rwyrilzmouid2onuwajkkng4ykdwrr6vaxjgg3zv3cghdy --removeJob my_job.json
 ```
 
-## `sbv2 evm create oracle QUEUEADDRESS`
+## `sb evm create oracle QUEUEADDRESS`
 
 create a new oracle
 
 ```
 USAGE
-  $ sbv2 evm create oracle QUEUEADDRESS --account <value> [-h] [-v] [-s] [--chain coredao|arbitrum | --coredao |
+  $ sb evm create oracle QUEUEADDRESS --account <value> [-h] [-v] [-s] [--chain coredao|arbitrum | --coredao |
     --arbitrum] [--network mainnet|testnet | --mainnet | --testnet] [-u <value>] [--programId <value>] [--json] [-a
     <value>] [--name <value>] [--queueAuthority <value> --enable]
 
@@ -1609,19 +1610,19 @@ DESCRIPTION
   create a new oracle
 
 ALIASES
-  $ sbv2 evm create oracle
+  $ sb evm create oracle
 
 EXAMPLES
-  $ sbv2 evm oracle create 0xB1c6E716ACae35200Dc8278A63a424f58417954c --arbitrum --testnet --account ~/.config/arbitrum/testnet.txt --name 'my oracle' --enable
+  $ sb evm oracle create 0xB1c6E716ACae35200Dc8278A63a424f58417954c --arbitrum --testnet --account ~/.config/arbitrum/testnet.txt --name 'my oracle' --enable
 ```
 
-## `sbv2 evm create queue`
+## `sb evm create queue`
 
 create a new oracle queue
 
 ```
 USAGE
-  $ sbv2 evm create queue --account <value> [-h] [-v] [-s] [--chain coredao|arbitrum | --coredao | --arbitrum]
+  $ sb evm create queue --account <value> [-h] [-v] [-s] [--chain coredao|arbitrum | --coredao | --arbitrum]
     [--network mainnet|testnet | --mainnet | --testnet] [-u <value>] [--programId <value>] [--json] [-a <value>] [--name
     <value>] [-r <value>] [--oracleTimeout <value>] [--queueSize <value>] [--unpermissionedFeeds]
 
@@ -1654,23 +1655,23 @@ DESCRIPTION
   create a new oracle queue
 
 ALIASES
-  $ sbv2 evm create queue
+  $ sb evm create queue
 
 EXAMPLES
-  $ sbv2 evm queue create --arbitrum --testnet --account ~/.config/arbitrum/testnet.txt --name 'my queue' --oracleTimeout 3600 --queueSize 8
+  $ sb evm queue create --arbitrum --testnet --account ~/.config/arbitrum/testnet.txt --name 'my queue' --oracleTimeout 3600 --queueSize 8
 
-  $ sbv2 evm queue create --arbitrum --testnet --account ~/.config/arbitrum/testnet.txt --unpermissionedFeeds
+  $ sb evm queue create --arbitrum --testnet --account ~/.config/arbitrum/testnet.txt --unpermissionedFeeds
 ```
 
-## `sbv2 evm job create`
+## `sb evm job create`
 
 create the hash for a set of jobs
 
 ```
 USAGE
-  $ sbv2 evm job create [-h] [-v] [-s] [--chain coredao|arbitrum | --coredao | --arbitrum] [--network
-    mainnet|testnet | --mainnet | --testnet] [-u <value>] [--programId <value>] [--json] [--hash <value>] [-j <value>]
-    [--removeJob <value>]
+  $ sb evm job create [-h] [-v] [-s] [--chain coredao|arbitrum | --coredao | --arbitrum] [--network mainnet|testnet
+    | --mainnet | --testnet] [-u <value>] [--programId <value>] [--json] [--hash <value>] [-j <value>] [--removeJob
+    <value>]
 
 FLAGS
   -h, --help              Show CLI help.
@@ -1697,21 +1698,21 @@ DESCRIPTION
   create the hash for a set of jobs
 
 ALIASES
-  $ sbv2 evm create jobs
+  $ sb evm create jobs
 
 EXAMPLES
-  $ sbv2 evm job create --arbitrum --testnet --job my_job.json
+  $ sb evm job create --arbitrum --testnet --job my_job.json
 
-  $ sbv2 evm job create --arbitrum --testnet --hash bafkreihvxeb7rwyrilzmouid2onuwajkkng4ykdwrr6vaxjgg3zv3cghdy --removeJob my_job.json
+  $ sb evm job create --arbitrum --testnet --hash bafkreihvxeb7rwyrilzmouid2onuwajkkng4ykdwrr6vaxjgg3zv3cghdy --removeJob my_job.json
 ```
 
-## `sbv2 evm job print JOBHASH`
+## `sb evm job print JOBHASH`
 
 print an IPFS job hash
 
 ```
 USAGE
-  $ sbv2 evm job print JOBHASH [-h] [-v] [-s] [--chain coredao|arbitrum | --coredao | --arbitrum] [--network
+  $ sb evm job print JOBHASH [-h] [-v] [-s] [--chain coredao|arbitrum | --coredao | --arbitrum] [--network
     mainnet|testnet | --mainnet | --testnet] [-u <value>] [--programId <value>] [--json]
 
 ARGUMENTS
@@ -1739,16 +1740,16 @@ DESCRIPTION
   print an IPFS job hash
 
 EXAMPLES
-  $ sbv2 evm job print bafkreih4ots3go2ytcvp74cvshnmlikw2mtm47pugpnlzuf36vr6emoov4 --arbitrum --testnet
+  $ sb evm job print bafkreih4ots3go2ytcvp74cvshnmlikw2mtm47pugpnlzuf36vr6emoov4 --arbitrum --testnet
 ```
 
-## `sbv2 evm oracle create QUEUEADDRESS`
+## `sb evm oracle create QUEUEADDRESS`
 
 create a new oracle
 
 ```
 USAGE
-  $ sbv2 evm oracle create QUEUEADDRESS --account <value> [-h] [-v] [-s] [--chain coredao|arbitrum | --coredao |
+  $ sb evm oracle create QUEUEADDRESS --account <value> [-h] [-v] [-s] [--chain coredao|arbitrum | --coredao |
     --arbitrum] [--network mainnet|testnet | --mainnet | --testnet] [-u <value>] [--programId <value>] [--json] [-a
     <value>] [--name <value>] [--queueAuthority <value> --enable]
 
@@ -1782,19 +1783,19 @@ DESCRIPTION
   create a new oracle
 
 ALIASES
-  $ sbv2 evm create oracle
+  $ sb evm create oracle
 
 EXAMPLES
-  $ sbv2 evm oracle create 0xB1c6E716ACae35200Dc8278A63a424f58417954c --arbitrum --testnet --account ~/.config/arbitrum/testnet.txt --name 'my oracle' --enable
+  $ sb evm oracle create 0xB1c6E716ACae35200Dc8278A63a424f58417954c --arbitrum --testnet --account ~/.config/arbitrum/testnet.txt --name 'my oracle' --enable
 ```
 
-## `sbv2 evm oracle heartbeat ORACLEADDRESS`
+## `sb evm oracle heartbeat ORACLEADDRESS`
 
 heartbeat on-chain and signal readiness
 
 ```
 USAGE
-  $ sbv2 evm oracle heartbeat ORACLEADDRESS --account <value> [-h] [-v] [-s] [--chain coredao|arbitrum | --coredao |
+  $ sb evm oracle heartbeat ORACLEADDRESS --account <value> [-h] [-v] [-s] [--chain coredao|arbitrum | --coredao |
     --arbitrum] [--network mainnet|testnet | --mainnet | --testnet] [-u <value>] [--programId <value>] [--json] [-a
     <value>]
 
@@ -1825,16 +1826,16 @@ DESCRIPTION
   heartbeat on-chain and signal readiness
 
 EXAMPLES
-  $ sbv2 evm oracle heartbeat 0x5eeFE1CA9D1093a59aC9278cC6D296A4eeDd6385 --arbitrum --testnet --account ~/.config/arbitrum/testnet.txt
+  $ sb evm oracle heartbeat 0x5eeFE1CA9D1093a59aC9278cC6D296A4eeDd6385 --arbitrum --testnet --account ~/.config/arbitrum/testnet.txt
 ```
 
-## `sbv2 evm oracle print ORACLEADDRESS`
+## `sb evm oracle print ORACLEADDRESS`
 
 print an oracle
 
 ```
 USAGE
-  $ sbv2 evm oracle print ORACLEADDRESS [-h] [-v] [-s] [--chain coredao|arbitrum | --coredao | --arbitrum] [--network
+  $ sb evm oracle print ORACLEADDRESS [-h] [-v] [-s] [--chain coredao|arbitrum | --coredao | --arbitrum] [--network
     mainnet|testnet | --mainnet | --testnet] [-u <value>] [--programId <value>] [--json]
 
 ARGUMENTS
@@ -1862,16 +1863,16 @@ DESCRIPTION
   print an oracle
 
 EXAMPLES
-  $ sbv2 evm oracle print 0x5eeFE1CA9D1093a59aC9278cC6D296A4eeDd6385 --arbitrum --testnet
+  $ sb evm oracle print 0x5eeFE1CA9D1093a59aC9278cC6D296A4eeDd6385 --arbitrum --testnet
 ```
 
-## `sbv2 evm queue create`
+## `sb evm queue create`
 
 create a new oracle queue
 
 ```
 USAGE
-  $ sbv2 evm queue create --account <value> [-h] [-v] [-s] [--chain coredao|arbitrum | --coredao | --arbitrum]
+  $ sb evm queue create --account <value> [-h] [-v] [-s] [--chain coredao|arbitrum | --coredao | --arbitrum]
     [--network mainnet|testnet | --mainnet | --testnet] [-u <value>] [--programId <value>] [--json] [-a <value>] [--name
     <value>] [-r <value>] [--oracleTimeout <value>] [--queueSize <value>] [--unpermissionedFeeds]
 
@@ -1904,21 +1905,21 @@ DESCRIPTION
   create a new oracle queue
 
 ALIASES
-  $ sbv2 evm create queue
+  $ sb evm create queue
 
 EXAMPLES
-  $ sbv2 evm queue create --arbitrum --testnet --account ~/.config/arbitrum/testnet.txt --name 'my queue' --oracleTimeout 3600 --queueSize 8
+  $ sb evm queue create --arbitrum --testnet --account ~/.config/arbitrum/testnet.txt --name 'my queue' --oracleTimeout 3600 --queueSize 8
 
-  $ sbv2 evm queue create --arbitrum --testnet --account ~/.config/arbitrum/testnet.txt --unpermissionedFeeds
+  $ sb evm queue create --arbitrum --testnet --account ~/.config/arbitrum/testnet.txt --unpermissionedFeeds
 ```
 
-## `sbv2 evm queue print QUEUEADDRESS`
+## `sb evm queue print QUEUEADDRESS`
 
 print a queue
 
 ```
 USAGE
-  $ sbv2 evm queue print QUEUEADDRESS [-h] [-v] [-s] [--chain coredao|arbitrum | --coredao | --arbitrum] [--network
+  $ sb evm queue print QUEUEADDRESS [-h] [-v] [-s] [--chain coredao|arbitrum | --coredao | --arbitrum] [--network
     mainnet|testnet | --mainnet | --testnet] [-u <value>] [--programId <value>] [--json] [--oracles]
 
 ARGUMENTS
@@ -1947,18 +1948,18 @@ DESCRIPTION
   print a queue
 
 EXAMPLES
-  $ sbv2 evm queue print --arbitrum --mainnet 0x74f44B7e43319931ff9ae8CFCDCba09dc7F89f95
+  $ sb evm queue print --arbitrum --mainnet 0x74f44B7e43319931ff9ae8CFCDCba09dc7F89f95
 
-  $ sbv2 evm queue print --arbitrum --testnet 0xB1c6E716ACae35200Dc8278A63a424f58417954c --oracles
+  $ sb evm queue print --arbitrum --testnet 0xB1c6E716ACae35200Dc8278A63a424f58417954c --oracles
 ```
 
-## `sbv2 evm set aggregator AGGREGATORADDRESS`
+## `sb evm set aggregator AGGREGATORADDRESS`
 
 set an aggregators config
 
 ```
 USAGE
-  $ sbv2 evm set aggregator AGGREGATORADDRESS --account <value> --updateInterval <value> [-h] [-v] [-s] [--chain
+  $ sb evm set aggregator AGGREGATORADDRESS --account <value> --updateInterval <value> [-h] [-v] [-s] [--chain
     coredao|arbitrum | --coredao | --arbitrum] [--network mainnet|testnet | --mainnet | --testnet] [-u <value>]
     [--programId <value>] [--json] [-a <value>] [--name <value>] [--forceReportPeriod <value>] [--batchSize <value>]
     [--minJobs <value>] [--minOracles <value>] [--varianceThreshold <value>] [-j <value>] [--removeJob <value>]
@@ -2004,19 +2005,19 @@ DESCRIPTION
   set an aggregators config
 
 ALIASES
-  $ sbv2 evm set aggregator
+  $ sb evm set aggregator
 
 EXAMPLES
-  $  sbv2 evm aggregator set --arbitrum --testnet --account ~/.config/arbitrum/testnet.txt 0xB1c6E716ACae35200Dc8278A63a424f58417954c --name 'my updated feed' --batchSize 2 --job ./my_new_job.json
+  $  sb evm aggregator set --arbitrum --testnet --account ~/.config/arbitrum/testnet.txt 0xB1c6E716ACae35200Dc8278A63a424f58417954c --name 'my updated feed' --batchSize 2 --job ./my_new_job.json
 ```
 
-## `sbv2 help [COMMANDS]`
+## `sb help [COMMANDS]`
 
-Display help for sbv2.
+Display help for sb.
 
 ```
 USAGE
-  $ sbv2 help [COMMANDS] [-n]
+  $ sb help [COMMANDS] [-n]
 
 ARGUMENTS
   COMMANDS  Command to show help for.
@@ -2025,18 +2026,18 @@ FLAGS
   -n, --nested-commands  Include all nested commands in the output.
 
 DESCRIPTION
-  Display help for sbv2.
+  Display help for sb.
 ```
 
-_See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v5.2.4/src/commands/help.ts)_
+_See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v5.2.11/src/commands/help.ts)_
 
-## `sbv2 job test`
+## `sb job test`
 
 test a job definition against the Switchboard task-runner
 
 ```
 USAGE
-  $ sbv2 job test [-h] [-v] [-s] [--json] [-d] [--job <value>]
+  $ sb job test [-h] [-v] [-s] [--json] [-d] [--job <value>]
 
 FLAGS
   -d, --devnet      test against a devnet task-runner
@@ -2052,18 +2053,17 @@ DESCRIPTION
   test a job definition against the Switchboard task-runner
 
 EXAMPLES
-  $ sbv2 job:test
+  $ sb job:test
 ```
 
-## `sbv2 near aggregator add history AGGREGATORADDRESS`
+## `sb near aggregator add history AGGREGATORADDRESS`
 
 add rows to a history vector
 
 ```
 USAGE
-  $ sbv2 near aggregator add history AGGREGATORADDRESS --accountName <value> [-h] [-v] [-s] [--networkId
-    testnet|mainnet|localnet] [--programId <value>] [-u <value>] [--nearCredentialsDir <value>] [--json] [--numRows
-    <value>]
+  $ sb near aggregator add history AGGREGATORADDRESS --accountName <value> [-h] [-v] [-s] [--networkId testnet|mainnet|localnet]
+    [--programId <value>] [-u <value>] [--nearCredentialsDir <value>] [--json] [--numRows <value>]
 
 ARGUMENTS
   AGGREGATORADDRESS  address of the aggregator in Uint8 or Base58 encoding
@@ -2088,18 +2088,18 @@ DESCRIPTION
   add rows to a history vector
 
 ALIASES
-  $ sbv2 near aggregator history add
+  $ sb near aggregator history add
 ```
 
-## `sbv2 near aggregator add job AGGREGATORADDRESS`
+## `sb near aggregator add job AGGREGATORADDRESS`
 
 add a job to an aggregator
 
 ```
 USAGE
-  $ sbv2 near aggregator add job AGGREGATORADDRESS --accountName <value> [-h] [-v] [-s] [--networkId
-    testnet|mainnet|localnet] [--programId <value>] [-u <value>] [--nearCredentialsDir <value>] [--json] [-a <value>]
-    [--name <value> | --jobKey <value>] [--metadata <value> | ] [--jobDefinition <value> | ] [--jobWeight <value>]
+  $ sb near aggregator add job AGGREGATORADDRESS --accountName <value> [-h] [-v] [-s] [--networkId testnet|mainnet|localnet]
+    [--programId <value>] [-u <value>] [--nearCredentialsDir <value>] [--json] [-a <value>] [--name <value> | --jobKey
+    <value>] [--metadata <value> | ] [--jobDefinition <value> | ] [--jobWeight <value>]
 
 ARGUMENTS
   AGGREGATORADDRESS  address of the aggregator in Uint8 or Base58 encoding
@@ -2129,16 +2129,16 @@ DESCRIPTION
   add a job to an aggregator
 
 ALIASES
-  $ sbv2 near aggregator job add
+  $ sb near aggregator job add
 ```
 
-## `sbv2 near aggregator create QUEUEADDRESS`
+## `sb near aggregator create QUEUEADDRESS`
 
 create a near aggregator for a given queue
 
 ```
 USAGE
-  $ sbv2 near aggregator create QUEUEADDRESS --accountName <value> --updateInterval <value> [-h] [-v] [-s] [--networkId
+  $ sb near aggregator create QUEUEADDRESS --accountName <value> --updateInterval <value> [-h] [-v] [-s] [--networkId
     testnet|mainnet|localnet] [--programId <value>] [-u <value>] [--nearCredentialsDir <value>] [--json] [-a <value>]
     [--crankAddress <value>] [--name <value>] [--metadata <value>] [--forceReportPeriod <value>] [--batchSize <value>]
     [--minJobs <value>] [--minOracles <value>] [--varianceThreshold <value>] [--rewardEscrow <value>] [--enable]
@@ -2180,17 +2180,17 @@ DESCRIPTION
   create a near aggregator for a given queue
 
 ALIASES
-  $ sbv2 near create aggregator
+  $ sb near create aggregator
 ```
 
-## `sbv2 near aggregator escrow AGGREGATORADDRESS`
+## `sb near aggregator escrow AGGREGATORADDRESS`
 
 view an aggregators escrow state
 
 ```
 USAGE
-  $ sbv2 near aggregator escrow AGGREGATORADDRESS [-h] [-v] [-s] [--networkId testnet|mainnet|localnet] [--programId
-    <value>] [-u <value>] [--nearCredentialsDir <value>]
+  $ sb near aggregator escrow AGGREGATORADDRESS [-h] [-v] [-s] [--networkId testnet|mainnet|localnet] [--programId <value>]
+    [-u <value>] [--nearCredentialsDir <value>]
 
 ARGUMENTS
   AGGREGATORADDRESS  address of the aggregator in Uint8 or Base58 encoding
@@ -2210,13 +2210,13 @@ DESCRIPTION
   view an aggregators escrow state
 ```
 
-## `sbv2 near aggregator fetch`
+## `sb near aggregator fetch`
 
 fetch all aggregators for a given near account
 
 ```
 USAGE
-  $ sbv2 near aggregator fetch --accountId <value> [-h] [-v] [-s] [--networkId testnet|mainnet|localnet] [--programId
+  $ sb near aggregator fetch --accountId <value> [-h] [-v] [-s] [--networkId testnet|mainnet|localnet] [--programId
     <value>] [-u <value>] [--nearCredentialsDir <value>] [--json]
 
 FLAGS
@@ -2238,14 +2238,14 @@ DESCRIPTION
   fetch all aggregators for a given near account
 
 ALIASES
-  $ sbv2 near fetch aggregators
+  $ sb near fetch aggregators
 ```
 
-## `sbv2 near aggregator fund AGGREGATORADDRESS`
+## `sb near aggregator fund AGGREGATORADDRESS`
 
 ```
 USAGE
-  $ sbv2 near aggregator fund AGGREGATORADDRESS --accountName <value> -a <value> [-h] [-v] [-s] [--networkId
+  $ sb near aggregator fund AGGREGATORADDRESS --accountName <value> -a <value> [-h] [-v] [-s] [--networkId
     testnet|mainnet|localnet] [--programId <value>] [-u <value>] [--nearCredentialsDir <value>] [--json]
 
 ARGUMENTS
@@ -2268,18 +2268,17 @@ GLOBAL FLAGS
   --json  Format output as json.
 
 ALIASES
-  $ sbv2 near fund aggregator
+  $ sb near fund aggregator
 ```
 
-## `sbv2 near aggregator history add AGGREGATORADDRESS`
+## `sb near aggregator history add AGGREGATORADDRESS`
 
 add rows to a history vector
 
 ```
 USAGE
-  $ sbv2 near aggregator history add AGGREGATORADDRESS --accountName <value> [-h] [-v] [-s] [--networkId
-    testnet|mainnet|localnet] [--programId <value>] [-u <value>] [--nearCredentialsDir <value>] [--json] [--numRows
-    <value>]
+  $ sb near aggregator history add AGGREGATORADDRESS --accountName <value> [-h] [-v] [-s] [--networkId testnet|mainnet|localnet]
+    [--programId <value>] [-u <value>] [--nearCredentialsDir <value>] [--json] [--numRows <value>]
 
 ARGUMENTS
   AGGREGATORADDRESS  address of the aggregator in Uint8 or Base58 encoding
@@ -2304,18 +2303,18 @@ DESCRIPTION
   add rows to a history vector
 
 ALIASES
-  $ sbv2 near aggregator history add
+  $ sb near aggregator history add
 ```
 
-## `sbv2 near aggregator job add AGGREGATORADDRESS`
+## `sb near aggregator job add AGGREGATORADDRESS`
 
 add a job to an aggregator
 
 ```
 USAGE
-  $ sbv2 near aggregator job add AGGREGATORADDRESS --accountName <value> [-h] [-v] [-s] [--networkId
-    testnet|mainnet|localnet] [--programId <value>] [-u <value>] [--nearCredentialsDir <value>] [--json] [-a <value>]
-    [--name <value> | --jobKey <value>] [--metadata <value> | ] [--jobDefinition <value> | ] [--jobWeight <value>]
+  $ sb near aggregator job add AGGREGATORADDRESS --accountName <value> [-h] [-v] [-s] [--networkId testnet|mainnet|localnet]
+    [--programId <value>] [-u <value>] [--nearCredentialsDir <value>] [--json] [-a <value>] [--name <value> | --jobKey
+    <value>] [--metadata <value> | ] [--jobDefinition <value> | ] [--jobWeight <value>]
 
 ARGUMENTS
   AGGREGATORADDRESS  address of the aggregator in Uint8 or Base58 encoding
@@ -2345,18 +2344,17 @@ DESCRIPTION
   add a job to an aggregator
 
 ALIASES
-  $ sbv2 near aggregator job add
+  $ sb near aggregator job add
 ```
 
-## `sbv2 near aggregator job remove AGGREGATORADDRESS`
+## `sb near aggregator job remove AGGREGATORADDRESS`
 
 remove a job to an aggregator
 
 ```
 USAGE
-  $ sbv2 near aggregator job remove AGGREGATORADDRESS --accountName <value> [-h] [-v] [-s] [--networkId
-    testnet|mainnet|localnet] [--programId <value>] [-u <value>] [--nearCredentialsDir <value>] [--json] [-a <value>]
-    [-j <value>]
+  $ sb near aggregator job remove AGGREGATORADDRESS --accountName <value> [-h] [-v] [-s] [--networkId testnet|mainnet|localnet]
+    [--programId <value>] [-u <value>] [--nearCredentialsDir <value>] [--json] [-a <value>] [-j <value>]
 
 ARGUMENTS
   AGGREGATORADDRESS  address of the aggregator in Uint8 or Base58 encoding
@@ -2382,17 +2380,17 @@ DESCRIPTION
   remove a job to an aggregator
 
 ALIASES
-  $ sbv2 near aggregator job remove
+  $ sb near aggregator job remove
 ```
 
-## `sbv2 near aggregator permission create AGGREGATORADDRESS`
+## `sb near aggregator permission create AGGREGATORADDRESS`
 
 create a permission account for a near aggregator
 
 ```
 USAGE
-  $ sbv2 near aggregator permission create AGGREGATORADDRESS --accountName <value> [-h] [-v] [-s] [--networkId
-    testnet|mainnet|localnet] [--programId <value>] [-u <value>] [--nearCredentialsDir <value>] [--json]
+  $ sb near aggregator permission create AGGREGATORADDRESS --accountName <value> [-h] [-v] [-s] [--networkId testnet|mainnet|localnet]
+    [--programId <value>] [-u <value>] [--nearCredentialsDir <value>] [--json]
 
 ARGUMENTS
   AGGREGATORADDRESS  address of the aggregator in Uint8 or Base58 encoding
@@ -2416,18 +2414,17 @@ DESCRIPTION
   create a permission account for a near aggregator
 
 ALIASES
-  $ sbv2 near create aggregator permission
+  $ sb near create aggregator permission
 ```
 
-## `sbv2 near aggregator remove job AGGREGATORADDRESS`
+## `sb near aggregator remove job AGGREGATORADDRESS`
 
 remove a job to an aggregator
 
 ```
 USAGE
-  $ sbv2 near aggregator remove job AGGREGATORADDRESS --accountName <value> [-h] [-v] [-s] [--networkId
-    testnet|mainnet|localnet] [--programId <value>] [-u <value>] [--nearCredentialsDir <value>] [--json] [-a <value>]
-    [-j <value>]
+  $ sb near aggregator remove job AGGREGATORADDRESS --accountName <value> [-h] [-v] [-s] [--networkId testnet|mainnet|localnet]
+    [--programId <value>] [-u <value>] [--nearCredentialsDir <value>] [--json] [-a <value>] [-j <value>]
 
 ARGUMENTS
   AGGREGATORADDRESS  address of the aggregator in Uint8 or Base58 encoding
@@ -2453,20 +2450,19 @@ DESCRIPTION
   remove a job to an aggregator
 
 ALIASES
-  $ sbv2 near aggregator job remove
+  $ sb near aggregator job remove
 ```
 
-## `sbv2 near aggregator set AGGREGATORADDRESS`
+## `sb near aggregator set AGGREGATORADDRESS`
 
 set a near aggregator's config
 
 ```
 USAGE
-  $ sbv2 near aggregator set AGGREGATORADDRESS --accountName <value> [-h] [-v] [-s] [--networkId
-    testnet|mainnet|localnet] [--programId <value>] [-u <value>] [--nearCredentialsDir <value>] [--json] [-a <value>]
-    [--crankAddress <value>] [--queueAddress <value>] [--name <value>] [--metadata <value>] [--forceReportPeriod
-    <value>] [--batchSize <value>] [--minJobs <value>] [--minOracles <value>] [--updateInterval <value>]
-    [--varianceThreshold <value>]
+  $ sb near aggregator set AGGREGATORADDRESS --accountName <value> [-h] [-v] [-s] [--networkId testnet|mainnet|localnet]
+    [--programId <value>] [-u <value>] [--nearCredentialsDir <value>] [--json] [-a <value>] [--crankAddress <value>]
+    [--queueAddress <value>] [--name <value>] [--metadata <value>] [--forceReportPeriod <value>] [--batchSize <value>]
+    [--minJobs <value>] [--minOracles <value>] [--updateInterval <value>] [--varianceThreshold <value>]
 
 ARGUMENTS
   AGGREGATORADDRESS  address of the aggregator in Uint8 or Base58 encoding
@@ -2503,17 +2499,17 @@ DESCRIPTION
   set a near aggregator's config
 
 ALIASES
-  $ sbv2 near set aggregator
+  $ sb near set aggregator
 ```
 
-## `sbv2 near aggregator update AGGREGATORADDRESS`
+## `sb near aggregator update AGGREGATORADDRESS`
 
 request a new value on-chain for an aggregator
 
 ```
 USAGE
-  $ sbv2 near aggregator update AGGREGATORADDRESS --accountName <value> [-h] [-v] [-s] [--networkId
-    testnet|mainnet|localnet] [--programId <value>] [-u <value>] [--nearCredentialsDir <value>] [--json]
+  $ sb near aggregator update AGGREGATORADDRESS --accountName <value> [-h] [-v] [-s] [--networkId testnet|mainnet|localnet]
+    [--programId <value>] [-u <value>] [--nearCredentialsDir <value>] [--json]
 
 ARGUMENTS
   AGGREGATORADDRESS  address of the aggregator in Uint8 or Base58 encoding
@@ -2537,16 +2533,16 @@ DESCRIPTION
   request a new value on-chain for an aggregator
 
 ALIASES
-  $ sbv2 near update aggregator
+  $ sb near update aggregator
 ```
 
-## `sbv2 near crank create QUEUEADDRESS`
+## `sb near crank create QUEUEADDRESS`
 
 create a new crank
 
 ```
 USAGE
-  $ sbv2 near crank create QUEUEADDRESS --accountName <value> [-h] [-v] [-s] [--networkId testnet|mainnet|localnet]
+  $ sb near crank create QUEUEADDRESS --accountName <value> [-h] [-v] [-s] [--networkId testnet|mainnet|localnet]
     [--programId <value>] [-u <value>] [--nearCredentialsDir <value>] [--json] [--name <value>] [--metadata <value>]
     [--maxRows <value>]
 
@@ -2575,16 +2571,16 @@ DESCRIPTION
   create a new crank
 
 ALIASES
-  $ sbv2 near create crank
+  $ sb near create crank
 ```
 
-## `sbv2 near crank list CRANKADDRESS`
+## `sb near crank list CRANKADDRESS`
 
 pop the crank
 
 ```
 USAGE
-  $ sbv2 near crank list CRANKADDRESS [-h] [-v] [-s] [--networkId testnet|mainnet|localnet] [--programId <value>] [-u
+  $ sb near crank list CRANKADDRESS [-h] [-v] [-s] [--networkId testnet|mainnet|localnet] [--programId <value>] [-u
     <value>] [--nearCredentialsDir <value>]
 
 ARGUMENTS
@@ -2605,16 +2601,16 @@ DESCRIPTION
   pop the crank
 
 ALIASES
-  $ sbv2 near pop crank
+  $ sb near pop crank
 ```
 
-## `sbv2 near crank pop CRANKADDRESS`
+## `sb near crank pop CRANKADDRESS`
 
 pop the crank
 
 ```
 USAGE
-  $ sbv2 near crank pop CRANKADDRESS --accountName <value> [-h] [-v] [-s] [--networkId testnet|mainnet|localnet]
+  $ sb near crank pop CRANKADDRESS --accountName <value> [-h] [-v] [-s] [--networkId testnet|mainnet|localnet]
     [--programId <value>] [-u <value>] [--nearCredentialsDir <value>] [--json]
 
 ARGUMENTS
@@ -2639,16 +2635,16 @@ DESCRIPTION
   pop the crank
 
 ALIASES
-  $ sbv2 near pop crank
+  $ sb near pop crank
 ```
 
-## `sbv2 near crank push CRANKADDRESS`
+## `sb near crank push CRANKADDRESS`
 
 push an aggregator onto the crank
 
 ```
 USAGE
-  $ sbv2 near crank push CRANKADDRESS --accountName <value> -a <value> [-h] [-v] [-s] [--networkId
+  $ sb near crank push CRANKADDRESS --accountName <value> -a <value> [-h] [-v] [-s] [--networkId
     testnet|mainnet|localnet] [--programId <value>] [-u <value>] [--nearCredentialsDir <value>] [--json]
 
 ARGUMENTS
@@ -2674,16 +2670,16 @@ DESCRIPTION
   push an aggregator onto the crank
 
 ALIASES
-  $ sbv2 near push crank
+  $ sb near push crank
 ```
 
-## `sbv2 near create aggregator QUEUEADDRESS`
+## `sb near create aggregator QUEUEADDRESS`
 
 create a near aggregator for a given queue
 
 ```
 USAGE
-  $ sbv2 near create aggregator QUEUEADDRESS --accountName <value> --updateInterval <value> [-h] [-v] [-s] [--networkId
+  $ sb near create aggregator QUEUEADDRESS --accountName <value> --updateInterval <value> [-h] [-v] [-s] [--networkId
     testnet|mainnet|localnet] [--programId <value>] [-u <value>] [--nearCredentialsDir <value>] [--json] [-a <value>]
     [--crankAddress <value>] [--name <value>] [--metadata <value>] [--forceReportPeriod <value>] [--batchSize <value>]
     [--minJobs <value>] [--minOracles <value>] [--varianceThreshold <value>] [--rewardEscrow <value>] [--enable]
@@ -2725,17 +2721,17 @@ DESCRIPTION
   create a near aggregator for a given queue
 
 ALIASES
-  $ sbv2 near create aggregator
+  $ sb near create aggregator
 ```
 
-## `sbv2 near create aggregator permission AGGREGATORADDRESS`
+## `sb near create aggregator permission AGGREGATORADDRESS`
 
 create a permission account for a near aggregator
 
 ```
 USAGE
-  $ sbv2 near create aggregator permission AGGREGATORADDRESS --accountName <value> [-h] [-v] [-s] [--networkId
-    testnet|mainnet|localnet] [--programId <value>] [-u <value>] [--nearCredentialsDir <value>] [--json]
+  $ sb near create aggregator permission AGGREGATORADDRESS --accountName <value> [-h] [-v] [-s] [--networkId testnet|mainnet|localnet]
+    [--programId <value>] [-u <value>] [--nearCredentialsDir <value>] [--json]
 
 ARGUMENTS
   AGGREGATORADDRESS  address of the aggregator in Uint8 or Base58 encoding
@@ -2759,16 +2755,16 @@ DESCRIPTION
   create a permission account for a near aggregator
 
 ALIASES
-  $ sbv2 near create aggregator permission
+  $ sb near create aggregator permission
 ```
 
-## `sbv2 near create crank QUEUEADDRESS`
+## `sb near create crank QUEUEADDRESS`
 
 create a new crank
 
 ```
 USAGE
-  $ sbv2 near create crank QUEUEADDRESS --accountName <value> [-h] [-v] [-s] [--networkId testnet|mainnet|localnet]
+  $ sb near create crank QUEUEADDRESS --accountName <value> [-h] [-v] [-s] [--networkId testnet|mainnet|localnet]
     [--programId <value>] [-u <value>] [--nearCredentialsDir <value>] [--json] [--name <value>] [--metadata <value>]
     [--maxRows <value>]
 
@@ -2797,16 +2793,16 @@ DESCRIPTION
   create a new crank
 
 ALIASES
-  $ sbv2 near create crank
+  $ sb near create crank
 ```
 
-## `sbv2 near create escrow`
+## `sb near create escrow`
 
 create an escrow token account
 
 ```
 USAGE
-  $ sbv2 near create escrow --accountName <value> [-h] [-v] [-s] [--networkId testnet|mainnet|localnet] [--programId
+  $ sb near create escrow --accountName <value> [-h] [-v] [-s] [--networkId testnet|mainnet|localnet] [--programId
     <value>] [-u <value>] [--nearCredentialsDir <value>] [--json] [-a <value>] [--mint <value>]
 
 FLAGS
@@ -2830,16 +2826,16 @@ DESCRIPTION
   create an escrow token account
 
 ALIASES
-  $ sbv2 near create escrow
+  $ sb near create escrow
 ```
 
-## `sbv2 near create job JOBDEFINITION`
+## `sb near create job JOBDEFINITION`
 
 create a job on near
 
 ```
 USAGE
-  $ sbv2 near create job JOBDEFINITION --accountName <value> [-h] [-v] [-s] [--networkId testnet|mainnet|localnet]
+  $ sb near create job JOBDEFINITION --accountName <value> [-h] [-v] [-s] [--networkId testnet|mainnet|localnet]
     [--programId <value>] [-u <value>] [--nearCredentialsDir <value>] [--json] [-a <value>] [--name <value>] [--metadata
     <value>]
 
@@ -2868,16 +2864,16 @@ DESCRIPTION
   create a job on near
 
 ALIASES
-  $ sbv2 near create job
+  $ sb near create job
 ```
 
-## `sbv2 near create oracle QUEUEADDRESS`
+## `sb near create oracle QUEUEADDRESS`
 
 create a near oracle for a given queue
 
 ```
 USAGE
-  $ sbv2 near create oracle QUEUEADDRESS --accountName <value> [-h] [-v] [-s] [--networkId testnet|mainnet|localnet]
+  $ sb near create oracle QUEUEADDRESS --accountName <value> [-h] [-v] [-s] [--networkId testnet|mainnet|localnet]
     [--programId <value>] [-u <value>] [--nearCredentialsDir <value>] [--json] [-a <value>] [--name <value>] [--metadata
     <value>]
 
@@ -2906,16 +2902,16 @@ DESCRIPTION
   create a near oracle for a given queue
 
 ALIASES
-  $ sbv2 near create oracle
+  $ sb near create oracle
 ```
 
-## `sbv2 near create oracle permission`
+## `sb near create oracle permission`
 
 create a permission account
 
 ```
 USAGE
-  $ sbv2 near create oracle permission --accountName <value> --granter <value> --grantee <value> [-h] [-v] [-s] [--networkId
+  $ sb near create oracle permission --accountName <value> --granter <value> --grantee <value> [-h] [-v] [-s] [--networkId
     testnet|mainnet|localnet] [--programId <value>] [-u <value>] [--nearCredentialsDir <value>] [--json] [-a <value>]
     [--enable]
 
@@ -2942,16 +2938,16 @@ DESCRIPTION
   create a permission account
 
 ALIASES
-  $ sbv2 near create oracle permission
+  $ sb near create oracle permission
 ```
 
-## `sbv2 near create queue`
+## `sb near create queue`
 
 create a new oracle queue
 
 ```
 USAGE
-  $ sbv2 near create queue --accountName <value> [-h] [-v] [-s] [--networkId testnet|mainnet|localnet] [--programId
+  $ sb near create queue --accountName <value> [-h] [-v] [-s] [--networkId testnet|mainnet|localnet] [--programId
     <value>] [-u <value>] [--nearCredentialsDir <value>] [--json] [-a <value>] [--name <value>] [--metadata <value>]
     [--minStake <value>] [-r <value>] [--oracleTimeout <value>] [--queueSize <value>] [--slashingEnabled]
     [--unpermissionedFeeds] [--unpermissionedVrf] [--enableBufferRelayers]
@@ -2986,16 +2982,16 @@ DESCRIPTION
   create a new oracle queue
 
 ALIASES
-  $ sbv2 near create queue
+  $ sb near create queue
 ```
 
-## `sbv2 near escrow create`
+## `sb near escrow create`
 
 create an escrow token account
 
 ```
 USAGE
-  $ sbv2 near escrow create --accountName <value> [-h] [-v] [-s] [--networkId testnet|mainnet|localnet] [--programId
+  $ sb near escrow create --accountName <value> [-h] [-v] [-s] [--networkId testnet|mainnet|localnet] [--programId
     <value>] [-u <value>] [--nearCredentialsDir <value>] [--json] [-a <value>] [--mint <value>]
 
 FLAGS
@@ -3019,16 +3015,16 @@ DESCRIPTION
   create an escrow token account
 
 ALIASES
-  $ sbv2 near create escrow
+  $ sb near create escrow
 ```
 
-## `sbv2 near escrow print`
+## `sb near escrow print`
 
 print an escrow token account
 
 ```
 USAGE
-  $ sbv2 near escrow print --accountName <value> [-h] [-v] [-s] [--networkId testnet|mainnet|localnet] [--programId
+  $ sb near escrow print --accountName <value> [-h] [-v] [-s] [--networkId testnet|mainnet|localnet] [--programId
     <value>] [-u <value>] [--nearCredentialsDir <value>] [--json]
 
 FLAGS
@@ -3050,16 +3046,16 @@ DESCRIPTION
   print an escrow token account
 
 ALIASES
-  $ sbv2 near print escrow
+  $ sb near print escrow
 ```
 
-## `sbv2 near fetch aggregators`
+## `sb near fetch aggregators`
 
 fetch all aggregators for a given near account
 
 ```
 USAGE
-  $ sbv2 near fetch aggregators --accountId <value> [-h] [-v] [-s] [--networkId testnet|mainnet|localnet] [--programId
+  $ sb near fetch aggregators --accountId <value> [-h] [-v] [-s] [--networkId testnet|mainnet|localnet] [--programId
     <value>] [-u <value>] [--nearCredentialsDir <value>] [--json]
 
 FLAGS
@@ -3081,14 +3077,14 @@ DESCRIPTION
   fetch all aggregators for a given near account
 
 ALIASES
-  $ sbv2 near fetch aggregators
+  $ sb near fetch aggregators
 ```
 
-## `sbv2 near fund aggregator AGGREGATORADDRESS`
+## `sb near fund aggregator AGGREGATORADDRESS`
 
 ```
 USAGE
-  $ sbv2 near fund aggregator AGGREGATORADDRESS --accountName <value> -a <value> [-h] [-v] [-s] [--networkId
+  $ sb near fund aggregator AGGREGATORADDRESS --accountName <value> -a <value> [-h] [-v] [-s] [--networkId
     testnet|mainnet|localnet] [--programId <value>] [-u <value>] [--nearCredentialsDir <value>] [--json]
 
 ARGUMENTS
@@ -3111,16 +3107,16 @@ GLOBAL FLAGS
   --json  Format output as json.
 
 ALIASES
-  $ sbv2 near fund aggregator
+  $ sb near fund aggregator
 ```
 
-## `sbv2 near job create JOBDEFINITION`
+## `sb near job create JOBDEFINITION`
 
 create a job on near
 
 ```
 USAGE
-  $ sbv2 near job create JOBDEFINITION --accountName <value> [-h] [-v] [-s] [--networkId testnet|mainnet|localnet]
+  $ sb near job create JOBDEFINITION --accountName <value> [-h] [-v] [-s] [--networkId testnet|mainnet|localnet]
     [--programId <value>] [-u <value>] [--nearCredentialsDir <value>] [--json] [-a <value>] [--name <value>] [--metadata
     <value>]
 
@@ -3149,16 +3145,16 @@ DESCRIPTION
   create a job on near
 
 ALIASES
-  $ sbv2 near create job
+  $ sb near create job
 ```
 
-## `sbv2 near list queue QUEUEADDRESS`
+## `sb near list queue QUEUEADDRESS`
 
 list aggregators for a given queue
 
 ```
 USAGE
-  $ sbv2 near list queue QUEUEADDRESS [-h] [-v] [-s] [--networkId testnet|mainnet|localnet] [--programId <value>] [-u
+  $ sb near list queue QUEUEADDRESS [-h] [-v] [-s] [--networkId testnet|mainnet|localnet] [--programId <value>] [-u
     <value>] [--nearCredentialsDir <value>] [--json]
 
 ARGUMENTS
@@ -3182,16 +3178,16 @@ DESCRIPTION
   list aggregators for a given queue
 
 ALIASES
-  $ sbv2 near list queue
+  $ sb near list queue
 ```
 
-## `sbv2 near oracle create QUEUEADDRESS`
+## `sb near oracle create QUEUEADDRESS`
 
 create a near oracle for a given queue
 
 ```
 USAGE
-  $ sbv2 near oracle create QUEUEADDRESS --accountName <value> [-h] [-v] [-s] [--networkId testnet|mainnet|localnet]
+  $ sb near oracle create QUEUEADDRESS --accountName <value> [-h] [-v] [-s] [--networkId testnet|mainnet|localnet]
     [--programId <value>] [-u <value>] [--nearCredentialsDir <value>] [--json] [-a <value>] [--name <value>] [--metadata
     <value>]
 
@@ -3220,17 +3216,17 @@ DESCRIPTION
   create a near oracle for a given queue
 
 ALIASES
-  $ sbv2 near create oracle
+  $ sb near create oracle
 ```
 
-## `sbv2 near oracle escrow ORACLEADDRESS`
+## `sb near oracle escrow ORACLEADDRESS`
 
 view an aggregators escrow state
 
 ```
 USAGE
-  $ sbv2 near oracle escrow ORACLEADDRESS [-h] [-v] [-s] [--networkId testnet|mainnet|localnet] [--programId <value>]
-    [-u <value>] [--nearCredentialsDir <value>] [--json]
+  $ sb near oracle escrow ORACLEADDRESS [-h] [-v] [-s] [--networkId testnet|mainnet|localnet] [--programId <value>] [-u
+    <value>] [--nearCredentialsDir <value>] [--json]
 
 ARGUMENTS
   ORACLEADDRESS  address of the oracle in Uint8 or Base58 encoding
@@ -3253,13 +3249,13 @@ DESCRIPTION
   view an aggregators escrow state
 ```
 
-## `sbv2 near oracle stake ORACLEADDRESS`
+## `sb near oracle stake ORACLEADDRESS`
 
 deposit funds to an oracle's staking wallet
 
 ```
 USAGE
-  $ sbv2 near oracle stake ORACLEADDRESS --accountName <value> --amount <value> [-h] [-v] [-s] [--networkId
+  $ sb near oracle stake ORACLEADDRESS --accountName <value> --amount <value> [-h] [-v] [-s] [--networkId
     testnet|mainnet|localnet] [--programId <value>] [-u <value>] [--nearCredentialsDir <value>] [--json]
 
 ARGUMENTS
@@ -3285,13 +3281,13 @@ DESCRIPTION
   deposit funds to an oracle's staking wallet
 ```
 
-## `sbv2 near oracle unstake ORACLEADDRESS`
+## `sb near oracle unstake ORACLEADDRESS`
 
 deposit funds to an oracle's staking wallet
 
 ```
 USAGE
-  $ sbv2 near oracle unstake ORACLEADDRESS --accountName <value> --amount <value> [-h] [-v] [-s] [--networkId
+  $ sb near oracle unstake ORACLEADDRESS --accountName <value> --amount <value> [-h] [-v] [-s] [--networkId
     testnet|mainnet|localnet] [--programId <value>] [-u <value>] [--nearCredentialsDir <value>] [--json]
 
 ARGUMENTS
@@ -3317,13 +3313,13 @@ DESCRIPTION
   deposit funds to an oracle's staking wallet
 ```
 
-## `sbv2 near oracle up ORACLEADDRESS`
+## `sb near oracle up ORACLEADDRESS`
 
 start a near docker oracle
 
 ```
 USAGE
-  $ sbv2 near oracle up ORACLEADDRESS --accountName <value> [-h] [-v] [-s] [--networkId testnet|mainnet|localnet]
+  $ sb near oracle up ORACLEADDRESS --accountName <value> [-h] [-v] [-s] [--networkId testnet|mainnet|localnet]
     [--programId <value>] [-u <value>] [--nearCredentialsDir <value>] [--json] [-d <value>] [--releaseChannel
     testnet|mainnet | --nodeImage <value>]
 
@@ -3353,13 +3349,13 @@ DESCRIPTION
   start a near docker oracle
 ```
 
-## `sbv2 near permission create`
+## `sb near permission create`
 
 create a permission account
 
 ```
 USAGE
-  $ sbv2 near permission create --accountName <value> --granter <value> --grantee <value> [-h] [-v] [-s] [--networkId
+  $ sb near permission create --accountName <value> --granter <value> --grantee <value> [-h] [-v] [-s] [--networkId
     testnet|mainnet|localnet] [--programId <value>] [-u <value>] [--nearCredentialsDir <value>] [--json] [-a <value>]
     [--enable]
 
@@ -3386,16 +3382,16 @@ DESCRIPTION
   create a permission account
 
 ALIASES
-  $ sbv2 near create oracle permission
+  $ sb near create oracle permission
 ```
 
-## `sbv2 near pop crank CRANKADDRESS`
+## `sb near pop crank CRANKADDRESS`
 
 pop the crank
 
 ```
 USAGE
-  $ sbv2 near pop crank CRANKADDRESS [-h] [-v] [-s] [--networkId testnet|mainnet|localnet] [--programId <value>] [-u
+  $ sb near pop crank CRANKADDRESS [-h] [-v] [-s] [--networkId testnet|mainnet|localnet] [--programId <value>] [-u
     <value>] [--nearCredentialsDir <value>]
 
 ARGUMENTS
@@ -3416,16 +3412,16 @@ DESCRIPTION
   pop the crank
 
 ALIASES
-  $ sbv2 near pop crank
+  $ sb near pop crank
 ```
 
-## `sbv2 near print ACCOUNTTYPE ADDRESS`
+## `sb near print ACCOUNTTYPE ADDRESS`
 
 print a near switchboard account
 
 ```
 USAGE
-  $ sbv2 near print ACCOUNTTYPE ADDRESS [-h] [-v] [-s] [--networkId testnet|mainnet|localnet] [--programId
+  $ sb near print ACCOUNTTYPE ADDRESS [-h] [-v] [-s] [--networkId testnet|mainnet|localnet] [--programId
     <value>] [-u <value>] [--nearCredentialsDir <value>] [--json] [--all]
 
 ARGUMENTS
@@ -3451,16 +3447,16 @@ DESCRIPTION
   print a near switchboard account
 
 ALIASES
-  $ sbv2 near print
+  $ sb near print
 ```
 
-## `sbv2 near print escrow`
+## `sb near print escrow`
 
 print an escrow token account
 
 ```
 USAGE
-  $ sbv2 near print escrow --accountName <value> [-h] [-v] [-s] [--networkId testnet|mainnet|localnet] [--programId
+  $ sb near print escrow --accountName <value> [-h] [-v] [-s] [--networkId testnet|mainnet|localnet] [--programId
     <value>] [-u <value>] [--nearCredentialsDir <value>] [--json]
 
 FLAGS
@@ -3482,16 +3478,16 @@ DESCRIPTION
   print an escrow token account
 
 ALIASES
-  $ sbv2 near print escrow
+  $ sb near print escrow
 ```
 
-## `sbv2 near push crank CRANKADDRESS`
+## `sb near push crank CRANKADDRESS`
 
 push an aggregator onto the crank
 
 ```
 USAGE
-  $ sbv2 near push crank CRANKADDRESS --accountName <value> -a <value> [-h] [-v] [-s] [--networkId
+  $ sb near push crank CRANKADDRESS --accountName <value> -a <value> [-h] [-v] [-s] [--networkId
     testnet|mainnet|localnet] [--programId <value>] [-u <value>] [--nearCredentialsDir <value>] [--json]
 
 ARGUMENTS
@@ -3517,16 +3513,16 @@ DESCRIPTION
   push an aggregator onto the crank
 
 ALIASES
-  $ sbv2 near push crank
+  $ sb near push crank
 ```
 
-## `sbv2 near queue aggregators QUEUEADDRESS`
+## `sb near queue aggregators QUEUEADDRESS`
 
 fetch all aggregators for a given queue account
 
 ```
 USAGE
-  $ sbv2 near queue aggregators QUEUEADDRESS [-h] [-v] [-s] [--networkId testnet|mainnet|localnet] [--programId <value>] [-u
+  $ sb near queue aggregators QUEUEADDRESS [-h] [-v] [-s] [--networkId testnet|mainnet|localnet] [--programId <value>] [-u
     <value>] [--nearCredentialsDir <value>] [--json]
 
 ARGUMENTS
@@ -3550,16 +3546,16 @@ DESCRIPTION
   fetch all aggregators for a given queue account
 
 ALIASES
-  $ sbv2 near queue feeds
+  $ sb near queue feeds
 ```
 
-## `sbv2 near queue create`
+## `sb near queue create`
 
 create a new oracle queue
 
 ```
 USAGE
-  $ sbv2 near queue create --accountName <value> [-h] [-v] [-s] [--networkId testnet|mainnet|localnet] [--programId
+  $ sb near queue create --accountName <value> [-h] [-v] [-s] [--networkId testnet|mainnet|localnet] [--programId
     <value>] [-u <value>] [--nearCredentialsDir <value>] [--json] [-a <value>] [--name <value>] [--metadata <value>]
     [--minStake <value>] [-r <value>] [--oracleTimeout <value>] [--queueSize <value>] [--slashingEnabled]
     [--unpermissionedFeeds] [--unpermissionedVrf] [--enableBufferRelayers]
@@ -3594,16 +3590,16 @@ DESCRIPTION
   create a new oracle queue
 
 ALIASES
-  $ sbv2 near create queue
+  $ sb near create queue
 ```
 
-## `sbv2 near queue feeds QUEUEADDRESS`
+## `sb near queue feeds QUEUEADDRESS`
 
 fetch all aggregators for a given queue account
 
 ```
 USAGE
-  $ sbv2 near queue feeds QUEUEADDRESS [-h] [-v] [-s] [--networkId testnet|mainnet|localnet] [--programId <value>] [-u
+  $ sb near queue feeds QUEUEADDRESS [-h] [-v] [-s] [--networkId testnet|mainnet|localnet] [--programId <value>] [-u
     <value>] [--nearCredentialsDir <value>] [--json]
 
 ARGUMENTS
@@ -3627,16 +3623,16 @@ DESCRIPTION
   fetch all aggregators for a given queue account
 
 ALIASES
-  $ sbv2 near queue feeds
+  $ sb near queue feeds
 ```
 
-## `sbv2 near queue list QUEUEADDRESS`
+## `sb near queue list QUEUEADDRESS`
 
 list aggregators for a given queue
 
 ```
 USAGE
-  $ sbv2 near queue list QUEUEADDRESS [-h] [-v] [-s] [--networkId testnet|mainnet|localnet] [--programId <value>] [-u
+  $ sb near queue list QUEUEADDRESS [-h] [-v] [-s] [--networkId testnet|mainnet|localnet] [--programId <value>] [-u
     <value>] [--nearCredentialsDir <value>] [--json]
 
 ARGUMENTS
@@ -3660,16 +3656,16 @@ DESCRIPTION
   list aggregators for a given queue
 
 ALIASES
-  $ sbv2 near list queue
+  $ sb near list queue
 ```
 
-## `sbv2 near queue set QUEUEADDRESS`
+## `sb near queue set QUEUEADDRESS`
 
 create a new oracle queue
 
 ```
 USAGE
-  $ sbv2 near queue set QUEUEADDRESS --accountName <value> [-h] [-v] [-s] [--networkId testnet|mainnet|localnet]
+  $ sb near queue set QUEUEADDRESS --accountName <value> [-h] [-v] [-s] [--networkId testnet|mainnet|localnet]
     [--programId <value>] [-u <value>] [--nearCredentialsDir <value>] [--json] [-a <value>] [--name <value>] [--metadata
     <value>] [--minStake <value>] [-r <value>] [--oracleTimeout <value>] [--slashingEnabled] [--unpermissionedFeeds]
     [--unpermissionedVrf] [--enableBufferRelayers]
@@ -3706,20 +3702,19 @@ DESCRIPTION
   create a new oracle queue
 
 ALIASES
-  $ sbv2 near create queue
+  $ sb near create queue
 ```
 
-## `sbv2 near set aggregator AGGREGATORADDRESS`
+## `sb near set aggregator AGGREGATORADDRESS`
 
 set a near aggregator's config
 
 ```
 USAGE
-  $ sbv2 near set aggregator AGGREGATORADDRESS --accountName <value> [-h] [-v] [-s] [--networkId
-    testnet|mainnet|localnet] [--programId <value>] [-u <value>] [--nearCredentialsDir <value>] [--json] [-a <value>]
-    [--crankAddress <value>] [--queueAddress <value>] [--name <value>] [--metadata <value>] [--forceReportPeriod
-    <value>] [--batchSize <value>] [--minJobs <value>] [--minOracles <value>] [--updateInterval <value>]
-    [--varianceThreshold <value>]
+  $ sb near set aggregator AGGREGATORADDRESS --accountName <value> [-h] [-v] [-s] [--networkId testnet|mainnet|localnet]
+    [--programId <value>] [-u <value>] [--nearCredentialsDir <value>] [--json] [-a <value>] [--crankAddress <value>]
+    [--queueAddress <value>] [--name <value>] [--metadata <value>] [--forceReportPeriod <value>] [--batchSize <value>]
+    [--minJobs <value>] [--minOracles <value>] [--updateInterval <value>] [--varianceThreshold <value>]
 
 ARGUMENTS
   AGGREGATORADDRESS  address of the aggregator in Uint8 or Base58 encoding
@@ -3756,17 +3751,17 @@ DESCRIPTION
   set a near aggregator's config
 
 ALIASES
-  $ sbv2 near set aggregator
+  $ sb near set aggregator
 ```
 
-## `sbv2 near update aggregator AGGREGATORADDRESS`
+## `sb near update aggregator AGGREGATORADDRESS`
 
 request a new value on-chain for an aggregator
 
 ```
 USAGE
-  $ sbv2 near update aggregator AGGREGATORADDRESS --accountName <value> [-h] [-v] [-s] [--networkId
-    testnet|mainnet|localnet] [--programId <value>] [-u <value>] [--nearCredentialsDir <value>] [--json]
+  $ sb near update aggregator AGGREGATORADDRESS --accountName <value> [-h] [-v] [-s] [--networkId testnet|mainnet|localnet]
+    [--programId <value>] [-u <value>] [--nearCredentialsDir <value>] [--json]
 
 ARGUMENTS
   AGGREGATORADDRESS  address of the aggregator in Uint8 or Base58 encoding
@@ -3790,16 +3785,16 @@ DESCRIPTION
   request a new value on-chain for an aggregator
 
 ALIASES
-  $ sbv2 near update aggregator
+  $ sb near update aggregator
 ```
 
-## `sbv2 oracle logs NETWORK SEARCHSTRING`
+## `sb oracle logs NETWORK SEARCHSTRING`
 
 fetch logs for a switchboard oracle
 
 ```
 USAGE
-  $ sbv2 oracle logs NETWORK SEARCHSTRING -f <value> [-h] [-v] [-s] [--force] [--json] [--csv]
+  $ sb oracle logs NETWORK SEARCHSTRING -f <value> [-h] [-v] [-s] [--force] [--json] [--csv]
 
 ARGUMENTS
   NETWORK       (solana-mainnet|solana-devnet|aptos-mainnet|aptos-testnet|near-mainnet|near-testnet) network to parse
@@ -3819,13 +3814,13 @@ DESCRIPTION
   fetch logs for a switchboard oracle
 ```
 
-## `sbv2 solana aggregator add history AGGREGATORKEY`
+## `sb solana aggregator add history AGGREGATORKEY`
 
 add a history buffer to an aggregator
 
 ```
 USAGE
-  $ sbv2 solana aggregator add history AGGREGATORKEY --historyLimit <value> [-h] [-v] [-s] [--mainnetBeta | --cluster
+  $ sb solana aggregator add history AGGREGATORKEY --historyLimit <value> [-h] [-v] [-s] [--mainnetBeta | --cluster
     devnet|mainnet-beta|mainnet|localnet] [-u <value>] [--programId <value>] [--commitment
     confirmed|finalized|processed] [-k <value>] [--ledgerPath <value> --ledger] [--force] [-a <value>]
 
@@ -3855,19 +3850,18 @@ DESCRIPTION
   add a history buffer to an aggregator
 
 EXAMPLES
-  $ sbv2 solana:aggregator:add:history
+  $ sb solana:aggregator:add:history
 ```
 
-## `sbv2 solana aggregator add job AGGREGATORKEY`
+## `sb solana aggregator add job AGGREGATORKEY`
 
 add jobs to an aggregator
 
 ```
 USAGE
-  $ sbv2 solana aggregator add job AGGREGATORKEY [-h] [-v] [-s] [--mainnetBeta | --cluster
-    devnet|mainnet-beta|mainnet|localnet] [-u <value>] [--programId <value>] [--commitment
-    confirmed|finalized|processed] [-k <value>] [--ledgerPath <value> --ledger] [--jobDefinition <value>] [--jobKey
-    <value>] [-a <value>]
+  $ sb solana aggregator add job AGGREGATORKEY [-h] [-v] [-s] [--mainnetBeta | --cluster devnet|mainnet-beta|mainnet|localnet]
+    [-u <value>] [--programId <value>] [--commitment confirmed|finalized|processed] [-k <value>] [--ledgerPath <value>
+    --ledger] [--jobDefinition <value>] [--jobKey <value>] [-a <value>]
 
 ARGUMENTS
   AGGREGATORKEY  public key of the aggregator account
@@ -3895,14 +3889,14 @@ DESCRIPTION
   add jobs to an aggregator
 
 EXAMPLES
-  $ sbv2 solana aggregator add job
+  $ sb solana aggregator add job
 ```
 
-## `sbv2 solana aggregator authority AGGREGATORKEY`
+## `sb solana aggregator authority AGGREGATORKEY`
 
 ```
 USAGE
-  $ sbv2 solana aggregator authority AGGREGATORKEY --newAuthority <value> [-h] [-v] [-s] [--mainnetBeta | --cluster
+  $ sb solana aggregator authority AGGREGATORKEY --newAuthority <value> [-h] [-v] [-s] [--mainnetBeta | --cluster
     devnet|mainnet-beta|mainnet|localnet] [-u <value>] [--programId <value>] [--commitment
     confirmed|finalized|processed] [-k <value>] [--ledgerPath <value> --ledger] [-a <value>]
 
@@ -3929,15 +3923,15 @@ FLAGS
   --programId=<value>      alternative Switchboard program ID to interact with
 ```
 
-## `sbv2 solana aggregator close AGGREGATORKEY`
+## `sb solana aggregator close AGGREGATORKEY`
 
 close an aggregator and associated PDA accounts on devnet
 
 ```
 USAGE
-  $ sbv2 solana aggregator close AGGREGATORKEY [-h] [-v] [-s] [--mainnetBeta | --cluster
-    devnet|mainnet-beta|mainnet|localnet] [-u <value>] [--programId <value>] [--commitment
-    confirmed|finalized|processed] [-k <value>] [--ledgerPath <value> --ledger] [-a <value>]
+  $ sb solana aggregator close AGGREGATORKEY [-h] [-v] [-s] [--mainnetBeta | --cluster devnet|mainnet-beta|mainnet|localnet]
+    [-u <value>] [--programId <value>] [--commitment confirmed|finalized|processed] [-k <value>] [--ledgerPath <value>
+    --ledger] [-a <value>]
 
 ARGUMENTS
   AGGREGATORKEY  public key of the aggregator account
@@ -3964,16 +3958,16 @@ DESCRIPTION
   close an aggregator and associated PDA accounts on devnet
 
 EXAMPLES
-  $ sbv2 solana aggregator close J7j9xX8JP2B2ErvUzuqGAKBGeggsxPyFXj5MqZcYDxfa --keypair ../payer-keypair.json
+  $ sb solana aggregator close J7j9xX8JP2B2ErvUzuqGAKBGeggsxPyFXj5MqZcYDxfa --keypair ../payer-keypair.json
 ```
 
-## `sbv2 solana aggregator create QUEUEKEY`
+## `sb solana aggregator create QUEUEKEY`
 
 create an aggregator account
 
 ```
 USAGE
-  $ sbv2 solana aggregator create QUEUEKEY --updateInterval <value> [-h] [-v] [-s] [--mainnetBeta | --cluster
+  $ sb solana aggregator create QUEUEKEY --updateInterval <value> [-h] [-v] [-s] [--mainnetBeta | --cluster
     devnet|mainnet-beta|mainnet|localnet] [-u <value>] [--programId <value>] [--commitment
     confirmed|finalized|processed] [-k <value>] [--ledgerPath <value> --ledger] [--json] [-a <value>]
     [--aggregatorKeypair <value>] [--name <value>] [--metadata <value>] [--batchSize <value>] [--minJobs <value>]
@@ -4036,16 +4030,15 @@ DESCRIPTION
   create an aggregator account
 ```
 
-## `sbv2 solana aggregator create json DEFINITIONFILE`
+## `sb solana aggregator create json DEFINITIONFILE`
 
 create an aggregator from a json file
 
 ```
 USAGE
-  $ sbv2 solana aggregator create json DEFINITIONFILE [-h] [-v] [-s] [--mainnetBeta | --cluster
-    devnet|mainnet-beta|mainnet|localnet] [-u <value>] [--programId <value>] [--commitment
-    confirmed|finalized|processed] [-k <value>] [--ledgerPath <value> --ledger] [--json] [-q <value>] [-a <value>]
-    [--leaseAmount <value>]
+  $ sb solana aggregator create json DEFINITIONFILE [-h] [-v] [-s] [--mainnetBeta | --cluster devnet|mainnet-beta|mainnet|localnet]
+    [-u <value>] [--programId <value>] [--commitment confirmed|finalized|processed] [-k <value>] [--ledgerPath <value>
+    --ledger] [--json] [-q <value>] [-a <value>] [--leaseAmount <value>]
 
 ARGUMENTS
   DEFINITIONFILE  filesystem path of queue definition json file
@@ -4076,19 +4069,19 @@ DESCRIPTION
   create an aggregator from a json file
 
 ALIASES
-  $ sbv2 solana json create aggregator
+  $ sb solana json create aggregator
 
 EXAMPLES
-  $ sbv2 solana aggregator create json examples/aggregator.json --keypair ../payer-keypair.json --queueKey GhYg3R1V6DmJbwuc57qZeoYG6gUuvCotUF1zU3WCj98U --outputFile aggregator.schema.json
+  $ sb solana aggregator create json examples/aggregator.json --keypair ../payer-keypair.json --queueKey GhYg3R1V6DmJbwuc57qZeoYG6gUuvCotUF1zU3WCj98U --outputFile aggregator.schema.json
 ```
 
-## `sbv2 solana aggregator deposit AGGREGATORKEY`
+## `sb solana aggregator deposit AGGREGATORKEY`
 
 fund and re-enable an aggregator lease
 
 ```
 USAGE
-  $ sbv2 solana aggregator deposit AGGREGATORKEY --amount <value> [-h] [-v] [-s] [--mainnetBeta | --cluster
+  $ sb solana aggregator deposit AGGREGATORKEY --amount <value> [-h] [-v] [-s] [--mainnetBeta | --cluster
     devnet|mainnet-beta|mainnet|localnet] [-u <value>] [--programId <value>] [--commitment
     confirmed|finalized|processed] [-k <value>] [--ledgerPath <value> --ledger]
 
@@ -4116,21 +4109,21 @@ DESCRIPTION
   fund and re-enable an aggregator lease
 
 ALIASES
-  $ sbv2 solana aggregator fund
-  $ sbv2 solana aggregator deposit
-  $ sbv2 solana aggregator extend
+  $ sb solana aggregator fund
+  $ sb solana aggregator deposit
+  $ sb solana aggregator extend
 
 EXAMPLES
-  $ sbv2 solana:aggregator:fund GvDMxPzN1sCj7L26YDK2HnMRXEQmQ2aemov8YBtPS7vR --amount 1.1 --keypair ../payer-keypair.json
+  $ sb solana:aggregator:fund GvDMxPzN1sCj7L26YDK2HnMRXEQmQ2aemov8YBtPS7vR --amount 1.1 --keypair ../payer-keypair.json
 ```
 
-## `sbv2 solana aggregator extend AGGREGATORKEY`
+## `sb solana aggregator extend AGGREGATORKEY`
 
 fund and re-enable an aggregator lease
 
 ```
 USAGE
-  $ sbv2 solana aggregator extend AGGREGATORKEY --amount <value> [-h] [-v] [-s] [--mainnetBeta | --cluster
+  $ sb solana aggregator extend AGGREGATORKEY --amount <value> [-h] [-v] [-s] [--mainnetBeta | --cluster
     devnet|mainnet-beta|mainnet|localnet] [-u <value>] [--programId <value>] [--commitment
     confirmed|finalized|processed] [-k <value>] [--ledgerPath <value> --ledger]
 
@@ -4158,21 +4151,21 @@ DESCRIPTION
   fund and re-enable an aggregator lease
 
 ALIASES
-  $ sbv2 solana aggregator fund
-  $ sbv2 solana aggregator deposit
-  $ sbv2 solana aggregator extend
+  $ sb solana aggregator fund
+  $ sb solana aggregator deposit
+  $ sb solana aggregator extend
 
 EXAMPLES
-  $ sbv2 solana:aggregator:fund GvDMxPzN1sCj7L26YDK2HnMRXEQmQ2aemov8YBtPS7vR --amount 1.1 --keypair ../payer-keypair.json
+  $ sb solana:aggregator:fund GvDMxPzN1sCj7L26YDK2HnMRXEQmQ2aemov8YBtPS7vR --amount 1.1 --keypair ../payer-keypair.json
 ```
 
-## `sbv2 solana aggregator fund AGGREGATORKEY`
+## `sb solana aggregator fund AGGREGATORKEY`
 
 fund and re-enable an aggregator lease
 
 ```
 USAGE
-  $ sbv2 solana aggregator fund AGGREGATORKEY --amount <value> [-h] [-v] [-s] [--mainnetBeta | --cluster
+  $ sb solana aggregator fund AGGREGATORKEY --amount <value> [-h] [-v] [-s] [--mainnetBeta | --cluster
     devnet|mainnet-beta|mainnet|localnet] [-u <value>] [--programId <value>] [--commitment
     confirmed|finalized|processed] [-k <value>] [--ledgerPath <value> --ledger]
 
@@ -4200,23 +4193,22 @@ DESCRIPTION
   fund and re-enable an aggregator lease
 
 ALIASES
-  $ sbv2 solana aggregator fund
-  $ sbv2 solana aggregator deposit
-  $ sbv2 solana aggregator extend
+  $ sb solana aggregator fund
+  $ sb solana aggregator deposit
+  $ sb solana aggregator extend
 
 EXAMPLES
-  $ sbv2 solana:aggregator:fund GvDMxPzN1sCj7L26YDK2HnMRXEQmQ2aemov8YBtPS7vR --amount 1.1 --keypair ../payer-keypair.json
+  $ sb solana:aggregator:fund GvDMxPzN1sCj7L26YDK2HnMRXEQmQ2aemov8YBtPS7vR --amount 1.1 --keypair ../payer-keypair.json
 ```
 
-## `sbv2 solana aggregator history AGGREGATORKEY`
+## `sb solana aggregator history AGGREGATORKEY`
 
 print an aggregator's history'
 
 ```
 USAGE
-  $ sbv2 solana aggregator history AGGREGATORKEY [-h] [-v] [-s] [--mainnetBeta | --cluster
-    devnet|mainnet-beta|mainnet|localnet] [-u <value>] [--programId <value>] [--commitment
-    confirmed|finalized|processed] [--json] [--metrics]
+  $ sb solana aggregator history AGGREGATORKEY [-h] [-v] [-s] [--mainnetBeta | --cluster devnet|mainnet-beta|mainnet|localnet]
+    [-u <value>] [--programId <value>] [--commitment confirmed|finalized|processed] [--json] [--metrics]
 
 ARGUMENTS
   AGGREGATORKEY  public key of the aggregator account
@@ -4241,16 +4233,15 @@ DESCRIPTION
   print an aggregator's history'
 ```
 
-## `sbv2 solana aggregator lease set AGGREGATORKEY`
+## `sb solana aggregator lease set AGGREGATORKEY`
 
 set a lease's withdraw authority
 
 ```
 USAGE
-  $ sbv2 solana aggregator lease set AGGREGATORKEY [-h] [-v] [-s] [--mainnetBeta | --cluster
-    devnet|mainnet-beta|mainnet|localnet] [-u <value>] [--programId <value>] [--commitment
-    confirmed|finalized|processed] [-k <value>] [--ledgerPath <value> --ledger] [-a <value>] [--queuePubkey <value>]
-    [--newAuthority <value>]
+  $ sb solana aggregator lease set AGGREGATORKEY [-h] [-v] [-s] [--mainnetBeta | --cluster devnet|mainnet-beta|mainnet|localnet]
+    [-u <value>] [--programId <value>] [--commitment confirmed|finalized|processed] [-k <value>] [--ledgerPath <value>
+    --ledger] [-a <value>] [--queuePubkey <value>] [--newAuthority <value>]
 
 ARGUMENTS
   AGGREGATORKEY  public key of the aggregator account
@@ -4279,19 +4270,19 @@ DESCRIPTION
   set a lease's withdraw authority
 
 ALIASES
-  $ sbv2 solana aggregator lease set
+  $ sb solana aggregator lease set
 
 EXAMPLES
-  $ sbv2 solana:lease:set GvDMxPzN1sCj7L26YDK2HnMRXEQmQ2aemov8YBtPS7vR --keypair ../payer-keypair.json
+  $ sb solana:lease:set GvDMxPzN1sCj7L26YDK2HnMRXEQmQ2aemov8YBtPS7vR --keypair ../payer-keypair.json
 ```
 
-## `sbv2 solana aggregator list AUTHORITYKEY`
+## `sb solana aggregator list AUTHORITYKEY`
 
 get a list of aggregators from a provided authority pubkey
 
 ```
 USAGE
-  $ sbv2 solana aggregator list AUTHORITYKEY [-h] [-v] [-s] [--mainnetBeta | --cluster devnet|mainnet-beta|mainnet|localnet]
+  $ sb solana aggregator list AUTHORITYKEY [-h] [-v] [-s] [--mainnetBeta | --cluster devnet|mainnet-beta|mainnet|localnet]
     [-u <value>] [--programId <value>] [--commitment confirmed|finalized|processed] [--json]
 
 ARGUMENTS
@@ -4316,15 +4307,15 @@ DESCRIPTION
   get a list of aggregators from a provided authority pubkey
 ```
 
-## `sbv2 solana aggregator lock AGGREGATORKEY`
+## `sb solana aggregator lock AGGREGATORKEY`
 
 lock an aggregator's configuration and prevent further changes
 
 ```
 USAGE
-  $ sbv2 solana aggregator lock AGGREGATORKEY [-h] [-v] [-s] [--mainnetBeta | --cluster
-    devnet|mainnet-beta|mainnet|localnet] [-u <value>] [--programId <value>] [--commitment
-    confirmed|finalized|processed] [-k <value>] [--ledgerPath <value> --ledger] [-a <value>]
+  $ sb solana aggregator lock AGGREGATORKEY [-h] [-v] [-s] [--mainnetBeta | --cluster devnet|mainnet-beta|mainnet|localnet]
+    [-u <value>] [--programId <value>] [--commitment confirmed|finalized|processed] [-k <value>] [--ledgerPath <value>
+    --ledger] [-a <value>]
 
 ARGUMENTS
   AGGREGATORKEY  public key of the aggregator account
@@ -4350,15 +4341,14 @@ DESCRIPTION
   lock an aggregator's configuration and prevent further changes
 ```
 
-## `sbv2 solana aggregator metrics AGGREGATORKEY`
+## `sb solana aggregator metrics AGGREGATORKEY`
 
 print an aggregator's metrics'
 
 ```
 USAGE
-  $ sbv2 solana aggregator metrics AGGREGATORKEY [-h] [-v] [-s] [--mainnetBeta | --cluster
-    devnet|mainnet-beta|mainnet|localnet] [-u <value>] [--programId <value>] [--commitment
-    confirmed|finalized|processed] [--json] [--period <value>]
+  $ sb solana aggregator metrics AGGREGATORKEY [-h] [-v] [-s] [--mainnetBeta | --cluster devnet|mainnet-beta|mainnet|localnet]
+    [-u <value>] [--programId <value>] [--commitment confirmed|finalized|processed] [--json] [--period <value>]
 
 ARGUMENTS
   AGGREGATORKEY  public key of the aggregator account
@@ -4383,16 +4373,15 @@ DESCRIPTION
   print an aggregator's metrics'
 ```
 
-## `sbv2 solana aggregator mode AGGREGATORKEY`
+## `sb solana aggregator mode AGGREGATORKEY`
 
 set an aggregators resolution mode config
 
 ```
 USAGE
-  $ sbv2 solana aggregator mode AGGREGATORKEY [-h] [-v] [-s] [--mainnetBeta | --cluster
-    devnet|mainnet-beta|mainnet|localnet] [-u <value>] [--programId <value>] [--commitment
-    confirmed|finalized|processed] [-k <value>] [--ledgerPath <value> --ledger] [--json] [-a <value>] [--slidingWindow |
-    --roundResolution]
+  $ sb solana aggregator mode AGGREGATORKEY [-h] [-v] [-s] [--mainnetBeta | --cluster devnet|mainnet-beta|mainnet|localnet]
+    [-u <value>] [--programId <value>] [--commitment confirmed|finalized|processed] [-k <value>] [--ledgerPath <value>
+    --ledger] [--json] [-a <value>] [--slidingWindow | --roundResolution]
 
 ARGUMENTS
   AGGREGATORKEY  public key of the aggregator account
@@ -4424,15 +4413,15 @@ DESCRIPTION
   set an aggregators resolution mode config
 ```
 
-## `sbv2 solana aggregator open-round AGGREGATORKEY`
+## `sb solana aggregator open-round AGGREGATORKEY`
 
 request a new aggregator result from a set of oracles
 
 ```
 USAGE
-  $ sbv2 solana aggregator open-round AGGREGATORKEY [-h] [-v] [-s] [--mainnetBeta | --cluster
-    devnet|mainnet-beta|mainnet|localnet] [-u <value>] [--programId <value>] [--commitment
-    confirmed|finalized|processed] [-k <value>] [--ledgerPath <value> --ledger]
+  $ sb solana aggregator open-round AGGREGATORKEY [-h] [-v] [-s] [--mainnetBeta | --cluster devnet|mainnet-beta|mainnet|localnet]
+    [-u <value>] [--programId <value>] [--commitment confirmed|finalized|processed] [-k <value>] [--ledgerPath <value>
+    --ledger]
 
 ARGUMENTS
   AGGREGATORKEY  public key of the aggregator account
@@ -4457,21 +4446,21 @@ DESCRIPTION
   request a new aggregator result from a set of oracles
 
 ALIASES
-  $ sbv2 solana aggregator open-round
+  $ sb solana aggregator open-round
 
 EXAMPLES
-  $ sbv2 solana aggregator update J7j9xX8JP2B2ErvUzuqGAKBGeggsxPyFXj5MqZcYDxfa --keypair ../payer-keypair.json
+  $ sb solana aggregator update J7j9xX8JP2B2ErvUzuqGAKBGeggsxPyFXj5MqZcYDxfa --keypair ../payer-keypair.json
 ```
 
-## `sbv2 solana aggregator permission create AGGREGATORKEY`
+## `sb solana aggregator permission create AGGREGATORKEY`
 
 create a permission account for an aggregator
 
 ```
 USAGE
-  $ sbv2 solana aggregator permission create AGGREGATORKEY [-h] [-v] [-s] [--mainnetBeta | --cluster
-    devnet|mainnet-beta|mainnet|localnet] [-u <value>] [--programId <value>] [--commitment
-    confirmed|finalized|processed] [-k <value>] [--ledgerPath <value> --ledger]
+  $ sb solana aggregator permission create AGGREGATORKEY [-h] [-v] [-s] [--mainnetBeta | --cluster devnet|mainnet-beta|mainnet|localnet]
+    [-u <value>] [--programId <value>] [--commitment confirmed|finalized|processed] [-k <value>] [--ledgerPath <value>
+    --ledger]
 
 ARGUMENTS
   AGGREGATORKEY  public key of the aggregator account
@@ -4496,15 +4485,14 @@ DESCRIPTION
   create a permission account for an aggregator
 ```
 
-## `sbv2 solana aggregator print AGGREGATORKEY`
+## `sb solana aggregator print AGGREGATORKEY`
 
 print an aggregator and it's associated accounts
 
 ```
 USAGE
-  $ sbv2 solana aggregator print AGGREGATORKEY [-h] [-v] [-s] [--mainnetBeta | --cluster
-    devnet|mainnet-beta|mainnet|localnet] [-u <value>] [--programId <value>] [--commitment
-    confirmed|finalized|processed] [--json] [--queuePubkey <value>]
+  $ sb solana aggregator print AGGREGATORKEY [-h] [-v] [-s] [--mainnetBeta | --cluster devnet|mainnet-beta|mainnet|localnet]
+    [-u <value>] [--programId <value>] [--commitment confirmed|finalized|processed] [--json] [--queuePubkey <value>]
 
 ARGUMENTS
   AGGREGATORKEY  public key of the aggregator account
@@ -4530,13 +4518,13 @@ DESCRIPTION
   print an aggregator and it's associated accounts
 ```
 
-## `sbv2 solana aggregator remove job AGGREGATORKEY JOBKEY`
+## `sb solana aggregator remove job AGGREGATORKEY JOBKEY`
 
 remove a switchboard job account from an aggregator
 
 ```
 USAGE
-  $ sbv2 solana aggregator remove job AGGREGATORKEY JOBKEY [-h] [-v] [-s] [--mainnetBeta | --cluster
+  $ sb solana aggregator remove job AGGREGATORKEY JOBKEY [-h] [-v] [-s] [--mainnetBeta | --cluster
     devnet|mainnet-beta|mainnet|localnet] [-u <value>] [--programId <value>] [--commitment
     confirmed|finalized|processed] [-k <value>] [--ledgerPath <value> --ledger] [-a <value>]
 
@@ -4565,18 +4553,18 @@ DESCRIPTION
   remove a switchboard job account from an aggregator
 ```
 
-## `sbv2 solana aggregator set AGGREGATORKEY`
+## `sb solana aggregator set AGGREGATORKEY`
 
 set an aggregators config
 
 ```
 USAGE
-  $ sbv2 solana aggregator set AGGREGATORKEY [-h] [-v] [-s] [--mainnetBeta | --cluster
-    devnet|mainnet-beta|mainnet|localnet] [-u <value>] [--programId <value>] [--commitment
-    confirmed|finalized|processed] [-k <value>] [--ledgerPath <value> --ledger] [--json] [-a <value>] [--name <value>]
-    [--metadata <value>] [--batchSize <value>] [--minJobs <value>] [--minOracles <value>] [--updateInterval <value>]
-    [--varianceThreshold <value>] [--forceReportPeriod <value>] [--basePriorityFee <value>] [--priorityFeeBump <value>]
-    [--priorityFeeBumpPeriod <value>] [--maxPriorityFeeMultiplier <value>] [--enableSlidingWindow]
+  $ sb solana aggregator set AGGREGATORKEY [-h] [-v] [-s] [--mainnetBeta | --cluster devnet|mainnet-beta|mainnet|localnet]
+    [-u <value>] [--programId <value>] [--commitment confirmed|finalized|processed] [-k <value>] [--ledgerPath <value>
+    --ledger] [--json] [-a <value>] [--name <value>] [--metadata <value>] [--batchSize <value>] [--minJobs <value>]
+    [--minOracles <value>] [--updateInterval <value>] [--varianceThreshold <value>] [--forceReportPeriod <value>]
+    [--basePriorityFee <value>] [--priorityFeeBump <value>] [--priorityFeeBumpPeriod <value>]
+    [--maxPriorityFeeMultiplier <value>] [--enableSlidingWindow]
 
 ARGUMENTS
   AGGREGATORKEY  public key of the aggregator account
@@ -4621,13 +4609,13 @@ DESCRIPTION
   set an aggregators config
 ```
 
-## `sbv2 solana aggregator transfer AGGREGATORKEY`
+## `sb solana aggregator transfer AGGREGATORKEY`
 
 transfer an aggregator to a new queue
 
 ```
 USAGE
-  $ sbv2 solana aggregator transfer AGGREGATORKEY --newQueue <value> [-h] [-v] [-s] [--mainnetBeta | --cluster
+  $ sb solana aggregator transfer AGGREGATORKEY --newQueue <value> [-h] [-v] [-s] [--mainnetBeta | --cluster
     devnet|mainnet-beta|mainnet|localnet] [-u <value>] [--programId <value>] [--commitment
     confirmed|finalized|processed] [-k <value>] [--ledgerPath <value> --ledger] [-a <value>] [--newCrank <value>]
     [--loadAmount <value>] [--enable] [--queueAuthority <value>] [--force]
@@ -4664,18 +4652,18 @@ DESCRIPTION
   transfer an aggregator to a new queue
 
 EXAMPLES
-  $ sbv2 solana aggregator transfer GvDMxPzN1sCj7L26YDK2HnMRXEQmQ2aemov8YBtPS7vR --mainnetBeta --loadAmount 0.1 --newQueue 3HBb2DQqDfuMdzWxNk1Eo9RTMkFYmuEAd32RiLKn9pAn --newCrank GdNVLWzcE6h9SPuSbmu69YzxAj8enim9t6mjzuqTXgLd --keypair ~/.config/solana/id.json
+  $ sb solana aggregator transfer GvDMxPzN1sCj7L26YDK2HnMRXEQmQ2aemov8YBtPS7vR --mainnetBeta --loadAmount 0.1 --newQueue 3HBb2DQqDfuMdzWxNk1Eo9RTMkFYmuEAd32RiLKn9pAn --newCrank GdNVLWzcE6h9SPuSbmu69YzxAj8enim9t6mjzuqTXgLd --keypair ~/.config/solana/id.json
 ```
 
-## `sbv2 solana aggregator update AGGREGATORKEY`
+## `sb solana aggregator update AGGREGATORKEY`
 
 request a new aggregator result from a set of oracles
 
 ```
 USAGE
-  $ sbv2 solana aggregator update AGGREGATORKEY [-h] [-v] [-s] [--mainnetBeta | --cluster
-    devnet|mainnet-beta|mainnet|localnet] [-u <value>] [--programId <value>] [--commitment
-    confirmed|finalized|processed] [-k <value>] [--ledgerPath <value> --ledger]
+  $ sb solana aggregator update AGGREGATORKEY [-h] [-v] [-s] [--mainnetBeta | --cluster devnet|mainnet-beta|mainnet|localnet]
+    [-u <value>] [--programId <value>] [--commitment confirmed|finalized|processed] [-k <value>] [--ledgerPath <value>
+    --ledger]
 
 ARGUMENTS
   AGGREGATORKEY  public key of the aggregator account
@@ -4700,21 +4688,20 @@ DESCRIPTION
   request a new aggregator result from a set of oracles
 
 ALIASES
-  $ sbv2 solana aggregator open-round
+  $ sb solana aggregator open-round
 
 EXAMPLES
-  $ sbv2 solana aggregator update J7j9xX8JP2B2ErvUzuqGAKBGeggsxPyFXj5MqZcYDxfa --keypair ../payer-keypair.json
+  $ sb solana aggregator update J7j9xX8JP2B2ErvUzuqGAKBGeggsxPyFXj5MqZcYDxfa --keypair ../payer-keypair.json
 ```
 
-## `sbv2 solana aggregator watch AGGREGATORKEY`
+## `sb solana aggregator watch AGGREGATORKEY`
 
 watch an aggregator account and stream the results
 
 ```
 USAGE
-  $ sbv2 solana aggregator watch AGGREGATORKEY [-h] [-v] [-s] [--mainnetBeta | --cluster
-    devnet|mainnet-beta|mainnet|localnet] [-u <value>] [--programId <value>] [--commitment
-    confirmed|finalized|processed] [-t <value>] [-f <value>]
+  $ sb solana aggregator watch AGGREGATORKEY [-h] [-v] [-s] [--mainnetBeta | --cluster devnet|mainnet-beta|mainnet|localnet]
+    [-u <value>] [--programId <value>] [--commitment confirmed|finalized|processed] [-t <value>] [-f <value>]
 
 ARGUMENTS
   AGGREGATORKEY  public key of the aggregator account
@@ -4737,13 +4724,13 @@ DESCRIPTION
   watch an aggregator account and stream the results
 ```
 
-## `sbv2 solana aggregator withdraw AGGREGATORKEY`
+## `sb solana aggregator withdraw AGGREGATORKEY`
 
 withdraw funds from an aggregator lease
 
 ```
 USAGE
-  $ sbv2 solana aggregator withdraw AGGREGATORKEY --amount <value> [-h] [-v] [-s] [--mainnetBeta | --cluster
+  $ sb solana aggregator withdraw AGGREGATORKEY --amount <value> [-h] [-v] [-s] [--mainnetBeta | --cluster
     devnet|mainnet-beta|mainnet|localnet] [-u <value>] [--programId <value>] [--commitment
     confirmed|finalized|processed] [-k <value>] [--ledgerPath <value> --ledger] [-a <value>] [--queuePubkey <value>]
 
@@ -4774,19 +4761,19 @@ DESCRIPTION
   withdraw funds from an aggregator lease
 
 ALIASES
-  $ sbv2 solana aggregator withdraw
+  $ sb solana aggregator withdraw
 
 EXAMPLES
-  $ sbv2 solana:aggregator:withdraw GvDMxPzN1sCj7L26YDK2HnMRXEQmQ2aemov8YBtPS7vR --amount 1.1 --keypair ../payer-keypair.json
+  $ sb solana:aggregator:withdraw GvDMxPzN1sCj7L26YDK2HnMRXEQmQ2aemov8YBtPS7vR --amount 1.1 --keypair ../payer-keypair.json
 ```
 
-## `sbv2 solana anchor test`
+## `sb solana anchor test`
 
 run anchor test and a switchboard oracle in parallel
 
 ```
 USAGE
-  $ sbv2 solana anchor test [-h] [-v] [-s] [--mainnetBeta | --cluster localnet|devnet] [-u <value>] [--mainnetRpcUrl
+  $ sb solana anchor test [-h] [-v] [-s] [--mainnetBeta | --cluster localnet|devnet] [-u <value>] [--mainnetRpcUrl
     <value>] [--programId <value>] [-d <value>] [--oracleKey <value>] [-k <value>] [--releaseChannel testnet|mainnet |
     --nodeImage <value>] [-t <value>] [--detach] [--testValidatorArgs <value>]
 
@@ -4816,16 +4803,16 @@ DESCRIPTION
   run anchor test and a switchboard oracle in parallel
 
 ALIASES
-  $ sbv2 anchor test
+  $ sb anchor test
 ```
 
-## `sbv2 solana buffer create QUEUEKEY`
+## `sb solana buffer create QUEUEKEY`
 
 create a buffer relayer account
 
 ```
 USAGE
-  $ sbv2 solana buffer create QUEUEKEY [-h] [-v] [-s] [--mainnetBeta | --cluster devnet|mainnet-beta|mainnet|localnet] [-u
+  $ sb solana buffer create QUEUEKEY [-h] [-v] [-s] [--mainnetBeta | --cluster devnet|mainnet-beta|mainnet|localnet] [-u
     <value>] [--programId <value>] [--commitment confirmed|finalized|processed] [-k <value>] [--ledgerPath <value>
     --ledger] [--json] [--bufferKeypair <value>] [-a <value>] [-n <value>] [--minUpdateDelaySeconds <value>]
     [--jobDefinition <value> | --jobKey <value>]
@@ -4862,13 +4849,13 @@ DESCRIPTION
   create a buffer relayer account
 ```
 
-## `sbv2 solana buffer open-round BUFFERRELAYERKEY`
+## `sb solana buffer open-round BUFFERRELAYERKEY`
 
 request a new buffer relayer result
 
 ```
 USAGE
-  $ sbv2 solana buffer open-round BUFFERRELAYERKEY [-h] [-v] [-s] [--mainnetBeta | --cluster
+  $ sb solana buffer open-round BUFFERRELAYERKEY [-h] [-v] [-s] [--mainnetBeta | --cluster
     devnet|mainnet-beta|mainnet|localnet] [-u <value>] [--programId <value>] [--commitment
     confirmed|finalized|processed] [-k <value>] [--ledgerPath <value> --ledger]
 
@@ -4895,19 +4882,19 @@ DESCRIPTION
   request a new buffer relayer result
 
 ALIASES
-  $ sbv2 solana buffer open-round
+  $ sb solana buffer open-round
 
 EXAMPLES
-  $ sbv2 solana buffer update J7j9xX8JP2B2ErvUzuqGAKBGeggsxPyFXj5MqZcYDxfa --keypair ../payer-keypair.json
+  $ sb solana buffer update J7j9xX8JP2B2ErvUzuqGAKBGeggsxPyFXj5MqZcYDxfa --keypair ../payer-keypair.json
 ```
 
-## `sbv2 solana buffer update BUFFERRELAYERKEY`
+## `sb solana buffer update BUFFERRELAYERKEY`
 
 request a new buffer relayer result
 
 ```
 USAGE
-  $ sbv2 solana buffer update BUFFERRELAYERKEY [-h] [-v] [-s] [--mainnetBeta | --cluster
+  $ sb solana buffer update BUFFERRELAYERKEY [-h] [-v] [-s] [--mainnetBeta | --cluster
     devnet|mainnet-beta|mainnet|localnet] [-u <value>] [--programId <value>] [--commitment
     confirmed|finalized|processed] [-k <value>] [--ledgerPath <value> --ledger]
 
@@ -4934,19 +4921,19 @@ DESCRIPTION
   request a new buffer relayer result
 
 ALIASES
-  $ sbv2 solana buffer open-round
+  $ sb solana buffer open-round
 
 EXAMPLES
-  $ sbv2 solana buffer update J7j9xX8JP2B2ErvUzuqGAKBGeggsxPyFXj5MqZcYDxfa --keypair ../payer-keypair.json
+  $ sb solana buffer update J7j9xX8JP2B2ErvUzuqGAKBGeggsxPyFXj5MqZcYDxfa --keypair ../payer-keypair.json
 ```
 
-## `sbv2 solana crank create QUEUEKEY`
+## `sb solana crank create QUEUEKEY`
 
 create a new crank account
 
 ```
 USAGE
-  $ sbv2 solana crank create QUEUEKEY -s <value> [-h] [-v] [-s] [--mainnetBeta | --cluster
+  $ sb solana crank create QUEUEKEY -s <value> [-h] [-v] [-s] [--mainnetBeta | --cluster
     devnet|mainnet-beta|mainnet|localnet] [-u <value>] [--programId <value>] [--commitment
     confirmed|finalized|processed] [-k <value>] [--ledgerPath <value> --ledger] [--json] [-n <value>] [--metadata
     <value>] [--crankKeypair <value>] [--dataBufferKeypair <value>]
@@ -4982,15 +4969,14 @@ DESCRIPTION
   create a new crank account
 ```
 
-## `sbv2 solana crank events AGGREGATORKEY`
+## `sb solana crank events AGGREGATORKEY`
 
 watch an aggregator account and stream the on-chain events
 
 ```
 USAGE
-  $ sbv2 solana crank events AGGREGATORKEY [-h] [-v] [-s] [--mainnetBeta | --cluster
-    devnet|mainnet-beta|mainnet|localnet] [-u <value>] [--programId <value>] [--commitment
-    confirmed|finalized|processed] [-t <value>] [-f <value>]
+  $ sb solana crank events AGGREGATORKEY [-h] [-v] [-s] [--mainnetBeta | --cluster devnet|mainnet-beta|mainnet|localnet]
+    [-u <value>] [--programId <value>] [--commitment confirmed|finalized|processed] [-t <value>] [-f <value>]
 
 ARGUMENTS
   AGGREGATORKEY  public key of the aggregator account
@@ -5013,13 +4999,13 @@ DESCRIPTION
   watch an aggregator account and stream the on-chain events
 ```
 
-## `sbv2 solana crank pop CRANKKEY`
+## `sb solana crank pop CRANKKEY`
 
 pop the crank
 
 ```
 USAGE
-  $ sbv2 solana crank pop CRANKKEY [-h] [-v] [-s] [--mainnetBeta | --cluster devnet|mainnet-beta|mainnet|localnet] [-u
+  $ sb solana crank pop CRANKKEY [-h] [-v] [-s] [--mainnetBeta | --cluster devnet|mainnet-beta|mainnet|localnet] [-u
     <value>] [--programId <value>] [--commitment confirmed|finalized|processed] [-k <value>] [--ledgerPath <value>
     --ledger]
 
@@ -5046,13 +5032,13 @@ DESCRIPTION
   pop the crank
 ```
 
-## `sbv2 solana crank print CRANKKEY`
+## `sb solana crank print CRANKKEY`
 
 print a crank
 
 ```
 USAGE
-  $ sbv2 solana crank print CRANKKEY [-h] [-v] [-s] [--mainnetBeta | --cluster devnet|mainnet-beta|mainnet|localnet] [-u
+  $ sb solana crank print CRANKKEY [-h] [-v] [-s] [--mainnetBeta | --cluster devnet|mainnet-beta|mainnet|localnet] [-u
     <value>] [--programId <value>] [--commitment confirmed|finalized|processed] [--json] [--rows]
 
 ARGUMENTS
@@ -5078,15 +5064,15 @@ DESCRIPTION
   print a crank
 ```
 
-## `sbv2 solana crank push AGGREGATORKEY`
+## `sb solana crank push AGGREGATORKEY`
 
 push the crank
 
 ```
 USAGE
-  $ sbv2 solana crank push AGGREGATORKEY [-h] [-v] [-s] [--mainnetBeta | --cluster
-    devnet|mainnet-beta|mainnet|localnet] [-u <value>] [--programId <value>] [--commitment
-    confirmed|finalized|processed] [-k <value>] [--ledgerPath <value> --ledger] [--crankKey <value>]
+  $ sb solana crank push AGGREGATORKEY [-h] [-v] [-s] [--mainnetBeta | --cluster devnet|mainnet-beta|mainnet|localnet]
+    [-u <value>] [--programId <value>] [--commitment confirmed|finalized|processed] [-k <value>] [--ledgerPath <value>
+    --ledger] [--crankKey <value>]
 
 ARGUMENTS
   AGGREGATORKEY  public key of the aggregator account
@@ -5112,15 +5098,15 @@ DESCRIPTION
   push the crank
 ```
 
-## `sbv2 solana crank reset AGGREGATORKEY`
+## `sb solana crank reset AGGREGATORKEY`
 
 reset an aggregators crank
 
 ```
 USAGE
-  $ sbv2 solana crank reset AGGREGATORKEY [-h] [-v] [-s] [--mainnetBeta | --cluster
-    devnet|mainnet-beta|mainnet|localnet] [-u <value>] [--programId <value>] [--commitment
-    confirmed|finalized|processed] [-k <value>] [--ledgerPath <value> --ledger] [-a <value>]
+  $ sb solana crank reset AGGREGATORKEY [-h] [-v] [-s] [--mainnetBeta | --cluster devnet|mainnet-beta|mainnet|localnet]
+    [-u <value>] [--programId <value>] [--commitment confirmed|finalized|processed] [-k <value>] [--ledgerPath <value>
+    --ledger] [-a <value>]
 
 ARGUMENTS
   AGGREGATORKEY  public key of the aggregator account
@@ -5147,18 +5133,18 @@ DESCRIPTION
   reset an aggregators crank
 ```
 
-## `sbv2 solana function create QUEUEKEY`
+## `sb solana function create QUEUEKEY`
 
 create a new function account for a given queue
 
 ```
 USAGE
-  $ sbv2 solana function create QUEUEKEY --container <value> [-h] [-v] [-s] [--mainnetBeta | --cluster
+  $ sb solana function create QUEUEKEY --container <value> [-h] [-v] [-s] [--mainnetBeta | --cluster
     devnet|mainnet-beta|mainnet|localnet] [-u <value>] [--programId <value>] [--commitment
     confirmed|finalized|processed] [-k <value>] [--ledgerPath <value> --ledger] [--json] [-n <value>] [--metadata
-    <value>] [-a <value>] [--fundAmount <value>] [--schedule <value>] [--containerRegistry <value>] [--version <value>]
-    [--mrEnclave <value>] [--requestsDisabled <value>] [--requestsFee <value>] [--requestsRequireAuthorization <value>]
-    [--enable] [--queueAuthority <value>]
+    <value>] [-a <value>] [--fundAmount <value>] [--schedule <value>] [--containerRegistry dockerhub|ipfs] [--version
+    <value>] [--mrEnclave <value>] [--requestsDisabled <value>] [--requestsFee <value>] [--requestsRequireAuthorization
+    <value>] [--enable] [--queueAuthority <value>]
 
 ARGUMENTS
   QUEUEKEY  public key of the attestation queue account
@@ -5179,7 +5165,8 @@ FLAGS
                                           <options: confirmed|finalized|processed>
   --container=<value>                     (required) the location of the container (Ex.
                                           switchboardlabs/basic-oracle-function)
-  --containerRegistry=<value>             [default: docker] the registry to pull the container from (Ex. Docker or IPFS)
+  --containerRegistry=<option>            [default: docker] the registry to pull the container from (Ex. Docker or IPFS)
+                                          <options: dockerhub|ipfs>
   --enable                                enable oracle heartbeat permissions
   --fundAmount=<value>                    [default: 0.0] token amount to load into the function's escrow wallet.
   --ledger                                enable ledger support
@@ -5206,16 +5193,84 @@ DESCRIPTION
   create a new function account for a given queue
 
 EXAMPLES
-  $ sbv2 solana function create F8ce7MsckeZAbAGmxjJNetxYXQa9mKr9nnrC3qKubyYy --name function-1 --fundAmount 1.25 --container switchboardlabs/basic-oracle-function --version solana
+  $ sb solana function create F8ce7MsckeZAbAGmxjJNetxYXQa9mKr9nnrC3qKubyYy --name function-1 --fundAmount 1.25 --container switchboardlabs/basic-oracle-function --version solana
 ```
 
-## `sbv2 solana job create`
+## `sb solana function fund FUNCTIONKEY`
+
+wrap SOL into a function accounts escrow wallet
+
+```
+USAGE
+  $ sb solana function fund FUNCTIONKEY [-h] [-v] [-s] [--mainnetBeta | --cluster devnet|mainnet-beta|mainnet|localnet]
+    [-u <value>] [--programId <value>] [--commitment confirmed|finalized|processed] [-k <value>] [--ledgerPath <value>
+    --ledger] [--json] [--fundAmount <value>]
+
+ARGUMENTS
+  FUNCTIONKEY  public key of the function account
+
+FLAGS
+  -h, --help             Show CLI help.
+  -k, --keypair=<value>  keypair that will pay for onchain transactions. defaults to new account authority if no
+                         alternate authority provided
+  -s, --silent           suppress cli prompts
+  -u, --rpcUrl=<value>   alternate RPC url
+  -v, --verbose          log everything
+  --cluster=<option>     the solana cluster to connect to
+                         <options: devnet|mainnet-beta|mainnet|localnet>
+  --commitment=<option>  [default: confirmed] transaction commitment level to use
+                         <options: confirmed|finalized|processed>
+  --fundAmount=<value>   [default: 0.0]
+  --ledger               enable ledger support
+  --ledgerPath=<value>   HID path to the ledger
+  --mainnetBeta          WARNING: use mainnet-beta solana cluster
+  --programId=<value>    alternative Switchboard program ID to interact with
+
+GLOBAL FLAGS
+  --json  Format output as json.
+
+DESCRIPTION
+  wrap SOL into a function accounts escrow wallet
+```
+
+## `sb solana function print FUNCTIONKEY`
+
+print a function account
+
+```
+USAGE
+  $ sb solana function print FUNCTIONKEY [-h] [-v] [-s] [--mainnetBeta | --cluster devnet|mainnet-beta|mainnet|localnet]
+    [-u <value>] [--programId <value>] [--commitment confirmed|finalized|processed] [--json]
+
+ARGUMENTS
+  FUNCTIONKEY  public key of the function account
+
+FLAGS
+  -h, --help             Show CLI help.
+  -s, --silent           suppress cli prompts
+  -u, --rpcUrl=<value>   alternate RPC url
+  -v, --verbose          log everything
+  --cluster=<option>     the solana cluster to connect to
+                         <options: devnet|mainnet-beta|mainnet|localnet>
+  --commitment=<option>  [default: confirmed] transaction commitment level to use
+                         <options: confirmed|finalized|processed>
+  --mainnetBeta          WARNING: use mainnet-beta solana cluster
+  --programId=<value>    alternative Switchboard program ID to interact with
+
+GLOBAL FLAGS
+  --json  Format output as json.
+
+DESCRIPTION
+  print a function account
+```
+
+## `sb solana job create`
 
 create a job account
 
 ```
 USAGE
-  $ sbv2 solana job create --jobDefinition <value> [-h] [-v] [-s] [--mainnetBeta | --cluster
+  $ sb solana job create --jobDefinition <value> [-h] [-v] [-s] [--mainnetBeta | --cluster
     devnet|mainnet-beta|mainnet|localnet] [-u <value>] [--programId <value>] [--commitment
     confirmed|finalized|processed] [-k <value>] [--ledgerPath <value> --ledger] [--json] [--jobKeypair <value>] [-a
     <value>] [-n <value>]
@@ -5247,13 +5302,13 @@ DESCRIPTION
   create a job account
 ```
 
-## `sbv2 solana job print JOBKEY`
+## `sb solana job print JOBKEY`
 
 print an job and it's associated accounts
 
 ```
 USAGE
-  $ sbv2 solana job print JOBKEY [-h] [-v] [-s] [--mainnetBeta | --cluster devnet|mainnet-beta|mainnet|localnet] [-u
+  $ sb solana job print JOBKEY [-h] [-v] [-s] [--mainnetBeta | --cluster devnet|mainnet-beta|mainnet|localnet] [-u
     <value>] [--programId <value>] [--commitment confirmed|finalized|processed] [--json]
 
 ARGUMENTS
@@ -5278,16 +5333,15 @@ DESCRIPTION
   print an job and it's associated accounts
 ```
 
-## `sbv2 solana json create aggregator DEFINITIONFILE`
+## `sb solana json create aggregator DEFINITIONFILE`
 
 create an aggregator from a json file
 
 ```
 USAGE
-  $ sbv2 solana json create aggregator DEFINITIONFILE [-h] [-v] [-s] [--mainnetBeta | --cluster
-    devnet|mainnet-beta|mainnet|localnet] [-u <value>] [--programId <value>] [--commitment
-    confirmed|finalized|processed] [-k <value>] [--ledgerPath <value> --ledger] [--json] [-q <value>] [-a <value>]
-    [--leaseAmount <value>]
+  $ sb solana json create aggregator DEFINITIONFILE [-h] [-v] [-s] [--mainnetBeta | --cluster devnet|mainnet-beta|mainnet|localnet]
+    [-u <value>] [--programId <value>] [--commitment confirmed|finalized|processed] [-k <value>] [--ledgerPath <value>
+    --ledger] [--json] [-q <value>] [-a <value>] [--leaseAmount <value>]
 
 ARGUMENTS
   DEFINITIONFILE  filesystem path of queue definition json file
@@ -5318,21 +5372,21 @@ DESCRIPTION
   create an aggregator from a json file
 
 ALIASES
-  $ sbv2 solana json create aggregator
+  $ sb solana json create aggregator
 
 EXAMPLES
-  $ sbv2 solana aggregator create json examples/aggregator.json --keypair ../payer-keypair.json --queueKey GhYg3R1V6DmJbwuc57qZeoYG6gUuvCotUF1zU3WCj98U --outputFile aggregator.schema.json
+  $ sb solana aggregator create json examples/aggregator.json --keypair ../payer-keypair.json --queueKey GhYg3R1V6DmJbwuc57qZeoYG6gUuvCotUF1zU3WCj98U --outputFile aggregator.schema.json
 ```
 
-## `sbv2 solana lease create AGGREGATORKEY`
+## `sb solana lease create AGGREGATORKEY`
 
 fund and re-enable an aggregator lease
 
 ```
 USAGE
-  $ sbv2 solana lease create AGGREGATORKEY [-h] [-v] [-s] [--mainnetBeta | --cluster
-    devnet|mainnet-beta|mainnet|localnet] [-u <value>] [--programId <value>] [--commitment
-    confirmed|finalized|processed] [-k <value>] [--ledgerPath <value> --ledger] [--amount <value>]
+  $ sb solana lease create AGGREGATORKEY [-h] [-v] [-s] [--mainnetBeta | --cluster devnet|mainnet-beta|mainnet|localnet]
+    [-u <value>] [--programId <value>] [--commitment confirmed|finalized|processed] [-k <value>] [--ledgerPath <value>
+    --ledger] [--amount <value>]
 
 ARGUMENTS
   AGGREGATORKEY  public key of the aggregator account
@@ -5359,16 +5413,16 @@ DESCRIPTION
   fund and re-enable an aggregator lease
 
 EXAMPLES
-  $ sbv2 solana lease create GvDMxPzN1sCj7L26YDK2HnMRXEQmQ2aemov8YBtPS7vR --amount 1.5 --keypair ../payer-keypair.json
+  $ sb solana lease create GvDMxPzN1sCj7L26YDK2HnMRXEQmQ2aemov8YBtPS7vR --amount 1.5 --keypair ../payer-keypair.json
 ```
 
-## `sbv2 solana lease extend AGGREGATORKEY`
+## `sb solana lease extend AGGREGATORKEY`
 
 fund and re-enable an aggregator lease
 
 ```
 USAGE
-  $ sbv2 solana lease extend AGGREGATORKEY --amount <value> [-h] [-v] [-s] [--mainnetBeta | --cluster
+  $ sb solana lease extend AGGREGATORKEY --amount <value> [-h] [-v] [-s] [--mainnetBeta | --cluster
     devnet|mainnet-beta|mainnet|localnet] [-u <value>] [--programId <value>] [--commitment
     confirmed|finalized|processed] [-k <value>] [--ledgerPath <value> --ledger]
 
@@ -5396,21 +5450,21 @@ DESCRIPTION
   fund and re-enable an aggregator lease
 
 ALIASES
-  $ sbv2 solana aggregator fund
-  $ sbv2 solana aggregator deposit
-  $ sbv2 solana aggregator extend
+  $ sb solana aggregator fund
+  $ sb solana aggregator deposit
+  $ sb solana aggregator extend
 
 EXAMPLES
-  $ sbv2 solana:aggregator:fund GvDMxPzN1sCj7L26YDK2HnMRXEQmQ2aemov8YBtPS7vR --amount 1.1 --keypair ../payer-keypair.json
+  $ sb solana:aggregator:fund GvDMxPzN1sCj7L26YDK2HnMRXEQmQ2aemov8YBtPS7vR --amount 1.1 --keypair ../payer-keypair.json
 ```
 
-## `sbv2 solana lease print LEASEKEY`
+## `sb solana lease print LEASEKEY`
 
 print a lease account
 
 ```
 USAGE
-  $ sbv2 solana lease print LEASEKEY [-h] [-v] [-s] [--mainnetBeta | --cluster devnet|mainnet-beta|mainnet|localnet] [-u
+  $ sb solana lease print LEASEKEY [-h] [-v] [-s] [--mainnetBeta | --cluster devnet|mainnet-beta|mainnet|localnet] [-u
     <value>] [--programId <value>] [--commitment confirmed|finalized|processed] [--json]
 
 ARGUMENTS
@@ -5435,16 +5489,15 @@ DESCRIPTION
   print a lease account
 ```
 
-## `sbv2 solana lease set AGGREGATORKEY`
+## `sb solana lease set AGGREGATORKEY`
 
 set a lease's withdraw authority
 
 ```
 USAGE
-  $ sbv2 solana lease set AGGREGATORKEY [-h] [-v] [-s] [--mainnetBeta | --cluster
-    devnet|mainnet-beta|mainnet|localnet] [-u <value>] [--programId <value>] [--commitment
-    confirmed|finalized|processed] [-k <value>] [--ledgerPath <value> --ledger] [-a <value>] [--queuePubkey <value>]
-    [--newAuthority <value>]
+  $ sb solana lease set AGGREGATORKEY [-h] [-v] [-s] [--mainnetBeta | --cluster devnet|mainnet-beta|mainnet|localnet]
+    [-u <value>] [--programId <value>] [--commitment confirmed|finalized|processed] [-k <value>] [--ledgerPath <value>
+    --ledger] [-a <value>] [--queuePubkey <value>] [--newAuthority <value>]
 
 ARGUMENTS
   AGGREGATORKEY  public key of the aggregator account
@@ -5473,19 +5526,19 @@ DESCRIPTION
   set a lease's withdraw authority
 
 ALIASES
-  $ sbv2 solana aggregator lease set
+  $ sb solana aggregator lease set
 
 EXAMPLES
-  $ sbv2 solana:lease:set GvDMxPzN1sCj7L26YDK2HnMRXEQmQ2aemov8YBtPS7vR --keypair ../payer-keypair.json
+  $ sb solana:lease:set GvDMxPzN1sCj7L26YDK2HnMRXEQmQ2aemov8YBtPS7vR --keypair ../payer-keypair.json
 ```
 
-## `sbv2 solana lease withdraw AGGREGATORKEY`
+## `sb solana lease withdraw AGGREGATORKEY`
 
 withdraw funds from an aggregator lease
 
 ```
 USAGE
-  $ sbv2 solana lease withdraw AGGREGATORKEY --amount <value> [-h] [-v] [-s] [--mainnetBeta | --cluster
+  $ sb solana lease withdraw AGGREGATORKEY --amount <value> [-h] [-v] [-s] [--mainnetBeta | --cluster
     devnet|mainnet-beta|mainnet|localnet] [-u <value>] [--programId <value>] [--commitment
     confirmed|finalized|processed] [-k <value>] [--ledgerPath <value> --ledger] [-a <value>] [--queuePubkey <value>]
 
@@ -5516,19 +5569,19 @@ DESCRIPTION
   withdraw funds from an aggregator lease
 
 ALIASES
-  $ sbv2 solana aggregator withdraw
+  $ sb solana aggregator withdraw
 
 EXAMPLES
-  $ sbv2 solana:aggregator:withdraw GvDMxPzN1sCj7L26YDK2HnMRXEQmQ2aemov8YBtPS7vR --amount 1.1 --keypair ../payer-keypair.json
+  $ sb solana:aggregator:withdraw GvDMxPzN1sCj7L26YDK2HnMRXEQmQ2aemov8YBtPS7vR --amount 1.1 --keypair ../payer-keypair.json
 ```
 
-## `sbv2 solana network create`
+## `sb solana network create`
 
 create an oracle queue
 
 ```
 USAGE
-  $ sbv2 solana network create --configFile <value> --schemaFile <value> [-h] [-v] [-s] [--mainnetBeta | --cluster
+  $ sb solana network create --configFile <value> --schemaFile <value> [-h] [-v] [-s] [--mainnetBeta | --cluster
     devnet|mainnet-beta|mainnet|localnet] [-u <value>] [--programId <value>] [--commitment
     confirmed|finalized|processed] [-k <value>] [--ledgerPath <value> --ledger] [--json] [--force]
 
@@ -5558,13 +5611,13 @@ DESCRIPTION
   create an oracle queue
 ```
 
-## `sbv2 solana network save`
+## `sb solana network save`
 
 save an existing switchboard network
 
 ```
 USAGE
-  $ sbv2 solana network save --queueKey <value> --outputFile <value> [-h] [-v] [-s] [--mainnetBeta | --cluster
+  $ sb solana network save --queueKey <value> --outputFile <value> [-h] [-v] [-s] [--mainnetBeta | --cluster
     devnet|mainnet-beta|mainnet|localnet] [-u <value>] [--programId <value>] [--commitment
     confirmed|finalized|processed] [--json] [--force]
 
@@ -5590,13 +5643,13 @@ DESCRIPTION
   save an existing switchboard network
 ```
 
-## `sbv2 solana network start`
+## `sb solana network start`
 
 start a switchboard network from a JSON file
 
 ```
 USAGE
-  $ sbv2 solana network start [-h] [-v] [-s] [--mainnetBeta | --cluster devnet|mainnet-beta|mainnet|localnet] [-u <value>]
+  $ sb solana network start [-h] [-v] [-s] [--mainnetBeta | --cluster devnet|mainnet-beta|mainnet|localnet] [-u <value>]
     [--programId <value>] [--commitment confirmed|finalized|processed] [-k <value>] [--ledgerPath <value> --ledger]
     [--json] [--configFile <value>] [--schemaFile <value>] [--nodeImage <value>] [--arm] [-t <value>] [--mainnetRpcUrl
     <value>]
@@ -5631,13 +5684,13 @@ DESCRIPTION
   start a switchboard network from a JSON file
 ```
 
-## `sbv2 solana oracle create QUEUEKEY`
+## `sb solana oracle create QUEUEKEY`
 
 create a new oracle account for a given queue
 
 ```
 USAGE
-  $ sbv2 solana oracle create QUEUEKEY [-h] [-v] [-s] [--mainnetBeta | --cluster devnet|mainnet-beta|mainnet|localnet] [-u
+  $ sb solana oracle create QUEUEKEY [-h] [-v] [-s] [--mainnetBeta | --cluster devnet|mainnet-beta|mainnet|localnet] [-u
     <value>] [--programId <value>] [--commitment confirmed|finalized|processed] [-k <value>] [--ledgerPath <value>
     --ledger] [--json] [-n <value>] [--metadata <value>] [-a <value>] [--enable] [--queueAuthority <value>]
     [--stakeAmount <value>]
@@ -5674,17 +5727,17 @@ DESCRIPTION
   create a new oracle account for a given queue
 
 EXAMPLES
-  $ sbv2 solana:oracle:create F8ce7MsckeZAbAGmxjJNetxYXQa9mKr9nnrC3qKubyYy --name oracle-1 --stakeAmount 1
+  $ sb solana:oracle:create F8ce7MsckeZAbAGmxjJNetxYXQa9mKr9nnrC3qKubyYy --name oracle-1 --stakeAmount 1
 ```
 
-## `sbv2 solana oracle print ORACLEKEY`
+## `sb solana oracle print ORACLEKEY`
 
 print an oracle account
 
 ```
 USAGE
-  $ sbv2 solana oracle print ORACLEKEY [-h] [-v] [-s] [--mainnetBeta | --cluster devnet|mainnet-beta|mainnet|localnet]
-    [-u <value>] [--programId <value>] [--commitment confirmed|finalized|processed] [--json]
+  $ sb solana oracle print ORACLEKEY [-h] [-v] [-s] [--mainnetBeta | --cluster devnet|mainnet-beta|mainnet|localnet] [-u
+    <value>] [--programId <value>] [--commitment confirmed|finalized|processed] [--json]
 
 ARGUMENTS
   ORACLEKEY  public key of the oracle account
@@ -5708,13 +5761,13 @@ DESCRIPTION
   print an oracle account
 ```
 
-## `sbv2 solana oracle up`
+## `sb solana oracle up`
 
 start a solana docker oracle
 
 ```
 USAGE
-  $ sbv2 solana oracle up --oracleKey <value> [-h] [-v] [-s] [--mainnetBeta | --cluster
+  $ sb solana oracle up --oracleKey <value> [-h] [-v] [-s] [--mainnetBeta | --cluster
     devnet|mainnet-beta|mainnet|localnet] [-u <value>] [--programId <value>] [--commitment
     confirmed|finalized|processed] [-k <value>] [--ledgerPath <value> --ledger] [--releaseChannel testnet|mainnet |
     --nodeImage <value>] [-t <value>]
@@ -5744,13 +5797,13 @@ DESCRIPTION
   start a solana docker oracle
 ```
 
-## `sbv2 solana oracle withdraw ORACLEKEY`
+## `sb solana oracle withdraw ORACLEKEY`
 
 withdraw from an oracle's staking wallet
 
 ```
 USAGE
-  $ sbv2 solana oracle withdraw ORACLEKEY --amount <value> [-h] [-v] [-s] [--mainnetBeta | --cluster
+  $ sb solana oracle withdraw ORACLEKEY --amount <value> [-h] [-v] [-s] [--mainnetBeta | --cluster
     devnet|mainnet-beta|mainnet|localnet] [-u <value>] [--programId <value>] [--commitment
     confirmed|finalized|processed] [-k <value>] [--ledgerPath <value> --ledger] [-a <value>]
 
@@ -5779,13 +5832,13 @@ DESCRIPTION
   withdraw from an oracle's staking wallet
 ```
 
-## `sbv2 solana permission create`
+## `sb solana permission create`
 
 create a permission account
 
 ```
 USAGE
-  $ sbv2 solana permission create --granter <value> --grantee <value> [-h] [-v] [-s] [--mainnetBeta | --cluster
+  $ sb solana permission create --granter <value> --grantee <value> [-h] [-v] [-s] [--mainnetBeta | --cluster
     devnet|mainnet-beta|mainnet|localnet] [-u <value>] [--programId <value>] [--commitment
     confirmed|finalized|processed] [-k <value>] [--ledgerPath <value> --ledger] [--json] [--enable] [-a <value>]
 
@@ -5818,15 +5871,15 @@ DESCRIPTION
   create a permission account
 ```
 
-## `sbv2 solana permission grant PERMISSIONKEY`
+## `sb solana permission grant PERMISSIONKEY`
 
 enable a resources permissions
 
 ```
 USAGE
-  $ sbv2 solana permission grant PERMISSIONKEY [-h] [-v] [-s] [--mainnetBeta | --cluster
-    devnet|mainnet-beta|mainnet|localnet] [-u <value>] [--programId <value>] [--commitment
-    confirmed|finalized|processed] [-k <value>] [--ledgerPath <value> --ledger] [-a <value>]
+  $ sb solana permission grant PERMISSIONKEY [-h] [-v] [-s] [--mainnetBeta | --cluster devnet|mainnet-beta|mainnet|localnet]
+    [-u <value>] [--programId <value>] [--commitment confirmed|finalized|processed] [-k <value>] [--ledgerPath <value>
+    --ledger] [-a <value>]
 
 ARGUMENTS
   PERMISSIONKEY  public key of the permission account
@@ -5852,15 +5905,14 @@ DESCRIPTION
   enable a resources permissions
 ```
 
-## `sbv2 solana permission print PERMISSIONKEY`
+## `sb solana permission print PERMISSIONKEY`
 
 print a permission account
 
 ```
 USAGE
-  $ sbv2 solana permission print PERMISSIONKEY [-h] [-v] [-s] [--mainnetBeta | --cluster
-    devnet|mainnet-beta|mainnet|localnet] [-u <value>] [--programId <value>] [--commitment
-    confirmed|finalized|processed] [--json]
+  $ sb solana permission print PERMISSIONKEY [-h] [-v] [-s] [--mainnetBeta | --cluster devnet|mainnet-beta|mainnet|localnet]
+    [-u <value>] [--programId <value>] [--commitment confirmed|finalized|processed] [--json]
 
 ARGUMENTS
   PERMISSIONKEY  public key of the permission account
@@ -5884,15 +5936,15 @@ DESCRIPTION
   print a permission account
 ```
 
-## `sbv2 solana permission revoke PERMISSIONKEY`
+## `sb solana permission revoke PERMISSIONKEY`
 
 disable a resources permissions
 
 ```
 USAGE
-  $ sbv2 solana permission revoke PERMISSIONKEY [-h] [-v] [-s] [--mainnetBeta | --cluster
-    devnet|mainnet-beta|mainnet|localnet] [-u <value>] [--programId <value>] [--commitment
-    confirmed|finalized|processed] [-k <value>] [--ledgerPath <value> --ledger] [-a <value>]
+  $ sb solana permission revoke PERMISSIONKEY [-h] [-v] [-s] [--mainnetBeta | --cluster devnet|mainnet-beta|mainnet|localnet]
+    [-u <value>] [--programId <value>] [--commitment confirmed|finalized|processed] [-k <value>] [--ledgerPath <value>
+    --ledger] [-a <value>]
 
 ARGUMENTS
   PERMISSIONKEY  public key of the permission account
@@ -5918,13 +5970,13 @@ DESCRIPTION
   disable a resources permissions
 ```
 
-## `sbv2 solana print PUBKEY`
+## `sb solana print PUBKEY`
 
 print a Switchboard account
 
 ```
 USAGE
-  $ sbv2 solana print PUBKEY [-h] [-v] [-s] [--mainnetBeta | --cluster devnet|mainnet-beta|mainnet|localnet] [-u
+  $ sb solana print PUBKEY [-h] [-v] [-s] [--mainnetBeta | --cluster devnet|mainnet-beta|mainnet|localnet] [-u
     <value>] [--programId <value>] [--commitment confirmed|finalized|processed] [--json]
 
 ARGUMENTS
@@ -5949,13 +6001,13 @@ DESCRIPTION
   print a Switchboard account
 ```
 
-## `sbv2 solana queue create`
+## `sb solana queue create`
 
 create an oracle queue
 
 ```
 USAGE
-  $ sbv2 solana queue create [-h] [-v] [-s] [--mainnetBeta | --cluster devnet|mainnet-beta|mainnet|localnet] [-u <value>]
+  $ sb solana queue create [-h] [-v] [-s] [--mainnetBeta | --cluster devnet|mainnet-beta|mainnet|localnet] [-u <value>]
     [--programId <value>] [--commitment confirmed|finalized|processed] [-k <value>] [--ledgerPath <value> --ledger]
     [--json] [-a <value>] [--queueKeypair <value>] [--dataBufferKeypair <value>] [--size <value>] [--name <value>]
     [--metadata <value>] [--reward <value>] [--minStake <value>] [--oracleTimeout <value>] [--slashingEnabled]
@@ -6014,13 +6066,13 @@ DESCRIPTION
   create an oracle queue
 ```
 
-## `sbv2 solana queue print QUEUEKEY`
+## `sb solana queue print QUEUEKEY`
 
 print a queue account
 
 ```
 USAGE
-  $ sbv2 solana queue print QUEUEKEY [-h] [-v] [-s] [--mainnetBeta | --cluster devnet|mainnet-beta|mainnet|localnet] [-u
+  $ sb solana queue print QUEUEKEY [-h] [-v] [-s] [--mainnetBeta | --cluster devnet|mainnet-beta|mainnet|localnet] [-u
     <value>] [--programId <value>] [--commitment confirmed|finalized|processed] [--json] [--oracles]
 
 ARGUMENTS
@@ -6046,13 +6098,13 @@ DESCRIPTION
   print a queue account
 ```
 
-## `sbv2 solana queue set QUEUEKEY`
+## `sb solana queue set QUEUEKEY`
 
 set an oracle queue's config
 
 ```
 USAGE
-  $ sbv2 solana queue set QUEUEKEY [-h] [-v] [-s] [--mainnetBeta | --cluster devnet|mainnet-beta|mainnet|localnet] [-u
+  $ sb solana queue set QUEUEKEY [-h] [-v] [-s] [--mainnetBeta | --cluster devnet|mainnet-beta|mainnet|localnet] [-u
     <value>] [--programId <value>] [--commitment confirmed|finalized|processed] [-k <value>] [--ledgerPath <value>
     --ledger] [--json] [-a <value>] [--name <value>] [--metadata <value>] [--reward <value>] [--minStake <value>]
     [--oracleTimeout <value>] [--slashingEnabled] [--unpermissionedFeeds | --permissionedFeeds] [--unpermissionedVrf]
@@ -6105,13 +6157,13 @@ DESCRIPTION
   set an oracle queue's config
 ```
 
-## `sbv2 solana vrf open-round VRFKEY`
+## `sb solana vrf open-round VRFKEY`
 
 request a new vrf result from a set of oracles
 
 ```
 USAGE
-  $ sbv2 solana vrf open-round VRFKEY [-h] [-v] [-s] [--mainnetBeta | --cluster devnet|mainnet-beta|mainnet|localnet] [-u
+  $ sb solana vrf open-round VRFKEY [-h] [-v] [-s] [--mainnetBeta | --cluster devnet|mainnet-beta|mainnet|localnet] [-u
     <value>] [--programId <value>] [--commitment confirmed|finalized|processed] [-k <value>] [--ledgerPath <value>
     --ledger] [--authority <value>]
 
@@ -6139,20 +6191,20 @@ DESCRIPTION
   request a new vrf result from a set of oracles
 
 ALIASES
-  $ sbv2 solana vrf update
-  $ sbv2 solana vrf open-round
+  $ sb solana vrf update
+  $ sb solana vrf open-round
 
 EXAMPLES
-  $ sbv2 solana vrf request
+  $ sb solana vrf request
 ```
 
-## `sbv2 solana vrf print VRFKEY`
+## `sb solana vrf print VRFKEY`
 
 print a VRF and it's associated accounts
 
 ```
 USAGE
-  $ sbv2 solana vrf print VRFKEY [-h] [-v] [-s] [--mainnetBeta | --cluster devnet|mainnet-beta|mainnet|localnet] [-u
+  $ sb solana vrf print VRFKEY [-h] [-v] [-s] [--mainnetBeta | --cluster devnet|mainnet-beta|mainnet|localnet] [-u
     <value>] [--programId <value>] [--commitment confirmed|finalized|processed] [--json]
 
 ARGUMENTS
@@ -6177,13 +6229,13 @@ DESCRIPTION
   print a VRF and it's associated accounts
 ```
 
-## `sbv2 solana vrf request VRFKEY`
+## `sb solana vrf request VRFKEY`
 
 request a new vrf result from a set of oracles
 
 ```
 USAGE
-  $ sbv2 solana vrf request VRFKEY [-h] [-v] [-s] [--mainnetBeta | --cluster devnet|mainnet-beta|mainnet|localnet] [-u
+  $ sb solana vrf request VRFKEY [-h] [-v] [-s] [--mainnetBeta | --cluster devnet|mainnet-beta|mainnet|localnet] [-u
     <value>] [--programId <value>] [--commitment confirmed|finalized|processed] [-k <value>] [--ledgerPath <value>
     --ledger] [--authority <value>]
 
@@ -6211,20 +6263,20 @@ DESCRIPTION
   request a new vrf result from a set of oracles
 
 ALIASES
-  $ sbv2 solana vrf update
-  $ sbv2 solana vrf open-round
+  $ sb solana vrf update
+  $ sb solana vrf open-round
 
 EXAMPLES
-  $ sbv2 solana vrf request
+  $ sb solana vrf request
 ```
 
-## `sbv2 solana vrf update VRFKEY`
+## `sb solana vrf update VRFKEY`
 
 request a new vrf result from a set of oracles
 
 ```
 USAGE
-  $ sbv2 solana vrf update VRFKEY [-h] [-v] [-s] [--mainnetBeta | --cluster devnet|mainnet-beta|mainnet|localnet] [-u
+  $ sb solana vrf update VRFKEY [-h] [-v] [-s] [--mainnetBeta | --cluster devnet|mainnet-beta|mainnet|localnet] [-u
     <value>] [--programId <value>] [--commitment confirmed|finalized|processed] [-k <value>] [--ledgerPath <value>
     --ledger] [--authority <value>]
 
@@ -6252,20 +6304,20 @@ DESCRIPTION
   request a new vrf result from a set of oracles
 
 ALIASES
-  $ sbv2 solana vrf update
-  $ sbv2 solana vrf open-round
+  $ sb solana vrf update
+  $ sb solana vrf open-round
 
 EXAMPLES
-  $ sbv2 solana vrf request
+  $ sb solana vrf request
 ```
 
-## `sbv2 update [CHANNEL]`
+## `sb update [CHANNEL]`
 
-update the sbv2 CLI
+update the sb CLI
 
 ```
 USAGE
-  $ sbv2 update [CHANNEL] [-a] [-v <value> | -i] [--force]
+  $ sb update [CHANNEL] [-a] [-v <value> | -i] [--force]
 
 FLAGS
   -a, --available        Install a specific version.
@@ -6274,33 +6326,33 @@ FLAGS
   --force                Force a re-download of the requested version.
 
 DESCRIPTION
-  update the sbv2 CLI
+  update the sb CLI
 
 EXAMPLES
   Update to the stable channel:
 
-    $ sbv2 update stable
+    $ sb update stable
 
   Update to a specific version:
 
-    $ sbv2 update --version 1.0.0
+    $ sb update --version 1.0.0
 
   Interactively select version:
 
-    $ sbv2 update --interactive
+    $ sb update --interactive
 
   See available versions:
 
-    $ sbv2 update --available
+    $ sb update --available
 ```
 
-_See code: [@oclif/plugin-update](https://github.com/oclif/plugin-update/blob/v3.1.3/src/commands/update.ts)_
+_See code: [@oclif/plugin-update](https://github.com/oclif/plugin-update/blob/v3.1.22/src/commands/update.ts)_
 
-## `sbv2 version`
+## `sb version`
 
 ```
 USAGE
-  $ sbv2 version [--json] [--verbose]
+  $ sb version [--json] [--verbose]
 
 FLAGS
   --verbose  Show additional information about the CLI.
@@ -6314,6 +6366,5 @@ FLAG DESCRIPTIONS
     Additionally shows the architecture, node version, operating system, and versions of plugins that the CLI is using.
 ```
 
-_See code: [@oclif/plugin-version](https://github.com/oclif/plugin-version/blob/v1.2.1/src/commands/version.ts)_
-
+_See code: [@oclif/plugin-version](https://github.com/oclif/plugin-version/blob/v1.3.6/src/commands/version.ts)_
 <!-- commandsstop -->

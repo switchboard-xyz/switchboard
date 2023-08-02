@@ -10,7 +10,7 @@ export default class OraclePrint extends BaseCommand {
   static description = "print an oracle";
 
   static examples = [
-    "$ sbv2 evm oracle print 0x5eeFE1CA9D1093a59aC9278cC6D296A4eeDd6385 --arbitrum --testnet",
+    "$ sb evm oracle print 0x5eeFE1CA9D1093a59aC9278cC6D296A4eeDd6385 --arbitrum --testnet",
   ];
 
   static flags = {

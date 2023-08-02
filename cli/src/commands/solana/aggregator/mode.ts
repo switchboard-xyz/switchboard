@@ -8,7 +8,7 @@ export default class AggregatorMode extends BaseCommand {
 
   static description = "set an aggregators resolution mode config";
 
-  // static examples = ["$ sbv2 solana:aggregator:add:job"];
+  // static examples = ["$ sb solana:aggregator:add:job"];
 
   static flags = {
     ...BaseCommand.flags,

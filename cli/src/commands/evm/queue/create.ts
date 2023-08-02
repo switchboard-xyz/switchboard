@@ -11,8 +11,8 @@ export default class QueueCreate extends BaseCommand {
   static aliases = ["evm:create:queue"];
 
   static examples = [
-    `$ sbv2 evm queue create --arbitrum --testnet --account ~/.config/arbitrum/testnet.txt --name 'my queue' --oracleTimeout 3600 --queueSize 8`,
-    "$ sbv2 evm queue create --arbitrum --testnet --account ~/.config/arbitrum/testnet.txt --unpermissionedFeeds",
+    `$ sb evm queue create --arbitrum --testnet --account ~/.config/arbitrum/testnet.txt --name 'my queue' --oracleTimeout 3600 --queueSize 8`,
+    "$ sb evm queue create --arbitrum --testnet --account ~/.config/arbitrum/testnet.txt --unpermissionedFeeds",
   ];
 
   static flags = {

@@ -35,7 +35,7 @@ export default class AggregatorLeaseWithdraw extends BaseCommand {
   };
 
   static examples = [
-    "$ sbv2 solana:aggregator:withdraw GvDMxPzN1sCj7L26YDK2HnMRXEQmQ2aemov8YBtPS7vR --amount 1.1 --keypair ../payer-keypair.json",
+    "$ sb solana:aggregator:withdraw GvDMxPzN1sCj7L26YDK2HnMRXEQmQ2aemov8YBtPS7vR --amount 1.1 --keypair ../payer-keypair.json",
   ];
 
   async run() {
