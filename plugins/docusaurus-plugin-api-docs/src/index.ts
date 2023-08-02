@@ -4,8 +4,15 @@ import { CURRENT_VERSION_NAME } from "./docs/constants";
 import { OclifGenerator } from "./modules/oclif";
 import { ProtobufGenerator } from "./modules/protobufs/generator";
 import { TypedocGenerator } from "./modules/typedoc";
-import { formatPackagesWithoutHostInfo, generateJson, loadPackageJsonAndDocs } from "./plugin/data";
-import { getVersionedDocsDirPath, readVersionsMetadata } from "./plugin/version";
+import {
+  formatPackagesWithoutHostInfo,
+  generateJson,
+  loadPackageJsonAndDocs,
+} from "./plugin/data";
+import {
+  getVersionedDocsDirPath,
+  readVersionsMetadata,
+} from "./plugin/version";
 import { DEFAULT_OPTIONS } from "./const";
 import { postSidebarItems, preSidebarItems, sortPackages } from "./sidebar";
 import type {
@@ -20,8 +27,16 @@ import { getComponentPath } from "./utils";
 
 import logger from "@docusaurus/logger";
 import type { PropSidebarItem } from "@docusaurus/plugin-content-docs";
-import type { PropVersionDocs, PropVersionMetadata } from "@docusaurus/plugin-content-docs";
-import type { LoadContext, Plugin, PluginContentLoadedActions, RouteConfig } from "@docusaurus/types";
+import type {
+  PropVersionDocs,
+  PropVersionMetadata,
+} from "@docusaurus/plugin-content-docs";
+import type {
+  LoadContext,
+  Plugin,
+  PluginContentLoadedActions,
+  RouteConfig,
+} from "@docusaurus/types";
 import { DEFAULT_PLUGIN_ID, normalizeUrl } from "@docusaurus/utils";
 import fs from "fs";
 import _ from "lodash";
@@ -40,9 +55,8 @@ export default function apiDocsPlugin(
   logger.info(`Using custom api docs plugin`);
 
   const localOptionsFile = path.join(context.siteDir, "api-docs.config.js");
-  const localOptions: Partial<DocusaurusPluginTypeDocApiOptions> = fs.existsSync(localOptionsFile)
-    ? require(localOptionsFile)
-    : undefined;
+  const localOptions: Partial<DocusaurusPluginTypeDocApiOptions> =
+    fs.existsSync(localOptionsFile) ? require(localOptionsFile) : undefined;
   if (localOptions) {
     logger.info(`Loaded custom api doc options from config file`);
   }
@@ -68,47 +82,54 @@ export default function apiDocsPlugin(
 
   // Determine entry points from configs
   const entryPoints: string[] = [];
-  const packageConfigs: ResolvedPackageConfig[] = options.packages.map((pkgItem) => {
-    const pkgConfig = typeof pkgItem === "string" ? { path: pkgItem } : pkgItem;
-    const entries: Record<string, PackageEntryConfig> = {};
+  const packageConfigs: ResolvedPackageConfig[] = options.packages.map(
+    (pkgItem) => {
+      const pkgConfig =
+        typeof pkgItem === "string" ? { path: pkgItem } : pkgItem;
+      const entries: Record<string, PackageEntryConfig> = {};
 
-    if (!pkgConfig.entry || typeof pkgConfig.entry === "string") {
-      entries.index = {
-        label: "Index",
-        path: pkgConfig.entry ?? ("src/index.ts" as any),
-      };
-    } else {
-      Object.entries(pkgConfig.entry).forEach(([importPath, entryConfig]) => {
-        entries[importPath] =
-          typeof entryConfig === "string"
-            ? {
-                label: "Index",
-                path: entryConfig,
-              }
-            : entryConfig;
+      if (!pkgConfig.entry || typeof pkgConfig.entry === "string") {
+        entries.index = {
+          label: "Index",
+          path: pkgConfig.entry ?? ("src/index.ts" as any),
+        };
+      } else {
+        Object.entries(pkgConfig.entry).forEach(([importPath, entryConfig]) => {
+          entries[importPath] =
+            typeof entryConfig === "string"
+              ? {
+                  label: "Index",
+                  path: entryConfig,
+                }
+              : entryConfig;
+        });
+      }
+
+      Object.values(entries).forEach((entryConfig) => {
+        entryPoints.push(path.join(pkgConfig.path, entryConfig.path));
       });
+
+      return {
+        entryPoints: entries,
+        packagePath: pkgConfig.path || ".",
+        packageSlug: pkgConfig.slug ?? path.basename(pkgConfig.path),
+        // Load later on
+        packageName: "",
+        packageVersion: "",
+      };
     }
-
-    Object.values(entries).forEach((entryConfig) => {
-      entryPoints.push(path.join(pkgConfig.path, entryConfig.path));
-    });
-
-    return {
-      entryPoints: entries,
-      packagePath: pkgConfig.path || ".",
-      packageSlug: pkgConfig.slug ?? path.basename(pkgConfig.path),
-      // Load later on
-      packageName: "",
-      packageVersion: "",
-    };
-  });
+  );
 
   return {
     name: "docusaurus-plugin-api-docs",
 
     extendCli(cli) {
-      const command = isDefaultPluginId ? "api:version" : `api:version:${pluginId}`;
-      const commandDescription = isDefaultPluginId ? "Tag a new API version" : `Tag a new API version (${pluginId})`;
+      const command = isDefaultPluginId
+        ? "api:version"
+        : `api:version:${pluginId}`;
+      const commandDescription = isDefaultPluginId
+        ? "Tag a new API version"
+        : `Tag a new API version (${pluginId})`;
 
       cli
         .command(command)
@@ -120,7 +141,12 @@ export default function apiDocsPlugin(
 
           console.log(`[${prefix}]:`, "Generating docs...");
 
-          await generateJson(projectRoot, entryPoints, path.join(outDir, "api-typedoc.json"), options);
+          await generateJson(
+            projectRoot,
+            entryPoints,
+            path.join(outDir, "api-typedoc.json"),
+            options
+          );
 
           console.log(`[${prefix}]:`, "Persisting packages...");
 
@@ -139,12 +165,19 @@ export default function apiDocsPlugin(
             cfg.packageVersion = packageJson.version;
           });
 
-          await fs.promises.writeFile(path.join(outDir, "api-packages.json"), JSON.stringify(packageConfigs), "utf8");
+          await fs.promises.writeFile(
+            path.join(outDir, "api-packages.json"),
+            JSON.stringify(packageConfigs),
+            "utf8"
+          );
 
           logger.info(`[${prefix}]: version ${version} created!`);
 
           try {
-            const protos = await ProtobufGenerator.load(generatorContext, await versionsMetadata);
+            const protos = await ProtobufGenerator.load(
+              generatorContext,
+              await versionsMetadata
+            );
             await fs.promises.writeFile(
               path.join(outDir, "protobuf-messages.json"),
               JSON.stringify(protos.protobufs.tasks),
@@ -152,7 +185,9 @@ export default function apiDocsPlugin(
             );
             logger.info(`[${prefix}]: protobuf version ${version} created!`);
           } catch (error) {
-            logger.warn(`[${prefix}]: failed to create protobuf JSON for version ${version}`);
+            logger.warn(
+              `[${prefix}]: failed to create protobuf JSON for version ${version}`
+            );
           }
         });
     },
@@ -182,14 +217,26 @@ export default function apiDocsPlugin(
         entryPoints
       );
 
-      const oclif = await OclifGenerator.load(generatorContext, await versionsMetadata);
+      const oclif = await OclifGenerator.load(
+        generatorContext,
+        await versionsMetadata
+      );
 
-      const protos = await ProtobufGenerator.load(generatorContext, await versionsMetadata);
+      const protos = await ProtobufGenerator.load(
+        generatorContext,
+        await versionsMetadata
+      );
 
       return { typedocs, oclif, protos };
     },
 
-    async contentLoaded({ content, actions }: { content: MyPluginContent; actions: PluginContentLoadedActions }) {
+    async contentLoaded({
+      content,
+      actions,
+    }: {
+      content: MyPluginContent;
+      actions: PluginContentLoadedActions;
+    }) {
       if (!content) {
         return;
       }
@@ -208,7 +255,10 @@ export default function apiDocsPlugin(
             className: loadedVersion.versionClassName,
             docs,
             docsSidebars: {
-              api: loadedVersion.versionName in sidebarItems ? sidebarItems[loadedVersion.versionName] : [],
+              api:
+                loadedVersion.versionName in sidebarItems
+                  ? sidebarItems[loadedVersion.versionName]
+                  : [],
             },
             isLast: loadedVersion.isLast,
             label: loadedVersion.versionLabel,
@@ -243,9 +293,10 @@ export default function apiDocsPlugin(
         const protosData = await actions.createData(
           `protobuf-messages-${version}.json`,
           JSON.stringify(
-            [content.protos.protobufs.oracleJob, content.protos.protobufs.oracleJobTask].concat(
-              ...content.protos.protobufs.tasks
-            )
+            [
+              content.protos.protobufs.oracleJob,
+              content.protos.protobufs.oracleJobTask,
+            ].concat(...content.protos.protobufs.tasks)
           )
         );
 
@@ -259,7 +310,9 @@ export default function apiDocsPlugin(
       }
 
       /** Create the versionMetadata and react context data for each version */
-      async function createPluginData(loadedVersions: LoadedVersion[]): Promise<Record<string, PluginRouteData>> {
+      async function createPluginData(
+        loadedVersions: LoadedVersion[]
+      ): Promise<Record<string, PluginRouteData>> {
         const docs: PropVersionDocs = {};
         // Create an index of versions for quick lookups.
         // This is hacky, but it works, so shrug.
@@ -276,7 +329,10 @@ export default function apiDocsPlugin(
         const pluginData: Record<string, PluginRouteData> = Object.fromEntries(
           await Promise.all(
             loadedVersions.map(async (loadedVersion) => {
-              const pluginData = await createPluginVersionData(loadedVersion, docs);
+              const pluginData = await createPluginVersionData(
+                loadedVersion,
+                docs
+              );
               return [loadedVersion.versionName, pluginData];
             })
           )
@@ -352,8 +408,8 @@ export default function apiDocsPlugin(
           },
           {
             type: "link",
-            label: "switchboard-utils",
-            href: "https://docs.rs/switchboard-utils/latest/switchboard_utils/",
+            label: "switchboard-evm",
+            href: "https://docs.rs/switchboard-evm/latest/switchboard_evm/",
           },
           {
             type: "link",
@@ -362,8 +418,8 @@ export default function apiDocsPlugin(
           },
           {
             type: "link",
-            label: "switchboard-evm",
-            href: "https://docs.rs/switchboard-evm/latest/switchboard_evm/",
+            label: "switchboard-utils",
+            href: "https://docs.rs/switchboard-utils/latest/switchboard_utils/",
           },
           {
             type: "link",
@@ -416,7 +472,8 @@ export default function apiDocsPlugin(
       });
 
       // This is where the sidebar gets created
-      const pluginData: Record<string, PluginRouteData> = await createPluginData(content.typedocs.loadedVersions);
+      const pluginData: Record<string, PluginRouteData> =
+        await createPluginData(content.typedocs.loadedVersions);
 
       const typedocVersionsRoutes = await content.typedocs.fetchRoutes();
       const oclifVersionsRoutes = await content.oclif.fetchRoutes();
@@ -431,27 +488,42 @@ export default function apiDocsPlugin(
           // First collect and combine all routes, we will need this to generate the sidebar
           const allRoutes: RouteConfig[] = [];
 
-          const typedocRoutes = typedocVersionsRoutes[loadedVersion.versionName] ?? [];
+          const typedocRoutes =
+            typedocVersionsRoutes[loadedVersion.versionName] ?? [];
           allRoutes.push(...typedocRoutes);
           if (typedocRoutes.length === 0) {
-            logger.warn(`No typedoc routes found for version ${loadedVersion.versionName}`);
+            logger.warn(
+              `No typedoc routes found for version ${loadedVersion.versionName}`
+            );
             return;
           }
 
-          const oclifRoutes = oclifVersionsRoutes[loadedVersion.versionName] ?? [];
+          const oclifRoutes =
+            oclifVersionsRoutes[loadedVersion.versionName] ?? [];
           allRoutes.push(...oclifRoutes);
           if (oclifRoutes.length === 0) {
-            logger.warn(`No cli routes found for version ${loadedVersion.versionName}`);
+            logger.warn(
+              `No cli routes found for version ${loadedVersion.versionName}`
+            );
           }
 
-          const protobufRoutes = protobufVersionsRoutes[loadedVersion.versionName] ?? [];
+          const protobufRoutes =
+            protobufVersionsRoutes[loadedVersion.versionName] ?? [];
           allRoutes.push(...protobufRoutes);
           if (protobufRoutes.length === 0) {
-            logger.warn(`No protobuf routes found for version ${loadedVersion.versionName}`);
+            logger.warn(
+              `No protobuf routes found for version ${loadedVersion.versionName}`
+            );
           }
 
           // Then get the pluginData paths to build the components
-          const { versionMetadata, pluginOptions, packages, commands, protobufMessages } =
+          const {
+            versionMetadata,
+            pluginOptions,
+            packages,
+            commands,
+            protobufMessages,
+          } =
             loadedVersion.versionName in versionsMetadata
               ? versionsMetadata[loadedVersion.versionName]
               : {
@@ -461,8 +533,16 @@ export default function apiDocsPlugin(
                   commands: undefined,
                   protobufMessages: undefined,
                 };
-          if (!versionMetadata || !pluginOptions || !packages || !commands || !protobufMessages) {
-            logger.warn(`Failed to find metadata for version ${loadedVersion.versionName}`);
+          if (
+            !versionMetadata ||
+            !pluginOptions ||
+            !packages ||
+            !commands ||
+            !protobufMessages
+          ) {
+            logger.warn(
+              `Failed to find metadata for version ${loadedVersion.versionName}`
+            );
             return;
           }
 
@@ -482,7 +562,11 @@ export default function apiDocsPlugin(
 
           // Create the protobuf overview routes
           allRoutes.push({
-            path: normalizeUrl([loadedVersion.versionPath, "protos", "OracleJob"]),
+            path: normalizeUrl([
+              loadedVersion.versionPath,
+              "protos",
+              "OracleJob",
+            ]),
             exact: true,
             component: getComponentPath("ProtoIndex"),
             modules: {
@@ -556,7 +640,7 @@ export default function apiDocsPlugin(
                   options: {
                     admonitions: true,
                     staticDir: path.join(context.siteDir, "static"),
-                    // Since this isnt a doc/blog page, we can get
+                    // Since this isn't a doc/blog page, we can get
                     // away with it being a partial!
                     isMDXPartial: () => true,
                     markdownConfig: context.siteConfig.markdown,

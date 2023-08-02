@@ -35,7 +35,8 @@ function addVersionToUrl(
     preferredVersion &&
     preferredVersion.name !== latestVersion.version
   ) {
-    const version = preferredVersion.name === "current" ? "next" : preferredVersion.name;
+    const version =
+      preferredVersion.name === "current" ? "next" : preferredVersion.name;
 
     if (url.endsWith("/api")) {
       return `${url}/${version}`;
@@ -47,7 +48,14 @@ function addVersionToUrl(
   return url;
 }
 
-export default function ApiIndex({ history, options, packages, tasks, readme: Readme, route }: ApiIndexProps) {
+export default function ApiIndex({
+  history,
+  options,
+  packages,
+  tasks,
+  readme: Readme,
+  route,
+}: ApiIndexProps) {
   const latestVersion = useDocsVersion();
   const { preferredVersion } = useDocsPreferredVersion(latestVersion.pluginId);
 
@@ -55,12 +63,22 @@ export default function ApiIndex({ history, options, packages, tasks, readme: Re
     // Redirect to package when only 1
     if (packages.length === 1) {
       history.replace(
-        addVersionToUrl(packages[0].entryPoints[0].reflection.permalink, latestVersion, preferredVersion)
+        addVersionToUrl(
+          packages[0].entryPoints[0].reflection.permalink,
+          latestVersion,
+          preferredVersion
+        )
       );
 
       // Redirect to preferred version
     } else if (preferredVersion) {
-      history.replace(addVersionToUrl(history.location.pathname, latestVersion, preferredVersion));
+      history.replace(
+        addVersionToUrl(
+          history.location.pathname,
+          latestVersion,
+          preferredVersion
+        )
+      );
     }
   }, [packages, history, latestVersion, preferredVersion]);
 
@@ -187,7 +205,10 @@ export default function ApiIndex({ history, options, packages, tasks, readme: Re
                 </li>
                 {packages.map((pkg) => (
                   <li key={pkg.packageName} className="tsd-truncate">
-                    <Link className="tsd-kind-icon" to={pkg.entryPoints[0].reflection.permalink}>
+                    <Link
+                      className="tsd-kind-icon"
+                      to={pkg.entryPoints[0].reflection.permalink}
+                    >
                       <span
                         className="tsd-signature-symbol"
                         style={{
@@ -209,6 +230,59 @@ export default function ApiIndex({ history, options, packages, tasks, readme: Re
             </div>
           </section>
 
+          <section id="rust" className="tsd-panel">
+            <h3 className="tsd-panel-header">Rust Crates</h3>
+            <div className="tsd-panel-content">
+              <ul className="tsd-index-list">
+                <li className="tsd-truncate">
+                  <Link
+                    href={
+                      "https://docs.rs/switchboard-common/latest/switchboard_common/"
+                    }
+                  >
+                    switchboard-common
+                  </Link>
+                </li>
+                <li className="tsd-truncate">
+                  <Link
+                    href={
+                      "https://docs.rs/switchboard-utils/latest/switchboard_utils/"
+                    }
+                  >
+                    switchboard-utils
+                  </Link>
+                </li>
+                <li className="tsd-truncate">
+                  <Link
+                    href={
+                      "https://docs.rs/switchboard-solana/latest/switchboard_solana/"
+                    }
+                  >
+                    switchboard-solana
+                  </Link>
+                </li>
+                <li className="tsd-truncate">
+                  <Link
+                    href={
+                      "https://docs.rs/switchboard-evm/latest/switchboard_evm/"
+                    }
+                  >
+                    switchboard-evm
+                  </Link>
+                </li>
+                <li className="tsd-truncate">
+                  <Link
+                    href={
+                      "https://docs.rs/switchboard-v2/latest/switchboard_v2/"
+                    }
+                  >
+                    (Deprecated) switchboard-v2
+                  </Link>
+                </li>
+              </ul>
+            </div>
+          </section>
+
           {/* <h2 id="protobufs">Protobufs</h2> */}
           <section id="protobufs" className="tsd-panel">
             <h3 className="tsd-panel-header">
@@ -217,7 +291,9 @@ export default function ApiIndex({ history, options, packages, tasks, readme: Re
             <div className="tsd-panel-content">
               <ul className="tsd-index-list">
                 {tasks
-                  .filter((task) => task.name !== "OracleJob" && task.name !== "Task")
+                  .filter(
+                    (task) => task.name !== "OracleJob" && task.name !== "Task"
+                  )
                   .sort((a, b) => a.name.localeCompare(b.name))
                   .map((task) => (
                     <li key={task.id} className="tsd-truncate">
@@ -229,26 +305,6 @@ export default function ApiIndex({ history, options, packages, tasks, readme: Re
                       <Link href={"/api/" + task.permalink}>{task.name}</Link>
                     </li>
                   ))}
-              </ul>
-            </div>
-          </section>
-
-          <section id="rust" className="tsd-panel">
-            <h3 className="tsd-panel-header">Rust Crates</h3>
-            <div className="tsd-panel-content">
-              <ul className="tsd-index-list">
-                <li className="tsd-truncate">
-                  <Link href={"https://docs.rs/switchboard-common/latest/switchboard_common/"}>switchboard-common</Link>
-                </li>
-                <li className="tsd-truncate">
-                  <Link href={"https://docs.rs/switchboard-utils/latest/switchboard_utils/"}>switchboard-utils</Link>
-                </li>
-                <li className="tsd-truncate">
-                  <Link href={"https://docs.rs/switchboard-solana/latest/switchboard_solana/"}>switchboard-solana</Link>
-                </li>
-                <li className="tsd-truncate">
-                  <Link href={"https://docs.rs/switchboard-v2/latest/switchboard_v2/"}>switchboard-v2</Link>
-                </li>
               </ul>
             </div>
           </section>
