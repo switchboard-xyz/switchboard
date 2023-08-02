@@ -3,34 +3,121 @@ sidebar_position: 1
 hide_title: true
 hide_table_of_contents: true
 title: Switchboard x Solana
+sidebar_class_name: "sidebar__solana"
 keywords: [Solana, Solana SDK, Switchboard Solana SDK]
 ---
 
 import ChainAddresses from "/src/components/Addresses/ChainAddresses";
-import SdkPage from "/src/components/SDK/SdkPage";
 import AddressButton from "/src/components/AddressButton";
 import { Grid } from "@mui/material";
 
-<SdkPage chain="solana" repo="sbv2-solana" sdks={[]} />
+<Grid 
+  container 
+  spacing={2}   
+  justifyContent="flex-start"
+  alignItems="flex-start"
+>
+  <Grid xs={12}>
+    <div style={{ textAlign: "center" }}>
+      <h1>Switchboard x Solana</h1>
+    </div>
+  </Grid>
+  <Grid item xs={9}>
 
-## Oracle Program
+## Program
 
-The Oracle Program was deployed to Solana mainnet in January of 2022.
-The Oracle Program supports Data Feeds and Verifiable Randomness Functions (VRF) in a permissioned and permissionless manner.
+Switchboard V1 was the first oracle network deployed on Solana mainnet in
+May 2021. The Oracle Program supports data feeds and verifiablle randomness
+using a round-robin queue of off-chain oracles fulfilling update request. The
+Attestation Program supports functions, secrets, and legacy data feeds using an
+attestation service to verify that the execution of off-chain code was conducted
+within a trusted execution environment (TEE).
 
-**Program ID**: <AddressButton address="SW1TCH7qEPTdLsDHRgPuMQjbQxKdH2aBStViMFnt64f" trim={12} />
+You can find the program IDs for these deployments below, or check out
+[The Network](/network) page to also view the Switchboard Labs supported oracle
+networks.
 
-**IDL Address**: <AddressButton address="Fi8vncGpNKbq62gPo56G4toCehWNy77GgqGkTaAF5Lkk" trim={12} />
+<div>
+  <strong>Oracle Program</strong>:{" "}
+  <AddressButton address="SW1TCH7qEPTdLsDHRgPuMQjbQxKdH2aBStViMFnt64f" />
+</div>
 
-## The Attestation Program
+<div>
+  <strong>Attestation Program</strong>:{" "}
+  <AddressButton address="sbattyXrzedoNATfc4L31wC9Mhxsi1BmFhTiN8gDshx" />
+</div>
 
-The Attestation Program supports Switchboard Functions, Secrets, and legacy Data Feeds.
-Data Feeds on an oracle queue with the sgx setting enabled enforces oracles to heartbeat weekly with an
-attestation report signaling that they are running within a secure enclave.
+<hr />
 
-**Program ID**: <AddressButton address="sbattyXrzedoNATfc4L31wC9Mhxsi1BmFhTiN8gDshx" trim={12} />
+## Getting Started
 
-**IDL Address**: <AddressButton address="5ExuoQR69trmKQfB95fDsUGsUrrChbGq9PFgt8qouncz" trim={12} />
+The [switchboard-xyz/solana-sdk](https://github.com/switchboard-xyz/solana-sdk)
+contains the Solana specific SDKs and examples for operating Switchboard.
+
+```bash
+git clone https://github.com/switchboard-xyz/solana-sdk
+```
+
+## Functions
+
+Switchboard Functions allow you to execute your own code off-chain in a
+verifiable manner allowing you to build more dynamic programs. This allows you
+to publish **_ANY_** data you want on a cron-based schedule, perform basic
+maintenance operations, and execute async operations for your users! This lets
+you have users interact with your program then perform async checks off-chain to
+prevent data staleness and oracle extractable value attacks. Switchboard
+Functions are flexible enough for any use case you can imagine without
+sacrificing security.
+
+- [Functions Overview](/solana/functions)
+- [Ex. 01: Basic Oracle Example](/solana/functions/examples/basic-oracle-example)
+- [Ex. 02: Randomness Callback](/solana/functions/examples/randomness-callback)
+
+## Data Feeds
+
+Switchboard Data Feeds allow you to permissionless publish a data point on-chain
+for use with your smart contracts. These values are published at a periodic
+interval such that your users do not need to wait for any off-chain execution in
+order to consume the values.
+
+- [Data Feed Best Practices](guides/feeds/best-practices)
+- [Ex. 01: Read Data Feed On-Chain](/solana/feeds/examples/read-data-feed)
+
+## Verifiable Random Function
+
+Switchboard's Verifiable Random Function (VRF) on Solana allows you to request
+randomness and execute a subsequent user defined callback on fulfillment. This
+ensures your users are always consuming a newly provided randomness value,
+preventing a malicous user from waiting for a favorable value and gaming your
+smart contract.
+
+This is very computationally intensive and requires 48 transactions to verify
+on-chain. Users should instead use the
+[Randomness Callback Function](/solana/functions/examples/randomness-callback)
+to generate randomness in a single transaction at <span>1 / 20</span> of the
+cost!
+
+- [VRF Integration](/solana/vrf)
+- [VRF Flip](https://github.com/switchboard-xyz/vrf-flip): View a
+  [demo app](https://vrf-demo.switchboard.xyz/) that simulates a heads-or-tails
+  coin toss.
+
+</Grid>
+<Grid item xs={3}>
+
+## SDKs
+
+- <span class="heading_icon__javascript">
+    <a href="/api/solana.js">Javascript: @switchboard-xyz/solana.js</a>
+  </span>
+- <span class="heading_icon__rust">
+    <a href="https://docs.rs/switchboard-solana">Rust: switchboard-solana</a>
+  </span>
+- <span class="heading_icon__terminal">
+    <a href="/api/cli">CLI: sbv2</a>
+  </span>
+
+View the [Developer Resources](/solana/dev) for code samples.
 
 ## Quick Links
 
@@ -41,9 +128,8 @@ attestation report signaling that they are running within a secure enclave.
 - [VRF Integration](/solana/vrf)
 - [Test Integration](/solana/test-integration)
 
-## Troubleshooting
+For support, ask a question in
+[Discord #dev-solana](https://discord.com/channels/841525135311634443/984343400377647144)
 
-1. File a
-   [GitHub Issue](https://github.com/switchboard-xyz/solana-sdk/issues/new)
-2. Ask a question in
-   [Discord #dev-support](https://discord.com/channels/841525135311634443/984343400377647144)
+</Grid>
+</Grid>

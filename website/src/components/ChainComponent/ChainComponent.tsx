@@ -61,12 +61,12 @@ export default function ChainComponent({ hideTitle, sx }: ChainComponentProps) {
       image: useBaseUrl("/img/icons/aptos/logo.svg"),
     },
     {
-      to: "/evm",
+      to: "/evm/arbitrum",
       title: "Arbitrum",
       image: useBaseUrl("/img/icons/arbitrum/logo.svg"),
     },
     {
-      to: "/evm",
+      to: "/evm/coredao",
       title: "CoreDAO",
       image: useBaseUrl("/img/icons/coredao/logo.svg"),
     },

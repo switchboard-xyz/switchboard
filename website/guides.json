@@ -68,8 +68,8 @@
       "tags": ["data feeds", "randomness", "functions"]
     },
     {
-      "label": "Javascript: @switchboard-xyz/evm.js",
-      "link": "/evm/javascript",
+      "label": "EVM Developer Resources",
+      "link": "/evm/dev",
       "language": "javascript",
       "tags": ["data feeds", "functions"],
       "chain": "evm"

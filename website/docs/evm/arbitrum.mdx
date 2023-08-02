@@ -1,10 +1,10 @@
 ---
-sidebar_position: 1
+sidebar_position: 3
 hide_title: true
 hide_table_of_contents: true
-title: Switchboard x EVM
-sidebar_class_name: "sidebar__solidity"
-keywords: [EVM, EVM SDK, Switchboard EVM SDK]
+title: Switchboard x Arbitrum
+sidebar_class_name: "sidebar__arbitrum"
+keywords: [Arbitrum, Arbitrum SDK, Switchboard Arbitrum SDK]
 ---
 
 import ChainAddresses from "/src/components/Addresses/ChainAddresses";
@@ -20,33 +20,24 @@ import { Grid } from "@mui/material";
 >
   <Grid xs={12}>
     <div style={{ textAlign: "center" }}>
-      <h1>Switchboard x EVM</h1>
+      <h1>Switchboard x Arbitrum</h1>
     </div>
   </Grid>
   <Grid item xs={9}>
 
 ## Contract
 
-Switchboard is compatible with EVM based chains and is currently deployed on the
-following chains. Check out [The Network](/network) page to see all of the
-Switchboard supported chains along with the Switchboard Labs operated queues.
+You can find the program IDs for the Switchboard x Arbitrum deployments below,
+or check out [The Network](/network) page to also view the Switchboard Labs
+supported oracle networks.
 
-<Grid container>
-  <Grid item>
-    <ChainIcon
-      to="/evm/coredao"
-      title="CoreDAO"
-      image="/img/icons/coredao/logo.svg"
-    />
-  </Grid>
-  <Grid item>
-    <ChainIcon
-      to="/evm/arbitrum"
-      title="Arbitrum"
-      image="/img/icons/arbitrum/logo.svg"
-    />
-  </Grid>
-</Grid>
+<div>
+  <strong>Oracle Program</strong>: <AddressButton address="" />
+</div>
+
+<div>
+  <strong>Attestation Program</strong>: <AddressButton address="" />
+</div>
 
 <hr />
 

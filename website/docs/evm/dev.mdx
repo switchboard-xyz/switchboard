@@ -1,21 +1,22 @@
 ---
-title: "@switchboard-xyz/evm.js"
-hide_title: true
-sidebar_class_name: "sidebar__typescript"
-sidebar_position: 1
+sidebar_position: 10
+hide_table_of_contents: true
+title: Developer Resources
+keywords: [EVM, EVM SDK]
 ---
 
-<div align="center">
+import Tabs from "@theme/Tabs";
+import TabItem from "@theme/TabItem";
 
-![Switchboard Logo](https://github.com/switchboard-xyz/sbv2-core/raw/main/website/static/img/icons/switchboard/avatar.png)
-
-# @switchboard-xyz/evm.js
-
-> A Typescript client to interact with Switchboard on NEAR.
+| Language   | SDK                                                                                                                                                                        |
+| ---------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Javascript | The npm package [@switchboard-xyz/evm.js](/api/evm.js) can be used to build and manage Switchboard accounts on EVM based chains.                                           |
+| Rust       | The rust crate [switchboard-evm](https://crates.io/crates/switchboard-evm) can be used on-chain and off-chain.                                                             |
+| CLI        | The [Switchboard CLI](/api/cli) can be used to help debug your Switchboard deployments with a command line interface or be used in automation scripts for custom alerting. |
+| Solidity   | The [ISwitchboard.sol](/evm/ISwitchboard) Solidity interface can be used to read a Switchboard data feed.                                                                  |
+| Solidity   | The [ILegacyOracle.sol](/evm/ILegacyOracle) Solidity interface can be used to read a Switchboard data feed using a legacy oracle adapter.                                  |
 
 [![NPM Badge](https://img.shields.io/github/package-json/v/switchboard-xyz/evm-sdk?color=red&filename=javascript%2Fevm.js%2Fpackage.json&label=%40switchboard-xyz%2Fevm.js&logo=npm)](https://www.npmjs.com/package/@switchboard-xyz/evm.js)
-
-</div>
 
 ## Install
 
@@ -70,7 +71,8 @@ const newSwitchboardProgram = switchboardProgram.connect(newSigner);
 
 ### Transactions
 
-Most SDK methods have an optional TransactionOptions parameter to provide overrides.
+Most SDK methods have an optional TransactionOptions parameter to provide
+overrides.
 
 ```ts
 // Most methods have an optional TransactionOptions parameter to provide overrides and an optional new signer
@@ -154,7 +156,9 @@ await oracleAccount.heartbeat();
 
 ### Create a Job on IPFS
 
-A set of jobs must be encoded with the [following structure](https://ipfs.io/ipfs/bafybeiaprigfe7hakc4hgqyrjtgsbggrpvzfufpufzvpwtzlznyjb5hjw4/%20USD). This example uses [web3.storage](https://web3.storage).
+A set of jobs must be encoded with the
+[following structure](https://ipfs.io/ipfs/bafybeiaprigfe7hakc4hgqyrjtgsbggrpvzfufpufzvpwtzlznyjb5hjw4/%20USD).
+This example uses [web3.storage](https://web3.storage).
 
 ```ts
 const jobs = [
@@ -253,7 +257,8 @@ console.log(result);
 
 ### Watch Data Feed
 
-Setup a websocket listener to invoke a callback whenever an aggregator is updated
+Setup a websocket listener to invoke a callback whenever an aggregator is
+updated
 
 ```ts
 import { AggregatorAccount } from "@switchboard-xyz/evm.js";
