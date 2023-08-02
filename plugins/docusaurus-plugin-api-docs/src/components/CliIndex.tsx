@@ -1,13 +1,15 @@
-import React from "react";
 import "./styles.css";
+
 import Link from "@docusaurus/Link";
 import type { PropVersionMetadata } from "@docusaurus/plugin-content-docs";
 import type { GlobalVersion } from "@docusaurus/plugin-content-docs/client";
 import { useDocsPreferredVersion } from "@docusaurus/theme-common";
 import { useDocsVersion } from "@docusaurus/theme-common/internal";
 import type { Props as DocItemProps } from "@theme/DocItem";
-import type { ApiOptions } from "../types";
+import React from "react";
+
 import type { ParsedCommand } from "../modules/oclif/types";
+import type { ApiOptions } from "../types";
 import ApiItemLayout from "./ApiItemLayout";
 
 export interface CliIndexProps extends Pick<DocItemProps, "route"> {
