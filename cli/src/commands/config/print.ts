@@ -13,7 +13,7 @@ export default class ConfigPrint extends BaseCommand {
     ...BaseCommand.flags,
   };
 
-  static examples = ["$ sbv2 config:print"];
+  static examples = ["$ sb config:print"];
 
   async run() {
     this.logger.info(chalk.underline(chalk.blue(`## Config`.padEnd(24))));

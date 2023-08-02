@@ -18,7 +18,7 @@ export default class JsonCreateAggregator extends BaseCommand {
   static aliases = ["solana:json:create:aggregator"];
 
   static examples = [
-    "$ sbv2 solana aggregator create json examples/aggregator.json --keypair ../payer-keypair.json --queueKey GhYg3R1V6DmJbwuc57qZeoYG6gUuvCotUF1zU3WCj98U --outputFile aggregator.schema.json",
+    "$ sb solana aggregator create json examples/aggregator.json --keypair ../payer-keypair.json --queueKey GhYg3R1V6DmJbwuc57qZeoYG6gUuvCotUF1zU3WCj98U --outputFile aggregator.schema.json",
   ];
 
   static flags = {

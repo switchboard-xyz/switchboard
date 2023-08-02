@@ -10,7 +10,7 @@ import chalk from "chalk";
 export default class AggregatorAddJob extends BaseCommand {
   static description = "add jobs to an aggregator";
 
-  static examples = ["$ sbv2 solana aggregator add job"];
+  static examples = ["$ sb solana aggregator add job"];
 
   static flags = {
     ...BaseCommand.flags,

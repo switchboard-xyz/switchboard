@@ -12,7 +12,7 @@ export default class OracleLogs extends OutputFileBaseCommand {
     ...OutputFileBaseCommand.flags,
   };
 
-  //   static examples = ["$ sbv2 config:print"];
+  //   static examples = ["$ sb config:print"];
 
   static args = {
     network: Args.string({

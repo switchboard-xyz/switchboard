@@ -13,8 +13,8 @@ export default class AggregatorPrint extends BaseCommand {
   static description = "print an aggregator";
 
   static examples = [
-    "$ sbv2 evm aggregator print 0x4Aa86c11Ad9493c84fd6C6469F6FA494272AdB4a --arbitrum --mainnet",
-    "$ sbv2 evm aggregator print 0x7892F7326291F3Bc17680956B476701DF76d52Da --coredao --testnet --jobs",
+    "$ sb evm aggregator print 0x4Aa86c11Ad9493c84fd6C6469F6FA494272AdB4a --arbitrum --mainnet",
+    "$ sb evm aggregator print 0x7892F7326291F3Bc17680956B476701DF76d52Da --coredao --testnet --jobs",
   ];
 
   static flags = {

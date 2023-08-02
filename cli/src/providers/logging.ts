@@ -131,7 +131,7 @@ export class WinstonLogger {
 
     this.logger = winston.createLogger({
       transports,
-      defaultMeta: { service: "js_sbv2_cli" },
+      defaultMeta: { service: "js_sb_cli" },
     });
   }
 

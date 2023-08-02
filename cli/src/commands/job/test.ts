@@ -10,7 +10,7 @@ export default class JobTest extends BaseCommand {
   static description =
     "test a job definition against the Switchboard task-runner";
 
-  static examples = ["$ sbv2 job:test"];
+  static examples = ["$ sb job:test"];
 
   static flags = {
     ...BaseCommand.flags,

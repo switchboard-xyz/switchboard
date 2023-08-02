@@ -2,6 +2,7 @@ import { SolanaWithSignerBaseCommand as BaseCommand } from "../solana";
 
 import { BN } from "@coral-xyz/anchor";
 import { Args, Flags } from "@oclif/core";
+import { PublicKey } from "@solana/web3.js";
 import { SwitchboardDecimal } from "@switchboard-xyz/common";
 
 export default class SandboxCommand extends BaseCommand {
@@ -28,8 +29,14 @@ export default class SandboxCommand extends BaseCommand {
   async run() {
     const { args, flags } = await this.parse(SandboxCommand);
 
-    const swbDec = new SwitchboardDecimal(new BN(13_371_337), 4);
-    console.log(swbDec.toString());
+    console.log(
+      `AUTH TOKEN: ${await this.program.mint.getAssociatedAddress(
+        new PublicKey("2KgowxogBrGqRcgXQEmqFvC3PGtCu66qERNJevYW8Ajh")
+      )}`
+    );
+
+    // const swbDec = new SwitchboardDecimal(new BN(13_371_337), 4);
+    // console.log(swbDec.toString());
 
     // const size = this.program.account.vrfAccountData.size;
     // const rentExemption =

@@ -5,11 +5,10 @@ import * as anchor from "@coral-xyz/anchor";
 import { Args, Flags } from "@oclif/core";
 import type { Keypair } from "@solana/web3.js";
 import { PublicKey } from "@solana/web3.js";
-import { isBase58 } from "@switchboard-xyz/common";
+import { isBase58, parseRawMrEnclave } from "@switchboard-xyz/common";
 import {
   AttestationQueueAccount,
   attestationTypes,
-  parseMrEnclave,
   SB_ATTESTATION_PID,
 } from "@switchboard-xyz/solana.js";
 import chalk from "chalk";
@@ -20,7 +19,7 @@ export default class FunctionCreate extends BaseCommand {
   static description = "create a new function account for a given queue";
 
   static examples = [
-    "$ sbv2 solana function create F8ce7MsckeZAbAGmxjJNetxYXQa9mKr9nnrC3qKubyYy --name function-1 --fundAmount 1.25 --container switchboardlabs/basic-oracle-function --version solana",
+    "$ sb solana function create F8ce7MsckeZAbAGmxjJNetxYXQa9mKr9nnrC3qKubyYy --name function-1 --fundAmount 1.25 --container switchboardlabs/basic-oracle-function --version solana",
   ];
 
   static flags = {
@@ -157,7 +156,7 @@ export default class FunctionCreate extends BaseCommand {
         container: flags.container,
         containerRegistry: containerRegistry,
         version: flags.version,
-        mrEnclave: parseMrEnclave(flags.mrEnclave ?? ""),
+        mrEnclave: parseRawMrEnclave(flags.mrEnclave ?? ""),
         enable: flags.enable ?? false,
         queueAuthority: queueAuthority,
         queueAuthorityPubkey: attestationQueue.authority,

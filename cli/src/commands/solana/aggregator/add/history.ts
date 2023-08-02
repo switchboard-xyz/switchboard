@@ -12,7 +12,7 @@ import chalk from "chalk";
 export default class AggregatorAddHistory extends BaseCommand {
   static description = "add a history buffer to an aggregator";
 
-  static examples = ["$ sbv2 solana:aggregator:add:history"];
+  static examples = ["$ sb solana:aggregator:add:history"];
 
   static flags = {
     ...BaseCommand.flags,

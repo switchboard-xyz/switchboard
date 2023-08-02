@@ -16,7 +16,7 @@ export default class BufferRelayerUpdate extends BaseCommand {
   static aliases = ["solana:buffer:open-round"];
 
   static examples = [
-    "$ sbv2 solana buffer update J7j9xX8JP2B2ErvUzuqGAKBGeggsxPyFXj5MqZcYDxfa --keypair ../payer-keypair.json",
+    "$ sb solana buffer update J7j9xX8JP2B2ErvUzuqGAKBGeggsxPyFXj5MqZcYDxfa --keypair ../payer-keypair.json",
   ];
 
   static flags = {

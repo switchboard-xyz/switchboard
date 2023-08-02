@@ -11,7 +11,7 @@ export default class VrfRequest extends BaseCommand {
 
   static aliases = ["solana:vrf:update", "solana:vrf:open-round"];
 
-  static examples = ["$ sbv2 solana vrf request"];
+  static examples = ["$ sb solana vrf request"];
 
   static flags = {
     ...BaseCommand.flags,

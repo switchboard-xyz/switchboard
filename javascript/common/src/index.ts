@@ -1,4 +1,5 @@
 export * as BigUtils from "./big.js";
+export * from "./function-result.js";
 export { default as networks } from "./networks/index.js";
 export * from "./networks/types.js";
 export * from "./OracleJob.js";

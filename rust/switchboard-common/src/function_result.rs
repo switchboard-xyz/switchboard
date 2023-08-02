@@ -16,6 +16,11 @@ pub struct EVMFunctionResult {
     // NOTE: tx.len() == signatures.len() must be true
     pub txs: Vec<EvmTransaction>,
     pub signatures: Vec<Vec<u8>>,
+
+    // NOTE: call_ids.len() == checksums.len() must be true - must also be mapped to txs
+    // these params should be default if not used (i.e. empty)
+    pub call_ids: Vec<Vec<u8>>,
+    pub checksums: Vec<Vec<u8>>,
 }
 
 #[derive(Default, Clone, PartialEq, Debug, Serialize, Deserialize)]

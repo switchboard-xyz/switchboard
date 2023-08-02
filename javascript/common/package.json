@@ -1,7 +1,7 @@
 {
   "name": "@switchboard-xyz/common",
   "license": "MIT",
-  "version": "2.2.5",
+  "version": "2.2.9",
   "description": "common type definitions and utils for interacting with switchboard",
   "type": "module",
   "main": "./index.js",
@@ -55,13 +55,14 @@
     "fix": "pnpm exec eslint --fix src/**/*.ts"
   },
   "dependencies": {
-    "@solana/web3.js": "^1.66.2",
+    "@coral-xyz/borsh": "^0.28.0",
     "@types/big.js": "^6.1.6",
     "@types/bn.js": "^5.1.1",
     "big.js": "^6.2.1",
     "bn.js": "^5.2.1",
     "bs58": "^5.0.0",
     "decimal.js": "^10.4.3",
+    "lodash": "^4.17.21",
     "protobufjs": "^7.2.3",
     "yaml": "^2.2.1"
   },
@@ -69,6 +70,7 @@
     "@switchboard-xyz/eslint-config": "latest",
     "@types/chai": "^4.3.4",
     "@types/jest": "^29.4.0",
+    "@types/lodash": "^4.14.195",
     "chai": "^4.3.7",
     "esm": "^3.2.25",
     "jest": "^29.4.3",

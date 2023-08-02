@@ -12,7 +12,7 @@ export default class AggregatorUpdate extends BaseCommand {
   static aliases = ["solana:aggregator:open-round"];
 
   static examples = [
-    "$ sbv2 solana aggregator update J7j9xX8JP2B2ErvUzuqGAKBGeggsxPyFXj5MqZcYDxfa --keypair ../payer-keypair.json",
+    "$ sb solana aggregator update J7j9xX8JP2B2ErvUzuqGAKBGeggsxPyFXj5MqZcYDxfa --keypair ../payer-keypair.json",
   ];
 
   static flags = {
