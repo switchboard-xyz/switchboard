@@ -1,0 +1,1 @@
+sb solana function print $MY_FUNCTION_PUBKEY --mainnetBeta

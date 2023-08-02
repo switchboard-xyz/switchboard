@@ -149,8 +149,7 @@ oracles for running our function.
 <Tabs>
   <TabItem attributes={{className: "navbar_icon__switchboard"}} value="ui" label="Web App" default>
 
-Visit the Switchboard app:
-[app.switchboard.xyz](https://app.switchboard.xyz/)
+Visit the Switchboard app: [app.switchboard.xyz](https://app.switchboard.xyz/)
 
 In the top right, sign in to your Solana wallet for the selected cluster.
 
@@ -206,7 +205,7 @@ await functionAccount.wrap(0.25);
   <TabItem attributes={{className: "navbar_icon__terminal"}} value="CLI" label="sbv2 CLI">
 
 ```bash
-sbv2 solana function create CkvizjVnm2zA5Wuwan34NhVT3zFc7vqUyGnA6tuEF5aE \
+sb solana function create CkvizjVnm2zA5Wuwan34NhVT3zFc7vqUyGnA6tuEF5aE \
   --name "My Function" \
   --metadata "Basic binance oracle with TWAP" \
   --fundAmount 0.25 \
@@ -215,7 +214,7 @@ sbv2 solana function create CkvizjVnm2zA5Wuwan34NhVT3zFc7vqUyGnA6tuEF5aE \
   --keypair ~/.config/solana/id.json
 
 # or fund an existing function
-sbv2 solana function fund $MY_FUNCTION_PUBKEY \
+sb solana function fund $MY_FUNCTION_PUBKEY \
   --fundAmount 0.25 \
   --keypair ~/.config/solana/id.json
 ```

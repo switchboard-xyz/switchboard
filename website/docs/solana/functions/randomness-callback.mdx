@@ -15,33 +15,44 @@ import TabItem from "@theme/TabItem";
 
 # Randomness Callback
 
-Switchboard Functions can have **_"sub-accounts"_** called Function Request Account's which allow you to pass
-a structured set of parameters to your function. This allows you to create request accounts for users where they
-can be re-used or closed directly after use. Each request account has their own separate token balance, relieving the
-integrater for managing user funds on their behalf. Because wrapped SOL is used for the oracle rewards, the Switchboard
-program will wrap any funds from the `payer` account provided with the Cross Program Invocation (CPI).
+Switchboard Functions can have **_"sub-accounts"_** called Function Request
+Account's which allow you to pass a structured set of parameters to your
+function. This allows you to create request accounts for users where they can be
+re-used or closed directly after use. Each request account has their own
+separate token balance, relieving the integrater for managing user funds on
+their behalf. Because wrapped SOL is used for the oracle rewards, the
+Switchboard program will wrap any funds from the `payer` account provided with
+the Cross Program Invocation (CPI).
 
-In this example we will build a program which allows a user to request randomness then await the result
-off-chain and determine if the user is correct.
+In this example we will build a program which allows a user to request
+randomness then await the result off-chain and determine if the user is correct.
 
 :::info
 
-See the example on Github! **[switchboard-xyz/solana-sdk:examples/functions/04_randomness_callback](https://github.com/switchboard-xyz/solana-sdk/tree/main/examples/functions/04_randomness_callback)**
+See the example on Github!
+**[switchboard-xyz/solana-sdk:examples/functions/04_randomness_callback](https://github.com/switchboard-xyz/solana-sdk/tree/main/examples/functions/04_randomness_callback)**
 
 :::
 
-For our program we will have a basic User PDA setup that will keep track of our programs User.
-First make a `house_init` instruction to initialize the top level program state and store the expected Function for our program.
-For each randomness request we will make a `FunctionRequestAccount` pointing to this function, indicating which instruction to execute.
+For our program we will have a basic User PDA setup that will keep track of our
+programs User. First make a `house_init` instruction to initialize the top level
+program state and store the expected Function for our program. For each
+randomness request we will make a `FunctionRequestAccount` pointing to this
+function, indicating which instruction to execute.
 
-To integrate Switchboard Function requests you will need the following instructions:
+To integrate Switchboard Function requests you will need the following
+instructions:
 
-- **request_init** (user_guess in our example): An instruction to initialize the `FunctionRequestAccount` with the expected container parameters.
-  This will mostly contain the Switchboard CPI to initialize the request and trigger it.
-- **request_settle** (user_settle in our example): Some instruction to execute after the request has been verified by the Switchboard network
-  to have been executed within a secure enclave. This will contain the core business logic and handle the result of your function.
+- **request_init** (user_guess in our example): An instruction to initialize the
+  `FunctionRequestAccount` with the expected container parameters. This will
+  mostly contain the Switchboard CPI to initialize the request and trigger it.
+- **request_settle** (user_settle in our example): Some instruction to execute
+  after the request has been verified by the Switchboard network to have been
+  executed within a secure enclave. This will contain the core business logic
+  and handle the result of your function.
 
-For each request we will pass the following parameters in the format `PID=XYZ,MAX_GUESS=10,USER=ABC`:
+For each request we will pass the following parameters in the format
+`PID=XYZ,MAX_GUESS=10,USER=ABC`:
 
 ```rust
 pub struct ContainerParams {
@@ -298,7 +309,9 @@ pub fn user_settle(ctx: Context<UserSettle>, result: u8) -> Result<()> {
 
 ## Write the Switchboard Function
 
-Our function is very simple because we are able to generate randomness within the enclave. **All you need to generate randomness is one line ` Gramine::read_rand(&mut bytes)`!**
+Our function is very simple because we are able to generate randomness within
+the enclave. **All you need to generate randomness is one line
+` Gramine::read_rand(&mut bytes)`!**
 
 ```rust
 use std::str::FromStr;
@@ -392,15 +405,15 @@ Use one of the following commands to compile your function:
 ## Create Switchboard function account
 
 Next we need to create our function account on-chain. We will define an empty
-cron schedule to effectively disable the scheuled executions of our containers; for our example
-we only need to execute custom requests when our users make a request. We do not need to fund our function
-because our users will wrap SOL to pay for the request.
+cron schedule to effectively disable the scheuled executions of our containers;
+for our example we only need to execute custom requests when our users make a
+request. We do not need to fund our function because our users will wrap SOL to
+pay for the request.
 
 <Tabs>
   <TabItem attributes={{className: "navbar_icon__switchboard"}} value="ui" label="Web App" default>
 
-Visit the Switchboard app:
-[app.switchboard.xyz](https://app.switchboard.xyz/)
+Visit the Switchboard app: [app.switchboard.xyz](https://app.switchboard.xyz/)
 
 In the top right, sign in to your Solana wallet for the selected cluster.
 
@@ -456,7 +469,7 @@ await functionAccount.wrap(0.25);
   <TabItem attributes={{className: "navbar_icon__terminal"}} value="CLI" label="sbv2 CLI">
 
 ```bash
-sbv2 solana function create CkvizjVnm2zA5Wuwan34NhVT3zFc7vqUyGnA6tuEF5aE \
+sb solana function create CkvizjVnm2zA5Wuwan34NhVT3zFc7vqUyGnA6tuEF5aE \
   --name "My Function" \
   --metadata "Randomness Callback" \
   --schedule "" \
@@ -472,9 +485,14 @@ sbv2 solana function create CkvizjVnm2zA5Wuwan34NhVT3zFc7vqUyGnA6tuEF5aE \
 
 **DONE!**
 
-Now just call `user_init` to initialize your User then call `user_guess` to request randomness!
-After ~5 seconds you should see your `user_settle` callback land on-chain.
+Now just call `user_init` to initialize your User then call `user_guess` to
+request randomness! After ~5 seconds you should see your `user_settle` callback
+land on-chain.
 
-View the [example program tests](https://github.com/switchboard-xyz/solana-sdk/blob/main/examples/functions/04_randomness_callback/tests/custom_randomness_request.ts) for more context.
+View the
+[example program tests](https://github.com/switchboard-xyz/solana-sdk/blob/main/examples/functions/04_randomness_callback/tests/custom_randomness_request.ts)
+for more context.
 
-There is also a [request script](https://github.com/switchboard-xyz/solana-sdk/blob/main/examples/functions/04_randomness_callback/request.ts) to help you test.
+There is also a
+[request script](https://github.com/switchboard-xyz/solana-sdk/blob/main/examples/functions/04_randomness_callback/request.ts)
+to help you test.
