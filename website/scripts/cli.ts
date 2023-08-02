@@ -214,8 +214,8 @@ export function generateCliDocs(projectRoot: string) {
 
   shell.sed(
     "-i",
-    `https://github.com/switchboard-xyz/sbv2-core/blob/.*/src`,
-    "https://github.com/switchboard-xyz/sbv2-core/tree/main/cli/src",
+    `https://github.com/switchboard-xyz/core-sdk/blob/.*/src`,
+    "https://github.com/switchboard-xyz/core-sdk/tree/main/cli/src",
     readmePath
   );
 
