@@ -3,7 +3,7 @@ name: Update pnpm lockfile
 on:
   push:
     branches:
-      - copybara-sbv2-core-push
+      - copybara-core-sdk-push
 
 jobs:
   update-lockfile:
@@ -46,4 +46,4 @@ jobs:
           commit_message: "chore: Update pnpm lockfile"
           skip_dirty_check: false
           file_pattern: "pnpm-lock.yaml"
-          branch: copybara-sbv2-core-push # Push changes to the same branch
+          branch: copybara-core-sdk-push # Push changes to the same branch
