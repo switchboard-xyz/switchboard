@@ -19,3 +19,14 @@ macro_rules! cfg_not_client {
         )*
     }
 }
+
+#[macro_export]
+macro_rules! cfg_solana {
+    ($($item:item)*) => {
+        $(
+            #[cfg(feature = "solana")]
+            #[cfg_attr(doc_cfg, doc(cfg(feature = "solana")))]
+            $item
+        )*
+    }
+}

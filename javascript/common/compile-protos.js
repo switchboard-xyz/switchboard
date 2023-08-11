@@ -1,17 +1,17 @@
-import shell from "shelljs";
-import path from "path";
-import fs from "fs";
-import { execSync } from "child_process";
-import { fileURLToPath } from "url";
-import { moveCjsFiles, generateEntrypoints } from "./src/esm-utils.js";
+import { generateEntrypoints, moveCjsFiles } from "./src/esm-utils.js";
 
-const __filename = fileURLToPath(import.meta.url); // eslint-disable-line
+import { execSync } from "child_process";
+import fs from "fs";
+import path from "path";
+import shell from "shelljs";
+import { fileURLToPath } from "url";
+
+const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const projectRoot = __dirname;
 
 const protosDir = path.join(projectRoot, "..", "..", "protos");
-const protosFile = path.join(protosDir, "job_schemas.proto");
 
 const binPath = path.relative(
   process.cwd(),
@@ -69,7 +69,7 @@ async function main() {
 
   // Create protos in the src/protos directory
   execSync(
-    `${rootBinPath}/shx mkdir -p src/protos; ${binPath}/pbjs --alt-comment --root sbv2Protos -t static-module -o src/protos/index.js ${protosDir}/*.proto && ${binPath}/pbts -o src/protos/index.d.ts src/protos/index.js;`,
+    `${rootBinPath}/shx mkdir -p src/protos; ${binPath}/pbjs --alt-comment --root sbProtos -t static-module -o src/protos/index.js ${protosDir}/*.proto && ${binPath}/pbts -o src/protos/index.d.ts src/protos/index.js;`,
     { encoding: "utf-8" }
   );
   insertStringBeforeSync(
@@ -122,7 +122,7 @@ async function main() {
   // Create protos in the lib-cjs/protos
   execSync(`${rootBinPath}/tsc -p tsconfig.cjs.json`, { encoding: "utf-8" });
   execSync(
-    `${rootBinPath}/shx rm -rf lib-cjs/protos; ${rootBinPath}/shx mkdir -p lib-cjs/protos; ${binPath}/pbjs --alt-comment --root sbv2Protos -t static-module -o lib-cjs/protos/index.js ${protosDir}/*.proto && ${binPath}/pbts -o lib-cjs/protos/index.d.ts lib-cjs/protos/index.js`,
+    `${rootBinPath}/shx rm -rf lib-cjs/protos; ${rootBinPath}/shx mkdir -p lib-cjs/protos; ${binPath}/pbjs --alt-comment --root sbProtos -t static-module -o lib-cjs/protos/index.js ${protosDir}/*.proto && ${binPath}/pbts -o lib-cjs/protos/index.d.ts lib-cjs/protos/index.js`,
     { encoding: "utf-8" }
   );
   insertStringBeforeSync(
@@ -169,7 +169,7 @@ async function main() {
   // Create ESM protos in the lib/protos
   execSync(`${rootBinPath}/tsc`, { encoding: "utf-8" });
   execSync(
-    `${rootBinPath}/shx rm -rf lib/protos; ${rootBinPath}/shx mkdir -p lib/protos; ${binPath}/pbjs --alt-comment --root sbv2Protos -t static-module --es6 -w \"es6\" -o lib/protos/index.js ${protosDir}/*.proto && ${binPath}/pbts -o lib/protos/index.d.ts lib/protos/index.js && ${rootBinPath}/shx --silent sed  -i 'protobufjs/minimal' 'protobufjs/minimal.js' lib/protos/index.js > '/dev/null' 2>&1 && ${rootBinPath}/shx --silent sed -i 'import \\* as' 'import' lib/protos/index.js > '/dev/null' 2>&1`,
+    `${rootBinPath}/shx rm -rf lib/protos; ${rootBinPath}/shx mkdir -p lib/protos; ${binPath}/pbjs --alt-comment --root sbProtos -t static-module --es6 -w \"es6\" -o lib/protos/index.js ${protosDir}/*.proto && ${binPath}/pbts -o lib/protos/index.d.ts lib/protos/index.js && ${rootBinPath}/shx --silent sed  -i 'protobufjs/minimal' 'protobufjs/minimal.js' lib/protos/index.js > '/dev/null' 2>&1 && ${rootBinPath}/shx --silent sed -i 'import \\* as' 'import' lib/protos/index.js > '/dev/null' 2>&1`,
     { encoding: "utf-8" }
   );
   insertStringBeforeSync(

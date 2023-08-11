@@ -8,12 +8,13 @@ use std::sync::Arc;
 pub enum Error {
     // Generics
     Generic,
+
     CustomMessage(String),
     CustomError {
         message: String,
         source: Arc<dyn StdError + 'static>,
     },
-
+    Unexpected,
     // Environment Errors
     EnvVariableMissing(String),
     InvalidKeypairFile,

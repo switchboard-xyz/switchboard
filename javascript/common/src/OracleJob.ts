@@ -1,4 +1,5 @@
-import * as proto from "./protos/index.js";
+import type { IOracleJob } from "./protos.js";
+import { OracleJob } from "./protos.js";
 
 import { Big } from "big.js";
 
@@ -6,22 +7,22 @@ import { Big } from "big.js";
  * Serialize a stringified OracleJob and replace any json comments
  * @param job - Stringified OracleJob or object with an array of Switchboard tasks defined
  * @throws {String}
- * @returns {proto.OracleJob }
+ * @returns {OracleJob }
  */
 export function serializeOracleJob(
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  job: string | proto.IOracleJob | Record<string, any>
-): proto.OracleJob {
+  job: string | IOracleJob | Record<string, any>
+): OracleJob {
   if (!job) {
     throw new Error(`No job to serialize`);
   }
 
-  let jobObj: proto.IOracleJob;
+  let jobObj: IOracleJob;
   if (typeof job === "string") {
     const parsedFileString = job
       // replace all json comments https://regex101.com/r/B8WkuX/1
       .replace(/\/\*[\s\S]*?\*\/|([^\\:]|^)\/\/.*$/g, "");
-    jobObj = proto.OracleJob.fromObject(JSON.parse(parsedFileString));
+    jobObj = OracleJob.fromObject(JSON.parse(parsedFileString));
   } else {
     if (!("tasks" in job) || !Array.isArray(job.tasks)) {
       throw new Error(`OracleJob is missing the 'tasks' property`);
@@ -29,15 +30,15 @@ export function serializeOracleJob(
     if (job.tasks.length === 0) {
       throw new Error(`OracleJob has no tasks defined`);
     }
-    jobObj = proto.OracleJob.fromObject(job);
+    jobObj = OracleJob.fromObject(job);
   }
 
   try {
-    const err = proto.OracleJob.verify(jobObj);
+    const err = OracleJob.verify(jobObj);
     if (err !== null) {
       throw new Error(err);
     }
-    return proto.OracleJob.create(jobObj);
+    return OracleJob.create(jobObj);
   } catch (error) {
     throw new Error(`failed to serialize oracle job: ${error}`);
   }
@@ -46,12 +47,10 @@ export function serializeOracleJob(
 /**
  * Deserialize an OracleJob from on-chain data
  * @param jobData - Serialized OracleJob data
- * @returns {proto.OracleJob}
+ * @returns {OracleJob}
  */
-export function deserializeOracleJob(
-  jobData: Buffer | Uint8Array
-): proto.OracleJob {
-  return proto.OracleJob.decodeDelimited(jobData);
+export function deserializeOracleJob(jobData: Buffer | Uint8Array): OracleJob {
+  return OracleJob.decodeDelimited(jobData);
 }
 
 export type TaskSimulatorNetwork = "devnet" | "mainnet-beta";
@@ -73,12 +72,12 @@ export type TaskRunnerSuccess = TaskRunnerMeta & {
 
 /**
  * Make an Http request to the task-runner endpoint to simulate an OracleJob result
- * @param jobs - array of {@type proto.OracleJob} to run
+ * @param jobs - array of {@type OracleJob} to run
  * @param network - the task simulator network to use
  * @returns the task simulator response
  */
 export async function simulateOracleJobs(
-  jobs: Array<proto.OracleJob>,
+  jobs: Array<OracleJob>,
   network: TaskSimulatorNetwork = "mainnet-beta"
 ): Promise<TaskRunnerResponse> {
   const response = await fetch("https://task.switchboard.xyz/simulate", {

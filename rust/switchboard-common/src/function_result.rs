@@ -59,14 +59,12 @@ impl FunctionResult {
     }
 
     pub fn decode(s: &str) -> std::result::Result<Self, Error> {
-        if s.starts_with(FUNCTION_RESULT_PREFIX) {
-            let encoded = &s[FUNCTION_RESULT_PREFIX.len()..];
-            let decoded = hex::decode(encoded)?;
+        if let Some(stripped) = s.strip_prefix(FUNCTION_RESULT_PREFIX) {
+            let decoded = hex::decode(stripped)?;
             let deserialized: FunctionResult = serde_json::from_slice(&decoded)?;
-            Ok(deserialized)
-        } else {
-            Err("String does not start with 'FN_OUT: '".into())
+            return Ok(deserialized);
         }
+        Err("String does not start with 'FN_OUT: '".into())
     }
 }
 
@@ -87,6 +85,6 @@ mod tests {
 
         let decoded = FunctionResult::decode(&encoded).unwrap();
 
-        assert_eq!(fr, FunctionResult::default());
+        assert_eq!(decoded, FunctionResult::default());
     }
 }
