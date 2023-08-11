@@ -4,13 +4,22 @@ protobuf.util.toJSONOptions = {
   enums: String,
   bytes: String,
   json: true,
+  // oneofs: true,
 };
 
 // Re-export the most common task types so they are easier to work with
 // import { IOracleJob, OracleJob } from "./protos/index.js";
-import * as protos from "./protos/index.js";
+// import * as protos from "./protos/index.js";\
+// export import OracleJob = protos.OracleJob;
 
-export import OracleJob = protos.OracleJob;
+// import { OracleJob } from "./protos/index.js";
+
+// import * as protos from "./protos/index.js";
+
+// export import OracleJob = protos.OracleJob;
+// export import IOracleJob = protos.IOracleJob;
+
+import { OracleJob } from "./protos/index.js";
 
 export import ITask = OracleJob.ITask;
 export import Task = OracleJob.Task;
@@ -150,5 +159,4 @@ export import RoundTask = OracleJob.RoundTask;
 export import IBoundTask = OracleJob.IBoundTask;
 export import BoundTask = OracleJob.BoundTask;
 
-export * from "./OracleJob.js";
-export * from "./protos/index.js";
+export { IOracleJob, OracleJob } from "./protos/index.js";

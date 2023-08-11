@@ -9,5 +9,10 @@ cfg_client! {
     pub use sgx::*;
 }
 
+cfg_solana! {
+    pub mod solana;
+    pub use solana::*;
+}
+
 pub mod function_result;
 pub use function_result::*;

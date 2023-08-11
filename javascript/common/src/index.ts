@@ -1,10 +1,12 @@
 export * as BigUtils from "./big.js";
-export * from "./function-result.js";
 export { default as networks } from "./networks/index.js";
 export * from "./networks/types.js";
-export * from "./OracleJob.js";
+export {
+  deserializeOracleJob,
+  serializeOracleJob,
+  simulateOracleJobs,
+} from "./OracleJob.js";
 export { IOracleJob, ITask, OracleJob, Task } from "./protos.js";
-export * from "./protos/index.js";
 export * from "./SwitchboardDecimal.js";
 export * from "./utils/index.js";
 export { Big } from "big.js";
@@ -21,4 +23,5 @@ protobuf.util.toJSONOptions = {
   enums: String,
   bytes: String,
   json: true,
+  // oneofs: true,
 };
