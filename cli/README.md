@@ -136,6 +136,11 @@ node bin/dev print GvDMxPzN1sCj7L26YDK2HnMRXEQmQ2aemov8YBtPS7vR
 * [`sb evm create jobs`](#sb-evm-create-jobs)
 * [`sb evm create oracle QUEUEADDRESS`](#sb-evm-create-oracle-queueaddress)
 * [`sb evm create queue`](#sb-evm-create-queue)
+* [`sb evm function addMrEnclave FUNCTIONKEY`](#sb-evm-function-addmrenclave-functionkey)
+* [`sb evm function create QUEUEKEY`](#sb-evm-function-create-queuekey)
+* [`sb evm function fund FUNCTIONKEY`](#sb-evm-function-fund-functionkey)
+* [`sb evm function print FUNCTIONKEY`](#sb-evm-function-print-functionkey)
+* [`sb evm function rmMrEnclave FUNCTIONKEY`](#sb-evm-function-rmmrenclave-functionkey)
 * [`sb evm job create`](#sb-evm-job-create)
 * [`sb evm job print JOBHASH`](#sb-evm-job-print-jobhash)
 * [`sb evm oracle create QUEUEADDRESS`](#sb-evm-oracle-create-queueaddress)
@@ -144,6 +149,7 @@ node bin/dev print GvDMxPzN1sCj7L26YDK2HnMRXEQmQ2aemov8YBtPS7vR
 * [`sb evm queue create`](#sb-evm-queue-create)
 * [`sb evm queue print QUEUEADDRESS`](#sb-evm-queue-print-queueaddress)
 * [`sb evm set aggregator AGGREGATORADDRESS`](#sb-evm-set-aggregator-aggregatoraddress)
+* [`sb function-init TEMPLATE`](#sb-function-init-template)
 * [`sb help [COMMANDS]`](#sb-help-commands)
 * [`sb job test`](#sb-job-test)
 * [`sb near aggregator add history AGGREGATORADDRESS`](#sb-near-aggregator-add-history-aggregatoraddress)
@@ -1663,6 +1669,225 @@ EXAMPLES
   $ sb evm queue create --arbitrum --testnet --account ~/.config/arbitrum/testnet.txt --unpermissionedFeeds
 ```
 
+## `sb evm function addMrEnclave FUNCTIONKEY`
+
+Add MrEnclave to a function account
+
+```
+USAGE
+  $ sb evm function addMrEnclave FUNCTIONKEY --account <value> --mrEnclave <value> [-h] [-v] [-s] [--chain coredao|arbitrum |
+    --coredao | --arbitrum] [--network mainnet|testnet | --mainnet | --testnet] [-u <value>] [--programId <value>]
+    [--json]
+
+ARGUMENTS
+  FUNCTIONKEY  public key of the function account
+
+FLAGS
+  -h, --help            Show CLI help.
+  -s, --silent          suppress cli prompts
+  -u, --rpcUrl=<value>  alternate RPC url
+  -v, --verbose         log everything
+  --account=<value>     (required) Path to file containing the private key for the payer account
+  --arbitrum            use the arbitrum chain
+  --chain=<option>      the evm chain to interact with
+                        <options: coredao|arbitrum>
+  --coredao             use the coredao chain
+  --mainnet             use the mainnet network
+  --mrEnclave=<value>   (required) The MrEnclave to add
+  --network=<option>    the EVM network to connect to
+                        <options: mainnet|testnet>
+  --programId=<value>   alternative Switchboard program ID to interact with
+  --testnet             use the testnet network
+
+GLOBAL FLAGS
+  --json  Format output as json.
+
+DESCRIPTION
+  Add MrEnclave to a function account
+
+EXAMPLES
+  $ sb evm function addMrEnclave 0xaA43ba6f18b138A0B3313dDbFaC2b920D240108E --chain arbitrum --network testnet --addMrEnclace 0xDEADBEEF --account ~/.arbitrum-kp.txt --programId 0x4F706C62535d171883A6cc9384f3f3d926A6BA49
+```
+
+## `sb evm function create QUEUEKEY`
+
+create a new function account for a given queue
+
+```
+USAGE
+  $ sb evm function create QUEUEKEY --account <value> --container <value> [-h] [-v] [-s] [--chain coredao|arbitrum |
+    --coredao | --arbitrum] [--network mainnet|testnet | --mainnet | --testnet] [-u <value>] [--programId <value>]
+    [--json] [-n <value>] [--metadata <value>] [-a <value>] [--fundAmount <value>] [--schedule <value>]
+    [--containerRegistry dockerhub|ipfs] [--version <value>] [--mrEnclave <value>] [--requestsDisabled <value>]
+    [--requestsFee <value>] [--requestsRequireAuthorization <value>]
+
+ARGUMENTS
+  QUEUEKEY  public key of the attestation queue account
+
+FLAGS
+  -a, --authority=<value>                 keypair or public key to delegate authority to for managing the function
+                                          account
+  -h, --help                              Show CLI help.
+  -n, --name=<value>                      name of the function for easier identification
+  -s, --silent                            suppress cli prompts
+  -u, --rpcUrl=<value>                    alternate RPC url
+  -v, --verbose                           log everything
+  --account=<value>                       (required) Path to file containing the private key for the payer account
+  --arbitrum                              use the arbitrum chain
+  --chain=<option>                        the evm chain to interact with
+                                          <options: coredao|arbitrum>
+  --container=<value>                     (required) the location of the container (Ex.
+                                          switchboardlabs/basic-oracle-function)
+  --containerRegistry=<option>            [default: dockerhub] the registry to pull the container from (Ex. Docker or
+                                          IPFS)
+                                          <options: dockerhub|ipfs>
+  --coredao                               use the coredao chain
+  --fundAmount=<value>                    [default: 0.0] token amount to load into the function's escrow wallet.
+  --mainnet                               use the mainnet network
+  --metadata=<value>                      metadata of the function for easier identification
+  --mrEnclave=<value>                     the MrEnclave value to set for the function - if not provided, will be set
+                                          automatically after its first run
+  --network=<option>                      the EVM network to connect to
+                                          <options: mainnet|testnet>
+  --programId=<value>                     alternative Switchboard program ID to interact with
+  --requestsDisabled=<value>              whether custom requests can be created for this function
+  --requestsFee=<value>                   [default: 0.0] the costs each request must pay the function authority for each
+                                          sub-request (Ex. 0.00002)
+  --requestsRequireAuthorization=<value>  whether custom requests require the function authority to authorize
+  --schedule=<value>                      the cron schedule to execute the function periodically (Ex. '15 * * * * *'
+                                          will execute the function every 15 seconds)
+  --testnet                               use the testnet network
+  --version=<value>                       [default: latest] the version of the container to pull from the registry (Ex.
+                                          'latest' or 'mainnet')
+
+GLOBAL FLAGS
+  --json  Format output as json.
+
+DESCRIPTION
+  create a new function account for a given queue
+
+EXAMPLES
+  $ sb evm function create F8ce7MsckeZAbAGmxjJNetxYXQa9mKr9nnrC3qKubyYy --name function-1 --fundAmount 0.25 --container switchboardlabs/basic-oracle-function --version latest
+```
+
+## `sb evm function fund FUNCTIONKEY`
+
+Fund a function account
+
+```
+USAGE
+  $ sb evm function fund FUNCTIONKEY --account <value> [-h] [-v] [-s] [--chain coredao|arbitrum | --coredao |
+    --arbitrum] [--network mainnet|testnet | --mainnet | --testnet] [-u <value>] [--programId <value>] [--json]
+    [--fundAmount <value>]
+
+ARGUMENTS
+  FUNCTIONKEY  public key of the function account
+
+FLAGS
+  -h, --help            Show CLI help.
+  -s, --silent          suppress cli prompts
+  -u, --rpcUrl=<value>  alternate RPC url
+  -v, --verbose         log everything
+  --account=<value>     (required) Path to file containing the private key for the payer account
+  --arbitrum            use the arbitrum chain
+  --chain=<option>      the evm chain to interact with
+                        <options: coredao|arbitrum>
+  --coredao             use the coredao chain
+  --fundAmount=<value>  [default: 0.0] token amount to load into the function's escrow wallet.
+  --mainnet             use the mainnet network
+  --network=<option>    the EVM network to connect to
+                        <options: mainnet|testnet>
+  --programId=<value>   alternative Switchboard program ID to interact with
+  --testnet             use the testnet network
+
+GLOBAL FLAGS
+  --json  Format output as json.
+
+DESCRIPTION
+  Fund a function account
+
+EXAMPLES
+  $ sb evm function fund 0xaA43ba6f18b138A0B3313dDbFaC2b920D240108E --chain arbitrum --network testnet --fundAmount 0.02 --account ~/.arbitrum-kp.txt --programId 0x4F706C62535d171883A6cc9384f3f3d926A6BA49
+```
+
+## `sb evm function print FUNCTIONKEY`
+
+Print a function account
+
+```
+USAGE
+  $ sb evm function print FUNCTIONKEY --account <value> [-h] [-v] [-s] [--chain coredao|arbitrum | --coredao |
+    --arbitrum] [--network mainnet|testnet | --mainnet | --testnet] [-u <value>] [--programId <value>] [--json]
+
+ARGUMENTS
+  FUNCTIONKEY  public key of the function account
+
+FLAGS
+  -h, --help            Show CLI help.
+  -s, --silent          suppress cli prompts
+  -u, --rpcUrl=<value>  alternate RPC url
+  -v, --verbose         log everything
+  --account=<value>     (required) Path to file containing the private key for the payer account
+  --arbitrum            use the arbitrum chain
+  --chain=<option>      the evm chain to interact with
+                        <options: coredao|arbitrum>
+  --coredao             use the coredao chain
+  --mainnet             use the mainnet network
+  --network=<option>    the EVM network to connect to
+                        <options: mainnet|testnet>
+  --programId=<value>   alternative Switchboard program ID to interact with
+  --testnet             use the testnet network
+
+GLOBAL FLAGS
+  --json  Format output as json.
+
+DESCRIPTION
+  Print a function account
+
+EXAMPLES
+  $ sb evm function print 0xaA43ba6f18b138A0B3313dDbFaC2b920D240108E --chain arbitrum --network testnet --programId 0x4F706C62535d171883A6cc9384f3f3d926A6BA49
+```
+
+## `sb evm function rmMrEnclave FUNCTIONKEY`
+
+Remove MrEnclave to a function account
+
+```
+USAGE
+  $ sb evm function rmMrEnclave FUNCTIONKEY --account <value> --mrEnclave <value> [-h] [-v] [-s] [--chain coredao|arbitrum |
+    --coredao | --arbitrum] [--network mainnet|testnet | --mainnet | --testnet] [-u <value>] [--programId <value>]
+    [--json]
+
+ARGUMENTS
+  FUNCTIONKEY  public key of the function account
+
+FLAGS
+  -h, --help            Show CLI help.
+  -s, --silent          suppress cli prompts
+  -u, --rpcUrl=<value>  alternate RPC url
+  -v, --verbose         log everything
+  --account=<value>     (required) Path to file containing the private key for the payer account
+  --arbitrum            use the arbitrum chain
+  --chain=<option>      the evm chain to interact with
+                        <options: coredao|arbitrum>
+  --coredao             use the coredao chain
+  --mainnet             use the mainnet network
+  --mrEnclave=<value>   (required) The MrEnclave to remove
+  --network=<option>    the EVM network to connect to
+                        <options: mainnet|testnet>
+  --programId=<value>   alternative Switchboard program ID to interact with
+  --testnet             use the testnet network
+
+GLOBAL FLAGS
+  --json  Format output as json.
+
+DESCRIPTION
+  Remove MrEnclave to a function account
+
+EXAMPLES
+  $ sb evm function removeMrEnclave 0xaA43ba6f18b138A0B3313dDbFaC2b920D240108E --chain arbitrum --network testnet --removeMrEnclace 0xDEADBEEF --account ~/.arbitrum-kp.txt --programId 0x4F706C62535d171883A6cc9384f3f3d926A6BA49
+```
+
 ## `sb evm job create`
 
 create the hash for a set of jobs
@@ -2011,6 +2236,29 @@ EXAMPLES
   $  sb evm aggregator set --arbitrum --testnet --account ~/.config/arbitrum/testnet.txt 0xB1c6E716ACae35200Dc8278A63a424f58417954c --name 'my updated feed' --batchSize 2 --job ./my_new_job.json
 ```
 
+## `sb function-init TEMPLATE`
+
+initialize a new function template
+
+```
+USAGE
+  $ sb function-init TEMPLATE [-h] [-v] [-s] [-d <value>]
+
+ARGUMENTS
+  TEMPLATE  (solana|solana-anchor|evm-rust|evm-typescript) type of template to initialize
+
+FLAGS
+  -d, --dir=<value>  name of the directory to initialize the new function template
+  -h, --help         Show CLI help.
+  -s, --silent       suppress cli prompts
+  -v, --verbose      log everything
+
+DESCRIPTION
+  initialize a new function template
+```
+
+_See code: [dist/commands/function-init.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.1.3/dist/commands/function-init.js)_
+
 ## `sb help [COMMANDS]`
 
 Display help for sb.
@@ -2074,7 +2322,7 @@ FLAGS
   -u, --rpcUrl=<value>          alternate RPC url
   -v, --verbose                 log everything
   --accountName=<value>         (required) Named account to load from your nearCredentialsDir
-  --nearCredentialsDir=<value>  [default: /Users/gally/.near-credentials] Alternative directory for near credentials.
+  --nearCredentialsDir=<value>  [default: /Users/mgild/.near-credentials] Alternative directory for near credentials.
                                 Defaults to ~/.near-credentials
   --networkId=<option>          [default: testnet] Near network ID to connect to
                                 <options: testnet|mainnet|localnet>
@@ -2116,7 +2364,7 @@ FLAGS
   --jobWeight=<value>           [default: 1] job weight
   --metadata=<value>            metadata of the job account
   --name=<value>                name of the job account
-  --nearCredentialsDir=<value>  [default: /Users/gally/.near-credentials] Alternative directory for near credentials.
+  --nearCredentialsDir=<value>  [default: /Users/mgild/.near-credentials] Alternative directory for near credentials.
                                 Defaults to ~/.near-credentials
   --networkId=<option>          [default: testnet] Near network ID to connect to
                                 <options: testnet|mainnet|localnet>
@@ -2162,7 +2410,7 @@ FLAGS
   --minJobs=<value>             number of jobs that must respond before an oracle responds
   --minOracles=<value>          number of oracles that must respond before a value is accepted on-chain
   --name=<value>                name of the crank for easier identification
-  --nearCredentialsDir=<value>  [default: /Users/gally/.near-credentials] Alternative directory for near credentials.
+  --nearCredentialsDir=<value>  [default: /Users/mgild/.near-credentials] Alternative directory for near credentials.
                                 Defaults to ~/.near-credentials
   --networkId=<option>          [default: testnet] Near network ID to connect to
                                 <options: testnet|mainnet|localnet>
@@ -2200,7 +2448,7 @@ FLAGS
   -s, --silent                  suppress cli prompts
   -u, --rpcUrl=<value>          alternate RPC url
   -v, --verbose                 log everything
-  --nearCredentialsDir=<value>  [default: /Users/gally/.near-credentials] Alternative directory for near credentials.
+  --nearCredentialsDir=<value>  [default: /Users/mgild/.near-credentials] Alternative directory for near credentials.
                                 Defaults to ~/.near-credentials
   --networkId=<option>          [default: testnet] Near network ID to connect to
                                 <options: testnet|mainnet|localnet>
@@ -2225,7 +2473,7 @@ FLAGS
   -u, --rpcUrl=<value>          alternate RPC url
   -v, --verbose                 log everything
   --accountId=<value>           (required) optional, authority to fetch aggregators for
-  --nearCredentialsDir=<value>  [default: /Users/gally/.near-credentials] Alternative directory for near credentials.
+  --nearCredentialsDir=<value>  [default: /Users/mgild/.near-credentials] Alternative directory for near credentials.
                                 Defaults to ~/.near-credentials
   --networkId=<option>          [default: testnet] Near network ID to connect to
                                 <options: testnet|mainnet|localnet>
@@ -2258,7 +2506,7 @@ FLAGS
   -u, --rpcUrl=<value>          alternate RPC url
   -v, --verbose                 log everything
   --accountName=<value>         (required) Named account to load from your nearCredentialsDir
-  --nearCredentialsDir=<value>  [default: /Users/gally/.near-credentials] Alternative directory for near credentials.
+  --nearCredentialsDir=<value>  [default: /Users/mgild/.near-credentials] Alternative directory for near credentials.
                                 Defaults to ~/.near-credentials
   --networkId=<option>          [default: testnet] Near network ID to connect to
                                 <options: testnet|mainnet|localnet>
@@ -2289,7 +2537,7 @@ FLAGS
   -u, --rpcUrl=<value>          alternate RPC url
   -v, --verbose                 log everything
   --accountName=<value>         (required) Named account to load from your nearCredentialsDir
-  --nearCredentialsDir=<value>  [default: /Users/gally/.near-credentials] Alternative directory for near credentials.
+  --nearCredentialsDir=<value>  [default: /Users/mgild/.near-credentials] Alternative directory for near credentials.
                                 Defaults to ~/.near-credentials
   --networkId=<option>          [default: testnet] Near network ID to connect to
                                 <options: testnet|mainnet|localnet>
@@ -2331,7 +2579,7 @@ FLAGS
   --jobWeight=<value>           [default: 1] job weight
   --metadata=<value>            metadata of the job account
   --name=<value>                name of the job account
-  --nearCredentialsDir=<value>  [default: /Users/gally/.near-credentials] Alternative directory for near credentials.
+  --nearCredentialsDir=<value>  [default: /Users/mgild/.near-credentials] Alternative directory for near credentials.
                                 Defaults to ~/.near-credentials
   --networkId=<option>          [default: testnet] Near network ID to connect to
                                 <options: testnet|mainnet|localnet>
@@ -2367,7 +2615,7 @@ FLAGS
   -u, --rpcUrl=<value>          alternate RPC url
   -v, --verbose                 log everything
   --accountName=<value>         (required) Named account to load from your nearCredentialsDir
-  --nearCredentialsDir=<value>  [default: /Users/gally/.near-credentials] Alternative directory for near credentials.
+  --nearCredentialsDir=<value>  [default: /Users/mgild/.near-credentials] Alternative directory for near credentials.
                                 Defaults to ~/.near-credentials
   --networkId=<option>          [default: testnet] Near network ID to connect to
                                 <options: testnet|mainnet|localnet>
@@ -2401,7 +2649,7 @@ FLAGS
   -u, --rpcUrl=<value>          alternate RPC url
   -v, --verbose                 log everything
   --accountName=<value>         (required) Named account to load from your nearCredentialsDir
-  --nearCredentialsDir=<value>  [default: /Users/gally/.near-credentials] Alternative directory for near credentials.
+  --nearCredentialsDir=<value>  [default: /Users/mgild/.near-credentials] Alternative directory for near credentials.
                                 Defaults to ~/.near-credentials
   --networkId=<option>          [default: testnet] Near network ID to connect to
                                 <options: testnet|mainnet|localnet>
@@ -2437,7 +2685,7 @@ FLAGS
   -u, --rpcUrl=<value>          alternate RPC url
   -v, --verbose                 log everything
   --accountName=<value>         (required) Named account to load from your nearCredentialsDir
-  --nearCredentialsDir=<value>  [default: /Users/gally/.near-credentials] Alternative directory for near credentials.
+  --nearCredentialsDir=<value>  [default: /Users/mgild/.near-credentials] Alternative directory for near credentials.
                                 Defaults to ~/.near-credentials
   --networkId=<option>          [default: testnet] Near network ID to connect to
                                 <options: testnet|mainnet|localnet>
@@ -2482,7 +2730,7 @@ FLAGS
   --minJobs=<value>             number of jobs that must respond before an oracle responds
   --minOracles=<value>          number of oracles that must respond before a value is accepted on-chain
   --name=<value>                name of the crank for easier identification
-  --nearCredentialsDir=<value>  [default: /Users/gally/.near-credentials] Alternative directory for near credentials.
+  --nearCredentialsDir=<value>  [default: /Users/mgild/.near-credentials] Alternative directory for near credentials.
                                 Defaults to ~/.near-credentials
   --networkId=<option>          [default: testnet] Near network ID to connect to
                                 <options: testnet|mainnet|localnet>
@@ -2520,7 +2768,7 @@ FLAGS
   -u, --rpcUrl=<value>          alternate RPC url
   -v, --verbose                 log everything
   --accountName=<value>         (required) Named account to load from your nearCredentialsDir
-  --nearCredentialsDir=<value>  [default: /Users/gally/.near-credentials] Alternative directory for near credentials.
+  --nearCredentialsDir=<value>  [default: /Users/mgild/.near-credentials] Alternative directory for near credentials.
                                 Defaults to ~/.near-credentials
   --networkId=<option>          [default: testnet] Near network ID to connect to
                                 <options: testnet|mainnet|localnet>
@@ -2558,7 +2806,7 @@ FLAGS
   --maxRows=<value>             [default: 100] maximum number of rows on the crank
   --metadata=<value>            metadata of the crank for easier identification
   --name=<value>                name of the crank for easier identification
-  --nearCredentialsDir=<value>  [default: /Users/gally/.near-credentials] Alternative directory for near credentials.
+  --nearCredentialsDir=<value>  [default: /Users/mgild/.near-credentials] Alternative directory for near credentials.
                                 Defaults to ~/.near-credentials
   --networkId=<option>          [default: testnet] Near network ID to connect to
                                 <options: testnet|mainnet|localnet>
@@ -2591,7 +2839,7 @@ FLAGS
   -s, --silent                  suppress cli prompts
   -u, --rpcUrl=<value>          alternate RPC url
   -v, --verbose                 log everything
-  --nearCredentialsDir=<value>  [default: /Users/gally/.near-credentials] Alternative directory for near credentials.
+  --nearCredentialsDir=<value>  [default: /Users/mgild/.near-credentials] Alternative directory for near credentials.
                                 Defaults to ~/.near-credentials
   --networkId=<option>          [default: testnet] Near network ID to connect to
                                 <options: testnet|mainnet|localnet>
@@ -2622,7 +2870,7 @@ FLAGS
   -u, --rpcUrl=<value>          alternate RPC url
   -v, --verbose                 log everything
   --accountName=<value>         (required) Named account to load from your nearCredentialsDir
-  --nearCredentialsDir=<value>  [default: /Users/gally/.near-credentials] Alternative directory for near credentials.
+  --nearCredentialsDir=<value>  [default: /Users/mgild/.near-credentials] Alternative directory for near credentials.
                                 Defaults to ~/.near-credentials
   --networkId=<option>          [default: testnet] Near network ID to connect to
                                 <options: testnet|mainnet|localnet>
@@ -2657,7 +2905,7 @@ FLAGS
   -u, --rpcUrl=<value>             alternate RPC url
   -v, --verbose                    log everything
   --accountName=<value>            (required) Named account to load from your nearCredentialsDir
-  --nearCredentialsDir=<value>     [default: /Users/gally/.near-credentials] Alternative directory for near credentials.
+  --nearCredentialsDir=<value>     [default: /Users/mgild/.near-credentials] Alternative directory for near credentials.
                                    Defaults to ~/.near-credentials
   --networkId=<option>             [default: testnet] Near network ID to connect to
                                    <options: testnet|mainnet|localnet>
@@ -2703,7 +2951,7 @@ FLAGS
   --minJobs=<value>             number of jobs that must respond before an oracle responds
   --minOracles=<value>          number of oracles that must respond before a value is accepted on-chain
   --name=<value>                name of the crank for easier identification
-  --nearCredentialsDir=<value>  [default: /Users/gally/.near-credentials] Alternative directory for near credentials.
+  --nearCredentialsDir=<value>  [default: /Users/mgild/.near-credentials] Alternative directory for near credentials.
                                 Defaults to ~/.near-credentials
   --networkId=<option>          [default: testnet] Near network ID to connect to
                                 <options: testnet|mainnet|localnet>
@@ -2742,7 +2990,7 @@ FLAGS
   -u, --rpcUrl=<value>          alternate RPC url
   -v, --verbose                 log everything
   --accountName=<value>         (required) Named account to load from your nearCredentialsDir
-  --nearCredentialsDir=<value>  [default: /Users/gally/.near-credentials] Alternative directory for near credentials.
+  --nearCredentialsDir=<value>  [default: /Users/mgild/.near-credentials] Alternative directory for near credentials.
                                 Defaults to ~/.near-credentials
   --networkId=<option>          [default: testnet] Near network ID to connect to
                                 <options: testnet|mainnet|localnet>
@@ -2780,7 +3028,7 @@ FLAGS
   --maxRows=<value>             [default: 100] maximum number of rows on the crank
   --metadata=<value>            metadata of the crank for easier identification
   --name=<value>                name of the crank for easier identification
-  --nearCredentialsDir=<value>  [default: /Users/gally/.near-credentials] Alternative directory for near credentials.
+  --nearCredentialsDir=<value>  [default: /Users/mgild/.near-credentials] Alternative directory for near credentials.
                                 Defaults to ~/.near-credentials
   --networkId=<option>          [default: testnet] Near network ID to connect to
                                 <options: testnet|mainnet|localnet>
@@ -2813,7 +3061,7 @@ FLAGS
   -v, --verbose                 log everything
   --accountName=<value>         (required) Named account to load from your nearCredentialsDir
   --mint=<value>                [default: wrap.test] token mint to create escrow account for
-  --nearCredentialsDir=<value>  [default: /Users/gally/.near-credentials] Alternative directory for near credentials.
+  --nearCredentialsDir=<value>  [default: /Users/mgild/.near-credentials] Alternative directory for near credentials.
                                 Defaults to ~/.near-credentials
   --networkId=<option>          [default: testnet] Near network ID to connect to
                                 <options: testnet|mainnet|localnet>
@@ -2851,7 +3099,7 @@ FLAGS
   --accountName=<value>         (required) Named account to load from your nearCredentialsDir
   --metadata=<value>            metadata of the job for easier identification
   --name=<value>                name of the job for easier identification
-  --nearCredentialsDir=<value>  [default: /Users/gally/.near-credentials] Alternative directory for near credentials.
+  --nearCredentialsDir=<value>  [default: /Users/mgild/.near-credentials] Alternative directory for near credentials.
                                 Defaults to ~/.near-credentials
   --networkId=<option>          [default: testnet] Near network ID to connect to
                                 <options: testnet|mainnet|localnet>
@@ -2889,7 +3137,7 @@ FLAGS
   --accountName=<value>         (required) Named account to load from your nearCredentialsDir
   --metadata=<value>            metadata of the oracle for easier identification
   --name=<value>                name of the oracle for easier identification
-  --nearCredentialsDir=<value>  [default: /Users/gally/.near-credentials] Alternative directory for near credentials.
+  --nearCredentialsDir=<value>  [default: /Users/mgild/.near-credentials] Alternative directory for near credentials.
                                 Defaults to ~/.near-credentials
   --networkId=<option>          [default: testnet] Near network ID to connect to
                                 <options: testnet|mainnet|localnet>
@@ -2925,7 +3173,7 @@ FLAGS
   --enable                      enable permissions
   --grantee=<value>             (required) account that will be granted permissions, typically an Oracle or Aggregator
   --granter=<value>             (required) account that will grant permissions, typically the OracleQueue
-  --nearCredentialsDir=<value>  [default: /Users/gally/.near-credentials] Alternative directory for near credentials.
+  --nearCredentialsDir=<value>  [default: /Users/mgild/.near-credentials] Alternative directory for near credentials.
                                 Defaults to ~/.near-credentials
   --networkId=<option>          [default: testnet] Near network ID to connect to
                                 <options: testnet|mainnet|localnet>
@@ -2964,7 +3212,7 @@ FLAGS
   --metadata=<value>            metadata of the queue for easier identification
   --minStake=<value>            [default: 0] minimum stake required by an oracle to join the queue
   --name=<value>                name of the queue for easier identification
-  --nearCredentialsDir=<value>  [default: /Users/gally/.near-credentials] Alternative directory for near credentials.
+  --nearCredentialsDir=<value>  [default: /Users/mgild/.near-credentials] Alternative directory for near credentials.
                                 Defaults to ~/.near-credentials
   --networkId=<option>          [default: testnet] Near network ID to connect to
                                 <options: testnet|mainnet|localnet>
@@ -3002,7 +3250,7 @@ FLAGS
   -v, --verbose                 log everything
   --accountName=<value>         (required) Named account to load from your nearCredentialsDir
   --mint=<value>                [default: wrap.test] token mint to create escrow account for
-  --nearCredentialsDir=<value>  [default: /Users/gally/.near-credentials] Alternative directory for near credentials.
+  --nearCredentialsDir=<value>  [default: /Users/mgild/.near-credentials] Alternative directory for near credentials.
                                 Defaults to ~/.near-credentials
   --networkId=<option>          [default: testnet] Near network ID to connect to
                                 <options: testnet|mainnet|localnet>
@@ -3033,7 +3281,7 @@ FLAGS
   -u, --rpcUrl=<value>          alternate RPC url
   -v, --verbose                 log everything
   --accountName=<value>         (required) Named account to load from your nearCredentialsDir
-  --nearCredentialsDir=<value>  [default: /Users/gally/.near-credentials] Alternative directory for near credentials.
+  --nearCredentialsDir=<value>  [default: /Users/mgild/.near-credentials] Alternative directory for near credentials.
                                 Defaults to ~/.near-credentials
   --networkId=<option>          [default: testnet] Near network ID to connect to
                                 <options: testnet|mainnet|localnet>
@@ -3064,7 +3312,7 @@ FLAGS
   -u, --rpcUrl=<value>          alternate RPC url
   -v, --verbose                 log everything
   --accountId=<value>           (required) optional, authority to fetch aggregators for
-  --nearCredentialsDir=<value>  [default: /Users/gally/.near-credentials] Alternative directory for near credentials.
+  --nearCredentialsDir=<value>  [default: /Users/mgild/.near-credentials] Alternative directory for near credentials.
                                 Defaults to ~/.near-credentials
   --networkId=<option>          [default: testnet] Near network ID to connect to
                                 <options: testnet|mainnet|localnet>
@@ -3097,7 +3345,7 @@ FLAGS
   -u, --rpcUrl=<value>          alternate RPC url
   -v, --verbose                 log everything
   --accountName=<value>         (required) Named account to load from your nearCredentialsDir
-  --nearCredentialsDir=<value>  [default: /Users/gally/.near-credentials] Alternative directory for near credentials.
+  --nearCredentialsDir=<value>  [default: /Users/mgild/.near-credentials] Alternative directory for near credentials.
                                 Defaults to ~/.near-credentials
   --networkId=<option>          [default: testnet] Near network ID to connect to
                                 <options: testnet|mainnet|localnet>
@@ -3132,7 +3380,7 @@ FLAGS
   --accountName=<value>         (required) Named account to load from your nearCredentialsDir
   --metadata=<value>            metadata of the job for easier identification
   --name=<value>                name of the job for easier identification
-  --nearCredentialsDir=<value>  [default: /Users/gally/.near-credentials] Alternative directory for near credentials.
+  --nearCredentialsDir=<value>  [default: /Users/mgild/.near-credentials] Alternative directory for near credentials.
                                 Defaults to ~/.near-credentials
   --networkId=<option>          [default: testnet] Near network ID to connect to
                                 <options: testnet|mainnet|localnet>
@@ -3165,7 +3413,7 @@ FLAGS
   -s, --silent                  suppress cli prompts
   -u, --rpcUrl=<value>          alternate RPC url
   -v, --verbose                 log everything
-  --nearCredentialsDir=<value>  [default: /Users/gally/.near-credentials] Alternative directory for near credentials.
+  --nearCredentialsDir=<value>  [default: /Users/mgild/.near-credentials] Alternative directory for near credentials.
                                 Defaults to ~/.near-credentials
   --networkId=<option>          [default: testnet] Near network ID to connect to
                                 <options: testnet|mainnet|localnet>
@@ -3203,7 +3451,7 @@ FLAGS
   --accountName=<value>         (required) Named account to load from your nearCredentialsDir
   --metadata=<value>            metadata of the oracle for easier identification
   --name=<value>                name of the oracle for easier identification
-  --nearCredentialsDir=<value>  [default: /Users/gally/.near-credentials] Alternative directory for near credentials.
+  --nearCredentialsDir=<value>  [default: /Users/mgild/.near-credentials] Alternative directory for near credentials.
                                 Defaults to ~/.near-credentials
   --networkId=<option>          [default: testnet] Near network ID to connect to
                                 <options: testnet|mainnet|localnet>
@@ -3236,7 +3484,7 @@ FLAGS
   -s, --silent                  suppress cli prompts
   -u, --rpcUrl=<value>          alternate RPC url
   -v, --verbose                 log everything
-  --nearCredentialsDir=<value>  [default: /Users/gally/.near-credentials] Alternative directory for near credentials.
+  --nearCredentialsDir=<value>  [default: /Users/mgild/.near-credentials] Alternative directory for near credentials.
                                 Defaults to ~/.near-credentials
   --networkId=<option>          [default: testnet] Near network ID to connect to
                                 <options: testnet|mainnet|localnet>
@@ -3268,7 +3516,7 @@ FLAGS
   -v, --verbose                 log everything
   --accountName=<value>         (required) Named account to load from your nearCredentialsDir
   --amount=<value>              (required) amount of Near to deposit into oracle staking wallet
-  --nearCredentialsDir=<value>  [default: /Users/gally/.near-credentials] Alternative directory for near credentials.
+  --nearCredentialsDir=<value>  [default: /Users/mgild/.near-credentials] Alternative directory for near credentials.
                                 Defaults to ~/.near-credentials
   --networkId=<option>          [default: testnet] Near network ID to connect to
                                 <options: testnet|mainnet|localnet>
@@ -3300,7 +3548,7 @@ FLAGS
   -v, --verbose                 log everything
   --accountName=<value>         (required) Named account to load from your nearCredentialsDir
   --amount=<value>              (required) amount of Near to unstake from oracle staking wallet
-  --nearCredentialsDir=<value>  [default: /Users/gally/.near-credentials] Alternative directory for near credentials.
+  --nearCredentialsDir=<value>  [default: /Users/mgild/.near-credentials] Alternative directory for near credentials.
                                 Defaults to ~/.near-credentials
   --networkId=<option>          [default: testnet] Near network ID to connect to
                                 <options: testnet|mainnet|localnet>
@@ -3333,7 +3581,7 @@ FLAGS
   -u, --rpcUrl=<value>          alternate RPC url
   -v, --verbose                 log everything
   --accountName=<value>         (required) Named account to load from your nearCredentialsDir
-  --nearCredentialsDir=<value>  [default: /Users/gally/.near-credentials] Alternative directory for near credentials.
+  --nearCredentialsDir=<value>  [default: /Users/mgild/.near-credentials] Alternative directory for near credentials.
                                 Defaults to ~/.near-credentials
   --networkId=<option>          [default: testnet] Near network ID to connect to
                                 <options: testnet|mainnet|localnet>
@@ -3369,7 +3617,7 @@ FLAGS
   --enable                      enable permissions
   --grantee=<value>             (required) account that will be granted permissions, typically an Oracle or Aggregator
   --granter=<value>             (required) account that will grant permissions, typically the OracleQueue
-  --nearCredentialsDir=<value>  [default: /Users/gally/.near-credentials] Alternative directory for near credentials.
+  --nearCredentialsDir=<value>  [default: /Users/mgild/.near-credentials] Alternative directory for near credentials.
                                 Defaults to ~/.near-credentials
   --networkId=<option>          [default: testnet] Near network ID to connect to
                                 <options: testnet|mainnet|localnet>
@@ -3402,7 +3650,7 @@ FLAGS
   -s, --silent                  suppress cli prompts
   -u, --rpcUrl=<value>          alternate RPC url
   -v, --verbose                 log everything
-  --nearCredentialsDir=<value>  [default: /Users/gally/.near-credentials] Alternative directory for near credentials.
+  --nearCredentialsDir=<value>  [default: /Users/mgild/.near-credentials] Alternative directory for near credentials.
                                 Defaults to ~/.near-credentials
   --networkId=<option>          [default: testnet] Near network ID to connect to
                                 <options: testnet|mainnet|localnet>
@@ -3434,7 +3682,7 @@ FLAGS
   -u, --rpcUrl=<value>          alternate RPC url
   -v, --verbose                 log everything
   --all                         print all account attributes including jobs, permissions, and leases
-  --nearCredentialsDir=<value>  [default: /Users/gally/.near-credentials] Alternative directory for near credentials.
+  --nearCredentialsDir=<value>  [default: /Users/mgild/.near-credentials] Alternative directory for near credentials.
                                 Defaults to ~/.near-credentials
   --networkId=<option>          [default: testnet] Near network ID to connect to
                                 <options: testnet|mainnet|localnet>
@@ -3465,7 +3713,7 @@ FLAGS
   -u, --rpcUrl=<value>          alternate RPC url
   -v, --verbose                 log everything
   --accountName=<value>         (required) Named account to load from your nearCredentialsDir
-  --nearCredentialsDir=<value>  [default: /Users/gally/.near-credentials] Alternative directory for near credentials.
+  --nearCredentialsDir=<value>  [default: /Users/mgild/.near-credentials] Alternative directory for near credentials.
                                 Defaults to ~/.near-credentials
   --networkId=<option>          [default: testnet] Near network ID to connect to
                                 <options: testnet|mainnet|localnet>
@@ -3500,7 +3748,7 @@ FLAGS
   -u, --rpcUrl=<value>             alternate RPC url
   -v, --verbose                    log everything
   --accountName=<value>            (required) Named account to load from your nearCredentialsDir
-  --nearCredentialsDir=<value>     [default: /Users/gally/.near-credentials] Alternative directory for near credentials.
+  --nearCredentialsDir=<value>     [default: /Users/mgild/.near-credentials] Alternative directory for near credentials.
                                    Defaults to ~/.near-credentials
   --networkId=<option>             [default: testnet] Near network ID to connect to
                                    <options: testnet|mainnet|localnet>
@@ -3533,7 +3781,7 @@ FLAGS
   -s, --silent                  suppress cli prompts
   -u, --rpcUrl=<value>          alternate RPC url
   -v, --verbose                 log everything
-  --nearCredentialsDir=<value>  [default: /Users/gally/.near-credentials] Alternative directory for near credentials.
+  --nearCredentialsDir=<value>  [default: /Users/mgild/.near-credentials] Alternative directory for near credentials.
                                 Defaults to ~/.near-credentials
   --networkId=<option>          [default: testnet] Near network ID to connect to
                                 <options: testnet|mainnet|localnet>
@@ -3572,7 +3820,7 @@ FLAGS
   --metadata=<value>            metadata of the queue for easier identification
   --minStake=<value>            [default: 0] minimum stake required by an oracle to join the queue
   --name=<value>                name of the queue for easier identification
-  --nearCredentialsDir=<value>  [default: /Users/gally/.near-credentials] Alternative directory for near credentials.
+  --nearCredentialsDir=<value>  [default: /Users/mgild/.near-credentials] Alternative directory for near credentials.
                                 Defaults to ~/.near-credentials
   --networkId=<option>          [default: testnet] Near network ID to connect to
                                 <options: testnet|mainnet|localnet>
@@ -3610,7 +3858,7 @@ FLAGS
   -s, --silent                  suppress cli prompts
   -u, --rpcUrl=<value>          alternate RPC url
   -v, --verbose                 log everything
-  --nearCredentialsDir=<value>  [default: /Users/gally/.near-credentials] Alternative directory for near credentials.
+  --nearCredentialsDir=<value>  [default: /Users/mgild/.near-credentials] Alternative directory for near credentials.
                                 Defaults to ~/.near-credentials
   --networkId=<option>          [default: testnet] Near network ID to connect to
                                 <options: testnet|mainnet|localnet>
@@ -3643,7 +3891,7 @@ FLAGS
   -s, --silent                  suppress cli prompts
   -u, --rpcUrl=<value>          alternate RPC url
   -v, --verbose                 log everything
-  --nearCredentialsDir=<value>  [default: /Users/gally/.near-credentials] Alternative directory for near credentials.
+  --nearCredentialsDir=<value>  [default: /Users/mgild/.near-credentials] Alternative directory for near credentials.
                                 Defaults to ~/.near-credentials
   --networkId=<option>          [default: testnet] Near network ID to connect to
                                 <options: testnet|mainnet|localnet>
@@ -3685,7 +3933,7 @@ FLAGS
   --metadata=<value>            metadata of the queue for easier identification
   --minStake=<value>            minimum stake required by an oracle to join the queue
   --name=<value>                name of the queue for easier identification
-  --nearCredentialsDir=<value>  [default: /Users/gally/.near-credentials] Alternative directory for near credentials.
+  --nearCredentialsDir=<value>  [default: /Users/mgild/.near-credentials] Alternative directory for near credentials.
                                 Defaults to ~/.near-credentials
   --networkId=<option>          [default: testnet] Near network ID to connect to
                                 <options: testnet|mainnet|localnet>
@@ -3734,7 +3982,7 @@ FLAGS
   --minJobs=<value>             number of jobs that must respond before an oracle responds
   --minOracles=<value>          number of oracles that must respond before a value is accepted on-chain
   --name=<value>                name of the crank for easier identification
-  --nearCredentialsDir=<value>  [default: /Users/gally/.near-credentials] Alternative directory for near credentials.
+  --nearCredentialsDir=<value>  [default: /Users/mgild/.near-credentials] Alternative directory for near credentials.
                                 Defaults to ~/.near-credentials
   --networkId=<option>          [default: testnet] Near network ID to connect to
                                 <options: testnet|mainnet|localnet>
@@ -3772,7 +4020,7 @@ FLAGS
   -u, --rpcUrl=<value>          alternate RPC url
   -v, --verbose                 log everything
   --accountName=<value>         (required) Named account to load from your nearCredentialsDir
-  --nearCredentialsDir=<value>  [default: /Users/gally/.near-credentials] Alternative directory for near credentials.
+  --nearCredentialsDir=<value>  [default: /Users/mgild/.near-credentials] Alternative directory for near credentials.
                                 Defaults to ~/.near-credentials
   --networkId=<option>          [default: testnet] Near network ID to connect to
                                 <options: testnet|mainnet|localnet>

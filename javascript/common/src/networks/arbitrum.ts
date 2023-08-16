@@ -23,8 +23,8 @@ export const SWITCHBOARD_ARBITRUM_MAINNET_CONFIG: IChainNetworkConfig = {
 
 export const SWITCHBOARD_ARBITRUM_TESTNET_CONFIG: IChainNetworkConfig = {
   networkName: "Goerli",
-  programId: "0x2802f459D1515257b73fAaa6dD9512E7cDE04592",
-  attestationService: "0xFC8e90254194B038F2e233129202f096a8507e80",
+  programId: "0x4F706C62535d171883A6cc9384f3f3d926A6BA49",
+  attestationService: "0x4F706C62535d171883A6cc9384f3f3d926A6BA49",
   authority: "0xB76E3A368dA2B6E6E5F5F686046C7cb0a3e1Bd1A",
   metadata: {
     defaultRpcUrl: "https://goerli-rollup.arbitrum.io/rpc",

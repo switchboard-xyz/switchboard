@@ -31,11 +31,11 @@ export default class OraclePrint extends BaseCommand {
 
     let permissions: string | undefined;
     try {
-      permissions = await Permissions.getSwitchboardPermissions(
-        this.program,
-        oracle.queueAddress,
-        oracleAccount.address
-      );
+      // permissions = await Permissions.getSwitchboardPermissions(
+      //   this.program,
+      //   oracle.queueAddress,
+      //   oracleAccount.address
+      // );
     } catch {}
 
     const oracleData = {

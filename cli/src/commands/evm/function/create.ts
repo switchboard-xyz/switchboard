@@ -1,18 +1,19 @@
-import { SolanaWithSignerBaseCommand as BaseCommand } from "../../../solana";
+import { EvmWithSignerBaseCommand as BaseCommand } from "../../../evm";
 import { CHECK_ICON } from "../../../utils";
 
-import * as anchor from "@coral-xyz/anchor";
 import { Args, Flags } from "@oclif/core";
-import type { Keypair } from "@solana/web3.js";
-import { PublicKey } from "@solana/web3.js";
 import { isBase58, parseRawMrEnclave } from "@switchboard-xyz/common";
 import {
   AttestationQueueAccount,
-  attestationTypes,
   FunctionAccount,
-  SB_ATTESTATION_PID,
-} from "@switchboard-xyz/solana.js";
+  SwitchboardProgram,
+} from "@switchboard-xyz/evm.js";
 import chalk from "chalk";
+import { ethers } from "ethers";
+
+function sleep(ms: number): Promise<void> {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
 
 export default class FunctionCreate extends BaseCommand {
   static enableJsonFlag = true;
@@ -20,7 +21,7 @@ export default class FunctionCreate extends BaseCommand {
   static description = "create a new function account for a given queue";
 
   static examples = [
-    "$ sb solana function create F8ce7MsckeZAbAGmxjJNetxYXQa9mKr9nnrC3qKubyYy --name function-1 --fundAmount 1.25 --container switchboardlabs/basic-oracle-function --version solana",
+    "$ sb evm function create F8ce7MsckeZAbAGmxjJNetxYXQa9mKr9nnrC3qKubyYy --name function-1 --fundAmount 0.25 --container switchboardlabs/basic-oracle-function --version latest",
   ];
 
   static flags = {
@@ -29,15 +30,18 @@ export default class FunctionCreate extends BaseCommand {
       char: "n",
       description: "name of the function for easier identification",
       default: "",
+      required: false,
     }),
     metadata: Flags.string({
       description: "metadata of the function for easier identification",
       default: "",
+      required: false,
     }),
     authority: Flags.string({
       char: "a",
       description:
         "keypair or public key to delegate authority to for managing the function account",
+      required: false,
     }),
     fundAmount: Flags.string({
       required: false,
@@ -59,18 +63,22 @@ export default class FunctionCreate extends BaseCommand {
       description:
         "the registry to pull the container from (Ex. Docker or IPFS)",
       options: ["dockerhub", "ipfs"],
-      default: "docker",
+      default: "dockerhub",
+      required: false,
     }),
     version: Flags.string({
       description:
         "the version of the container to pull from the registry (Ex. 'latest' or 'mainnet')",
       default: "latest",
+      required: false,
     }),
     mrEnclave: Flags.string({
+      required: false,
       description:
         "the MrEnclave value to set for the function - if not provided, will be set automatically after its first run",
     }),
     requestsDisabled: Flags.string({
+      required: false,
       description: "whether custom requests can be created for this function",
     }),
     requestsFee: Flags.string({
@@ -80,23 +88,10 @@ export default class FunctionCreate extends BaseCommand {
       default: "0.0",
     }),
     requestsRequireAuthorization: Flags.string({
+      required: false,
       description:
         "whether custom requests require the function authority to authorize",
     }),
-    enable: Flags.boolean({
-      description: "enable oracle heartbeat permissions",
-    }),
-    queueAuthority: Flags.string({
-      description: "alternative keypair to use for queue authority",
-    }),
-    // wallet: Flags.string({
-    //   description:
-    //     "public key of the Switchboard wallet to use for the function escrow",
-    // }),
-    // walletAuthority: Flags.string({
-    //   description:
-    //     "alternative keypair to use for wallet authority to authorize new functions",
-    // }),
   };
 
   static args = {
@@ -109,14 +104,12 @@ export default class FunctionCreate extends BaseCommand {
   async run() {
     const { args, flags } = await this.parse(FunctionCreate);
 
-    let authority: PublicKey | undefined;
+    let authority;
     if (flags.authority) {
-      if (isBase58(flags.authority)) {
-        authority = new PublicKey(flags.authority);
-      } else {
-        const authorityKeypair = await this.loadAuthority(flags.authority);
-        authority = authorityKeypair.publicKey;
-      }
+      authority = flags.authority;
+    } else {
+      const authorityKeypair = await this.getAuthority(flags.authority);
+      authority = await authorityKeypair.getAddress();
     }
 
     const fundAmount = flags.fundAmount ? Number(flags.fundAmount) : undefined;
@@ -126,14 +119,6 @@ export default class FunctionCreate extends BaseCommand {
 
     const [attestationQueueAccount, attestationQueue] =
       await AttestationQueueAccount.load(this.program, args.queueKey);
-
-    let queueAuthority: Keypair | undefined;
-    if (flags.queueAuthority) {
-      queueAuthority = await this.loadAuthority(
-        flags.queueAuthority,
-        attestationQueue.authority
-      );
-    }
 
     let containerRegistry: "dockerhub" | "ipfs" | undefined;
     if (flags.containerRegistry) {
@@ -148,65 +133,41 @@ export default class FunctionCreate extends BaseCommand {
       containerRegistry = flags.containerRegistry;
     }
 
-    const [functionAccount, txn] = await FunctionAccount.createInstruction(
-      this.program,
-      this.payer,
-      {
-        name: flags.name,
-        metadata: flags.metadata,
-        authority: authority,
-        schedule: flags.schedule,
-        container: flags.container,
-        containerRegistry: containerRegistry,
-        version: flags.version,
-        mrEnclave: parseRawMrEnclave(flags.mrEnclave ?? ""),
-        attestationQueue: attestationQueueAccount,
-      }
-    );
+    const [functionAccount, txn] = await FunctionAccount.create(this.program, {
+      name: flags.name,
+      authority: authority!,
+      schedule: flags.schedule,
+      container: flags.container,
+      containerRegistry: containerRegistry!,
+      version: flags.version,
+      // TODO: ADD MR NECLAVE ON INIT TO SDK
+      // mrEnclave: parseRawMrEnclave(flags.mrEnclave ?? ""),
+      attestationQueue: attestationQueueAccount.address,
+    });
 
+    let fundTxn;
     if (fundAmount) {
-      const wallet = await functionAccount.wallet;
-      txn.add(
-        attestationTypes.walletFund(
-          this.program,
-          {
-            params: {
-              // eslint-disable-next-line unicorn/no-null
-              transferAmount: null,
-              wrapAmount: this.program.mint.toTokenAmountBN(fundAmount),
-            },
-          },
-          {
-            wallet: wallet.publicKey,
-            mint: this.program.mint.address,
-            authority: authority ?? this.payer,
-            attestationQueue: attestationQueueAccount.publicKey,
-            tokenWallet: wallet.tokenWallet,
-            funderWallet: SB_ATTESTATION_PID,
-            funder: this.payer,
-            state: this.program.attestationProgramState.publicKey,
-            tokenProgram: anchor.utils.token.TOKEN_PROGRAM_ID,
-            systemProgram: anchor.web3.SystemProgram.programId,
-          }
-        )
+      await sleep(4000);
+      fundTxn = await functionAccount.escrowFund(
+        ethers.utils.parseEther(fundAmount.toString())
       );
     }
 
-    const signature = await this.signAndSend(txn);
-
     if (flags.silent) {
-      this.logger.info(signature);
+      this.logger.info(`Function create signature: ${txn!.hash}`);
+      this.logger.info(`Function fund signature: ${fundTxn!.hash}`);
       return;
     }
 
     this.logger.log(
       `${chalk.green(
         `${CHECK_ICON}Function Account created successfully:`,
-        functionAccount.publicKey.toBase58()
+        functionAccount.address
       )}`
     );
 
-    this.logger.info(this.toUrl(signature));
+    this.logger.info(`Function create signature: ${txn!.hash}`);
+    this.logger.info(`Function fund signature: ${fundTxn!.hash}`);
   }
 
   async catch(error: any) {
