@@ -4,10 +4,20 @@
   "rules": {
     "quotes": "off",
     "@typescript-eslint/ban-ts-comment": "off",
-    "no-control-regex": "off"
+    "no-control-regex": "off",
+    "node/no-unpublished-require": [
+      "off"
+    ],
+    "node/no-unpublished-import": [
+      "off"
+    ],
+    "node/no-extraneous-import": [
+      "error"
+    ]
   },
   "parserOptions": {
     "sourceType": "module",
+    "ecmaVersion": "latest",
     "allowImportExportEverywhere": true
   }
 }

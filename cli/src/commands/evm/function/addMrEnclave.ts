@@ -46,21 +46,21 @@ export default class FunctionAddMrEnclave extends BaseCommand {
       args.functionKey
     );
 
-    const txn = await functionAccount.addMrEnclave(mrEnclave);
+    // const txn = await functionAccount.addMrEnclave(mrEnclave);
 
-    if (flags.silent) {
-      this.logger.info(`Function addMrEnclave signature: ${txn!.hash}`);
-      return;
-    }
+    // if (flags.silent) {
+    //   this.logger.info(`Function addMrEnclave signature: ${txn!.hash}`);
+    //   return;
+    // }
 
-    this.logger.log(
-      `${chalk.green(
-        `${CHECK_ICON}MrEnclave added to Function Account successfully:`,
-        functionAccount.address
-      )}`
-    );
+    // this.logger.log(
+    //   `${chalk.green(
+    //     `${CHECK_ICON}MrEnclave added to Function Account successfully:`,
+    //     functionAccount.address
+    //   )}`
+    // );
 
-    this.logger.info(`Function addMrEnclave signature: ${txn!.hash}`);
+    // this.logger.info(`Function addMrEnclave signature: ${txn!.hash}`);
   }
 
   async catch(error: any) {

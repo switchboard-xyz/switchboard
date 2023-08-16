@@ -145,17 +145,22 @@ export default class FunctionCreate extends BaseCommand {
       attestationQueue: attestationQueueAccount.address,
     });
 
-    let fundTxn;
-    if (fundAmount) {
-      await sleep(4000);
-      fundTxn = await functionAccount.escrowFund(
-        ethers.utils.parseEther(fundAmount.toString())
-      );
-    }
+    const fundTxn =
+      fundAmount && fundAmount > 0
+        ? await (async () => {
+            await sleep(4000);
+            return await functionAccount.escrowFund(
+              ethers.utils.parseEther(fundAmount.toString())
+            );
+          })()
+        : undefined;
 
     if (flags.silent) {
       this.logger.info(`Function create signature: ${txn!.hash}`);
-      this.logger.info(`Function fund signature: ${fundTxn!.hash}`);
+      if (fundTxn) {
+        this.logger.info(`Function fund signature: ${fundTxn!.hash}`);
+      }
+
       return;
     }
 

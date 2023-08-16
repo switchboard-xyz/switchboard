@@ -46,21 +46,21 @@ export default class FunctionRemoveMrEnclave extends BaseCommand {
       args.functionKey
     );
 
-    const txn = await functionAccount.removeMrEnclave(mrEnclave);
+    // const txn = await functionAccount.removeMrEnclave(mrEnclave);
 
-    if (flags.silent) {
-      this.logger.info(`Function removeMrEnclave signature: ${txn!.hash}`);
-      return;
-    }
+    // if (flags.silent) {
+    //   this.logger.info(`Function removeMrEnclave signature: ${txn!.hash}`);
+    //   return;
+    // }
 
-    this.logger.log(
-      `${chalk.green(
-        `${CHECK_ICON}MrEnclave removeed to Function Account successfully:`,
-        functionAccount.address
-      )}`
-    );
+    // this.logger.log(
+    //   `${chalk.green(
+    //     `${CHECK_ICON}MrEnclave removeed to Function Account successfully:`,
+    //     functionAccount.address
+    //   )}`
+    // );
 
-    this.logger.info(`Function removeMrEnclave signature: ${txn!.hash}`);
+    // this.logger.info(`Function removeMrEnclave signature: ${txn!.hash}`);
   }
 
   async catch(error: any) {

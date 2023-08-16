@@ -49,12 +49,12 @@ export default class FunctionFund extends BaseCommand {
       args.functionKey
     );
 
-    let fundTxn;
-    if (fundAmount) {
-      fundTxn = await functionAccount.escrowFund(
-        ethers.utils.parseEther(fundAmount.toString())
-      );
-    }
+    const fundTxn =
+      fundAmount && fundAmount > 0
+        ? await functionAccount.escrowFund(
+            ethers.utils.parseEther(fundAmount.toString())
+          )
+        : undefined;
 
     if (flags.silent) {
       this.logger.info(`Function fund signature: ${fundTxn!.hash}`);
