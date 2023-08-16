@@ -45,7 +45,7 @@ export default class QueuePrint extends BaseCommand {
 
     const queueData: OracleQueueData & { oracles?: string[] } = {
       ...queue,
-      oracles,
+      oracles: oracles ? oracles : [],
     };
 
     if (flags.json) {

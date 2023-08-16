@@ -19,8 +19,6 @@ import {
 } from "@switchboard-xyz/common";
 import type {
   AggregatorData,
-  AggregatorReadConfig,
-  AggregatorResponseConfig,
   Job,
   OracleData,
   OracleQueueData,
@@ -392,8 +390,6 @@ export abstract class EvmBaseCommand extends BaseCommand implements IBaseChain {
   prettyPrintAggregator(
     address: string,
     aggregator: AggregatorData & { permissions?: string },
-    readConfig?: AggregatorReadConfig,
-    responseSettings?: AggregatorResponseConfig,
     SPACING = 24
   ) {
     // throw new Error(`Not implemented yet`);
@@ -435,78 +431,8 @@ export abstract class EvmBaseCommand extends BaseCommand implements IBaseChain {
     );
 
     output.push(chalkString("authority", aggregator.authority, SPACING));
-    output.push(chalkString("queueAddress", aggregator.queueAddress, SPACING));
     if (aggregator.permissions) {
       output.push(chalkString("permissions", aggregator.permissions, SPACING));
-    }
-
-    output.push(
-      chalkString(
-        "minUpdateDelaySeconds",
-        aggregator.minUpdateDelaySeconds.toString(),
-        SPACING
-      )
-    );
-    output.push(
-      chalkString("batchSize", aggregator.batchSize.toString(), SPACING)
-    );
-    output.push(
-      chalkString(
-        "minOracleResults",
-        aggregator.minOracleResults.toString(),
-        SPACING
-      )
-    );
-
-    if (responseSettings) {
-      output.push(
-        chalkString(
-          "minJobResults",
-          responseSettings.minJobResults.toNumber(),
-          SPACING
-        )
-      );
-      const varianceThreshold = fromBigNumber(
-        responseSettings.varianceThreshold
-      ).toNumber();
-
-      output.push(
-        chalkString(
-          "varianceThreshold",
-          varianceThreshold > 0
-            ? varianceThreshold + " %"
-            : "0 %, always report",
-          SPACING
-        )
-      );
-      const forceReportPeriod = responseSettings.forceReportPeriod.toNumber();
-      let forceReportString = forceReportPeriod + " seconds";
-      if (varianceThreshold === 0) {
-        forceReportString += ", disabled due to varianceThreshold of 0%";
-      } else if (forceReportPeriod === 0) {
-        forceReportString += ", disabled";
-      }
-
-      output.push(chalkString("forceReportPeriod", forceReportString, SPACING));
-    }
-
-    if (readConfig) {
-      output.push(
-        chalkString("historyEnabled", readConfig.historyEnabled, SPACING)
-      );
-      output.push(
-        chalkString("readCharge", fromBigNumber(readConfig.readCharge), SPACING)
-      );
-      output.push(
-        chalkString("rewardEscrow", readConfig.rewardEscrow, SPACING)
-      );
-      output.push(
-        chalkString(
-          "limitReadsToWhitelist",
-          readConfig.limitReadsToWhitelist,
-          SPACING
-        )
-      );
     }
 
     const logString = output.join("\n");
@@ -571,7 +497,6 @@ export abstract class EvmBaseCommand extends BaseCommand implements IBaseChain {
 
     output.push(chalkString("name", oracle.name, SPACING));
     output.push(chalkString("authority", oracle.authority, SPACING));
-    output.push(chalkString("queueAddress", oracle.queueAddress, SPACING));
     if (oracle.permissions) {
       output.push(chalkString("permissions", oracle.permissions, SPACING));
     }

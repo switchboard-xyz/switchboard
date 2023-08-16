@@ -47,7 +47,7 @@
     "./package.json": "./package.json"
   },
   "scripts": {
-    "build": "pnpm exec rimraf lib && node ./compile-protos.js && echo '!src/esm-utils.js' >> .gitignore",
+    "build": "pnpm exec rimraf lib lib-cjs && node ./compile-protos.js && echo '!src/esm-utils.js' >> .gitignore",
     "test": "pnpm exec jest",
     "prepack": "pnpm lint && pnpm build && pnpm test",
     "lint": "pnpm exec eslint src/**/*.ts",

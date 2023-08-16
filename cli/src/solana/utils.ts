@@ -410,6 +410,7 @@ export function prettyPrintQueue(
   output.push(
     chalkString("enableBufferRelayers", queue.enableBufferRelayers, SPACING)
   );
+  output.push(chalkString("enableTeeOnly", queue.enableTeeOnly, SPACING));
   output.push(
     chalkString(
       "consecFeedFailureLimit",

@@ -193,7 +193,7 @@ export default function ApiIndex({
                         whiteSpace: "break-spaces",
                       }}
                     >
-                      v{"3.0.0".padEnd(9, " ")}
+                      v{"3.1.3".padEnd(9, " ")}
                     </span>
                     <span>
                       {removeScopes("@switchboard-xyz/cli", [

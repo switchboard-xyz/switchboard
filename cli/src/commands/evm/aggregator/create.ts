@@ -136,11 +136,11 @@ export default class CreateAggregator extends BaseCommand {
 
     let permissions: string | undefined;
     try {
-      permissions = await Permissions.getSwitchboardPermissions(
-        this.program,
-        aggregator.queueAddress,
-        aggregatorAccount.address
-      );
+      // permissions = await Permissions.getSwitchboardPermissions(
+      //   this.program,
+      //   aggregator.queueAddress,
+      //   aggregatorAccount.address
+      // );
     } catch {}
 
     const aggregatorData = {
@@ -156,12 +156,7 @@ export default class CreateAggregator extends BaseCommand {
       );
     }
 
-    this.prettyPrintAggregator(
-      aggregatorAccount.address,
-      aggregatorData,
-      await aggregatorAccount.loadReadConfig().catch(),
-      await aggregatorAccount.loadResponseSettings().catch()
-    );
+    this.prettyPrintAggregator(aggregatorAccount.address, aggregatorData);
 
     this.logger.info("\n");
     this.logger.info(this.toUrl(aggregatorInit.hash));

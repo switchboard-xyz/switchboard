@@ -43,11 +43,11 @@ export default class AggregatorPrint extends BaseCommand {
 
     let permissions: string | undefined;
     try {
-      permissions = await Permissions.getSwitchboardPermissions(
-        this.program,
-        aggregator.queueAddress,
-        aggregatorAccount.address
-      );
+      // permissions = await Permissions.getSwitchboardPermissions(
+      //   this.program,
+      //   aggregator.queueAddress,
+      //   aggregatorAccount.address
+      // );
     } catch {}
 
     let jobs: Job[] | undefined;
@@ -68,12 +68,7 @@ export default class AggregatorPrint extends BaseCommand {
       );
     }
 
-    this.prettyPrintAggregator(
-      aggregatorAccount.address,
-      aggregatorData,
-      await aggregatorAccount.loadReadConfig().catch(),
-      await aggregatorAccount.loadResponseSettings().catch()
-    );
+    this.prettyPrintAggregator(aggregatorAccount.address, aggregatorData);
 
     if (flags.results) {
       const results = await aggregatorAccount.fetchAllResults();

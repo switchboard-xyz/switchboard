@@ -1,11 +1,12 @@
 {
   "include": [
-    "./src/**/*"
+    "src/**/*"
   ],
   "exclude": [
     "test/**/*",
     "lib",
-    "node_modules"
+    "node_modules",
+    "src/protos"
   ],
   "files": [
     "src/index.ts"
@@ -21,7 +22,7 @@
       "DOM"
     ],
     "moduleResolution": "nodenext",
-    "composite": false,
+    "composite": true,
     "inlineSources": true,
     "inlineSourceMap": true,
     "declaration": true,
@@ -33,7 +34,9 @@
     "resolveJsonModule": true,
     "skipLibCheck": true,
     "types": [
-      "node"
+      "node",
+      "chai",
+      "jest"
     ],
     "allowJs": true,
     "checkJs": false,

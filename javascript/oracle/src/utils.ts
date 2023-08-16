@@ -133,9 +133,11 @@ export type RawRelease = {
  * const releases: Array<ParsedRelease> = await fetchReleases();
  * ```
  */
-export async function fetchReleases(): Promise<Array<ParsedRelease>> {
+export async function fetchReleases(
+  repo = "switchboard-xyz/sbv2-oracle-operators"
+): Promise<Array<ParsedRelease>> {
   const response = await fetch(
-    `https://api.github.com/repos/switchboard-xyz/sbv2-oracle-operators/releases`,
+    `https://api.github.com/repos/${repo}/releases`,
     {
       headers: {
         Accept: "application/vnd.github.v3+json",
