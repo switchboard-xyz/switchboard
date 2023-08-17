@@ -9,9 +9,13 @@ a brand new anchor program.
 
 :::danger
 
-Switchboard VRF is still supported on Solana but we recommend moving to Switchboard Functions to cut costs and settle randomness in a single transaction.
+Switchboard VRF is still supported on Solana but we recommend moving to
+Switchboard Functions to cut costs and settle randomness in a single
+transaction.
 
-See [Ex. 02: Randomness Callback](/solana/functions/examples/randomness-callback) for more information.
+See
+[Ex. 02: Randomness Callback](/solana/functions/examples/randomness-callback)
+for more information.
 
 :::
 
@@ -205,7 +209,7 @@ import "mocha";
 
 import * as anchor from "@coral-xyz/anchor";
 import { AnchorProvider } from "@coral-xyz/anchor";
-import * as sbv2 from "@switchboard-xyz/solana.js";
+import * as sb from "@switchboard-xyz/solana.js";
 import { VrfClient } from "../target/types/vrf_client";
 import { assert } from "chai";
 import { BN } from "bn.js";
@@ -216,7 +220,7 @@ describe("vrf-client", () => {
   anchor.setProvider(provider);
 
   const program: anchor.Program<VrfClient> = anchor.workspace.VrfClient;
-  const payer = (provider.wallet as sbv2.AnchorWallet).payer;
+  const payer = (provider.wallet as sb.AnchorWallet).payer;
 
   it("init_client", async () => {
     // Add your test here.
@@ -251,16 +255,16 @@ startup_wait = 10000
 [test.validator]
 url = "https://api.devnet.solana.com"
 
-[[test.validator.clone]] # sbv2 devnet programID
+[[test.validator.clone]] # sb devnet programID
 address = "SW1TCH7qEPTdLsDHRgPuMQjbQxKdH2aBStViMFnt64f"
 
-[[test.validator.clone]] # sbv2 devnet IDL
+[[test.validator.clone]] # sb devnet IDL
 address = "Fi8vncGpNKbq62gPo56G4toCehWNy77GgqGkTaAF5Lkk"
 
-[[test.validator.clone]] # sbv2 devnet SbState
+[[test.validator.clone]] # sb devnet SbState
 address = "CyZuD7RPDcrqCGbNvLCyqk6Py9cEZTKmNKujfPi3ynDd"
 
-[[test.validator.clone]] # sbv2 devnet tokenVault
+[[test.validator.clone]] # sb devnet tokenVault
 address = "7hkp1xfPBcD2t1vZMoWWQPzipHVcXeLAAaiGXdPSfDie"
 
 ```
@@ -278,7 +282,7 @@ import "mocha";
 
 import * as anchor from "@coral-xyz/anchor";
 import { AnchorProvider } from "@coral-xyz/anchor";
-import * as sbv2 from "@switchboard-xyz/solana.js";
+import * as sb from "@switchboard-xyz/solana.js";
 import { VrfClient } from "../target/types/vrf_client";
 import { assert } from "chai";
 import { BN } from "bn.js";
@@ -290,7 +294,7 @@ describe("vrf-client", () => {
   anchor.setProvider(provider);
 
   const program: anchor.Program<VrfClient> = anchor.workspace.VrfClient;
-  const payer = (provider.wallet as sbv2.AnchorWallet).payer;
+  const payer = (provider.wallet as sb.AnchorWallet).payer;
 
   const vrfSecret = anchor.web3.Keypair.generate();
   console.log(`VRF Account: ${vrfSecret.publicKey}`);
@@ -302,7 +306,7 @@ describe("vrf-client", () => {
   console.log(`VRF Client: ${vrfClientKey}`);
 
   const vrfIxCoder = new anchor.BorshInstructionCoder(program.idl);
-  const vrfClientCallback: sbv2.Callback = {
+  const vrfClientCallback: sb.Callback = {
     programId: program.programId,
     accounts: [
       // ensure all accounts in consumeRandomness are populated
@@ -312,15 +316,15 @@ describe("vrf-client", () => {
     ixData: vrfIxCoder.encode("consumeRandomness", ""), // pass any params for instruction here
   };
 
-  let switchboard: sbv2.SwitchboardTestContext;
+  let switchboard: sb.SwitchboardTestContext;
   let oracle: NodeOracle;
-  let vrfAccount: sbv2.VrfAccount;
+  let vrfAccount: sb.VrfAccount;
 
   before(async () => {
-    switchboard = await sbv2.SwitchboardTestContext.loadFromProvider(provider, {
+    switchboard = await sb.SwitchboardTestContext.loadFromProvider(provider, {
       // You can provide a keypair to so the PDA schemes dont change between test runs
       name: "Test Queue",
-      keypair: sbv2.SwitchboardTestContextV2.loadKeypair(
+      keypair: sb.SwitchboardTestContextV2.loadKeypair(
         "~/.keypairs/queue.json"
       ),
       queueSize: 10,
@@ -333,7 +337,7 @@ describe("vrf-client", () => {
       oracle: {
         name: "Test Oracle",
         enable: true,
-        stakingWalletKeypair: sbv2.SwitchboardTestContextV2.loadKeypair(
+        stakingWalletKeypair: sb.SwitchboardTestContextV2.loadKeypair(
           "~/.keypairs/oracleWallet.json"
         ),
       },
@@ -743,7 +747,7 @@ it("request_randomness", async () => {
   const vrf = await vrfAccount.loadData();
 
   // derive the existing VRF permission account using the seeds
-  const [permissionAccount, permissionBump] = sbv2.PermissionAccount.fromSeed(
+  const [permissionAccount, permissionBump] = sb.PermissionAccount.fromSeed(
     switchboard.program,
     queue.authority,
     switchboard.queue.publicKey,
@@ -1061,21 +1065,21 @@ describe("vrf-client", () => {
      ixData: vrfIxCoder.encode("consumeRandomness", ""), // pass any params for instruction here
    };
 
--  let switchboard: sbv2.SwitchboardTestContext;
+-  let switchboard: sb.SwitchboardTestContext;
 +  let switchboard: {
-+    program: sbv2.SwitchboardProgram;
-+    queue: sbv2.QueueAccount;
++    program: sb.SwitchboardProgram;
++    queue: sb.QueueAccount;
 +  };
    let oracle: NodeOracle;
-   let vrfAccount: sbv2.VrfAccount;
+   let vrfAccount: sb.VrfAccount;
 
    before(async () => {
--    switchboard = await sbv2.SwitchboardTestContext.loadFromProvider(
+-    switchboard = await sb.SwitchboardTestContext.loadFromProvider(
 -      provider,
 -      {
 -        // You can provide a keypair to so the PDA schemes dont change between test runs
 -        name: "Test Queue",
--        keypair: sbv2.SwitchboardTestContext.loadKeypair(
+-        keypair: sb.SwitchboardTestContext.loadKeypair(
 -          "~/.keypairs/queue.json"
 -        ),
 -        queueSize: 10,
@@ -1088,12 +1092,12 @@ describe("vrf-client", () => {
 -        oracle: {
 -          name: "Test Oracle",
 -          enable: true,
--          stakingWalletKeypair: sbv2.SwitchboardTestContext.loadKeypair(
+-          stakingWalletKeypair: sb.SwitchboardTestContext.loadKeypair(
 -            "~/.keypairs/oracleWallet.json"
 -          ),
 -        },
 -      }
-+    const switchboardProgram = await sbv2.SwitchboardProgram.fromProvider(
++    const switchboardProgram = await sb.SwitchboardProgram.fromProvider(
 +      provider
      );
 -
@@ -1118,7 +1122,7 @@ describe("vrf-client", () => {
 -
 -  after(async () => {
 -    oracle?.stop();
-+    const [queueAccount, queue] = await sbv2.QueueAccount.load(
++    const [queueAccount, queue] = await sb.QueueAccount.load(
 +      switchboardProgram,
 +      "uPeRMdfPmrPqgRWSrjAnAkH78RqAhe5kXoW6vBYRqFX"
 +    );

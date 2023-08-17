@@ -5,12 +5,12 @@
  *  - Remove first two lines so they are partial MDX files and can be imported
  */
 
-import shell from "shelljs";
 import fs from "fs";
 import path from "path";
+import shell from "shelljs";
 
 type ParsedCommand = {
-  command: string; // sbv2 solana aggregator create
+  command: string; // sb solana aggregator create
   markdown: string;
   topics: Array<string>;
   usage?: string;

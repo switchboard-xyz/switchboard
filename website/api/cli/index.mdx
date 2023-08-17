@@ -5,13 +5,13 @@
 [![oclif](https://img.shields.io/badge/cli-oclif-brightgreen.svg)](https://oclif.io)
 [![Version](https://img.shields.io/npm/v/@switchboard-xyz/cli.svg)](https://npmjs.org/package/@switchboard-xyz/cli)
 [![Downloads/week](https://img.shields.io/npm/dw/@switchboard-xyz/cli.svg)](https://npmjs.org/package/@switchboard-xyz/cli)
-[![License](https://img.shields.io/npm/l/@switchboard-xyz/cli.svg)](https://github.com/switchboard-xyz/sbv2-core/blob/main/cli/LICENSE)
+[![License](https://img.shields.io/npm/l/@switchboard-xyz/cli.svg)](https://github.com/switchboard-xyz/core-sdk/blob/main/cli/LICENSE)
 
 </div>
 
 ## Install
 
-Run the following command to install the `sbv2` binary in your $PATH.
+Run the following command to install the `sb` binary in your $PATH.
 
 ```bash npm2yarn
 npm install -g @switchboard-xyz/cli
@@ -20,7 +20,7 @@ npm install -g @switchboard-xyz/cli
 You can re-run this command to upgrade your CLI version or run the command:
 
 ```bash
-sbv2 update stable
+sb update stable
 ```
 
 ## Setup
@@ -29,58 +29,58 @@ sbv2 update stable
 
 ```bash
 # Devnet
-sbv2 config set solana devnet rpc https://api.devnet.solana.com
-sbv2 config set solana devnet default-account "~/.config/solana/id.json"
+sb config set solana devnet rpc https://api.devnet.solana.com
+sb config set solana devnet default-account "~/.config/solana/id.json"
 
 # Mainnet
-sbv2 config set solana mainnet-beta rpc https://api.mainnet-beta.solana.com
-sbv2 config set solana mainnet-beta default-account "~/.config/solana/id.json"
+sb config set solana mainnet-beta rpc https://api.mainnet-beta.solana.com
+sb config set solana mainnet-beta default-account "~/.config/solana/id.json"
 ```
 
 ### Arbitrum
 
 ```bash
 # Testnet
-sbv2 config set arbitrum testnet rpc https://goerli-rollup.arbitrum.io/rpc
-sbv2 config set arbitrum testnet default-account "~/.config/arbitrum/testnet.txt"
+sb config set arbitrum testnet rpc https://goerli-rollup.arbitrum.io/rpc
+sb config set arbitrum testnet default-account "~/.config/arbitrum/testnet.txt"
 
 # Devnet
-sbv2 config set arbitrum mainnet rpc https://arb1.arbitrum.io/rpc
-sbv2 config set arbitrum mainnet default-account "~/.config/arbitrum/mainnet.txt"
+sb config set arbitrum mainnet rpc https://arb1.arbitrum.io/rpc
+sb config set arbitrum mainnet default-account "~/.config/arbitrum/mainnet.txt"
 ```
 
 ### Aptos
 
 ```bash
 # Testnet
-sbv2 config set aptos testnet rpc https://fullnode.testnet.aptoslabs.com/v1
-sbv2 config set aptos testnet default-account ".aptos/config.yaml"
+sb config set aptos testnet rpc https://fullnode.testnet.aptoslabs.com/v1
+sb config set aptos testnet default-account ".aptos/config.yaml"
 
 # Devnet
-sbv2 config set aptos devnet rpc https://fullnode.devnet.aptoslabs.com/v1
-sbv2 config set aptos devnet default-account ".aptos/config.yaml"
+sb config set aptos devnet rpc https://fullnode.devnet.aptoslabs.com/v1
+sb config set aptos devnet default-account ".aptos/config.yaml"
 ```
 
 ### CoreDAO
 
 ```bash
 # Testnet
-sbv2 config set coredao testnet rpc https://rpc.test.btcs.network
-sbv2 config set coredao testnet default-account "~/.config/coredao/testnet.txt"
+sb config set coredao testnet rpc https://rpc.test.btcs.network
+sb config set coredao testnet default-account "~/.config/coredao/testnet.txt"
 
 # Devnet
-sbv2 config set coredao mainnet rpc https://rpc.coredao.org
-sbv2 config set coredao mainnet default-account "~/.config/coredao/mainnet.txt"
+sb config set coredao mainnet rpc https://rpc.coredao.org
+sb config set coredao mainnet default-account "~/.config/coredao/mainnet.txt"
 ```
 
 ### NEAR
 
 ```bash
 # Testnet
-sbv2 config set near testnet rpc https://rpc.testnet.near.org
-sbv2 config set near testnet default-account my-named-account.testnet
+sb config set near testnet rpc https://rpc.testnet.near.org
+sb config set near testnet default-account my-named-account.testnet
 
 # Mainnet
-sbv2 config set near mainnet rpc https://rpc.mainnet.near.org
-sbv2 config set near mainnet default-account my-named-account.near
+sb config set near mainnet rpc https://rpc.mainnet.near.org
+sb config set near mainnet default-account my-named-account.near
 ```
