@@ -8,6 +8,7 @@ keywords: [Solana, Solana SDK, Switchboard Solana SDK]
 ---
 
 import ChainAddresses from "/src/components/Addresses/ChainAddresses";
+import ChainAddressButton from "/src/components/ChainAddressButton";
 import AddressButton from "/src/components/AddressButton";
 import { Grid } from "@mui/material";
 
@@ -39,12 +40,12 @@ networks.
 
 <div>
   <strong>Oracle Program</strong>:{" "}
-  <AddressButton address="SW1TCH7qEPTdLsDHRgPuMQjbQxKdH2aBStViMFnt64f" />
+  <ChainAddressButton chain="solana" network="mainnet" />
 </div>
 
 <div>
   <strong>Attestation Program</strong>:{" "}
-  <AddressButton address="sbattyXrzedoNATfc4L31wC9Mhxsi1BmFhTiN8gDshx" />
+  <ChainAddressButton chain="solana" network="mainnet" field="attestationService" />
 </div>
 
 <hr />

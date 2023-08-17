@@ -22,16 +22,15 @@ export function getNetworkTable(
 ): JSX.Element {
   const networkConfig: IChainNetworkConfig = networks[chain][network];
   const addresses: Array<[string, string]> = [];
-  addresses.push(["Program ID", networkConfig.programId]);
-  if (networkConfig.authority) {
-    addresses.push(["Program Authority", networkConfig.authority]);
-  }
+  addresses.push(["Address", networkConfig.address]);
   const ignoreKeys = [
     "networkName",
-    "programId",
+    "address",
     "authority",
     "queues",
+    "attestationQueues",
     "metadata",
+    "chain",
   ];
   const restOfKeys = Object.keys(networkConfig).filter(
     (key) => !ignoreKeys.includes(key)
@@ -67,7 +66,7 @@ export function getNetworkTable(
         })}
       </table>
 
-      {hideQueues ? (
+      {hideQueues || networkConfig.queues.length === 0 ? (
         <></>
       ) : (
         <>
@@ -104,6 +103,30 @@ export function getNetworkTable(
               );
             })}
           </table>
+          {networkConfig.attestationQueues.length === 0 ? (
+            <></>
+          ) : (
+            <>
+              <h3>Attestation Queues</h3>
+              <table>
+                <tr>
+                  <th>Attestation Queue</th>
+                  <th>Address</th>
+                </tr>
+
+                {networkConfig.attestationQueues.map((queueConfig) => {
+                  return (
+                    <tr>
+                      <td>{queueConfig.name}</td>
+                      <td>
+                        <AddressButton address={queueConfig.address} /> <br />
+                      </td>
+                    </tr>
+                  );
+                })}
+              </table>
+            </>
+          )}
         </>
       )}
     </>

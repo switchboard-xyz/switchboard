@@ -7,6 +7,7 @@ sidebar_class_name: "sidebar__arbitrum"
 keywords: [Arbitrum, Arbitrum SDK, Switchboard Arbitrum SDK]
 ---
 
+import ChainAddressButton from "/src/components/ChainAddressButton";
 import ChainAddresses from "/src/components/Addresses/ChainAddresses";
 import ChainIcon from "/src/components/ChainComponent/ChainIcon";
 import AddressButton from "/src/components/AddressButton";
@@ -32,11 +33,17 @@ or check out [The Network](/network) page to also view the Switchboard Labs
 supported oracle networks.
 
 <div>
-  <strong>Oracle Program</strong>: <AddressButton address="" />
+  <strong>Contract Address</strong>:{" "}
+  <ChainAddressButton chain="arbitrum" network="mainnet" />
 </div>
 
 <div>
-  <strong>Attestation Program</strong>: <AddressButton address="" />
+  <strong>Switchboard Push Oracle</strong>:{" "}
+  <ChainAddressButton
+    chain="arbitrum"
+    network="mainnet"
+    field="sbPushReceiver"
+  />
 </div>
 
 <hr />
