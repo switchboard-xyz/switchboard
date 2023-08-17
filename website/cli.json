@@ -1993,35 +1993,27 @@
     "description": "set a configuration option"
   },
   {
-    "id": "evm-aggregator-create",
-    "permalink": "/cli/evm/aggregator/create",
+    "id": "evm-enclave-print",
+    "permalink": "/cli/evm/enclave/print",
     "topic": "evm",
-    "command": "sb evm aggregator create",
+    "command": "sb evm enclave print",
     "topics": [
       "evm",
-      "aggregator",
-      "create"
+      "enclave",
+      "print"
     ],
-    "markdown": "USAGE\n  $ sb evm aggregator create QUEUEADDRESS --account <value> --updateInterval <value> [-h] [-v] [-s] [--chain\n    coredao|arbitrum | --coredao | --arbitrum] [--network mainnet|testnet | --mainnet | --testnet] [-u <value>]\n    [--programId <value>] [--json] [-a <value>] [--name <value>] [--forceReportPeriod <value>] [--batchSize <value>]\n    [--minJobs <value>] [--minOracles <value>] [--varianceThreshold <value>] [-j <value>] [--enableHistory]\n    [--queueAuthority <value> --enable] [--fundAmount <value>]\n\nARGUMENTS\n  QUEUEADDRESS  address of the oracle queue\n\nFLAGS\n  -a, --authority=<value>      alternate account that will be the authority for the aggregator\n  -h, --help                   Show CLI help.\n  -j, --job=<value>...         filesystem path to job definition file\n  -s, --silent                 suppress cli prompts\n  -u, --rpcUrl=<value>         alternate RPC url\n  -v, --verbose                log everything\n  --account=<value>            (required) Path to file containing the private key for the payer account\n  --arbitrum                   use the arbitrum chain\n  --batchSize=<value>          [default: 1] number of oracles requested for each open round call\n  --chain=<option>             the evm chain to interact with\n                               <options: coredao|arbitrum>\n  --coredao                    use the coredao chain\n  --enable                     enable the oracles heartbeat permissions\n  --enableHistory              enable history for the feed\n  --forceReportPeriod=<value>  Number of seconds for which, even if the variance threshold is not passed, accept new\n                               responses from oracles.\n  --fundAmount=<value>         [default: 0.0] fund the aggregator escrow with the native token, used to reward oracles\n                               for publishing updates\n  --mainnet                    use the mainnet network\n  --minJobs=<value>            [default: 1] number of jobs that must respond before an oracle responds\n  --minOracles=<value>         [default: 1] number of oracles that must respond before a value is accepted on-chain\n  --name=<value>               name of the aggregator for easier identification\n  --network=<option>           the EVM network to connect to\n                               <options: mainnet|testnet>\n  --programId=<value>          alternative Switchboard program ID to interact with\n  --queueAuthority=<value>     override the default signer when setting oracle permissions\n  --testnet                    use the testnet network\n  --updateInterval=<value>     (required) set an aggregator's minimum update delay\n  --varianceThreshold=<value>  [default: 0] percentage change between a previous accepted result and the next round\n                               before an oracle reports a value on-chain. Used to conserve lease cost during low\n                               volatility\n\nGLOBAL FLAGS\n  --json  Format output as json.\n\nDESCRIPTION\n  create an aggregator for a given queue\n\nALIASES\n  $ sb evm create aggregator\n\nEXAMPLES\n  $ sb evm aggregator create --arbitrum --testnet --account ~/.config/arbitrum/testnet.txt 0xB1c6E716ACae35200Dc8278A63a424f58417954c --name 'my feed' --batchSize 1 --updateInterval 90 --fundAmount 0.25 --job my_job.json\n",
-    "usage": "sb evm aggregator create QUEUEADDRESS --account <value> --updateInterval <value> [-h] [-v] [-s] [--chain\n    coredao|arbitrum | --coredao | --arbitrum] [--network mainnet|testnet | --mainnet | --testnet] [-u <value>]\n    [--programId <value>] [--json] [-a <value>] [--name <value>] [--forceReportPeriod <value>] [--batchSize <value>]\n    [--minJobs <value>] [--minOracles <value>] [--varianceThreshold <value>] [-j <value>] [--enableHistory]\n    [--queueAuthority <value> --enable] [--fundAmount <value>]",
+    "markdown": "USAGE\n  $ sb evm enclave print ENCLAVEKEY --account <value> [-h] [-v] [-s] [--chain coredao|arbitrum | --coredao |\n    --arbitrum] [--network mainnet|testnet | --mainnet | --testnet] [-u <value>] [--programId <value>] [--json]\n\nARGUMENTS\n  ENCLAVEKEY  address of the enclave\n\nFLAGS\n  -h, --help            Show CLI help.\n  -s, --silent          suppress cli prompts\n  -u, --rpcUrl=<value>  alternate RPC url\n  -v, --verbose         log everything\n  --account=<value>     (required) Path to file containing the private key for the payer account\n  --arbitrum            use the arbitrum chain\n  --chain=<option>      the evm chain to interact with\n                        <options: coredao|arbitrum>\n  --coredao             use the coredao chain\n  --mainnet             use the mainnet network\n  --network=<option>    the EVM network to connect to\n                        <options: mainnet|testnet>\n  --programId=<value>   alternative Switchboard program ID to interact with\n  --testnet             use the testnet network\n\nGLOBAL FLAGS\n  --json  Format output as json.\n\nDESCRIPTION\n  Print an enclave's state\n\nEXAMPLES\n  $ sb evm enclave print 0xaA43ba6f18b138A0B3313dDbFaC2b920D240108E --chain arbitrum --network testnet --programId 0x4F706C62535d171883A6cc9384f3f3d926A6BA49\n",
+    "usage": "sb evm enclave print ENCLAVEKEY --account <value> [-h] [-v] [-s] [--chain coredao|arbitrum | --coredao |\n    --arbitrum] [--network mainnet|testnet | --mainnet | --testnet] [-u <value>] [--programId <value>] [--json]",
     "args": [
       {
-        "arg": "QUEUEADDRESS",
-        "description": "address of the oracle queue"
+        "arg": "ENCLAVEKEY",
+        "description": "address of the enclave"
       }
     ],
     "flags": [
       {
-        "flag": " -a, --authority=<value>",
-        "description": "alternate account that will be the authority for the aggregator"
-      },
-      {
-        "flag": "-h, --help",
+        "flag": " -h, --help",
         "description": "Show CLI help."
-      },
-      {
-        "flag": "-j, --job=<value>...",
-        "description": "filesystem path to job definition file"
       },
       {
         "flag": "-s, --silent",
@@ -2044,8 +2036,81 @@
         "description": "use the arbitrum chain"
       },
       {
-        "flag": "--batchSize=<value>",
-        "description": "[default: 1] number of oracles requested for each open round call"
+        "flag": "--chain=<option>",
+        "description": "the evm chain to interact with <options: coredao|arbitrum>"
+      },
+      {
+        "flag": "--coredao",
+        "description": "use the coredao chain"
+      },
+      {
+        "flag": "--mainnet",
+        "description": "use the mainnet network"
+      },
+      {
+        "flag": "--network=<option>",
+        "description": "the EVM network to connect to <options: mainnet|testnet>"
+      },
+      {
+        "flag": "--programId=<value>",
+        "description": "alternative Switchboard program ID to interact with"
+      },
+      {
+        "flag": "--testnet",
+        "description": "use the testnet network GLOBAL FLAGS"
+      },
+      {
+        "flag": "--json",
+        "description": "Format output as json."
+      }
+    ],
+    "description": "Print an enclave's state",
+    "examples": [
+      "sb evm enclave print 0xaA43ba6f18b138A0B3313dDbFaC2b920D240108E --chain arbitrum --network testnet --programId 0x4F706C62535d171883A6cc9384f3f3d926A6BA49"
+    ]
+  },
+  {
+    "id": "evm-function-add",
+    "permalink": "/cli/evm/function/add",
+    "topic": "evm",
+    "command": "sb evm function add",
+    "topics": [
+      "evm",
+      "function",
+      "add"
+    ],
+    "markdown": "USAGE\n  $ sb evm function addMrEnclave FUNCTIONKEY --account <value> --mrEnclave <value> [-h] [-v] [-s] [--chain coredao|arbitrum |\n    --coredao | --arbitrum] [--network mainnet|testnet | --mainnet | --testnet] [-u <value>] [--programId <value>]\n    [--json]\n\nARGUMENTS\n  FUNCTIONKEY  address of the function account\n\nFLAGS\n  -h, --help            Show CLI help.\n  -s, --silent          suppress cli prompts\n  -u, --rpcUrl=<value>  alternate RPC url\n  -v, --verbose         log everything\n  --account=<value>     (required) Path to file containing the private key for the payer account\n  --arbitrum            use the arbitrum chain\n  --chain=<option>      the evm chain to interact with\n                        <options: coredao|arbitrum>\n  --coredao             use the coredao chain\n  --mainnet             use the mainnet network\n  --mrEnclave=<value>   (required) The MrEnclave to add\n  --network=<option>    the EVM network to connect to\n                        <options: mainnet|testnet>\n  --programId=<value>   alternative Switchboard program ID to interact with\n  --testnet             use the testnet network\n\nGLOBAL FLAGS\n  --json  Format output as json.\n\nDESCRIPTION\n  Add MrEnclave to a function account\n\nEXAMPLES\n  $ sb evm function addMrEnclave 0xaA43ba6f18b138A0B3313dDbFaC2b920D240108E --chain arbitrum --network testnet --addMrEnclace 0xDEADBEEF --account ~/.arbitrum-kp.txt --programId 0x4F706C62535d171883A6cc9384f3f3d926A6BA49\n",
+    "usage": "sb evm function addMrEnclave FUNCTIONKEY --account <value> --mrEnclave <value> [-h] [-v] [-s] [--chain coredao|arbitrum |\n    --coredao | --arbitrum] [--network mainnet|testnet | --mainnet | --testnet] [-u <value>] [--programId <value>]\n    [--json]",
+    "args": [
+      {
+        "arg": "FUNCTIONKEY",
+        "description": "address of the function account"
+      }
+    ],
+    "flags": [
+      {
+        "flag": " -h, --help",
+        "description": "Show CLI help."
+      },
+      {
+        "flag": "-s, --silent",
+        "description": "suppress cli prompts"
+      },
+      {
+        "flag": "-u, --rpcUrl=<value>",
+        "description": "alternate RPC url"
+      },
+      {
+        "flag": "-v, --verbose",
+        "description": "log everything"
+      },
+      {
+        "flag": "--account=<value>",
+        "description": "(required) Path to file containing the private key for the payer account"
+      },
+      {
+        "flag": "--arbitrum",
+        "description": "use the arbitrum chain"
       },
       {
         "flag": "--chain=<option>",
@@ -2056,36 +2121,113 @@
         "description": "use the coredao chain"
       },
       {
-        "flag": "--enable",
-        "description": "enable the oracles heartbeat permissions"
+        "flag": "--mainnet",
+        "description": "use the mainnet network"
       },
       {
-        "flag": "--enableHistory",
-        "description": "enable history for the feed"
+        "flag": "--mrEnclave=<value>",
+        "description": "(required) The MrEnclave to add"
       },
       {
-        "flag": "--forceReportPeriod=<value>",
-        "description": "Number of seconds for which, even if the variance threshold is not passed, accept new responses from oracles."
+        "flag": "--network=<option>",
+        "description": "the EVM network to connect to <options: mainnet|testnet>"
+      },
+      {
+        "flag": "--programId=<value>",
+        "description": "alternative Switchboard program ID to interact with"
+      },
+      {
+        "flag": "--testnet",
+        "description": "use the testnet network GLOBAL FLAGS"
+      },
+      {
+        "flag": "--json",
+        "description": "Format output as json."
+      }
+    ],
+    "description": "Add MrEnclave to a function account",
+    "examples": [
+      "sb evm function addMrEnclave 0xaA43ba6f18b138A0B3313dDbFaC2b920D240108E --chain arbitrum --network testnet --addMrEnclace 0xDEADBEEF --account ~/.arbitrum-kp.txt --programId 0x4F706C62535d171883A6cc9384f3f3d926A6BA49"
+    ]
+  },
+  {
+    "id": "evm-function-create",
+    "permalink": "/cli/evm/function/create",
+    "topic": "evm",
+    "command": "sb evm function create",
+    "topics": [
+      "evm",
+      "function",
+      "create"
+    ],
+    "markdown": "USAGE\n  $ sb evm function create QUEUEKEY --account <value> --container <value> [-h] [-v] [-s] [--chain coredao|arbitrum |\n    --coredao | --arbitrum] [--network mainnet|testnet | --mainnet | --testnet] [-u <value>] [--programId <value>]\n    [--json] [-n <value>] [-a <value>] [--fundAmount <value>] [--schedule <value>] [--containerRegistry dockerhub|ipfs]\n    [--version <value>] [--mrEnclave <value>]\n\nARGUMENTS\n  QUEUEKEY  address of the attestation queue account\n\nFLAGS\n  -a, --authority=<value>       keypair or address to delegate authority to for managing the function account\n  -h, --help                    Show CLI help.\n  -n, --name=<value>            name of the function for easier identification\n  -s, --silent                  suppress cli prompts\n  -u, --rpcUrl=<value>          alternate RPC url\n  -v, --verbose                 log everything\n  --account=<value>             (required) Path to file containing the private key for the payer account\n  --arbitrum                    use the arbitrum chain\n  --chain=<option>              the evm chain to interact with\n                                <options: coredao|arbitrum>\n  --container=<value>           (required) the location of the container (Ex. switchboardlabs/basic-oracle-function)\n  --containerRegistry=<option>  [default: dockerhub] the registry to pull the container from (Ex. Docker or IPFS)\n                                <options: dockerhub|ipfs>\n  --coredao                     use the coredao chain\n  --fundAmount=<value>          [default: 0.0] token amount to load into the function's escrow wallet.\n  --mainnet                     use the mainnet network\n  --mrEnclave=<value>           the MrEnclave value to set for the function - if not provided, will be set automatically\n                                after its first run\n  --network=<option>            the EVM network to connect to\n                                <options: mainnet|testnet>\n  --programId=<value>           alternative Switchboard program ID to interact with\n  --schedule=<value>            the cron schedule to execute the function periodically (Ex. '15 * * * * *' will execute\n                                the function every 15 seconds)\n  --testnet                     use the testnet network\n  --version=<value>             [default: latest] the version of the container to pull from the registry (Ex. 'latest'\n                                or 'mainnet')\n\nGLOBAL FLAGS\n  --json  Format output as json.\n\nDESCRIPTION\n  create a new function account for a given queue\n\nEXAMPLES\n  $ sb evm function create F8ce7MsckeZAbAGmxjJNetxYXQa9mKr9nnrC3qKubyYy --name function-1 --fundAmount 0.25 --container switchboardlabs/basic-oracle-function --version latest\n",
+    "usage": "sb evm function create QUEUEKEY --account <value> --container <value> [-h] [-v] [-s] [--chain coredao|arbitrum |\n    --coredao | --arbitrum] [--network mainnet|testnet | --mainnet | --testnet] [-u <value>] [--programId <value>]\n    [--json] [-n <value>] [-a <value>] [--fundAmount <value>] [--schedule <value>] [--containerRegistry dockerhub|ipfs]\n    [--version <value>] [--mrEnclave <value>]",
+    "args": [
+      {
+        "arg": "QUEUEKEY",
+        "description": "address of the attestation queue account"
+      }
+    ],
+    "flags": [
+      {
+        "flag": " -a, --authority=<value>",
+        "description": "keypair or address to delegate authority to for managing the function account"
+      },
+      {
+        "flag": "-h, --help",
+        "description": "Show CLI help."
+      },
+      {
+        "flag": "-n, --name=<value>",
+        "description": "name of the function for easier identification"
+      },
+      {
+        "flag": "-s, --silent",
+        "description": "suppress cli prompts"
+      },
+      {
+        "flag": "-u, --rpcUrl=<value>",
+        "description": "alternate RPC url"
+      },
+      {
+        "flag": "-v, --verbose",
+        "description": "log everything"
+      },
+      {
+        "flag": "--account=<value>",
+        "description": "(required) Path to file containing the private key for the payer account"
+      },
+      {
+        "flag": "--arbitrum",
+        "description": "use the arbitrum chain"
+      },
+      {
+        "flag": "--chain=<option>",
+        "description": "the evm chain to interact with <options: coredao|arbitrum>"
+      },
+      {
+        "flag": "--container=<value>",
+        "description": "(required) the location of the container (Ex. switchboardlabs/basic-oracle-function)"
+      },
+      {
+        "flag": "--containerRegistry=<option>",
+        "description": "[default: dockerhub] the registry to pull the container from (Ex. Docker or IPFS) <options: dockerhub|ipfs>"
+      },
+      {
+        "flag": "--coredao",
+        "description": "use the coredao chain"
       },
       {
         "flag": "--fundAmount=<value>",
-        "description": "[default: 0.0] fund the aggregator escrow with the native token, used to reward oracles for publishing updates"
+        "description": "[default: 0.0] token amount to load into the function's escrow wallet."
       },
       {
         "flag": "--mainnet",
         "description": "use the mainnet network"
       },
       {
-        "flag": "--minJobs=<value>",
-        "description": "[default: 1] number of jobs that must respond before an oracle responds"
-      },
-      {
-        "flag": "--minOracles=<value>",
-        "description": "[default: 1] number of oracles that must respond before a value is accepted on-chain"
-      },
-      {
-        "flag": "--name=<value>",
-        "description": "name of the aggregator for easier identification"
+        "flag": "--mrEnclave=<value>",
+        "description": "the MrEnclave value to set for the function - if not provided, will be set automatically after its first run"
       },
       {
         "flag": "--network=<option>",
@@ -2096,50 +2238,43 @@
         "description": "alternative Switchboard program ID to interact with"
       },
       {
-        "flag": "--queueAuthority=<value>",
-        "description": "override the default signer when setting oracle permissions"
+        "flag": "--schedule=<value>",
+        "description": "the cron schedule to execute the function periodically (Ex. '15 * * * * *' will execute the function every 15 seconds)"
       },
       {
         "flag": "--testnet",
         "description": "use the testnet network"
       },
       {
-        "flag": "--updateInterval=<value>",
-        "description": "(required) set an aggregator's minimum update delay"
-      },
-      {
-        "flag": "--varianceThreshold=<value>",
-        "description": "[default: 0] percentage change between a previous accepted result and the next round before an oracle reports a value on-chain. Used to conserve lease cost during low volatility GLOBAL FLAGS"
+        "flag": "--version=<value>",
+        "description": "[default: latest] the version of the container to pull from the registry (Ex. 'latest' or 'mainnet') GLOBAL FLAGS"
       },
       {
         "flag": "--json",
         "description": "Format output as json."
       }
     ],
-    "description": "create an aggregator for a given queue",
-    "aliases": [
-      "sb evm create aggregator"
-    ],
+    "description": "create a new function account for a given queue",
     "examples": [
-      "sb evm aggregator create --arbitrum --testnet --account ~/.config/arbitrum/testnet.txt 0xB1c6E716ACae35200Dc8278A63a424f58417954c --name 'my feed' --batchSize 1 --updateInterval 90 --fundAmount 0.25 --job my_job.json"
+      "sb evm function create F8ce7MsckeZAbAGmxjJNetxYXQa9mKr9nnrC3qKubyYy --name function-1 --fundAmount 0.25 --container switchboardlabs/basic-oracle-function --version latest"
     ]
   },
   {
-    "id": "evm-aggregator-print",
-    "permalink": "/cli/evm/aggregator/print",
+    "id": "evm-function-fund",
+    "permalink": "/cli/evm/function/fund",
     "topic": "evm",
-    "command": "sb evm aggregator print",
+    "command": "sb evm function fund",
     "topics": [
       "evm",
-      "aggregator",
-      "print"
+      "function",
+      "fund"
     ],
-    "markdown": "USAGE\n  $ sb evm aggregator print AGGREGATORADDRESS [-h] [-v] [-s] [--chain coredao|arbitrum | --coredao | --arbitrum]\n    [--network mainnet|testnet | --mainnet | --testnet] [-u <value>] [--programId <value>] [--json] [--jobs] [--results]\n\nARGUMENTS\n  AGGREGATORADDRESS  address of the aggregator account\n\nFLAGS\n  -h, --help            Show CLI help.\n  -s, --silent          suppress cli prompts\n  -u, --rpcUrl=<value>  alternate RPC url\n  -v, --verbose         log everything\n  --arbitrum            use the arbitrum chain\n  --chain=<option>      the evm chain to interact with\n                        <options: coredao|arbitrum>\n  --coredao             use the coredao chain\n  --jobs                print the job definitions for the aggregator\n  --mainnet             use the mainnet network\n  --network=<option>    the EVM network to connect to\n                        <options: mainnet|testnet>\n  --programId=<value>   alternative Switchboard program ID to interact with\n  --results             print the current results for the aggregator\n  --testnet             use the testnet network\n\nGLOBAL FLAGS\n  --json  Format output as json.\n\nDESCRIPTION\n  print an aggregator\n\nEXAMPLES\n  $ sb evm aggregator print 0x4Aa86c11Ad9493c84fd6C6469F6FA494272AdB4a --arbitrum --mainnet\n\n  $ sb evm aggregator print 0x7892F7326291F3Bc17680956B476701DF76d52Da --coredao --testnet --jobs\n",
-    "usage": "sb evm aggregator print AGGREGATORADDRESS [-h] [-v] [-s] [--chain coredao|arbitrum | --coredao | --arbitrum]\n    [--network mainnet|testnet | --mainnet | --testnet] [-u <value>] [--programId <value>] [--json] [--jobs] [--results]",
+    "markdown": "USAGE\n  $ sb evm function fund FUNCTIONKEY --account <value> [-h] [-v] [-s] [--chain coredao|arbitrum | --coredao |\n    --arbitrum] [--network mainnet|testnet | --mainnet | --testnet] [-u <value>] [--programId <value>] [--json]\n    [--fundAmount <value>]\n\nARGUMENTS\n  FUNCTIONKEY  address of the function account\n\nFLAGS\n  -h, --help            Show CLI help.\n  -s, --silent          suppress cli prompts\n  -u, --rpcUrl=<value>  alternate RPC url\n  -v, --verbose         log everything\n  --account=<value>     (required) Path to file containing the private key for the payer account\n  --arbitrum            use the arbitrum chain\n  --chain=<option>      the evm chain to interact with\n                        <options: coredao|arbitrum>\n  --coredao             use the coredao chain\n  --fundAmount=<value>  [default: 0.0] token amount to load into the function's escrow wallet.\n  --mainnet             use the mainnet network\n  --network=<option>    the EVM network to connect to\n                        <options: mainnet|testnet>\n  --programId=<value>   alternative Switchboard program ID to interact with\n  --testnet             use the testnet network\n\nGLOBAL FLAGS\n  --json  Format output as json.\n\nDESCRIPTION\n  Fund a function account\n\nEXAMPLES\n  $ sb evm function fund 0xaA43ba6f18b138A0B3313dDbFaC2b920D240108E --chain arbitrum --network testnet --fundAmount 0.02 --account ~/.arbitrum-kp.txt --programId 0x4F706C62535d171883A6cc9384f3f3d926A6BA49\n",
+    "usage": "sb evm function fund FUNCTIONKEY --account <value> [-h] [-v] [-s] [--chain coredao|arbitrum | --coredao |\n    --arbitrum] [--network mainnet|testnet | --mainnet | --testnet] [-u <value>] [--programId <value>] [--json]\n    [--fundAmount <value>]",
     "args": [
       {
-        "arg": "AGGREGATORADDRESS",
-        "description": "address of the aggregator account"
+        "arg": "FUNCTIONKEY",
+        "description": "address of the function account"
       }
     ],
     "flags": [
@@ -2160,97 +2295,6 @@
         "description": "log everything"
       },
       {
-        "flag": "--arbitrum",
-        "description": "use the arbitrum chain"
-      },
-      {
-        "flag": "--chain=<option>",
-        "description": "the evm chain to interact with <options: coredao|arbitrum>"
-      },
-      {
-        "flag": "--coredao",
-        "description": "use the coredao chain"
-      },
-      {
-        "flag": "--jobs",
-        "description": "print the job definitions for the aggregator"
-      },
-      {
-        "flag": "--mainnet",
-        "description": "use the mainnet network"
-      },
-      {
-        "flag": "--network=<option>",
-        "description": "the EVM network to connect to <options: mainnet|testnet>"
-      },
-      {
-        "flag": "--programId=<value>",
-        "description": "alternative Switchboard program ID to interact with"
-      },
-      {
-        "flag": "--results",
-        "description": "print the current results for the aggregator"
-      },
-      {
-        "flag": "--testnet",
-        "description": "use the testnet network GLOBAL FLAGS"
-      },
-      {
-        "flag": "--json",
-        "description": "Format output as json."
-      }
-    ],
-    "description": "print an aggregator",
-    "examples": [
-      "sb evm aggregator print 0x4Aa86c11Ad9493c84fd6C6469F6FA494272AdB4a --arbitrum --mainnet",
-      "",
-      "sb evm aggregator print 0x7892F7326291F3Bc17680956B476701DF76d52Da --coredao --testnet --jobs"
-    ]
-  },
-  {
-    "id": "evm-aggregator-set",
-    "permalink": "/cli/evm/aggregator/set",
-    "topic": "evm",
-    "command": "sb evm aggregator set",
-    "topics": [
-      "evm",
-      "aggregator",
-      "set"
-    ],
-    "markdown": "USAGE\n  $ sb evm aggregator set AGGREGATORADDRESS --account <value> --updateInterval <value> [-h] [-v] [-s] [--chain\n    coredao|arbitrum | --coredao | --arbitrum] [--network mainnet|testnet | --mainnet | --testnet] [-u <value>]\n    [--programId <value>] [--json] [-a <value>] [--name <value>] [--forceReportPeriod <value>] [--batchSize <value>]\n    [--minJobs <value>] [--minOracles <value>] [--varianceThreshold <value>] [-j <value>] [--removeJob <value>]\n    [--enableHistory]\n\nARGUMENTS\n  AGGREGATORADDRESS  address of the aggregator\n\nFLAGS\n  -a, --authority=<value>      alternate account that will be the authority for the aggregator\n  -h, --help                   Show CLI help.\n  -j, --job=<value>...         filesystem path to job definition file\n  -s, --silent                 suppress cli prompts\n  -u, --rpcUrl=<value>         alternate RPC url\n  -v, --verbose                log everything\n  --account=<value>            (required) Path to file containing the private key for the payer account\n  --arbitrum                   use the arbitrum chain\n  --batchSize=<value>          [default: 1] number of oracles requested for each open round call\n  --chain=<option>             the evm chain to interact with\n                               <options: coredao|arbitrum>\n  --coredao                    use the coredao chain\n  --enableHistory              enable history for the feed\n  --forceReportPeriod=<value>  Number of seconds for which, even if the variance threshold is not passed, accept new\n                               responses from oracles.\n  --mainnet                    use the mainnet network\n  --minJobs=<value>            [default: 1] number of jobs that must respond before an oracle responds\n  --minOracles=<value>         [default: 1] number of oracles that must respond before a value is accepted on-chain\n  --name=<value>               name of the aggregator for easier identification\n  --network=<option>           the EVM network to connect to\n                               <options: mainnet|testnet>\n  --programId=<value>          alternative Switchboard program ID to interact with\n  --removeJob=<value>...       job definitions to remove from the hash\n  --testnet                    use the testnet network\n  --updateInterval=<value>     (required) set an aggregator's minimum update delay\n  --varianceThreshold=<value>  [default: 0] percentage change between a previous accepted result and the next round\n                               before an oracle reports a value on-chain. Used to conserve lease cost during low\n                               volatility\n\nGLOBAL FLAGS\n  --json  Format output as json.\n\nDESCRIPTION\n  set an aggregators config\n\nALIASES\n  $ sb evm set aggregator\n\nEXAMPLES\n  $  sb evm aggregator set --arbitrum --testnet --account ~/.config/arbitrum/testnet.txt 0xB1c6E716ACae35200Dc8278A63a424f58417954c --name 'my updated feed' --batchSize 2 --job ./my_new_job.json\n",
-    "usage": "sb evm aggregator set AGGREGATORADDRESS --account <value> --updateInterval <value> [-h] [-v] [-s] [--chain\n    coredao|arbitrum | --coredao | --arbitrum] [--network mainnet|testnet | --mainnet | --testnet] [-u <value>]\n    [--programId <value>] [--json] [-a <value>] [--name <value>] [--forceReportPeriod <value>] [--batchSize <value>]\n    [--minJobs <value>] [--minOracles <value>] [--varianceThreshold <value>] [-j <value>] [--removeJob <value>]\n    [--enableHistory]",
-    "args": [
-      {
-        "arg": "AGGREGATORADDRESS",
-        "description": "address of the aggregator"
-      }
-    ],
-    "flags": [
-      {
-        "flag": " -a, --authority=<value>",
-        "description": "alternate account that will be the authority for the aggregator"
-      },
-      {
-        "flag": "-h, --help",
-        "description": "Show CLI help."
-      },
-      {
-        "flag": "-j, --job=<value>...",
-        "description": "filesystem path to job definition file"
-      },
-      {
-        "flag": "-s, --silent",
-        "description": "suppress cli prompts"
-      },
-      {
-        "flag": "-u, --rpcUrl=<value>",
-        "description": "alternate RPC url"
-      },
-      {
-        "flag": "-v, --verbose",
-        "description": "log everything"
-      },
-      {
         "flag": "--account=<value>",
         "description": "(required) Path to file containing the private key for the payer account"
       },
@@ -2259,258 +2303,16 @@
         "description": "use the arbitrum chain"
       },
       {
-        "flag": "--batchSize=<value>",
-        "description": "[default: 1] number of oracles requested for each open round call"
-      },
-      {
         "flag": "--chain=<option>",
         "description": "the evm chain to interact with <options: coredao|arbitrum>"
       },
       {
         "flag": "--coredao",
         "description": "use the coredao chain"
-      },
-      {
-        "flag": "--enableHistory",
-        "description": "enable history for the feed"
-      },
-      {
-        "flag": "--forceReportPeriod=<value>",
-        "description": "Number of seconds for which, even if the variance threshold is not passed, accept new responses from oracles."
-      },
-      {
-        "flag": "--mainnet",
-        "description": "use the mainnet network"
-      },
-      {
-        "flag": "--minJobs=<value>",
-        "description": "[default: 1] number of jobs that must respond before an oracle responds"
-      },
-      {
-        "flag": "--minOracles=<value>",
-        "description": "[default: 1] number of oracles that must respond before a value is accepted on-chain"
-      },
-      {
-        "flag": "--name=<value>",
-        "description": "name of the aggregator for easier identification"
-      },
-      {
-        "flag": "--network=<option>",
-        "description": "the EVM network to connect to <options: mainnet|testnet>"
-      },
-      {
-        "flag": "--programId=<value>",
-        "description": "alternative Switchboard program ID to interact with"
-      },
-      {
-        "flag": "--removeJob=<value>...",
-        "description": "job definitions to remove from the hash"
-      },
-      {
-        "flag": "--testnet",
-        "description": "use the testnet network"
-      },
-      {
-        "flag": "--updateInterval=<value>",
-        "description": "(required) set an aggregator's minimum update delay"
-      },
-      {
-        "flag": "--varianceThreshold=<value>",
-        "description": "[default: 0] percentage change between a previous accepted result and the next round before an oracle reports a value on-chain. Used to conserve lease cost during low volatility GLOBAL FLAGS"
-      },
-      {
-        "flag": "--json",
-        "description": "Format output as json."
-      }
-    ],
-    "description": "set an aggregators config",
-    "aliases": [
-      "sb evm set aggregator"
-    ],
-    "examples": [
-      " sb evm aggregator set --arbitrum --testnet --account ~/.config/arbitrum/testnet.txt 0xB1c6E716ACae35200Dc8278A63a424f58417954c --name 'my updated feed' --batchSize 2 --job ./my_new_job.json"
-    ]
-  },
-  {
-    "id": "evm-create-aggregator",
-    "permalink": "/cli/evm/create/aggregator",
-    "topic": "evm",
-    "command": "sb evm create aggregator",
-    "topics": [
-      "evm",
-      "create",
-      "aggregator"
-    ],
-    "markdown": "USAGE\n  $ sb evm create aggregator QUEUEADDRESS --account <value> --updateInterval <value> [-h] [-v] [-s] [--chain\n    coredao|arbitrum | --coredao | --arbitrum] [--network mainnet|testnet | --mainnet | --testnet] [-u <value>]\n    [--programId <value>] [--json] [-a <value>] [--name <value>] [--forceReportPeriod <value>] [--batchSize <value>]\n    [--minJobs <value>] [--minOracles <value>] [--varianceThreshold <value>] [-j <value>] [--enableHistory]\n    [--queueAuthority <value> --enable] [--fundAmount <value>]\n\nARGUMENTS\n  QUEUEADDRESS  address of the oracle queue\n\nFLAGS\n  -a, --authority=<value>      alternate account that will be the authority for the aggregator\n  -h, --help                   Show CLI help.\n  -j, --job=<value>...         filesystem path to job definition file\n  -s, --silent                 suppress cli prompts\n  -u, --rpcUrl=<value>         alternate RPC url\n  -v, --verbose                log everything\n  --account=<value>            (required) Path to file containing the private key for the payer account\n  --arbitrum                   use the arbitrum chain\n  --batchSize=<value>          [default: 1] number of oracles requested for each open round call\n  --chain=<option>             the evm chain to interact with\n                               <options: coredao|arbitrum>\n  --coredao                    use the coredao chain\n  --enable                     enable the oracles heartbeat permissions\n  --enableHistory              enable history for the feed\n  --forceReportPeriod=<value>  Number of seconds for which, even if the variance threshold is not passed, accept new\n                               responses from oracles.\n  --fundAmount=<value>         [default: 0.0] fund the aggregator escrow with the native token, used to reward oracles\n                               for publishing updates\n  --mainnet                    use the mainnet network\n  --minJobs=<value>            [default: 1] number of jobs that must respond before an oracle responds\n  --minOracles=<value>         [default: 1] number of oracles that must respond before a value is accepted on-chain\n  --name=<value>               name of the aggregator for easier identification\n  --network=<option>           the EVM network to connect to\n                               <options: mainnet|testnet>\n  --programId=<value>          alternative Switchboard program ID to interact with\n  --queueAuthority=<value>     override the default signer when setting oracle permissions\n  --testnet                    use the testnet network\n  --updateInterval=<value>     (required) set an aggregator's minimum update delay\n  --varianceThreshold=<value>  [default: 0] percentage change between a previous accepted result and the next round\n                               before an oracle reports a value on-chain. Used to conserve lease cost during low\n                               volatility\n\nGLOBAL FLAGS\n  --json  Format output as json.\n\nDESCRIPTION\n  create an aggregator for a given queue\n\nALIASES\n  $ sb evm create aggregator\n\nEXAMPLES\n  $ sb evm aggregator create --arbitrum --testnet --account ~/.config/arbitrum/testnet.txt 0xB1c6E716ACae35200Dc8278A63a424f58417954c --name 'my feed' --batchSize 1 --updateInterval 90 --fundAmount 0.25 --job my_job.json\n",
-    "usage": "sb evm create aggregator QUEUEADDRESS --account <value> --updateInterval <value> [-h] [-v] [-s] [--chain\n    coredao|arbitrum | --coredao | --arbitrum] [--network mainnet|testnet | --mainnet | --testnet] [-u <value>]\n    [--programId <value>] [--json] [-a <value>] [--name <value>] [--forceReportPeriod <value>] [--batchSize <value>]\n    [--minJobs <value>] [--minOracles <value>] [--varianceThreshold <value>] [-j <value>] [--enableHistory]\n    [--queueAuthority <value> --enable] [--fundAmount <value>]",
-    "args": [
-      {
-        "arg": "QUEUEADDRESS",
-        "description": "address of the oracle queue"
-      }
-    ],
-    "flags": [
-      {
-        "flag": " -a, --authority=<value>",
-        "description": "alternate account that will be the authority for the aggregator"
-      },
-      {
-        "flag": "-h, --help",
-        "description": "Show CLI help."
-      },
-      {
-        "flag": "-j, --job=<value>...",
-        "description": "filesystem path to job definition file"
-      },
-      {
-        "flag": "-s, --silent",
-        "description": "suppress cli prompts"
-      },
-      {
-        "flag": "-u, --rpcUrl=<value>",
-        "description": "alternate RPC url"
-      },
-      {
-        "flag": "-v, --verbose",
-        "description": "log everything"
-      },
-      {
-        "flag": "--account=<value>",
-        "description": "(required) Path to file containing the private key for the payer account"
-      },
-      {
-        "flag": "--arbitrum",
-        "description": "use the arbitrum chain"
-      },
-      {
-        "flag": "--batchSize=<value>",
-        "description": "[default: 1] number of oracles requested for each open round call"
-      },
-      {
-        "flag": "--chain=<option>",
-        "description": "the evm chain to interact with <options: coredao|arbitrum>"
-      },
-      {
-        "flag": "--coredao",
-        "description": "use the coredao chain"
-      },
-      {
-        "flag": "--enable",
-        "description": "enable the oracles heartbeat permissions"
-      },
-      {
-        "flag": "--enableHistory",
-        "description": "enable history for the feed"
-      },
-      {
-        "flag": "--forceReportPeriod=<value>",
-        "description": "Number of seconds for which, even if the variance threshold is not passed, accept new responses from oracles."
       },
       {
         "flag": "--fundAmount=<value>",
-        "description": "[default: 0.0] fund the aggregator escrow with the native token, used to reward oracles for publishing updates"
-      },
-      {
-        "flag": "--mainnet",
-        "description": "use the mainnet network"
-      },
-      {
-        "flag": "--minJobs=<value>",
-        "description": "[default: 1] number of jobs that must respond before an oracle responds"
-      },
-      {
-        "flag": "--minOracles=<value>",
-        "description": "[default: 1] number of oracles that must respond before a value is accepted on-chain"
-      },
-      {
-        "flag": "--name=<value>",
-        "description": "name of the aggregator for easier identification"
-      },
-      {
-        "flag": "--network=<option>",
-        "description": "the EVM network to connect to <options: mainnet|testnet>"
-      },
-      {
-        "flag": "--programId=<value>",
-        "description": "alternative Switchboard program ID to interact with"
-      },
-      {
-        "flag": "--queueAuthority=<value>",
-        "description": "override the default signer when setting oracle permissions"
-      },
-      {
-        "flag": "--testnet",
-        "description": "use the testnet network"
-      },
-      {
-        "flag": "--updateInterval=<value>",
-        "description": "(required) set an aggregator's minimum update delay"
-      },
-      {
-        "flag": "--varianceThreshold=<value>",
-        "description": "[default: 0] percentage change between a previous accepted result and the next round before an oracle reports a value on-chain. Used to conserve lease cost during low volatility GLOBAL FLAGS"
-      },
-      {
-        "flag": "--json",
-        "description": "Format output as json."
-      }
-    ],
-    "description": "create an aggregator for a given queue",
-    "aliases": [
-      "sb evm create aggregator"
-    ],
-    "examples": [
-      "sb evm aggregator create --arbitrum --testnet --account ~/.config/arbitrum/testnet.txt 0xB1c6E716ACae35200Dc8278A63a424f58417954c --name 'my feed' --batchSize 1 --updateInterval 90 --fundAmount 0.25 --job my_job.json"
-    ]
-  },
-  {
-    "id": "evm-create-jobs",
-    "permalink": "/cli/evm/create/jobs",
-    "topic": "evm",
-    "command": "sb evm create jobs",
-    "topics": [
-      "evm",
-      "create",
-      "jobs"
-    ],
-    "markdown": "USAGE\n  $ sb evm create jobs [-h] [-v] [-s] [--chain coredao|arbitrum | --coredao | --arbitrum] [--network mainnet|testnet\n    | --mainnet | --testnet] [-u <value>] [--programId <value>] [--json] [--hash <value>] [-j <value>] [--removeJob\n    <value>]\n\nFLAGS\n  -h, --help              Show CLI help.\n  -j, --job=<value>...    filesystem path to job definition file\n  -s, --silent            suppress cli prompts\n  -u, --rpcUrl=<value>    alternate RPC url\n  -v, --verbose           log everything\n  --arbitrum              use the arbitrum chain\n  --chain=<option>        the evm chain to interact with\n                          <options: coredao|arbitrum>\n  --coredao               use the coredao chain\n  --hash=<value>          existing ipfs hash to modify\n  --mainnet               use the mainnet network\n  --network=<option>      the EVM network to connect to\n                          <options: mainnet|testnet>\n  --programId=<value>     alternative Switchboard program ID to interact with\n  --removeJob=<value>...  job definitions to remove from the hash\n  --testnet               use the testnet network\n\nGLOBAL FLAGS\n  --json  Format output as json.\n\nDESCRIPTION\n  create the hash for a set of jobs\n\nALIASES\n  $ sb evm create jobs\n\nEXAMPLES\n  $ sb evm job create --arbitrum --testnet --job my_job.json\n\n  $ sb evm job create --arbitrum --testnet --hash bafkreihvxeb7rwyrilzmouid2onuwajkkng4ykdwrr6vaxjgg3zv3cghdy --removeJob my_job.json\n",
-    "usage": "sb evm create jobs [-h] [-v] [-s] [--chain coredao|arbitrum | --coredao | --arbitrum] [--network mainnet|testnet\n    | --mainnet | --testnet] [-u <value>] [--programId <value>] [--json] [--hash <value>] [-j <value>] [--removeJob\n    <value>]",
-    "flags": [
-      {
-        "flag": " -h, --help",
-        "description": "Show CLI help."
-      },
-      {
-        "flag": "-j, --job=<value>...",
-        "description": "filesystem path to job definition file"
-      },
-      {
-        "flag": "-s, --silent",
-        "description": "suppress cli prompts"
-      },
-      {
-        "flag": "-u, --rpcUrl=<value>",
-        "description": "alternate RPC url"
-      },
-      {
-        "flag": "-v, --verbose",
-        "description": "log everything"
-      },
-      {
-        "flag": "--arbitrum",
-        "description": "use the arbitrum chain"
-      },
-      {
-        "flag": "--chain=<option>",
-        "description": "the evm chain to interact with <options: coredao|arbitrum>"
-      },
-      {
-        "flag": "--coredao",
-        "description": "use the coredao chain"
-      },
-      {
-        "flag": "--hash=<value>",
-        "description": "existing ipfs hash to modify"
+        "description": "[default: 0.0] token amount to load into the function's escrow wallet."
       },
       {
         "flag": "--mainnet",
@@ -2523,10 +2325,6 @@
       {
         "flag": "--programId=<value>",
         "description": "alternative Switchboard program ID to interact with"
-      },
-      {
-        "flag": "--removeJob=<value>...",
-        "description": "job definitions to remove from the hash"
       },
       {
         "flag": "--testnet",
@@ -2537,312 +2335,27 @@
         "description": "Format output as json."
       }
     ],
-    "description": "create the hash for a set of jobs",
-    "aliases": [
-      "sb evm create jobs"
-    ],
+    "description": "Fund a function account",
     "examples": [
-      "sb evm job create --arbitrum --testnet --job my_job.json",
-      "",
-      "sb evm job create --arbitrum --testnet --hash bafkreihvxeb7rwyrilzmouid2onuwajkkng4ykdwrr6vaxjgg3zv3cghdy --removeJob my_job.json"
+      "sb evm function fund 0xaA43ba6f18b138A0B3313dDbFaC2b920D240108E --chain arbitrum --network testnet --fundAmount 0.02 --account ~/.arbitrum-kp.txt --programId 0x4F706C62535d171883A6cc9384f3f3d926A6BA49"
     ]
   },
   {
-    "id": "evm-create-oracle",
-    "permalink": "/cli/evm/create/oracle",
+    "id": "evm-function-print",
+    "permalink": "/cli/evm/function/print",
     "topic": "evm",
-    "command": "sb evm create oracle",
+    "command": "sb evm function print",
     "topics": [
       "evm",
-      "create",
-      "oracle"
-    ],
-    "markdown": "USAGE\n  $ sb evm create oracle QUEUEADDRESS --account <value> [-h] [-v] [-s] [--chain coredao|arbitrum | --coredao |\n    --arbitrum] [--network mainnet|testnet | --mainnet | --testnet] [-u <value>] [--programId <value>] [--json] [-a\n    <value>] [--name <value>] [--queueAuthority <value> --enable]\n\nARGUMENTS\n  QUEUEADDRESS  address of the oracle queue to create a new oracle for\n\nFLAGS\n  -a, --authority=<value>   alternate account that will be the authority for the oracle\n  -h, --help                Show CLI help.\n  -s, --silent              suppress cli prompts\n  -u, --rpcUrl=<value>      alternate RPC url\n  -v, --verbose             log everything\n  --account=<value>         (required) Path to file containing the private key for the payer account\n  --arbitrum                use the arbitrum chain\n  --chain=<option>          the evm chain to interact with\n                            <options: coredao|arbitrum>\n  --coredao                 use the coredao chain\n  --enable                  enable the oracles heartbeat permissions\n  --mainnet                 use the mainnet network\n  --name=<value>            name of the oracle for easier identification\n  --network=<option>        the EVM network to connect to\n                            <options: mainnet|testnet>\n  --programId=<value>       alternative Switchboard program ID to interact with\n  --queueAuthority=<value>  override the default signer when setting oracle permissions\n  --testnet                 use the testnet network\n\nGLOBAL FLAGS\n  --json  Format output as json.\n\nDESCRIPTION\n  create a new oracle\n\nALIASES\n  $ sb evm create oracle\n\nEXAMPLES\n  $ sb evm oracle create 0xB1c6E716ACae35200Dc8278A63a424f58417954c --arbitrum --testnet --account ~/.config/arbitrum/testnet.txt --name 'my oracle' --enable\n",
-    "usage": "sb evm create oracle QUEUEADDRESS --account <value> [-h] [-v] [-s] [--chain coredao|arbitrum | --coredao |\n    --arbitrum] [--network mainnet|testnet | --mainnet | --testnet] [-u <value>] [--programId <value>] [--json] [-a\n    <value>] [--name <value>] [--queueAuthority <value> --enable]",
-    "args": [
-      {
-        "arg": "QUEUEADDRESS",
-        "description": "address of the oracle queue to create a new oracle for"
-      }
-    ],
-    "flags": [
-      {
-        "flag": " -a, --authority=<value>",
-        "description": "alternate account that will be the authority for the oracle"
-      },
-      {
-        "flag": "-h, --help",
-        "description": "Show CLI help."
-      },
-      {
-        "flag": "-s, --silent",
-        "description": "suppress cli prompts"
-      },
-      {
-        "flag": "-u, --rpcUrl=<value>",
-        "description": "alternate RPC url"
-      },
-      {
-        "flag": "-v, --verbose",
-        "description": "log everything"
-      },
-      {
-        "flag": "--account=<value>",
-        "description": "(required) Path to file containing the private key for the payer account"
-      },
-      {
-        "flag": "--arbitrum",
-        "description": "use the arbitrum chain"
-      },
-      {
-        "flag": "--chain=<option>",
-        "description": "the evm chain to interact with <options: coredao|arbitrum>"
-      },
-      {
-        "flag": "--coredao",
-        "description": "use the coredao chain"
-      },
-      {
-        "flag": "--enable",
-        "description": "enable the oracles heartbeat permissions"
-      },
-      {
-        "flag": "--mainnet",
-        "description": "use the mainnet network"
-      },
-      {
-        "flag": "--name=<value>",
-        "description": "name of the oracle for easier identification"
-      },
-      {
-        "flag": "--network=<option>",
-        "description": "the EVM network to connect to <options: mainnet|testnet>"
-      },
-      {
-        "flag": "--programId=<value>",
-        "description": "alternative Switchboard program ID to interact with"
-      },
-      {
-        "flag": "--queueAuthority=<value>",
-        "description": "override the default signer when setting oracle permissions"
-      },
-      {
-        "flag": "--testnet",
-        "description": "use the testnet network GLOBAL FLAGS"
-      },
-      {
-        "flag": "--json",
-        "description": "Format output as json."
-      }
-    ],
-    "description": "create a new oracle",
-    "aliases": [
-      "sb evm create oracle"
-    ],
-    "examples": [
-      "sb evm oracle create 0xB1c6E716ACae35200Dc8278A63a424f58417954c --arbitrum --testnet --account ~/.config/arbitrum/testnet.txt --name 'my oracle' --enable"
-    ]
-  },
-  {
-    "id": "evm-create-queue",
-    "permalink": "/cli/evm/create/queue",
-    "topic": "evm",
-    "command": "sb evm create queue",
-    "topics": [
-      "evm",
-      "create",
-      "queue"
-    ],
-    "markdown": "USAGE\n  $ sb evm create queue --account <value> [-h] [-v] [-s] [--chain coredao|arbitrum | --coredao | --arbitrum]\n    [--network mainnet|testnet | --mainnet | --testnet] [-u <value>] [--programId <value>] [--json] [-a <value>] [--name\n    <value>] [-r <value>] [--oracleTimeout <value>] [--queueSize <value>] [--unpermissionedFeeds]\n\nFLAGS\n  -a, --authority=<value>  alternate account that will be the authority for the queue\n  -h, --help               Show CLI help.\n  -r, --reward=<value>     oracle rewards for successfully responding to an update request\n  -s, --silent             suppress cli prompts\n  -u, --rpcUrl=<value>     alternate RPC url\n  -v, --verbose            log everything\n  --account=<value>        (required) Path to file containing the private key for the payer account\n  --arbitrum               use the arbitrum chain\n  --chain=<option>         the evm chain to interact with\n                           <options: coredao|arbitrum>\n  --coredao                use the coredao chain\n  --mainnet                use the mainnet network\n  --name=<value>           name of the queue for easier identification\n  --network=<option>       the EVM network to connect to\n                           <options: mainnet|testnet>\n  --oracleTimeout=<value>  [default: 180] number of oracles to add to the queue\n  --programId=<value>      alternative Switchboard program ID to interact with\n  --queueSize=<value>      [default: 100] maximum number of oracles the queue can support\n  --testnet                use the testnet network\n  --unpermissionedFeeds    permit unpermissioned feeds\n\nGLOBAL FLAGS\n  --json  Format output as json.\n\nDESCRIPTION\n  create a new oracle queue\n\nALIASES\n  $ sb evm create queue\n\nEXAMPLES\n  $ sb evm queue create --arbitrum --testnet --account ~/.config/arbitrum/testnet.txt --name 'my queue' --oracleTimeout 3600 --queueSize 8\n\n  $ sb evm queue create --arbitrum --testnet --account ~/.config/arbitrum/testnet.txt --unpermissionedFeeds\n",
-    "usage": "sb evm create queue --account <value> [-h] [-v] [-s] [--chain coredao|arbitrum | --coredao | --arbitrum]\n    [--network mainnet|testnet | --mainnet | --testnet] [-u <value>] [--programId <value>] [--json] [-a <value>] [--name\n    <value>] [-r <value>] [--oracleTimeout <value>] [--queueSize <value>] [--unpermissionedFeeds]",
-    "flags": [
-      {
-        "flag": " -a, --authority=<value>",
-        "description": "alternate account that will be the authority for the queue"
-      },
-      {
-        "flag": "-h, --help",
-        "description": "Show CLI help."
-      },
-      {
-        "flag": "-r, --reward=<value>",
-        "description": "oracle rewards for successfully responding to an update request"
-      },
-      {
-        "flag": "-s, --silent",
-        "description": "suppress cli prompts"
-      },
-      {
-        "flag": "-u, --rpcUrl=<value>",
-        "description": "alternate RPC url"
-      },
-      {
-        "flag": "-v, --verbose",
-        "description": "log everything"
-      },
-      {
-        "flag": "--account=<value>",
-        "description": "(required) Path to file containing the private key for the payer account"
-      },
-      {
-        "flag": "--arbitrum",
-        "description": "use the arbitrum chain"
-      },
-      {
-        "flag": "--chain=<option>",
-        "description": "the evm chain to interact with <options: coredao|arbitrum>"
-      },
-      {
-        "flag": "--coredao",
-        "description": "use the coredao chain"
-      },
-      {
-        "flag": "--mainnet",
-        "description": "use the mainnet network"
-      },
-      {
-        "flag": "--name=<value>",
-        "description": "name of the queue for easier identification"
-      },
-      {
-        "flag": "--network=<option>",
-        "description": "the EVM network to connect to <options: mainnet|testnet>"
-      },
-      {
-        "flag": "--oracleTimeout=<value>",
-        "description": "[default: 180] number of oracles to add to the queue"
-      },
-      {
-        "flag": "--programId=<value>",
-        "description": "alternative Switchboard program ID to interact with"
-      },
-      {
-        "flag": "--queueSize=<value>",
-        "description": "[default: 100] maximum number of oracles the queue can support"
-      },
-      {
-        "flag": "--testnet",
-        "description": "use the testnet network"
-      },
-      {
-        "flag": "--unpermissionedFeeds",
-        "description": "permit unpermissioned feeds GLOBAL FLAGS"
-      },
-      {
-        "flag": "--json",
-        "description": "Format output as json."
-      }
-    ],
-    "description": "create a new oracle queue",
-    "aliases": [
-      "sb evm create queue"
-    ],
-    "examples": [
-      "sb evm queue create --arbitrum --testnet --account ~/.config/arbitrum/testnet.txt --name 'my queue' --oracleTimeout 3600 --queueSize 8",
-      "",
-      "sb evm queue create --arbitrum --testnet --account ~/.config/arbitrum/testnet.txt --unpermissionedFeeds"
-    ]
-  },
-  {
-    "id": "evm-job-create",
-    "permalink": "/cli/evm/job/create",
-    "topic": "evm",
-    "command": "sb evm job create",
-    "topics": [
-      "evm",
-      "job",
-      "create"
-    ],
-    "markdown": "USAGE\n  $ sb evm job create [-h] [-v] [-s] [--chain coredao|arbitrum | --coredao | --arbitrum] [--network mainnet|testnet\n    | --mainnet | --testnet] [-u <value>] [--programId <value>] [--json] [--hash <value>] [-j <value>] [--removeJob\n    <value>]\n\nFLAGS\n  -h, --help              Show CLI help.\n  -j, --job=<value>...    filesystem path to job definition file\n  -s, --silent            suppress cli prompts\n  -u, --rpcUrl=<value>    alternate RPC url\n  -v, --verbose           log everything\n  --arbitrum              use the arbitrum chain\n  --chain=<option>        the evm chain to interact with\n                          <options: coredao|arbitrum>\n  --coredao               use the coredao chain\n  --hash=<value>          existing ipfs hash to modify\n  --mainnet               use the mainnet network\n  --network=<option>      the EVM network to connect to\n                          <options: mainnet|testnet>\n  --programId=<value>     alternative Switchboard program ID to interact with\n  --removeJob=<value>...  job definitions to remove from the hash\n  --testnet               use the testnet network\n\nGLOBAL FLAGS\n  --json  Format output as json.\n\nDESCRIPTION\n  create the hash for a set of jobs\n\nALIASES\n  $ sb evm create jobs\n\nEXAMPLES\n  $ sb evm job create --arbitrum --testnet --job my_job.json\n\n  $ sb evm job create --arbitrum --testnet --hash bafkreihvxeb7rwyrilzmouid2onuwajkkng4ykdwrr6vaxjgg3zv3cghdy --removeJob my_job.json\n",
-    "usage": "sb evm job create [-h] [-v] [-s] [--chain coredao|arbitrum | --coredao | --arbitrum] [--network mainnet|testnet\n    | --mainnet | --testnet] [-u <value>] [--programId <value>] [--json] [--hash <value>] [-j <value>] [--removeJob\n    <value>]",
-    "flags": [
-      {
-        "flag": " -h, --help",
-        "description": "Show CLI help."
-      },
-      {
-        "flag": "-j, --job=<value>...",
-        "description": "filesystem path to job definition file"
-      },
-      {
-        "flag": "-s, --silent",
-        "description": "suppress cli prompts"
-      },
-      {
-        "flag": "-u, --rpcUrl=<value>",
-        "description": "alternate RPC url"
-      },
-      {
-        "flag": "-v, --verbose",
-        "description": "log everything"
-      },
-      {
-        "flag": "--arbitrum",
-        "description": "use the arbitrum chain"
-      },
-      {
-        "flag": "--chain=<option>",
-        "description": "the evm chain to interact with <options: coredao|arbitrum>"
-      },
-      {
-        "flag": "--coredao",
-        "description": "use the coredao chain"
-      },
-      {
-        "flag": "--hash=<value>",
-        "description": "existing ipfs hash to modify"
-      },
-      {
-        "flag": "--mainnet",
-        "description": "use the mainnet network"
-      },
-      {
-        "flag": "--network=<option>",
-        "description": "the EVM network to connect to <options: mainnet|testnet>"
-      },
-      {
-        "flag": "--programId=<value>",
-        "description": "alternative Switchboard program ID to interact with"
-      },
-      {
-        "flag": "--removeJob=<value>...",
-        "description": "job definitions to remove from the hash"
-      },
-      {
-        "flag": "--testnet",
-        "description": "use the testnet network GLOBAL FLAGS"
-      },
-      {
-        "flag": "--json",
-        "description": "Format output as json."
-      }
-    ],
-    "description": "create the hash for a set of jobs",
-    "aliases": [
-      "sb evm create jobs"
-    ],
-    "examples": [
-      "sb evm job create --arbitrum --testnet --job my_job.json",
-      "",
-      "sb evm job create --arbitrum --testnet --hash bafkreihvxeb7rwyrilzmouid2onuwajkkng4ykdwrr6vaxjgg3zv3cghdy --removeJob my_job.json"
-    ]
-  },
-  {
-    "id": "evm-job-print",
-    "permalink": "/cli/evm/job/print",
-    "topic": "evm",
-    "command": "sb evm job print",
-    "topics": [
-      "evm",
-      "job",
+      "function",
       "print"
     ],
-    "markdown": "USAGE\n  $ sb evm job print JOBHASH [-h] [-v] [-s] [--chain coredao|arbitrum | --coredao | --arbitrum] [--network\n    mainnet|testnet | --mainnet | --testnet] [-u <value>] [--programId <value>] [--json]\n\nARGUMENTS\n  JOBHASH  IPFS hash of the job definitions\n\nFLAGS\n  -h, --help            Show CLI help.\n  -s, --silent          suppress cli prompts\n  -u, --rpcUrl=<value>  alternate RPC url\n  -v, --verbose         log everything\n  --arbitrum            use the arbitrum chain\n  --chain=<option>      the evm chain to interact with\n                        <options: coredao|arbitrum>\n  --coredao             use the coredao chain\n  --mainnet             use the mainnet network\n  --network=<option>    the EVM network to connect to\n                        <options: mainnet|testnet>\n  --programId=<value>   alternative Switchboard program ID to interact with\n  --testnet             use the testnet network\n\nGLOBAL FLAGS\n  --json  Format output as json.\n\nDESCRIPTION\n  print an IPFS job hash\n\nEXAMPLES\n  $ sb evm job print bafkreih4ots3go2ytcvp74cvshnmlikw2mtm47pugpnlzuf36vr6emoov4 --arbitrum --testnet\n",
-    "usage": "sb evm job print JOBHASH [-h] [-v] [-s] [--chain coredao|arbitrum | --coredao | --arbitrum] [--network\n    mainnet|testnet | --mainnet | --testnet] [-u <value>] [--programId <value>] [--json]",
+    "markdown": "USAGE\n  $ sb evm function print FUNCTIONKEY --account <value> [-h] [-v] [-s] [--chain coredao|arbitrum | --coredao |\n    --arbitrum] [--network mainnet|testnet | --mainnet | --testnet] [-u <value>] [--programId <value>] [--json]\n\nARGUMENTS\n  FUNCTIONKEY  address of the function account\n\nFLAGS\n  -h, --help            Show CLI help.\n  -s, --silent          suppress cli prompts\n  -u, --rpcUrl=<value>  alternate RPC url\n  -v, --verbose         log everything\n  --account=<value>     (required) Path to file containing the private key for the payer account\n  --arbitrum            use the arbitrum chain\n  --chain=<option>      the evm chain to interact with\n                        <options: coredao|arbitrum>\n  --coredao             use the coredao chain\n  --mainnet             use the mainnet network\n  --network=<option>    the EVM network to connect to\n                        <options: mainnet|testnet>\n  --programId=<value>   alternative Switchboard program ID to interact with\n  --testnet             use the testnet network\n\nGLOBAL FLAGS\n  --json  Format output as json.\n\nDESCRIPTION\n  Print a function account\n\nEXAMPLES\n  $ sb evm function print 0xaA43ba6f18b138A0B3313dDbFaC2b920D240108E --chain arbitrum --network testnet --programId 0x4F706C62535d171883A6cc9384f3f3d926A6BA49\n",
+    "usage": "sb evm function print FUNCTIONKEY --account <value> [-h] [-v] [-s] [--chain coredao|arbitrum | --coredao |\n    --arbitrum] [--network mainnet|testnet | --mainnet | --testnet] [-u <value>] [--programId <value>] [--json]",
     "args": [
       {
-        "arg": "JOBHASH",
-        "description": "IPFS hash of the job definitions"
+        "arg": "FUNCTIONKEY",
+        "description": "address of the function account"
       }
     ],
     "flags": [
@@ -2863,179 +2376,6 @@
         "description": "log everything"
       },
       {
-        "flag": "--arbitrum",
-        "description": "use the arbitrum chain"
-      },
-      {
-        "flag": "--chain=<option>",
-        "description": "the evm chain to interact with <options: coredao|arbitrum>"
-      },
-      {
-        "flag": "--coredao",
-        "description": "use the coredao chain"
-      },
-      {
-        "flag": "--mainnet",
-        "description": "use the mainnet network"
-      },
-      {
-        "flag": "--network=<option>",
-        "description": "the EVM network to connect to <options: mainnet|testnet>"
-      },
-      {
-        "flag": "--programId=<value>",
-        "description": "alternative Switchboard program ID to interact with"
-      },
-      {
-        "flag": "--testnet",
-        "description": "use the testnet network GLOBAL FLAGS"
-      },
-      {
-        "flag": "--json",
-        "description": "Format output as json."
-      }
-    ],
-    "description": "print an IPFS job hash",
-    "examples": [
-      "sb evm job print bafkreih4ots3go2ytcvp74cvshnmlikw2mtm47pugpnlzuf36vr6emoov4 --arbitrum --testnet"
-    ]
-  },
-  {
-    "id": "evm-oracle-create",
-    "permalink": "/cli/evm/oracle/create",
-    "topic": "evm",
-    "command": "sb evm oracle create",
-    "topics": [
-      "evm",
-      "oracle",
-      "create"
-    ],
-    "markdown": "USAGE\n  $ sb evm oracle create QUEUEADDRESS --account <value> [-h] [-v] [-s] [--chain coredao|arbitrum | --coredao |\n    --arbitrum] [--network mainnet|testnet | --mainnet | --testnet] [-u <value>] [--programId <value>] [--json] [-a\n    <value>] [--name <value>] [--queueAuthority <value> --enable]\n\nARGUMENTS\n  QUEUEADDRESS  address of the oracle queue to create a new oracle for\n\nFLAGS\n  -a, --authority=<value>   alternate account that will be the authority for the oracle\n  -h, --help                Show CLI help.\n  -s, --silent              suppress cli prompts\n  -u, --rpcUrl=<value>      alternate RPC url\n  -v, --verbose             log everything\n  --account=<value>         (required) Path to file containing the private key for the payer account\n  --arbitrum                use the arbitrum chain\n  --chain=<option>          the evm chain to interact with\n                            <options: coredao|arbitrum>\n  --coredao                 use the coredao chain\n  --enable                  enable the oracles heartbeat permissions\n  --mainnet                 use the mainnet network\n  --name=<value>            name of the oracle for easier identification\n  --network=<option>        the EVM network to connect to\n                            <options: mainnet|testnet>\n  --programId=<value>       alternative Switchboard program ID to interact with\n  --queueAuthority=<value>  override the default signer when setting oracle permissions\n  --testnet                 use the testnet network\n\nGLOBAL FLAGS\n  --json  Format output as json.\n\nDESCRIPTION\n  create a new oracle\n\nALIASES\n  $ sb evm create oracle\n\nEXAMPLES\n  $ sb evm oracle create 0xB1c6E716ACae35200Dc8278A63a424f58417954c --arbitrum --testnet --account ~/.config/arbitrum/testnet.txt --name 'my oracle' --enable\n",
-    "usage": "sb evm oracle create QUEUEADDRESS --account <value> [-h] [-v] [-s] [--chain coredao|arbitrum | --coredao |\n    --arbitrum] [--network mainnet|testnet | --mainnet | --testnet] [-u <value>] [--programId <value>] [--json] [-a\n    <value>] [--name <value>] [--queueAuthority <value> --enable]",
-    "args": [
-      {
-        "arg": "QUEUEADDRESS",
-        "description": "address of the oracle queue to create a new oracle for"
-      }
-    ],
-    "flags": [
-      {
-        "flag": " -a, --authority=<value>",
-        "description": "alternate account that will be the authority for the oracle"
-      },
-      {
-        "flag": "-h, --help",
-        "description": "Show CLI help."
-      },
-      {
-        "flag": "-s, --silent",
-        "description": "suppress cli prompts"
-      },
-      {
-        "flag": "-u, --rpcUrl=<value>",
-        "description": "alternate RPC url"
-      },
-      {
-        "flag": "-v, --verbose",
-        "description": "log everything"
-      },
-      {
-        "flag": "--account=<value>",
-        "description": "(required) Path to file containing the private key for the payer account"
-      },
-      {
-        "flag": "--arbitrum",
-        "description": "use the arbitrum chain"
-      },
-      {
-        "flag": "--chain=<option>",
-        "description": "the evm chain to interact with <options: coredao|arbitrum>"
-      },
-      {
-        "flag": "--coredao",
-        "description": "use the coredao chain"
-      },
-      {
-        "flag": "--enable",
-        "description": "enable the oracles heartbeat permissions"
-      },
-      {
-        "flag": "--mainnet",
-        "description": "use the mainnet network"
-      },
-      {
-        "flag": "--name=<value>",
-        "description": "name of the oracle for easier identification"
-      },
-      {
-        "flag": "--network=<option>",
-        "description": "the EVM network to connect to <options: mainnet|testnet>"
-      },
-      {
-        "flag": "--programId=<value>",
-        "description": "alternative Switchboard program ID to interact with"
-      },
-      {
-        "flag": "--queueAuthority=<value>",
-        "description": "override the default signer when setting oracle permissions"
-      },
-      {
-        "flag": "--testnet",
-        "description": "use the testnet network GLOBAL FLAGS"
-      },
-      {
-        "flag": "--json",
-        "description": "Format output as json."
-      }
-    ],
-    "description": "create a new oracle",
-    "aliases": [
-      "sb evm create oracle"
-    ],
-    "examples": [
-      "sb evm oracle create 0xB1c6E716ACae35200Dc8278A63a424f58417954c --arbitrum --testnet --account ~/.config/arbitrum/testnet.txt --name 'my oracle' --enable"
-    ]
-  },
-  {
-    "id": "evm-oracle-heartbeat",
-    "permalink": "/cli/evm/oracle/heartbeat",
-    "topic": "evm",
-    "command": "sb evm oracle heartbeat",
-    "topics": [
-      "evm",
-      "oracle",
-      "heartbeat"
-    ],
-    "markdown": "USAGE\n  $ sb evm oracle heartbeat ORACLEADDRESS --account <value> [-h] [-v] [-s] [--chain coredao|arbitrum | --coredao |\n    --arbitrum] [--network mainnet|testnet | --mainnet | --testnet] [-u <value>] [--programId <value>] [--json] [-a\n    <value>]\n\nARGUMENTS\n  ORACLEADDRESS  address of the oracle\n\nFLAGS\n  -a, --authority=<value>  alternate account that is the authority for the oracle\n  -h, --help               Show CLI help.\n  -s, --silent             suppress cli prompts\n  -u, --rpcUrl=<value>     alternate RPC url\n  -v, --verbose            log everything\n  --account=<value>        (required) Path to file containing the private key for the payer account\n  --arbitrum               use the arbitrum chain\n  --chain=<option>         the evm chain to interact with\n                           <options: coredao|arbitrum>\n  --coredao                use the coredao chain\n  --mainnet                use the mainnet network\n  --network=<option>       the EVM network to connect to\n                           <options: mainnet|testnet>\n  --programId=<value>      alternative Switchboard program ID to interact with\n  --testnet                use the testnet network\n\nGLOBAL FLAGS\n  --json  Format output as json.\n\nDESCRIPTION\n  heartbeat on-chain and signal readiness\n\nEXAMPLES\n  $ sb evm oracle heartbeat 0x5eeFE1CA9D1093a59aC9278cC6D296A4eeDd6385 --arbitrum --testnet --account ~/.config/arbitrum/testnet.txt\n",
-    "usage": "sb evm oracle heartbeat ORACLEADDRESS --account <value> [-h] [-v] [-s] [--chain coredao|arbitrum | --coredao |\n    --arbitrum] [--network mainnet|testnet | --mainnet | --testnet] [-u <value>] [--programId <value>] [--json] [-a\n    <value>]",
-    "args": [
-      {
-        "arg": "ORACLEADDRESS",
-        "description": "address of the oracle"
-      }
-    ],
-    "flags": [
-      {
-        "flag": " -a, --authority=<value>",
-        "description": "alternate account that is the authority for the oracle"
-      },
-      {
-        "flag": "-h, --help",
-        "description": "Show CLI help."
-      },
-      {
-        "flag": "-s, --silent",
-        "description": "suppress cli prompts"
-      },
-      {
-        "flag": "-u, --rpcUrl=<value>",
-        "description": "alternate RPC url"
-      },
-      {
-        "flag": "-v, --verbose",
-        "description": "log everything"
-      },
-      {
         "flag": "--account=<value>",
         "description": "(required) Path to file containing the private key for the payer account"
       },
@@ -3072,27 +2412,27 @@
         "description": "Format output as json."
       }
     ],
-    "description": "heartbeat on-chain and signal readiness",
+    "description": "Print a function account",
     "examples": [
-      "sb evm oracle heartbeat 0x5eeFE1CA9D1093a59aC9278cC6D296A4eeDd6385 --arbitrum --testnet --account ~/.config/arbitrum/testnet.txt"
+      "sb evm function print 0xaA43ba6f18b138A0B3313dDbFaC2b920D240108E --chain arbitrum --network testnet --programId 0x4F706C62535d171883A6cc9384f3f3d926A6BA49"
     ]
   },
   {
-    "id": "evm-oracle-print",
-    "permalink": "/cli/evm/oracle/print",
+    "id": "evm-function-rm",
+    "permalink": "/cli/evm/function/rm",
     "topic": "evm",
-    "command": "sb evm oracle print",
+    "command": "sb evm function rm",
     "topics": [
       "evm",
-      "oracle",
-      "print"
+      "function",
+      "rm"
     ],
-    "markdown": "USAGE\n  $ sb evm oracle print ORACLEADDRESS [-h] [-v] [-s] [--chain coredao|arbitrum | --coredao | --arbitrum] [--network\n    mainnet|testnet | --mainnet | --testnet] [-u <value>] [--programId <value>] [--json]\n\nARGUMENTS\n  ORACLEADDRESS  address of the oracle account\n\nFLAGS\n  -h, --help            Show CLI help.\n  -s, --silent          suppress cli prompts\n  -u, --rpcUrl=<value>  alternate RPC url\n  -v, --verbose         log everything\n  --arbitrum            use the arbitrum chain\n  --chain=<option>      the evm chain to interact with\n                        <options: coredao|arbitrum>\n  --coredao             use the coredao chain\n  --mainnet             use the mainnet network\n  --network=<option>    the EVM network to connect to\n                        <options: mainnet|testnet>\n  --programId=<value>   alternative Switchboard program ID to interact with\n  --testnet             use the testnet network\n\nGLOBAL FLAGS\n  --json  Format output as json.\n\nDESCRIPTION\n  print an oracle\n\nEXAMPLES\n  $ sb evm oracle print 0x5eeFE1CA9D1093a59aC9278cC6D296A4eeDd6385 --arbitrum --testnet\n",
-    "usage": "sb evm oracle print ORACLEADDRESS [-h] [-v] [-s] [--chain coredao|arbitrum | --coredao | --arbitrum] [--network\n    mainnet|testnet | --mainnet | --testnet] [-u <value>] [--programId <value>] [--json]",
+    "markdown": "USAGE\n  $ sb evm function rmMrEnclave FUNCTIONKEY --account <value> --mrEnclave <value> [-h] [-v] [-s] [--chain coredao|arbitrum |\n    --coredao | --arbitrum] [--network mainnet|testnet | --mainnet | --testnet] [-u <value>] [--programId <value>]\n    [--json]\n\nARGUMENTS\n  FUNCTIONKEY  address of the function account\n\nFLAGS\n  -h, --help            Show CLI help.\n  -s, --silent          suppress cli prompts\n  -u, --rpcUrl=<value>  alternate RPC url\n  -v, --verbose         log everything\n  --account=<value>     (required) Path to file containing the private key for the payer account\n  --arbitrum            use the arbitrum chain\n  --chain=<option>      the evm chain to interact with\n                        <options: coredao|arbitrum>\n  --coredao             use the coredao chain\n  --mainnet             use the mainnet network\n  --mrEnclave=<value>   (required) The MrEnclave to remove\n  --network=<option>    the EVM network to connect to\n                        <options: mainnet|testnet>\n  --programId=<value>   alternative Switchboard program ID to interact with\n  --testnet             use the testnet network\n\nGLOBAL FLAGS\n  --json  Format output as json.\n\nDESCRIPTION\n  Remove MrEnclave to a function account\n\nEXAMPLES\n  $ sb evm function removeMrEnclave 0xaA43ba6f18b138A0B3313dDbFaC2b920D240108E --chain arbitrum --network testnet --removeMrEnclace 0xDEADBEEF --account ~/.arbitrum-kp.txt --programId 0x4F706C62535d171883A6cc9384f3f3d926A6BA49\n",
+    "usage": "sb evm function rmMrEnclave FUNCTIONKEY --account <value> --mrEnclave <value> [-h] [-v] [-s] [--chain coredao|arbitrum |\n    --coredao | --arbitrum] [--network mainnet|testnet | --mainnet | --testnet] [-u <value>] [--programId <value>]\n    [--json]",
     "args": [
       {
-        "arg": "ORACLEADDRESS",
-        "description": "address of the oracle account"
+        "arg": "FUNCTIONKEY",
+        "description": "address of the function account"
       }
     ],
     "flags": [
@@ -3113,81 +2453,6 @@
         "description": "log everything"
       },
       {
-        "flag": "--arbitrum",
-        "description": "use the arbitrum chain"
-      },
-      {
-        "flag": "--chain=<option>",
-        "description": "the evm chain to interact with <options: coredao|arbitrum>"
-      },
-      {
-        "flag": "--coredao",
-        "description": "use the coredao chain"
-      },
-      {
-        "flag": "--mainnet",
-        "description": "use the mainnet network"
-      },
-      {
-        "flag": "--network=<option>",
-        "description": "the EVM network to connect to <options: mainnet|testnet>"
-      },
-      {
-        "flag": "--programId=<value>",
-        "description": "alternative Switchboard program ID to interact with"
-      },
-      {
-        "flag": "--testnet",
-        "description": "use the testnet network GLOBAL FLAGS"
-      },
-      {
-        "flag": "--json",
-        "description": "Format output as json."
-      }
-    ],
-    "description": "print an oracle",
-    "examples": [
-      "sb evm oracle print 0x5eeFE1CA9D1093a59aC9278cC6D296A4eeDd6385 --arbitrum --testnet"
-    ]
-  },
-  {
-    "id": "evm-queue-create",
-    "permalink": "/cli/evm/queue/create",
-    "topic": "evm",
-    "command": "sb evm queue create",
-    "topics": [
-      "evm",
-      "queue",
-      "create"
-    ],
-    "markdown": "USAGE\n  $ sb evm queue create --account <value> [-h] [-v] [-s] [--chain coredao|arbitrum | --coredao | --arbitrum]\n    [--network mainnet|testnet | --mainnet | --testnet] [-u <value>] [--programId <value>] [--json] [-a <value>] [--name\n    <value>] [-r <value>] [--oracleTimeout <value>] [--queueSize <value>] [--unpermissionedFeeds]\n\nFLAGS\n  -a, --authority=<value>  alternate account that will be the authority for the queue\n  -h, --help               Show CLI help.\n  -r, --reward=<value>     oracle rewards for successfully responding to an update request\n  -s, --silent             suppress cli prompts\n  -u, --rpcUrl=<value>     alternate RPC url\n  -v, --verbose            log everything\n  --account=<value>        (required) Path to file containing the private key for the payer account\n  --arbitrum               use the arbitrum chain\n  --chain=<option>         the evm chain to interact with\n                           <options: coredao|arbitrum>\n  --coredao                use the coredao chain\n  --mainnet                use the mainnet network\n  --name=<value>           name of the queue for easier identification\n  --network=<option>       the EVM network to connect to\n                           <options: mainnet|testnet>\n  --oracleTimeout=<value>  [default: 180] number of oracles to add to the queue\n  --programId=<value>      alternative Switchboard program ID to interact with\n  --queueSize=<value>      [default: 100] maximum number of oracles the queue can support\n  --testnet                use the testnet network\n  --unpermissionedFeeds    permit unpermissioned feeds\n\nGLOBAL FLAGS\n  --json  Format output as json.\n\nDESCRIPTION\n  create a new oracle queue\n\nALIASES\n  $ sb evm create queue\n\nEXAMPLES\n  $ sb evm queue create --arbitrum --testnet --account ~/.config/arbitrum/testnet.txt --name 'my queue' --oracleTimeout 3600 --queueSize 8\n\n  $ sb evm queue create --arbitrum --testnet --account ~/.config/arbitrum/testnet.txt --unpermissionedFeeds\n",
-    "usage": "sb evm queue create --account <value> [-h] [-v] [-s] [--chain coredao|arbitrum | --coredao | --arbitrum]\n    [--network mainnet|testnet | --mainnet | --testnet] [-u <value>] [--programId <value>] [--json] [-a <value>] [--name\n    <value>] [-r <value>] [--oracleTimeout <value>] [--queueSize <value>] [--unpermissionedFeeds]",
-    "flags": [
-      {
-        "flag": " -a, --authority=<value>",
-        "description": "alternate account that will be the authority for the queue"
-      },
-      {
-        "flag": "-h, --help",
-        "description": "Show CLI help."
-      },
-      {
-        "flag": "-r, --reward=<value>",
-        "description": "oracle rewards for successfully responding to an update request"
-      },
-      {
-        "flag": "-s, --silent",
-        "description": "suppress cli prompts"
-      },
-      {
-        "flag": "-u, --rpcUrl=<value>",
-        "description": "alternate RPC url"
-      },
-      {
-        "flag": "-v, --verbose",
-        "description": "log everything"
-      },
-      {
         "flag": "--account=<value>",
         "description": "(required) Path to file containing the private key for the payer account"
       },
@@ -3208,46 +2473,29 @@
         "description": "use the mainnet network"
       },
       {
-        "flag": "--name=<value>",
-        "description": "name of the queue for easier identification"
+        "flag": "--mrEnclave=<value>",
+        "description": "(required) The MrEnclave to remove"
       },
       {
         "flag": "--network=<option>",
         "description": "the EVM network to connect to <options: mainnet|testnet>"
       },
       {
-        "flag": "--oracleTimeout=<value>",
-        "description": "[default: 180] number of oracles to add to the queue"
-      },
-      {
         "flag": "--programId=<value>",
         "description": "alternative Switchboard program ID to interact with"
       },
       {
-        "flag": "--queueSize=<value>",
-        "description": "[default: 100] maximum number of oracles the queue can support"
-      },
-      {
         "flag": "--testnet",
-        "description": "use the testnet network"
-      },
-      {
-        "flag": "--unpermissionedFeeds",
-        "description": "permit unpermissioned feeds GLOBAL FLAGS"
+        "description": "use the testnet network GLOBAL FLAGS"
       },
       {
         "flag": "--json",
         "description": "Format output as json."
       }
     ],
-    "description": "create a new oracle queue",
-    "aliases": [
-      "sb evm create queue"
-    ],
+    "description": "Remove MrEnclave to a function account",
     "examples": [
-      "sb evm queue create --arbitrum --testnet --account ~/.config/arbitrum/testnet.txt --name 'my queue' --oracleTimeout 3600 --queueSize 8",
-      "",
-      "sb evm queue create --arbitrum --testnet --account ~/.config/arbitrum/testnet.txt --unpermissionedFeeds"
+      "sb evm function removeMrEnclave 0xaA43ba6f18b138A0B3313dDbFaC2b920D240108E --chain arbitrum --network testnet --removeMrEnclace 0xDEADBEEF --account ~/.arbitrum-kp.txt --programId 0x4F706C62535d171883A6cc9384f3f3d926A6BA49"
     ]
   },
   {
@@ -3260,105 +2508,18 @@
       "queue",
       "print"
     ],
-    "markdown": "USAGE\n  $ sb evm queue print QUEUEADDRESS [-h] [-v] [-s] [--chain coredao|arbitrum | --coredao | --arbitrum] [--network\n    mainnet|testnet | --mainnet | --testnet] [-u <value>] [--programId <value>] [--json] [--oracles]\n\nARGUMENTS\n  QUEUEADDRESS  address of the queue account\n\nFLAGS\n  -h, --help            Show CLI help.\n  -s, --silent          suppress cli prompts\n  -u, --rpcUrl=<value>  alternate RPC url\n  -v, --verbose         log everything\n  --arbitrum            use the arbitrum chain\n  --chain=<option>      the evm chain to interact with\n                        <options: coredao|arbitrum>\n  --coredao             use the coredao chain\n  --mainnet             use the mainnet network\n  --network=<option>    the EVM network to connect to\n                        <options: mainnet|testnet>\n  --oracles             print the current set of heartbeating oracles\n  --programId=<value>   alternative Switchboard program ID to interact with\n  --testnet             use the testnet network\n\nGLOBAL FLAGS\n  --json  Format output as json.\n\nDESCRIPTION\n  print a queue\n\nEXAMPLES\n  $ sb evm queue print --arbitrum --mainnet 0x74f44B7e43319931ff9ae8CFCDCba09dc7F89f95\n\n  $ sb evm queue print --arbitrum --testnet 0xB1c6E716ACae35200Dc8278A63a424f58417954c --oracles\n",
-    "usage": "sb evm queue print QUEUEADDRESS [-h] [-v] [-s] [--chain coredao|arbitrum | --coredao | --arbitrum] [--network\n    mainnet|testnet | --mainnet | --testnet] [-u <value>] [--programId <value>] [--json] [--oracles]",
+    "markdown": "USAGE\n  $ sb evm queue print QUEUEKEY --account <value> [-h] [-v] [-s] [--chain coredao|arbitrum | --coredao | --arbitrum]\n    [--network mainnet|testnet | --mainnet | --testnet] [-u <value>] [--programId <value>] [--json]\n\nARGUMENTS\n  QUEUEKEY  address of the attestation queue\n\nFLAGS\n  -h, --help            Show CLI help.\n  -s, --silent          suppress cli prompts\n  -u, --rpcUrl=<value>  alternate RPC url\n  -v, --verbose         log everything\n  --account=<value>     (required) Path to file containing the private key for the payer account\n  --arbitrum            use the arbitrum chain\n  --chain=<option>      the evm chain to interact with\n                        <options: coredao|arbitrum>\n  --coredao             use the coredao chain\n  --mainnet             use the mainnet network\n  --network=<option>    the EVM network to connect to\n                        <options: mainnet|testnet>\n  --programId=<value>   alternative Switchboard program ID to interact with\n  --testnet             use the testnet network\n\nGLOBAL FLAGS\n  --json  Format output as json.\n\nDESCRIPTION\n  Print an attestation queue account\n\nEXAMPLES\n  $ sb evm queue print 0xaA43ba6f18b138A0B3313dDbFaC2b920D240108E --chain arbitrum --network testnet --programId 0x4F706C62535d171883A6cc9384f3f3d926A6BA49\n",
+    "usage": "sb evm queue print QUEUEKEY --account <value> [-h] [-v] [-s] [--chain coredao|arbitrum | --coredao | --arbitrum]\n    [--network mainnet|testnet | --mainnet | --testnet] [-u <value>] [--programId <value>] [--json]",
     "args": [
       {
-        "arg": "QUEUEADDRESS",
-        "description": "address of the queue account"
+        "arg": "QUEUEKEY",
+        "description": "address of the attestation queue"
       }
     ],
     "flags": [
       {
         "flag": " -h, --help",
         "description": "Show CLI help."
-      },
-      {
-        "flag": "-s, --silent",
-        "description": "suppress cli prompts"
-      },
-      {
-        "flag": "-u, --rpcUrl=<value>",
-        "description": "alternate RPC url"
-      },
-      {
-        "flag": "-v, --verbose",
-        "description": "log everything"
-      },
-      {
-        "flag": "--arbitrum",
-        "description": "use the arbitrum chain"
-      },
-      {
-        "flag": "--chain=<option>",
-        "description": "the evm chain to interact with <options: coredao|arbitrum>"
-      },
-      {
-        "flag": "--coredao",
-        "description": "use the coredao chain"
-      },
-      {
-        "flag": "--mainnet",
-        "description": "use the mainnet network"
-      },
-      {
-        "flag": "--network=<option>",
-        "description": "the EVM network to connect to <options: mainnet|testnet>"
-      },
-      {
-        "flag": "--oracles",
-        "description": "print the current set of heartbeating oracles"
-      },
-      {
-        "flag": "--programId=<value>",
-        "description": "alternative Switchboard program ID to interact with"
-      },
-      {
-        "flag": "--testnet",
-        "description": "use the testnet network GLOBAL FLAGS"
-      },
-      {
-        "flag": "--json",
-        "description": "Format output as json."
-      }
-    ],
-    "description": "print a queue",
-    "examples": [
-      "sb evm queue print --arbitrum --mainnet 0x74f44B7e43319931ff9ae8CFCDCba09dc7F89f95",
-      "",
-      "sb evm queue print --arbitrum --testnet 0xB1c6E716ACae35200Dc8278A63a424f58417954c --oracles"
-    ]
-  },
-  {
-    "id": "evm-set-aggregator",
-    "permalink": "/cli/evm/set/aggregator",
-    "topic": "evm",
-    "command": "sb evm set aggregator",
-    "topics": [
-      "evm",
-      "set",
-      "aggregator"
-    ],
-    "markdown": "USAGE\n  $ sb evm set aggregator AGGREGATORADDRESS --account <value> --updateInterval <value> [-h] [-v] [-s] [--chain\n    coredao|arbitrum | --coredao | --arbitrum] [--network mainnet|testnet | --mainnet | --testnet] [-u <value>]\n    [--programId <value>] [--json] [-a <value>] [--name <value>] [--forceReportPeriod <value>] [--batchSize <value>]\n    [--minJobs <value>] [--minOracles <value>] [--varianceThreshold <value>] [-j <value>] [--removeJob <value>]\n    [--enableHistory]\n\nARGUMENTS\n  AGGREGATORADDRESS  address of the aggregator\n\nFLAGS\n  -a, --authority=<value>      alternate account that will be the authority for the aggregator\n  -h, --help                   Show CLI help.\n  -j, --job=<value>...         filesystem path to job definition file\n  -s, --silent                 suppress cli prompts\n  -u, --rpcUrl=<value>         alternate RPC url\n  -v, --verbose                log everything\n  --account=<value>            (required) Path to file containing the private key for the payer account\n  --arbitrum                   use the arbitrum chain\n  --batchSize=<value>          [default: 1] number of oracles requested for each open round call\n  --chain=<option>             the evm chain to interact with\n                               <options: coredao|arbitrum>\n  --coredao                    use the coredao chain\n  --enableHistory              enable history for the feed\n  --forceReportPeriod=<value>  Number of seconds for which, even if the variance threshold is not passed, accept new\n                               responses from oracles.\n  --mainnet                    use the mainnet network\n  --minJobs=<value>            [default: 1] number of jobs that must respond before an oracle responds\n  --minOracles=<value>         [default: 1] number of oracles that must respond before a value is accepted on-chain\n  --name=<value>               name of the aggregator for easier identification\n  --network=<option>           the EVM network to connect to\n                               <options: mainnet|testnet>\n  --programId=<value>          alternative Switchboard program ID to interact with\n  --removeJob=<value>...       job definitions to remove from the hash\n  --testnet                    use the testnet network\n  --updateInterval=<value>     (required) set an aggregator's minimum update delay\n  --varianceThreshold=<value>  [default: 0] percentage change between a previous accepted result and the next round\n                               before an oracle reports a value on-chain. Used to conserve lease cost during low\n                               volatility\n\nGLOBAL FLAGS\n  --json  Format output as json.\n\nDESCRIPTION\n  set an aggregators config\n\nALIASES\n  $ sb evm set aggregator\n\nEXAMPLES\n  $  sb evm aggregator set --arbitrum --testnet --account ~/.config/arbitrum/testnet.txt 0xB1c6E716ACae35200Dc8278A63a424f58417954c --name 'my updated feed' --batchSize 2 --job ./my_new_job.json\n",
-    "usage": "sb evm set aggregator AGGREGATORADDRESS --account <value> --updateInterval <value> [-h] [-v] [-s] [--chain\n    coredao|arbitrum | --coredao | --arbitrum] [--network mainnet|testnet | --mainnet | --testnet] [-u <value>]\n    [--programId <value>] [--json] [-a <value>] [--name <value>] [--forceReportPeriod <value>] [--batchSize <value>]\n    [--minJobs <value>] [--minOracles <value>] [--varianceThreshold <value>] [-j <value>] [--removeJob <value>]\n    [--enableHistory]",
-    "args": [
-      {
-        "arg": "AGGREGATORADDRESS",
-        "description": "address of the aggregator"
-      }
-    ],
-    "flags": [
-      {
-        "flag": " -a, --authority=<value>",
-        "description": "alternate account that will be the authority for the aggregator"
-      },
-      {
-        "flag": "-h, --help",
-        "description": "Show CLI help."
-      },
-      {
-        "flag": "-j, --job=<value>...",
-        "description": "filesystem path to job definition file"
       },
       {
         "flag": "-s, --silent",
@@ -3381,10 +2542,6 @@
         "description": "use the arbitrum chain"
       },
       {
-        "flag": "--batchSize=<value>",
-        "description": "[default: 1] number of oracles requested for each open round call"
-      },
-      {
         "flag": "--chain=<option>",
         "description": "the evm chain to interact with <options: coredao|arbitrum>"
       },
@@ -3393,28 +2550,8 @@
         "description": "use the coredao chain"
       },
       {
-        "flag": "--enableHistory",
-        "description": "enable history for the feed"
-      },
-      {
-        "flag": "--forceReportPeriod=<value>",
-        "description": "Number of seconds for which, even if the variance threshold is not passed, accept new responses from oracles."
-      },
-      {
         "flag": "--mainnet",
         "description": "use the mainnet network"
-      },
-      {
-        "flag": "--minJobs=<value>",
-        "description": "[default: 1] number of jobs that must respond before an oracle responds"
-      },
-      {
-        "flag": "--minOracles=<value>",
-        "description": "[default: 1] number of oracles that must respond before a value is accepted on-chain"
-      },
-      {
-        "flag": "--name=<value>",
-        "description": "name of the aggregator for easier identification"
       },
       {
         "flag": "--network=<option>",
@@ -3425,32 +2562,17 @@
         "description": "alternative Switchboard program ID to interact with"
       },
       {
-        "flag": "--removeJob=<value>...",
-        "description": "job definitions to remove from the hash"
-      },
-      {
         "flag": "--testnet",
-        "description": "use the testnet network"
-      },
-      {
-        "flag": "--updateInterval=<value>",
-        "description": "(required) set an aggregator's minimum update delay"
-      },
-      {
-        "flag": "--varianceThreshold=<value>",
-        "description": "[default: 0] percentage change between a previous accepted result and the next round before an oracle reports a value on-chain. Used to conserve lease cost during low volatility GLOBAL FLAGS"
+        "description": "use the testnet network GLOBAL FLAGS"
       },
       {
         "flag": "--json",
         "description": "Format output as json."
       }
     ],
-    "description": "set an aggregators config",
-    "aliases": [
-      "sb evm set aggregator"
-    ],
+    "description": "Print an attestation queue account",
     "examples": [
-      " sb evm aggregator set --arbitrum --testnet --account ~/.config/arbitrum/testnet.txt 0xB1c6E716ACae35200Dc8278A63a424f58417954c --name 'my updated feed' --batchSize 2 --job ./my_new_job.json"
+      "sb evm queue print 0xaA43ba6f18b138A0B3313dDbFaC2b920D240108E --chain arbitrum --network testnet --programId 0x4F706C62535d171883A6cc9384f3f3d926A6BA49"
     ]
   },
   {
