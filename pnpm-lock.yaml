@@ -1,4 +1,4 @@
-lockfileVersion: '6.1'
+lockfileVersion: '6.0'
 
 settings:
   autoInstallPeers: true
@@ -57,7 +57,7 @@ importers:
         version: 3.12.7
       turbo:
         specifier: latest
-        version: 1.10.12
+        version: 1.10.7
       typescript:
         specifier: ^5.1.6
         version: 5.1.6
@@ -107,22 +107,22 @@ importers:
         specifier: ^1.78.3
         version: 1.78.3
       '@switchboard-xyz/aptos.js':
-        specifier: ^2.6.10
+        specifier: 2.6.10
         version: 2.6.10(@solana/web3.js@1.78.3)
       '@switchboard-xyz/common':
-        specifier: ^2.3.1
+        specifier: 2.3.1
         version: link:../javascript/common
       '@switchboard-xyz/evm.js':
-        specifier: ^3.12.22
-        version: 3.13.0(@solana/web3.js@1.78.3)
+        specifier: 3.12.22
+        version: 3.12.22(@solana/web3.js@1.78.3)
       '@switchboard-xyz/near.js':
-        specifier: ^2.2.4
+        specifier: 2.2.4
         version: 2.2.4(@solana/web3.js@1.78.3)(typescript@5.0.4)
       '@switchboard-xyz/oracle':
-        specifier: ^2.1.13
+        specifier: 2.1.13
         version: link:../javascript/oracle
       '@switchboard-xyz/solana.js':
-        specifier: ^2.5.4
+        specifier: 2.5.4
         version: 2.5.4
       '@terascope/fetch-github-release':
         specifier: ^0.8.7
@@ -8233,15 +8233,14 @@ packages:
       - '@solana/web3.js'
     dev: false
 
-  /@switchboard-xyz/evm.js@3.13.0(@solana/web3.js@1.78.3):
-    resolution: {integrity: sha512-LY0jw+KWRsbiNicDK7VXVKPlNrbcCcPwOeBoexW3rRRm2NI0iB9613BRjK9xSTaKLjvVwMrpGhZRcfES+2ZzzA==}
+  /@switchboard-xyz/evm.js@3.12.22(@solana/web3.js@1.78.3):
+    resolution: {integrity: sha512-csR5aQZSOlWQIeQFjiAQFVTCgZ85PY0qsBFhHXiybwgHIRqw717dP0i8/iI0sksc9karkv3nzQ/dqnbrneM6TA==}
     engines: {node: '>=12.0.0'}
     dependencies:
       '@ethersproject/abi': 5.7.0
+      '@ethersproject/bignumber': 5.7.0
       '@ethersproject/providers': 5.7.2
       '@switchboard-xyz/common': 2.3.1(@solana/web3.js@1.78.3)
-      big.js: 6.2.1
-      bn.js: 5.2.1
       chalk: 5.3.0
       ethers: 5.7.2
       js-sha3: 0.8.0
@@ -22842,65 +22841,65 @@ packages:
       safe-buffer: 5.2.1
     dev: false
 
-  /turbo-darwin-64@1.10.12:
-    resolution: {integrity: sha512-vmDfGVPl5/aFenAbOj3eOx3ePNcWVUyZwYr7taRl0ZBbmv2TzjRiFotO4vrKCiTVnbqjQqAFQWY2ugbqCI1kOQ==}
+  /turbo-darwin-64@1.10.7:
+    resolution: {integrity: sha512-N2MNuhwrl6g7vGuz4y3fFG2aR1oCs0UZ5HKl8KSTn/VC2y2YIuLGedQ3OVbo0TfEvygAlF3QGAAKKtOCmGPNKA==}
     cpu: [x64]
     os: [darwin]
     requiresBuild: true
     dev: true
     optional: true
 
-  /turbo-darwin-arm64@1.10.12:
-    resolution: {integrity: sha512-3JliEESLNX2s7g54SOBqqkqJ7UhcOGkS0ywMr5SNuvF6kWVTbuUq7uBU/sVbGq8RwvK1ONlhPvJne5MUqBCTCQ==}
+  /turbo-darwin-arm64@1.10.7:
+    resolution: {integrity: sha512-WbJkvjU+6qkngp7K4EsswOriO3xrNQag7YEGRtfLoDdMTk4O4QTeU6sfg2dKfDsBpTidTvEDwgIYJhYVGzrz9Q==}
     cpu: [arm64]
     os: [darwin]
     requiresBuild: true
     dev: true
     optional: true
 
-  /turbo-linux-64@1.10.12:
-    resolution: {integrity: sha512-siYhgeX0DidIfHSgCR95b8xPee9enKSOjCzx7EjTLmPqPaCiVebRYvbOIYdQWRqiaKh9yfhUtFmtMOMScUf1gg==}
+  /turbo-linux-64@1.10.7:
+    resolution: {integrity: sha512-x1CF2CDP1pDz/J8/B2T0hnmmOQI2+y11JGIzNP0KtwxDM7rmeg3DDTtDM/9PwGqfPotN9iVGgMiMvBuMFbsLhg==}
     cpu: [x64]
     os: [linux]
     requiresBuild: true
     dev: true
     optional: true
 
-  /turbo-linux-arm64@1.10.12:
-    resolution: {integrity: sha512-K/ZhvD9l4SslclaMkTiIrnfcACgos79YcAo4kwc8bnMQaKuUeRpM15sxLpZp3xDjDg8EY93vsKyjaOhdFG2UbA==}
+  /turbo-linux-arm64@1.10.7:
+    resolution: {integrity: sha512-JtnBmaBSYbs7peJPkXzXxsRGSGBmBEIb6/kC8RRmyvPAMyqF8wIex0pttsI+9plghREiGPtRWv/lfQEPRlXnNQ==}
     cpu: [arm64]
     os: [linux]
     requiresBuild: true
     dev: true
     optional: true
 
-  /turbo-windows-64@1.10.12:
-    resolution: {integrity: sha512-7FSgSwvktWDNOqV65l9AbZwcoueAILeE4L7JvjauNASAjjbuzXGCEq5uN8AQU3U5BOFj4TdXrVmO2dX+lLu8Zg==}
+  /turbo-windows-64@1.10.7:
+    resolution: {integrity: sha512-7A/4CByoHdolWS8dg3DPm99owfu1aY/W0V0+KxFd0o2JQMTQtoBgIMSvZesXaWM57z3OLsietFivDLQPuzE75w==}
     cpu: [x64]
     os: [win32]
     requiresBuild: true
     dev: true
     optional: true
 
-  /turbo-windows-arm64@1.10.12:
-    resolution: {integrity: sha512-gCNXF52dwom1HLY9ry/cneBPOKTBHhzpqhMylcyvJP0vp9zeMQQkt6yjYv+6QdnmELC92CtKNp2FsNZo+z0pyw==}
+  /turbo-windows-arm64@1.10.7:
+    resolution: {integrity: sha512-D36K/3b6+hqm9IBAymnuVgyePktwQ+F0lSXr2B9JfAdFPBktSqGmp50JNC7pahxhnuCLj0Vdpe9RqfnJw5zATA==}
     cpu: [arm64]
     os: [win32]
     requiresBuild: true
     dev: true
     optional: true
 
-  /turbo@1.10.12:
-    resolution: {integrity: sha512-WM3+jTfQWnB9W208pmP4oeehZcC6JQNlydb/ZHMRrhmQa+htGhWLCzd6Q9rLe0MwZLPpSPFV2/bN5egCLyoKjQ==}
+  /turbo@1.10.7:
+    resolution: {integrity: sha512-xm0MPM28TWx1e6TNC3wokfE5eaDqlfi0G24kmeHupDUZt5Wd0OzHFENEHMPqEaNKJ0I+AMObL6nbSZonZBV2HA==}
     hasBin: true
     requiresBuild: true
     optionalDependencies:
-      turbo-darwin-64: 1.10.12
-      turbo-darwin-arm64: 1.10.12
-      turbo-linux-64: 1.10.12
-      turbo-linux-arm64: 1.10.12
-      turbo-windows-64: 1.10.12
-      turbo-windows-arm64: 1.10.12
+      turbo-darwin-64: 1.10.7
+      turbo-darwin-arm64: 1.10.7
+      turbo-linux-64: 1.10.7
+      turbo-linux-arm64: 1.10.7
+      turbo-windows-64: 1.10.7
+      turbo-windows-arm64: 1.10.7
     dev: true
 
   /tweetnacl@1.0.3:
