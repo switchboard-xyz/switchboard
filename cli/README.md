@@ -129,26 +129,13 @@ node bin/dev print GvDMxPzN1sCj7L26YDK2HnMRXEQmQ2aemov8YBtPS7vR
 * [`sb aptos update aggregator AGGREGATORHEXSTRING`](#sb-aptos-update-aggregator-aggregatorhexstring)
 * [`sb config print`](#sb-config-print)
 * [`sb config set CHAIN NETWORK PARAMETER [VALUE]`](#sb-config-set-chain-network-parameter-value)
-* [`sb evm aggregator create QUEUEADDRESS`](#sb-evm-aggregator-create-queueaddress)
-* [`sb evm aggregator print AGGREGATORADDRESS`](#sb-evm-aggregator-print-aggregatoraddress)
-* [`sb evm aggregator set AGGREGATORADDRESS`](#sb-evm-aggregator-set-aggregatoraddress)
-* [`sb evm create aggregator QUEUEADDRESS`](#sb-evm-create-aggregator-queueaddress)
-* [`sb evm create jobs`](#sb-evm-create-jobs)
-* [`sb evm create oracle QUEUEADDRESS`](#sb-evm-create-oracle-queueaddress)
-* [`sb evm create queue`](#sb-evm-create-queue)
+* [`sb evm enclave print ENCLAVEKEY`](#sb-evm-enclave-print-enclavekey)
 * [`sb evm function addMrEnclave FUNCTIONKEY`](#sb-evm-function-addmrenclave-functionkey)
 * [`sb evm function create QUEUEKEY`](#sb-evm-function-create-queuekey)
 * [`sb evm function fund FUNCTIONKEY`](#sb-evm-function-fund-functionkey)
 * [`sb evm function print FUNCTIONKEY`](#sb-evm-function-print-functionkey)
 * [`sb evm function rmMrEnclave FUNCTIONKEY`](#sb-evm-function-rmmrenclave-functionkey)
-* [`sb evm job create`](#sb-evm-job-create)
-* [`sb evm job print JOBHASH`](#sb-evm-job-print-jobhash)
-* [`sb evm oracle create QUEUEADDRESS`](#sb-evm-oracle-create-queueaddress)
-* [`sb evm oracle heartbeat ORACLEADDRESS`](#sb-evm-oracle-heartbeat-oracleaddress)
-* [`sb evm oracle print ORACLEADDRESS`](#sb-evm-oracle-print-oracleaddress)
-* [`sb evm queue create`](#sb-evm-queue-create)
-* [`sb evm queue print QUEUEADDRESS`](#sb-evm-queue-print-queueaddress)
-* [`sb evm set aggregator AGGREGATORADDRESS`](#sb-evm-set-aggregator-aggregatoraddress)
+* [`sb evm queue print QUEUEKEY`](#sb-evm-queue-print-queuekey)
 * [`sb function-init TEMPLATE`](#sb-function-init-template)
 * [`sb help [COMMANDS]`](#sb-help-commands)
 * [`sb job test`](#sb-job-test)
@@ -1312,361 +1299,42 @@ DESCRIPTION
   set a configuration option
 ```
 
-## `sb evm aggregator create QUEUEADDRESS`
+## `sb evm enclave print ENCLAVEKEY`
 
-create an aggregator for a given queue
-
-```
-USAGE
-  $ sb evm aggregator create QUEUEADDRESS --account <value> --updateInterval <value> [-h] [-v] [-s] [--chain
-    coredao|arbitrum | --coredao | --arbitrum] [--network mainnet|testnet | --mainnet | --testnet] [-u <value>]
-    [--programId <value>] [--json] [-a <value>] [--name <value>] [--forceReportPeriod <value>] [--batchSize <value>]
-    [--minJobs <value>] [--minOracles <value>] [--varianceThreshold <value>] [-j <value>] [--enableHistory]
-    [--queueAuthority <value> --enable] [--fundAmount <value>]
-
-ARGUMENTS
-  QUEUEADDRESS  address of the oracle queue
-
-FLAGS
-  -a, --authority=<value>      alternate account that will be the authority for the aggregator
-  -h, --help                   Show CLI help.
-  -j, --job=<value>...         filesystem path to job definition file
-  -s, --silent                 suppress cli prompts
-  -u, --rpcUrl=<value>         alternate RPC url
-  -v, --verbose                log everything
-  --account=<value>            (required) Path to file containing the private key for the payer account
-  --arbitrum                   use the arbitrum chain
-  --batchSize=<value>          [default: 1] number of oracles requested for each open round call
-  --chain=<option>             the evm chain to interact with
-                               <options: coredao|arbitrum>
-  --coredao                    use the coredao chain
-  --enable                     enable the oracles heartbeat permissions
-  --enableHistory              enable history for the feed
-  --forceReportPeriod=<value>  Number of seconds for which, even if the variance threshold is not passed, accept new
-                               responses from oracles.
-  --fundAmount=<value>         [default: 0.0] fund the aggregator escrow with the native token, used to reward oracles
-                               for publishing updates
-  --mainnet                    use the mainnet network
-  --minJobs=<value>            [default: 1] number of jobs that must respond before an oracle responds
-  --minOracles=<value>         [default: 1] number of oracles that must respond before a value is accepted on-chain
-  --name=<value>               name of the aggregator for easier identification
-  --network=<option>           the EVM network to connect to
-                               <options: mainnet|testnet>
-  --programId=<value>          alternative Switchboard program ID to interact with
-  --queueAuthority=<value>     override the default signer when setting oracle permissions
-  --testnet                    use the testnet network
-  --updateInterval=<value>     (required) set an aggregator's minimum update delay
-  --varianceThreshold=<value>  [default: 0] percentage change between a previous accepted result and the next round
-                               before an oracle reports a value on-chain. Used to conserve lease cost during low
-                               volatility
-
-GLOBAL FLAGS
-  --json  Format output as json.
-
-DESCRIPTION
-  create an aggregator for a given queue
-
-ALIASES
-  $ sb evm create aggregator
-
-EXAMPLES
-  $ sb evm aggregator create --arbitrum --testnet --account ~/.config/arbitrum/testnet.txt 0xB1c6E716ACae35200Dc8278A63a424f58417954c --name 'my feed' --batchSize 1 --updateInterval 90 --fundAmount 0.25 --job my_job.json
-```
-
-## `sb evm aggregator print AGGREGATORADDRESS`
-
-print an aggregator
+Print an enclave's state
 
 ```
 USAGE
-  $ sb evm aggregator print AGGREGATORADDRESS [-h] [-v] [-s] [--chain coredao|arbitrum | --coredao | --arbitrum]
-    [--network mainnet|testnet | --mainnet | --testnet] [-u <value>] [--programId <value>] [--json] [--jobs] [--results]
+  $ sb evm enclave print ENCLAVEKEY --account <value> [-h] [-v] [-s] [--chain coredao|arbitrum | --coredao |
+    --arbitrum] [--network mainnet|testnet | --mainnet | --testnet] [-u <value>] [--programId <value>] [--json]
 
 ARGUMENTS
-  AGGREGATORADDRESS  address of the aggregator account
+  ENCLAVEKEY  address of the enclave
 
 FLAGS
   -h, --help            Show CLI help.
   -s, --silent          suppress cli prompts
   -u, --rpcUrl=<value>  alternate RPC url
   -v, --verbose         log everything
+  --account=<value>     (required) Path to file containing the private key for the payer account
   --arbitrum            use the arbitrum chain
   --chain=<option>      the evm chain to interact with
                         <options: coredao|arbitrum>
   --coredao             use the coredao chain
-  --jobs                print the job definitions for the aggregator
   --mainnet             use the mainnet network
   --network=<option>    the EVM network to connect to
                         <options: mainnet|testnet>
   --programId=<value>   alternative Switchboard program ID to interact with
-  --results             print the current results for the aggregator
   --testnet             use the testnet network
 
 GLOBAL FLAGS
   --json  Format output as json.
 
 DESCRIPTION
-  print an aggregator
+  Print an enclave's state
 
 EXAMPLES
-  $ sb evm aggregator print 0x4Aa86c11Ad9493c84fd6C6469F6FA494272AdB4a --arbitrum --mainnet
-
-  $ sb evm aggregator print 0x7892F7326291F3Bc17680956B476701DF76d52Da --coredao --testnet --jobs
-```
-
-## `sb evm aggregator set AGGREGATORADDRESS`
-
-set an aggregators config
-
-```
-USAGE
-  $ sb evm aggregator set AGGREGATORADDRESS --account <value> --updateInterval <value> [-h] [-v] [-s] [--chain
-    coredao|arbitrum | --coredao | --arbitrum] [--network mainnet|testnet | --mainnet | --testnet] [-u <value>]
-    [--programId <value>] [--json] [-a <value>] [--name <value>] [--forceReportPeriod <value>] [--batchSize <value>]
-    [--minJobs <value>] [--minOracles <value>] [--varianceThreshold <value>] [-j <value>] [--removeJob <value>]
-    [--enableHistory]
-
-ARGUMENTS
-  AGGREGATORADDRESS  address of the aggregator
-
-FLAGS
-  -a, --authority=<value>      alternate account that will be the authority for the aggregator
-  -h, --help                   Show CLI help.
-  -j, --job=<value>...         filesystem path to job definition file
-  -s, --silent                 suppress cli prompts
-  -u, --rpcUrl=<value>         alternate RPC url
-  -v, --verbose                log everything
-  --account=<value>            (required) Path to file containing the private key for the payer account
-  --arbitrum                   use the arbitrum chain
-  --batchSize=<value>          [default: 1] number of oracles requested for each open round call
-  --chain=<option>             the evm chain to interact with
-                               <options: coredao|arbitrum>
-  --coredao                    use the coredao chain
-  --enableHistory              enable history for the feed
-  --forceReportPeriod=<value>  Number of seconds for which, even if the variance threshold is not passed, accept new
-                               responses from oracles.
-  --mainnet                    use the mainnet network
-  --minJobs=<value>            [default: 1] number of jobs that must respond before an oracle responds
-  --minOracles=<value>         [default: 1] number of oracles that must respond before a value is accepted on-chain
-  --name=<value>               name of the aggregator for easier identification
-  --network=<option>           the EVM network to connect to
-                               <options: mainnet|testnet>
-  --programId=<value>          alternative Switchboard program ID to interact with
-  --removeJob=<value>...       job definitions to remove from the hash
-  --testnet                    use the testnet network
-  --updateInterval=<value>     (required) set an aggregator's minimum update delay
-  --varianceThreshold=<value>  [default: 0] percentage change between a previous accepted result and the next round
-                               before an oracle reports a value on-chain. Used to conserve lease cost during low
-                               volatility
-
-GLOBAL FLAGS
-  --json  Format output as json.
-
-DESCRIPTION
-  set an aggregators config
-
-ALIASES
-  $ sb evm set aggregator
-
-EXAMPLES
-  $  sb evm aggregator set --arbitrum --testnet --account ~/.config/arbitrum/testnet.txt 0xB1c6E716ACae35200Dc8278A63a424f58417954c --name 'my updated feed' --batchSize 2 --job ./my_new_job.json
-```
-
-## `sb evm create aggregator QUEUEADDRESS`
-
-create an aggregator for a given queue
-
-```
-USAGE
-  $ sb evm create aggregator QUEUEADDRESS --account <value> --updateInterval <value> [-h] [-v] [-s] [--chain
-    coredao|arbitrum | --coredao | --arbitrum] [--network mainnet|testnet | --mainnet | --testnet] [-u <value>]
-    [--programId <value>] [--json] [-a <value>] [--name <value>] [--forceReportPeriod <value>] [--batchSize <value>]
-    [--minJobs <value>] [--minOracles <value>] [--varianceThreshold <value>] [-j <value>] [--enableHistory]
-    [--queueAuthority <value> --enable] [--fundAmount <value>]
-
-ARGUMENTS
-  QUEUEADDRESS  address of the oracle queue
-
-FLAGS
-  -a, --authority=<value>      alternate account that will be the authority for the aggregator
-  -h, --help                   Show CLI help.
-  -j, --job=<value>...         filesystem path to job definition file
-  -s, --silent                 suppress cli prompts
-  -u, --rpcUrl=<value>         alternate RPC url
-  -v, --verbose                log everything
-  --account=<value>            (required) Path to file containing the private key for the payer account
-  --arbitrum                   use the arbitrum chain
-  --batchSize=<value>          [default: 1] number of oracles requested for each open round call
-  --chain=<option>             the evm chain to interact with
-                               <options: coredao|arbitrum>
-  --coredao                    use the coredao chain
-  --enable                     enable the oracles heartbeat permissions
-  --enableHistory              enable history for the feed
-  --forceReportPeriod=<value>  Number of seconds for which, even if the variance threshold is not passed, accept new
-                               responses from oracles.
-  --fundAmount=<value>         [default: 0.0] fund the aggregator escrow with the native token, used to reward oracles
-                               for publishing updates
-  --mainnet                    use the mainnet network
-  --minJobs=<value>            [default: 1] number of jobs that must respond before an oracle responds
-  --minOracles=<value>         [default: 1] number of oracles that must respond before a value is accepted on-chain
-  --name=<value>               name of the aggregator for easier identification
-  --network=<option>           the EVM network to connect to
-                               <options: mainnet|testnet>
-  --programId=<value>          alternative Switchboard program ID to interact with
-  --queueAuthority=<value>     override the default signer when setting oracle permissions
-  --testnet                    use the testnet network
-  --updateInterval=<value>     (required) set an aggregator's minimum update delay
-  --varianceThreshold=<value>  [default: 0] percentage change between a previous accepted result and the next round
-                               before an oracle reports a value on-chain. Used to conserve lease cost during low
-                               volatility
-
-GLOBAL FLAGS
-  --json  Format output as json.
-
-DESCRIPTION
-  create an aggregator for a given queue
-
-ALIASES
-  $ sb evm create aggregator
-
-EXAMPLES
-  $ sb evm aggregator create --arbitrum --testnet --account ~/.config/arbitrum/testnet.txt 0xB1c6E716ACae35200Dc8278A63a424f58417954c --name 'my feed' --batchSize 1 --updateInterval 90 --fundAmount 0.25 --job my_job.json
-```
-
-## `sb evm create jobs`
-
-create the hash for a set of jobs
-
-```
-USAGE
-  $ sb evm create jobs [-h] [-v] [-s] [--chain coredao|arbitrum | --coredao | --arbitrum] [--network mainnet|testnet
-    | --mainnet | --testnet] [-u <value>] [--programId <value>] [--json] [--hash <value>] [-j <value>] [--removeJob
-    <value>]
-
-FLAGS
-  -h, --help              Show CLI help.
-  -j, --job=<value>...    filesystem path to job definition file
-  -s, --silent            suppress cli prompts
-  -u, --rpcUrl=<value>    alternate RPC url
-  -v, --verbose           log everything
-  --arbitrum              use the arbitrum chain
-  --chain=<option>        the evm chain to interact with
-                          <options: coredao|arbitrum>
-  --coredao               use the coredao chain
-  --hash=<value>          existing ipfs hash to modify
-  --mainnet               use the mainnet network
-  --network=<option>      the EVM network to connect to
-                          <options: mainnet|testnet>
-  --programId=<value>     alternative Switchboard program ID to interact with
-  --removeJob=<value>...  job definitions to remove from the hash
-  --testnet               use the testnet network
-
-GLOBAL FLAGS
-  --json  Format output as json.
-
-DESCRIPTION
-  create the hash for a set of jobs
-
-ALIASES
-  $ sb evm create jobs
-
-EXAMPLES
-  $ sb evm job create --arbitrum --testnet --job my_job.json
-
-  $ sb evm job create --arbitrum --testnet --hash bafkreihvxeb7rwyrilzmouid2onuwajkkng4ykdwrr6vaxjgg3zv3cghdy --removeJob my_job.json
-```
-
-## `sb evm create oracle QUEUEADDRESS`
-
-create a new oracle
-
-```
-USAGE
-  $ sb evm create oracle QUEUEADDRESS --account <value> [-h] [-v] [-s] [--chain coredao|arbitrum | --coredao |
-    --arbitrum] [--network mainnet|testnet | --mainnet | --testnet] [-u <value>] [--programId <value>] [--json] [-a
-    <value>] [--name <value>] [--queueAuthority <value> --enable]
-
-ARGUMENTS
-  QUEUEADDRESS  address of the oracle queue to create a new oracle for
-
-FLAGS
-  -a, --authority=<value>   alternate account that will be the authority for the oracle
-  -h, --help                Show CLI help.
-  -s, --silent              suppress cli prompts
-  -u, --rpcUrl=<value>      alternate RPC url
-  -v, --verbose             log everything
-  --account=<value>         (required) Path to file containing the private key for the payer account
-  --arbitrum                use the arbitrum chain
-  --chain=<option>          the evm chain to interact with
-                            <options: coredao|arbitrum>
-  --coredao                 use the coredao chain
-  --enable                  enable the oracles heartbeat permissions
-  --mainnet                 use the mainnet network
-  --name=<value>            name of the oracle for easier identification
-  --network=<option>        the EVM network to connect to
-                            <options: mainnet|testnet>
-  --programId=<value>       alternative Switchboard program ID to interact with
-  --queueAuthority=<value>  override the default signer when setting oracle permissions
-  --testnet                 use the testnet network
-
-GLOBAL FLAGS
-  --json  Format output as json.
-
-DESCRIPTION
-  create a new oracle
-
-ALIASES
-  $ sb evm create oracle
-
-EXAMPLES
-  $ sb evm oracle create 0xB1c6E716ACae35200Dc8278A63a424f58417954c --arbitrum --testnet --account ~/.config/arbitrum/testnet.txt --name 'my oracle' --enable
-```
-
-## `sb evm create queue`
-
-create a new oracle queue
-
-```
-USAGE
-  $ sb evm create queue --account <value> [-h] [-v] [-s] [--chain coredao|arbitrum | --coredao | --arbitrum]
-    [--network mainnet|testnet | --mainnet | --testnet] [-u <value>] [--programId <value>] [--json] [-a <value>] [--name
-    <value>] [-r <value>] [--oracleTimeout <value>] [--queueSize <value>] [--unpermissionedFeeds]
-
-FLAGS
-  -a, --authority=<value>  alternate account that will be the authority for the queue
-  -h, --help               Show CLI help.
-  -r, --reward=<value>     oracle rewards for successfully responding to an update request
-  -s, --silent             suppress cli prompts
-  -u, --rpcUrl=<value>     alternate RPC url
-  -v, --verbose            log everything
-  --account=<value>        (required) Path to file containing the private key for the payer account
-  --arbitrum               use the arbitrum chain
-  --chain=<option>         the evm chain to interact with
-                           <options: coredao|arbitrum>
-  --coredao                use the coredao chain
-  --mainnet                use the mainnet network
-  --name=<value>           name of the queue for easier identification
-  --network=<option>       the EVM network to connect to
-                           <options: mainnet|testnet>
-  --oracleTimeout=<value>  [default: 180] number of oracles to add to the queue
-  --programId=<value>      alternative Switchboard program ID to interact with
-  --queueSize=<value>      [default: 100] maximum number of oracles the queue can support
-  --testnet                use the testnet network
-  --unpermissionedFeeds    permit unpermissioned feeds
-
-GLOBAL FLAGS
-  --json  Format output as json.
-
-DESCRIPTION
-  create a new oracle queue
-
-ALIASES
-  $ sb evm create queue
-
-EXAMPLES
-  $ sb evm queue create --arbitrum --testnet --account ~/.config/arbitrum/testnet.txt --name 'my queue' --oracleTimeout 3600 --queueSize 8
-
-  $ sb evm queue create --arbitrum --testnet --account ~/.config/arbitrum/testnet.txt --unpermissionedFeeds
+  $ sb evm enclave print 0xaA43ba6f18b138A0B3313dDbFaC2b920D240108E --chain arbitrum --network testnet --programId 0x4F706C62535d171883A6cc9384f3f3d926A6BA49
 ```
 
 ## `sb evm function addMrEnclave FUNCTIONKEY`
@@ -1680,7 +1348,7 @@ USAGE
     [--json]
 
 ARGUMENTS
-  FUNCTIONKEY  public key of the function account
+  FUNCTIONKEY  address of the function account
 
 FLAGS
   -h, --help            Show CLI help.
@@ -1717,48 +1385,39 @@ create a new function account for a given queue
 USAGE
   $ sb evm function create QUEUEKEY --account <value> --container <value> [-h] [-v] [-s] [--chain coredao|arbitrum |
     --coredao | --arbitrum] [--network mainnet|testnet | --mainnet | --testnet] [-u <value>] [--programId <value>]
-    [--json] [-n <value>] [--metadata <value>] [-a <value>] [--fundAmount <value>] [--schedule <value>]
-    [--containerRegistry dockerhub|ipfs] [--version <value>] [--mrEnclave <value>] [--requestsDisabled <value>]
-    [--requestsFee <value>] [--requestsRequireAuthorization <value>]
+    [--json] [-n <value>] [-a <value>] [--fundAmount <value>] [--schedule <value>] [--containerRegistry dockerhub|ipfs]
+    [--version <value>] [--mrEnclave <value>]
 
 ARGUMENTS
-  QUEUEKEY  public key of the attestation queue account
+  QUEUEKEY  address of the attestation queue account
 
 FLAGS
-  -a, --authority=<value>                 keypair or public key to delegate authority to for managing the function
-                                          account
-  -h, --help                              Show CLI help.
-  -n, --name=<value>                      name of the function for easier identification
-  -s, --silent                            suppress cli prompts
-  -u, --rpcUrl=<value>                    alternate RPC url
-  -v, --verbose                           log everything
-  --account=<value>                       (required) Path to file containing the private key for the payer account
-  --arbitrum                              use the arbitrum chain
-  --chain=<option>                        the evm chain to interact with
-                                          <options: coredao|arbitrum>
-  --container=<value>                     (required) the location of the container (Ex.
-                                          switchboardlabs/basic-oracle-function)
-  --containerRegistry=<option>            [default: dockerhub] the registry to pull the container from (Ex. Docker or
-                                          IPFS)
-                                          <options: dockerhub|ipfs>
-  --coredao                               use the coredao chain
-  --fundAmount=<value>                    [default: 0.0] token amount to load into the function's escrow wallet.
-  --mainnet                               use the mainnet network
-  --metadata=<value>                      metadata of the function for easier identification
-  --mrEnclave=<value>                     the MrEnclave value to set for the function - if not provided, will be set
-                                          automatically after its first run
-  --network=<option>                      the EVM network to connect to
-                                          <options: mainnet|testnet>
-  --programId=<value>                     alternative Switchboard program ID to interact with
-  --requestsDisabled=<value>              whether custom requests can be created for this function
-  --requestsFee=<value>                   [default: 0.0] the costs each request must pay the function authority for each
-                                          sub-request (Ex. 0.00002)
-  --requestsRequireAuthorization=<value>  whether custom requests require the function authority to authorize
-  --schedule=<value>                      the cron schedule to execute the function periodically (Ex. '15 * * * * *'
-                                          will execute the function every 15 seconds)
-  --testnet                               use the testnet network
-  --version=<value>                       [default: latest] the version of the container to pull from the registry (Ex.
-                                          'latest' or 'mainnet')
+  -a, --authority=<value>       keypair or address to delegate authority to for managing the function account
+  -h, --help                    Show CLI help.
+  -n, --name=<value>            name of the function for easier identification
+  -s, --silent                  suppress cli prompts
+  -u, --rpcUrl=<value>          alternate RPC url
+  -v, --verbose                 log everything
+  --account=<value>             (required) Path to file containing the private key for the payer account
+  --arbitrum                    use the arbitrum chain
+  --chain=<option>              the evm chain to interact with
+                                <options: coredao|arbitrum>
+  --container=<value>           (required) the location of the container (Ex. switchboardlabs/basic-oracle-function)
+  --containerRegistry=<option>  [default: dockerhub] the registry to pull the container from (Ex. Docker or IPFS)
+                                <options: dockerhub|ipfs>
+  --coredao                     use the coredao chain
+  --fundAmount=<value>          [default: 0.0] token amount to load into the function's escrow wallet.
+  --mainnet                     use the mainnet network
+  --mrEnclave=<value>           the MrEnclave value to set for the function - if not provided, will be set automatically
+                                after its first run
+  --network=<option>            the EVM network to connect to
+                                <options: mainnet|testnet>
+  --programId=<value>           alternative Switchboard program ID to interact with
+  --schedule=<value>            the cron schedule to execute the function periodically (Ex. '15 * * * * *' will execute
+                                the function every 15 seconds)
+  --testnet                     use the testnet network
+  --version=<value>             [default: latest] the version of the container to pull from the registry (Ex. 'latest'
+                                or 'mainnet')
 
 GLOBAL FLAGS
   --json  Format output as json.
@@ -1781,7 +1440,7 @@ USAGE
     [--fundAmount <value>]
 
 ARGUMENTS
-  FUNCTIONKEY  public key of the function account
+  FUNCTIONKEY  address of the function account
 
 FLAGS
   -h, --help            Show CLI help.
@@ -1820,7 +1479,7 @@ USAGE
     --arbitrum] [--network mainnet|testnet | --mainnet | --testnet] [-u <value>] [--programId <value>] [--json]
 
 ARGUMENTS
-  FUNCTIONKEY  public key of the function account
+  FUNCTIONKEY  address of the function account
 
 FLAGS
   -h, --help            Show CLI help.
@@ -1859,7 +1518,7 @@ USAGE
     [--json]
 
 ARGUMENTS
-  FUNCTIONKEY  public key of the function account
+  FUNCTIONKEY  address of the function account
 
 FLAGS
   -h, --help            Show CLI help.
@@ -1888,66 +1547,24 @@ EXAMPLES
   $ sb evm function removeMrEnclave 0xaA43ba6f18b138A0B3313dDbFaC2b920D240108E --chain arbitrum --network testnet --removeMrEnclace 0xDEADBEEF --account ~/.arbitrum-kp.txt --programId 0x4F706C62535d171883A6cc9384f3f3d926A6BA49
 ```
 
-## `sb evm job create`
+## `sb evm queue print QUEUEKEY`
 
-create the hash for a set of jobs
-
-```
-USAGE
-  $ sb evm job create [-h] [-v] [-s] [--chain coredao|arbitrum | --coredao | --arbitrum] [--network mainnet|testnet
-    | --mainnet | --testnet] [-u <value>] [--programId <value>] [--json] [--hash <value>] [-j <value>] [--removeJob
-    <value>]
-
-FLAGS
-  -h, --help              Show CLI help.
-  -j, --job=<value>...    filesystem path to job definition file
-  -s, --silent            suppress cli prompts
-  -u, --rpcUrl=<value>    alternate RPC url
-  -v, --verbose           log everything
-  --arbitrum              use the arbitrum chain
-  --chain=<option>        the evm chain to interact with
-                          <options: coredao|arbitrum>
-  --coredao               use the coredao chain
-  --hash=<value>          existing ipfs hash to modify
-  --mainnet               use the mainnet network
-  --network=<option>      the EVM network to connect to
-                          <options: mainnet|testnet>
-  --programId=<value>     alternative Switchboard program ID to interact with
-  --removeJob=<value>...  job definitions to remove from the hash
-  --testnet               use the testnet network
-
-GLOBAL FLAGS
-  --json  Format output as json.
-
-DESCRIPTION
-  create the hash for a set of jobs
-
-ALIASES
-  $ sb evm create jobs
-
-EXAMPLES
-  $ sb evm job create --arbitrum --testnet --job my_job.json
-
-  $ sb evm job create --arbitrum --testnet --hash bafkreihvxeb7rwyrilzmouid2onuwajkkng4ykdwrr6vaxjgg3zv3cghdy --removeJob my_job.json
-```
-
-## `sb evm job print JOBHASH`
-
-print an IPFS job hash
+Print an attestation queue account
 
 ```
 USAGE
-  $ sb evm job print JOBHASH [-h] [-v] [-s] [--chain coredao|arbitrum | --coredao | --arbitrum] [--network
-    mainnet|testnet | --mainnet | --testnet] [-u <value>] [--programId <value>] [--json]
+  $ sb evm queue print QUEUEKEY --account <value> [-h] [-v] [-s] [--chain coredao|arbitrum | --coredao | --arbitrum]
+    [--network mainnet|testnet | --mainnet | --testnet] [-u <value>] [--programId <value>] [--json]
 
 ARGUMENTS
-  JOBHASH  IPFS hash of the job definitions
+  QUEUEKEY  address of the attestation queue
 
 FLAGS
   -h, --help            Show CLI help.
   -s, --silent          suppress cli prompts
   -u, --rpcUrl=<value>  alternate RPC url
   -v, --verbose         log everything
+  --account=<value>     (required) Path to file containing the private key for the payer account
   --arbitrum            use the arbitrum chain
   --chain=<option>      the evm chain to interact with
                         <options: coredao|arbitrum>
@@ -1962,278 +1579,10 @@ GLOBAL FLAGS
   --json  Format output as json.
 
 DESCRIPTION
-  print an IPFS job hash
+  Print an attestation queue account
 
 EXAMPLES
-  $ sb evm job print bafkreih4ots3go2ytcvp74cvshnmlikw2mtm47pugpnlzuf36vr6emoov4 --arbitrum --testnet
-```
-
-## `sb evm oracle create QUEUEADDRESS`
-
-create a new oracle
-
-```
-USAGE
-  $ sb evm oracle create QUEUEADDRESS --account <value> [-h] [-v] [-s] [--chain coredao|arbitrum | --coredao |
-    --arbitrum] [--network mainnet|testnet | --mainnet | --testnet] [-u <value>] [--programId <value>] [--json] [-a
-    <value>] [--name <value>] [--queueAuthority <value> --enable]
-
-ARGUMENTS
-  QUEUEADDRESS  address of the oracle queue to create a new oracle for
-
-FLAGS
-  -a, --authority=<value>   alternate account that will be the authority for the oracle
-  -h, --help                Show CLI help.
-  -s, --silent              suppress cli prompts
-  -u, --rpcUrl=<value>      alternate RPC url
-  -v, --verbose             log everything
-  --account=<value>         (required) Path to file containing the private key for the payer account
-  --arbitrum                use the arbitrum chain
-  --chain=<option>          the evm chain to interact with
-                            <options: coredao|arbitrum>
-  --coredao                 use the coredao chain
-  --enable                  enable the oracles heartbeat permissions
-  --mainnet                 use the mainnet network
-  --name=<value>            name of the oracle for easier identification
-  --network=<option>        the EVM network to connect to
-                            <options: mainnet|testnet>
-  --programId=<value>       alternative Switchboard program ID to interact with
-  --queueAuthority=<value>  override the default signer when setting oracle permissions
-  --testnet                 use the testnet network
-
-GLOBAL FLAGS
-  --json  Format output as json.
-
-DESCRIPTION
-  create a new oracle
-
-ALIASES
-  $ sb evm create oracle
-
-EXAMPLES
-  $ sb evm oracle create 0xB1c6E716ACae35200Dc8278A63a424f58417954c --arbitrum --testnet --account ~/.config/arbitrum/testnet.txt --name 'my oracle' --enable
-```
-
-## `sb evm oracle heartbeat ORACLEADDRESS`
-
-heartbeat on-chain and signal readiness
-
-```
-USAGE
-  $ sb evm oracle heartbeat ORACLEADDRESS --account <value> [-h] [-v] [-s] [--chain coredao|arbitrum | --coredao |
-    --arbitrum] [--network mainnet|testnet | --mainnet | --testnet] [-u <value>] [--programId <value>] [--json] [-a
-    <value>]
-
-ARGUMENTS
-  ORACLEADDRESS  address of the oracle
-
-FLAGS
-  -a, --authority=<value>  alternate account that is the authority for the oracle
-  -h, --help               Show CLI help.
-  -s, --silent             suppress cli prompts
-  -u, --rpcUrl=<value>     alternate RPC url
-  -v, --verbose            log everything
-  --account=<value>        (required) Path to file containing the private key for the payer account
-  --arbitrum               use the arbitrum chain
-  --chain=<option>         the evm chain to interact with
-                           <options: coredao|arbitrum>
-  --coredao                use the coredao chain
-  --mainnet                use the mainnet network
-  --network=<option>       the EVM network to connect to
-                           <options: mainnet|testnet>
-  --programId=<value>      alternative Switchboard program ID to interact with
-  --testnet                use the testnet network
-
-GLOBAL FLAGS
-  --json  Format output as json.
-
-DESCRIPTION
-  heartbeat on-chain and signal readiness
-
-EXAMPLES
-  $ sb evm oracle heartbeat 0x5eeFE1CA9D1093a59aC9278cC6D296A4eeDd6385 --arbitrum --testnet --account ~/.config/arbitrum/testnet.txt
-```
-
-## `sb evm oracle print ORACLEADDRESS`
-
-print an oracle
-
-```
-USAGE
-  $ sb evm oracle print ORACLEADDRESS [-h] [-v] [-s] [--chain coredao|arbitrum | --coredao | --arbitrum] [--network
-    mainnet|testnet | --mainnet | --testnet] [-u <value>] [--programId <value>] [--json]
-
-ARGUMENTS
-  ORACLEADDRESS  address of the oracle account
-
-FLAGS
-  -h, --help            Show CLI help.
-  -s, --silent          suppress cli prompts
-  -u, --rpcUrl=<value>  alternate RPC url
-  -v, --verbose         log everything
-  --arbitrum            use the arbitrum chain
-  --chain=<option>      the evm chain to interact with
-                        <options: coredao|arbitrum>
-  --coredao             use the coredao chain
-  --mainnet             use the mainnet network
-  --network=<option>    the EVM network to connect to
-                        <options: mainnet|testnet>
-  --programId=<value>   alternative Switchboard program ID to interact with
-  --testnet             use the testnet network
-
-GLOBAL FLAGS
-  --json  Format output as json.
-
-DESCRIPTION
-  print an oracle
-
-EXAMPLES
-  $ sb evm oracle print 0x5eeFE1CA9D1093a59aC9278cC6D296A4eeDd6385 --arbitrum --testnet
-```
-
-## `sb evm queue create`
-
-create a new oracle queue
-
-```
-USAGE
-  $ sb evm queue create --account <value> [-h] [-v] [-s] [--chain coredao|arbitrum | --coredao | --arbitrum]
-    [--network mainnet|testnet | --mainnet | --testnet] [-u <value>] [--programId <value>] [--json] [-a <value>] [--name
-    <value>] [-r <value>] [--oracleTimeout <value>] [--queueSize <value>] [--unpermissionedFeeds]
-
-FLAGS
-  -a, --authority=<value>  alternate account that will be the authority for the queue
-  -h, --help               Show CLI help.
-  -r, --reward=<value>     oracle rewards for successfully responding to an update request
-  -s, --silent             suppress cli prompts
-  -u, --rpcUrl=<value>     alternate RPC url
-  -v, --verbose            log everything
-  --account=<value>        (required) Path to file containing the private key for the payer account
-  --arbitrum               use the arbitrum chain
-  --chain=<option>         the evm chain to interact with
-                           <options: coredao|arbitrum>
-  --coredao                use the coredao chain
-  --mainnet                use the mainnet network
-  --name=<value>           name of the queue for easier identification
-  --network=<option>       the EVM network to connect to
-                           <options: mainnet|testnet>
-  --oracleTimeout=<value>  [default: 180] number of oracles to add to the queue
-  --programId=<value>      alternative Switchboard program ID to interact with
-  --queueSize=<value>      [default: 100] maximum number of oracles the queue can support
-  --testnet                use the testnet network
-  --unpermissionedFeeds    permit unpermissioned feeds
-
-GLOBAL FLAGS
-  --json  Format output as json.
-
-DESCRIPTION
-  create a new oracle queue
-
-ALIASES
-  $ sb evm create queue
-
-EXAMPLES
-  $ sb evm queue create --arbitrum --testnet --account ~/.config/arbitrum/testnet.txt --name 'my queue' --oracleTimeout 3600 --queueSize 8
-
-  $ sb evm queue create --arbitrum --testnet --account ~/.config/arbitrum/testnet.txt --unpermissionedFeeds
-```
-
-## `sb evm queue print QUEUEADDRESS`
-
-print a queue
-
-```
-USAGE
-  $ sb evm queue print QUEUEADDRESS [-h] [-v] [-s] [--chain coredao|arbitrum | --coredao | --arbitrum] [--network
-    mainnet|testnet | --mainnet | --testnet] [-u <value>] [--programId <value>] [--json] [--oracles]
-
-ARGUMENTS
-  QUEUEADDRESS  address of the queue account
-
-FLAGS
-  -h, --help            Show CLI help.
-  -s, --silent          suppress cli prompts
-  -u, --rpcUrl=<value>  alternate RPC url
-  -v, --verbose         log everything
-  --arbitrum            use the arbitrum chain
-  --chain=<option>      the evm chain to interact with
-                        <options: coredao|arbitrum>
-  --coredao             use the coredao chain
-  --mainnet             use the mainnet network
-  --network=<option>    the EVM network to connect to
-                        <options: mainnet|testnet>
-  --oracles             print the current set of heartbeating oracles
-  --programId=<value>   alternative Switchboard program ID to interact with
-  --testnet             use the testnet network
-
-GLOBAL FLAGS
-  --json  Format output as json.
-
-DESCRIPTION
-  print a queue
-
-EXAMPLES
-  $ sb evm queue print --arbitrum --mainnet 0x74f44B7e43319931ff9ae8CFCDCba09dc7F89f95
-
-  $ sb evm queue print --arbitrum --testnet 0xB1c6E716ACae35200Dc8278A63a424f58417954c --oracles
-```
-
-## `sb evm set aggregator AGGREGATORADDRESS`
-
-set an aggregators config
-
-```
-USAGE
-  $ sb evm set aggregator AGGREGATORADDRESS --account <value> --updateInterval <value> [-h] [-v] [-s] [--chain
-    coredao|arbitrum | --coredao | --arbitrum] [--network mainnet|testnet | --mainnet | --testnet] [-u <value>]
-    [--programId <value>] [--json] [-a <value>] [--name <value>] [--forceReportPeriod <value>] [--batchSize <value>]
-    [--minJobs <value>] [--minOracles <value>] [--varianceThreshold <value>] [-j <value>] [--removeJob <value>]
-    [--enableHistory]
-
-ARGUMENTS
-  AGGREGATORADDRESS  address of the aggregator
-
-FLAGS
-  -a, --authority=<value>      alternate account that will be the authority for the aggregator
-  -h, --help                   Show CLI help.
-  -j, --job=<value>...         filesystem path to job definition file
-  -s, --silent                 suppress cli prompts
-  -u, --rpcUrl=<value>         alternate RPC url
-  -v, --verbose                log everything
-  --account=<value>            (required) Path to file containing the private key for the payer account
-  --arbitrum                   use the arbitrum chain
-  --batchSize=<value>          [default: 1] number of oracles requested for each open round call
-  --chain=<option>             the evm chain to interact with
-                               <options: coredao|arbitrum>
-  --coredao                    use the coredao chain
-  --enableHistory              enable history for the feed
-  --forceReportPeriod=<value>  Number of seconds for which, even if the variance threshold is not passed, accept new
-                               responses from oracles.
-  --mainnet                    use the mainnet network
-  --minJobs=<value>            [default: 1] number of jobs that must respond before an oracle responds
-  --minOracles=<value>         [default: 1] number of oracles that must respond before a value is accepted on-chain
-  --name=<value>               name of the aggregator for easier identification
-  --network=<option>           the EVM network to connect to
-                               <options: mainnet|testnet>
-  --programId=<value>          alternative Switchboard program ID to interact with
-  --removeJob=<value>...       job definitions to remove from the hash
-  --testnet                    use the testnet network
-  --updateInterval=<value>     (required) set an aggregator's minimum update delay
-  --varianceThreshold=<value>  [default: 0] percentage change between a previous accepted result and the next round
-                               before an oracle reports a value on-chain. Used to conserve lease cost during low
-                               volatility
-
-GLOBAL FLAGS
-  --json  Format output as json.
-
-DESCRIPTION
-  set an aggregators config
-
-ALIASES
-  $ sb evm set aggregator
-
-EXAMPLES
-  $  sb evm aggregator set --arbitrum --testnet --account ~/.config/arbitrum/testnet.txt 0xB1c6E716ACae35200Dc8278A63a424f58417954c --name 'my updated feed' --batchSize 2 --job ./my_new_job.json
+  $ sb evm queue print 0xaA43ba6f18b138A0B3313dDbFaC2b920D240108E --chain arbitrum --network testnet --programId 0x4F706C62535d171883A6cc9384f3f3d926A6BA49
 ```
 
 ## `sb function-init TEMPLATE`
@@ -2257,7 +1606,7 @@ DESCRIPTION
   initialize a new function template
 ```
 
-_See code: [dist/commands/function-init.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.1.3/dist/commands/function-init.js)_
+_See code: [dist/commands/function-init.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.1.5/dist/commands/function-init.js)_
 
 ## `sb help [COMMANDS]`
 
@@ -2322,7 +1671,7 @@ FLAGS
   -u, --rpcUrl=<value>          alternate RPC url
   -v, --verbose                 log everything
   --accountName=<value>         (required) Named account to load from your nearCredentialsDir
-  --nearCredentialsDir=<value>  [default: /Users/mgild/.near-credentials] Alternative directory for near credentials.
+  --nearCredentialsDir=<value>  [default: /Users/gally/.near-credentials] Alternative directory for near credentials.
                                 Defaults to ~/.near-credentials
   --networkId=<option>          [default: testnet] Near network ID to connect to
                                 <options: testnet|mainnet|localnet>
@@ -2364,7 +1713,7 @@ FLAGS
   --jobWeight=<value>           [default: 1] job weight
   --metadata=<value>            metadata of the job account
   --name=<value>                name of the job account
-  --nearCredentialsDir=<value>  [default: /Users/mgild/.near-credentials] Alternative directory for near credentials.
+  --nearCredentialsDir=<value>  [default: /Users/gally/.near-credentials] Alternative directory for near credentials.
                                 Defaults to ~/.near-credentials
   --networkId=<option>          [default: testnet] Near network ID to connect to
                                 <options: testnet|mainnet|localnet>
@@ -2410,7 +1759,7 @@ FLAGS
   --minJobs=<value>             number of jobs that must respond before an oracle responds
   --minOracles=<value>          number of oracles that must respond before a value is accepted on-chain
   --name=<value>                name of the crank for easier identification
-  --nearCredentialsDir=<value>  [default: /Users/mgild/.near-credentials] Alternative directory for near credentials.
+  --nearCredentialsDir=<value>  [default: /Users/gally/.near-credentials] Alternative directory for near credentials.
                                 Defaults to ~/.near-credentials
   --networkId=<option>          [default: testnet] Near network ID to connect to
                                 <options: testnet|mainnet|localnet>
@@ -2448,7 +1797,7 @@ FLAGS
   -s, --silent                  suppress cli prompts
   -u, --rpcUrl=<value>          alternate RPC url
   -v, --verbose                 log everything
-  --nearCredentialsDir=<value>  [default: /Users/mgild/.near-credentials] Alternative directory for near credentials.
+  --nearCredentialsDir=<value>  [default: /Users/gally/.near-credentials] Alternative directory for near credentials.
                                 Defaults to ~/.near-credentials
   --networkId=<option>          [default: testnet] Near network ID to connect to
                                 <options: testnet|mainnet|localnet>
@@ -2473,7 +1822,7 @@ FLAGS
   -u, --rpcUrl=<value>          alternate RPC url
   -v, --verbose                 log everything
   --accountId=<value>           (required) optional, authority to fetch aggregators for
-  --nearCredentialsDir=<value>  [default: /Users/mgild/.near-credentials] Alternative directory for near credentials.
+  --nearCredentialsDir=<value>  [default: /Users/gally/.near-credentials] Alternative directory for near credentials.
                                 Defaults to ~/.near-credentials
   --networkId=<option>          [default: testnet] Near network ID to connect to
                                 <options: testnet|mainnet|localnet>
@@ -2506,7 +1855,7 @@ FLAGS
   -u, --rpcUrl=<value>          alternate RPC url
   -v, --verbose                 log everything
   --accountName=<value>         (required) Named account to load from your nearCredentialsDir
-  --nearCredentialsDir=<value>  [default: /Users/mgild/.near-credentials] Alternative directory for near credentials.
+  --nearCredentialsDir=<value>  [default: /Users/gally/.near-credentials] Alternative directory for near credentials.
                                 Defaults to ~/.near-credentials
   --networkId=<option>          [default: testnet] Near network ID to connect to
                                 <options: testnet|mainnet|localnet>
@@ -2537,7 +1886,7 @@ FLAGS
   -u, --rpcUrl=<value>          alternate RPC url
   -v, --verbose                 log everything
   --accountName=<value>         (required) Named account to load from your nearCredentialsDir
-  --nearCredentialsDir=<value>  [default: /Users/mgild/.near-credentials] Alternative directory for near credentials.
+  --nearCredentialsDir=<value>  [default: /Users/gally/.near-credentials] Alternative directory for near credentials.
                                 Defaults to ~/.near-credentials
   --networkId=<option>          [default: testnet] Near network ID to connect to
                                 <options: testnet|mainnet|localnet>
@@ -2579,7 +1928,7 @@ FLAGS
   --jobWeight=<value>           [default: 1] job weight
   --metadata=<value>            metadata of the job account
   --name=<value>                name of the job account
-  --nearCredentialsDir=<value>  [default: /Users/mgild/.near-credentials] Alternative directory for near credentials.
+  --nearCredentialsDir=<value>  [default: /Users/gally/.near-credentials] Alternative directory for near credentials.
                                 Defaults to ~/.near-credentials
   --networkId=<option>          [default: testnet] Near network ID to connect to
                                 <options: testnet|mainnet|localnet>
@@ -2615,7 +1964,7 @@ FLAGS
   -u, --rpcUrl=<value>          alternate RPC url
   -v, --verbose                 log everything
   --accountName=<value>         (required) Named account to load from your nearCredentialsDir
-  --nearCredentialsDir=<value>  [default: /Users/mgild/.near-credentials] Alternative directory for near credentials.
+  --nearCredentialsDir=<value>  [default: /Users/gally/.near-credentials] Alternative directory for near credentials.
                                 Defaults to ~/.near-credentials
   --networkId=<option>          [default: testnet] Near network ID to connect to
                                 <options: testnet|mainnet|localnet>
@@ -2649,7 +1998,7 @@ FLAGS
   -u, --rpcUrl=<value>          alternate RPC url
   -v, --verbose                 log everything
   --accountName=<value>         (required) Named account to load from your nearCredentialsDir
-  --nearCredentialsDir=<value>  [default: /Users/mgild/.near-credentials] Alternative directory for near credentials.
+  --nearCredentialsDir=<value>  [default: /Users/gally/.near-credentials] Alternative directory for near credentials.
                                 Defaults to ~/.near-credentials
   --networkId=<option>          [default: testnet] Near network ID to connect to
                                 <options: testnet|mainnet|localnet>
@@ -2685,7 +2034,7 @@ FLAGS
   -u, --rpcUrl=<value>          alternate RPC url
   -v, --verbose                 log everything
   --accountName=<value>         (required) Named account to load from your nearCredentialsDir
-  --nearCredentialsDir=<value>  [default: /Users/mgild/.near-credentials] Alternative directory for near credentials.
+  --nearCredentialsDir=<value>  [default: /Users/gally/.near-credentials] Alternative directory for near credentials.
                                 Defaults to ~/.near-credentials
   --networkId=<option>          [default: testnet] Near network ID to connect to
                                 <options: testnet|mainnet|localnet>
@@ -2730,7 +2079,7 @@ FLAGS
   --minJobs=<value>             number of jobs that must respond before an oracle responds
   --minOracles=<value>          number of oracles that must respond before a value is accepted on-chain
   --name=<value>                name of the crank for easier identification
-  --nearCredentialsDir=<value>  [default: /Users/mgild/.near-credentials] Alternative directory for near credentials.
+  --nearCredentialsDir=<value>  [default: /Users/gally/.near-credentials] Alternative directory for near credentials.
                                 Defaults to ~/.near-credentials
   --networkId=<option>          [default: testnet] Near network ID to connect to
                                 <options: testnet|mainnet|localnet>
@@ -2768,7 +2117,7 @@ FLAGS
   -u, --rpcUrl=<value>          alternate RPC url
   -v, --verbose                 log everything
   --accountName=<value>         (required) Named account to load from your nearCredentialsDir
-  --nearCredentialsDir=<value>  [default: /Users/mgild/.near-credentials] Alternative directory for near credentials.
+  --nearCredentialsDir=<value>  [default: /Users/gally/.near-credentials] Alternative directory for near credentials.
                                 Defaults to ~/.near-credentials
   --networkId=<option>          [default: testnet] Near network ID to connect to
                                 <options: testnet|mainnet|localnet>
@@ -2806,7 +2155,7 @@ FLAGS
   --maxRows=<value>             [default: 100] maximum number of rows on the crank
   --metadata=<value>            metadata of the crank for easier identification
   --name=<value>                name of the crank for easier identification
-  --nearCredentialsDir=<value>  [default: /Users/mgild/.near-credentials] Alternative directory for near credentials.
+  --nearCredentialsDir=<value>  [default: /Users/gally/.near-credentials] Alternative directory for near credentials.
                                 Defaults to ~/.near-credentials
   --networkId=<option>          [default: testnet] Near network ID to connect to
                                 <options: testnet|mainnet|localnet>
@@ -2839,7 +2188,7 @@ FLAGS
   -s, --silent                  suppress cli prompts
   -u, --rpcUrl=<value>          alternate RPC url
   -v, --verbose                 log everything
-  --nearCredentialsDir=<value>  [default: /Users/mgild/.near-credentials] Alternative directory for near credentials.
+  --nearCredentialsDir=<value>  [default: /Users/gally/.near-credentials] Alternative directory for near credentials.
                                 Defaults to ~/.near-credentials
   --networkId=<option>          [default: testnet] Near network ID to connect to
                                 <options: testnet|mainnet|localnet>
@@ -2870,7 +2219,7 @@ FLAGS
   -u, --rpcUrl=<value>          alternate RPC url
   -v, --verbose                 log everything
   --accountName=<value>         (required) Named account to load from your nearCredentialsDir
-  --nearCredentialsDir=<value>  [default: /Users/mgild/.near-credentials] Alternative directory for near credentials.
+  --nearCredentialsDir=<value>  [default: /Users/gally/.near-credentials] Alternative directory for near credentials.
                                 Defaults to ~/.near-credentials
   --networkId=<option>          [default: testnet] Near network ID to connect to
                                 <options: testnet|mainnet|localnet>
@@ -2905,7 +2254,7 @@ FLAGS
   -u, --rpcUrl=<value>             alternate RPC url
   -v, --verbose                    log everything
   --accountName=<value>            (required) Named account to load from your nearCredentialsDir
-  --nearCredentialsDir=<value>     [default: /Users/mgild/.near-credentials] Alternative directory for near credentials.
+  --nearCredentialsDir=<value>     [default: /Users/gally/.near-credentials] Alternative directory for near credentials.
                                    Defaults to ~/.near-credentials
   --networkId=<option>             [default: testnet] Near network ID to connect to
                                    <options: testnet|mainnet|localnet>
@@ -2951,7 +2300,7 @@ FLAGS
   --minJobs=<value>             number of jobs that must respond before an oracle responds
   --minOracles=<value>          number of oracles that must respond before a value is accepted on-chain
   --name=<value>                name of the crank for easier identification
-  --nearCredentialsDir=<value>  [default: /Users/mgild/.near-credentials] Alternative directory for near credentials.
+  --nearCredentialsDir=<value>  [default: /Users/gally/.near-credentials] Alternative directory for near credentials.
                                 Defaults to ~/.near-credentials
   --networkId=<option>          [default: testnet] Near network ID to connect to
                                 <options: testnet|mainnet|localnet>
@@ -2990,7 +2339,7 @@ FLAGS
   -u, --rpcUrl=<value>          alternate RPC url
   -v, --verbose                 log everything
   --accountName=<value>         (required) Named account to load from your nearCredentialsDir
-  --nearCredentialsDir=<value>  [default: /Users/mgild/.near-credentials] Alternative directory for near credentials.
+  --nearCredentialsDir=<value>  [default: /Users/gally/.near-credentials] Alternative directory for near credentials.
                                 Defaults to ~/.near-credentials
   --networkId=<option>          [default: testnet] Near network ID to connect to
                                 <options: testnet|mainnet|localnet>
@@ -3028,7 +2377,7 @@ FLAGS
   --maxRows=<value>             [default: 100] maximum number of rows on the crank
   --metadata=<value>            metadata of the crank for easier identification
   --name=<value>                name of the crank for easier identification
-  --nearCredentialsDir=<value>  [default: /Users/mgild/.near-credentials] Alternative directory for near credentials.
+  --nearCredentialsDir=<value>  [default: /Users/gally/.near-credentials] Alternative directory for near credentials.
                                 Defaults to ~/.near-credentials
   --networkId=<option>          [default: testnet] Near network ID to connect to
                                 <options: testnet|mainnet|localnet>
@@ -3061,7 +2410,7 @@ FLAGS
   -v, --verbose                 log everything
   --accountName=<value>         (required) Named account to load from your nearCredentialsDir
   --mint=<value>                [default: wrap.test] token mint to create escrow account for
-  --nearCredentialsDir=<value>  [default: /Users/mgild/.near-credentials] Alternative directory for near credentials.
+  --nearCredentialsDir=<value>  [default: /Users/gally/.near-credentials] Alternative directory for near credentials.
                                 Defaults to ~/.near-credentials
   --networkId=<option>          [default: testnet] Near network ID to connect to
                                 <options: testnet|mainnet|localnet>
@@ -3099,7 +2448,7 @@ FLAGS
   --accountName=<value>         (required) Named account to load from your nearCredentialsDir
   --metadata=<value>            metadata of the job for easier identification
   --name=<value>                name of the job for easier identification
-  --nearCredentialsDir=<value>  [default: /Users/mgild/.near-credentials] Alternative directory for near credentials.
+  --nearCredentialsDir=<value>  [default: /Users/gally/.near-credentials] Alternative directory for near credentials.
                                 Defaults to ~/.near-credentials
   --networkId=<option>          [default: testnet] Near network ID to connect to
                                 <options: testnet|mainnet|localnet>
@@ -3137,7 +2486,7 @@ FLAGS
   --accountName=<value>         (required) Named account to load from your nearCredentialsDir
   --metadata=<value>            metadata of the oracle for easier identification
   --name=<value>                name of the oracle for easier identification
-  --nearCredentialsDir=<value>  [default: /Users/mgild/.near-credentials] Alternative directory for near credentials.
+  --nearCredentialsDir=<value>  [default: /Users/gally/.near-credentials] Alternative directory for near credentials.
                                 Defaults to ~/.near-credentials
   --networkId=<option>          [default: testnet] Near network ID to connect to
                                 <options: testnet|mainnet|localnet>
@@ -3173,7 +2522,7 @@ FLAGS
   --enable                      enable permissions
   --grantee=<value>             (required) account that will be granted permissions, typically an Oracle or Aggregator
   --granter=<value>             (required) account that will grant permissions, typically the OracleQueue
-  --nearCredentialsDir=<value>  [default: /Users/mgild/.near-credentials] Alternative directory for near credentials.
+  --nearCredentialsDir=<value>  [default: /Users/gally/.near-credentials] Alternative directory for near credentials.
                                 Defaults to ~/.near-credentials
   --networkId=<option>          [default: testnet] Near network ID to connect to
                                 <options: testnet|mainnet|localnet>
@@ -3212,7 +2561,7 @@ FLAGS
   --metadata=<value>            metadata of the queue for easier identification
   --minStake=<value>            [default: 0] minimum stake required by an oracle to join the queue
   --name=<value>                name of the queue for easier identification
-  --nearCredentialsDir=<value>  [default: /Users/mgild/.near-credentials] Alternative directory for near credentials.
+  --nearCredentialsDir=<value>  [default: /Users/gally/.near-credentials] Alternative directory for near credentials.
                                 Defaults to ~/.near-credentials
   --networkId=<option>          [default: testnet] Near network ID to connect to
                                 <options: testnet|mainnet|localnet>
@@ -3250,7 +2599,7 @@ FLAGS
   -v, --verbose                 log everything
   --accountName=<value>         (required) Named account to load from your nearCredentialsDir
   --mint=<value>                [default: wrap.test] token mint to create escrow account for
-  --nearCredentialsDir=<value>  [default: /Users/mgild/.near-credentials] Alternative directory for near credentials.
+  --nearCredentialsDir=<value>  [default: /Users/gally/.near-credentials] Alternative directory for near credentials.
                                 Defaults to ~/.near-credentials
   --networkId=<option>          [default: testnet] Near network ID to connect to
                                 <options: testnet|mainnet|localnet>
@@ -3281,7 +2630,7 @@ FLAGS
   -u, --rpcUrl=<value>          alternate RPC url
   -v, --verbose                 log everything
   --accountName=<value>         (required) Named account to load from your nearCredentialsDir
-  --nearCredentialsDir=<value>  [default: /Users/mgild/.near-credentials] Alternative directory for near credentials.
+  --nearCredentialsDir=<value>  [default: /Users/gally/.near-credentials] Alternative directory for near credentials.
                                 Defaults to ~/.near-credentials
   --networkId=<option>          [default: testnet] Near network ID to connect to
                                 <options: testnet|mainnet|localnet>
@@ -3312,7 +2661,7 @@ FLAGS
   -u, --rpcUrl=<value>          alternate RPC url
   -v, --verbose                 log everything
   --accountId=<value>           (required) optional, authority to fetch aggregators for
-  --nearCredentialsDir=<value>  [default: /Users/mgild/.near-credentials] Alternative directory for near credentials.
+  --nearCredentialsDir=<value>  [default: /Users/gally/.near-credentials] Alternative directory for near credentials.
                                 Defaults to ~/.near-credentials
   --networkId=<option>          [default: testnet] Near network ID to connect to
                                 <options: testnet|mainnet|localnet>
@@ -3345,7 +2694,7 @@ FLAGS
   -u, --rpcUrl=<value>          alternate RPC url
   -v, --verbose                 log everything
   --accountName=<value>         (required) Named account to load from your nearCredentialsDir
-  --nearCredentialsDir=<value>  [default: /Users/mgild/.near-credentials] Alternative directory for near credentials.
+  --nearCredentialsDir=<value>  [default: /Users/gally/.near-credentials] Alternative directory for near credentials.
                                 Defaults to ~/.near-credentials
   --networkId=<option>          [default: testnet] Near network ID to connect to
                                 <options: testnet|mainnet|localnet>
@@ -3380,7 +2729,7 @@ FLAGS
   --accountName=<value>         (required) Named account to load from your nearCredentialsDir
   --metadata=<value>            metadata of the job for easier identification
   --name=<value>                name of the job for easier identification
-  --nearCredentialsDir=<value>  [default: /Users/mgild/.near-credentials] Alternative directory for near credentials.
+  --nearCredentialsDir=<value>  [default: /Users/gally/.near-credentials] Alternative directory for near credentials.
                                 Defaults to ~/.near-credentials
   --networkId=<option>          [default: testnet] Near network ID to connect to
                                 <options: testnet|mainnet|localnet>
@@ -3413,7 +2762,7 @@ FLAGS
   -s, --silent                  suppress cli prompts
   -u, --rpcUrl=<value>          alternate RPC url
   -v, --verbose                 log everything
-  --nearCredentialsDir=<value>  [default: /Users/mgild/.near-credentials] Alternative directory for near credentials.
+  --nearCredentialsDir=<value>  [default: /Users/gally/.near-credentials] Alternative directory for near credentials.
                                 Defaults to ~/.near-credentials
   --networkId=<option>          [default: testnet] Near network ID to connect to
                                 <options: testnet|mainnet|localnet>
@@ -3451,7 +2800,7 @@ FLAGS
   --accountName=<value>         (required) Named account to load from your nearCredentialsDir
   --metadata=<value>            metadata of the oracle for easier identification
   --name=<value>                name of the oracle for easier identification
-  --nearCredentialsDir=<value>  [default: /Users/mgild/.near-credentials] Alternative directory for near credentials.
+  --nearCredentialsDir=<value>  [default: /Users/gally/.near-credentials] Alternative directory for near credentials.
                                 Defaults to ~/.near-credentials
   --networkId=<option>          [default: testnet] Near network ID to connect to
                                 <options: testnet|mainnet|localnet>
@@ -3484,7 +2833,7 @@ FLAGS
   -s, --silent                  suppress cli prompts
   -u, --rpcUrl=<value>          alternate RPC url
   -v, --verbose                 log everything
-  --nearCredentialsDir=<value>  [default: /Users/mgild/.near-credentials] Alternative directory for near credentials.
+  --nearCredentialsDir=<value>  [default: /Users/gally/.near-credentials] Alternative directory for near credentials.
                                 Defaults to ~/.near-credentials
   --networkId=<option>          [default: testnet] Near network ID to connect to
                                 <options: testnet|mainnet|localnet>
@@ -3516,7 +2865,7 @@ FLAGS
   -v, --verbose                 log everything
   --accountName=<value>         (required) Named account to load from your nearCredentialsDir
   --amount=<value>              (required) amount of Near to deposit into oracle staking wallet
-  --nearCredentialsDir=<value>  [default: /Users/mgild/.near-credentials] Alternative directory for near credentials.
+  --nearCredentialsDir=<value>  [default: /Users/gally/.near-credentials] Alternative directory for near credentials.
                                 Defaults to ~/.near-credentials
   --networkId=<option>          [default: testnet] Near network ID to connect to
                                 <options: testnet|mainnet|localnet>
@@ -3548,7 +2897,7 @@ FLAGS
   -v, --verbose                 log everything
   --accountName=<value>         (required) Named account to load from your nearCredentialsDir
   --amount=<value>              (required) amount of Near to unstake from oracle staking wallet
-  --nearCredentialsDir=<value>  [default: /Users/mgild/.near-credentials] Alternative directory for near credentials.
+  --nearCredentialsDir=<value>  [default: /Users/gally/.near-credentials] Alternative directory for near credentials.
                                 Defaults to ~/.near-credentials
   --networkId=<option>          [default: testnet] Near network ID to connect to
                                 <options: testnet|mainnet|localnet>
@@ -3581,7 +2930,7 @@ FLAGS
   -u, --rpcUrl=<value>          alternate RPC url
   -v, --verbose                 log everything
   --accountName=<value>         (required) Named account to load from your nearCredentialsDir
-  --nearCredentialsDir=<value>  [default: /Users/mgild/.near-credentials] Alternative directory for near credentials.
+  --nearCredentialsDir=<value>  [default: /Users/gally/.near-credentials] Alternative directory for near credentials.
                                 Defaults to ~/.near-credentials
   --networkId=<option>          [default: testnet] Near network ID to connect to
                                 <options: testnet|mainnet|localnet>
@@ -3617,7 +2966,7 @@ FLAGS
   --enable                      enable permissions
   --grantee=<value>             (required) account that will be granted permissions, typically an Oracle or Aggregator
   --granter=<value>             (required) account that will grant permissions, typically the OracleQueue
-  --nearCredentialsDir=<value>  [default: /Users/mgild/.near-credentials] Alternative directory for near credentials.
+  --nearCredentialsDir=<value>  [default: /Users/gally/.near-credentials] Alternative directory for near credentials.
                                 Defaults to ~/.near-credentials
   --networkId=<option>          [default: testnet] Near network ID to connect to
                                 <options: testnet|mainnet|localnet>
@@ -3650,7 +2999,7 @@ FLAGS
   -s, --silent                  suppress cli prompts
   -u, --rpcUrl=<value>          alternate RPC url
   -v, --verbose                 log everything
-  --nearCredentialsDir=<value>  [default: /Users/mgild/.near-credentials] Alternative directory for near credentials.
+  --nearCredentialsDir=<value>  [default: /Users/gally/.near-credentials] Alternative directory for near credentials.
                                 Defaults to ~/.near-credentials
   --networkId=<option>          [default: testnet] Near network ID to connect to
                                 <options: testnet|mainnet|localnet>
@@ -3682,7 +3031,7 @@ FLAGS
   -u, --rpcUrl=<value>          alternate RPC url
   -v, --verbose                 log everything
   --all                         print all account attributes including jobs, permissions, and leases
-  --nearCredentialsDir=<value>  [default: /Users/mgild/.near-credentials] Alternative directory for near credentials.
+  --nearCredentialsDir=<value>  [default: /Users/gally/.near-credentials] Alternative directory for near credentials.
                                 Defaults to ~/.near-credentials
   --networkId=<option>          [default: testnet] Near network ID to connect to
                                 <options: testnet|mainnet|localnet>
@@ -3713,7 +3062,7 @@ FLAGS
   -u, --rpcUrl=<value>          alternate RPC url
   -v, --verbose                 log everything
   --accountName=<value>         (required) Named account to load from your nearCredentialsDir
-  --nearCredentialsDir=<value>  [default: /Users/mgild/.near-credentials] Alternative directory for near credentials.
+  --nearCredentialsDir=<value>  [default: /Users/gally/.near-credentials] Alternative directory for near credentials.
                                 Defaults to ~/.near-credentials
   --networkId=<option>          [default: testnet] Near network ID to connect to
                                 <options: testnet|mainnet|localnet>
@@ -3748,7 +3097,7 @@ FLAGS
   -u, --rpcUrl=<value>             alternate RPC url
   -v, --verbose                    log everything
   --accountName=<value>            (required) Named account to load from your nearCredentialsDir
-  --nearCredentialsDir=<value>     [default: /Users/mgild/.near-credentials] Alternative directory for near credentials.
+  --nearCredentialsDir=<value>     [default: /Users/gally/.near-credentials] Alternative directory for near credentials.
                                    Defaults to ~/.near-credentials
   --networkId=<option>             [default: testnet] Near network ID to connect to
                                    <options: testnet|mainnet|localnet>
@@ -3781,7 +3130,7 @@ FLAGS
   -s, --silent                  suppress cli prompts
   -u, --rpcUrl=<value>          alternate RPC url
   -v, --verbose                 log everything
-  --nearCredentialsDir=<value>  [default: /Users/mgild/.near-credentials] Alternative directory for near credentials.
+  --nearCredentialsDir=<value>  [default: /Users/gally/.near-credentials] Alternative directory for near credentials.
                                 Defaults to ~/.near-credentials
   --networkId=<option>          [default: testnet] Near network ID to connect to
                                 <options: testnet|mainnet|localnet>
@@ -3820,7 +3169,7 @@ FLAGS
   --metadata=<value>            metadata of the queue for easier identification
   --minStake=<value>            [default: 0] minimum stake required by an oracle to join the queue
   --name=<value>                name of the queue for easier identification
-  --nearCredentialsDir=<value>  [default: /Users/mgild/.near-credentials] Alternative directory for near credentials.
+  --nearCredentialsDir=<value>  [default: /Users/gally/.near-credentials] Alternative directory for near credentials.
                                 Defaults to ~/.near-credentials
   --networkId=<option>          [default: testnet] Near network ID to connect to
                                 <options: testnet|mainnet|localnet>
@@ -3858,7 +3207,7 @@ FLAGS
   -s, --silent                  suppress cli prompts
   -u, --rpcUrl=<value>          alternate RPC url
   -v, --verbose                 log everything
-  --nearCredentialsDir=<value>  [default: /Users/mgild/.near-credentials] Alternative directory for near credentials.
+  --nearCredentialsDir=<value>  [default: /Users/gally/.near-credentials] Alternative directory for near credentials.
                                 Defaults to ~/.near-credentials
   --networkId=<option>          [default: testnet] Near network ID to connect to
                                 <options: testnet|mainnet|localnet>
@@ -3891,7 +3240,7 @@ FLAGS
   -s, --silent                  suppress cli prompts
   -u, --rpcUrl=<value>          alternate RPC url
   -v, --verbose                 log everything
-  --nearCredentialsDir=<value>  [default: /Users/mgild/.near-credentials] Alternative directory for near credentials.
+  --nearCredentialsDir=<value>  [default: /Users/gally/.near-credentials] Alternative directory for near credentials.
                                 Defaults to ~/.near-credentials
   --networkId=<option>          [default: testnet] Near network ID to connect to
                                 <options: testnet|mainnet|localnet>
@@ -3933,7 +3282,7 @@ FLAGS
   --metadata=<value>            metadata of the queue for easier identification
   --minStake=<value>            minimum stake required by an oracle to join the queue
   --name=<value>                name of the queue for easier identification
-  --nearCredentialsDir=<value>  [default: /Users/mgild/.near-credentials] Alternative directory for near credentials.
+  --nearCredentialsDir=<value>  [default: /Users/gally/.near-credentials] Alternative directory for near credentials.
                                 Defaults to ~/.near-credentials
   --networkId=<option>          [default: testnet] Near network ID to connect to
                                 <options: testnet|mainnet|localnet>
@@ -3982,7 +3331,7 @@ FLAGS
   --minJobs=<value>             number of jobs that must respond before an oracle responds
   --minOracles=<value>          number of oracles that must respond before a value is accepted on-chain
   --name=<value>                name of the crank for easier identification
-  --nearCredentialsDir=<value>  [default: /Users/mgild/.near-credentials] Alternative directory for near credentials.
+  --nearCredentialsDir=<value>  [default: /Users/gally/.near-credentials] Alternative directory for near credentials.
                                 Defaults to ~/.near-credentials
   --networkId=<option>          [default: testnet] Near network ID to connect to
                                 <options: testnet|mainnet|localnet>
@@ -4020,7 +3369,7 @@ FLAGS
   -u, --rpcUrl=<value>          alternate RPC url
   -v, --verbose                 log everything
   --accountName=<value>         (required) Named account to load from your nearCredentialsDir
-  --nearCredentialsDir=<value>  [default: /Users/mgild/.near-credentials] Alternative directory for near credentials.
+  --nearCredentialsDir=<value>  [default: /Users/gally/.near-credentials] Alternative directory for near credentials.
                                 Defaults to ~/.near-credentials
   --networkId=<option>          [default: testnet] Near network ID to connect to
                                 <options: testnet|mainnet|localnet>

@@ -107,23 +107,23 @@ importers:
         specifier: ^1.78.3
         version: 1.78.3
       '@switchboard-xyz/aptos.js':
-        specifier: ^2.6.10
+        specifier: 2.6.10
         version: 2.6.10(@solana/web3.js@1.78.3)
       '@switchboard-xyz/common':
-        specifier: ^2.3.0
+        specifier: 2.3.1
         version: link:../javascript/common
       '@switchboard-xyz/evm.js':
-        specifier: ^3.12.19
-        version: 3.13.0(@solana/web3.js@1.78.3)
+        specifier: 3.12.22
+        version: 3.12.22(@solana/web3.js@1.78.3)
       '@switchboard-xyz/near.js':
-        specifier: ^2.2.4
+        specifier: 2.2.4
         version: 2.2.4(@solana/web3.js@1.78.3)(typescript@5.0.4)
       '@switchboard-xyz/oracle':
-        specifier: ^2.1.13
+        specifier: 2.1.13
         version: link:../javascript/oracle
       '@switchboard-xyz/solana.js':
-        specifier: ^2.5.3
-        version: 2.5.3
+        specifier: 2.5.4
+        version: 2.5.4
       '@terascope/fetch-github-release':
         specifier: ^0.8.7
         version: 0.8.7
@@ -8202,7 +8202,7 @@ packages:
     resolution: {integrity: sha512-lvX51y7x1NE77vpP9L3J65WJw9cOR1JLU5DJJg3v9dkv0xyR2/PSjrQrpSBMx+b6ITr58nxg8Gut3dw5u45XoQ==}
     engines: {node: '>=12.0.0'}
     dependencies:
-      '@switchboard-xyz/common': 2.3.0(@solana/web3.js@1.78.3)
+      '@switchboard-xyz/common': 2.3.1(@solana/web3.js@1.78.3)
       aptos: 1.13.1
       big.js: 6.2.1
       bn.js: 5.2.1
@@ -8215,8 +8215,8 @@ packages:
       - encoding
     dev: false
 
-  /@switchboard-xyz/common@2.3.0(@solana/web3.js@1.78.3):
-    resolution: {integrity: sha512-MIjsHv71tFyj6ZAVme35Con0IYTXMeGhWOzcc6s2oK6vPLTDiLMoS2DO0Ih/2y//O/m1Bz+YbSbXWbpSjvuP2g==}
+  /@switchboard-xyz/common@2.3.1(@solana/web3.js@1.78.3):
+    resolution: {integrity: sha512-jf7KqY991oQwo19W4SbcOKtQh5i3qEtsifXRkG2i+QKOUIIfiTlTTQ7rhd5x9uFd+vqDXSzu4W1Pl1HqU27mrA==}
     engines: {node: '>=12'}
     dependencies:
       '@coral-xyz/borsh': 0.28.0(@solana/web3.js@1.78.3)
@@ -8233,15 +8233,14 @@ packages:
       - '@solana/web3.js'
     dev: false
 
-  /@switchboard-xyz/evm.js@3.13.0(@solana/web3.js@1.78.3):
-    resolution: {integrity: sha512-LY0jw+KWRsbiNicDK7VXVKPlNrbcCcPwOeBoexW3rRRm2NI0iB9613BRjK9xSTaKLjvVwMrpGhZRcfES+2ZzzA==}
+  /@switchboard-xyz/evm.js@3.12.22(@solana/web3.js@1.78.3):
+    resolution: {integrity: sha512-csR5aQZSOlWQIeQFjiAQFVTCgZ85PY0qsBFhHXiybwgHIRqw717dP0i8/iI0sksc9karkv3nzQ/dqnbrneM6TA==}
     engines: {node: '>=12.0.0'}
     dependencies:
       '@ethersproject/abi': 5.7.0
+      '@ethersproject/bignumber': 5.7.0
       '@ethersproject/providers': 5.7.2
-      '@switchboard-xyz/common': 2.3.0(@solana/web3.js@1.78.3)
-      big.js: 6.2.1
-      bn.js: 5.2.1
+      '@switchboard-xyz/common': 2.3.1(@solana/web3.js@1.78.3)
       chalk: 5.3.0
       ethers: 5.7.2
       js-sha3: 0.8.0
@@ -8256,7 +8255,7 @@ packages:
   /@switchboard-xyz/near.js@2.2.4(@solana/web3.js@1.78.3)(typescript@5.0.4):
     resolution: {integrity: sha512-wYIhZb8cujqiIn3yve6tTmIKKKqbUlwMSAyzgqkbTxMMqpA994wVxOjDpz9SkUhbYn9GH53IiXvXokvk+FEtpg==}
     dependencies:
-      '@switchboard-xyz/common': 2.3.0(@solana/web3.js@1.78.3)
+      '@switchboard-xyz/common': 2.3.1(@solana/web3.js@1.78.3)
       big.js: 6.2.1
       bn.js: 5.2.1
       bs58: 5.0.0
@@ -8281,15 +8280,15 @@ packages:
       - utf-8-validate
     dev: false
 
-  /@switchboard-xyz/solana.js@2.5.3:
-    resolution: {integrity: sha512-wab1GMAQNz6fTK0rh1JmV5yEq7lfihYZuMDAMede7jHvSO/vfI1la3Knc52dFdsuhIMY6sOwIj0jM3EEzV2esw==}
+  /@switchboard-xyz/solana.js@2.5.4:
+    resolution: {integrity: sha512-n+vlW3atEZJPn0RYjO41BfPj/7em18+vixxaRQmZYCviQG4TXYGMuKFFgciid/PFKiBnZaCo5/lkWPxjZW4A2w==}
     engines: {node: '>=16.0.0', npm: '>=7.0.0'}
     dependencies:
       '@coral-xyz/anchor': 0.28.0
       '@coral-xyz/borsh': 0.28.0(@solana/web3.js@1.78.3)
       '@solana/spl-token': 0.3.8(@solana/web3.js@1.78.3)
       '@solana/web3.js': 1.78.3
-      '@switchboard-xyz/common': 2.3.0(@solana/web3.js@1.78.3)
+      '@switchboard-xyz/common': 2.3.1(@solana/web3.js@1.78.3)
       cron-validator: 1.3.1
       dotenv: 16.3.1
       lodash: 4.17.21

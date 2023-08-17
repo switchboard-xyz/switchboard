@@ -1,5 +1,13 @@
 export * as BigUtils from "./big.js";
 export { default as networks } from "./networks/index.js";
+export {
+  getSupportedChain,
+  getSupportedEvmChain,
+  getSupportedEvmChainId,
+  isSupportedChain,
+  isSupportedChainId,
+  isSupportedEvmChain,
+} from "./networks/index.js";
 export * from "./networks/types.js";
 export {
   deserializeOracleJob,

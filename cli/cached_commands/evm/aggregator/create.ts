@@ -1,4 +1,4 @@
-import { EvmWithSignerBaseCommand as BaseCommand } from "../../../evm";
+import { EvmWithSignerBaseCommand as BaseCommand } from "../../../src/evm";
 
 import { Args, Flags } from "@oclif/core";
 import { Big } from "@switchboard-xyz/common";

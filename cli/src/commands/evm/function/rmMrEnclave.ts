@@ -2,12 +2,7 @@ import { EvmWithSignerBaseCommand as BaseCommand } from "../../../evm";
 import { CHECK_ICON } from "../../../utils";
 
 import { Args, Flags } from "@oclif/core";
-import { isBase58, parseRawMrEnclave } from "@switchboard-xyz/common";
-import {
-  AttestationQueueAccount,
-  FunctionAccount,
-  SwitchboardProgram,
-} from "@switchboard-xyz/evm.js";
+import { FunctionAccount } from "@switchboard-xyz/evm.js";
 import chalk from "chalk";
 import { ethers } from "ethers";
 
@@ -31,7 +26,7 @@ export default class FunctionRemoveMrEnclave extends BaseCommand {
 
   static args = {
     functionKey: Args.string({
-      description: "public key of the function account",
+      description: "address of the function account",
       required: true,
     }),
   };
@@ -41,26 +36,26 @@ export default class FunctionRemoveMrEnclave extends BaseCommand {
 
     const mrEnclave = [...ethers.utils.arrayify(flags.mrEnclave)];
 
-    const [functionAccount, fnData] = await FunctionAccount.load(
+    const myFunction = await FunctionAccount.load(
       this.program,
       args.functionKey
     );
 
-    // const txn = await functionAccount.removeMrEnclave(mrEnclave);
+    const txn = await myFunction.removeMrEnclave(mrEnclave);
 
-    // if (flags.silent) {
-    //   this.logger.info(`Function removeMrEnclave signature: ${txn!.hash}`);
-    //   return;
-    // }
+    if (flags.silent) {
+      this.logger.info(`Function removeMrEnclave signature: ${txn!.hash}`);
+      return;
+    }
 
-    // this.logger.log(
-    //   `${chalk.green(
-    //     `${CHECK_ICON}MrEnclave removeed to Function Account successfully:`,
-    //     functionAccount.address
-    //   )}`
-    // );
+    this.logger.log(
+      `${chalk.green(
+        `${CHECK_ICON}MrEnclave removeed to Function Account successfully:`,
+        myFunction.address
+      )}`
+    );
 
-    // this.logger.info(`Function removeMrEnclave signature: ${txn!.hash}`);
+    this.logger.info(`Function removeMrEnclave signature: ${txn!.hash}`);
   }
 
   async catch(error: any) {

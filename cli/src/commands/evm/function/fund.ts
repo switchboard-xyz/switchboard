@@ -2,12 +2,7 @@ import { EvmWithSignerBaseCommand as BaseCommand } from "../../../evm";
 import { CHECK_ICON } from "../../../utils";
 
 import { Args, Flags } from "@oclif/core";
-import { isBase58, parseRawMrEnclave } from "@switchboard-xyz/common";
-import {
-  AttestationQueueAccount,
-  FunctionAccount,
-  SwitchboardProgram,
-} from "@switchboard-xyz/evm.js";
+import { FunctionAccount } from "@switchboard-xyz/evm.js";
 import chalk from "chalk";
 import { ethers } from "ethers";
 
@@ -31,7 +26,7 @@ export default class FunctionFund extends BaseCommand {
 
   static args = {
     functionKey: Args.string({
-      description: "public key of the function account",
+      description: "address of the function account",
       required: true,
     }),
   };
@@ -44,14 +39,14 @@ export default class FunctionFund extends BaseCommand {
       throw new Error("amount to fund must be greater than 0");
     }
 
-    const [functionAccount, fnData] = await FunctionAccount.load(
+    const myFunction = await FunctionAccount.load(
       this.program,
       args.functionKey
     );
 
     const fundTxn =
       fundAmount && fundAmount > 0
-        ? await functionAccount.escrowFund(
+        ? await myFunction.escrowFund(
             ethers.utils.parseEther(fundAmount.toString())
           )
         : undefined;
@@ -64,7 +59,7 @@ export default class FunctionFund extends BaseCommand {
     this.logger.log(
       `${chalk.green(
         `${CHECK_ICON}Function Account funded successfully:`,
-        functionAccount.address
+        myFunction.address
       )}`
     );
 

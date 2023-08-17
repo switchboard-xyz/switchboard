@@ -2,11 +2,9 @@ import { EvmWithSignerBaseCommand as BaseCommand } from "../../../evm";
 import { CHECK_ICON } from "../../../utils";
 
 import { Args, Flags } from "@oclif/core";
-import { isBase58, parseRawMrEnclave } from "@switchboard-xyz/common";
 import {
   AttestationQueueAccount,
   FunctionAccount,
-  SwitchboardProgram,
 } from "@switchboard-xyz/evm.js";
 import chalk from "chalk";
 import { ethers } from "ethers";
@@ -32,15 +30,10 @@ export default class FunctionCreate extends BaseCommand {
       default: "",
       required: false,
     }),
-    metadata: Flags.string({
-      description: "metadata of the function for easier identification",
-      default: "",
-      required: false,
-    }),
     authority: Flags.string({
       char: "a",
       description:
-        "keypair or public key to delegate authority to for managing the function account",
+        "keypair or address to delegate authority to for managing the function account",
       required: false,
     }),
     fundAmount: Flags.string({
@@ -77,26 +70,11 @@ export default class FunctionCreate extends BaseCommand {
       description:
         "the MrEnclave value to set for the function - if not provided, will be set automatically after its first run",
     }),
-    requestsDisabled: Flags.string({
-      required: false,
-      description: "whether custom requests can be created for this function",
-    }),
-    requestsFee: Flags.string({
-      required: false,
-      description:
-        "the costs each request must pay the function authority for each sub-request (Ex. 0.00002)",
-      default: "0.0",
-    }),
-    requestsRequireAuthorization: Flags.string({
-      required: false,
-      description:
-        "whether custom requests require the function authority to authorize",
-    }),
   };
 
   static args = {
     queueKey: Args.string({
-      description: "public key of the attestation queue account",
+      description: "address of the attestation queue account",
       required: true,
     }),
   };
@@ -117,8 +95,10 @@ export default class FunctionCreate extends BaseCommand {
       throw new Error("amount to fund must be greater than 0");
     }
 
-    const [attestationQueueAccount, attestationQueue] =
-      await AttestationQueueAccount.load(this.program, args.queueKey);
+    const attestationQueueAccount = await AttestationQueueAccount.load(
+      this.program,
+      args.queueKey
+    );
 
     let containerRegistry: "dockerhub" | "ipfs" | undefined;
     if (flags.containerRegistry) {

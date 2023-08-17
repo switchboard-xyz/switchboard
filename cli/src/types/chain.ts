@@ -11,9 +11,9 @@ export interface IBaseChain {
   deserializeJobData(jobData: Uint8Array): OracleJob;
   toUrl(...arguments_: any[]): string;
 
-  loadQueue(address: string): Promise<[any, any]>;
-  loadAggregator(address: string): Promise<[any, any]>;
-  loadCrank(address: string): Promise<[any, any]>;
-  loadOracle(address: string): Promise<[any, any]>;
-  loadJob(address: string): Promise<[any, any, OracleJob]>;
+  // loadQueue(address: string): Promise<[any, any]>;
+  // loadAggregator(address: string): Promise<[any, any]>;
+  // loadCrank(address: string): Promise<[any, any]>;
+  // loadOracle(address: string): Promise<[any, any]>;
+  // loadJob(address: string): Promise<[any, any, OracleJob]>;
 }

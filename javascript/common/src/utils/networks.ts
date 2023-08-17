@@ -1,21 +1,13 @@
 import SWITCHBOARD_NETWORKS from "../networks/index.js";
+import { isSupportedChain } from "../networks/index.js";
 import type {
   ChainConfig,
   ChainType,
   IChainConfig,
   IChainNetworkConfig,
   ISolanaConfig,
-  NetworkType,
 } from "../networks/types.js";
-import { SUPPPORTED_NETWORKS, SWITCHBOARD_CHAINS } from "../networks/types.js";
-
-/**
- * Determines whether a given chain is supported by the Switchboard network
- * @param _chain - the target chain
- */
-export const isSupportedChain = (_chain: string): _chain is ChainType => {
-  return SWITCHBOARD_CHAINS.includes(_chain as ChainType);
-};
+import { SWITCHBOARD_CHAINS } from "../networks/types.js";
 
 /**
  * Type assertion for whether the given chain is supported. Throws an error if Switchboard is not deployed on the target chain.
@@ -40,16 +32,6 @@ export const validateSupportedChain = (_chain: string): ChainType => {
 export const getSupportedChain = (_chain: string): ChainConfig => {
   const chain: ChainType = validateSupportedChain(_chain);
   return SWITCHBOARD_NETWORKS[chain];
-};
-
-/**
- * Type assertion for whether the given network is valid.
- * @param _network - the target network
- */
-export const isSupportedNetwork = (
-  _network: string
-): _network is NetworkType => {
-  return SUPPPORTED_NETWORKS.includes(_network as NetworkType);
 };
 
 /**
