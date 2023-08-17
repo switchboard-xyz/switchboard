@@ -110,7 +110,7 @@ export class ConfigProvider {
   }
 
   getProgramId(chain: string, network: string): string {
-    return getSupportedNetwork(chain, network).programId;
+    return getSupportedNetwork(chain, network).address;
   }
 
   setRpcUrl(chain: string, network: string, value: string | undefined) {

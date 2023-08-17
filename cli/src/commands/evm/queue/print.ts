@@ -1,76 +1,50 @@
-import { EvmWithoutSignerBaseCommand as BaseCommand } from "../../../evm";
-import { chalkString } from "../../../utils";
+import { EvmWithSignerBaseCommand as BaseCommand } from "../../../evm";
 
-import { Args, Flags } from "@oclif/core";
-import type { OracleQueueData } from "@switchboard-xyz/evm.js";
-import chalk from "chalk";
+import { Args } from "@oclif/core";
+import { AttestationQueueAccount } from "@switchboard-xyz/evm.js";
 
-export default class QueuePrint extends BaseCommand {
+export default class AttestationQueuePrint extends BaseCommand {
   static enableJsonFlag = true;
 
-  static description = "print a queue";
+  static description = "Print an attestation queue account";
 
   static examples = [
-    "$ sb evm queue print --arbitrum --mainnet 0x74f44B7e43319931ff9ae8CFCDCba09dc7F89f95",
-    "$ sb evm queue print --arbitrum --testnet 0xB1c6E716ACae35200Dc8278A63a424f58417954c --oracles",
+    "$ sb evm queue print 0xaA43ba6f18b138A0B3313dDbFaC2b920D240108E --chain arbitrum --network testnet --programId 0x4F706C62535d171883A6cc9384f3f3d926A6BA49",
   ];
 
   static flags = {
     ...BaseCommand.flags,
-    oracles: Flags.boolean({
-      description: "print the current set of heartbeating oracles",
-    }),
   };
 
   static args = {
-    queueAddress: Args.string({
-      description: "address of the queue account",
+    queueKey: Args.string({
+      description: "address of the attestation queue",
       required: true,
     }),
   };
 
   async run() {
-    const { args, flags } = await this.parse(QueuePrint);
+    const { args, flags } = await this.parse(AttestationQueuePrint);
 
-    const [queueAccount, queue] = await this.loadQueue(args.queueAddress);
-
-    let oracles: string[] | undefined;
-    try {
-      oracles = await queueAccount.loadOracles();
-    } catch (error) {
-      if (this.verbose) {
-        this.logError(`Failed to fetch queue oracles, ${error}`);
-      }
-    }
-
-    const queueData: OracleQueueData & { oracles?: string[] } = {
-      ...queue,
-      oracles: oracles ? oracles : [],
-    };
+    const attestationQueue = await AttestationQueueAccount.load(
+      this.program,
+      args.queueKey
+    );
 
     if (flags.json) {
-      return this.normalizeAccountData(queueAccount.address, queueData);
-    }
-
-    this.prettyPrintQueue(queueAccount.address, queueData);
-
-    if (flags.oracles) {
-      this.log(
-        chalk.underline(
-          chalkString("\n## Oracles", Array.from({ length: 44 }).join(" "))
-        )
+      return this.normalizeAccountData(
+        attestationQueue.address,
+        attestationQueue.data
       );
-      if (oracles) {
-        for (const [n, oracle] of oracles.entries()) {
-          this.logger.info(chalkString(`# ${n + 1}`, oracle));
-        }
-      } else {
-        this.log("No oracles heartbeating");
-      }
     }
+
+    this.prettyPrintAttestationQueue(
+      attestationQueue.address,
+      attestationQueue.data
+    );
   }
 
   async catch(error: any) {
-    super.catch(error, "failed to print queue");
+    super.catch(error, "failed to print a attestation queue account");
   }
 }

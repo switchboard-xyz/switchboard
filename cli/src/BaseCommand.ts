@@ -18,6 +18,7 @@ import { SwitchboardDecimal } from "@switchboard-xyz/common";
 import { HexString } from "aptos";
 import bs58 from "bs58";
 import chalk from "chalk";
+import { BigNumber } from "ethers";
 import fs from "fs";
 import path from "path";
 
@@ -227,6 +228,10 @@ export abstract class CliBaseCommand extends Command {
       try {
         return value.map((element) => this.jsonReplacers(key, element));
       } catch {}
+    }
+
+    if (BigNumber.isBigNumber(value)) {
+      return value.toString();
     }
 
     if (

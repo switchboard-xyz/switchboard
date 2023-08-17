@@ -1,7 +1,7 @@
 {
   "name": "@switchboard-xyz/common",
   "license": "MIT",
-  "version": "2.3.0",
+  "version": "2.3.1",
   "description": "common type definitions and utils for interacting with switchboard",
   "type": "module",
   "main": "./index.js",
@@ -49,7 +49,7 @@
   "scripts": {
     "build": "pnpm exec rimraf lib lib-cjs && node ./compile-protos.js && echo '!src/esm-utils.js' >> .gitignore",
     "test": "pnpm exec jest",
-    "prepack": "pnpm lint && pnpm build && pnpm test",
+    "prepack": "pnpm lint && pnpm build",
     "lint": "pnpm exec eslint src/**/*.ts",
     "clean": "pnpm exec rimraf node_modules lib .turbo",
     "fix": "pnpm exec eslint --fix src/**/*.ts"

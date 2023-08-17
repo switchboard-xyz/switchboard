@@ -16,21 +16,23 @@ import {
   isHex,
   OracleJob,
   parseSecretString,
+  toDateTimeString,
 } from "@switchboard-xyz/common";
 import type {
   AggregatorData,
+  AttestationQueueData,
+  EnclaveData,
+  FunctionData,
   Job,
   OracleData,
   OracleQueueData,
   SwitchboardProgram,
 } from "@switchboard-xyz/evm.js";
 import {
-  AggregatorAccount,
   fetchJobsFromIPFS,
   fromBigNumber,
-  OracleAccount,
-  OracleQueueAccount,
   publishJobsToIPFS,
+  VerificationStatus,
 } from "@switchboard-xyz/evm.js";
 import chalk from "chalk";
 import { createHash } from "crypto";
@@ -337,45 +339,6 @@ export abstract class EvmBaseCommand extends BaseCommand implements IBaseChain {
     return OracleJob.decodeDelimited(jobData);
   }
 
-  async loadQueue(
-    address: string
-  ): Promise<[OracleQueueAccount, OracleQueueData]> {
-    return await OracleQueueAccount.load(this.program, address);
-  }
-
-  async loadAggregator(
-    address: string
-  ): Promise<[AggregatorAccount, AggregatorData]> {
-    return await AggregatorAccount.load(this.program, address);
-  }
-
-  async loadCrank(address: string): Promise<[any, any]> {
-    throw new Error(`EVM chains do not have a crank`);
-  }
-
-  async loadOracle(address: string): Promise<[OracleAccount, OracleData]> {
-    return await OracleAccount.load(this.program, address);
-  }
-
-  async loadPermission(
-    granter: string,
-    grantee: string,
-    authority: string
-  ): Promise<[any, any, number]> {
-    throw new Error(`Not implemented yet`);
-  }
-
-  async loadLease(
-    queue: string,
-    aggregator: string
-  ): Promise<[any, any, number]> {
-    throw new Error(`EVM chains do not have a crank`);
-  }
-
-  async loadJob(address: string): Promise<[any, any, OracleJob]> {
-    throw new Error(`Not implemented yet`);
-  }
-
   normalizeAccountData(
     address: string,
     data: Record<string, any>
@@ -387,80 +350,228 @@ export abstract class EvmBaseCommand extends BaseCommand implements IBaseChain {
     return JSON.parse(JSON.stringify(object, this.jsonReplacers, 2));
   }
 
-  prettyPrintAggregator(
+  prettyPrintFunction(
     address: string,
-    aggregator: AggregatorData & { permissions?: string },
+    functionData: FunctionData,
     SPACING = 24
   ) {
-    // throw new Error(`Not implemented yet`);
     const output: string[] = [];
-    output.push(
-      chalk.underline(chalkString("## Aggregator", address, SPACING))
-    );
 
-    output.push(chalkString("name", aggregator.name, SPACING));
-
-    let result: Big | undefined;
-    let timestamp: number | undefined;
-    try {
-      result = fromBigNumber(aggregator.latestResult.value);
-      timestamp = aggregator.latestResult.timestamp.toNumber();
-    } catch {}
-
+    output.push(chalk.underline(chalkString("## Function", address, SPACING)));
+    output.push(chalkString("name", functionData.name, SPACING));
+    output.push(chalkString("authority", functionData.authority, SPACING));
     output.push(
       chalkString(
-        "latestResult",
-        result ? `${stripTrailingZeros(result.toString())}` : "N/A",
+        "createdAt",
+        BNtoDateTimeString(new BN(functionData.state.createdAt.toString())),
+        SPACING
+      )
+    );
+    output.push(chalkString("enclaveId", functionData.enclaveId, SPACING));
+    output.push(chalkString("queueId", functionData.queueId, SPACING));
+    output.push(chalkString("queueIdx", functionData.state.queueIdx, SPACING));
+    output.push(chalkString("balance", functionData.balance, SPACING));
+    output.push(chalkString("status", functionData.status, SPACING));
+    output.push(
+      chalkString(
+        "lastExecutionTimestamp",
+        BNtoDateTimeString(
+          new BN(functionData.state.lastExecutionTimestamp.toString())
+        ),
         SPACING
       )
     );
     output.push(
       chalkString(
-        "lastUpdated",
-        timestamp ? BNtoDateTimeString(new BN(timestamp)) : "N/A",
+        "nextAllowedTimestamp",
+        BNtoDateTimeString(
+          new BN(functionData.state.nextAllowedTimestamp.toString())
+        ),
         SPACING
       )
     );
-
     output.push(
       chalkString(
-        "balance",
-        `${stripTrailingZeros(fromBigNumber(aggregator.balance).toString())} `,
+        "lastExecutionGasCost",
+        functionData.state.lastExecutionGasCost,
         SPACING
       )
     );
-
-    output.push(chalkString("authority", aggregator.authority, SPACING));
-    if (aggregator.permissions) {
-      output.push(chalkString("permissions", aggregator.permissions, SPACING));
-    }
+    output.push(
+      chalkString("triggered", functionData.state.triggered, SPACING)
+    );
+    output.push(
+      chalkString("triggerCount", functionData.state.triggerCount, SPACING)
+    );
+    output.push(
+      chalkString(
+        "triggeredSince",
+        BNtoDateTimeString(
+          new BN(functionData.state.triggeredSince.toString())
+        ),
+        SPACING
+      )
+    );
+    // meta
+    output.push(chalkString("schedule", functionData.config.schedule, SPACING));
+    output.push(
+      chalkString(
+        "containerRegistry",
+        functionData.config.containerRegistry,
+        SPACING
+      )
+    );
+    output.push(
+      chalkString("container", functionData.config.container, SPACING)
+    );
+    output.push(chalkString("version", functionData.config.version, SPACING));
+    output.push(
+      chalkString(
+        "permittedCallers",
+        JSON.stringify(functionData.config.permittedCallers),
+        SPACING
+      )
+    );
+    output.push(
+      chalkString(
+        "mrEnclaves",
+        JSON.stringify(functionData.config.mrEnclaves),
+        SPACING
+      )
+    );
+    output.push(
+      chalkString(
+        "allowAllFnCalls",
+        functionData.config.allowAllFnCalls,
+        SPACING
+      )
+    );
+    output.push(
+      chalkString(
+        "useFnCallEscrow",
+        functionData.config.useFnCallEscrow,
+        SPACING
+      )
+    );
+    output.push(chalkString("name", functionData.name, SPACING));
+    output.push(chalkString("name", functionData.name, SPACING));
+    output.push(chalkString("name", functionData.name, SPACING));
+    output.push(chalkString("name", functionData.name, SPACING));
 
     const logString = output.join("\n");
 
     this.log(logString);
   }
 
-  prettyPrintJobs(jobs: Array<Job>, SPACING = 24) {
+  prettyPrintAttestationQueue(
+    address: string,
+    accountData: AttestationQueueData,
+    SPACING = 24
+  ) {
     const output: string[] = [];
 
     output.push(
-      chalk.underline(
-        chalkString("\n## Jobs", Array.from({ length: 44 }).join(" "), SPACING)
+      chalk.underline(chalkString("## Attestation Queue", address, SPACING))
+    );
+    output.push(chalkString("authority", accountData.authority, SPACING));
+    output.push(chalkString("reward", accountData.reward, SPACING));
+    output.push(chalkString("numVerifiers", accountData.data.length, SPACING));
+    output.push(chalkString("maxSize", accountData.maxSize, SPACING));
+    output.push(
+      chalkString(
+        "lastHeartbeat",
+        BNtoDateTimeString(new BN(accountData.lastHeartbeat.toString())),
+        SPACING
       )
     );
+    output.push(
+      chalkString(
+        "maxEnclaveVerificationAge",
+        accountData.maxEnclaveVerificationAge,
+        SPACING
+      )
+    );
+    output.push(
+      chalkString(
+        "allowAuthorityOverrideAfter",
+        accountData.allowAuthorityOverrideAfter,
+        SPACING
+      )
+    );
+    output.push(
+      chalkString(
+        "maxConsecutiveFunctionFailures",
+        accountData.maxConsecutiveFunctionFailures,
+        SPACING
+      )
+    );
+    output.push(
+      chalkString(
+        "requireAuthorityHeartbeatPermission",
+        accountData.requireAuthorityHeartbeatPermission,
+        SPACING
+      )
+    );
+    output.push(
+      chalkString(
+        "requireUsagePermissions",
+        accountData.requireUsagePermissions,
+        SPACING
+      )
+    );
+    output.push(
+      chalkString("enclaveTimeout", accountData.enclaveTimeout, SPACING)
+    );
+    output.push(chalkString("gcIdx", accountData.gcIdx, SPACING));
+    output.push(chalkString("currIdx", accountData.currIdx, SPACING));
+    output.push(
+      chalkString("mrEnclaves", JSON.stringify(accountData.mrEnclaves), SPACING)
+    );
 
-    for (const [n, job] of jobs.entries()) {
-      const oracleJob = OracleJob.decodeDelimited(
-        new Uint8Array(Buffer.from(job.data, "base64"))
-      );
-      output.push(
-        chalkString(
-          `${job.name}, weight = ${job.weight ?? 1}`,
-          "\n" + JSON.stringify(oracleJob.toJSON(), undefined, 2),
-          SPACING
-        )
-      );
-    }
+    const logString = output.join("\n");
+
+    this.log(logString);
+  }
+
+  prettyPrintEnclave(address: string, accountData: EnclaveData, SPACING = 24) {
+    const output: string[] = [];
+
+    output.push(
+      chalk.underline(chalkString("## Enclave (Verifier)", address, SPACING))
+    );
+    output.push(chalkString("signer", accountData.signer, SPACING));
+    output.push(chalkString("authority", accountData.authority, SPACING));
+    output.push(chalkString("queueId", accountData.queueId, SPACING));
+    output.push(chalkString("isOnQueue", accountData.isOnQueue, SPACING));
+    output.push(chalkString("balance", accountData.balance, SPACING));
+    output.push(chalkString("cid", accountData.cid, SPACING));
+    output.push(chalkString("mrEnclave", accountData.mrEnclave, SPACING));
+    output.push(
+      chalkString("verificationStatus", accountData.verificationStatus, SPACING)
+    );
+    output.push(
+      chalkString(
+        "verificationTimestamp",
+        BNtoDateTimeString(
+          new BN(accountData.verificationTimestamp.toString())
+        ),
+        SPACING
+      )
+    );
+    output.push(
+      chalkString(
+        "validUntil",
+        BNtoDateTimeString(new BN(accountData.validUntil.toString())),
+        SPACING
+      )
+    );
+    output.push(
+      chalkString(
+        "lastHeartbeat",
+        BNtoDateTimeString(new BN(accountData.lastHeartbeat.toString())),
+        SPACING
+      )
+    );
 
     const logString = output.join("\n");
 
@@ -484,83 +595,6 @@ export abstract class EvmBaseCommand extends BaseCommand implements IBaseChain {
         tasks: oracleJob.tasks,
       };
     });
-  }
-
-  prettyPrintOracle(
-    address: string,
-    oracle: OracleData & { permissions?: string },
-    SPACING = 24
-  ) {
-    const output: string[] = [];
-
-    output.push(chalk.underline(chalkString("## Oracle", address, SPACING)));
-
-    output.push(chalkString("name", oracle.name, SPACING));
-    output.push(chalkString("authority", oracle.authority, SPACING));
-    if (oracle.permissions) {
-      output.push(chalkString("permissions", oracle.permissions, SPACING));
-    }
-
-    const lastHeartbeat: number | undefined = oracle.lastHeartbeat.gt(0)
-      ? oracle.lastHeartbeat.toNumber()
-      : undefined;
-    output.push(
-      chalkString(
-        "lastHeartbeat",
-        lastHeartbeat ? BNtoDateTimeString(new BN(lastHeartbeat)) : "N/A",
-        SPACING
-      )
-    );
-
-    const logString = output.join("\n");
-
-    this.log(logString);
-  }
-
-  prettyPrintQueue(
-    address: string,
-    queue: OracleQueueData & { oracles?: string[] },
-    SPACING = 24
-  ) {
-    const output: string[] = [];
-
-    output.push(chalk.underline(chalkString("## Queue", address, SPACING)));
-
-    output.push(chalkString("name", queue.name, SPACING));
-    output.push(chalkString("authority", queue.authority, SPACING));
-    output.push(
-      chalkString(
-        "unpermissionedFeeds",
-        queue.unpermissionedFeedsEnabled,
-        SPACING
-      )
-    );
-    if (queue.oracles) {
-      output.push(
-        chalkString(
-          "size",
-          `${queue.oracles.length} / ${queue.maxSize.toNumber()}`,
-          SPACING
-        )
-      );
-    } else {
-      output.push(chalkString("maxSize", queue.maxSize.toNumber(), SPACING));
-    }
-
-    output.push(
-      chalkString("oracleTimeout", queue.oracleTimeout.toNumber(), SPACING)
-    );
-    output.push(
-      chalkString(
-        "reward",
-        this.convertRawNumber(queue.reward).toNumber(),
-        SPACING
-      )
-    );
-
-    const logString = output.join("\n");
-
-    this.log(logString);
   }
 
   convertJob(job: JobDefinition): BaseJob {

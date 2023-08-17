@@ -3,6 +3,7 @@ import { PublicKey } from "@solana/web3.js";
 import { Big } from "@switchboard-xyz/common";
 import { BN } from "@switchboard-xyz/common";
 import chalk from "chalk";
+import { BigNumber } from "ethers";
 
 export const chalkString = (
   label: string,
@@ -13,6 +14,7 @@ export const chalkString = (
     | PublicKey
     | Big
     | anchor.BN
+    | BigNumber
     | undefined
     | null,
   padding = 16
@@ -32,6 +34,8 @@ export const chalkString = (
     valueString = value.toString();
   } else if (BN.isBN(value)) {
     valueString = value.toString(10);
+  } else if (BigNumber.isBigNumber(value)) {
+    valueString = value.toString();
   } else {
     valueString = `${value}`;
   }
