@@ -1,6 +1,6 @@
 <div align="center">
   <a href="#">
-    <img src="https://github.com/switchboard-xyz/sbv2-core/raw/main/website/static/img/icons/switchboard/avatar.png" />
+    <img src="https://github.com/switchboard-xyz/core-sdk/raw/main/website/static/img/icons/switchboard/avatar.png" />
   </a>
 
   <h1>@switchboard-xyz/common</h1>
@@ -9,7 +9,7 @@
 
   <p>
 	<a href="https://www.npmjs.com/package/@switchboard-xyz/common">
-      <img alt="NPM Badge" src="https://img.shields.io/github/package-json/v/switchboard-xyz/sbv2-core?color=red&filename=javascript%2Fcommon%2Fpackage.json&label=%40switchboard-xyz%2Fcommon&logo=npm" />
+      <img alt="NPM Badge" src="https://img.shields.io/github/package-json/v/switchboard-xyz/core-sdk?color=red&filename=javascript%2Fcommon%2Fpackage.json&label=%40switchboard-xyz%2Fcommon&logo=npm" />
     </a>
   </p>
 

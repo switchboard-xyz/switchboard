@@ -1,11 +1,10 @@
 <div align="center">
-  <a href="#">
-    <img src="https://github.com/switchboard-xyz/sbv2-core/raw/main/website/static/img/icons/switchboard/avatar.png" />
-  </a>
 
-  <h1>Switchboard V2 Core</h1>
+![Switchboard Logo](https://github.com/switchboard-xyz/core-sdk/raw/main/website/static/img/icons/switchboard/avatar.png)
 
-  <p>Umbrella repo for the multi-chain implementations of Switchboard V2.</p>
+# Switchboard Core SDK
+
+> Umbrella repo for the multi-chain implementations of Switchboard.
 
   <p>
     <a href="https://discord.gg/switchboardxyz">
@@ -24,30 +23,29 @@
 ## Getting Started
 
 To get started, clone the
-[sbv2-core](https://github.com/switchboard-xyz/sbv2-core) repository.
+[core-sdk](https://github.com/switchboard-xyz/core-sdk) repository.
 
 ```bash
-git clone --recurse-submodules https://github.com/switchboard-xyz/sbv2-core.git
-cd sbv2-core
+git clone --recurse-submodules https://github.com/switchboard-xyz/core-sdk.git
+cd core-sdk
 ```
 
 Then install the dependencies
 
 ```bash
-cd sbv2-core
+cd core-sdk
 pnpm install
 ```
 
 ## SDKs
 
-| **Chain**               | **Name**                                                          |
-| ----------------------- | ----------------------------------------------------------------- |
-| Aptos                   | [sbv2-aptos](https://github.com/switchboard-xyz/sbv2-aptos)       |
-| EVM (Arbitrum, CoreDAO) | [sbv2-evm](https://github.com/switchboard-xyz/sbv2-evm)           |
-| NEAR                    | [sbv2-near](https://github.com/switchboard-xyz/sbv2-near)         |
-| Solana                  | [sbv2-solana](https://github.com/switchboard-xyz/sbv2-solana)     |
-| Starknet                | [sbv2-starknet](https://github.com/switchboard-xyz/sbv2-starknet) |
-| Sui                     | [sbv2-sui](https://github.com/switchboard-xyz/sbv2-sui)           |
+| **Chain**               | **Name**                                                    |
+| ----------------------- | ----------------------------------------------------------- |
+| Aptos                   | [aptos-sdk](https://github.com/switchboard-xyz/aptos-sdk)   |
+| EVM (Arbitrum, CoreDAO) | [evm-sdk](https://github.com/switchboard-xyz/evm-sdk)       |
+| NEAR                    | [near-sdk](https://github.com/switchboard-xyz/near-sdk)     |
+| Solana                  | [solana-sdk](https://github.com/switchboard-xyz/solana-sdk) |
+| Sui                     | [sui-sdk](https://github.com/switchboard-xyz/sui-sdk)       |
 
 To add SDKs,
 
@@ -75,7 +73,7 @@ git submodule update --remote sdks/solana
 ## Troubleshooting
 
 1. File a
-   [GitHub Issue](https://github.com/switchboard-xyz/sbv2-core/issues/new). If
+   [GitHub Issue](https://github.com/switchboard-xyz/core-sdk/issues/new). If
    chain specific, then file an issue in the SDK's respective repository.
 2. Ask a question in
    [Discord #dev-support](https://discord.com/channels/841525135311634443/984343400377647144)
