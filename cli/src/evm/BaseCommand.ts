@@ -453,10 +453,6 @@ export abstract class EvmBaseCommand extends BaseCommand implements IBaseChain {
         SPACING
       )
     );
-    output.push(chalkString("name", functionData.name, SPACING));
-    output.push(chalkString("name", functionData.name, SPACING));
-    output.push(chalkString("name", functionData.name, SPACING));
-    output.push(chalkString("name", functionData.name, SPACING));
 
     const logString = output.join("\n");
 

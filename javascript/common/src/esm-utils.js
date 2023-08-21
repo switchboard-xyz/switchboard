@@ -1,4 +1,5 @@
 import fs from "fs";
+import fsPromises from "fs/promises";
 import { dirname, format, join, parse } from "node:path";
 
 /**
@@ -31,6 +32,47 @@ export function moveCjsFiles(source, dest) {
   }
 }
 
+/**
+ * Merge a dist-cjs directory into a dist directory
+ * @param {string} source - the absolute path to the source directory (Ex. /home/runner/dist-cjs)
+ * @param {string} dest - the absolte path to the destination directory (Ex. /home/runner/dist)
+ */
+export async function moveCjsFilesAsync(source, dest) {
+  const files = await fsPromises.readdir(source, { withFileTypes: true });
+  await Promise.all(
+    files.map(async (file) => {
+      if (file.isDirectory()) {
+        return await moveCjsFiles(
+          join(source, file.name),
+          join(dest, file.name)
+        );
+      }
+      // its a file
+      const parsed = parse(file.name);
+      if (parsed.ext !== ".js") {
+        return;
+      }
+
+      return await fsPromises
+        .readFile(join(source, file.name), "utf-8")
+        .then(async (content) => {
+          const rewritten = content.replace(
+            /require\("(\..+?).js"\)/g,
+            (_, p1) => {
+              return `require("${p1}.cjs")`;
+            }
+          );
+          const renamed = format({ name: parsed.name, ext: ".cjs" });
+          return await fsPromises.writeFile(
+            join(dest, renamed),
+            rewritten,
+            "utf-8"
+          );
+        });
+    })
+  );
+}
+
 const updateJsonFile = (relativePath, updateFunction) => {
   const contents = fs.readFileSync(relativePath, "utf8");
   const res = updateFunction(JSON.parse(contents));
@@ -38,19 +80,21 @@ const updateJsonFile = (relativePath, updateFunction) => {
 };
 
 const generateFiles = (entrypoints, dir) => {
-  const files = [
-    ...Object.entries(entrypoints),
-    ["index", "src/index"],
-  ].flatMap(([key, value]) => {
-    const nrOfDots = key.split("/").length - 1;
-    const relativePath = "../".repeat(nrOfDots) || "./";
-    const outFile = relativePath + value.replaceAll("src", dir);
-    return [
-      [`${key}.cjs`, `module.exports = require('${outFile}.cjs');`],
-      [`${key}.js`, `export * from '${outFile}.js'`],
-      [`${key}.d.ts`, `export * from '${outFile}.js'`],
-    ];
-  });
+  const files = [...Object.entries(entrypoints), ["index", "index"]].flatMap(
+    ([key, value]) => {
+      const nrOfDots = key.split("/").length - 1;
+      const relativePath = "../".repeat(nrOfDots) || "./";
+      const compiledPath = `${relativePath}${dir}/${value}.js`;
+      return [
+        [
+          `${key}.cjs`,
+          `module.exports = require('${relativePath}${dir}/${value}.cjs');`,
+        ],
+        [`${key}.js`, `export * from '${compiledPath}'`],
+        [`${key}.d.ts`, `export * from '${compiledPath}'`],
+      ];
+    }
+  );
   return Object.fromEntries(files);
 };
 
@@ -73,7 +117,7 @@ export function generateEntrypoints(
     typedocOptions: {
       ...json.typedocOptions,
       entryPoints: [...Object.keys(entrypoints)].map(
-        (key) => `${entrypoints[key]}.ts`
+        (key) => `src/${entrypoints[key]}.ts`
       ),
     },
   }));

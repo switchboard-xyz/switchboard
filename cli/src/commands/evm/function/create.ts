@@ -122,7 +122,7 @@ export default class FunctionCreate extends BaseCommand {
       version: flags.version,
       // TODO: ADD MR NECLAVE ON INIT TO SDK
       // mrEnclave: parseRawMrEnclave(flags.mrEnclave ?? ""),
-      attestationQueue: attestationQueueAccount.address,
+      attestationQueue: args.queueKey,
     });
 
     const fundTxn =

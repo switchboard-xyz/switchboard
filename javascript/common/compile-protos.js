@@ -1,7 +1,8 @@
-import { generateEntrypoints, moveCjsFiles } from "./src/esm-utils.js";
+import { generateEntrypoints, moveCjsFilesAsync } from "./src/esm-utils.js";
 
 import { execSync } from "child_process";
 import fs from "fs";
+import fsPromises from "fs/promises";
 import path from "path";
 import shell from "shelljs";
 import { fileURLToPath } from "url";
@@ -235,9 +236,15 @@ async function main() {
   });
 
   debugLogging("moving cjs files");
-  moveCjsFiles(
+
+  await moveCjsFilesAsync(
     path.join(projectRoot, "lib-cjs"),
     path.join(projectRoot, "lib")
+  ).then(() =>
+    fsPromises.rm(path.join(projectRoot, "lib-cjs"), {
+      recursive: true,
+      force: true,
+    })
   );
 
   debugLogging("generating entrypoints");
@@ -245,22 +252,13 @@ async function main() {
     projectRoot,
     "lib",
     {
-      index: "src/index",
-      "esm-utils": "src/esm-utils",
-      protos: "src/protos",
-      networks: "src/networks/index",
-      // 'big.js': 'src/big',
-      // 'bn.js': 'src/bn',
+      index: "index",
+      "esm-utils": "esm-utils",
+      protos: "protos",
+      networks: "networks/index",
     },
     true /** Include the src directory in the export */
   );
-
-  debugLogging("removing lib-cjs");
-  fs.rmSync(path.join(projectRoot, "lib-cjs"), {
-    recursive: true,
-    force: true,
-  });
-  // removeTsBuildInfo();
 }
 
 main()

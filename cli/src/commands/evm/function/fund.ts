@@ -39,14 +39,11 @@ export default class FunctionFund extends BaseCommand {
       throw new Error("amount to fund must be greater than 0");
     }
 
-    const myFunction = await FunctionAccount.load(
-      this.program,
-      args.functionKey
-    );
+    const fnAccount = new FunctionAccount(this.program, args.functionKey);
 
     const fundTxn =
       fundAmount && fundAmount > 0
-        ? await myFunction.escrowFund(
+        ? await fnAccount.escrowFund(
             ethers.utils.parseEther(fundAmount.toString())
           )
         : undefined;
@@ -59,7 +56,7 @@ export default class FunctionFund extends BaseCommand {
     this.logger.log(
       `${chalk.green(
         `${CHECK_ICON}Function Account funded successfully:`,
-        myFunction.address
+        fnAccount.address
       )}`
     );
 

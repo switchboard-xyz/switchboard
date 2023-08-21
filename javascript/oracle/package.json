@@ -15,16 +15,17 @@
     "package.json",
     "package-lock.json"
   ],
+  "main": "dist/cjs/index.js",
+  "module": "dist/esm/index.js",
+  "types": "dist/esm/index.d.ts",
   "exports": {
     ".": {
+      "types": "./dist/esm/index.d.ts",
       "import": "./dist/esm/index.js",
       "require": "./dist/cjs/index.js"
     },
     "./package.json": "./package.json"
   },
-  "main": "dist/cjs/index.js",
-  "module": "dist/esm/index.js",
-  "types": "dist/cjs/index.d.ts",
   "node": ">=14.16",
   "scripts": {
     "build": "pnpm exec shx rm -rf dist || true; pnpm exec tsc && pnpm exec tsc -p tsconfig.cjs.json",
