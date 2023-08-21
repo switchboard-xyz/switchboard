@@ -1,11 +1,47 @@
 {
   "name": "@switchboard-xyz/common",
   "license": "MIT",
-  "version": "2.3.1",
+  "version": "2.3.2",
   "description": "common type definitions and utils for interacting with switchboard",
   "type": "module",
   "main": "./index.js",
   "types": "./index.d.ts",
+  "scripts": {
+    "build": "pnpm exec rimraf lib lib-cjs && node ./compile-protos.js && echo '!src/esm-utils.js' >> .gitignore",
+    "test": "pnpm exec jest",
+    "prepack": "pnpm lint && pnpm build",
+    "lint": "pnpm exec eslint src/**/*.ts",
+    "clean": "pnpm exec rimraf node_modules lib .turbo",
+    "fix": "pnpm exec eslint --fix src/**/*.ts"
+  },
+  "dependencies": {
+    "@coral-xyz/borsh": "^0.28.0",
+    "@types/big.js": "^6.1.6",
+    "@types/bn.js": "^5.1.1",
+    "big.js": "^6.2.1",
+    "bn.js": "^5.2.1",
+    "bs58": "^5.0.0",
+    "decimal.js": "^10.4.3",
+    "lodash": "^4.17.21",
+    "protobufjs": "^7.2.4",
+    "yaml": "^2.2.1"
+  },
+  "devDependencies": {
+    "@switchboard-xyz/eslint-config": "latest",
+    "@types/chai": "^4.3.4",
+    "@types/jest": "^29.4.0",
+    "@types/lodash": "^4.14.195",
+    "@types/shelljs": "^0.8.12",
+    "chai": "^4.3.7",
+    "esm": "^3.2.25",
+    "jest": "^29.4.3",
+    "protobufjs-cli": "^1.1.1",
+    "shelljs": "^0.8.5",
+    "ts-jest": "^29.0.5"
+  },
+  "engines": {
+    "node": ">=12"
+  },
   "files": [
     "lib/",
     "src/",
@@ -45,41 +81,5 @@
       "require": "./networks.cjs"
     },
     "./package.json": "./package.json"
-  },
-  "scripts": {
-    "build": "pnpm exec rimraf lib lib-cjs && node ./compile-protos.js && echo '!src/esm-utils.js' >> .gitignore",
-    "test": "pnpm exec jest",
-    "prepack": "pnpm lint && pnpm build",
-    "lint": "pnpm exec eslint src/**/*.ts",
-    "clean": "pnpm exec rimraf node_modules lib .turbo",
-    "fix": "pnpm exec eslint --fix src/**/*.ts"
-  },
-  "dependencies": {
-    "@coral-xyz/borsh": "^0.28.0",
-    "@types/big.js": "^6.1.6",
-    "@types/bn.js": "^5.1.1",
-    "big.js": "^6.2.1",
-    "bn.js": "^5.2.1",
-    "bs58": "^5.0.0",
-    "decimal.js": "^10.4.3",
-    "lodash": "^4.17.21",
-    "protobufjs": "^7.2.4",
-    "yaml": "^2.2.1"
-  },
-  "devDependencies": {
-    "@switchboard-xyz/eslint-config": "latest",
-    "@types/chai": "^4.3.4",
-    "@types/jest": "^29.4.0",
-    "@types/lodash": "^4.14.195",
-    "@types/shelljs": "^0.8.12",
-    "chai": "^4.3.7",
-    "esm": "^3.2.25",
-    "jest": "^29.4.3",
-    "protobufjs-cli": "^1.1.1",
-    "shelljs": "^0.8.5",
-    "ts-jest": "^29.0.5"
-  },
-  "engines": {
-    "node": ">=12"
   }
 }

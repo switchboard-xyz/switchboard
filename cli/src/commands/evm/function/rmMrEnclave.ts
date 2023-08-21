@@ -36,12 +36,9 @@ export default class FunctionRemoveMrEnclave extends BaseCommand {
 
     const mrEnclave = [...ethers.utils.arrayify(flags.mrEnclave)];
 
-    const myFunction = await FunctionAccount.load(
-      this.program,
-      args.functionKey
-    );
+    const fnAccount = new FunctionAccount(this.program, args.functionKey);
 
-    const txn = await myFunction.removeMrEnclave(mrEnclave);
+    const txn = await fnAccount.removeMrEnclave(mrEnclave);
 
     if (flags.silent) {
       this.logger.info(`Function removeMrEnclave signature: ${txn!.hash}`);
@@ -51,7 +48,7 @@ export default class FunctionRemoveMrEnclave extends BaseCommand {
     this.logger.log(
       `${chalk.green(
         `${CHECK_ICON}MrEnclave removeed to Function Account successfully:`,
-        myFunction.address
+        fnAccount.address
       )}`
     );
 

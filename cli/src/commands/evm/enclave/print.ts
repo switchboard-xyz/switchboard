@@ -1,4 +1,4 @@
-import { EvmWithSignerBaseCommand as BaseCommand } from "../../../evm";
+import { EvmWithoutSignerBaseCommand as BaseCommand } from "../../../evm";
 
 import { Args } from "@oclif/core";
 import { EnclaveAccount } from "@switchboard-xyz/evm.js";
@@ -26,19 +26,14 @@ export default class EnclavePrint extends BaseCommand {
   async run() {
     const { args, flags } = await this.parse(EnclavePrint);
 
-    const enclaveAccount = await EnclaveAccount.load(
-      this.program,
-      args.enclaveKey
-    );
+    const enclaveAccount = new EnclaveAccount(this.program, args.enclaveKey);
+    const data = await enclaveAccount.loadData();
 
     if (flags.json) {
-      return this.normalizeAccountData(
-        enclaveAccount.address,
-        enclaveAccount.data
-      );
+      return this.normalizeAccountData(enclaveAccount.address, data);
     }
 
-    this.prettyPrintEnclave(enclaveAccount.address, enclaveAccount.data);
+    this.prettyPrintEnclave(args.enclaveKey, data);
   }
 
   async catch(error: any) {

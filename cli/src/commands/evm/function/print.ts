@@ -1,4 +1,4 @@
-import { EvmWithSignerBaseCommand as BaseCommand } from "../../../evm";
+import { EvmWithoutSignerBaseCommand as BaseCommand } from "../../../evm";
 
 import { Args } from "@oclif/core";
 import { FunctionAccount } from "@switchboard-xyz/evm.js";
