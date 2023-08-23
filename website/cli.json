@@ -2002,8 +2002,8 @@
       "enclave",
       "print"
     ],
-    "markdown": "USAGE\n  $ sb evm enclave print ENCLAVEKEY --account <value> [-h] [-v] [-s] [--chain coredao|arbitrum | --coredao |\n    --arbitrum] [--network mainnet|testnet | --mainnet | --testnet] [-u <value>] [--programId <value>] [--json]\n\nARGUMENTS\n  ENCLAVEKEY  address of the enclave\n\nFLAGS\n  -h, --help            Show CLI help.\n  -s, --silent          suppress cli prompts\n  -u, --rpcUrl=<value>  alternate RPC url\n  -v, --verbose         log everything\n  --account=<value>     (required) Path to file containing the private key for the payer account\n  --arbitrum            use the arbitrum chain\n  --chain=<option>      the evm chain to interact with\n                        <options: coredao|arbitrum>\n  --coredao             use the coredao chain\n  --mainnet             use the mainnet network\n  --network=<option>    the EVM network to connect to\n                        <options: mainnet|testnet>\n  --programId=<value>   alternative Switchboard program ID to interact with\n  --testnet             use the testnet network\n\nGLOBAL FLAGS\n  --json  Format output as json.\n\nDESCRIPTION\n  Print an enclave's state\n\nEXAMPLES\n  $ sb evm enclave print 0xaA43ba6f18b138A0B3313dDbFaC2b920D240108E --chain arbitrum --network testnet --programId 0x4F706C62535d171883A6cc9384f3f3d926A6BA49\n",
-    "usage": "sb evm enclave print ENCLAVEKEY --account <value> [-h] [-v] [-s] [--chain coredao|arbitrum | --coredao |\n    --arbitrum] [--network mainnet|testnet | --mainnet | --testnet] [-u <value>] [--programId <value>] [--json]",
+    "markdown": "USAGE\n  $ sb evm enclave print ENCLAVEKEY [-h] [-v] [-s] [--chain coredao|arbitrum | --coredao | --arbitrum] [--network\n    mainnet|testnet | --mainnet | --testnet] [-u <value>] [--programId <value>] [--json]\n\nARGUMENTS\n  ENCLAVEKEY  address of the enclave\n\nFLAGS\n  -h, --help            Show CLI help.\n  -s, --silent          suppress cli prompts\n  -u, --rpcUrl=<value>  alternate RPC url\n  -v, --verbose         log everything\n  --arbitrum            use the arbitrum chain\n  --chain=<option>      the evm chain to interact with\n                        <options: coredao|arbitrum>\n  --coredao             use the coredao chain\n  --mainnet             use the mainnet network\n  --network=<option>    the EVM network to connect to\n                        <options: mainnet|testnet>\n  --programId=<value>   alternative Switchboard program ID to interact with\n  --testnet             use the testnet network\n\nGLOBAL FLAGS\n  --json  Format output as json.\n\nDESCRIPTION\n  Print an enclave's state\n\nEXAMPLES\n  $ sb evm enclave print 0xaA43ba6f18b138A0B3313dDbFaC2b920D240108E --chain arbitrum --network testnet --programId 0x4F706C62535d171883A6cc9384f3f3d926A6BA49\n",
+    "usage": "sb evm enclave print ENCLAVEKEY [-h] [-v] [-s] [--chain coredao|arbitrum | --coredao | --arbitrum] [--network\n    mainnet|testnet | --mainnet | --testnet] [-u <value>] [--programId <value>] [--json]",
     "args": [
       {
         "arg": "ENCLAVEKEY",
@@ -2026,10 +2026,6 @@
       {
         "flag": "-v, --verbose",
         "description": "log everything"
-      },
-      {
-        "flag": "--account=<value>",
-        "description": "(required) Path to file containing the private key for the payer account"
       },
       {
         "flag": "--arbitrum",
@@ -2148,6 +2144,107 @@
     "description": "Add MrEnclave to a function account",
     "examples": [
       "sb evm function addMrEnclave 0xaA43ba6f18b138A0B3313dDbFaC2b920D240108E --chain arbitrum --network testnet --addMrEnclace 0xDEADBEEF --account ~/.arbitrum-kp.txt --programId 0x4F706C62535d171883A6cc9384f3f3d926A6BA49"
+    ]
+  },
+  {
+    "id": "evm-function-configure",
+    "permalink": "/cli/evm/function/configure",
+    "topic": "evm",
+    "command": "sb evm function configure",
+    "topics": [
+      "evm",
+      "function",
+      "configure"
+    ],
+    "markdown": "USAGE\n  $ sb evm function configure FUNCTIONKEY --account <value> [-h] [-v] [-s] [--chain coredao|arbitrum | --coredao |\n    --arbitrum] [--network mainnet|testnet | --mainnet | --testnet] [-u <value>] [--programId <value>] [--json] [--name\n    <value>] [--authority <value>] [--containerRegistry <value>] [--container <value>] [--version <value>] [--schedule\n    <value>]\n\nARGUMENTS\n  FUNCTIONKEY  address of the function account\n\nFLAGS\n  -h, --help                   Show CLI help.\n  -s, --silent                 suppress cli prompts\n  -u, --rpcUrl=<value>         alternate RPC url\n  -v, --verbose                log everything\n  --account=<value>            (required) Path to file containing the private key for the payer account\n  --arbitrum                   use the arbitrum chain\n  --authority=<value>          update the authority for the function\n  --chain=<option>             the evm chain to interact with\n                               <options: coredao|arbitrum>\n  --container=<value>          update the container for the function\n  --containerRegistry=<value>  update the container registry for the function\n  --coredao                    use the coredao chain\n  --mainnet                    use the mainnet network\n  --name=<value>               update the name for the function\n  --network=<option>           the EVM network to connect to\n                               <options: mainnet|testnet>\n  --programId=<value>          alternative Switchboard program ID to interact with\n  --schedule=<value>           update the schedule for the function\n  --testnet                    use the testnet network\n  --version=<value>            update the container version for the function\n\nGLOBAL FLAGS\n  --json  Format output as json.\n\nDESCRIPTION\n  Configure a function account\n\nEXAMPLES\n  $ sb evm function fund 0xaA43ba6f18b138A0B3313dDbFaC2b920D240108E --chain arbitrum --network testnet --fundAmount 0.02 --account ~/.arbitrum-kp.txt --programId 0x4F706C62535d171883A6cc9384f3f3d926A6BA49\n",
+    "usage": "sb evm function configure FUNCTIONKEY --account <value> [-h] [-v] [-s] [--chain coredao|arbitrum | --coredao |\n    --arbitrum] [--network mainnet|testnet | --mainnet | --testnet] [-u <value>] [--programId <value>] [--json] [--name\n    <value>] [--authority <value>] [--containerRegistry <value>] [--container <value>] [--version <value>] [--schedule\n    <value>]",
+    "args": [
+      {
+        "arg": "FUNCTIONKEY",
+        "description": "address of the function account"
+      }
+    ],
+    "flags": [
+      {
+        "flag": " -h, --help",
+        "description": "Show CLI help."
+      },
+      {
+        "flag": "-s, --silent",
+        "description": "suppress cli prompts"
+      },
+      {
+        "flag": "-u, --rpcUrl=<value>",
+        "description": "alternate RPC url"
+      },
+      {
+        "flag": "-v, --verbose",
+        "description": "log everything"
+      },
+      {
+        "flag": "--account=<value>",
+        "description": "(required) Path to file containing the private key for the payer account"
+      },
+      {
+        "flag": "--arbitrum",
+        "description": "use the arbitrum chain"
+      },
+      {
+        "flag": "--authority=<value>",
+        "description": "update the authority for the function"
+      },
+      {
+        "flag": "--chain=<option>",
+        "description": "the evm chain to interact with <options: coredao|arbitrum>"
+      },
+      {
+        "flag": "--container=<value>",
+        "description": "update the container for the function"
+      },
+      {
+        "flag": "--containerRegistry=<value>",
+        "description": "update the container registry for the function"
+      },
+      {
+        "flag": "--coredao",
+        "description": "use the coredao chain"
+      },
+      {
+        "flag": "--mainnet",
+        "description": "use the mainnet network"
+      },
+      {
+        "flag": "--name=<value>",
+        "description": "update the name for the function"
+      },
+      {
+        "flag": "--network=<option>",
+        "description": "the EVM network to connect to <options: mainnet|testnet>"
+      },
+      {
+        "flag": "--programId=<value>",
+        "description": "alternative Switchboard program ID to interact with"
+      },
+      {
+        "flag": "--schedule=<value>",
+        "description": "update the schedule for the function"
+      },
+      {
+        "flag": "--testnet",
+        "description": "use the testnet network"
+      },
+      {
+        "flag": "--version=<value>",
+        "description": "update the container version for the function GLOBAL FLAGS"
+      },
+      {
+        "flag": "--json",
+        "description": "Format output as json."
+      }
+    ],
+    "description": "Configure a function account",
+    "examples": [
+      "sb evm function fund 0xaA43ba6f18b138A0B3313dDbFaC2b920D240108E --chain arbitrum --network testnet --fundAmount 0.02 --account ~/.arbitrum-kp.txt --programId 0x4F706C62535d171883A6cc9384f3f3d926A6BA49"
     ]
   },
   {
@@ -2350,8 +2447,8 @@
       "function",
       "print"
     ],
-    "markdown": "USAGE\n  $ sb evm function print FUNCTIONKEY --account <value> [-h] [-v] [-s] [--chain coredao|arbitrum | --coredao |\n    --arbitrum] [--network mainnet|testnet | --mainnet | --testnet] [-u <value>] [--programId <value>] [--json]\n\nARGUMENTS\n  FUNCTIONKEY  address of the function account\n\nFLAGS\n  -h, --help            Show CLI help.\n  -s, --silent          suppress cli prompts\n  -u, --rpcUrl=<value>  alternate RPC url\n  -v, --verbose         log everything\n  --account=<value>     (required) Path to file containing the private key for the payer account\n  --arbitrum            use the arbitrum chain\n  --chain=<option>      the evm chain to interact with\n                        <options: coredao|arbitrum>\n  --coredao             use the coredao chain\n  --mainnet             use the mainnet network\n  --network=<option>    the EVM network to connect to\n                        <options: mainnet|testnet>\n  --programId=<value>   alternative Switchboard program ID to interact with\n  --testnet             use the testnet network\n\nGLOBAL FLAGS\n  --json  Format output as json.\n\nDESCRIPTION\n  Print a function account\n\nEXAMPLES\n  $ sb evm function print 0xaA43ba6f18b138A0B3313dDbFaC2b920D240108E --chain arbitrum --network testnet --programId 0x4F706C62535d171883A6cc9384f3f3d926A6BA49\n",
-    "usage": "sb evm function print FUNCTIONKEY --account <value> [-h] [-v] [-s] [--chain coredao|arbitrum | --coredao |\n    --arbitrum] [--network mainnet|testnet | --mainnet | --testnet] [-u <value>] [--programId <value>] [--json]",
+    "markdown": "USAGE\n  $ sb evm function print FUNCTIONKEY [-h] [-v] [-s] [--chain coredao|arbitrum | --coredao | --arbitrum] [--network\n    mainnet|testnet | --mainnet | --testnet] [-u <value>] [--programId <value>] [--json]\n\nARGUMENTS\n  FUNCTIONKEY  address of the function account\n\nFLAGS\n  -h, --help            Show CLI help.\n  -s, --silent          suppress cli prompts\n  -u, --rpcUrl=<value>  alternate RPC url\n  -v, --verbose         log everything\n  --arbitrum            use the arbitrum chain\n  --chain=<option>      the evm chain to interact with\n                        <options: coredao|arbitrum>\n  --coredao             use the coredao chain\n  --mainnet             use the mainnet network\n  --network=<option>    the EVM network to connect to\n                        <options: mainnet|testnet>\n  --programId=<value>   alternative Switchboard program ID to interact with\n  --testnet             use the testnet network\n\nGLOBAL FLAGS\n  --json  Format output as json.\n\nDESCRIPTION\n  Print a function account\n\nEXAMPLES\n  $ sb evm function print 0xaA43ba6f18b138A0B3313dDbFaC2b920D240108E --chain arbitrum --network testnet --programId 0x4F706C62535d171883A6cc9384f3f3d926A6BA49\n",
+    "usage": "sb evm function print FUNCTIONKEY [-h] [-v] [-s] [--chain coredao|arbitrum | --coredao | --arbitrum] [--network\n    mainnet|testnet | --mainnet | --testnet] [-u <value>] [--programId <value>] [--json]",
     "args": [
       {
         "arg": "FUNCTIONKEY",
@@ -2374,10 +2471,6 @@
       {
         "flag": "-v, --verbose",
         "description": "log everything"
-      },
-      {
-        "flag": "--account=<value>",
-        "description": "(required) Path to file containing the private key for the payer account"
       },
       {
         "flag": "--arbitrum",
@@ -2508,8 +2601,8 @@
       "queue",
       "print"
     ],
-    "markdown": "USAGE\n  $ sb evm queue print QUEUEKEY --account <value> [-h] [-v] [-s] [--chain coredao|arbitrum | --coredao | --arbitrum]\n    [--network mainnet|testnet | --mainnet | --testnet] [-u <value>] [--programId <value>] [--json]\n\nARGUMENTS\n  QUEUEKEY  address of the attestation queue\n\nFLAGS\n  -h, --help            Show CLI help.\n  -s, --silent          suppress cli prompts\n  -u, --rpcUrl=<value>  alternate RPC url\n  -v, --verbose         log everything\n  --account=<value>     (required) Path to file containing the private key for the payer account\n  --arbitrum            use the arbitrum chain\n  --chain=<option>      the evm chain to interact with\n                        <options: coredao|arbitrum>\n  --coredao             use the coredao chain\n  --mainnet             use the mainnet network\n  --network=<option>    the EVM network to connect to\n                        <options: mainnet|testnet>\n  --programId=<value>   alternative Switchboard program ID to interact with\n  --testnet             use the testnet network\n\nGLOBAL FLAGS\n  --json  Format output as json.\n\nDESCRIPTION\n  Print an attestation queue account\n\nEXAMPLES\n  $ sb evm queue print 0xaA43ba6f18b138A0B3313dDbFaC2b920D240108E --chain arbitrum --network testnet --programId 0x4F706C62535d171883A6cc9384f3f3d926A6BA49\n",
-    "usage": "sb evm queue print QUEUEKEY --account <value> [-h] [-v] [-s] [--chain coredao|arbitrum | --coredao | --arbitrum]\n    [--network mainnet|testnet | --mainnet | --testnet] [-u <value>] [--programId <value>] [--json]",
+    "markdown": "USAGE\n  $ sb evm queue print QUEUEKEY [-h] [-v] [-s] [--chain coredao|arbitrum | --coredao | --arbitrum] [--network\n    mainnet|testnet | --mainnet | --testnet] [-u <value>] [--programId <value>] [--json]\n\nARGUMENTS\n  QUEUEKEY  address of the attestation queue\n\nFLAGS\n  -h, --help            Show CLI help.\n  -s, --silent          suppress cli prompts\n  -u, --rpcUrl=<value>  alternate RPC url\n  -v, --verbose         log everything\n  --arbitrum            use the arbitrum chain\n  --chain=<option>      the evm chain to interact with\n                        <options: coredao|arbitrum>\n  --coredao             use the coredao chain\n  --mainnet             use the mainnet network\n  --network=<option>    the EVM network to connect to\n                        <options: mainnet|testnet>\n  --programId=<value>   alternative Switchboard program ID to interact with\n  --testnet             use the testnet network\n\nGLOBAL FLAGS\n  --json  Format output as json.\n\nDESCRIPTION\n  Print an attestation queue account\n\nEXAMPLES\n  $ sb evm queue print 0xaA43ba6f18b138A0B3313dDbFaC2b920D240108E --chain arbitrum --network testnet --programId 0x4F706C62535d171883A6cc9384f3f3d926A6BA49\n",
+    "usage": "sb evm queue print QUEUEKEY [-h] [-v] [-s] [--chain coredao|arbitrum | --coredao | --arbitrum] [--network\n    mainnet|testnet | --mainnet | --testnet] [-u <value>] [--programId <value>] [--json]",
     "args": [
       {
         "arg": "QUEUEKEY",
@@ -2532,10 +2625,6 @@
       {
         "flag": "-v, --verbose",
         "description": "log everything"
-      },
-      {
-        "flag": "--account=<value>",
-        "description": "(required) Path to file containing the private key for the payer account"
       },
       {
         "flag": "--arbitrum",
@@ -6852,8 +6941,8 @@
       "aggregator",
       "metrics"
     ],
-    "markdown": "USAGE\n  $ sb solana aggregator metrics AGGREGATORKEY [-h] [-v] [-s] [--mainnetBeta | --cluster devnet|mainnet-beta|mainnet|localnet]\n    [-u <value>] [--programId <value>] [--commitment confirmed|finalized|processed] [--json] [--period <value>]\n\nARGUMENTS\n  AGGREGATORKEY  public key of the aggregator account\n\nFLAGS\n  -h, --help             Show CLI help.\n  -s, --silent           suppress cli prompts\n  -u, --rpcUrl=<value>   alternate RPC url\n  -v, --verbose          log everything\n  --cluster=<option>     the solana cluster to connect to\n                         <options: devnet|mainnet-beta|mainnet|localnet>\n  --commitment=<option>  [default: confirmed] transaction commitment level to use\n                         <options: confirmed|finalized|processed>\n  --mainnetBeta          WARNING: use mainnet-beta solana cluster\n  --period=<value>...    the period to collect metrics for. Ex. 3600 will collect update metrics for the last 1hr\n  --programId=<value>    alternative Switchboard program ID to interact with\n\nGLOBAL FLAGS\n  --json  Format output as json.\n\nDESCRIPTION\n  print an aggregator's metrics'\n",
-    "usage": "sb solana aggregator metrics AGGREGATORKEY [-h] [-v] [-s] [--mainnetBeta | --cluster devnet|mainnet-beta|mainnet|localnet]\n    [-u <value>] [--programId <value>] [--commitment confirmed|finalized|processed] [--json] [--period <value>]",
+    "markdown": "USAGE\n  $ sb solana aggregator metrics AGGREGATORKEY --period <value> [-h] [-v] [-s] [--mainnetBeta | --cluster\n    devnet|mainnet-beta|mainnet|localnet] [-u <value>] [--programId <value>] [--commitment\n    confirmed|finalized|processed] [--json]\n\nARGUMENTS\n  AGGREGATORKEY  public key of the aggregator account\n\nFLAGS\n  -h, --help             Show CLI help.\n  -s, --silent           suppress cli prompts\n  -u, --rpcUrl=<value>   alternate RPC url\n  -v, --verbose          log everything\n  --cluster=<option>     the solana cluster to connect to\n                         <options: devnet|mainnet-beta|mainnet|localnet>\n  --commitment=<option>  [default: confirmed] transaction commitment level to use\n                         <options: confirmed|finalized|processed>\n  --mainnetBeta          WARNING: use mainnet-beta solana cluster\n  --period=<value>...    (required) the period to collect metrics for. Ex. 3600 will collect update metrics for the last\n                         1hr\n  --programId=<value>    alternative Switchboard program ID to interact with\n\nGLOBAL FLAGS\n  --json  Format output as json.\n\nDESCRIPTION\n  print an aggregator's metrics'\n",
+    "usage": "sb solana aggregator metrics AGGREGATORKEY --period <value> [-h] [-v] [-s] [--mainnetBeta | --cluster\n    devnet|mainnet-beta|mainnet|localnet] [-u <value>] [--programId <value>] [--commitment\n    confirmed|finalized|processed] [--json]",
     "args": [
       {
         "arg": "AGGREGATORKEY",
@@ -6891,7 +6980,7 @@
       },
       {
         "flag": "--period=<value>...",
-        "description": "the period to collect metrics for. Ex. 3600 will collect update metrics for the last 1hr"
+        "description": "(required) the period to collect metrics for. Ex. 3600 will collect update metrics for the last 1hr"
       },
       {
         "flag": "--programId=<value>",
@@ -8445,6 +8534,174 @@
     "description": "reset an aggregators crank"
   },
   {
+    "id": "solana-function-add",
+    "permalink": "/cli/solana/function/add",
+    "topic": "solana",
+    "command": "sb solana function add",
+    "topics": [
+      "solana",
+      "function",
+      "add"
+    ],
+    "markdown": "USAGE\n  $ sb solana function addMrEnclave FUNCTIONKEY --mrEnclave <value> [-h] [-v] [-s] [--mainnetBeta | --cluster\n    devnet|mainnet-beta|mainnet|localnet] [-u <value>] [--programId <value>] [--commitment\n    confirmed|finalized|processed] [-k <value>] [--ledgerPath <value> --ledger] [--json]\n\nARGUMENTS\n  FUNCTIONKEY  public key of the function account\n\nFLAGS\n  -h, --help             Show CLI help.\n  -k, --keypair=<value>  keypair that will pay for onchain transactions. defaults to new account authority if no\n                         alternate authority provided\n  -s, --silent           suppress cli prompts\n  -u, --rpcUrl=<value>   alternate RPC url\n  -v, --verbose          log everything\n  --cluster=<option>     the solana cluster to connect to\n                         <options: devnet|mainnet-beta|mainnet|localnet>\n  --commitment=<option>  [default: confirmed] transaction commitment level to use\n                         <options: confirmed|finalized|processed>\n  --ledger               enable ledger support\n  --ledgerPath=<value>   HID path to the ledger\n  --mainnetBeta          WARNING: use mainnet-beta solana cluster\n  --mrEnclave=<value>    (required) set the mr enclave to add\n  --programId=<value>    alternative Switchboard program ID to interact with\n\nGLOBAL FLAGS\n  --json  Format output as json.\n\nDESCRIPTION\n  Configure a solana funciton's mrEnclave settings\n",
+    "usage": "sb solana function addMrEnclave FUNCTIONKEY --mrEnclave <value> [-h] [-v] [-s] [--mainnetBeta | --cluster\n    devnet|mainnet-beta|mainnet|localnet] [-u <value>] [--programId <value>] [--commitment\n    confirmed|finalized|processed] [-k <value>] [--ledgerPath <value> --ledger] [--json]",
+    "args": [
+      {
+        "arg": "FUNCTIONKEY",
+        "description": "public key of the function account"
+      }
+    ],
+    "flags": [
+      {
+        "flag": " -h, --help",
+        "description": "Show CLI help."
+      },
+      {
+        "flag": "-k, --keypair=<value>",
+        "description": "keypair that will pay for onchain transactions. defaults to new account authority if no alternate authority provided"
+      },
+      {
+        "flag": "-s, --silent",
+        "description": "suppress cli prompts"
+      },
+      {
+        "flag": "-u, --rpcUrl=<value>",
+        "description": "alternate RPC url"
+      },
+      {
+        "flag": "-v, --verbose",
+        "description": "log everything"
+      },
+      {
+        "flag": "--cluster=<option>",
+        "description": "the solana cluster to connect to <options: devnet|mainnet-beta|mainnet|localnet>"
+      },
+      {
+        "flag": "--commitment=<option>",
+        "description": "[default: confirmed] transaction commitment level to use <options: confirmed|finalized|processed>"
+      },
+      {
+        "flag": "--ledger",
+        "description": "enable ledger support"
+      },
+      {
+        "flag": "--ledgerPath=<value>",
+        "description": "HID path to the ledger"
+      },
+      {
+        "flag": "--mainnetBeta",
+        "description": "WARNING: use mainnet-beta solana cluster"
+      },
+      {
+        "flag": "--mrEnclave=<value>",
+        "description": "(required) set the mr enclave to add"
+      },
+      {
+        "flag": "--programId=<value>",
+        "description": "alternative Switchboard program ID to interact with GLOBAL FLAGS"
+      },
+      {
+        "flag": "--json",
+        "description": "Format output as json."
+      }
+    ],
+    "description": "Configure a solana funciton's mrEnclave settings"
+  },
+  {
+    "id": "solana-function-configure",
+    "permalink": "/cli/solana/function/configure",
+    "topic": "solana",
+    "command": "sb solana function configure",
+    "topics": [
+      "solana",
+      "function",
+      "configure"
+    ],
+    "markdown": "USAGE\n  $ sb solana function configure FUNCTIONKEY [-h] [-v] [-s] [--mainnetBeta | --cluster devnet|mainnet-beta|mainnet|localnet]\n    [-u <value>] [--programId <value>] [--commitment confirmed|finalized|processed] [-k <value>] [--ledgerPath <value>\n    --ledger] [--json] [--name <value>] [--metadata <value>] [--container <value>] [--containerRegistry <value>]\n    [--version <value>] [--schedule <value>]\n\nARGUMENTS\n  FUNCTIONKEY  public key of the function account\n\nFLAGS\n  -h, --help                   Show CLI help.\n  -k, --keypair=<value>        keypair that will pay for onchain transactions. defaults to new account authority if no\n                               alternate authority provided\n  -s, --silent                 suppress cli prompts\n  -u, --rpcUrl=<value>         alternate RPC url\n  -v, --verbose                log everything\n  --cluster=<option>           the solana cluster to connect to\n                               <options: devnet|mainnet-beta|mainnet|localnet>\n  --commitment=<option>        [default: confirmed] transaction commitment level to use\n                               <options: confirmed|finalized|processed>\n  --container=<value>          set the function container\n  --containerRegistry=<value>  set the function containerRegistry\n  --ledger                     enable ledger support\n  --ledgerPath=<value>         HID path to the ledger\n  --mainnetBeta                WARNING: use mainnet-beta solana cluster\n  --metadata=<value>           set the function metadata\n  --name=<value>               set the function name\n  --programId=<value>          alternative Switchboard program ID to interact with\n  --schedule=<value>           set the function schedule\n  --version=<value>            set the function version\n\nGLOBAL FLAGS\n  --json  Format output as json.\n\nDESCRIPTION\n  Configure a solana funciton's settings\n",
+    "usage": "sb solana function configure FUNCTIONKEY [-h] [-v] [-s] [--mainnetBeta | --cluster devnet|mainnet-beta|mainnet|localnet]\n    [-u <value>] [--programId <value>] [--commitment confirmed|finalized|processed] [-k <value>] [--ledgerPath <value>\n    --ledger] [--json] [--name <value>] [--metadata <value>] [--container <value>] [--containerRegistry <value>]\n    [--version <value>] [--schedule <value>]",
+    "args": [
+      {
+        "arg": "FUNCTIONKEY",
+        "description": "public key of the function account"
+      }
+    ],
+    "flags": [
+      {
+        "flag": " -h, --help",
+        "description": "Show CLI help."
+      },
+      {
+        "flag": "-k, --keypair=<value>",
+        "description": "keypair that will pay for onchain transactions. defaults to new account authority if no alternate authority provided"
+      },
+      {
+        "flag": "-s, --silent",
+        "description": "suppress cli prompts"
+      },
+      {
+        "flag": "-u, --rpcUrl=<value>",
+        "description": "alternate RPC url"
+      },
+      {
+        "flag": "-v, --verbose",
+        "description": "log everything"
+      },
+      {
+        "flag": "--cluster=<option>",
+        "description": "the solana cluster to connect to <options: devnet|mainnet-beta|mainnet|localnet>"
+      },
+      {
+        "flag": "--commitment=<option>",
+        "description": "[default: confirmed] transaction commitment level to use <options: confirmed|finalized|processed>"
+      },
+      {
+        "flag": "--container=<value>",
+        "description": "set the function container"
+      },
+      {
+        "flag": "--containerRegistry=<value>",
+        "description": "set the function containerRegistry"
+      },
+      {
+        "flag": "--ledger",
+        "description": "enable ledger support"
+      },
+      {
+        "flag": "--ledgerPath=<value>",
+        "description": "HID path to the ledger"
+      },
+      {
+        "flag": "--mainnetBeta",
+        "description": "WARNING: use mainnet-beta solana cluster"
+      },
+      {
+        "flag": "--metadata=<value>",
+        "description": "set the function metadata"
+      },
+      {
+        "flag": "--name=<value>",
+        "description": "set the function name"
+      },
+      {
+        "flag": "--programId=<value>",
+        "description": "alternative Switchboard program ID to interact with"
+      },
+      {
+        "flag": "--schedule=<value>",
+        "description": "set the function schedule"
+      },
+      {
+        "flag": "--version=<value>",
+        "description": "set the function version GLOBAL FLAGS"
+      },
+      {
+        "flag": "--json",
+        "description": "Format output as json."
+      }
+    ],
+    "description": "Configure a solana funciton's settings"
+  },
+  {
     "id": "solana-function-create",
     "permalink": "/cli/solana/function/create",
     "topic": "solana",
@@ -8704,6 +8961,80 @@
       }
     ],
     "description": "print a function account"
+  },
+  {
+    "id": "solana-function-rm",
+    "permalink": "/cli/solana/function/rm",
+    "topic": "solana",
+    "command": "sb solana function rm",
+    "topics": [
+      "solana",
+      "function",
+      "rm"
+    ],
+    "markdown": "USAGE\n  $ sb solana function rmMrEnclave FUNCTIONKEY --mrEnclave <value> [-h] [-v] [-s] [--mainnetBeta | --cluster\n    devnet|mainnet-beta|mainnet|localnet] [-u <value>] [--programId <value>] [--commitment\n    confirmed|finalized|processed] [-k <value>] [--ledgerPath <value> --ledger] [--json]\n\nARGUMENTS\n  FUNCTIONKEY  public key of the function account\n\nFLAGS\n  -h, --help             Show CLI help.\n  -k, --keypair=<value>  keypair that will pay for onchain transactions. defaults to new account authority if no\n                         alternate authority provided\n  -s, --silent           suppress cli prompts\n  -u, --rpcUrl=<value>   alternate RPC url\n  -v, --verbose          log everything\n  --cluster=<option>     the solana cluster to connect to\n                         <options: devnet|mainnet-beta|mainnet|localnet>\n  --commitment=<option>  [default: confirmed] transaction commitment level to use\n                         <options: confirmed|finalized|processed>\n  --ledger               enable ledger support\n  --ledgerPath=<value>   HID path to the ledger\n  --mainnetBeta          WARNING: use mainnet-beta solana cluster\n  --mrEnclave=<value>    (required) set the mr enclave to add\n  --programId=<value>    alternative Switchboard program ID to interact with\n\nGLOBAL FLAGS\n  --json  Format output as json.\n\nDESCRIPTION\n  Configure a solana funciton's mrEnclave settings\n",
+    "usage": "sb solana function rmMrEnclave FUNCTIONKEY --mrEnclave <value> [-h] [-v] [-s] [--mainnetBeta | --cluster\n    devnet|mainnet-beta|mainnet|localnet] [-u <value>] [--programId <value>] [--commitment\n    confirmed|finalized|processed] [-k <value>] [--ledgerPath <value> --ledger] [--json]",
+    "args": [
+      {
+        "arg": "FUNCTIONKEY",
+        "description": "public key of the function account"
+      }
+    ],
+    "flags": [
+      {
+        "flag": " -h, --help",
+        "description": "Show CLI help."
+      },
+      {
+        "flag": "-k, --keypair=<value>",
+        "description": "keypair that will pay for onchain transactions. defaults to new account authority if no alternate authority provided"
+      },
+      {
+        "flag": "-s, --silent",
+        "description": "suppress cli prompts"
+      },
+      {
+        "flag": "-u, --rpcUrl=<value>",
+        "description": "alternate RPC url"
+      },
+      {
+        "flag": "-v, --verbose",
+        "description": "log everything"
+      },
+      {
+        "flag": "--cluster=<option>",
+        "description": "the solana cluster to connect to <options: devnet|mainnet-beta|mainnet|localnet>"
+      },
+      {
+        "flag": "--commitment=<option>",
+        "description": "[default: confirmed] transaction commitment level to use <options: confirmed|finalized|processed>"
+      },
+      {
+        "flag": "--ledger",
+        "description": "enable ledger support"
+      },
+      {
+        "flag": "--ledgerPath=<value>",
+        "description": "HID path to the ledger"
+      },
+      {
+        "flag": "--mainnetBeta",
+        "description": "WARNING: use mainnet-beta solana cluster"
+      },
+      {
+        "flag": "--mrEnclave=<value>",
+        "description": "(required) set the mr enclave to add"
+      },
+      {
+        "flag": "--programId=<value>",
+        "description": "alternative Switchboard program ID to interact with GLOBAL FLAGS"
+      },
+      {
+        "flag": "--json",
+        "description": "Format output as json."
+      }
+    ],
+    "description": "Configure a solana funciton's mrEnclave settings"
   },
   {
     "id": "solana-job-create",
@@ -9778,8 +10109,8 @@
       "oracle",
       "withdraw"
     ],
-    "markdown": "USAGE\n  $ sb solana oracle withdraw ORACLEKEY --amount <value> [-h] [-v] [-s] [--mainnetBeta | --cluster\n    devnet|mainnet-beta|mainnet|localnet] [-u <value>] [--programId <value>] [--commitment\n    confirmed|finalized|processed] [-k <value>] [--ledgerPath <value> --ledger] [-a <value>]\n\nARGUMENTS\n  ORACLEKEY  public key of the oracle account\n\nFLAGS\n  -a, --authority=<value>  alternate keypair for the oracle authority\n  -h, --help               Show CLI help.\n  -k, --keypair=<value>    keypair that will pay for onchain transactions. defaults to new account authority if no\n                           alternate authority provided\n  -s, --silent             suppress cli prompts\n  -u, --rpcUrl=<value>     alternate RPC url\n  -v, --verbose            log everything\n  --amount=<value>         (required) amount to withdraw\n  --cluster=<option>       the solana cluster to connect to\n                           <options: devnet|mainnet-beta|mainnet|localnet>\n  --commitment=<option>    [default: confirmed] transaction commitment level to use\n                           <options: confirmed|finalized|processed>\n  --ledger                 enable ledger support\n  --ledgerPath=<value>     HID path to the ledger\n  --mainnetBeta            WARNING: use mainnet-beta solana cluster\n  --programId=<value>      alternative Switchboard program ID to interact with\n\nDESCRIPTION\n  withdraw from an oracle's staking wallet\n",
-    "usage": "sb solana oracle withdraw ORACLEKEY --amount <value> [-h] [-v] [-s] [--mainnetBeta | --cluster\n    devnet|mainnet-beta|mainnet|localnet] [-u <value>] [--programId <value>] [--commitment\n    confirmed|finalized|processed] [-k <value>] [--ledgerPath <value> --ledger] [-a <value>]",
+    "markdown": "USAGE\n  $ sb solana oracle withdraw ORACLEKEY --amount <value> [-h] [-v] [-s] [--mainnetBeta | --cluster\n    devnet|mainnet-beta|mainnet|localnet] [-u <value>] [--programId <value>] [--commitment\n    confirmed|finalized|processed] [-k <value>] [--ledgerPath <value> --ledger] [-a <value>] [-f] [--unwrap]\n    [--withdrawDestination <value>]\n\nARGUMENTS\n  ORACLEKEY  public key of the oracle account\n\nFLAGS\n  -a, --authority=<value>        alternate keypair for the oracle authority\n  -f, --force                    allow withdrawing more than the queues minStake requirement\n  -h, --help                     Show CLI help.\n  -k, --keypair=<value>          keypair that will pay for onchain transactions. defaults to new account authority if no\n                                 alternate authority provided\n  -s, --silent                   suppress cli prompts\n  -u, --rpcUrl=<value>           alternate RPC url\n  -v, --verbose                  log everything\n  --amount=<value>               (required) amount to withdraw\n  --cluster=<option>             the solana cluster to connect to\n                                 <options: devnet|mainnet-beta|mainnet|localnet>\n  --commitment=<option>          [default: confirmed] transaction commitment level to use\n                                 <options: confirmed|finalized|processed>\n  --ledger                       enable ledger support\n  --ledgerPath=<value>           HID path to the ledger\n  --mainnetBeta                  WARNING: use mainnet-beta solana cluster\n  --programId=<value>            alternative Switchboard program ID to interact with\n  --unwrap                       whether to unwrap the withdrawed funds\n  --withdrawDestination=<value>  the account to withdraw funds to. if unwrap is set, this should be a SystemProgram\n                                 owned account. if unwrap is not set, this should be a TokenAccount.\n\nDESCRIPTION\n  withdraw from an oracle's staking wallet\n",
+    "usage": "sb solana oracle withdraw ORACLEKEY --amount <value> [-h] [-v] [-s] [--mainnetBeta | --cluster\n    devnet|mainnet-beta|mainnet|localnet] [-u <value>] [--programId <value>] [--commitment\n    confirmed|finalized|processed] [-k <value>] [--ledgerPath <value> --ledger] [-a <value>] [-f] [--unwrap]\n    [--withdrawDestination <value>]",
     "args": [
       {
         "arg": "ORACLEKEY",
@@ -9790,6 +10121,10 @@
       {
         "flag": " -a, --authority=<value>",
         "description": "alternate keypair for the oracle authority"
+      },
+      {
+        "flag": "-f, --force",
+        "description": "allow withdrawing more than the queues minStake requirement"
       },
       {
         "flag": "-h, --help",
@@ -9838,6 +10173,14 @@
       {
         "flag": "--programId=<value>",
         "description": "alternative Switchboard program ID to interact with"
+      },
+      {
+        "flag": "--unwrap",
+        "description": "whether to unwrap the withdrawed funds"
+      },
+      {
+        "flag": "--withdrawDestination=<value>",
+        "description": "the account to withdraw funds to. if unwrap is set, this should be a SystemProgram owned account. if unwrap is not set, this should be a TokenAccount."
       }
     ],
     "description": "withdraw from an oracle's staking wallet"
