@@ -165,12 +165,36 @@ export function getSupportedChain(chain: string): ChainConfig {
   return SWITCHBOARD_NETWORKS[chain];
 }
 
-export { SWITCHBOARD_APTOS_CONFIG as aptos } from "./aptos.js";
-export { SWITCHBOARD_ARBITRUM_CONFIG as arbitrum } from "./arbitrum.js";
-export { SWITCHBOARD_COREDAO_CONFIG as coredao } from "./coredao.js";
-export { SWITCHBOARD_NEAR_CONFIG as near } from "./near.js";
-export { SWITCHBOARD_SOLANA_CONFIG as solana } from "./solana.js";
-export { SWITCHBOARD_SUI_CONFIG as sui } from "./sui.js";
+export {
+  SWITCHBOARD_APTOS_CONFIG as aptos,
+  SWITCHBOARD_APTOS_MAINNET_CONFIG,
+  SWITCHBOARD_APTOS_TESTNET_CONFIG,
+} from "./aptos.js";
+export {
+  SWITCHBOARD_ARBITRUM_CONFIG as arbitrum,
+  SWITCHBOARD_ARBITRUM_MAINNET_CONFIG,
+  SWITCHBOARD_ARBITRUM_TESTNET_CONFIG,
+} from "./arbitrum.js";
+export {
+  SWITCHBOARD_COREDAO_CONFIG as coredao,
+  SWITCHBOARD_COREDAO_MAINNET_CONFIG,
+  SWITCHBOARD_COREDAO_TESTNET_CONFIG,
+} from "./coredao.js";
+export {
+  SWITCHBOARD_NEAR_CONFIG as near,
+  SWITCHBOARD_NEAR_MAINNET_CONFIG,
+  SWITCHBOARD_NEAR_TESTNET_CONFIG,
+} from "./near.js";
+export {
+  SWITCHBOARD_SOLANA_CONFIG as solana,
+  SWITCHBOARD_SOLANA_DEVNET_CONFIG,
+  SWITCHBOARD_SOLANA_MAINNET_CONFIG,
+} from "./solana.js";
+export {
+  SWITCHBOARD_SUI_CONFIG as sui,
+  SWITCHBOARD_SUI_MAINNET_CONFIG,
+  SWITCHBOARD_SUI_TESTNET_CONFIG,
+} from "./sui.js";
 export * from "./types.js";
 
 export default SWITCHBOARD_NETWORKS;

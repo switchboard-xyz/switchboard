@@ -1,7 +1,11 @@
 import { SolanaWithoutSignerBaseCommand as BaseCommand } from "../../solana/index";
 
 import { Args, Flags } from "@oclif/core";
-import type { ConfirmedSignatureInfo } from "@solana/web3.js";
+import type {
+  ConfirmedSignatureInfo,
+  ParsedTransactionMeta,
+  TransactionVersion,
+} from "@solana/web3.js";
 import { PublicKey } from "@solana/web3.js";
 import {
   BN,
@@ -47,6 +51,18 @@ const discriminatorMap = new Map([
   ],
 ]);
 
+interface ParsedSwitchboardTransaction {
+  transaction: undefined;
+  slot?: number | undefined;
+  meta?: ParsedTransactionMeta | null | undefined;
+  blockTime?: number | null | undefined;
+  version?: TransactionVersion | undefined;
+  timestamp: string;
+  ixnName: string;
+  success: string;
+  signatures: string[] | undefined;
+}
+
 export default class SolanaTransactions extends BaseCommand {
   static enableJsonFlag = true;
 
@@ -62,6 +78,18 @@ export default class SolanaTransactions extends BaseCommand {
     }),
     force: Flags.boolean({
       description: "",
+    }),
+    saveResult: Flags.boolean({
+      description: "only show save result transactions",
+      exclusive: ["openRound", "crankPop"],
+    }),
+    openRound: Flags.boolean({
+      description: "only show open round transactions",
+      exclusive: ["saveResult", "crankPop"],
+    }),
+    crankPop: Flags.boolean({
+      description: "only show crank pop transactions",
+      exclusive: ["saveResult", "openRound"],
     }),
   };
 
@@ -89,16 +117,20 @@ export default class SolanaTransactions extends BaseCommand {
     const signatures: Array<ConfirmedSignatureInfo> = [];
     let lastSig: string | undefined;
     while (signatures.length < flags.limit) {
-      const signatureBatch: ConfirmedSignatureInfo[] =
-        await this.program.connection.getSignaturesForAddress(pubkey, {
-          before: lastSig,
-          limit: 1000,
-        });
-      lastSig = signatureBatch.slice(-1)[0].signature;
-      signatures.push(...signatureBatch);
+      try {
+        const signatureBatch: ConfirmedSignatureInfo[] =
+          await this.program.connection.getSignaturesForAddress(pubkey, {
+            before: lastSig,
+            limit: 1000,
+          });
+        lastSig = signatureBatch.slice(-1)[0].signature;
+        signatures.push(...signatureBatch);
+      } catch {
+        break;
+      }
     }
 
-    const parsedTransactions = (
+    const parsedTransactions: ParsedSwitchboardTransaction[] = (
       await Promise.all(
         _.chunk(signatures, 100).map(async (signatures) => {
           return await this.program.connection.getParsedTransactions(
@@ -172,10 +204,27 @@ export default class SolanaTransactions extends BaseCommand {
         };
       });
 
+    const filteredTransactions: ParsedSwitchboardTransaction[] =
+      flags.saveResult
+        ? parsedTransactions.filter(
+            (t) =>
+              t.ixnName === "AggregatorSaveResultV2" ||
+              t.ixnName === "AggregatorSaveResult"
+          )
+        : flags.openRound
+        ? parsedTransactions.filter(
+            (t) => t.ixnName === "AggregatorSaveResultV2"
+          )
+        : flags.crankPop
+        ? parsedTransactions.filter(
+            (t) => t.ixnName === "CrankPop" || t.ixnName === "CrankPopV2"
+          )
+        : parsedTransactions;
+
     let numSuccess = 0;
     let numFailed = 0;
 
-    for (const txn of parsedTransactions) {
+    for (const txn of filteredTransactions) {
       if (typeof txn.success === "boolean") {
         if (txn.success) {
           numSuccess += 1;
@@ -185,21 +234,24 @@ export default class SolanaTransactions extends BaseCommand {
       }
     }
 
-    console.log(`numSuccess: ${numSuccess}`);
-    console.log(`numFailed: ${numFailed}`);
+    if (numSuccess + numFailed === 0) {
+      this.log(`No transactions found`);
+      return;
+    }
+
+    this.log(`numSuccess: ${numSuccess}`);
+    this.log(`numFailed: ${numFailed}`);
 
     fs.writeFileSync(
       outputFile,
       JSON.stringify(
-        parsedTransactions,
+        filteredTransactions,
         (key, value) => {
-          const ignoreKeys = [
+          const ignoreKeys: string[] = [
             "postTokenBalances",
             "postBalances",
             "preBalances",
             "preTokenBalances",
-            // "",
-            // "",
           ];
           if (ignoreKeys.includes(key)) {
             return;

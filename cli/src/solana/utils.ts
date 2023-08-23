@@ -607,10 +607,6 @@ export function prettyPrintFunction(
 ): string {
   const output: string[] = [];
 
-  const mrEnclaves = functionState.mrEnclaves.filter(
-    (mrEnclave) => mrEnclave !== emptyEnclave
-  );
-
   output.push(chalk.underline(chalkString("## Function", publicKey, SPACING)));
 
   output.push(chalkString("name", buf2String(functionState.name), SPACING));
@@ -631,9 +627,10 @@ export function prettyPrintFunction(
       SPACING
     )
   );
-  output.push(
-    chalkString("mrEnclave", `[${functionState.enclave.mrEnclave}]`, SPACING)
-  );
+  const mrEnclaves = functionState.mrEnclaves
+    .filter((msr) => msr.some((x) => x !== 0))
+    .map((x) => `0x${Buffer.from(x).toString("hex")}`);
+  output.push(chalkString("mrEnclaves", `${mrEnclaves}`, SPACING));
   output.push(
     chalkString("mrEnclaveLen", mrEnclaves.length + " / 32", SPACING)
   );

@@ -18,6 +18,7 @@ export default class AggregatorMetrics extends BaseCommand {
     ...BaseCommand.flags,
     period: Flags.integer({
       multiple: true,
+      required: true,
       description:
         "the period to collect metrics for. Ex. 3600 will collect update metrics for the last 1hr",
     }),
@@ -123,7 +124,7 @@ export default class AggregatorMetrics extends BaseCommand {
 
     const rawHistory = await aggregatorAccount.loadHistory();
 
-    const periods = (flags.period ?? [])
+    const periods = (flags.period ?? [3600])
       .map((p) => Number(p))
       .sort((a, b) => a - b);
 
