@@ -77,7 +77,7 @@ type IBaseNetworkConfig = {
 };
 
 export type IEvmNetworkConfig = IBaseNetworkConfig & {
-  sbPushReceiver: string;
+  sbPushOracle: string;
   chainId: number;
   queues: Array<ISwitchboardQueueConfig>;
   attestationQueues: Array<ISwitchboardAttestationQueueConfig>;

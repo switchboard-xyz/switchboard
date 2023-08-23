@@ -5,7 +5,7 @@ export const SWITCHBOARD_COREDAO_MAINNET_CONFIG: IEvmNetworkConfig = {
   chainId: 1116,
   networkName: "Mainnet",
   address: "0xE30582eBD4A678065a61975Da113bD2e7aE38679",
-  sbPushReceiver: "0xC29aAabf235c1E71633fb7365E95772B97F425d7",
+  sbPushOracle: "0xC29aAabf235c1E71633fb7365E95772B97F425d7",
   metadata: {
     defaultRpcUrl: "https://rpc.coredao.org",
     defaultExplorer: "https://scan.coredao.org",
@@ -24,7 +24,7 @@ export const SWITCHBOARD_COREDAO_TESTNET_CONFIG: IEvmNetworkConfig = {
   chainId: 1115,
   networkName: "Testnet",
   address: "0xf9BD4FA5152b029576F33565Afb676da98Dd0563",
-  sbPushReceiver: "0x4D06F949eb1057EB86446532eDf1cF323e787a8f",
+  sbPushOracle: "0x4D06F949eb1057EB86446532eDf1cF323e787a8f",
   metadata: {
     defaultRpcUrl: "https://rpc.test.btcs.network",
     defaultExplorer: "https://scan.test.btcs.network",
@@ -48,20 +48,25 @@ export const SWITCHBOARD_COREDAO_TESTNET_CONFIG: IEvmNetworkConfig = {
     "chainId": 1116
     "networkName": "Mainnet",
     "address": "0xE30582eBD4A678065a61975Da113bD2e7aE38679",
-    "sbPushReceiver": "",
+    "sbPushOracle": "0xC29aAabf235c1E71633fb7365E95772B97F425d7",
     "metadata": {
       "defaultRpcUrl": "https://rpc.coredao.org",
       "defaultExplorer": "https://scan.coredao.org"
     },
     "queues": [],
-    "attestationQueues": []
+    "attestationQueues": [
+      {
+        "name": "SwitchboardLabs Attestation Queue",
+        "address": "0x929b24A47F87819Be9f210F667C0CF655622453d"
+      }
+    ]
   },
   "testnet": {
     "chain": "coredao",
     "chainId": 1115,
     "networkName": "Testnet",
     "address": "0xf9BD4FA5152b029576F33565Afb676da98Dd0563",
-    "sbPushReceiver": "0x4D06F949eb1057EB86446532eDf1cF323e787a8f",
+    "sbPushOracle": "0x4D06F949eb1057EB86446532eDf1cF323e787a8f",
     "metadata": {
       "defaultRpcUrl": "https://rpc.test.btcs.network",
       "defaultExplorer": "https://scan.test.btcs.network"
@@ -69,7 +74,7 @@ export const SWITCHBOARD_COREDAO_TESTNET_CONFIG: IEvmNetworkConfig = {
     "queues": [],
     "attestationQueues": [
       {
-        "name": "Permissionless Queue",
+        "name": "SwitchboardLabs Attestation Queue",
         "address": "0x928e9c71007514393bFff60b58D072dEb1309328"
       }
     ]
