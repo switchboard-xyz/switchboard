@@ -19,16 +19,21 @@ export default function SdkCard(props: { sdk: SdkType }) {
   return (
     <>
       <StyledCard dark={Number(colorMode === "dark")}>
-        <Grid container justifyContent="flex-start" alignItems="flex-start">
-          <Grid item xs={1}>
-            <AvatarIcon sx={{ p: 0 }} title="" image={config.icon.light} />
+        <Grid
+          container
+          spacing={1}
+          justifyContent="flex-start"
+          alignItems="center"
+        >
+          <Grid item>
+            <AvatarIcon sx={{ p: 1 }} title="" image={config.icon.light} />
           </Grid>
-          <Grid item xs={2}>
-            <h3 className="landing_page">
+          <Grid itemScope>
+            <h3 className="landing_page" style={{ padding: "10px" }}>
               {capitalizeFirstLetterOfEachWord(sdk) + " SDK"}
             </h3>
           </Grid>
-          <Grid container item xs={9} flex={2}>
+          <Grid container item flex={2}>
             <Link to={config.sdk.js.link} style={{ marginLeft: "auto" }}>
               <IconButton sx={{ color: "#4C6FFF" }}>
                 <JavascriptIcon fontSize="large" />

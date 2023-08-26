@@ -24,11 +24,11 @@ const config = {
   favicon: "img/favicon.ico",
 
   // Set the production url of your site here
-  // url:
-  //   process.env.NODE_ENV === "production"
-  //     ? "https://docs.switchboard.xyz"
-  //     : "http://beta.docs.switchboard.xyz",
-  url: "http://beta.docs.switchboard.xyz",
+  url:
+    process.env.NODE_ENV === "production"
+      ? "https://docs.switchboard.xyz"
+      : "http://localhost",
+  // url: "http://beta.docs.switchboard.xyz",
   // Set the /<baseUrl>/ pathname under which your site is served
   // For GitHub pages deployment, it is often '/<projectName>/'
   baseUrl: "/",
