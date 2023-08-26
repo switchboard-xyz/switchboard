@@ -2,7 +2,7 @@
 <rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/">
     <channel>
         <title>Switchboard Blog</title>
-        <link>http://beta.docs.switchboard.xyz/blog</link>
+        <link>https://docs.switchboard.xyz/blog</link>
         <description>Switchboard Blog</description>
         <lastBuildDate>Wed, 03 May 2023 00:00:00 GMT</lastBuildDate>
         <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
@@ -10,8 +10,8 @@
         <language>en</language>
         <item>
             <title><![CDATA[Switchboard Oracle on Sui Mainnet]]></title>
-            <link>http://beta.docs.switchboard.xyz/blog/2023/05/03/Switchboard-Oracle-on-Sui-Mainnet</link>
-            <guid>http://beta.docs.switchboard.xyz/blog/2023/05/03/Switchboard-Oracle-on-Sui-Mainnet</guid>
+            <link>https://docs.switchboard.xyz/blog/2023/05/03/Switchboard-Oracle-on-Sui-Mainnet</link>
+            <guid>https://docs.switchboard.xyz/blog/2023/05/03/Switchboard-Oracle-on-Sui-Mainnet</guid>
             <pubDate>Wed, 03 May 2023 00:00:00 GMT</pubDate>
             <description><![CDATA[Sui has officially launched to mainnet and Switchboard is thrilled to support developers in the Sui ecosystem with our oracle infrastructure!]]></description>
             <content:encoded><![CDATA[<p>Sui has officially launched to mainnet and Switchboard is thrilled to support
@@ -43,8 +43,8 @@ dive deeper about the Switchboard implementations on Sui.</em></p></blockquote><
         </item>
         <item>
             <title><![CDATA[Introduction to Switchboard Serverless]]></title>
-            <link>http://beta.docs.switchboard.xyz/blog/2023/04/19/Introduction-to-Switchboard-Serverless</link>
-            <guid>http://beta.docs.switchboard.xyz/blog/2023/04/19/Introduction-to-Switchboard-Serverless</guid>
+            <link>https://docs.switchboard.xyz/blog/2023/04/19/Introduction-to-Switchboard-Serverless</link>
+            <guid>https://docs.switchboard.xyz/blog/2023/04/19/Introduction-to-Switchboard-Serverless</guid>
             <pubDate>Wed, 19 Apr 2023 00:00:00 GMT</pubDate>
             <description><![CDATA[In the previous article, we covered the “Why build Switchboard v3?” and the technology, Trusted Execution Environment (TEE) behind itIn this article, we’ll discuss the whats and hows of v3.]]></description>
             <content:encoded><![CDATA[<p>Switchboard Serverless offers a suite of computing services that enables
@@ -116,8 +116,8 @@ oracles.</em></strong></p><p>Fill up the beta form to test and experiment with S
         </item>
         <item>
             <title><![CDATA[Dialed in with Switchboard: April 06, 2023]]></title>
-            <link>http://beta.docs.switchboard.xyz/blog/2023/04/06/Dialed-in-with-Switchboard</link>
-            <guid>http://beta.docs.switchboard.xyz/blog/2023/04/06/Dialed-in-with-Switchboard</guid>
+            <link>https://docs.switchboard.xyz/blog/2023/04/06/Dialed-in-with-Switchboard</link>
+            <guid>https://docs.switchboard.xyz/blog/2023/04/06/Dialed-in-with-Switchboard</guid>
             <pubDate>Thu, 06 Apr 2023 00:00:00 GMT</pubDate>
             <description><![CDATA[Bringing back the ‘Dialed in with Switchboard’ series where we wrap up Switchboard’s endeavours every quarterly!]]></description>
             <content:encoded><![CDATA[<p>Bringing back the ‘Dialed in with Switchboard’ series where we wrap up
@@ -151,8 +151,8 @@ Follow our socials, check out our documentation and fill up our contact form!</p
         </item>
         <item>
             <title><![CDATA[Switchboard v3]]></title>
-            <link>http://beta.docs.switchboard.xyz/blog/2023/03/30/Switchboard-v3</link>
-            <guid>http://beta.docs.switchboard.xyz/blog/2023/03/30/Switchboard-v3</guid>
+            <link>https://docs.switchboard.xyz/blog/2023/03/30/Switchboard-v3</link>
+            <guid>https://docs.switchboard.xyz/blog/2023/03/30/Switchboard-v3</guid>
             <pubDate>Thu, 30 Mar 2023 00:00:00 GMT</pubDate>
             <description><![CDATA[Presenting Switchboard v3 — an oracle protocol using <strong>Trusted Execution Environments</strong> (TEEs).]]></description>
             <content:encoded><![CDATA[<p>Presenting Switchboard v3 — an oracle protocol using <strong>Trusted Execution
@@ -183,8 +183,8 @@ Follow our socials, check out our documentation and fill up our contact form!</p
         </item>
         <item>
             <title><![CDATA[Switchboard Oracle on Core Mainnet Alpha]]></title>
-            <link>http://beta.docs.switchboard.xyz/blog/2023/02/23/Switchboard-Oracle-on-Core-Mainnet-Alpha</link>
-            <guid>http://beta.docs.switchboard.xyz/blog/2023/02/23/Switchboard-Oracle-on-Core-Mainnet-Alpha</guid>
+            <link>https://docs.switchboard.xyz/blog/2023/02/23/Switchboard-Oracle-on-Core-Mainnet-Alpha</link>
+            <guid>https://docs.switchboard.xyz/blog/2023/02/23/Switchboard-Oracle-on-Core-Mainnet-Alpha</guid>
             <pubDate>Thu, 23 Feb 2023 00:00:00 GMT</pubDate>
             <description><![CDATA[Core blockchain has officially launched to mainnet in Q1 2023 and Switchboard is thrilled to support developers in the Core ecosystem with our oracle infrastructure!]]></description>
             <content:encoded><![CDATA[<p>Core blockchain has officially launched to mainnet in Q1 2023 and Switchboard is
@@ -215,8 +215,8 @@ dive deeper about Core implementations.</em></p></blockquote><h1>Links and resou
         </item>
         <item>
             <title><![CDATA[#PluggedintoStarkNet]]></title>
-            <link>http://beta.docs.switchboard.xyz/blog/2023/02/02/PluggedintoStarkNet</link>
-            <guid>http://beta.docs.switchboard.xyz/blog/2023/02/02/PluggedintoStarkNet</guid>
+            <link>https://docs.switchboard.xyz/blog/2023/02/02/PluggedintoStarkNet</link>
+            <guid>https://docs.switchboard.xyz/blog/2023/02/02/PluggedintoStarkNet</guid>
             <pubDate>Thu, 02 Feb 2023 00:00:00 GMT</pubDate>
             <description><![CDATA[At Switchboard, we believe the future of oracle protocols is to expand across the ever-growing amount of blockchains — empowering any developer coming from any background, touching first base on any codebase, blockchain and ecosystem.]]></description>
             <content:encoded><![CDATA[<p>At Switchboard, we believe the future of oracle protocols is to expand across
@@ -247,8 +247,8 @@ oracles!</p><p><em>It’ll be electrifying.</em></p><p>#PluggedintoStarknet</p>]
         </item>
         <item>
             <title><![CDATA[#PluggedintoCore]]></title>
-            <link>http://beta.docs.switchboard.xyz/blog/2023/01/26/PluggedintoCore</link>
-            <guid>http://beta.docs.switchboard.xyz/blog/2023/01/26/PluggedintoCore</guid>
+            <link>https://docs.switchboard.xyz/blog/2023/01/26/PluggedintoCore</link>
+            <guid>https://docs.switchboard.xyz/blog/2023/01/26/PluggedintoCore</guid>
             <pubDate>Thu, 26 Jan 2023 00:00:00 GMT</pubDate>
             <description><![CDATA[At Switchboard, we believe the future of oracle protocols is to expand across the ever-growing amount of blockchains — empowering any developer coming from any background, touching first base on any codebase, blockchain and ecosystem.]]></description>
             <content:encoded><![CDATA[<p>At Switchboard, we believe the future of oracle protocols is to expand across
@@ -281,8 +281,8 @@ form
         </item>
         <item>
             <title><![CDATA[Switchboard Wrap Up 2022]]></title>
-            <link>http://beta.docs.switchboard.xyz/blog/2022/12/31/Switchboard-Wrap-Up-2022</link>
-            <guid>http://beta.docs.switchboard.xyz/blog/2022/12/31/Switchboard-Wrap-Up-2022</guid>
+            <link>https://docs.switchboard.xyz/blog/2022/12/31/Switchboard-Wrap-Up-2022</link>
+            <guid>https://docs.switchboard.xyz/blog/2022/12/31/Switchboard-Wrap-Up-2022</guid>
             <pubDate>Sat, 31 Dec 2022 00:00:00 GMT</pubDate>
             <description><![CDATA[Switchboard Labs wishes our Operators, Publishers and everyone a very happy new year! In this year’s Switchboard Wrap Up, we’ll touch on these pointers:]]></description>
             <content:encoded><![CDATA[<p>Switchboard Labs wishes our Operators, Publishers and everyone a very happy new
@@ -344,8 +344,8 @@ follow us on <a href="https://twitter.com/switchboardxyz" target="_blank" rel="n
         </item>
         <item>
             <title><![CDATA[Data Feed Priority Fees and Sliding Window on Solana]]></title>
-            <link>http://beta.docs.switchboard.xyz/blog/2022/12/26/Data-Feed-Priority-Fees-and-Sliding-Window-on-Solana</link>
-            <guid>http://beta.docs.switchboard.xyz/blog/2022/12/26/Data-Feed-Priority-Fees-and-Sliding-Window-on-Solana</guid>
+            <link>https://docs.switchboard.xyz/blog/2022/12/26/Data-Feed-Priority-Fees-and-Sliding-Window-on-Solana</link>
+            <guid>https://docs.switchboard.xyz/blog/2022/12/26/Data-Feed-Priority-Fees-and-Sliding-Window-on-Solana</guid>
             <pubDate>Mon, 26 Dec 2022 00:00:00 GMT</pubDate>
             <description><![CDATA[With the recent Solana update on Fee Markets, all types of users on the Solana blockchain can utilise priority fees to bid for priority for their transactions in the leader’s queueIn the recent FTX situation, we’ve experienced an increased amount of users opting for prioritised transactions — meaning they utilised priority fees in times of need. This lead to non-prioritised transactions to not succeed timely.]]></description>
             <content:encoded><![CDATA[<p>With the recent
@@ -378,8 +378,8 @@ permissionless and customisable way.</p><p>If you have any queries, feel free to
         </item>
         <item>
             <title><![CDATA[Building and Managing Data Feeds through Multisig Soltuions]]></title>
-            <link>http://beta.docs.switchboard.xyz/blog/2022/12/06/Building-and-Managing-Data-Feeds-through-Multisig-Soltuions</link>
-            <guid>http://beta.docs.switchboard.xyz/blog/2022/12/06/Building-and-Managing-Data-Feeds-through-Multisig-Soltuions</guid>
+            <link>https://docs.switchboard.xyz/blog/2022/12/06/Building-and-Managing-Data-Feeds-through-Multisig-Soltuions</link>
+            <guid>https://docs.switchboard.xyz/blog/2022/12/06/Building-and-Managing-Data-Feeds-through-Multisig-Soltuions</guid>
             <pubDate>Tue, 06 Dec 2022 00:00:00 GMT</pubDate>
             <description><![CDATA[Switchboard protocol provides a permissionless way to customize data feeds to your specific use casesOur approach has always been developer-first, allowing developers to build feeds through our low-code interface, the Publisher app and manage seamlessly all in the same application.]]></description>
             <content:encoded><![CDATA[<p>Building &amp; Managing Data Feeds through Multisig Solutions</p><p>Switchboard protocol provides a permissionless way to customize data feeds to
@@ -424,8 +424,8 @@ users too.</p><h2 class="anchor anchorWithStickyNavbar_WPED" id="links-and-resou
         </item>
         <item>
             <title><![CDATA[#PluggedintoSui]]></title>
-            <link>http://beta.docs.switchboard.xyz/blog/2022/11/01/PluggedintoSui</link>
-            <guid>http://beta.docs.switchboard.xyz/blog/2022/11/01/PluggedintoSui</guid>
+            <link>https://docs.switchboard.xyz/blog/2022/11/01/PluggedintoSui</link>
+            <guid>https://docs.switchboard.xyz/blog/2022/11/01/PluggedintoSui</guid>
             <pubDate>Tue, 01 Nov 2022 00:00:00 GMT</pubDate>
             <content:encoded><![CDATA[<h2 class="anchor anchorWithStickyNavbar_WPED" id="how-can-switchboard-empower-the-next-wave-of-blockchain-applications">How can Switchboard empower the next wave of blockchain applications?<a href="#how-can-switchboard-empower-the-next-wave-of-blockchain-applications" class="hash-link" aria-label="Direct link to How can Switchboard empower the next wave of blockchain applications?" title="Direct link to How can Switchboard empower the next wave of blockchain applications?">​</a></h2><p>Oracles remain a crucial role player in any blockchain ecosystem, acting as the
 intermediary between blockchains and real world data. Switchboard has provided,
@@ -461,8 +461,8 @@ to our upcoming events!</p><p><img loading="lazy" src="https://cdn-images-1.medi
         </item>
         <item>
             <title><![CDATA[Switchboard Oracle on Near Mainnet Alpha]]></title>
-            <link>http://beta.docs.switchboard.xyz/blog/2022/10/26/Switchboard-Oracle-on-NEAR-Mainnet-Alpha</link>
-            <guid>http://beta.docs.switchboard.xyz/blog/2022/10/26/Switchboard-Oracle-on-NEAR-Mainnet-Alpha</guid>
+            <link>https://docs.switchboard.xyz/blog/2022/10/26/Switchboard-Oracle-on-NEAR-Mainnet-Alpha</link>
+            <guid>https://docs.switchboard.xyz/blog/2022/10/26/Switchboard-Oracle-on-NEAR-Mainnet-Alpha</guid>
             <pubDate>Wed, 26 Oct 2022 00:00:00 GMT</pubDate>
             <content:encoded><![CDATA[<p>After 1–2 months of researching, building, testing and hardcore shipping,
 Switchboard Labs is proud and happy to present to you, our mainnet alpha
@@ -501,8 +501,8 @@ and more coming soon!</p><h2 class="anchor anchorWithStickyNavbar_WPED" id="link
         </item>
         <item>
             <title><![CDATA[Switchboard Oracle on Aptos Mainnet]]></title>
-            <link>http://beta.docs.switchboard.xyz/blog/2022/10/18/Switchboard-Oracle-on-Aptos-Mainnet</link>
-            <guid>http://beta.docs.switchboard.xyz/blog/2022/10/18/Switchboard-Oracle-on-Aptos-Mainnet</guid>
+            <link>https://docs.switchboard.xyz/blog/2022/10/18/Switchboard-Oracle-on-Aptos-Mainnet</link>
+            <guid>https://docs.switchboard.xyz/blog/2022/10/18/Switchboard-Oracle-on-Aptos-Mainnet</guid>
             <pubDate>Tue, 18 Oct 2022 00:00:00 GMT</pubDate>
             <content:encoded><![CDATA[<p>Aptos Labs has officially launched their L1 blockchain to mainnet on 17 October
 2022! A great feat for Move developers to begin building products and use cases
@@ -543,8 +543,8 @@ regarding workshops and more are coming soon!</p><h2 class="anchor anchorWithSti
         </item>
         <item>
             <title><![CDATA[#PluggedintoNEAR]]></title>
-            <link>http://beta.docs.switchboard.xyz/blog/2022/09/13/PluggedintoNEAR</link>
-            <guid>http://beta.docs.switchboard.xyz/blog/2022/09/13/PluggedintoNEAR</guid>
+            <link>https://docs.switchboard.xyz/blog/2022/09/13/PluggedintoNEAR</link>
+            <guid>https://docs.switchboard.xyz/blog/2022/09/13/PluggedintoNEAR</guid>
             <pubDate>Tue, 13 Sep 2022 00:00:00 GMT</pubDate>
             <content:encoded><![CDATA[<blockquote><h1>Switchboard’s multi-chain expansion plan</h1></blockquote><p>At Switchboard, we believe the future of oracle protocols is to expand across
 the ever-growing amount of blockchains — empowering any developer coming from
@@ -567,8 +567,8 @@ oracles!</p><p><em>It’ll be electrifying.</em></p><p><img loading="lazy" src="
         </item>
         <item>
             <title><![CDATA[#PluggedintoAptos]]></title>
-            <link>http://beta.docs.switchboard.xyz/blog/2022/09/01/PluggedintoAptos</link>
-            <guid>http://beta.docs.switchboard.xyz/blog/2022/09/01/PluggedintoAptos</guid>
+            <link>https://docs.switchboard.xyz/blog/2022/09/01/PluggedintoAptos</link>
+            <guid>https://docs.switchboard.xyz/blog/2022/09/01/PluggedintoAptos</guid>
             <pubDate>Thu, 01 Sep 2022 00:00:00 GMT</pubDate>
             <content:encoded><![CDATA[<p>PluggedintoAptos</p><blockquote><h1><strong>How to bring the next million developers to Web 3?</strong></h1></blockquote><p>In order to empower developers to build in Web 3, Switchboard preaches and
 builds its oracle protocol with a developer-first approach. However, how can we
@@ -588,8 +588,8 @@ to our upcoming events!</p><p><img loading="lazy" src="https://cdn-images-1.medi
         </item>
         <item>
             <title><![CDATA[Switchboard 360: Looking Back, Forward and All Around]]></title>
-            <link>http://beta.docs.switchboard.xyz/blog/2022/08/29/Switchboard-360-Looking-Back-Forward-and-All-Around</link>
-            <guid>http://beta.docs.switchboard.xyz/blog/2022/08/29/Switchboard-360-Looking-Back-Forward-and-All-Around</guid>
+            <link>https://docs.switchboard.xyz/blog/2022/08/29/Switchboard-360-Looking-Back-Forward-and-All-Around</link>
+            <guid>https://docs.switchboard.xyz/blog/2022/08/29/Switchboard-360-Looking-Back-Forward-and-All-Around</guid>
             <pubDate>Mon, 29 Aug 2022 00:00:00 GMT</pubDate>
             <content:encoded><![CDATA[<p>Switchboard is celebrating its one year anniversary! It’s actually our 3 months
 past our anniversary but we were too busy chewing glass to look up at a
@@ -639,8 +639,8 @@ to our upcoming events!</p>]]></content:encoded>
         </item>
         <item>
             <title><![CDATA[Data Feed Best Practices]]></title>
-            <link>http://beta.docs.switchboard.xyz/blog/2022/08/04/Data-Feed-Best-Practices</link>
-            <guid>http://beta.docs.switchboard.xyz/blog/2022/08/04/Data-Feed-Best-Practices</guid>
+            <link>https://docs.switchboard.xyz/blog/2022/08/04/Data-Feed-Best-Practices</link>
+            <guid>https://docs.switchboard.xyz/blog/2022/08/04/Data-Feed-Best-Practices</guid>
             <pubDate>Thu, 04 Aug 2022 00:00:00 GMT</pubDate>
             <content:encoded><![CDATA[<p>Oracles are not a one size fit all solution, in fact redundancy should be used
 depending on your use cases and risk tolerance</p><p><img loading="lazy" src="https://cdn-images-1.medium.com/max/3200/1*mw9LjHRBP_O1ebxh9BhSqw.jpeg" class="img_QIlm"></p><p>Developers building real world applications for web3 rely on oracles to relay
@@ -868,8 +868,8 @@ configuring or integrating Switchboard feeds.</p>]]></content:encoded>
         </item>
         <item>
             <title><![CDATA[Verifiable Randomness (VRF) on Solana]]></title>
-            <link>http://beta.docs.switchboard.xyz/blog/2022/07/13/Verifiable-Randomness-on-Solana</link>
-            <guid>http://beta.docs.switchboard.xyz/blog/2022/07/13/Verifiable-Randomness-on-Solana</guid>
+            <link>https://docs.switchboard.xyz/blog/2022/07/13/Verifiable-Randomness-on-Solana</link>
+            <guid>https://docs.switchboard.xyz/blog/2022/07/13/Verifiable-Randomness-on-Solana</guid>
             <pubDate>Wed, 13 Jul 2022 00:00:00 GMT</pubDate>
             <content:encoded><![CDATA[<p>Switchboard continues to be the only provider for verifiable randomness (VRF) on
 Solana and today we are excited to announce a fee reduction bringing the overall
@@ -916,8 +916,8 @@ for more details.</p><p>A few examples where VRF could have mitigated exploits:<
         </item>
         <item>
             <title><![CDATA[Switchboard Publisher]]></title>
-            <link>http://beta.docs.switchboard.xyz/blog/2022/06/22/Switchboard-Publisher</link>
-            <guid>http://beta.docs.switchboard.xyz/blog/2022/06/22/Switchboard-Publisher</guid>
+            <link>https://docs.switchboard.xyz/blog/2022/06/22/Switchboard-Publisher</link>
+            <guid>https://docs.switchboard.xyz/blog/2022/06/22/Switchboard-Publisher</guid>
             <pubDate>Wed, 22 Jun 2022 00:00:00 GMT</pubDate>
             <content:encoded><![CDATA[<p>Since inception, Switchboard was built with a primary goal in mind: democratize
 data feeds such that any developer can build, configure, and own their data
@@ -951,8 +951,8 @@ will build with it next; give us a ring, our line is open!</p><p><strong>Referen
         </item>
         <item>
             <title><![CDATA[Dialed in with Switchboard: May 23, 2022]]></title>
-            <link>http://beta.docs.switchboard.xyz/blog/2022/05/23/Dialed-in-with-Switchboard</link>
-            <guid>http://beta.docs.switchboard.xyz/blog/2022/05/23/Dialed-in-with-Switchboard</guid>
+            <link>https://docs.switchboard.xyz/blog/2022/05/23/Dialed-in-with-Switchboard</link>
+            <guid>https://docs.switchboard.xyz/blog/2022/05/23/Dialed-in-with-Switchboard</guid>
             <pubDate>Mon, 23 May 2022 00:00:00 GMT</pubDate>
             <content:encoded><![CDATA[<h2 class="anchor anchorWithStickyNavbar_WPED" id="switchboard-v2-sdk-is-here">Switchboard V2 SDK is Here!<a href="#switchboard-v2-sdk-is-here" class="hash-link" aria-label="Direct link to Switchboard V2 SDK is Here!" title="Direct link to Switchboard V2 SDK is Here!">​</a></h2><p><a href="https://github.com/switchboard-xyz/switchboard-v2" target="_blank" rel="noopener noreferrer"><strong>github.com/switchboard-xyz/switchboard-v2</strong></a></p><p>The Switchboard V2 SDK is here and includes the necessary tools to help you
 integrate Switchboard into your on-or-off chain applications. The SDK includes
@@ -986,8 +986,8 @@ their applications. We welcome any PRs or feedback from the community!</p><ul><l
         </item>
         <item>
             <title><![CDATA[Dialed in with Switchboard: April 18, 2022]]></title>
-            <link>http://beta.docs.switchboard.xyz/blog/2022/04/18/Dialed-in-with-Switchboard</link>
-            <guid>http://beta.docs.switchboard.xyz/blog/2022/04/18/Dialed-in-with-Switchboard</guid>
+            <link>https://docs.switchboard.xyz/blog/2022/04/18/Dialed-in-with-Switchboard</link>
+            <guid>https://docs.switchboard.xyz/blog/2022/04/18/Dialed-in-with-Switchboard</guid>
             <pubDate>Mon, 18 Apr 2022 00:00:00 GMT</pubDate>
             <content:encoded><![CDATA[<blockquote><p><em>Dialed in with Switchboard is a weekly newsletter about the various updates
 with Switchboard.</em></p></blockquote><p>And we’re back with another edition of Dialed in with Switchboard. Thank you to
@@ -1021,8 +1021,8 @@ are happy to build new task types to support your needs.</p>]]></content:encoded
         </item>
         <item>
             <title><![CDATA[Dialed in with Switchboard: March 14, 2022]]></title>
-            <link>http://beta.docs.switchboard.xyz/blog/2022/03/14/Dialed-in-with-Switchboard</link>
-            <guid>http://beta.docs.switchboard.xyz/blog/2022/03/14/Dialed-in-with-Switchboard</guid>
+            <link>https://docs.switchboard.xyz/blog/2022/03/14/Dialed-in-with-Switchboard</link>
+            <guid>https://docs.switchboard.xyz/blog/2022/03/14/Dialed-in-with-Switchboard</guid>
             <pubDate>Mon, 14 Mar 2022 00:00:00 GMT</pubDate>
             <content:encoded><![CDATA[<blockquote><p>Dialed in with Switchboard is a weekly newsletter about the various on-going
 updates with Switchboard.</p></blockquote><h2 class="anchor anchorWithStickyNavbar_WPED" id="jupiter-swap-task">Jupiter Swap Task<a href="#jupiter-swap-task" class="hash-link" aria-label="Direct link to Jupiter Swap Task" title="Direct link to Jupiter Swap Task">​</a></h2><p>Switchboard is in the final stages of testing its newly created
@@ -1045,8 +1045,8 @@ added visibility on your project.</p><p><a href="https://forms.gle/qdt1qWtje18d5
         </item>
         <item>
             <title><![CDATA[Dialed in with Switchboard: March 07, 2022]]></title>
-            <link>http://beta.docs.switchboard.xyz/blog/2022/03/07/Dialed-in-with-Switchboard</link>
-            <guid>http://beta.docs.switchboard.xyz/blog/2022/03/07/Dialed-in-with-Switchboard</guid>
+            <link>https://docs.switchboard.xyz/blog/2022/03/07/Dialed-in-with-Switchboard</link>
+            <guid>https://docs.switchboard.xyz/blog/2022/03/07/Dialed-in-with-Switchboard</guid>
             <pubDate>Mon, 07 Mar 2022 00:00:00 GMT</pubDate>
             <content:encoded><![CDATA[<blockquote><p>Dialed in with Switchboard will be a weekly newsletter about the various
 on-going updates with Switchboard.</p></blockquote><h2 class="anchor anchorWithStickyNavbar_WPED" id="lending-rate-task">Lending Rate Task<a href="#lending-rate-task" class="hash-link" aria-label="Direct link to Lending Rate Task" title="Direct link to Lending Rate Task">​</a></h2><p>Last week Switchboard implemented the
@@ -1098,8 +1098,8 @@ deserialized account.</p>]]></content:encoded>
         </item>
         <item>
             <title><![CDATA[Switchboard x Riptide Prizes Announcement]]></title>
-            <link>http://beta.docs.switchboard.xyz/blog/2022/02/25/Switchboard-Riptide-Prizes-Announcement</link>
-            <guid>http://beta.docs.switchboard.xyz/blog/2022/02/25/Switchboard-Riptide-Prizes-Announcement</guid>
+            <link>https://docs.switchboard.xyz/blog/2022/02/25/Switchboard-Riptide-Prizes-Announcement</link>
+            <guid>https://docs.switchboard.xyz/blog/2022/02/25/Switchboard-Riptide-Prizes-Announcement</guid>
             <pubDate>Fri, 25 Feb 2022 00:00:00 GMT</pubDate>
             <content:encoded><![CDATA[<p>Switchboard is sponsoring the Solana Riptide hackathon with $30k in prizes for
 the top 3 teams that best integrate Switchboard. Less than a year ago
@@ -1122,8 +1122,8 @@ Switchboard. Don’t hesitate to reach out to the team on
         </item>
         <item>
             <title><![CDATA[Using Switchboard: Creating Custom Data Feeds]]></title>
-            <link>http://beta.docs.switchboard.xyz/blog/2022/02/23/Using-Switchboard-Creating-Custom-Data-Feeds</link>
-            <guid>http://beta.docs.switchboard.xyz/blog/2022/02/23/Using-Switchboard-Creating-Custom-Data-Feeds</guid>
+            <link>https://docs.switchboard.xyz/blog/2022/02/23/Using-Switchboard-Creating-Custom-Data-Feeds</link>
+            <guid>https://docs.switchboard.xyz/blog/2022/02/23/Using-Switchboard-Creating-Custom-Data-Feeds</guid>
             <pubDate>Wed, 23 Feb 2022 00:00:00 GMT</pubDate>
             <content:encoded><![CDATA[<p>Switchboard is a permission-less Oracle network allowing anyone to spin up their
 own data feeds and publish on-chain. To accomplish this, data feeds can be
@@ -1176,8 +1176,8 @@ Twitter.</p><ul><li><p><a href="https://docs.switchboard.xyz/job-directory" targ
         </item>
         <item>
             <title><![CDATA[Switchboard Introduces TWAP Support]]></title>
-            <link>http://beta.docs.switchboard.xyz/blog/2022/02/07/Switchboard-Introduces-TWAP-Support</link>
-            <guid>http://beta.docs.switchboard.xyz/blog/2022/02/07/Switchboard-Introduces-TWAP-Support</guid>
+            <link>https://docs.switchboard.xyz/blog/2022/02/07/Switchboard-Introduces-TWAP-Support</link>
+            <guid>https://docs.switchboard.xyz/blog/2022/02/07/Switchboard-Introduces-TWAP-Support</guid>
             <pubDate>Mon, 07 Feb 2022 00:00:00 GMT</pubDate>
             <content:encoded><![CDATA[<p>| TWAP! TWAP! TWAP! Switchboard V2 now supports aggregator history</p><h3 class="anchor anchorWithStickyNavbar_WPED" id="what-is-twap">What is TWAP?<a href="#what-is-twap" class="hash-link" aria-label="Direct link to What is TWAP?" title="Direct link to What is TWAP?">​</a></h3><p>A time weighted average price (TWAP) is the average price of an asset over a
 specified time frame. Let’s say you’re a large trader and you want to enter a
@@ -1228,8 +1228,8 @@ only accept a TWAP result if enough samples are provided.</p><p>Check out our do
         </item>
         <item>
             <title><![CDATA[Switchboard V2 is LIVE!]]></title>
-            <link>http://beta.docs.switchboard.xyz/blog/2022/01/27/Switchboard-V2-is-LIVE</link>
-            <guid>http://beta.docs.switchboard.xyz/blog/2022/01/27/Switchboard-V2-is-LIVE</guid>
+            <link>https://docs.switchboard.xyz/blog/2022/01/27/Switchboard-V2-is-LIVE</link>
+            <guid>https://docs.switchboard.xyz/blog/2022/01/27/Switchboard-V2-is-LIVE</guid>
             <pubDate>Thu, 27 Jan 2022 00:00:00 GMT</pubDate>
             <content:encoded><![CDATA[<blockquote><p>Switchboard V2 is the first permissionless oracle protocol live on Solana
 mainnet!</p></blockquote><p>When we set out to build Switchboard the goal was clear: provide permissionless
@@ -1262,8 +1262,8 @@ look forward to seeing what you build with it!</p><p><strong>Learn More</strong>
         </item>
         <item>
             <title><![CDATA[Fair LP Token Oracles]]></title>
-            <link>http://beta.docs.switchboard.xyz/blog/2022/01/20/Fair-LP-Token-Oracles</link>
-            <guid>http://beta.docs.switchboard.xyz/blog/2022/01/20/Fair-LP-Token-Oracles</guid>
+            <link>https://docs.switchboard.xyz/blog/2022/01/20/Fair-LP-Token-Oracles</link>
+            <guid>https://docs.switchboard.xyz/blog/2022/01/20/Fair-LP-Token-Oracles</guid>
             <pubDate>Thu, 20 Jan 2022 00:00:00 GMT</pubDate>
             <content:encoded><![CDATA[<p>Switchboard now offers fair LP token pricing oracles based on the work of Alpha
 Finance Lab!</p><h2 class="anchor anchorWithStickyNavbar_WPED" id="the-concern">The Concern<a href="#the-concern" class="hash-link" aria-label="Direct link to The Concern" title="Direct link to The Concern">​</a></h2><p>A liquidity pool is a collection of funds locked in a smart contract, used to
@@ -1291,8 +1291,8 @@ these on-chain jobs look like:</p><ul><li><p><a href="https://switchboard.xyz/ex
         </item>
         <item>
             <title><![CDATA[Switchboard V2 (pt.3) — Incentives]]></title>
-            <link>http://beta.docs.switchboard.xyz/blog/2021/11/03/Switchboard-V2-Incentives</link>
-            <guid>http://beta.docs.switchboard.xyz/blog/2021/11/03/Switchboard-V2-Incentives</guid>
+            <link>https://docs.switchboard.xyz/blog/2021/11/03/Switchboard-V2-Incentives</link>
+            <guid>https://docs.switchboard.xyz/blog/2021/11/03/Switchboard-V2-Incentives</guid>
             <pubDate>Wed, 03 Nov 2021 00:00:00 GMT</pubDate>
             <content:encoded><![CDATA[<p>When designing a decentralized protocol, it’s not enough to ensure your code is
 well tested — you must also align the various parties so no single entity can
@@ -1430,8 +1430,8 @@ for more information on the initial DAO implementation.</p>]]></content:encoded>
         </item>
         <item>
             <title><![CDATA[Switchboard V2 (pt.2) — Architecture and Data Flows]]></title>
-            <link>http://beta.docs.switchboard.xyz/blog/2021/10/12/Switchboard-V2-Architecture-and-Data-Flows</link>
-            <guid>http://beta.docs.switchboard.xyz/blog/2021/10/12/Switchboard-V2-Architecture-and-Data-Flows</guid>
+            <link>https://docs.switchboard.xyz/blog/2021/10/12/Switchboard-V2-Architecture-and-Data-Flows</link>
+            <guid>https://docs.switchboard.xyz/blog/2021/10/12/Switchboard-V2-Architecture-and-Data-Flows</guid>
             <pubDate>Tue, 12 Oct 2021 00:00:00 GMT</pubDate>
             <content:encoded><![CDATA[<p>In a previous article we looked at the different stakeholders and how they
 operate within Switchboard V2. Today’s article will focus on the technical
@@ -1516,8 +1516,8 @@ what the community builds with it!</p>]]></content:encoded>
         </item>
         <item>
             <title><![CDATA[Switchboard x GRAPE Network]]></title>
-            <link>http://beta.docs.switchboard.xyz/blog/2021/10/04/Switchboard-x-GRAPE-Network</link>
-            <guid>http://beta.docs.switchboard.xyz/blog/2021/10/04/Switchboard-x-GRAPE-Network</guid>
+            <link>https://docs.switchboard.xyz/blog/2021/10/04/Switchboard-x-GRAPE-Network</link>
+            <guid>https://docs.switchboard.xyz/blog/2021/10/04/Switchboard-x-GRAPE-Network</guid>
             <pubDate>Mon, 04 Oct 2021 00:00:00 GMT</pubDate>
             <content:encoded><![CDATA[<p>Switchboard is proud to announce a partnership with the Grape Network. The Grape
 Network is creating the building blocks for decentralized social networks paving
@@ -1535,8 +1535,8 @@ wait to see what they build next!</p>]]></content:encoded>
         </item>
         <item>
             <title><![CDATA[Switchboard V2 (pt. 1) — Roles and Responsibilities]]></title>
-            <link>http://beta.docs.switchboard.xyz/blog/2021/09/30/Switchboard-V2-Roles-and-Responsibilities</link>
-            <guid>http://beta.docs.switchboard.xyz/blog/2021/09/30/Switchboard-V2-Roles-and-Responsibilities</guid>
+            <link>https://docs.switchboard.xyz/blog/2021/09/30/Switchboard-V2-Roles-and-Responsibilities</link>
+            <guid>https://docs.switchboard.xyz/blog/2021/09/30/Switchboard-V2-Roles-and-Responsibilities</guid>
             <pubDate>Thu, 30 Sep 2021 00:00:00 GMT</pubDate>
             <content:encoded><![CDATA[<p>Switchboard V1 let us show the community how data can be routed on-chain and
 provided to smart contracts. Since inception, Switchboard has been adopted by
@@ -1573,8 +1573,8 @@ Switchboard and can’t wait to see what the community builds with Switchboard!<
         </item>
         <item>
             <title><![CDATA[Intro to Switchboard]]></title>
-            <link>http://beta.docs.switchboard.xyz/blog/2021/09/22/Intro-to-Switchboard</link>
-            <guid>http://beta.docs.switchboard.xyz/blog/2021/09/22/Intro-to-Switchboard</guid>
+            <link>https://docs.switchboard.xyz/blog/2021/09/22/Intro-to-Switchboard</link>
+            <guid>https://docs.switchboard.xyz/blog/2021/09/22/Intro-to-Switchboard</guid>
             <pubDate>Wed, 22 Sep 2021 00:00:00 GMT</pubDate>
             <description><![CDATA[Switchboard is a community-driven, decentralized oracle network built on Solana]]></description>
             <content:encoded><![CDATA[<p>Switchboard is a community-driven, decentralized oracle network built on Solana
@@ -1647,8 +1647,8 @@ submitting incorrect data? Stay tuned for more information on Switchboard V2!</p
         </item>
         <item>
             <title><![CDATA[Switchboard partners with Genesis Volatility to provide on-chain volatility data on Solana]]></title>
-            <link>http://beta.docs.switchboard.xyz/blog/2021/06/28/Switchboard-Partners-with-Genesis-Volatility</link>
-            <guid>http://beta.docs.switchboard.xyz/blog/2021/06/28/Switchboard-Partners-with-Genesis-Volatility</guid>
+            <link>https://docs.switchboard.xyz/blog/2021/06/28/Switchboard-Partners-with-Genesis-Volatility</link>
+            <guid>https://docs.switchboard.xyz/blog/2021/06/28/Switchboard-Partners-with-Genesis-Volatility</guid>
             <pubDate>Mon, 28 Jun 2021 00:00:00 GMT</pubDate>
             <description><![CDATA[We’re excited to announce a partnership with Genesis Volatility, the leading]]></description>
             <content:encoded><![CDATA[<p>We’re excited to announce a partnership with Genesis Volatility, the leading
@@ -1678,8 +1678,8 @@ historical data.</p>]]></content:encoded>
         </item>
         <item>
             <title><![CDATA[Switchboard raises 3.5MM seed and announces Solana Mainnet Beta]]></title>
-            <link>http://beta.docs.switchboard.xyz/blog/2021/06/17/Switchboard-Raises-3.5MM-Seed</link>
-            <guid>http://beta.docs.switchboard.xyz/blog/2021/06/17/Switchboard-Raises-3.5MM-Seed</guid>
+            <link>https://docs.switchboard.xyz/blog/2021/06/17/Switchboard-Raises-3.5MM-Seed</link>
+            <guid>https://docs.switchboard.xyz/blog/2021/06/17/Switchboard-Raises-3.5MM-Seed</guid>
             <pubDate>Thu, 17 Jun 2021 00:00:00 GMT</pubDate>
             <description><![CDATA[We’re excited to share that Switchboard has raised a $3.5MM seed round led by]]></description>
             <content:encoded><![CDATA[<p>We’re excited to share that Switchboard has raised a $3.5MM seed round led by
@@ -1716,8 +1716,8 @@ developments!</p><p>Team Switchboard</p>]]></content:encoded>
         </item>
         <item>
             <title><![CDATA[Introducing Switchboard]]></title>
-            <link>http://beta.docs.switchboard.xyz/blog/2021/05/25/Introducing-Switchboard</link>
-            <guid>http://beta.docs.switchboard.xyz/blog/2021/05/25/Introducing-Switchboard</guid>
+            <link>https://docs.switchboard.xyz/blog/2021/05/25/Introducing-Switchboard</link>
+            <guid>https://docs.switchboard.xyz/blog/2021/05/25/Introducing-Switchboard</guid>
             <pubDate>Tue, 25 May 2021 00:00:00 GMT</pubDate>
             <description><![CDATA[Switchboard is building community curated oracle feeds on Solana.]]></description>
             <content:encoded><![CDATA[<p>Switchboard is building community curated oracle feeds on Solana.</p><p>We want to enable anyone in the SOL community to push any form of data, whether
