@@ -46,17 +46,6 @@ export default function SdkCard(props: { sdk: SdkType }) {
             </Link>
           </Grid>
         </Grid>
-        {/* <div style={{ display: "flex", alignItems: "center" }}>
-          <AvatarIcon title="" image={config.icon.light} />
-          <h3 className="landing_page">
-            {capitalizeFirstLetterOfEachWord(sdk) + " SDK"}
-          </h3>
-          <Link to={config.git} style={{ marginLeft: "auto" }}>
-            <IconButton sx={{ color: "#4C6FFF" }}>
-              <GitHubIcon fontSize="large" />
-            </IconButton>
-          </Link>
-        </div> */}
         <Grid container>
           <Grid item xs={12} md={3}>
             <Typography>Quick Links</Typography>
