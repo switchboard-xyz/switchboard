@@ -1,0 +1,39 @@
+---
+slug: .
+title: Getting Started
+hide_title: true
+hide_table_of_contents: true
+pagination_prev: null
+keywords: [NEAR, NEAR SDK, Switchboard NEAR SDK]
+---
+
+import NearAddresses from "@site/src/components/chain/NearAddresses";
+import SdkPageSidebar from "@site/src/components/chain/SdkPageSidebar";
+
+<SdkPageSidebar sdk="near">
+
+## Contract
+
+Switchboard is deployed on NEAR mainnet and testnet.
+
+<NearAddresses />
+
+<hr />
+
+## Getting Started
+
+The [switchboard-xyz/near-sdk](https://github.com/switchboard-xyz/near-sdk)
+contains the NEAR specific SDKs and examples for operating Switchboard.
+
+```bash
+git clone https://github.com/switchboard-xyz/near-sdk
+```
+
+## Data Feeds
+
+Switchboard Data Feeds allow you to permissionless publish a data point on-chain
+for use with your smart contracts. These values are published at a periodic
+interval such that your users do not need to wait for any off-chain execution in
+order to consume the values.
+
+</SdkPageSidebar>

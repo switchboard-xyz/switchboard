@@ -1,0 +1,54 @@
+---
+sidebar_label: 💡 What is Switchboard?
+hide_table_of_contents: true
+keywords:
+  [Switchboard, web3, oracle, data feeds, vrf, randomness, solana, aptos, near]
+---
+
+# Switchboard
+
+> A decentralized, serverless compute layer for your smart contract enabling
+> secure and verifiable computation.
+
+In the traditional context of telecommunications, a switchboard was a
+human-operated console where connections were manually shuffled around to
+complete a circuit and facilitate the flow of information between two or more
+parties. Switchboard, the oracle protocol, shares many of the same functions in
+that a decentralized quorum of oracles are responsible for how data is shuffled
+around a blockchain for smart contract devs to consume and build-upon.
+Switchboard is a general purpose compute layer allowing you to build serverless
+functions and delegate the off-chain compute and verification to our network of
+oracles.
+
+## Verifiable Compute
+
+Switchboard provides verifiable computation with the use of Trusted Execution
+Environments (TEEs). A TEE is a secure area within a device's hardware or
+software that isolates sensitive data and code from the rest of the system.
+Intel Software Guard Extensions (SGX) is a hardware-based technology that
+provides TEE capabilities. Switchboard leverages SGX to run a user's custom code
+within its own SGX runtime and provides the attestation service to verify
+on-chain that the quote generated from the executed code matches the expected
+measurement set by the user on-chain with their `MRENCLAVE` value.
+
+See the [What are TEEs?](/tee) page for more information.
+
+## Data Models
+
+1. **Scheduled** [_"pushed"_] - Write your own logic to push data on-chain on a
+   pre-defined schedule. _(e.g. A trading platform could use a single
+   Switchboard Function to route 500+ data feeds. See the PushOracle EVM
+   contract to see this in action!)_
+2. **Off-Chain Store** [_"pull"_] - Client-side applications pull data on-chain
+   when needed and use merkle trees to verify the integrity of the data.
+3. **On-Demand** ["callback"] - Perform async operations with your contract by
+   using a callback to settle some user initiated action after executing your
+   own custom logic. _(e.g. A lending protocol could require a function to open
+   new positions and prevent flash loans)_
+
+Switchboard's flexibility makes it a general compute layer for your smart
+contract allowing you to write your own custom logic via a Switchboard Function,
+have it executed off-chain within a secure enclave, then respond on-chain with
+your own dynamic logic - no more worrying about servers and kubernetes clusters!
+
+See [The Data Models](/data) page for more information.

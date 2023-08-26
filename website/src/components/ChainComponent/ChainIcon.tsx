@@ -10,6 +10,7 @@ interface IChainProps {
   to: string;
   image: string;
   comingSoon?: boolean;
+  disableZoom?: boolean;
   sx?: CSSProperties;
 }
 
@@ -37,6 +38,7 @@ export default function ChainIcon({
   title,
   to,
   image,
+  disableZoom,
   comingSoon,
   sx,
 }: IChainProps) {
@@ -51,13 +53,17 @@ export default function ChainIcon({
       component={Link}
       href={to}
       style={{ textDecoration: "none" }}
-      sx={{
-        p: 2,
-        transition: "transform 0.15s ease-in-out",
-        "&&&:hover": {
-          transform: "scale3d(1.25, 1.25, 1)",
-        },
-      }}
+      sx={
+        disableZoom
+          ? { p: 2 }
+          : {
+              p: 2,
+              transition: "transform 0.15s ease-in-out",
+              "&&&:hover": {
+                transform: "scale3d(1.25, 1.25, 1)",
+              },
+            }
+      }
     >
       <StyledAvatar src={image} />
       <Typography

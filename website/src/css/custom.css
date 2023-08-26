@@ -196,3 +196,32 @@ h1 {
 .menu__link {
   width: "100%";
 }
+
+ul.icon {
+  list-style-type: none;
+}
+
+ul.icon li {
+  text-indent: -1.4em;
+}
+ul.icon li:before {
+  font-family: bullets;
+  content: "\e800";
+  float: left;
+  width: 1.4em;
+}
+ul.icon li.info:before {
+  content: "\e800";
+}
+ul.icon li.star:before {
+  content: "\e803";
+}
+ul.icon li.help:before {
+  content: "\e801";
+}
+ul.icon li.bulb:before {
+  content: "\e804";
+}
+ul.icon li.hand:before {
+  content: "\e805";
+}

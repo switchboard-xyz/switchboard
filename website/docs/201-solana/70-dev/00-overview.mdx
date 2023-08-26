@@ -1,0 +1,105 @@
+---
+slug: .
+title: Developer Resources
+keywords: [Solana, Solana SDK, Oracles, Web3, Off-chain, Randomness]
+---
+
+import CodeBlock from "@theme/CodeBlock";
+import Tabs from "@theme/Tabs";
+import TabItem from "@theme/TabItem";
+
+import SdkCard from "@site/src/components/chain/SdkCard";
+
+<SdkCard sdk="solana" />
+
+## Functions
+
+### Create a Scheduled Function
+
+import CreateScheduledFunctionJS from "!!raw-loader!/code/solana/create-a-scheduled-function.ts";
+import CreateScheduledFunctionCLI from "!!raw-loader!/code/solana/create-a-scheduled-function.sh";
+
+The examples below show how to create a Switchboard Function that runs the
+`switchboardlabs/basic-binance-oracle:latest` container from dockerhub every 30
+seconds.
+
+<Tabs>
+  <TabItem value="Javascript" label="Javascript">
+    <CodeBlock language="typescript">{CreateScheduledFunctionJS}</CodeBlock>
+  </TabItem>
+  <TabItem value="CLI" label="CLI">
+    <CodeBlock language="typescript">{CreateScheduledFunctionCLI}</CodeBlock>
+  </TabItem>
+</Tabs>
+
+### Read a Function
+
+import ReadAFunctionRust from "!!raw-loader!/code/solana/read-a-function.rs";
+import ReadAFunctionJS from "!!raw-loader!/code/solana/read-a-function.ts";
+import ReadAFunctionCLI from "!!raw-loader!/code/solana/read-a-function.sh";
+
+Switchboard Functions allow you to execute arbitrary instructions as long as the
+functions `enclave.signer` has signed the transaction. This keypair gets
+generated within the enclave so we can prove the transaction was built securely.
+
+<Tabs>
+  <TabItem value="Rust" label="Rust" default default>
+    <p>
+      This example shows how to verify that the functions `enclave.signer` has
+      signed your custom instructions.
+    </p>
+    <CodeBlock language="rust">{ReadAFunctionRust}</CodeBlock>
+  </TabItem>
+  <TabItem value="Javascript" label="Javascript">
+    <CodeBlock language="typescript">{ReadAFunctionJS}</CodeBlock>
+  </TabItem>
+  <TabItem value="CLI" label="CLI">
+    <CodeBlock language="bash">{ReadAFunctionCLI}</CodeBlock>
+  </TabItem>
+</Tabs>
+
+### Debug a Function
+
+**Coming Soon!**
+
+The Switchboard Function developer tooling is still in its early stages. By the
+end of Q3 we will support a function simulation server, an endpoint to view
+container logs, and some helper scripts to manage your protocols functions.
+
+## Data Feeds
+
+### Create a Data Feed
+
+import CreateDataFeedJS from "!!raw-loader!/code/solana/create-a-data-feed.ts";
+import CreateDataFeedCLI from "!!raw-loader!/code/solana/create-a-data-feed.sh";
+
+<Tabs>
+  <TabItem value="Javascript" label="Javascript">
+    <CodeBlock language="typescript">{CreateDataFeedJS}</CodeBlock>
+  </TabItem>
+  <TabItem value="CLI" label="CLI">
+    <CodeBlock language="bash">{CreateDataFeedCLI}</CodeBlock>
+  </TabItem>
+</Tabs>
+
+### Read a Data Feed
+
+import ReadADataFeedRust from "!!raw-loader!/code/solana/read-a-data-feed.rs";
+import ReadADataFeedJS from "!!raw-loader!/code/solana/read-a-data-feed.ts";
+import ReadADataFeedCLI from "!!raw-loader!/code/solana/read-a-data-feed.sh";
+
+<Tabs>
+  <TabItem value="Rust" label="Rust" default>
+    <CodeBlock language="rust">{ReadADataFeedRust}</CodeBlock>
+  </TabItem>
+  <TabItem value="Javascript" label="Javascript">
+    <CodeBlock language="javascript">{ReadADataFeedJS}</CodeBlock>
+  </TabItem>
+  <TabItem value="CLI" label="CLI">
+    <CodeBlock language="bash">{ReadADataFeedCLI}</CodeBlock>
+    <p>
+      You need to add `--mainnetBeta` to view a function for the mainnet-beta
+      network. The default network is devnet.
+    </p>
+  </TabItem>
+</Tabs>

@@ -126,12 +126,12 @@ const GridItem = (props: { card: Card }) => {
 const ProductGuidesGrid = () => {
   return (
     <StyledContainer>
-      <h2 className="landing_page">Product Guides</h2>
+      {/* <h2 className="landing_page">Product Guides</h2>
       <Grid container spacing={2} sx={{ marginBottom: "24px" }}>
         {cards.map((card) => (
           <GridItem key={card.title} card={card} />
         ))}
-      </Grid>
+      </Grid> */}
       <h2 className="landing_page">Switchboard Apps</h2>
       <Grid container spacing={2} sx={{ marginBottom: "24px" }}>
         {appCards.map((appCard) => (

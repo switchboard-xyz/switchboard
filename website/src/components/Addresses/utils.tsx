@@ -1,26 +1,17 @@
+import type { ChainType } from "@switchboard-xyz/common";
 import { type IChainNetworkConfig, networks } from "@switchboard-xyz/common";
 import React from "react";
 
+import { capitalizeFirstLetterOfEachWord } from "../../utils";
 import AddressButton from "../AddressButton";
-import type { SupportedChain } from "./types";
-
-export function capitalizeFirstLetterOfEachWord(str: string): string {
-  const titleCase = str
-    .split(" ")
-    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-    .join(" ");
-  if (titleCase.endsWith("dao")) {
-    return titleCase.slice(0, titleCase.length - 3) + "DAO";
-  }
-  return titleCase;
-}
 
 export function getNetworkTable(
-  chain: SupportedChain,
+  chain: ChainType,
   network: string,
   hideQueues = false
 ): JSX.Element {
   const networkConfig: IChainNetworkConfig = networks[chain][network];
+
   const addresses: Array<[string, string]> = [];
   addresses.push(["Address", networkConfig.address]);
   const ignoreKeys = [
@@ -66,7 +57,7 @@ export function getNetworkTable(
         })}
       </table>
 
-      {hideQueues || networkConfig.queues.length === 0 ? (
+      {hideQueues || (networkConfig.queues ?? []).length === 0 ? (
         <></>
       ) : (
         <>
@@ -78,7 +69,7 @@ export function getNetworkTable(
               <th>Address</th>
             </tr>
 
-            {networkConfig.queues.map((queueConfig) => {
+            {(networkConfig.queues ?? []).map((queueConfig) => {
               return (
                 <tr>
                   <td>{queueConfig.name}</td>
@@ -103,38 +94,34 @@ export function getNetworkTable(
               );
             })}
           </table>
-          {networkConfig.attestationQueues.length === 0 ? (
-            <></>
-          ) : (
-            <>
-              <h3>Attestation Queues</h3>
-              <table>
-                <tr>
-                  <th>Attestation Queue</th>
-                  <th>Address</th>
-                </tr>
+        </>
+      )}
+      {hideQueues || networkConfig.attestationQueues?.length === 0 ? (
+        <></>
+      ) : (
+        <>
+          <h3>Attestation Queues</h3>
+          <table>
+            <tr>
+              <th>Attestation Queue</th>
+              <th>Address</th>
+            </tr>
 
-                {networkConfig.attestationQueues.map((queueConfig) => {
-                  return (
-                    <tr>
-                      <td>{queueConfig.name}</td>
-                      <td>
-                        <AddressButton address={queueConfig.address} /> <br />
-                      </td>
-                    </tr>
-                  );
-                })}
-              </table>
-            </>
-          )}
+            {(networkConfig.attestationQueues ?? []).map((queueConfig) => {
+              return (
+                <tr>
+                  <td>{queueConfig.name}</td>
+                  <td>
+                    <AddressButton address={queueConfig.address} /> <br />
+                  </td>
+                </tr>
+              );
+            })}
+          </table>
         </>
       )}
     </>
   );
 
   return table;
-}
-
-function capitalizeWords(str: string): string {
-  return str.replace(/\b\w/g, (match) => match.toUpperCase());
 }

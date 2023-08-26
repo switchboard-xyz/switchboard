@@ -1,0 +1,101 @@
+---
+title: 🚀 Getting Started
+hide_table_of_contents: true
+---
+
+import Tabs from "@theme/Tabs";
+import TabItem from "@theme/TabItem";
+import ChainAddressButton from "@site/src/components/ChainAddressButton";
+import ChainIcon from "/src/components/ChainComponent/ChainIcon";
+import GettingStartedCard from "@site/src/components/chain/GettingStartedCard";
+import { Grid } from "@mui/material";
+import EvmAddresses from "/src/components/chain/EvmAddresses";
+import SolanaAddresses from "/src/components/chain/SolanaAddresses";
+import AptosAddresses from "/src/components/chain/AptosAddresses";
+import SuiAddresses from "/src/components/chain/SuiAddresses";
+import NearAddresses from "/src/components/chain/NearAddresses";
+import SdkCard from "/src/components/chain/SdkCard";
+
+## Learn More
+
+Want to explore the Live network? Checkout the
+[Switchboard Explorer App](https://app.switchboard.xyz/) to view existing feeds
+and when ready, build your own feed!
+
+Checkout the following links to learn more about the Switchboard network
+including its technical architecture and supported products.
+
+**Technical Documentation**
+
+- [The Oracle Problem](/the-oracle-problem): Why do we need oracles?
+- [Program Architecture](/architecture): Learn how the network is structured and
+  the different components.
+- [The Data Models](/data): Learn about the different ways to source data
+  on-chain.
+- [What are TEEs?](/tee): Learn about Trusted Execution Environments (TEEs) and
+  how Switchboard leverages them to provide verifiable compute.
+
+**Products**
+
+- [Switchboard Functions](/functions): Learn how Switchboard functions allow
+  developers to write their own code and modify their smart contracts state on a
+  schedule or on-demand (callbacks).
+- [Switchboard Secrets](/secrets): Learn how to use confidential information
+  within your function.
+
+:::note
+
+Checkout the [Ecosystem](https://switchboard.xyz/ecosystem) page to see a list
+of projects currently using Switchboard!
+
+:::
+
+## Developers
+
+<Tabs groupId="switchboard-supported-sdks">
+  <TabItem
+    value="solana"
+    label="&nbsp;Solana"
+    attributes={{ className: "navbar_icon__solana" }}
+  >
+    <SdkCard sdk="solana" />
+    <hr />
+    <SolanaAddresses />
+  </TabItem>
+  <TabItem
+    value="evm"
+    label="&nbsp;EVM"
+    attributes={{ className: "navbar_icon__solidity" }}
+  >
+    <SdkCard sdk="evm" />
+    <hr />
+    <EvmAddresses />
+  </TabItem>
+  <TabItem
+    value="aptos"
+    label="&nbsp;Aptos"
+    attributes={{ className: "navbar_icon__aptos" }}
+  >
+    <SdkCard sdk="aptos" />
+    <hr />
+    <AptosAddresses />
+  </TabItem>
+  <TabItem
+    value="sui"
+    label="&nbsp;Sui"
+    attributes={{ className: "navbar_icon__sui" }}
+  >
+    <SdkCard sdk="sui" />
+    <hr />
+    <SuiAddresses />
+  </TabItem>
+  <TabItem
+    value="near"
+    label="&nbsp;NEAR"
+    attributes={{ className: "navbar_icon__near" }}
+  >
+    <SdkCard sdk="near" />
+    <hr />
+    <NearAddresses />
+  </TabItem>
+</Tabs>
