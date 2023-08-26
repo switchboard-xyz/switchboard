@@ -6,15 +6,17 @@ import {
   Radio,
   RadioGroup,
 } from "@mui/material";
+import { capitalizeFirstLetterOfEachWord } from "@site/src/utils";
+import type { ChainType, NetworkType } from "@switchboard-xyz/common";
 import { networks } from "@switchboard-xyz/common";
 import React, { useEffect, useState } from "react";
 
-import type { SupportedChain } from "./types";
-import { capitalizeFirstLetterOfEachWord, getNetworkTable } from "./utils";
+import { getNetworkTable } from "./utils";
 
 export default function AddressesGroup() {
-  const [selectedChain, setSelectedChain] = useState<SupportedChain>("solana");
-  const [selectedNetwork, setSelectedNetwork] = useState<string>("mainnet");
+  const [selectedChain, setSelectedChain] = useState<ChainType>("solana");
+  const [selectedNetwork, setSelectedNetwork] =
+    useState<NetworkType>("mainnet");
   const [tableElement, setTableElement] = useState<JSX.Element>(
     getNetworkTable(selectedChain, selectedNetwork)
   );

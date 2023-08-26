@@ -1,13 +1,13 @@
 ---
-sidebar_position: 3
+sidebar_position: 1
 hide_title: true
 hide_table_of_contents: true
-title: Switchboard x Arbitrum
-sidebar_class_name: "sidebar__arbitrum"
-keywords: [Arbitrum, Arbitrum SDK, Switchboard Arbitrum SDK]
+title: Switchboard x EVM
+sidebar_class_name: "sidebar__solidity"
+keywords: [EVM, EVM SDK, Switchboard EVM SDK]
 ---
 
-import ChainAddressButton from "/src/components/ChainAddressButton";
+import EvmAddresses from "/src/components/Addresses/EvmAddresses";
 import ChainAddresses from "/src/components/Addresses/ChainAddresses";
 import ChainIcon from "/src/components/ChainComponent/ChainIcon";
 import AddressButton from "/src/components/AddressButton";
@@ -21,33 +21,25 @@ import { Grid } from "@mui/material";
 >
   <Grid xs={12}>
     <div style={{ textAlign: "center" }}>
-      <h1>Switchboard x Arbitrum</h1>
+      <h1>Switchboard x EVM</h1>
     </div>
   </Grid>
   <Grid item md={9} xs={12}>
 
 ## Contract
 
-You can find the program IDs for the Switchboard x Arbitrum deployments below,
-or check out [The Network](/network) page to also view the Switchboard Labs
-supported oracle networks.
+Switchboard is compatible with EVM based chains and is currently deployed on the
+following chains. Check out [The Network](/network) page to see all of the
+Switchboard supported chains along with the Switchboard Labs operated queues.
 
-<div>
-  <strong>Contract Address</strong>:{" "}
-  <ChainAddressButton chain="arbitrum" network="mainnet" />
-</div>
-
-<div>
-  <strong>Switchboard Push Oracle</strong>:{" "}
-  <ChainAddressButton chain="arbitrum" network="mainnet" field="sbPushOracle" />
-</div>
+<EvmAddresses />
 
 <hr />
 
 ## Getting Started
 
 The [switchboard-xyz/evm-sdk](https://github.com/switchboard-xyz/evm-sdk)
-contains the Solana specific SDKs and examples for operating Switchboard.
+contains the EVM specific SDKs and examples for operating Switchboard.
 
 ```bash
 git clone https://github.com/switchboard-xyz/evm-sdk
@@ -89,12 +81,6 @@ order to consume the values.
 - <span class="heading_icon__terminal">
     <a href="/api/cli">CLI: sb</a>
   </span>
-- <span class="heading_icon__solidity">
-    <a href="/evm/ISwitchboard">ISwitchboard.sol</a>
-  </span>
-- <span class="heading_icon__solidity">
-    <a href="/evm/ILegacyOracle">ILegacyOracle.sol</a>
-  </span>
 
 View the [Developer Resources](/evm/dev) for code samples.
 
@@ -103,7 +89,7 @@ View the [Developer Resources](/evm/dev) for code samples.
 - [Developer Resources](/evm/dev)
 
 For support, ask a question in
-[Discord #dev-evm](https://discord.com/channels/841525135311634443/984343400377647144)
+[Discord #dev-evm](https://discord.com/channels/841525135311634443/1134016468703526972)
 
 </Grid>
 </Grid>

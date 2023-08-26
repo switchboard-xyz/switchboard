@@ -1,0 +1,63 @@
+---
+slug: /data
+title: The Data Models
+keywords:
+  [Switchboard, web3, oracle, data feeds, vrf, randomness, solana, aptos, near]
+---
+
+import MarkdownImage from "/src/components/MarkdownImage";
+
+# The Data Models
+
+The following sections depict the different ways developers can integrate
+Switchboard to have full control over how data is sourced on-chain for their
+smart contracts.
+
+<MarkdownImage
+  img="/img/data/comparison_table.png"
+  sx={{
+    display: "flex",
+  }}
+/>
+
+## Push
+
+Data is _**pushed**_ on-chain by the oracle at a routine interval. The
+integrator just needs to verify the data was recently pushed and doesn't need to
+handle any off-chain requesting.
+
+See [Data Feeds](/data-feeds) for more information.
+
+<MarkdownImage
+  img="/img/data/push.png"
+  sx={{
+    display: "flex",
+  }}
+/>
+
+## Pull (Coming Soon)
+
+Data is maintained in a data store and _**pulled**_ on-chain by the integrator.
+
+<MarkdownImage
+  img="/img/data/pull.png"
+  sx={{
+    display: "flex",
+  }}
+/>
+
+## Callback
+
+Data is sourced off-chain each time it is requested and populated on-chain with
+a callback into the callers smart contract. This method is more complex to
+integrate but is less susceptible to oracle attacks because the data is only
+sourced when the user requests it.
+
+See [Switchboard Functions](/functions) for more information.
+
+<MarkdownImage
+  img="/img/data/callback.png"
+  sx={{
+    display: "flex",
+  }}
+/>

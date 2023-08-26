@@ -24,10 +24,11 @@ const config = {
   favicon: "img/favicon.ico",
 
   // Set the production url of your site here
-  url:
-    process.env.NODE_ENV === "production"
-      ? "https://docs.switchboard.xyz"
-      : "http://localhost",
+  // url:
+  //   process.env.NODE_ENV === "production"
+  //     ? "https://docs.switchboard.xyz"
+  //     : "http://beta.docs.switchboard.xyz",
+  url: "http://beta.docs.switchboard.xyz",
   // Set the /<baseUrl>/ pathname under which your site is served
   // For GitHub pages deployment, it is often '/<projectName>/'
   baseUrl: "/",
@@ -136,55 +137,10 @@ const config = {
         items: [
           {
             type: "docSidebar",
-            sidebarId: "gettingStartedSidebar",
+            sidebarId: "sidebar",
             position: "left",
             label: "Docs",
           },
-          // {
-          //   type: "docSidebar",
-          //   sidebarId: "guidesSidebar",
-          //   position: "left",
-          //   label: "Guides",
-          // },
-          // {
-          //   type: "dropdown",
-          //   sidebarId: "guidesSidebar",
-          //   to: "/guides",
-          //   label: "Integrate",
-          //   position: "left",
-          //   items: [
-          //     {
-          //       label: " Aptos",
-          //       to: "/aptos",
-          //       className: "heading_icon__aptos",
-          //     },
-          //     {
-          //       label: " Arbitrum",
-          //       to: "/evm",
-          //       className: "heading_icon__arbitrum",
-          //     },
-          //     {
-          //       label: " CoreDAO",
-          //       to: "/evm",
-          //       className: "heading_icon__coredao",
-          //     },
-          //     {
-          //       label: " Near",
-          //       to: "/near",
-          //       className: "heading_icon__near",
-          //     },
-          //     {
-          //       label: " Solana",
-          //       to: "/solana",
-          //       className: "heading_icon__solana",
-          //     },
-          //     {
-          //       label: " Sui",
-          //       to: "/sui",
-          //       className: "heading_icon__sui",
-          //     },
-          //   ],
-          // },
           {
             to: "/api",
             label: "API",
@@ -194,29 +150,6 @@ const config = {
             type: "search",
             position: "left",
           },
-          // {
-          //   type: "dropdown",
-          //   label: "More",
-          //   position: "left",
-          //   items: [
-          //     {
-          //       label: "📚 Medium",
-          //       to: "https://switchboardxyz.medium.com/",
-          //     },
-          //     {
-          //       label: "📚 Publisher",
-          //       to: "https://app.switchboard.xyz",
-          //     },
-          //     {
-          //       label: "🔎 Explorer",
-          //       to: "https://switchboard.xyz/explorer",
-          //     },
-          //     {
-          //       label: "🤝 Ecosystem",
-          //       to: "https://switchboard.xyz/ecosystem",
-          //     },
-          //   ],
-          // },
 
           { to: "/blog", label: "Blog", position: "right" },
           {

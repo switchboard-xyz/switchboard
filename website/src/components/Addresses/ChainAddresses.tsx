@@ -1,13 +1,14 @@
+import type { ChainType } from "@switchboard-xyz/common";
 import { type IChainNetworkConfig, networks } from "@switchboard-xyz/common";
 import TabItem from "@theme/TabItem";
 import Tabs from "@theme/Tabs";
 import React from "react";
 
-import type { SupportedChain } from "./types";
-import { capitalizeFirstLetterOfEachWord, getNetworkTable } from "./utils";
+import { capitalizeFirstLetterOfEachWord } from "../../utils";
+import { getNetworkTable } from "./utils";
 
 export interface IQueues {
-  chain: SupportedChain;
+  chain: ChainType;
   hideQueues?: boolean;
 }
 

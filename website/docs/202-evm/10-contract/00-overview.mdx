@@ -1,0 +1,235 @@
+---
+slug: .
+title: Contract Overview
+---
+
+The Switchboard EVM contract implements
+[EIP-2535 Diamond Proxy Pattern](https://github.com/ethereum/EIPs/blob/master/EIPS/eip-2535.md)
+to facilitate a modular contract design allowing each module to be updated and
+maintained individually. This allows Switchboard's EVM contract to be used
+across blockchains with different engineering constraints. Each module is a
+facet that can be added to the contract to give it additional functionality.
+
+The Switchboard EVM contract supports an on-chain attestation service where
+user's can write their own custom functions then have it be executed by an
+off-chain oracle. When the function result is routed on-chain, the generated
+MRENCLAVE measurement is verified on-chain; if the value is allowed, the user's
+custom contract call is executed, if the value is not allowed, the transaction
+will revert.
+
+## Diamond Facets
+
+The Switchboard EVM contract supports the following facets:
+
+- [Admin](#admin)
+- [Attestation Queue](#attestation-queue)
+- [Permission](#permission)
+- [Enclave](#enclave)
+- [Function Call](#function-call)
+- [Sb Function](#sb-function)
+
+### Admin
+
+Manages the admin of the
+[EIP-2771: Meta Transactions](https://eips.ethereum.org/EIPS/eip-2771) interface
+to support third-parties paying for gas fees.
+
+### Attestation Queue
+
+### Permission
+
+### Enclave
+
+### Function Call
+
+### Sb Function
+
+<!--
+<table>
+  <thead>
+    <tr>
+      <th>Facet</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Admin</td>
+      <td>
+        <p>
+          Manages the admin of the{" "}
+          <a href="https://eips.ethereum.org/EIPS/eip-2771">
+            EIP-2771: Meta Transactions
+          </a>{" "}
+          interface to support third-parties paying for gas fees.
+        </p>
+        <ul>
+          <li>
+            <b>setAdmin</b>: Sets the admin of the recipient.
+          </li>
+          <li>
+            <b>setAllowed</b>: Whitelist an address to spend from a recipient.
+          </li>
+        </ul>
+      </td>
+    </tr>
+    <tr>
+      <td>Attestation Queue</td>
+      <td>
+        <p>TBD</p>
+        <ul>
+          <li>
+            <b>createAttestationQueue</b>:
+          </li>
+          <li>
+            <b>setAttestationQueueConfig</b>:
+          </li>
+          <li>
+            <b>addMrEnclaveToAttestationQueue</b>:
+          </li>
+          <li>
+            <b>removeMrEnclaveFromAttestationQueue</b>:
+          </li>
+          <li>
+            <b>setAttestationQueuePermission</b>:
+          </li>
+          <li>
+            <b>attestationQueues(address queueId)</b>:
+          </li>
+          <li>
+            <b>attestationQueueHasMrEnclave</b>:
+          </li>
+          <li>
+            <b>getEnclaveIdx</b>:
+          </li>
+          <li>
+            <b>getEnclaves</b>:
+          </li>
+        </ul>
+      </td>
+    </tr>
+    <tr>
+      <td>Permission</td>
+      <td>
+        <p>TBD</p>
+        <ul>
+          <li>
+            <b>getPermission</b>:
+          </li>
+          <li>
+            <b>hasPermission</b>:
+          </li>
+        </ul>
+      </td>
+    </tr>
+    <tr>
+      <td>Enclave</td>
+      <td>
+        <p>TBD</p>
+        <ul>
+          <li>
+            <b>createEnclave</b>:
+          </li>
+          <li>
+            <b>createEnclaveWithId</b>:
+          </li>
+          <li>
+            <b>updateEnclave</b>:
+          </li>
+          <li>
+            <b>forceOverrideVerify</b>:
+          </li>
+          <li>
+            <b>enclaveGarbageCollect</b>:
+          </li>
+          <li>
+            <b>failEnclave</b>:
+          </li>
+          <li>
+            <b>verifyEnclave</b>:
+          </li>
+          <li>
+            <b>enclaveHeartbeat</b>:
+          </li>
+          <li>
+            <b>rotateEnclaveSigner</b>:
+          </li>
+          <li>
+            <b>enclaves(address enclaveId)</b>:
+          </li>
+          <li>
+            <b>enclaveSignerToEnclaveId</b>:
+          </li>
+          <li>
+            <b>validate</b>:
+          </li>
+          <li>
+            <b>isEnclaveValid</b>:
+          </li>
+        </ul>
+      </td>
+    </tr>
+    <tr>
+      <td>Function Call</td>
+      <td>
+        <p>TBD</p>
+        <ul>
+          <li>
+            <b>callFunction</b>:
+          </li>
+          <li>
+            <b>setFunctionCallSettings</b>:
+          </li>
+          <li>
+            <b>functionCalls</b>:
+          </li>
+          <li>
+            <b>functionCallSettings</b>:
+          </li>
+          <li>
+            <b>getActiveFunctionCallsByQueue</b>:
+          </li>
+        </ul>
+      </td>
+    </tr>
+    <tr>
+      <td>Sb Function</td>
+      <td>
+        <p>TBD</p>
+        <ul>
+          <li>
+            <b>createFunctionWithId</b>:
+          </li>
+          <li>
+            <b>createFunction</b>:
+          </li>
+          <li>
+            <b>setFunctionConfig</b>:
+          </li>
+          <li>
+            <b>functionEscrowFund</b>:
+          </li>
+          <li>
+            <b>functionEscrowWithdraw</b>:
+          </li>
+          <li>
+            <b>functionVerify</b>:
+          </li>
+          <li>
+            <b>functionVerifyRequest</b>:
+          </li>
+          <li>
+            <b>forward</b>:
+          </li>
+          <li>
+            <b>setFunctionDeactivated</b>:
+          </li>
+          <li>
+            <b>setToleratedTimestampDiscrepancy</b>:
+          </li>
+        </ul>
+      </td>
+    </tr>
+  </tbody>
+</table>
+-->

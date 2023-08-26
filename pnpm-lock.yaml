@@ -111,7 +111,7 @@ importers:
         version: 1.78.3
       '@switchboard-xyz/aptos.js':
         specifier: ^2.6.10
-        version: 2.6.10(@solana/web3.js@1.78.3)
+        version: 2.6.10
       '@switchboard-xyz/common':
         specifier: workspace:^2.3.4
         version: link:../javascript/common
@@ -120,7 +120,7 @@ importers:
         version: 3.12.30
       '@switchboard-xyz/near.js':
         specifier: ^2.2.4
-        version: 2.2.4(@solana/web3.js@1.78.3)(typescript@5.0.4)
+        version: 2.2.4(typescript@5.0.4)
       '@switchboard-xyz/oracle':
         specifier: workspace:^2.1.13
         version: link:../javascript/oracle
@@ -578,8 +578,8 @@ importers:
         specifier: ^1.6.22
         version: 1.6.22(react@17.0.2)
       '@mui/icons-material':
-        specifier: ^5.1.1
-        version: 5.1.1(@mui/material@5.8.3)(@types/react@18.2.13)(react@17.0.2)
+        specifier: ^5.14.6
+        version: 5.14.6(@mui/material@5.8.3)(@types/react@18.2.13)(react@17.0.2)
       '@mui/material':
         specifier: ^5.8.3
         version: 5.8.3(@emotion/react@11.4.1)(@emotion/styled@11.3.0)(@types/react@18.2.13)(react-dom@17.0.2)(react@17.0.2)
@@ -979,7 +979,7 @@ packages:
       '@aws-sdk/util-user-agent-node': 3.127.0
       '@aws-sdk/util-utf8-browser': 3.109.0
       '@aws-sdk/util-utf8-node': 3.109.0
-      tslib: 2.6.0
+      tslib: 2.6.2
     transitivePeerDependencies:
       - aws-crt
     dev: false
@@ -1165,7 +1165,7 @@ packages:
       '@aws-sdk/util-user-agent-node': 3.127.0
       '@aws-sdk/util-utf8-browser': 3.109.0
       '@aws-sdk/util-utf8-node': 3.109.0
-      tslib: 2.6.0
+      tslib: 2.6.2
     transitivePeerDependencies:
       - aws-crt
     dev: false
@@ -1318,7 +1318,7 @@ packages:
       '@aws-sdk/client-cognito-identity': 3.157.0
       '@aws-sdk/property-provider': 3.127.0
       '@aws-sdk/types': 3.127.0
-      tslib: 2.6.0
+      tslib: 2.6.2
     transitivePeerDependencies:
       - aws-crt
     dev: false
@@ -1329,7 +1329,7 @@ packages:
     dependencies:
       '@aws-sdk/property-provider': 3.127.0
       '@aws-sdk/types': 3.127.0
-      tslib: 2.6.0
+      tslib: 2.6.2
     dev: false
 
   /@aws-sdk/credential-provider-env@3.363.0:
@@ -1350,7 +1350,7 @@ packages:
       '@aws-sdk/property-provider': 3.127.0
       '@aws-sdk/types': 3.127.0
       '@aws-sdk/url-parser': 3.127.0
-      tslib: 2.6.0
+      tslib: 2.6.2
     dev: false
 
   /@aws-sdk/credential-provider-ini@3.154.0:
@@ -1364,7 +1364,7 @@ packages:
       '@aws-sdk/property-provider': 3.127.0
       '@aws-sdk/shared-ini-file-loader': 3.127.0
       '@aws-sdk/types': 3.127.0
-      tslib: 2.6.0
+      tslib: 2.6.2
     transitivePeerDependencies:
       - aws-crt
     dev: false
@@ -1431,7 +1431,7 @@ packages:
       '@aws-sdk/property-provider': 3.127.0
       '@aws-sdk/shared-ini-file-loader': 3.127.0
       '@aws-sdk/types': 3.127.0
-      tslib: 2.6.0
+      tslib: 2.6.2
     dev: false
 
   /@aws-sdk/credential-provider-process@3.363.0:
@@ -1453,7 +1453,7 @@ packages:
       '@aws-sdk/property-provider': 3.127.0
       '@aws-sdk/shared-ini-file-loader': 3.127.0
       '@aws-sdk/types': 3.127.0
-      tslib: 2.6.0
+      tslib: 2.6.2
     transitivePeerDependencies:
       - aws-crt
     dev: false
@@ -1479,7 +1479,7 @@ packages:
     dependencies:
       '@aws-sdk/property-provider': 3.127.0
       '@aws-sdk/types': 3.127.0
-      tslib: 2.6.0
+      tslib: 2.6.2
     dev: false
 
   /@aws-sdk/credential-provider-web-identity@3.363.0:
@@ -1829,7 +1829,7 @@ packages:
     engines: {node: '>= 12.0.0'}
     dependencies:
       '@aws-sdk/types': 3.127.0
-      tslib: 2.6.0
+      tslib: 2.6.2
     dev: false
 
   /@aws-sdk/protocol-http@3.127.0:
@@ -1866,7 +1866,7 @@ packages:
     resolution: {integrity: sha512-S3Nn4KRTqoJsB/TbRZSWBBUrkckNMR0Juqz7bOB+wupVvddKP6IcpspSC/GX9zgJjVMV8iGisZ6AUsYsC5r+cA==}
     engines: {node: '>= 12.0.0'}
     dependencies:
-      tslib: 2.6.0
+      tslib: 2.6.2
     dev: false
 
   /@aws-sdk/signature-v4-multi-region@3.363.0:
@@ -3639,6 +3639,13 @@ packages:
     dependencies:
       core-js-pure: 3.31.1
       regenerator-runtime: 0.13.11
+    dev: false
+
+  /@babel/runtime@7.22.11:
+    resolution: {integrity: sha512-ee7jVNlWN09+KftVOu9n7S8gQzD/Z6hN/I8VBRXW4P1+Xe7kJGXMwu8vds4aGIMHZnNbdpSWCfZZtinytpcAvA==}
+    engines: {node: '>=6.9.0'}
+    dependencies:
+      regenerator-runtime: 0.14.0
     dev: false
 
   /@babel/runtime@7.22.6:
@@ -5984,18 +5991,18 @@ packages:
       react-is: 17.0.2
     dev: false
 
-  /@mui/icons-material@5.1.1(@mui/material@5.8.3)(@types/react@18.2.13)(react@17.0.2):
-    resolution: {integrity: sha512-tLM1/QhVAgcetEscZa8BlM1IRRaoNxjhFzQOIs5wAuuVhHSrB8zZCKugpZVIZ1nKyQqLgVEa9TbtWpo5jLrnRQ==}
+  /@mui/icons-material@5.14.6(@mui/material@5.8.3)(@types/react@18.2.13)(react@17.0.2):
+    resolution: {integrity: sha512-7Cujy7lRGTj2T3SvY9C9ZOTFDtrXJogeNnRcU/ODyNoxwskMNPFOcc15F+98MAdJenBVLJPYu+vPP6DUvEpNrA==}
     engines: {node: '>=12.0.0'}
     peerDependencies:
       '@mui/material': ^5.0.0
-      '@types/react': ^16.8.6 || ^17.0.0
-      react: ^17.0.2
+      '@types/react': ^17.0.0 || ^18.0.0
+      react: ^17.0.0 || ^18.0.0
     peerDependenciesMeta:
       '@types/react':
         optional: true
     dependencies:
-      '@babel/runtime': 7.22.6
+      '@babel/runtime': 7.22.11
       '@mui/material': 5.8.3(@emotion/react@11.4.1)(@emotion/styled@11.3.0)(@types/react@18.2.13)(react-dom@17.0.2)(react@17.0.2)
       '@types/react': 18.2.13
       react: 17.0.2
@@ -8162,11 +8169,11 @@ packages:
       '@swc/core-win32-x64-msvc': 1.3.68
     dev: true
 
-  /@switchboard-xyz/aptos.js@2.6.10(@solana/web3.js@1.78.3):
+  /@switchboard-xyz/aptos.js@2.6.10:
     resolution: {integrity: sha512-lvX51y7x1NE77vpP9L3J65WJw9cOR1JLU5DJJg3v9dkv0xyR2/PSjrQrpSBMx+b6ITr58nxg8Gut3dw5u45XoQ==}
     engines: {node: '>=12.0.0'}
     dependencies:
-      '@switchboard-xyz/common': 2.3.2(@solana/web3.js@1.78.3)
+      '@switchboard-xyz/common': 2.3.4
       aptos: 1.13.1
       big.js: 6.2.1
       bn.js: 5.2.1
@@ -8174,27 +8181,8 @@ packages:
       js-sha3: 0.8.0
       node-fetch: 2.6.12
     transitivePeerDependencies:
-      - '@solana/web3.js'
       - debug
       - encoding
-    dev: false
-
-  /@switchboard-xyz/common@2.3.2(@solana/web3.js@1.78.3):
-    resolution: {integrity: sha512-Vv/Som+QmOOpbvCTWO/FwJ9Bz6yYqBbLqo9T5UuO2JHqL/pBcvTrJGK2ERizTv3UEuHF7Z6zl0k/rdN+11hnyw==}
-    engines: {node: '>=12'}
-    dependencies:
-      '@coral-xyz/borsh': 0.28.0(@solana/web3.js@1.78.3)
-      '@types/big.js': 6.1.6
-      '@types/bn.js': 5.1.1
-      big.js: 6.2.1
-      bn.js: 5.2.1
-      bs58: 5.0.0
-      decimal.js: 10.4.3
-      lodash: 4.17.21
-      protobufjs: 7.2.4
-      yaml: 2.3.1
-    transitivePeerDependencies:
-      - '@solana/web3.js'
     dev: false
 
   /@switchboard-xyz/common@2.3.4:
@@ -8228,10 +8216,10 @@ packages:
       - utf-8-validate
     dev: false
 
-  /@switchboard-xyz/near.js@2.2.4(@solana/web3.js@1.78.3)(typescript@5.0.4):
+  /@switchboard-xyz/near.js@2.2.4(typescript@5.0.4):
     resolution: {integrity: sha512-wYIhZb8cujqiIn3yve6tTmIKKKqbUlwMSAyzgqkbTxMMqpA994wVxOjDpz9SkUhbYn9GH53IiXvXokvk+FEtpg==}
     dependencies:
-      '@switchboard-xyz/common': 2.3.2(@solana/web3.js@1.78.3)
+      '@switchboard-xyz/common': 2.3.4
       big.js: 6.2.1
       bn.js: 5.2.1
       bs58: 5.0.0
@@ -8248,7 +8236,6 @@ packages:
       ws: 8.13.0(bufferutil@4.0.7)(utf-8-validate@5.0.10)
     transitivePeerDependencies:
       - '@aws-sdk/signature-v4-crt'
-      - '@solana/web3.js'
       - aws-crt
       - bufferutil
       - encoding
@@ -8378,11 +8365,13 @@ packages:
 
   /@types/big.js@6.1.6:
     resolution: {integrity: sha512-0r9J+Zz9rYm2hOTwiMAVkm3XFQ4u5uTK37xrQMhc9bysn/sf/okzovWMYYIBMFTn/yrEZ11pusgLEaoarTlQbA==}
+    dev: true
 
   /@types/bn.js@5.1.1:
     resolution: {integrity: sha512-qNrYbZqMx0uJAfKnKclPh+dTwK33KfLHYqtyODwd5HnXOjnkhc4qgn3BrK6RWyGZm5+sIFE7Q7Vz6QQtJB7w7g==}
     dependencies:
       '@types/node': 18.15.5
+    dev: true
 
   /@types/body-parser@1.19.2:
     resolution: {integrity: sha512-ALYone6pm6QmwZoAgeyNksccT9Q4AWZQ6PvfwR37GT6r6FWUPguq6sUmNGSMV2Wr761oQoBxwGGa6DR5o1DC9g==}
@@ -18495,7 +18484,7 @@ packages:
     engines: {node: '>=10'}
     dependencies:
       hosted-git-info: 4.1.0
-      is-core-module: 2.12.1
+      is-core-module: 2.13.0
       semver: 7.5.4
       validate-npm-package-license: 3.0.4
 
@@ -20987,6 +20976,10 @@ packages:
 
   /regenerator-runtime@0.13.11:
     resolution: {integrity: sha512-kY1AZVr2Ra+t+piVaJ4gxaFaReZVH40AKNo7UCX6W+dEwBo/2oZJzqfuN1qLq1oL45o56cPaTXELwrTh8Fpggg==}
+
+  /regenerator-runtime@0.14.0:
+    resolution: {integrity: sha512-srw17NI0TUWHuGa5CFGGmhfNIeja30WMBfbslPNhf6JrqQlLN5gcrvig1oqPxiVaXb0oW0XRKtH6Nngs5lKCIA==}
+    dev: false
 
   /regenerator-transform@0.15.1:
     resolution: {integrity: sha512-knzmNAcuyxV+gQCufkYcvOqX/qIIfHLv0u5x79kRxuGojfYVky1f15TzZEu2Avte8QGepvUNTnLskf8E6X6Vyg==}
