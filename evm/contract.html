@@ -9,7 +9,7 @@
 
 
 <link rel="search" type="application/opensearchdescription+xml" title="Switchboard" href="/opensearch.xml"><link rel="stylesheet" href="/assets/css/styles.47f3dba6.css">
-<link rel="preload" href="/assets/js/runtime~main.58063f10.js" as="script">
+<link rel="preload" href="/assets/js/runtime~main.a2d9415b.js" as="script">
 <link rel="preload" href="/assets/js/main.daea4409.js" as="script">
 </head>
 <body class="navigation-with-keyboard">
@@ -28,22 +28,24 @@ will revert.</p><h2 class="anchor anchorWithStickyNavbar_WPED" id="diamond-facet
 <a href="https://eips.ethereum.org/EIPS/eip-2771" target="_blank" rel="noopener noreferrer">EIP-2771: Meta Transactions</a> interface
 to support third-parties paying for gas fees.</p><h3 class="anchor anchorWithStickyNavbar_WPED" id="attestation-queue">Attestation Queue<a href="#attestation-queue" class="hash-link" aria-label="Direct link to Attestation Queue" title="Direct link to Attestation Queue">​</a></h3><p>A Switchboard Attestation Queue represents a network of oracles responsible for validating
 quotes from TEEs. Every time a switchboard oracle wants to send some data on
-chain, it generates a signature from the enclave proving the output came from
+chain, it generates a signature from your code proving the output came from
 the TEE and from a certain Switchboard Function.</p><p>This signature is sent to one of the Switchboard Attestation Oracles to check
 this signature is valid.  If so, the oracle will then sign off and send a response
-transaction on-chain perfermoning some signed action, like performing a transaction.</p><p>This pattern is utilized when using a Switchboard Function.</p><p>When a user function is triggered to run, it will be launched on a node inside
-the attestation queue.</p><p>Once completed, the output will be sent to a secured sub-enclave to verify the
+transaction on-chain perfermoning some signed action, like submitting a transaction.</p><p>This pattern is utilized when using a Switchboard Function.</p><p>When a user&#x27;s function is triggered to run, it will be launched on a node of the
+attached attestation queue.</p><p>Once completed, the output will be sent to a secured sub-enclave to verify the
 TEE quote in the enclave.  Once verified, this quote verifier will add its
 signature to the transaction signifying that the quote was properly verified
 and the transaction output by the funciton will be executed.</p><h3 class="anchor anchorWithStickyNavbar_WPED" id="function">Function<a href="#function" class="hash-link" aria-label="Direct link to Function" title="Direct link to Function">​</a></h3><p>A Switchboard function is an on-chain representation of a verifiable container
 to run.</p><p>A user can specify a docker container to run and a &quot;measurement&quot; of the corresponding
 code that is expected to run.  On each function run, this measurement is verified
-before any function output is sent to the callback.</p><h3 class="anchor anchorWithStickyNavbar_WPED" id="function-call">Function Call<a href="#function-call" class="hash-link" aria-label="Direct link to Function Call" title="Direct link to Function Call">​</a></h3><p>A Switchboard function can also be called with parameters!  Let&#x27;s say you create
+before any function output is sent to the callback.</p><h3 class="anchor anchorWithStickyNavbar_WPED" id="function-call">Function Call<a href="#function-call" class="hash-link" aria-label="Direct link to Function Call" title="Direct link to Function Call">​</a></h3><p>A Switchboard function can also be called with parameters!  Say you create
 a function to collect weather data for a certain location.  You wouldn&#x27;t want
-to make a function explicitly for each coordinate you query.  Using a
-function call you can minimize code you need to write in your function while
+to make a function explicitly for each coordinate you query. In the function
+call flow, your function output is checked against the measurement loaded on
+chain and the parameters the oracle processed are checked against the call on
+chain so both the input and output of the function is verified.</p><p>Using a function call you can minimize code you need to write in your function while
 keeping execution and verification simple and flexible.</p></div></article><nav class="pagination-nav docusaurus-mt-lg" aria-label="Docs pages"><a class="pagination-nav__link pagination-nav__link--prev" href="/evm"><div class="pagination-nav__sublabel">Previous</div><div class="pagination-nav__label">Getting Started</div></a><a class="pagination-nav__link pagination-nav__link--next" href="/evm/sb-push-prac;e"><div class="pagination-nav__sublabel">Next</div><div class="pagination-nav__label">Sb Push Oracle</div></a></nav></div></div><div class="col col--3"><div class="tableOfContents_W_pa thin-scrollbar theme-doc-toc-desktop"><ul class="table-of-contents table-of-contents__left-border"><li><a href="#diamond-facets" class="table-of-contents__link toc-highlight">Diamond Facets</a><ul><li><a href="#admin" class="table-of-contents__link toc-highlight">Admin</a></li><li><a href="#attestation-queue" class="table-of-contents__link toc-highlight">Attestation Queue</a></li><li><a href="#function" class="table-of-contents__link toc-highlight">Function</a></li><li><a href="#function-call" class="table-of-contents__link toc-highlight">Function Call</a></li></ul></li></ul></div></div></div></div></main></div></div><footer class="footer footer--dark"><div class="container container-fluid"></div></footer></div>
-<script src="/assets/js/runtime~main.58063f10.js"></script>
+<script src="/assets/js/runtime~main.a2d9415b.js"></script>
 <script src="/assets/js/main.daea4409.js"></script>
 </body>
 </html>
