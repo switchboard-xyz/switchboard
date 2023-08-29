@@ -15,10 +15,14 @@ The Sb Push Oracle contract implements the following facets:
 
 - [Admin](#admin)
 - [Receiver](#receiver)
-- [Aggregator](#aggregator)
 
 ### Admin
 
+The admin module is responsible for program based authoritative actions such as
+program upgrades and setting which function is allowed to send new updates to
+this receiver.
+
 ### Receiver
 
-### Aggregator
+The Push Receiver contract is responsible for the actual storage of the updated
+values given some threshold of variance for each price point.

@@ -23,10 +23,9 @@ The Switchboard EVM contract supports the following facets:
 
 - [Admin](#admin)
 - [Attestation Queue](#attestation-queue)
-- [Permission](#permission)
 - [Enclave](#enclave)
+- [Function](#function)
 - [Function Call](#function-call)
-- [Sb Function](#sb-function)
 
 ### Admin
 
@@ -36,13 +35,43 @@ to support third-parties paying for gas fees.
 
 ### Attestation Queue
 
-### Permission
+A Switchboard Attestation Queue represents a network of oracles responsible for validating
+quotes from TEEs. Every time a switchboard oracle wants to send some data on
+chain, it generates a signature from the enclave proving the output came from
+the TEE and from a certain Switchboard Function.
 
-### Enclave
+This signature is sent to one of the Switchboard Attestation Oracles to check
+this signature is valid.  If so, the oracle will then sign off and send a response
+transaction on-chain perfermoning some signed action, like performing a transaction.
+
+This pattern is utilized when using a Switchboard Function.
+
+When a user function is triggered to run, it will be launched on a node inside
+the attestation queue.
+
+Once completed, the output will be sent to a secured sub-enclave to verify the
+TEE quote in the enclave.  Once verified, this quote verifier will add its
+signature to the transaction signifying that the quote was properly verified
+and the transaction output by the funciton will be executed.
+
+### Function
+
+A Switchboard function is an on-chain representation of a verifiable container
+to run.
+
+A user can specify a docker container to run and a "measurement" of the corresponding
+code that is expected to run.  On each function run, this measurement is verified
+before any function output is sent to the callback.
 
 ### Function Call
 
-### Sb Function
+A Switchboard function can also be called with parameters!  Let's say you create
+a function to collect weather data for a certain location.  You wouldn't want
+to make a function explicitly for each coordinate you query.  Using a
+function call you can minimize code you need to write in your function while
+keeping execution and verification simple and flexible.
+
+
 
 <!--
 <table>
