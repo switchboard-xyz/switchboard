@@ -4,7 +4,7 @@ import Layout from "@theme/Layout";
 import React from "react";
 
 import { ChainComponent, ProductGuidesGrid } from "../components";
-import styles from "./index.module.css";
+import styles from "./old-home.module.css";
 
 export default function Home(): JSX.Element {
   const { siteConfig } = useDocusaurusContext();
