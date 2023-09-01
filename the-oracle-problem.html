@@ -9,7 +9,7 @@
 
 
 <link rel="search" type="application/opensearchdescription+xml" title="Switchboard" href="/opensearch.xml"><link rel="stylesheet" href="/assets/css/styles.3d4442cb.css">
-<link rel="preload" href="/assets/js/runtime~main.b6ad0e71.js" as="script">
+<link rel="preload" href="/assets/js/runtime~main.8fdbc8e3.js" as="script">
 <link rel="preload" href="/assets/js/main.a7ce8f28.js" as="script">
 </head>
 <body class="navigation-with-keyboard">
@@ -20,7 +20,7 @@ on data stored in their ledger for consensus. The deterministic nature of smart
 contracts is a result of the narrow focus of blockchain consensus and their
 ability to execute exactly as written with a higher degree of certainty than
 traditional systems. Incorrect reporting of external data can lead to
-devastating outcomes for on-chain applications dependent on these data feeds.</p><p>Below is a high-level overview of the evolution of oracles:</p><table><thead><tr><th>Type of Oracle</th><th>Description</th><th>Security</th></tr></thead><tbody><tr><td>Trusted Signer</td><td>Single pary trust - The first iteration of oracles used a trusted signer to update a price account on-chain. This model is vulnerable to a single keypair leak to pwn the entire system and should never be considered.</td><td>Highly vulnerable</td></tr><tr><td>Round-Based Consensus</td><td>Multi pary trust - Multiple oracles are polled and the final result is determined from the median of the responses.</td><td>Oracles have no incentives to be honest</td></tr><tr><td>Stake-Weighted Consensus</td><td>Incentive Based - Stake is required to participate and oracles lose their stake for acting maliciously. Almost there! This system will naturally imbalance as the opportunity cost of acting maliciously outweighs the slashing penalty.</td><td>High instrastructure cost and misalignment of incentives when TVL attack exceeds slashing penalty</td></tr></tbody></table><h3 class="anchor anchorWithStickyNavbar_WPED" id="our-solution">Our Solution<a href="#our-solution" class="hash-link" aria-label="Direct link to Our Solution" title="Direct link to Our Solution">​</a></h3><p>Switchboard addresses the oracle problem by combining:</p><ol><li><strong>Verifiable Execution</strong> - Trusted Execution Environments (TEEs) are
+devastating outcomes for on-chain applications dependent on these data feeds.</p><p>Below is a high-level overview of the evolution of oracles:</p><table><thead><tr><th>Type of Oracle</th><th>Description</th><th>Security</th></tr></thead><tbody><tr><td>Trusted Signer</td><td>Single party trust - The first iteration of oracles used a trusted signer to update a price account on-chain. This model is vulnerable to a single keypair leak to pwn the entire system and should never be considered.</td><td>Highly vulnerable</td></tr><tr><td>Round-Based Consensus</td><td>Multi party trust - Multiple oracles are polled and the final result is determined from the median of the responses.</td><td>Oracles have no incentives to be honest</td></tr><tr><td>Stake-Weighted Consensus</td><td>Incentive based trust - Stake is required to participate and oracles lose their stake for acting maliciously. Almost there! This system will naturally imbalance as the opportunity cost of acting maliciously outweighs the slashing penalty.</td><td>High instrastructure cost and misalignment of incentives when TVL attack exceeds slashing penalty</td></tr></tbody></table><h3 class="anchor anchorWithStickyNavbar_WPED" id="our-solution">Our Solution<a href="#our-solution" class="hash-link" aria-label="Direct link to Our Solution" title="Direct link to Our Solution">​</a></h3><p>Switchboard addresses the oracle problem by combining:</p><ol><li><strong>Verifiable Execution</strong> - Trusted Execution Environments (TEEs) are
 leveraged to enforce that off-chain oracles are operated within a secure
 enclave. TEEs provide cryptographic proof that the code being executed wasn&#x27;t
 tampered with and provides a way to enforce a set of protocol rules. Code is
@@ -33,7 +33,7 @@ DAO creating an autonomous compute network governed by its participants. The
 queue controls the reward and slashing behavior to entice new oracles to join
 the network during congestion.</li><li><strong>Permissionless / Customization</strong> - Developers can worry about coding not infrastructure and
 leave the execution to the Switchboard oracle network.</li></ol></div></article><nav class="pagination-nav docusaurus-mt-lg" aria-label="Docs pages"><a class="pagination-nav__link pagination-nav__link--prev" href="/network"><div class="pagination-nav__sublabel">Previous</div><div class="pagination-nav__label">🌐 The Network</div></a><a class="pagination-nav__link pagination-nav__link--next" href="/architecture"><div class="pagination-nav__sublabel">Next</div><div class="pagination-nav__label">Program Architecture</div></a></nav></div></div></div></div></main></div></div><footer class="footer footer--dark"><div class="container container-fluid"></div></footer></div>
-<script src="/assets/js/runtime~main.b6ad0e71.js"></script>
+<script src="/assets/js/runtime~main.8fdbc8e3.js"></script>
 <script src="/assets/js/main.a7ce8f28.js"></script>
 </body>
 </html>
