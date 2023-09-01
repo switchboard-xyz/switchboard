@@ -52,9 +52,8 @@ Each type of data propagation method poses their own advantages. The following
 table compares the different criteria that should be looked at when 
 deciding which method is best for your specific solution.
 
-<MarkdownImage
-  img="/img/data/comparison_table.png"
-  sx={{
-    display: "flex",
-  }}
-/>
+| Method   | Settlement Time             | Cost                                              | Data Availability (Staleness)     |
+|----------|-----------------------------|---------------------------------------------------|-----------------------------------|
+| Push     | Instant (dependent on RPCs) | Expensive (constant streams even when not needed) | Data is stale between each update |
+| Pull     | Await bridge and data store | Inexpensive (requests only when needed)           | Data is fresh upon each pull      |
+| Callback | Await function execution    | Inexpensive (updates based on events)             | Data is fresh upon each callback  |
