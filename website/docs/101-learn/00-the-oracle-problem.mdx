@@ -4,6 +4,15 @@ title: The Oracle Problem
 hide_table_of_contents: true
 ---
 
+import MarkdownImage from "/src/components/MarkdownImage";
+
+<MarkdownImage
+  img="/img/data/evolutionoforacle.png"
+  sx={{
+    display: "flex",
+  }}
+/>
+
 The oracle problem arises due to the inability of blockchains to interact
 directly with external systems. Blockchains are isolated networks that only rely
 on data stored in their ledger for consensus. The deterministic nature of smart
@@ -14,20 +23,11 @@ devastating outcomes for on-chain applications dependent on these data feeds.
 
 Below is a high-level overview of the evolution of oracles:
 
-1. **Trusted Signer** [Single Party Trust] - The first iteration of oracles used
-   a trusted signer to update a price account on-chain. This model allows a
-   single keypair leak to pwn the entire system and should never be considered
-   with better options available.
-   - Highly vulnerable
-2. **Round-Based Consensus** [Multi-Party Trust] - Multiple oracles are polled
-   and the final result is determined from the median of the responses.
-   - Oracles have no incentives to be honest
-3. **Stake-Weighted Consensus** [Incentive Based] - Stake is required to
-   participate and oracles lose their stake for acting maliciously. Almost
-   there - this system will naturally imbalance as the opportunity cost of
-   acting maliciously outweighs the slashing penalty.
-   - High infrastructure cost
-   - Misalignment of incentives when TVL attack exceeds slashing penalty
+| Type of Oracle           | Description                                                                                                                                                                                                                                | Security                                                                                            |
+| Trusted Signer           | Single pary trust - The first iteration of oracles used a trusted signer to update a price account on-chain. This model is vulnerable to a single keypair leak to pwn the entire system and should never be considered.                    | Highly vulnerable                                                                                   |
+| Round-Based Consensus    | Multi pary trust - Multiple oracles are polled and the final result is determined from the median of the responses.     
+                                                                                                                   | Oracles have no incentives to be honest                                                           |
+| Stake-Weighted Consensus | Incentive Based - Stake is required to participate and oracles lose their stake for acting maliciously. Almost there! This system will naturally imbalance as the opportunity cost of acting maliciously outweighs the slashing penalty. | High instrastructure cost and misalignment of incentives when TVL attack exceeds slashing penalty |
 
 ### Our Solution
 
@@ -47,6 +47,5 @@ Switchboard addresses the oracle problem by combining:
    DAO creating an autonomous compute network governed by its participants. The
    queue controls the reward and slashing behavior to entice new oracles to join
    the network during congestion.
-4. **Permissionless / Customization** - Developers can worry about coding and
-   leave the execution to the Switchboard oracle network. Write the code and let
-   Switchboard do the rest.
+4. **Permissionless / Customization** - Developers can worry about coding not infrastructure and
+   leave the execution to the Switchboard oracle network.
