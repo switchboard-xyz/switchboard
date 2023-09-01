@@ -9,42 +9,31 @@ import MarkdownImage from "/src/components/MarkdownImage";
 
 # The Data Models
 
-The following sections depict the different ways developers can integrate
-Switchboard to have full control over how data is sourced on-chain for their
-smart contracts.
-
 <MarkdownImage
-  img="/img/data/comparison_table.png"
+  img="/img/data/datamodels.png"
   sx={{
     display: "flex",
   }}
 />
+
+The following sections depict the different ways of data propagation provided by 
+oracles and how developers can integrate Switchboard to have full control over 
+how data is sourced on-chain for their smart contracts.
 
 ## Push
 
-Data is _**pushed**_ on-chain by the oracle at a routine interval. The
-integrator just needs to verify the data was recently pushed and doesn't need to
-handle any off-chain requesting.
+Data is _**pushed**_ on-chain by the oracle at a routine interval. The integrator 
+just needs to verify the data was recently pushed and doesn't need to handle any 
+off-chain requesting.
 
-See [Data Feeds](/feeds) for more information.
+Switchboard Functions allow you to set up functions on a cron schedule, which 
+essentially performs the same as a push based oracle. See [Switchboard Functions](/functions) 
+for more information.
 
-<MarkdownImage
-  img="/img/data/push.png"
-  sx={{
-    display: "flex",
-  }}
-/>
+## Pull (Not supported)
 
-## Pull (Coming Soon)
-
-Data is maintained in a data store and _**pulled**_ on-chain by the integrator.
-
-<MarkdownImage
-  img="/img/data/pull.png"
-  sx={{
-    display: "flex",
-  }}
-/>
+Data is fetched and maintained in a data store (different from the origin chain) 
+and _**pulled**_ on-chain by the integrator through a bridge.
 
 ## Callback
 
@@ -53,10 +42,18 @@ a callback into the callers smart contract. This method is more complex to
 integrate but is less susceptible to oracle attacks because the data is only
 sourced when the user requests it.
 
-See [Switchboard Functions](/functions) for more information.
+Switchboard Functions allow you to set up functions on a callback model, which 
+allows you to trigger based on events and pass in parameters. See [Switchboard Functions](/functions) 
+for more information.
+
+## Comparison
+
+Each type of data propagation method poses their own advantages. The following 
+table compares the different criteria that should be looked at when 
+deciding which method is best for your specific solution.
 
 <MarkdownImage
-  img="/img/data/callback.png"
+  img="/img/data/comparison_table.png"
   sx={{
     display: "flex",
   }}
