@@ -83,41 +83,11 @@ export default function SolanaAddresses(props?: {
               />
             </div>
 
-            <div>
-              <strong>Sponsored Data Feeds</strong>:{" "}
-              <ul className="icon">
-                <li>
-                  <Link to="https://app.switchboard.xyz/solana/mainnet-beta/feed/GvDMxPzN1sCj7L26YDK2HnMRXEQmQ2aemov8YBtPS7vR">
-                    SOL/USD
-                  </Link>
-                </li>
-                <li>
-                  <Link to="https://app.switchboard.xyz/solana/mainnet-beta/feed/8SXvChNYFhRq4EZuZvnhjrB3jJRQCv4k3P4W6hesH3Ee">
-                    BTC/USD
-                  </Link>
-                </li>
-                <li>
-                  <Link to="https://app.switchboard.xyz/solana/mainnet-beta/feed/HNStfhaLnqwF2ZtJUizaA9uHDAVB976r2AgTUx9LrdEo">
-                    ETH/USD
-                  </Link>
-                </li>
-                <li>
-                  <Link to="https://app.switchboard.xyz/solana/mainnet-beta/feed/BjUgj6YCnFBZ49wF54ddBVA9qu8TeqkFtkbqmZcee8uW">
-                    USDC/USD
-                  </Link>
-                </li>
-                <li>
-                  <Link to="https://app.switchboard.xyz/solana/mainnet-beta/feed/ETAaeeuQBwsh9mC2gCov9WdhJENZuffRMXY2HgjCcSL9">
-                    USDT/USD
-                  </Link>
-                </li>
-              </ul>
-            </div>
 
             <div style={{ minHeight: "10px" }} />
             <div>
               <Typography sx={{ fontWeight: 700 }}>
-                View more supported feeds in the{" "}
+                View our supported feeds in the{" "}
                 <Link to="https://app.switchboard.xyz/solana/mainnet-beta">
                   Switchboard Explorer App
                 </Link>
@@ -164,41 +134,10 @@ export default function SolanaAddresses(props?: {
                   />
                 </div>
 
-                <div>
-                  <strong>Sponsored Data Feeds</strong>:{" "}
-                  <ul className="icon">
-                    <li>
-                      <Link to="https://app.switchboard.xyz/solana/devnet/feed/GvDMxPzN1sCj7L26YDK2HnMRXEQmQ2aemov8YBtPS7vR">
-                        SOL/USD
-                      </Link>
-                    </li>
-                    <li>
-                      <Link to="https://app.switchboard.xyz/solana/devnet/feed/8SXvChNYFhRq4EZuZvnhjrB3jJRQCv4k3P4W6hesH3Ee">
-                        BTC/USD
-                      </Link>
-                    </li>
-                    <li>
-                      <Link to="https://app.switchboard.xyz/solana/devnet/feed/HNStfhaLnqwF2ZtJUizaA9uHDAVB976r2AgTUx9LrdEo">
-                        ETH/USD
-                      </Link>
-                    </li>
-                    <li>
-                      <Link to="https://app.switchboard.xyz/solana/devnet/feed/BjUgj6YCnFBZ49wF54ddBVA9qu8TeqkFtkbqmZcee8uW">
-                        USDC/USD
-                      </Link>
-                    </li>
-                    <li>
-                      <Link to="https://app.switchboard.xyz/solana/devnet/feed/ETAaeeuQBwsh9mC2gCov9WdhJENZuffRMXY2HgjCcSL9">
-                        USDT/USD
-                      </Link>
-                    </li>
-                  </ul>
-                </div>
-
                 <div style={{ minHeight: "10px" }} />
                 <div>
                   <Typography sx={{ fontWeight: 700 }}>
-                    View more supported feeds in the{" "}
+                    View our supported feeds in the{" "}
                     <Link to="https://app.switchboard.xyz/solana/devnet">
                       Switchboard Explorer App
                     </Link>
