@@ -9,7 +9,7 @@
 
 
 <link rel="search" type="application/opensearchdescription+xml" title="Switchboard" href="/opensearch.xml"><link rel="stylesheet" href="/assets/css/styles.3d4442cb.css">
-<link rel="preload" href="/assets/js/runtime~main.8c86777d.js" as="script">
+<link rel="preload" href="/assets/js/runtime~main.e301b6ec.js" as="script">
 <link rel="preload" href="/assets/js/main.a7ce8f28.js" as="script">
 </head>
 <body class="navigation-with-keyboard">
@@ -20,8 +20,9 @@ how data is sourced on-chain for their smart contracts.</p><h2 class="anchor anc
 just needs to verify the data was recently pushed and doesn&#x27;t need to handle any
 off-chain requesting.</p><p>Switchboard Functions allow you to set up functions on a cron schedule, which
 essentially performs the same as a push based oracle. See <a href="/functions">Switchboard Functions</a>
-for more information.</p><h2 class="anchor anchorWithStickyNavbar_WPED" id="pull-not-supported">Pull (Not supported)<a href="#pull-not-supported" class="hash-link" aria-label="Direct link to Pull (Not supported)" title="Direct link to Pull (Not supported)">​</a></h2><p>Data is fetched and maintained in a data store (different from the origin chain)
-and <em><strong>pulled</strong></em> on-chain by the integrator through a bridge.</p><h2 class="anchor anchorWithStickyNavbar_WPED" id="callback">Callback<a href="#callback" class="hash-link" aria-label="Direct link to Callback" title="Direct link to Callback">​</a></h2><p>Data is sourced off-chain each time it is requested and populated on-chain with
+for more information.</p><h2 class="anchor anchorWithStickyNavbar_WPED" id="pull-not-supported">Pull (Not supported)<a href="#pull-not-supported" class="hash-link" aria-label="Direct link to Pull (Not supported)" title="Direct link to Pull (Not supported)">​</a></h2><p>Data is first fetched and maintained in a data store (it can be another blockchain,
+sub-chain or centralized database). From this data store, the data is then <em><strong>pulled</strong></em>
+on-chain by the integrator.</p><h2 class="anchor anchorWithStickyNavbar_WPED" id="callback">Callback<a href="#callback" class="hash-link" aria-label="Direct link to Callback" title="Direct link to Callback">​</a></h2><p>Data is sourced off-chain each time it is requested and populated on-chain with
 a callback into the callers smart contract. This method is more complex to
 integrate but is less susceptible to oracle attacks because the data is only
 sourced when the user requests it.</p><p>Switchboard Functions allow you to set up functions on a callback model, which
@@ -29,7 +30,7 @@ allows you to trigger based on events and pass in parameters. See <a href="/func
 for more information.</p><h2 class="anchor anchorWithStickyNavbar_WPED" id="comparison">Comparison<a href="#comparison" class="hash-link" aria-label="Direct link to Comparison" title="Direct link to Comparison">​</a></h2><p>Each type of data propagation method poses their own advantages. The following
 table compares the different criteria that should be looked at when
 deciding which method is best for your specific solution.</p><table><thead><tr><th>Method</th><th>Settlement Time</th><th>Cost</th><th>Data Availability (Staleness)</th></tr></thead><tbody><tr><td>Push</td><td>Instant (dependent on RPCs)</td><td>Expensive (constant streams even when not needed)</td><td>Data is stale between each update</td></tr><tr><td>Pull</td><td>Await bridge and data store</td><td>Inexpensive (requests only when needed)</td><td>Data is fresh upon each pull</td></tr><tr><td>Callback</td><td>Await function execution</td><td>Inexpensive (updates based on events)</td><td>Data is fresh upon each callback</td></tr></tbody></table></div></article><nav class="pagination-nav docusaurus-mt-lg" aria-label="Docs pages"><a class="pagination-nav__link pagination-nav__link--prev" href="/architecture"><div class="pagination-nav__sublabel">Previous</div><div class="pagination-nav__label">Program Architecture</div></a><a class="pagination-nav__link pagination-nav__link--next" href="/tee"><div class="pagination-nav__sublabel">Next</div><div class="pagination-nav__label">What are TEEs?</div></a></nav></div></div><div class="col col--3"><div class="tableOfContents_W_pa thin-scrollbar theme-doc-toc-desktop"><ul class="table-of-contents table-of-contents__left-border"><li><a href="#push" class="table-of-contents__link toc-highlight">Push</a></li><li><a href="#pull-not-supported" class="table-of-contents__link toc-highlight">Pull (Not supported)</a></li><li><a href="#callback" class="table-of-contents__link toc-highlight">Callback</a></li><li><a href="#comparison" class="table-of-contents__link toc-highlight">Comparison</a></li></ul></div></div></div></div></main></div></div><footer class="footer footer--dark"><div class="container container-fluid"></div></footer></div>
-<script src="/assets/js/runtime~main.8c86777d.js"></script>
+<script src="/assets/js/runtime~main.e301b6ec.js"></script>
 <script src="/assets/js/main.a7ce8f28.js"></script>
 </body>
 </html>
