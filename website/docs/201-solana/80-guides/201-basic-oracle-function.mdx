@@ -141,7 +141,7 @@ Use one of the following commands to compile your function:
 ## Create Switchboard function account
 
 Finally we just need to create our function account on-chain. We will define a
-cron schedule of `5 * * * * *` which will invoke our function every 5 seconds.
+cron schedule of `*/5 * * * * *` which will invoke our function every 5 seconds.
 We will need to pre-fund our function escrow account in order to reward verifier
 oracles for running our function.
 
@@ -189,7 +189,7 @@ const [functionAccount, txnSignature] = await FunctionAccount.create(
   {
     name: "FUNCTION_NAME",
     metadata: "FUNCTION_METADATA",
-    schedule: "5 * * * * *",
+    schedule: "*/5 * * * * *",
     container: "switchboardlabs/basic-oracle-function",
     mrEnclave: parseMrEnclave("my MrEnclave value"),
     attestationQueue: attestationQueueAccount,
@@ -208,7 +208,7 @@ sb solana function create CkvizjVnm2zA5Wuwan34NhVT3zFc7vqUyGnA6tuEF5aE \
   --name "My Function" \
   --metadata "Basic binance oracle with TWAP" \
   --fundAmount 0.25 \
-  --schedule "30 * * * * *" \
+  --schedule "*/30 * * * * *" \
   --container switchboardlabs/basic-oracle-function \
   --keypair ~/.config/solana/id.json
 

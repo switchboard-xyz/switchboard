@@ -46,7 +46,7 @@ export default class FunctionCreate extends BaseCommand {
     }),
     schedule: Flags.string({
       description:
-        "the cron schedule to execute the function periodically (Ex. '15 * * * * *' will execute the function every 15 seconds)",
+        "the cron schedule to execute the function periodically (Ex. '*/15 * * * * *' will execute the function every 15 seconds)",
       required: false,
       default: "",
     }),
