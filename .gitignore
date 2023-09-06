@@ -2,6 +2,7 @@
 node_modules
 dist
 lib
+!contracts/lib
 build
 tsconfig.tsbuildinfo
 .turbo
