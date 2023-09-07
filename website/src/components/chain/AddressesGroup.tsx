@@ -1,51 +1,50 @@
 import { Typography } from "@mui/material";
 import { Grid } from "@mui/material";
 import type { ChainType } from "@switchboard-xyz/common";
-import {
-  type IChainNetworkConfig,
-  isSupportedEvmChain,
-  networks,
-} from "@switchboard-xyz/common";
-import {
-  SWITCHBOARD_ARBITRUM_MAINNET_CONFIG,
-  SWITCHBOARD_ARBITRUM_TESTNET_CONFIG,
-  SWITCHBOARD_SOLANA_DEVNET_CONFIG,
-  SWITCHBOARD_SOLANA_MAINNET_CONFIG,
-} from "@switchboard-xyz/common/networks";
 import TabItem from "@theme/TabItem";
 import Tabs from "@theme/Tabs";
 import React from "react";
 
-import { capitalizeFirstLetterOfEachWord } from "../../utils";
-import AddressButton from "../AddressButton";
 import AptosAddresses from "./AptosAddresses";
 import ArbitrumAddresses from "./ArbitrumAddresses";
-import { CONFIG_MAP } from "./config";
+import AuroraAddresses from "./AuroraAddresses";
+import BaseAddresses from "./BaseAddresses";
 import CoreDaoAddresses from "./CoreDaoAddresses";
+import EthereumAddresses from "./EthereumAddresses";
 import NearAddresses from "./NearAddresses";
+import OptimismAddresses from "./OptimismAddresses";
 import SolanaAddresses from "./SolanaAddresses";
 import SuiAddresses from "./SuiAddresses";
 
 function getChainAddresses(chain: ChainType) {
-  const chainConfig = networks[chain];
+  // const chainConfig = networks[chain];
 
-  const isEvm = isSupportedEvmChain(chain);
+  // const isEvm = isSupportedEvmChain(chain);
 
-  const metadataConfig = CONFIG_MAP.get(isEvm ? "evm" : chain);
+  // const metadataConfig = CONFIG_MAP.get(isEvm ? "evm" : chain);
 
   switch (chain) {
-    case "solana":
-      return <SolanaAddresses />;
-    case "coredao":
-      return <CoreDaoAddresses />;
-    case "arbitrum":
-      return <ArbitrumAddresses />;
     case "aptos":
       return <AptosAddresses />;
-    case "sui":
-      return <SuiAddresses />;
+    case "arbitrum":
+      return <ArbitrumAddresses />;
+    case "aurora":
+      return <AuroraAddresses />;
+    case "base":
+      return <BaseAddresses />;
+    case "coredao":
+      return <CoreDaoAddresses />;
+    case "ethereum":
+      return <EthereumAddresses />;
     case "near":
       return <NearAddresses />;
+    case "optimism":
+      return <OptimismAddresses />;
+    case "solana":
+      return <SolanaAddresses />;
+    case "sui":
+      return <SuiAddresses />;
+
     default:
       return <Grid container></Grid>;
   }
@@ -62,6 +61,13 @@ export default function AddressesGroup() {
         {getChainAddresses("solana")}
       </TabItem>
       <TabItem
+        value="ethereum"
+        label="&nbsp;Ethereum"
+        attributes={{ className: "navbar_icon__solidity" }}
+      >
+        {getChainAddresses("ethereum")}
+      </TabItem>
+      <TabItem
         value="coredao"
         label="&nbsp;Core"
         attributes={{ className: "navbar_icon__coredao" }}
@@ -74,6 +80,27 @@ export default function AddressesGroup() {
         attributes={{ className: "navbar_icon__arbitrum" }}
       >
         {getChainAddresses("arbitrum")}
+      </TabItem>
+      <TabItem
+        value="optimism"
+        label="&nbsp;Optimism"
+        attributes={{ className: "navbar_icon__optimism" }}
+      >
+        {getChainAddresses("optimism")}
+      </TabItem>
+      <TabItem
+        value="base"
+        label="&nbsp;Base"
+        attributes={{ className: "navbar_icon__base" }}
+      >
+        {getChainAddresses("base")}
+      </TabItem>
+      <TabItem
+        value="aurora"
+        label="&nbsp;Aurora"
+        attributes={{ className: "navbar_icon__aurora" }}
+      >
+        {getChainAddresses("aurora")}
       </TabItem>
       <TabItem
         value="aptos"

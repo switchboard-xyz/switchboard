@@ -8,7 +8,6 @@ import React from "react";
 
 import AddressButton from "../AddressButton";
 import AvatarIcon from "./AvatarIcon";
-import { CONFIG_MAP } from "./config";
 
 export default function ArbitrumAddresses() {
   const mainnet = SWITCHBOARD_ARBITRUM_MAINNET_CONFIG;

@@ -8,7 +8,6 @@ import React from "react";
 
 import AddressButton from "../AddressButton";
 import AvatarIcon from "./AvatarIcon";
-import { CONFIG_MAP } from "./config";
 
 export default function SuiAddresses(props?: {
   trim?: number;

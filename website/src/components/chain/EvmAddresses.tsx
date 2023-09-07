@@ -1,5 +1,6 @@
 import Link from "@docusaurus/Link";
-import { Grid, Typography } from "@mui/material";
+import useBaseUrl from "@docusaurus/useBaseUrl";
+import { Box, Grid, Typography } from "@mui/material";
 import type { EvmChainType, IEvmNetworkConfig } from "@switchboard-xyz/common";
 import {
   isSupportedEvmChain,
@@ -9,6 +10,7 @@ import React from "react";
 
 import { capitalizeFirstLetterOfEachWord } from "../../utils";
 import AddressButton from "../AddressButton";
+import ComingSoon from "../ComingSoon";
 import AvatarIcon from "./AvatarIcon";
 
 function getChainRow(chain: EvmChainType) {
@@ -35,36 +37,40 @@ function getChainRow(chain: EvmChainType) {
           />
         </Grid>
         <Grid item xs={12} md={10}>
-          <>
-            <div>
-              <strong>Diamond Address</strong>:{" "}
-              <AddressButton address={mainnet.address} trim={8} />
-            </div>
+          {mainnet.address ? (
+            <>
+              <div>
+                <strong>Diamond Address</strong>:{" "}
+                <AddressButton address={mainnet.address} trim={8} />
+              </div>
 
-            <div>
-              <strong>Sb Push Oracle</strong>:{" "}
-              <AddressButton address={mainnet.sbPushOracle} trim={8} />
-            </div>
+              <div>
+                <strong>Sb Push Oracle</strong>:{" "}
+                <AddressButton address={mainnet.sbPushOracle} trim={8} />
+              </div>
 
-            <div>
-              <strong>Public Attestation Queue</strong>:{" "}
-              <AddressButton
-                address={mainnet.attestationQueues[0].address}
-                trim={8}
-              />
-            </div>
+              <div>
+                <strong>Public Attestation Queue</strong>:{" "}
+                <AddressButton
+                  address={mainnet.attestationQueues[0].address}
+                  trim={8}
+                />
+              </div>
 
-            <div style={{ minHeight: "10px" }} />
-            <div>
-              <Typography sx={{ fontWeight: 700 }}>
-                View supported feeds in the{" "}
-                <Link to={`https://app.switchboard.xyz/${chain}/mainnet`}>
-                  Switchboard Explorer App
-                </Link>
-                !
-              </Typography>
-            </div>
-          </>
+              <div style={{ minHeight: "10px" }} />
+              <div>
+                <Typography sx={{ fontWeight: 700 }}>
+                  View supported feeds in the{" "}
+                  <Link to={`https://app.switchboard.xyz/${chain}/mainnet`}>
+                    Switchboard Explorer App
+                  </Link>
+                  !
+                </Typography>
+              </div>
+            </>
+          ) : (
+            <ComingSoon />
+          )}
         </Grid>
       </Grid>
     </>
@@ -74,11 +80,27 @@ function getChainRow(chain: EvmChainType) {
 export default function EvmAddresses() {
   return (
     <Grid container spacing={1} justifyContent="flex-start" alignItems="center">
-      {getChainRow("coredao")}
+      {/* {getChainRow("ethereum")}
+      <Grid item xs={12}>
+        <hr />
+      </Grid> */}
+      {getChainRow("arbitrum")}
       <Grid item xs={12}>
         <hr />
       </Grid>
-      {getChainRow("arbitrum")}
+      {getChainRow("aurora")}
+      {/* <Grid item xs={12}>
+        <hr />
+      </Grid>
+      {getChainRow("base")} */}
+      <Grid item xs={12}>
+        <hr />
+      </Grid>
+      {getChainRow("coredao")}
+      {/* <Grid item xs={12}>
+        <hr />
+      </Grid>
+      {getChainRow("optimism")} */}
     </Grid>
   );
 }

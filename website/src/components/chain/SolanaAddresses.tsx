@@ -8,7 +8,6 @@ import React from "react";
 
 import AddressButton from "../AddressButton";
 import AvatarIcon from "./AvatarIcon";
-import { CONFIG_MAP } from "./config";
 
 export default function SolanaAddresses(props?: {
   trim?: number;
@@ -18,7 +17,6 @@ export default function SolanaAddresses(props?: {
   const devnet = SWITCHBOARD_SOLANA_DEVNET_CONFIG;
   const programAddress = mainnet.address;
   const attestationAddress = mainnet.attestationService;
-  const metadataConfig = CONFIG_MAP.get("solana");
 
   return (
     <>
@@ -82,7 +80,6 @@ export default function SolanaAddresses(props?: {
                 trim={12}
               />
             </div>
-
 
             <div style={{ minHeight: "10px" }} />
             <div>

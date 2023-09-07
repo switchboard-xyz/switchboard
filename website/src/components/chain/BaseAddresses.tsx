@@ -1,17 +1,17 @@
 import Link from "@docusaurus/Link";
 import { Grid, Typography } from "@mui/material";
 import {
-  SWITCHBOARD_COREDAO_MAINNET_CONFIG,
-  SWITCHBOARD_COREDAO_TESTNET_CONFIG,
+  SWITCHBOARD_BASE_MAINNET_CONFIG,
+  SWITCHBOARD_BASE_TESTNET_CONFIG,
 } from "@switchboard-xyz/common/networks";
 import React from "react";
 
 import AddressButton from "../AddressButton";
 import AvatarIcon from "./AvatarIcon";
 
-export default function CoreDaoAddresses() {
-  const mainnet = SWITCHBOARD_COREDAO_MAINNET_CONFIG;
-  const testnet = SWITCHBOARD_COREDAO_TESTNET_CONFIG;
+export default function BaseAddresses() {
+  const mainnet = SWITCHBOARD_BASE_MAINNET_CONFIG;
+  const testnet = SWITCHBOARD_BASE_TESTNET_CONFIG;
 
   return (
     <>
@@ -23,7 +23,7 @@ export default function CoreDaoAddresses() {
         alignItems="center"
       >
         <Grid item xs={12} md={2}>
-          <AvatarIcon title="Mainnet" image={`/img/icons/coredao/logo.svg`} />
+          <AvatarIcon title="Mainnet" image={`/img/icons/base/logo.svg`} />
         </Grid>
         <Grid item xs={12} md={10}>
           <>
@@ -49,7 +49,7 @@ export default function CoreDaoAddresses() {
             <div>
               <Typography sx={{ fontWeight: 700 }}>
                 View supported feeds in the{" "}
-                <Link to="https://app.switchboard.xyz/core/mainnet">
+                <Link to="https://app.switchboard.xyz/base/mainnet">
                   Switchboard Explorer App
                 </Link>
                 !
@@ -67,7 +67,7 @@ export default function CoreDaoAddresses() {
         alignItems="center"
       >
         <Grid item xs={12} md={2}>
-          <AvatarIcon title="Testnet" image={`/img/icons/coredao/logo.svg`} />
+          <AvatarIcon title="Testnet" image={`/img/icons/base/logo.svg`} />
         </Grid>
         <Grid item xs={12} md={10}>
           <>
@@ -93,7 +93,7 @@ export default function CoreDaoAddresses() {
             <div>
               <Typography sx={{ fontWeight: 700 }}>
                 View supported feeds in the{" "}
-                <Link to="https://app.switchboard.xyz/core/testnet">
+                <Link to="https://app.switchboard.xyz/base/testnet">
                   Switchboard Explorer App
                 </Link>
                 !
