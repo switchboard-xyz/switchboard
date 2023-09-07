@@ -5,11 +5,31 @@ import {
   SWITCHBOARD_ARBITRUM_TESTNET_CONFIG,
 } from "./arbitrum.js";
 import {
+  SWITCHBOARD_AURORA_CONFIG,
+  SWITCHBOARD_AURORA_MAINNET_CONFIG,
+  SWITCHBOARD_AURORA_TESTNET_CONFIG,
+} from "./aurora.js";
+import {
+  SWITCHBOARD_BASE_CONFIG,
+  SWITCHBOARD_BASE_MAINNET_CONFIG,
+  SWITCHBOARD_BASE_TESTNET_CONFIG,
+} from "./base.js";
+import {
   SWITCHBOARD_COREDAO_CONFIG,
   SWITCHBOARD_COREDAO_MAINNET_CONFIG,
   SWITCHBOARD_COREDAO_TESTNET_CONFIG,
 } from "./coredao.js";
+import {
+  SWITCHBOARD_ETHEREUM_CONFIG,
+  SWITCHBOARD_ETHEREUM_MAINNET_CONFIG,
+  SWITCHBOARD_ETHEREUM_TESTNET_CONFIG,
+} from "./ethereum.js";
 import { SWITCHBOARD_NEAR_CONFIG } from "./near.js";
+import {
+  SWITCHBOARD_OPTIMISM_CONFIG,
+  SWITCHBOARD_OPTIMISM_MAINNET_CONFIG,
+  SWITCHBOARD_OPTIMISM_TESTNET_CONFIG,
+} from "./optimism.js";
 import { SWITCHBOARD_SOLANA_CONFIG } from "./solana.js";
 import { SWITCHBOARD_SUI_CONFIG } from "./sui.js";
 import type {
@@ -37,16 +57,36 @@ The default network configurations for each supported EVM chain.
     "mainnet": {},
     "testnet": {}
   },
+  "aurora": {
+    "mainnet": {},
+    "testnet": {}
+  },
+  "base": {
+    "mainnet": {},
+    "testnet": {}
+  },
   "coredao": {
     "mainnet": {},
     "testnet": {}
   },
+  "ethereum": {
+    "mainnet": {},
+    "testnet": {}
+  },
+  "optimism": {
+    "mainnet": {},
+    "testnet": {}
+  }
 }
 ```
  */
 export const SWITCHBOARD_EVM_NETWORKS: SwitchboardEvmNetworks = {
   arbitrum: SWITCHBOARD_ARBITRUM_CONFIG,
+  base: SWITCHBOARD_BASE_CONFIG,
   coredao: SWITCHBOARD_COREDAO_CONFIG,
+  ethereum: SWITCHBOARD_ETHEREUM_CONFIG,
+  optimism: SWITCHBOARD_OPTIMISM_CONFIG,
+  aurora: SWITCHBOARD_AURORA_CONFIG,
 };
 
 /** Type assertion for whether a given EVM chain is supported on the Switchboard Network. */
@@ -88,10 +128,18 @@ The default network configurations for each supported EVM chain.
  */
 export const SWITCHBOARD_EVM_CHAIN_IDS: Record<EvmChainIds, IEvmNetworkConfig> =
   {
+    1: SWITCHBOARD_ETHEREUM_MAINNET_CONFIG,
+    5: SWITCHBOARD_ETHEREUM_TESTNET_CONFIG,
+    10: SWITCHBOARD_OPTIMISM_MAINNET_CONFIG,
+    420: SWITCHBOARD_OPTIMISM_TESTNET_CONFIG,
+    8453: SWITCHBOARD_BASE_MAINNET_CONFIG,
+    84531: SWITCHBOARD_BASE_TESTNET_CONFIG,
     42161: SWITCHBOARD_ARBITRUM_MAINNET_CONFIG,
     421613: SWITCHBOARD_ARBITRUM_TESTNET_CONFIG,
     1116: SWITCHBOARD_COREDAO_MAINNET_CONFIG,
     1115: SWITCHBOARD_COREDAO_TESTNET_CONFIG,
+    1313161555: SWITCHBOARD_AURORA_TESTNET_CONFIG,
+    1313161554: SWITCHBOARD_AURORA_MAINNET_CONFIG,
   };
 
 export function isSupportedChainId(chainId: number): chainId is EvmChainIds {
@@ -176,15 +224,35 @@ export {
   SWITCHBOARD_ARBITRUM_TESTNET_CONFIG,
 } from "./arbitrum.js";
 export {
+  SWITCHBOARD_AURORA_CONFIG as aurora,
+  SWITCHBOARD_AURORA_MAINNET_CONFIG,
+  SWITCHBOARD_AURORA_TESTNET_CONFIG,
+} from "./aurora.js";
+export {
+  SWITCHBOARD_BASE_CONFIG as base,
+  SWITCHBOARD_BASE_MAINNET_CONFIG,
+  SWITCHBOARD_BASE_TESTNET_CONFIG,
+} from "./base.js";
+export {
   SWITCHBOARD_COREDAO_CONFIG as coredao,
   SWITCHBOARD_COREDAO_MAINNET_CONFIG,
   SWITCHBOARD_COREDAO_TESTNET_CONFIG,
 } from "./coredao.js";
 export {
+  SWITCHBOARD_ETHEREUM_CONFIG as ethereum,
+  SWITCHBOARD_ETHEREUM_MAINNET_CONFIG,
+  SWITCHBOARD_ETHEREUM_TESTNET_CONFIG,
+} from "./ethereum.js";
+export {
   SWITCHBOARD_NEAR_CONFIG as near,
   SWITCHBOARD_NEAR_MAINNET_CONFIG,
   SWITCHBOARD_NEAR_TESTNET_CONFIG,
 } from "./near.js";
+export {
+  SWITCHBOARD_OPTIMISM_CONFIG as optimism,
+  SWITCHBOARD_OPTIMISM_MAINNET_CONFIG,
+  SWITCHBOARD_OPTIMISM_TESTNET_CONFIG,
+} from "./optimism.js";
 export {
   SWITCHBOARD_SOLANA_CONFIG as solana,
   SWITCHBOARD_SOLANA_DEVNET_CONFIG,

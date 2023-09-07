@@ -1,3 +1,4 @@
+/// Macro used to wrap client-only modules
 #[macro_export]
 macro_rules! cfg_client {
     ($($item:item)*) => {
@@ -9,6 +10,7 @@ macro_rules! cfg_client {
     }
 }
 
+/// Macro used to wrap exclusively non-client modules
 #[macro_export]
 macro_rules! cfg_not_client {
     ($($item:item)*) => {
@@ -20,6 +22,7 @@ macro_rules! cfg_not_client {
     }
 }
 
+/// Macro used to wrap solana exclusive modules
 #[macro_export]
 macro_rules! cfg_solana {
     ($($item:item)*) => {

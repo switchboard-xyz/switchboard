@@ -4,6 +4,7 @@ use std::fmt;
 use std::fmt::Debug;
 use std::sync::Arc;
 
+/// Switchboard Functions error suite
 #[derive(Clone, Debug)]
 pub enum Error {
     // Generics
@@ -65,6 +66,8 @@ pub enum Error {
     IpfsNetworkError,
     HeartbeatRoutineFailure,
     EventListenerRoutineFailure,
+    DecryptError,
+    ParseError,
 }
 
 impl fmt::Display for Error {

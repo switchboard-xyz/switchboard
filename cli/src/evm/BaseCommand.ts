@@ -41,7 +41,7 @@ import { providers, Wallet } from "ethers";
 import fs from "fs";
 import path from "path";
 
-type EvmChain = "coredao" | "arbitrum";
+type EvmChain = "coredao" | "arbitrum" | "optimism" | "base" | "aurora";
 
 type EvmNetwork = "mainnet" | "testnet";
 
@@ -50,8 +50,8 @@ export abstract class EvmBaseCommand extends BaseCommand implements IBaseChain {
     ...BaseCommand.flags,
     chain: Flags.string({
       description: "the evm chain to interact with",
-      options: ["coredao", "arbitrum"],
-      exclusive: ["coredao", "arbitrum"],
+      options: ["coredao", "arbitrum", "optimism", "base", "aurora"],
+      exclusive: ["coredao", "arbitrum", "optimism", "base", "aurora"],
       // exclusive: ["chainId"],
     }),
     // chainId: Flags.string({
@@ -66,6 +66,18 @@ export abstract class EvmBaseCommand extends BaseCommand implements IBaseChain {
     }),
     arbitrum: Flags.boolean({
       description: "use the arbitrum chain",
+      exclusive: ["chain"],
+    }),
+    optimism: Flags.boolean({
+      description: "use the optimism chain",
+      exclusive: ["chain"],
+    }),
+    base: Flags.boolean({
+      description: "use the base chain",
+      exclusive: ["chain"],
+    }),
+    aurora: Flags.boolean({
+      description: "use the aurora chain",
       exclusive: ["chain"],
     }),
     network: Flags.string({
@@ -114,7 +126,10 @@ export abstract class EvmBaseCommand extends BaseCommand implements IBaseChain {
     this.chain = this.getChain(
       (flags as any).chain,
       (flags as any).coredao,
-      (flags as any).arbitrum
+      (flags as any).arbitrum,
+      (flags as any).optimism,
+      (flags as any).base,
+      (flags as any).aurora
     );
 
     this.network = this.getNetwork(
@@ -145,7 +160,14 @@ export abstract class EvmBaseCommand extends BaseCommand implements IBaseChain {
     });
   }
 
-  getChain(chain?: string, coredao?: boolean, arbitrum?: boolean): EvmChain {
+  getChain(
+    chain?: string,
+    coredao?: boolean,
+    arbitrum?: boolean,
+    optimism?: boolean,
+    base?: boolean,
+    aurora?: boolean
+  ): EvmChain {
     if (coredao) {
       return "coredao";
     }
@@ -154,12 +176,32 @@ export abstract class EvmBaseCommand extends BaseCommand implements IBaseChain {
       return "arbitrum";
     }
 
+    if (optimism) {
+      return "optimism";
+    }
+
+    if (base) {
+      return "base";
+    }
+
+    if (aurora) {
+      return "aurora";
+    }
+
     if (!chain) {
       throw new Error(`Need to provide --chain`);
     }
 
-    if (chain !== "coredao" && chain !== "arbitrum") {
-      throw new Error(`--chain must be 'coredao' or 'arbitrum'`);
+    if (
+      chain !== "coredao" &&
+      chain !== "arbitrum" &&
+      chain !== "optimism" &&
+      chain !== "base" &&
+      chain !== "aurora"
+    ) {
+      throw new Error(
+        `--chain must be one of 'coredao', 'optimism', 'arbitrum', 'base', 'aurora'`
+      );
     }
 
     return chain;

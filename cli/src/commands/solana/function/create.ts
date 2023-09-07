@@ -3,7 +3,6 @@ import { CHECK_ICON } from "../../../utils";
 
 import * as anchor from "@coral-xyz/anchor";
 import { Args, Flags } from "@oclif/core";
-import type { Keypair } from "@solana/web3.js";
 import { PublicKey } from "@solana/web3.js";
 import { isBase58, parseRawMrEnclave } from "@switchboard-xyz/common";
 import {
@@ -20,7 +19,7 @@ export default class FunctionCreate extends BaseCommand {
   static description = "create a new function account for a given queue";
 
   static examples = [
-    "$ sb solana function create F8ce7MsckeZAbAGmxjJNetxYXQa9mKr9nnrC3qKubyYy --name function-1 --fundAmount 1.25 --container switchboardlabs/basic-oracle-function --version solana",
+    "$ sb solana function create CkvizjVnm2zA5Wuwan34NhVT3zFc7vqUyGnA6tuEF5aE --name function-1 --fundAmount 1.25 --container switchboardlabs/basic-oracle-function --version solana",
   ];
 
   static flags = {
@@ -46,7 +45,7 @@ export default class FunctionCreate extends BaseCommand {
     }),
     schedule: Flags.string({
       description:
-        "the cron schedule to execute the function periodically (Ex. '*/15 * * * * *' will execute the function every 15 seconds)",
+        "the cron schedule to execute the function periodically (Ex. '15 * * * * *' will execute the function every 15 seconds)",
       required: false,
       default: "",
     }),
@@ -59,7 +58,7 @@ export default class FunctionCreate extends BaseCommand {
       description:
         "the registry to pull the container from (Ex. Docker or IPFS)",
       options: ["dockerhub", "ipfs"],
-      default: "docker",
+      default: "dockerhub",
     }),
     version: Flags.string({
       description:
@@ -83,12 +82,12 @@ export default class FunctionCreate extends BaseCommand {
       description:
         "whether custom requests require the function authority to authorize",
     }),
-    enable: Flags.boolean({
-      description: "enable oracle heartbeat permissions",
-    }),
-    queueAuthority: Flags.string({
-      description: "alternative keypair to use for queue authority",
-    }),
+    // enable: Flags.boolean({
+    //   description: "enable oracle heartbeat permissions",
+    // }),
+    // queueAuthority: Flags.string({
+    //   description: "alternative keypair to use for queue authority",
+    // }),
     // wallet: Flags.string({
     //   description:
     //     "public key of the Switchboard wallet to use for the function escrow",
@@ -126,14 +125,6 @@ export default class FunctionCreate extends BaseCommand {
 
     const [attestationQueueAccount, attestationQueue] =
       await AttestationQueueAccount.load(this.program, args.queueKey);
-
-    let queueAuthority: Keypair | undefined;
-    if (flags.queueAuthority) {
-      queueAuthority = await this.loadAuthority(
-        flags.queueAuthority,
-        attestationQueue.authority
-      );
-    }
 
     let containerRegistry: "dockerhub" | "ipfs" | undefined;
     if (flags.containerRegistry) {
