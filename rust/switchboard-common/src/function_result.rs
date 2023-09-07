@@ -36,14 +36,23 @@ pub enum ChainResultInfo {
     Evm(EVMFunctionResult),
 }
 
+/// The schema of the output data that will be sent to the quote verification
+/// sidecar.
 #[derive(Clone, PartialEq, Default, Debug, Serialize, Deserialize)]
 pub struct FunctionResult {
+    /// version of the output format
     pub version: u32,
+    /// Buffer containing the quote signing the output
     pub quote: Vec<u8>,
+    /// key of the executed function
     pub fn_key: Vec<u8>,
+    /// The oracle's signer used to sign off on the execution
     pub signer: Vec<u8>,
+    /// If the call was a funciton request, the address of the request account.
     pub fn_request_key: Vec<u8>,
+    /// A sha-256 hash of the parameters used in this request call.
     pub fn_request_hash: Vec<u8>,
+    /// Chain specific info
     pub chain_result_info: ChainResultInfo,
 }
 

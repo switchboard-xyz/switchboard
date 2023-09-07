@@ -17,7 +17,14 @@ type Rename<T, K extends keyof T, N extends string> = Omit<T, K> & {
 /////////////// Supported Chains///////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////
 /** The current EVM chains Switchboard is currently deployed on. */
-export const SWITCHBOARD_EVM_CHAINS = ["arbitrum", "coredao"] as const;
+export const SWITCHBOARD_EVM_CHAINS = [
+  "arbitrum",
+  "base",
+  "coredao",
+  "ethereum",
+  "optimism",
+  "aurora",
+] as const;
 /** The current EVM chains Switchboard is currently deployed on. */
 export type EvmChainType = (typeof SWITCHBOARD_EVM_CHAINS)[number];
 
@@ -35,7 +42,20 @@ export type ChainType = (typeof SWITCHBOARD_CHAINS)[number];
 ///////////////////////////////////////////////////////////////////////////////
 /////////////// Supported Chain IDs ///////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////
-export const SUPPORTED_EVM_CHAIN_IDS = [42161, 421613, 1116, 1115] as const;
+export const SUPPORTED_EVM_CHAIN_IDS = [
+  // arbitrum
+  42161, 421613,
+  // base
+  8453, 84531,
+  // core
+  1116, 1115,
+  // ethereum
+  1, 5,
+  // optimism
+  10, 420,
+  // aurora
+  1313161554, 1313161555,
+] as const;
 export type EvmChainIds = (typeof SUPPORTED_EVM_CHAIN_IDS)[number];
 /** Type assertion for whether a given EVM chainID is supported on the Switchboard Network. */
 
@@ -119,7 +139,11 @@ export type ChainConfig = IChainConfig | ISolanaConfig;
 
 export type EvmChainConfigs = {
   arbitrum: IChainConfig;
+  base: IChainConfig;
   coredao: IChainConfig;
+  ethereum: IChainConfig;
+  optimism: IChainConfig;
+  aurora: IChainConfig;
 };
 
 export type ChainConfigs = EvmChainConfigs & {

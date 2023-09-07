@@ -152,7 +152,7 @@ export default class FunctionCreate extends BaseCommand {
     );
 
     this.logger.info(`Function create signature: ${txn!.hash}`);
-    this.logger.info(`Function fund signature: ${fundTxn!.hash}`);
+    this.logger.info(`Function fund signature: ${fundTxn?.hash}`);
   }
 
   async catch(error: any) {

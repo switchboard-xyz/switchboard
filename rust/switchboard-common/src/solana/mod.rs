@@ -8,22 +8,36 @@ fn default_cluster() -> String {
 
 const DEFAULT_PUBKEY: &str = "11111111111111111111111111111111";
 
+/// The expected environment variables when a solana function is being executed
 #[derive(Deserialize, Debug, Default)]
 #[serde(default)]
 pub struct SolanaFunctionEnvironment {
-    // required to run
+    /// FUNCTION_KEY: the pubkey of the function being executed
     pub function_key: String,
+    /// PAYER: The gas payer for this transaction
     pub payer: String,
+    /// VERIFIER: the pubey of the oracle veriying this call
     pub verifier: String,
+    /// REWARD_RECEIVER: The escrow to send the reward the oracle will receive
+    /// for executing this function
     pub reward_receiver: String,
 
     // can be manually populated from client if missing
+    /// FUNCTION_DATA: The preloaded data of the `FUNCTION_KEY` account
     pub function_data: Option<String>,
+    /// VERIFIER_ENCLAVE_SIGNER: The keypair the verifying oracle is using to
+    /// sign this transaction.
     pub verifier_enclave_signer: Option<String>,
+    /// QUEUE_AUTHORITY: The authority of the oracle queue this function is
+    /// executing on.
     pub queue_authority: Option<String>,
 
     // only used for requests
+    /// FUNCTION_REQUEST_KEY: If this function is being called with parameters,
+    /// this ariable will hold the pubkey of the request account
     pub function_request_key: Option<String>,
+    /// FUNCTION_REQUEST_DATA: The preloaded data of the `FUNCTION_REQUEST_KEY`
+    /// account
     pub function_request_data: Option<String>,
 
     // helpers
