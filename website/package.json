@@ -48,6 +48,7 @@
     "react-markdown": "^8.0.6",
     "react-player": "^2.10.1",
     "react-spring": "^9.3.2",
+    "reactflow": "^11.8.3",
     "rehype-katex": "5",
     "remark-gfm": "^3.0.1",
     "remark-math": "3",
