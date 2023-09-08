@@ -17,7 +17,7 @@
 
 .reactFlowContent {
   width: calc(100vw - 50px);
-  height: calc(100vh - 250px - 330px);
+  height: calc(400vh - 250px - 330px);
   display: "flex";
   text-align: center;
   margin: "auto";
