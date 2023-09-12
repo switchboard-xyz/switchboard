@@ -83,7 +83,17 @@ const config = {
           routeBasePath: "/",
           sidebarPath: require.resolve("./sidebars.js"),
           remarkPlugins: [
-            [require("@docusaurus/remark-plugin-npm2yarn"), { sync: true }],
+            [
+              require("@docusaurus/remark-plugin-npm2yarn"),
+              {
+                sync: true,
+                converters: [
+                  "yarn",
+                  "pnpm",
+                  // ["Turbo", (code) => code.replace(/npm/g, "turbo")],
+                ],
+              },
+            ],
             require("remark-math"),
           ],
           rehypePlugins: [

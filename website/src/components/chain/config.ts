@@ -85,11 +85,7 @@ export const CONFIG_MAP: Map<SdkType, Config> = new Map([
           link: "https://docs.rs/switchboard-evm/latest/switchboard_evm/",
         },
         solidity: [
-          { label: "Switchboard.sol", link: "/evm/dev/switchboard-sol" },
-          {
-            label: "FunctionsClient.sol",
-            link: "/evm/dev/functions-client-sol",
-          },
+          { label: "ISwitchboard.sol", link: "/evm/dev/switchboard-sol" },
         ],
       },
       examples: [
