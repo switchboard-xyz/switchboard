@@ -627,18 +627,32 @@ export function prettyPrintFunction(
       SPACING
     )
   );
-  const mrEnclaves = functionState.mrEnclaves
-    .filter((msr) => msr.some((x) => x !== 0))
-    .map((x) => `0x${Buffer.from(x).toString("hex")}`);
-  output.push(chalkString("mrEnclaves", `${mrEnclaves}`, SPACING));
-  output.push(
-    chalkString("mrEnclaveLen", mrEnclaves.length + " / 32", SPACING)
-  );
+
   output.push(chalkString("authority", functionState.authority, SPACING));
   output.push(
     chalkString("attestationQueue", functionState.attestationQueue, SPACING)
   );
   output.push(chalkString("escrowWallet", functionState.escrowWallet, SPACING));
+
+  output.push(
+    chalkString(
+      "lastExecution",
+      BNtoDateTimeString(functionState.lastExecutionTimestamp),
+      SPACING
+    )
+  );
+  output.push(
+    chalkString(
+      "nextAllowed",
+      BNtoDateTimeString(functionState.nextAllowedTimestamp),
+      SPACING
+    )
+  );
+  output.push(chalkString("triggerCount", functionState.triggerCount, SPACING));
+
+  output.push(
+    chalkString("schedule", buf2String(functionState.schedule), SPACING)
+  );
   output.push(
     chalkString("container", buf2String(functionState.container), SPACING)
   );
@@ -652,18 +666,17 @@ export function prettyPrintFunction(
   output.push(
     chalkString("version", buf2String(functionState.version), SPACING)
   );
-  output.push(chalkString("triggerCount", functionState.triggerCount, SPACING));
+
+  const mrEnclaves = functionState.mrEnclaves
+    .filter((msr) => msr.some((x) => x !== 0))
+    .map((x) => `0x${Buffer.from(x).toString("hex")}`);
   output.push(
-    chalkString(
-      "lastExecution",
-      BNtoDateTimeString(functionState.lastExecutionTimestamp),
-      SPACING
-    )
+    chalkString("mrEnclaveLen", mrEnclaves.length + " / 32", SPACING)
   );
   output.push(
     chalkString(
-      "nextAllowed",
-      BNtoDateTimeString(functionState.nextAllowedTimestamp),
+      "mrEnclaves",
+      `${mrEnclaves.join("\n" + " ".repeat(SPACING))}`,
       SPACING
     )
   );

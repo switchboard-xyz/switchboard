@@ -229,6 +229,7 @@ node bin/dev print GvDMxPzN1sCj7L26YDK2HnMRXEQmQ2aemov8YBtPS7vR
 * [`sb solana function fund FUNCTIONKEY`](#sb-solana-function-fund-functionkey)
 * [`sb solana function print FUNCTIONKEY`](#sb-solana-function-print-functionkey)
 * [`sb solana function rmMrEnclave FUNCTIONKEY`](#sb-solana-function-rmmrenclave-functionkey)
+* [`sb solana function withdraw FUNCTIONKEY`](#sb-solana-function-withdraw-functionkey)
 * [`sb solana job create`](#sb-solana-job-create)
 * [`sb solana job print JOBKEY`](#sb-solana-job-print-jobkey)
 * [`sb solana json create aggregator DEFINITIONFILE`](#sb-solana-json-create-aggregator-definitionfile)
@@ -325,7 +326,7 @@ DESCRIPTION
   request an airdrop
 ```
 
-_See code: [dist/commands/aptos/account/airdrop.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.4/dist/commands/aptos/account/airdrop.js)_
+_See code: [dist/commands/aptos/account/airdrop.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.6/dist/commands/aptos/account/airdrop.js)_
 
 ## `sb aptos aggregator add job AGGREGATORHEXSTRING`
 
@@ -365,7 +366,7 @@ ALIASES
   $ sb aptos aggregator job add
 ```
 
-_See code: [dist/commands/aptos/aggregator/add/job.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.4/dist/commands/aptos/aggregator/add/job.js)_
+_See code: [dist/commands/aptos/aggregator/add/job.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.6/dist/commands/aptos/aggregator/add/job.js)_
 
 ## `sb aptos aggregator create QUEUEHEXSTRING`
 
@@ -418,7 +419,7 @@ ALIASES
   $ sb aptos create aggregator
 ```
 
-_See code: [dist/commands/aptos/aggregator/create.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.4/dist/commands/aptos/aggregator/create.js)_
+_See code: [dist/commands/aptos/aggregator/create.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.6/dist/commands/aptos/aggregator/create.js)_
 
 ## `sb aptos aggregator job add AGGREGATORHEXSTRING`
 
@@ -489,7 +490,7 @@ ALIASES
   $ sb aptos update aggregator
 ```
 
-_See code: [dist/commands/aptos/aggregator/update.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.4/dist/commands/aptos/aggregator/update.js)_
+_See code: [dist/commands/aptos/aggregator/update.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.6/dist/commands/aptos/aggregator/update.js)_
 
 ## `sb aptos crank create QUEUEHEXSTRING`
 
@@ -530,7 +531,7 @@ ALIASES
   $ sb aptos create crank
 ```
 
-_See code: [dist/commands/aptos/crank/create.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.4/dist/commands/aptos/crank/create.js)_
+_See code: [dist/commands/aptos/crank/create.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.6/dist/commands/aptos/crank/create.js)_
 
 ## `sb aptos crank list CRANKHEXSTRING`
 
@@ -563,7 +564,7 @@ ALIASES
   $ sb aptos list crank
 ```
 
-_See code: [dist/commands/aptos/crank/list.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.4/dist/commands/aptos/crank/list.js)_
+_See code: [dist/commands/aptos/crank/list.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.6/dist/commands/aptos/crank/list.js)_
 
 ## `sb aptos crank pop CRANKHEXSTRING`
 
@@ -599,7 +600,7 @@ ALIASES
   $ sb aptos pop crank
 ```
 
-_See code: [dist/commands/aptos/crank/pop.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.4/dist/commands/aptos/crank/pop.js)_
+_See code: [dist/commands/aptos/crank/pop.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.6/dist/commands/aptos/crank/pop.js)_
 
 ## `sb aptos crank push CRANKHEXSTRING`
 
@@ -636,7 +637,7 @@ ALIASES
   $ sb aptos push crank
 ```
 
-_See code: [dist/commands/aptos/crank/push.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.4/dist/commands/aptos/crank/push.js)_
+_See code: [dist/commands/aptos/crank/push.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.6/dist/commands/aptos/crank/push.js)_
 
 ## `sb aptos create aggregator QUEUEHEXSTRING`
 
@@ -895,7 +896,7 @@ ALIASES
   $ sb aptos create job
 ```
 
-_See code: [dist/commands/aptos/job/create.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.4/dist/commands/aptos/job/create.js)_
+_See code: [dist/commands/aptos/job/create.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.6/dist/commands/aptos/job/create.js)_
 
 ## `sb aptos list crank CRANKHEXSTRING`
 
@@ -967,7 +968,7 @@ ALIASES
   $ sb aptos create oracle
 ```
 
-_See code: [dist/commands/aptos/oracle/create.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.4/dist/commands/aptos/oracle/create.js)_
+_See code: [dist/commands/aptos/oracle/create.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.6/dist/commands/aptos/oracle/create.js)_
 
 ## `sb aptos oracle metrics ORACLEHEXSTRING`
 
@@ -997,7 +998,7 @@ DESCRIPTION
   list oracle metrics
 ```
 
-_See code: [dist/commands/aptos/oracle/metrics.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.4/dist/commands/aptos/oracle/metrics.js)_
+_See code: [dist/commands/aptos/oracle/metrics.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.6/dist/commands/aptos/oracle/metrics.js)_
 
 ## `sb aptos oracle up ORACLEHEXSTRING`
 
@@ -1032,7 +1033,7 @@ DESCRIPTION
   start an aptos docker oracle
 ```
 
-_See code: [dist/commands/aptos/oracle/up.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.4/dist/commands/aptos/oracle/up.js)_
+_See code: [dist/commands/aptos/oracle/up.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.6/dist/commands/aptos/oracle/up.js)_
 
 ## `sb aptos permission create GRANTER`
 
@@ -1068,7 +1069,7 @@ DESCRIPTION
   create a new permission
 ```
 
-_See code: [dist/commands/aptos/permission/create.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.4/dist/commands/aptos/permission/create.js)_
+_See code: [dist/commands/aptos/permission/create.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.6/dist/commands/aptos/permission/create.js)_
 
 ## `sb aptos permission set GRANTER`
 
@@ -1104,7 +1105,7 @@ DESCRIPTION
   create a new permission
 ```
 
-_See code: [dist/commands/aptos/permission/set.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.4/dist/commands/aptos/permission/set.js)_
+_See code: [dist/commands/aptos/permission/set.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.6/dist/commands/aptos/permission/set.js)_
 
 ## `sb aptos pop crank CRANKHEXSTRING`
 
@@ -1172,7 +1173,7 @@ ALIASES
   $ sb aptos print
 ```
 
-_See code: [dist/commands/aptos/print.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.4/dist/commands/aptos/print.js)_
+_See code: [dist/commands/aptos/print.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.6/dist/commands/aptos/print.js)_
 
 ## `sb aptos push crank CRANKHEXSTRING`
 
@@ -1255,7 +1256,7 @@ ALIASES
   $ sb aptos create queue
 ```
 
-_See code: [dist/commands/aptos/queue/create.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.4/dist/commands/aptos/queue/create.js)_
+_See code: [dist/commands/aptos/queue/create.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.6/dist/commands/aptos/queue/create.js)_
 
 ## `sb aptos update aggregator AGGREGATORHEXSTRING`
 
@@ -1311,7 +1312,7 @@ EXAMPLES
   $ sb config:print
 ```
 
-_See code: [dist/commands/config/print.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.4/dist/commands/config/print.js)_
+_See code: [dist/commands/config/print.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.6/dist/commands/config/print.js)_
 
 ## `sb config set CHAIN NETWORK PARAMETER [VALUE]`
 
@@ -1337,7 +1338,7 @@ DESCRIPTION
   set a configuration option
 ```
 
-_See code: [dist/commands/config/set.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.4/dist/commands/config/set.js)_
+_See code: [dist/commands/config/set.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.6/dist/commands/config/set.js)_
 
 ## `sb evm enclave print ENCLAVEKEY`
 
@@ -1345,8 +1346,9 @@ Print an enclave's state
 
 ```
 USAGE
-  $ sb evm enclave print ENCLAVEKEY [-h] [-v] [-s] [--chain coredao|arbitrum | --coredao | --arbitrum] [--network
-    mainnet|testnet | --mainnet | --testnet] [-u <value>] [--programId <value>] [--json]
+  $ sb evm enclave print ENCLAVEKEY [-h] [-v] [-s] [--chain coredao|arbitrum|optimism|base|aurora | --coredao |
+    --arbitrum | --optimism | --base | --aurora] [--network mainnet|testnet | --mainnet | --testnet] [-u <value>]
+    [--programId <value>] [--json]
 
 ARGUMENTS
   ENCLAVEKEY  address of the enclave
@@ -1357,12 +1359,15 @@ FLAGS
   -u, --rpcUrl=<value>  alternate RPC url
   -v, --verbose         log everything
   --arbitrum            use the arbitrum chain
+  --aurora              use the aurora chain
+  --base                use the base chain
   --chain=<option>      the evm chain to interact with
-                        <options: coredao|arbitrum>
+                        <options: coredao|arbitrum|optimism|base|aurora>
   --coredao             use the coredao chain
   --mainnet             use the mainnet network
   --network=<option>    the EVM network to connect to
                         <options: mainnet|testnet>
+  --optimism            use the optimism chain
   --programId=<value>   alternative Switchboard program ID to interact with
   --testnet             use the testnet network
 
@@ -1376,7 +1381,7 @@ EXAMPLES
   $ sb evm enclave print 0xaA43ba6f18b138A0B3313dDbFaC2b920D240108E --chain arbitrum --network testnet --programId 0x4F706C62535d171883A6cc9384f3f3d926A6BA49
 ```
 
-_See code: [dist/commands/evm/enclave/print.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.4/dist/commands/evm/enclave/print.js)_
+_See code: [dist/commands/evm/enclave/print.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.6/dist/commands/evm/enclave/print.js)_
 
 ## `sb evm function addMrEnclave FUNCTIONKEY`
 
@@ -1384,9 +1389,9 @@ Add MrEnclave to a function account
 
 ```
 USAGE
-  $ sb evm function addMrEnclave FUNCTIONKEY --account <value> --mrEnclave <value> [-h] [-v] [-s] [--chain coredao|arbitrum |
-    --coredao | --arbitrum] [--network mainnet|testnet | --mainnet | --testnet] [-u <value>] [--programId <value>]
-    [--json]
+  $ sb evm function addMrEnclave FUNCTIONKEY --account <value> --mrEnclave <value> [-h] [-v] [-s] [--chain
+    coredao|arbitrum|optimism|base|aurora | --coredao | --arbitrum | --optimism | --base | --aurora] [--network
+    mainnet|testnet | --mainnet | --testnet] [-u <value>] [--programId <value>] [--json]
 
 ARGUMENTS
   FUNCTIONKEY  address of the function account
@@ -1398,13 +1403,16 @@ FLAGS
   -v, --verbose         log everything
   --account=<value>     (required) Path to file containing the private key for the payer account
   --arbitrum            use the arbitrum chain
+  --aurora              use the aurora chain
+  --base                use the base chain
   --chain=<option>      the evm chain to interact with
-                        <options: coredao|arbitrum>
+                        <options: coredao|arbitrum|optimism|base|aurora>
   --coredao             use the coredao chain
   --mainnet             use the mainnet network
   --mrEnclave=<value>   (required) The MrEnclave to add
   --network=<option>    the EVM network to connect to
                         <options: mainnet|testnet>
+  --optimism            use the optimism chain
   --programId=<value>   alternative Switchboard program ID to interact with
   --testnet             use the testnet network
 
@@ -1418,7 +1426,7 @@ EXAMPLES
   $ sb evm function addMrEnclave 0xaA43ba6f18b138A0B3313dDbFaC2b920D240108E --chain arbitrum --network testnet --addMrEnclace 0xDEADBEEF --account ~/.arbitrum-kp.txt --programId 0x4F706C62535d171883A6cc9384f3f3d926A6BA49
 ```
 
-_See code: [dist/commands/evm/function/addMrEnclave.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.4/dist/commands/evm/function/addMrEnclave.js)_
+_See code: [dist/commands/evm/function/addMrEnclave.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.6/dist/commands/evm/function/addMrEnclave.js)_
 
 ## `sb evm function configure FUNCTIONKEY`
 
@@ -1426,10 +1434,10 @@ Configure a function account
 
 ```
 USAGE
-  $ sb evm function configure FUNCTIONKEY --account <value> [-h] [-v] [-s] [--chain coredao|arbitrum | --coredao |
-    --arbitrum] [--network mainnet|testnet | --mainnet | --testnet] [-u <value>] [--programId <value>] [--json] [--name
-    <value>] [--authority <value>] [--containerRegistry <value>] [--container <value>] [--version <value>] [--schedule
-    <value>]
+  $ sb evm function configure FUNCTIONKEY --account <value> [-h] [-v] [-s] [--chain coredao|arbitrum|optimism|base|aurora |
+    --coredao | --arbitrum | --optimism | --base | --aurora] [--network mainnet|testnet | --mainnet | --testnet] [-u
+    <value>] [--programId <value>] [--json] [--name <value>] [--authority <value>] [--containerRegistry <value>]
+    [--container <value>] [--version <value>] [--schedule <value>]
 
 ARGUMENTS
   FUNCTIONKEY  address of the function account
@@ -1441,9 +1449,11 @@ FLAGS
   -v, --verbose                log everything
   --account=<value>            (required) Path to file containing the private key for the payer account
   --arbitrum                   use the arbitrum chain
+  --aurora                     use the aurora chain
   --authority=<value>          update the authority for the function
+  --base                       use the base chain
   --chain=<option>             the evm chain to interact with
-                               <options: coredao|arbitrum>
+                               <options: coredao|arbitrum|optimism|base|aurora>
   --container=<value>          update the container for the function
   --containerRegistry=<value>  update the container registry for the function
   --coredao                    use the coredao chain
@@ -1451,6 +1461,7 @@ FLAGS
   --name=<value>               update the name for the function
   --network=<option>           the EVM network to connect to
                                <options: mainnet|testnet>
+  --optimism                   use the optimism chain
   --programId=<value>          alternative Switchboard program ID to interact with
   --schedule=<value>           update the schedule for the function
   --testnet                    use the testnet network
@@ -1466,7 +1477,7 @@ EXAMPLES
   $ sb evm function fund 0xaA43ba6f18b138A0B3313dDbFaC2b920D240108E --chain arbitrum --network testnet --fundAmount 0.02 --account ~/.arbitrum-kp.txt --programId 0x4F706C62535d171883A6cc9384f3f3d926A6BA49
 ```
 
-_See code: [dist/commands/evm/function/configure.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.4/dist/commands/evm/function/configure.js)_
+_See code: [dist/commands/evm/function/configure.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.6/dist/commands/evm/function/configure.js)_
 
 ## `sb evm function create QUEUEKEY`
 
@@ -1474,10 +1485,11 @@ create a new function account for a given queue
 
 ```
 USAGE
-  $ sb evm function create QUEUEKEY --account <value> --container <value> [-h] [-v] [-s] [--chain coredao|arbitrum |
-    --coredao | --arbitrum] [--network mainnet|testnet | --mainnet | --testnet] [-u <value>] [--programId <value>]
-    [--json] [-n <value>] [-a <value>] [--fundAmount <value>] [--schedule <value>] [--containerRegistry dockerhub|ipfs]
-    [--version <value>] [--mrEnclave <value>]
+  $ sb evm function create QUEUEKEY --account <value> --container <value> [-h] [-v] [-s] [--chain
+    coredao|arbitrum|optimism|base|aurora | --coredao | --arbitrum | --optimism | --base | --aurora] [--network
+    mainnet|testnet | --mainnet | --testnet] [-u <value>] [--programId <value>] [--json] [-n <value>] [-a <value>]
+    [--fundAmount <value>] [--schedule <value>] [--containerRegistry dockerhub|ipfs] [--version <value>] [--mrEnclave
+    <value>]
 
 ARGUMENTS
   QUEUEKEY  address of the attestation queue account
@@ -1491,8 +1503,10 @@ FLAGS
   -v, --verbose                 log everything
   --account=<value>             (required) Path to file containing the private key for the payer account
   --arbitrum                    use the arbitrum chain
+  --aurora                      use the aurora chain
+  --base                        use the base chain
   --chain=<option>              the evm chain to interact with
-                                <options: coredao|arbitrum>
+                                <options: coredao|arbitrum|optimism|base|aurora>
   --container=<value>           (required) the location of the container (Ex. switchboardlabs/basic-oracle-function)
   --containerRegistry=<option>  [default: dockerhub] the registry to pull the container from (Ex. Docker or IPFS)
                                 <options: dockerhub|ipfs>
@@ -1503,6 +1517,7 @@ FLAGS
                                 after its first run
   --network=<option>            the EVM network to connect to
                                 <options: mainnet|testnet>
+  --optimism                    use the optimism chain
   --programId=<value>           alternative Switchboard program ID to interact with
   --schedule=<value>            the cron schedule to execute the function periodically (Ex. '15 * * * * *' will execute
                                 the function every 15 seconds)
@@ -1520,7 +1535,7 @@ EXAMPLES
   $ sb evm function create F8ce7MsckeZAbAGmxjJNetxYXQa9mKr9nnrC3qKubyYy --name function-1 --fundAmount 0.25 --container switchboardlabs/basic-oracle-function --version latest
 ```
 
-_See code: [dist/commands/evm/function/create.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.4/dist/commands/evm/function/create.js)_
+_See code: [dist/commands/evm/function/create.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.6/dist/commands/evm/function/create.js)_
 
 ## `sb evm function fund FUNCTIONKEY`
 
@@ -1528,9 +1543,9 @@ Fund a function account
 
 ```
 USAGE
-  $ sb evm function fund FUNCTIONKEY --account <value> [-h] [-v] [-s] [--chain coredao|arbitrum | --coredao |
-    --arbitrum] [--network mainnet|testnet | --mainnet | --testnet] [-u <value>] [--programId <value>] [--json]
-    [--fundAmount <value>]
+  $ sb evm function fund FUNCTIONKEY --account <value> [-h] [-v] [-s] [--chain coredao|arbitrum|optimism|base|aurora |
+    --coredao | --arbitrum | --optimism | --base | --aurora] [--network mainnet|testnet | --mainnet | --testnet] [-u
+    <value>] [--programId <value>] [--json] [--fundAmount <value>]
 
 ARGUMENTS
   FUNCTIONKEY  address of the function account
@@ -1542,13 +1557,16 @@ FLAGS
   -v, --verbose         log everything
   --account=<value>     (required) Path to file containing the private key for the payer account
   --arbitrum            use the arbitrum chain
+  --aurora              use the aurora chain
+  --base                use the base chain
   --chain=<option>      the evm chain to interact with
-                        <options: coredao|arbitrum>
+                        <options: coredao|arbitrum|optimism|base|aurora>
   --coredao             use the coredao chain
   --fundAmount=<value>  [default: 0.0] token amount to load into the function's escrow wallet.
   --mainnet             use the mainnet network
   --network=<option>    the EVM network to connect to
                         <options: mainnet|testnet>
+  --optimism            use the optimism chain
   --programId=<value>   alternative Switchboard program ID to interact with
   --testnet             use the testnet network
 
@@ -1562,7 +1580,7 @@ EXAMPLES
   $ sb evm function fund 0xaA43ba6f18b138A0B3313dDbFaC2b920D240108E --chain arbitrum --network testnet --fundAmount 0.02 --account ~/.arbitrum-kp.txt --programId 0x4F706C62535d171883A6cc9384f3f3d926A6BA49
 ```
 
-_See code: [dist/commands/evm/function/fund.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.4/dist/commands/evm/function/fund.js)_
+_See code: [dist/commands/evm/function/fund.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.6/dist/commands/evm/function/fund.js)_
 
 ## `sb evm function print FUNCTIONKEY`
 
@@ -1570,8 +1588,9 @@ Print a function account
 
 ```
 USAGE
-  $ sb evm function print FUNCTIONKEY [-h] [-v] [-s] [--chain coredao|arbitrum | --coredao | --arbitrum] [--network
-    mainnet|testnet | --mainnet | --testnet] [-u <value>] [--programId <value>] [--json]
+  $ sb evm function print FUNCTIONKEY [-h] [-v] [-s] [--chain coredao|arbitrum|optimism|base|aurora | --coredao |
+    --arbitrum | --optimism | --base | --aurora] [--network mainnet|testnet | --mainnet | --testnet] [-u <value>]
+    [--programId <value>] [--json]
 
 ARGUMENTS
   FUNCTIONKEY  address of the function account
@@ -1582,12 +1601,15 @@ FLAGS
   -u, --rpcUrl=<value>  alternate RPC url
   -v, --verbose         log everything
   --arbitrum            use the arbitrum chain
+  --aurora              use the aurora chain
+  --base                use the base chain
   --chain=<option>      the evm chain to interact with
-                        <options: coredao|arbitrum>
+                        <options: coredao|arbitrum|optimism|base|aurora>
   --coredao             use the coredao chain
   --mainnet             use the mainnet network
   --network=<option>    the EVM network to connect to
                         <options: mainnet|testnet>
+  --optimism            use the optimism chain
   --programId=<value>   alternative Switchboard program ID to interact with
   --testnet             use the testnet network
 
@@ -1601,7 +1623,7 @@ EXAMPLES
   $ sb evm function print 0xaA43ba6f18b138A0B3313dDbFaC2b920D240108E --chain arbitrum --network testnet --programId 0x4F706C62535d171883A6cc9384f3f3d926A6BA49
 ```
 
-_See code: [dist/commands/evm/function/print.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.4/dist/commands/evm/function/print.js)_
+_See code: [dist/commands/evm/function/print.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.6/dist/commands/evm/function/print.js)_
 
 ## `sb evm function rmMrEnclave FUNCTIONKEY`
 
@@ -1609,9 +1631,9 @@ Remove MrEnclave to a function account
 
 ```
 USAGE
-  $ sb evm function rmMrEnclave FUNCTIONKEY --account <value> --mrEnclave <value> [-h] [-v] [-s] [--chain coredao|arbitrum |
-    --coredao | --arbitrum] [--network mainnet|testnet | --mainnet | --testnet] [-u <value>] [--programId <value>]
-    [--json]
+  $ sb evm function rmMrEnclave FUNCTIONKEY --account <value> --mrEnclave <value> [-h] [-v] [-s] [--chain
+    coredao|arbitrum|optimism|base|aurora | --coredao | --arbitrum | --optimism | --base | --aurora] [--network
+    mainnet|testnet | --mainnet | --testnet] [-u <value>] [--programId <value>] [--json]
 
 ARGUMENTS
   FUNCTIONKEY  address of the function account
@@ -1623,13 +1645,16 @@ FLAGS
   -v, --verbose         log everything
   --account=<value>     (required) Path to file containing the private key for the payer account
   --arbitrum            use the arbitrum chain
+  --aurora              use the aurora chain
+  --base                use the base chain
   --chain=<option>      the evm chain to interact with
-                        <options: coredao|arbitrum>
+                        <options: coredao|arbitrum|optimism|base|aurora>
   --coredao             use the coredao chain
   --mainnet             use the mainnet network
   --mrEnclave=<value>   (required) The MrEnclave to remove
   --network=<option>    the EVM network to connect to
                         <options: mainnet|testnet>
+  --optimism            use the optimism chain
   --programId=<value>   alternative Switchboard program ID to interact with
   --testnet             use the testnet network
 
@@ -1643,7 +1668,7 @@ EXAMPLES
   $ sb evm function removeMrEnclave 0xaA43ba6f18b138A0B3313dDbFaC2b920D240108E --chain arbitrum --network testnet --removeMrEnclace 0xDEADBEEF --account ~/.arbitrum-kp.txt --programId 0x4F706C62535d171883A6cc9384f3f3d926A6BA49
 ```
 
-_See code: [dist/commands/evm/function/rmMrEnclave.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.4/dist/commands/evm/function/rmMrEnclave.js)_
+_See code: [dist/commands/evm/function/rmMrEnclave.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.6/dist/commands/evm/function/rmMrEnclave.js)_
 
 ## `sb evm queue print QUEUEKEY`
 
@@ -1651,8 +1676,9 @@ Print an attestation queue account
 
 ```
 USAGE
-  $ sb evm queue print QUEUEKEY [-h] [-v] [-s] [--chain coredao|arbitrum | --coredao | --arbitrum] [--network
-    mainnet|testnet | --mainnet | --testnet] [-u <value>] [--programId <value>] [--json]
+  $ sb evm queue print QUEUEKEY [-h] [-v] [-s] [--chain coredao|arbitrum|optimism|base|aurora | --coredao |
+    --arbitrum | --optimism | --base | --aurora] [--network mainnet|testnet | --mainnet | --testnet] [-u <value>]
+    [--programId <value>] [--json]
 
 ARGUMENTS
   QUEUEKEY  address of the attestation queue
@@ -1663,12 +1689,15 @@ FLAGS
   -u, --rpcUrl=<value>  alternate RPC url
   -v, --verbose         log everything
   --arbitrum            use the arbitrum chain
+  --aurora              use the aurora chain
+  --base                use the base chain
   --chain=<option>      the evm chain to interact with
-                        <options: coredao|arbitrum>
+                        <options: coredao|arbitrum|optimism|base|aurora>
   --coredao             use the coredao chain
   --mainnet             use the mainnet network
   --network=<option>    the EVM network to connect to
                         <options: mainnet|testnet>
+  --optimism            use the optimism chain
   --programId=<value>   alternative Switchboard program ID to interact with
   --testnet             use the testnet network
 
@@ -1682,7 +1711,7 @@ EXAMPLES
   $ sb evm queue print 0xaA43ba6f18b138A0B3313dDbFaC2b920D240108E --chain arbitrum --network testnet --programId 0x4F706C62535d171883A6cc9384f3f3d926A6BA49
 ```
 
-_See code: [dist/commands/evm/queue/print.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.4/dist/commands/evm/queue/print.js)_
+_See code: [dist/commands/evm/queue/print.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.6/dist/commands/evm/queue/print.js)_
 
 ## `sb function-init TEMPLATE`
 
@@ -1705,7 +1734,7 @@ DESCRIPTION
   initialize a new function template
 ```
 
-_See code: [dist/commands/function-init.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.4/dist/commands/function-init.js)_
+_See code: [dist/commands/function-init.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.6/dist/commands/function-init.js)_
 
 ## `sb help [COMMANDS]`
 
@@ -1752,7 +1781,7 @@ EXAMPLES
   $ sb job:test
 ```
 
-_See code: [dist/commands/job/test.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.4/dist/commands/job/test.js)_
+_See code: [dist/commands/job/test.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.6/dist/commands/job/test.js)_
 
 ## `sb near aggregator add history AGGREGATORADDRESS`
 
@@ -1789,7 +1818,7 @@ ALIASES
   $ sb near aggregator history add
 ```
 
-_See code: [dist/commands/near/aggregator/add/history.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.4/dist/commands/near/aggregator/add/history.js)_
+_See code: [dist/commands/near/aggregator/add/history.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.6/dist/commands/near/aggregator/add/history.js)_
 
 ## `sb near aggregator add job AGGREGATORADDRESS`
 
@@ -1832,7 +1861,7 @@ ALIASES
   $ sb near aggregator job add
 ```
 
-_See code: [dist/commands/near/aggregator/add/job.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.4/dist/commands/near/aggregator/add/job.js)_
+_See code: [dist/commands/near/aggregator/add/job.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.6/dist/commands/near/aggregator/add/job.js)_
 
 ## `sb near aggregator create QUEUEADDRESS`
 
@@ -1885,7 +1914,7 @@ ALIASES
   $ sb near create aggregator
 ```
 
-_See code: [dist/commands/near/aggregator/create.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.4/dist/commands/near/aggregator/create.js)_
+_See code: [dist/commands/near/aggregator/create.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.6/dist/commands/near/aggregator/create.js)_
 
 ## `sb near aggregator escrow AGGREGATORADDRESS`
 
@@ -1914,7 +1943,7 @@ DESCRIPTION
   view an aggregators escrow state
 ```
 
-_See code: [dist/commands/near/aggregator/escrow.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.4/dist/commands/near/aggregator/escrow.js)_
+_See code: [dist/commands/near/aggregator/escrow.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.6/dist/commands/near/aggregator/escrow.js)_
 
 ## `sb near aggregator fetch`
 
@@ -1947,7 +1976,7 @@ ALIASES
   $ sb near fetch aggregators
 ```
 
-_See code: [dist/commands/near/aggregator/fetch.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.4/dist/commands/near/aggregator/fetch.js)_
+_See code: [dist/commands/near/aggregator/fetch.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.6/dist/commands/near/aggregator/fetch.js)_
 
 ## `sb near aggregator fund AGGREGATORADDRESS`
 
@@ -1979,7 +2008,7 @@ ALIASES
   $ sb near fund aggregator
 ```
 
-_See code: [dist/commands/near/aggregator/fund.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.4/dist/commands/near/aggregator/fund.js)_
+_See code: [dist/commands/near/aggregator/fund.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.6/dist/commands/near/aggregator/fund.js)_
 
 ## `sb near aggregator history add AGGREGATORADDRESS`
 
@@ -2127,7 +2156,7 @@ ALIASES
   $ sb near create aggregator permission
 ```
 
-_See code: [dist/commands/near/aggregator/permission/create.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.4/dist/commands/near/aggregator/permission/create.js)_
+_See code: [dist/commands/near/aggregator/permission/create.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.6/dist/commands/near/aggregator/permission/create.js)_
 
 ## `sb near aggregator remove job AGGREGATORADDRESS`
 
@@ -2165,7 +2194,7 @@ ALIASES
   $ sb near aggregator job remove
 ```
 
-_See code: [dist/commands/near/aggregator/remove/job.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.4/dist/commands/near/aggregator/remove/job.js)_
+_See code: [dist/commands/near/aggregator/remove/job.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.6/dist/commands/near/aggregator/remove/job.js)_
 
 ## `sb near aggregator set AGGREGATORADDRESS`
 
@@ -2216,7 +2245,7 @@ ALIASES
   $ sb near set aggregator
 ```
 
-_See code: [dist/commands/near/aggregator/set.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.4/dist/commands/near/aggregator/set.js)_
+_See code: [dist/commands/near/aggregator/set.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.6/dist/commands/near/aggregator/set.js)_
 
 ## `sb near aggregator update AGGREGATORADDRESS`
 
@@ -2252,7 +2281,7 @@ ALIASES
   $ sb near update aggregator
 ```
 
-_See code: [dist/commands/near/aggregator/update.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.4/dist/commands/near/aggregator/update.js)_
+_See code: [dist/commands/near/aggregator/update.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.6/dist/commands/near/aggregator/update.js)_
 
 ## `sb near crank create QUEUEADDRESS`
 
@@ -2292,7 +2321,7 @@ ALIASES
   $ sb near create crank
 ```
 
-_See code: [dist/commands/near/crank/create.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.4/dist/commands/near/crank/create.js)_
+_See code: [dist/commands/near/crank/create.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.6/dist/commands/near/crank/create.js)_
 
 ## `sb near crank list CRANKADDRESS`
 
@@ -2324,7 +2353,7 @@ ALIASES
   $ sb near pop crank
 ```
 
-_See code: [dist/commands/near/crank/list.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.4/dist/commands/near/crank/list.js)_
+_See code: [dist/commands/near/crank/list.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.6/dist/commands/near/crank/list.js)_
 
 ## `sb near crank pop CRANKADDRESS`
 
@@ -2360,7 +2389,7 @@ ALIASES
   $ sb near pop crank
 ```
 
-_See code: [dist/commands/near/crank/pop.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.4/dist/commands/near/crank/pop.js)_
+_See code: [dist/commands/near/crank/pop.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.6/dist/commands/near/crank/pop.js)_
 
 ## `sb near crank push CRANKADDRESS`
 
@@ -2397,7 +2426,7 @@ ALIASES
   $ sb near push crank
 ```
 
-_See code: [dist/commands/near/crank/push.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.4/dist/commands/near/crank/push.js)_
+_See code: [dist/commands/near/crank/push.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.6/dist/commands/near/crank/push.js)_
 
 ## `sb near create aggregator QUEUEADDRESS`
 
@@ -2744,7 +2773,7 @@ ALIASES
   $ sb near create escrow
 ```
 
-_See code: [dist/commands/near/escrow/create.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.4/dist/commands/near/escrow/create.js)_
+_See code: [dist/commands/near/escrow/create.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.6/dist/commands/near/escrow/create.js)_
 
 ## `sb near escrow print`
 
@@ -2777,7 +2806,7 @@ ALIASES
   $ sb near print escrow
 ```
 
-_See code: [dist/commands/near/escrow/print.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.4/dist/commands/near/escrow/print.js)_
+_See code: [dist/commands/near/escrow/print.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.6/dist/commands/near/escrow/print.js)_
 
 ## `sb near fetch aggregators`
 
@@ -2878,7 +2907,7 @@ ALIASES
   $ sb near create job
 ```
 
-_See code: [dist/commands/near/job/create.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.4/dist/commands/near/job/create.js)_
+_See code: [dist/commands/near/job/create.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.6/dist/commands/near/job/create.js)_
 
 ## `sb near list queue QUEUEADDRESS`
 
@@ -2951,7 +2980,7 @@ ALIASES
   $ sb near create oracle
 ```
 
-_See code: [dist/commands/near/oracle/create.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.4/dist/commands/near/oracle/create.js)_
+_See code: [dist/commands/near/oracle/create.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.6/dist/commands/near/oracle/create.js)_
 
 ## `sb near oracle escrow ORACLEADDRESS`
 
@@ -2983,7 +3012,7 @@ DESCRIPTION
   view an aggregators escrow state
 ```
 
-_See code: [dist/commands/near/oracle/escrow.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.4/dist/commands/near/oracle/escrow.js)_
+_See code: [dist/commands/near/oracle/escrow.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.6/dist/commands/near/oracle/escrow.js)_
 
 ## `sb near oracle stake ORACLEADDRESS`
 
@@ -3017,7 +3046,7 @@ DESCRIPTION
   deposit funds to an oracle's staking wallet
 ```
 
-_See code: [dist/commands/near/oracle/stake.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.4/dist/commands/near/oracle/stake.js)_
+_See code: [dist/commands/near/oracle/stake.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.6/dist/commands/near/oracle/stake.js)_
 
 ## `sb near oracle unstake ORACLEADDRESS`
 
@@ -3051,7 +3080,7 @@ DESCRIPTION
   deposit funds to an oracle's staking wallet
 ```
 
-_See code: [dist/commands/near/oracle/unstake.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.4/dist/commands/near/oracle/unstake.js)_
+_See code: [dist/commands/near/oracle/unstake.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.6/dist/commands/near/oracle/unstake.js)_
 
 ## `sb near oracle up ORACLEADDRESS`
 
@@ -3089,7 +3118,7 @@ DESCRIPTION
   start a near docker oracle
 ```
 
-_See code: [dist/commands/near/oracle/up.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.4/dist/commands/near/oracle/up.js)_
+_See code: [dist/commands/near/oracle/up.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.6/dist/commands/near/oracle/up.js)_
 
 ## `sb near permission create`
 
@@ -3127,7 +3156,7 @@ ALIASES
   $ sb near create oracle permission
 ```
 
-_See code: [dist/commands/near/permission/create.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.4/dist/commands/near/permission/create.js)_
+_See code: [dist/commands/near/permission/create.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.6/dist/commands/near/permission/create.js)_
 
 ## `sb near pop crank CRANKADDRESS`
 
@@ -3194,7 +3223,7 @@ ALIASES
   $ sb near print
 ```
 
-_See code: [dist/commands/near/print.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.4/dist/commands/near/print.js)_
+_See code: [dist/commands/near/print.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.6/dist/commands/near/print.js)_
 
 ## `sb near print escrow`
 
@@ -3295,7 +3324,7 @@ ALIASES
   $ sb near queue feeds
 ```
 
-_See code: [dist/commands/near/queue/aggregators.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.4/dist/commands/near/queue/aggregators.js)_
+_See code: [dist/commands/near/queue/aggregators.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.6/dist/commands/near/queue/aggregators.js)_
 
 ## `sb near queue create`
 
@@ -3341,7 +3370,7 @@ ALIASES
   $ sb near create queue
 ```
 
-_See code: [dist/commands/near/queue/create.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.4/dist/commands/near/queue/create.js)_
+_See code: [dist/commands/near/queue/create.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.6/dist/commands/near/queue/create.js)_
 
 ## `sb near queue feeds QUEUEADDRESS`
 
@@ -3409,7 +3438,7 @@ ALIASES
   $ sb near list queue
 ```
 
-_See code: [dist/commands/near/queue/list.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.4/dist/commands/near/queue/list.js)_
+_See code: [dist/commands/near/queue/list.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.6/dist/commands/near/queue/list.js)_
 
 ## `sb near queue set QUEUEADDRESS`
 
@@ -3457,7 +3486,7 @@ ALIASES
   $ sb near create queue
 ```
 
-_See code: [dist/commands/near/queue/set.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.4/dist/commands/near/queue/set.js)_
+_See code: [dist/commands/near/queue/set.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.6/dist/commands/near/queue/set.js)_
 
 ## `sb near set aggregator AGGREGATORADDRESS`
 
@@ -3568,7 +3597,7 @@ DESCRIPTION
   fetch logs for a switchboard oracle
 ```
 
-_See code: [dist/commands/oracle/logs.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.4/dist/commands/oracle/logs.js)_
+_See code: [dist/commands/oracle/logs.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.6/dist/commands/oracle/logs.js)_
 
 ## `sb solana aggregator add history AGGREGATORKEY`
 
@@ -3609,7 +3638,7 @@ EXAMPLES
   $ sb solana:aggregator:add:history
 ```
 
-_See code: [dist/commands/solana/aggregator/add/history.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.4/dist/commands/solana/aggregator/add/history.js)_
+_See code: [dist/commands/solana/aggregator/add/history.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.6/dist/commands/solana/aggregator/add/history.js)_
 
 ## `sb solana aggregator add job AGGREGATORKEY`
 
@@ -3650,7 +3679,7 @@ EXAMPLES
   $ sb solana aggregator add job
 ```
 
-_See code: [dist/commands/solana/aggregator/add/job.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.4/dist/commands/solana/aggregator/add/job.js)_
+_See code: [dist/commands/solana/aggregator/add/job.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.6/dist/commands/solana/aggregator/add/job.js)_
 
 ## `sb solana aggregator authority AGGREGATORKEY`
 
@@ -3683,7 +3712,7 @@ FLAGS
   --programId=<value>      alternative Switchboard program ID to interact with
 ```
 
-_See code: [dist/commands/solana/aggregator/authority.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.4/dist/commands/solana/aggregator/authority.js)_
+_See code: [dist/commands/solana/aggregator/authority.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.6/dist/commands/solana/aggregator/authority.js)_
 
 ## `sb solana aggregator close AGGREGATORKEY`
 
@@ -3723,7 +3752,7 @@ EXAMPLES
   $ sb solana aggregator close J7j9xX8JP2B2ErvUzuqGAKBGeggsxPyFXj5MqZcYDxfa --keypair ../payer-keypair.json
 ```
 
-_See code: [dist/commands/solana/aggregator/close.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.4/dist/commands/solana/aggregator/close.js)_
+_See code: [dist/commands/solana/aggregator/close.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.6/dist/commands/solana/aggregator/close.js)_
 
 ## `sb solana aggregator create QUEUEKEY`
 
@@ -3794,7 +3823,7 @@ DESCRIPTION
   create an aggregator account
 ```
 
-_See code: [dist/commands/solana/aggregator/create/index.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.4/dist/commands/solana/aggregator/create/index.js)_
+_See code: [dist/commands/solana/aggregator/create/index.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.6/dist/commands/solana/aggregator/create/index.js)_
 
 ## `sb solana aggregator create json DEFINITIONFILE`
 
@@ -3841,7 +3870,7 @@ EXAMPLES
   $ sb solana aggregator create json examples/aggregator.json --keypair ../payer-keypair.json --queueKey GhYg3R1V6DmJbwuc57qZeoYG6gUuvCotUF1zU3WCj98U --outputFile aggregator.schema.json
 ```
 
-_See code: [dist/commands/solana/aggregator/create/json.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.4/dist/commands/solana/aggregator/create/json.js)_
+_See code: [dist/commands/solana/aggregator/create/json.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.6/dist/commands/solana/aggregator/create/json.js)_
 
 ## `sb solana aggregator deposit AGGREGATORKEY`
 
@@ -4001,7 +4030,7 @@ DESCRIPTION
   print an aggregator's history'
 ```
 
-_See code: [dist/commands/solana/aggregator/history.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.4/dist/commands/solana/aggregator/history.js)_
+_See code: [dist/commands/solana/aggregator/history.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.6/dist/commands/solana/aggregator/history.js)_
 
 ## `sb solana aggregator lease set AGGREGATORKEY`
 
@@ -4077,7 +4106,7 @@ DESCRIPTION
   get a list of aggregators from a provided authority pubkey
 ```
 
-_See code: [dist/commands/solana/aggregator/list.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.4/dist/commands/solana/aggregator/list.js)_
+_See code: [dist/commands/solana/aggregator/list.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.6/dist/commands/solana/aggregator/list.js)_
 
 ## `sb solana aggregator lock AGGREGATORKEY`
 
@@ -4113,7 +4142,7 @@ DESCRIPTION
   lock an aggregator's configuration and prevent further changes
 ```
 
-_See code: [dist/commands/solana/aggregator/lock.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.4/dist/commands/solana/aggregator/lock.js)_
+_See code: [dist/commands/solana/aggregator/lock.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.6/dist/commands/solana/aggregator/lock.js)_
 
 ## `sb solana aggregator metrics AGGREGATORKEY`
 
@@ -4149,7 +4178,7 @@ DESCRIPTION
   print an aggregator's metrics'
 ```
 
-_See code: [dist/commands/solana/aggregator/metrics.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.4/dist/commands/solana/aggregator/metrics.js)_
+_See code: [dist/commands/solana/aggregator/metrics.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.6/dist/commands/solana/aggregator/metrics.js)_
 
 ## `sb solana aggregator mode AGGREGATORKEY`
 
@@ -4191,7 +4220,7 @@ DESCRIPTION
   set an aggregators resolution mode config
 ```
 
-_See code: [dist/commands/solana/aggregator/mode.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.4/dist/commands/solana/aggregator/mode.js)_
+_See code: [dist/commands/solana/aggregator/mode.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.6/dist/commands/solana/aggregator/mode.js)_
 
 ## `sb solana aggregator open-round AGGREGATORKEY`
 
@@ -4265,7 +4294,7 @@ DESCRIPTION
   create a permission account for an aggregator
 ```
 
-_See code: [dist/commands/solana/aggregator/permission/create.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.4/dist/commands/solana/aggregator/permission/create.js)_
+_See code: [dist/commands/solana/aggregator/permission/create.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.6/dist/commands/solana/aggregator/permission/create.js)_
 
 ## `sb solana aggregator print AGGREGATORKEY`
 
@@ -4300,7 +4329,7 @@ DESCRIPTION
   print an aggregator and it's associated accounts
 ```
 
-_See code: [dist/commands/solana/aggregator/print.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.4/dist/commands/solana/aggregator/print.js)_
+_See code: [dist/commands/solana/aggregator/print.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.6/dist/commands/solana/aggregator/print.js)_
 
 ## `sb solana aggregator remove job AGGREGATORKEY JOBKEY`
 
@@ -4337,7 +4366,7 @@ DESCRIPTION
   remove a switchboard job account from an aggregator
 ```
 
-_See code: [dist/commands/solana/aggregator/remove/job.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.4/dist/commands/solana/aggregator/remove/job.js)_
+_See code: [dist/commands/solana/aggregator/remove/job.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.6/dist/commands/solana/aggregator/remove/job.js)_
 
 ## `sb solana aggregator set AGGREGATORKEY`
 
@@ -4395,7 +4424,7 @@ DESCRIPTION
   set an aggregators config
 ```
 
-_See code: [dist/commands/solana/aggregator/set.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.4/dist/commands/solana/aggregator/set.js)_
+_See code: [dist/commands/solana/aggregator/set.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.6/dist/commands/solana/aggregator/set.js)_
 
 ## `sb solana aggregator transfer AGGREGATORKEY`
 
@@ -4443,7 +4472,7 @@ EXAMPLES
   $ sb solana aggregator transfer GvDMxPzN1sCj7L26YDK2HnMRXEQmQ2aemov8YBtPS7vR --mainnetBeta --loadAmount 0.1 --newQueue 3HBb2DQqDfuMdzWxNk1Eo9RTMkFYmuEAd32RiLKn9pAn --newCrank GdNVLWzcE6h9SPuSbmu69YzxAj8enim9t6mjzuqTXgLd --keypair ~/.config/solana/id.json
 ```
 
-_See code: [dist/commands/solana/aggregator/transfer.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.4/dist/commands/solana/aggregator/transfer.js)_
+_See code: [dist/commands/solana/aggregator/transfer.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.6/dist/commands/solana/aggregator/transfer.js)_
 
 ## `sb solana aggregator update AGGREGATORKEY`
 
@@ -4484,7 +4513,7 @@ EXAMPLES
   $ sb solana aggregator update J7j9xX8JP2B2ErvUzuqGAKBGeggsxPyFXj5MqZcYDxfa --keypair ../payer-keypair.json
 ```
 
-_See code: [dist/commands/solana/aggregator/update.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.4/dist/commands/solana/aggregator/update.js)_
+_See code: [dist/commands/solana/aggregator/update.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.6/dist/commands/solana/aggregator/update.js)_
 
 ## `sb solana aggregator watch AGGREGATORKEY`
 
@@ -4516,7 +4545,7 @@ DESCRIPTION
   watch an aggregator account and stream the results
 ```
 
-_See code: [dist/commands/solana/aggregator/watch.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.4/dist/commands/solana/aggregator/watch.js)_
+_See code: [dist/commands/solana/aggregator/watch.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.6/dist/commands/solana/aggregator/watch.js)_
 
 ## `sb solana aggregator withdraw AGGREGATORKEY`
 
@@ -4600,7 +4629,7 @@ ALIASES
   $ sb anchor test
 ```
 
-_See code: [dist/commands/solana/anchor/test.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.4/dist/commands/solana/anchor/test.js)_
+_See code: [dist/commands/solana/anchor/test.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.6/dist/commands/solana/anchor/test.js)_
 
 ## `sb solana buffer create QUEUEKEY`
 
@@ -4645,7 +4674,7 @@ DESCRIPTION
   create a buffer relayer account
 ```
 
-_See code: [dist/commands/solana/buffer/create.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.4/dist/commands/solana/buffer/create.js)_
+_See code: [dist/commands/solana/buffer/create.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.6/dist/commands/solana/buffer/create.js)_
 
 ## `sb solana buffer open-round BUFFERRELAYERKEY`
 
@@ -4725,7 +4754,7 @@ EXAMPLES
   $ sb solana buffer update J7j9xX8JP2B2ErvUzuqGAKBGeggsxPyFXj5MqZcYDxfa --keypair ../payer-keypair.json
 ```
 
-_See code: [dist/commands/solana/buffer/update.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.4/dist/commands/solana/buffer/update.js)_
+_See code: [dist/commands/solana/buffer/update.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.6/dist/commands/solana/buffer/update.js)_
 
 ## `sb solana crank create QUEUEKEY`
 
@@ -4769,7 +4798,7 @@ DESCRIPTION
   create a new crank account
 ```
 
-_See code: [dist/commands/solana/crank/create.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.4/dist/commands/solana/crank/create.js)_
+_See code: [dist/commands/solana/crank/create.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.6/dist/commands/solana/crank/create.js)_
 
 ## `sb solana crank events AGGREGATORKEY`
 
@@ -4801,7 +4830,7 @@ DESCRIPTION
   watch an aggregator account and stream the on-chain events
 ```
 
-_See code: [dist/commands/solana/crank/events.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.4/dist/commands/solana/crank/events.js)_
+_See code: [dist/commands/solana/crank/events.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.6/dist/commands/solana/crank/events.js)_
 
 ## `sb solana crank pop CRANKKEY`
 
@@ -4836,7 +4865,7 @@ DESCRIPTION
   pop the crank
 ```
 
-_See code: [dist/commands/solana/crank/pop.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.4/dist/commands/solana/crank/pop.js)_
+_See code: [dist/commands/solana/crank/pop.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.6/dist/commands/solana/crank/pop.js)_
 
 ## `sb solana crank print CRANKKEY`
 
@@ -4870,7 +4899,7 @@ DESCRIPTION
   print a crank
 ```
 
-_See code: [dist/commands/solana/crank/print.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.4/dist/commands/solana/crank/print.js)_
+_See code: [dist/commands/solana/crank/print.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.6/dist/commands/solana/crank/print.js)_
 
 ## `sb solana crank push AGGREGATORKEY`
 
@@ -4906,7 +4935,7 @@ DESCRIPTION
   push the crank
 ```
 
-_See code: [dist/commands/solana/crank/push.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.4/dist/commands/solana/crank/push.js)_
+_See code: [dist/commands/solana/crank/push.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.6/dist/commands/solana/crank/push.js)_
 
 ## `sb solana crank reset AGGREGATORKEY`
 
@@ -4943,7 +4972,7 @@ DESCRIPTION
   reset an aggregators crank
 ```
 
-_See code: [dist/commands/solana/crank/reset.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.4/dist/commands/solana/crank/reset.js)_
+_See code: [dist/commands/solana/crank/reset.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.6/dist/commands/solana/crank/reset.js)_
 
 ## `sb solana function addMrEnclave FUNCTIONKEY`
 
@@ -4982,7 +5011,7 @@ DESCRIPTION
   Configure a solana funciton's mrEnclave settings
 ```
 
-_See code: [dist/commands/solana/function/addMrEnclave.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.4/dist/commands/solana/function/addMrEnclave.js)_
+_See code: [dist/commands/solana/function/addMrEnclave.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.6/dist/commands/solana/function/addMrEnclave.js)_
 
 ## `sb solana function configure FUNCTIONKEY`
 
@@ -5027,7 +5056,7 @@ DESCRIPTION
   Configure a solana funciton's settings
 ```
 
-_See code: [dist/commands/solana/function/configure.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.4/dist/commands/solana/function/configure.js)_
+_See code: [dist/commands/solana/function/configure.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.6/dist/commands/solana/function/configure.js)_
 
 ## `sb solana function create QUEUEKEY`
 
@@ -5040,7 +5069,7 @@ USAGE
     confirmed|finalized|processed] [-k <value>] [--ledgerPath <value> --ledger] [--json] [-n <value>] [--metadata
     <value>] [-a <value>] [--fundAmount <value>] [--schedule <value>] [--containerRegistry dockerhub|ipfs] [--version
     <value>] [--mrEnclave <value>] [--requestsDisabled <value>] [--requestsFee <value>] [--requestsRequireAuthorization
-    <value>] [--enable] [--queueAuthority <value>]
+    <value>]
 
 ARGUMENTS
   QUEUEKEY  public key of the attestation queue account
@@ -5061,9 +5090,9 @@ FLAGS
                                           <options: confirmed|finalized|processed>
   --container=<value>                     (required) the location of the container (Ex.
                                           switchboardlabs/basic-oracle-function)
-  --containerRegistry=<option>            [default: docker] the registry to pull the container from (Ex. Docker or IPFS)
+  --containerRegistry=<option>            [default: dockerhub] the registry to pull the container from (Ex. Docker or
+                                          IPFS)
                                           <options: dockerhub|ipfs>
-  --enable                                enable oracle heartbeat permissions
   --fundAmount=<value>                    [default: 0.0] token amount to load into the function's escrow wallet.
   --ledger                                enable ledger support
   --ledgerPath=<value>                    HID path to the ledger
@@ -5072,7 +5101,6 @@ FLAGS
   --mrEnclave=<value>                     the MrEnclave value to set for the function - if not provided, will be set
                                           automatically after its first run
   --programId=<value>                     alternative Switchboard program ID to interact with
-  --queueAuthority=<value>                alternative keypair to use for queue authority
   --requestsDisabled=<value>              whether custom requests can be created for this function
   --requestsFee=<value>                   [default: 0.0] the costs each request must pay the function authority for each
                                           sub-request (Ex. 0.00002)
@@ -5089,10 +5117,10 @@ DESCRIPTION
   create a new function account for a given queue
 
 EXAMPLES
-  $ sb solana function create F8ce7MsckeZAbAGmxjJNetxYXQa9mKr9nnrC3qKubyYy --name function-1 --fundAmount 1.25 --container switchboardlabs/basic-oracle-function --version solana
+  $ sb solana function create CkvizjVnm2zA5Wuwan34NhVT3zFc7vqUyGnA6tuEF5aE --name function-1 --fundAmount 1.25 --container switchboardlabs/basic-oracle-function --version solana
 ```
 
-_See code: [dist/commands/solana/function/create.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.4/dist/commands/solana/function/create.js)_
+_See code: [dist/commands/solana/function/create.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.6/dist/commands/solana/function/create.js)_
 
 ## `sb solana function fund FUNCTIONKEY`
 
@@ -5131,7 +5159,7 @@ DESCRIPTION
   wrap SOL into a function accounts escrow wallet
 ```
 
-_See code: [dist/commands/solana/function/fund.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.4/dist/commands/solana/function/fund.js)_
+_See code: [dist/commands/solana/function/fund.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.6/dist/commands/solana/function/fund.js)_
 
 ## `sb solana function print FUNCTIONKEY`
 
@@ -5164,7 +5192,7 @@ DESCRIPTION
   print a function account
 ```
 
-_See code: [dist/commands/solana/function/print.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.4/dist/commands/solana/function/print.js)_
+_See code: [dist/commands/solana/function/print.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.6/dist/commands/solana/function/print.js)_
 
 ## `sb solana function rmMrEnclave FUNCTIONKEY`
 
@@ -5203,7 +5231,49 @@ DESCRIPTION
   Configure a solana funciton's mrEnclave settings
 ```
 
-_See code: [dist/commands/solana/function/rmMrEnclave.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.4/dist/commands/solana/function/rmMrEnclave.js)_
+_See code: [dist/commands/solana/function/rmMrEnclave.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.6/dist/commands/solana/function/rmMrEnclave.js)_
+
+## `sb solana function withdraw FUNCTIONKEY`
+
+Withdraw funds from a function's escrow
+
+```
+USAGE
+  $ sb solana function withdraw FUNCTIONKEY [-h] [-v] [-s] [--mainnetBeta | --cluster devnet|mainnet-beta|mainnet|localnet]
+    [-u <value>] [--programId <value>] [--commitment confirmed|finalized|processed] [-k <value>] [--ledgerPath <value>
+    --ledger] [--json] [--withdrawAmount <value>] [--authority <value>] [--destinationWallet <value>]
+
+ARGUMENTS
+  FUNCTIONKEY  public key of the function account
+
+FLAGS
+  -h, --help                   Show CLI help.
+  -k, --keypair=<value>        keypair that will pay for onchain transactions. defaults to new account authority if no
+                               alternate authority provided
+  -s, --silent                 suppress cli prompts
+  -u, --rpcUrl=<value>         alternate RPC url
+  -v, --verbose                log everything
+  --authority=<value>          path to authority keypair if different from payer keypair
+  --cluster=<option>           the solana cluster to connect to
+                               <options: devnet|mainnet-beta|mainnet|localnet>
+  --commitment=<option>        [default: confirmed] transaction commitment level to use
+                               <options: confirmed|finalized|processed>
+  --destinationWallet=<value>  pubkey of tokenWallet to receive withdrawed funds. Defaults to payer associated token
+                               wallet
+  --ledger                     enable ledger support
+  --ledgerPath=<value>         HID path to the ledger
+  --mainnetBeta                WARNING: use mainnet-beta solana cluster
+  --programId=<value>          alternative Switchboard program ID to interact with
+  --withdrawAmount=<value>     Amount of wrapped SOL to withdraw from the function's escrow
+
+GLOBAL FLAGS
+  --json  Format output as json.
+
+DESCRIPTION
+  Withdraw funds from a function's escrow
+```
+
+_See code: [dist/commands/solana/function/withdraw.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.6/dist/commands/solana/function/withdraw.js)_
 
 ## `sb solana job create`
 
@@ -5243,7 +5313,7 @@ DESCRIPTION
   create a job account
 ```
 
-_See code: [dist/commands/solana/job/create.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.4/dist/commands/solana/job/create.js)_
+_See code: [dist/commands/solana/job/create.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.6/dist/commands/solana/job/create.js)_
 
 ## `sb solana job print JOBKEY`
 
@@ -5276,7 +5346,7 @@ DESCRIPTION
   print an job and it's associated accounts
 ```
 
-_See code: [dist/commands/solana/job/print.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.4/dist/commands/solana/job/print.js)_
+_See code: [dist/commands/solana/job/print.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.6/dist/commands/solana/job/print.js)_
 
 ## `sb solana json create aggregator DEFINITIONFILE`
 
@@ -5361,7 +5431,7 @@ EXAMPLES
   $ sb solana lease create GvDMxPzN1sCj7L26YDK2HnMRXEQmQ2aemov8YBtPS7vR --amount 1.5 --keypair ../payer-keypair.json
 ```
 
-_See code: [dist/commands/solana/lease/create.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.4/dist/commands/solana/lease/create.js)_
+_See code: [dist/commands/solana/lease/create.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.6/dist/commands/solana/lease/create.js)_
 
 ## `sb solana lease extend AGGREGATORKEY`
 
@@ -5405,7 +5475,7 @@ EXAMPLES
   $ sb solana:aggregator:fund GvDMxPzN1sCj7L26YDK2HnMRXEQmQ2aemov8YBtPS7vR --amount 1.1 --keypair ../payer-keypair.json
 ```
 
-_See code: [dist/commands/solana/lease/extend.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.4/dist/commands/solana/lease/extend.js)_
+_See code: [dist/commands/solana/lease/extend.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.6/dist/commands/solana/lease/extend.js)_
 
 ## `sb solana lease print LEASEKEY`
 
@@ -5438,7 +5508,7 @@ DESCRIPTION
   print a lease account
 ```
 
-_See code: [dist/commands/solana/lease/print.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.4/dist/commands/solana/lease/print.js)_
+_See code: [dist/commands/solana/lease/print.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.6/dist/commands/solana/lease/print.js)_
 
 ## `sb solana lease set AGGREGATORKEY`
 
@@ -5483,7 +5553,7 @@ EXAMPLES
   $ sb solana:lease:set GvDMxPzN1sCj7L26YDK2HnMRXEQmQ2aemov8YBtPS7vR --keypair ../payer-keypair.json
 ```
 
-_See code: [dist/commands/solana/lease/set.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.4/dist/commands/solana/lease/set.js)_
+_See code: [dist/commands/solana/lease/set.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.6/dist/commands/solana/lease/set.js)_
 
 ## `sb solana lease withdraw AGGREGATORKEY`
 
@@ -5528,7 +5598,7 @@ EXAMPLES
   $ sb solana:aggregator:withdraw GvDMxPzN1sCj7L26YDK2HnMRXEQmQ2aemov8YBtPS7vR --amount 1.1 --keypair ../payer-keypair.json
 ```
 
-_See code: [dist/commands/solana/lease/withdraw.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.4/dist/commands/solana/lease/withdraw.js)_
+_See code: [dist/commands/solana/lease/withdraw.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.6/dist/commands/solana/lease/withdraw.js)_
 
 ## `sb solana network create`
 
@@ -5566,7 +5636,7 @@ DESCRIPTION
   create an oracle queue
 ```
 
-_See code: [dist/commands/solana/network/create.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.4/dist/commands/solana/network/create.js)_
+_See code: [dist/commands/solana/network/create.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.6/dist/commands/solana/network/create.js)_
 
 ## `sb solana network save`
 
@@ -5600,7 +5670,7 @@ DESCRIPTION
   save an existing switchboard network
 ```
 
-_See code: [dist/commands/solana/network/save.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.4/dist/commands/solana/network/save.js)_
+_See code: [dist/commands/solana/network/save.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.6/dist/commands/solana/network/save.js)_
 
 ## `sb solana network start`
 
@@ -5643,7 +5713,7 @@ DESCRIPTION
   start a switchboard network from a JSON file
 ```
 
-_See code: [dist/commands/solana/network/start.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.4/dist/commands/solana/network/start.js)_
+_See code: [dist/commands/solana/network/start.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.6/dist/commands/solana/network/start.js)_
 
 ## `sb solana oracle create QUEUEKEY`
 
@@ -5691,7 +5761,7 @@ EXAMPLES
   $ sb solana:oracle:create F8ce7MsckeZAbAGmxjJNetxYXQa9mKr9nnrC3qKubyYy --name oracle-1 --stakeAmount 1
 ```
 
-_See code: [dist/commands/solana/oracle/create.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.4/dist/commands/solana/oracle/create.js)_
+_See code: [dist/commands/solana/oracle/create.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.6/dist/commands/solana/oracle/create.js)_
 
 ## `sb solana oracle print ORACLEKEY`
 
@@ -5724,7 +5794,7 @@ DESCRIPTION
   print an oracle account
 ```
 
-_See code: [dist/commands/solana/oracle/print.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.4/dist/commands/solana/oracle/print.js)_
+_See code: [dist/commands/solana/oracle/print.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.6/dist/commands/solana/oracle/print.js)_
 
 ## `sb solana oracle up`
 
@@ -5762,7 +5832,7 @@ DESCRIPTION
   start a solana docker oracle
 ```
 
-_See code: [dist/commands/solana/oracle/up.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.4/dist/commands/solana/oracle/up.js)_
+_See code: [dist/commands/solana/oracle/up.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.6/dist/commands/solana/oracle/up.js)_
 
 ## `sb solana oracle withdraw ORACLEKEY`
 
@@ -5804,7 +5874,7 @@ DESCRIPTION
   withdraw from an oracle's staking wallet
 ```
 
-_See code: [dist/commands/solana/oracle/withdraw.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.4/dist/commands/solana/oracle/withdraw.js)_
+_See code: [dist/commands/solana/oracle/withdraw.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.6/dist/commands/solana/oracle/withdraw.js)_
 
 ## `sb solana permission create`
 
@@ -5845,7 +5915,7 @@ DESCRIPTION
   create a permission account
 ```
 
-_See code: [dist/commands/solana/permission/create.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.4/dist/commands/solana/permission/create.js)_
+_See code: [dist/commands/solana/permission/create.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.6/dist/commands/solana/permission/create.js)_
 
 ## `sb solana permission grant PERMISSIONKEY`
 
@@ -5881,7 +5951,7 @@ DESCRIPTION
   enable a resources permissions
 ```
 
-_See code: [dist/commands/solana/permission/grant.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.4/dist/commands/solana/permission/grant.js)_
+_See code: [dist/commands/solana/permission/grant.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.6/dist/commands/solana/permission/grant.js)_
 
 ## `sb solana permission print PERMISSIONKEY`
 
@@ -5914,7 +5984,7 @@ DESCRIPTION
   print a permission account
 ```
 
-_See code: [dist/commands/solana/permission/print.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.4/dist/commands/solana/permission/print.js)_
+_See code: [dist/commands/solana/permission/print.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.6/dist/commands/solana/permission/print.js)_
 
 ## `sb solana permission revoke PERMISSIONKEY`
 
@@ -5950,7 +6020,7 @@ DESCRIPTION
   disable a resources permissions
 ```
 
-_See code: [dist/commands/solana/permission/revoke.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.4/dist/commands/solana/permission/revoke.js)_
+_See code: [dist/commands/solana/permission/revoke.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.6/dist/commands/solana/permission/revoke.js)_
 
 ## `sb solana print PUBKEY`
 
@@ -5983,7 +6053,7 @@ DESCRIPTION
   print a Switchboard account
 ```
 
-_See code: [dist/commands/solana/print.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.4/dist/commands/solana/print.js)_
+_See code: [dist/commands/solana/print.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.6/dist/commands/solana/print.js)_
 
 ## `sb solana queue create`
 
@@ -6050,7 +6120,7 @@ DESCRIPTION
   create an oracle queue
 ```
 
-_See code: [dist/commands/solana/queue/create.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.4/dist/commands/solana/queue/create.js)_
+_See code: [dist/commands/solana/queue/create.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.6/dist/commands/solana/queue/create.js)_
 
 ## `sb solana queue print QUEUEKEY`
 
@@ -6084,7 +6154,7 @@ DESCRIPTION
   print a queue account
 ```
 
-_See code: [dist/commands/solana/queue/print.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.4/dist/commands/solana/queue/print.js)_
+_See code: [dist/commands/solana/queue/print.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.6/dist/commands/solana/queue/print.js)_
 
 ## `sb solana queue set QUEUEKEY`
 
@@ -6145,7 +6215,7 @@ DESCRIPTION
   set an oracle queue's config
 ```
 
-_See code: [dist/commands/solana/queue/set.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.4/dist/commands/solana/queue/set.js)_
+_See code: [dist/commands/solana/queue/set.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.6/dist/commands/solana/queue/set.js)_
 
 ## `sb solana vrf open-round VRFKEY`
 
@@ -6219,7 +6289,7 @@ DESCRIPTION
   print a VRF and it's associated accounts
 ```
 
-_See code: [dist/commands/solana/vrf/print.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.4/dist/commands/solana/vrf/print.js)_
+_See code: [dist/commands/solana/vrf/print.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.6/dist/commands/solana/vrf/print.js)_
 
 ## `sb solana vrf request VRFKEY`
 
@@ -6262,7 +6332,7 @@ EXAMPLES
   $ sb solana vrf request
 ```
 
-_See code: [dist/commands/solana/vrf/request.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.4/dist/commands/solana/vrf/request.js)_
+_See code: [dist/commands/solana/vrf/request.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.6/dist/commands/solana/vrf/request.js)_
 
 ## `sb solana vrf update VRFKEY`
 
