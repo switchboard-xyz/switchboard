@@ -52,7 +52,7 @@
     "@solana/web3.js": "^1.78.3",
     "@switchboard-xyz/aptos.js": "^2.6.10",
     "@switchboard-xyz/common": "^2.3.6",
-    "@switchboard-xyz/evm.js": "^3.12.32",
+    "@switchboard-xyz/evm.js": "~3.12.32",
     "@switchboard-xyz/near.js": "^2.2.4",
     "@switchboard-xyz/oracle": "^2.1.13",
     "@switchboard-xyz/solana.js": "^2.7.0",

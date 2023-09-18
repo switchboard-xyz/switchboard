@@ -116,8 +116,8 @@ importers:
         specifier: ^2.3.6
         version: link:../javascript/common
       '@switchboard-xyz/evm.js':
-        specifier: ^3.12.32
-        version: 3.13.0
+        specifier: ~3.12.32
+        version: 3.12.32
       '@switchboard-xyz/near.js':
         specifier: ^2.2.4
         version: 2.2.4(typescript@5.0.4)
@@ -8371,15 +8371,14 @@ packages:
       yaml: 2.3.1
     dev: false
 
-  /@switchboard-xyz/evm.js@3.13.0:
-    resolution: {integrity: sha512-LY0jw+KWRsbiNicDK7VXVKPlNrbcCcPwOeBoexW3rRRm2NI0iB9613BRjK9xSTaKLjvVwMrpGhZRcfES+2ZzzA==}
+  /@switchboard-xyz/evm.js@3.12.32:
+    resolution: {integrity: sha512-n1pPSrds6yyXFmtqsNRUgnbOl/YvusK7Qfsia6tJXkrYyvH68G4cNcgmqY81xGOUE4Mz5SZvkLIA6Q+keJbasg==}
     engines: {node: '>=12.0.0'}
     dependencies:
       '@ethersproject/abi': 5.7.0
+      '@ethersproject/bignumber': 5.7.0
       '@ethersproject/providers': 5.7.2
       '@switchboard-xyz/common': 2.3.6
-      big.js: 6.2.1
-      bn.js: 5.2.1
       chalk: 5.3.0
       ethers: 5.7.2
       js-sha3: 0.8.0
