@@ -1,10 +1,10 @@
-<svg xmlns="http://www.w3.org/2000/svg"
-aria-label="Ethereum" role="img"
-viewBox="0 0 512 512"><rect
-rx="15%"
-fill="#ffffff"/><path
-fill="#3C3C3B" d="m256 362v107l131-185z"/><path
-fill="#343434" d="m256 41l131 218-131 78-132-78"/><path
-fill="#8C8C8C" d="m256 41v158l-132 60m0 25l132 78v107"/><path
-fill="#141414" d="m256 199v138l131-78"/><path
-fill="#393939" d="m124 259l132-60v138"/></svg>
+<svg clip-rule="evenodd" fill-rule="evenodd" image-rendering="optimizeQuality" shape-rendering="geometricPrecision" text-rendering="geometricPrecision" version="1.1" viewBox="0 0 784.37 1277.4" xml:space="preserve" xmlns="http://www.w3.org/2000/svg">
+   <g fill-rule="nonzero">
+    <polygon points="392.07 0 383.5 29.11 383.5 873.74 392.07 882.29 784.13 650.54" fill="#343434"/>
+    <polygon points="392.07 0 -0 650.54 392.07 882.29 392.07 472.33" fill="#8C8C8C"/>
+    <polygon points="392.07 956.52 387.24 962.41 387.24 1263.3 392.07 1277.4 784.37 724.89" fill="#3C3C3B"/>
+    <polygon points="392.07 1277.4 392.07 956.52 -0 724.89" fill="#8C8C8C"/>
+    <polygon points="392.07 882.29 784.13 650.54 392.07 472.33" fill="#141414"/>
+    <polygon points="0 650.54 392.07 882.29 392.07 472.33" fill="#393939"/>
+   </g>
+</svg>
