@@ -1,5 +1,5 @@
 {
-  "name": "sbv2-core",
+  "name": "switchboard",
   "private": true,
   "workspaces": [
     "javascript/*",
@@ -26,7 +26,7 @@
     "react-dom": "^17.0.2"
   },
   "devDependencies": {
-    "@switchboard-xyz/eslint-config": "^0.1.9",
+    "@switchboard-xyz/eslint-config": "workspace:^0.1.9",
     "@types/node": "^18.15.5",
     "esbuild": "^0.17.19",
     "eslint": "^8.46.0",
@@ -43,10 +43,6 @@
   },
   "engines": {
     "node": ">=14.0.0"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/switchboard-xyz/sbv2-core.git"
   },
   "packageManager": "pnpm@8.6.0",
   "pnpm": {

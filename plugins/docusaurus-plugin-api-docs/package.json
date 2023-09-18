@@ -2,23 +2,14 @@
   "name": "docusaurus-plugin-api-docs",
   "version": "3.0.0",
   "description": "Docusaurus plugin that provides source code API documentation powered by TypeDoc. ",
+  "author": "Miles Johnson",
+  "license": "MIT",
   "keywords": [
     "docusaurus",
     "plugin",
     "typedoc",
     "api"
   ],
-  "scripts": {
-    "swizzle": "docusaurus swizzle",
-    "build": "packemon build --addEngines",
-    "watch": "packemon watch"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git@github.com:milesj/docusaurus-plugin-typedoc-api.git"
-  },
-  "author": "Miles Johnson",
-  "license": "MIT",
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
   "files": [
@@ -27,12 +18,10 @@
     "src/**/*",
     "styles.css"
   ],
-  "engines": {
-    "node": ">=16.12.0"
-  },
-  "funding": {
-    "type": "ko-fi",
-    "url": "https://ko-fi.com/milesjohnson"
+  "scripts": {
+    "swizzle": "docusaurus swizzle",
+    "build": "packemon build --addEngines",
+    "watch": "packemon watch"
   },
   "packemon": {
     "format": "lib",
@@ -41,6 +30,8 @@
       "@theme/*",
       "@docusaurus/*",
       "@vscode/*",
+      "react",
+      "react-dom",
       "css$"
     ]
   },
@@ -80,8 +71,11 @@
     "@types/react": "^18.0.28",
     "@types/react-dom": "^17.0.0",
     "@types/webpack": "^5.28.1",
-    "packemon": "^3.0.3",
+    "packemon": "^3.2.1",
     "tsconfig-moon": "^1.3.0",
     "typescript": "^5.0.2"
+  },
+  "engines": {
+    "node": ">=16.12.0"
   }
 }

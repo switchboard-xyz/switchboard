@@ -2002,8 +2002,8 @@
       "enclave",
       "print"
     ],
-    "markdown": "USAGE\n  $ sb evm enclave print ENCLAVEKEY [-h] [-v] [-s] [--chain coredao|arbitrum | --coredao | --arbitrum] [--network\n    mainnet|testnet | --mainnet | --testnet] [-u <value>] [--programId <value>] [--json]\n\nARGUMENTS\n  ENCLAVEKEY  address of the enclave\n\nFLAGS\n  -h, --help            Show CLI help.\n  -s, --silent          suppress cli prompts\n  -u, --rpcUrl=<value>  alternate RPC url\n  -v, --verbose         log everything\n  --arbitrum            use the arbitrum chain\n  --chain=<option>      the evm chain to interact with\n                        <options: coredao|arbitrum>\n  --coredao             use the coredao chain\n  --mainnet             use the mainnet network\n  --network=<option>    the EVM network to connect to\n                        <options: mainnet|testnet>\n  --programId=<value>   alternative Switchboard program ID to interact with\n  --testnet             use the testnet network\n\nGLOBAL FLAGS\n  --json  Format output as json.\n\nDESCRIPTION\n  Print an enclave's state\n\nEXAMPLES\n  $ sb evm enclave print 0xaA43ba6f18b138A0B3313dDbFaC2b920D240108E --chain arbitrum --network testnet --programId 0x4F706C62535d171883A6cc9384f3f3d926A6BA49\n",
-    "usage": "sb evm enclave print ENCLAVEKEY [-h] [-v] [-s] [--chain coredao|arbitrum | --coredao | --arbitrum] [--network\n    mainnet|testnet | --mainnet | --testnet] [-u <value>] [--programId <value>] [--json]",
+    "markdown": "USAGE\n  $ sb evm enclave print ENCLAVEKEY [-h] [-v] [-s] [--chain coredao|arbitrum|optimism|base|aurora | --coredao |\n    --arbitrum | --optimism | --base | --aurora] [--network mainnet|testnet | --mainnet | --testnet] [-u <value>]\n    [--programId <value>] [--json]\n\nARGUMENTS\n  ENCLAVEKEY  address of the enclave\n\nFLAGS\n  -h, --help            Show CLI help.\n  -s, --silent          suppress cli prompts\n  -u, --rpcUrl=<value>  alternate RPC url\n  -v, --verbose         log everything\n  --arbitrum            use the arbitrum chain\n  --aurora              use the aurora chain\n  --base                use the base chain\n  --chain=<option>      the evm chain to interact with\n                        <options: coredao|arbitrum|optimism|base|aurora>\n  --coredao             use the coredao chain\n  --mainnet             use the mainnet network\n  --network=<option>    the EVM network to connect to\n                        <options: mainnet|testnet>\n  --optimism            use the optimism chain\n  --programId=<value>   alternative Switchboard program ID to interact with\n  --testnet             use the testnet network\n\nGLOBAL FLAGS\n  --json  Format output as json.\n\nDESCRIPTION\n  Print an enclave's state\n\nEXAMPLES\n  $ sb evm enclave print 0xaA43ba6f18b138A0B3313dDbFaC2b920D240108E --chain arbitrum --network testnet --programId 0x4F706C62535d171883A6cc9384f3f3d926A6BA49\n",
+    "usage": "sb evm enclave print ENCLAVEKEY [-h] [-v] [-s] [--chain coredao|arbitrum|optimism|base|aurora | --coredao |\n    --arbitrum | --optimism | --base | --aurora] [--network mainnet|testnet | --mainnet | --testnet] [-u <value>]\n    [--programId <value>] [--json]",
     "args": [
       {
         "arg": "ENCLAVEKEY",
@@ -2032,8 +2032,16 @@
         "description": "use the arbitrum chain"
       },
       {
+        "flag": "--aurora",
+        "description": "use the aurora chain"
+      },
+      {
+        "flag": "--base",
+        "description": "use the base chain"
+      },
+      {
         "flag": "--chain=<option>",
-        "description": "the evm chain to interact with <options: coredao|arbitrum>"
+        "description": "the evm chain to interact with <options: coredao|arbitrum|optimism|base|aurora>"
       },
       {
         "flag": "--coredao",
@@ -2046,6 +2054,10 @@
       {
         "flag": "--network=<option>",
         "description": "the EVM network to connect to <options: mainnet|testnet>"
+      },
+      {
+        "flag": "--optimism",
+        "description": "use the optimism chain"
       },
       {
         "flag": "--programId=<value>",
@@ -2075,8 +2087,8 @@
       "function",
       "add"
     ],
-    "markdown": "USAGE\n  $ sb evm function addMrEnclave FUNCTIONKEY --account <value> --mrEnclave <value> [-h] [-v] [-s] [--chain coredao|arbitrum |\n    --coredao | --arbitrum] [--network mainnet|testnet | --mainnet | --testnet] [-u <value>] [--programId <value>]\n    [--json]\n\nARGUMENTS\n  FUNCTIONKEY  address of the function account\n\nFLAGS\n  -h, --help            Show CLI help.\n  -s, --silent          suppress cli prompts\n  -u, --rpcUrl=<value>  alternate RPC url\n  -v, --verbose         log everything\n  --account=<value>     (required) Path to file containing the private key for the payer account\n  --arbitrum            use the arbitrum chain\n  --chain=<option>      the evm chain to interact with\n                        <options: coredao|arbitrum>\n  --coredao             use the coredao chain\n  --mainnet             use the mainnet network\n  --mrEnclave=<value>   (required) The MrEnclave to add\n  --network=<option>    the EVM network to connect to\n                        <options: mainnet|testnet>\n  --programId=<value>   alternative Switchboard program ID to interact with\n  --testnet             use the testnet network\n\nGLOBAL FLAGS\n  --json  Format output as json.\n\nDESCRIPTION\n  Add MrEnclave to a function account\n\nEXAMPLES\n  $ sb evm function addMrEnclave 0xaA43ba6f18b138A0B3313dDbFaC2b920D240108E --chain arbitrum --network testnet --addMrEnclace 0xDEADBEEF --account ~/.arbitrum-kp.txt --programId 0x4F706C62535d171883A6cc9384f3f3d926A6BA49\n",
-    "usage": "sb evm function addMrEnclave FUNCTIONKEY --account <value> --mrEnclave <value> [-h] [-v] [-s] [--chain coredao|arbitrum |\n    --coredao | --arbitrum] [--network mainnet|testnet | --mainnet | --testnet] [-u <value>] [--programId <value>]\n    [--json]",
+    "markdown": "USAGE\n  $ sb evm function addMrEnclave FUNCTIONKEY --account <value> --mrEnclave <value> [-h] [-v] [-s] [--chain\n    coredao|arbitrum|optimism|base|aurora | --coredao | --arbitrum | --optimism | --base | --aurora] [--network\n    mainnet|testnet | --mainnet | --testnet] [-u <value>] [--programId <value>] [--json]\n\nARGUMENTS\n  FUNCTIONKEY  address of the function account\n\nFLAGS\n  -h, --help            Show CLI help.\n  -s, --silent          suppress cli prompts\n  -u, --rpcUrl=<value>  alternate RPC url\n  -v, --verbose         log everything\n  --account=<value>     (required) Path to file containing the private key for the payer account\n  --arbitrum            use the arbitrum chain\n  --aurora              use the aurora chain\n  --base                use the base chain\n  --chain=<option>      the evm chain to interact with\n                        <options: coredao|arbitrum|optimism|base|aurora>\n  --coredao             use the coredao chain\n  --mainnet             use the mainnet network\n  --mrEnclave=<value>   (required) The MrEnclave to add\n  --network=<option>    the EVM network to connect to\n                        <options: mainnet|testnet>\n  --optimism            use the optimism chain\n  --programId=<value>   alternative Switchboard program ID to interact with\n  --testnet             use the testnet network\n\nGLOBAL FLAGS\n  --json  Format output as json.\n\nDESCRIPTION\n  Add MrEnclave to a function account\n\nEXAMPLES\n  $ sb evm function addMrEnclave 0xaA43ba6f18b138A0B3313dDbFaC2b920D240108E --chain arbitrum --network testnet --addMrEnclace 0xDEADBEEF --account ~/.arbitrum-kp.txt --programId 0x4F706C62535d171883A6cc9384f3f3d926A6BA49\n",
+    "usage": "sb evm function addMrEnclave FUNCTIONKEY --account <value> --mrEnclave <value> [-h] [-v] [-s] [--chain\n    coredao|arbitrum|optimism|base|aurora | --coredao | --arbitrum | --optimism | --base | --aurora] [--network\n    mainnet|testnet | --mainnet | --testnet] [-u <value>] [--programId <value>] [--json]",
     "args": [
       {
         "arg": "FUNCTIONKEY",
@@ -2109,8 +2121,16 @@
         "description": "use the arbitrum chain"
       },
       {
+        "flag": "--aurora",
+        "description": "use the aurora chain"
+      },
+      {
+        "flag": "--base",
+        "description": "use the base chain"
+      },
+      {
         "flag": "--chain=<option>",
-        "description": "the evm chain to interact with <options: coredao|arbitrum>"
+        "description": "the evm chain to interact with <options: coredao|arbitrum|optimism|base|aurora>"
       },
       {
         "flag": "--coredao",
@@ -2127,6 +2147,10 @@
       {
         "flag": "--network=<option>",
         "description": "the EVM network to connect to <options: mainnet|testnet>"
+      },
+      {
+        "flag": "--optimism",
+        "description": "use the optimism chain"
       },
       {
         "flag": "--programId=<value>",
@@ -2156,8 +2180,8 @@
       "function",
       "configure"
     ],
-    "markdown": "USAGE\n  $ sb evm function configure FUNCTIONKEY --account <value> [-h] [-v] [-s] [--chain coredao|arbitrum | --coredao |\n    --arbitrum] [--network mainnet|testnet | --mainnet | --testnet] [-u <value>] [--programId <value>] [--json] [--name\n    <value>] [--authority <value>] [--containerRegistry <value>] [--container <value>] [--version <value>] [--schedule\n    <value>]\n\nARGUMENTS\n  FUNCTIONKEY  address of the function account\n\nFLAGS\n  -h, --help                   Show CLI help.\n  -s, --silent                 suppress cli prompts\n  -u, --rpcUrl=<value>         alternate RPC url\n  -v, --verbose                log everything\n  --account=<value>            (required) Path to file containing the private key for the payer account\n  --arbitrum                   use the arbitrum chain\n  --authority=<value>          update the authority for the function\n  --chain=<option>             the evm chain to interact with\n                               <options: coredao|arbitrum>\n  --container=<value>          update the container for the function\n  --containerRegistry=<value>  update the container registry for the function\n  --coredao                    use the coredao chain\n  --mainnet                    use the mainnet network\n  --name=<value>               update the name for the function\n  --network=<option>           the EVM network to connect to\n                               <options: mainnet|testnet>\n  --programId=<value>          alternative Switchboard program ID to interact with\n  --schedule=<value>           update the schedule for the function\n  --testnet                    use the testnet network\n  --version=<value>            update the container version for the function\n\nGLOBAL FLAGS\n  --json  Format output as json.\n\nDESCRIPTION\n  Configure a function account\n\nEXAMPLES\n  $ sb evm function fund 0xaA43ba6f18b138A0B3313dDbFaC2b920D240108E --chain arbitrum --network testnet --fundAmount 0.02 --account ~/.arbitrum-kp.txt --programId 0x4F706C62535d171883A6cc9384f3f3d926A6BA49\n",
-    "usage": "sb evm function configure FUNCTIONKEY --account <value> [-h] [-v] [-s] [--chain coredao|arbitrum | --coredao |\n    --arbitrum] [--network mainnet|testnet | --mainnet | --testnet] [-u <value>] [--programId <value>] [--json] [--name\n    <value>] [--authority <value>] [--containerRegistry <value>] [--container <value>] [--version <value>] [--schedule\n    <value>]",
+    "markdown": "USAGE\n  $ sb evm function configure FUNCTIONKEY --account <value> [-h] [-v] [-s] [--chain coredao|arbitrum|optimism|base|aurora |\n    --coredao | --arbitrum | --optimism | --base | --aurora] [--network mainnet|testnet | --mainnet | --testnet] [-u\n    <value>] [--programId <value>] [--json] [--name <value>] [--authority <value>] [--containerRegistry <value>]\n    [--container <value>] [--version <value>] [--schedule <value>]\n\nARGUMENTS\n  FUNCTIONKEY  address of the function account\n\nFLAGS\n  -h, --help                   Show CLI help.\n  -s, --silent                 suppress cli prompts\n  -u, --rpcUrl=<value>         alternate RPC url\n  -v, --verbose                log everything\n  --account=<value>            (required) Path to file containing the private key for the payer account\n  --arbitrum                   use the arbitrum chain\n  --aurora                     use the aurora chain\n  --authority=<value>          update the authority for the function\n  --base                       use the base chain\n  --chain=<option>             the evm chain to interact with\n                               <options: coredao|arbitrum|optimism|base|aurora>\n  --container=<value>          update the container for the function\n  --containerRegistry=<value>  update the container registry for the function\n  --coredao                    use the coredao chain\n  --mainnet                    use the mainnet network\n  --name=<value>               update the name for the function\n  --network=<option>           the EVM network to connect to\n                               <options: mainnet|testnet>\n  --optimism                   use the optimism chain\n  --programId=<value>          alternative Switchboard program ID to interact with\n  --schedule=<value>           update the schedule for the function\n  --testnet                    use the testnet network\n  --version=<value>            update the container version for the function\n\nGLOBAL FLAGS\n  --json  Format output as json.\n\nDESCRIPTION\n  Configure a function account\n\nEXAMPLES\n  $ sb evm function fund 0xaA43ba6f18b138A0B3313dDbFaC2b920D240108E --chain arbitrum --network testnet --fundAmount 0.02 --account ~/.arbitrum-kp.txt --programId 0x4F706C62535d171883A6cc9384f3f3d926A6BA49\n",
+    "usage": "sb evm function configure FUNCTIONKEY --account <value> [-h] [-v] [-s] [--chain coredao|arbitrum|optimism|base|aurora |\n    --coredao | --arbitrum | --optimism | --base | --aurora] [--network mainnet|testnet | --mainnet | --testnet] [-u\n    <value>] [--programId <value>] [--json] [--name <value>] [--authority <value>] [--containerRegistry <value>]\n    [--container <value>] [--version <value>] [--schedule <value>]",
     "args": [
       {
         "arg": "FUNCTIONKEY",
@@ -2190,12 +2214,20 @@
         "description": "use the arbitrum chain"
       },
       {
+        "flag": "--aurora",
+        "description": "use the aurora chain"
+      },
+      {
         "flag": "--authority=<value>",
         "description": "update the authority for the function"
       },
       {
+        "flag": "--base",
+        "description": "use the base chain"
+      },
+      {
         "flag": "--chain=<option>",
-        "description": "the evm chain to interact with <options: coredao|arbitrum>"
+        "description": "the evm chain to interact with <options: coredao|arbitrum|optimism|base|aurora>"
       },
       {
         "flag": "--container=<value>",
@@ -2220,6 +2252,10 @@
       {
         "flag": "--network=<option>",
         "description": "the EVM network to connect to <options: mainnet|testnet>"
+      },
+      {
+        "flag": "--optimism",
+        "description": "use the optimism chain"
       },
       {
         "flag": "--programId=<value>",
@@ -2257,8 +2293,8 @@
       "function",
       "create"
     ],
-    "markdown": "USAGE\n  $ sb evm function create QUEUEKEY --account <value> --container <value> [-h] [-v] [-s] [--chain coredao|arbitrum |\n    --coredao | --arbitrum] [--network mainnet|testnet | --mainnet | --testnet] [-u <value>] [--programId <value>]\n    [--json] [-n <value>] [-a <value>] [--fundAmount <value>] [--schedule <value>] [--containerRegistry dockerhub|ipfs]\n    [--version <value>] [--mrEnclave <value>]\n\nARGUMENTS\n  QUEUEKEY  address of the attestation queue account\n\nFLAGS\n  -a, --authority=<value>       keypair or address to delegate authority to for managing the function account\n  -h, --help                    Show CLI help.\n  -n, --name=<value>            name of the function for easier identification\n  -s, --silent                  suppress cli prompts\n  -u, --rpcUrl=<value>          alternate RPC url\n  -v, --verbose                 log everything\n  --account=<value>             (required) Path to file containing the private key for the payer account\n  --arbitrum                    use the arbitrum chain\n  --chain=<option>              the evm chain to interact with\n                                <options: coredao|arbitrum>\n  --container=<value>           (required) the location of the container (Ex. switchboardlabs/basic-oracle-function)\n  --containerRegistry=<option>  [default: dockerhub] the registry to pull the container from (Ex. Docker or IPFS)\n                                <options: dockerhub|ipfs>\n  --coredao                     use the coredao chain\n  --fundAmount=<value>          [default: 0.0] token amount to load into the function's escrow wallet.\n  --mainnet                     use the mainnet network\n  --mrEnclave=<value>           the MrEnclave value to set for the function - if not provided, will be set automatically\n                                after its first run\n  --network=<option>            the EVM network to connect to\n                                <options: mainnet|testnet>\n  --programId=<value>           alternative Switchboard program ID to interact with\n  --schedule=<value>            the cron schedule to execute the function periodically (Ex. '15 * * * * *' will execute\n                                the function every 15 seconds)\n  --testnet                     use the testnet network\n  --version=<value>             [default: latest] the version of the container to pull from the registry (Ex. 'latest'\n                                or 'mainnet')\n\nGLOBAL FLAGS\n  --json  Format output as json.\n\nDESCRIPTION\n  create a new function account for a given queue\n\nEXAMPLES\n  $ sb evm function create F8ce7MsckeZAbAGmxjJNetxYXQa9mKr9nnrC3qKubyYy --name function-1 --fundAmount 0.25 --container switchboardlabs/basic-oracle-function --version latest\n",
-    "usage": "sb evm function create QUEUEKEY --account <value> --container <value> [-h] [-v] [-s] [--chain coredao|arbitrum |\n    --coredao | --arbitrum] [--network mainnet|testnet | --mainnet | --testnet] [-u <value>] [--programId <value>]\n    [--json] [-n <value>] [-a <value>] [--fundAmount <value>] [--schedule <value>] [--containerRegistry dockerhub|ipfs]\n    [--version <value>] [--mrEnclave <value>]",
+    "markdown": "USAGE\n  $ sb evm function create QUEUEKEY --account <value> --container <value> [-h] [-v] [-s] [--chain\n    coredao|arbitrum|optimism|base|aurora | --coredao | --arbitrum | --optimism | --base | --aurora] [--network\n    mainnet|testnet | --mainnet | --testnet] [-u <value>] [--programId <value>] [--json] [-n <value>] [-a <value>]\n    [--fundAmount <value>] [--schedule <value>] [--containerRegistry dockerhub|ipfs] [--version <value>] [--mrEnclave\n    <value>]\n\nARGUMENTS\n  QUEUEKEY  address of the attestation queue account\n\nFLAGS\n  -a, --authority=<value>       keypair or address to delegate authority to for managing the function account\n  -h, --help                    Show CLI help.\n  -n, --name=<value>            name of the function for easier identification\n  -s, --silent                  suppress cli prompts\n  -u, --rpcUrl=<value>          alternate RPC url\n  -v, --verbose                 log everything\n  --account=<value>             (required) Path to file containing the private key for the payer account\n  --arbitrum                    use the arbitrum chain\n  --aurora                      use the aurora chain\n  --base                        use the base chain\n  --chain=<option>              the evm chain to interact with\n                                <options: coredao|arbitrum|optimism|base|aurora>\n  --container=<value>           (required) the location of the container (Ex. switchboardlabs/basic-oracle-function)\n  --containerRegistry=<option>  [default: dockerhub] the registry to pull the container from (Ex. Docker or IPFS)\n                                <options: dockerhub|ipfs>\n  --coredao                     use the coredao chain\n  --fundAmount=<value>          [default: 0.0] token amount to load into the function's escrow wallet.\n  --mainnet                     use the mainnet network\n  --mrEnclave=<value>           the MrEnclave value to set for the function - if not provided, will be set automatically\n                                after its first run\n  --network=<option>            the EVM network to connect to\n                                <options: mainnet|testnet>\n  --optimism                    use the optimism chain\n  --programId=<value>           alternative Switchboard program ID to interact with\n  --schedule=<value>            the cron schedule to execute the function periodically (Ex. '15 * * * * *' will execute\n                                the function every 15 seconds)\n  --testnet                     use the testnet network\n  --version=<value>             [default: latest] the version of the container to pull from the registry (Ex. 'latest'\n                                or 'mainnet')\n\nGLOBAL FLAGS\n  --json  Format output as json.\n\nDESCRIPTION\n  create a new function account for a given queue\n\nEXAMPLES\n  $ sb evm function create F8ce7MsckeZAbAGmxjJNetxYXQa9mKr9nnrC3qKubyYy --name function-1 --fundAmount 0.25 --container switchboardlabs/basic-oracle-function --version latest\n",
+    "usage": "sb evm function create QUEUEKEY --account <value> --container <value> [-h] [-v] [-s] [--chain\n    coredao|arbitrum|optimism|base|aurora | --coredao | --arbitrum | --optimism | --base | --aurora] [--network\n    mainnet|testnet | --mainnet | --testnet] [-u <value>] [--programId <value>] [--json] [-n <value>] [-a <value>]\n    [--fundAmount <value>] [--schedule <value>] [--containerRegistry dockerhub|ipfs] [--version <value>] [--mrEnclave\n    <value>]",
     "args": [
       {
         "arg": "QUEUEKEY",
@@ -2299,8 +2335,16 @@
         "description": "use the arbitrum chain"
       },
       {
+        "flag": "--aurora",
+        "description": "use the aurora chain"
+      },
+      {
+        "flag": "--base",
+        "description": "use the base chain"
+      },
+      {
         "flag": "--chain=<option>",
-        "description": "the evm chain to interact with <options: coredao|arbitrum>"
+        "description": "the evm chain to interact with <options: coredao|arbitrum|optimism|base|aurora>"
       },
       {
         "flag": "--container=<value>",
@@ -2329,6 +2373,10 @@
       {
         "flag": "--network=<option>",
         "description": "the EVM network to connect to <options: mainnet|testnet>"
+      },
+      {
+        "flag": "--optimism",
+        "description": "use the optimism chain"
       },
       {
         "flag": "--programId=<value>",
@@ -2366,8 +2414,8 @@
       "function",
       "fund"
     ],
-    "markdown": "USAGE\n  $ sb evm function fund FUNCTIONKEY --account <value> [-h] [-v] [-s] [--chain coredao|arbitrum | --coredao |\n    --arbitrum] [--network mainnet|testnet | --mainnet | --testnet] [-u <value>] [--programId <value>] [--json]\n    [--fundAmount <value>]\n\nARGUMENTS\n  FUNCTIONKEY  address of the function account\n\nFLAGS\n  -h, --help            Show CLI help.\n  -s, --silent          suppress cli prompts\n  -u, --rpcUrl=<value>  alternate RPC url\n  -v, --verbose         log everything\n  --account=<value>     (required) Path to file containing the private key for the payer account\n  --arbitrum            use the arbitrum chain\n  --chain=<option>      the evm chain to interact with\n                        <options: coredao|arbitrum>\n  --coredao             use the coredao chain\n  --fundAmount=<value>  [default: 0.0] token amount to load into the function's escrow wallet.\n  --mainnet             use the mainnet network\n  --network=<option>    the EVM network to connect to\n                        <options: mainnet|testnet>\n  --programId=<value>   alternative Switchboard program ID to interact with\n  --testnet             use the testnet network\n\nGLOBAL FLAGS\n  --json  Format output as json.\n\nDESCRIPTION\n  Fund a function account\n\nEXAMPLES\n  $ sb evm function fund 0xaA43ba6f18b138A0B3313dDbFaC2b920D240108E --chain arbitrum --network testnet --fundAmount 0.02 --account ~/.arbitrum-kp.txt --programId 0x4F706C62535d171883A6cc9384f3f3d926A6BA49\n",
-    "usage": "sb evm function fund FUNCTIONKEY --account <value> [-h] [-v] [-s] [--chain coredao|arbitrum | --coredao |\n    --arbitrum] [--network mainnet|testnet | --mainnet | --testnet] [-u <value>] [--programId <value>] [--json]\n    [--fundAmount <value>]",
+    "markdown": "USAGE\n  $ sb evm function fund FUNCTIONKEY --account <value> [-h] [-v] [-s] [--chain coredao|arbitrum|optimism|base|aurora |\n    --coredao | --arbitrum | --optimism | --base | --aurora] [--network mainnet|testnet | --mainnet | --testnet] [-u\n    <value>] [--programId <value>] [--json] [--fundAmount <value>]\n\nARGUMENTS\n  FUNCTIONKEY  address of the function account\n\nFLAGS\n  -h, --help            Show CLI help.\n  -s, --silent          suppress cli prompts\n  -u, --rpcUrl=<value>  alternate RPC url\n  -v, --verbose         log everything\n  --account=<value>     (required) Path to file containing the private key for the payer account\n  --arbitrum            use the arbitrum chain\n  --aurora              use the aurora chain\n  --base                use the base chain\n  --chain=<option>      the evm chain to interact with\n                        <options: coredao|arbitrum|optimism|base|aurora>\n  --coredao             use the coredao chain\n  --fundAmount=<value>  [default: 0.0] token amount to load into the function's escrow wallet.\n  --mainnet             use the mainnet network\n  --network=<option>    the EVM network to connect to\n                        <options: mainnet|testnet>\n  --optimism            use the optimism chain\n  --programId=<value>   alternative Switchboard program ID to interact with\n  --testnet             use the testnet network\n\nGLOBAL FLAGS\n  --json  Format output as json.\n\nDESCRIPTION\n  Fund a function account\n\nEXAMPLES\n  $ sb evm function fund 0xaA43ba6f18b138A0B3313dDbFaC2b920D240108E --chain arbitrum --network testnet --fundAmount 0.02 --account ~/.arbitrum-kp.txt --programId 0x4F706C62535d171883A6cc9384f3f3d926A6BA49\n",
+    "usage": "sb evm function fund FUNCTIONKEY --account <value> [-h] [-v] [-s] [--chain coredao|arbitrum|optimism|base|aurora |\n    --coredao | --arbitrum | --optimism | --base | --aurora] [--network mainnet|testnet | --mainnet | --testnet] [-u\n    <value>] [--programId <value>] [--json] [--fundAmount <value>]",
     "args": [
       {
         "arg": "FUNCTIONKEY",
@@ -2400,8 +2448,16 @@
         "description": "use the arbitrum chain"
       },
       {
+        "flag": "--aurora",
+        "description": "use the aurora chain"
+      },
+      {
+        "flag": "--base",
+        "description": "use the base chain"
+      },
+      {
         "flag": "--chain=<option>",
-        "description": "the evm chain to interact with <options: coredao|arbitrum>"
+        "description": "the evm chain to interact with <options: coredao|arbitrum|optimism|base|aurora>"
       },
       {
         "flag": "--coredao",
@@ -2418,6 +2474,10 @@
       {
         "flag": "--network=<option>",
         "description": "the EVM network to connect to <options: mainnet|testnet>"
+      },
+      {
+        "flag": "--optimism",
+        "description": "use the optimism chain"
       },
       {
         "flag": "--programId=<value>",
@@ -2447,8 +2507,8 @@
       "function",
       "print"
     ],
-    "markdown": "USAGE\n  $ sb evm function print FUNCTIONKEY [-h] [-v] [-s] [--chain coredao|arbitrum | --coredao | --arbitrum] [--network\n    mainnet|testnet | --mainnet | --testnet] [-u <value>] [--programId <value>] [--json]\n\nARGUMENTS\n  FUNCTIONKEY  address of the function account\n\nFLAGS\n  -h, --help            Show CLI help.\n  -s, --silent          suppress cli prompts\n  -u, --rpcUrl=<value>  alternate RPC url\n  -v, --verbose         log everything\n  --arbitrum            use the arbitrum chain\n  --chain=<option>      the evm chain to interact with\n                        <options: coredao|arbitrum>\n  --coredao             use the coredao chain\n  --mainnet             use the mainnet network\n  --network=<option>    the EVM network to connect to\n                        <options: mainnet|testnet>\n  --programId=<value>   alternative Switchboard program ID to interact with\n  --testnet             use the testnet network\n\nGLOBAL FLAGS\n  --json  Format output as json.\n\nDESCRIPTION\n  Print a function account\n\nEXAMPLES\n  $ sb evm function print 0xaA43ba6f18b138A0B3313dDbFaC2b920D240108E --chain arbitrum --network testnet --programId 0x4F706C62535d171883A6cc9384f3f3d926A6BA49\n",
-    "usage": "sb evm function print FUNCTIONKEY [-h] [-v] [-s] [--chain coredao|arbitrum | --coredao | --arbitrum] [--network\n    mainnet|testnet | --mainnet | --testnet] [-u <value>] [--programId <value>] [--json]",
+    "markdown": "USAGE\n  $ sb evm function print FUNCTIONKEY [-h] [-v] [-s] [--chain coredao|arbitrum|optimism|base|aurora | --coredao |\n    --arbitrum | --optimism | --base | --aurora] [--network mainnet|testnet | --mainnet | --testnet] [-u <value>]\n    [--programId <value>] [--json]\n\nARGUMENTS\n  FUNCTIONKEY  address of the function account\n\nFLAGS\n  -h, --help            Show CLI help.\n  -s, --silent          suppress cli prompts\n  -u, --rpcUrl=<value>  alternate RPC url\n  -v, --verbose         log everything\n  --arbitrum            use the arbitrum chain\n  --aurora              use the aurora chain\n  --base                use the base chain\n  --chain=<option>      the evm chain to interact with\n                        <options: coredao|arbitrum|optimism|base|aurora>\n  --coredao             use the coredao chain\n  --mainnet             use the mainnet network\n  --network=<option>    the EVM network to connect to\n                        <options: mainnet|testnet>\n  --optimism            use the optimism chain\n  --programId=<value>   alternative Switchboard program ID to interact with\n  --testnet             use the testnet network\n\nGLOBAL FLAGS\n  --json  Format output as json.\n\nDESCRIPTION\n  Print a function account\n\nEXAMPLES\n  $ sb evm function print 0xaA43ba6f18b138A0B3313dDbFaC2b920D240108E --chain arbitrum --network testnet --programId 0x4F706C62535d171883A6cc9384f3f3d926A6BA49\n",
+    "usage": "sb evm function print FUNCTIONKEY [-h] [-v] [-s] [--chain coredao|arbitrum|optimism|base|aurora | --coredao |\n    --arbitrum | --optimism | --base | --aurora] [--network mainnet|testnet | --mainnet | --testnet] [-u <value>]\n    [--programId <value>] [--json]",
     "args": [
       {
         "arg": "FUNCTIONKEY",
@@ -2477,8 +2537,16 @@
         "description": "use the arbitrum chain"
       },
       {
+        "flag": "--aurora",
+        "description": "use the aurora chain"
+      },
+      {
+        "flag": "--base",
+        "description": "use the base chain"
+      },
+      {
         "flag": "--chain=<option>",
-        "description": "the evm chain to interact with <options: coredao|arbitrum>"
+        "description": "the evm chain to interact with <options: coredao|arbitrum|optimism|base|aurora>"
       },
       {
         "flag": "--coredao",
@@ -2491,6 +2559,10 @@
       {
         "flag": "--network=<option>",
         "description": "the EVM network to connect to <options: mainnet|testnet>"
+      },
+      {
+        "flag": "--optimism",
+        "description": "use the optimism chain"
       },
       {
         "flag": "--programId=<value>",
@@ -2520,8 +2592,8 @@
       "function",
       "rm"
     ],
-    "markdown": "USAGE\n  $ sb evm function rmMrEnclave FUNCTIONKEY --account <value> --mrEnclave <value> [-h] [-v] [-s] [--chain coredao|arbitrum |\n    --coredao | --arbitrum] [--network mainnet|testnet | --mainnet | --testnet] [-u <value>] [--programId <value>]\n    [--json]\n\nARGUMENTS\n  FUNCTIONKEY  address of the function account\n\nFLAGS\n  -h, --help            Show CLI help.\n  -s, --silent          suppress cli prompts\n  -u, --rpcUrl=<value>  alternate RPC url\n  -v, --verbose         log everything\n  --account=<value>     (required) Path to file containing the private key for the payer account\n  --arbitrum            use the arbitrum chain\n  --chain=<option>      the evm chain to interact with\n                        <options: coredao|arbitrum>\n  --coredao             use the coredao chain\n  --mainnet             use the mainnet network\n  --mrEnclave=<value>   (required) The MrEnclave to remove\n  --network=<option>    the EVM network to connect to\n                        <options: mainnet|testnet>\n  --programId=<value>   alternative Switchboard program ID to interact with\n  --testnet             use the testnet network\n\nGLOBAL FLAGS\n  --json  Format output as json.\n\nDESCRIPTION\n  Remove MrEnclave to a function account\n\nEXAMPLES\n  $ sb evm function removeMrEnclave 0xaA43ba6f18b138A0B3313dDbFaC2b920D240108E --chain arbitrum --network testnet --removeMrEnclace 0xDEADBEEF --account ~/.arbitrum-kp.txt --programId 0x4F706C62535d171883A6cc9384f3f3d926A6BA49\n",
-    "usage": "sb evm function rmMrEnclave FUNCTIONKEY --account <value> --mrEnclave <value> [-h] [-v] [-s] [--chain coredao|arbitrum |\n    --coredao | --arbitrum] [--network mainnet|testnet | --mainnet | --testnet] [-u <value>] [--programId <value>]\n    [--json]",
+    "markdown": "USAGE\n  $ sb evm function rmMrEnclave FUNCTIONKEY --account <value> --mrEnclave <value> [-h] [-v] [-s] [--chain\n    coredao|arbitrum|optimism|base|aurora | --coredao | --arbitrum | --optimism | --base | --aurora] [--network\n    mainnet|testnet | --mainnet | --testnet] [-u <value>] [--programId <value>] [--json]\n\nARGUMENTS\n  FUNCTIONKEY  address of the function account\n\nFLAGS\n  -h, --help            Show CLI help.\n  -s, --silent          suppress cli prompts\n  -u, --rpcUrl=<value>  alternate RPC url\n  -v, --verbose         log everything\n  --account=<value>     (required) Path to file containing the private key for the payer account\n  --arbitrum            use the arbitrum chain\n  --aurora              use the aurora chain\n  --base                use the base chain\n  --chain=<option>      the evm chain to interact with\n                        <options: coredao|arbitrum|optimism|base|aurora>\n  --coredao             use the coredao chain\n  --mainnet             use the mainnet network\n  --mrEnclave=<value>   (required) The MrEnclave to remove\n  --network=<option>    the EVM network to connect to\n                        <options: mainnet|testnet>\n  --optimism            use the optimism chain\n  --programId=<value>   alternative Switchboard program ID to interact with\n  --testnet             use the testnet network\n\nGLOBAL FLAGS\n  --json  Format output as json.\n\nDESCRIPTION\n  Remove MrEnclave to a function account\n\nEXAMPLES\n  $ sb evm function removeMrEnclave 0xaA43ba6f18b138A0B3313dDbFaC2b920D240108E --chain arbitrum --network testnet --removeMrEnclace 0xDEADBEEF --account ~/.arbitrum-kp.txt --programId 0x4F706C62535d171883A6cc9384f3f3d926A6BA49\n",
+    "usage": "sb evm function rmMrEnclave FUNCTIONKEY --account <value> --mrEnclave <value> [-h] [-v] [-s] [--chain\n    coredao|arbitrum|optimism|base|aurora | --coredao | --arbitrum | --optimism | --base | --aurora] [--network\n    mainnet|testnet | --mainnet | --testnet] [-u <value>] [--programId <value>] [--json]",
     "args": [
       {
         "arg": "FUNCTIONKEY",
@@ -2554,8 +2626,16 @@
         "description": "use the arbitrum chain"
       },
       {
+        "flag": "--aurora",
+        "description": "use the aurora chain"
+      },
+      {
+        "flag": "--base",
+        "description": "use the base chain"
+      },
+      {
         "flag": "--chain=<option>",
-        "description": "the evm chain to interact with <options: coredao|arbitrum>"
+        "description": "the evm chain to interact with <options: coredao|arbitrum|optimism|base|aurora>"
       },
       {
         "flag": "--coredao",
@@ -2572,6 +2652,10 @@
       {
         "flag": "--network=<option>",
         "description": "the EVM network to connect to <options: mainnet|testnet>"
+      },
+      {
+        "flag": "--optimism",
+        "description": "use the optimism chain"
       },
       {
         "flag": "--programId=<value>",
@@ -2601,8 +2685,8 @@
       "queue",
       "print"
     ],
-    "markdown": "USAGE\n  $ sb evm queue print QUEUEKEY [-h] [-v] [-s] [--chain coredao|arbitrum | --coredao | --arbitrum] [--network\n    mainnet|testnet | --mainnet | --testnet] [-u <value>] [--programId <value>] [--json]\n\nARGUMENTS\n  QUEUEKEY  address of the attestation queue\n\nFLAGS\n  -h, --help            Show CLI help.\n  -s, --silent          suppress cli prompts\n  -u, --rpcUrl=<value>  alternate RPC url\n  -v, --verbose         log everything\n  --arbitrum            use the arbitrum chain\n  --chain=<option>      the evm chain to interact with\n                        <options: coredao|arbitrum>\n  --coredao             use the coredao chain\n  --mainnet             use the mainnet network\n  --network=<option>    the EVM network to connect to\n                        <options: mainnet|testnet>\n  --programId=<value>   alternative Switchboard program ID to interact with\n  --testnet             use the testnet network\n\nGLOBAL FLAGS\n  --json  Format output as json.\n\nDESCRIPTION\n  Print an attestation queue account\n\nEXAMPLES\n  $ sb evm queue print 0xaA43ba6f18b138A0B3313dDbFaC2b920D240108E --chain arbitrum --network testnet --programId 0x4F706C62535d171883A6cc9384f3f3d926A6BA49\n",
-    "usage": "sb evm queue print QUEUEKEY [-h] [-v] [-s] [--chain coredao|arbitrum | --coredao | --arbitrum] [--network\n    mainnet|testnet | --mainnet | --testnet] [-u <value>] [--programId <value>] [--json]",
+    "markdown": "USAGE\n  $ sb evm queue print QUEUEKEY [-h] [-v] [-s] [--chain coredao|arbitrum|optimism|base|aurora | --coredao |\n    --arbitrum | --optimism | --base | --aurora] [--network mainnet|testnet | --mainnet | --testnet] [-u <value>]\n    [--programId <value>] [--json]\n\nARGUMENTS\n  QUEUEKEY  address of the attestation queue\n\nFLAGS\n  -h, --help            Show CLI help.\n  -s, --silent          suppress cli prompts\n  -u, --rpcUrl=<value>  alternate RPC url\n  -v, --verbose         log everything\n  --arbitrum            use the arbitrum chain\n  --aurora              use the aurora chain\n  --base                use the base chain\n  --chain=<option>      the evm chain to interact with\n                        <options: coredao|arbitrum|optimism|base|aurora>\n  --coredao             use the coredao chain\n  --mainnet             use the mainnet network\n  --network=<option>    the EVM network to connect to\n                        <options: mainnet|testnet>\n  --optimism            use the optimism chain\n  --programId=<value>   alternative Switchboard program ID to interact with\n  --testnet             use the testnet network\n\nGLOBAL FLAGS\n  --json  Format output as json.\n\nDESCRIPTION\n  Print an attestation queue account\n\nEXAMPLES\n  $ sb evm queue print 0xaA43ba6f18b138A0B3313dDbFaC2b920D240108E --chain arbitrum --network testnet --programId 0x4F706C62535d171883A6cc9384f3f3d926A6BA49\n",
+    "usage": "sb evm queue print QUEUEKEY [-h] [-v] [-s] [--chain coredao|arbitrum|optimism|base|aurora | --coredao |\n    --arbitrum | --optimism | --base | --aurora] [--network mainnet|testnet | --mainnet | --testnet] [-u <value>]\n    [--programId <value>] [--json]",
     "args": [
       {
         "arg": "QUEUEKEY",
@@ -2631,8 +2715,16 @@
         "description": "use the arbitrum chain"
       },
       {
+        "flag": "--aurora",
+        "description": "use the aurora chain"
+      },
+      {
+        "flag": "--base",
+        "description": "use the base chain"
+      },
+      {
         "flag": "--chain=<option>",
-        "description": "the evm chain to interact with <options: coredao|arbitrum>"
+        "description": "the evm chain to interact with <options: coredao|arbitrum|optimism|base|aurora>"
       },
       {
         "flag": "--coredao",
@@ -2645,6 +2737,10 @@
       {
         "flag": "--network=<option>",
         "description": "the EVM network to connect to <options: mainnet|testnet>"
+      },
+      {
+        "flag": "--optimism",
+        "description": "use the optimism chain"
       },
       {
         "flag": "--programId=<value>",
@@ -8711,8 +8807,8 @@
       "function",
       "create"
     ],
-    "markdown": "USAGE\n  $ sb solana function create QUEUEKEY --container <value> [-h] [-v] [-s] [--mainnetBeta | --cluster\n    devnet|mainnet-beta|mainnet|localnet] [-u <value>] [--programId <value>] [--commitment\n    confirmed|finalized|processed] [-k <value>] [--ledgerPath <value> --ledger] [--json] [-n <value>] [--metadata\n    <value>] [-a <value>] [--fundAmount <value>] [--schedule <value>] [--containerRegistry dockerhub|ipfs] [--version\n    <value>] [--mrEnclave <value>] [--requestsDisabled <value>] [--requestsFee <value>] [--requestsRequireAuthorization\n    <value>] [--enable] [--queueAuthority <value>]\n\nARGUMENTS\n  QUEUEKEY  public key of the attestation queue account\n\nFLAGS\n  -a, --authority=<value>                 keypair or public key to delegate authority to for managing the function\n                                          account\n  -h, --help                              Show CLI help.\n  -k, --keypair=<value>                   keypair that will pay for onchain transactions. defaults to new account\n                                          authority if no alternate authority provided\n  -n, --name=<value>                      name of the function for easier identification\n  -s, --silent                            suppress cli prompts\n  -u, --rpcUrl=<value>                    alternate RPC url\n  -v, --verbose                           log everything\n  --cluster=<option>                      the solana cluster to connect to\n                                          <options: devnet|mainnet-beta|mainnet|localnet>\n  --commitment=<option>                   [default: confirmed] transaction commitment level to use\n                                          <options: confirmed|finalized|processed>\n  --container=<value>                     (required) the location of the container (Ex.\n                                          switchboardlabs/basic-oracle-function)\n  --containerRegistry=<option>            [default: docker] the registry to pull the container from (Ex. Docker or IPFS)\n                                          <options: dockerhub|ipfs>\n  --enable                                enable oracle heartbeat permissions\n  --fundAmount=<value>                    [default: 0.0] token amount to load into the function's escrow wallet.\n  --ledger                                enable ledger support\n  --ledgerPath=<value>                    HID path to the ledger\n  --mainnetBeta                           WARNING: use mainnet-beta solana cluster\n  --metadata=<value>                      metadata of the function for easier identification\n  --mrEnclave=<value>                     the MrEnclave value to set for the function - if not provided, will be set\n                                          automatically after its first run\n  --programId=<value>                     alternative Switchboard program ID to interact with\n  --queueAuthority=<value>                alternative keypair to use for queue authority\n  --requestsDisabled=<value>              whether custom requests can be created for this function\n  --requestsFee=<value>                   [default: 0.0] the costs each request must pay the function authority for each\n                                          sub-request (Ex. 0.00002)\n  --requestsRequireAuthorization=<value>  whether custom requests require the function authority to authorize\n  --schedule=<value>                      the cron schedule to execute the function periodically (Ex. '15 * * * * *'\n                                          will execute the function every 15 seconds)\n  --version=<value>                       [default: latest] the version of the container to pull from the registry (Ex.\n                                          'latest' or 'mainnet')\n\nGLOBAL FLAGS\n  --json  Format output as json.\n\nDESCRIPTION\n  create a new function account for a given queue\n\nEXAMPLES\n  $ sb solana function create F8ce7MsckeZAbAGmxjJNetxYXQa9mKr9nnrC3qKubyYy --name function-1 --fundAmount 1.25 --container switchboardlabs/basic-oracle-function --version solana\n",
-    "usage": "sb solana function create QUEUEKEY --container <value> [-h] [-v] [-s] [--mainnetBeta | --cluster\n    devnet|mainnet-beta|mainnet|localnet] [-u <value>] [--programId <value>] [--commitment\n    confirmed|finalized|processed] [-k <value>] [--ledgerPath <value> --ledger] [--json] [-n <value>] [--metadata\n    <value>] [-a <value>] [--fundAmount <value>] [--schedule <value>] [--containerRegistry dockerhub|ipfs] [--version\n    <value>] [--mrEnclave <value>] [--requestsDisabled <value>] [--requestsFee <value>] [--requestsRequireAuthorization\n    <value>] [--enable] [--queueAuthority <value>]",
+    "markdown": "USAGE\n  $ sb solana function create QUEUEKEY --container <value> [-h] [-v] [-s] [--mainnetBeta | --cluster\n    devnet|mainnet-beta|mainnet|localnet] [-u <value>] [--programId <value>] [--commitment\n    confirmed|finalized|processed] [-k <value>] [--ledgerPath <value> --ledger] [--json] [-n <value>] [--metadata\n    <value>] [-a <value>] [--fundAmount <value>] [--schedule <value>] [--containerRegistry dockerhub|ipfs] [--version\n    <value>] [--mrEnclave <value>] [--requestsDisabled <value>] [--requestsFee <value>] [--requestsRequireAuthorization\n    <value>]\n\nARGUMENTS\n  QUEUEKEY  public key of the attestation queue account\n\nFLAGS\n  -a, --authority=<value>                 keypair or public key to delegate authority to for managing the function\n                                          account\n  -h, --help                              Show CLI help.\n  -k, --keypair=<value>                   keypair that will pay for onchain transactions. defaults to new account\n                                          authority if no alternate authority provided\n  -n, --name=<value>                      name of the function for easier identification\n  -s, --silent                            suppress cli prompts\n  -u, --rpcUrl=<value>                    alternate RPC url\n  -v, --verbose                           log everything\n  --cluster=<option>                      the solana cluster to connect to\n                                          <options: devnet|mainnet-beta|mainnet|localnet>\n  --commitment=<option>                   [default: confirmed] transaction commitment level to use\n                                          <options: confirmed|finalized|processed>\n  --container=<value>                     (required) the location of the container (Ex.\n                                          switchboardlabs/basic-oracle-function)\n  --containerRegistry=<option>            [default: dockerhub] the registry to pull the container from (Ex. Docker or\n                                          IPFS)\n                                          <options: dockerhub|ipfs>\n  --fundAmount=<value>                    [default: 0.0] token amount to load into the function's escrow wallet.\n  --ledger                                enable ledger support\n  --ledgerPath=<value>                    HID path to the ledger\n  --mainnetBeta                           WARNING: use mainnet-beta solana cluster\n  --metadata=<value>                      metadata of the function for easier identification\n  --mrEnclave=<value>                     the MrEnclave value to set for the function - if not provided, will be set\n                                          automatically after its first run\n  --programId=<value>                     alternative Switchboard program ID to interact with\n  --requestsDisabled=<value>              whether custom requests can be created for this function\n  --requestsFee=<value>                   [default: 0.0] the costs each request must pay the function authority for each\n                                          sub-request (Ex. 0.00002)\n  --requestsRequireAuthorization=<value>  whether custom requests require the function authority to authorize\n  --schedule=<value>                      the cron schedule to execute the function periodically (Ex. '15 * * * * *'\n                                          will execute the function every 15 seconds)\n  --version=<value>                       [default: latest] the version of the container to pull from the registry (Ex.\n                                          'latest' or 'mainnet')\n\nGLOBAL FLAGS\n  --json  Format output as json.\n\nDESCRIPTION\n  create a new function account for a given queue\n\nEXAMPLES\n  $ sb solana function create CkvizjVnm2zA5Wuwan34NhVT3zFc7vqUyGnA6tuEF5aE --name function-1 --fundAmount 1.25 --container switchboardlabs/basic-oracle-function --version solana\n",
+    "usage": "sb solana function create QUEUEKEY --container <value> [-h] [-v] [-s] [--mainnetBeta | --cluster\n    devnet|mainnet-beta|mainnet|localnet] [-u <value>] [--programId <value>] [--commitment\n    confirmed|finalized|processed] [-k <value>] [--ledgerPath <value> --ledger] [--json] [-n <value>] [--metadata\n    <value>] [-a <value>] [--fundAmount <value>] [--schedule <value>] [--containerRegistry dockerhub|ipfs] [--version\n    <value>] [--mrEnclave <value>] [--requestsDisabled <value>] [--requestsFee <value>] [--requestsRequireAuthorization\n    <value>]",
     "args": [
       {
         "arg": "QUEUEKEY",
@@ -8762,11 +8858,7 @@
       },
       {
         "flag": "--containerRegistry=<option>",
-        "description": "[default: docker] the registry to pull the container from (Ex. Docker or IPFS) <options: dockerhub|ipfs>"
-      },
-      {
-        "flag": "--enable",
-        "description": "enable oracle heartbeat permissions"
+        "description": "[default: dockerhub] the registry to pull the container from (Ex. Docker or IPFS) <options: dockerhub|ipfs>"
       },
       {
         "flag": "--fundAmount=<value>",
@@ -8797,10 +8889,6 @@
         "description": "alternative Switchboard program ID to interact with"
       },
       {
-        "flag": "--queueAuthority=<value>",
-        "description": "alternative keypair to use for queue authority"
-      },
-      {
         "flag": "--requestsDisabled=<value>",
         "description": "whether custom requests can be created for this function"
       },
@@ -8827,7 +8915,7 @@
     ],
     "description": "create a new function account for a given queue",
     "examples": [
-      "sb solana function create F8ce7MsckeZAbAGmxjJNetxYXQa9mKr9nnrC3qKubyYy --name function-1 --fundAmount 1.25 --container switchboardlabs/basic-oracle-function --version solana"
+      "sb solana function create CkvizjVnm2zA5Wuwan34NhVT3zFc7vqUyGnA6tuEF5aE --name function-1 --fundAmount 1.25 --container switchboardlabs/basic-oracle-function --version solana"
     ]
   },
   {
@@ -9035,6 +9123,88 @@
       }
     ],
     "description": "Configure a solana funciton's mrEnclave settings"
+  },
+  {
+    "id": "solana-function-withdraw",
+    "permalink": "/cli/solana/function/withdraw",
+    "topic": "solana",
+    "command": "sb solana function withdraw",
+    "topics": [
+      "solana",
+      "function",
+      "withdraw"
+    ],
+    "markdown": "USAGE\n  $ sb solana function withdraw FUNCTIONKEY [-h] [-v] [-s] [--mainnetBeta | --cluster devnet|mainnet-beta|mainnet|localnet]\n    [-u <value>] [--programId <value>] [--commitment confirmed|finalized|processed] [-k <value>] [--ledgerPath <value>\n    --ledger] [--json] [--withdrawAmount <value>] [--authority <value>] [--destinationWallet <value>]\n\nARGUMENTS\n  FUNCTIONKEY  public key of the function account\n\nFLAGS\n  -h, --help                   Show CLI help.\n  -k, --keypair=<value>        keypair that will pay for onchain transactions. defaults to new account authority if no\n                               alternate authority provided\n  -s, --silent                 suppress cli prompts\n  -u, --rpcUrl=<value>         alternate RPC url\n  -v, --verbose                log everything\n  --authority=<value>          path to authority keypair if different from payer keypair\n  --cluster=<option>           the solana cluster to connect to\n                               <options: devnet|mainnet-beta|mainnet|localnet>\n  --commitment=<option>        [default: confirmed] transaction commitment level to use\n                               <options: confirmed|finalized|processed>\n  --destinationWallet=<value>  pubkey of tokenWallet to receive withdrawed funds. Defaults to payer associated token\n                               wallet\n  --ledger                     enable ledger support\n  --ledgerPath=<value>         HID path to the ledger\n  --mainnetBeta                WARNING: use mainnet-beta solana cluster\n  --programId=<value>          alternative Switchboard program ID to interact with\n  --withdrawAmount=<value>     Amount of wrapped SOL to withdraw from the function's escrow\n\nGLOBAL FLAGS\n  --json  Format output as json.\n\nDESCRIPTION\n  Withdraw funds from a function's escrow\n",
+    "usage": "sb solana function withdraw FUNCTIONKEY [-h] [-v] [-s] [--mainnetBeta | --cluster devnet|mainnet-beta|mainnet|localnet]\n    [-u <value>] [--programId <value>] [--commitment confirmed|finalized|processed] [-k <value>] [--ledgerPath <value>\n    --ledger] [--json] [--withdrawAmount <value>] [--authority <value>] [--destinationWallet <value>]",
+    "args": [
+      {
+        "arg": "FUNCTIONKEY",
+        "description": "public key of the function account"
+      }
+    ],
+    "flags": [
+      {
+        "flag": " -h, --help",
+        "description": "Show CLI help."
+      },
+      {
+        "flag": "-k, --keypair=<value>",
+        "description": "keypair that will pay for onchain transactions. defaults to new account authority if no alternate authority provided"
+      },
+      {
+        "flag": "-s, --silent",
+        "description": "suppress cli prompts"
+      },
+      {
+        "flag": "-u, --rpcUrl=<value>",
+        "description": "alternate RPC url"
+      },
+      {
+        "flag": "-v, --verbose",
+        "description": "log everything"
+      },
+      {
+        "flag": "--authority=<value>",
+        "description": "path to authority keypair if different from payer keypair"
+      },
+      {
+        "flag": "--cluster=<option>",
+        "description": "the solana cluster to connect to <options: devnet|mainnet-beta|mainnet|localnet>"
+      },
+      {
+        "flag": "--commitment=<option>",
+        "description": "[default: confirmed] transaction commitment level to use <options: confirmed|finalized|processed>"
+      },
+      {
+        "flag": "--destinationWallet=<value>",
+        "description": "pubkey of tokenWallet to receive withdrawed funds. Defaults to payer associated token wallet"
+      },
+      {
+        "flag": "--ledger",
+        "description": "enable ledger support"
+      },
+      {
+        "flag": "--ledgerPath=<value>",
+        "description": "HID path to the ledger"
+      },
+      {
+        "flag": "--mainnetBeta",
+        "description": "WARNING: use mainnet-beta solana cluster"
+      },
+      {
+        "flag": "--programId=<value>",
+        "description": "alternative Switchboard program ID to interact with"
+      },
+      {
+        "flag": "--withdrawAmount=<value>",
+        "description": "Amount of wrapped SOL to withdraw from the function's escrow GLOBAL FLAGS"
+      },
+      {
+        "flag": "--json",
+        "description": "Format output as json."
+      }
+    ],
+    "description": "Withdraw funds from a function's escrow"
   },
   {
     "id": "solana-job-create",
