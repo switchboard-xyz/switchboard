@@ -45,11 +45,6 @@ function getChainRow(chain: EvmChainType) {
               </div>
 
               <div>
-                <strong>Sb Push Oracle</strong>:{" "}
-                <AddressButton address={mainnet.sbPushOracle} trim={8} />
-              </div>
-
-              <div>
                 <strong>Public Attestation Queue</strong>:{" "}
                 <AddressButton
                   address={mainnet.attestationQueues[0].address}

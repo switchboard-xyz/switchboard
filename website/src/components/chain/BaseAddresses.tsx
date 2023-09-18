@@ -33,11 +33,6 @@ export default function BaseAddresses() {
             </div>
 
             <div>
-              <strong>Sb Push Oracle</strong>:{" "}
-              <AddressButton address={mainnet.sbPushOracle} trim={12} />
-            </div>
-
-            <div>
               <strong>Public Attestation Queue</strong>:{" "}
               <AddressButton
                 address={mainnet.attestationQueues[0].address}
@@ -74,11 +69,6 @@ export default function BaseAddresses() {
             <div>
               <strong>Diamond Address</strong>:{" "}
               <AddressButton address={testnet.address} trim={12} />
-            </div>
-
-            <div>
-              <strong>Sb Push Oracle</strong>:{" "}
-              <AddressButton address={testnet.sbPushOracle} trim={12} />
             </div>
 
             <div>

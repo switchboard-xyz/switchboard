@@ -84,11 +84,15 @@ export const CONFIG_MAP: Map<SdkType, Config> = new Map([
           label: "Rust: switchboard-evm",
           link: "https://docs.rs/switchboard-evm/latest/switchboard_evm/",
         },
-        solidity: [
-          { label: "ISwitchboard.sol", link: "/evm/dev/switchboard-sol" },
-        ],
+        // solidity: [
+        //   { label: "ISwitchboard.sol", link: "/evm/dev/switchboard-sol" },
+        // ],
       },
       examples: [
+        {
+          label: "Coin Flip",
+          link: "https://github.com/switchboard-xyz/evm-coin-flip",
+        },
         {
           label: "Randomness Callback Function",
           link: "https://github.com/switchboard-xyz/evm-sdk/tree/main/examples/01_randomness_callback",
