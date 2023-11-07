@@ -8,7 +8,7 @@ The natural approach here is to split the content by chain but this results in
 alot of duplicated work and will require a large effort to support a new chain.
 But this might be the right choice because each chain will have its own set of
 guides and nuances that naturally warrant their own sections. It is also
-convienent to have a landing page for each chain that will let us manage a
+convenient to have a landing page for each chain that will let us manage a
 changelog or announcements.
 
 The other approach would be to split the content by product. So a user would see
