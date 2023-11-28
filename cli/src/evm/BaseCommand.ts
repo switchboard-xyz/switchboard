@@ -26,6 +26,8 @@ import type {
   Job,
   OracleData,
   OracleQueueData,
+  RequestData,
+  RoutineData,
   SwitchboardProgram,
 } from "@switchboard-xyz/evm.js";
 import {
@@ -616,6 +618,107 @@ export abstract class EvmBaseCommand extends BaseCommand implements IBaseChain {
     this.log(logString);
   }
 
+  prettyPrintRoutine(address: string, routineData: RoutineData, SPACING = 24) {
+    const output: string[] = [];
+
+    output.push(chalk.underline(chalkString("## Routine", address, SPACING)));
+    output.push(chalkString("functionId", routineData.functionId, SPACING));
+    output.push(chalkString("authority", routineData.authority, SPACING));
+    output.push(chalkString("schedule", routineData.schedule, SPACING));
+    output.push(
+      chalkString(
+        "createdAt",
+        new Date(
+          Number(routineData.createdAt.toString()) * 1000
+        ).toLocaleString(),
+        SPACING
+      )
+    );
+    output.push(
+      chalkString(
+        "lastCalledAt",
+        new Date(
+          Number(routineData.lastCalledAt.toString()) * 1000
+        ).toLocaleString(),
+        SPACING
+      )
+    );
+    output.push(
+      chalkString(
+        "consecutiveFailures",
+        routineData.consecutiveFailures,
+        SPACING
+      )
+    );
+    output.push(chalkString("balance", routineData.balance, SPACING));
+    output.push(
+      chalkString("status", this.fnStatusToName(routineData.status), SPACING)
+    );
+    output.push(chalkString("errorCode", routineData.errorCode, SPACING));
+    output.push(
+      chalkString("params", `${maybeHexToString(routineData.params)}`, SPACING)
+    );
+    const logString = output.join("\n");
+
+    this.log(logString);
+  }
+
+  fnStatusToName(status: number): string {
+    if (status === 1) {
+      return "ACTIVE";
+    }
+    if (status === 2) {
+      return "NON_EXECUTABLE";
+    }
+    if (status === 3) {
+      return "EXPIRED";
+    }
+    if (status === 4) {
+      return "OUT_OF_FUNDS";
+    }
+    if (status === 5) {
+      return "INVALID_PERMISSIONS";
+    }
+    if (status === 6) {
+      return "DEACTIVATED";
+    }
+    return "NONE";
+  }
+
+  prettyPrintRequest(address: string, requestData: RequestData, SPACING = 24) {
+    const output: string[] = [];
+
+    output.push(chalk.underline(chalkString("## Request", address, SPACING)));
+    output.push(chalkString("functionId", requestData.functionId, SPACING));
+    output.push(chalkString("authority", requestData.authority, SPACING));
+    output.push(chalkString("createdAt", requestData.createdAt, SPACING));
+    output.push(chalkString("executed", requestData.executed, SPACING));
+    output.push(
+      chalkString(
+        "consecutiveFailures",
+        requestData.consecutiveFailures,
+        SPACING
+      )
+    );
+    output.push(chalkString("balance", requestData.balance, SPACING));
+    output.push(chalkString("startAfter", requestData.startAfter, SPACING));
+    output.push(chalkString("errorCode", requestData.errorCode, SPACING));
+    output.push(chalkString("executedAt", requestData.executedAt, SPACING));
+    output.push(
+      chalkString("status", this.fnStatusToName(requestData.status), SPACING)
+    );
+    output.push(
+      chalkString(
+        "status",
+        this.fnStatusToName((requestData as any).status),
+        SPACING
+      )
+    );
+    const logString = output.join("\n");
+
+    this.log(logString);
+  }
+
   jobsToJson(jobs: Job[]): Array<{
     name: string;
     weight: number;
@@ -699,4 +802,19 @@ export function base64ToPseudoUniqueID(base64String: string): string {
   const binaryData = Buffer.from(base64String, "base64");
   const hash = createHash("sha256").update(binaryData).digest("hex");
   return hash.slice(0, 16);
+}
+
+function isASCII(str: string): boolean {
+  return /^[\u0000-\u007F]*$/.test(str);
+}
+
+function maybeHexToString(hex: string): string {
+  let rawStr = "";
+  for (let i = 0; i < hex.length; i += 2) {
+    rawStr += String.fromCharCode(Number.parseInt(hex.slice(i, i + 2), 16));
+  }
+  if (isASCII(rawStr)) {
+    return rawStr;
+  }
+  return hex;
 }

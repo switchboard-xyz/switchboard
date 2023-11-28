@@ -4,15 +4,26 @@ mod macros;
 pub mod error;
 pub use error::*;
 
-cfg_client! {
-    pub mod sgx;
-    pub use sgx::*;
-}
-
-cfg_solana! {
-    pub mod solana;
-    pub use solana::*;
-}
+pub mod utils;
+pub use utils::*;
 
 pub mod function_result;
 pub use function_result::*;
+
+cfg_client! {
+    pub mod gramine;
+    pub use gramine::*;
+
+    mod function_error;
+    pub use function_error::*;
+
+    pub mod env;
+    pub use env::*;
+
+    pub use async_trait;
+}
+
+cfg_ipfs! {
+    pub mod ipfs;
+    pub use ipfs::*;
+}

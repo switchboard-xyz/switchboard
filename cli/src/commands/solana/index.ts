@@ -185,7 +185,7 @@ export default class Solana extends BaseCommand {
 
     this.logger.info(
       chalk.underline(
-        chalkString("## Switchboard", this.program.programId, SPACING)
+        chalkString("## Switchboard", this.program.oracleProgramId, SPACING)
       )
     );
 

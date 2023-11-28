@@ -99,9 +99,7 @@ export default class AggregatorSet extends BaseCommand {
       minUpdateDelaySeconds: flags.updateInterval
         ? Number.parseInt(flags.updateInterval, 10)
         : undefined,
-      batchSize: flags.minOracles
-        ? Number.parseInt(flags.minOracles, 10)
-        : undefined,
+      batchSize: flags.batchSize,
       minOracleResults: flags.minOracles
         ? Number.parseInt(flags.minOracles, 10)
         : undefined,

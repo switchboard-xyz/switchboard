@@ -1,23 +1,14 @@
 {
   "name": "@switchboard-xyz/oracle",
   "version": "2.1.13",
-  "author": "mitch@switchboard.xyz",
-  "license": "MIT",
   "description": "Switchboard oracle module",
   "repository": {
     "type": "git",
     "url": "https://github.com/switchboard-xyz/switchboard-oracle-v2.git",
     "directory": "packages/oracle"
   },
-  "files": [
-    "dist",
-    "src",
-    "package.json",
-    "package-lock.json"
-  ],
-  "main": "dist/cjs/index.js",
-  "module": "dist/esm/index.js",
-  "types": "dist/esm/index.d.ts",
+  "license": "MIT",
+  "author": "mitch@switchboard.xyz",
   "exports": {
     ".": {
       "types": "./dist/esm/index.d.ts",
@@ -26,13 +17,21 @@
     },
     "./package.json": "./package.json"
   },
-  "node": ">=14.16",
+  "main": "dist/cjs/index.js",
+  "module": "dist/esm/index.js",
+  "types": "dist/esm/index.d.ts",
+  "files": [
+    "dist",
+    "src",
+    "package.json",
+    "package-lock.json"
+  ],
   "scripts": {
     "build": "pnpm exec shx rm -rf dist || true; pnpm exec tsc && pnpm exec tsc -p tsconfig.cjs.json",
-    "prepack": "pnpm lint && pnpm build",
-    "lint": "pnpm exec eslint src/**/*.ts",
     "clean": "pnpm exec rimraf node_modules dist .turbo",
-    "fix": "pnpm exec eslint --fix src/**/*.ts"
+    "fix": "pnpm exec eslint --fix src/**/*.ts",
+    "lint": "pnpm exec eslint src/**/*.ts",
+    "prepack": "pnpm lint && pnpm build"
   },
   "dependencies": {
     "@terascope/fetch-github-release": "^0.8.7",
@@ -47,5 +46,6 @@
   },
   "publishConfig": {
     "registry": "https://registry.npmjs.org"
-  }
+  },
+  "node": ">=14.16"
 }

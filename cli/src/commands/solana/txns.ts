@@ -25,6 +25,26 @@ const discriminatorMap = new Map([
     "CrankPopV2",
   ],
   [
+    Buffer.from([236, 77, 162, 17, 192, 67, 224, 217]).toString(),
+    "AggregatorSetConfig",
+  ],
+  [
+    Buffer.from([140, 176, 3, 173, 23, 2, 4, 81]).toString(),
+    "AggregatorSetAuthority",
+  ],
+  [
+    Buffer.from([111, 152, 142, 153, 206, 39, 22, 148]).toString(),
+    "AggregatorSetResolutionMode",
+  ],
+  [
+    Buffer.from([194, 248, 179, 97, 237, 24, 9, 110]).toString(),
+    "AggregatorSetQueue",
+  ],
+  [
+    Buffer.from([228, 238, 67, 53, 69, 176, 185, 227]).toString(),
+    "AggregatorLock",
+  ],
+  [
     Buffer.from([21, 67, 5, 0, 74, 168, 51, 192]).toString(),
     "AggregatorSaveResult",
   ],
@@ -41,8 +61,20 @@ const discriminatorMap = new Map([
     "OracleHeartbeat",
   ],
   [
+    Buffer.from([168, 190, 157, 252, 159, 226, 241, 89]).toString(),
+    "LeaseInit",
+  ],
+  [
     Buffer.from([202, 70, 141, 29, 136, 142, 230, 118]).toString(),
     "LeaseExtend",
+  ],
+  [
+    Buffer.from([186, 41, 100, 248, 234, 81, 61, 169]).toString(),
+    "LeaseWithdraw",
+  ],
+  [
+    Buffer.from([255, 4, 88, 2, 213, 175, 87, 22]).toString(),
+    "LeaseSetAuthority",
   ],
   [Buffer.from([155, 175, 160, 18, 7, 147, 249, 16]).toString(), "CrankPush"],
   [
@@ -81,15 +113,19 @@ export default class SolanaTransactions extends BaseCommand {
     }),
     saveResult: Flags.boolean({
       description: "only show save result transactions",
-      exclusive: ["openRound", "crankPop"],
+      exclusive: ["openRound", "crankPop", "leaseExtend"],
     }),
     openRound: Flags.boolean({
       description: "only show open round transactions",
-      exclusive: ["saveResult", "crankPop"],
+      exclusive: ["saveResult", "crankPop", "leaseExtend"],
     }),
     crankPop: Flags.boolean({
       description: "only show crank pop transactions",
-      exclusive: ["saveResult", "openRound"],
+      exclusive: ["saveResult", "openRound", "leaseExtend"],
+    }),
+    leaseExtend: Flags.boolean({
+      description: "only show lease extend transactions",
+      exclusive: ["saveResult", "openRound", "crankPop"],
     }),
   };
 
@@ -147,7 +183,10 @@ export default class SolanaTransactions extends BaseCommand {
         const parsedTxnIxns = (
           parsedTxn?.transaction?.message?.instructions ?? []
         ).map((ixn) => {
-          if (ixn.programId.equals(this.program.programId) && "data" in ixn) {
+          if (
+            ixn.programId.equals(this.program.oracleProgramId) &&
+            "data" in ixn
+          ) {
             const ixnData = isBase58(ixn.data)
               ? Buffer.from(base58.decode(ixn.data))
               : Buffer.from(ixn.data, "base64");
@@ -219,6 +258,8 @@ export default class SolanaTransactions extends BaseCommand {
         ? parsedTransactions.filter(
             (t) => t.ixnName === "CrankPop" || t.ixnName === "CrankPopV2"
           )
+        : flags.leaseExtend
+        ? parsedTransactions.filter((t) => t.ixnName === "LeaseExtend")
         : parsedTransactions;
 
     let numSuccess = 0;

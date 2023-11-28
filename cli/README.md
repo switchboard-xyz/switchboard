@@ -129,65 +129,25 @@ node bin/dev print GvDMxPzN1sCj7L26YDK2HnMRXEQmQ2aemov8YBtPS7vR
 * [`sb aptos update aggregator AGGREGATORHEXSTRING`](#sb-aptos-update-aggregator-aggregatorhexstring)
 * [`sb config print`](#sb-config-print)
 * [`sb config set CHAIN NETWORK PARAMETER [VALUE]`](#sb-config-set-chain-network-parameter-value)
+* [`sb enclave`](#sb-enclave)
 * [`sb evm enclave print ENCLAVEKEY`](#sb-evm-enclave-print-enclavekey)
-* [`sb evm function addMrEnclave FUNCTIONKEY`](#sb-evm-function-addmrenclave-functionkey)
+* [`sb evm function add-enclave FUNCTIONKEY`](#sb-evm-function-add-enclave-functionkey)
 * [`sb evm function configure FUNCTIONKEY`](#sb-evm-function-configure-functionkey)
 * [`sb evm function create QUEUEKEY`](#sb-evm-function-create-queuekey)
 * [`sb evm function fund FUNCTIONKEY`](#sb-evm-function-fund-functionkey)
 * [`sb evm function print FUNCTIONKEY`](#sb-evm-function-print-functionkey)
-* [`sb evm function rmMrEnclave FUNCTIONKEY`](#sb-evm-function-rmmrenclave-functionkey)
+* [`sb evm function remove-enclave FUNCTIONKEY`](#sb-evm-function-remove-enclave-functionkey)
+* [`sb evm function test`](#sb-evm-function-test)
 * [`sb evm queue print QUEUEKEY`](#sb-evm-queue-print-queuekey)
+* [`sb evm request print REQUESTKEY`](#sb-evm-request-print-requestkey)
+* [`sb evm request send FUNCTIONKEY`](#sb-evm-request-send-functionkey)
+* [`sb evm routine create FUNCTIONKEY`](#sb-evm-routine-create-functionkey)
+* [`sb evm routine fund ROUTINEKEY`](#sb-evm-routine-fund-routinekey)
+* [`sb evm routine print ROUTINEKEY`](#sb-evm-routine-print-routinekey)
 * [`sb function-init TEMPLATE`](#sb-function-init-template)
 * [`sb help [COMMANDS]`](#sb-help-commands)
 * [`sb job test`](#sb-job-test)
-* [`sb near aggregator add history AGGREGATORADDRESS`](#sb-near-aggregator-add-history-aggregatoraddress)
-* [`sb near aggregator add job AGGREGATORADDRESS`](#sb-near-aggregator-add-job-aggregatoraddress)
-* [`sb near aggregator create QUEUEADDRESS`](#sb-near-aggregator-create-queueaddress)
-* [`sb near aggregator escrow AGGREGATORADDRESS`](#sb-near-aggregator-escrow-aggregatoraddress)
-* [`sb near aggregator fetch`](#sb-near-aggregator-fetch)
-* [`sb near aggregator fund AGGREGATORADDRESS`](#sb-near-aggregator-fund-aggregatoraddress)
-* [`sb near aggregator history add AGGREGATORADDRESS`](#sb-near-aggregator-history-add-aggregatoraddress)
-* [`sb near aggregator job add AGGREGATORADDRESS`](#sb-near-aggregator-job-add-aggregatoraddress)
-* [`sb near aggregator job remove AGGREGATORADDRESS`](#sb-near-aggregator-job-remove-aggregatoraddress)
-* [`sb near aggregator permission create AGGREGATORADDRESS`](#sb-near-aggregator-permission-create-aggregatoraddress)
-* [`sb near aggregator remove job AGGREGATORADDRESS`](#sb-near-aggregator-remove-job-aggregatoraddress)
-* [`sb near aggregator set AGGREGATORADDRESS`](#sb-near-aggregator-set-aggregatoraddress)
-* [`sb near aggregator update AGGREGATORADDRESS`](#sb-near-aggregator-update-aggregatoraddress)
-* [`sb near crank create QUEUEADDRESS`](#sb-near-crank-create-queueaddress)
-* [`sb near crank list CRANKADDRESS`](#sb-near-crank-list-crankaddress)
-* [`sb near crank pop CRANKADDRESS`](#sb-near-crank-pop-crankaddress)
-* [`sb near crank push CRANKADDRESS`](#sb-near-crank-push-crankaddress)
-* [`sb near create aggregator QUEUEADDRESS`](#sb-near-create-aggregator-queueaddress)
-* [`sb near create aggregator permission AGGREGATORADDRESS`](#sb-near-create-aggregator-permission-aggregatoraddress)
-* [`sb near create crank QUEUEADDRESS`](#sb-near-create-crank-queueaddress)
-* [`sb near create escrow`](#sb-near-create-escrow)
-* [`sb near create job JOBDEFINITION`](#sb-near-create-job-jobdefinition)
-* [`sb near create oracle QUEUEADDRESS`](#sb-near-create-oracle-queueaddress)
-* [`sb near create oracle permission`](#sb-near-create-oracle-permission)
-* [`sb near create queue`](#sb-near-create-queue)
-* [`sb near escrow create`](#sb-near-escrow-create)
-* [`sb near escrow print`](#sb-near-escrow-print)
-* [`sb near fetch aggregators`](#sb-near-fetch-aggregators)
-* [`sb near fund aggregator AGGREGATORADDRESS`](#sb-near-fund-aggregator-aggregatoraddress)
-* [`sb near job create JOBDEFINITION`](#sb-near-job-create-jobdefinition)
-* [`sb near list queue QUEUEADDRESS`](#sb-near-list-queue-queueaddress)
-* [`sb near oracle create QUEUEADDRESS`](#sb-near-oracle-create-queueaddress)
-* [`sb near oracle escrow ORACLEADDRESS`](#sb-near-oracle-escrow-oracleaddress)
-* [`sb near oracle stake ORACLEADDRESS`](#sb-near-oracle-stake-oracleaddress)
-* [`sb near oracle unstake ORACLEADDRESS`](#sb-near-oracle-unstake-oracleaddress)
-* [`sb near oracle up ORACLEADDRESS`](#sb-near-oracle-up-oracleaddress)
-* [`sb near permission create`](#sb-near-permission-create)
-* [`sb near pop crank CRANKADDRESS`](#sb-near-pop-crank-crankaddress)
-* [`sb near print ACCOUNTTYPE ADDRESS`](#sb-near-print-accounttype-address)
-* [`sb near print escrow`](#sb-near-print-escrow)
-* [`sb near push crank CRANKADDRESS`](#sb-near-push-crank-crankaddress)
-* [`sb near queue aggregators QUEUEADDRESS`](#sb-near-queue-aggregators-queueaddress)
-* [`sb near queue create`](#sb-near-queue-create)
-* [`sb near queue feeds QUEUEADDRESS`](#sb-near-queue-feeds-queueaddress)
-* [`sb near queue list QUEUEADDRESS`](#sb-near-queue-list-queueaddress)
-* [`sb near queue set QUEUEADDRESS`](#sb-near-queue-set-queueaddress)
-* [`sb near set aggregator AGGREGATORADDRESS`](#sb-near-set-aggregator-aggregatoraddress)
-* [`sb near update aggregator AGGREGATORADDRESS`](#sb-near-update-aggregator-aggregatoraddress)
+* [`sb mrenclave`](#sb-mrenclave)
 * [`sb oracle logs NETWORK SEARCHSTRING`](#sb-oracle-logs-network-searchstring)
 * [`sb solana aggregator add history AGGREGATORKEY`](#sb-solana-aggregator-add-history-aggregatorkey)
 * [`sb solana aggregator add job AGGREGATORKEY`](#sb-solana-aggregator-add-job-aggregatorkey)
@@ -214,6 +174,10 @@ node bin/dev print GvDMxPzN1sCj7L26YDK2HnMRXEQmQ2aemov8YBtPS7vR
 * [`sb solana aggregator watch AGGREGATORKEY`](#sb-solana-aggregator-watch-aggregatorkey)
 * [`sb solana aggregator withdraw AGGREGATORKEY`](#sb-solana-aggregator-withdraw-aggregatorkey)
 * [`sb solana anchor test`](#sb-solana-anchor-test)
+* [`sb solana attestation-queue add-enclave QUEUEKEY`](#sb-solana-attestation-queue-add-enclave-queuekey)
+* [`sb solana attestation-queue create`](#sb-solana-attestation-queue-create)
+* [`sb solana attestation-queue print QUEUEKEY`](#sb-solana-attestation-queue-print-queuekey)
+* [`sb solana attestation-queue remove-enclave QUEUEKEY`](#sb-solana-attestation-queue-remove-enclave-queuekey)
 * [`sb solana buffer create QUEUEKEY`](#sb-solana-buffer-create-queuekey)
 * [`sb solana buffer open-round BUFFERRELAYERKEY`](#sb-solana-buffer-open-round-bufferrelayerkey)
 * [`sb solana buffer update BUFFERRELAYERKEY`](#sb-solana-buffer-update-bufferrelayerkey)
@@ -223,12 +187,19 @@ node bin/dev print GvDMxPzN1sCj7L26YDK2HnMRXEQmQ2aemov8YBtPS7vR
 * [`sb solana crank print CRANKKEY`](#sb-solana-crank-print-crankkey)
 * [`sb solana crank push AGGREGATORKEY`](#sb-solana-crank-push-aggregatorkey)
 * [`sb solana crank reset AGGREGATORKEY`](#sb-solana-crank-reset-aggregatorkey)
+* [`sb solana function add-enclave FUNCTIONKEY`](#sb-solana-function-add-enclave-functionkey)
 * [`sb solana function addMrEnclave FUNCTIONKEY`](#sb-solana-function-addmrenclave-functionkey)
+* [`sb solana function close FUNCTIONKEY`](#sb-solana-function-close-functionkey)
 * [`sb solana function configure FUNCTIONKEY`](#sb-solana-function-configure-functionkey)
 * [`sb solana function create QUEUEKEY`](#sb-solana-function-create-queuekey)
 * [`sb solana function fund FUNCTIONKEY`](#sb-solana-function-fund-functionkey)
+* [`sb solana function get`](#sb-solana-function-get)
 * [`sb solana function print FUNCTIONKEY`](#sb-solana-function-print-functionkey)
+* [`sb solana function remove-enclave FUNCTIONKEY`](#sb-solana-function-remove-enclave-functionkey)
 * [`sb solana function rmMrEnclave FUNCTIONKEY`](#sb-solana-function-rmmrenclave-functionkey)
+* [`sb solana function send-request FUNCTIONKEY`](#sb-solana-function-send-request-functionkey)
+* [`sb solana function sync-enclave FUNCTIONKEY`](#sb-solana-function-sync-enclave-functionkey)
+* [`sb solana function test`](#sb-solana-function-test)
 * [`sb solana function withdraw FUNCTIONKEY`](#sb-solana-function-withdraw-functionkey)
 * [`sb solana job create`](#sb-solana-job-create)
 * [`sb solana job print JOBKEY`](#sb-solana-job-print-jobkey)
@@ -253,6 +224,15 @@ node bin/dev print GvDMxPzN1sCj7L26YDK2HnMRXEQmQ2aemov8YBtPS7vR
 * [`sb solana queue create`](#sb-solana-queue-create)
 * [`sb solana queue print QUEUEKEY`](#sb-solana-queue-print-queuekey)
 * [`sb solana queue set QUEUEKEY`](#sb-solana-queue-set-queuekey)
+* [`sb solana request print REQUESTKEY`](#sb-solana-request-print-requestkey)
+* [`sb solana request send FUNCTIONKEY`](#sb-solana-request-send-functionkey)
+* [`sb solana routine configure ROUTINEKEY`](#sb-solana-routine-configure-routinekey)
+* [`sb solana routine create FUNCTIONKEY`](#sb-solana-routine-create-functionkey)
+* [`sb solana routine fund ROUTINEKEY`](#sb-solana-routine-fund-routinekey)
+* [`sb solana routine print ROUTINEKEY`](#sb-solana-routine-print-routinekey)
+* [`sb solana verifier-oracle create QUEUEKEY`](#sb-solana-verifier-oracle-create-queuekey)
+* [`sb solana verifier-oracle print VERIFIERKEY`](#sb-solana-verifier-oracle-print-verifierkey)
+* [`sb solana version`](#sb-solana-version)
 * [`sb solana vrf open-round VRFKEY`](#sb-solana-vrf-open-round-vrfkey)
 * [`sb solana vrf print VRFKEY`](#sb-solana-vrf-print-vrfkey)
 * [`sb solana vrf request VRFKEY`](#sb-solana-vrf-request-vrfkey)
@@ -326,7 +306,7 @@ DESCRIPTION
   request an airdrop
 ```
 
-_See code: [dist/commands/aptos/account/airdrop.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.6/dist/commands/aptos/account/airdrop.js)_
+_See code: [dist/commands/aptos/account/airdrop.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.12/dist/commands/aptos/account/airdrop.js)_
 
 ## `sb aptos aggregator add job AGGREGATORHEXSTRING`
 
@@ -366,7 +346,7 @@ ALIASES
   $ sb aptos aggregator job add
 ```
 
-_See code: [dist/commands/aptos/aggregator/add/job.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.6/dist/commands/aptos/aggregator/add/job.js)_
+_See code: [dist/commands/aptos/aggregator/add/job.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.12/dist/commands/aptos/aggregator/add/job.js)_
 
 ## `sb aptos aggregator create QUEUEHEXSTRING`
 
@@ -419,7 +399,7 @@ ALIASES
   $ sb aptos create aggregator
 ```
 
-_See code: [dist/commands/aptos/aggregator/create.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.6/dist/commands/aptos/aggregator/create.js)_
+_See code: [dist/commands/aptos/aggregator/create.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.12/dist/commands/aptos/aggregator/create.js)_
 
 ## `sb aptos aggregator job add AGGREGATORHEXSTRING`
 
@@ -490,7 +470,7 @@ ALIASES
   $ sb aptos update aggregator
 ```
 
-_See code: [dist/commands/aptos/aggregator/update.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.6/dist/commands/aptos/aggregator/update.js)_
+_See code: [dist/commands/aptos/aggregator/update.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.12/dist/commands/aptos/aggregator/update.js)_
 
 ## `sb aptos crank create QUEUEHEXSTRING`
 
@@ -531,7 +511,7 @@ ALIASES
   $ sb aptos create crank
 ```
 
-_See code: [dist/commands/aptos/crank/create.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.6/dist/commands/aptos/crank/create.js)_
+_See code: [dist/commands/aptos/crank/create.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.12/dist/commands/aptos/crank/create.js)_
 
 ## `sb aptos crank list CRANKHEXSTRING`
 
@@ -564,7 +544,7 @@ ALIASES
   $ sb aptos list crank
 ```
 
-_See code: [dist/commands/aptos/crank/list.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.6/dist/commands/aptos/crank/list.js)_
+_See code: [dist/commands/aptos/crank/list.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.12/dist/commands/aptos/crank/list.js)_
 
 ## `sb aptos crank pop CRANKHEXSTRING`
 
@@ -600,7 +580,7 @@ ALIASES
   $ sb aptos pop crank
 ```
 
-_See code: [dist/commands/aptos/crank/pop.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.6/dist/commands/aptos/crank/pop.js)_
+_See code: [dist/commands/aptos/crank/pop.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.12/dist/commands/aptos/crank/pop.js)_
 
 ## `sb aptos crank push CRANKHEXSTRING`
 
@@ -637,7 +617,7 @@ ALIASES
   $ sb aptos push crank
 ```
 
-_See code: [dist/commands/aptos/crank/push.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.6/dist/commands/aptos/crank/push.js)_
+_See code: [dist/commands/aptos/crank/push.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.12/dist/commands/aptos/crank/push.js)_
 
 ## `sb aptos create aggregator QUEUEHEXSTRING`
 
@@ -896,7 +876,7 @@ ALIASES
   $ sb aptos create job
 ```
 
-_See code: [dist/commands/aptos/job/create.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.6/dist/commands/aptos/job/create.js)_
+_See code: [dist/commands/aptos/job/create.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.12/dist/commands/aptos/job/create.js)_
 
 ## `sb aptos list crank CRANKHEXSTRING`
 
@@ -968,7 +948,7 @@ ALIASES
   $ sb aptos create oracle
 ```
 
-_See code: [dist/commands/aptos/oracle/create.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.6/dist/commands/aptos/oracle/create.js)_
+_See code: [dist/commands/aptos/oracle/create.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.12/dist/commands/aptos/oracle/create.js)_
 
 ## `sb aptos oracle metrics ORACLEHEXSTRING`
 
@@ -998,7 +978,7 @@ DESCRIPTION
   list oracle metrics
 ```
 
-_See code: [dist/commands/aptos/oracle/metrics.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.6/dist/commands/aptos/oracle/metrics.js)_
+_See code: [dist/commands/aptos/oracle/metrics.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.12/dist/commands/aptos/oracle/metrics.js)_
 
 ## `sb aptos oracle up ORACLEHEXSTRING`
 
@@ -1033,7 +1013,7 @@ DESCRIPTION
   start an aptos docker oracle
 ```
 
-_See code: [dist/commands/aptos/oracle/up.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.6/dist/commands/aptos/oracle/up.js)_
+_See code: [dist/commands/aptos/oracle/up.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.12/dist/commands/aptos/oracle/up.js)_
 
 ## `sb aptos permission create GRANTER`
 
@@ -1069,7 +1049,7 @@ DESCRIPTION
   create a new permission
 ```
 
-_See code: [dist/commands/aptos/permission/create.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.6/dist/commands/aptos/permission/create.js)_
+_See code: [dist/commands/aptos/permission/create.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.12/dist/commands/aptos/permission/create.js)_
 
 ## `sb aptos permission set GRANTER`
 
@@ -1105,7 +1085,7 @@ DESCRIPTION
   create a new permission
 ```
 
-_See code: [dist/commands/aptos/permission/set.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.6/dist/commands/aptos/permission/set.js)_
+_See code: [dist/commands/aptos/permission/set.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.12/dist/commands/aptos/permission/set.js)_
 
 ## `sb aptos pop crank CRANKHEXSTRING`
 
@@ -1173,7 +1153,7 @@ ALIASES
   $ sb aptos print
 ```
 
-_See code: [dist/commands/aptos/print.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.6/dist/commands/aptos/print.js)_
+_See code: [dist/commands/aptos/print.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.12/dist/commands/aptos/print.js)_
 
 ## `sb aptos push crank CRANKHEXSTRING`
 
@@ -1256,7 +1236,7 @@ ALIASES
   $ sb aptos create queue
 ```
 
-_See code: [dist/commands/aptos/queue/create.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.6/dist/commands/aptos/queue/create.js)_
+_See code: [dist/commands/aptos/queue/create.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.12/dist/commands/aptos/queue/create.js)_
 
 ## `sb aptos update aggregator AGGREGATORHEXSTRING`
 
@@ -1312,7 +1292,7 @@ EXAMPLES
   $ sb config:print
 ```
 
-_See code: [dist/commands/config/print.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.6/dist/commands/config/print.js)_
+_See code: [dist/commands/config/print.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.12/dist/commands/config/print.js)_
 
 ## `sb config set CHAIN NETWORK PARAMETER [VALUE]`
 
@@ -1338,7 +1318,33 @@ DESCRIPTION
   set a configuration option
 ```
 
-_See code: [dist/commands/config/set.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.6/dist/commands/config/set.js)_
+_See code: [dist/commands/config/set.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.12/dist/commands/config/set.js)_
+
+## `sb enclave`
+
+Fetch the MrEnclave value for a given container
+
+```
+USAGE
+  $ sb enclave -c <value> [-h] [-v] [-s] [--json] [--containerRegistry <value>] [--version <value>]
+
+FLAGS
+  -c, --container=<value>      (required) the name of the container
+  -h, --help                   Show CLI help.
+  -s, --silent                 suppress cli prompts
+  -v, --verbose                log everything
+  --containerRegistry=<value>  the container registry to fetch from. Currently only dockerhub is supported
+  --version=<value>            the version of the container, defaults to 'latest'
+
+GLOBAL FLAGS
+  --json  Format output as json.
+
+DESCRIPTION
+  Fetch the MrEnclave value for a given container
+
+ALIASES
+  $ sb enclave
+```
 
 ## `sb evm enclave print ENCLAVEKEY`
 
@@ -1381,15 +1387,15 @@ EXAMPLES
   $ sb evm enclave print 0xaA43ba6f18b138A0B3313dDbFaC2b920D240108E --chain arbitrum --network testnet --programId 0x4F706C62535d171883A6cc9384f3f3d926A6BA49
 ```
 
-_See code: [dist/commands/evm/enclave/print.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.6/dist/commands/evm/enclave/print.js)_
+_See code: [dist/commands/evm/enclave/print.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.12/dist/commands/evm/enclave/print.js)_
 
-## `sb evm function addMrEnclave FUNCTIONKEY`
+## `sb evm function add-enclave FUNCTIONKEY`
 
 Add MrEnclave to a function account
 
 ```
 USAGE
-  $ sb evm function addMrEnclave FUNCTIONKEY --account <value> --mrEnclave <value> [-h] [-v] [-s] [--chain
+  $ sb evm function add-enclave FUNCTIONKEY --account <value> --mrEnclave <value> [-h] [-v] [-s] [--chain
     coredao|arbitrum|optimism|base|aurora | --coredao | --arbitrum | --optimism | --base | --aurora] [--network
     mainnet|testnet | --mainnet | --testnet] [-u <value>] [--programId <value>] [--json]
 
@@ -1423,10 +1429,10 @@ DESCRIPTION
   Add MrEnclave to a function account
 
 EXAMPLES
-  $ sb evm function addMrEnclave 0xaA43ba6f18b138A0B3313dDbFaC2b920D240108E --chain arbitrum --network testnet --addMrEnclace 0xDEADBEEF --account ~/.arbitrum-kp.txt --programId 0x4F706C62535d171883A6cc9384f3f3d926A6BA49
+  $ sb evm function add-enclave $FUNCTION_ID --chain arbitrum --network testnet --mrEnclave $MEASUREMENT --account ../.kp.txt --programId $SWITCHBOARD_ADDRESS
 ```
 
-_See code: [dist/commands/evm/function/addMrEnclave.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.6/dist/commands/evm/function/addMrEnclave.js)_
+_See code: [dist/commands/evm/function/add-enclave.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.12/dist/commands/evm/function/add-enclave.js)_
 
 ## `sb evm function configure FUNCTIONKEY`
 
@@ -1437,7 +1443,7 @@ USAGE
   $ sb evm function configure FUNCTIONKEY --account <value> [-h] [-v] [-s] [--chain coredao|arbitrum|optimism|base|aurora |
     --coredao | --arbitrum | --optimism | --base | --aurora] [--network mainnet|testnet | --mainnet | --testnet] [-u
     <value>] [--programId <value>] [--json] [--name <value>] [--authority <value>] [--containerRegistry <value>]
-    [--container <value>] [--version <value>] [--schedule <value>]
+    [--container <value>] [--version <value>]
 
 ARGUMENTS
   FUNCTIONKEY  address of the function account
@@ -1463,7 +1469,6 @@ FLAGS
                                <options: mainnet|testnet>
   --optimism                   use the optimism chain
   --programId=<value>          alternative Switchboard program ID to interact with
-  --schedule=<value>           update the schedule for the function
   --testnet                    use the testnet network
   --version=<value>            update the container version for the function
 
@@ -1477,7 +1482,7 @@ EXAMPLES
   $ sb evm function fund 0xaA43ba6f18b138A0B3313dDbFaC2b920D240108E --chain arbitrum --network testnet --fundAmount 0.02 --account ~/.arbitrum-kp.txt --programId 0x4F706C62535d171883A6cc9384f3f3d926A6BA49
 ```
 
-_See code: [dist/commands/evm/function/configure.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.6/dist/commands/evm/function/configure.js)_
+_See code: [dist/commands/evm/function/configure.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.12/dist/commands/evm/function/configure.js)_
 
 ## `sb evm function create QUEUEKEY`
 
@@ -1488,8 +1493,7 @@ USAGE
   $ sb evm function create QUEUEKEY --account <value> --container <value> [-h] [-v] [-s] [--chain
     coredao|arbitrum|optimism|base|aurora | --coredao | --arbitrum | --optimism | --base | --aurora] [--network
     mainnet|testnet | --mainnet | --testnet] [-u <value>] [--programId <value>] [--json] [-n <value>] [-a <value>]
-    [--fundAmount <value>] [--schedule <value>] [--containerRegistry dockerhub|ipfs] [--version <value>] [--mrEnclave
-    <value>]
+    [--fundAmount <value>] [--containerRegistry dockerhub|ipfs] [--version <value>] [--mrEnclave <value>]
 
 ARGUMENTS
   QUEUEKEY  address of the attestation queue account
@@ -1519,8 +1523,6 @@ FLAGS
                                 <options: mainnet|testnet>
   --optimism                    use the optimism chain
   --programId=<value>           alternative Switchboard program ID to interact with
-  --schedule=<value>            the cron schedule to execute the function periodically (Ex. '15 * * * * *' will execute
-                                the function every 15 seconds)
   --testnet                     use the testnet network
   --version=<value>             [default: latest] the version of the container to pull from the registry (Ex. 'latest'
                                 or 'mainnet')
@@ -1535,7 +1537,7 @@ EXAMPLES
   $ sb evm function create F8ce7MsckeZAbAGmxjJNetxYXQa9mKr9nnrC3qKubyYy --name function-1 --fundAmount 0.25 --container switchboardlabs/basic-oracle-function --version latest
 ```
 
-_See code: [dist/commands/evm/function/create.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.6/dist/commands/evm/function/create.js)_
+_See code: [dist/commands/evm/function/create.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.12/dist/commands/evm/function/create.js)_
 
 ## `sb evm function fund FUNCTIONKEY`
 
@@ -1580,7 +1582,7 @@ EXAMPLES
   $ sb evm function fund 0xaA43ba6f18b138A0B3313dDbFaC2b920D240108E --chain arbitrum --network testnet --fundAmount 0.02 --account ~/.arbitrum-kp.txt --programId 0x4F706C62535d171883A6cc9384f3f3d926A6BA49
 ```
 
-_See code: [dist/commands/evm/function/fund.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.6/dist/commands/evm/function/fund.js)_
+_See code: [dist/commands/evm/function/fund.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.12/dist/commands/evm/function/fund.js)_
 
 ## `sb evm function print FUNCTIONKEY`
 
@@ -1623,15 +1625,15 @@ EXAMPLES
   $ sb evm function print 0xaA43ba6f18b138A0B3313dDbFaC2b920D240108E --chain arbitrum --network testnet --programId 0x4F706C62535d171883A6cc9384f3f3d926A6BA49
 ```
 
-_See code: [dist/commands/evm/function/print.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.6/dist/commands/evm/function/print.js)_
+_See code: [dist/commands/evm/function/print.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.12/dist/commands/evm/function/print.js)_
 
-## `sb evm function rmMrEnclave FUNCTIONKEY`
+## `sb evm function remove-enclave FUNCTIONKEY`
 
 Remove MrEnclave to a function account
 
 ```
 USAGE
-  $ sb evm function rmMrEnclave FUNCTIONKEY --account <value> --mrEnclave <value> [-h] [-v] [-s] [--chain
+  $ sb evm function remove-enclave FUNCTIONKEY --account <value> --mrEnclave <value> [-h] [-v] [-s] [--chain
     coredao|arbitrum|optimism|base|aurora | --coredao | --arbitrum | --optimism | --base | --aurora] [--network
     mainnet|testnet | --mainnet | --testnet] [-u <value>] [--programId <value>] [--json]
 
@@ -1668,7 +1670,48 @@ EXAMPLES
   $ sb evm function removeMrEnclave 0xaA43ba6f18b138A0B3313dDbFaC2b920D240108E --chain arbitrum --network testnet --removeMrEnclace 0xDEADBEEF --account ~/.arbitrum-kp.txt --programId 0x4F706C62535d171883A6cc9384f3f3d926A6BA49
 ```
 
-_See code: [dist/commands/evm/function/rmMrEnclave.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.6/dist/commands/evm/function/rmMrEnclave.js)_
+_See code: [dist/commands/evm/function/remove-enclave.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.12/dist/commands/evm/function/remove-enclave.js)_
+
+## `sb evm function test`
+
+Test a local function before publishing
+
+```
+USAGE
+  $ sb evm function test [-h] [-v] [-s] [--chain coredao|arbitrum|optimism|base|aurora | --coredao | --arbitrum |
+    --optimism | --base | --aurora] [--network mainnet|testnet | --mainnet | --testnet] [-u <value>] [--programId
+    <value>] [--json] [--parameters <value>]
+
+FLAGS
+  -h, --help            Show CLI help.
+  -s, --silent          suppress cli prompts
+  -u, --rpcUrl=<value>  alternate RPC url
+  -v, --verbose         log everything
+  --arbitrum            use the arbitrum chain
+  --aurora              use the aurora chain
+  --base                use the base chain
+  --chain=<option>      the evm chain to interact with
+                        <options: coredao|arbitrum|optimism|base|aurora>
+  --coredao             use the coredao chain
+  --mainnet             use the mainnet network
+  --network=<option>    the EVM network to connect to
+                        <options: mainnet|testnet>
+  --optimism            use the optimism chain
+  --parameters=<value>  Parameters to pass to the run
+  --programId=<value>   alternative Switchboard program ID to interact with
+  --testnet             use the testnet network
+
+GLOBAL FLAGS
+  --json  Format output as json.
+
+DESCRIPTION
+  Test a local function before publishing
+
+EXAMPLES
+  $ sb evm function test --parameters 'uint256:1,string:hello
+```
+
+_See code: [dist/commands/evm/function/test.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.12/dist/commands/evm/function/test.js)_
 
 ## `sb evm queue print QUEUEKEY`
 
@@ -1711,7 +1754,235 @@ EXAMPLES
   $ sb evm queue print 0xaA43ba6f18b138A0B3313dDbFaC2b920D240108E --chain arbitrum --network testnet --programId 0x4F706C62535d171883A6cc9384f3f3d926A6BA49
 ```
 
-_See code: [dist/commands/evm/queue/print.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.6/dist/commands/evm/queue/print.js)_
+_See code: [dist/commands/evm/queue/print.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.12/dist/commands/evm/queue/print.js)_
+
+## `sb evm request print REQUESTKEY`
+
+Print a function request
+
+```
+USAGE
+  $ sb evm request print REQUESTKEY [-h] [-v] [-s] [--chain coredao|arbitrum|optimism|base|aurora | --coredao |
+    --arbitrum | --optimism | --base | --aurora] [--network mainnet|testnet | --mainnet | --testnet] [-u <value>]
+    [--programId <value>] [--json]
+
+ARGUMENTS
+  REQUESTKEY  address of the request account
+
+FLAGS
+  -h, --help            Show CLI help.
+  -s, --silent          suppress cli prompts
+  -u, --rpcUrl=<value>  alternate RPC url
+  -v, --verbose         log everything
+  --arbitrum            use the arbitrum chain
+  --aurora              use the aurora chain
+  --base                use the base chain
+  --chain=<option>      the evm chain to interact with
+                        <options: coredao|arbitrum|optimism|base|aurora>
+  --coredao             use the coredao chain
+  --mainnet             use the mainnet network
+  --network=<option>    the EVM network to connect to
+                        <options: mainnet|testnet>
+  --optimism            use the optimism chain
+  --programId=<value>   alternative Switchboard program ID to interact with
+  --testnet             use the testnet network
+
+GLOBAL FLAGS
+  --json  Format output as json.
+
+DESCRIPTION
+  Print a function request
+
+EXAMPLES
+  $ sb evm request print 0xaA43ba6f18b138A0B3313dDbFaC2b920D240108E --chain arbitrum --network testnet --programId 0x4F706C62535d171883A6cc9384f3f3d926A6BA49
+```
+
+_See code: [dist/commands/evm/request/print.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.12/dist/commands/evm/request/print.js)_
+
+## `sb evm request send FUNCTIONKEY`
+
+create a new function account for a given queue
+
+```
+USAGE
+  $ sb evm request send FUNCTIONKEY --account <value> [-h] [-v] [-s] [--chain coredao|arbitrum|optimism|base|aurora |
+    --coredao | --arbitrum | --optimism | --base | --aurora] [--network mainnet|testnet | --mainnet | --testnet] [-u
+    <value>] [--programId <value>] [--json] [-a <value>] [--fundAmount <value>] [--params <value>]
+
+ARGUMENTS
+  FUNCTIONKEY  address of the function account
+
+FLAGS
+  -a, --authority=<value>  keypair or address to delegate authority to for managing the function account
+  -h, --help               Show CLI help.
+  -s, --silent             suppress cli prompts
+  -u, --rpcUrl=<value>     alternate RPC url
+  -v, --verbose            log everything
+  --account=<value>        (required) Path to file containing the private key for the payer account
+  --arbitrum               use the arbitrum chain
+  --aurora                 use the aurora chain
+  --base                   use the base chain
+  --chain=<option>         the evm chain to interact with
+                           <options: coredao|arbitrum|optimism|base|aurora>
+  --coredao                use the coredao chain
+  --fundAmount=<value>     [default: 0.0] token amount to load into the function's escrow wallet.
+  --mainnet                use the mainnet network
+  --network=<option>       the EVM network to connect to
+                           <options: mainnet|testnet>
+  --optimism               use the optimism chain
+  --params=<value>         The parameters to send in this request
+  --programId=<value>      alternative Switchboard program ID to interact with
+  --testnet                use the testnet network
+
+GLOBAL FLAGS
+  --json  Format output as json.
+
+DESCRIPTION
+  create a new function account for a given queue
+
+EXAMPLES
+  $ sb evm function send F8ce7MsckeZAbAGmxjJNetxYXQa9mKr9nnrC3qKubyYy --fundAmount 0.01 --params abc123
+```
+
+_See code: [dist/commands/evm/request/send.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.12/dist/commands/evm/request/send.js)_
+
+## `sb evm routine create FUNCTIONKEY`
+
+create a new routine account for a given function
+
+```
+USAGE
+  $ sb evm routine create FUNCTIONKEY --account <value> [-h] [-v] [-s] [--chain coredao|arbitrum|optimism|base|aurora |
+    --coredao | --arbitrum | --optimism | --base | --aurora] [--network mainnet|testnet | --mainnet | --testnet] [-u
+    <value>] [--programId <value>] [--json] [--authority <value>] [--fundAmount <value>] [--schedule <value>] [--params
+    <value>]
+
+ARGUMENTS
+  FUNCTIONKEY  address of the function account
+
+FLAGS
+  -h, --help            Show CLI help.
+  -s, --silent          suppress cli prompts
+  -u, --rpcUrl=<value>  alternate RPC url
+  -v, --verbose         log everything
+  --account=<value>     (required) Path to file containing the private key for the payer account
+  --arbitrum            use the arbitrum chain
+  --aurora              use the aurora chain
+  --authority=<value>   keypair or address to delegate authority to for managing the function account
+  --base                use the base chain
+  --chain=<option>      the evm chain to interact with
+                        <options: coredao|arbitrum|optimism|base|aurora>
+  --coredao             use the coredao chain
+  --fundAmount=<value>  [default: 0.0] token amount to load into the function's escrow wallet.
+  --mainnet             use the mainnet network
+  --network=<option>    the EVM network to connect to
+                        <options: mainnet|testnet>
+  --optimism            use the optimism chain
+  --params=<value>      the parameters this routine should pass to the function
+  --programId=<value>   alternative Switchboard program ID to interact with
+  --schedule=<value>    the cron schedule to execute the function periodically (Ex. '15 * * * * *' will execute the
+                        function every 15 seconds)
+  --testnet             use the testnet network
+
+GLOBAL FLAGS
+  --json  Format output as json.
+
+DESCRIPTION
+  create a new routine account for a given function
+
+EXAMPLES
+  $ sb evm routine create F8ce7MsckeZAbAGmxjJNetxYXQa9mKr9nnrC3qKubyYy --fundAmount 0.25 --container "mgild/randomness" --version latest
+```
+
+_See code: [dist/commands/evm/routine/create.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.12/dist/commands/evm/routine/create.js)_
+
+## `sb evm routine fund ROUTINEKEY`
+
+create a new routine account for a given function
+
+```
+USAGE
+  $ sb evm routine fund ROUTINEKEY --account <value> [-h] [-v] [-s] [--chain coredao|arbitrum|optimism|base|aurora |
+    --coredao | --arbitrum | --optimism | --base | --aurora] [--network mainnet|testnet | --mainnet | --testnet] [-u
+    <value>] [--programId <value>] [--json] [--fundAmount <value>]
+
+ARGUMENTS
+  ROUTINEKEY  address of the routine account
+
+FLAGS
+  -h, --help            Show CLI help.
+  -s, --silent          suppress cli prompts
+  -u, --rpcUrl=<value>  alternate RPC url
+  -v, --verbose         log everything
+  --account=<value>     (required) Path to file containing the private key for the payer account
+  --arbitrum            use the arbitrum chain
+  --aurora              use the aurora chain
+  --base                use the base chain
+  --chain=<option>      the evm chain to interact with
+                        <options: coredao|arbitrum|optimism|base|aurora>
+  --coredao             use the coredao chain
+  --fundAmount=<value>  [default: 0.0] token amount to load into the function's escrow wallet.
+  --mainnet             use the mainnet network
+  --network=<option>    the EVM network to connect to
+                        <options: mainnet|testnet>
+  --optimism            use the optimism chain
+  --programId=<value>   alternative Switchboard program ID to interact with
+  --testnet             use the testnet network
+
+GLOBAL FLAGS
+  --json  Format output as json.
+
+DESCRIPTION
+  create a new routine account for a given function
+
+EXAMPLES
+  $ sb evm routine fund F8ce7MsckeZAbAGmxjJNetxYXQa9mKr9nnrC3qKubyYy --fundAmount 0.25
+```
+
+_See code: [dist/commands/evm/routine/fund.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.12/dist/commands/evm/routine/fund.js)_
+
+## `sb evm routine print ROUTINEKEY`
+
+Print a function routine
+
+```
+USAGE
+  $ sb evm routine print ROUTINEKEY [-h] [-v] [-s] [--chain coredao|arbitrum|optimism|base|aurora | --coredao |
+    --arbitrum | --optimism | --base | --aurora] [--network mainnet|testnet | --mainnet | --testnet] [-u <value>]
+    [--programId <value>] [--json]
+
+ARGUMENTS
+  ROUTINEKEY  address of the routine account
+
+FLAGS
+  -h, --help            Show CLI help.
+  -s, --silent          suppress cli prompts
+  -u, --rpcUrl=<value>  alternate RPC url
+  -v, --verbose         log everything
+  --arbitrum            use the arbitrum chain
+  --aurora              use the aurora chain
+  --base                use the base chain
+  --chain=<option>      the evm chain to interact with
+                        <options: coredao|arbitrum|optimism|base|aurora>
+  --coredao             use the coredao chain
+  --mainnet             use the mainnet network
+  --network=<option>    the EVM network to connect to
+                        <options: mainnet|testnet>
+  --optimism            use the optimism chain
+  --programId=<value>   alternative Switchboard program ID to interact with
+  --testnet             use the testnet network
+
+GLOBAL FLAGS
+  --json  Format output as json.
+
+DESCRIPTION
+  Print a function routine
+
+EXAMPLES
+  $ sb evm routine print 0xaA43ba6f18b138A0B3313dDbFaC2b920D240108E --chain arbitrum --network testnet --programId 0x4F706C62535d171883A6cc9384f3f3d926A6BA49
+```
+
+_See code: [dist/commands/evm/routine/print.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.12/dist/commands/evm/routine/print.js)_
 
 ## `sb function-init TEMPLATE`
 
@@ -1734,7 +2005,7 @@ DESCRIPTION
   initialize a new function template
 ```
 
-_See code: [dist/commands/function-init.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.6/dist/commands/function-init.js)_
+_See code: [dist/commands/function-init.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.12/dist/commands/function-init.js)_
 
 ## `sb help [COMMANDS]`
 
@@ -1781,1795 +2052,35 @@ EXAMPLES
   $ sb job:test
 ```
 
-_See code: [dist/commands/job/test.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.6/dist/commands/job/test.js)_
+_See code: [dist/commands/job/test.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.12/dist/commands/job/test.js)_
 
-## `sb near aggregator add history AGGREGATORADDRESS`
+## `sb mrenclave`
 
-add rows to a history vector
+Fetch the MrEnclave value for a given container
 
 ```
 USAGE
-  $ sb near aggregator add history AGGREGATORADDRESS --accountName <value> [-h] [-v] [-s] [--networkId testnet|mainnet|localnet]
-    [--programId <value>] [-u <value>] [--nearCredentialsDir <value>] [--json] [--numRows <value>]
-
-ARGUMENTS
-  AGGREGATORADDRESS  address of the aggregator in Uint8 or Base58 encoding
+  $ sb mrenclave -c <value> [-h] [-v] [-s] [--json] [--containerRegistry <value>] [--version <value>]
 
 FLAGS
-  -h, --help                    Show CLI help.
-  -s, --silent                  suppress cli prompts
-  -u, --rpcUrl=<value>          alternate RPC url
-  -v, --verbose                 log everything
-  --accountName=<value>         (required) Named account to load from your nearCredentialsDir
-  --nearCredentialsDir=<value>  [default: /Users/gally/.near-credentials] Alternative directory for near credentials.
-                                Defaults to ~/.near-credentials
-  --networkId=<option>          [default: testnet] Near network ID to connect to
-                                <options: testnet|mainnet|localnet>
-  --numRows=<value>             [default: 1000] number of rows to add to the aggregator
-  --programId=<value>           Switchboard programId on the selected Near networkId
+  -c, --container=<value>      (required) the name of the container
+  -h, --help                   Show CLI help.
+  -s, --silent                 suppress cli prompts
+  -v, --verbose                log everything
+  --containerRegistry=<value>  the container registry to fetch from. Currently only dockerhub is supported
+  --version=<value>            the version of the container, defaults to 'latest'
 
 GLOBAL FLAGS
   --json  Format output as json.
 
 DESCRIPTION
-  add rows to a history vector
+  Fetch the MrEnclave value for a given container
 
 ALIASES
-  $ sb near aggregator history add
+  $ sb enclave
 ```
 
-_See code: [dist/commands/near/aggregator/add/history.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.6/dist/commands/near/aggregator/add/history.js)_
-
-## `sb near aggregator add job AGGREGATORADDRESS`
-
-add a job to an aggregator
-
-```
-USAGE
-  $ sb near aggregator add job AGGREGATORADDRESS --accountName <value> [-h] [-v] [-s] [--networkId testnet|mainnet|localnet]
-    [--programId <value>] [-u <value>] [--nearCredentialsDir <value>] [--json] [-a <value>] [--name <value> | --jobKey
-    <value>] [--metadata <value> | ] [--jobDefinition <value> | ] [--jobWeight <value>]
-
-ARGUMENTS
-  AGGREGATORADDRESS  address of the aggregator in Uint8 or Base58 encoding
-
-FLAGS
-  -a, --authority=<value>       alternate keypair that is the authority for the aggregator
-  -h, --help                    Show CLI help.
-  -s, --silent                  suppress cli prompts
-  -u, --rpcUrl=<value>          alternate RPC url
-  -v, --verbose                 log everything
-  --accountName=<value>         (required) Named account to load from your nearCredentialsDir
-  --jobDefinition=<value>       filesystem path of job json definition file
-  --jobKey=<value>              public key of an existing job account to add to an aggregator
-  --jobWeight=<value>           [default: 1] job weight
-  --metadata=<value>            metadata of the job account
-  --name=<value>                name of the job account
-  --nearCredentialsDir=<value>  [default: /Users/gally/.near-credentials] Alternative directory for near credentials.
-                                Defaults to ~/.near-credentials
-  --networkId=<option>          [default: testnet] Near network ID to connect to
-                                <options: testnet|mainnet|localnet>
-  --programId=<value>           Switchboard programId on the selected Near networkId
-
-GLOBAL FLAGS
-  --json  Format output as json.
-
-DESCRIPTION
-  add a job to an aggregator
-
-ALIASES
-  $ sb near aggregator job add
-```
-
-_See code: [dist/commands/near/aggregator/add/job.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.6/dist/commands/near/aggregator/add/job.js)_
-
-## `sb near aggregator create QUEUEADDRESS`
-
-create a near aggregator for a given queue
-
-```
-USAGE
-  $ sb near aggregator create QUEUEADDRESS --accountName <value> --updateInterval <value> [-h] [-v] [-s] [--networkId
-    testnet|mainnet|localnet] [--programId <value>] [-u <value>] [--nearCredentialsDir <value>] [--json] [-a <value>]
-    [--crankAddress <value>] [--name <value>] [--metadata <value>] [--forceReportPeriod <value>] [--batchSize <value>]
-    [--minJobs <value>] [--minOracles <value>] [--varianceThreshold <value>] [--rewardEscrow <value>] [--enable]
-
-ARGUMENTS
-  QUEUEADDRESS  address of the queue in Uint8 or Base58 encoding
-
-FLAGS
-  -a, --authority=<value>       alternate named account that will be the authority for the oracle
-  -h, --help                    Show CLI help.
-  -s, --silent                  suppress cli prompts
-  -u, --rpcUrl=<value>          alternate RPC url
-  -v, --verbose                 log everything
-  --accountName=<value>         (required) Named account to load from your nearCredentialsDir
-  --batchSize=<value>           number of oracles requested for each open round call
-  --crankAddress=<value>        optional, address of the crank to add the aggregator to
-  --enable                      if required and queue authority is provided, enable permissions
-  --forceReportPeriod=<value>   Number of seconds for which, even if the variance threshold is not passed, accept new
-                                responses from oracles.
-  --metadata=<value>            metadata of the crank for easier identification
-  --minJobs=<value>             number of jobs that must respond before an oracle responds
-  --minOracles=<value>          number of oracles that must respond before a value is accepted on-chain
-  --name=<value>                name of the crank for easier identification
-  --nearCredentialsDir=<value>  [default: /Users/gally/.near-credentials] Alternative directory for near credentials.
-                                Defaults to ~/.near-credentials
-  --networkId=<option>          [default: testnet] Near network ID to connect to
-                                <options: testnet|mainnet|localnet>
-  --programId=<value>           Switchboard programId on the selected Near networkId
-  --rewardEscrow=<value>        where to send rewards. defaults to user's escrow account
-  --updateInterval=<value>      (required) set an aggregator's minimum update delay
-  --varianceThreshold=<value>   [default: 0] percentage change between a previous accepted result and the next round
-                                before an oracle reports a value on-chain. Used to conserve lease cost during low
-                                volatility
-
-GLOBAL FLAGS
-  --json  Format output as json.
-
-DESCRIPTION
-  create a near aggregator for a given queue
-
-ALIASES
-  $ sb near create aggregator
-```
-
-_See code: [dist/commands/near/aggregator/create.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.6/dist/commands/near/aggregator/create.js)_
-
-## `sb near aggregator escrow AGGREGATORADDRESS`
-
-view an aggregators escrow state
-
-```
-USAGE
-  $ sb near aggregator escrow AGGREGATORADDRESS [-h] [-v] [-s] [--networkId testnet|mainnet|localnet] [--programId <value>]
-    [-u <value>] [--nearCredentialsDir <value>]
-
-ARGUMENTS
-  AGGREGATORADDRESS  address of the aggregator in Uint8 or Base58 encoding
-
-FLAGS
-  -h, --help                    Show CLI help.
-  -s, --silent                  suppress cli prompts
-  -u, --rpcUrl=<value>          alternate RPC url
-  -v, --verbose                 log everything
-  --nearCredentialsDir=<value>  [default: /Users/gally/.near-credentials] Alternative directory for near credentials.
-                                Defaults to ~/.near-credentials
-  --networkId=<option>          [default: testnet] Near network ID to connect to
-                                <options: testnet|mainnet|localnet>
-  --programId=<value>           Switchboard programId on the selected Near networkId
-
-DESCRIPTION
-  view an aggregators escrow state
-```
-
-_See code: [dist/commands/near/aggregator/escrow.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.6/dist/commands/near/aggregator/escrow.js)_
-
-## `sb near aggregator fetch`
-
-fetch all aggregators for a given near account
-
-```
-USAGE
-  $ sb near aggregator fetch --accountId <value> [-h] [-v] [-s] [--networkId testnet|mainnet|localnet] [--programId
-    <value>] [-u <value>] [--nearCredentialsDir <value>] [--json]
-
-FLAGS
-  -h, --help                    Show CLI help.
-  -s, --silent                  suppress cli prompts
-  -u, --rpcUrl=<value>          alternate RPC url
-  -v, --verbose                 log everything
-  --accountId=<value>           (required) optional, authority to fetch aggregators for
-  --nearCredentialsDir=<value>  [default: /Users/gally/.near-credentials] Alternative directory for near credentials.
-                                Defaults to ~/.near-credentials
-  --networkId=<option>          [default: testnet] Near network ID to connect to
-                                <options: testnet|mainnet|localnet>
-  --programId=<value>           Switchboard programId on the selected Near networkId
-
-GLOBAL FLAGS
-  --json  Format output as json.
-
-DESCRIPTION
-  fetch all aggregators for a given near account
-
-ALIASES
-  $ sb near fetch aggregators
-```
-
-_See code: [dist/commands/near/aggregator/fetch.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.6/dist/commands/near/aggregator/fetch.js)_
-
-## `sb near aggregator fund AGGREGATORADDRESS`
-
-```
-USAGE
-  $ sb near aggregator fund AGGREGATORADDRESS --accountName <value> -a <value> [-h] [-v] [-s] [--networkId
-    testnet|mainnet|localnet] [--programId <value>] [-u <value>] [--nearCredentialsDir <value>] [--json]
-
-ARGUMENTS
-  AGGREGATORADDRESS  address of the aggregator in Uint8 or Base58 encoding
-
-FLAGS
-  -a, --amount=<value>          (required) amount to deposit into the aggregator's lease
-  -h, --help                    Show CLI help.
-  -s, --silent                  suppress cli prompts
-  -u, --rpcUrl=<value>          alternate RPC url
-  -v, --verbose                 log everything
-  --accountName=<value>         (required) Named account to load from your nearCredentialsDir
-  --nearCredentialsDir=<value>  [default: /Users/gally/.near-credentials] Alternative directory for near credentials.
-                                Defaults to ~/.near-credentials
-  --networkId=<option>          [default: testnet] Near network ID to connect to
-                                <options: testnet|mainnet|localnet>
-  --programId=<value>           Switchboard programId on the selected Near networkId
-
-GLOBAL FLAGS
-  --json  Format output as json.
-
-ALIASES
-  $ sb near fund aggregator
-```
-
-_See code: [dist/commands/near/aggregator/fund.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.6/dist/commands/near/aggregator/fund.js)_
-
-## `sb near aggregator history add AGGREGATORADDRESS`
-
-add rows to a history vector
-
-```
-USAGE
-  $ sb near aggregator history add AGGREGATORADDRESS --accountName <value> [-h] [-v] [-s] [--networkId testnet|mainnet|localnet]
-    [--programId <value>] [-u <value>] [--nearCredentialsDir <value>] [--json] [--numRows <value>]
-
-ARGUMENTS
-  AGGREGATORADDRESS  address of the aggregator in Uint8 or Base58 encoding
-
-FLAGS
-  -h, --help                    Show CLI help.
-  -s, --silent                  suppress cli prompts
-  -u, --rpcUrl=<value>          alternate RPC url
-  -v, --verbose                 log everything
-  --accountName=<value>         (required) Named account to load from your nearCredentialsDir
-  --nearCredentialsDir=<value>  [default: /Users/gally/.near-credentials] Alternative directory for near credentials.
-                                Defaults to ~/.near-credentials
-  --networkId=<option>          [default: testnet] Near network ID to connect to
-                                <options: testnet|mainnet|localnet>
-  --numRows=<value>             [default: 1000] number of rows to add to the aggregator
-  --programId=<value>           Switchboard programId on the selected Near networkId
-
-GLOBAL FLAGS
-  --json  Format output as json.
-
-DESCRIPTION
-  add rows to a history vector
-
-ALIASES
-  $ sb near aggregator history add
-```
-
-## `sb near aggregator job add AGGREGATORADDRESS`
-
-add a job to an aggregator
-
-```
-USAGE
-  $ sb near aggregator job add AGGREGATORADDRESS --accountName <value> [-h] [-v] [-s] [--networkId testnet|mainnet|localnet]
-    [--programId <value>] [-u <value>] [--nearCredentialsDir <value>] [--json] [-a <value>] [--name <value> | --jobKey
-    <value>] [--metadata <value> | ] [--jobDefinition <value> | ] [--jobWeight <value>]
-
-ARGUMENTS
-  AGGREGATORADDRESS  address of the aggregator in Uint8 or Base58 encoding
-
-FLAGS
-  -a, --authority=<value>       alternate keypair that is the authority for the aggregator
-  -h, --help                    Show CLI help.
-  -s, --silent                  suppress cli prompts
-  -u, --rpcUrl=<value>          alternate RPC url
-  -v, --verbose                 log everything
-  --accountName=<value>         (required) Named account to load from your nearCredentialsDir
-  --jobDefinition=<value>       filesystem path of job json definition file
-  --jobKey=<value>              public key of an existing job account to add to an aggregator
-  --jobWeight=<value>           [default: 1] job weight
-  --metadata=<value>            metadata of the job account
-  --name=<value>                name of the job account
-  --nearCredentialsDir=<value>  [default: /Users/gally/.near-credentials] Alternative directory for near credentials.
-                                Defaults to ~/.near-credentials
-  --networkId=<option>          [default: testnet] Near network ID to connect to
-                                <options: testnet|mainnet|localnet>
-  --programId=<value>           Switchboard programId on the selected Near networkId
-
-GLOBAL FLAGS
-  --json  Format output as json.
-
-DESCRIPTION
-  add a job to an aggregator
-
-ALIASES
-  $ sb near aggregator job add
-```
-
-## `sb near aggregator job remove AGGREGATORADDRESS`
-
-remove a job to an aggregator
-
-```
-USAGE
-  $ sb near aggregator job remove AGGREGATORADDRESS --accountName <value> [-h] [-v] [-s] [--networkId testnet|mainnet|localnet]
-    [--programId <value>] [-u <value>] [--nearCredentialsDir <value>] [--json] [-a <value>] [-j <value>]
-
-ARGUMENTS
-  AGGREGATORADDRESS  address of the aggregator in Uint8 or Base58 encoding
-
-FLAGS
-  -a, --authority=<value>       alternate keypair that is the authority for the aggregator
-  -h, --help                    Show CLI help.
-  -j, --jobAddress=<value>...   public key of an existing job account to remove from an aggregator
-  -s, --silent                  suppress cli prompts
-  -u, --rpcUrl=<value>          alternate RPC url
-  -v, --verbose                 log everything
-  --accountName=<value>         (required) Named account to load from your nearCredentialsDir
-  --nearCredentialsDir=<value>  [default: /Users/gally/.near-credentials] Alternative directory for near credentials.
-                                Defaults to ~/.near-credentials
-  --networkId=<option>          [default: testnet] Near network ID to connect to
-                                <options: testnet|mainnet|localnet>
-  --programId=<value>           Switchboard programId on the selected Near networkId
-
-GLOBAL FLAGS
-  --json  Format output as json.
-
-DESCRIPTION
-  remove a job to an aggregator
-
-ALIASES
-  $ sb near aggregator job remove
-```
-
-## `sb near aggregator permission create AGGREGATORADDRESS`
-
-create a permission account for a near aggregator
-
-```
-USAGE
-  $ sb near aggregator permission create AGGREGATORADDRESS --accountName <value> [-h] [-v] [-s] [--networkId testnet|mainnet|localnet]
-    [--programId <value>] [-u <value>] [--nearCredentialsDir <value>] [--json]
-
-ARGUMENTS
-  AGGREGATORADDRESS  address of the aggregator in Uint8 or Base58 encoding
-
-FLAGS
-  -h, --help                    Show CLI help.
-  -s, --silent                  suppress cli prompts
-  -u, --rpcUrl=<value>          alternate RPC url
-  -v, --verbose                 log everything
-  --accountName=<value>         (required) Named account to load from your nearCredentialsDir
-  --nearCredentialsDir=<value>  [default: /Users/gally/.near-credentials] Alternative directory for near credentials.
-                                Defaults to ~/.near-credentials
-  --networkId=<option>          [default: testnet] Near network ID to connect to
-                                <options: testnet|mainnet|localnet>
-  --programId=<value>           Switchboard programId on the selected Near networkId
-
-GLOBAL FLAGS
-  --json  Format output as json.
-
-DESCRIPTION
-  create a permission account for a near aggregator
-
-ALIASES
-  $ sb near create aggregator permission
-```
-
-_See code: [dist/commands/near/aggregator/permission/create.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.6/dist/commands/near/aggregator/permission/create.js)_
-
-## `sb near aggregator remove job AGGREGATORADDRESS`
-
-remove a job to an aggregator
-
-```
-USAGE
-  $ sb near aggregator remove job AGGREGATORADDRESS --accountName <value> [-h] [-v] [-s] [--networkId testnet|mainnet|localnet]
-    [--programId <value>] [-u <value>] [--nearCredentialsDir <value>] [--json] [-a <value>] [-j <value>]
-
-ARGUMENTS
-  AGGREGATORADDRESS  address of the aggregator in Uint8 or Base58 encoding
-
-FLAGS
-  -a, --authority=<value>       alternate keypair that is the authority for the aggregator
-  -h, --help                    Show CLI help.
-  -j, --jobAddress=<value>...   public key of an existing job account to remove from an aggregator
-  -s, --silent                  suppress cli prompts
-  -u, --rpcUrl=<value>          alternate RPC url
-  -v, --verbose                 log everything
-  --accountName=<value>         (required) Named account to load from your nearCredentialsDir
-  --nearCredentialsDir=<value>  [default: /Users/gally/.near-credentials] Alternative directory for near credentials.
-                                Defaults to ~/.near-credentials
-  --networkId=<option>          [default: testnet] Near network ID to connect to
-                                <options: testnet|mainnet|localnet>
-  --programId=<value>           Switchboard programId on the selected Near networkId
-
-GLOBAL FLAGS
-  --json  Format output as json.
-
-DESCRIPTION
-  remove a job to an aggregator
-
-ALIASES
-  $ sb near aggregator job remove
-```
-
-_See code: [dist/commands/near/aggregator/remove/job.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.6/dist/commands/near/aggregator/remove/job.js)_
-
-## `sb near aggregator set AGGREGATORADDRESS`
-
-set a near aggregator's config
-
-```
-USAGE
-  $ sb near aggregator set AGGREGATORADDRESS --accountName <value> [-h] [-v] [-s] [--networkId testnet|mainnet|localnet]
-    [--programId <value>] [-u <value>] [--nearCredentialsDir <value>] [--json] [-a <value>] [--crankAddress <value>]
-    [--queueAddress <value>] [--name <value>] [--metadata <value>] [--forceReportPeriod <value>] [--batchSize <value>]
-    [--minJobs <value>] [--minOracles <value>] [--updateInterval <value>] [--varianceThreshold <value>]
-
-ARGUMENTS
-  AGGREGATORADDRESS  address of the aggregator in Uint8 or Base58 encoding
-
-FLAGS
-  -a, --authority=<value>       alternate named account that will be the authority for the oracle
-  -h, --help                    Show CLI help.
-  -s, --silent                  suppress cli prompts
-  -u, --rpcUrl=<value>          alternate RPC url
-  -v, --verbose                 log everything
-  --accountName=<value>         (required) Named account to load from your nearCredentialsDir
-  --batchSize=<value>           number of oracles requested for each open round call
-  --crankAddress=<value>        optional, address of the crank to add the aggregator to
-  --forceReportPeriod=<value>   Number of seconds for which, even if the variance threshold is not passed, accept new
-                                responses from oracles.
-  --metadata=<value>            metadata of the crank for easier identification
-  --minJobs=<value>             number of jobs that must respond before an oracle responds
-  --minOracles=<value>          number of oracles that must respond before a value is accepted on-chain
-  --name=<value>                name of the crank for easier identification
-  --nearCredentialsDir=<value>  [default: /Users/gally/.near-credentials] Alternative directory for near credentials.
-                                Defaults to ~/.near-credentials
-  --networkId=<option>          [default: testnet] Near network ID to connect to
-                                <options: testnet|mainnet|localnet>
-  --programId=<value>           Switchboard programId on the selected Near networkId
-  --queueAddress=<value>        optional, address of the new queue to add the aggregator to
-  --updateInterval=<value>      set an aggregator's minimum update delay
-  --varianceThreshold=<value>   percentage change between a previous accepted result and the next round before an oracle
-                                reports a value on-chain. Used to conserve lease cost during low volatility
-
-GLOBAL FLAGS
-  --json  Format output as json.
-
-DESCRIPTION
-  set a near aggregator's config
-
-ALIASES
-  $ sb near set aggregator
-```
-
-_See code: [dist/commands/near/aggregator/set.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.6/dist/commands/near/aggregator/set.js)_
-
-## `sb near aggregator update AGGREGATORADDRESS`
-
-request a new value on-chain for an aggregator
-
-```
-USAGE
-  $ sb near aggregator update AGGREGATORADDRESS --accountName <value> [-h] [-v] [-s] [--networkId testnet|mainnet|localnet]
-    [--programId <value>] [-u <value>] [--nearCredentialsDir <value>] [--json]
-
-ARGUMENTS
-  AGGREGATORADDRESS  address of the aggregator in Uint8 or Base58 encoding
-
-FLAGS
-  -h, --help                    Show CLI help.
-  -s, --silent                  suppress cli prompts
-  -u, --rpcUrl=<value>          alternate RPC url
-  -v, --verbose                 log everything
-  --accountName=<value>         (required) Named account to load from your nearCredentialsDir
-  --nearCredentialsDir=<value>  [default: /Users/gally/.near-credentials] Alternative directory for near credentials.
-                                Defaults to ~/.near-credentials
-  --networkId=<option>          [default: testnet] Near network ID to connect to
-                                <options: testnet|mainnet|localnet>
-  --programId=<value>           Switchboard programId on the selected Near networkId
-
-GLOBAL FLAGS
-  --json  Format output as json.
-
-DESCRIPTION
-  request a new value on-chain for an aggregator
-
-ALIASES
-  $ sb near update aggregator
-```
-
-_See code: [dist/commands/near/aggregator/update.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.6/dist/commands/near/aggregator/update.js)_
-
-## `sb near crank create QUEUEADDRESS`
-
-create a new crank
-
-```
-USAGE
-  $ sb near crank create QUEUEADDRESS --accountName <value> [-h] [-v] [-s] [--networkId testnet|mainnet|localnet]
-    [--programId <value>] [-u <value>] [--nearCredentialsDir <value>] [--json] [--name <value>] [--metadata <value>]
-    [--maxRows <value>]
-
-ARGUMENTS
-  QUEUEADDRESS  address of the queue in Uint8 or Base58 encoding
-
-FLAGS
-  -h, --help                    Show CLI help.
-  -s, --silent                  suppress cli prompts
-  -u, --rpcUrl=<value>          alternate RPC url
-  -v, --verbose                 log everything
-  --accountName=<value>         (required) Named account to load from your nearCredentialsDir
-  --maxRows=<value>             [default: 100] maximum number of rows on the crank
-  --metadata=<value>            metadata of the crank for easier identification
-  --name=<value>                name of the crank for easier identification
-  --nearCredentialsDir=<value>  [default: /Users/gally/.near-credentials] Alternative directory for near credentials.
-                                Defaults to ~/.near-credentials
-  --networkId=<option>          [default: testnet] Near network ID to connect to
-                                <options: testnet|mainnet|localnet>
-  --programId=<value>           Switchboard programId on the selected Near networkId
-
-GLOBAL FLAGS
-  --json  Format output as json.
-
-DESCRIPTION
-  create a new crank
-
-ALIASES
-  $ sb near create crank
-```
-
-_See code: [dist/commands/near/crank/create.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.6/dist/commands/near/crank/create.js)_
-
-## `sb near crank list CRANKADDRESS`
-
-pop the crank
-
-```
-USAGE
-  $ sb near crank list CRANKADDRESS [-h] [-v] [-s] [--networkId testnet|mainnet|localnet] [--programId <value>] [-u
-    <value>] [--nearCredentialsDir <value>]
-
-ARGUMENTS
-  CRANKADDRESS  address of the crank in Uint8 or Base58 encoding
-
-FLAGS
-  -h, --help                    Show CLI help.
-  -s, --silent                  suppress cli prompts
-  -u, --rpcUrl=<value>          alternate RPC url
-  -v, --verbose                 log everything
-  --nearCredentialsDir=<value>  [default: /Users/gally/.near-credentials] Alternative directory for near credentials.
-                                Defaults to ~/.near-credentials
-  --networkId=<option>          [default: testnet] Near network ID to connect to
-                                <options: testnet|mainnet|localnet>
-  --programId=<value>           Switchboard programId on the selected Near networkId
-
-DESCRIPTION
-  pop the crank
-
-ALIASES
-  $ sb near pop crank
-```
-
-_See code: [dist/commands/near/crank/list.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.6/dist/commands/near/crank/list.js)_
-
-## `sb near crank pop CRANKADDRESS`
-
-pop the crank
-
-```
-USAGE
-  $ sb near crank pop CRANKADDRESS --accountName <value> [-h] [-v] [-s] [--networkId testnet|mainnet|localnet]
-    [--programId <value>] [-u <value>] [--nearCredentialsDir <value>] [--json]
-
-ARGUMENTS
-  CRANKADDRESS  address of the crank in Uint8 or Base58 encoding
-
-FLAGS
-  -h, --help                    Show CLI help.
-  -s, --silent                  suppress cli prompts
-  -u, --rpcUrl=<value>          alternate RPC url
-  -v, --verbose                 log everything
-  --accountName=<value>         (required) Named account to load from your nearCredentialsDir
-  --nearCredentialsDir=<value>  [default: /Users/gally/.near-credentials] Alternative directory for near credentials.
-                                Defaults to ~/.near-credentials
-  --networkId=<option>          [default: testnet] Near network ID to connect to
-                                <options: testnet|mainnet|localnet>
-  --programId=<value>           Switchboard programId on the selected Near networkId
-
-GLOBAL FLAGS
-  --json  Format output as json.
-
-DESCRIPTION
-  pop the crank
-
-ALIASES
-  $ sb near pop crank
-```
-
-_See code: [dist/commands/near/crank/pop.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.6/dist/commands/near/crank/pop.js)_
-
-## `sb near crank push CRANKADDRESS`
-
-push an aggregator onto the crank
-
-```
-USAGE
-  $ sb near crank push CRANKADDRESS --accountName <value> -a <value> [-h] [-v] [-s] [--networkId
-    testnet|mainnet|localnet] [--programId <value>] [-u <value>] [--nearCredentialsDir <value>] [--json]
-
-ARGUMENTS
-  CRANKADDRESS  address of the crank in Uint8 or Base58 encoding
-
-FLAGS
-  -a, --aggregatorAddress=<value>  (required) address of the aggregator in Uint8 or Base58 encoding
-  -h, --help                       Show CLI help.
-  -s, --silent                     suppress cli prompts
-  -u, --rpcUrl=<value>             alternate RPC url
-  -v, --verbose                    log everything
-  --accountName=<value>            (required) Named account to load from your nearCredentialsDir
-  --nearCredentialsDir=<value>     [default: /Users/gally/.near-credentials] Alternative directory for near credentials.
-                                   Defaults to ~/.near-credentials
-  --networkId=<option>             [default: testnet] Near network ID to connect to
-                                   <options: testnet|mainnet|localnet>
-  --programId=<value>              Switchboard programId on the selected Near networkId
-
-GLOBAL FLAGS
-  --json  Format output as json.
-
-DESCRIPTION
-  push an aggregator onto the crank
-
-ALIASES
-  $ sb near push crank
-```
-
-_See code: [dist/commands/near/crank/push.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.6/dist/commands/near/crank/push.js)_
-
-## `sb near create aggregator QUEUEADDRESS`
-
-create a near aggregator for a given queue
-
-```
-USAGE
-  $ sb near create aggregator QUEUEADDRESS --accountName <value> --updateInterval <value> [-h] [-v] [-s] [--networkId
-    testnet|mainnet|localnet] [--programId <value>] [-u <value>] [--nearCredentialsDir <value>] [--json] [-a <value>]
-    [--crankAddress <value>] [--name <value>] [--metadata <value>] [--forceReportPeriod <value>] [--batchSize <value>]
-    [--minJobs <value>] [--minOracles <value>] [--varianceThreshold <value>] [--rewardEscrow <value>] [--enable]
-
-ARGUMENTS
-  QUEUEADDRESS  address of the queue in Uint8 or Base58 encoding
-
-FLAGS
-  -a, --authority=<value>       alternate named account that will be the authority for the oracle
-  -h, --help                    Show CLI help.
-  -s, --silent                  suppress cli prompts
-  -u, --rpcUrl=<value>          alternate RPC url
-  -v, --verbose                 log everything
-  --accountName=<value>         (required) Named account to load from your nearCredentialsDir
-  --batchSize=<value>           number of oracles requested for each open round call
-  --crankAddress=<value>        optional, address of the crank to add the aggregator to
-  --enable                      if required and queue authority is provided, enable permissions
-  --forceReportPeriod=<value>   Number of seconds for which, even if the variance threshold is not passed, accept new
-                                responses from oracles.
-  --metadata=<value>            metadata of the crank for easier identification
-  --minJobs=<value>             number of jobs that must respond before an oracle responds
-  --minOracles=<value>          number of oracles that must respond before a value is accepted on-chain
-  --name=<value>                name of the crank for easier identification
-  --nearCredentialsDir=<value>  [default: /Users/gally/.near-credentials] Alternative directory for near credentials.
-                                Defaults to ~/.near-credentials
-  --networkId=<option>          [default: testnet] Near network ID to connect to
-                                <options: testnet|mainnet|localnet>
-  --programId=<value>           Switchboard programId on the selected Near networkId
-  --rewardEscrow=<value>        where to send rewards. defaults to user's escrow account
-  --updateInterval=<value>      (required) set an aggregator's minimum update delay
-  --varianceThreshold=<value>   [default: 0] percentage change between a previous accepted result and the next round
-                                before an oracle reports a value on-chain. Used to conserve lease cost during low
-                                volatility
-
-GLOBAL FLAGS
-  --json  Format output as json.
-
-DESCRIPTION
-  create a near aggregator for a given queue
-
-ALIASES
-  $ sb near create aggregator
-```
-
-## `sb near create aggregator permission AGGREGATORADDRESS`
-
-create a permission account for a near aggregator
-
-```
-USAGE
-  $ sb near create aggregator permission AGGREGATORADDRESS --accountName <value> [-h] [-v] [-s] [--networkId testnet|mainnet|localnet]
-    [--programId <value>] [-u <value>] [--nearCredentialsDir <value>] [--json]
-
-ARGUMENTS
-  AGGREGATORADDRESS  address of the aggregator in Uint8 or Base58 encoding
-
-FLAGS
-  -h, --help                    Show CLI help.
-  -s, --silent                  suppress cli prompts
-  -u, --rpcUrl=<value>          alternate RPC url
-  -v, --verbose                 log everything
-  --accountName=<value>         (required) Named account to load from your nearCredentialsDir
-  --nearCredentialsDir=<value>  [default: /Users/gally/.near-credentials] Alternative directory for near credentials.
-                                Defaults to ~/.near-credentials
-  --networkId=<option>          [default: testnet] Near network ID to connect to
-                                <options: testnet|mainnet|localnet>
-  --programId=<value>           Switchboard programId on the selected Near networkId
-
-GLOBAL FLAGS
-  --json  Format output as json.
-
-DESCRIPTION
-  create a permission account for a near aggregator
-
-ALIASES
-  $ sb near create aggregator permission
-```
-
-## `sb near create crank QUEUEADDRESS`
-
-create a new crank
-
-```
-USAGE
-  $ sb near create crank QUEUEADDRESS --accountName <value> [-h] [-v] [-s] [--networkId testnet|mainnet|localnet]
-    [--programId <value>] [-u <value>] [--nearCredentialsDir <value>] [--json] [--name <value>] [--metadata <value>]
-    [--maxRows <value>]
-
-ARGUMENTS
-  QUEUEADDRESS  address of the queue in Uint8 or Base58 encoding
-
-FLAGS
-  -h, --help                    Show CLI help.
-  -s, --silent                  suppress cli prompts
-  -u, --rpcUrl=<value>          alternate RPC url
-  -v, --verbose                 log everything
-  --accountName=<value>         (required) Named account to load from your nearCredentialsDir
-  --maxRows=<value>             [default: 100] maximum number of rows on the crank
-  --metadata=<value>            metadata of the crank for easier identification
-  --name=<value>                name of the crank for easier identification
-  --nearCredentialsDir=<value>  [default: /Users/gally/.near-credentials] Alternative directory for near credentials.
-                                Defaults to ~/.near-credentials
-  --networkId=<option>          [default: testnet] Near network ID to connect to
-                                <options: testnet|mainnet|localnet>
-  --programId=<value>           Switchboard programId on the selected Near networkId
-
-GLOBAL FLAGS
-  --json  Format output as json.
-
-DESCRIPTION
-  create a new crank
-
-ALIASES
-  $ sb near create crank
-```
-
-## `sb near create escrow`
-
-create an escrow token account
-
-```
-USAGE
-  $ sb near create escrow --accountName <value> [-h] [-v] [-s] [--networkId testnet|mainnet|localnet] [--programId
-    <value>] [-u <value>] [--nearCredentialsDir <value>] [--json] [-a <value>] [--mint <value>]
-
-FLAGS
-  -a, --authority=<value>       alternate named account that will be the authority for the oracle
-  -h, --help                    Show CLI help.
-  -s, --silent                  suppress cli prompts
-  -u, --rpcUrl=<value>          alternate RPC url
-  -v, --verbose                 log everything
-  --accountName=<value>         (required) Named account to load from your nearCredentialsDir
-  --mint=<value>                [default: wrap.test] token mint to create escrow account for
-  --nearCredentialsDir=<value>  [default: /Users/gally/.near-credentials] Alternative directory for near credentials.
-                                Defaults to ~/.near-credentials
-  --networkId=<option>          [default: testnet] Near network ID to connect to
-                                <options: testnet|mainnet|localnet>
-  --programId=<value>           Switchboard programId on the selected Near networkId
-
-GLOBAL FLAGS
-  --json  Format output as json.
-
-DESCRIPTION
-  create an escrow token account
-
-ALIASES
-  $ sb near create escrow
-```
-
-## `sb near create job JOBDEFINITION`
-
-create a job on near
-
-```
-USAGE
-  $ sb near create job JOBDEFINITION --accountName <value> [-h] [-v] [-s] [--networkId testnet|mainnet|localnet]
-    [--programId <value>] [-u <value>] [--nearCredentialsDir <value>] [--json] [-a <value>] [--name <value>] [--metadata
-    <value>]
-
-ARGUMENTS
-  JOBDEFINITION  filesystem path to job definition
-
-FLAGS
-  -a, --authority=<value>       alternate named account that will be the authority for the job account
-  -h, --help                    Show CLI help.
-  -s, --silent                  suppress cli prompts
-  -u, --rpcUrl=<value>          alternate RPC url
-  -v, --verbose                 log everything
-  --accountName=<value>         (required) Named account to load from your nearCredentialsDir
-  --metadata=<value>            metadata of the job for easier identification
-  --name=<value>                name of the job for easier identification
-  --nearCredentialsDir=<value>  [default: /Users/gally/.near-credentials] Alternative directory for near credentials.
-                                Defaults to ~/.near-credentials
-  --networkId=<option>          [default: testnet] Near network ID to connect to
-                                <options: testnet|mainnet|localnet>
-  --programId=<value>           Switchboard programId on the selected Near networkId
-
-GLOBAL FLAGS
-  --json  Format output as json.
-
-DESCRIPTION
-  create a job on near
-
-ALIASES
-  $ sb near create job
-```
-
-## `sb near create oracle QUEUEADDRESS`
-
-create a near oracle for a given queue
-
-```
-USAGE
-  $ sb near create oracle QUEUEADDRESS --accountName <value> [-h] [-v] [-s] [--networkId testnet|mainnet|localnet]
-    [--programId <value>] [-u <value>] [--nearCredentialsDir <value>] [--json] [-a <value>] [--name <value>] [--metadata
-    <value>]
-
-ARGUMENTS
-  QUEUEADDRESS  address of the queue in Uint8 or Base58 encoding
-
-FLAGS
-  -a, --authority=<value>       alternate named account that will be the authority for the oracle
-  -h, --help                    Show CLI help.
-  -s, --silent                  suppress cli prompts
-  -u, --rpcUrl=<value>          alternate RPC url
-  -v, --verbose                 log everything
-  --accountName=<value>         (required) Named account to load from your nearCredentialsDir
-  --metadata=<value>            metadata of the oracle for easier identification
-  --name=<value>                name of the oracle for easier identification
-  --nearCredentialsDir=<value>  [default: /Users/gally/.near-credentials] Alternative directory for near credentials.
-                                Defaults to ~/.near-credentials
-  --networkId=<option>          [default: testnet] Near network ID to connect to
-                                <options: testnet|mainnet|localnet>
-  --programId=<value>           Switchboard programId on the selected Near networkId
-
-GLOBAL FLAGS
-  --json  Format output as json.
-
-DESCRIPTION
-  create a near oracle for a given queue
-
-ALIASES
-  $ sb near create oracle
-```
-
-## `sb near create oracle permission`
-
-create a permission account
-
-```
-USAGE
-  $ sb near create oracle permission --accountName <value> --granter <value> --grantee <value> [-h] [-v] [-s] [--networkId
-    testnet|mainnet|localnet] [--programId <value>] [-u <value>] [--nearCredentialsDir <value>] [--json] [-a <value>]
-    [--enable]
-
-FLAGS
-  -a, --authority=<value>       alternate account that is the granters authority
-  -h, --help                    Show CLI help.
-  -s, --silent                  suppress cli prompts
-  -u, --rpcUrl=<value>          alternate RPC url
-  -v, --verbose                 log everything
-  --accountName=<value>         (required) Named account to load from your nearCredentialsDir
-  --enable                      enable permissions
-  --grantee=<value>             (required) account that will be granted permissions, typically an Oracle or Aggregator
-  --granter=<value>             (required) account that will grant permissions, typically the OracleQueue
-  --nearCredentialsDir=<value>  [default: /Users/gally/.near-credentials] Alternative directory for near credentials.
-                                Defaults to ~/.near-credentials
-  --networkId=<option>          [default: testnet] Near network ID to connect to
-                                <options: testnet|mainnet|localnet>
-  --programId=<value>           Switchboard programId on the selected Near networkId
-
-GLOBAL FLAGS
-  --json  Format output as json.
-
-DESCRIPTION
-  create a permission account
-
-ALIASES
-  $ sb near create oracle permission
-```
-
-## `sb near create queue`
-
-create a new oracle queue
-
-```
-USAGE
-  $ sb near create queue --accountName <value> [-h] [-v] [-s] [--networkId testnet|mainnet|localnet] [--programId
-    <value>] [-u <value>] [--nearCredentialsDir <value>] [--json] [-a <value>] [--name <value>] [--metadata <value>]
-    [--minStake <value>] [-r <value>] [--oracleTimeout <value>] [--queueSize <value>] [--slashingEnabled]
-    [--unpermissionedFeeds] [--unpermissionedVrf] [--enableBufferRelayers]
-
-FLAGS
-  -a, --authority=<value>       alternate named account that will be the authority for the queue
-  -h, --help                    Show CLI help.
-  -r, --reward=<value>          [default: 0] oracle rewards for successfully responding to an update request
-  -s, --silent                  suppress cli prompts
-  -u, --rpcUrl=<value>          alternate RPC url
-  -v, --verbose                 log everything
-  --accountName=<value>         (required) Named account to load from your nearCredentialsDir
-  --enableBufferRelayers        enable oracles to fulfill buffer relayer requests
-  --metadata=<value>            metadata of the queue for easier identification
-  --minStake=<value>            [default: 0] minimum stake required by an oracle to join the queue
-  --name=<value>                name of the queue for easier identification
-  --nearCredentialsDir=<value>  [default: /Users/gally/.near-credentials] Alternative directory for near credentials.
-                                Defaults to ~/.near-credentials
-  --networkId=<option>          [default: testnet] Near network ID to connect to
-                                <options: testnet|mainnet|localnet>
-  --oracleTimeout=<value>       [default: 180] number of oracles to add to the queue
-  --programId=<value>           Switchboard programId on the selected Near networkId
-  --queueSize=<value>           [default: 100] maximum number of oracles the queue can support
-  --slashingEnabled             permit slashing malicous oracles
-  --unpermissionedFeeds         permit unpermissioned feeds
-  --unpermissionedVrf           permit unpermissioned VRF accounts
-
-GLOBAL FLAGS
-  --json  Format output as json.
-
-DESCRIPTION
-  create a new oracle queue
-
-ALIASES
-  $ sb near create queue
-```
-
-## `sb near escrow create`
-
-create an escrow token account
-
-```
-USAGE
-  $ sb near escrow create --accountName <value> [-h] [-v] [-s] [--networkId testnet|mainnet|localnet] [--programId
-    <value>] [-u <value>] [--nearCredentialsDir <value>] [--json] [-a <value>] [--mint <value>]
-
-FLAGS
-  -a, --authority=<value>       alternate named account that will be the authority for the oracle
-  -h, --help                    Show CLI help.
-  -s, --silent                  suppress cli prompts
-  -u, --rpcUrl=<value>          alternate RPC url
-  -v, --verbose                 log everything
-  --accountName=<value>         (required) Named account to load from your nearCredentialsDir
-  --mint=<value>                [default: wrap.test] token mint to create escrow account for
-  --nearCredentialsDir=<value>  [default: /Users/gally/.near-credentials] Alternative directory for near credentials.
-                                Defaults to ~/.near-credentials
-  --networkId=<option>          [default: testnet] Near network ID to connect to
-                                <options: testnet|mainnet|localnet>
-  --programId=<value>           Switchboard programId on the selected Near networkId
-
-GLOBAL FLAGS
-  --json  Format output as json.
-
-DESCRIPTION
-  create an escrow token account
-
-ALIASES
-  $ sb near create escrow
-```
-
-_See code: [dist/commands/near/escrow/create.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.6/dist/commands/near/escrow/create.js)_
-
-## `sb near escrow print`
-
-print an escrow token account
-
-```
-USAGE
-  $ sb near escrow print --accountName <value> [-h] [-v] [-s] [--networkId testnet|mainnet|localnet] [--programId
-    <value>] [-u <value>] [--nearCredentialsDir <value>] [--json]
-
-FLAGS
-  -h, --help                    Show CLI help.
-  -s, --silent                  suppress cli prompts
-  -u, --rpcUrl=<value>          alternate RPC url
-  -v, --verbose                 log everything
-  --accountName=<value>         (required) Named account to load from your nearCredentialsDir
-  --nearCredentialsDir=<value>  [default: /Users/gally/.near-credentials] Alternative directory for near credentials.
-                                Defaults to ~/.near-credentials
-  --networkId=<option>          [default: testnet] Near network ID to connect to
-                                <options: testnet|mainnet|localnet>
-  --programId=<value>           Switchboard programId on the selected Near networkId
-
-GLOBAL FLAGS
-  --json  Format output as json.
-
-DESCRIPTION
-  print an escrow token account
-
-ALIASES
-  $ sb near print escrow
-```
-
-_See code: [dist/commands/near/escrow/print.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.6/dist/commands/near/escrow/print.js)_
-
-## `sb near fetch aggregators`
-
-fetch all aggregators for a given near account
-
-```
-USAGE
-  $ sb near fetch aggregators --accountId <value> [-h] [-v] [-s] [--networkId testnet|mainnet|localnet] [--programId
-    <value>] [-u <value>] [--nearCredentialsDir <value>] [--json]
-
-FLAGS
-  -h, --help                    Show CLI help.
-  -s, --silent                  suppress cli prompts
-  -u, --rpcUrl=<value>          alternate RPC url
-  -v, --verbose                 log everything
-  --accountId=<value>           (required) optional, authority to fetch aggregators for
-  --nearCredentialsDir=<value>  [default: /Users/gally/.near-credentials] Alternative directory for near credentials.
-                                Defaults to ~/.near-credentials
-  --networkId=<option>          [default: testnet] Near network ID to connect to
-                                <options: testnet|mainnet|localnet>
-  --programId=<value>           Switchboard programId on the selected Near networkId
-
-GLOBAL FLAGS
-  --json  Format output as json.
-
-DESCRIPTION
-  fetch all aggregators for a given near account
-
-ALIASES
-  $ sb near fetch aggregators
-```
-
-## `sb near fund aggregator AGGREGATORADDRESS`
-
-```
-USAGE
-  $ sb near fund aggregator AGGREGATORADDRESS --accountName <value> -a <value> [-h] [-v] [-s] [--networkId
-    testnet|mainnet|localnet] [--programId <value>] [-u <value>] [--nearCredentialsDir <value>] [--json]
-
-ARGUMENTS
-  AGGREGATORADDRESS  address of the aggregator in Uint8 or Base58 encoding
-
-FLAGS
-  -a, --amount=<value>          (required) amount to deposit into the aggregator's lease
-  -h, --help                    Show CLI help.
-  -s, --silent                  suppress cli prompts
-  -u, --rpcUrl=<value>          alternate RPC url
-  -v, --verbose                 log everything
-  --accountName=<value>         (required) Named account to load from your nearCredentialsDir
-  --nearCredentialsDir=<value>  [default: /Users/gally/.near-credentials] Alternative directory for near credentials.
-                                Defaults to ~/.near-credentials
-  --networkId=<option>          [default: testnet] Near network ID to connect to
-                                <options: testnet|mainnet|localnet>
-  --programId=<value>           Switchboard programId on the selected Near networkId
-
-GLOBAL FLAGS
-  --json  Format output as json.
-
-ALIASES
-  $ sb near fund aggregator
-```
-
-## `sb near job create JOBDEFINITION`
-
-create a job on near
-
-```
-USAGE
-  $ sb near job create JOBDEFINITION --accountName <value> [-h] [-v] [-s] [--networkId testnet|mainnet|localnet]
-    [--programId <value>] [-u <value>] [--nearCredentialsDir <value>] [--json] [-a <value>] [--name <value>] [--metadata
-    <value>]
-
-ARGUMENTS
-  JOBDEFINITION  filesystem path to job definition
-
-FLAGS
-  -a, --authority=<value>       alternate named account that will be the authority for the job account
-  -h, --help                    Show CLI help.
-  -s, --silent                  suppress cli prompts
-  -u, --rpcUrl=<value>          alternate RPC url
-  -v, --verbose                 log everything
-  --accountName=<value>         (required) Named account to load from your nearCredentialsDir
-  --metadata=<value>            metadata of the job for easier identification
-  --name=<value>                name of the job for easier identification
-  --nearCredentialsDir=<value>  [default: /Users/gally/.near-credentials] Alternative directory for near credentials.
-                                Defaults to ~/.near-credentials
-  --networkId=<option>          [default: testnet] Near network ID to connect to
-                                <options: testnet|mainnet|localnet>
-  --programId=<value>           Switchboard programId on the selected Near networkId
-
-GLOBAL FLAGS
-  --json  Format output as json.
-
-DESCRIPTION
-  create a job on near
-
-ALIASES
-  $ sb near create job
-```
-
-_See code: [dist/commands/near/job/create.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.6/dist/commands/near/job/create.js)_
-
-## `sb near list queue QUEUEADDRESS`
-
-list aggregators for a given queue
-
-```
-USAGE
-  $ sb near list queue QUEUEADDRESS [-h] [-v] [-s] [--networkId testnet|mainnet|localnet] [--programId <value>] [-u
-    <value>] [--nearCredentialsDir <value>] [--json]
-
-ARGUMENTS
-  QUEUEADDRESS  address of the queue in Uint8 or Base58 encoding
-
-FLAGS
-  -h, --help                    Show CLI help.
-  -s, --silent                  suppress cli prompts
-  -u, --rpcUrl=<value>          alternate RPC url
-  -v, --verbose                 log everything
-  --nearCredentialsDir=<value>  [default: /Users/gally/.near-credentials] Alternative directory for near credentials.
-                                Defaults to ~/.near-credentials
-  --networkId=<option>          [default: testnet] Near network ID to connect to
-                                <options: testnet|mainnet|localnet>
-  --programId=<value>           Switchboard programId on the selected Near networkId
-
-GLOBAL FLAGS
-  --json  Format output as json.
-
-DESCRIPTION
-  list aggregators for a given queue
-
-ALIASES
-  $ sb near list queue
-```
-
-## `sb near oracle create QUEUEADDRESS`
-
-create a near oracle for a given queue
-
-```
-USAGE
-  $ sb near oracle create QUEUEADDRESS --accountName <value> [-h] [-v] [-s] [--networkId testnet|mainnet|localnet]
-    [--programId <value>] [-u <value>] [--nearCredentialsDir <value>] [--json] [-a <value>] [--name <value>] [--metadata
-    <value>]
-
-ARGUMENTS
-  QUEUEADDRESS  address of the queue in Uint8 or Base58 encoding
-
-FLAGS
-  -a, --authority=<value>       alternate named account that will be the authority for the oracle
-  -h, --help                    Show CLI help.
-  -s, --silent                  suppress cli prompts
-  -u, --rpcUrl=<value>          alternate RPC url
-  -v, --verbose                 log everything
-  --accountName=<value>         (required) Named account to load from your nearCredentialsDir
-  --metadata=<value>            metadata of the oracle for easier identification
-  --name=<value>                name of the oracle for easier identification
-  --nearCredentialsDir=<value>  [default: /Users/gally/.near-credentials] Alternative directory for near credentials.
-                                Defaults to ~/.near-credentials
-  --networkId=<option>          [default: testnet] Near network ID to connect to
-                                <options: testnet|mainnet|localnet>
-  --programId=<value>           Switchboard programId on the selected Near networkId
-
-GLOBAL FLAGS
-  --json  Format output as json.
-
-DESCRIPTION
-  create a near oracle for a given queue
-
-ALIASES
-  $ sb near create oracle
-```
-
-_See code: [dist/commands/near/oracle/create.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.6/dist/commands/near/oracle/create.js)_
-
-## `sb near oracle escrow ORACLEADDRESS`
-
-view an aggregators escrow state
-
-```
-USAGE
-  $ sb near oracle escrow ORACLEADDRESS [-h] [-v] [-s] [--networkId testnet|mainnet|localnet] [--programId <value>] [-u
-    <value>] [--nearCredentialsDir <value>] [--json]
-
-ARGUMENTS
-  ORACLEADDRESS  address of the oracle in Uint8 or Base58 encoding
-
-FLAGS
-  -h, --help                    Show CLI help.
-  -s, --silent                  suppress cli prompts
-  -u, --rpcUrl=<value>          alternate RPC url
-  -v, --verbose                 log everything
-  --nearCredentialsDir=<value>  [default: /Users/gally/.near-credentials] Alternative directory for near credentials.
-                                Defaults to ~/.near-credentials
-  --networkId=<option>          [default: testnet] Near network ID to connect to
-                                <options: testnet|mainnet|localnet>
-  --programId=<value>           Switchboard programId on the selected Near networkId
-
-GLOBAL FLAGS
-  --json  Format output as json.
-
-DESCRIPTION
-  view an aggregators escrow state
-```
-
-_See code: [dist/commands/near/oracle/escrow.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.6/dist/commands/near/oracle/escrow.js)_
-
-## `sb near oracle stake ORACLEADDRESS`
-
-deposit funds to an oracle's staking wallet
-
-```
-USAGE
-  $ sb near oracle stake ORACLEADDRESS --accountName <value> --amount <value> [-h] [-v] [-s] [--networkId
-    testnet|mainnet|localnet] [--programId <value>] [-u <value>] [--nearCredentialsDir <value>] [--json]
-
-ARGUMENTS
-  ORACLEADDRESS  address of the oracle in Uint8 or Base58 encoding
-
-FLAGS
-  -h, --help                    Show CLI help.
-  -s, --silent                  suppress cli prompts
-  -u, --rpcUrl=<value>          alternate RPC url
-  -v, --verbose                 log everything
-  --accountName=<value>         (required) Named account to load from your nearCredentialsDir
-  --amount=<value>              (required) amount of Near to deposit into oracle staking wallet
-  --nearCredentialsDir=<value>  [default: /Users/gally/.near-credentials] Alternative directory for near credentials.
-                                Defaults to ~/.near-credentials
-  --networkId=<option>          [default: testnet] Near network ID to connect to
-                                <options: testnet|mainnet|localnet>
-  --programId=<value>           Switchboard programId on the selected Near networkId
-
-GLOBAL FLAGS
-  --json  Format output as json.
-
-DESCRIPTION
-  deposit funds to an oracle's staking wallet
-```
-
-_See code: [dist/commands/near/oracle/stake.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.6/dist/commands/near/oracle/stake.js)_
-
-## `sb near oracle unstake ORACLEADDRESS`
-
-deposit funds to an oracle's staking wallet
-
-```
-USAGE
-  $ sb near oracle unstake ORACLEADDRESS --accountName <value> --amount <value> [-h] [-v] [-s] [--networkId
-    testnet|mainnet|localnet] [--programId <value>] [-u <value>] [--nearCredentialsDir <value>] [--json]
-
-ARGUMENTS
-  ORACLEADDRESS  address of the oracle in Uint8 or Base58 encoding
-
-FLAGS
-  -h, --help                    Show CLI help.
-  -s, --silent                  suppress cli prompts
-  -u, --rpcUrl=<value>          alternate RPC url
-  -v, --verbose                 log everything
-  --accountName=<value>         (required) Named account to load from your nearCredentialsDir
-  --amount=<value>              (required) amount of Near to unstake from oracle staking wallet
-  --nearCredentialsDir=<value>  [default: /Users/gally/.near-credentials] Alternative directory for near credentials.
-                                Defaults to ~/.near-credentials
-  --networkId=<option>          [default: testnet] Near network ID to connect to
-                                <options: testnet|mainnet|localnet>
-  --programId=<value>           Switchboard programId on the selected Near networkId
-
-GLOBAL FLAGS
-  --json  Format output as json.
-
-DESCRIPTION
-  deposit funds to an oracle's staking wallet
-```
-
-_See code: [dist/commands/near/oracle/unstake.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.6/dist/commands/near/oracle/unstake.js)_
-
-## `sb near oracle up ORACLEADDRESS`
-
-start a near docker oracle
-
-```
-USAGE
-  $ sb near oracle up ORACLEADDRESS --accountName <value> [-h] [-v] [-s] [--networkId testnet|mainnet|localnet]
-    [--programId <value>] [-u <value>] [--nearCredentialsDir <value>] [--json] [-d <value>] [--releaseChannel
-    testnet|mainnet | --nodeImage <value>]
-
-ARGUMENTS
-  ORACLEADDRESS  address of the oracle in Uint8 or Base58 encoding
-
-FLAGS
-  -d, --switchboardDir=<value>  directory with switchboard.env to load a switchboard environment
-  -h, --help                    Show CLI help.
-  -s, --silent                  suppress docker logging
-  -u, --rpcUrl=<value>          alternate RPC url
-  -v, --verbose                 log everything
-  --accountName=<value>         (required) Named account to load from your nearCredentialsDir
-  --nearCredentialsDir=<value>  [default: /Users/gally/.near-credentials] Alternative directory for near credentials.
-                                Defaults to ~/.near-credentials
-  --networkId=<option>          [default: testnet] Near network ID to connect to
-                                <options: testnet|mainnet|localnet>
-  --nodeImage=<value>           [default: dev-v2-RC_04_11_23_17_12] public key of the oracle to start-up
-  --programId=<value>           Switchboard programId on the selected Near networkId
-  --releaseChannel=<option>     [default: testnet] the oracle release channel
-                                <options: testnet|mainnet>
-
-GLOBAL FLAGS
-  --json  Format output as json.
-
-DESCRIPTION
-  start a near docker oracle
-```
-
-_See code: [dist/commands/near/oracle/up.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.6/dist/commands/near/oracle/up.js)_
-
-## `sb near permission create`
-
-create a permission account
-
-```
-USAGE
-  $ sb near permission create --accountName <value> --granter <value> --grantee <value> [-h] [-v] [-s] [--networkId
-    testnet|mainnet|localnet] [--programId <value>] [-u <value>] [--nearCredentialsDir <value>] [--json] [-a <value>]
-    [--enable]
-
-FLAGS
-  -a, --authority=<value>       alternate account that is the granters authority
-  -h, --help                    Show CLI help.
-  -s, --silent                  suppress cli prompts
-  -u, --rpcUrl=<value>          alternate RPC url
-  -v, --verbose                 log everything
-  --accountName=<value>         (required) Named account to load from your nearCredentialsDir
-  --enable                      enable permissions
-  --grantee=<value>             (required) account that will be granted permissions, typically an Oracle or Aggregator
-  --granter=<value>             (required) account that will grant permissions, typically the OracleQueue
-  --nearCredentialsDir=<value>  [default: /Users/gally/.near-credentials] Alternative directory for near credentials.
-                                Defaults to ~/.near-credentials
-  --networkId=<option>          [default: testnet] Near network ID to connect to
-                                <options: testnet|mainnet|localnet>
-  --programId=<value>           Switchboard programId on the selected Near networkId
-
-GLOBAL FLAGS
-  --json  Format output as json.
-
-DESCRIPTION
-  create a permission account
-
-ALIASES
-  $ sb near create oracle permission
-```
-
-_See code: [dist/commands/near/permission/create.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.6/dist/commands/near/permission/create.js)_
-
-## `sb near pop crank CRANKADDRESS`
-
-pop the crank
-
-```
-USAGE
-  $ sb near pop crank CRANKADDRESS [-h] [-v] [-s] [--networkId testnet|mainnet|localnet] [--programId <value>] [-u
-    <value>] [--nearCredentialsDir <value>]
-
-ARGUMENTS
-  CRANKADDRESS  address of the crank in Uint8 or Base58 encoding
-
-FLAGS
-  -h, --help                    Show CLI help.
-  -s, --silent                  suppress cli prompts
-  -u, --rpcUrl=<value>          alternate RPC url
-  -v, --verbose                 log everything
-  --nearCredentialsDir=<value>  [default: /Users/gally/.near-credentials] Alternative directory for near credentials.
-                                Defaults to ~/.near-credentials
-  --networkId=<option>          [default: testnet] Near network ID to connect to
-                                <options: testnet|mainnet|localnet>
-  --programId=<value>           Switchboard programId on the selected Near networkId
-
-DESCRIPTION
-  pop the crank
-
-ALIASES
-  $ sb near pop crank
-```
-
-## `sb near print ACCOUNTTYPE ADDRESS`
-
-print a near switchboard account
-
-```
-USAGE
-  $ sb near print ACCOUNTTYPE ADDRESS [-h] [-v] [-s] [--networkId testnet|mainnet|localnet] [--programId
-    <value>] [-u <value>] [--nearCredentialsDir <value>] [--json] [--all]
-
-ARGUMENTS
-  ACCOUNTTYPE  (queue|aggregator|crank|oracle|permission|lease|job) account type to print
-  ADDRESS      address of the account to print in Uint8 or Base58 encoding
-
-FLAGS
-  -h, --help                    Show CLI help.
-  -s, --silent                  suppress cli prompts
-  -u, --rpcUrl=<value>          alternate RPC url
-  -v, --verbose                 log everything
-  --all                         print all account attributes including jobs, permissions, and leases
-  --nearCredentialsDir=<value>  [default: /Users/gally/.near-credentials] Alternative directory for near credentials.
-                                Defaults to ~/.near-credentials
-  --networkId=<option>          [default: testnet] Near network ID to connect to
-                                <options: testnet|mainnet|localnet>
-  --programId=<value>           Switchboard programId on the selected Near networkId
-
-GLOBAL FLAGS
-  --json  Format output as json.
-
-DESCRIPTION
-  print a near switchboard account
-
-ALIASES
-  $ sb near print
-```
-
-_See code: [dist/commands/near/print.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.6/dist/commands/near/print.js)_
-
-## `sb near print escrow`
-
-print an escrow token account
-
-```
-USAGE
-  $ sb near print escrow --accountName <value> [-h] [-v] [-s] [--networkId testnet|mainnet|localnet] [--programId
-    <value>] [-u <value>] [--nearCredentialsDir <value>] [--json]
-
-FLAGS
-  -h, --help                    Show CLI help.
-  -s, --silent                  suppress cli prompts
-  -u, --rpcUrl=<value>          alternate RPC url
-  -v, --verbose                 log everything
-  --accountName=<value>         (required) Named account to load from your nearCredentialsDir
-  --nearCredentialsDir=<value>  [default: /Users/gally/.near-credentials] Alternative directory for near credentials.
-                                Defaults to ~/.near-credentials
-  --networkId=<option>          [default: testnet] Near network ID to connect to
-                                <options: testnet|mainnet|localnet>
-  --programId=<value>           Switchboard programId on the selected Near networkId
-
-GLOBAL FLAGS
-  --json  Format output as json.
-
-DESCRIPTION
-  print an escrow token account
-
-ALIASES
-  $ sb near print escrow
-```
-
-## `sb near push crank CRANKADDRESS`
-
-push an aggregator onto the crank
-
-```
-USAGE
-  $ sb near push crank CRANKADDRESS --accountName <value> -a <value> [-h] [-v] [-s] [--networkId
-    testnet|mainnet|localnet] [--programId <value>] [-u <value>] [--nearCredentialsDir <value>] [--json]
-
-ARGUMENTS
-  CRANKADDRESS  address of the crank in Uint8 or Base58 encoding
-
-FLAGS
-  -a, --aggregatorAddress=<value>  (required) address of the aggregator in Uint8 or Base58 encoding
-  -h, --help                       Show CLI help.
-  -s, --silent                     suppress cli prompts
-  -u, --rpcUrl=<value>             alternate RPC url
-  -v, --verbose                    log everything
-  --accountName=<value>            (required) Named account to load from your nearCredentialsDir
-  --nearCredentialsDir=<value>     [default: /Users/gally/.near-credentials] Alternative directory for near credentials.
-                                   Defaults to ~/.near-credentials
-  --networkId=<option>             [default: testnet] Near network ID to connect to
-                                   <options: testnet|mainnet|localnet>
-  --programId=<value>              Switchboard programId on the selected Near networkId
-
-GLOBAL FLAGS
-  --json  Format output as json.
-
-DESCRIPTION
-  push an aggregator onto the crank
-
-ALIASES
-  $ sb near push crank
-```
-
-## `sb near queue aggregators QUEUEADDRESS`
-
-fetch all aggregators for a given queue account
-
-```
-USAGE
-  $ sb near queue aggregators QUEUEADDRESS [-h] [-v] [-s] [--networkId testnet|mainnet|localnet] [--programId <value>] [-u
-    <value>] [--nearCredentialsDir <value>] [--json]
-
-ARGUMENTS
-  QUEUEADDRESS  address of the queue in Uint8 or Base58 encoding
-
-FLAGS
-  -h, --help                    Show CLI help.
-  -s, --silent                  suppress cli prompts
-  -u, --rpcUrl=<value>          alternate RPC url
-  -v, --verbose                 log everything
-  --nearCredentialsDir=<value>  [default: /Users/gally/.near-credentials] Alternative directory for near credentials.
-                                Defaults to ~/.near-credentials
-  --networkId=<option>          [default: testnet] Near network ID to connect to
-                                <options: testnet|mainnet|localnet>
-  --programId=<value>           Switchboard programId on the selected Near networkId
-
-GLOBAL FLAGS
-  --json  Format output as json.
-
-DESCRIPTION
-  fetch all aggregators for a given queue account
-
-ALIASES
-  $ sb near queue feeds
-```
-
-_See code: [dist/commands/near/queue/aggregators.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.6/dist/commands/near/queue/aggregators.js)_
-
-## `sb near queue create`
-
-create a new oracle queue
-
-```
-USAGE
-  $ sb near queue create --accountName <value> [-h] [-v] [-s] [--networkId testnet|mainnet|localnet] [--programId
-    <value>] [-u <value>] [--nearCredentialsDir <value>] [--json] [-a <value>] [--name <value>] [--metadata <value>]
-    [--minStake <value>] [-r <value>] [--oracleTimeout <value>] [--queueSize <value>] [--slashingEnabled]
-    [--unpermissionedFeeds] [--unpermissionedVrf] [--enableBufferRelayers]
-
-FLAGS
-  -a, --authority=<value>       alternate named account that will be the authority for the queue
-  -h, --help                    Show CLI help.
-  -r, --reward=<value>          [default: 0] oracle rewards for successfully responding to an update request
-  -s, --silent                  suppress cli prompts
-  -u, --rpcUrl=<value>          alternate RPC url
-  -v, --verbose                 log everything
-  --accountName=<value>         (required) Named account to load from your nearCredentialsDir
-  --enableBufferRelayers        enable oracles to fulfill buffer relayer requests
-  --metadata=<value>            metadata of the queue for easier identification
-  --minStake=<value>            [default: 0] minimum stake required by an oracle to join the queue
-  --name=<value>                name of the queue for easier identification
-  --nearCredentialsDir=<value>  [default: /Users/gally/.near-credentials] Alternative directory for near credentials.
-                                Defaults to ~/.near-credentials
-  --networkId=<option>          [default: testnet] Near network ID to connect to
-                                <options: testnet|mainnet|localnet>
-  --oracleTimeout=<value>       [default: 180] number of oracles to add to the queue
-  --programId=<value>           Switchboard programId on the selected Near networkId
-  --queueSize=<value>           [default: 100] maximum number of oracles the queue can support
-  --slashingEnabled             permit slashing malicous oracles
-  --unpermissionedFeeds         permit unpermissioned feeds
-  --unpermissionedVrf           permit unpermissioned VRF accounts
-
-GLOBAL FLAGS
-  --json  Format output as json.
-
-DESCRIPTION
-  create a new oracle queue
-
-ALIASES
-  $ sb near create queue
-```
-
-_See code: [dist/commands/near/queue/create.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.6/dist/commands/near/queue/create.js)_
-
-## `sb near queue feeds QUEUEADDRESS`
-
-fetch all aggregators for a given queue account
-
-```
-USAGE
-  $ sb near queue feeds QUEUEADDRESS [-h] [-v] [-s] [--networkId testnet|mainnet|localnet] [--programId <value>] [-u
-    <value>] [--nearCredentialsDir <value>] [--json]
-
-ARGUMENTS
-  QUEUEADDRESS  address of the queue in Uint8 or Base58 encoding
-
-FLAGS
-  -h, --help                    Show CLI help.
-  -s, --silent                  suppress cli prompts
-  -u, --rpcUrl=<value>          alternate RPC url
-  -v, --verbose                 log everything
-  --nearCredentialsDir=<value>  [default: /Users/gally/.near-credentials] Alternative directory for near credentials.
-                                Defaults to ~/.near-credentials
-  --networkId=<option>          [default: testnet] Near network ID to connect to
-                                <options: testnet|mainnet|localnet>
-  --programId=<value>           Switchboard programId on the selected Near networkId
-
-GLOBAL FLAGS
-  --json  Format output as json.
-
-DESCRIPTION
-  fetch all aggregators for a given queue account
-
-ALIASES
-  $ sb near queue feeds
-```
-
-## `sb near queue list QUEUEADDRESS`
-
-list aggregators for a given queue
-
-```
-USAGE
-  $ sb near queue list QUEUEADDRESS [-h] [-v] [-s] [--networkId testnet|mainnet|localnet] [--programId <value>] [-u
-    <value>] [--nearCredentialsDir <value>] [--json]
-
-ARGUMENTS
-  QUEUEADDRESS  address of the queue in Uint8 or Base58 encoding
-
-FLAGS
-  -h, --help                    Show CLI help.
-  -s, --silent                  suppress cli prompts
-  -u, --rpcUrl=<value>          alternate RPC url
-  -v, --verbose                 log everything
-  --nearCredentialsDir=<value>  [default: /Users/gally/.near-credentials] Alternative directory for near credentials.
-                                Defaults to ~/.near-credentials
-  --networkId=<option>          [default: testnet] Near network ID to connect to
-                                <options: testnet|mainnet|localnet>
-  --programId=<value>           Switchboard programId on the selected Near networkId
-
-GLOBAL FLAGS
-  --json  Format output as json.
-
-DESCRIPTION
-  list aggregators for a given queue
-
-ALIASES
-  $ sb near list queue
-```
-
-_See code: [dist/commands/near/queue/list.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.6/dist/commands/near/queue/list.js)_
-
-## `sb near queue set QUEUEADDRESS`
-
-create a new oracle queue
-
-```
-USAGE
-  $ sb near queue set QUEUEADDRESS --accountName <value> [-h] [-v] [-s] [--networkId testnet|mainnet|localnet]
-    [--programId <value>] [-u <value>] [--nearCredentialsDir <value>] [--json] [-a <value>] [--name <value>] [--metadata
-    <value>] [--minStake <value>] [-r <value>] [--oracleTimeout <value>] [--slashingEnabled] [--unpermissionedFeeds]
-    [--unpermissionedVrf] [--enableBufferRelayers]
-
-ARGUMENTS
-  QUEUEADDRESS  address of the queue in Uint8 or Base58 encoding
-
-FLAGS
-  -a, --authority=<value>       alternate named account that will be the authority for the queue
-  -h, --help                    Show CLI help.
-  -r, --reward=<value>          oracle rewards for successfully responding to an update request
-  -s, --silent                  suppress cli prompts
-  -u, --rpcUrl=<value>          alternate RPC url
-  -v, --verbose                 log everything
-  --accountName=<value>         (required) Named account to load from your nearCredentialsDir
-  --enableBufferRelayers        enable oracles to fulfill buffer relayer requests
-  --metadata=<value>            metadata of the queue for easier identification
-  --minStake=<value>            minimum stake required by an oracle to join the queue
-  --name=<value>                name of the queue for easier identification
-  --nearCredentialsDir=<value>  [default: /Users/gally/.near-credentials] Alternative directory for near credentials.
-                                Defaults to ~/.near-credentials
-  --networkId=<option>          [default: testnet] Near network ID to connect to
-                                <options: testnet|mainnet|localnet>
-  --oracleTimeout=<value>       number of oracles to add to the queue
-  --programId=<value>           Switchboard programId on the selected Near networkId
-  --slashingEnabled             permit slashing malicous oracles
-  --unpermissionedFeeds         permit unpermissioned feeds
-  --unpermissionedVrf           permit unpermissioned VRF accounts
-
-GLOBAL FLAGS
-  --json  Format output as json.
-
-DESCRIPTION
-  create a new oracle queue
-
-ALIASES
-  $ sb near create queue
-```
-
-_See code: [dist/commands/near/queue/set.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.6/dist/commands/near/queue/set.js)_
-
-## `sb near set aggregator AGGREGATORADDRESS`
-
-set a near aggregator's config
-
-```
-USAGE
-  $ sb near set aggregator AGGREGATORADDRESS --accountName <value> [-h] [-v] [-s] [--networkId testnet|mainnet|localnet]
-    [--programId <value>] [-u <value>] [--nearCredentialsDir <value>] [--json] [-a <value>] [--crankAddress <value>]
-    [--queueAddress <value>] [--name <value>] [--metadata <value>] [--forceReportPeriod <value>] [--batchSize <value>]
-    [--minJobs <value>] [--minOracles <value>] [--updateInterval <value>] [--varianceThreshold <value>]
-
-ARGUMENTS
-  AGGREGATORADDRESS  address of the aggregator in Uint8 or Base58 encoding
-
-FLAGS
-  -a, --authority=<value>       alternate named account that will be the authority for the oracle
-  -h, --help                    Show CLI help.
-  -s, --silent                  suppress cli prompts
-  -u, --rpcUrl=<value>          alternate RPC url
-  -v, --verbose                 log everything
-  --accountName=<value>         (required) Named account to load from your nearCredentialsDir
-  --batchSize=<value>           number of oracles requested for each open round call
-  --crankAddress=<value>        optional, address of the crank to add the aggregator to
-  --forceReportPeriod=<value>   Number of seconds for which, even if the variance threshold is not passed, accept new
-                                responses from oracles.
-  --metadata=<value>            metadata of the crank for easier identification
-  --minJobs=<value>             number of jobs that must respond before an oracle responds
-  --minOracles=<value>          number of oracles that must respond before a value is accepted on-chain
-  --name=<value>                name of the crank for easier identification
-  --nearCredentialsDir=<value>  [default: /Users/gally/.near-credentials] Alternative directory for near credentials.
-                                Defaults to ~/.near-credentials
-  --networkId=<option>          [default: testnet] Near network ID to connect to
-                                <options: testnet|mainnet|localnet>
-  --programId=<value>           Switchboard programId on the selected Near networkId
-  --queueAddress=<value>        optional, address of the new queue to add the aggregator to
-  --updateInterval=<value>      set an aggregator's minimum update delay
-  --varianceThreshold=<value>   percentage change between a previous accepted result and the next round before an oracle
-                                reports a value on-chain. Used to conserve lease cost during low volatility
-
-GLOBAL FLAGS
-  --json  Format output as json.
-
-DESCRIPTION
-  set a near aggregator's config
-
-ALIASES
-  $ sb near set aggregator
-```
-
-## `sb near update aggregator AGGREGATORADDRESS`
-
-request a new value on-chain for an aggregator
-
-```
-USAGE
-  $ sb near update aggregator AGGREGATORADDRESS --accountName <value> [-h] [-v] [-s] [--networkId testnet|mainnet|localnet]
-    [--programId <value>] [-u <value>] [--nearCredentialsDir <value>] [--json]
-
-ARGUMENTS
-  AGGREGATORADDRESS  address of the aggregator in Uint8 or Base58 encoding
-
-FLAGS
-  -h, --help                    Show CLI help.
-  -s, --silent                  suppress cli prompts
-  -u, --rpcUrl=<value>          alternate RPC url
-  -v, --verbose                 log everything
-  --accountName=<value>         (required) Named account to load from your nearCredentialsDir
-  --nearCredentialsDir=<value>  [default: /Users/gally/.near-credentials] Alternative directory for near credentials.
-                                Defaults to ~/.near-credentials
-  --networkId=<option>          [default: testnet] Near network ID to connect to
-                                <options: testnet|mainnet|localnet>
-  --programId=<value>           Switchboard programId on the selected Near networkId
-
-GLOBAL FLAGS
-  --json  Format output as json.
-
-DESCRIPTION
-  request a new value on-chain for an aggregator
-
-ALIASES
-  $ sb near update aggregator
-```
+_See code: [dist/commands/mrenclave.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.12/dist/commands/mrenclave.js)_
 
 ## `sb oracle logs NETWORK SEARCHSTRING`
 
@@ -3580,8 +2091,7 @@ USAGE
   $ sb oracle logs NETWORK SEARCHSTRING -f <value> [-h] [-v] [-s] [--force] [--json] [--csv]
 
 ARGUMENTS
-  NETWORK       (solana-mainnet|solana-devnet|aptos-mainnet|aptos-testnet|near-mainnet|near-testnet) network to parse
-                logs for
+  NETWORK       (solana-mainnet|solana-devnet|aptos-mainnet|aptos-testnet) network to parse logs for
   SEARCHSTRING  string to search for in the oracle logs
 
 FLAGS
@@ -3597,7 +2107,7 @@ DESCRIPTION
   fetch logs for a switchboard oracle
 ```
 
-_See code: [dist/commands/oracle/logs.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.6/dist/commands/oracle/logs.js)_
+_See code: [dist/commands/oracle/logs.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.12/dist/commands/oracle/logs.js)_
 
 ## `sb solana aggregator add history AGGREGATORKEY`
 
@@ -3606,30 +2116,31 @@ add a history buffer to an aggregator
 ```
 USAGE
   $ sb solana aggregator add history AGGREGATORKEY --historyLimit <value> [-h] [-v] [-s] [--mainnetBeta | --cluster
-    devnet|mainnet-beta|mainnet|localnet] [-u <value>] [--programId <value>] [--commitment
-    confirmed|finalized|processed] [-k <value>] [--ledgerPath <value> --ledger] [--force] [-a <value>]
+    devnet|mainnet-beta|mainnet|localnet] [-u <value>] [--programId <value>] [--attestationProgramId <value>]
+    [--commitment confirmed|finalized|processed] [-k <value>] [--ledgerPath <value> --ledger] [--force] [-a <value>]
 
 ARGUMENTS
   AGGREGATORKEY  public key of the aggregator account
 
 FLAGS
-  -a, --authority=<value>  alternate keypair that is the authority for the aggregator
-  -h, --help               Show CLI help.
-  -k, --keypair=<value>    keypair that will pay for onchain transactions. defaults to new account authority if no
-                           alternate authority provided
-  -s, --silent             suppress cli prompts
-  -u, --rpcUrl=<value>     alternate RPC url
-  -v, --verbose            log everything
-  --cluster=<option>       the solana cluster to connect to
-                           <options: devnet|mainnet-beta|mainnet|localnet>
-  --commitment=<option>    [default: confirmed] transaction commitment level to use
-                           <options: confirmed|finalized|processed>
-  --force                  overwrite an existing history buffer if one already exists
-  --historyLimit=<value>   (required) the number of samples to store before overwriting old samples
-  --ledger                 enable ledger support
-  --ledgerPath=<value>     HID path to the ledger
-  --mainnetBeta            WARNING: use mainnet-beta solana cluster
-  --programId=<value>      alternative Switchboard program ID to interact with
+  -a, --authority=<value>         alternate keypair that is the authority for the aggregator
+  -h, --help                      Show CLI help.
+  -k, --keypair=<value>           keypair that will pay for onchain transactions. defaults to new account authority if
+                                  no alternate authority provided
+  -s, --silent                    suppress cli prompts
+  -u, --rpcUrl=<value>            alternate RPC url
+  -v, --verbose                   log everything
+  --attestationProgramId=<value>  alternative Switchboard Attestation program ID to interact with
+  --cluster=<option>              the solana cluster to connect to
+                                  <options: devnet|mainnet-beta|mainnet|localnet>
+  --commitment=<option>           [default: confirmed] transaction commitment level to use
+                                  <options: confirmed|finalized|processed>
+  --force                         overwrite an existing history buffer if one already exists
+  --historyLimit=<value>          (required) the number of samples to store before overwriting old samples
+  --ledger                        enable ledger support
+  --ledgerPath=<value>            HID path to the ledger
+  --mainnetBeta                   WARNING: use mainnet-beta solana cluster
+  --programId=<value>             alternative Switchboard program ID to interact with
 
 DESCRIPTION
   add a history buffer to an aggregator
@@ -3638,7 +2149,7 @@ EXAMPLES
   $ sb solana:aggregator:add:history
 ```
 
-_See code: [dist/commands/solana/aggregator/add/history.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.6/dist/commands/solana/aggregator/add/history.js)_
+_See code: [dist/commands/solana/aggregator/add/history.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.12/dist/commands/solana/aggregator/add/history.js)_
 
 ## `sb solana aggregator add job AGGREGATORKEY`
 
@@ -3647,30 +2158,31 @@ add jobs to an aggregator
 ```
 USAGE
   $ sb solana aggregator add job AGGREGATORKEY [-h] [-v] [-s] [--mainnetBeta | --cluster devnet|mainnet-beta|mainnet|localnet]
-    [-u <value>] [--programId <value>] [--commitment confirmed|finalized|processed] [-k <value>] [--ledgerPath <value>
-    --ledger] [--jobDefinition <value>] [--jobKey <value>] [-a <value>]
+    [-u <value>] [--programId <value>] [--attestationProgramId <value>] [--commitment confirmed|finalized|processed] [-k
+    <value>] [--ledgerPath <value> --ledger] [--jobDefinition <value>] [--jobKey <value>] [-a <value>]
 
 ARGUMENTS
   AGGREGATORKEY  public key of the aggregator account
 
 FLAGS
-  -a, --authority=<value>     alternate keypair that is the authority for the aggregator
-  -h, --help                  Show CLI help.
-  -k, --keypair=<value>       keypair that will pay for onchain transactions. defaults to new account authority if no
-                              alternate authority provided
-  -s, --silent                suppress cli prompts
-  -u, --rpcUrl=<value>        alternate RPC url
-  -v, --verbose               log everything
-  --cluster=<option>          the solana cluster to connect to
-                              <options: devnet|mainnet-beta|mainnet|localnet>
-  --commitment=<option>       [default: confirmed] transaction commitment level to use
-                              <options: confirmed|finalized|processed>
-  --jobDefinition=<value>...  filesystem path of job json definition file
-  --jobKey=<value>...         public key of an existing job account to add to an aggregator
-  --ledger                    enable ledger support
-  --ledgerPath=<value>        HID path to the ledger
-  --mainnetBeta               WARNING: use mainnet-beta solana cluster
-  --programId=<value>         alternative Switchboard program ID to interact with
+  -a, --authority=<value>         alternate keypair that is the authority for the aggregator
+  -h, --help                      Show CLI help.
+  -k, --keypair=<value>           keypair that will pay for onchain transactions. defaults to new account authority if
+                                  no alternate authority provided
+  -s, --silent                    suppress cli prompts
+  -u, --rpcUrl=<value>            alternate RPC url
+  -v, --verbose                   log everything
+  --attestationProgramId=<value>  alternative Switchboard Attestation program ID to interact with
+  --cluster=<option>              the solana cluster to connect to
+                                  <options: devnet|mainnet-beta|mainnet|localnet>
+  --commitment=<option>           [default: confirmed] transaction commitment level to use
+                                  <options: confirmed|finalized|processed>
+  --jobDefinition=<value>...      filesystem path of job json definition file
+  --jobKey=<value>...             public key of an existing job account to add to an aggregator
+  --ledger                        enable ledger support
+  --ledgerPath=<value>            HID path to the ledger
+  --mainnetBeta                   WARNING: use mainnet-beta solana cluster
+  --programId=<value>             alternative Switchboard program ID to interact with
 
 DESCRIPTION
   add jobs to an aggregator
@@ -3679,40 +2191,41 @@ EXAMPLES
   $ sb solana aggregator add job
 ```
 
-_See code: [dist/commands/solana/aggregator/add/job.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.6/dist/commands/solana/aggregator/add/job.js)_
+_See code: [dist/commands/solana/aggregator/add/job.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.12/dist/commands/solana/aggregator/add/job.js)_
 
 ## `sb solana aggregator authority AGGREGATORKEY`
 
 ```
 USAGE
   $ sb solana aggregator authority AGGREGATORKEY --newAuthority <value> [-h] [-v] [-s] [--mainnetBeta | --cluster
-    devnet|mainnet-beta|mainnet|localnet] [-u <value>] [--programId <value>] [--commitment
-    confirmed|finalized|processed] [-k <value>] [--ledgerPath <value> --ledger] [-a <value>]
+    devnet|mainnet-beta|mainnet|localnet] [-u <value>] [--programId <value>] [--attestationProgramId <value>]
+    [--commitment confirmed|finalized|processed] [-k <value>] [--ledgerPath <value> --ledger] [-a <value>]
 
 ARGUMENTS
   AGGREGATORKEY  public key of the aggregator
 
 FLAGS
-  -a, --authority=<value>  alternate keypair that is the authority for the aggregator and required to make config
-                           changes
-  -h, --help               Show CLI help.
-  -k, --keypair=<value>    keypair that will pay for onchain transactions. defaults to new account authority if no
-                           alternate authority provided
-  -s, --silent             suppress cli prompts
-  -u, --rpcUrl=<value>     alternate RPC url
-  -v, --verbose            log everything
-  --cluster=<option>       the solana cluster to connect to
-                           <options: devnet|mainnet-beta|mainnet|localnet>
-  --commitment=<option>    [default: confirmed] transaction commitment level to use
-                           <options: confirmed|finalized|processed>
-  --ledger                 enable ledger support
-  --ledgerPath=<value>     HID path to the ledger
-  --mainnetBeta            WARNING: use mainnet-beta solana cluster
-  --newAuthority=<value>   (required)
-  --programId=<value>      alternative Switchboard program ID to interact with
+  -a, --authority=<value>         alternate keypair that is the authority for the aggregator and required to make config
+                                  changes
+  -h, --help                      Show CLI help.
+  -k, --keypair=<value>           keypair that will pay for onchain transactions. defaults to new account authority if
+                                  no alternate authority provided
+  -s, --silent                    suppress cli prompts
+  -u, --rpcUrl=<value>            alternate RPC url
+  -v, --verbose                   log everything
+  --attestationProgramId=<value>  alternative Switchboard Attestation program ID to interact with
+  --cluster=<option>              the solana cluster to connect to
+                                  <options: devnet|mainnet-beta|mainnet|localnet>
+  --commitment=<option>           [default: confirmed] transaction commitment level to use
+                                  <options: confirmed|finalized|processed>
+  --ledger                        enable ledger support
+  --ledgerPath=<value>            HID path to the ledger
+  --mainnetBeta                   WARNING: use mainnet-beta solana cluster
+  --newAuthority=<value>          (required)
+  --programId=<value>             alternative Switchboard program ID to interact with
 ```
 
-_See code: [dist/commands/solana/aggregator/authority.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.6/dist/commands/solana/aggregator/authority.js)_
+_See code: [dist/commands/solana/aggregator/authority.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.12/dist/commands/solana/aggregator/authority.js)_
 
 ## `sb solana aggregator close AGGREGATORKEY`
 
@@ -3721,29 +2234,30 @@ close an aggregator and associated PDA accounts on devnet
 ```
 USAGE
   $ sb solana aggregator close AGGREGATORKEY [-h] [-v] [-s] [--mainnetBeta | --cluster devnet|mainnet-beta|mainnet|localnet]
-    [-u <value>] [--programId <value>] [--commitment confirmed|finalized|processed] [-k <value>] [--ledgerPath <value>
-    --ledger] [-a <value>]
+    [-u <value>] [--programId <value>] [--attestationProgramId <value>] [--commitment confirmed|finalized|processed] [-k
+    <value>] [--ledgerPath <value> --ledger] [-a <value>]
 
 ARGUMENTS
   AGGREGATORKEY  public key of the aggregator account
 
 FLAGS
-  -a, --authority=<value>  alternate keypair that is the authority for the aggregator and required to make config
-                           changes
-  -h, --help               Show CLI help.
-  -k, --keypair=<value>    keypair that will pay for onchain transactions. defaults to new account authority if no
-                           alternate authority provided
-  -s, --silent             suppress cli prompts
-  -u, --rpcUrl=<value>     alternate RPC url
-  -v, --verbose            log everything
-  --cluster=<option>       the solana cluster to connect to
-                           <options: devnet|mainnet-beta|mainnet|localnet>
-  --commitment=<option>    [default: confirmed] transaction commitment level to use
-                           <options: confirmed|finalized|processed>
-  --ledger                 enable ledger support
-  --ledgerPath=<value>     HID path to the ledger
-  --mainnetBeta            WARNING: use mainnet-beta solana cluster
-  --programId=<value>      alternative Switchboard program ID to interact with
+  -a, --authority=<value>         alternate keypair that is the authority for the aggregator and required to make config
+                                  changes
+  -h, --help                      Show CLI help.
+  -k, --keypair=<value>           keypair that will pay for onchain transactions. defaults to new account authority if
+                                  no alternate authority provided
+  -s, --silent                    suppress cli prompts
+  -u, --rpcUrl=<value>            alternate RPC url
+  -v, --verbose                   log everything
+  --attestationProgramId=<value>  alternative Switchboard Attestation program ID to interact with
+  --cluster=<option>              the solana cluster to connect to
+                                  <options: devnet|mainnet-beta|mainnet|localnet>
+  --commitment=<option>           [default: confirmed] transaction commitment level to use
+                                  <options: confirmed|finalized|processed>
+  --ledger                        enable ledger support
+  --ledgerPath=<value>            HID path to the ledger
+  --mainnetBeta                   WARNING: use mainnet-beta solana cluster
+  --programId=<value>             alternative Switchboard program ID to interact with
 
 DESCRIPTION
   close an aggregator and associated PDA accounts on devnet
@@ -3752,7 +2266,7 @@ EXAMPLES
   $ sb solana aggregator close J7j9xX8JP2B2ErvUzuqGAKBGeggsxPyFXj5MqZcYDxfa --keypair ../payer-keypair.json
 ```
 
-_See code: [dist/commands/solana/aggregator/close.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.6/dist/commands/solana/aggregator/close.js)_
+_See code: [dist/commands/solana/aggregator/close.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.12/dist/commands/solana/aggregator/close.js)_
 
 ## `sb solana aggregator create QUEUEKEY`
 
@@ -3761,8 +2275,8 @@ create an aggregator account
 ```
 USAGE
   $ sb solana aggregator create QUEUEKEY --updateInterval <value> [-h] [-v] [-s] [--mainnetBeta | --cluster
-    devnet|mainnet-beta|mainnet|localnet] [-u <value>] [--programId <value>] [--commitment
-    confirmed|finalized|processed] [-k <value>] [--ledgerPath <value> --ledger] [--json] [-a <value>]
+    devnet|mainnet-beta|mainnet|localnet] [-u <value>] [--programId <value>] [--attestationProgramId <value>]
+    [--commitment confirmed|finalized|processed] [-k <value>] [--ledgerPath <value> --ledger] [--json] [-a <value>]
     [--aggregatorKeypair <value>] [--name <value>] [--metadata <value>] [--batchSize <value>] [--minJobs <value>]
     [--minOracles <value>] [--forceReportPeriod <value>] [--varianceThreshold <value>] [--historyLimit <value>]
     [--crankKey <value> | --disableCrank] [--queueAuthority <value>] [--enable] [--leaseAmount <value>] [-j <value>]
@@ -3782,6 +2296,7 @@ FLAGS
   -u, --rpcUrl=<value>                alternate RPC url
   -v, --verbose                       log everything
   --aggregatorKeypair=<value>         keypair to use for aggregator account. This will be the account's publicKey
+  --attestationProgramId=<value>      alternative Switchboard Attestation program ID to interact with
   --basePriorityFee=<value>
   --batchSize=<value>                 [default: 1] number of oracles requested for each open round call
   --cluster=<option>                  the solana cluster to connect to
@@ -3823,7 +2338,7 @@ DESCRIPTION
   create an aggregator account
 ```
 
-_See code: [dist/commands/solana/aggregator/create/index.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.6/dist/commands/solana/aggregator/create/index.js)_
+_See code: [dist/commands/solana/aggregator/create/index.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.12/dist/commands/solana/aggregator/create/index.js)_
 
 ## `sb solana aggregator create json DEFINITIONFILE`
 
@@ -3832,30 +2347,31 @@ create an aggregator from a json file
 ```
 USAGE
   $ sb solana aggregator create json DEFINITIONFILE [-h] [-v] [-s] [--mainnetBeta | --cluster devnet|mainnet-beta|mainnet|localnet]
-    [-u <value>] [--programId <value>] [--commitment confirmed|finalized|processed] [-k <value>] [--ledgerPath <value>
-    --ledger] [--json] [-q <value>] [-a <value>] [--leaseAmount <value>]
+    [-u <value>] [--programId <value>] [--attestationProgramId <value>] [--commitment confirmed|finalized|processed] [-k
+    <value>] [--ledgerPath <value> --ledger] [--json] [-q <value>] [-a <value>] [--leaseAmount <value>]
 
 ARGUMENTS
   DEFINITIONFILE  filesystem path of queue definition json file
 
 FLAGS
-  -a, --authority=<value>  alternate keypair that will be the authority for the aggregator
-  -h, --help               Show CLI help.
-  -k, --keypair=<value>    keypair that will pay for onchain transactions. defaults to new account authority if no
-                           alternate authority provided
-  -q, --queueKey=<value>   public key of the oracle queue to create aggregator for
-  -s, --silent             suppress cli prompts
-  -u, --rpcUrl=<value>     alternate RPC url
-  -v, --verbose            log everything
-  --cluster=<option>       the solana cluster to connect to
-                           <options: devnet|mainnet-beta|mainnet|localnet>
-  --commitment=<option>    [default: confirmed] transaction commitment level to use
-                           <options: confirmed|finalized|processed>
-  --leaseAmount=<value>    [default: 0] amount of funds to deposit into the lease, ex: 1.5 would deposit 1.5 wSOL
-  --ledger                 enable ledger support
-  --ledgerPath=<value>     HID path to the ledger
-  --mainnetBeta            WARNING: use mainnet-beta solana cluster
-  --programId=<value>      alternative Switchboard program ID to interact with
+  -a, --authority=<value>         alternate keypair that will be the authority for the aggregator
+  -h, --help                      Show CLI help.
+  -k, --keypair=<value>           keypair that will pay for onchain transactions. defaults to new account authority if
+                                  no alternate authority provided
+  -q, --queueKey=<value>          public key of the oracle queue to create aggregator for
+  -s, --silent                    suppress cli prompts
+  -u, --rpcUrl=<value>            alternate RPC url
+  -v, --verbose                   log everything
+  --attestationProgramId=<value>  alternative Switchboard Attestation program ID to interact with
+  --cluster=<option>              the solana cluster to connect to
+                                  <options: devnet|mainnet-beta|mainnet|localnet>
+  --commitment=<option>           [default: confirmed] transaction commitment level to use
+                                  <options: confirmed|finalized|processed>
+  --leaseAmount=<value>           [default: 0] amount of funds to deposit into the lease, ex: 1.5 would deposit 1.5 wSOL
+  --ledger                        enable ledger support
+  --ledgerPath=<value>            HID path to the ledger
+  --mainnetBeta                   WARNING: use mainnet-beta solana cluster
+  --programId=<value>             alternative Switchboard program ID to interact with
 
 GLOBAL FLAGS
   --json  Format output as json.
@@ -3870,7 +2386,7 @@ EXAMPLES
   $ sb solana aggregator create json examples/aggregator.json --keypair ../payer-keypair.json --queueKey GhYg3R1V6DmJbwuc57qZeoYG6gUuvCotUF1zU3WCj98U --outputFile aggregator.schema.json
 ```
 
-_See code: [dist/commands/solana/aggregator/create/json.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.6/dist/commands/solana/aggregator/create/json.js)_
+_See code: [dist/commands/solana/aggregator/create/json.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.12/dist/commands/solana/aggregator/create/json.js)_
 
 ## `sb solana aggregator deposit AGGREGATORKEY`
 
@@ -3879,28 +2395,29 @@ fund and re-enable an aggregator lease
 ```
 USAGE
   $ sb solana aggregator deposit AGGREGATORKEY --amount <value> [-h] [-v] [-s] [--mainnetBeta | --cluster
-    devnet|mainnet-beta|mainnet|localnet] [-u <value>] [--programId <value>] [--commitment
-    confirmed|finalized|processed] [-k <value>] [--ledgerPath <value> --ledger]
+    devnet|mainnet-beta|mainnet|localnet] [-u <value>] [--programId <value>] [--attestationProgramId <value>]
+    [--commitment confirmed|finalized|processed] [-k <value>] [--ledgerPath <value> --ledger]
 
 ARGUMENTS
   AGGREGATORKEY  public key of the aggregator account
 
 FLAGS
-  -h, --help             Show CLI help.
-  -k, --keypair=<value>  keypair that will pay for onchain transactions. defaults to new account authority if no
-                         alternate authority provided
-  -s, --silent           suppress cli prompts
-  -u, --rpcUrl=<value>   alternate RPC url
-  -v, --verbose          log everything
-  --amount=<value>       (required) amount to deposit into the lease escrow
-  --cluster=<option>     the solana cluster to connect to
-                         <options: devnet|mainnet-beta|mainnet|localnet>
-  --commitment=<option>  [default: confirmed] transaction commitment level to use
-                         <options: confirmed|finalized|processed>
-  --ledger               enable ledger support
-  --ledgerPath=<value>   HID path to the ledger
-  --mainnetBeta          WARNING: use mainnet-beta solana cluster
-  --programId=<value>    alternative Switchboard program ID to interact with
+  -h, --help                      Show CLI help.
+  -k, --keypair=<value>           keypair that will pay for onchain transactions. defaults to new account authority if
+                                  no alternate authority provided
+  -s, --silent                    suppress cli prompts
+  -u, --rpcUrl=<value>            alternate RPC url
+  -v, --verbose                   log everything
+  --amount=<value>                (required) amount to deposit into the lease escrow
+  --attestationProgramId=<value>  alternative Switchboard Attestation program ID to interact with
+  --cluster=<option>              the solana cluster to connect to
+                                  <options: devnet|mainnet-beta|mainnet|localnet>
+  --commitment=<option>           [default: confirmed] transaction commitment level to use
+                                  <options: confirmed|finalized|processed>
+  --ledger                        enable ledger support
+  --ledgerPath=<value>            HID path to the ledger
+  --mainnetBeta                   WARNING: use mainnet-beta solana cluster
+  --programId=<value>             alternative Switchboard program ID to interact with
 
 DESCRIPTION
   fund and re-enable an aggregator lease
@@ -3921,28 +2438,29 @@ fund and re-enable an aggregator lease
 ```
 USAGE
   $ sb solana aggregator extend AGGREGATORKEY --amount <value> [-h] [-v] [-s] [--mainnetBeta | --cluster
-    devnet|mainnet-beta|mainnet|localnet] [-u <value>] [--programId <value>] [--commitment
-    confirmed|finalized|processed] [-k <value>] [--ledgerPath <value> --ledger]
+    devnet|mainnet-beta|mainnet|localnet] [-u <value>] [--programId <value>] [--attestationProgramId <value>]
+    [--commitment confirmed|finalized|processed] [-k <value>] [--ledgerPath <value> --ledger]
 
 ARGUMENTS
   AGGREGATORKEY  public key of the aggregator account
 
 FLAGS
-  -h, --help             Show CLI help.
-  -k, --keypair=<value>  keypair that will pay for onchain transactions. defaults to new account authority if no
-                         alternate authority provided
-  -s, --silent           suppress cli prompts
-  -u, --rpcUrl=<value>   alternate RPC url
-  -v, --verbose          log everything
-  --amount=<value>       (required) amount to deposit into the lease escrow
-  --cluster=<option>     the solana cluster to connect to
-                         <options: devnet|mainnet-beta|mainnet|localnet>
-  --commitment=<option>  [default: confirmed] transaction commitment level to use
-                         <options: confirmed|finalized|processed>
-  --ledger               enable ledger support
-  --ledgerPath=<value>   HID path to the ledger
-  --mainnetBeta          WARNING: use mainnet-beta solana cluster
-  --programId=<value>    alternative Switchboard program ID to interact with
+  -h, --help                      Show CLI help.
+  -k, --keypair=<value>           keypair that will pay for onchain transactions. defaults to new account authority if
+                                  no alternate authority provided
+  -s, --silent                    suppress cli prompts
+  -u, --rpcUrl=<value>            alternate RPC url
+  -v, --verbose                   log everything
+  --amount=<value>                (required) amount to deposit into the lease escrow
+  --attestationProgramId=<value>  alternative Switchboard Attestation program ID to interact with
+  --cluster=<option>              the solana cluster to connect to
+                                  <options: devnet|mainnet-beta|mainnet|localnet>
+  --commitment=<option>           [default: confirmed] transaction commitment level to use
+                                  <options: confirmed|finalized|processed>
+  --ledger                        enable ledger support
+  --ledgerPath=<value>            HID path to the ledger
+  --mainnetBeta                   WARNING: use mainnet-beta solana cluster
+  --programId=<value>             alternative Switchboard program ID to interact with
 
 DESCRIPTION
   fund and re-enable an aggregator lease
@@ -3963,28 +2481,29 @@ fund and re-enable an aggregator lease
 ```
 USAGE
   $ sb solana aggregator fund AGGREGATORKEY --amount <value> [-h] [-v] [-s] [--mainnetBeta | --cluster
-    devnet|mainnet-beta|mainnet|localnet] [-u <value>] [--programId <value>] [--commitment
-    confirmed|finalized|processed] [-k <value>] [--ledgerPath <value> --ledger]
+    devnet|mainnet-beta|mainnet|localnet] [-u <value>] [--programId <value>] [--attestationProgramId <value>]
+    [--commitment confirmed|finalized|processed] [-k <value>] [--ledgerPath <value> --ledger]
 
 ARGUMENTS
   AGGREGATORKEY  public key of the aggregator account
 
 FLAGS
-  -h, --help             Show CLI help.
-  -k, --keypair=<value>  keypair that will pay for onchain transactions. defaults to new account authority if no
-                         alternate authority provided
-  -s, --silent           suppress cli prompts
-  -u, --rpcUrl=<value>   alternate RPC url
-  -v, --verbose          log everything
-  --amount=<value>       (required) amount to deposit into the lease escrow
-  --cluster=<option>     the solana cluster to connect to
-                         <options: devnet|mainnet-beta|mainnet|localnet>
-  --commitment=<option>  [default: confirmed] transaction commitment level to use
-                         <options: confirmed|finalized|processed>
-  --ledger               enable ledger support
-  --ledgerPath=<value>   HID path to the ledger
-  --mainnetBeta          WARNING: use mainnet-beta solana cluster
-  --programId=<value>    alternative Switchboard program ID to interact with
+  -h, --help                      Show CLI help.
+  -k, --keypair=<value>           keypair that will pay for onchain transactions. defaults to new account authority if
+                                  no alternate authority provided
+  -s, --silent                    suppress cli prompts
+  -u, --rpcUrl=<value>            alternate RPC url
+  -v, --verbose                   log everything
+  --amount=<value>                (required) amount to deposit into the lease escrow
+  --attestationProgramId=<value>  alternative Switchboard Attestation program ID to interact with
+  --cluster=<option>              the solana cluster to connect to
+                                  <options: devnet|mainnet-beta|mainnet|localnet>
+  --commitment=<option>           [default: confirmed] transaction commitment level to use
+                                  <options: confirmed|finalized|processed>
+  --ledger                        enable ledger support
+  --ledgerPath=<value>            HID path to the ledger
+  --mainnetBeta                   WARNING: use mainnet-beta solana cluster
+  --programId=<value>             alternative Switchboard program ID to interact with
 
 DESCRIPTION
   fund and re-enable an aggregator lease
@@ -4005,23 +2524,25 @@ print an aggregator's history'
 ```
 USAGE
   $ sb solana aggregator history AGGREGATORKEY [-h] [-v] [-s] [--mainnetBeta | --cluster devnet|mainnet-beta|mainnet|localnet]
-    [-u <value>] [--programId <value>] [--commitment confirmed|finalized|processed] [--json] [--metrics]
+    [-u <value>] [--programId <value>] [--attestationProgramId <value>] [--commitment confirmed|finalized|processed]
+    [--json] [--metrics]
 
 ARGUMENTS
   AGGREGATORKEY  public key of the aggregator account
 
 FLAGS
-  -h, --help             Show CLI help.
-  -s, --silent           suppress cli prompts
-  -u, --rpcUrl=<value>   alternate RPC url
-  -v, --verbose          log everything
-  --cluster=<option>     the solana cluster to connect to
-                         <options: devnet|mainnet-beta|mainnet|localnet>
-  --commitment=<option>  [default: confirmed] transaction commitment level to use
-                         <options: confirmed|finalized|processed>
-  --mainnetBeta          WARNING: use mainnet-beta solana cluster
-  --metrics              print metrics on an aggregators history like average update interval
-  --programId=<value>    alternative Switchboard program ID to interact with
+  -h, --help                      Show CLI help.
+  -s, --silent                    suppress cli prompts
+  -u, --rpcUrl=<value>            alternate RPC url
+  -v, --verbose                   log everything
+  --attestationProgramId=<value>  alternative Switchboard Attestation program ID to interact with
+  --cluster=<option>              the solana cluster to connect to
+                                  <options: devnet|mainnet-beta|mainnet|localnet>
+  --commitment=<option>           [default: confirmed] transaction commitment level to use
+                                  <options: confirmed|finalized|processed>
+  --mainnetBeta                   WARNING: use mainnet-beta solana cluster
+  --metrics                       print metrics on an aggregators history like average update interval
+  --programId=<value>             alternative Switchboard program ID to interact with
 
 GLOBAL FLAGS
   --json  Format output as json.
@@ -4030,7 +2551,7 @@ DESCRIPTION
   print an aggregator's history'
 ```
 
-_See code: [dist/commands/solana/aggregator/history.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.6/dist/commands/solana/aggregator/history.js)_
+_See code: [dist/commands/solana/aggregator/history.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.12/dist/commands/solana/aggregator/history.js)_
 
 ## `sb solana aggregator lease set AGGREGATORKEY`
 
@@ -4039,31 +2560,32 @@ set a lease's withdraw authority
 ```
 USAGE
   $ sb solana aggregator lease set AGGREGATORKEY [-h] [-v] [-s] [--mainnetBeta | --cluster devnet|mainnet-beta|mainnet|localnet]
-    [-u <value>] [--programId <value>] [--commitment confirmed|finalized|processed] [-k <value>] [--ledgerPath <value>
-    --ledger] [-a <value>] [--queuePubkey <value>] [--newAuthority <value>]
+    [-u <value>] [--programId <value>] [--attestationProgramId <value>] [--commitment confirmed|finalized|processed] [-k
+    <value>] [--ledgerPath <value> --ledger] [-a <value>] [--queuePubkey <value>] [--newAuthority <value>]
 
 ARGUMENTS
   AGGREGATORKEY  public key of the aggregator account
 
 FLAGS
-  -a, --authority=<value>  alternate keypair delegated as the authority for managing the lease account
-  -h, --help               Show CLI help.
-  -k, --keypair=<value>    keypair that will pay for onchain transactions. defaults to new account authority if no
-                           alternate authority provided
-  -s, --silent             suppress cli prompts
-  -u, --rpcUrl=<value>     alternate RPC url
-  -v, --verbose            log everything
-  --cluster=<option>       the solana cluster to connect to
-                           <options: devnet|mainnet-beta|mainnet|localnet>
-  --commitment=<option>    [default: confirmed] transaction commitment level to use
-                           <options: confirmed|finalized|processed>
-  --ledger                 enable ledger support
-  --ledgerPath=<value>     HID path to the ledger
-  --mainnetBeta            WARNING: use mainnet-beta solana cluster
-  --newAuthority=<value>   new lease withdraw authority. if not set, defaults to the aggregator authority
-  --programId=<value>      alternative Switchboard program ID to interact with
-  --queuePubkey=<value>    override the aggregators current queue. useful for withdrawing from a lease after moving to a
-                           new queue
+  -a, --authority=<value>         alternate keypair delegated as the authority for managing the lease account
+  -h, --help                      Show CLI help.
+  -k, --keypair=<value>           keypair that will pay for onchain transactions. defaults to new account authority if
+                                  no alternate authority provided
+  -s, --silent                    suppress cli prompts
+  -u, --rpcUrl=<value>            alternate RPC url
+  -v, --verbose                   log everything
+  --attestationProgramId=<value>  alternative Switchboard Attestation program ID to interact with
+  --cluster=<option>              the solana cluster to connect to
+                                  <options: devnet|mainnet-beta|mainnet|localnet>
+  --commitment=<option>           [default: confirmed] transaction commitment level to use
+                                  <options: confirmed|finalized|processed>
+  --ledger                        enable ledger support
+  --ledgerPath=<value>            HID path to the ledger
+  --mainnetBeta                   WARNING: use mainnet-beta solana cluster
+  --newAuthority=<value>          new lease withdraw authority. if not set, defaults to the aggregator authority
+  --programId=<value>             alternative Switchboard program ID to interact with
+  --queuePubkey=<value>           override the aggregators current queue. useful for withdrawing from a lease after
+                                  moving to a new queue
 
 DESCRIPTION
   set a lease's withdraw authority
@@ -4082,22 +2604,24 @@ get a list of aggregators from a provided authority pubkey
 ```
 USAGE
   $ sb solana aggregator list AUTHORITYKEY [-h] [-v] [-s] [--mainnetBeta | --cluster devnet|mainnet-beta|mainnet|localnet]
-    [-u <value>] [--programId <value>] [--commitment confirmed|finalized|processed] [--json]
+    [-u <value>] [--programId <value>] [--attestationProgramId <value>] [--commitment confirmed|finalized|processed]
+    [--json]
 
 ARGUMENTS
   AUTHORITYKEY  public key of the aggregator authority
 
 FLAGS
-  -h, --help             Show CLI help.
-  -s, --silent           suppress cli prompts
-  -u, --rpcUrl=<value>   alternate RPC url
-  -v, --verbose          log everything
-  --cluster=<option>     the solana cluster to connect to
-                         <options: devnet|mainnet-beta|mainnet|localnet>
-  --commitment=<option>  [default: confirmed] transaction commitment level to use
-                         <options: confirmed|finalized|processed>
-  --mainnetBeta          WARNING: use mainnet-beta solana cluster
-  --programId=<value>    alternative Switchboard program ID to interact with
+  -h, --help                      Show CLI help.
+  -s, --silent                    suppress cli prompts
+  -u, --rpcUrl=<value>            alternate RPC url
+  -v, --verbose                   log everything
+  --attestationProgramId=<value>  alternative Switchboard Attestation program ID to interact with
+  --cluster=<option>              the solana cluster to connect to
+                                  <options: devnet|mainnet-beta|mainnet|localnet>
+  --commitment=<option>           [default: confirmed] transaction commitment level to use
+                                  <options: confirmed|finalized|processed>
+  --mainnetBeta                   WARNING: use mainnet-beta solana cluster
+  --programId=<value>             alternative Switchboard program ID to interact with
 
 GLOBAL FLAGS
   --json  Format output as json.
@@ -4106,7 +2630,7 @@ DESCRIPTION
   get a list of aggregators from a provided authority pubkey
 ```
 
-_See code: [dist/commands/solana/aggregator/list.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.6/dist/commands/solana/aggregator/list.js)_
+_See code: [dist/commands/solana/aggregator/list.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.12/dist/commands/solana/aggregator/list.js)_
 
 ## `sb solana aggregator lock AGGREGATORKEY`
 
@@ -4115,34 +2639,35 @@ lock an aggregator's configuration and prevent further changes
 ```
 USAGE
   $ sb solana aggregator lock AGGREGATORKEY [-h] [-v] [-s] [--mainnetBeta | --cluster devnet|mainnet-beta|mainnet|localnet]
-    [-u <value>] [--programId <value>] [--commitment confirmed|finalized|processed] [-k <value>] [--ledgerPath <value>
-    --ledger] [-a <value>]
+    [-u <value>] [--programId <value>] [--attestationProgramId <value>] [--commitment confirmed|finalized|processed] [-k
+    <value>] [--ledgerPath <value> --ledger] [-a <value>]
 
 ARGUMENTS
   AGGREGATORKEY  public key of the aggregator account
 
 FLAGS
-  -a, --authority=<value>  alternate keypair that is the authority for the aggregator
-  -h, --help               Show CLI help.
-  -k, --keypair=<value>    keypair that will pay for onchain transactions. defaults to new account authority if no
-                           alternate authority provided
-  -s, --silent             suppress cli prompts
-  -u, --rpcUrl=<value>     alternate RPC url
-  -v, --verbose            log everything
-  --cluster=<option>       the solana cluster to connect to
-                           <options: devnet|mainnet-beta|mainnet|localnet>
-  --commitment=<option>    [default: confirmed] transaction commitment level to use
-                           <options: confirmed|finalized|processed>
-  --ledger                 enable ledger support
-  --ledgerPath=<value>     HID path to the ledger
-  --mainnetBeta            WARNING: use mainnet-beta solana cluster
-  --programId=<value>      alternative Switchboard program ID to interact with
+  -a, --authority=<value>         alternate keypair that is the authority for the aggregator
+  -h, --help                      Show CLI help.
+  -k, --keypair=<value>           keypair that will pay for onchain transactions. defaults to new account authority if
+                                  no alternate authority provided
+  -s, --silent                    suppress cli prompts
+  -u, --rpcUrl=<value>            alternate RPC url
+  -v, --verbose                   log everything
+  --attestationProgramId=<value>  alternative Switchboard Attestation program ID to interact with
+  --cluster=<option>              the solana cluster to connect to
+                                  <options: devnet|mainnet-beta|mainnet|localnet>
+  --commitment=<option>           [default: confirmed] transaction commitment level to use
+                                  <options: confirmed|finalized|processed>
+  --ledger                        enable ledger support
+  --ledgerPath=<value>            HID path to the ledger
+  --mainnetBeta                   WARNING: use mainnet-beta solana cluster
+  --programId=<value>             alternative Switchboard program ID to interact with
 
 DESCRIPTION
   lock an aggregator's configuration and prevent further changes
 ```
 
-_See code: [dist/commands/solana/aggregator/lock.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.6/dist/commands/solana/aggregator/lock.js)_
+_See code: [dist/commands/solana/aggregator/lock.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.12/dist/commands/solana/aggregator/lock.js)_
 
 ## `sb solana aggregator metrics AGGREGATORKEY`
 
@@ -4151,25 +2676,26 @@ print an aggregator's metrics'
 ```
 USAGE
   $ sb solana aggregator metrics AGGREGATORKEY --period <value> [-h] [-v] [-s] [--mainnetBeta | --cluster
-    devnet|mainnet-beta|mainnet|localnet] [-u <value>] [--programId <value>] [--commitment
-    confirmed|finalized|processed] [--json]
+    devnet|mainnet-beta|mainnet|localnet] [-u <value>] [--programId <value>] [--attestationProgramId <value>]
+    [--commitment confirmed|finalized|processed] [--json]
 
 ARGUMENTS
   AGGREGATORKEY  public key of the aggregator account
 
 FLAGS
-  -h, --help             Show CLI help.
-  -s, --silent           suppress cli prompts
-  -u, --rpcUrl=<value>   alternate RPC url
-  -v, --verbose          log everything
-  --cluster=<option>     the solana cluster to connect to
-                         <options: devnet|mainnet-beta|mainnet|localnet>
-  --commitment=<option>  [default: confirmed] transaction commitment level to use
-                         <options: confirmed|finalized|processed>
-  --mainnetBeta          WARNING: use mainnet-beta solana cluster
-  --period=<value>...    (required) the period to collect metrics for. Ex. 3600 will collect update metrics for the last
-                         1hr
-  --programId=<value>    alternative Switchboard program ID to interact with
+  -h, --help                      Show CLI help.
+  -s, --silent                    suppress cli prompts
+  -u, --rpcUrl=<value>            alternate RPC url
+  -v, --verbose                   log everything
+  --attestationProgramId=<value>  alternative Switchboard Attestation program ID to interact with
+  --cluster=<option>              the solana cluster to connect to
+                                  <options: devnet|mainnet-beta|mainnet|localnet>
+  --commitment=<option>           [default: confirmed] transaction commitment level to use
+                                  <options: confirmed|finalized|processed>
+  --mainnetBeta                   WARNING: use mainnet-beta solana cluster
+  --period=<value>...             (required) the period to collect metrics for. Ex. 3600 will collect update metrics for
+                                  the last 1hr
+  --programId=<value>             alternative Switchboard program ID to interact with
 
 GLOBAL FLAGS
   --json  Format output as json.
@@ -4178,7 +2704,7 @@ DESCRIPTION
   print an aggregator's metrics'
 ```
 
-_See code: [dist/commands/solana/aggregator/metrics.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.6/dist/commands/solana/aggregator/metrics.js)_
+_See code: [dist/commands/solana/aggregator/metrics.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.12/dist/commands/solana/aggregator/metrics.js)_
 
 ## `sb solana aggregator mode AGGREGATORKEY`
 
@@ -4187,31 +2713,32 @@ set an aggregators resolution mode config
 ```
 USAGE
   $ sb solana aggregator mode AGGREGATORKEY [-h] [-v] [-s] [--mainnetBeta | --cluster devnet|mainnet-beta|mainnet|localnet]
-    [-u <value>] [--programId <value>] [--commitment confirmed|finalized|processed] [-k <value>] [--ledgerPath <value>
-    --ledger] [--json] [-a <value>] [--slidingWindow | --roundResolution]
+    [-u <value>] [--programId <value>] [--attestationProgramId <value>] [--commitment confirmed|finalized|processed] [-k
+    <value>] [--ledgerPath <value> --ledger] [--json] [-a <value>] [--slidingWindow | --roundResolution]
 
 ARGUMENTS
   AGGREGATORKEY  public key of the aggregator account
 
 FLAGS
-  -a, --authority=<value>  alternate keypair that is the authority for the aggregator and required to make config
-                           changes
-  -h, --help               Show CLI help.
-  -k, --keypair=<value>    keypair that will pay for onchain transactions. defaults to new account authority if no
-                           alternate authority provided
-  -s, --silent             suppress cli prompts
-  -u, --rpcUrl=<value>     alternate RPC url
-  -v, --verbose            log everything
-  --cluster=<option>       the solana cluster to connect to
-                           <options: devnet|mainnet-beta|mainnet|localnet>
-  --commitment=<option>    [default: confirmed] transaction commitment level to use
-                           <options: confirmed|finalized|processed>
-  --ledger                 enable ledger support
-  --ledgerPath=<value>     HID path to the ledger
-  --mainnetBeta            WARNING: use mainnet-beta solana cluster
-  --programId=<value>      alternative Switchboard program ID to interact with
-  --roundResolution        enable sliding window mode
-  --slidingWindow          enable sliding window mode
+  -a, --authority=<value>         alternate keypair that is the authority for the aggregator and required to make config
+                                  changes
+  -h, --help                      Show CLI help.
+  -k, --keypair=<value>           keypair that will pay for onchain transactions. defaults to new account authority if
+                                  no alternate authority provided
+  -s, --silent                    suppress cli prompts
+  -u, --rpcUrl=<value>            alternate RPC url
+  -v, --verbose                   log everything
+  --attestationProgramId=<value>  alternative Switchboard Attestation program ID to interact with
+  --cluster=<option>              the solana cluster to connect to
+                                  <options: devnet|mainnet-beta|mainnet|localnet>
+  --commitment=<option>           [default: confirmed] transaction commitment level to use
+                                  <options: confirmed|finalized|processed>
+  --ledger                        enable ledger support
+  --ledgerPath=<value>            HID path to the ledger
+  --mainnetBeta                   WARNING: use mainnet-beta solana cluster
+  --programId=<value>             alternative Switchboard program ID to interact with
+  --roundResolution               enable sliding window mode
+  --slidingWindow                 enable sliding window mode
 
 GLOBAL FLAGS
   --json  Format output as json.
@@ -4220,7 +2747,7 @@ DESCRIPTION
   set an aggregators resolution mode config
 ```
 
-_See code: [dist/commands/solana/aggregator/mode.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.6/dist/commands/solana/aggregator/mode.js)_
+_See code: [dist/commands/solana/aggregator/mode.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.12/dist/commands/solana/aggregator/mode.js)_
 
 ## `sb solana aggregator open-round AGGREGATORKEY`
 
@@ -4229,27 +2756,28 @@ request a new aggregator result from a set of oracles
 ```
 USAGE
   $ sb solana aggregator open-round AGGREGATORKEY [-h] [-v] [-s] [--mainnetBeta | --cluster devnet|mainnet-beta|mainnet|localnet]
-    [-u <value>] [--programId <value>] [--commitment confirmed|finalized|processed] [-k <value>] [--ledgerPath <value>
-    --ledger]
+    [-u <value>] [--programId <value>] [--attestationProgramId <value>] [--commitment confirmed|finalized|processed] [-k
+    <value>] [--ledgerPath <value> --ledger]
 
 ARGUMENTS
   AGGREGATORKEY  public key of the aggregator account
 
 FLAGS
-  -h, --help             Show CLI help.
-  -k, --keypair=<value>  keypair that will pay for onchain transactions. defaults to new account authority if no
-                         alternate authority provided
-  -s, --silent           suppress cli prompts
-  -u, --rpcUrl=<value>   alternate RPC url
-  -v, --verbose          log everything
-  --cluster=<option>     the solana cluster to connect to
-                         <options: devnet|mainnet-beta|mainnet|localnet>
-  --commitment=<option>  [default: confirmed] transaction commitment level to use
-                         <options: confirmed|finalized|processed>
-  --ledger               enable ledger support
-  --ledgerPath=<value>   HID path to the ledger
-  --mainnetBeta          WARNING: use mainnet-beta solana cluster
-  --programId=<value>    alternative Switchboard program ID to interact with
+  -h, --help                      Show CLI help.
+  -k, --keypair=<value>           keypair that will pay for onchain transactions. defaults to new account authority if
+                                  no alternate authority provided
+  -s, --silent                    suppress cli prompts
+  -u, --rpcUrl=<value>            alternate RPC url
+  -v, --verbose                   log everything
+  --attestationProgramId=<value>  alternative Switchboard Attestation program ID to interact with
+  --cluster=<option>              the solana cluster to connect to
+                                  <options: devnet|mainnet-beta|mainnet|localnet>
+  --commitment=<option>           [default: confirmed] transaction commitment level to use
+                                  <options: confirmed|finalized|processed>
+  --ledger                        enable ledger support
+  --ledgerPath=<value>            HID path to the ledger
+  --mainnetBeta                   WARNING: use mainnet-beta solana cluster
+  --programId=<value>             alternative Switchboard program ID to interact with
 
 DESCRIPTION
   request a new aggregator result from a set of oracles
@@ -4268,33 +2796,34 @@ create a permission account for an aggregator
 ```
 USAGE
   $ sb solana aggregator permission create AGGREGATORKEY [-h] [-v] [-s] [--mainnetBeta | --cluster devnet|mainnet-beta|mainnet|localnet]
-    [-u <value>] [--programId <value>] [--commitment confirmed|finalized|processed] [-k <value>] [--ledgerPath <value>
-    --ledger]
+    [-u <value>] [--programId <value>] [--attestationProgramId <value>] [--commitment confirmed|finalized|processed] [-k
+    <value>] [--ledgerPath <value> --ledger]
 
 ARGUMENTS
   AGGREGATORKEY  public key of the aggregator account
 
 FLAGS
-  -h, --help             Show CLI help.
-  -k, --keypair=<value>  keypair that will pay for onchain transactions. defaults to new account authority if no
-                         alternate authority provided
-  -s, --silent           suppress cli prompts
-  -u, --rpcUrl=<value>   alternate RPC url
-  -v, --verbose          log everything
-  --cluster=<option>     the solana cluster to connect to
-                         <options: devnet|mainnet-beta|mainnet|localnet>
-  --commitment=<option>  [default: confirmed] transaction commitment level to use
-                         <options: confirmed|finalized|processed>
-  --ledger               enable ledger support
-  --ledgerPath=<value>   HID path to the ledger
-  --mainnetBeta          WARNING: use mainnet-beta solana cluster
-  --programId=<value>    alternative Switchboard program ID to interact with
+  -h, --help                      Show CLI help.
+  -k, --keypair=<value>           keypair that will pay for onchain transactions. defaults to new account authority if
+                                  no alternate authority provided
+  -s, --silent                    suppress cli prompts
+  -u, --rpcUrl=<value>            alternate RPC url
+  -v, --verbose                   log everything
+  --attestationProgramId=<value>  alternative Switchboard Attestation program ID to interact with
+  --cluster=<option>              the solana cluster to connect to
+                                  <options: devnet|mainnet-beta|mainnet|localnet>
+  --commitment=<option>           [default: confirmed] transaction commitment level to use
+                                  <options: confirmed|finalized|processed>
+  --ledger                        enable ledger support
+  --ledgerPath=<value>            HID path to the ledger
+  --mainnetBeta                   WARNING: use mainnet-beta solana cluster
+  --programId=<value>             alternative Switchboard program ID to interact with
 
 DESCRIPTION
   create a permission account for an aggregator
 ```
 
-_See code: [dist/commands/solana/aggregator/permission/create.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.6/dist/commands/solana/aggregator/permission/create.js)_
+_See code: [dist/commands/solana/aggregator/permission/create.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.12/dist/commands/solana/aggregator/permission/create.js)_
 
 ## `sb solana aggregator print AGGREGATORKEY`
 
@@ -4303,24 +2832,26 @@ print an aggregator and it's associated accounts
 ```
 USAGE
   $ sb solana aggregator print AGGREGATORKEY [-h] [-v] [-s] [--mainnetBeta | --cluster devnet|mainnet-beta|mainnet|localnet]
-    [-u <value>] [--programId <value>] [--commitment confirmed|finalized|processed] [--json] [--queuePubkey <value>]
+    [-u <value>] [--programId <value>] [--attestationProgramId <value>] [--commitment confirmed|finalized|processed]
+    [--json] [--queuePubkey <value>]
 
 ARGUMENTS
   AGGREGATORKEY  public key of the aggregator account
 
 FLAGS
-  -h, --help             Show CLI help.
-  -s, --silent           suppress cli prompts
-  -u, --rpcUrl=<value>   alternate RPC url
-  -v, --verbose          log everything
-  --cluster=<option>     the solana cluster to connect to
-                         <options: devnet|mainnet-beta|mainnet|localnet>
-  --commitment=<option>  [default: confirmed] transaction commitment level to use
-                         <options: confirmed|finalized|processed>
-  --mainnetBeta          WARNING: use mainnet-beta solana cluster
-  --programId=<value>    alternative Switchboard program ID to interact with
-  --queuePubkey=<value>  override the aggregators current queue. useful for viewing permission lease accounts if an
-                         aggregator has moved queues
+  -h, --help                      Show CLI help.
+  -s, --silent                    suppress cli prompts
+  -u, --rpcUrl=<value>            alternate RPC url
+  -v, --verbose                   log everything
+  --attestationProgramId=<value>  alternative Switchboard Attestation program ID to interact with
+  --cluster=<option>              the solana cluster to connect to
+                                  <options: devnet|mainnet-beta|mainnet|localnet>
+  --commitment=<option>           [default: confirmed] transaction commitment level to use
+                                  <options: confirmed|finalized|processed>
+  --mainnetBeta                   WARNING: use mainnet-beta solana cluster
+  --programId=<value>             alternative Switchboard program ID to interact with
+  --queuePubkey=<value>           override the aggregators current queue. useful for viewing permission lease accounts
+                                  if an aggregator has moved queues
 
 GLOBAL FLAGS
   --json  Format output as json.
@@ -4329,7 +2860,7 @@ DESCRIPTION
   print an aggregator and it's associated accounts
 ```
 
-_See code: [dist/commands/solana/aggregator/print.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.6/dist/commands/solana/aggregator/print.js)_
+_See code: [dist/commands/solana/aggregator/print.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.12/dist/commands/solana/aggregator/print.js)_
 
 ## `sb solana aggregator remove job AGGREGATORKEY JOBKEY`
 
@@ -4338,35 +2869,36 @@ remove a switchboard job account from an aggregator
 ```
 USAGE
   $ sb solana aggregator remove job AGGREGATORKEY JOBKEY [-h] [-v] [-s] [--mainnetBeta | --cluster
-    devnet|mainnet-beta|mainnet|localnet] [-u <value>] [--programId <value>] [--commitment
-    confirmed|finalized|processed] [-k <value>] [--ledgerPath <value> --ledger] [-a <value>]
+    devnet|mainnet-beta|mainnet|localnet] [-u <value>] [--programId <value>] [--attestationProgramId <value>]
+    [--commitment confirmed|finalized|processed] [-k <value>] [--ledgerPath <value> --ledger] [-a <value>]
 
 ARGUMENTS
   AGGREGATORKEY  public key of the aggregator account
   JOBKEY         public key of an existing job account to remove from an aggregator
 
 FLAGS
-  -a, --authority=<value>  alternate keypair that is the authority for the aggregator
-  -h, --help               Show CLI help.
-  -k, --keypair=<value>    keypair that will pay for onchain transactions. defaults to new account authority if no
-                           alternate authority provided
-  -s, --silent             suppress cli prompts
-  -u, --rpcUrl=<value>     alternate RPC url
-  -v, --verbose            log everything
-  --cluster=<option>       the solana cluster to connect to
-                           <options: devnet|mainnet-beta|mainnet|localnet>
-  --commitment=<option>    [default: confirmed] transaction commitment level to use
-                           <options: confirmed|finalized|processed>
-  --ledger                 enable ledger support
-  --ledgerPath=<value>     HID path to the ledger
-  --mainnetBeta            WARNING: use mainnet-beta solana cluster
-  --programId=<value>      alternative Switchboard program ID to interact with
+  -a, --authority=<value>         alternate keypair that is the authority for the aggregator
+  -h, --help                      Show CLI help.
+  -k, --keypair=<value>           keypair that will pay for onchain transactions. defaults to new account authority if
+                                  no alternate authority provided
+  -s, --silent                    suppress cli prompts
+  -u, --rpcUrl=<value>            alternate RPC url
+  -v, --verbose                   log everything
+  --attestationProgramId=<value>  alternative Switchboard Attestation program ID to interact with
+  --cluster=<option>              the solana cluster to connect to
+                                  <options: devnet|mainnet-beta|mainnet|localnet>
+  --commitment=<option>           [default: confirmed] transaction commitment level to use
+                                  <options: confirmed|finalized|processed>
+  --ledger                        enable ledger support
+  --ledgerPath=<value>            HID path to the ledger
+  --mainnetBeta                   WARNING: use mainnet-beta solana cluster
+  --programId=<value>             alternative Switchboard program ID to interact with
 
 DESCRIPTION
   remove a switchboard job account from an aggregator
 ```
 
-_See code: [dist/commands/solana/aggregator/remove/job.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.6/dist/commands/solana/aggregator/remove/job.js)_
+_See code: [dist/commands/solana/aggregator/remove/job.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.12/dist/commands/solana/aggregator/remove/job.js)_
 
 ## `sb solana aggregator set AGGREGATORKEY`
 
@@ -4375,11 +2907,11 @@ set an aggregators config
 ```
 USAGE
   $ sb solana aggregator set AGGREGATORKEY [-h] [-v] [-s] [--mainnetBeta | --cluster devnet|mainnet-beta|mainnet|localnet]
-    [-u <value>] [--programId <value>] [--commitment confirmed|finalized|processed] [-k <value>] [--ledgerPath <value>
-    --ledger] [--json] [-a <value>] [--name <value>] [--metadata <value>] [--batchSize <value>] [--minJobs <value>]
-    [--minOracles <value>] [--updateInterval <value>] [--varianceThreshold <value>] [--forceReportPeriod <value>]
-    [--basePriorityFee <value>] [--priorityFeeBump <value>] [--priorityFeeBumpPeriod <value>]
-    [--maxPriorityFeeMultiplier <value>] [--enableSlidingWindow]
+    [-u <value>] [--programId <value>] [--attestationProgramId <value>] [--commitment confirmed|finalized|processed] [-k
+    <value>] [--ledgerPath <value> --ledger] [--json] [-a <value>] [--name <value>] [--metadata <value>] [--batchSize
+    <value>] [--minJobs <value>] [--minOracles <value>] [--updateInterval <value>] [--varianceThreshold <value>]
+    [--forceReportPeriod <value>] [--basePriorityFee <value>] [--priorityFeeBump <value>] [--priorityFeeBumpPeriod
+    <value>] [--maxPriorityFeeMultiplier <value>] [--enableSlidingWindow]
 
 ARGUMENTS
   AGGREGATORKEY  public key of the aggregator account
@@ -4393,6 +2925,7 @@ FLAGS
   -s, --silent                        suppress cli prompts
   -u, --rpcUrl=<value>                alternate RPC url
   -v, --verbose                       log everything
+  --attestationProgramId=<value>      alternative Switchboard Attestation program ID to interact with
   --basePriorityFee=<value>
   --batchSize=<value>                 number of oracles requested for each open round call
   --cluster=<option>                  the solana cluster to connect to
@@ -4424,7 +2957,7 @@ DESCRIPTION
   set an aggregators config
 ```
 
-_See code: [dist/commands/solana/aggregator/set.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.6/dist/commands/solana/aggregator/set.js)_
+_See code: [dist/commands/solana/aggregator/set.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.12/dist/commands/solana/aggregator/set.js)_
 
 ## `sb solana aggregator transfer AGGREGATORKEY`
 
@@ -4433,37 +2966,38 @@ transfer an aggregator to a new queue
 ```
 USAGE
   $ sb solana aggregator transfer AGGREGATORKEY --newQueue <value> [-h] [-v] [-s] [--mainnetBeta | --cluster
-    devnet|mainnet-beta|mainnet|localnet] [-u <value>] [--programId <value>] [--commitment
-    confirmed|finalized|processed] [-k <value>] [--ledgerPath <value> --ledger] [-a <value>] [--newCrank <value>]
-    [--loadAmount <value>] [--enable] [--queueAuthority <value>] [--force]
+    devnet|mainnet-beta|mainnet|localnet] [-u <value>] [--programId <value>] [--attestationProgramId <value>]
+    [--commitment confirmed|finalized|processed] [-k <value>] [--ledgerPath <value> --ledger] [-a <value>] [--newCrank
+    <value>] [--loadAmount <value>] [--enable] [--queueAuthority <value>] [--force]
 
 ARGUMENTS
   AGGREGATORKEY  public key of the aggregator account
 
 FLAGS
-  -a, --authority=<value>   alternate keypair that is the authority for the aggregator
-  -h, --help                Show CLI help.
-  -k, --keypair=<value>     keypair that will pay for onchain transactions. defaults to new account authority if no
-                            alternate authority provided
-  -s, --silent              suppress cli prompts
-  -u, --rpcUrl=<value>      alternate RPC url
-  -v, --verbose             log everything
-  --cluster=<option>        the solana cluster to connect to
-                            <options: devnet|mainnet-beta|mainnet|localnet>
-  --commitment=<option>     [default: confirmed] transaction commitment level to use
-                            <options: confirmed|finalized|processed>
-  --enable                  enable permissions on the new queue
-  --force                   skip permission checks
-  --ledger                  enable ledger support
-  --ledgerPath=<value>      HID path to the ledger
-  --loadAmount=<value>      [default: 0.0] amount of funds to load into the new lease, in addition to the funds
-                            remaining in the old lease account
-  --mainnetBeta             WARNING: use mainnet-beta solana cluster
-  --newCrank=<value>        publicKey of the crank to transfer to
-  --newQueue=<value>        (required) publicKey of the new queue to transfer to
-  --programId=<value>       alternative Switchboard program ID to interact with
-  --queueAuthority=<value>  alternate keypair that is the authority for the queue. only used if enabling permissions in
-                            one transaction
+  -a, --authority=<value>         alternate keypair that is the authority for the aggregator
+  -h, --help                      Show CLI help.
+  -k, --keypair=<value>           keypair that will pay for onchain transactions. defaults to new account authority if
+                                  no alternate authority provided
+  -s, --silent                    suppress cli prompts
+  -u, --rpcUrl=<value>            alternate RPC url
+  -v, --verbose                   log everything
+  --attestationProgramId=<value>  alternative Switchboard Attestation program ID to interact with
+  --cluster=<option>              the solana cluster to connect to
+                                  <options: devnet|mainnet-beta|mainnet|localnet>
+  --commitment=<option>           [default: confirmed] transaction commitment level to use
+                                  <options: confirmed|finalized|processed>
+  --enable                        enable permissions on the new queue
+  --force                         skip permission checks
+  --ledger                        enable ledger support
+  --ledgerPath=<value>            HID path to the ledger
+  --loadAmount=<value>            [default: 0.0] amount of funds to load into the new lease, in addition to the funds
+                                  remaining in the old lease account
+  --mainnetBeta                   WARNING: use mainnet-beta solana cluster
+  --newCrank=<value>              publicKey of the crank to transfer to
+  --newQueue=<value>              (required) publicKey of the new queue to transfer to
+  --programId=<value>             alternative Switchboard program ID to interact with
+  --queueAuthority=<value>        alternate keypair that is the authority for the queue. only used if enabling
+                                  permissions in one transaction
 
 DESCRIPTION
   transfer an aggregator to a new queue
@@ -4472,7 +3006,7 @@ EXAMPLES
   $ sb solana aggregator transfer GvDMxPzN1sCj7L26YDK2HnMRXEQmQ2aemov8YBtPS7vR --mainnetBeta --loadAmount 0.1 --newQueue 3HBb2DQqDfuMdzWxNk1Eo9RTMkFYmuEAd32RiLKn9pAn --newCrank GdNVLWzcE6h9SPuSbmu69YzxAj8enim9t6mjzuqTXgLd --keypair ~/.config/solana/id.json
 ```
 
-_See code: [dist/commands/solana/aggregator/transfer.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.6/dist/commands/solana/aggregator/transfer.js)_
+_See code: [dist/commands/solana/aggregator/transfer.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.12/dist/commands/solana/aggregator/transfer.js)_
 
 ## `sb solana aggregator update AGGREGATORKEY`
 
@@ -4481,27 +3015,28 @@ request a new aggregator result from a set of oracles
 ```
 USAGE
   $ sb solana aggregator update AGGREGATORKEY [-h] [-v] [-s] [--mainnetBeta | --cluster devnet|mainnet-beta|mainnet|localnet]
-    [-u <value>] [--programId <value>] [--commitment confirmed|finalized|processed] [-k <value>] [--ledgerPath <value>
-    --ledger]
+    [-u <value>] [--programId <value>] [--attestationProgramId <value>] [--commitment confirmed|finalized|processed] [-k
+    <value>] [--ledgerPath <value> --ledger]
 
 ARGUMENTS
   AGGREGATORKEY  public key of the aggregator account
 
 FLAGS
-  -h, --help             Show CLI help.
-  -k, --keypair=<value>  keypair that will pay for onchain transactions. defaults to new account authority if no
-                         alternate authority provided
-  -s, --silent           suppress cli prompts
-  -u, --rpcUrl=<value>   alternate RPC url
-  -v, --verbose          log everything
-  --cluster=<option>     the solana cluster to connect to
-                         <options: devnet|mainnet-beta|mainnet|localnet>
-  --commitment=<option>  [default: confirmed] transaction commitment level to use
-                         <options: confirmed|finalized|processed>
-  --ledger               enable ledger support
-  --ledgerPath=<value>   HID path to the ledger
-  --mainnetBeta          WARNING: use mainnet-beta solana cluster
-  --programId=<value>    alternative Switchboard program ID to interact with
+  -h, --help                      Show CLI help.
+  -k, --keypair=<value>           keypair that will pay for onchain transactions. defaults to new account authority if
+                                  no alternate authority provided
+  -s, --silent                    suppress cli prompts
+  -u, --rpcUrl=<value>            alternate RPC url
+  -v, --verbose                   log everything
+  --attestationProgramId=<value>  alternative Switchboard Attestation program ID to interact with
+  --cluster=<option>              the solana cluster to connect to
+                                  <options: devnet|mainnet-beta|mainnet|localnet>
+  --commitment=<option>           [default: confirmed] transaction commitment level to use
+                                  <options: confirmed|finalized|processed>
+  --ledger                        enable ledger support
+  --ledgerPath=<value>            HID path to the ledger
+  --mainnetBeta                   WARNING: use mainnet-beta solana cluster
+  --programId=<value>             alternative Switchboard program ID to interact with
 
 DESCRIPTION
   request a new aggregator result from a set of oracles
@@ -4513,7 +3048,7 @@ EXAMPLES
   $ sb solana aggregator update J7j9xX8JP2B2ErvUzuqGAKBGeggsxPyFXj5MqZcYDxfa --keypair ../payer-keypair.json
 ```
 
-_See code: [dist/commands/solana/aggregator/update.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.6/dist/commands/solana/aggregator/update.js)_
+_See code: [dist/commands/solana/aggregator/update.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.12/dist/commands/solana/aggregator/update.js)_
 
 ## `sb solana aggregator watch AGGREGATORKEY`
 
@@ -4522,30 +3057,32 @@ watch an aggregator account and stream the results
 ```
 USAGE
   $ sb solana aggregator watch AGGREGATORKEY [-h] [-v] [-s] [--mainnetBeta | --cluster devnet|mainnet-beta|mainnet|localnet]
-    [-u <value>] [--programId <value>] [--commitment confirmed|finalized|processed] [-t <value>] [-f <value>]
+    [-u <value>] [--programId <value>] [--attestationProgramId <value>] [--commitment confirmed|finalized|processed] [-t
+    <value>] [-f <value>]
 
 ARGUMENTS
   AGGREGATORKEY  public key of the aggregator account
 
 FLAGS
-  -f, --outfile=<value>  save results to a file
-  -h, --help             Show CLI help.
-  -s, --silent           suppress cli prompts
-  -t, --timeout=<value>  time to watch feed for updates
-  -u, --rpcUrl=<value>   alternate RPC url
-  -v, --verbose          log everything
-  --cluster=<option>     the solana cluster to connect to
-                         <options: devnet|mainnet-beta|mainnet|localnet>
-  --commitment=<option>  [default: confirmed] transaction commitment level to use
-                         <options: confirmed|finalized|processed>
-  --mainnetBeta          WARNING: use mainnet-beta solana cluster
-  --programId=<value>    alternative Switchboard program ID to interact with
+  -f, --outfile=<value>           save results to a file
+  -h, --help                      Show CLI help.
+  -s, --silent                    suppress cli prompts
+  -t, --timeout=<value>           time to watch feed for updates
+  -u, --rpcUrl=<value>            alternate RPC url
+  -v, --verbose                   log everything
+  --attestationProgramId=<value>  alternative Switchboard Attestation program ID to interact with
+  --cluster=<option>              the solana cluster to connect to
+                                  <options: devnet|mainnet-beta|mainnet|localnet>
+  --commitment=<option>           [default: confirmed] transaction commitment level to use
+                                  <options: confirmed|finalized|processed>
+  --mainnetBeta                   WARNING: use mainnet-beta solana cluster
+  --programId=<value>             alternative Switchboard program ID to interact with
 
 DESCRIPTION
   watch an aggregator account and stream the results
 ```
 
-_See code: [dist/commands/solana/aggregator/watch.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.6/dist/commands/solana/aggregator/watch.js)_
+_See code: [dist/commands/solana/aggregator/watch.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.12/dist/commands/solana/aggregator/watch.js)_
 
 ## `sb solana aggregator withdraw AGGREGATORKEY`
 
@@ -4554,31 +3091,33 @@ withdraw funds from an aggregator lease
 ```
 USAGE
   $ sb solana aggregator withdraw AGGREGATORKEY --amount <value> [-h] [-v] [-s] [--mainnetBeta | --cluster
-    devnet|mainnet-beta|mainnet|localnet] [-u <value>] [--programId <value>] [--commitment
-    confirmed|finalized|processed] [-k <value>] [--ledgerPath <value> --ledger] [-a <value>] [--queuePubkey <value>]
+    devnet|mainnet-beta|mainnet|localnet] [-u <value>] [--programId <value>] [--attestationProgramId <value>]
+    [--commitment confirmed|finalized|processed] [-k <value>] [--ledgerPath <value> --ledger] [-a <value>]
+    [--queuePubkey <value>]
 
 ARGUMENTS
   AGGREGATORKEY  public key of the aggregator account
 
 FLAGS
-  -a, --authority=<value>  keypair delegated as the authority for managing the lease account
-  -h, --help               Show CLI help.
-  -k, --keypair=<value>    keypair that will pay for onchain transactions. defaults to new account authority if no
-                           alternate authority provided
-  -s, --silent             suppress cli prompts
-  -u, --rpcUrl=<value>     alternate RPC url
-  -v, --verbose            log everything
-  --amount=<value>         (required) token amount to withdraw from lease account
-  --cluster=<option>       the solana cluster to connect to
-                           <options: devnet|mainnet-beta|mainnet|localnet>
-  --commitment=<option>    [default: confirmed] transaction commitment level to use
-                           <options: confirmed|finalized|processed>
-  --ledger                 enable ledger support
-  --ledgerPath=<value>     HID path to the ledger
-  --mainnetBeta            WARNING: use mainnet-beta solana cluster
-  --programId=<value>      alternative Switchboard program ID to interact with
-  --queuePubkey=<value>    override the aggregators current queue. useful for withdrawing from a lease after moving to a
-                           new queue
+  -a, --authority=<value>         keypair delegated as the authority for managing the lease account
+  -h, --help                      Show CLI help.
+  -k, --keypair=<value>           keypair that will pay for onchain transactions. defaults to new account authority if
+                                  no alternate authority provided
+  -s, --silent                    suppress cli prompts
+  -u, --rpcUrl=<value>            alternate RPC url
+  -v, --verbose                   log everything
+  --amount=<value>                (required) token amount to withdraw from lease account
+  --attestationProgramId=<value>  alternative Switchboard Attestation program ID to interact with
+  --cluster=<option>              the solana cluster to connect to
+                                  <options: devnet|mainnet-beta|mainnet|localnet>
+  --commitment=<option>           [default: confirmed] transaction commitment level to use
+                                  <options: confirmed|finalized|processed>
+  --ledger                        enable ledger support
+  --ledgerPath=<value>            HID path to the ledger
+  --mainnetBeta                   WARNING: use mainnet-beta solana cluster
+  --programId=<value>             alternative Switchboard program ID to interact with
+  --queuePubkey=<value>           override the aggregators current queue. useful for withdrawing from a lease after
+                                  moving to a new queue
 
 DESCRIPTION
   withdraw funds from an aggregator lease
@@ -4629,7 +3168,182 @@ ALIASES
   $ sb anchor test
 ```
 
-_See code: [dist/commands/solana/anchor/test.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.6/dist/commands/solana/anchor/test.js)_
+_See code: [dist/commands/solana/anchor/test.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.12/dist/commands/solana/anchor/test.js)_
+
+## `sb solana attestation-queue add-enclave QUEUEKEY`
+
+add enclave(s) to an attestation queue's config
+
+```
+USAGE
+  $ sb solana attestation-queue add-enclave QUEUEKEY --mrEnclave <value> [-h] [-v] [-s] [--mainnetBeta | --cluster
+    devnet|mainnet-beta|mainnet|localnet] [-u <value>] [--programId <value>] [--attestationProgramId <value>]
+    [--commitment confirmed|finalized|processed] [-k <value>] [--ledgerPath <value> --ledger] [--json] [-a <value>]
+    [--force]
+
+ARGUMENTS
+  QUEUEKEY  public key of the attestation queue account
+
+FLAGS
+  -a, --authority=<value>         alternate keypair that is the authority for the attestation queue and is required to
+                                  approve config changes
+  -h, --help                      Show CLI help.
+  -k, --keypair=<value>           keypair that will pay for onchain transactions. defaults to new account authority if
+                                  no alternate authority provided
+  -s, --silent                    suppress cli prompts
+  -u, --rpcUrl=<value>            alternate RPC url
+  -v, --verbose                   log everything
+  --attestationProgramId=<value>  alternative Switchboard Attestation program ID to interact with
+  --cluster=<option>              the solana cluster to connect to
+                                  <options: devnet|mainnet-beta|mainnet|localnet>
+  --commitment=<option>           [default: confirmed] transaction commitment level to use
+                                  <options: confirmed|finalized|processed>
+  --force                         remove old enclaves if the addition will exceed the maximum allowable enclaves (32)
+  --ledger                        enable ledger support
+  --ledgerPath=<value>            HID path to the ledger
+  --mainnetBeta                   WARNING: use mainnet-beta solana cluster
+  --mrEnclave=<value>...          (required) Hex encoded MRENCLAVE's to add to the attestation queue's config
+  --programId=<value>             alternative Switchboard program ID to interact with
+
+GLOBAL FLAGS
+  --json  Format output as json.
+
+DESCRIPTION
+  add enclave(s) to an attestation queue's config
+```
+
+_See code: [dist/commands/solana/attestation-queue/add-enclave.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.12/dist/commands/solana/attestation-queue/add-enclave.js)_
+
+## `sb solana attestation-queue create`
+
+create an attestation queue
+
+```
+USAGE
+  $ sb solana attestation-queue create [-h] [-v] [-s] [--mainnetBeta | --cluster devnet|mainnet-beta|mainnet|localnet] [-u <value>]
+    [--programId <value>] [--attestationProgramId <value>] [--commitment confirmed|finalized|processed] [-k <value>]
+    [--ledgerPath <value> --ledger] [--json] [-a <value>] [--queueKeypair <value>] [--reward <value>]
+    [--allowAuthorityOverrideAfter <value>] [--maxQuoteVerificationAge <value>] [--nodeTimeout <value>]
+    [--requireAuthorityHeartbeatPermissions] [--requireUsagePermissions]
+
+FLAGS
+  -a, --authority=<value>                 alternate keypair that is the authority for the queue and is required to
+                                          approve permissions
+  -h, --help                              Show CLI help.
+  -k, --keypair=<value>                   keypair that will pay for onchain transactions. defaults to new account
+                                          authority if no alternate authority provided
+  -s, --silent                            suppress cli prompts
+  -u, --rpcUrl=<value>                    alternate RPC url
+  -v, --verbose                           log everything
+  --allowAuthorityOverrideAfter=<value>   [default: 86400] Allow authority to force add a node after X seconds with no
+                                          heartbeat.
+  --attestationProgramId=<value>          alternative Switchboard Attestation program ID to interact with
+  --cluster=<option>                      the solana cluster to connect to
+                                          <options: devnet|mainnet-beta|mainnet|localnet>
+  --commitment=<option>                   [default: confirmed] transaction commitment level to use
+                                          <options: confirmed|finalized|processed>
+  --ledger                                enable ledger support
+  --ledgerPath=<value>                    HID path to the ledger
+  --mainnetBeta                           WARNING: use mainnet-beta solana cluster
+  --maxQuoteVerificationAge=<value>       [default: 604800] The maximum allowable time until a EnclaveAccount needs to
+                                          be re-verified on-chain.
+  --nodeTimeout=<value>                   [default: 86400] The maximum allowable time until a node needs to send a
+                                          heartbeat.
+  --programId=<value>                     alternative Switchboard program ID to interact with
+  --queueKeypair=<value>                  keypair to use for the attestation queue account. This will be the account's
+                                          publicKey
+  --requireAuthorityHeartbeatPermissions  Even if a heartbeating machine quote verifies with proper measurement, require
+                                          authority signoff.
+  --requireUsagePermissions               Require FunctionAccounts to have PermitQueueUsage before they are executed.
+  --reward=<value>                        [default: 0] the reward payed out to oracles for responding to an update
+                                          request on-chain, Ex: A reward of 0.0000075 with a feed with a batchSize of 4
+                                          would deduct (4 * 0.0000075) wSOL from an aggregators lease each round.
+
+GLOBAL FLAGS
+  --json  Format output as json.
+
+DESCRIPTION
+  create an attestation queue
+```
+
+_See code: [dist/commands/solana/attestation-queue/create.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.12/dist/commands/solana/attestation-queue/create.js)_
+
+## `sb solana attestation-queue print QUEUEKEY`
+
+print an attestation queue account
+
+```
+USAGE
+  $ sb solana attestation-queue print QUEUEKEY [-h] [-v] [-s] [--mainnetBeta | --cluster devnet|mainnet-beta|mainnet|localnet] [-u
+    <value>] [--programId <value>] [--attestationProgramId <value>] [--commitment confirmed|finalized|processed]
+    [--json]
+
+ARGUMENTS
+  QUEUEKEY  public key of the attestation queue account
+
+FLAGS
+  -h, --help                      Show CLI help.
+  -s, --silent                    suppress cli prompts
+  -u, --rpcUrl=<value>            alternate RPC url
+  -v, --verbose                   log everything
+  --attestationProgramId=<value>  alternative Switchboard Attestation program ID to interact with
+  --cluster=<option>              the solana cluster to connect to
+                                  <options: devnet|mainnet-beta|mainnet|localnet>
+  --commitment=<option>           [default: confirmed] transaction commitment level to use
+                                  <options: confirmed|finalized|processed>
+  --mainnetBeta                   WARNING: use mainnet-beta solana cluster
+  --programId=<value>             alternative Switchboard program ID to interact with
+
+GLOBAL FLAGS
+  --json  Format output as json.
+
+DESCRIPTION
+  print an attestation queue account
+```
+
+_See code: [dist/commands/solana/attestation-queue/print.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.12/dist/commands/solana/attestation-queue/print.js)_
+
+## `sb solana attestation-queue remove-enclave QUEUEKEY`
+
+remove enclave(s) from an attestation queue's config
+
+```
+USAGE
+  $ sb solana attestation-queue remove-enclave QUEUEKEY --mrEnclave <value> [-h] [-v] [-s] [--mainnetBeta | --cluster
+    devnet|mainnet-beta|mainnet|localnet] [-u <value>] [--programId <value>] [--attestationProgramId <value>]
+    [--commitment confirmed|finalized|processed] [-k <value>] [--ledgerPath <value> --ledger] [--json] [-a <value>]
+
+ARGUMENTS
+  QUEUEKEY  public key of the attestation queue account
+
+FLAGS
+  -a, --authority=<value>         alternate keypair that is the authority for the attestation queue and is required to
+                                  approve config changes
+  -h, --help                      Show CLI help.
+  -k, --keypair=<value>           keypair that will pay for onchain transactions. defaults to new account authority if
+                                  no alternate authority provided
+  -s, --silent                    suppress cli prompts
+  -u, --rpcUrl=<value>            alternate RPC url
+  -v, --verbose                   log everything
+  --attestationProgramId=<value>  alternative Switchboard Attestation program ID to interact with
+  --cluster=<option>              the solana cluster to connect to
+                                  <options: devnet|mainnet-beta|mainnet|localnet>
+  --commitment=<option>           [default: confirmed] transaction commitment level to use
+                                  <options: confirmed|finalized|processed>
+  --ledger                        enable ledger support
+  --ledgerPath=<value>            HID path to the ledger
+  --mainnetBeta                   WARNING: use mainnet-beta solana cluster
+  --mrEnclave=<value>...          (required) Hex encoded MRENCLAVE's to remove from the attestation queue's config
+  --programId=<value>             alternative Switchboard program ID to interact with
+
+GLOBAL FLAGS
+  --json  Format output as json.
+
+DESCRIPTION
+  remove enclave(s) from an attestation queue's config
+```
+
+_See code: [dist/commands/solana/attestation-queue/remove-enclave.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.12/dist/commands/solana/attestation-queue/remove-enclave.js)_
 
 ## `sb solana buffer create QUEUEKEY`
 
@@ -4638,9 +3352,9 @@ create a buffer relayer account
 ```
 USAGE
   $ sb solana buffer create QUEUEKEY [-h] [-v] [-s] [--mainnetBeta | --cluster devnet|mainnet-beta|mainnet|localnet] [-u
-    <value>] [--programId <value>] [--commitment confirmed|finalized|processed] [-k <value>] [--ledgerPath <value>
-    --ledger] [--json] [--bufferKeypair <value>] [-a <value>] [-n <value>] [--minUpdateDelaySeconds <value>]
-    [--jobDefinition <value> | --jobKey <value>]
+    <value>] [--programId <value>] [--attestationProgramId <value>] [--commitment confirmed|finalized|processed] [-k
+    <value>] [--ledgerPath <value> --ledger] [--json] [--bufferKeypair <value>] [-a <value>] [-n <value>]
+    [--minUpdateDelaySeconds <value>] [--jobDefinition <value> | --jobKey <value>]
 
 ARGUMENTS
   QUEUEKEY  public key of the oracle queue account
@@ -4654,6 +3368,7 @@ FLAGS
   -s, --silent                     suppress cli prompts
   -u, --rpcUrl=<value>             alternate RPC url
   -v, --verbose                    log everything
+  --attestationProgramId=<value>   alternative Switchboard Attestation program ID to interact with
   --bufferKeypair=<value>          keypair to use for the buffer relayer account. This will be the account's publicKey
   --cluster=<option>               the solana cluster to connect to
                                    <options: devnet|mainnet-beta|mainnet|localnet>
@@ -4674,7 +3389,7 @@ DESCRIPTION
   create a buffer relayer account
 ```
 
-_See code: [dist/commands/solana/buffer/create.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.6/dist/commands/solana/buffer/create.js)_
+_See code: [dist/commands/solana/buffer/create.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.12/dist/commands/solana/buffer/create.js)_
 
 ## `sb solana buffer open-round BUFFERRELAYERKEY`
 
@@ -4683,27 +3398,28 @@ request a new buffer relayer result
 ```
 USAGE
   $ sb solana buffer open-round BUFFERRELAYERKEY [-h] [-v] [-s] [--mainnetBeta | --cluster
-    devnet|mainnet-beta|mainnet|localnet] [-u <value>] [--programId <value>] [--commitment
-    confirmed|finalized|processed] [-k <value>] [--ledgerPath <value> --ledger]
+    devnet|mainnet-beta|mainnet|localnet] [-u <value>] [--programId <value>] [--attestationProgramId <value>]
+    [--commitment confirmed|finalized|processed] [-k <value>] [--ledgerPath <value> --ledger]
 
 ARGUMENTS
   BUFFERRELAYERKEY  public key of the buffer relayer account
 
 FLAGS
-  -h, --help             Show CLI help.
-  -k, --keypair=<value>  keypair that will pay for onchain transactions. defaults to new account authority if no
-                         alternate authority provided
-  -s, --silent           suppress cli prompts
-  -u, --rpcUrl=<value>   alternate RPC url
-  -v, --verbose          log everything
-  --cluster=<option>     the solana cluster to connect to
-                         <options: devnet|mainnet-beta|mainnet|localnet>
-  --commitment=<option>  [default: confirmed] transaction commitment level to use
-                         <options: confirmed|finalized|processed>
-  --ledger               enable ledger support
-  --ledgerPath=<value>   HID path to the ledger
-  --mainnetBeta          WARNING: use mainnet-beta solana cluster
-  --programId=<value>    alternative Switchboard program ID to interact with
+  -h, --help                      Show CLI help.
+  -k, --keypair=<value>           keypair that will pay for onchain transactions. defaults to new account authority if
+                                  no alternate authority provided
+  -s, --silent                    suppress cli prompts
+  -u, --rpcUrl=<value>            alternate RPC url
+  -v, --verbose                   log everything
+  --attestationProgramId=<value>  alternative Switchboard Attestation program ID to interact with
+  --cluster=<option>              the solana cluster to connect to
+                                  <options: devnet|mainnet-beta|mainnet|localnet>
+  --commitment=<option>           [default: confirmed] transaction commitment level to use
+                                  <options: confirmed|finalized|processed>
+  --ledger                        enable ledger support
+  --ledgerPath=<value>            HID path to the ledger
+  --mainnetBeta                   WARNING: use mainnet-beta solana cluster
+  --programId=<value>             alternative Switchboard program ID to interact with
 
 DESCRIPTION
   request a new buffer relayer result
@@ -4722,27 +3438,28 @@ request a new buffer relayer result
 ```
 USAGE
   $ sb solana buffer update BUFFERRELAYERKEY [-h] [-v] [-s] [--mainnetBeta | --cluster
-    devnet|mainnet-beta|mainnet|localnet] [-u <value>] [--programId <value>] [--commitment
-    confirmed|finalized|processed] [-k <value>] [--ledgerPath <value> --ledger]
+    devnet|mainnet-beta|mainnet|localnet] [-u <value>] [--programId <value>] [--attestationProgramId <value>]
+    [--commitment confirmed|finalized|processed] [-k <value>] [--ledgerPath <value> --ledger]
 
 ARGUMENTS
   BUFFERRELAYERKEY  public key of the buffer relayer account
 
 FLAGS
-  -h, --help             Show CLI help.
-  -k, --keypair=<value>  keypair that will pay for onchain transactions. defaults to new account authority if no
-                         alternate authority provided
-  -s, --silent           suppress cli prompts
-  -u, --rpcUrl=<value>   alternate RPC url
-  -v, --verbose          log everything
-  --cluster=<option>     the solana cluster to connect to
-                         <options: devnet|mainnet-beta|mainnet|localnet>
-  --commitment=<option>  [default: confirmed] transaction commitment level to use
-                         <options: confirmed|finalized|processed>
-  --ledger               enable ledger support
-  --ledgerPath=<value>   HID path to the ledger
-  --mainnetBeta          WARNING: use mainnet-beta solana cluster
-  --programId=<value>    alternative Switchboard program ID to interact with
+  -h, --help                      Show CLI help.
+  -k, --keypair=<value>           keypair that will pay for onchain transactions. defaults to new account authority if
+                                  no alternate authority provided
+  -s, --silent                    suppress cli prompts
+  -u, --rpcUrl=<value>            alternate RPC url
+  -v, --verbose                   log everything
+  --attestationProgramId=<value>  alternative Switchboard Attestation program ID to interact with
+  --cluster=<option>              the solana cluster to connect to
+                                  <options: devnet|mainnet-beta|mainnet|localnet>
+  --commitment=<option>           [default: confirmed] transaction commitment level to use
+                                  <options: confirmed|finalized|processed>
+  --ledger                        enable ledger support
+  --ledgerPath=<value>            HID path to the ledger
+  --mainnetBeta                   WARNING: use mainnet-beta solana cluster
+  --programId=<value>             alternative Switchboard program ID to interact with
 
 DESCRIPTION
   request a new buffer relayer result
@@ -4754,7 +3471,7 @@ EXAMPLES
   $ sb solana buffer update J7j9xX8JP2B2ErvUzuqGAKBGeggsxPyFXj5MqZcYDxfa --keypair ../payer-keypair.json
 ```
 
-_See code: [dist/commands/solana/buffer/update.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.6/dist/commands/solana/buffer/update.js)_
+_See code: [dist/commands/solana/buffer/update.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.12/dist/commands/solana/buffer/update.js)_
 
 ## `sb solana crank create QUEUEKEY`
 
@@ -4763,33 +3480,34 @@ create a new crank account
 ```
 USAGE
   $ sb solana crank create QUEUEKEY -s <value> [-h] [-v] [-s] [--mainnetBeta | --cluster
-    devnet|mainnet-beta|mainnet|localnet] [-u <value>] [--programId <value>] [--commitment
-    confirmed|finalized|processed] [-k <value>] [--ledgerPath <value> --ledger] [--json] [-n <value>] [--metadata
-    <value>] [--crankKeypair <value>] [--dataBufferKeypair <value>]
+    devnet|mainnet-beta|mainnet|localnet] [-u <value>] [--programId <value>] [--attestationProgramId <value>]
+    [--commitment confirmed|finalized|processed] [-k <value>] [--ledgerPath <value> --ledger] [--json] [-n <value>]
+    [--metadata <value>] [--crankKeypair <value>] [--dataBufferKeypair <value>]
 
 ARGUMENTS
   QUEUEKEY  public key of the oracle queue to create a crank on
 
 FLAGS
-  -h, --help                   Show CLI help.
-  -k, --keypair=<value>        keypair that will pay for onchain transactions. defaults to new account authority if no
-                               alternate authority provided
-  -n, --name=<value>           name of the crank for easier identification
-  -s, --silent                 suppress cli prompts
-  -s, --size=<value>           (required) maximum number of rows a crank can support
-  -u, --rpcUrl=<value>         alternate RPC url
-  -v, --verbose                log everything
-  --cluster=<option>           the solana cluster to connect to
-                               <options: devnet|mainnet-beta|mainnet|localnet>
-  --commitment=<option>        [default: confirmed] transaction commitment level to use
-                               <options: confirmed|finalized|processed>
-  --crankKeypair=<value>       keypair to use for the crank account. This will be the account's publicKey
-  --dataBufferKeypair=<value>  keypair to use for the crank data buffer account.
-  --ledger                     enable ledger support
-  --ledgerPath=<value>         HID path to the ledger
-  --mainnetBeta                WARNING: use mainnet-beta solana cluster
-  --metadata=<value>           metadata of the crank for easier identification
-  --programId=<value>          alternative Switchboard program ID to interact with
+  -h, --help                      Show CLI help.
+  -k, --keypair=<value>           keypair that will pay for onchain transactions. defaults to new account authority if
+                                  no alternate authority provided
+  -n, --name=<value>              name of the crank for easier identification
+  -s, --silent                    suppress cli prompts
+  -s, --size=<value>              (required) maximum number of rows a crank can support
+  -u, --rpcUrl=<value>            alternate RPC url
+  -v, --verbose                   log everything
+  --attestationProgramId=<value>  alternative Switchboard Attestation program ID to interact with
+  --cluster=<option>              the solana cluster to connect to
+                                  <options: devnet|mainnet-beta|mainnet|localnet>
+  --commitment=<option>           [default: confirmed] transaction commitment level to use
+                                  <options: confirmed|finalized|processed>
+  --crankKeypair=<value>          keypair to use for the crank account. This will be the account's publicKey
+  --dataBufferKeypair=<value>     keypair to use for the crank data buffer account.
+  --ledger                        enable ledger support
+  --ledgerPath=<value>            HID path to the ledger
+  --mainnetBeta                   WARNING: use mainnet-beta solana cluster
+  --metadata=<value>              metadata of the crank for easier identification
+  --programId=<value>             alternative Switchboard program ID to interact with
 
 GLOBAL FLAGS
   --json  Format output as json.
@@ -4798,7 +3516,7 @@ DESCRIPTION
   create a new crank account
 ```
 
-_See code: [dist/commands/solana/crank/create.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.6/dist/commands/solana/crank/create.js)_
+_See code: [dist/commands/solana/crank/create.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.12/dist/commands/solana/crank/create.js)_
 
 ## `sb solana crank events AGGREGATORKEY`
 
@@ -4807,30 +3525,32 @@ watch an aggregator account and stream the on-chain events
 ```
 USAGE
   $ sb solana crank events AGGREGATORKEY [-h] [-v] [-s] [--mainnetBeta | --cluster devnet|mainnet-beta|mainnet|localnet]
-    [-u <value>] [--programId <value>] [--commitment confirmed|finalized|processed] [-t <value>] [-f <value>]
+    [-u <value>] [--programId <value>] [--attestationProgramId <value>] [--commitment confirmed|finalized|processed] [-t
+    <value>] [-f <value>]
 
 ARGUMENTS
   AGGREGATORKEY  public key of the aggregator account
 
 FLAGS
-  -f, --outfile=<value>  save results to a file
-  -h, --help             Show CLI help.
-  -s, --silent           suppress cli prompts
-  -t, --timeout=<value>  time to watch feed for updates
-  -u, --rpcUrl=<value>   alternate RPC url
-  -v, --verbose          log everything
-  --cluster=<option>     the solana cluster to connect to
-                         <options: devnet|mainnet-beta|mainnet|localnet>
-  --commitment=<option>  [default: confirmed] transaction commitment level to use
-                         <options: confirmed|finalized|processed>
-  --mainnetBeta          WARNING: use mainnet-beta solana cluster
-  --programId=<value>    alternative Switchboard program ID to interact with
+  -f, --outfile=<value>           save results to a file
+  -h, --help                      Show CLI help.
+  -s, --silent                    suppress cli prompts
+  -t, --timeout=<value>           time to watch feed for updates
+  -u, --rpcUrl=<value>            alternate RPC url
+  -v, --verbose                   log everything
+  --attestationProgramId=<value>  alternative Switchboard Attestation program ID to interact with
+  --cluster=<option>              the solana cluster to connect to
+                                  <options: devnet|mainnet-beta|mainnet|localnet>
+  --commitment=<option>           [default: confirmed] transaction commitment level to use
+                                  <options: confirmed|finalized|processed>
+  --mainnetBeta                   WARNING: use mainnet-beta solana cluster
+  --programId=<value>             alternative Switchboard program ID to interact with
 
 DESCRIPTION
   watch an aggregator account and stream the on-chain events
 ```
 
-_See code: [dist/commands/solana/crank/events.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.6/dist/commands/solana/crank/events.js)_
+_See code: [dist/commands/solana/crank/events.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.12/dist/commands/solana/crank/events.js)_
 
 ## `sb solana crank pop CRANKKEY`
 
@@ -4839,33 +3559,34 @@ pop the crank
 ```
 USAGE
   $ sb solana crank pop CRANKKEY [-h] [-v] [-s] [--mainnetBeta | --cluster devnet|mainnet-beta|mainnet|localnet] [-u
-    <value>] [--programId <value>] [--commitment confirmed|finalized|processed] [-k <value>] [--ledgerPath <value>
-    --ledger]
+    <value>] [--programId <value>] [--attestationProgramId <value>] [--commitment confirmed|finalized|processed] [-k
+    <value>] [--ledgerPath <value> --ledger]
 
 ARGUMENTS
   CRANKKEY  public key of the crank account
 
 FLAGS
-  -h, --help             Show CLI help.
-  -k, --keypair=<value>  keypair that will pay for onchain transactions. defaults to new account authority if no
-                         alternate authority provided
-  -s, --silent           suppress cli prompts
-  -u, --rpcUrl=<value>   alternate RPC url
-  -v, --verbose          log everything
-  --cluster=<option>     the solana cluster to connect to
-                         <options: devnet|mainnet-beta|mainnet|localnet>
-  --commitment=<option>  [default: confirmed] transaction commitment level to use
-                         <options: confirmed|finalized|processed>
-  --ledger               enable ledger support
-  --ledgerPath=<value>   HID path to the ledger
-  --mainnetBeta          WARNING: use mainnet-beta solana cluster
-  --programId=<value>    alternative Switchboard program ID to interact with
+  -h, --help                      Show CLI help.
+  -k, --keypair=<value>           keypair that will pay for onchain transactions. defaults to new account authority if
+                                  no alternate authority provided
+  -s, --silent                    suppress cli prompts
+  -u, --rpcUrl=<value>            alternate RPC url
+  -v, --verbose                   log everything
+  --attestationProgramId=<value>  alternative Switchboard Attestation program ID to interact with
+  --cluster=<option>              the solana cluster to connect to
+                                  <options: devnet|mainnet-beta|mainnet|localnet>
+  --commitment=<option>           [default: confirmed] transaction commitment level to use
+                                  <options: confirmed|finalized|processed>
+  --ledger                        enable ledger support
+  --ledgerPath=<value>            HID path to the ledger
+  --mainnetBeta                   WARNING: use mainnet-beta solana cluster
+  --programId=<value>             alternative Switchboard program ID to interact with
 
 DESCRIPTION
   pop the crank
 ```
 
-_See code: [dist/commands/solana/crank/pop.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.6/dist/commands/solana/crank/pop.js)_
+_See code: [dist/commands/solana/crank/pop.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.12/dist/commands/solana/crank/pop.js)_
 
 ## `sb solana crank print CRANKKEY`
 
@@ -4874,23 +3595,25 @@ print a crank
 ```
 USAGE
   $ sb solana crank print CRANKKEY [-h] [-v] [-s] [--mainnetBeta | --cluster devnet|mainnet-beta|mainnet|localnet] [-u
-    <value>] [--programId <value>] [--commitment confirmed|finalized|processed] [--json] [--rows]
+    <value>] [--programId <value>] [--attestationProgramId <value>] [--commitment confirmed|finalized|processed]
+    [--json] [--rows]
 
 ARGUMENTS
   CRANKKEY  public key of the crank account
 
 FLAGS
-  -h, --help             Show CLI help.
-  -s, --silent           suppress cli prompts
-  -u, --rpcUrl=<value>   alternate RPC url
-  -v, --verbose          log everything
-  --cluster=<option>     the solana cluster to connect to
-                         <options: devnet|mainnet-beta|mainnet|localnet>
-  --commitment=<option>  [default: confirmed] transaction commitment level to use
-                         <options: confirmed|finalized|processed>
-  --mainnetBeta          WARNING: use mainnet-beta solana cluster
-  --programId=<value>    alternative Switchboard program ID to interact with
-  --rows                 print the crank rows in order
+  -h, --help                      Show CLI help.
+  -s, --silent                    suppress cli prompts
+  -u, --rpcUrl=<value>            alternate RPC url
+  -v, --verbose                   log everything
+  --attestationProgramId=<value>  alternative Switchboard Attestation program ID to interact with
+  --cluster=<option>              the solana cluster to connect to
+                                  <options: devnet|mainnet-beta|mainnet|localnet>
+  --commitment=<option>           [default: confirmed] transaction commitment level to use
+                                  <options: confirmed|finalized|processed>
+  --mainnetBeta                   WARNING: use mainnet-beta solana cluster
+  --programId=<value>             alternative Switchboard program ID to interact with
+  --rows                          print the crank rows in order
 
 GLOBAL FLAGS
   --json  Format output as json.
@@ -4899,7 +3622,7 @@ DESCRIPTION
   print a crank
 ```
 
-_See code: [dist/commands/solana/crank/print.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.6/dist/commands/solana/crank/print.js)_
+_See code: [dist/commands/solana/crank/print.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.12/dist/commands/solana/crank/print.js)_
 
 ## `sb solana crank push AGGREGATORKEY`
 
@@ -4908,34 +3631,35 @@ push the crank
 ```
 USAGE
   $ sb solana crank push AGGREGATORKEY [-h] [-v] [-s] [--mainnetBeta | --cluster devnet|mainnet-beta|mainnet|localnet]
-    [-u <value>] [--programId <value>] [--commitment confirmed|finalized|processed] [-k <value>] [--ledgerPath <value>
-    --ledger] [--crankKey <value>]
+    [-u <value>] [--programId <value>] [--attestationProgramId <value>] [--commitment confirmed|finalized|processed] [-k
+    <value>] [--ledgerPath <value> --ledger] [--crankKey <value>]
 
 ARGUMENTS
   AGGREGATORKEY  public key of the aggregator account
 
 FLAGS
-  -h, --help             Show CLI help.
-  -k, --keypair=<value>  keypair that will pay for onchain transactions. defaults to new account authority if no
-                         alternate authority provided
-  -s, --silent           suppress cli prompts
-  -u, --rpcUrl=<value>   alternate RPC url
-  -v, --verbose          log everything
-  --cluster=<option>     the solana cluster to connect to
-                         <options: devnet|mainnet-beta|mainnet|localnet>
-  --commitment=<option>  [default: confirmed] transaction commitment level to use
-                         <options: confirmed|finalized|processed>
-  --crankKey=<value>     push onto a new crank, if provided
-  --ledger               enable ledger support
-  --ledgerPath=<value>   HID path to the ledger
-  --mainnetBeta          WARNING: use mainnet-beta solana cluster
-  --programId=<value>    alternative Switchboard program ID to interact with
+  -h, --help                      Show CLI help.
+  -k, --keypair=<value>           keypair that will pay for onchain transactions. defaults to new account authority if
+                                  no alternate authority provided
+  -s, --silent                    suppress cli prompts
+  -u, --rpcUrl=<value>            alternate RPC url
+  -v, --verbose                   log everything
+  --attestationProgramId=<value>  alternative Switchboard Attestation program ID to interact with
+  --cluster=<option>              the solana cluster to connect to
+                                  <options: devnet|mainnet-beta|mainnet|localnet>
+  --commitment=<option>           [default: confirmed] transaction commitment level to use
+                                  <options: confirmed|finalized|processed>
+  --crankKey=<value>              push onto a new crank, if provided
+  --ledger                        enable ledger support
+  --ledgerPath=<value>            HID path to the ledger
+  --mainnetBeta                   WARNING: use mainnet-beta solana cluster
+  --programId=<value>             alternative Switchboard program ID to interact with
 
 DESCRIPTION
   push the crank
 ```
 
-_See code: [dist/commands/solana/crank/push.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.6/dist/commands/solana/crank/push.js)_
+_See code: [dist/commands/solana/crank/push.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.12/dist/commands/solana/crank/push.js)_
 
 ## `sb solana crank reset AGGREGATORKEY`
 
@@ -4944,35 +3668,83 @@ reset an aggregators crank
 ```
 USAGE
   $ sb solana crank reset AGGREGATORKEY [-h] [-v] [-s] [--mainnetBeta | --cluster devnet|mainnet-beta|mainnet|localnet]
-    [-u <value>] [--programId <value>] [--commitment confirmed|finalized|processed] [-k <value>] [--ledgerPath <value>
-    --ledger] [-a <value>]
+    [-u <value>] [--programId <value>] [--attestationProgramId <value>] [--commitment confirmed|finalized|processed] [-k
+    <value>] [--ledgerPath <value> --ledger] [-a <value>]
 
 ARGUMENTS
   AGGREGATORKEY  public key of the aggregator account
 
 FLAGS
-  -a, --authority=<value>  alternate keypair that is the authority for the aggregator and required to make config
-                           changes
-  -h, --help               Show CLI help.
-  -k, --keypair=<value>    keypair that will pay for onchain transactions. defaults to new account authority if no
-                           alternate authority provided
-  -s, --silent             suppress cli prompts
-  -u, --rpcUrl=<value>     alternate RPC url
-  -v, --verbose            log everything
-  --cluster=<option>       the solana cluster to connect to
-                           <options: devnet|mainnet-beta|mainnet|localnet>
-  --commitment=<option>    [default: confirmed] transaction commitment level to use
-                           <options: confirmed|finalized|processed>
-  --ledger                 enable ledger support
-  --ledgerPath=<value>     HID path to the ledger
-  --mainnetBeta            WARNING: use mainnet-beta solana cluster
-  --programId=<value>      alternative Switchboard program ID to interact with
+  -a, --authority=<value>         alternate keypair that is the authority for the aggregator and required to make config
+                                  changes
+  -h, --help                      Show CLI help.
+  -k, --keypair=<value>           keypair that will pay for onchain transactions. defaults to new account authority if
+                                  no alternate authority provided
+  -s, --silent                    suppress cli prompts
+  -u, --rpcUrl=<value>            alternate RPC url
+  -v, --verbose                   log everything
+  --attestationProgramId=<value>  alternative Switchboard Attestation program ID to interact with
+  --cluster=<option>              the solana cluster to connect to
+                                  <options: devnet|mainnet-beta|mainnet|localnet>
+  --commitment=<option>           [default: confirmed] transaction commitment level to use
+                                  <options: confirmed|finalized|processed>
+  --ledger                        enable ledger support
+  --ledgerPath=<value>            HID path to the ledger
+  --mainnetBeta                   WARNING: use mainnet-beta solana cluster
+  --programId=<value>             alternative Switchboard program ID to interact with
 
 DESCRIPTION
   reset an aggregators crank
 ```
 
-_See code: [dist/commands/solana/crank/reset.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.6/dist/commands/solana/crank/reset.js)_
+_See code: [dist/commands/solana/crank/reset.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.12/dist/commands/solana/crank/reset.js)_
+
+## `sb solana function add-enclave FUNCTIONKEY`
+
+Configure a solana funciton's mrEnclave settings
+
+```
+USAGE
+  $ sb solana function add-enclave FUNCTIONKEY -e <value> [-h] [-v] [-s] [--mainnetBeta | --cluster
+    devnet|mainnet-beta|mainnet|localnet] [-u <value>] [--programId <value>] [--attestationProgramId <value>]
+    [--commitment confirmed|finalized|processed] [-k <value>] [--ledgerPath <value> --ledger] [--json] [-a <value>]
+    [--force]
+
+ARGUMENTS
+  FUNCTIONKEY  public key of the function account
+
+FLAGS
+  -a, --authority=<value>         keypair or public key to delegate authority to for managing the function account
+  -e, --mrEnclave=<value>...      (required) set the mr enclave to add
+  -h, --help                      Show CLI help.
+  -k, --keypair=<value>           keypair that will pay for onchain transactions. defaults to new account authority if
+                                  no alternate authority provided
+  -s, --silent                    suppress cli prompts
+  -u, --rpcUrl=<value>            alternate RPC url
+  -v, --verbose                   log everything
+  --attestationProgramId=<value>  alternative Switchboard Attestation program ID to interact with
+  --cluster=<option>              the solana cluster to connect to
+                                  <options: devnet|mainnet-beta|mainnet|localnet>
+  --commitment=<option>           [default: confirmed] transaction commitment level to use
+                                  <options: confirmed|finalized|processed>
+  --force                         remove an enclave if the function's config has the maximum number of enclaves (32)
+                                  already present
+  --ledger                        enable ledger support
+  --ledgerPath=<value>            HID path to the ledger
+  --mainnetBeta                   WARNING: use mainnet-beta solana cluster
+  --programId=<value>             alternative Switchboard program ID to interact with
+
+GLOBAL FLAGS
+  --json  Format output as json.
+
+DESCRIPTION
+  Configure a solana funciton's mrEnclave settings
+
+ALIASES
+  $ sb solana function addMrEnclave
+```
+
+_See code: [dist/commands/solana/function/add-enclave.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.12/dist/commands/solana/function/add-enclave.js)_
 
 ## `sb solana function addMrEnclave FUNCTIONKEY`
 
@@ -4980,38 +3752,84 @@ Configure a solana funciton's mrEnclave settings
 
 ```
 USAGE
-  $ sb solana function addMrEnclave FUNCTIONKEY --mrEnclave <value> [-h] [-v] [-s] [--mainnetBeta | --cluster
-    devnet|mainnet-beta|mainnet|localnet] [-u <value>] [--programId <value>] [--commitment
-    confirmed|finalized|processed] [-k <value>] [--ledgerPath <value> --ledger] [--json]
+  $ sb solana function addMrEnclave FUNCTIONKEY -e <value> [-h] [-v] [-s] [--mainnetBeta | --cluster
+    devnet|mainnet-beta|mainnet|localnet] [-u <value>] [--programId <value>] [--attestationProgramId <value>]
+    [--commitment confirmed|finalized|processed] [-k <value>] [--ledgerPath <value> --ledger] [--json] [-a <value>]
+    [--force]
 
 ARGUMENTS
   FUNCTIONKEY  public key of the function account
 
 FLAGS
-  -h, --help             Show CLI help.
-  -k, --keypair=<value>  keypair that will pay for onchain transactions. defaults to new account authority if no
-                         alternate authority provided
-  -s, --silent           suppress cli prompts
-  -u, --rpcUrl=<value>   alternate RPC url
-  -v, --verbose          log everything
-  --cluster=<option>     the solana cluster to connect to
-                         <options: devnet|mainnet-beta|mainnet|localnet>
-  --commitment=<option>  [default: confirmed] transaction commitment level to use
-                         <options: confirmed|finalized|processed>
-  --ledger               enable ledger support
-  --ledgerPath=<value>   HID path to the ledger
-  --mainnetBeta          WARNING: use mainnet-beta solana cluster
-  --mrEnclave=<value>    (required) set the mr enclave to add
-  --programId=<value>    alternative Switchboard program ID to interact with
+  -a, --authority=<value>         keypair or public key to delegate authority to for managing the function account
+  -e, --mrEnclave=<value>...      (required) set the mr enclave to add
+  -h, --help                      Show CLI help.
+  -k, --keypair=<value>           keypair that will pay for onchain transactions. defaults to new account authority if
+                                  no alternate authority provided
+  -s, --silent                    suppress cli prompts
+  -u, --rpcUrl=<value>            alternate RPC url
+  -v, --verbose                   log everything
+  --attestationProgramId=<value>  alternative Switchboard Attestation program ID to interact with
+  --cluster=<option>              the solana cluster to connect to
+                                  <options: devnet|mainnet-beta|mainnet|localnet>
+  --commitment=<option>           [default: confirmed] transaction commitment level to use
+                                  <options: confirmed|finalized|processed>
+  --force                         remove an enclave if the function's config has the maximum number of enclaves (32)
+                                  already present
+  --ledger                        enable ledger support
+  --ledgerPath=<value>            HID path to the ledger
+  --mainnetBeta                   WARNING: use mainnet-beta solana cluster
+  --programId=<value>             alternative Switchboard program ID to interact with
 
 GLOBAL FLAGS
   --json  Format output as json.
 
 DESCRIPTION
   Configure a solana funciton's mrEnclave settings
+
+ALIASES
+  $ sb solana function addMrEnclave
 ```
 
-_See code: [dist/commands/solana/function/addMrEnclave.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.6/dist/commands/solana/function/addMrEnclave.js)_
+## `sb solana function close FUNCTIONKEY`
+
+close a function account
+
+```
+USAGE
+  $ sb solana function close FUNCTIONKEY [-h] [-v] [-s] [--mainnetBeta | --cluster devnet|mainnet-beta|mainnet|localnet]
+    [-u <value>] [--programId <value>] [--attestationProgramId <value>] [--commitment confirmed|finalized|processed] [-k
+    <value>] [--ledgerPath <value> --ledger] [--json] [--authority <value>]
+
+ARGUMENTS
+  FUNCTIONKEY  public key of the function account
+
+FLAGS
+  -h, --help                      Show CLI help.
+  -k, --keypair=<value>           keypair that will pay for onchain transactions. defaults to new account authority if
+                                  no alternate authority provided
+  -s, --silent                    suppress cli prompts
+  -u, --rpcUrl=<value>            alternate RPC url
+  -v, --verbose                   log everything
+  --attestationProgramId=<value>  alternative Switchboard Attestation program ID to interact with
+  --authority=<value>
+  --cluster=<option>              the solana cluster to connect to
+                                  <options: devnet|mainnet-beta|mainnet|localnet>
+  --commitment=<option>           [default: confirmed] transaction commitment level to use
+                                  <options: confirmed|finalized|processed>
+  --ledger                        enable ledger support
+  --ledgerPath=<value>            HID path to the ledger
+  --mainnetBeta                   WARNING: use mainnet-beta solana cluster
+  --programId=<value>             alternative Switchboard program ID to interact with
+
+GLOBAL FLAGS
+  --json  Format output as json.
+
+DESCRIPTION
+  close a function account
+```
+
+_See code: [dist/commands/solana/function/close.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.12/dist/commands/solana/function/close.js)_
 
 ## `sb solana function configure FUNCTIONKEY`
 
@@ -5020,34 +3838,35 @@ Configure a solana funciton's settings
 ```
 USAGE
   $ sb solana function configure FUNCTIONKEY [-h] [-v] [-s] [--mainnetBeta | --cluster devnet|mainnet-beta|mainnet|localnet]
-    [-u <value>] [--programId <value>] [--commitment confirmed|finalized|processed] [-k <value>] [--ledgerPath <value>
-    --ledger] [--json] [--name <value>] [--metadata <value>] [--container <value>] [--containerRegistry <value>]
-    [--version <value>] [--schedule <value>]
+    [-u <value>] [--programId <value>] [--attestationProgramId <value>] [--commitment confirmed|finalized|processed] [-k
+    <value>] [--ledgerPath <value> --ledger] [--json] [--name <value>] [--metadata <value>] [--container <value>]
+    [--containerRegistry <value>] [--version <value>] [--schedule <value>]
 
 ARGUMENTS
   FUNCTIONKEY  public key of the function account
 
 FLAGS
-  -h, --help                   Show CLI help.
-  -k, --keypair=<value>        keypair that will pay for onchain transactions. defaults to new account authority if no
-                               alternate authority provided
-  -s, --silent                 suppress cli prompts
-  -u, --rpcUrl=<value>         alternate RPC url
-  -v, --verbose                log everything
-  --cluster=<option>           the solana cluster to connect to
-                               <options: devnet|mainnet-beta|mainnet|localnet>
-  --commitment=<option>        [default: confirmed] transaction commitment level to use
-                               <options: confirmed|finalized|processed>
-  --container=<value>          set the function container
-  --containerRegistry=<value>  set the function containerRegistry
-  --ledger                     enable ledger support
-  --ledgerPath=<value>         HID path to the ledger
-  --mainnetBeta                WARNING: use mainnet-beta solana cluster
-  --metadata=<value>           set the function metadata
-  --name=<value>               set the function name
-  --programId=<value>          alternative Switchboard program ID to interact with
-  --schedule=<value>           set the function schedule
-  --version=<value>            set the function version
+  -h, --help                      Show CLI help.
+  -k, --keypair=<value>           keypair that will pay for onchain transactions. defaults to new account authority if
+                                  no alternate authority provided
+  -s, --silent                    suppress cli prompts
+  -u, --rpcUrl=<value>            alternate RPC url
+  -v, --verbose                   log everything
+  --attestationProgramId=<value>  alternative Switchboard Attestation program ID to interact with
+  --cluster=<option>              the solana cluster to connect to
+                                  <options: devnet|mainnet-beta|mainnet|localnet>
+  --commitment=<option>           [default: confirmed] transaction commitment level to use
+                                  <options: confirmed|finalized|processed>
+  --container=<value>             set the function container
+  --containerRegistry=<value>     set the function containerRegistry
+  --ledger                        enable ledger support
+  --ledgerPath=<value>            HID path to the ledger
+  --mainnetBeta                   WARNING: use mainnet-beta solana cluster
+  --metadata=<value>              set the function metadata
+  --name=<value>                  set the function name
+  --programId=<value>             alternative Switchboard program ID to interact with
+  --schedule=<value>              set the function schedule
+  --version=<value>               set the function version
 
 GLOBAL FLAGS
   --json  Format output as json.
@@ -5056,7 +3875,7 @@ DESCRIPTION
   Configure a solana funciton's settings
 ```
 
-_See code: [dist/commands/solana/function/configure.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.6/dist/commands/solana/function/configure.js)_
+_See code: [dist/commands/solana/function/configure.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.12/dist/commands/solana/function/configure.js)_
 
 ## `sb solana function create QUEUEKEY`
 
@@ -5065,50 +3884,50 @@ create a new function account for a given queue
 ```
 USAGE
   $ sb solana function create QUEUEKEY --container <value> [-h] [-v] [-s] [--mainnetBeta | --cluster
-    devnet|mainnet-beta|mainnet|localnet] [-u <value>] [--programId <value>] [--commitment
-    confirmed|finalized|processed] [-k <value>] [--ledgerPath <value> --ledger] [--json] [-n <value>] [--metadata
-    <value>] [-a <value>] [--fundAmount <value>] [--schedule <value>] [--containerRegistry dockerhub|ipfs] [--version
-    <value>] [--mrEnclave <value>] [--requestsDisabled <value>] [--requestsFee <value>] [--requestsRequireAuthorization
-    <value>]
+    devnet|mainnet-beta|mainnet|localnet] [-u <value>] [--programId <value>] [--attestationProgramId <value>]
+    [--commitment confirmed|finalized|processed] [-k <value>] [--ledgerPath <value> --ledger] [--json] [-n <value>]
+    [--metadata <value>] [-a <value>] [--fundAmount <value>] [--containerRegistry dockerhub|ipfs] [--version <value>]
+    [--mrEnclave <value>] [--requestsDisabled] [--requestsFee <value>] [--requestsRequireAuthorization]
+    [--routinesDisabled] [--routinesFee <value>] [--routinesRequireAuthorization]
 
 ARGUMENTS
   QUEUEKEY  public key of the attestation queue account
 
 FLAGS
-  -a, --authority=<value>                 keypair or public key to delegate authority to for managing the function
-                                          account
-  -h, --help                              Show CLI help.
-  -k, --keypair=<value>                   keypair that will pay for onchain transactions. defaults to new account
-                                          authority if no alternate authority provided
-  -n, --name=<value>                      name of the function for easier identification
-  -s, --silent                            suppress cli prompts
-  -u, --rpcUrl=<value>                    alternate RPC url
-  -v, --verbose                           log everything
-  --cluster=<option>                      the solana cluster to connect to
-                                          <options: devnet|mainnet-beta|mainnet|localnet>
-  --commitment=<option>                   [default: confirmed] transaction commitment level to use
-                                          <options: confirmed|finalized|processed>
-  --container=<value>                     (required) the location of the container (Ex.
-                                          switchboardlabs/basic-oracle-function)
-  --containerRegistry=<option>            [default: dockerhub] the registry to pull the container from (Ex. Docker or
-                                          IPFS)
-                                          <options: dockerhub|ipfs>
-  --fundAmount=<value>                    [default: 0.0] token amount to load into the function's escrow wallet.
-  --ledger                                enable ledger support
-  --ledgerPath=<value>                    HID path to the ledger
-  --mainnetBeta                           WARNING: use mainnet-beta solana cluster
-  --metadata=<value>                      metadata of the function for easier identification
-  --mrEnclave=<value>                     the MrEnclave value to set for the function - if not provided, will be set
-                                          automatically after its first run
-  --programId=<value>                     alternative Switchboard program ID to interact with
-  --requestsDisabled=<value>              whether custom requests can be created for this function
-  --requestsFee=<value>                   [default: 0.0] the costs each request must pay the function authority for each
-                                          sub-request (Ex. 0.00002)
-  --requestsRequireAuthorization=<value>  whether custom requests require the function authority to authorize
-  --schedule=<value>                      the cron schedule to execute the function periodically (Ex. '15 * * * * *'
-                                          will execute the function every 15 seconds)
-  --version=<value>                       [default: latest] the version of the container to pull from the registry (Ex.
-                                          'latest' or 'mainnet')
+  -a, --authority=<value>         keypair or public key to delegate authority to for managing the function account
+  -h, --help                      Show CLI help.
+  -k, --keypair=<value>           keypair that will pay for onchain transactions. defaults to new account authority if
+                                  no alternate authority provided
+  -n, --name=<value>              name of the function for easier identification
+  -s, --silent                    suppress cli prompts
+  -u, --rpcUrl=<value>            alternate RPC url
+  -v, --verbose                   log everything
+  --attestationProgramId=<value>  alternative Switchboard Attestation program ID to interact with
+  --cluster=<option>              the solana cluster to connect to
+                                  <options: devnet|mainnet-beta|mainnet|localnet>
+  --commitment=<option>           [default: confirmed] transaction commitment level to use
+                                  <options: confirmed|finalized|processed>
+  --container=<value>             (required) the location of the container (Ex. switchboardlabs/basic-oracle-function)
+  --containerRegistry=<option>    [default: dockerhub] the registry to pull the container from (Ex. Docker or IPFS)
+                                  <options: dockerhub|ipfs>
+  --fundAmount=<value>            [default: 0.0] token amount to load into the function's escrow wallet.
+  --ledger                        enable ledger support
+  --ledgerPath=<value>            HID path to the ledger
+  --mainnetBeta                   WARNING: use mainnet-beta solana cluster
+  --metadata=<value>              metadata of the function for easier identification
+  --mrEnclave=<value>             the MrEnclave value to set for the function - if not provided, will be set
+                                  automatically after its first run
+  --programId=<value>             alternative Switchboard program ID to interact with
+  --requestsDisabled              whether custom requests can be created for this function
+  --requestsFee=<value>           [default: 0.0] the costs each request must pay the function authority for each
+                                  sub-request (Ex. 0.00002)
+  --requestsRequireAuthorization  whether custom requests require the function authority to authorize
+  --routinesDisabled              whether custom routines can be created for this function
+  --routinesFee=<value>           [default: 0.0] the costs each routine must pay the function authority for each
+                                  sub-request (Ex. 0.00002)
+  --routinesRequireAuthorization  whether custom routines require the function authority to authorize
+  --version=<value>               [default: latest] the version of the container to pull from the registry (Ex. 'latest'
+                                  or 'mainnet')
 
 GLOBAL FLAGS
   --json  Format output as json.
@@ -5120,7 +3939,7 @@ EXAMPLES
   $ sb solana function create CkvizjVnm2zA5Wuwan34NhVT3zFc7vqUyGnA6tuEF5aE --name function-1 --fundAmount 1.25 --container switchboardlabs/basic-oracle-function --version solana
 ```
 
-_See code: [dist/commands/solana/function/create.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.6/dist/commands/solana/function/create.js)_
+_See code: [dist/commands/solana/function/create.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.12/dist/commands/solana/function/create.js)_
 
 ## `sb solana function fund FUNCTIONKEY`
 
@@ -5129,28 +3948,29 @@ wrap SOL into a function accounts escrow wallet
 ```
 USAGE
   $ sb solana function fund FUNCTIONKEY [-h] [-v] [-s] [--mainnetBeta | --cluster devnet|mainnet-beta|mainnet|localnet]
-    [-u <value>] [--programId <value>] [--commitment confirmed|finalized|processed] [-k <value>] [--ledgerPath <value>
-    --ledger] [--json] [--fundAmount <value>]
+    [-u <value>] [--programId <value>] [--attestationProgramId <value>] [--commitment confirmed|finalized|processed] [-k
+    <value>] [--ledgerPath <value> --ledger] [--json] [--amount <value>]
 
 ARGUMENTS
   FUNCTIONKEY  public key of the function account
 
 FLAGS
-  -h, --help             Show CLI help.
-  -k, --keypair=<value>  keypair that will pay for onchain transactions. defaults to new account authority if no
-                         alternate authority provided
-  -s, --silent           suppress cli prompts
-  -u, --rpcUrl=<value>   alternate RPC url
-  -v, --verbose          log everything
-  --cluster=<option>     the solana cluster to connect to
-                         <options: devnet|mainnet-beta|mainnet|localnet>
-  --commitment=<option>  [default: confirmed] transaction commitment level to use
-                         <options: confirmed|finalized|processed>
-  --fundAmount=<value>   [default: 0.0]
-  --ledger               enable ledger support
-  --ledgerPath=<value>   HID path to the ledger
-  --mainnetBeta          WARNING: use mainnet-beta solana cluster
-  --programId=<value>    alternative Switchboard program ID to interact with
+  -h, --help                      Show CLI help.
+  -k, --keypair=<value>           keypair that will pay for onchain transactions. defaults to new account authority if
+                                  no alternate authority provided
+  -s, --silent                    suppress cli prompts
+  -u, --rpcUrl=<value>            alternate RPC url
+  -v, --verbose                   log everything
+  --amount=<value>                [default: 0.0]
+  --attestationProgramId=<value>  alternative Switchboard Attestation program ID to interact with
+  --cluster=<option>              the solana cluster to connect to
+                                  <options: devnet|mainnet-beta|mainnet|localnet>
+  --commitment=<option>           [default: confirmed] transaction commitment level to use
+                                  <options: confirmed|finalized|processed>
+  --ledger                        enable ledger support
+  --ledgerPath=<value>            HID path to the ledger
+  --mainnetBeta                   WARNING: use mainnet-beta solana cluster
+  --programId=<value>             alternative Switchboard program ID to interact with
 
 GLOBAL FLAGS
   --json  Format output as json.
@@ -5159,31 +3979,31 @@ DESCRIPTION
   wrap SOL into a function accounts escrow wallet
 ```
 
-_See code: [dist/commands/solana/function/fund.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.6/dist/commands/solana/function/fund.js)_
+_See code: [dist/commands/solana/function/fund.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.12/dist/commands/solana/function/fund.js)_
 
-## `sb solana function print FUNCTIONKEY`
+## `sb solana function get`
 
 print a function account
 
 ```
 USAGE
-  $ sb solana function print FUNCTIONKEY [-h] [-v] [-s] [--mainnetBeta | --cluster devnet|mainnet-beta|mainnet|localnet]
-    [-u <value>] [--programId <value>] [--commitment confirmed|finalized|processed] [--json]
-
-ARGUMENTS
-  FUNCTIONKEY  public key of the function account
+  $ sb solana function get [-h] [-v] [-s] [--mainnetBeta | --cluster devnet|mainnet-beta|mainnet|localnet] [-u <value>]
+    [--programId <value>] [--attestationProgramId <value>] [--commitment confirmed|finalized|processed] [--json]
+    [--authority <value>]
 
 FLAGS
-  -h, --help             Show CLI help.
-  -s, --silent           suppress cli prompts
-  -u, --rpcUrl=<value>   alternate RPC url
-  -v, --verbose          log everything
-  --cluster=<option>     the solana cluster to connect to
-                         <options: devnet|mainnet-beta|mainnet|localnet>
-  --commitment=<option>  [default: confirmed] transaction commitment level to use
-                         <options: confirmed|finalized|processed>
-  --mainnetBeta          WARNING: use mainnet-beta solana cluster
-  --programId=<value>    alternative Switchboard program ID to interact with
+  -h, --help                      Show CLI help.
+  -s, --silent                    suppress cli prompts
+  -u, --rpcUrl=<value>            alternate RPC url
+  -v, --verbose                   log everything
+  --attestationProgramId=<value>  alternative Switchboard Attestation program ID to interact with
+  --authority=<value>             filter functions by authority pubkey
+  --cluster=<option>              the solana cluster to connect to
+                                  <options: devnet|mainnet-beta|mainnet|localnet>
+  --commitment=<option>           [default: confirmed] transaction commitment level to use
+                                  <options: confirmed|finalized|processed>
+  --mainnetBeta                   WARNING: use mainnet-beta solana cluster
+  --programId=<value>             alternative Switchboard program ID to interact with
 
 GLOBAL FLAGS
   --json  Format output as json.
@@ -5192,37 +4012,75 @@ DESCRIPTION
   print a function account
 ```
 
-_See code: [dist/commands/solana/function/print.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.6/dist/commands/solana/function/print.js)_
+_See code: [dist/commands/solana/function/get.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.12/dist/commands/solana/function/get.js)_
 
-## `sb solana function rmMrEnclave FUNCTIONKEY`
+## `sb solana function print FUNCTIONKEY`
 
-Configure a solana funciton's mrEnclave settings
+print a function account
 
 ```
 USAGE
-  $ sb solana function rmMrEnclave FUNCTIONKEY --mrEnclave <value> [-h] [-v] [-s] [--mainnetBeta | --cluster
-    devnet|mainnet-beta|mainnet|localnet] [-u <value>] [--programId <value>] [--commitment
-    confirmed|finalized|processed] [-k <value>] [--ledgerPath <value> --ledger] [--json]
+  $ sb solana function print FUNCTIONKEY [-h] [-v] [-s] [--mainnetBeta | --cluster devnet|mainnet-beta|mainnet|localnet]
+    [-u <value>] [--programId <value>] [--attestationProgramId <value>] [--commitment confirmed|finalized|processed]
+    [--json]
 
 ARGUMENTS
   FUNCTIONKEY  public key of the function account
 
 FLAGS
-  -h, --help             Show CLI help.
-  -k, --keypair=<value>  keypair that will pay for onchain transactions. defaults to new account authority if no
-                         alternate authority provided
-  -s, --silent           suppress cli prompts
-  -u, --rpcUrl=<value>   alternate RPC url
-  -v, --verbose          log everything
-  --cluster=<option>     the solana cluster to connect to
-                         <options: devnet|mainnet-beta|mainnet|localnet>
-  --commitment=<option>  [default: confirmed] transaction commitment level to use
-                         <options: confirmed|finalized|processed>
-  --ledger               enable ledger support
-  --ledgerPath=<value>   HID path to the ledger
-  --mainnetBeta          WARNING: use mainnet-beta solana cluster
-  --mrEnclave=<value>    (required) set the mr enclave to add
-  --programId=<value>    alternative Switchboard program ID to interact with
+  -h, --help                      Show CLI help.
+  -s, --silent                    suppress cli prompts
+  -u, --rpcUrl=<value>            alternate RPC url
+  -v, --verbose                   log everything
+  --attestationProgramId=<value>  alternative Switchboard Attestation program ID to interact with
+  --cluster=<option>              the solana cluster to connect to
+                                  <options: devnet|mainnet-beta|mainnet|localnet>
+  --commitment=<option>           [default: confirmed] transaction commitment level to use
+                                  <options: confirmed|finalized|processed>
+  --mainnetBeta                   WARNING: use mainnet-beta solana cluster
+  --programId=<value>             alternative Switchboard program ID to interact with
+
+GLOBAL FLAGS
+  --json  Format output as json.
+
+DESCRIPTION
+  print a function account
+```
+
+_See code: [dist/commands/solana/function/print.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.12/dist/commands/solana/function/print.js)_
+
+## `sb solana function remove-enclave FUNCTIONKEY`
+
+Configure a solana funciton's mrEnclave settings
+
+```
+USAGE
+  $ sb solana function remove-enclave FUNCTIONKEY [-h] [-v] [-s] [--mainnetBeta | --cluster devnet|mainnet-beta|mainnet|localnet]
+    [-u <value>] [--programId <value>] [--attestationProgramId <value>] [--commitment confirmed|finalized|processed] [-k
+    <value>] [--ledgerPath <value> --ledger] [--json] [-a <value>] (--all | -e <value>)
+
+ARGUMENTS
+  FUNCTIONKEY  public key of the function account
+
+FLAGS
+  -a, --authority=<value>         keypair or public key to delegate authority to for managing the function account
+  -e, --mrEnclave=<value>...      (required) set the mr enclave to remove
+  -h, --help                      Show CLI help.
+  -k, --keypair=<value>           keypair that will pay for onchain transactions. defaults to new account authority if
+                                  no alternate authority provided
+  -s, --silent                    suppress cli prompts
+  -u, --rpcUrl=<value>            alternate RPC url
+  -v, --verbose                   log everything
+  --all
+  --attestationProgramId=<value>  alternative Switchboard Attestation program ID to interact with
+  --cluster=<option>              the solana cluster to connect to
+                                  <options: devnet|mainnet-beta|mainnet|localnet>
+  --commitment=<option>           [default: confirmed] transaction commitment level to use
+                                  <options: confirmed|finalized|processed>
+  --ledger                        enable ledger support
+  --ledgerPath=<value>            HID path to the ledger
+  --mainnetBeta                   WARNING: use mainnet-beta solana cluster
+  --programId=<value>             alternative Switchboard program ID to interact with
 
 GLOBAL FLAGS
   --json  Format output as json.
@@ -5231,7 +4089,161 @@ DESCRIPTION
   Configure a solana funciton's mrEnclave settings
 ```
 
-_See code: [dist/commands/solana/function/rmMrEnclave.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.6/dist/commands/solana/function/rmMrEnclave.js)_
+_See code: [dist/commands/solana/function/remove-enclave.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.12/dist/commands/solana/function/remove-enclave.js)_
+
+## `sb solana function rmMrEnclave FUNCTIONKEY`
+
+Configure a solana funciton's mrEnclave settings
+
+```
+USAGE
+  $ sb solana function rmMrEnclave FUNCTIONKEY [-h] [-v] [-s] [--mainnetBeta | --cluster devnet|mainnet-beta|mainnet|localnet]
+    [-u <value>] [--programId <value>] [--attestationProgramId <value>] [--commitment confirmed|finalized|processed] [-k
+    <value>] [--ledgerPath <value> --ledger] [--json] [-a <value>] (--all | -e <value>)
+
+ARGUMENTS
+  FUNCTIONKEY  public key of the function account
+
+FLAGS
+  -a, --authority=<value>         keypair or public key to delegate authority to for managing the function account
+  -e, --mrEnclave=<value>...      (required) set the mr enclave to remove
+  -h, --help                      Show CLI help.
+  -k, --keypair=<value>           keypair that will pay for onchain transactions. defaults to new account authority if
+                                  no alternate authority provided
+  -s, --silent                    suppress cli prompts
+  -u, --rpcUrl=<value>            alternate RPC url
+  -v, --verbose                   log everything
+  --all
+  --attestationProgramId=<value>  alternative Switchboard Attestation program ID to interact with
+  --cluster=<option>              the solana cluster to connect to
+                                  <options: devnet|mainnet-beta|mainnet|localnet>
+  --commitment=<option>           [default: confirmed] transaction commitment level to use
+                                  <options: confirmed|finalized|processed>
+  --ledger                        enable ledger support
+  --ledgerPath=<value>            HID path to the ledger
+  --mainnetBeta                   WARNING: use mainnet-beta solana cluster
+  --programId=<value>             alternative Switchboard program ID to interact with
+
+GLOBAL FLAGS
+  --json  Format output as json.
+
+DESCRIPTION
+  Configure a solana funciton's mrEnclave settings
+```
+
+_See code: [dist/commands/solana/function/rmMrEnclave.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.12/dist/commands/solana/function/rmMrEnclave.js)_
+
+## `sb solana function send-request FUNCTIONKEY`
+
+Init and trigger a request to a function.
+
+```
+USAGE
+  $ sb solana function send-request FUNCTIONKEY [-h] [-v] [-s] [--mainnetBeta | --cluster devnet|mainnet-beta|mainnet|localnet]
+    [-u <value>] [--programId <value>] [--attestationProgramId <value>] [--commitment confirmed|finalized|processed] [-k
+    <value>] [--ledgerPath <value> --ledger] [--json] [--parameters <value>]
+
+ARGUMENTS
+  FUNCTIONKEY  public key of the function account
+
+FLAGS
+  -h, --help                      Show CLI help.
+  -k, --keypair=<value>           keypair that will pay for onchain transactions. defaults to new account authority if
+                                  no alternate authority provided
+  -s, --silent                    suppress cli prompts
+  -u, --rpcUrl=<value>            alternate RPC url
+  -v, --verbose                   log everything
+  --attestationProgramId=<value>  alternative Switchboard Attestation program ID to interact with
+  --cluster=<option>              the solana cluster to connect to
+                                  <options: devnet|mainnet-beta|mainnet|localnet>
+  --commitment=<option>           [default: confirmed] transaction commitment level to use
+                                  <options: confirmed|finalized|processed>
+  --ledger                        enable ledger support
+  --ledgerPath=<value>            HID path to the ledger
+  --mainnetBeta                   WARNING: use mainnet-beta solana cluster
+  --parameters=<value>            Parameters to pass to your function
+  --programId=<value>             alternative Switchboard program ID to interact with
+
+GLOBAL FLAGS
+  --json  Format output as json.
+
+DESCRIPTION
+  Init and trigger a request to a function.
+```
+
+_See code: [dist/commands/solana/function/send-request.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.12/dist/commands/solana/function/send-request.js)_
+
+## `sb solana function sync-enclave FUNCTIONKEY`
+
+Fetch the MrEnclave value for your function and add if neccessary, add it to the function config
+
+```
+USAGE
+  $ sb solana function sync-enclave FUNCTIONKEY [-h] [-v] [-s] [--mainnetBeta | --cluster devnet|mainnet-beta|mainnet|localnet]
+    [-u <value>] [--programId <value>] [--attestationProgramId <value>] [--commitment confirmed|finalized|processed] [-k
+    <value>] [--ledgerPath <value> --ledger] [--json] [-a <value>] [--force]
+
+ARGUMENTS
+  FUNCTIONKEY  public key of the function account
+
+FLAGS
+  -a, --authority=<value>         keypair or public key to delegate authority to for managing the function account
+  -h, --help                      Show CLI help.
+  -k, --keypair=<value>           keypair that will pay for onchain transactions. defaults to new account authority if
+                                  no alternate authority provided
+  -s, --silent                    suppress cli prompts
+  -u, --rpcUrl=<value>            alternate RPC url
+  -v, --verbose                   log everything
+  --attestationProgramId=<value>  alternative Switchboard Attestation program ID to interact with
+  --cluster=<option>              the solana cluster to connect to
+                                  <options: devnet|mainnet-beta|mainnet|localnet>
+  --commitment=<option>           [default: confirmed] transaction commitment level to use
+                                  <options: confirmed|finalized|processed>
+  --force                         remove an enclave if the function's config has the maximum number of enclaves (32)
+                                  already present
+  --ledger                        enable ledger support
+  --ledgerPath=<value>            HID path to the ledger
+  --mainnetBeta                   WARNING: use mainnet-beta solana cluster
+  --programId=<value>             alternative Switchboard program ID to interact with
+
+GLOBAL FLAGS
+  --json  Format output as json.
+
+DESCRIPTION
+  Fetch the MrEnclave value for your function and add if neccessary, add it to the function config
+```
+
+_See code: [dist/commands/solana/function/sync-enclave.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.12/dist/commands/solana/function/sync-enclave.js)_
+
+## `sb solana function test`
+
+Simulate the switchboard function runtime to test your functions locally
+
+```
+USAGE
+  $ sb solana function test [-h] [-v] [-s] [--mainnetBeta | --cluster <value>] [-u <value>] [--programId <value>]
+    [--attestationProgramId <value>] [--commitment confirmed|finalized|processed] [--parameters <value>]
+    [--devnetSimulate]
+
+FLAGS
+  -h, --help                      Show CLI help.
+  -s, --silent                    suppress cli prompts
+  -u, --rpcUrl=<value>            alternate RPC url
+  -v, --verbose                   log everything
+  --attestationProgramId=<value>  alternative Switchboard Attestation program ID to interact with
+  --cluster=<value>               The cluster to load if your function dynamically loads it
+  --commitment=<option>           [default: confirmed] transaction commitment level to use
+                                  <options: confirmed|finalized|processed>
+  --devnetSimulate                If the cluster is set to devnet, attempt to simulate
+  --mainnetBeta                   WARNING: use mainnet-beta solana cluster
+  --parameters=<value>            Parameters to pass to your function
+  --programId=<value>             alternative Switchboard program ID to interact with
+
+DESCRIPTION
+  Simulate the switchboard function runtime to test your functions locally
+```
+
+_See code: [dist/commands/solana/function/test.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.12/dist/commands/solana/function/test.js)_
 
 ## `sb solana function withdraw FUNCTIONKEY`
 
@@ -5240,31 +4252,33 @@ Withdraw funds from a function's escrow
 ```
 USAGE
   $ sb solana function withdraw FUNCTIONKEY [-h] [-v] [-s] [--mainnetBeta | --cluster devnet|mainnet-beta|mainnet|localnet]
-    [-u <value>] [--programId <value>] [--commitment confirmed|finalized|processed] [-k <value>] [--ledgerPath <value>
-    --ledger] [--json] [--withdrawAmount <value>] [--authority <value>] [--destinationWallet <value>]
+    [-u <value>] [--programId <value>] [--attestationProgramId <value>] [--commitment confirmed|finalized|processed] [-k
+    <value>] [--ledgerPath <value> --ledger] [--json] [--withdrawAmount <value>] [--authority <value>]
+    [--destinationWallet <value>]
 
 ARGUMENTS
   FUNCTIONKEY  public key of the function account
 
 FLAGS
-  -h, --help                   Show CLI help.
-  -k, --keypair=<value>        keypair that will pay for onchain transactions. defaults to new account authority if no
-                               alternate authority provided
-  -s, --silent                 suppress cli prompts
-  -u, --rpcUrl=<value>         alternate RPC url
-  -v, --verbose                log everything
-  --authority=<value>          path to authority keypair if different from payer keypair
-  --cluster=<option>           the solana cluster to connect to
-                               <options: devnet|mainnet-beta|mainnet|localnet>
-  --commitment=<option>        [default: confirmed] transaction commitment level to use
-                               <options: confirmed|finalized|processed>
-  --destinationWallet=<value>  pubkey of tokenWallet to receive withdrawed funds. Defaults to payer associated token
-                               wallet
-  --ledger                     enable ledger support
-  --ledgerPath=<value>         HID path to the ledger
-  --mainnetBeta                WARNING: use mainnet-beta solana cluster
-  --programId=<value>          alternative Switchboard program ID to interact with
-  --withdrawAmount=<value>     Amount of wrapped SOL to withdraw from the function's escrow
+  -h, --help                      Show CLI help.
+  -k, --keypair=<value>           keypair that will pay for onchain transactions. defaults to new account authority if
+                                  no alternate authority provided
+  -s, --silent                    suppress cli prompts
+  -u, --rpcUrl=<value>            alternate RPC url
+  -v, --verbose                   log everything
+  --attestationProgramId=<value>  alternative Switchboard Attestation program ID to interact with
+  --authority=<value>             path to authority keypair if different from payer keypair
+  --cluster=<option>              the solana cluster to connect to
+                                  <options: devnet|mainnet-beta|mainnet|localnet>
+  --commitment=<option>           [default: confirmed] transaction commitment level to use
+                                  <options: confirmed|finalized|processed>
+  --destinationWallet=<value>     pubkey of tokenWallet to receive withdrawed funds. Defaults to payer associated token
+                                  wallet
+  --ledger                        enable ledger support
+  --ledgerPath=<value>            HID path to the ledger
+  --mainnetBeta                   WARNING: use mainnet-beta solana cluster
+  --programId=<value>             alternative Switchboard program ID to interact with
+  --withdrawAmount=<value>        Amount of wrapped SOL to withdraw from the function's escrow
 
 GLOBAL FLAGS
   --json  Format output as json.
@@ -5273,7 +4287,7 @@ DESCRIPTION
   Withdraw funds from a function's escrow
 ```
 
-_See code: [dist/commands/solana/function/withdraw.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.6/dist/commands/solana/function/withdraw.js)_
+_See code: [dist/commands/solana/function/withdraw.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.12/dist/commands/solana/function/withdraw.js)_
 
 ## `sb solana job create`
 
@@ -5282,29 +4296,30 @@ create a job account
 ```
 USAGE
   $ sb solana job create --jobDefinition <value> [-h] [-v] [-s] [--mainnetBeta | --cluster
-    devnet|mainnet-beta|mainnet|localnet] [-u <value>] [--programId <value>] [--commitment
-    confirmed|finalized|processed] [-k <value>] [--ledgerPath <value> --ledger] [--json] [--jobKeypair <value>] [-a
-    <value>] [-n <value>]
+    devnet|mainnet-beta|mainnet|localnet] [-u <value>] [--programId <value>] [--attestationProgramId <value>]
+    [--commitment confirmed|finalized|processed] [-k <value>] [--ledgerPath <value> --ledger] [--json] [--jobKeypair
+    <value>] [-a <value>] [-n <value>]
 
 FLAGS
-  -a, --authority=<value>  alternate keypair that will be the buffer relayer authority
-  -h, --help               Show CLI help.
-  -k, --keypair=<value>    keypair that will pay for onchain transactions. defaults to new account authority if no
-                           alternate authority provided
-  -n, --name=<value>       name of the buffer account
-  -s, --silent             suppress cli prompts
-  -u, --rpcUrl=<value>     alternate RPC url
-  -v, --verbose            log everything
-  --cluster=<option>       the solana cluster to connect to
-                           <options: devnet|mainnet-beta|mainnet|localnet>
-  --commitment=<option>    [default: confirmed] transaction commitment level to use
-                           <options: confirmed|finalized|processed>
-  --jobDefinition=<value>  (required) filesystem path to job definition
-  --jobKeypair=<value>     keypair to use for the job account. This will be the account's publicKey
-  --ledger                 enable ledger support
-  --ledgerPath=<value>     HID path to the ledger
-  --mainnetBeta            WARNING: use mainnet-beta solana cluster
-  --programId=<value>      alternative Switchboard program ID to interact with
+  -a, --authority=<value>         alternate keypair that will be the buffer relayer authority
+  -h, --help                      Show CLI help.
+  -k, --keypair=<value>           keypair that will pay for onchain transactions. defaults to new account authority if
+                                  no alternate authority provided
+  -n, --name=<value>              name of the buffer account
+  -s, --silent                    suppress cli prompts
+  -u, --rpcUrl=<value>            alternate RPC url
+  -v, --verbose                   log everything
+  --attestationProgramId=<value>  alternative Switchboard Attestation program ID to interact with
+  --cluster=<option>              the solana cluster to connect to
+                                  <options: devnet|mainnet-beta|mainnet|localnet>
+  --commitment=<option>           [default: confirmed] transaction commitment level to use
+                                  <options: confirmed|finalized|processed>
+  --jobDefinition=<value>         (required) filesystem path to job definition
+  --jobKeypair=<value>            keypair to use for the job account. This will be the account's publicKey
+  --ledger                        enable ledger support
+  --ledgerPath=<value>            HID path to the ledger
+  --mainnetBeta                   WARNING: use mainnet-beta solana cluster
+  --programId=<value>             alternative Switchboard program ID to interact with
 
 GLOBAL FLAGS
   --json  Format output as json.
@@ -5313,7 +4328,7 @@ DESCRIPTION
   create a job account
 ```
 
-_See code: [dist/commands/solana/job/create.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.6/dist/commands/solana/job/create.js)_
+_See code: [dist/commands/solana/job/create.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.12/dist/commands/solana/job/create.js)_
 
 ## `sb solana job print JOBKEY`
 
@@ -5322,22 +4337,24 @@ print an job and it's associated accounts
 ```
 USAGE
   $ sb solana job print JOBKEY [-h] [-v] [-s] [--mainnetBeta | --cluster devnet|mainnet-beta|mainnet|localnet] [-u
-    <value>] [--programId <value>] [--commitment confirmed|finalized|processed] [--json]
+    <value>] [--programId <value>] [--attestationProgramId <value>] [--commitment confirmed|finalized|processed]
+    [--json]
 
 ARGUMENTS
   JOBKEY  public key of the job account
 
 FLAGS
-  -h, --help             Show CLI help.
-  -s, --silent           suppress cli prompts
-  -u, --rpcUrl=<value>   alternate RPC url
-  -v, --verbose          log everything
-  --cluster=<option>     the solana cluster to connect to
-                         <options: devnet|mainnet-beta|mainnet|localnet>
-  --commitment=<option>  [default: confirmed] transaction commitment level to use
-                         <options: confirmed|finalized|processed>
-  --mainnetBeta          WARNING: use mainnet-beta solana cluster
-  --programId=<value>    alternative Switchboard program ID to interact with
+  -h, --help                      Show CLI help.
+  -s, --silent                    suppress cli prompts
+  -u, --rpcUrl=<value>            alternate RPC url
+  -v, --verbose                   log everything
+  --attestationProgramId=<value>  alternative Switchboard Attestation program ID to interact with
+  --cluster=<option>              the solana cluster to connect to
+                                  <options: devnet|mainnet-beta|mainnet|localnet>
+  --commitment=<option>           [default: confirmed] transaction commitment level to use
+                                  <options: confirmed|finalized|processed>
+  --mainnetBeta                   WARNING: use mainnet-beta solana cluster
+  --programId=<value>             alternative Switchboard program ID to interact with
 
 GLOBAL FLAGS
   --json  Format output as json.
@@ -5346,7 +4363,7 @@ DESCRIPTION
   print an job and it's associated accounts
 ```
 
-_See code: [dist/commands/solana/job/print.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.6/dist/commands/solana/job/print.js)_
+_See code: [dist/commands/solana/job/print.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.12/dist/commands/solana/job/print.js)_
 
 ## `sb solana json create aggregator DEFINITIONFILE`
 
@@ -5355,30 +4372,31 @@ create an aggregator from a json file
 ```
 USAGE
   $ sb solana json create aggregator DEFINITIONFILE [-h] [-v] [-s] [--mainnetBeta | --cluster devnet|mainnet-beta|mainnet|localnet]
-    [-u <value>] [--programId <value>] [--commitment confirmed|finalized|processed] [-k <value>] [--ledgerPath <value>
-    --ledger] [--json] [-q <value>] [-a <value>] [--leaseAmount <value>]
+    [-u <value>] [--programId <value>] [--attestationProgramId <value>] [--commitment confirmed|finalized|processed] [-k
+    <value>] [--ledgerPath <value> --ledger] [--json] [-q <value>] [-a <value>] [--leaseAmount <value>]
 
 ARGUMENTS
   DEFINITIONFILE  filesystem path of queue definition json file
 
 FLAGS
-  -a, --authority=<value>  alternate keypair that will be the authority for the aggregator
-  -h, --help               Show CLI help.
-  -k, --keypair=<value>    keypair that will pay for onchain transactions. defaults to new account authority if no
-                           alternate authority provided
-  -q, --queueKey=<value>   public key of the oracle queue to create aggregator for
-  -s, --silent             suppress cli prompts
-  -u, --rpcUrl=<value>     alternate RPC url
-  -v, --verbose            log everything
-  --cluster=<option>       the solana cluster to connect to
-                           <options: devnet|mainnet-beta|mainnet|localnet>
-  --commitment=<option>    [default: confirmed] transaction commitment level to use
-                           <options: confirmed|finalized|processed>
-  --leaseAmount=<value>    [default: 0] amount of funds to deposit into the lease, ex: 1.5 would deposit 1.5 wSOL
-  --ledger                 enable ledger support
-  --ledgerPath=<value>     HID path to the ledger
-  --mainnetBeta            WARNING: use mainnet-beta solana cluster
-  --programId=<value>      alternative Switchboard program ID to interact with
+  -a, --authority=<value>         alternate keypair that will be the authority for the aggregator
+  -h, --help                      Show CLI help.
+  -k, --keypair=<value>           keypair that will pay for onchain transactions. defaults to new account authority if
+                                  no alternate authority provided
+  -q, --queueKey=<value>          public key of the oracle queue to create aggregator for
+  -s, --silent                    suppress cli prompts
+  -u, --rpcUrl=<value>            alternate RPC url
+  -v, --verbose                   log everything
+  --attestationProgramId=<value>  alternative Switchboard Attestation program ID to interact with
+  --cluster=<option>              the solana cluster to connect to
+                                  <options: devnet|mainnet-beta|mainnet|localnet>
+  --commitment=<option>           [default: confirmed] transaction commitment level to use
+                                  <options: confirmed|finalized|processed>
+  --leaseAmount=<value>           [default: 0] amount of funds to deposit into the lease, ex: 1.5 would deposit 1.5 wSOL
+  --ledger                        enable ledger support
+  --ledgerPath=<value>            HID path to the ledger
+  --mainnetBeta                   WARNING: use mainnet-beta solana cluster
+  --programId=<value>             alternative Switchboard program ID to interact with
 
 GLOBAL FLAGS
   --json  Format output as json.
@@ -5400,29 +4418,30 @@ fund and re-enable an aggregator lease
 ```
 USAGE
   $ sb solana lease create AGGREGATORKEY [-h] [-v] [-s] [--mainnetBeta | --cluster devnet|mainnet-beta|mainnet|localnet]
-    [-u <value>] [--programId <value>] [--commitment confirmed|finalized|processed] [-k <value>] [--ledgerPath <value>
-    --ledger] [--amount <value>]
+    [-u <value>] [--programId <value>] [--attestationProgramId <value>] [--commitment confirmed|finalized|processed] [-k
+    <value>] [--ledgerPath <value> --ledger] [--amount <value>]
 
 ARGUMENTS
   AGGREGATORKEY  public key of the aggregator account
 
 FLAGS
-  -h, --help             Show CLI help.
-  -k, --keypair=<value>  keypair that will pay for onchain transactions. defaults to new account authority if no
-                         alternate authority provided
-  -s, --silent           suppress cli prompts
-  -u, --rpcUrl=<value>   alternate RPC url
-  -v, --verbose          log everything
-  --amount=<value>       token amount to load into the lease escrow. If decimals provided, amount will be normalized to
-                         raw tokenAmount
-  --cluster=<option>     the solana cluster to connect to
-                         <options: devnet|mainnet-beta|mainnet|localnet>
-  --commitment=<option>  [default: confirmed] transaction commitment level to use
-                         <options: confirmed|finalized|processed>
-  --ledger               enable ledger support
-  --ledgerPath=<value>   HID path to the ledger
-  --mainnetBeta          WARNING: use mainnet-beta solana cluster
-  --programId=<value>    alternative Switchboard program ID to interact with
+  -h, --help                      Show CLI help.
+  -k, --keypair=<value>           keypair that will pay for onchain transactions. defaults to new account authority if
+                                  no alternate authority provided
+  -s, --silent                    suppress cli prompts
+  -u, --rpcUrl=<value>            alternate RPC url
+  -v, --verbose                   log everything
+  --amount=<value>                token amount to load into the lease escrow. If decimals provided, amount will be
+                                  normalized to raw tokenAmount
+  --attestationProgramId=<value>  alternative Switchboard Attestation program ID to interact with
+  --cluster=<option>              the solana cluster to connect to
+                                  <options: devnet|mainnet-beta|mainnet|localnet>
+  --commitment=<option>           [default: confirmed] transaction commitment level to use
+                                  <options: confirmed|finalized|processed>
+  --ledger                        enable ledger support
+  --ledgerPath=<value>            HID path to the ledger
+  --mainnetBeta                   WARNING: use mainnet-beta solana cluster
+  --programId=<value>             alternative Switchboard program ID to interact with
 
 DESCRIPTION
   fund and re-enable an aggregator lease
@@ -5431,7 +4450,7 @@ EXAMPLES
   $ sb solana lease create GvDMxPzN1sCj7L26YDK2HnMRXEQmQ2aemov8YBtPS7vR --amount 1.5 --keypair ../payer-keypair.json
 ```
 
-_See code: [dist/commands/solana/lease/create.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.6/dist/commands/solana/lease/create.js)_
+_See code: [dist/commands/solana/lease/create.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.12/dist/commands/solana/lease/create.js)_
 
 ## `sb solana lease extend AGGREGATORKEY`
 
@@ -5440,28 +4459,29 @@ fund and re-enable an aggregator lease
 ```
 USAGE
   $ sb solana lease extend AGGREGATORKEY --amount <value> [-h] [-v] [-s] [--mainnetBeta | --cluster
-    devnet|mainnet-beta|mainnet|localnet] [-u <value>] [--programId <value>] [--commitment
-    confirmed|finalized|processed] [-k <value>] [--ledgerPath <value> --ledger]
+    devnet|mainnet-beta|mainnet|localnet] [-u <value>] [--programId <value>] [--attestationProgramId <value>]
+    [--commitment confirmed|finalized|processed] [-k <value>] [--ledgerPath <value> --ledger]
 
 ARGUMENTS
   AGGREGATORKEY  public key of the aggregator account
 
 FLAGS
-  -h, --help             Show CLI help.
-  -k, --keypair=<value>  keypair that will pay for onchain transactions. defaults to new account authority if no
-                         alternate authority provided
-  -s, --silent           suppress cli prompts
-  -u, --rpcUrl=<value>   alternate RPC url
-  -v, --verbose          log everything
-  --amount=<value>       (required) amount to deposit into the lease escrow
-  --cluster=<option>     the solana cluster to connect to
-                         <options: devnet|mainnet-beta|mainnet|localnet>
-  --commitment=<option>  [default: confirmed] transaction commitment level to use
-                         <options: confirmed|finalized|processed>
-  --ledger               enable ledger support
-  --ledgerPath=<value>   HID path to the ledger
-  --mainnetBeta          WARNING: use mainnet-beta solana cluster
-  --programId=<value>    alternative Switchboard program ID to interact with
+  -h, --help                      Show CLI help.
+  -k, --keypair=<value>           keypair that will pay for onchain transactions. defaults to new account authority if
+                                  no alternate authority provided
+  -s, --silent                    suppress cli prompts
+  -u, --rpcUrl=<value>            alternate RPC url
+  -v, --verbose                   log everything
+  --amount=<value>                (required) amount to deposit into the lease escrow
+  --attestationProgramId=<value>  alternative Switchboard Attestation program ID to interact with
+  --cluster=<option>              the solana cluster to connect to
+                                  <options: devnet|mainnet-beta|mainnet|localnet>
+  --commitment=<option>           [default: confirmed] transaction commitment level to use
+                                  <options: confirmed|finalized|processed>
+  --ledger                        enable ledger support
+  --ledgerPath=<value>            HID path to the ledger
+  --mainnetBeta                   WARNING: use mainnet-beta solana cluster
+  --programId=<value>             alternative Switchboard program ID to interact with
 
 DESCRIPTION
   fund and re-enable an aggregator lease
@@ -5475,7 +4495,7 @@ EXAMPLES
   $ sb solana:aggregator:fund GvDMxPzN1sCj7L26YDK2HnMRXEQmQ2aemov8YBtPS7vR --amount 1.1 --keypair ../payer-keypair.json
 ```
 
-_See code: [dist/commands/solana/lease/extend.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.6/dist/commands/solana/lease/extend.js)_
+_See code: [dist/commands/solana/lease/extend.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.12/dist/commands/solana/lease/extend.js)_
 
 ## `sb solana lease print LEASEKEY`
 
@@ -5484,22 +4504,24 @@ print a lease account
 ```
 USAGE
   $ sb solana lease print LEASEKEY [-h] [-v] [-s] [--mainnetBeta | --cluster devnet|mainnet-beta|mainnet|localnet] [-u
-    <value>] [--programId <value>] [--commitment confirmed|finalized|processed] [--json]
+    <value>] [--programId <value>] [--attestationProgramId <value>] [--commitment confirmed|finalized|processed]
+    [--json]
 
 ARGUMENTS
   LEASEKEY  public key of the lease account
 
 FLAGS
-  -h, --help             Show CLI help.
-  -s, --silent           suppress cli prompts
-  -u, --rpcUrl=<value>   alternate RPC url
-  -v, --verbose          log everything
-  --cluster=<option>     the solana cluster to connect to
-                         <options: devnet|mainnet-beta|mainnet|localnet>
-  --commitment=<option>  [default: confirmed] transaction commitment level to use
-                         <options: confirmed|finalized|processed>
-  --mainnetBeta          WARNING: use mainnet-beta solana cluster
-  --programId=<value>    alternative Switchboard program ID to interact with
+  -h, --help                      Show CLI help.
+  -s, --silent                    suppress cli prompts
+  -u, --rpcUrl=<value>            alternate RPC url
+  -v, --verbose                   log everything
+  --attestationProgramId=<value>  alternative Switchboard Attestation program ID to interact with
+  --cluster=<option>              the solana cluster to connect to
+                                  <options: devnet|mainnet-beta|mainnet|localnet>
+  --commitment=<option>           [default: confirmed] transaction commitment level to use
+                                  <options: confirmed|finalized|processed>
+  --mainnetBeta                   WARNING: use mainnet-beta solana cluster
+  --programId=<value>             alternative Switchboard program ID to interact with
 
 GLOBAL FLAGS
   --json  Format output as json.
@@ -5508,7 +4530,7 @@ DESCRIPTION
   print a lease account
 ```
 
-_See code: [dist/commands/solana/lease/print.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.6/dist/commands/solana/lease/print.js)_
+_See code: [dist/commands/solana/lease/print.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.12/dist/commands/solana/lease/print.js)_
 
 ## `sb solana lease set AGGREGATORKEY`
 
@@ -5517,31 +4539,32 @@ set a lease's withdraw authority
 ```
 USAGE
   $ sb solana lease set AGGREGATORKEY [-h] [-v] [-s] [--mainnetBeta | --cluster devnet|mainnet-beta|mainnet|localnet]
-    [-u <value>] [--programId <value>] [--commitment confirmed|finalized|processed] [-k <value>] [--ledgerPath <value>
-    --ledger] [-a <value>] [--queuePubkey <value>] [--newAuthority <value>]
+    [-u <value>] [--programId <value>] [--attestationProgramId <value>] [--commitment confirmed|finalized|processed] [-k
+    <value>] [--ledgerPath <value> --ledger] [-a <value>] [--queuePubkey <value>] [--newAuthority <value>]
 
 ARGUMENTS
   AGGREGATORKEY  public key of the aggregator account
 
 FLAGS
-  -a, --authority=<value>  alternate keypair delegated as the authority for managing the lease account
-  -h, --help               Show CLI help.
-  -k, --keypair=<value>    keypair that will pay for onchain transactions. defaults to new account authority if no
-                           alternate authority provided
-  -s, --silent             suppress cli prompts
-  -u, --rpcUrl=<value>     alternate RPC url
-  -v, --verbose            log everything
-  --cluster=<option>       the solana cluster to connect to
-                           <options: devnet|mainnet-beta|mainnet|localnet>
-  --commitment=<option>    [default: confirmed] transaction commitment level to use
-                           <options: confirmed|finalized|processed>
-  --ledger                 enable ledger support
-  --ledgerPath=<value>     HID path to the ledger
-  --mainnetBeta            WARNING: use mainnet-beta solana cluster
-  --newAuthority=<value>   new lease withdraw authority. if not set, defaults to the aggregator authority
-  --programId=<value>      alternative Switchboard program ID to interact with
-  --queuePubkey=<value>    override the aggregators current queue. useful for withdrawing from a lease after moving to a
-                           new queue
+  -a, --authority=<value>         alternate keypair delegated as the authority for managing the lease account
+  -h, --help                      Show CLI help.
+  -k, --keypair=<value>           keypair that will pay for onchain transactions. defaults to new account authority if
+                                  no alternate authority provided
+  -s, --silent                    suppress cli prompts
+  -u, --rpcUrl=<value>            alternate RPC url
+  -v, --verbose                   log everything
+  --attestationProgramId=<value>  alternative Switchboard Attestation program ID to interact with
+  --cluster=<option>              the solana cluster to connect to
+                                  <options: devnet|mainnet-beta|mainnet|localnet>
+  --commitment=<option>           [default: confirmed] transaction commitment level to use
+                                  <options: confirmed|finalized|processed>
+  --ledger                        enable ledger support
+  --ledgerPath=<value>            HID path to the ledger
+  --mainnetBeta                   WARNING: use mainnet-beta solana cluster
+  --newAuthority=<value>          new lease withdraw authority. if not set, defaults to the aggregator authority
+  --programId=<value>             alternative Switchboard program ID to interact with
+  --queuePubkey=<value>           override the aggregators current queue. useful for withdrawing from a lease after
+                                  moving to a new queue
 
 DESCRIPTION
   set a lease's withdraw authority
@@ -5553,7 +4576,7 @@ EXAMPLES
   $ sb solana:lease:set GvDMxPzN1sCj7L26YDK2HnMRXEQmQ2aemov8YBtPS7vR --keypair ../payer-keypair.json
 ```
 
-_See code: [dist/commands/solana/lease/set.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.6/dist/commands/solana/lease/set.js)_
+_See code: [dist/commands/solana/lease/set.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.12/dist/commands/solana/lease/set.js)_
 
 ## `sb solana lease withdraw AGGREGATORKEY`
 
@@ -5562,31 +4585,33 @@ withdraw funds from an aggregator lease
 ```
 USAGE
   $ sb solana lease withdraw AGGREGATORKEY --amount <value> [-h] [-v] [-s] [--mainnetBeta | --cluster
-    devnet|mainnet-beta|mainnet|localnet] [-u <value>] [--programId <value>] [--commitment
-    confirmed|finalized|processed] [-k <value>] [--ledgerPath <value> --ledger] [-a <value>] [--queuePubkey <value>]
+    devnet|mainnet-beta|mainnet|localnet] [-u <value>] [--programId <value>] [--attestationProgramId <value>]
+    [--commitment confirmed|finalized|processed] [-k <value>] [--ledgerPath <value> --ledger] [-a <value>]
+    [--queuePubkey <value>]
 
 ARGUMENTS
   AGGREGATORKEY  public key of the aggregator account
 
 FLAGS
-  -a, --authority=<value>  keypair delegated as the authority for managing the lease account
-  -h, --help               Show CLI help.
-  -k, --keypair=<value>    keypair that will pay for onchain transactions. defaults to new account authority if no
-                           alternate authority provided
-  -s, --silent             suppress cli prompts
-  -u, --rpcUrl=<value>     alternate RPC url
-  -v, --verbose            log everything
-  --amount=<value>         (required) token amount to withdraw from lease account
-  --cluster=<option>       the solana cluster to connect to
-                           <options: devnet|mainnet-beta|mainnet|localnet>
-  --commitment=<option>    [default: confirmed] transaction commitment level to use
-                           <options: confirmed|finalized|processed>
-  --ledger                 enable ledger support
-  --ledgerPath=<value>     HID path to the ledger
-  --mainnetBeta            WARNING: use mainnet-beta solana cluster
-  --programId=<value>      alternative Switchboard program ID to interact with
-  --queuePubkey=<value>    override the aggregators current queue. useful for withdrawing from a lease after moving to a
-                           new queue
+  -a, --authority=<value>         keypair delegated as the authority for managing the lease account
+  -h, --help                      Show CLI help.
+  -k, --keypair=<value>           keypair that will pay for onchain transactions. defaults to new account authority if
+                                  no alternate authority provided
+  -s, --silent                    suppress cli prompts
+  -u, --rpcUrl=<value>            alternate RPC url
+  -v, --verbose                   log everything
+  --amount=<value>                (required) token amount to withdraw from lease account
+  --attestationProgramId=<value>  alternative Switchboard Attestation program ID to interact with
+  --cluster=<option>              the solana cluster to connect to
+                                  <options: devnet|mainnet-beta|mainnet|localnet>
+  --commitment=<option>           [default: confirmed] transaction commitment level to use
+                                  <options: confirmed|finalized|processed>
+  --ledger                        enable ledger support
+  --ledgerPath=<value>            HID path to the ledger
+  --mainnetBeta                   WARNING: use mainnet-beta solana cluster
+  --programId=<value>             alternative Switchboard program ID to interact with
+  --queuePubkey=<value>           override the aggregators current queue. useful for withdrawing from a lease after
+                                  moving to a new queue
 
 DESCRIPTION
   withdraw funds from an aggregator lease
@@ -5598,7 +4623,7 @@ EXAMPLES
   $ sb solana:aggregator:withdraw GvDMxPzN1sCj7L26YDK2HnMRXEQmQ2aemov8YBtPS7vR --amount 1.1 --keypair ../payer-keypair.json
 ```
 
-_See code: [dist/commands/solana/lease/withdraw.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.6/dist/commands/solana/lease/withdraw.js)_
+_See code: [dist/commands/solana/lease/withdraw.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.12/dist/commands/solana/lease/withdraw.js)_
 
 ## `sb solana network create`
 
@@ -5607,27 +4632,28 @@ create an oracle queue
 ```
 USAGE
   $ sb solana network create --configFile <value> --schemaFile <value> [-h] [-v] [-s] [--mainnetBeta | --cluster
-    devnet|mainnet-beta|mainnet|localnet] [-u <value>] [--programId <value>] [--commitment
-    confirmed|finalized|processed] [-k <value>] [--ledgerPath <value> --ledger] [--json] [--force]
+    devnet|mainnet-beta|mainnet|localnet] [-u <value>] [--programId <value>] [--attestationProgramId <value>]
+    [--commitment confirmed|finalized|processed] [-k <value>] [--ledgerPath <value> --ledger] [--json] [--force]
 
 FLAGS
-  -h, --help             Show CLI help.
-  -k, --keypair=<value>  keypair that will pay for onchain transactions. defaults to new account authority if no
-                         alternate authority provided
-  -s, --silent           suppress cli prompts
-  -u, --rpcUrl=<value>   alternate RPC url
-  -v, --verbose          log everything
-  --cluster=<option>     the solana cluster to connect to
-                         <options: devnet|mainnet-beta|mainnet|localnet>
-  --commitment=<option>  [default: confirmed] transaction commitment level to use
-                         <options: confirmed|finalized|processed>
-  --configFile=<value>   (required)
+  -h, --help                      Show CLI help.
+  -k, --keypair=<value>           keypair that will pay for onchain transactions. defaults to new account authority if
+                                  no alternate authority provided
+  -s, --silent                    suppress cli prompts
+  -u, --rpcUrl=<value>            alternate RPC url
+  -v, --verbose                   log everything
+  --attestationProgramId=<value>  alternative Switchboard Attestation program ID to interact with
+  --cluster=<option>              the solana cluster to connect to
+                                  <options: devnet|mainnet-beta|mainnet|localnet>
+  --commitment=<option>           [default: confirmed] transaction commitment level to use
+                                  <options: confirmed|finalized|processed>
+  --configFile=<value>            (required)
   --force
-  --ledger               enable ledger support
-  --ledgerPath=<value>   HID path to the ledger
-  --mainnetBeta          WARNING: use mainnet-beta solana cluster
-  --programId=<value>    alternative Switchboard program ID to interact with
-  --schemaFile=<value>   (required)
+  --ledger                        enable ledger support
+  --ledgerPath=<value>            HID path to the ledger
+  --mainnetBeta                   WARNING: use mainnet-beta solana cluster
+  --programId=<value>             alternative Switchboard program ID to interact with
+  --schemaFile=<value>            (required)
 
 GLOBAL FLAGS
   --json  Format output as json.
@@ -5636,7 +4662,7 @@ DESCRIPTION
   create an oracle queue
 ```
 
-_See code: [dist/commands/solana/network/create.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.6/dist/commands/solana/network/create.js)_
+_See code: [dist/commands/solana/network/create.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.12/dist/commands/solana/network/create.js)_
 
 ## `sb solana network save`
 
@@ -5645,23 +4671,24 @@ save an existing switchboard network
 ```
 USAGE
   $ sb solana network save --queueKey <value> --outputFile <value> [-h] [-v] [-s] [--mainnetBeta | --cluster
-    devnet|mainnet-beta|mainnet|localnet] [-u <value>] [--programId <value>] [--commitment
-    confirmed|finalized|processed] [--json] [--force]
+    devnet|mainnet-beta|mainnet|localnet] [-u <value>] [--programId <value>] [--attestationProgramId <value>]
+    [--commitment confirmed|finalized|processed] [--json] [--force]
 
 FLAGS
-  -h, --help             Show CLI help.
-  -s, --silent           suppress cli prompts
-  -u, --rpcUrl=<value>   alternate RPC url
-  -v, --verbose          log everything
-  --cluster=<option>     the solana cluster to connect to
-                         <options: devnet|mainnet-beta|mainnet|localnet>
-  --commitment=<option>  [default: confirmed] transaction commitment level to use
-                         <options: confirmed|finalized|processed>
+  -h, --help                      Show CLI help.
+  -s, --silent                    suppress cli prompts
+  -u, --rpcUrl=<value>            alternate RPC url
+  -v, --verbose                   log everything
+  --attestationProgramId=<value>  alternative Switchboard Attestation program ID to interact with
+  --cluster=<option>              the solana cluster to connect to
+                                  <options: devnet|mainnet-beta|mainnet|localnet>
+  --commitment=<option>           [default: confirmed] transaction commitment level to use
+                                  <options: confirmed|finalized|processed>
   --force
-  --mainnetBeta          WARNING: use mainnet-beta solana cluster
-  --outputFile=<value>   (required) outputFile to save accounts in JSON format
-  --programId=<value>    alternative Switchboard program ID to interact with
-  --queueKey=<value>     (required) queue account to load
+  --mainnetBeta                   WARNING: use mainnet-beta solana cluster
+  --outputFile=<value>            (required) outputFile to save accounts in JSON format
+  --programId=<value>             alternative Switchboard program ID to interact with
+  --queueKey=<value>              (required) queue account to load
 
 GLOBAL FLAGS
   --json  Format output as json.
@@ -5670,7 +4697,7 @@ DESCRIPTION
   save an existing switchboard network
 ```
 
-_See code: [dist/commands/solana/network/save.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.6/dist/commands/solana/network/save.js)_
+_See code: [dist/commands/solana/network/save.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.12/dist/commands/solana/network/save.js)_
 
 ## `sb solana network start`
 
@@ -5679,31 +4706,32 @@ start a switchboard network from a JSON file
 ```
 USAGE
   $ sb solana network start [-h] [-v] [-s] [--mainnetBeta | --cluster devnet|mainnet-beta|mainnet|localnet] [-u <value>]
-    [--programId <value>] [--commitment confirmed|finalized|processed] [-k <value>] [--ledgerPath <value> --ledger]
-    [--json] [--configFile <value>] [--schemaFile <value>] [--nodeImage <value>] [--arm] [-t <value>] [--mainnetRpcUrl
-    <value>]
+    [--programId <value>] [--attestationProgramId <value>] [--commitment confirmed|finalized|processed] [-k <value>]
+    [--ledgerPath <value> --ledger] [--json] [--configFile <value>] [--schemaFile <value>] [--nodeImage <value>] [--arm]
+    [-t <value>] [--mainnetRpcUrl <value>]
 
 FLAGS
-  -h, --help               Show CLI help.
-  -k, --keypair=<value>    keypair that will pay for onchain transactions. defaults to new account authority if no
-                           alternate authority provided
-  -s, --silent             suppress docker logging
-  -t, --timeout=<value>    [default: 300] number of seconds before ending the docker process
-  -u, --rpcUrl=<value>     alternate RPC url
-  -v, --verbose            log everything
-  --arm                    apple silicon needs to use a docker image for linux/arm64
-  --cluster=<option>       the solana cluster to connect to
-                           <options: devnet|mainnet-beta|mainnet|localnet>
-  --commitment=<option>    [default: confirmed] transaction commitment level to use
-                           <options: confirmed|finalized|processed>
+  -h, --help                      Show CLI help.
+  -k, --keypair=<value>           keypair that will pay for onchain transactions. defaults to new account authority if
+                                  no alternate authority provided
+  -s, --silent                    suppress docker logging
+  -t, --timeout=<value>           [default: 300] number of seconds before ending the docker process
+  -u, --rpcUrl=<value>            alternate RPC url
+  -v, --verbose                   log everything
+  --arm                           apple silicon needs to use a docker image for linux/arm64
+  --attestationProgramId=<value>  alternative Switchboard Attestation program ID to interact with
+  --cluster=<option>              the solana cluster to connect to
+                                  <options: devnet|mainnet-beta|mainnet|localnet>
+  --commitment=<option>           [default: confirmed] transaction commitment level to use
+                                  <options: confirmed|finalized|processed>
   --configFile=<value>
-  --ledger                 enable ledger support
-  --ledgerPath=<value>     HID path to the ledger
-  --mainnetBeta            WARNING: use mainnet-beta solana cluster
-  --mainnetRpcUrl=<value>  [default: https://api.mainnet-beta.solana.com/] Solana mainnet RPC URL to use for the oracle
-                           task runner
-  --nodeImage=<value>      [default: dev-v2-RC_02_24_23_18_43] public key of the oracle to start-up
-  --programId=<value>      alternative Switchboard program ID to interact with
+  --ledger                        enable ledger support
+  --ledgerPath=<value>            HID path to the ledger
+  --mainnetBeta                   WARNING: use mainnet-beta solana cluster
+  --mainnetRpcUrl=<value>         [default: https://api.mainnet-beta.solana.com/] Solana mainnet RPC URL to use for the
+                                  oracle task runner
+  --nodeImage=<value>             [default: dev-v2-RC_02_24_23_18_43] public key of the oracle to start-up
+  --programId=<value>             alternative Switchboard program ID to interact with
   --schemaFile=<value>
 
 GLOBAL FLAGS
@@ -5713,7 +4741,7 @@ DESCRIPTION
   start a switchboard network from a JSON file
 ```
 
-_See code: [dist/commands/solana/network/start.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.6/dist/commands/solana/network/start.js)_
+_See code: [dist/commands/solana/network/start.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.12/dist/commands/solana/network/start.js)_
 
 ## `sb solana oracle create QUEUEKEY`
 
@@ -5722,34 +4750,35 @@ create a new oracle account for a given queue
 ```
 USAGE
   $ sb solana oracle create QUEUEKEY [-h] [-v] [-s] [--mainnetBeta | --cluster devnet|mainnet-beta|mainnet|localnet] [-u
-    <value>] [--programId <value>] [--commitment confirmed|finalized|processed] [-k <value>] [--ledgerPath <value>
-    --ledger] [--json] [-n <value>] [--metadata <value>] [-a <value>] [--enable] [--queueAuthority <value>]
-    [--stakeAmount <value>]
+    <value>] [--programId <value>] [--attestationProgramId <value>] [--commitment confirmed|finalized|processed] [-k
+    <value>] [--ledgerPath <value> --ledger] [--json] [-n <value>] [--metadata <value>] [-a <value>] [--enable]
+    [--queueAuthority <value>] [--stakeAmount <value>]
 
 ARGUMENTS
   QUEUEKEY  public key of the oracle queue account
 
 FLAGS
-  -a, --authority=<value>   keypair to delegate authority to for managing the oracle account
-  -h, --help                Show CLI help.
-  -k, --keypair=<value>     keypair that will pay for onchain transactions. defaults to new account authority if no
-                            alternate authority provided
-  -n, --name=<value>        name of the oracle for easier identification
-  -s, --silent              suppress cli prompts
-  -u, --rpcUrl=<value>      alternate RPC url
-  -v, --verbose             log everything
-  --cluster=<option>        the solana cluster to connect to
-                            <options: devnet|mainnet-beta|mainnet|localnet>
-  --commitment=<option>     [default: confirmed] transaction commitment level to use
-                            <options: confirmed|finalized|processed>
-  --enable                  enable oracle heartbeat permissions
-  --ledger                  enable ledger support
-  --ledgerPath=<value>      HID path to the ledger
-  --mainnetBeta             WARNING: use mainnet-beta solana cluster
-  --metadata=<value>        metadata of the oracle for easier identification
-  --programId=<value>       alternative Switchboard program ID to interact with
-  --queueAuthority=<value>  alternative keypair to use for queue authority
-  --stakeAmount=<value>     token amount to load into the oracle's staking wallet.
+  -a, --authority=<value>         keypair to delegate authority to for managing the oracle account
+  -h, --help                      Show CLI help.
+  -k, --keypair=<value>           keypair that will pay for onchain transactions. defaults to new account authority if
+                                  no alternate authority provided
+  -n, --name=<value>              name of the oracle for easier identification
+  -s, --silent                    suppress cli prompts
+  -u, --rpcUrl=<value>            alternate RPC url
+  -v, --verbose                   log everything
+  --attestationProgramId=<value>  alternative Switchboard Attestation program ID to interact with
+  --cluster=<option>              the solana cluster to connect to
+                                  <options: devnet|mainnet-beta|mainnet|localnet>
+  --commitment=<option>           [default: confirmed] transaction commitment level to use
+                                  <options: confirmed|finalized|processed>
+  --enable                        enable oracle heartbeat permissions
+  --ledger                        enable ledger support
+  --ledgerPath=<value>            HID path to the ledger
+  --mainnetBeta                   WARNING: use mainnet-beta solana cluster
+  --metadata=<value>              metadata of the oracle for easier identification
+  --programId=<value>             alternative Switchboard program ID to interact with
+  --queueAuthority=<value>        alternative keypair to use for queue authority
+  --stakeAmount=<value>           token amount to load into the oracle's staking wallet.
 
 GLOBAL FLAGS
   --json  Format output as json.
@@ -5761,7 +4790,7 @@ EXAMPLES
   $ sb solana:oracle:create F8ce7MsckeZAbAGmxjJNetxYXQa9mKr9nnrC3qKubyYy --name oracle-1 --stakeAmount 1
 ```
 
-_See code: [dist/commands/solana/oracle/create.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.6/dist/commands/solana/oracle/create.js)_
+_See code: [dist/commands/solana/oracle/create.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.12/dist/commands/solana/oracle/create.js)_
 
 ## `sb solana oracle print ORACLEKEY`
 
@@ -5770,22 +4799,24 @@ print an oracle account
 ```
 USAGE
   $ sb solana oracle print ORACLEKEY [-h] [-v] [-s] [--mainnetBeta | --cluster devnet|mainnet-beta|mainnet|localnet] [-u
-    <value>] [--programId <value>] [--commitment confirmed|finalized|processed] [--json]
+    <value>] [--programId <value>] [--attestationProgramId <value>] [--commitment confirmed|finalized|processed]
+    [--json]
 
 ARGUMENTS
   ORACLEKEY  public key of the oracle account
 
 FLAGS
-  -h, --help             Show CLI help.
-  -s, --silent           suppress cli prompts
-  -u, --rpcUrl=<value>   alternate RPC url
-  -v, --verbose          log everything
-  --cluster=<option>     the solana cluster to connect to
-                         <options: devnet|mainnet-beta|mainnet|localnet>
-  --commitment=<option>  [default: confirmed] transaction commitment level to use
-                         <options: confirmed|finalized|processed>
-  --mainnetBeta          WARNING: use mainnet-beta solana cluster
-  --programId=<value>    alternative Switchboard program ID to interact with
+  -h, --help                      Show CLI help.
+  -s, --silent                    suppress cli prompts
+  -u, --rpcUrl=<value>            alternate RPC url
+  -v, --verbose                   log everything
+  --attestationProgramId=<value>  alternative Switchboard Attestation program ID to interact with
+  --cluster=<option>              the solana cluster to connect to
+                                  <options: devnet|mainnet-beta|mainnet|localnet>
+  --commitment=<option>           [default: confirmed] transaction commitment level to use
+                                  <options: confirmed|finalized|processed>
+  --mainnetBeta                   WARNING: use mainnet-beta solana cluster
+  --programId=<value>             alternative Switchboard program ID to interact with
 
 GLOBAL FLAGS
   --json  Format output as json.
@@ -5794,7 +4825,7 @@ DESCRIPTION
   print an oracle account
 ```
 
-_See code: [dist/commands/solana/oracle/print.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.6/dist/commands/solana/oracle/print.js)_
+_See code: [dist/commands/solana/oracle/print.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.12/dist/commands/solana/oracle/print.js)_
 
 ## `sb solana oracle up`
 
@@ -5803,36 +4834,37 @@ start a solana docker oracle
 ```
 USAGE
   $ sb solana oracle up --oracleKey <value> [-h] [-v] [-s] [--mainnetBeta | --cluster
-    devnet|mainnet-beta|mainnet|localnet] [-u <value>] [--programId <value>] [--commitment
-    confirmed|finalized|processed] [-k <value>] [--ledgerPath <value> --ledger] [--releaseChannel testnet|mainnet |
-    --nodeImage <value>] [-t <value>]
+    devnet|mainnet-beta|mainnet|localnet] [-u <value>] [--programId <value>] [--attestationProgramId <value>]
+    [--commitment confirmed|finalized|processed] [-k <value>] [--ledgerPath <value> --ledger] [--releaseChannel
+    testnet|mainnet | --nodeImage <value>] [-t <value>]
 
 FLAGS
-  -h, --help                 Show CLI help.
-  -k, --keypair=<value>      keypair that will pay for onchain transactions. defaults to new account authority if no
-                             alternate authority provided
-  -s, --silent               suppress docker logging
-  -t, --timeout=<value>      [default: 120] number of seconds before ending the docker process
-  -u, --rpcUrl=<value>       alternate RPC url
-  -v, --verbose              log everything
-  --cluster=<option>         the solana cluster to connect to
-                             <options: devnet|mainnet-beta|mainnet|localnet>
-  --commitment=<option>      [default: confirmed] transaction commitment level to use
-                             <options: confirmed|finalized|processed>
-  --ledger                   enable ledger support
-  --ledgerPath=<value>       HID path to the ledger
-  --mainnetBeta              WARNING: use mainnet-beta solana cluster
-  --nodeImage=<value>        [default: dev-v2-RC_04_11_23_17_12] public key of the oracle to start-up
-  --oracleKey=<value>        (required) public key of the oracle to start-up
-  --programId=<value>        alternative Switchboard program ID to interact with
-  --releaseChannel=<option>  [default: testnet] the oracle release channel
-                             <options: testnet|mainnet>
+  -h, --help                      Show CLI help.
+  -k, --keypair=<value>           keypair that will pay for onchain transactions. defaults to new account authority if
+                                  no alternate authority provided
+  -s, --silent                    suppress docker logging
+  -t, --timeout=<value>           [default: 120] number of seconds before ending the docker process
+  -u, --rpcUrl=<value>            alternate RPC url
+  -v, --verbose                   log everything
+  --attestationProgramId=<value>  alternative Switchboard Attestation program ID to interact with
+  --cluster=<option>              the solana cluster to connect to
+                                  <options: devnet|mainnet-beta|mainnet|localnet>
+  --commitment=<option>           [default: confirmed] transaction commitment level to use
+                                  <options: confirmed|finalized|processed>
+  --ledger                        enable ledger support
+  --ledgerPath=<value>            HID path to the ledger
+  --mainnetBeta                   WARNING: use mainnet-beta solana cluster
+  --nodeImage=<value>             [default: dev-v2-RC_04_11_23_17_12] public key of the oracle to start-up
+  --oracleKey=<value>             (required) public key of the oracle to start-up
+  --programId=<value>             alternative Switchboard program ID to interact with
+  --releaseChannel=<option>       [default: testnet] the oracle release channel
+                                  <options: testnet|mainnet>
 
 DESCRIPTION
   start a solana docker oracle
 ```
 
-_See code: [dist/commands/solana/oracle/up.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.6/dist/commands/solana/oracle/up.js)_
+_See code: [dist/commands/solana/oracle/up.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.12/dist/commands/solana/oracle/up.js)_
 
 ## `sb solana oracle withdraw ORACLEKEY`
 
@@ -5841,40 +4873,41 @@ withdraw from an oracle's staking wallet
 ```
 USAGE
   $ sb solana oracle withdraw ORACLEKEY --amount <value> [-h] [-v] [-s] [--mainnetBeta | --cluster
-    devnet|mainnet-beta|mainnet|localnet] [-u <value>] [--programId <value>] [--commitment
-    confirmed|finalized|processed] [-k <value>] [--ledgerPath <value> --ledger] [-a <value>] [-f] [--unwrap]
-    [--withdrawDestination <value>]
+    devnet|mainnet-beta|mainnet|localnet] [-u <value>] [--programId <value>] [--attestationProgramId <value>]
+    [--commitment confirmed|finalized|processed] [-k <value>] [--ledgerPath <value> --ledger] [-a <value>] [-f]
+    [--unwrap] [--withdrawDestination <value>]
 
 ARGUMENTS
   ORACLEKEY  public key of the oracle account
 
 FLAGS
-  -a, --authority=<value>        alternate keypair for the oracle authority
-  -f, --force                    allow withdrawing more than the queues minStake requirement
-  -h, --help                     Show CLI help.
-  -k, --keypair=<value>          keypair that will pay for onchain transactions. defaults to new account authority if no
-                                 alternate authority provided
-  -s, --silent                   suppress cli prompts
-  -u, --rpcUrl=<value>           alternate RPC url
-  -v, --verbose                  log everything
-  --amount=<value>               (required) amount to withdraw
-  --cluster=<option>             the solana cluster to connect to
-                                 <options: devnet|mainnet-beta|mainnet|localnet>
-  --commitment=<option>          [default: confirmed] transaction commitment level to use
-                                 <options: confirmed|finalized|processed>
-  --ledger                       enable ledger support
-  --ledgerPath=<value>           HID path to the ledger
-  --mainnetBeta                  WARNING: use mainnet-beta solana cluster
-  --programId=<value>            alternative Switchboard program ID to interact with
-  --unwrap                       whether to unwrap the withdrawed funds
-  --withdrawDestination=<value>  the account to withdraw funds to. if unwrap is set, this should be a SystemProgram
-                                 owned account. if unwrap is not set, this should be a TokenAccount.
+  -a, --authority=<value>         alternate keypair for the oracle authority
+  -f, --force                     allow withdrawing more than the queues minStake requirement
+  -h, --help                      Show CLI help.
+  -k, --keypair=<value>           keypair that will pay for onchain transactions. defaults to new account authority if
+                                  no alternate authority provided
+  -s, --silent                    suppress cli prompts
+  -u, --rpcUrl=<value>            alternate RPC url
+  -v, --verbose                   log everything
+  --amount=<value>                (required) amount to withdraw
+  --attestationProgramId=<value>  alternative Switchboard Attestation program ID to interact with
+  --cluster=<option>              the solana cluster to connect to
+                                  <options: devnet|mainnet-beta|mainnet|localnet>
+  --commitment=<option>           [default: confirmed] transaction commitment level to use
+                                  <options: confirmed|finalized|processed>
+  --ledger                        enable ledger support
+  --ledgerPath=<value>            HID path to the ledger
+  --mainnetBeta                   WARNING: use mainnet-beta solana cluster
+  --programId=<value>             alternative Switchboard program ID to interact with
+  --unwrap                        whether to unwrap the withdrawed funds
+  --withdrawDestination=<value>   the account to withdraw funds to. if unwrap is set, this should be a SystemProgram
+                                  owned account. if unwrap is not set, this should be a TokenAccount.
 
 DESCRIPTION
   withdraw from an oracle's staking wallet
 ```
 
-_See code: [dist/commands/solana/oracle/withdraw.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.6/dist/commands/solana/oracle/withdraw.js)_
+_See code: [dist/commands/solana/oracle/withdraw.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.12/dist/commands/solana/oracle/withdraw.js)_
 
 ## `sb solana permission create`
 
@@ -5883,30 +4916,33 @@ create a permission account
 ```
 USAGE
   $ sb solana permission create --granter <value> --grantee <value> [-h] [-v] [-s] [--mainnetBeta | --cluster
-    devnet|mainnet-beta|mainnet|localnet] [-u <value>] [--programId <value>] [--commitment
-    confirmed|finalized|processed] [-k <value>] [--ledgerPath <value> --ledger] [--json] [--enable] [-a <value>]
+    devnet|mainnet-beta|mainnet|localnet] [-u <value>] [--programId <value>] [--attestationProgramId <value>]
+    [--commitment confirmed|finalized|processed] [-k <value>] [--ledgerPath <value> --ledger] [--json] [--enable] [-a
+    <value>]
 
 FLAGS
-  -a, --authority=<value>  alternate keypair that is the authority for the granter
-  -h, --help               Show CLI help.
-  -k, --keypair=<value>    keypair that will pay for onchain transactions. defaults to new account authority if no
-                           alternate authority provided
-  -s, --silent             suppress cli prompts
-  -u, --rpcUrl=<value>     alternate RPC url
-  -v, --verbose            log everything
-  --cluster=<option>       the solana cluster to connect to
-                           <options: devnet|mainnet-beta|mainnet|localnet>
-  --commitment=<option>    [default: confirmed] transaction commitment level to use
-                           <options: confirmed|finalized|processed>
-  --enable                 whether to enable permissions on the resource. --keypair or --authority must be provided
-  --grantee=<value>        (required) publicKey of the resource that is being granted permissions. This is typically an
-                           AggregatorAccount, BufferRelayerAccount, OracleAccount, or VrfAccount.
-  --granter=<value>        (required) publicKey of the resource that is granting permissions. This is typically the
-                           QueueAccount.
-  --ledger                 enable ledger support
-  --ledgerPath=<value>     HID path to the ledger
-  --mainnetBeta            WARNING: use mainnet-beta solana cluster
-  --programId=<value>      alternative Switchboard program ID to interact with
+  -a, --authority=<value>         alternate keypair that is the authority for the granter
+  -h, --help                      Show CLI help.
+  -k, --keypair=<value>           keypair that will pay for onchain transactions. defaults to new account authority if
+                                  no alternate authority provided
+  -s, --silent                    suppress cli prompts
+  -u, --rpcUrl=<value>            alternate RPC url
+  -v, --verbose                   log everything
+  --attestationProgramId=<value>  alternative Switchboard Attestation program ID to interact with
+  --cluster=<option>              the solana cluster to connect to
+                                  <options: devnet|mainnet-beta|mainnet|localnet>
+  --commitment=<option>           [default: confirmed] transaction commitment level to use
+                                  <options: confirmed|finalized|processed>
+  --enable                        whether to enable permissions on the resource. --keypair or --authority must be
+                                  provided
+  --grantee=<value>               (required) publicKey of the resource that is being granted permissions. This is
+                                  typically an AggregatorAccount, BufferRelayerAccount, OracleAccount, or VrfAccount.
+  --granter=<value>               (required) publicKey of the resource that is granting permissions. This is typically
+                                  the QueueAccount.
+  --ledger                        enable ledger support
+  --ledgerPath=<value>            HID path to the ledger
+  --mainnetBeta                   WARNING: use mainnet-beta solana cluster
+  --programId=<value>             alternative Switchboard program ID to interact with
 
 GLOBAL FLAGS
   --json  Format output as json.
@@ -5915,7 +4951,7 @@ DESCRIPTION
   create a permission account
 ```
 
-_See code: [dist/commands/solana/permission/create.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.6/dist/commands/solana/permission/create.js)_
+_See code: [dist/commands/solana/permission/create.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.12/dist/commands/solana/permission/create.js)_
 
 ## `sb solana permission grant PERMISSIONKEY`
 
@@ -5924,34 +4960,35 @@ enable a resources permissions
 ```
 USAGE
   $ sb solana permission grant PERMISSIONKEY [-h] [-v] [-s] [--mainnetBeta | --cluster devnet|mainnet-beta|mainnet|localnet]
-    [-u <value>] [--programId <value>] [--commitment confirmed|finalized|processed] [-k <value>] [--ledgerPath <value>
-    --ledger] [-a <value>]
+    [-u <value>] [--programId <value>] [--attestationProgramId <value>] [--commitment confirmed|finalized|processed] [-k
+    <value>] [--ledgerPath <value> --ledger] [-a <value>]
 
 ARGUMENTS
   PERMISSIONKEY  public key of the permission account
 
 FLAGS
-  -a, --authority=<value>  alternate keypair that is the authority for the permission account
-  -h, --help               Show CLI help.
-  -k, --keypair=<value>    keypair that will pay for onchain transactions. defaults to new account authority if no
-                           alternate authority provided
-  -s, --silent             suppress cli prompts
-  -u, --rpcUrl=<value>     alternate RPC url
-  -v, --verbose            log everything
-  --cluster=<option>       the solana cluster to connect to
-                           <options: devnet|mainnet-beta|mainnet|localnet>
-  --commitment=<option>    [default: confirmed] transaction commitment level to use
-                           <options: confirmed|finalized|processed>
-  --ledger                 enable ledger support
-  --ledgerPath=<value>     HID path to the ledger
-  --mainnetBeta            WARNING: use mainnet-beta solana cluster
-  --programId=<value>      alternative Switchboard program ID to interact with
+  -a, --authority=<value>         alternate keypair that is the authority for the permission account
+  -h, --help                      Show CLI help.
+  -k, --keypair=<value>           keypair that will pay for onchain transactions. defaults to new account authority if
+                                  no alternate authority provided
+  -s, --silent                    suppress cli prompts
+  -u, --rpcUrl=<value>            alternate RPC url
+  -v, --verbose                   log everything
+  --attestationProgramId=<value>  alternative Switchboard Attestation program ID to interact with
+  --cluster=<option>              the solana cluster to connect to
+                                  <options: devnet|mainnet-beta|mainnet|localnet>
+  --commitment=<option>           [default: confirmed] transaction commitment level to use
+                                  <options: confirmed|finalized|processed>
+  --ledger                        enable ledger support
+  --ledgerPath=<value>            HID path to the ledger
+  --mainnetBeta                   WARNING: use mainnet-beta solana cluster
+  --programId=<value>             alternative Switchboard program ID to interact with
 
 DESCRIPTION
   enable a resources permissions
 ```
 
-_See code: [dist/commands/solana/permission/grant.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.6/dist/commands/solana/permission/grant.js)_
+_See code: [dist/commands/solana/permission/grant.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.12/dist/commands/solana/permission/grant.js)_
 
 ## `sb solana permission print PERMISSIONKEY`
 
@@ -5960,22 +4997,24 @@ print a permission account
 ```
 USAGE
   $ sb solana permission print PERMISSIONKEY [-h] [-v] [-s] [--mainnetBeta | --cluster devnet|mainnet-beta|mainnet|localnet]
-    [-u <value>] [--programId <value>] [--commitment confirmed|finalized|processed] [--json]
+    [-u <value>] [--programId <value>] [--attestationProgramId <value>] [--commitment confirmed|finalized|processed]
+    [--json]
 
 ARGUMENTS
   PERMISSIONKEY  public key of the permission account
 
 FLAGS
-  -h, --help             Show CLI help.
-  -s, --silent           suppress cli prompts
-  -u, --rpcUrl=<value>   alternate RPC url
-  -v, --verbose          log everything
-  --cluster=<option>     the solana cluster to connect to
-                         <options: devnet|mainnet-beta|mainnet|localnet>
-  --commitment=<option>  [default: confirmed] transaction commitment level to use
-                         <options: confirmed|finalized|processed>
-  --mainnetBeta          WARNING: use mainnet-beta solana cluster
-  --programId=<value>    alternative Switchboard program ID to interact with
+  -h, --help                      Show CLI help.
+  -s, --silent                    suppress cli prompts
+  -u, --rpcUrl=<value>            alternate RPC url
+  -v, --verbose                   log everything
+  --attestationProgramId=<value>  alternative Switchboard Attestation program ID to interact with
+  --cluster=<option>              the solana cluster to connect to
+                                  <options: devnet|mainnet-beta|mainnet|localnet>
+  --commitment=<option>           [default: confirmed] transaction commitment level to use
+                                  <options: confirmed|finalized|processed>
+  --mainnetBeta                   WARNING: use mainnet-beta solana cluster
+  --programId=<value>             alternative Switchboard program ID to interact with
 
 GLOBAL FLAGS
   --json  Format output as json.
@@ -5984,7 +5023,7 @@ DESCRIPTION
   print a permission account
 ```
 
-_See code: [dist/commands/solana/permission/print.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.6/dist/commands/solana/permission/print.js)_
+_See code: [dist/commands/solana/permission/print.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.12/dist/commands/solana/permission/print.js)_
 
 ## `sb solana permission revoke PERMISSIONKEY`
 
@@ -5993,34 +5032,35 @@ disable a resources permissions
 ```
 USAGE
   $ sb solana permission revoke PERMISSIONKEY [-h] [-v] [-s] [--mainnetBeta | --cluster devnet|mainnet-beta|mainnet|localnet]
-    [-u <value>] [--programId <value>] [--commitment confirmed|finalized|processed] [-k <value>] [--ledgerPath <value>
-    --ledger] [-a <value>]
+    [-u <value>] [--programId <value>] [--attestationProgramId <value>] [--commitment confirmed|finalized|processed] [-k
+    <value>] [--ledgerPath <value> --ledger] [-a <value>]
 
 ARGUMENTS
   PERMISSIONKEY  public key of the permission account
 
 FLAGS
-  -a, --authority=<value>  alternate keypair that is the authority for the permission account
-  -h, --help               Show CLI help.
-  -k, --keypair=<value>    keypair that will pay for onchain transactions. defaults to new account authority if no
-                           alternate authority provided
-  -s, --silent             suppress cli prompts
-  -u, --rpcUrl=<value>     alternate RPC url
-  -v, --verbose            log everything
-  --cluster=<option>       the solana cluster to connect to
-                           <options: devnet|mainnet-beta|mainnet|localnet>
-  --commitment=<option>    [default: confirmed] transaction commitment level to use
-                           <options: confirmed|finalized|processed>
-  --ledger                 enable ledger support
-  --ledgerPath=<value>     HID path to the ledger
-  --mainnetBeta            WARNING: use mainnet-beta solana cluster
-  --programId=<value>      alternative Switchboard program ID to interact with
+  -a, --authority=<value>         alternate keypair that is the authority for the permission account
+  -h, --help                      Show CLI help.
+  -k, --keypair=<value>           keypair that will pay for onchain transactions. defaults to new account authority if
+                                  no alternate authority provided
+  -s, --silent                    suppress cli prompts
+  -u, --rpcUrl=<value>            alternate RPC url
+  -v, --verbose                   log everything
+  --attestationProgramId=<value>  alternative Switchboard Attestation program ID to interact with
+  --cluster=<option>              the solana cluster to connect to
+                                  <options: devnet|mainnet-beta|mainnet|localnet>
+  --commitment=<option>           [default: confirmed] transaction commitment level to use
+                                  <options: confirmed|finalized|processed>
+  --ledger                        enable ledger support
+  --ledgerPath=<value>            HID path to the ledger
+  --mainnetBeta                   WARNING: use mainnet-beta solana cluster
+  --programId=<value>             alternative Switchboard program ID to interact with
 
 DESCRIPTION
   disable a resources permissions
 ```
 
-_See code: [dist/commands/solana/permission/revoke.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.6/dist/commands/solana/permission/revoke.js)_
+_See code: [dist/commands/solana/permission/revoke.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.12/dist/commands/solana/permission/revoke.js)_
 
 ## `sb solana print PUBKEY`
 
@@ -6029,22 +5069,24 @@ print a Switchboard account
 ```
 USAGE
   $ sb solana print PUBKEY [-h] [-v] [-s] [--mainnetBeta | --cluster devnet|mainnet-beta|mainnet|localnet] [-u
-    <value>] [--programId <value>] [--commitment confirmed|finalized|processed] [--json]
+    <value>] [--programId <value>] [--attestationProgramId <value>] [--commitment confirmed|finalized|processed]
+    [--json]
 
 ARGUMENTS
   PUBKEY  publicKey of the Switchboard account to search for
 
 FLAGS
-  -h, --help             Show CLI help.
-  -s, --silent           suppress cli prompts
-  -u, --rpcUrl=<value>   alternate RPC url
-  -v, --verbose          log everything
-  --cluster=<option>     the solana cluster to connect to
-                         <options: devnet|mainnet-beta|mainnet|localnet>
-  --commitment=<option>  [default: confirmed] transaction commitment level to use
-                         <options: confirmed|finalized|processed>
-  --mainnetBeta          WARNING: use mainnet-beta solana cluster
-  --programId=<value>    alternative Switchboard program ID to interact with
+  -h, --help                      Show CLI help.
+  -s, --silent                    suppress cli prompts
+  -u, --rpcUrl=<value>            alternate RPC url
+  -v, --verbose                   log everything
+  --attestationProgramId=<value>  alternative Switchboard Attestation program ID to interact with
+  --cluster=<option>              the solana cluster to connect to
+                                  <options: devnet|mainnet-beta|mainnet|localnet>
+  --commitment=<option>           [default: confirmed] transaction commitment level to use
+                                  <options: confirmed|finalized|processed>
+  --mainnetBeta                   WARNING: use mainnet-beta solana cluster
+  --programId=<value>             alternative Switchboard program ID to interact with
 
 GLOBAL FLAGS
   --json  Format output as json.
@@ -6053,7 +5095,7 @@ DESCRIPTION
   print a Switchboard account
 ```
 
-_See code: [dist/commands/solana/print.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.6/dist/commands/solana/print.js)_
+_See code: [dist/commands/solana/print.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.12/dist/commands/solana/print.js)_
 
 ## `sb solana queue create`
 
@@ -6062,11 +5104,11 @@ create an oracle queue
 ```
 USAGE
   $ sb solana queue create [-h] [-v] [-s] [--mainnetBeta | --cluster devnet|mainnet-beta|mainnet|localnet] [-u <value>]
-    [--programId <value>] [--commitment confirmed|finalized|processed] [-k <value>] [--ledgerPath <value> --ledger]
-    [--json] [-a <value>] [--queueKeypair <value>] [--dataBufferKeypair <value>] [--size <value>] [--name <value>]
-    [--metadata <value>] [--reward <value>] [--minStake <value>] [--oracleTimeout <value>] [--slashingEnabled]
-    [--permissionedFeeds] [--unpermissionedVrf] [--enableBufferRelayers] [--feedProbationPeriod <value>]
-    [--consecutiveFeedFailureLimit <value>] [--consecutiveOracleFailureLimit <value>]
+    [--programId <value>] [--attestationProgramId <value>] [--commitment confirmed|finalized|processed] [-k <value>]
+    [--ledgerPath <value> --ledger] [--json] [-a <value>] [--queueKeypair <value>] [--dataBufferKeypair <value>] [--size
+    <value>] [--name <value>] [--metadata <value>] [--reward <value>] [--minStake <value>] [--oracleTimeout <value>]
+    [--slashingEnabled] [--permissionedFeeds] [--unpermissionedVrf] [--enableBufferRelayers] [--feedProbationPeriod
+    <value>] [--consecutiveFeedFailureLimit <value>] [--consecutiveOracleFailureLimit <value>]
 
 FLAGS
   -a, --authority=<value>                  alternate keypair that is the authority for the queue and is required to
@@ -6077,6 +5119,7 @@ FLAGS
   -s, --silent                             suppress cli prompts
   -u, --rpcUrl=<value>                     alternate RPC url
   -v, --verbose                            log everything
+  --attestationProgramId=<value>           alternative Switchboard Attestation program ID to interact with
   --cluster=<option>                       the solana cluster to connect to
                                            <options: devnet|mainnet-beta|mainnet|localnet>
   --commitment=<option>                    [default: confirmed] transaction commitment level to use
@@ -6120,7 +5163,7 @@ DESCRIPTION
   create an oracle queue
 ```
 
-_See code: [dist/commands/solana/queue/create.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.6/dist/commands/solana/queue/create.js)_
+_See code: [dist/commands/solana/queue/create.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.12/dist/commands/solana/queue/create.js)_
 
 ## `sb solana queue print QUEUEKEY`
 
@@ -6129,23 +5172,25 @@ print a queue account
 ```
 USAGE
   $ sb solana queue print QUEUEKEY [-h] [-v] [-s] [--mainnetBeta | --cluster devnet|mainnet-beta|mainnet|localnet] [-u
-    <value>] [--programId <value>] [--commitment confirmed|finalized|processed] [--json] [--oracles]
+    <value>] [--programId <value>] [--attestationProgramId <value>] [--commitment confirmed|finalized|processed]
+    [--json] [--oracles]
 
 ARGUMENTS
   QUEUEKEY  public key of the queue account
 
 FLAGS
-  -h, --help             Show CLI help.
-  -s, --silent           suppress cli prompts
-  -u, --rpcUrl=<value>   alternate RPC url
-  -v, --verbose          log everything
-  --cluster=<option>     the solana cluster to connect to
-                         <options: devnet|mainnet-beta|mainnet|localnet>
-  --commitment=<option>  [default: confirmed] transaction commitment level to use
-                         <options: confirmed|finalized|processed>
-  --mainnetBeta          WARNING: use mainnet-beta solana cluster
-  --oracles              print the queue oracles
-  --programId=<value>    alternative Switchboard program ID to interact with
+  -h, --help                      Show CLI help.
+  -s, --silent                    suppress cli prompts
+  -u, --rpcUrl=<value>            alternate RPC url
+  -v, --verbose                   log everything
+  --attestationProgramId=<value>  alternative Switchboard Attestation program ID to interact with
+  --cluster=<option>              the solana cluster to connect to
+                                  <options: devnet|mainnet-beta|mainnet|localnet>
+  --commitment=<option>           [default: confirmed] transaction commitment level to use
+                                  <options: confirmed|finalized|processed>
+  --mainnetBeta                   WARNING: use mainnet-beta solana cluster
+  --oracles                       print the queue oracles
+  --programId=<value>             alternative Switchboard program ID to interact with
 
 GLOBAL FLAGS
   --json  Format output as json.
@@ -6154,7 +5199,7 @@ DESCRIPTION
   print a queue account
 ```
 
-_See code: [dist/commands/solana/queue/print.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.6/dist/commands/solana/queue/print.js)_
+_See code: [dist/commands/solana/queue/print.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.12/dist/commands/solana/queue/print.js)_
 
 ## `sb solana queue set QUEUEKEY`
 
@@ -6163,10 +5208,11 @@ set an oracle queue's config
 ```
 USAGE
   $ sb solana queue set QUEUEKEY [-h] [-v] [-s] [--mainnetBeta | --cluster devnet|mainnet-beta|mainnet|localnet] [-u
-    <value>] [--programId <value>] [--commitment confirmed|finalized|processed] [-k <value>] [--ledgerPath <value>
-    --ledger] [--json] [-a <value>] [--name <value>] [--metadata <value>] [--reward <value>] [--minStake <value>]
-    [--oracleTimeout <value>] [--slashingEnabled] [--unpermissionedFeeds | --permissionedFeeds] [--unpermissionedVrf]
-    [--enableBufferRelayers] [--consecutiveFeedFailureLimit <value>] [--consecutiveOracleFailureLimit <value>]
+    <value>] [--programId <value>] [--attestationProgramId <value>] [--commitment confirmed|finalized|processed] [-k
+    <value>] [--ledgerPath <value> --ledger] [--json] [-a <value>] [--name <value>] [--metadata <value>] [--reward
+    <value>] [--minStake <value>] [--oracleTimeout <value>] [--slashingEnabled] [--unpermissionedFeeds |
+    --permissionedFeeds] [--unpermissionedVrf] [--enableBufferRelayers] [--consecutiveFeedFailureLimit <value>]
+    [--consecutiveOracleFailureLimit <value>]
 
 ARGUMENTS
   QUEUEKEY  public key of the queue account
@@ -6180,6 +5226,7 @@ FLAGS
   -s, --silent                             suppress cli prompts
   -u, --rpcUrl=<value>                     alternate RPC url
   -v, --verbose                            log everything
+  --attestationProgramId=<value>           alternative Switchboard Attestation program ID to interact with
   --cluster=<option>                       the solana cluster to connect to
                                            <options: devnet|mainnet-beta|mainnet|localnet>
   --commitment=<option>                    [default: confirmed] transaction commitment level to use
@@ -6215,7 +5262,375 @@ DESCRIPTION
   set an oracle queue's config
 ```
 
-_See code: [dist/commands/solana/queue/set.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.6/dist/commands/solana/queue/set.js)_
+_See code: [dist/commands/solana/queue/set.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.12/dist/commands/solana/queue/set.js)_
+
+## `sb solana request print REQUESTKEY`
+
+print a function request account
+
+```
+USAGE
+  $ sb solana request print REQUESTKEY [-h] [-v] [-s] [--mainnetBeta | --cluster devnet|mainnet-beta|mainnet|localnet] [-u
+    <value>] [--programId <value>] [--attestationProgramId <value>] [--commitment confirmed|finalized|processed]
+    [--json]
+
+ARGUMENTS
+  REQUESTKEY  public key of the request account
+
+FLAGS
+  -h, --help                      Show CLI help.
+  -s, --silent                    suppress cli prompts
+  -u, --rpcUrl=<value>            alternate RPC url
+  -v, --verbose                   log everything
+  --attestationProgramId=<value>  alternative Switchboard Attestation program ID to interact with
+  --cluster=<option>              the solana cluster to connect to
+                                  <options: devnet|mainnet-beta|mainnet|localnet>
+  --commitment=<option>           [default: confirmed] transaction commitment level to use
+                                  <options: confirmed|finalized|processed>
+  --mainnetBeta                   WARNING: use mainnet-beta solana cluster
+  --programId=<value>             alternative Switchboard program ID to interact with
+
+GLOBAL FLAGS
+  --json  Format output as json.
+
+DESCRIPTION
+  print a function request account
+```
+
+_See code: [dist/commands/solana/request/print.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.12/dist/commands/solana/request/print.js)_
+
+## `sb solana request send FUNCTIONKEY`
+
+Init and trigger a request to a function.
+
+```
+USAGE
+  $ sb solana request send FUNCTIONKEY [-h] [-v] [-s] [--mainnetBeta | --cluster devnet|mainnet-beta|mainnet|localnet]
+    [-u <value>] [--programId <value>] [--attestationProgramId <value>] [--commitment confirmed|finalized|processed] [-k
+    <value>] [--ledgerPath <value> --ledger] [--json] [--parameters <value>]
+
+ARGUMENTS
+  FUNCTIONKEY  public key of the function account
+
+FLAGS
+  -h, --help                      Show CLI help.
+  -k, --keypair=<value>           keypair that will pay for onchain transactions. defaults to new account authority if
+                                  no alternate authority provided
+  -s, --silent                    suppress cli prompts
+  -u, --rpcUrl=<value>            alternate RPC url
+  -v, --verbose                   log everything
+  --attestationProgramId=<value>  alternative Switchboard Attestation program ID to interact with
+  --cluster=<option>              the solana cluster to connect to
+                                  <options: devnet|mainnet-beta|mainnet|localnet>
+  --commitment=<option>           [default: confirmed] transaction commitment level to use
+                                  <options: confirmed|finalized|processed>
+  --ledger                        enable ledger support
+  --ledgerPath=<value>            HID path to the ledger
+  --mainnetBeta                   WARNING: use mainnet-beta solana cluster
+  --parameters=<value>            Parameters to pass to your function
+  --programId=<value>             alternative Switchboard program ID to interact with
+
+GLOBAL FLAGS
+  --json  Format output as json.
+
+DESCRIPTION
+  Init and trigger a request to a function.
+```
+
+_See code: [dist/commands/solana/request/send.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.12/dist/commands/solana/request/send.js)_
+
+## `sb solana routine configure ROUTINEKEY`
+
+create a new routine account for a given function
+
+```
+USAGE
+  $ sb solana routine configure ROUTINEKEY [-h] [-v] [-s] [--mainnetBeta | --cluster devnet|mainnet-beta|mainnet|localnet] [-u
+    <value>] [--programId <value>] [--attestationProgramId <value>] [--commitment confirmed|finalized|processed] [-k
+    <value>] [--ledgerPath <value> --ledger] [--json] [-n <value>] [--metadata <value>] [-a <value>] [--schedule
+    <value>] [--parameters <value>] [--appendParams]
+
+ARGUMENTS
+  ROUTINEKEY  public key of the routine account
+
+FLAGS
+  -a, --authority=<value>         keypair or public key to delegate authority to for managing the function account
+  -h, --help                      Show CLI help.
+  -k, --keypair=<value>           keypair that will pay for onchain transactions. defaults to new account authority if
+                                  no alternate authority provided
+  -n, --name=<value>              name of the function for easier identification
+  -s, --silent                    suppress cli prompts
+  -u, --rpcUrl=<value>            alternate RPC url
+  -v, --verbose                   log everything
+  --appendParams                  append to current container parameters
+  --attestationProgramId=<value>  alternative Switchboard Attestation program ID to interact with
+  --cluster=<option>              the solana cluster to connect to
+                                  <options: devnet|mainnet-beta|mainnet|localnet>
+  --commitment=<option>           [default: confirmed] transaction commitment level to use
+                                  <options: confirmed|finalized|processed>
+  --ledger                        enable ledger support
+  --ledgerPath=<value>            HID path to the ledger
+  --mainnetBeta                   WARNING: use mainnet-beta solana cluster
+  --metadata=<value>              metadata of the function for easier identification
+  --parameters=<value>            parameters to pass to the function
+  --programId=<value>             alternative Switchboard program ID to interact with
+  --schedule=<value>              cron schedule
+
+GLOBAL FLAGS
+  --json  Format output as json.
+
+DESCRIPTION
+  create a new routine account for a given function
+
+EXAMPLES
+  $ sb solana routine create CkvizjVnm2zA5Wuwan34NhVT3zFc7vqUyGnA6tuEF5aE --name function-1 --fundAmount 1.25 --container switchboardlabs/basic-oracle-function --version solana --schedule "*/10 * * * * *" --params=xyz
+```
+
+_See code: [dist/commands/solana/routine/configure.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.12/dist/commands/solana/routine/configure.js)_
+
+## `sb solana routine create FUNCTIONKEY`
+
+create a new routine account for a given function
+
+```
+USAGE
+  $ sb solana routine create FUNCTIONKEY --schedule <value> [-h] [-v] [-s] [--mainnetBeta | --cluster
+    devnet|mainnet-beta|mainnet|localnet] [-u <value>] [--programId <value>] [--attestationProgramId <value>]
+    [--commitment confirmed|finalized|processed] [-k <value>] [--ledgerPath <value> --ledger] [--json] [-n <value>]
+    [--metadata <value>] [-a <value>] [--parameters <value>]
+
+ARGUMENTS
+  FUNCTIONKEY  public key of the function account
+
+FLAGS
+  -a, --authority=<value>         keypair or public key to delegate authority to for managing the function account
+  -h, --help                      Show CLI help.
+  -k, --keypair=<value>           keypair that will pay for onchain transactions. defaults to new account authority if
+                                  no alternate authority provided
+  -n, --name=<value>              name of the function for easier identification
+  -s, --silent                    suppress cli prompts
+  -u, --rpcUrl=<value>            alternate RPC url
+  -v, --verbose                   log everything
+  --attestationProgramId=<value>  alternative Switchboard Attestation program ID to interact with
+  --cluster=<option>              the solana cluster to connect to
+                                  <options: devnet|mainnet-beta|mainnet|localnet>
+  --commitment=<option>           [default: confirmed] transaction commitment level to use
+                                  <options: confirmed|finalized|processed>
+  --ledger                        enable ledger support
+  --ledgerPath=<value>            HID path to the ledger
+  --mainnetBeta                   WARNING: use mainnet-beta solana cluster
+  --metadata=<value>              metadata of the function for easier identification
+  --parameters=<value>            parameters to pass to the function
+  --programId=<value>             alternative Switchboard program ID to interact with
+  --schedule=<value>              (required) cron schedule
+
+GLOBAL FLAGS
+  --json  Format output as json.
+
+DESCRIPTION
+  create a new routine account for a given function
+
+EXAMPLES
+  $ sb solana routine create CkvizjVnm2zA5Wuwan34NhVT3zFc7vqUyGnA6tuEF5aE --name function-1 --fundAmount 1.25 --container switchboardlabs/basic-oracle-function --version solana --schedule "*/10 * * * * *" --params=xyz
+```
+
+_See code: [dist/commands/solana/routine/create.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.12/dist/commands/solana/routine/create.js)_
+
+## `sb solana routine fund ROUTINEKEY`
+
+Fund a new routine account
+
+```
+USAGE
+  $ sb solana routine fund ROUTINEKEY [-h] [-v] [-s] [--mainnetBeta | --cluster devnet|mainnet-beta|mainnet|localnet] [-u
+    <value>] [--programId <value>] [--attestationProgramId <value>] [--commitment confirmed|finalized|processed] [-k
+    <value>] [--ledgerPath <value> --ledger] [--json] [--fundAmount <value>]
+
+ARGUMENTS
+  ROUTINEKEY  public key of the routine account
+
+FLAGS
+  -h, --help                      Show CLI help.
+  -k, --keypair=<value>           keypair that will pay for onchain transactions. defaults to new account authority if
+                                  no alternate authority provided
+  -s, --silent                    suppress cli prompts
+  -u, --rpcUrl=<value>            alternate RPC url
+  -v, --verbose                   log everything
+  --attestationProgramId=<value>  alternative Switchboard Attestation program ID to interact with
+  --cluster=<option>              the solana cluster to connect to
+                                  <options: devnet|mainnet-beta|mainnet|localnet>
+  --commitment=<option>           [default: confirmed] transaction commitment level to use
+                                  <options: confirmed|finalized|processed>
+  --fundAmount=<value>            [default: 0.0] token amount to load into the routines's escrow wallet.
+  --ledger                        enable ledger support
+  --ledgerPath=<value>            HID path to the ledger
+  --mainnetBeta                   WARNING: use mainnet-beta solana cluster
+  --programId=<value>             alternative Switchboard program ID to interact with
+
+GLOBAL FLAGS
+  --json  Format output as json.
+
+DESCRIPTION
+  Fund a new routine account
+
+EXAMPLES
+  $ sb solana routine fund CkvizjVnm2zA5Wuwan34NhVT3zFc7vqUyGnA6tuEF5aE --fundAmount 1.25
+```
+
+_See code: [dist/commands/solana/routine/fund.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.12/dist/commands/solana/routine/fund.js)_
+
+## `sb solana routine print ROUTINEKEY`
+
+print a function routine account
+
+```
+USAGE
+  $ sb solana routine print ROUTINEKEY [-h] [-v] [-s] [--mainnetBeta | --cluster devnet|mainnet-beta|mainnet|localnet] [-u
+    <value>] [--programId <value>] [--attestationProgramId <value>] [--commitment confirmed|finalized|processed]
+    [--json]
+
+ARGUMENTS
+  ROUTINEKEY  public key of the routine account
+
+FLAGS
+  -h, --help                      Show CLI help.
+  -s, --silent                    suppress cli prompts
+  -u, --rpcUrl=<value>            alternate RPC url
+  -v, --verbose                   log everything
+  --attestationProgramId=<value>  alternative Switchboard Attestation program ID to interact with
+  --cluster=<option>              the solana cluster to connect to
+                                  <options: devnet|mainnet-beta|mainnet|localnet>
+  --commitment=<option>           [default: confirmed] transaction commitment level to use
+                                  <options: confirmed|finalized|processed>
+  --mainnetBeta                   WARNING: use mainnet-beta solana cluster
+  --programId=<value>             alternative Switchboard program ID to interact with
+
+GLOBAL FLAGS
+  --json  Format output as json.
+
+DESCRIPTION
+  print a function routine account
+```
+
+_See code: [dist/commands/solana/routine/print.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.12/dist/commands/solana/routine/print.js)_
+
+## `sb solana verifier-oracle create QUEUEKEY`
+
+create a verifier oracle for a given attestation queue
+
+```
+USAGE
+  $ sb solana verifier-oracle create QUEUEKEY [-h] [-v] [-s] [--mainnetBeta | --cluster devnet|mainnet-beta|mainnet|localnet] [-u
+    <value>] [--programId <value>] [--attestationProgramId <value>] [--commitment confirmed|finalized|processed] [-k
+    <value>] [--ledgerPath <value> --ledger] [--json] [-a <value>] [--verifierKeypair <value>] [--registryKey <value>]
+    [--queueAuthority <value> --enable]
+
+ARGUMENTS
+  QUEUEKEY  public key of the attestation queue account
+
+FLAGS
+  -a, --authority=<value>         alternate keypair that is the authority for the verifier and is required to approve
+                                  config changes and withdraw rewards
+  -h, --help                      Show CLI help.
+  -k, --keypair=<value>           keypair that will pay for onchain transactions. defaults to new account authority if
+                                  no alternate authority provided
+  -s, --silent                    suppress cli prompts
+  -u, --rpcUrl=<value>            alternate RPC url
+  -v, --verbose                   log everything
+  --attestationProgramId=<value>  alternative Switchboard Attestation program ID to interact with
+  --cluster=<option>              the solana cluster to connect to
+                                  <options: devnet|mainnet-beta|mainnet|localnet>
+  --commitment=<option>           [default: confirmed] transaction commitment level to use
+                                  <options: confirmed|finalized|processed>
+  --enable                        enable verifier heartbeat permissions
+  --ledger                        enable ledger support
+  --ledgerPath=<value>            HID path to the ledger
+  --mainnetBeta                   WARNING: use mainnet-beta solana cluster
+  --programId=<value>             alternative Switchboard program ID to interact with
+  --queueAuthority=<value>        alternative keypair to use for attestation queue authority
+  --registryKey=<value>           [default: Key to lookup the buffer data on IPFS or an alternative decentralized
+                                  storage solution.]
+  --verifierKeypair=<value>       keypair to use for the verifier account. This will be the account's publicKey
+
+GLOBAL FLAGS
+  --json  Format output as json.
+
+DESCRIPTION
+  create a verifier oracle for a given attestation queue
+```
+
+_See code: [dist/commands/solana/verifier-oracle/create.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.12/dist/commands/solana/verifier-oracle/create.js)_
+
+## `sb solana verifier-oracle print VERIFIERKEY`
+
+print a verifier oracle account
+
+```
+USAGE
+  $ sb solana verifier-oracle print VERIFIERKEY [-h] [-v] [-s] [--mainnetBeta | --cluster devnet|mainnet-beta|mainnet|localnet]
+    [-u <value>] [--programId <value>] [--attestationProgramId <value>] [--commitment confirmed|finalized|processed]
+    [--json]
+
+ARGUMENTS
+  VERIFIERKEY  public key of the verifier account
+
+FLAGS
+  -h, --help                      Show CLI help.
+  -s, --silent                    suppress cli prompts
+  -u, --rpcUrl=<value>            alternate RPC url
+  -v, --verbose                   log everything
+  --attestationProgramId=<value>  alternative Switchboard Attestation program ID to interact with
+  --cluster=<option>              the solana cluster to connect to
+                                  <options: devnet|mainnet-beta|mainnet|localnet>
+  --commitment=<option>           [default: confirmed] transaction commitment level to use
+                                  <options: confirmed|finalized|processed>
+  --mainnetBeta                   WARNING: use mainnet-beta solana cluster
+  --programId=<value>             alternative Switchboard program ID to interact with
+
+GLOBAL FLAGS
+  --json  Format output as json.
+
+DESCRIPTION
+  print a verifier oracle account
+```
+
+_See code: [dist/commands/solana/verifier-oracle/print.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.12/dist/commands/solana/verifier-oracle/print.js)_
+
+## `sb solana version`
+
+print a Switchboard account
+
+```
+USAGE
+  $ sb solana version [-h] [-v] [-s] [--mainnetBeta | --cluster devnet|mainnet-beta|mainnet|localnet] [-u <value>]
+    [--programId <value>] [--attestationProgramId <value>] [--commitment confirmed|finalized|processed] [-k <value>]
+    [--ledgerPath <value> --ledger] [--json]
+
+FLAGS
+  -h, --help                      Show CLI help.
+  -k, --keypair=<value>           keypair that will pay for onchain transactions. defaults to new account authority if
+                                  no alternate authority provided
+  -s, --silent                    suppress cli prompts
+  -u, --rpcUrl=<value>            alternate RPC url
+  -v, --verbose                   log everything
+  --attestationProgramId=<value>  alternative Switchboard Attestation program ID to interact with
+  --cluster=<option>              the solana cluster to connect to
+                                  <options: devnet|mainnet-beta|mainnet|localnet>
+  --commitment=<option>           [default: confirmed] transaction commitment level to use
+                                  <options: confirmed|finalized|processed>
+  --ledger                        enable ledger support
+  --ledgerPath=<value>            HID path to the ledger
+  --mainnetBeta                   WARNING: use mainnet-beta solana cluster
+  --programId=<value>             alternative Switchboard program ID to interact with
+
+GLOBAL FLAGS
+  --json  Format output as json.
+
+DESCRIPTION
+  print a Switchboard account
+```
+
+_See code: [dist/commands/solana/version.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.12/dist/commands/solana/version.js)_
 
 ## `sb solana vrf open-round VRFKEY`
 
@@ -6224,28 +5639,29 @@ request a new vrf result from a set of oracles
 ```
 USAGE
   $ sb solana vrf open-round VRFKEY [-h] [-v] [-s] [--mainnetBeta | --cluster devnet|mainnet-beta|mainnet|localnet] [-u
-    <value>] [--programId <value>] [--commitment confirmed|finalized|processed] [-k <value>] [--ledgerPath <value>
-    --ledger] [--authority <value>]
+    <value>] [--programId <value>] [--attestationProgramId <value>] [--commitment confirmed|finalized|processed] [-k
+    <value>] [--ledgerPath <value> --ledger] [--authority <value>]
 
 ARGUMENTS
   VRFKEY  public key of the VRF account
 
 FLAGS
-  -h, --help             Show CLI help.
-  -k, --keypair=<value>  keypair that will pay for onchain transactions. defaults to new account authority if no
-                         alternate authority provided
-  -s, --silent           suppress cli prompts
-  -u, --rpcUrl=<value>   alternate RPC url
-  -v, --verbose          log everything
-  --authority=<value>    alternative keypair that is the VRF authority
-  --cluster=<option>     the solana cluster to connect to
-                         <options: devnet|mainnet-beta|mainnet|localnet>
-  --commitment=<option>  [default: confirmed] transaction commitment level to use
-                         <options: confirmed|finalized|processed>
-  --ledger               enable ledger support
-  --ledgerPath=<value>   HID path to the ledger
-  --mainnetBeta          WARNING: use mainnet-beta solana cluster
-  --programId=<value>    alternative Switchboard program ID to interact with
+  -h, --help                      Show CLI help.
+  -k, --keypair=<value>           keypair that will pay for onchain transactions. defaults to new account authority if
+                                  no alternate authority provided
+  -s, --silent                    suppress cli prompts
+  -u, --rpcUrl=<value>            alternate RPC url
+  -v, --verbose                   log everything
+  --attestationProgramId=<value>  alternative Switchboard Attestation program ID to interact with
+  --authority=<value>             alternative keypair that is the VRF authority
+  --cluster=<option>              the solana cluster to connect to
+                                  <options: devnet|mainnet-beta|mainnet|localnet>
+  --commitment=<option>           [default: confirmed] transaction commitment level to use
+                                  <options: confirmed|finalized|processed>
+  --ledger                        enable ledger support
+  --ledgerPath=<value>            HID path to the ledger
+  --mainnetBeta                   WARNING: use mainnet-beta solana cluster
+  --programId=<value>             alternative Switchboard program ID to interact with
 
 DESCRIPTION
   request a new vrf result from a set of oracles
@@ -6265,22 +5681,24 @@ print a VRF and it's associated accounts
 ```
 USAGE
   $ sb solana vrf print VRFKEY [-h] [-v] [-s] [--mainnetBeta | --cluster devnet|mainnet-beta|mainnet|localnet] [-u
-    <value>] [--programId <value>] [--commitment confirmed|finalized|processed] [--json]
+    <value>] [--programId <value>] [--attestationProgramId <value>] [--commitment confirmed|finalized|processed]
+    [--json]
 
 ARGUMENTS
   VRFKEY  public key of the VRF account
 
 FLAGS
-  -h, --help             Show CLI help.
-  -s, --silent           suppress cli prompts
-  -u, --rpcUrl=<value>   alternate RPC url
-  -v, --verbose          log everything
-  --cluster=<option>     the solana cluster to connect to
-                         <options: devnet|mainnet-beta|mainnet|localnet>
-  --commitment=<option>  [default: confirmed] transaction commitment level to use
-                         <options: confirmed|finalized|processed>
-  --mainnetBeta          WARNING: use mainnet-beta solana cluster
-  --programId=<value>    alternative Switchboard program ID to interact with
+  -h, --help                      Show CLI help.
+  -s, --silent                    suppress cli prompts
+  -u, --rpcUrl=<value>            alternate RPC url
+  -v, --verbose                   log everything
+  --attestationProgramId=<value>  alternative Switchboard Attestation program ID to interact with
+  --cluster=<option>              the solana cluster to connect to
+                                  <options: devnet|mainnet-beta|mainnet|localnet>
+  --commitment=<option>           [default: confirmed] transaction commitment level to use
+                                  <options: confirmed|finalized|processed>
+  --mainnetBeta                   WARNING: use mainnet-beta solana cluster
+  --programId=<value>             alternative Switchboard program ID to interact with
 
 GLOBAL FLAGS
   --json  Format output as json.
@@ -6289,7 +5707,7 @@ DESCRIPTION
   print a VRF and it's associated accounts
 ```
 
-_See code: [dist/commands/solana/vrf/print.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.6/dist/commands/solana/vrf/print.js)_
+_See code: [dist/commands/solana/vrf/print.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.12/dist/commands/solana/vrf/print.js)_
 
 ## `sb solana vrf request VRFKEY`
 
@@ -6298,28 +5716,29 @@ request a new vrf result from a set of oracles
 ```
 USAGE
   $ sb solana vrf request VRFKEY [-h] [-v] [-s] [--mainnetBeta | --cluster devnet|mainnet-beta|mainnet|localnet] [-u
-    <value>] [--programId <value>] [--commitment confirmed|finalized|processed] [-k <value>] [--ledgerPath <value>
-    --ledger] [--authority <value>]
+    <value>] [--programId <value>] [--attestationProgramId <value>] [--commitment confirmed|finalized|processed] [-k
+    <value>] [--ledgerPath <value> --ledger] [--authority <value>]
 
 ARGUMENTS
   VRFKEY  public key of the VRF account
 
 FLAGS
-  -h, --help             Show CLI help.
-  -k, --keypair=<value>  keypair that will pay for onchain transactions. defaults to new account authority if no
-                         alternate authority provided
-  -s, --silent           suppress cli prompts
-  -u, --rpcUrl=<value>   alternate RPC url
-  -v, --verbose          log everything
-  --authority=<value>    alternative keypair that is the VRF authority
-  --cluster=<option>     the solana cluster to connect to
-                         <options: devnet|mainnet-beta|mainnet|localnet>
-  --commitment=<option>  [default: confirmed] transaction commitment level to use
-                         <options: confirmed|finalized|processed>
-  --ledger               enable ledger support
-  --ledgerPath=<value>   HID path to the ledger
-  --mainnetBeta          WARNING: use mainnet-beta solana cluster
-  --programId=<value>    alternative Switchboard program ID to interact with
+  -h, --help                      Show CLI help.
+  -k, --keypair=<value>           keypair that will pay for onchain transactions. defaults to new account authority if
+                                  no alternate authority provided
+  -s, --silent                    suppress cli prompts
+  -u, --rpcUrl=<value>            alternate RPC url
+  -v, --verbose                   log everything
+  --attestationProgramId=<value>  alternative Switchboard Attestation program ID to interact with
+  --authority=<value>             alternative keypair that is the VRF authority
+  --cluster=<option>              the solana cluster to connect to
+                                  <options: devnet|mainnet-beta|mainnet|localnet>
+  --commitment=<option>           [default: confirmed] transaction commitment level to use
+                                  <options: confirmed|finalized|processed>
+  --ledger                        enable ledger support
+  --ledgerPath=<value>            HID path to the ledger
+  --mainnetBeta                   WARNING: use mainnet-beta solana cluster
+  --programId=<value>             alternative Switchboard program ID to interact with
 
 DESCRIPTION
   request a new vrf result from a set of oracles
@@ -6332,7 +5751,7 @@ EXAMPLES
   $ sb solana vrf request
 ```
 
-_See code: [dist/commands/solana/vrf/request.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.2.6/dist/commands/solana/vrf/request.js)_
+_See code: [dist/commands/solana/vrf/request.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.12/dist/commands/solana/vrf/request.js)_
 
 ## `sb solana vrf update VRFKEY`
 
@@ -6341,28 +5760,29 @@ request a new vrf result from a set of oracles
 ```
 USAGE
   $ sb solana vrf update VRFKEY [-h] [-v] [-s] [--mainnetBeta | --cluster devnet|mainnet-beta|mainnet|localnet] [-u
-    <value>] [--programId <value>] [--commitment confirmed|finalized|processed] [-k <value>] [--ledgerPath <value>
-    --ledger] [--authority <value>]
+    <value>] [--programId <value>] [--attestationProgramId <value>] [--commitment confirmed|finalized|processed] [-k
+    <value>] [--ledgerPath <value> --ledger] [--authority <value>]
 
 ARGUMENTS
   VRFKEY  public key of the VRF account
 
 FLAGS
-  -h, --help             Show CLI help.
-  -k, --keypair=<value>  keypair that will pay for onchain transactions. defaults to new account authority if no
-                         alternate authority provided
-  -s, --silent           suppress cli prompts
-  -u, --rpcUrl=<value>   alternate RPC url
-  -v, --verbose          log everything
-  --authority=<value>    alternative keypair that is the VRF authority
-  --cluster=<option>     the solana cluster to connect to
-                         <options: devnet|mainnet-beta|mainnet|localnet>
-  --commitment=<option>  [default: confirmed] transaction commitment level to use
-                         <options: confirmed|finalized|processed>
-  --ledger               enable ledger support
-  --ledgerPath=<value>   HID path to the ledger
-  --mainnetBeta          WARNING: use mainnet-beta solana cluster
-  --programId=<value>    alternative Switchboard program ID to interact with
+  -h, --help                      Show CLI help.
+  -k, --keypair=<value>           keypair that will pay for onchain transactions. defaults to new account authority if
+                                  no alternate authority provided
+  -s, --silent                    suppress cli prompts
+  -u, --rpcUrl=<value>            alternate RPC url
+  -v, --verbose                   log everything
+  --attestationProgramId=<value>  alternative Switchboard Attestation program ID to interact with
+  --authority=<value>             alternative keypair that is the VRF authority
+  --cluster=<option>              the solana cluster to connect to
+                                  <options: devnet|mainnet-beta|mainnet|localnet>
+  --commitment=<option>           [default: confirmed] transaction commitment level to use
+                                  <options: confirmed|finalized|processed>
+  --ledger                        enable ledger support
+  --ledgerPath=<value>            HID path to the ledger
+  --mainnetBeta                   WARNING: use mainnet-beta solana cluster
+  --programId=<value>             alternative Switchboard program ID to interact with
 
 DESCRIPTION
   request a new vrf result from a set of oracles

@@ -117,39 +117,40 @@ export default class OracleEvents extends BaseCommand {
     );
 
     this.subscriptions.push(
-      this.program.addEventListener(
-        "AggregatorOpenRoundEvent",
-        (event, slot) => {
-          const idx = event.oraclePubkeys.findIndex((value) =>
-            value.equals(oracleAccount.publicKey)
-          );
-          if (idx !== -1) {
-            events.push([event.feedPubkey.toBase58(), slot]);
-          }
-        }
-      )
-    );
-    this.subscriptions.push(
-      this.program.addEventListener(
-        "AggregatorSaveResultEvent",
-        (event, slot) => {
-          if (event.oraclePubkey.equals(oracleAccount.publicKey)) {
-            const idx = events.findIndex(
-              (myEvent) => event.feedPubkey.toBase58() === myEvent[0]
+      ...(await Promise.all([
+        await this.program.addEventListener(
+          "AggregatorOpenRoundEvent",
+          (event, slot) => {
+            const idx = event.oraclePubkeys.findIndex((value) =>
+              value.equals(oracleAccount.publicKey)
             );
-            if (idx === -1) {
-              return;
+            if (idx !== -1) {
+              events.push([event.feedPubkey.toBase58(), slot]);
             }
-
-            const finishedEvent = events.splice(idx, 1)[0];
-            finishedEvents.push([
-              finishedEvent[0],
-              finishedEvent[1],
-              event.slot.toNumber(),
-            ]);
           }
-        }
-      )
+        ),
+
+        this.program.addEventListener(
+          "AggregatorSaveResultEvent",
+          (event, slot) => {
+            if (event.oraclePubkey.equals(oracleAccount.publicKey)) {
+              const idx = events.findIndex(
+                (myEvent) => event.feedPubkey.toBase58() === myEvent[0]
+              );
+              if (idx === -1) {
+                return;
+              }
+
+              const finishedEvent = events.splice(idx, 1)[0];
+              finishedEvents.push([
+                finishedEvent[0],
+                finishedEvent[1],
+                event.slot.toNumber(),
+              ]);
+            }
+          }
+        ),
+      ]))
     );
 
     setInterval(() => {

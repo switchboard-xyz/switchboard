@@ -1,14 +1,10 @@
 import { SolanaWithSignerBaseCommand as BaseCommand } from "../../../solana";
 import { CHECK_ICON } from "../../../utils";
 
-import * as anchor from "@coral-xyz/anchor";
 import { Args, Flags } from "@oclif/core";
 import { PublicKey } from "@solana/web3.js";
-import {
-  attestationTypes,
-  FunctionAccount,
-  TransactionObject,
-} from "@switchboard-xyz/solana.js";
+import { sleep } from "@switchboard-xyz/common";
+import { FunctionAccount } from "@switchboard-xyz/solana.js";
 import chalk from "chalk";
 
 export default class FunctionWithdraw extends BaseCommand {
@@ -28,6 +24,7 @@ export default class FunctionWithdraw extends BaseCommand {
     destinationWallet: Flags.string({
       description:
         "pubkey of tokenWallet to receive withdrawed funds. Defaults to payer associated token wallet",
+      required: false,
     }),
   };
 
@@ -48,6 +45,7 @@ export default class FunctionWithdraw extends BaseCommand {
       throw new Error("amount to withdraw must be greater than 0");
     }
 
+    // make sure they exist
     const [functionAccount, functionState] = await FunctionAccount.load(
       this.program,
       args.functionKey
@@ -59,41 +57,16 @@ export default class FunctionWithdraw extends BaseCommand {
     );
 
     const wallet = await functionAccount.wallet;
+    const startingBalance = await wallet.getBalance();
+    this.logger.debug(`Starting Balance: ${startingBalance}`);
 
-    let createTokenWalletTxn: TransactionObject | undefined;
-    let destinationWallet = flags.destinationWallet
-      ? new PublicKey(flags.destinationWallet)
-      : undefined;
-
-    if (!destinationWallet) {
-      [destinationWallet, createTokenWalletTxn] =
-        await this.program.mint.getOrCreateWrappedUserInstructions(this.payer, {
-          fundUpTo: 0,
-        });
-    }
-
-    const withdrawWalletIxn = attestationTypes.walletWithdraw(
-      this.program,
-      {
-        params: {
-          amount: this.program.mint.toTokenAmountBN(withdrawAmount),
-        },
-      },
-      {
-        wallet: wallet.publicKey,
-        mint: this.program.mint.address,
-        authority: authority.publicKey,
-        attestationQueue: functionState.attestationQueue,
-        tokenWallet: wallet.tokenWallet,
-        destinationWallet: destinationWallet,
-        state: this.program.attestationProgramState.publicKey,
-        tokenProgram: anchor.utils.token.TOKEN_PROGRAM_ID,
-      }
+    const txn = await functionAccount.withdrawInstruction(
+      this.payer,
+      withdrawAmount,
+      flags.destinationWallet
+        ? new PublicKey(flags.destinationWallet)
+        : undefined
     );
-
-    const txn = createTokenWalletTxn
-      ? createTokenWalletTxn.add(withdrawWalletIxn, [authority])
-      : new TransactionObject(this.payer, [withdrawWalletIxn], [authority]);
 
     const signature = await this.signAndSend(txn);
 
@@ -101,6 +74,19 @@ export default class FunctionWithdraw extends BaseCommand {
       this.logger.info(signature);
       return;
     }
+
+    let retryCount = 3;
+    let finalBalance = await wallet.getBalance();
+    while (retryCount > 0 && finalBalance === startingBalance) {
+      finalBalance = await wallet.getBalance();
+      if (finalBalance === startingBalance) {
+        break;
+      }
+      await sleep(1000);
+      --retryCount;
+    }
+
+    this.logger.debug(`Ending Balance: ${startingBalance}`);
 
     this.logger.log(
       `${chalk.green(

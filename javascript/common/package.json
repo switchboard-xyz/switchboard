@@ -1,18 +1,58 @@
 {
   "name": "@switchboard-xyz/common",
-  "license": "MIT",
-  "version": "2.3.6",
+  "version": "2.3.9",
   "description": "common type definitions and utils for interacting with switchboard",
+  "license": "MIT",
   "type": "module",
+  "exports": {
+    ".": {
+      "types": "./index.d.ts",
+      "import": "./index.js",
+      "require": "./index.cjs"
+    },
+    "./esm-utils": {
+      "types": "./esm-utils.d.ts",
+      "import": "./esm-utils.js",
+      "require": "./esm-utils.cjs"
+    },
+    "./protos": {
+      "types": "./protos.d.ts",
+      "import": "./protos.js",
+      "require": "./protos.cjs"
+    },
+    "./networks": {
+      "types": "./networks.d.ts",
+      "import": "./networks.js",
+      "require": "./networks.cjs"
+    },
+    "./package.json": "./package.json"
+  },
   "main": "./index.js",
   "types": "./index.d.ts",
+  "files": [
+    "lib/",
+    "src/",
+    "package.json",
+    "index.cjs",
+    "index.js",
+    "index.d.ts",
+    "esm-utils.cjs",
+    "esm-utils.js",
+    "esm-utils.d.ts",
+    "protos.cjs",
+    "protos.js",
+    "protos.d.ts",
+    "networks.cjs",
+    "networks.js",
+    "networks.d.ts"
+  ],
   "scripts": {
     "build": "pnpm exec rimraf lib lib-cjs && node ./compile-protos.js && echo '!src/esm-utils.js' >> .gitignore",
-    "test": "pnpm exec jest",
-    "prepack": "pnpm lint && pnpm build",
-    "lint": "pnpm exec eslint src/**/*.ts",
     "clean": "pnpm exec rimraf node_modules lib .turbo",
-    "fix": "pnpm exec eslint --fix src/**/*.ts"
+    "fix": "pnpm exec eslint --fix src/**/*.ts",
+    "lint": "pnpm exec eslint src/**/*.ts",
+    "prepack": "pnpm lint && pnpm build",
+    "test": "pnpm exec jest"
   },
   "dependencies": {
     "big.js": "^6.2.1",
@@ -39,45 +79,5 @@
   },
   "engines": {
     "node": ">=12"
-  },
-  "files": [
-    "lib/",
-    "src/",
-    "package.json",
-    "index.cjs",
-    "index.js",
-    "index.d.ts",
-    "esm-utils.cjs",
-    "esm-utils.js",
-    "esm-utils.d.ts",
-    "protos.cjs",
-    "protos.js",
-    "protos.d.ts",
-    "networks.cjs",
-    "networks.js",
-    "networks.d.ts"
-  ],
-  "exports": {
-    ".": {
-      "types": "./index.d.ts",
-      "import": "./index.js",
-      "require": "./index.cjs"
-    },
-    "./esm-utils": {
-      "types": "./esm-utils.d.ts",
-      "import": "./esm-utils.js",
-      "require": "./esm-utils.cjs"
-    },
-    "./protos": {
-      "types": "./protos.d.ts",
-      "import": "./protos.js",
-      "require": "./protos.cjs"
-    },
-    "./networks": {
-      "types": "./networks.d.ts",
-      "import": "./networks.js",
-      "require": "./networks.cjs"
-    },
-    "./package.json": "./package.json"
   }
 }

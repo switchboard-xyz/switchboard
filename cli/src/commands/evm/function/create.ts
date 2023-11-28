@@ -41,12 +41,6 @@ export default class FunctionCreate extends BaseCommand {
       description: "token amount to load into the function's escrow wallet.",
       default: "0.0",
     }),
-    schedule: Flags.string({
-      description:
-        "the cron schedule to execute the function periodically (Ex. '15 * * * * *' will execute the function every 15 seconds)",
-      required: false,
-      default: "",
-    }),
     container: Flags.string({
       description:
         "the location of the container (Ex. switchboardlabs/basic-oracle-function)",
@@ -116,7 +110,7 @@ export default class FunctionCreate extends BaseCommand {
     const [functionAccount, txn] = await FunctionAccount.create(this.program, {
       name: flags.name,
       authority: authority!,
-      schedule: flags.schedule,
+      schedule: "",
       container: flags.container,
       containerRegistry: containerRegistry!,
       version: flags.version,

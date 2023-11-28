@@ -9,7 +9,7 @@ export abstract class EvmWithoutSignerBaseCommand extends BaseCommand {
   static flags = {
     ...BaseCommand.flags,
     // namedAccount: Flags.string({
-    //   description: "Named account to load from your nearCredentialsDir",
+    //   description: "",
     //   required: true,
     // }),
   };

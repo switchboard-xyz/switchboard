@@ -42,11 +42,6 @@ export default class FunctionConfigure extends BaseCommand {
       description: "update the container version for the function",
       default: undefined,
     }),
-    schedule: Flags.string({
-      required: false,
-      description: "update the schedule for the function",
-      default: undefined,
-    }),
   };
 
   static args = {
@@ -67,7 +62,7 @@ export default class FunctionConfigure extends BaseCommand {
       containerRegistry: flags.containerRegistry,
       container: flags.container,
       version: flags.version,
-      schedule: flags.schedule,
+      schedule: "",
     });
 
     if (flags.silent) {

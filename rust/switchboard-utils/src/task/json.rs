@@ -1,15 +1,15 @@
 use jsonpath_rust::{JsonPathFinder, JsonPathInst};
 use serde_json::Value;
 use std::str::FromStr;
-use switchboard_common::error::Error;
+use switchboard_common::error::SbError;
 
-pub fn json_parse_task(json: Value, path: &str) -> Result<Value, Error> {
-    let json_path = JsonPathInst::from_str(path).map_err(|err| Error::CustomMessage(err))?;
+pub fn json_parse_task(json: Value, path: &str) -> Result<Value, SbError> {
+    let json_path = JsonPathInst::from_str(path).map_err(SbError::CustomMessage)?;
     let finder = JsonPathFinder::new(Box::new(json), Box::new(json_path));
 
     let result = finder.find();
     if result.is_null() {
-        return Err(Error::CustomMessage(
+        return Err(SbError::CustomMessage(
             "json_parse didnt find any values".to_string(),
         ));
     }
