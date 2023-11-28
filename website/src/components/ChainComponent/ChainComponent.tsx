@@ -71,11 +71,6 @@ export default function ChainComponent({ hideTitle, sx }: ChainComponentProps) {
       image: useBaseUrl("/img/icons/coredao/logo.svg"),
     },
     {
-      to: "/near",
-      title: "Near",
-      image: useBaseUrl("/img/icons/near/logo.svg"),
-    },
-    {
       to: "/solana",
       title: "Solana",
       image: useBaseUrl("/img/icons/solana/logo.svg"),

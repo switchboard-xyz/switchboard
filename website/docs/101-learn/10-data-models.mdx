@@ -2,7 +2,7 @@
 slug: /data
 title: The Data Models
 keywords:
-  [Switchboard, web3, oracle, data feeds, vrf, randomness, solana, aptos, near]
+  [Switchboard, web3, oracle, data feeds, vrf, randomness, solana, aptos]
 ---
 
 import MarkdownImage from "/src/components/MarkdownImage";
@@ -16,25 +16,25 @@ import MarkdownImage from "/src/components/MarkdownImage";
   }}
 />
 
-The following sections depict the different ways of data propagation provided by 
-oracles and how developers can integrate Switchboard to have full control over 
+The following sections depict the different ways of data propagation provided by
+oracles and how developers can integrate Switchboard to have full control over
 how data is sourced on-chain for their smart contracts.
 
 ## Push
 
-Data is _**pushed**_ on-chain by the oracle at a routine interval. The integrator 
-just needs to verify the data was recently pushed and doesn't need to handle any 
-off-chain requesting.
+Data is _**pushed**_ on-chain by the oracle at a routine interval. The
+integrator just needs to verify the data was recently pushed and doesn't need to
+handle any off-chain requesting.
 
-Switchboard Functions allow you to set up functions on a cron schedule, which 
-essentially performs the same as a push based oracle. See [Switchboard Functions](/functions) 
-for more information.
+Switchboard Functions allow you to set up functions on a cron schedule, which
+essentially performs the same as a push based oracle. See
+[Switchboard Functions](/functions) for more information.
 
 ## Pull (Not supported)
 
-Data is first fetched and maintained in a data store (it can be another blockchain, 
-sub-chain or centralized database). From this data store, the data is then _**pulled**_ 
-on-chain by the integrator.
+Data is first fetched and maintained in a data store (it can be another
+blockchain, sub-chain or centralized database). From this data store, the data
+is then _**pulled**_ on-chain by the integrator.
 
 ## Callback
 
@@ -43,18 +43,18 @@ a callback into the callers smart contract. This method is more complex to
 integrate but is less susceptible to oracle attacks because the data is only
 sourced when the user requests it.
 
-Switchboard Functions allow you to set up functions on a callback model, which 
-allows you to trigger based on events and pass in parameters. See [Switchboard Functions](/functions) 
-for more information.
+Switchboard Functions allow you to set up functions on a callback model, which
+allows you to trigger based on events and pass in parameters. See
+[Switchboard Functions](/functions) for more information.
 
 ## Comparison
 
-Each type of data propagation method poses their own advantages. The following 
-table compares the different criteria that should be looked at when 
-deciding which method is best for your specific solution.
+Each type of data propagation method poses their own advantages. The following
+table compares the different criteria that should be looked at when deciding
+which method is best for your specific solution.
 
 | Method   | Settlement Time             | Cost                                              | Data Availability (Staleness)     |
-|----------|-----------------------------|---------------------------------------------------|-----------------------------------|
+| -------- | --------------------------- | ------------------------------------------------- | --------------------------------- |
 | Push     | Instant (dependent on RPCs) | Expensive (constant streams even when not needed) | Data is stale between each update |
 | Pull     | Await bridge and data store | Inexpensive (requests only when needed)           | Data is fresh upon each pull      |
 | Callback | Await function execution    | Inexpensive (updates based on events)             | Data is fresh upon each callback  |

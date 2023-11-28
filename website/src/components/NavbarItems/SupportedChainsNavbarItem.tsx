@@ -45,7 +45,6 @@ const StyledLink = styled(Link)<{ dark: number; isLinkActive: boolean }>(
 const chains = [
   { label: "Aptos", path: "/aptos", className: "heading_icon__aptos" },
   { label: "Core", path: "/core", className: "heading_icon__coredao" },
-  { label: "NEAR", path: "/near", className: "heading_icon__near" },
   { label: "Solana", path: "/solana", className: "heading_icon__solana" },
   { label: "StarkNet", path: "/starknet", className: "heading_icon__starknet" },
   { label: "Sui", path: "/sui", className: "heading_icon__sui" },

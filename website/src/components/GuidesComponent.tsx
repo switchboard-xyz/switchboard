@@ -114,11 +114,6 @@ const DEFAULT_FILTERED_GUIDES: FilteredGuides = {
       guides: getChainGuides("aptos"),
     },
     {
-      title: "NEAR",
-      description: "",
-      guides: getChainGuides("near"),
-    },
-    {
       title: "Sui",
       description: "",
       guides: getChainGuides("sui"),

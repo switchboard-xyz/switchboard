@@ -11,7 +11,6 @@ import AuroraAddresses from "./AuroraAddresses";
 import BaseAddresses from "./BaseAddresses";
 import CoreDaoAddresses from "./CoreDaoAddresses";
 import EthereumAddresses from "./EthereumAddresses";
-import NearAddresses from "./NearAddresses";
 import OptimismAddresses from "./OptimismAddresses";
 import SolanaAddresses from "./SolanaAddresses";
 import SuiAddresses from "./SuiAddresses";
@@ -36,8 +35,6 @@ function getChainAddresses(chain: ChainType) {
       return <CoreDaoAddresses />;
     case "ethereum":
       return <EthereumAddresses />;
-    case "near":
-      return <NearAddresses />;
     case "optimism":
       return <OptimismAddresses />;
     case "solana":
@@ -115,13 +112,6 @@ export default function AddressesGroup() {
         attributes={{ className: "navbar_icon__sui" }}
       >
         {getChainAddresses("sui")}
-      </TabItem>
-      <TabItem
-        value="near"
-        label="&nbsp;NEAR"
-        attributes={{ className: "navbar_icon__near" }}
-      >
-        {getChainAddresses("near")}
       </TabItem>
     </Tabs>
   );

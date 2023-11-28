@@ -1,4 +1,4 @@
-export type SdkType = "solana" | "evm" | "aptos" | "sui" | "near";
+export type SdkType = "solana" | "evm" | "aptos" | "sui";
 
 interface LinkWithLabel {
   label: string;
@@ -158,35 +158,6 @@ export const CONFIG_MAP: Map<SdkType, Config> = new Map([
         {
           label: "Switchboard Feed Parser",
           link: "https://github.com/switchboard-xyz/sui-sdk/blob/main/programs/mainnet/feed-parser/sources/demo.move",
-        },
-      ],
-    },
-  ],
-  [
-    "near",
-    {
-      git: "https://github.com/switchboard-xyz/near-sdk",
-      discord:
-        "https://discord.com/channels/841525135311634443/1134016553759821894",
-      icon: {
-        light: "/img/icons/near/logo.svg",
-        dark: "/img/icons/near/dark.svg",
-      },
-      links: [],
-      sdk: {
-        js: {
-          label: "@switchboard-xyz/near.js",
-          link: "/api/near.js",
-        },
-        rust: {
-          label: "Rust: sbv2-near",
-          link: "https://github.com/switchboard-xyz/near-sdk/tree/main/rust/sbv2-near",
-        },
-      },
-      examples: [
-        {
-          label: "Switchboard Feed Parser",
-          link: "https://github.com/switchboard-xyz/near-sdk/blob/main/programs/feed-parser/src/lib.rs",
         },
       ],
     },

@@ -13,7 +13,6 @@ import EvmAddresses from "/src/components/chain/EvmAddresses";
 import SolanaAddresses from "/src/components/chain/SolanaAddresses";
 import AptosAddresses from "/src/components/chain/AptosAddresses";
 import SuiAddresses from "/src/components/chain/SuiAddresses";
-import NearAddresses from "/src/components/chain/NearAddresses";
 import SdkCard from "/src/components/chain/SdkCard";
 
 ## Learn
@@ -76,14 +75,5 @@ architecture and supported products.
     <SdkCard sdk="sui" />
     <hr />
     <SuiAddresses />
-  </TabItem>
-  <TabItem
-    value="near"
-    label="&nbsp;NEAR"
-    attributes={{ className: "navbar_icon__near" }}
-  >
-    <SdkCard sdk="near" />
-    <hr />
-    <NearAddresses />
   </TabItem>
 </Tabs>
