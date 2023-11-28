@@ -1,25 +1,42 @@
-// pub mod protobufs {
-//     include!(concat!(env!("OUT_DIR"), "/_.rs"));
-// }
+#[allow(unused_imports)]
+mod protobufs;
 
-pub mod protobufs;
-pub use protobufs::oracle_job;
+mod task;
 
-pub mod task;
-pub use task::*;
+mod utils;
+use utils::*;
 
+pub mod protos {
+    pub use crate::protobufs::{oracle_job, OracleJob};
+    pub use prost::Message;
+
+    pub use crate::task::*;
+
+    pub use crate::runner::*;
+}
+
+pub use rust_decimal::prelude::*;
+
+pub use switchboard_common as common;
+pub use switchboard_common::SbError;
+
+// pub mod task;
+// pub use task::*;
+
+// pub use ethers;
 pub use jsonpath_rust as jsonpath;
 pub use reqwest;
 
 pub mod runner;
 pub use runner::*;
 
-pub mod amm;
-pub use amm::*;
+// pub mod amm;
+
+pub mod exchanges;
 
 #[cfg(test)]
 mod tests {
-    use super::*;
+    use crate::task::*;
 
     use serde_json::Value;
     use std::str::FromStr;
@@ -55,7 +72,7 @@ mod tests {
     #[tokio::test]
     async fn test_simple_http_chain() {
         let json_string = r#"{"symbol":"SOLUSDT","price":"25.36000000"}"#;
-        let json = Value::from_str(json_string).unwrap();
+        // let json = Value::from_str(json_string).unwrap();
 
         let mut server = mockito::Server::new();
         let url = &format!("{}/test", server.url());

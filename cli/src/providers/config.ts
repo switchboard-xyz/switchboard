@@ -42,10 +42,6 @@ export class ConfigProvider {
       mainnet: { rpcUrl: networks.coredao.mainnet.metadata.defaultRpcUrl },
       testnet: { rpcUrl: networks.coredao.testnet.metadata.defaultRpcUrl },
     },
-    near: {
-      mainnet: { rpcUrl: networks.near.mainnet.metadata.defaultRpcUrl },
-      testnet: { rpcUrl: networks.near.testnet.metadata.defaultRpcUrl },
-    },
     solana: {
       mainnet: { rpcUrl: networks.solana.mainnet.metadata.defaultRpcUrl },
       devnet: { rpcUrl: networks.solana.devnet.metadata.defaultRpcUrl },
@@ -111,6 +107,10 @@ export class ConfigProvider {
 
   getProgramId(chain: string, network: string): string {
     return getSupportedNetwork(chain, network).address;
+  }
+
+  getAttestationProgramId(chain: string, network: string): string {
+    return getSupportedNetwork(chain, network).attestationService!;
   }
 
   setRpcUrl(chain: string, network: string, value: string | undefined) {

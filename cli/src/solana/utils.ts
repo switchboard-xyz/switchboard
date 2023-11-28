@@ -15,7 +15,11 @@ import type {
   SwitchboardProgram,
   VrfAccounts,
 } from "@switchboard-xyz/solana.js";
-import { types } from "@switchboard-xyz/solana.js";
+import {
+  parseRawBuffer,
+  types,
+  VerifierAccount,
+} from "@switchboard-xyz/solana.js";
 import chalk from "chalk";
 
 export const programHasPayer = (program: SwitchboardProgram): boolean => {
@@ -600,6 +604,97 @@ export function prettyPrintSbstate(
 
 const emptyEnclave = Array.from({ length: 32 }).fill(0);
 
+export function prettyPrintRequest(
+  requestState: attestationTypes.FunctionRequestAccountData,
+  publicKey: PublicKey,
+  SPACING = 24
+): string {
+  const output: string[] = [];
+
+  output.push(chalk.underline(chalkString("## Request", publicKey, SPACING)));
+
+  output.push(chalkString("status", requestState.status.kind, SPACING));
+  output.push(chalkString("function", requestState.function, SPACING));
+  output.push(chalkString("authority", requestState.authority, SPACING));
+  output.push(chalkString("payer", requestState.payer, SPACING));
+  output.push(chalkString("escrow", requestState.escrow, SPACING));
+
+  output.push(
+    chalkString("attestationQueue", requestState.attestationQueue, SPACING)
+  );
+
+  output.push(
+    chalkString("params", buf2String(requestState.containerParams), SPACING)
+  );
+  output.push(chalkString("errorStatus", requestState.errorStatus, SPACING));
+
+  return output.join("\n");
+}
+
+export function prettyPrintRoutine(
+  functionState: attestationTypes.FunctionRoutineAccountData,
+  balance: number,
+  publicKey: PublicKey,
+  SPACING = 24
+): string {
+  const output: string[] = [];
+
+  output.push(chalk.underline(chalkString("## Routine", publicKey, SPACING)));
+
+  output.push(chalkString("name", buf2String(functionState.name), SPACING));
+  output.push(
+    chalkString("metadata", buf2String(functionState.metadata), SPACING)
+  );
+  output.push(
+    chalkString(
+      "createdAt",
+      BNtoDateTimeString(functionState.createdAt),
+      SPACING
+    )
+  );
+  output.push(
+    chalkString(
+      "updatedAt",
+      BNtoDateTimeString(functionState.updatedAt),
+      SPACING
+    )
+  );
+  output.push(chalkString("status", functionState.status.kind, SPACING));
+  output.push(chalkString("errorStatus", functionState.errorStatus, SPACING));
+
+  output.push(chalkString("function", functionState.function, SPACING));
+  output.push(chalkString("authority", functionState.authority, SPACING));
+  output.push(
+    chalkString("attestationQueue", functionState.attestationQueue, SPACING)
+  );
+  output.push(chalkString("escrowWallet", functionState.escrowWallet, SPACING));
+
+  output.push(
+    chalkString(
+      "lastExecution",
+      BNtoDateTimeString(functionState.lastExecutionTimestamp),
+      SPACING
+    )
+  );
+  output.push(
+    chalkString(
+      "nextAllowed",
+      BNtoDateTimeString(functionState.nextAllowedTimestamp),
+      SPACING
+    )
+  );
+
+  output.push(
+    chalkString("schedule", buf2String(functionState.schedule), SPACING)
+  );
+  output.push(
+    chalkString("params", buf2String(functionState.containerParams), SPACING)
+  );
+  output.push(chalkString("balance", balance, SPACING));
+
+  return output.join("\n");
+}
+
 export function prettyPrintFunction(
   functionState: attestationTypes.FunctionAccountData,
   publicKey: PublicKey,
@@ -627,6 +722,7 @@ export function prettyPrintFunction(
       SPACING
     )
   );
+  output.push(chalkString("status", functionState.status.kind, SPACING));
 
   output.push(chalkString("authority", functionState.authority, SPACING));
   output.push(
@@ -650,9 +746,6 @@ export function prettyPrintFunction(
   );
   output.push(chalkString("triggerCount", functionState.triggerCount, SPACING));
 
-  output.push(
-    chalkString("schedule", buf2String(functionState.schedule), SPACING)
-  );
   output.push(
     chalkString("container", buf2String(functionState.container), SPACING)
   );
@@ -681,5 +774,162 @@ export function prettyPrintFunction(
     )
   );
 
+  return output.join("\n");
+}
+
+export function prettyPrintAttestationQueue(
+  attestationQueue: attestationTypes.AttestationQueueAccountData,
+  publicKey: PublicKey,
+  SPACING = 32
+): string {
+  const output: string[] = [];
+
+  output.push(
+    chalk.underline(chalkString("## Attestation Queue", publicKey, SPACING))
+  );
+
+  output.push(chalkString("authority", attestationQueue.authority, SPACING));
+  output.push(chalkString("reward", attestationQueue.reward, SPACING));
+  output.push(
+    chalkString(
+      "lastHeartbeat",
+      BNtoDateTimeString(attestationQueue.lastHeartbeat),
+      SPACING
+    )
+  );
+  output.push(
+    chalkString("nodeTimeout", attestationQueue.nodeTimeout, SPACING)
+  );
+  output.push(
+    chalkString(
+      "maxQuoteVerificationAge",
+      attestationQueue.maxQuoteVerificationAge,
+      SPACING
+    )
+  );
+  output.push(
+    chalkString(
+      "allowAuthorityOverrideAfter",
+      attestationQueue.allowAuthorityOverrideAfter,
+      SPACING
+    )
+  );
+  output.push(
+    chalkString(
+      "reqAuthorityHbPermissions",
+      attestationQueue.requireAuthorityHeartbeatPermission,
+      SPACING
+    )
+  );
+  output.push(
+    chalkString(
+      "reqUsagePermissions",
+      attestationQueue.requireUsagePermissions,
+      SPACING
+    )
+  );
+
+  const mrEnclaves = attestationQueue.mrEnclaves
+    .filter((msr) => msr.some((x) => x !== 0))
+    .map((x) => `0x${Buffer.from(x).toString("hex")}`);
+  output.push(
+    chalkString("mrEnclaveLen", mrEnclaves.length + " / 32", SPACING)
+  );
+  output.push(
+    chalkString(
+      "mrEnclaves",
+      `${mrEnclaves.join("\n" + " ".repeat(SPACING))}`,
+      SPACING
+    )
+  );
+
+  return output.join("\n");
+}
+
+export function prettyPrintVerifierOracle(
+  verifierState: attestationTypes.VerifierAccountData,
+  publicKey: PublicKey,
+  SPACING = 24
+): string {
+  const output: string[] = [];
+
+  output.push(
+    chalk.underline(chalkString("## Verifier Oracle", publicKey, SPACING))
+  );
+
+  output.push(chalkString("authority", verifierState.authority, SPACING));
+  output.push(
+    chalkString("attestationQueue", verifierState.attestationQueue, SPACING)
+  );
+  output.push(chalkString("isOnQueue", verifierState.isOnQueue, SPACING));
+  output.push(chalkString("rewardEscrow", verifierState.rewardEscrow, SPACING));
+  output.push(chalkString("stakeWallet", verifierState.stakeWallet, SPACING));
+  output.push(
+    chalkString(
+      "createdAt",
+      BNtoDateTimeString(verifierState.createdAt),
+      SPACING
+    )
+  );
+  output.push(
+    chalkString(
+      "lastHeartbeat",
+      BNtoDateTimeString(verifierState.lastHeartbeat),
+      SPACING
+    )
+  );
+
+  output.push(
+    chalk.underline(chalkString("\n### Enclave State", publicKey, SPACING))
+  );
+  output.push(
+    chalkString("enclaveSigner", verifierState.enclave.enclaveSigner, SPACING)
+  );
+  output.push(
+    chalkString(
+      "mrEnclave",
+      `0x${Buffer.from(verifierState.enclave.mrEnclave).toString("hex")}`,
+      SPACING
+    )
+  );
+
+  output.push(
+    chalkString(
+      "quoteRegistry",
+      buf2String(verifierState.enclave.quoteRegistry),
+      SPACING
+    )
+  );
+  output.push(
+    chalkString(
+      "registryKey",
+      `${Buffer.from(
+        parseRawBuffer(verifierState.enclave.registryKey)
+      ).toString("hex")}`,
+      SPACING
+    )
+  );
+
+  output.push(
+    chalkString(
+      "verificationStatus",
+      VerifierAccount.getVerificationStatus(verifierState).kind,
+      SPACING
+    )
+  );
+  output.push(
+    chalkString(
+      "verificationTimestamp",
+      BNtoDateTimeString(verifierState.enclave.verificationTimestamp),
+      SPACING
+    )
+  );
+  output.push(
+    chalkString(
+      "validUntil",
+      BNtoDateTimeString(verifierState.enclave.validUntil),
+      SPACING
+    )
+  );
   return output.join("\n");
 }

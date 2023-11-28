@@ -15,8 +15,11 @@ export function toDateString(d: Date | undefined): string {
 
 /** Convert an BN timestamp to YYYY-MM-DD */
 export function BNtoDateString(ts: BN): string {
-  if (!ts.toNumber()) return "N/A";
-  return toDateString(new Date(ts.toNumber() * 1000));
+  try {
+    return toDateString(new Date(ts.toNumber() * 1000));
+  } catch {
+    return "N/A";
+  }
 }
 
 /** Convert a Date object to YYYY-MM-DD HH:mm:ss */
@@ -32,6 +35,9 @@ export function toDateTimeString(d: Date | undefined): string {
 
 /** Convert an BN timestamp to YYYY-MM-DD HH:mm:ss */
 export function BNtoDateTimeString(ts: BN): string {
-  if (!ts.toNumber()) return "N/A";
-  return toDateTimeString(new Date(ts.toNumber() * 1000));
+  try {
+    return toDateTimeString(new Date(ts.toNumber() * 1000));
+  } catch {
+    return "N/A";
+  }
 }

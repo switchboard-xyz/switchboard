@@ -7,6 +7,7 @@ import { loadKeypair } from "../utils";
 import {
   prettyPrintAggregator,
   prettyPrintAggregatorAccounts,
+  prettyPrintAttestationQueue,
   prettyPrintCrank,
   prettyPrintFunction,
   prettyPrintJob,
@@ -15,7 +16,10 @@ import {
   prettyPrintOracle,
   prettyPrintPermissions,
   prettyPrintQueue,
+  prettyPrintRequest,
+  prettyPrintRoutine,
   prettyPrintSbstate,
+  prettyPrintVerifierOracle,
   prettyPrintVrf,
   prettyPrintVrfAccounts,
 } from "./utils";
@@ -40,6 +44,8 @@ import {
   OracleAccount,
   PermissionAccount,
   QueueAccount,
+  SB_ATTESTATION_PID,
+  SB_V2_PID,
   SwitchboardProgram,
   types,
   VrfAccount,
@@ -73,6 +79,10 @@ export abstract class SolanaBaseCommand
     programId: Flags.string({
       description: "alternative Switchboard program ID to interact with",
     }),
+    attestationProgramId: Flags.string({
+      description:
+        "alternative Switchboard Attestation program ID to interact with",
+    }),
     commitment: Flags.string({
       description: "transaction commitment level to use",
       default: "confirmed",
@@ -87,6 +97,8 @@ export abstract class SolanaBaseCommand
   public rpcUrl: string;
 
   public programId: PublicKey;
+
+  public attestationProgramId: PublicKey;
 
   public connection: Connection;
 
@@ -104,6 +116,10 @@ export abstract class SolanaBaseCommand
       (flags as any).mainnetBeta
     );
     this.programId = this.getProgramId(this.network, (flags as any).programId);
+    this.attestationProgramId = this.getAttestationProgramId(
+      this.network,
+      (flags as any).attestationProgramId
+    );
 
     this.rpcUrl = this.getRpcUrl(this.network, (flags as any).rpcUrl);
     this.commitment = (flags as any).commitment ?? "confirmed";
@@ -178,12 +194,18 @@ export abstract class SolanaBaseCommand
       return new PublicKey(programIdFlag);
     }
 
-    return new PublicKey(
-      this.ctx.getProgramId(
-        "solana",
-        cluster === "mainnet-beta" ? "mainnet" : cluster
-      )
-    );
+    return SB_V2_PID;
+  }
+
+  getAttestationProgramId(
+    cluster: SolanaNetwork,
+    attestationProgramIdFlag: string
+  ): PublicKey {
+    if (attestationProgramIdFlag) {
+      return new PublicKey(attestationProgramIdFlag);
+    }
+
+    return SB_ATTESTATION_PID;
   }
 
   async loadProgram(
@@ -201,11 +223,17 @@ export abstract class SolanaBaseCommand
       );
     }
 
-    const program = await SwitchboardProgram.load(
-      this.network,
+    if (!this.attestationProgramId) {
+      throw new Error(
+        `Need to load the attestationProgramId before loading the Anchor program`
+      );
+    }
+
+    const program = SwitchboardProgram.from(
       this.connection,
       signer,
-      this.programId
+      this.programId,
+      this.attestationProgramId
     );
 
     return program;
@@ -493,6 +521,45 @@ export abstract class SolanaBaseCommand
     SPACING = 24
   ) {
     this.logger.info(prettyPrintFunction(functionState, publicKey, SPACING));
+  }
+
+  prettyPrintRequest(
+    routineState: attestationTypes.FunctionRequestAccountData,
+    publicKey: PublicKey,
+    SPACING = 24
+  ) {
+    this.logger.info(prettyPrintRequest(routineState, publicKey, SPACING));
+  }
+
+  prettyPrintRoutine(
+    routineState: attestationTypes.FunctionRoutineAccountData,
+    balance: number,
+    publicKey: PublicKey,
+    SPACING = 24
+  ) {
+    this.logger.info(
+      prettyPrintRoutine(routineState, balance, publicKey, SPACING)
+    );
+  }
+
+  prettyPrintAttestationQueue(
+    attestationQueue: attestationTypes.AttestationQueueAccountData,
+    publicKey: PublicKey,
+    SPACING = 32
+  ) {
+    this.logger.info(
+      prettyPrintAttestationQueue(attestationQueue, publicKey, SPACING)
+    );
+  }
+
+  prettyPrintVerifierOracle(
+    verifierState: attestationTypes.VerifierAccountData,
+    publicKey: PublicKey,
+    SPACING = 24
+  ) {
+    this.logger.info(
+      prettyPrintVerifierOracle(verifierState, publicKey, SPACING)
+    );
   }
 
   async printAccount(

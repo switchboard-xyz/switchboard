@@ -23,8 +23,6 @@ export default class OracleLogs extends OutputFileBaseCommand {
         "solana-devnet",
         "aptos-mainnet",
         "aptos-testnet",
-        "near-mainnet",
-        "near-testnet",
       ],
     }),
     searchString: Args.string({

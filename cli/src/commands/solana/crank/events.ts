@@ -120,84 +120,84 @@ export default class AggregatorEvents extends BaseCommand {
     );
 
     this.subscriptions.push(
-      this.program.addEventListener(
-        "AggregatorOpenRoundEvent",
-        (event, slot) => {
-          if (event.feedPubkey.equals(aggregatorAccount.publicKey)) {
-            this.logger.info(
-              `${chalk.magenta("AggregatorOpenRoundEvent")} - ${chalk.blue(
-                BNtoDateTimeString(new BN(solanaTime))
-              )}\n\t${"slot:".padEnd(12, " ")}${chalk.yellow(
-                slot
-              )}\n\t${"roundOpen:".padEnd(12, " ")}${chalk.yellow(
-                aggregator.currentRound.roundOpenTimestamp.toNumber()
-              )}\n\t${event.oraclePubkeys
-                .map(
-                  (oraclePubkey, n) =>
-                    `${("oracle #" + (n + 1).toString() + ":").padEnd(
-                      12,
-                      " "
-                    )}${chalk.yellow(oraclePubkey.toBase58())}${
-                      switchboardOracles.has(oraclePubkey.toBase58())
-                        ? " (" +
-                          switchboardOracles.get(oraclePubkey.toBase58()) +
-                          ")"
-                        : ""
-                    }`
-                )
-                .join("\n\t")}`
-            );
+      ...(await Promise.all([
+        this.program.addEventListener(
+          "AggregatorOpenRoundEvent",
+          (event, slot) => {
+            if (event.feedPubkey.equals(aggregatorAccount.publicKey)) {
+              this.logger.info(
+                `${chalk.magenta("AggregatorOpenRoundEvent")} - ${chalk.blue(
+                  BNtoDateTimeString(new BN(solanaTime))
+                )}\n\t${"slot:".padEnd(12, " ")}${chalk.yellow(
+                  slot
+                )}\n\t${"roundOpen:".padEnd(12, " ")}${chalk.yellow(
+                  aggregator.currentRound.roundOpenTimestamp.toNumber()
+                )}\n\t${event.oraclePubkeys
+                  .map(
+                    (oraclePubkey, n) =>
+                      `${("oracle #" + (n + 1).toString() + ":").padEnd(
+                        12,
+                        " "
+                      )}${chalk.yellow(oraclePubkey.toBase58())}${
+                        switchboardOracles.has(oraclePubkey.toBase58())
+                          ? " (" +
+                            switchboardOracles.get(oraclePubkey.toBase58()) +
+                            ")"
+                          : ""
+                      }`
+                  )
+                  .join("\n\t")}`
+              );
+            }
           }
-        }
-      )
-    );
-    this.subscriptions.push(
-      this.program.addEventListener(
-        "AggregatorSaveResultEvent",
-        (event, slot) => {
-          if (event.feedPubkey.equals(aggregatorAccount.publicKey)) {
-            this.logger.info(
-              `${chalk.magenta("AggregatorSaveResultEvent")} - ${chalk.blue(
-                BNtoDateTimeString(new BN(solanaTime))
-              )}\n\t${"slot:".padEnd(12, " ")}${chalk.yellow(
-                slot
-              )}\n\t${"roundOpen:".padEnd(12, " ")}${chalk.yellow(
-                aggregator.currentRound.roundOpenTimestamp.toNumber()
-              )}\n\t${"oracle:".padEnd(12, " ")}${chalk.yellow(
-                event.oraclePubkey.toBase58()
-              )}${
-                switchboardOracles.has(event.oraclePubkey.toBase58())
-                  ? " (" +
-                    switchboardOracles.get(event.oraclePubkey.toBase58()) +
-                    ")"
-                  : ""
-              }\n\t${"value:".padEnd(12, " ")}${chalk.yellow(
-                types.SwitchboardDecimal.from(event.value).toBig().toString()
-              )}`
-            );
+        ),
+
+        this.program.addEventListener(
+          "AggregatorSaveResultEvent",
+          (event, slot) => {
+            if (event.feedPubkey.equals(aggregatorAccount.publicKey)) {
+              this.logger.info(
+                `${chalk.magenta("AggregatorSaveResultEvent")} - ${chalk.blue(
+                  BNtoDateTimeString(new BN(solanaTime))
+                )}\n\t${"slot:".padEnd(12, " ")}${chalk.yellow(
+                  slot
+                )}\n\t${"roundOpen:".padEnd(12, " ")}${chalk.yellow(
+                  aggregator.currentRound.roundOpenTimestamp.toNumber()
+                )}\n\t${"oracle:".padEnd(12, " ")}${chalk.yellow(
+                  event.oraclePubkey.toBase58()
+                )}${
+                  switchboardOracles.has(event.oraclePubkey.toBase58())
+                    ? " (" +
+                      switchboardOracles.get(event.oraclePubkey.toBase58()) +
+                      ")"
+                    : ""
+                }\n\t${"value:".padEnd(12, " ")}${chalk.yellow(
+                  types.SwitchboardDecimal.from(event.value).toBig().toString()
+                )}`
+              );
+            }
           }
-        }
-      )
-    );
-    this.subscriptions.push(
-      this.program.addEventListener(
-        "AggregatorValueUpdateEvent",
-        (event, slot) => {
-          if (event.feedPubkey.equals(aggregatorAccount.publicKey)) {
-            this.logger.info(
-              `${chalk.magenta("AggregatorValueUpdateEvent")} - ${chalk.blue(
-                BNtoDateTimeString(new BN(solanaTime))
-              )}\n\t${"slot:".padEnd(12, " ")}${chalk.yellow(
-                slot
-              )}\n\t${"roundOpen:".padEnd(12, " ")}${chalk.yellow(
-                aggregator.latestConfirmedRound.roundOpenTimestamp.toNumber()
-              )}\n\t${"value:".padEnd(12, " ")}${chalk.yellow(
-                types.SwitchboardDecimal.from(event.value).toBig().toString()
-              )}`
-            );
+        ),
+
+        this.program.addEventListener(
+          "AggregatorValueUpdateEvent",
+          (event, slot) => {
+            if (event.feedPubkey.equals(aggregatorAccount.publicKey)) {
+              this.logger.info(
+                `${chalk.magenta("AggregatorValueUpdateEvent")} - ${chalk.blue(
+                  BNtoDateTimeString(new BN(solanaTime))
+                )}\n\t${"slot:".padEnd(12, " ")}${chalk.yellow(
+                  slot
+                )}\n\t${"roundOpen:".padEnd(12, " ")}${chalk.yellow(
+                  aggregator.latestConfirmedRound.roundOpenTimestamp.toNumber()
+                )}\n\t${"value:".padEnd(12, " ")}${chalk.yellow(
+                  types.SwitchboardDecimal.from(event.value).toBig().toString()
+                )}`
+              );
+            }
           }
-        }
-      )
+        ),
+      ]))
     );
 
     await (flags.timeout && flags.timeout > 0

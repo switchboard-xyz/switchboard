@@ -1,21 +1,10 @@
 use crate::task::json::json_parse_task;
+use crate::utils::handle_reqwest_err;
 use reqwest;
 use serde_json::Value;
-use switchboard_common::error::Error;
+use switchboard_common::error::SbError;
 
-fn handle_reqwest_err(e: reqwest::Error) -> Error {
-    let status = e.status().unwrap_or(reqwest::StatusCode::default());
-    return Error::CustomError {
-        message: format!(
-            "reqwest_error: code = {}, message = {}",
-            status,
-            status.canonical_reason().unwrap_or("Unknown").to_string()
-        ),
-        source: std::sync::Arc::new(e),
-    };
-}
-
-pub async fn http_task(url: &str, path: Option<&str>) -> Result<Value, Error> {
+pub async fn http_task(url: &str, path: Option<&str>) -> Result<Value, SbError> {
     let response = reqwest::get(url)
         .await
         .map_err(handle_reqwest_err)?

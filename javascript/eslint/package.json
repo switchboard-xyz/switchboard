@@ -1,10 +1,10 @@
 {
   "name": "@switchboard-xyz/eslint-config",
   "version": "0.1.9",
-  "author": "",
-  "license": "MIT",
   "description": "Switchboard eslint-config",
   "homepage": "https://docs.switchboard.xyz",
+  "license": "MIT",
+  "author": "",
   "main": "index.js",
   "dependencies": {
     "@typescript-eslint/eslint-plugin": "latest",

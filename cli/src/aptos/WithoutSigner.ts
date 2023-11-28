@@ -8,7 +8,7 @@ export abstract class AptosWithoutSignerBaseCommand extends BaseCommand {
   static flags = {
     ...BaseCommand.flags,
     // namedAccount: Flags.string({
-    //   description: "Named account to load from your nearCredentialsDir",
+    //   description: "",
     //   required: true,
     // }),
   };

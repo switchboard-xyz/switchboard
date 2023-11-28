@@ -25,7 +25,7 @@ pub mod oracle_job {
     /// ***Example***: HttpTask example with headers
     ///
     /// ```text,json
-    /// { "httpTask": { "url": "<https://mywebsite.org/path",> "method": "METHOD_POST", "headers": [ { "key": "MY_HEADER_KEY", "value": "MY_HEADER_VALUE" } ], "body": "{\"MY_BODY_KEY\":\"MY_BODY_VALUE\"}" } }
+    /// { "httpTask": { "url": "<https://mywebsite.org/path",> "method": "METHOD_POST", "headers": \[ { "key": "MY_HEADER_KEY", "value": "MY_HEADER_VALUE" } \], "body": "{\"MY_BODY_KEY\":\"MY_BODY_VALUE\"}" } }
     /// ```
     #[allow(clippy::derive_partial_eq_without_eq)]
     #[derive(Clone, PartialEq, ::prost::Message)]
@@ -177,13 +177,13 @@ pub mod oracle_job {
     /// ***Example***: Returns the median numerical result of 3 tasks.
     ///
     /// ```text,json
-    /// {"medianTask": {"tasks": [{"valueTask": {"value": 10}},{"valueTask": {"value": 20}},{"valueTask": {"value": 30}}]}}
+    /// {"medianTask": {"tasks": \[{"valueTask": {"value": 10}},{"valueTask": {"value": 20}},{"valueTask": {"value": 30}}\]}}
     /// ```
     ///
     /// ***Example***: Returns the median numerical result of 3 jobs.
     ///
     /// ```text,json
-    /// {"medianTask": {"jobs": [{"tasks": [{"httpTask": {"url": "<https://www.binance.com/api/v3/ticker/price?symbol=SOLUSDT"}},{"jsonParseTask":> {"path": "$.price"}}]},{"tasks": [{"httpTask": {"url": "<https://www.binance.us/api/v3/ticker/price?symbol=SOLUSD"}},{"jsonParseTask":> {"path": "$.price"}}]},{"tasks": [{"httpTask": {"url": "<https://api-pub.bitfinex.com/v2/tickers?symbols=tSOLUSD"}},{"jsonParseTask":> {"path": "$\[0][7]"}}]}\]}}
+    /// {"medianTask": {"jobs": \[{"tasks": [{"httpTask": {"url": "<https://www.binance.com/api/v3/ticker/price?symbol=SOLUSDT"}},{"jsonParseTask":> {"path": "$.price"}}\]},{"tasks": \[{"httpTask": {"url": "<https://www.binance.us/api/v3/ticker/price?symbol=SOLUSD"}},{"jsonParseTask":> {"path": "$.price"}}\]},{"tasks": [{"httpTask": {"url": "<https://api-pub.bitfinex.com/v2/tickers?symbols=tSOLUSD"}},{"jsonParseTask":> {"path": "$[0][7]"}}]}]}}
     /// ```
     #[allow(clippy::derive_partial_eq_without_eq)]
     #[derive(Clone, PartialEq, ::prost::Message)]
@@ -207,13 +207,13 @@ pub mod oracle_job {
     /// ***Example***: Returns the mean numerical result of 3 tasks.
     ///
     /// ```text,json
-    /// {"meanTask": {"tasks": [{"valueTask": {"value": 10}},{"valueTask": {"value": 20}},{"valueTask": {"value": 30}}]}}
+    /// {"meanTask": {"tasks": \[{"valueTask": {"value": 10}},{"valueTask": {"value": 20}},{"valueTask": {"value": 30}}\]}}
     /// ```
     ///
     /// ***Example***: Returns the mean numerical result of 3 jobs.
     ///
     /// ```text,json
-    /// {"meanTask": {"jobs": [{"tasks": [{"httpTask": {"url": "<https://www.binance.com/api/v3/ticker/price?symbol=SOLUSDT"}},{"jsonParseTask":> {"path": "$.price"}}]},{"tasks": [{"httpTask": {"url": "<https://www.binance.us/api/v3/ticker/price?symbol=SOLUSD"}},{"jsonParseTask":> {"path": "$.price"}}]},{"tasks": [{"httpTask": {"url": "<https://api-pub.bitfinex.com/v2/tickers?symbols=tSOLUSD"}},{"jsonParseTask":> {"path": "$\[0][7]"}}]}\]}}
+    /// {"meanTask": {"jobs": \[{"tasks": [{"httpTask": {"url": "<https://www.binance.com/api/v3/ticker/price?symbol=SOLUSDT"}},{"jsonParseTask":> {"path": "$.price"}}\]},{"tasks": \[{"httpTask": {"url": "<https://www.binance.us/api/v3/ticker/price?symbol=SOLUSD"}},{"jsonParseTask":> {"path": "$.price"}}\]},{"tasks": [{"httpTask": {"url": "<https://api-pub.bitfinex.com/v2/tickers?symbols=tSOLUSD"}},{"jsonParseTask":> {"path": "$[0][7]"}}]}]}}
     /// ```
     #[allow(clippy::derive_partial_eq_without_eq)]
     #[derive(Clone, PartialEq, ::prost::Message)]
@@ -234,13 +234,13 @@ pub mod oracle_job {
     /// ***Example***: Returns the maximum numerical result from 3 tasks.
     ///
     /// ```text,json
-    /// {"maxTask": {"tasks": [{"valueTask": {"value": 10}},{"valueTask": {"value": 20}},{"valueTask": {"value": 30}}]}}
+    /// {"maxTask": {"tasks": \[{"valueTask": {"value": 10}},{"valueTask": {"value": 20}},{"valueTask": {"value": 30}}\]}}
     /// ```
     ///
     /// ***Example***: Returns the maximum numerical result from 3 jobs.
     ///
     /// ```text,json
-    /// {"maxTask": {"jobs": [{"tasks": [{"httpTask": {"url": "<https://www.binance.com/api/v3/ticker/price?symbol=SOLUSDT"}},{"jsonParseTask":> {"path": "$.price"}}]},{"tasks": [{"httpTask": {"url": "<https://www.binance.us/api/v3/ticker/price?symbol=SOLUSD"}},{"jsonParseTask":> {"path": "$.price"}}]},{"tasks": [{"httpTask": {"url": "<https://api-pub.bitfinex.com/v2/tickers?symbols=tSOLUSD"}},{"jsonParseTask":> {"path": "$\[0][7]"}}]}\]}}
+    /// {"maxTask": {"jobs": \[{"tasks": [{"httpTask": {"url": "<https://www.binance.com/api/v3/ticker/price?symbol=SOLUSDT"}},{"jsonParseTask":> {"path": "$.price"}}\]},{"tasks": \[{"httpTask": {"url": "<https://www.binance.us/api/v3/ticker/price?symbol=SOLUSD"}},{"jsonParseTask":> {"path": "$.price"}}\]},{"tasks": [{"httpTask": {"url": "<https://api-pub.bitfinex.com/v2/tickers?symbols=tSOLUSD"}},{"jsonParseTask":> {"path": "$[0][7]"}}]}]}}
     /// ```
     #[allow(clippy::derive_partial_eq_without_eq)]
     #[derive(Clone, PartialEq, ::prost::Message)]
@@ -261,13 +261,13 @@ pub mod oracle_job {
     /// ***Example***: Returns the minimum numerical result from 3 tasks.
     ///
     /// ```text,json
-    /// {"minTask": {"tasks": [{"valueTask": {"value": 10}},{"valueTask": {"value": 20}},{"valueTask": {"value": 30}}]}}
+    /// {"minTask": {"tasks": \[{"valueTask": {"value": 10}},{"valueTask": {"value": 20}},{"valueTask": {"value": 30}}\]}}
     /// ```
     ///
     /// ***Example***: Returns the minimum numerical result from 3 jobs.
     ///
     /// ```text,json
-    /// {"minTask": {"jobs": [{"tasks": [{"httpTask": {"url": "<https://www.binance.com/api/v3/ticker/price?symbol=SOLUSDT"}},{"jsonParseTask":> {"path": "$.price"}}]},{"tasks": [{"httpTask": {"url": "<https://www.binance.us/api/v3/ticker/price?symbol=SOLUSD"}},{"jsonParseTask":> {"path": "$.price"}}]},{"tasks": [{"httpTask": {"url": "<https://api-pub.bitfinex.com/v2/tickers?symbols=tSOLUSD"}},{"jsonParseTask":> {"path": "$\[0][7]"}}]}\]}}
+    /// {"minTask": {"jobs": \[{"tasks": [{"httpTask": {"url": "<https://www.binance.com/api/v3/ticker/price?symbol=SOLUSDT"}},{"jsonParseTask":> {"path": "$.price"}}\]},{"tasks": \[{"httpTask": {"url": "<https://www.binance.us/api/v3/ticker/price?symbol=SOLUSD"}},{"jsonParseTask":> {"path": "$.price"}}\]},{"tasks": [{"httpTask": {"url": "<https://api-pub.bitfinex.com/v2/tickers?symbols=tSOLUSD"}},{"jsonParseTask":> {"path": "$[0][7]"}}]}]}}
     /// ```
     #[allow(clippy::derive_partial_eq_without_eq)]
     #[derive(Clone, PartialEq, ::prost::Message)]
@@ -333,7 +333,7 @@ pub mod oracle_job {
     /// ***Example***: Opens a coinbase websocket
     ///
     /// ```text,json
-    /// { "websocketTask": { "url": "wss://ws-feed.pro.coinbase.com", "subscription": "{\"type\":\"subscribe\",\"product_ids\":\[\"BTC-USD\"],\"channels\":[\"ticker\",{\"name\":\"ticker\",\"product_ids\":[\"BTC-USD\"]}\]}", "maxDataAgeSeconds": 15, "filter": "$[?(@.type == 'ticker' && @.product_id == 'BTC-USD')]" } }
+    /// { "websocketTask": { "url": "wss://ws-feed.pro.coinbase.com", "subscription": "{\"type\":\"subscribe\",\"product_ids\":\[\"BTC-USD\"\],\"channels\":\[\"ticker\",{\"name\":\"ticker\",\"product_ids\":[\"BTC-USD\"\]}]}", "maxDataAgeSeconds": 15, "filter": "$\[?(@.type == 'ticker' && @.product_id == 'BTC-USD')\]" } }
     /// ```
     #[allow(clippy::derive_partial_eq_without_eq)]
     #[derive(Clone, PartialEq, ::prost::Message)]
@@ -361,7 +361,7 @@ pub mod oracle_job {
     /// ***Example***: Returns the numerical result from the conditionalTask's subtasks, else `on_failure` returns the numerical result from its subtasks.
     ///
     /// ```text,json
-    /// {"conditionalTask":{"attempt":\[{"tasks":[{"jupiterSwapTask":{"inTokenAddress":"EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v","outTokenAddress":"DUALa4FC2yREwZ59PHeu1un4wis36vHRv5hWVBmzykCJ"}}]}],"onFailure":[{"lpExchangeRateTask":{"orcaPoolAddress":"7yJ4gMRJhEoCR48aPE3EAWRmCoygakik81ZS1sajaTnE"}}\]}}
+    /// {"conditionalTask":{"attempt":\[{"tasks":[{"jupiterSwapTask":{"inTokenAddress":"EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v","outTokenAddress":"DUALa4FC2yREwZ59PHeu1un4wis36vHRv5hWVBmzykCJ"}}\]}],"onFailure":\[{"lpExchangeRateTask":{"orcaPoolAddress":"7yJ4gMRJhEoCR48aPE3EAWRmCoygakik81ZS1sajaTnE"}}\]}}
     /// ```
     #[allow(clippy::derive_partial_eq_without_eq)]
     #[derive(Clone, PartialEq, ::prost::Message)]
@@ -383,7 +383,7 @@ pub mod oracle_job {
     /// ***Example***: Returns the numerical result by dividing by a job of subtasks.
     ///
     /// ```text,json
-    /// {"tasks":\[{"valueTask":{"value":100}},{"divideTask":{"job":{"tasks":[{"valueTask":{"value":10}}]}}}\]}
+    /// {"tasks":\[{"valueTask":{"value":100}},{"divideTask":{"job":{"tasks":[{"valueTask":{"value":10}}\]}}}]}
     /// ```
     ///
     /// ***Example***: Returns the numerical result by dividing by an aggregator.
@@ -395,7 +395,7 @@ pub mod oracle_job {
     /// ***Example***: Returns the numerical result by dividing by a big.
     ///
     /// ```text,json
-    /// {"tasks":\[{"cacheTask":{"cacheItems":[{"variableName":"TEN","job":{"tasks":[{"valueTask":{"value":10}}]}}]}},{"valueTask":{"value":100}},{"divideTask":{"big":"${TEN}"}}\]}
+    /// {"tasks":\[{"cacheTask":{"cacheItems":[{"variableName":"TEN","job":{"tasks":[{"valueTask":{"value":10}}\]}}]}},{"valueTask":{"value":100}},{"divideTask":{"big":"${TEN}"}}]}
     /// ```
     #[allow(clippy::derive_partial_eq_without_eq)]
     #[derive(Clone, PartialEq, ::prost::Message)]
@@ -431,7 +431,7 @@ pub mod oracle_job {
     /// ***Example***: Returns the numerical result by multiplying by a job of subtasks.
     ///
     /// ```text,json
-    /// {"tasks":\[{"valueTask":{"value":100}},{"multiplyTask":{"job":{"tasks":[{"valueTask":{"value":10}}]}}}\]}
+    /// {"tasks":\[{"valueTask":{"value":100}},{"multiplyTask":{"job":{"tasks":[{"valueTask":{"value":10}}\]}}}]}
     /// ```
     ///
     /// ***Example***: Returns the numerical result by multiplying by an aggregator.
@@ -443,7 +443,7 @@ pub mod oracle_job {
     /// ***Example***: Returns the numerical result by multiplying by a big.
     ///
     /// ```text,json
-    /// {"tasks":\[{"cacheTask":{"cacheItems":[{"variableName":"TEN","job":{"tasks":[{"valueTask":{"value":10}}]}}]}},{"valueTask":{"value":100}},{"multiplyTask":{"big":"${TEN}"}}\]}
+    /// {"tasks":\[{"cacheTask":{"cacheItems":[{"variableName":"TEN","job":{"tasks":[{"valueTask":{"value":10}}\]}}]}},{"valueTask":{"value":100}},{"multiplyTask":{"big":"${TEN}"}}]}
     /// ```
     #[allow(clippy::derive_partial_eq_without_eq)]
     #[derive(Clone, PartialEq, ::prost::Message)]
@@ -479,7 +479,7 @@ pub mod oracle_job {
     /// ***Example***: Returns the numerical result by adding by a job of subtasks.
     ///
     /// ```text,json
-    /// {"tasks":\[{"valueTask":{"value":100}},{"addTask":{"job":{"tasks":[{"valueTask":{"value":10}}]}}}\]}
+    /// {"tasks":\[{"valueTask":{"value":100}},{"addTask":{"job":{"tasks":[{"valueTask":{"value":10}}\]}}}]}
     /// ```
     ///
     /// ***Example***: Returns the numerical result by multiplying by an aggregator.
@@ -491,7 +491,7 @@ pub mod oracle_job {
     /// ***Example***: Returns the numerical result by multiplying by a big.
     ///
     /// ```text,json
-    /// {"tasks":\[{"cacheTask":{"cacheItems":[{"variableName":"TEN","job":{"tasks":[{"valueTask":{"value":10}}]}}]}},{"valueTask":{"value":100}},{"addTask":{"big":"${TEN}"}}\]}
+    /// {"tasks":\[{"cacheTask":{"cacheItems":[{"variableName":"TEN","job":{"tasks":[{"valueTask":{"value":10}}\]}}]}},{"valueTask":{"value":100}},{"addTask":{"big":"${TEN}"}}]}
     /// ```
     #[allow(clippy::derive_partial_eq_without_eq)]
     #[derive(Clone, PartialEq, ::prost::Message)]
@@ -527,7 +527,7 @@ pub mod oracle_job {
     /// ***Example***: Returns the numerical result by subtracting by a job of subtasks.
     ///
     /// ```text,json
-    /// {"tasks":\[{"valueTask":{"value":100}},{"subtractTask":{"job":{"tasks":[{"valueTask":{"value":10}}]}}}\]}
+    /// {"tasks":\[{"valueTask":{"value":100}},{"subtractTask":{"job":{"tasks":[{"valueTask":{"value":10}}\]}}}]}
     /// ```
     ///
     /// ***Example***: Returns the numerical result by multiplying by an aggregator.
@@ -539,7 +539,7 @@ pub mod oracle_job {
     /// ***Example***: Returns the numerical result by multiplying by a big.
     ///
     /// ```text,json
-    /// {"tasks":\[{"cacheTask":{"cacheItems":[{"variableName":"TEN","job":{"tasks":[{"valueTask":{"value":10}}]}}]}},{"valueTask":{"value":100}},{"subtractTask":{"big":"${TEN}"}}\]}
+    /// {"tasks":\[{"cacheTask":{"cacheItems":[{"variableName":"TEN","job":{"tasks":[{"valueTask":{"value":10}}\]}}]}},{"valueTask":{"value":100}},{"subtractTask":{"big":"${TEN}"}}]}
     /// ```
     #[allow(clippy::derive_partial_eq_without_eq)]
     #[derive(Clone, PartialEq, ::prost::Message)]
@@ -585,13 +585,13 @@ pub mod oracle_job {
     /// ***Example***: Fetch the fair price Orca LP token price of the SOL/USDC pool
     ///
     /// ```text,json
-    /// { "lpTokenPriceTask": { "orcaPoolAddress": "APDFRM3HMr8CAGXwKHiu2f5ePSpaiEJhaURwhsRrUUt9", "useFairPrice": true, "priceFeedAddresses": [ "GvDMxPzN1sCj7L26YDK2HnMRXEQmQ2aemov8YBtPS7vR", "BjUgj6YCnFBZ49wF54ddBVA9qu8TeqkFtkbqmZcee8uW" ] } }
+    /// { "lpTokenPriceTask": { "orcaPoolAddress": "APDFRM3HMr8CAGXwKHiu2f5ePSpaiEJhaURwhsRrUUt9", "useFairPrice": true, "priceFeedAddresses": \[ "GvDMxPzN1sCj7L26YDK2HnMRXEQmQ2aemov8YBtPS7vR", "BjUgj6YCnFBZ49wF54ddBVA9qu8TeqkFtkbqmZcee8uW" \] } }
     /// ```
     ///
     /// ***Example***: Fetch the fair price Raydium LP token price of the SOL/USDC pool
     ///
     /// ```text,json
-    /// { "lpTokenPriceTask": { "raydiumPoolAddress": "58oQChx4yWmvKdwLLZzBi4ChoCc2fqCUWBkwMihLYQo2", "useFairPrice": true,"priceFeedAddresses": ["GvDMxPzN1sCj7L26YDK2HnMRXEQmQ2aemov8YBtPS7vR","BjUgj6YCnFBZ49wF54ddBVA9qu8TeqkFtkbqmZcee8uW" ] } }
+    /// { "lpTokenPriceTask": { "raydiumPoolAddress": "58oQChx4yWmvKdwLLZzBi4ChoCc2fqCUWBkwMihLYQo2", "useFairPrice": true,"priceFeedAddresses": \["GvDMxPzN1sCj7L26YDK2HnMRXEQmQ2aemov8YBtPS7vR","BjUgj6YCnFBZ49wF54ddBVA9qu8TeqkFtkbqmZcee8uW" \] } }
     /// ```
     #[allow(clippy::derive_partial_eq_without_eq)]
     #[derive(Clone, PartialEq, ::prost::Message)]
@@ -869,6 +869,9 @@ pub mod oracle_job {
         /// / The output token address.
         #[prost(string, optional, tag = "2")]
         pub out_token_address: ::core::option::Option<::prost::alloc::string::String>,
+        /// / The allowable slippage on the swap in decimal form (e.g. 0.5 is 0.5% slippage)
+        #[prost(double, optional, tag = "9")]
+        pub slippage: ::core::option::Option<f64>,
         #[prost(oneof = "jupiter_swap_task::RoutesFilters", tags = "4, 5")]
         pub routes_filters: ::core::option::Option<jupiter_swap_task::RoutesFilters>,
         #[prost(oneof = "jupiter_swap_task::SwapAmount", tags = "3, 6, 7, 8")]
@@ -1124,7 +1127,7 @@ pub mod oracle_job {
     /// ***Example***: CacheTask storing ${ONE} = 1
     ///
     /// ```text,json
-    /// { "cacheTask": { "cacheItems": [ { "variableName": "ONE", "job": { "tasks": [ { "valueTask": { "value": 1 } } ] } } ] } }
+    /// { "cacheTask": { "cacheItems": \[ { "variableName": "ONE", "job": { "tasks": [ { "valueTask": { "value": 1 } } \] } } ] } }
     /// ```
     #[allow(clippy::derive_partial_eq_without_eq)]
     #[derive(Clone, PartialEq, ::prost::Message)]
@@ -1625,7 +1628,7 @@ pub mod oracle_job {
             /// ***Example***: HttpTask example with headers
             ///
             /// ```text,json
-            /// { "httpTask": { "url": "<https://mywebsite.org/path",> "method": "METHOD_POST", "headers": [ { "key": "MY_HEADER_KEY", "value": "MY_HEADER_VALUE" } ], "body": "{\"MY_BODY_KEY\":\"MY_BODY_VALUE\"}" } }
+            /// { "httpTask": { "url": "<https://mywebsite.org/path",> "method": "METHOD_POST", "headers": \[ { "key": "MY_HEADER_KEY", "value": "MY_HEADER_VALUE" } \], "body": "{\"MY_BODY_KEY\":\"MY_BODY_VALUE\"}" } }
             /// ```
             #[prost(message, tag = "1")]
             HttpTask(super::HttpTask),
@@ -1652,13 +1655,13 @@ pub mod oracle_job {
             /// ***Example***: Returns the median numerical result of 3 tasks.
             ///
             /// ```text,json
-            /// {"medianTask": {"tasks": [{"valueTask": {"value": 10}},{"valueTask": {"value": 20}},{"valueTask": {"value": 30}}]}}
+            /// {"medianTask": {"tasks": \[{"valueTask": {"value": 10}},{"valueTask": {"value": 20}},{"valueTask": {"value": 30}}\]}}
             /// ```
             ///
             /// ***Example***: Returns the median numerical result of 3 jobs.
             ///
             /// ```text,json
-            /// {"medianTask": {"jobs": [{"tasks": [{"httpTask": {"url": "<https://www.binance.com/api/v3/ticker/price?symbol=SOLUSDT"}},{"jsonParseTask":> {"path": "$.price"}}]},{"tasks": [{"httpTask": {"url": "<https://www.binance.us/api/v3/ticker/price?symbol=SOLUSD"}},{"jsonParseTask":> {"path": "$.price"}}]},{"tasks": [{"httpTask": {"url": "<https://api-pub.bitfinex.com/v2/tickers?symbols=tSOLUSD"}},{"jsonParseTask":> {"path": "$\[0][7]"}}]}\]}}
+            /// {"medianTask": {"jobs": \[{"tasks": [{"httpTask": {"url": "<https://www.binance.com/api/v3/ticker/price?symbol=SOLUSDT"}},{"jsonParseTask":> {"path": "$.price"}}\]},{"tasks": \[{"httpTask": {"url": "<https://www.binance.us/api/v3/ticker/price?symbol=SOLUSD"}},{"jsonParseTask":> {"path": "$.price"}}\]},{"tasks": [{"httpTask": {"url": "<https://api-pub.bitfinex.com/v2/tickers?symbols=tSOLUSD"}},{"jsonParseTask":> {"path": "$[0][7]"}}]}]}}
             /// ```
             #[prost(message, tag = "4")]
             MedianTask(super::MedianTask),
@@ -1671,13 +1674,13 @@ pub mod oracle_job {
             /// ***Example***: Returns the mean numerical result of 3 tasks.
             ///
             /// ```text,json
-            /// {"meanTask": {"tasks": [{"valueTask": {"value": 10}},{"valueTask": {"value": 20}},{"valueTask": {"value": 30}}]}}
+            /// {"meanTask": {"tasks": \[{"valueTask": {"value": 10}},{"valueTask": {"value": 20}},{"valueTask": {"value": 30}}\]}}
             /// ```
             ///
             /// ***Example***: Returns the mean numerical result of 3 jobs.
             ///
             /// ```text,json
-            /// {"meanTask": {"jobs": [{"tasks": [{"httpTask": {"url": "<https://www.binance.com/api/v3/ticker/price?symbol=SOLUSDT"}},{"jsonParseTask":> {"path": "$.price"}}]},{"tasks": [{"httpTask": {"url": "<https://www.binance.us/api/v3/ticker/price?symbol=SOLUSD"}},{"jsonParseTask":> {"path": "$.price"}}]},{"tasks": [{"httpTask": {"url": "<https://api-pub.bitfinex.com/v2/tickers?symbols=tSOLUSD"}},{"jsonParseTask":> {"path": "$\[0][7]"}}]}\]}}
+            /// {"meanTask": {"jobs": \[{"tasks": [{"httpTask": {"url": "<https://www.binance.com/api/v3/ticker/price?symbol=SOLUSDT"}},{"jsonParseTask":> {"path": "$.price"}}\]},{"tasks": \[{"httpTask": {"url": "<https://www.binance.us/api/v3/ticker/price?symbol=SOLUSD"}},{"jsonParseTask":> {"path": "$.price"}}\]},{"tasks": [{"httpTask": {"url": "<https://api-pub.bitfinex.com/v2/tickers?symbols=tSOLUSD"}},{"jsonParseTask":> {"path": "$[0][7]"}}]}]}}
             /// ```
             #[prost(message, tag = "5")]
             MeanTask(super::MeanTask),
@@ -1690,7 +1693,7 @@ pub mod oracle_job {
             /// ***Example***: Opens a coinbase websocket
             ///
             /// ```text,json
-            /// { "websocketTask": { "url": "wss://ws-feed.pro.coinbase.com", "subscription": "{\"type\":\"subscribe\",\"product_ids\":\[\"BTC-USD\"],\"channels\":[\"ticker\",{\"name\":\"ticker\",\"product_ids\":[\"BTC-USD\"]}\]}", "maxDataAgeSeconds": 15, "filter": "$[?(@.type == 'ticker' && @.product_id == 'BTC-USD')]" } }
+            /// { "websocketTask": { "url": "wss://ws-feed.pro.coinbase.com", "subscription": "{\"type\":\"subscribe\",\"product_ids\":\[\"BTC-USD\"\],\"channels\":\[\"ticker\",{\"name\":\"ticker\",\"product_ids\":[\"BTC-USD\"\]}]}", "maxDataAgeSeconds": 15, "filter": "$\[?(@.type == 'ticker' && @.product_id == 'BTC-USD')\]" } }
             /// ```
             #[prost(message, tag = "6")]
             WebsocketTask(super::WebsocketTask),
@@ -1703,7 +1706,7 @@ pub mod oracle_job {
             /// ***Example***: Returns the numerical result by dividing by a job of subtasks.
             ///
             /// ```text,json
-            /// {"tasks":\[{"valueTask":{"value":100}},{"divideTask":{"job":{"tasks":[{"valueTask":{"value":10}}]}}}\]}
+            /// {"tasks":\[{"valueTask":{"value":100}},{"divideTask":{"job":{"tasks":[{"valueTask":{"value":10}}\]}}}]}
             /// ```
             ///
             /// ***Example***: Returns the numerical result by dividing by an aggregator.
@@ -1715,7 +1718,7 @@ pub mod oracle_job {
             /// ***Example***: Returns the numerical result by dividing by a big.
             ///
             /// ```text,json
-            /// {"tasks":\[{"cacheTask":{"cacheItems":[{"variableName":"TEN","job":{"tasks":[{"valueTask":{"value":10}}]}}]}},{"valueTask":{"value":100}},{"divideTask":{"big":"${TEN}"}}\]}
+            /// {"tasks":\[{"cacheTask":{"cacheItems":[{"variableName":"TEN","job":{"tasks":[{"valueTask":{"value":10}}\]}}]}},{"valueTask":{"value":100}},{"divideTask":{"big":"${TEN}"}}]}
             /// ```
             #[prost(message, tag = "7")]
             DivideTask(super::DivideTask),
@@ -1728,7 +1731,7 @@ pub mod oracle_job {
             /// ***Example***: Returns the numerical result by multiplying by a job of subtasks.
             ///
             /// ```text,json
-            /// {"tasks":\[{"valueTask":{"value":100}},{"multiplyTask":{"job":{"tasks":[{"valueTask":{"value":10}}]}}}\]}
+            /// {"tasks":\[{"valueTask":{"value":100}},{"multiplyTask":{"job":{"tasks":[{"valueTask":{"value":10}}\]}}}]}
             /// ```
             ///
             /// ***Example***: Returns the numerical result by multiplying by an aggregator.
@@ -1740,7 +1743,7 @@ pub mod oracle_job {
             /// ***Example***: Returns the numerical result by multiplying by a big.
             ///
             /// ```text,json
-            /// {"tasks":\[{"cacheTask":{"cacheItems":[{"variableName":"TEN","job":{"tasks":[{"valueTask":{"value":10}}]}}]}},{"valueTask":{"value":100}},{"multiplyTask":{"big":"${TEN}"}}\]}
+            /// {"tasks":\[{"cacheTask":{"cacheItems":[{"variableName":"TEN","job":{"tasks":[{"valueTask":{"value":10}}\]}}]}},{"valueTask":{"value":100}},{"multiplyTask":{"big":"${TEN}"}}]}
             /// ```
             #[prost(message, tag = "8")]
             MultiplyTask(super::MultiplyTask),
@@ -1763,13 +1766,13 @@ pub mod oracle_job {
             /// ***Example***: Fetch the fair price Orca LP token price of the SOL/USDC pool
             ///
             /// ```text,json
-            /// { "lpTokenPriceTask": { "orcaPoolAddress": "APDFRM3HMr8CAGXwKHiu2f5ePSpaiEJhaURwhsRrUUt9", "useFairPrice": true, "priceFeedAddresses": [ "GvDMxPzN1sCj7L26YDK2HnMRXEQmQ2aemov8YBtPS7vR", "BjUgj6YCnFBZ49wF54ddBVA9qu8TeqkFtkbqmZcee8uW" ] } }
+            /// { "lpTokenPriceTask": { "orcaPoolAddress": "APDFRM3HMr8CAGXwKHiu2f5ePSpaiEJhaURwhsRrUUt9", "useFairPrice": true, "priceFeedAddresses": \[ "GvDMxPzN1sCj7L26YDK2HnMRXEQmQ2aemov8YBtPS7vR", "BjUgj6YCnFBZ49wF54ddBVA9qu8TeqkFtkbqmZcee8uW" \] } }
             /// ```
             ///
             /// ***Example***: Fetch the fair price Raydium LP token price of the SOL/USDC pool
             ///
             /// ```text,json
-            /// { "lpTokenPriceTask": { "raydiumPoolAddress": "58oQChx4yWmvKdwLLZzBi4ChoCc2fqCUWBkwMihLYQo2", "useFairPrice": true,"priceFeedAddresses": ["GvDMxPzN1sCj7L26YDK2HnMRXEQmQ2aemov8YBtPS7vR","BjUgj6YCnFBZ49wF54ddBVA9qu8TeqkFtkbqmZcee8uW" ] } }
+            /// { "lpTokenPriceTask": { "raydiumPoolAddress": "58oQChx4yWmvKdwLLZzBi4ChoCc2fqCUWBkwMihLYQo2", "useFairPrice": true,"priceFeedAddresses": \["GvDMxPzN1sCj7L26YDK2HnMRXEQmQ2aemov8YBtPS7vR","BjUgj6YCnFBZ49wF54ddBVA9qu8TeqkFtkbqmZcee8uW" \] } }
             /// ```
             #[prost(message, tag = "9")]
             LpTokenPriceTask(super::LpTokenPriceTask),
@@ -1801,7 +1804,7 @@ pub mod oracle_job {
             /// ***Example***: Returns the numerical result from the conditionalTask's subtasks, else `on_failure` returns the numerical result from its subtasks.
             ///
             /// ```text,json
-            /// {"conditionalTask":{"attempt":\[{"tasks":[{"jupiterSwapTask":{"inTokenAddress":"EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v","outTokenAddress":"DUALa4FC2yREwZ59PHeu1un4wis36vHRv5hWVBmzykCJ"}}]}],"onFailure":[{"lpExchangeRateTask":{"orcaPoolAddress":"7yJ4gMRJhEoCR48aPE3EAWRmCoygakik81ZS1sajaTnE"}}\]}}
+            /// {"conditionalTask":{"attempt":\[{"tasks":[{"jupiterSwapTask":{"inTokenAddress":"EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v","outTokenAddress":"DUALa4FC2yREwZ59PHeu1un4wis36vHRv5hWVBmzykCJ"}}\]}],"onFailure":\[{"lpExchangeRateTask":{"orcaPoolAddress":"7yJ4gMRJhEoCR48aPE3EAWRmCoygakik81ZS1sajaTnE"}}\]}}
             /// ```
             #[prost(message, tag = "11")]
             ConditionalTask(super::ConditionalTask),
@@ -1839,13 +1842,13 @@ pub mod oracle_job {
             /// ***Example***: Returns the maximum numerical result from 3 tasks.
             ///
             /// ```text,json
-            /// {"maxTask": {"tasks": [{"valueTask": {"value": 10}},{"valueTask": {"value": 20}},{"valueTask": {"value": 30}}]}}
+            /// {"maxTask": {"tasks": \[{"valueTask": {"value": 10}},{"valueTask": {"value": 20}},{"valueTask": {"value": 30}}\]}}
             /// ```
             ///
             /// ***Example***: Returns the minimum numerical result from 3 jobs.
             ///
             /// ```text,json
-            /// {"maxTask": {"jobs": [{"tasks": [{"httpTask": {"url": "<https://www.binance.com/api/v3/ticker/price?symbol=SOLUSDT"}},{"jsonParseTask":> {"path": "$.price"}}]},{"tasks": [{"httpTask": {"url": "<https://www.binance.us/api/v3/ticker/price?symbol=SOLUSD"}},{"jsonParseTask":> {"path": "$.price"}}]},{"tasks": [{"httpTask": {"url": "<https://api-pub.bitfinex.com/v2/tickers?symbols=tSOLUSD"}},{"jsonParseTask":> {"path": "$\[0][7]"}}]}\]}}
+            /// {"maxTask": {"jobs": \[{"tasks": [{"httpTask": {"url": "<https://www.binance.com/api/v3/ticker/price?symbol=SOLUSDT"}},{"jsonParseTask":> {"path": "$.price"}}\]},{"tasks": \[{"httpTask": {"url": "<https://www.binance.us/api/v3/ticker/price?symbol=SOLUSD"}},{"jsonParseTask":> {"path": "$.price"}}\]},{"tasks": [{"httpTask": {"url": "<https://api-pub.bitfinex.com/v2/tickers?symbols=tSOLUSD"}},{"jsonParseTask":> {"path": "$[0][7]"}}]}]}}
             /// ```
             #[prost(message, tag = "13")]
             MaxTask(super::MaxTask),
@@ -1862,7 +1865,7 @@ pub mod oracle_job {
             /// ***Example***: Returns the numerical result by adding by a job of subtasks.
             ///
             /// ```text,json
-            /// {"tasks":\[{"valueTask":{"value":100}},{"addTask":{"job":{"tasks":[{"valueTask":{"value":10}}]}}}\]}
+            /// {"tasks":\[{"valueTask":{"value":100}},{"addTask":{"job":{"tasks":[{"valueTask":{"value":10}}\]}}}]}
             /// ```
             ///
             /// ***Example***: Returns the numerical result by multiplying by an aggregator.
@@ -1874,7 +1877,7 @@ pub mod oracle_job {
             /// ***Example***: Returns the numerical result by multiplying by a big.
             ///
             /// ```text,json
-            /// {"tasks":\[{"cacheTask":{"cacheItems":[{"variableName":"TEN","job":{"tasks":[{"valueTask":{"value":10}}]}}]}},{"valueTask":{"value":100}},{"addTask":{"big":"${TEN}"}}\]}
+            /// {"tasks":\[{"cacheTask":{"cacheItems":[{"variableName":"TEN","job":{"tasks":[{"valueTask":{"value":10}}\]}}]}},{"valueTask":{"value":100}},{"addTask":{"big":"${TEN}"}}]}
             /// ```
             #[prost(message, tag = "16")]
             AddTask(super::AddTask),
@@ -1887,7 +1890,7 @@ pub mod oracle_job {
             /// ***Example***: Returns the numerical result by subtracting by a job of subtasks.
             ///
             /// ```text,json
-            /// {"tasks":\[{"valueTask":{"value":100}},{"subtractTask":{"job":{"tasks":[{"valueTask":{"value":10}}]}}}\]}
+            /// {"tasks":\[{"valueTask":{"value":100}},{"subtractTask":{"job":{"tasks":[{"valueTask":{"value":10}}\]}}}]}
             /// ```
             ///
             /// ***Example***: Returns the numerical result by multiplying by an aggregator.
@@ -1899,7 +1902,7 @@ pub mod oracle_job {
             /// ***Example***: Returns the numerical result by multiplying by a big.
             ///
             /// ```text,json
-            /// {"tasks":\[{"cacheTask":{"cacheItems":[{"variableName":"TEN","job":{"tasks":[{"valueTask":{"value":10}}]}}]}},{"valueTask":{"value":100}},{"subtractTask":{"big":"${TEN}"}}\]}
+            /// {"tasks":\[{"cacheTask":{"cacheItems":[{"variableName":"TEN","job":{"tasks":[{"valueTask":{"value":10}}\]}}]}},{"valueTask":{"value":100}},{"subtractTask":{"big":"${TEN}"}}]}
             /// ```
             #[prost(message, tag = "17")]
             SubtractTask(super::SubtractTask),
@@ -2006,7 +2009,7 @@ pub mod oracle_job {
             /// ***Example***: CacheTask storing ${ONE} = 1
             ///
             /// ```text,json
-            /// { "cacheTask": { "cacheItems": [ { "variableName": "ONE", "job": { "tasks": [ { "valueTask": { "value": 1 } } ] } } ] } }
+            /// { "cacheTask": { "cacheItems": \[ { "variableName": "ONE", "job": { "tasks": [ { "valueTask": { "value": 1 } } \] } } ] } }
             /// ```
             #[prost(message, tag = "34")]
             CacheTask(super::CacheTask),
@@ -2046,13 +2049,13 @@ pub mod oracle_job {
             /// ***Example***: Returns the minimum numerical result from 3 tasks.
             ///
             /// ```text,json
-            /// {"minTask": {"tasks": [{"valueTask": {"value": 10}},{"valueTask": {"value": 20}},{"valueTask": {"value": 30}}]}}
+            /// {"minTask": {"tasks": \[{"valueTask": {"value": 10}},{"valueTask": {"value": 20}},{"valueTask": {"value": 30}}\]}}
             /// ```
             ///
             /// ***Example***: Returns the minimum numerical result from 3 jobs.
             ///
             /// ```text,json
-            /// {"minTask": {"jobs": [{"tasks": [{"httpTask": {"url": "<https://www.binance.com/api/v3/ticker/price?symbol=SOLUSDT"}},{"jsonParseTask":> {"path": "$.price"}}]},{"tasks": [{"httpTask": {"url": "<https://www.binance.us/api/v3/ticker/price?symbol=SOLUSD"}},{"jsonParseTask":> {"path": "$.price"}}]},{"tasks": [{"httpTask": {"url": "<https://api-pub.bitfinex.com/v2/tickers?symbols=tSOLUSD"}},{"jsonParseTask":> {"path": "$\[0][7]"}}]}\]}}
+            /// {"minTask": {"jobs": \[{"tasks": [{"httpTask": {"url": "<https://www.binance.com/api/v3/ticker/price?symbol=SOLUSDT"}},{"jsonParseTask":> {"path": "$.price"}}\]},{"tasks": \[{"httpTask": {"url": "<https://www.binance.us/api/v3/ticker/price?symbol=SOLUSD"}},{"jsonParseTask":> {"path": "$.price"}}\]},{"tasks": [{"httpTask": {"url": "<https://api-pub.bitfinex.com/v2/tickers?symbols=tSOLUSD"}},{"jsonParseTask":> {"path": "$[0][7]"}}]}]}}
             /// ```
             #[prost(message, tag = "40")]
             MinTask(super::MinTask),

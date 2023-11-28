@@ -4,22 +4,27 @@ use std::fmt;
 use std::fmt::Debug;
 use std::sync::Arc;
 
+type ParentError = Arc<dyn StdError + Send + Sync + 'static>;
+
 /// Switchboard Functions error suite
 #[derive(Clone, Debug)]
-pub enum Error {
+pub enum SbError {
     // Generics
     Generic,
-
+    Message(&'static str),
     CustomMessage(String),
     CustomError {
         message: String,
-        source: Arc<dyn StdError + 'static>,
+        source: ParentError,
     },
     Unexpected,
     // Environment Errors
     EnvVariableMissing(String),
     InvalidKeypairFile,
     KeyParseError,
+    CheckSizeError,
+
+    IoError(ParentError),
 
     // SGX Errors
     SgxError,
@@ -32,12 +37,25 @@ pub enum Error {
     QuoteParseError,
     InvalidQuoteError,
 
+    // QvnErrors
+    QvnError(Arc<String>),
+
     // Docker/Container Errors
     DockerError,
-    ContainerStartError,
-    ContainerCreateError,
+    DockerFetchError,
+    FunctionImageTooBigError,
+    ContainerErrorMessage(String),
+    ContainerError(ParentError),
+    ContainerStartError(ParentError),
+    ContainerCreateError(ParentError),
+    ContainerNeedsUpdate,
+    // ContainerCreateError,
     ContainerResultParseError,
     AttachError,
+    ContainerTimeout,
+    ContainerActive,
+    ContainerBackoff(u64),
+    FunctionErrorCountExceeded(u32),
 
     // Function Errors
     FunctionResultParseError,
@@ -57,6 +75,7 @@ pub enum Error {
     InvalidInstructionError,
 
     // Chain specific Errors
+    InvalidChain,
     AnchorParse,
     AnchorParseError,
     EvmError,
@@ -68,54 +87,103 @@ pub enum Error {
     EventListenerRoutineFailure,
     DecryptError,
     ParseError,
+    MrEnclaveMismatch,
+    FunctionResultIxIncorrectTargetChain,
+    InvalidSignature,
+
+    // Solana
+    SolanaBlockhashError,
+    SolanaSignError(ParentError, String),
+    FunctionResultIxMissingDiscriminator,
+    FunctionResultError(&'static str),
+    FunctionResultIxError(&'static str),
+    // An error which should fail to send the user generated transaction and should emit an error code
+    FunctionResultFailoverError(u8, ParentError),
+    // An error which should not be retried and should be dropped by the QVN.
+    FunctionResultNonRetryableError(ParentError),
+
+    AccountNotFound,
 }
 
-impl fmt::Display for Error {
+impl fmt::Display for SbError {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
         match self {
-            Error::EnvVariableMissing(message) => {
+            SbError::EnvVariableMissing(message) => {
                 write!(f, "Env variable missing: {}", message.as_str())
             }
-            Error::CustomMessage(message) => write!(f, "error: {}", message.as_str()),
-            Error::CustomError {
+            SbError::Message(message) => write!(f, "error: {}", message),
+            SbError::CustomMessage(message) => write!(f, "error: {}", message.as_str()),
+            SbError::CustomError {
                 message, source, ..
             } => write!(f, "error: {} - {:?}", message.as_str(), source),
+            SbError::FunctionResultError(message) => {
+                write!(f, "error: FunctionResultError - {}", message)
+            }
+            SbError::FunctionResultIxError(message) => {
+                write!(f, "error: FunctionResultIxError - {}", message)
+            }
+            SbError::FunctionResultFailoverError(code, source) => {
+                write!(
+                    f,
+                    "error: FunctionResultFailoverError ({}) - {:?}",
+                    code, source
+                )
+            }
+            SbError::FunctionResultNonRetryableError(source) => {
+                write!(f, "error: FunctionResultNonRetryableError - {:?}", source)
+            }
             // Handle other error variants as needed
             _ => write!(f, "{:#?}", self),
         }
     }
 }
 
-impl From<&str> for Error {
+impl From<&str> for SbError {
     fn from(error: &str) -> Self {
-        Error::CustomMessage(error.to_string())
+        SbError::CustomMessage(error.to_string())
+    }
+}
+impl From<String> for SbError {
+    fn from(error: String) -> Self {
+        SbError::CustomMessage(error)
     }
 }
 
-impl From<hex::FromHexError> for Error {
+impl From<hex::FromHexError> for SbError {
     fn from(error: hex::FromHexError) -> Self {
-        Error::CustomError {
+        SbError::CustomError {
             message: "hex error".to_string(),
             source: Arc::new(error),
         }
     }
 }
 
-impl StdError for Error {
+impl StdError for SbError {
     fn source(&self) -> Option<&(dyn StdError + 'static)> {
         match self {
-            Error::CustomError { source, .. } => Some(source.as_ref()), // Handle other error variants as needed
+            SbError::CustomError { source, .. } => Some(source.as_ref()), // Handle other error variants as needed
+            SbError::ContainerError(source) => Some(source.as_ref()),
+            SbError::ContainerStartError(source) => Some(source.as_ref()),
+            SbError::SolanaSignError(source, ..) => Some(source.as_ref()),
+            SbError::FunctionResultFailoverError(_code, source, ..) => Some(source.as_ref()),
+            SbError::FunctionResultNonRetryableError(source, ..) => Some(source.as_ref()),
             _ => None,
         }
     }
 }
 
-impl From<SerdeJsonError> for Error {
+impl From<SerdeJsonError> for SbError {
     fn from(error: SerdeJsonError) -> Self {
-        Error::CustomError {
+        SbError::CustomError {
             message: "serde_json error".to_string(),
             source: Arc::new(error),
         }
+    }
+}
+
+impl From<std::io::Error> for SbError {
+    fn from(val: std::io::Error) -> Self {
+        SbError::IoError(std::sync::Arc::new(val))
     }
 }
 
@@ -125,32 +193,32 @@ mod tests {
 
     #[test]
     fn display_generic() {
-        let error = Error::Generic;
+        let error = SbError::Generic;
         assert_eq!(format!("{}", error), "Generic");
     }
 
     #[test]
     fn display_custom_message() {
-        let error = Error::CustomMessage("my custom message".to_string());
+        let error = SbError::CustomMessage("my custom message".to_string());
         assert_eq!(format!("{}", error), "error: my custom message");
     }
 
     #[test]
     fn display_env_variable_missing() {
-        let error = Error::EnvVariableMissing("MY_ENV_VAR".to_string());
+        let error = SbError::EnvVariableMissing("MY_ENV_VAR".to_string());
         assert_eq!(format!("{}", error), "Env variable missing: MY_ENV_VAR");
     }
 
     #[test]
     fn from_str() {
-        let error: Error = "my custom message".into();
+        let error: SbError = "my custom message".into();
         assert_eq!(format!("{}", error), "error: my custom message");
     }
 
     #[test]
     fn from_hex_error() {
         let hex_error = hex::FromHexError::OddLength;
-        let error: Error = hex_error.into();
+        let error: SbError = hex_error.into();
         assert_eq!(format!("{}", error), "error: hex error - OddLength");
     }
 
@@ -158,7 +226,7 @@ mod tests {
     fn from_serde_json_error() {
         let json = "\"";
         let serde_json_error = serde_json::from_str::<serde_json::Value>(json).unwrap_err();
-        let error: Error = serde_json_error.into();
+        let error: SbError = serde_json_error.into();
         assert!(format!("{}", error).starts_with("error: serde_json error - "));
     }
 }

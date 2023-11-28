@@ -1,43 +1,47 @@
 {
   "name": "@switchboard-xyz/cli",
-  "version": "3.2.6",
+  "version": "3.3.12",
   "description": "command line tool to interact with switchboard",
-  "author": "gallynaut @gallynaut",
-  "bin": {
-    "sb": "./bin/run"
-  },
+  "keywords": [
+    "oclif"
+  ],
   "homepage": "https://docs.switchboard.xyz",
-  "license": "MIT",
+  "bugs": "https://github.com/switchboard-xyz/core-sdk/tree/main/cli/issues",
   "repository": {
     "type": "git",
     "url": "https://github.com/switchboard-xyz/core-sdk",
     "directory": "cli"
   },
-  "bugs": "https://github.com/switchboard-xyz/core-sdk/tree/main/cli/issues",
+  "license": "MIT",
+  "author": "gallynaut @gallynaut",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "bin": {
+    "sb": "./bin/run"
+  },
   "files": [
     "/bin",
     "/dist",
     "/npm-shrinkwrap.json",
     "/oclif.manifest.json"
   ],
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
   "scripts": {
     "build": "pnpm exec shx rm -rf dist || true; pnpm exec tsc",
-    "watch": "pnpm exec tsc --watch",
-    "postpack": "pnpm exec shx rm -f oclif.manifest.json",
-    "prepack": "pnpm lint && pnpm build && pnpm exec oclif manifest && pnpm exec oclif readme",
-    "test": "pnpm exec mocha --forbid-only \"test/**/*.test.ts\"",
-    "version": "pnpm exec oclif readme && git add README.md",
-    "lint": "pnpm exec eslint src/**/*.ts",
     "clean": "pnpm exec rimraf node_modules dist .turbo",
     "fix": "pnpm exec eslint --fix src/**/*.ts",
-    "uprev:sb": "pnpm add @switchboard-xyz/aptos.js@latest @switchboard-xyz/near.js@latest @switchboard-xyz/solana.js@latest"
+    "lint": "pnpm exec eslint src/**/*.ts",
+    "prepack": "pnpm lint && pnpm build && pnpm exec oclif manifest && pnpm exec oclif readme",
+    "postpack": "pnpm exec shx rm -f oclif.manifest.json",
+    "test": "pnpm exec mocha --forbid-only \"test/**/*.test.ts\"",
+    "uprev:sb": "pnpm add @switchboard-xyz/aptos.js@latest @switchboard-xyz/solana.js@latest",
+    "version": "pnpm exec oclif readme && git add README.md",
+    "watch": "pnpm exec tsc --watch"
   },
   "dependencies": {
     "@aws-sdk/client-secrets-manager": "^3.154.0",
     "@aws-sdk/credential-providers": "^3.157.0",
     "@coral-xyz/anchor": "^0.28.0",
+    "@coral-xyz/borsh": "^0.28.0",
     "@google-cloud/secret-manager": "^3.10.1",
     "@ledgerhq/hw-app-solana": "^7.0.2",
     "@ledgerhq/hw-transport-node-hid-singleton": "^6.28.5",
@@ -50,14 +54,15 @@
     "@oclif/plugin-warn-if-update-available": "^2.0.48",
     "@solana/spl-token": "^0.3.8",
     "@solana/web3.js": "^1.78.3",
-    "@switchboard-xyz/aptos.js": "^2.6.10",
-    "@switchboard-xyz/common": "workspace:^2.3.6",
-    "@switchboard-xyz/evm.js": "~3.12.32",
-    "@switchboard-xyz/near.js": "^2.2.4",
-    "@switchboard-xyz/oracle": "workspace:^2.1.13",
-    "@switchboard-xyz/solana.js": "^2.7.0",
+    "@switchboard-xyz/common": "^2.3.9",
+    "@switchboard-xyz/solana.js": "^3.1.2",
+    "@switchboard-xyz/oracle": "^2.1.13",
+    "@switchboard-xyz/function-simulator": "^1.0.2",
+    "@switchboard-xyz/evm.js": "^3.12.36",
+    "@switchboard-xyz/aptos.js": "^2.6.11",
     "@terascope/fetch-github-release": "^0.8.7",
     "aptos": "^1.11.0",
+    "async-csp": "^0.5.0",
     "aws-sdk": "^2.1167.0",
     "bs58": "^5.0.0",
     "chalk": "4",
@@ -65,10 +70,9 @@
     "dotenv": "^16.0.3",
     "ethers": "^5.7.2",
     "fast-glob": "^3.3.1",
+    "json-colorizer": "^2.2.2",
     "listr": "^0.14.3",
     "lodash": "^4.17.21",
-    "near-api-js": "^2.1.3",
-    "near-units": "^0.1.9",
     "node-fetch": "^2.6.1",
     "npm-run-all": "^4.1.5",
     "oclif": "^3.11.3",
@@ -90,7 +94,7 @@
     "@typescript-eslint/eslint-plugin": "^5.27.1",
     "@typescript-eslint/parser": "^5.5.0",
     "chai": "^4",
-    "eslint": "^8.23.0",
+    "eslint": "^8.44.0",
     "eslint-config-airbnb-typescript": "^17.0.0",
     "eslint-config-oclif": "^3.1.0",
     "eslint-config-oclif-typescript": "^1.0.2",
@@ -105,6 +109,9 @@
     "shx": "^0.3.4",
     "ts-node": "^10.9.1",
     "tslib": "^2.3.1"
+  },
+  "engines": {
+    "node": ">=12.0.0"
   },
   "oclif": {
     "additionalHelpFlags": [
@@ -200,37 +207,7 @@
       },
       "aptos:print": {
         "description": "find and print a switchboard account by public key"
-      },
-      "near": {
-        "description": "interact with switchboard on Near"
-      },
-      "near:aggregator": {
-        "description": "interact with a switchboard aggregator account"
-      },
-      "near:lease": {
-        "description": "interact with a switchboard lease account"
-      },
-      "near:crank": {
-        "description": "interact with a switchboard crank account"
-      },
-      "near:queue": {
-        "description": "interact with a switchboard oracle queue account"
-      },
-      "near:job": {
-        "description": "interact with a switchboard job account"
-      },
-      "near:oracle": {
-        "description": "interact with a switchboard oracle account"
-      },
-      "near:print": {
-        "description": "find and print a switchboard account by public key"
       }
     }
-  },
-  "engines": {
-    "node": ">=12.0.0"
-  },
-  "keywords": [
-    "oclif"
-  ]
+  }
 }

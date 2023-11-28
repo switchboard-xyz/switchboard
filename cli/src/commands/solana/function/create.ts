@@ -24,6 +24,7 @@ export default class FunctionCreate extends BaseCommand {
 
   static flags = {
     ...BaseCommand.flags,
+    // Metadata
     name: Flags.string({
       char: "n",
       description: "name of the function for easier identification",
@@ -43,12 +44,8 @@ export default class FunctionCreate extends BaseCommand {
       description: "token amount to load into the function's escrow wallet.",
       default: "0.0",
     }),
-    schedule: Flags.string({
-      description:
-        "the cron schedule to execute the function periodically (Ex. '15 * * * * *' will execute the function every 15 seconds)",
-      required: false,
-      default: "",
-    }),
+
+    // Container Config
     container: Flags.string({
       description:
         "the location of the container (Ex. switchboardlabs/basic-oracle-function)",
@@ -69,7 +66,9 @@ export default class FunctionCreate extends BaseCommand {
       description:
         "the MrEnclave value to set for the function - if not provided, will be set automatically after its first run",
     }),
-    requestsDisabled: Flags.string({
+
+    // Requests Config
+    requestsDisabled: Flags.boolean({
       description: "whether custom requests can be created for this function",
     }),
     requestsFee: Flags.string({
@@ -78,10 +77,26 @@ export default class FunctionCreate extends BaseCommand {
         "the costs each request must pay the function authority for each sub-request (Ex. 0.00002)",
       default: "0.0",
     }),
-    requestsRequireAuthorization: Flags.string({
+    requestsRequireAuthorization: Flags.boolean({
       description:
         "whether custom requests require the function authority to authorize",
     }),
+
+    // Routines Config
+    routinesDisabled: Flags.boolean({
+      description: "whether custom routines can be created for this function",
+    }),
+    routinesFee: Flags.string({
+      required: false,
+      description:
+        "the costs each routine must pay the function authority for each sub-request (Ex. 0.00002)",
+      default: "0.0",
+    }),
+    routinesRequireAuthorization: Flags.boolean({
+      description:
+        "whether custom routines require the function authority to authorize",
+    }),
+
     // enable: Flags.boolean({
     //   description: "enable oracle heartbeat permissions",
     // }),
@@ -143,15 +158,31 @@ export default class FunctionCreate extends BaseCommand {
       this.program,
       this.payer,
       {
+        // Metadata Config
         name: flags.name,
         metadata: flags.metadata,
+
+        // Accounts
         authority: authority,
-        schedule: flags.schedule,
+        attestationQueue: attestationQueueAccount,
+
+        // Container Config
         container: flags.container,
         containerRegistry: containerRegistry,
         version: flags.version,
-        mrEnclave: parseRawMrEnclave(flags.mrEnclave ?? ""),
-        attestationQueue: attestationQueueAccount,
+        mrEnclave: flags.mrEnclave
+          ? parseRawMrEnclave(flags.mrEnclave ?? "")
+          : undefined,
+
+        // Requests Config
+        requestsDisabled: flags.requestsDisabled,
+        requestsFee: flags.requestsFee ? Number(flags.requestsFee) : undefined,
+        requestsRequireAuthorization: flags.requestsRequireAuthorization,
+
+        // Routines Config
+        // routinesDisabled: flags.routinesDisabled,
+        // routinesFee: flags.routinesFee ? Number(flags.routinesFee) : undefined,
+        // routinesRequireAuthorization: flags.routinesRequireAuthorization,
       }
     );
 
