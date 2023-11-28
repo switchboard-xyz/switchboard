@@ -6,10 +6,6 @@
 	path = sdks/solana
 	url = https://github.com/switchboard-xyz/solana-sdk
 	branch = main
-[submodule "sdks/near"]
-	path = sdks/near
-	url = https://github.com/switchboard-xyz/near-sdk
-	branch = main
 [submodule "sdks/starknet"]
 	path = sdks/starknet
 	url = https://github.com/switchboard-xyz/starknet-sdk

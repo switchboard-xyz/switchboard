@@ -1,5 +1,5 @@
 {
-  "chains": ["solana", "evm", "aptos", "near", "starknet", "sui"],
+  "chains": ["solana", "evm", "aptos", "starknet", "sui"],
   "languages": ["javascript", "rust", "move", "solidity"],
   "categories": ["data feeds", "randomness", "secrets", "functions"],
   "guides": [
@@ -108,27 +108,6 @@
       "language": "move",
       "tags": ["data feeds"],
       "chain": "aptos"
-    },
-    {
-      "label": "Javascript SDK: @switchboard-xyz/near.js",
-      "link": "/near/javascript",
-      "language": "javascript",
-      "tags": ["data feeds"],
-      "chain": "near"
-    },
-    {
-      "label": "Rust SDK: sbv2-near",
-      "link": "/near/rust",
-      "language": "rust",
-      "tags": ["data feeds"],
-      "chain": "near"
-    },
-    {
-      "label": "Example: feed-parser",
-      "link": "/near/rust",
-      "language": "rust",
-      "tags": ["data feeds"],
-      "chain": "near"
     },
     {
       "label": "Javascript SDK: @switchboard-xyz/sui.js",
