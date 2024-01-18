@@ -58,10 +58,10 @@ export default function AvatarIcon(props: IAvatarIconProps) {
         <Typography
           align="center"
           sx={{
-            fontFamily: "Source Sans Pro",
-            fontSize: 16,
+            fontFamily: "Geist",
+            fontSize: 12,
             fontWeight: 600,
-            color: colorMode === "dark" ? "white" : "#172B4D",
+            color: colorMode === "dark" ? "white" : "#0458D7",
           }}
         >
           {title}
@@ -84,10 +84,10 @@ export default function AvatarIcon(props: IAvatarIconProps) {
         <Typography
           align="center"
           sx={{
-            fontFamily: "Source Sans Pro",
-            fontSize: 16,
+            fontFamily: "Geist",
+            fontSize: 12,
             fontWeight: 600,
-            color: colorMode === "dark" ? "white" : "#172B4D",
+            color: colorMode === "dark" ? "white" : "#252A31",
           }}
         >
           {title}

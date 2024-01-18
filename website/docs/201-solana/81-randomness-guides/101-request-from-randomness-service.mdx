@@ -1,0 +1,170 @@
+---
+slug: ./request-from-randomness-service
+title: Request From Randomness Service
+description: "Learn how to seamlessly request randomness from Switchboard Randomness Service."
+---
+
+import MarkdownImage from "/src/components/MarkdownImage";
+import { Box, Typography, Grid } from "@mui/material";
+import Link from "@docusaurus/Link";
+
+import CodeBlock from "@theme/CodeBlock";
+import Tabs from "@theme/Tabs";
+import TabItem from "@theme/TabItem";
+
+Switchboard provides a permissionless and customizable method for developers 
+to create and manage their own data feeds. In order to fully utilize the Data 
+Feed Program, please refer to the Data Feed Service page to understand the 
+architecture and what/how to utilize the Task Runner.
+
+### Quick Recap
+
+<details>
+
+<summary>
+
+What is the Switchboard Task Runner?
+
+</summary>
+
+Switchboard provides a ...
+
+</details>
+
+<details>
+
+<summary>
+
+What is an Aggregator, Job and Task?
+
+</summary>
+
+Switchboard provides a ...
+
+</details>
+
+:::tip
+
+In order to build Data Feeds outside the constraints or sandbox of the 
+task runner, you can utilize Switchboard Functions to perform more dynamic 
+executions such as VWAPs and bulk updates.
+
+Read [Build Data Feeds On Functions](/) to find out more.
+
+:::
+
+### Identify Data & Its Sources
+
+Since Switchboard allows you to set up your very own data feeds,
+you'll need to provision your own data sources, be it on-chain, off-chain 
+(public or private) data can be utilized.
+
+1. Identify what is the data you want to be brought on-chain: price, weather, sports are all achievable
+2. Identify the data source, you refer to [Frequently Used Data Sources](/)
+
+:::tip
+
+Utilize price aggregation explorers such as CoinGecko, Birdeye or Solscan 
+to identify the price sources supporting your market pair (for example, 
+Binance or Jupiter)
+
+:::
+
+3. Once you've identified the data you need and the sources supporting it, now you can build the Data Feed in 3 methods: 
+  - [Drag-n-drop](./task-runner?build-feed-method=drag-n-drop)
+  - [Importing JSON/YAML](./task-runner?build-feed-method=import-json-yaml)
+  - [CLI](./task-runner?build-feed-method=cli)
+
+### Building The Data Feed
+
+:::tip
+
+For other types of data feeds such as weather, sports or more, check out 
+our blog for more walkthroughs???
+
+:::
+
+To simplify this example walkthrough, we'll be assuming the creation of a 
+price feed fetching the data of `SOL/USD` market pair and the images below 
+from CoinGecko and Solscan are the representations of the market data 
+which can be utilized as price sources.
+
+<Tabs queryString="build-feed-method">
+  <TabItem value="drag-n-drop" label="Drag-n-drop" default>
+    <div>
+      <h3>Method [1]: Drag-n-drop</h3>
+      <ol>
+        <li>Navigate to the <a href="https://app.switchboard.xyz/build/feed">Feed Builder</a> in the Switchboard App</li>
+        <li>Connect your wallet</li>
+        <li>Select the designated chain and network</li>
+        <li>Dependent on the type of price data source, the task types that you utilize will differ largely:</li>
+        <ul>
+          <li><strong>Off-chain Data Sources:</strong> Typically, a market pair such as SOL/USD is supported on Centralized Exchanges (CEX) API endpoints. In order to fetch the data, you will need to use the HttpTask and JsonParseTask to firstly hit the endpoint then parse the specific field such as $.price.</li>
+          <li><strong>On-chain Data Sources:</strong> You will need to use the LpExchangeRateTask and input the specific pair/pool address from the Decentralized Exchanges (DEX).</li>
+          <li><strong>On-chain Data Sources:</strong> Some data can be fetched directly from on-chain accounts and calculated more accurately compared to DeFi markets (prone to price manipulations). In such cases, we can utilize a combination of tasks such as SolanaAccountDataFetchTask, SplStakePoolTask, SplTokenParseTask, CacheTask, BufferLayoutParseTask.</li>
+          <li><strong>More Cases:</strong> There are other situations where the market pair is inversed such as USD/SOL or SOL denominated in JitoSOL and by doing simple math, you can achieve your final desired results.</li>
+          <li><strong>Other Methods & <a href="./data-feed-best-practices">Best Practices</a>:</strong> The responsibility of creating data feeds lies in the hands of the protocols, in order to fully utilize the Data Feed Program and Task Runner, there are other task types such as BoundTask, ConditionalTask and indicators such as TWAP, EWMA that can further improve data resilience.</li>
+        </ul>
+      </ol>
+    </div>
+  </TabItem>
+  <TabItem value="import-json-yaml" label="Importing JSON/YAML">
+    <div>
+      <h3>Method [2]: Importing JSON/YAML</h3>
+      <ol>
+        <li>Navigate to the <a href="https://app.switchboard.xyz/build/feed">Feed Builder</a> in the Switchboard App</li>
+        <li>Connect your wallet</li>
+        <li>Select the designated chain and network</li>
+        <li>Instead of using the drag-n-drop tool, you can toggle to `Import` when adding a new job and write JSON or YAML code to build the job definition.</li>
+      </ol>
+    </div>
+<p><strong>Binance SOL/USDT:</strong></p>
+
+```yaml
+tasks:
+- httpTask:
+    url: https://www.binance.com/api/v3/ticker/price?symbol=SOLUSDT
+- jsonParseTask:
+    path: $.price
+```
+
+<p><strong>Orca SOL/USDC:</strong></p>
+
+```yaml
+tasks:
+  - lpExchangeRateTask:
+      orcaPoolAddress: FpCMFDFGYotvufJ7HrFHsWEiiQCGbkLCtwHiDnh7o28Q
+```
+
+<p><strong>On-chain JLP/USD:</strong></p>
+
+```yaml
+tasks:
+  - cacheTask:
+      cacheItems:
+        - variableName: supply
+          job:
+            tasks:
+              - splTokenParseTask:
+                  mintAddress: 27G8MtK7VtTcCHkpASjSDdkWWYfoqT6ggEuKidVJidD4
+              - jsonParseTask:
+                  path: $.supply
+        - variableName: aum_usd
+          job:
+            tasks:
+              - solanaAccountDataFetchTask:
+                  pubkey: 5BUwFW4nRbftYTDMbgxykoFWqWHPzahFSNAaaaJtVKsq
+              - bufferLayoutParseTask:
+                  offset: 180
+                  type: u128
+  - valueTask:
+      big: ${aum_usd}
+  - divideTask:
+      big: ${supply}
+```
+
+  </TabItem>
+  <TabItem value="cli" label="CLI">
+    To do
+  </TabItem>
+</Tabs>

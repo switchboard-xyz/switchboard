@@ -1,0 +1,154 @@
+---
+slug: /
+sidebar_label: Overview
+keywords:
+  [Switchboard, web3, oracle, data feeds, vrf, randomness, solana, aptos]
+---
+
+# Switchboard
+
+:::info
+
+If you're new to Switchboard, do check out the unique properties of our oracle 
+architecture in order to fully utilize our the oracle protocol! For a deeper dive 
+immediately, read our whitepaper here: (insert whitepaper)
+
+:::
+
+### Introducing Switchboard
+
+Remember the traditional telecommunication systems where switchboard operators 
+manually establish connections by plugging switchboards to facilitate calls 
+between parties. Similarly, Switchboard, the oracle protocol, employs a 
+decentralized quorum of oracles to shuffle data on a blockchain, empowering 
+smart contract developers to build with real world information on a blockchain.
+
+### Switchboard Services
+
+Switchboard Services is a set of developer tools built for simplicity, 
+seamlessness and permissionlessness for developers to focus on writing the code that matters. 
+The Services are currently supporting these products: Data Feeds, Randomness and 
+Functions. Apart from these, any party can set up their own Switchboard 
+infrastructure for isolated usage as Switchboard is designed to be modular.
+
+
+<details>
+
+<summary>
+
+Data Feeds
+
+</summary>
+
+Switchboard provides a revolutionary developer-focused Data Feed Builder, 
+where developers can spend less than 5 minutes to create a data feed 
+utilizing any data source: not exclusive to off-chain sources like CoinGecko API, 
+Binance API, on-chain sources like Uniswap Task, Jupiter Task, and Switchboard 
+Secrets (off-chain private data sources).
+
+</details>
+
+
+<details>
+
+<summary>
+
+Randomness
+
+</summary>
+
+Switchboard provides a simple, secure randomness service, where developers 
+can send a request to a program to call the randomness generation event that is 
+off-chain, within a secure enclave. Alternatively, a separate commit-to-
+reveal randomness model or a fully custom function can be utilized as well.
+
+</details>
+
+
+<details>
+
+<summary>
+
+Functions
+
+</summary>
+
+Switchboard provides a low level custom solution for all types of off-chain 
+computations such as a performing data feed, a randomness generator, a risk 
+engine or others, where developers write and deploy a function to container 
+and is executed within a secure enclave of an oracle when triggered based on 
+a routine (cron-schedule) or request (on-demand).
+
+</details>
+
+### Switchboard Architecture
+
+Switchboard is built with security first, utilizing a unique approach of a 
+verifiable execution layer built with Trusted Execution Environment (TEE) 
+technology paired with economic security governed by the SWITCH and XSWITCH 
+tokens.
+
+
+<details>
+
+<summary>
+
+Oracles (Nodes)
+
+</summary>
+
+The Switchboard protocol is run by a quorum of permissionless node operators, 
+where its nodes utilize TEE techonology and economic security to create a 
+network to verify oracle software and incentivize them based on their honest 
+executions.
+
+</details>
+
+
+<details>
+
+<summary>
+
+Queues
+
+</summary>
+
+Switchboard takes a modular approach towards its infrastructure where 
+different parties can set up their own Switchboard Queue for differing use cases 
+and onboard a set of nodes governed by the Switchboard Attestation Program.
+
+</details>
+
+
+<details>
+
+<summary>
+
+Programs
+
+</summary>
+
+**Switchboard Attestation Program:** The brain of the protocol where it conducts 
+governance, delegating executions and verification of oracles and its executions.
+
+**Data Feeds Program:** A data layer built on top of the Attestation 
+Program where users define their aggregators (data feeds) and triggers the oracles 
+to complete its request, afterwhich the Attestation Program conducts the verification 
+and submits the data back to the Data Feed Program for protocols to utilize.
+
+**Randomness Program:** A request layer where users send their randomness 
+requests to the program and receive directly back in their own program.
+</details>
+
+
+<details>
+
+<summary>
+
+Tokens!!! TBC
+
+</summary>
+
+to be completed
+
+</details>

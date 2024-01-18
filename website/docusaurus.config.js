@@ -128,6 +128,7 @@ const config = {
       image: "img/documentation_card.jpg",
       sidebar: {
         hideable: true,
+        autoCollapseCategories: true,
       },
       algolia: {
         appId: "XO84KDTPTB",
@@ -138,11 +139,10 @@ const config = {
       navbar: {
         title: "Switchboard",
         logo: {
+          href: "/",
           alt: "Switchboard Logo",
-          src: "img/logo.svg",
-          srcDark: "img/logo_white.svg",
-          width: 72,
-          height: 72,
+          src: "img/fulllogo.svg",
+          srcDark: "img/white_fulllogo.svg",
         },
         items: [
           {

@@ -1,0 +1,220 @@
+---
+slug: ./other-functions
+title: Build Other Functions
+description: "Learn how to build other types of Switchboard Functions for unqiue use cases."
+---
+
+import MarkdownImage from "/src/components/MarkdownImage";
+import { Box, Typography, Grid } from "@mui/material";
+import Link from "@docusaurus/Link";
+
+import CodeBlock from "@theme/CodeBlock";
+import Tabs from "@theme/Tabs";
+import TabItem from "@theme/TabItem";
+
+This guide will walkthrough how to read a Switchboard Data Feed (built on 
+the Data Feed Program)!
+
+:::info
+
+We suggest that you **create and manage your own data feeds** instead of relying 
+on existing ones that do not belong to you (as the authority can adjust the 
+configurations and job definitions at any given time). Hence, before you 
+continue on with this guide, please create your own data feed for production 
+purposes.
+
+:::
+
+### Overview
+
+In order to read a Switchboard data feed using Anchor, we will need to:
+
+1. Add the `switchboard-solana` dependency
+2. Create the `ReadResult` Accounts context containing the data feed
+3. Create the `read_result` instruction with the `ReadResult` Accounts context
+4. Submit a transaction on-chain with the `read_result` instruction
+
+:::tip
+
+**For Anchor:** View the
+[01_feed_client](https://github.com/switchboard-xyz/solana-sdk/tree/main/examples/feeds/01_feed_client)
+example on Github.
+
+**Not using Anchor:** View the
+[02_spl_native](https://github.com/switchboard-xyz/solana-sdk/tree/main/examples/feeds/02_spl_native)
+example on Github.
+
+:::
+
+### 1. Add switchboard-solana
+
+Add the `switchboard-solana` crate to your Cargo.toml file:
+
+```toml
+[dependencies]
+switchboard-solana = "0.9"
+```
+
+### 2. `ReadResult` Context
+
+Anchor provides the
+[anchor-lang AccountLoader](https://docs.rs/anchor-lang/latest/anchor_lang/accounts/account_loader/struct.AccountLoader.html)
+trait to:
+
+- verify the account has the correct discriminator (all AggregatorAccounts share
+  the same first 8 bytes)
+- the account is owned by the program ID defined in the switchboard-solana crate
+
+The `ReadResult` Accounts context would look like:
+
+```rust
+use anchor_lang::prelude::*;
+use switchboard_solana::{AggregatorAccountData};
+
+#[derive(Accounts)]
+pub struct ReadResult<'info> {
+    pub switchboard_aggregator: AccountLoader<'info, AggregatorAccountData>,
+}
+```
+
+:::note
+
+You should store the aggregator's pubkey somewhere in your program state and
+verify the expected aggregator was passed into your instruction.
+
+If you are building a DeFi market you may have a MyMarket account type storing
+the SOL/USD Switchboard feed address in the field `switchboard_aggregator`. You
+can then verify this pubkey in the Accounts context like the following:
+
+```rust
+use anchor_lang::prelude::*;
+use switchboard_solana::{AggregatorAccountData};
+
+#[account(zero_copy)]
+pub struct MyMarket {
+    pub bump: u8,
+    pub switchboard_aggregator: Pubkey,
+}
+
+#[derive(Accounts)]
+pub struct ReadResult<'info> {
+    #[account(
+        has_one = switchboard_aggregator
+    )]
+    pub market: AccountLoader<'info, MyMarket>,
+    pub switchboard_aggregator: AccountLoader<'info, AggregatorAccountData>,
+}
+```
+
+:::
+
+### 3. `read_result` Instruction
+
+Now lets add a `read_result` instruction to our program and pass in the
+`ReadResult` context.
+
+1. Deserialize the account data into the
+[AggregatorAccountData (docs.rs)](https://docs.rs/switchboard-solana/latest/switchboard_solana/oracle_program/accounts/aggregator/struct.AggregatorAccountData.html)
+struct.
+
+2. Use the TryInto trait to convert the
+[SwitchboardDecimal (docs.rs)](https://docs.rs/switchboard-solana/latest/switchboard_solana/decimal/struct.SwitchboardDecimal.html)
+into the `f64` primitive because it's easier to work with.
+
+:::note
+
+The `SwitchboardDecimal` struct is a basic wrapper around the
+[rust-decimal (docs.rs)](https://docs.rs/rust_decimal/1.29.1/rust_decimal/)
+implementation.
+
+:::
+
+3. Verify the feed was updated in the last 300 seconds so we aren't consuming a stale value.
+
+```rust
+use anchor_lang::prelude::*;
+use anchor_lang::solana_program::clock;
+
+use std::convert::TryInto;
+
+#[program]
+pub mod anchor_feed_parser {
+    use super::*;
+
+    pub fn read_result(
+        ctx: Context<ReadResult>
+    ) -> anchor_lang::Result<()> {
+        let feed = &ctx.accounts.switchboard_aggregator.load()?;
+
+        // get result
+        let val: f64 = feed.get_result()?.try_into()?;
+
+        // check whether the feed has been updated in the last 300 seconds
+        feed.check_staleness(clock::Clock::get().unwrap().unix_timestamp, 300)
+            .map_err(|_| error!(FeedErrorCode::StaleFeed))?;
+
+        msg!("Current feed result is {}!", val);
+
+        // Your custom logic here
+
+        Ok(())
+    }
+}
+
+#[error_code]
+#[derive(Eq, PartialEq)]
+pub enum FeedErrorCode {
+    #[msg("Switchboard feed has not been updated in 5 minutes")]
+    StaleFeed,
+}
+```
+
+### 4. Off-Chain: Read the result!
+
+We will need to build a Solana transaction that contains our aggregator address
+to read.
+
+```ts
+import * as anchor from "@coral-xyz/anchor";
+import { sleep } from "@switchboard-xyz/common";
+import {
+  AggregatorAccount,
+  SwitchboardProgram,
+} from "@switchboard-xyz/solana.js";
+import assert from "assert";
+import { AnchorFeedParser } from "../target/types/anchor_feed_parser";
+
+describe("anchor-feed-parser test", () => {
+  const provider = anchor.AnchorProvider.env();
+  anchor.setProvider(provider);
+
+  const feedParserProgram: anchor.Program<AnchorFeedParser> =
+    anchor.workspace.AnchorFeedParser;
+
+  let switchboard: SwitchboardProgram;
+  let aggregatorAccount: AggregatorAccount;
+
+  it("Reads a Switchboard data feed", async () => {
+    const signature = await feedParserProgram.methods
+      .readResult()
+      .accounts({ switchboardAggregator: aggregatorAccount.publicKey })
+      .rpc();
+
+    // wait for RPC
+    await sleep(2000);
+
+    const logs = await provider.connection.getParsedTransaction(
+      signature,
+      "confirmed"
+    );
+
+    console.log(JSON.stringify(logs?.meta?.logMessages, undefined, 2));
+
+    const match = JSON.stringify(logs?.meta?.logMessages ?? []).match(
+      new RegExp(/Current feed result is (?<feed_result>\d+)/)
+    );
+    const feedResult = Number(match?.groups?.feed_result ?? null);
+    console.log(`Feed Result: ${feedResult}`);
+  });
+});
+```
