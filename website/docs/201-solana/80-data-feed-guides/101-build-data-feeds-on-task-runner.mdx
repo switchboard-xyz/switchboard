@@ -1,6 +1,6 @@
 ---
 slug: ./task-runner
-title: Build Data Feeds On Task Runner
+title: Build Data Feeds On Task Runner WIP
 description: "Learn how to seamlessly build customizable Switchboard data feeds."
 ---
 
@@ -11,6 +11,9 @@ import Link from "@docusaurus/Link";
 import CodeBlock from "@theme/CodeBlock";
 import Tabs from "@theme/Tabs";
 import TabItem from "@theme/TabItem";
+import CustomDetails from "/src/components/CustomDetails";
+import CustomAdmonition from "/src/components/CustomAdmonition";
+
 
 Switchboard provides a permissionless and customizable method for developers 
 to create and manage their own data feeds. In order to fully utilize the Data 
@@ -19,31 +22,19 @@ architecture and what/how to utilize the Task Runner.
 
 ### Quick Recap
 
-<details>
-
-<summary>
-
-What is the Switchboard Task Runner?
-
-</summary>
+<CustomDetails header="What is the Switchboard Task Runner?">
 
 Switchboard provides a ...
 
-</details>
+</CustomDetails>
 
-<details>
-
-<summary>
-
-What is an Aggregator, Job and Task?
-
-</summary>
+<CustomDetails header="What is an Aggregator, Job and Task?">
 
 Switchboard provides a ...
 
-</details>
+</CustomDetails>
 
-:::tip
+<CustomAdmonition type="tip">
 
 In order to build Data Feeds outside the constraints or sandbox of the 
 task runner, you can utilize Switchboard Functions to perform more dynamic 
@@ -51,7 +42,8 @@ executions such as VWAPs and bulk updates.
 
 Read [Build Data Feeds On Functions](/) to find out more.
 
-:::
+</CustomAdmonition>
+
 
 ### Identify Data & Its Sources
 
@@ -62,13 +54,13 @@ you'll need to provision your own data sources, be it on-chain, off-chain
 1. Identify what is the data you want to be brought on-chain: price, weather, sports are all achievable
 2. Identify the data source, you refer to [Frequently Used Data Sources](/)
 
-:::tip
+<CustomAdmonition type="tip">
 
 Utilize price aggregation explorers such as CoinGecko, Birdeye or Solscan 
 to identify the price sources supporting your market pair (for example, 
 Binance or Jupiter)
 
-:::
+</CustomAdmonition>
 
 3. Once you've identified the data you need and the sources supporting it, now you can build the Data Feed in 3 methods: 
   - [Drag-n-drop](./task-runner?build-feed-method=drag-n-drop)
@@ -77,12 +69,12 @@ Binance or Jupiter)
 
 ### Building The Data Feed
 
-:::tip
+<CustomAdmonition type="tip">
 
 For other types of data feeds such as weather, sports or more, check out 
 our blog for more walkthroughs???
 
-:::
+</CustomAdmonition>
 
 To simplify this example walkthrough, we'll be assuming the creation of a 
 price feed fetching the data of `SOL/USD` market pair and the images below 

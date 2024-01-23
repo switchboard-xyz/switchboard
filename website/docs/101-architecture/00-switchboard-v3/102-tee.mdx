@@ -5,6 +5,8 @@ keywords:
   [Switchboard, web3, oracle, data feeds, vrf, randomness, solana, aptos]
 ---
 
+import CustomAdmonition from "/src/components/CustomAdmonition";
+
 # TEE
 
 To fully grasp the functionality of Switchboard V3, it's crucial to understand 
@@ -32,15 +34,13 @@ information is fetched correctly and confidentially.
 
 ## How does Switchboard utilize TEEs?
 
-:::info
-
+<CustomAdmonition type="info">
 In today's interconnected world, ensuring the security, privacy, and
 verifiability of data and code has become increasingly important. TEEs
 are used by used by governments, enterprises, and cloud service providers 
 to enable the secure handling of confidential information on mobile devices 
 and on server infrastructure.
-
-:::
+</CustomAdmonition>
 
 Switchboard v3 operates a network of TEE machines. These machines are peer-verified 
 on-chain with an economic staking requirement, ensuring that they run code solely 
@@ -79,14 +79,10 @@ participation and ensure the following:
 Switchboard uses the Gramine framework to make user code SGX compatible without 
 alteration.
 
-:::info
+<CustomAdmonition type="info">
 
-You can read more about TEE and Intel SGX here: [More TEE & SGX](../../info/more-tee-sgx)
+You can read more about **TEE and Intel SGX** here: [More TEE & SGX](../../info/more-tee-sgx)
 
-:::
+You can read more about **Gramine** here: [https://gramineproject.io/](https://gramineproject.io/)
 
-:::info
-
-You can read more about Gramine here: [https://gramineproject.io/](https://gramineproject.io/)
-
-:::
+</CustomAdmonition>

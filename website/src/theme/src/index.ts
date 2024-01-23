@@ -1,7 +1,7 @@
 // Set MUI Theme
 import { default as firaCode } from "./typography/firaCode";
 import { default as geist } from "./typography/geist";
-import { default as ibmplexsans} from "./typography/ibmplexsans";
+import { default as ibmplexsans } from "./typography/ibmplexsans";
 import { default as snasm } from "./typography/snasm";
 import { MuiButton, MuiIconButton } from "./muiButton";
 import typography from "./muiTypography";

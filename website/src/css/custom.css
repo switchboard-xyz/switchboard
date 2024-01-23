@@ -89,6 +89,8 @@
 @import "navbar.css";
 @import "sidebar.css";
 @import "my-icons.css";
+@import "details.css";
+@import "tab.css";
 
 /* In dark mode, set background opacity of every other row */
 /* html[data-theme="dark"] .docs-doc-page tr:even {
@@ -250,4 +252,14 @@ ul.icon li.bulb:before {
 }
 ul.icon li.hand:before {
   content: "\e805";
+}
+
+.theme-doc-markdown a {
+  text-decoration: underline;
+  color: var(--ifm-color-primary-darkest);
+}
+
+html[data-theme="dark"] .theme-doc-markdown a {
+  text-decoration: underline;
+  color: var(--ifm-color-primary-lightest);
 }
