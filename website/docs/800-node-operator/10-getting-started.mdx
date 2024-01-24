@@ -13,7 +13,7 @@ enabled, and then install the Kubernetes SGX plugin.
 ### Prerequisites
 
 * A machine with SGX enabled with kernel version >=6.0
-* Helm cli installed on user machine
+* Helm cli and a copy of the switchboard infra-external repo installed on user machine
 
 If you are using a debian based distro, you can install the 
 SGX packages like this:
@@ -24,7 +24,11 @@ curl -sSL "https://download.01.org/intel-sgx/sgx_repo/ubuntu/intel-sgx-deb.key" 
 sudo apt update
 sudo apt install sgx-aesm-service libsgx-aesm-launch-plugin libsgx-aesm-quote-ex-plugin libsgx-aesm-ecdsa-plugin libsgx-aesm-epid-plugin libsgx-dcap-quote-verify
 ```
+You can clone the infra-external repo like so
 
+```bash
+git clone https://github.com/switchboard-xyz/infra-external.git
+```
 ### Step 1: Create a Kubernetes Cluster
 
 If you want to create a kubernetes cluster consisting of a 
@@ -75,6 +79,19 @@ installed as part of setting up a k3s cluster, you may
 also want to set up prometheus or vmetrics to scrape 
 metrics from the oracles, secrets management like 
 infisical, or a log aggregator like loki.
+
+Exposing metrics and logs are strongly encouraged for all oracle operators. To do so, first you must register a domain/subdomain to use for your metrics and logs endpoints respectively. If you are using k3s, then you can find the publicip address by running this command:
+
+```bash
+kubectl -n kube-system get svc traefik
+```
+
+If you are using a different kubernetes distribution and/or ingress controller, you can find that wit this command:
+
+```bash
+kubectl get svc --all-namespaces
+```
+Once you have the domains registered, go to infra-external/infra-apps/ and configure cert-manager-issuer.yaml with your account information that you've set up by following the cert-manager documentation. Then configure vmetrics-values.yaml and loki-values.yaml with those respective domains. After that, you can deploy as follows: 
 
 ```bash
 helm repo add vm https://victoriametrics.github.io/helm-charts/
