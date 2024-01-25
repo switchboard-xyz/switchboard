@@ -13,7 +13,9 @@ enabled, and then install the Kubernetes SGX plugin.
 ### Prerequisites
 
 * A machine with SGX enabled with kernel version >=6.0
-* Helm cli and a copy of the switchboard infra-external repo installed on user machine
+* Helm cli installed
+* kubectl cli installed
+* A copy of the switchboard infra-external repo installed on user machine
 
 If you are using a debian based distro, you can install the 
 SGX packages like this:
@@ -58,21 +60,21 @@ For more advanced configuration, please refer to the
 documentation at [https://github.com/alexellis/k3sup](https://github.com/alexellis/k3sup) 
 for more details on how to set up your cluster.
 
-
-### Step 2: Install the Kubernetes SGX Plugin
-
-Before installing the SGX plugin, check the latest 
-version (ex: v0.28.0) at [https://github.com/intel/intel-device-plugins-for-kubernetes/tags](https://github.com/intel/intel-device-plugins-for-kubernetes/tags). 
-Then replace the version number in the below URLs accordingly:
+In order to access the cluster, you must use the kubeconfig that's generated in your terminal's working directory during k3sup install. You can either reference it with the --kubeconfig flag or with the following commands to integrate it into a pre-existing default kubeconfig file
 
 ```bash
-kubectl apply -k 'https://github.com/intel/intel-device-plugins-for-kubernetes/deployments/nfd/?ref=v0.28.0'
-kubectl apply -k 'https://github.com/intel/intel-device-plugins-for-kubernetes/deployments/nfd/overlays/node-feature-rules?ref=v0.28.0'
-kubectl apply -k 'https://github.com/intel/intel-device-plugins-for-kubernetes/deployments/operator/default?ref=v0.28.0'
-kubectl apply -f 'https://raw.githubusercontent.com/intel/intel-device-plugins-for-kubernetes/v0.28.0/deployments/operator/samples/deviceplugin_v1_sgxdeviceplugin.yaml'
+export KUBECONFIG=~/.kube/config:/path/to/new/kubeconfig
+kubectl config view --flatten > ~/.kube/config
 ```
 
-### Step 3: Install supporting applications
+In order to validate that you can connect to the cluster, try running the following commands. If you are getting timeouts, it may because of geographical distance (solved by vpn) or port 6443 not being open
+```bash
+$ kubectl get po
+No resources found in default namespace.
+
+```
+
+### Step 2: Install supporting applications
 
 While an ingress controller (traefik) is automatically 
 installed as part of setting up a k3s cluster, you may 
@@ -80,7 +82,7 @@ also want to set up prometheus or vmetrics to scrape
 metrics from the oracles, secrets management like 
 infisical, or a log aggregator like loki.
 
-Exposing metrics and logs are strongly encouraged for all oracle operators. To do so, first you must register a domain/subdomain to use for your metrics and logs endpoints respectively. If you are using k3s, then you can find the publicip address by running this command:
+Exposing metrics and logs are strongly encouraged for all oracle operators. To do so, first you must register a domain/subdomain to use for your metrics and logs endpoints respectively. If you are using k3s, then you can find the external ip address by running this command:
 
 ```bash
 kubectl -n kube-system get svc traefik
@@ -112,6 +114,27 @@ helm install \
 helm repo add infisical-helm-charts 'https://dl.cloudsmith.io/public/infisical/helm-charts/helm/charts/' 
 helm install secrets-operator infisical-helm-charts/secrets-operator
 ```
+
+### Step 3: Install the Kubernetes SGX Plugin
+
+Before installing the SGX plugin, check the latest 
+version (ex: v0.28.0) at [https://github.com/intel/intel-device-plugins-for-kubernetes/tags](https://github.com/intel/intel-device-plugins-for-kubernetes/tags). 
+Then replace the version number in the below URLs accordingly:
+
+```bash
+kubectl apply -k 'https://github.com/intel/intel-device-plugins-for-kubernetes/deployments/nfd/?ref=v0.28.0'
+kubectl apply -k 'https://github.com/intel/intel-device-plugins-for-kubernetes/deployments/nfd/overlays/node-feature-rules?ref=v0.28.0'
+kubectl apply -k 'https://github.com/intel/intel-device-plugins-for-kubernetes/deployments/operator/default?ref=v0.28.0'
+kubectl apply -f 'https://raw.githubusercontent.com/intel/intel-device-plugins-for-kubernetes/v0.28.0/deployments/operator/samples/deviceplugin_v1_sgxdeviceplugin.yaml'
+```
+
+To confirm sucessuful installation, you can run the following command and should see a similar result
+```bash
+$ kubectl get node -o yaml | grep "epc"
+      nfd.node.kubernetes.io/extended-resources: sgx.intel.com/epc
+      sgx.intel.com/epc: "396361728"
+```
+
 
 ### Step 4: Install Switchboard Oracle
 
