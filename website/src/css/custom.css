@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=IBM+Sans+Pro:wght@300;400;500;600&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400;500;600&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap");
 
 @font-face {
@@ -9,16 +9,6 @@
 @font-face {
   font-family: "Fira Code";
   src: url("/static/fonts/Fira_Code/FiraCode-400.woff2") format("woff");
-}
-
-@font-face {
-  font-family: "IBM Plex Sans";
-  src: url("/static/fonts/IBM_Plex_Sans/IBMPlexSans-Regular.woff2") format("woff");
-}
-
-@font-face {
-  font-family: "Geist";
-  src: url("/static/fonts/Geist/Geist-SemiBold.woff2") format("woff");
 }
 
 /**
@@ -35,41 +25,29 @@
   --ifm-color-primary-lighter: #148197;
   --ifm-color-primary-lightest: #1692aa; */
 
-  /* --ifm-color-primary: #2546f4;
+  --ifm-color-primary: #2546f4;
   --ifm-color-primary-dark: #546ef6;
   --ifm-color-primary-darker: #2546f4;
   --ifm-color-primary-lighter: #cad2fc;
-  --ifm-color-primary-lightest: #f3f5fc; */
+  --ifm-color-primary-lightest: #f3f5fc;
 
-  --ifm-color-primary: #0458D7;
-  --ifm-color-primary-dark: #0145AC;
-  --ifm-color-primary-darker: #01398E;
-  --ifm-color-primary-light: #F1F8FE;
-  --ifm-color-primary-lighter: #DEF0FC;
-  --ifm-color-primary-lightest: #C7E4FA;
-
-  --ifm-code-font-size: 80%;
+  --ifm-code-font-size: 100%;
   --ifm-color-emphasis-400: #fff;
   --ifm-color-emphasis-600: #fff;
-  --ifm-font-family-base: "IBM Plex Sans";
-  --ifm-link-hover-color: #0145AC;
+  --ifm-font-family-base: "Source Sans Pro";
+  --ifm-link-hover-color: #0a2540;
   --ifm-description-text-color: #313e79;
-  --ifm-pages-background-color: #FAFAFA;
-  
-  --ifm-table-stripe-background: var(--ifm-background-color);
-
-  --ifm-background-color: #FAFAFA;
-  
+  --ifm-pages-background-color: #f7f9fc;
 }
 
 [data-theme="dark"] :root {
-  --ifm-color-primary: #0458D7;
-  --ifm-color-primary-dark: #0145AC;
-  --ifm-color-primary-darker: #01398E;
-  --ifm-color-primary-darkest: #003180;
-  --ifm-color-primary-light: #C7E4FA;
-  --ifm-color-primary-lighter: #DEF0FC;
-  --ifm-color-primary-lightest: #F1F8FE;
+  --ifm-color-primary: #546ef6;
+  --ifm-color-primary-dark: #546ef6;
+  --ifm-color-primary-darker: #6bc5d6;
+  --ifm-color-primary-darkest: #3fb3c9;
+  --ifm-color-primary-light: #b4e2ea;
+  --ifm-color-primary-lighter: #c3e7ee;
+  --ifm-color-primary-lightest: #eff9fb;
   --ifm-background-color: #1f354b;
 
   --ifm-color-emphasis-100: #182436;
@@ -80,7 +58,6 @@
   --ifm-navbar-background-color: var(--ifm-color-emphasis-100);
   --ifm-description-text-color: #dbdbdb;
   --ifm-pages-background-color: var(--ifm-background-color);
-
 }
 
 @import "admonitions.css";
@@ -89,8 +66,10 @@
 @import "navbar.css";
 @import "sidebar.css";
 @import "my-icons.css";
-@import "details.css";
-@import "tab.css";
+
+.alert--info {
+  --ifm-alert-background-color: inherit;
+}
 
 /* In dark mode, set background opacity of every other row */
 /* html[data-theme="dark"] .docs-doc-page tr:even {
@@ -102,15 +81,11 @@
   width: 100%;
 } */
 
-/* .table_no_border td,
+.table_no_border td,
 .table_no_border tr {
   border: none;
   border-collapse: collapse;
-  padding: 2em 1em;
-} */
-
-table tr:nth-child(2n) {
-  background-color: inherit;
+  padding: 0.5em 2em;
 }
 
 .centeredText {
@@ -122,14 +97,10 @@ html[data-theme="dark"] .docusaurus-highlight-code-line {
   display: block;
   margin: 0 calc(-1 * var(--ifm-pre-padding));
   padding: 0 var(--ifm-pre-padding);
-  --ifm-table-stripe-background: var(--ifm-background-color);
-
 }
 
 html[data-theme="dark"] .docusaurus-highlight-code-line {
   background-color: rgba(0, 0, 0, 0.3);
-  --ifm-table-stripe-background: var(--ifm-background-color);
-
 }
 
 .clean-btn {
@@ -176,12 +147,12 @@ table li::marker {
   color: var(--ifm-color-primary-lightest);
 } */
 
-table {
+/* table {
   width: 100%;
   table-layout: fixed;
   overflow-x: auto;
   display: block;
-}
+} */
 
 .networks_tabs {
   border: 3px #0a2540;
@@ -203,9 +174,10 @@ table {
 }
 
 h1 {
-  font-family: "Geist";
-  font-size: 48px;
-  line-height: 60px;
+  font-family: "Snasm";
+  font-weight: 400;
+  font-size: 52px;
+  line-height: 62.4px;
 }
 
 @media screen and (max-width: 640px) {
@@ -252,14 +224,4 @@ ul.icon li.bulb:before {
 }
 ul.icon li.hand:before {
   content: "\e805";
-}
-
-.theme-doc-markdown a {
-  text-decoration: underline;
-  color: var(--ifm-color-primary-darkest);
-}
-
-html[data-theme="dark"] .theme-doc-markdown a {
-  text-decoration: underline;
-  color: var(--ifm-color-primary-lightest);
 }

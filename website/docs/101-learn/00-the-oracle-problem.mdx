@@ -1,0 +1,51 @@
+---
+slug: /the-oracle-problem
+title: The Oracle Problem
+hide_table_of_contents: true
+---
+
+import MarkdownImage from "/src/components/MarkdownImage";
+
+<MarkdownImage
+  img="/img/data/evolutionoforacle.png"
+  sx={{
+    display: "flex",
+  }}
+/>
+
+The oracle problem arises due to the inability of blockchains to interact
+directly with external systems. Blockchains are isolated networks that only rely
+on data stored in their ledger for consensus. The deterministic nature of smart
+contracts is a result of the narrow focus of blockchain consensus and their
+ability to execute exactly as written with a higher degree of certainty than
+traditional systems. Incorrect reporting of external data can lead to
+devastating outcomes for on-chain applications dependent on these data feeds.
+
+Below is a high-level overview of the evolution of oracles:
+
+| Type of Oracle           | Description                                                                                                                                                                                                                                | Security                                                                                            |
+|--------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------|
+| Trusted Signer           | Single party trust - The first iteration of oracles used a trusted signer to update a price account on-chain. This model is vulnerable to a single keypair leak to pwn the entire system and should never be considered.                    | Highly vulnerable                                                                                   |
+| Round-Based Consensus    | Multi party trust - Multiple oracles are polled and the final result is determined from the median of the responses.                                                                                                                        | Oracles have no incentives to be honest                                                             |
+| Stake-Weighted Consensus | Incentive based trust - Stake is required to participate and oracles lose their stake for acting maliciously. Almost there! This system will naturally imbalance as the opportunity cost of acting maliciously outweighs the slashing penalty.   | High instrastructure cost and misalignment of incentives when TVL attack exceeds slashing penalty   |
+
+### Our Solution
+
+Switchboard addresses the oracle problem by combining:
+
+1. **Verifiable Execution** - Trusted Execution Environments (TEEs) are
+   leveraged to enforce that off-chain oracles are operated within a secure
+   enclave. TEEs provide cryptographic proof that the code being executed wasn't
+   tampered with and provides a way to enforce a set of protocol rules. Code is
+   law.
+2. **Economic Incentives** - Oracles must have a minimum stake to join the
+   network and get rewarded for honest reporting. Oracles who fail to respond or
+   respond incorrectly will be slashed and lose part of their stake to
+   incentivize honest behavior.
+3. **Independent Queues** - Oracles join a set queue which defines the security
+   settings of its compute network. The queue authority could be controlled by a
+   DAO creating an autonomous compute network governed by its participants. The
+   queue controls the reward and slashing behavior to entice new oracles to join
+   the network during congestion.
+4. **Permissionless / Customization** - Developers can worry about coding not infrastructure and
+   leave the execution to the Switchboard oracle network.

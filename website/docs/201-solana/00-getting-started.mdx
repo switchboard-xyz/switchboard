@@ -1,0 +1,75 @@
+---
+slug: .
+title: Getting Started
+hide_title: true
+hide_table_of_contents: true
+pagination_prev: null
+keywords: [Solana, Solana SDK, Switchboard Solana SDK]
+---
+
+import SolanaAddresses from "/src/components/chain/SolanaAddresses";
+import SdkPageSidebar from "/src/components/chain/SdkPageSidebar";
+
+<SdkPageSidebar sdk="solana">
+
+## Program
+
+Switchboard V1 was the first oracle network deployed on Solana mainnet in
+May 2021. The Oracle Program supports data feeds and verifiable randomness using
+a round-robin queue of off-chain oracles fulfilling update request. The
+Attestation Program supports functions, secrets, and legacy data feeds using an
+attestation service to verify that the execution of off-chain code was conducted
+within a trusted execution environment (TEE).
+
+You can find the program IDs for these deployments below, or check out
+[The Network](/network) page to also view the Switchboard Labs supported oracle
+networks.
+
+<SolanaAddresses disableTestnet />
+
+<hr />
+
+## Getting Started
+
+The [switchboard-xyz/solana-sdk](https://github.com/switchboard-xyz/solana-sdk)
+contains the Solana specific SDKs and examples for operating Switchboard.
+
+```bash
+git clone https://github.com/switchboard-xyz/solana-sdk
+```
+
+## Functions
+
+Switchboard Functions allow you to execute your own code off-chain in a
+verifiable manner allowing you to build more dynamic programs. This allows you
+to publish **_ANY_** data you want on a cron-based schedule, perform basic
+maintenance operations, and execute async operations for your users! This lets
+you have users interact with your program then perform async checks off-chain to
+prevent data staleness and oracle extractable value attacks. Switchboard
+Functions are flexible enough for any use case you can imagine without
+sacrificing security.
+
+- [Functions Overview](/functions)
+
+## Data Feeds
+
+Switchboard Data Feeds allow you to permissionless publish a data point on-chain
+for use with your smart contracts. These values are published at a periodic
+interval such that your users do not need to wait for any off-chain execution in
+order to consume the values.
+
+- [Data Feeds Overview](/feeds)
+
+## Verifiable Random Function
+
+Switchboard's Verifiable Random Function (VRF) on Solana allows you to request
+randomness and execute a subsequent user defined callback on fulfillment. This
+ensures your users are always consuming a newly provided randomness value,
+preventing a malicious user from waiting for a favorable value and gaming your
+smart contract.
+
+This is very computationally intensive and requires 48 transactions to verify
+on-chain. Users should instead use the Randomness Callback Function to generate
+randomness in a single transaction at <span>1 / 20</span> of the cost!
+
+</SdkPageSidebar>

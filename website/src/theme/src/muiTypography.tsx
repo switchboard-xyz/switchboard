@@ -3,15 +3,13 @@ import createTypography from "@mui/material/styles/createTypography";
 import { theme } from ".";
 import Palette from "./palette";
 import firaCodeFamily from "./typography/firaCode";
-import { geistFamily } from "./typography/geist";
-import { IBMPlexSansFamily } from "./typography/ibmplexsans";
 import snasmFamily from "./typography/snasm";
 
 export const MuiTypography = createTypography(Palette, (palette) => ({
-  fontFamily: [geistFamily, IBMPlexSansFamily, firaCodeFamily, snasmFamily].join(","),
-  fontPrimary: "IBMPlexSans",
+  fontFamily: ["Source Sans Pro", firaCodeFamily, snasmFamily].join(","),
+  fontPrimary: "Source Sans Pro",
   root: {
-    fontFamily: "Geist",
+    fontFamily: "Snasm",
     fontSize: 16,
     fontWeight: "normal",
     fontStretch: "normal",
@@ -23,7 +21,7 @@ export const MuiTypography = createTypography(Palette, (palette) => ({
   },
 
   h1: {
-    fontFamily: "Geist",
+    fontFamily: "Snasm",
     fontSize: 56,
     fontWeight: 500,
     fontStretch: "normal",
@@ -39,7 +37,7 @@ export const MuiTypography = createTypography(Palette, (palette) => ({
   },
 
   h2: {
-    fontFamily: "Geist",
+    fontFamily: "Source Sans Pro",
     fontSize: 32,
     fontWeight: 600,
     fontStretch: "normal",
@@ -50,7 +48,7 @@ export const MuiTypography = createTypography(Palette, (palette) => ({
   },
 
   h3: {
-    fontFamily: "Geist",
+    fontFamily: "Source Sans Pro",
     fontSize: 22,
     fontWeight: 600,
     fontStretch: "normal",
@@ -65,7 +63,7 @@ export const MuiTypography = createTypography(Palette, (palette) => ({
   },
 
   subtitle1: {
-    fontFamily: "IBM Plex Sans",
+    fontFamily: "Source Sans Pro",
     fontSize: 18,
     fontWeight: 600,
     fontStretch: "normal",
@@ -78,7 +76,7 @@ export const MuiTypography = createTypography(Palette, (palette) => ({
   subtitle2: {},
 
   body1: {
-    fontFamily: "IBM Plex Sans",
+    fontFamily: "Source Sans Pro",
     fontSize: 20,
     fontWeight: "normal",
     fontStretch: "normal",
@@ -94,7 +92,7 @@ export const MuiTypography = createTypography(Palette, (palette) => ({
   },
 
   body2: {
-    fontFamily: "IBM Plex Sans",
+    fontFamily: "Source Sans Pro",
     fontSize: 17,
     fontWeight: "normal",
     fontStretch: "normal",

@@ -7,7 +7,7 @@
 
 .navbar__item {
   max-width: 20rem;
-  font-size: 1.2rem;
+  font-size: 1.1rem;
   font-weight: 500;
   padding: 0 1vw;
   overflow-wrap: break-word;
@@ -18,7 +18,7 @@ html[data-theme="dark"] .navbar {
 }
 
 .navbar__title {
-  font-size: 0rem;
+  font-size: 1.6rem;
 }
 
 .navbar__inner {
@@ -27,8 +27,9 @@ html[data-theme="dark"] .navbar {
 }
 
 .navbar__logo {
-  margin-right: 0.1rem;
-  width: 180px;
+  margin-right: 1rem;
+  height: 48px;
+  width: 48px;
 }
 
 .navbar__link--active {

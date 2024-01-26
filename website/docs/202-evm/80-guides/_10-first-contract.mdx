@@ -1,0 +1,107 @@
+---
+title: Your First Contract
+hide_title: true
+hide_table_of_contents: true
+---
+
+import { Box, Grid } from "@mui/material";
+
+# Your First Contract
+
+This guide will walk you through creating your first Switchboard x Solidity
+contract and walk you through deploying it on a supported EVM chain.
+
+For this guide we'll be using [Hardhat](https://hardhat.org) to debug and
+compile our contract, spin up a localnet node, then run custom scripts to deploy
+our contract to different chains. You should have NodeJS and npm already
+installed - see [nodejs.org](https://nodejs.org/en/download/package-manager) for
+installation instructions.
+
+## Setup Workspace
+
+We'll start by cloning
+[Hardhat's Boilerplate Project](https://hardhat.org/tutorial/boilerplate-project)
+to get us up and running.
+
+```bash
+git clone https://github.com/NomicFoundation/hardhat-boilerplate my-first-contract
+cd my-first-contract
+npm install
+```
+
+You should have the following folder structure:
+
+<Grid container spacing={2}   justifyContent="flex-start" alignItems="flex-start">
+<Grid item xs={12} md={4}>
+<Box>
+
+```
+├── LICENSE
+├── README.md
+├── contracts
+│   └── Token.sol
+├── frontend/
+├── hardhat.config.js
+├── package-lock.json
+├── package.json
+├── scripts
+│   └── deploy.js
+├── tasks
+│   └── faucet.js
+└── test
+    └── Token.js
+```
+
+</Box>
+</Grid>
+<Grid item xs={12} md={8}>
+
+- **`contracts/Token.sol`** - This is our Solidity contract
+- **`frontend`** - This is a sample frontend dApp to interact with our contract.
+  We'll be ignoring it for this guide.
+- **`hardhat.config.js`** - This is the configuration file for Hardhat which is
+  responsible for compiling our Solidity contract into bytecode and also has
+  some helpful functionality to run custom tasks and interact with our contract.
+- **`scripts/deploy.js`** - This is a Hardhat script to deploy our contract to
+  an EVM network.
+- **`tasks/faucet.js`** - This is a custom hardhat task we can run with
+  `npx hardhat faucet`
+- **`test/Token.js`** - This is a javascript test module to interact with our
+  contract and test its functionality from a client-side application.
+
+</Grid>
+</Grid>
+
+Now let's add the Switchboard dependencies.
+
+```bash
+npm i -D @switchboard-xyz/evm.js
+```
+
+Now run `npx hardhat compile` to compile the sample contract. You should see two
+new directories `artifacts` and `cache`.
+
+So now we have our workspace setup with the Switchboard dependency added, so
+lets write a Solidity contract!
+
+## Solidity Contract
+
+We are going to write a Solidity contract which reads an existing Switchboard
+data feed.
+
+Then let's add the following line to our Solidity contract
+`contracts/Token.sol`:
+
+```diff
+//SPDX-License-Identifier: UNLICENSED
+
+// Solidity files have to start with this pragma.
+// It will be used by the Solidity compiler to validate its version.
+pragma solidity ^0.8.9;
+
++ // Add the Switchboard data feed interface
++ import {Switchboard} from "@switchboard-xyz/evm.js/contracts/core/testnet/Switchboard.sol";
+
+// We import this library to be able to use console.log
+import "hardhat/console.sol";
+```
