@@ -1,0 +1,95 @@
+---
+slug: ./queue
+title: Queue WIP
+---
+
+## Work in progress
+
+Each oracle queue in the Switchboard Network is autonomous and maintains its own
+configurations, which determine the level of security it provides. This design
+choice enables users to tailor the oracle queue's behavior to match their
+specific use case. Anyone can create their own queue and even run their own
+private Switchboard Network if desired.
+
+![Queue Architecture](/img/arch/Queue_Functions.png)
+
+## Oracle Assignment
+
+The Switchboard Network employs a round-robin approach to assign update requests
+to oracles. This section explains the key aspects of this method and its
+benefits for the network.
+
+### Heartbeat Requirement
+
+Oracles are required to periodically heartbeat on-chain before the
+`queue.oracleTimeout` to signal their readiness. If an oracle fails to heartbeat
+within this time frame, it will be temporarily removed from the queue and won't
+be assigned any update requests until it successfully heartbeats again.
+
+The queue utilizes `queue.gcIdx` to track its garbage collection index. If an
+oracle fails to send a heartbeat before `queue.oracleTimeout`, it is removed
+from the queue until it sends a successful heartbeat again. This process ensures
+that only active oracles are assigned resource update requests.
+
+### Round-Robin Assignment
+
+Update requests are assigned to oracles in a round-robin fashion, ensuring a
+fair distribution of tasks among oracles. Aggregators or data feeds can specify
+the number of oracles (N) required for each request. The system will then assign
+the next N oracles in the queue to fulfill the request. If there are not enough
+oracles in the queue, the update request will fail.
+
+### Periodic Swapping of Oracle Positions
+
+To provide an element of unpredictability and mitigate the risk of oracles being
+assigned the same update requests in every iteration, oracle positions in the
+queue are periodically swapped. This helps to further distribute tasks fairly
+and enhances the overall security of the network.
+
+## Access Control
+
+The Switchboard Network provides flexible access control options for each oracle
+queue, allowing queue operators to define whether data consumers need
+pre-approval or whether any requester can access the queue. This feature allows
+users to maintain control over their data resources and the level of security
+they require.
+
+:::note
+
+Oracles are _**always**_ required to be granted `PermitOracleHeartbeat`
+permissions before joining a queue.
+
+With Switchboard V3 oracles are pre-approved as long as they verify their
+MRENCLAVE measurements proving they are running a given software baseline within
+a trusted execution environment.
+
+:::
+
+## Economic Security
+
+Economic incentives are employed to encourage oracles to act honestly and
+provide accurate data. These incentives form the basis of the queue's security
+model and include:
+
+- **Reward**: The number of tokens an oracle or crank turner receives for
+  successfully completing an on-chain action
+- **Slashing**: Discouraging oracles from responding to update requests outside
+  a set margin of error
+- **Minimum Stake**: Oracles are required to stake a minimum amount of capital
+  to give them skin in the game.
+
+These economic measures help ensure that the oracles in the network provide
+reliable data and contribute to the overall security of the system.
+
+## Governance
+
+Oracle queues can be governed by network participants to control various queue
+configuration parameters, such as `queue.minStake`, `queue.reward`,
+`queue.slashingEnabled`, and permitting new oracles to join the network.
+Governance can be achieved through a decentralized autonomous organization (DAO)
+or other mechanisms, allowing the community to have a say in the network's
+operation.
+
+By understanding and leveraging the features of independent oracle queues, users
+can customize the Switchboard Network to meet their specific requirements and
+achieve the desired level of security.

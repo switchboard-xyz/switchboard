@@ -11,8 +11,9 @@ interface AddressButtonProps {
 export default function AddressButton(props: AddressButtonProps) {
   let sx: any = {
     textTransform: "none",
-    color: "var(--ifm-color-primary-light)",
-    fontWeight: 800,
+    color: "var(--ifm-color-primary)",
+    font: "IBM Plex Sans",
+    fontWeight: 400,
     margin: 0,
   };
   if (props.sx) {

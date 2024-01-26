@@ -1,0 +1,88 @@
+---
+slug: ./tee
+title: TEE
+keywords:
+  [Switchboard, web3, oracle, data feeds, vrf, randomness, solana, aptos]
+---
+
+import CustomAdmonition from "/src/components/CustomAdmonition";
+
+# TEE
+
+To fully grasp the functionality of Switchboard V3, it's crucial to understand 
+the concept of a TEE and how Switchboard leverages it with Economic Security.
+
+## What is a TEE?
+
+TEE guarantees that the code and data loaded inside its secure enclave are 
+protected with respect to confidentiality and integrity. The TEE concept 
+becomes particularly useful in scenarios where trust is an issue.
+
+For example, consider Alice and Bob:
+
+* Alice wants Bob to execute a piece of code but doesn't trust him to execute it honestly.
+* By using a TEE, Bob can run the program within his secure environment and receive a certificate (or quote) that verifies the execution and output of the code was as intended.
+* This way, Alice can then verify this certificate to ensure that Bob executed honestly.
+
+This framework can be applied to a wide array of use cases where verifying 
+the integrity and confidentiality of executed code is essential. For instance, 
+in data reporting, an untrusted party (like Bob or in Switchboard's case, the 
+oracles) can fetch data from various sources, and the TEE can ensure that this 
+information is fetched correctly and confidentially.
+
+---
+
+## How does Switchboard utilize TEEs?
+
+<CustomAdmonition type="info">
+In today's interconnected world, ensuring the security, privacy, and
+verifiability of data and code has become increasingly important. TEEs
+are used by used by governments, enterprises, and cloud service providers 
+to enable the secure handling of confidential information on mobile devices 
+and on server infrastructure.
+</CustomAdmonition>
+
+Switchboard v3 operates a network of TEE machines. These machines are peer-verified 
+on-chain with an economic staking requirement, ensuring that they run code solely 
+for the purpose of relaying certificate information back to the blockchain.
+
+The process works as follows:
+
+1. **User triggers code to execute:**        The Switchboard network monitors for a various number of triggers to execute a piece of user code.
+2. **Assignment to TEE Machines:**           Once a request is received, it's assigned to one of the TEE machines for processing. This ensures that the code is executed in a secure, tamper-proof environment.
+3. **Execution and Certificate Generation:** Inside the TEE, the user code is executed to produce an output. Along with the output, a certificate is generated. This certificate serves as a verifiable record that the code was executed correctly and the output is authentic.
+4. **Verification by Switchboard Oracle:**   Once the certificate is generated, it is then verified by a Switchboard oracle. The oracle plays a crucial role in ensuring the authenticity of the certificate.
+5. **Signing and On-Chain Transmission:**    After verification, the transaction output from user code is signed by the oracle and sent back on-chain. This step completes the cycle, providing a secure and trustworthy way to execute code and verify its output on the blockchain.
+
+## How does the signature from an oracle ensure code was verified?
+
+* Every oracle runs a verifier inside a TEE as well.
+* These verifiers can only run code dictated by the blockchain.
+* Every oracle creates a keypair inside their enclave purely for attesting user code results.
+* The oracle will sign and ONLY sign if the user code signature was validated.
+* Thus, by the oracle signing the output transaction, the user code was validated.
+
+**At the same time, Switchboard V3 utilizes economic incentives** for performance 
+status towards each oracle. By providing a relative metrics comparison of all 
+running oracles, we can slash out poor performers to maintain optimal network 
+participation and ensure the following:
+
+* Uptime
+* Network speed
+* Guarantee of function spin-up
+* Host resources
+
+---
+
+## SGX and the Gramine Framework
+
+Switchboard uses the Gramine framework to make user code SGX compatible without 
+alteration.
+
+<CustomAdmonition type="info">
+
+You can read more about **TEE and Intel SGX** here: [More TEE & SGX](../../info/more-tee-sgx)
+
+You can read more about **Gramine** here: [https://gramineproject.io/](https://gramineproject.io/)
+
+</CustomAdmonition>

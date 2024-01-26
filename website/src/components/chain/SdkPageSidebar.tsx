@@ -26,11 +26,6 @@ export default function SdkCard(props: {
       justifyContent="flex-start"
       alignItems="flex-start"
     >
-      <Grid xs={12}>
-        <div style={{ textAlign: "center" }}>
-          <h1>Switchboard x {capitalizeFirstLetterOfEachWord(sdk)}</h1>
-        </div>
-      </Grid>
       <Grid item md={9} xs={12}>
         {props.children}
       </Grid>

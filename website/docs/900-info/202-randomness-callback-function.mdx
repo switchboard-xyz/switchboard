@@ -1,0 +1,497 @@
+---
+title: Randomness Callback Function DEL
+hide_title: true
+hide_table_of_contents: true
+---
+
+import MarkdownImage from "/src/components/MarkdownImage";
+import AddressButton from "/src/components/AddressButton";
+import Link from "@docusaurus/Link";
+
+import CodeBlock from "@theme/CodeBlock";
+import Tabs from "@theme/Tabs";
+import TabItem from "@theme/TabItem";
+
+# Randomness Callback
+
+Switchboard Functions can have **_"sub-accounts"_** called Function Request
+Account's which allow you to pass a structured set of parameters to your
+function. This allows you to create request accounts for users where they can be
+re-used or closed directly after use. Each request account has their own
+separate token balance, relieving the integrator for managing user funds on
+their behalf. Because wrapped SOL is used for the oracle rewards, the
+Switchboard program will wrap any funds from the `payer` account provided with
+the Cross Program Invocation (CPI).
+
+In this example we will build a program which allows a user to request
+randomness then await the result off-chain and determine if the user is correct.
+
+:::info
+
+See the example on Github!
+**[switchboard-xyz/solana-sdk:examples/functions/04_randomness_callback](https://github.com/switchboard-xyz/solana-sdk/tree/main/examples/functions/04_randomness_callback)**
+
+:::
+
+For our program we will have a basic User PDA setup that will keep track of our
+programs User. First make a `house_init` instruction to initialize the top level
+program state and store the expected Function for our program. For each
+randomness request we will make a `FunctionRequestAccount` pointing to this
+function, indicating which instruction to execute.
+
+To integrate Switchboard Function requests you will need the following
+instructions:
+
+- **request_init** (user_guess in our example): An instruction to initialize the
+  `FunctionRequestAccount` with the expected container parameters. This will
+  mostly contain the Switchboard CPI to initialize the request and trigger it.
+- **request_settle** (user_settle in our example): Some instruction to execute
+  after the request has been verified by the Switchboard network to have been
+  executed within a secure enclave. This will contain the core business logic
+  and handle the result of your function.
+
+For each request we will pass the following parameters in the format
+`PID=XYZ,MAX_GUESS=10,USER=ABC`:
+
+```rust
+pub struct ContainerParams {
+    /// The program ID that is requesting randomness. Can be used for a generic function.
+    pub program_id: Pubkey,
+    /// The maximum guess the user submitted to bound the result from 1 to max_guess.
+    pub max_guess: u8,
+    /// The UserState account that submitted the guess.
+    pub user_key: Pubkey,
+}
+```
+
+**Integration Checklist:**
+
+- [ ] Build instruction to request randomness
+- [ ] Build instruction to settle randomness request
+- [ ] Write the Switchboard Function
+- [ ] Deploy function to Docker container
+- [ ] Create Switchboard function account
+- [ ] Request randomness
+
+## Build instruction to request randomness
+
+<details>
+
+<summary>
+  <strong>user_guess:</strong>
+  The user will submit a guess and we will create the Switchboard <i>
+    FunctionRequestAccount
+  </i> that will be used to instruct the verifier which container to run and with
+  what set of parameters.
+</summary>
+
+```rust
+// Context
+#[derive(Accounts)]
+pub struct UserGuess<'info> {
+    // PROGRAM ACCOUNTS
+    #[account(
+      seeds = [PROGRAM_SEED],
+      bump = house.load()?.bump,
+      has_one = function,
+      constraint = house.load()?.token_wallet == house_token_wallet.key(),
+    )]
+    pub house: AccountLoader<'info, HouseState>,
+
+    #[account(
+        mut,
+        seeds = [PROGRAM_SEED, payer.key().as_ref()], // user should be paying for this each time
+        bump = user.load()?.bump,
+        constraint = user.load()?.authority == payer.key() && user.load()?.token_wallet == user_token_wallet.key(),
+    )]
+    pub user: AccountLoader<'info, UserState>,
+
+    // SWITCHBOARD ACCOUNTS
+    /// CHECK:
+    #[account(executable, address = SWITCHBOARD_ATTESTATION_PROGRAM_ID)]
+    pub switchboard: AccountInfo<'info>,
+    #[account(
+      seeds = [STATE_SEED],
+      seeds::program = switchboard.key(),
+      bump = state.load()?.bump,
+    )]
+    pub state: AccountLoader<'info, AttestationProgramState>,
+    pub attestation_queue: AccountLoader<'info, AttestationQueueAccountData>,
+    #[account(
+      mut,
+      has_one = attestation_queue,
+    )]
+    pub function: AccountLoader<'info, FunctionAccountData>,
+    /// CHECK:
+    #[account(
+      mut,
+      signer,
+      owner = system_program.key(),
+      constraint = request.data_len() == 0 && request.lamports() == 0
+    )]
+    pub request: AccountInfo<'info>,
+    /// CHECK:
+    #[account(
+      mut,
+      owner = system_program.key(),
+      constraint = request.data_len() == 0 && request.lamports() == 0
+    )]
+    pub request_escrow: AccountInfo<'info>,
+
+    // TOKEN ACCOUNTS
+    pub token_program: Program<'info, Token>,
+    pub associated_token_program: Program<'info, AssociatedToken>,
+    #[account(address = anchor_spl::token::spl_token::native_mint::ID)]
+    pub mint: Account<'info, Mint>,
+    pub house_token_wallet: Box<Account<'info, TokenAccount>>,
+    #[account(mut)] // we might wrap funds to this wallet
+    pub user_token_wallet: Box<Account<'info, TokenAccount>>,
+
+    // SYSTEM ACCOUNTS
+    pub system_program: Program<'info, System>,
+    #[account(mut)]
+    pub payer: Signer<'info>,
+}
+
+// Instruction
+pub fn user_guess(ctx: Context<UserGuess>, guess: u8, wager: u64) -> Result<()> {
+    if ctx.accounts.house_token_wallet.amount < GUESS_COST {
+        return Err(error!(RandomnessRequestError::HouseInsufficientFunds));
+    }
+
+    if ctx.accounts.user_token_wallet.amount < GUESS_COST {
+        wrap_native(
+            &ctx.accounts.system_program,
+            &ctx.accounts.token_program,
+            &ctx.accounts.user_token_wallet,
+            &ctx.accounts.payer,
+            &[&[
+                PROGRAM_SEED,
+                ctx.accounts.user.load()?.authority.key().as_ref(),
+                &[ctx.accounts.user.load()?.bump],
+            ]],
+            GUESS_COST
+                .checked_sub(ctx.accounts.user_token_wallet.amount)
+                .unwrap(),
+        )?;
+    }
+
+    ctx.accounts.user_token_wallet.reload()?;
+
+    assert!(
+        ctx.accounts.user_token_wallet.amount >= GUESS_COST,
+        "User escrow is missing funds"
+    );
+
+    let request_params = format!(
+        "PID={},MAX_GUESS={},USER={}",
+        crate::id(),
+        ctx.accounts.house.load()?.max_guess,
+        ctx.accounts.user.key()
+    );
+
+    let request_init_ctx = FunctionRequestInitAndTrigger {
+        request: ctx.accounts.request.clone(),
+        function: ctx.accounts.function.clone(),
+        escrow: ctx.accounts.request_escrow.clone(),
+        mint: ctx.accounts.mint.clone(),
+        state: ctx.accounts.state.clone(),
+        attestation_queue: ctx.accounts.attestation_queue.clone(),
+        payer: ctx.accounts.payer.clone(),
+        system_program: ctx.accounts.system_program.clone(),
+        token_program: ctx.accounts.token_program.clone(),
+        associated_token_program: ctx.accounts.associated_token_program.clone(),
+    };
+    request_init_ctx.invoke(
+        ctx.accounts.switchboard.clone(),
+        None,
+        Some(1000),
+        Some(512),
+        Some(request_params.into_bytes()),
+        None,
+    )?;
+
+    let mut user = ctx.accounts.user.load_mut()?;
+    user.last_round = user.current_round;
+    user.current_round = UserRound {
+        guess,
+        wager,
+        request: ctx.accounts.request.key(),
+        status: RoundStatus::Pending,
+        result: 0,
+        slot: Clock::get()?.slot,
+        timestamp: Clock::get()?.unix_timestamp,
+    };
+
+    Ok(())
+}
+```
+
+</details>
+
+## Build instruction to settle randomness request
+
+<details>
+
+<summary>
+  <strong>user_settle:</strong>
+  Within our Docker container we will generate a random number based on the <i>
+    max_guess
+  </i> then build the user_settle instruction to determine if the user won.
+</summary>
+
+```rust
+// Context
+#[derive(Accounts)]
+pub struct UserSettle<'info> {
+    // CLIENT ACCOUNTS
+    #[account(
+      seeds = [PROGRAM_SEED],
+      bump = house.load()?.bump,
+      has_one = function,
+    )]
+    pub house: AccountLoader<'info, HouseState>,
+
+    #[account(
+        mut,
+        seeds = [PROGRAM_SEED, user.load()?.authority.as_ref()],
+        bump = user.load()?.bump,
+        constraint = user.load()?.token_wallet == user_token_wallet.key(),
+    )]
+    pub user: AccountLoader<'info, UserState>,
+
+    // SWITCHBOARD ACCOUNTS
+    pub function: AccountLoader<'info, FunctionAccountData>,
+    #[account(
+      constraint = request.validate_signer(
+          &function.to_account_info(),
+          &enclave_signer.to_account_info()
+        )? @ RandomnessRequestError::FunctionValidationFailed,
+    )]
+    pub request: Box<Account<'info, FunctionRequestAccountData>>,
+    pub enclave_signer: Signer<'info>,
+
+    // TOKEN ACCOUNTS
+    pub token_program: Program<'info, Token>,
+    #[account(address = anchor_spl::token::spl_token::native_mint::ID)]
+    pub mint: Account<'info, Mint>,
+    #[account(mut)]
+    pub house_token_wallet: Box<Account<'info, TokenAccount>>,
+    #[account(mut)]
+    pub user_token_wallet: Box<Account<'info, TokenAccount>>,
+}
+
+// Instruction
+pub fn user_settle(ctx: Context<UserSettle>, result: u8) -> Result<()> {
+    // verify we haven't responded already
+    if ctx.accounts.user.load()?.current_round.status != RoundStatus::Pending {
+        return Err(error!(RandomnessRequestError::RoundInactive));
+    }
+
+    if ctx.accounts.request.active_request.status != RequestStatus::RequestSuccess {
+        return Err(error!(
+            RandomnessRequestError::SwitchboardRequestNotSuccessful
+        ));
+    }
+
+    let mut user = ctx.accounts.user.load_mut()?;
+    user.current_round.result = result;
+    user.current_round.status = RoundStatus::Settled;
+
+    // TODO: payout
+
+    Ok(())
+}
+```
+
+</details>
+
+## Write the Switchboard Function
+
+Our function is very simple because we are able to generate randomness within
+the enclave. **All you need to generate randomness is one line
+` Gramine::read_rand(&mut bytes)`!**
+
+```rust
+use std::str::FromStr;
+
+pub use switchboard_solana::get_ixn_discriminator;
+pub use switchboard_solana::prelude::*;
+
+mod params;
+pub use params::*;
+
+#[tokio::main(worker_threads = 12)]
+async fn main() {
+    // First, initialize the runner instance with a freshly generated Gramine keypair
+    let runner = FunctionRunner::new_from_cluster(Cluster::Devnet, None).unwrap();
+
+    // parse and validate user provided request params
+    let params = ContainerParams::decode(&runner.fn_request_data.container_params).unwrap();
+
+    // Determine the final result
+    let mut bytes: [u8; 1] = [0u8; 1];
+    Gramine::read_rand(&mut bytes).expect("gramine failed to generate randomness");
+    let result = (bytes[0] % params.max_guess) + 1;
+
+    // derive pubkeys to build ixn
+    let (house_pubkey, _house_bump) =
+        Pubkey::find_program_address(&[b"CUSTOMRANDOMNESS"], &params.program_id);
+    let mint = anchor_spl::token::spl_token::native_mint::ID;
+    let house_escrow =
+        anchor_spl::associated_token::get_associated_token_address(&house_pubkey, &mint);
+    let user_escrow =
+        anchor_spl::associated_token::get_associated_token_address(&params.user_key, &mint);
+
+    // build ixn data from discriminator and result
+    let mut ixn_data = get_ixn_discriminator("user_settle").to_vec();
+    ixn_data.push(result);
+
+    let user_settle_ixn = Instruction {
+        program_id: params.program_id,
+        data: ixn_data,
+        accounts: vec![
+            AccountMeta::new_readonly(house_pubkey, false),
+            AccountMeta::new(params.user_key, false),
+            AccountMeta::new_readonly(runner.function, false),
+            AccountMeta::new_readonly(runner.fn_request_key, false),
+            AccountMeta::new_readonly(runner.signer, true),
+            AccountMeta::new_readonly(anchor_spl::token::ID, false),
+            AccountMeta::new_readonly(mint, false),
+            AccountMeta::new(house_escrow, false),
+            AccountMeta::new(user_escrow, false),
+        ],
+    };
+
+    // Then, write your own Rust logic and build a Vec of instructions.
+    // Should  be under 700 bytes after serialization
+    let ixs: Vec<solana_program::instruction::Instruction> = vec![user_settle_ixn];
+
+    // Finally, emit the signed quote and partially signed transaction to the functionRunner oracle
+    // The functionRunner oracle will use the last outputted word to stdout as the serialized result. This is what gets executed on-chain.
+    runner.emit(ixs).await.unwrap();
+}
+```
+
+## Deploy function to Docker container
+
+The template repository includes a Makefile to streamline publishing your
+container to the docker repository along with outputting your MrEnclave
+measurement. This measurement corresponds to the code fingerprint of the
+outputted Rust binary. You should store this value in the function account we
+create in the following step. This will ensure that the only code that is
+allowed to add data to your smart contract must be generated from a binary with
+this signature. You can add multiple MrEnclave values to your function account
+to allow backwards compatibility and make upgrades easier.
+
+Edit the Makefile and add your docker registry.
+
+```makefile
+# Variables
+## Cargo.toml name of the compiled binary
+CARGO_NAME=switchboard-function
+## Docker registry image name (Ex: switchboardlabs/basic-oracle-function)
+DOCKER_IMAGE_NAME=switchboard-function
+```
+
+Use one of the following commands to compile your function:
+
+| Command        | Description                                                                  |
+| -------------- | ---------------------------------------------------------------------------- |
+| `make`         | Build the container locally and output the MrEnclave measurement             |
+| `make publish` | Publish the container to the provided docker repository under the latest tag |
+
+## Create Switchboard function account
+
+Next we need to create our function account on-chain. We will define an empty
+cron schedule to effectively disable the scheduled executions of our containers;
+for our example we only need to execute custom requests when our users make a
+request. We do not need to fund our function because our users will wrap SOL to
+pay for the request.
+
+<Tabs>
+  <TabItem attributes={{className: "navbar_icon__switchboard"}} value="ui" label="Web App" default>
+
+Visit the Switchboard app: [app.switchboard.xyz](https://app.switchboard.xyz/)
+
+In the top right, sign in to your Solana wallet for the selected cluster.
+
+![Switchboard App Sign-in Solana](/img/guides/solana/functions/explorer-sign-in.png)
+
+Then click build and start configuring your function
+
+![Switchboard App Function Config Modal](/img/guides/solana/functions/explorer-function-config.png)
+
+  </TabItem>
+  {/* <TabItem attributes={{className: "navbar_icon__rust"}} value="rust" label="switchboard-solana" default>
+
+TODO: add code block for creating & funding a function account
+
+  </TabItem> */}
+  <TabItem attributes={{className: "navbar_icon__javascript"}} value="javascript" label="@switchboard-xyz/solana.js" default>
+
+```typescript
+import {
+  AttestationQueueAccount,
+  FunctionAccount,
+  parseMrEnclave,
+  SwitchboardProgram,
+} from "@switchboard-xyz/solana.js";
+
+// Load the Switchboard program and an existing Attestation Queue
+const program = await SwitchboardProgram.load(
+  "devnet",
+  new Connection("https://api.devnet.solana.com"),
+  payerKeypair
+);
+const [attestationQueueAccount, queueAccountData] =
+  await AttestationQueueAccount.load(program, "My Attestation Queue Pubkey");
+
+// Create the FunctionAccount
+const [functionAccount, txnSignature] = await FunctionAccount.create(
+  ctx.program,
+  {
+    name: "FUNCTION_NAME",
+    metadata: "FUNCTION_METADATA",
+    schedule: "",
+    container: "switchboardlabs/randomness-function",
+    mrEnclave: parseMrEnclave("my MrEnclave value"),
+    attestationQueue: attestationQueueAccount,
+  }
+);
+
+// Wrap 0.25 SOL into the functionAccount wallet
+await functionAccount.wrap(0.25);
+```
+
+  </TabItem>
+  <TabItem attributes={{className: "navbar_icon__terminal"}} value="CLI" label="sb CLI">
+
+```bash
+sb solana function create CkvizjVnm2zA5Wuwan34NhVT3zFc7vqUyGnA6tuEF5aE \
+  --name "My Function" \
+  --metadata "Randomness Callback" \
+  --schedule "" \
+  --containerRegistry dockerhub \
+  --container switchboardlabs/randomness-function \
+  --keypair ~/.config/solana/id.json
+```
+
+  </TabItem>
+</Tabs>
+
+## Request randomness
+
+**DONE!**
+
+Now just call `user_init` to initialize your User then call `user_guess` to
+request randomness! After ~5 seconds you should see your `user_settle` callback
+land on-chain.
+
+View the
+[example program tests](https://github.com/switchboard-xyz/solana-sdk/blob/main/examples/functions/04_randomness_callback/tests/custom_randomness_request.ts)
+for more context.
+
+There is also a
+[request script](https://github.com/switchboard-xyz/solana-sdk/blob/main/examples/functions/04_randomness_callback/request.ts)
+to help you test.

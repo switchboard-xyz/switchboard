@@ -1,0 +1,13 @@
+
+.custom-tab {
+  color: inherit;
+}
+.custom-tab:hover {
+  background-color: var(--ifm-color-primary-light);
+}
+.custom-tab:hover {
+  background-color: var(--ifm-color-primary-light);
+}
+.custom-tab[aria-selected='true'] {
+  border-bottom-color: var(--ifm-color-primary);
+}
