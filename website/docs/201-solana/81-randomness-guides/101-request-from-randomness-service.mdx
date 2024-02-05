@@ -1,6 +1,197 @@
 ---
 slug: ./request-from-randomness-service
-title: Request From Randomness Service WIP
+title: Request From Randomness Service
 description: "Learn how to seamlessly request randomness from Switchboard Randomness Service."
 ---
 
+import CustomAdmonition from "/src/components/CustomAdmonition";
+import CustomDetails from "/src/components/CustomDetails";
+
+In this guide, you are going to request randomness bytes from 
+the Switchboard Randomness Service, without running your own 
+function or queue.
+
+<CustomAdmonition type="tip">
+
+To learn more about the architecture of this service, read [here](../architecture/randomness-service).
+
+</CustomAdmonition>
+
+### Program & SDK
+
+**Program ID**: `RANDMo5gFnqnXJW5Z52KNmd24sAo95KAd5VbiCtq5Rh` (Applicable for mainnet-beta and devnet)
+
+**Rust Crate**: [https://crates.io/crates/solana-randomness-service](https://crates.io/crates/solana-randomness-service)
+
+**Docs**: [https://docs.rs/solana-randomness-service/latest/solana_randomness_service/](https://docs.rs/solana-randomness-service/latest/solana_randomness_service/)
+
+### Usage
+
+<CustomAdmonition type="tip">
+
+Here's a recap of the Request Lifecycle:
+
+<CustomDetails header="Request Lifecycle">
+
+1. User's program invokes the `simple_randomness_v1` instruction with a CPI call along with the number of randomness bytes, the custom callback instruction, and the priority fee configuration.
+    - Creates a `SimpleRandomnessV1Account` account
+    - Sets the custom callback
+    - Wraps funds into an escrow to reward the oracle for fulfilling the request
+2. Off-chain SGX enabled oracle reads the request account
+    - Generates random bytes inside of the enclave
+    - Builds a transaction with your callback and desired priority fees
+    - Simulates the transaction. If successful, relays the transaction on-chain.
+        - If error, relays an error instruction with the error message which is viewable in a blockchain explorer.
+3. Transaction relayed on-chain
+    - Oracle rewarded for fulfilling request
+    - Oracle invokes the users callback instruction
+    - Request account is closed and the rent-exemption is returned to the original payer
+
+</CustomDetails>
+
+</CustomAdmonition>
+
+Add the solana_randomness_service to your `Cargo.toml`
+
+```rust
+solana-randomness-service = { version = "1", features = ["cpi"] }
+```
+
+See the example program below on how to integrate the Solana Randomness Service into your Anchor program.
+
+- [ ] Call the `simple_randomness_v1` instruction with your payer, callback, and your desired priority fee configuration
+- [ ] Build the callback instruction that the randomness service will invoke with your requested randomness bytes
+
+```rust
+use solana_randomness_service::SimpleRandomnessV1Account;
+ use solana_randomness_service::{
+     program::SolanaRandomnessService, ID as SolanaRandomnessServiceID,
+ };
+ use switchboard_solana::prelude::*;
+ use switchboard_solana::utils::get_ixn_discriminator;
+
+ declare_id!("39hMZgeiesFXMRFt8svuKVsdCW5geiYueSRx7dxhXN4f");
+
+ #[program]
+ pub mod solana_randomness_consumer {
+     use super::*;
+
+     pub fn request_randomness(ctx: Context<RequestRandomness>) -> anchor_lang::prelude::Result<()> {
+         msg!("Requesting randomness...");
+
+         // 1. Call the randomness service and request a new value
+         solana_randomness_service::cpi::simple_randomness_v1(
+             CpiContext::new(
+                 ctx.accounts.randomness_service.to_account_info(),
+                 solana_randomness_service::cpi::accounts::SimpleRandomnessV1Request {
+                     request: ctx.accounts.randomness_request.to_account_info(),
+                     escrow: ctx.accounts.randomness_escrow.to_account_info(),
+                     state: ctx.accounts.randomness_state.to_account_info(),
+                     mint: ctx.accounts.randomness_mint.to_account_info(),
+                     payer: ctx.accounts.payer.to_account_info(),
+                     system_program: ctx.accounts.system_program.to_account_info(),
+                     token_program: ctx.accounts.token_program.to_account_info(),
+                     associated_token_program: ctx
+                         .accounts
+                         .associated_token_program
+                         .to_account_info(),
+                 },
+             ),
+             8, // Request 8 bytes of randomness
+             solana_randomness_service::Callback {
+                 program_id: ID,
+                 accounts: vec![
+                     AccountMeta::new_readonly(ctx.accounts.randomness_state.key(), true).into(),
+                     AccountMeta::new_readonly(ctx.accounts.randomness_request.key(), false).into(),
+                 ],
+                 ix_data: get_ixn_discriminator("consume_randomness").to_vec(), // TODO: hardcode this discriminator [190,217,49,162,99,26,73,234]
+             },
+             Some(use solana_randomness_service::TransactionOptions {
+                 compute_units: Some(1_000_000),
+                 compute_unit_price: Some(100),
+             }),
+         )?;
+
+         // Here we can emit some event to index our requests
+
+         Ok(())
+     }
+
+     // 2. Build the instruction that will be called with the randomness bytes. The randomness bytes Vec will be appended to the end of the ixn data.
+     pub fn consume_randomness(
+         _ctx: Context<ConsumeRandomness>,
+         result: Vec<u8>,
+     ) -> anchor_lang::prelude::Result<()> {
+         msg!("Randomness received: {:?}", result);
+         Ok(())
+     }
+ }
+
+ // The request_randomness macro breaks IDL generation. So we'll manually implement.
+ // #[request_randomness]
+ #[derive(Accounts)]
+ pub struct RequestRandomness<'info> {
+     //!  The Solana Randomness Service program.
+     pub randomness_service: Program<'info, SolanaRandomnessService>,
+
+     //!  The account that will be created on-chain to hold the randomness request.
+     //!  Used by the off-chain oracle to pickup the request and fulfill it.
+     //!  CHECK: todo
+     #[account(
+         mut,
+         signer,
+         owner = system_program.key(),
+         constraint = randomness_request.data_len() == 0 && randomness_request.lamports() == 0,
+     )]
+     pub randomness_request: AccountInfo<'info>,
+
+     //!  The TokenAccount that will store the funds for the randomness request.
+     //!  CHECK: todo
+     #[account(
+         mut,
+         owner = system_program.key(),
+         constraint = randomness_escrow.data_len() == 0 && randomness_escrow.lamports() == 0,
+     )]
+     pub randomness_escrow: AccountInfo<'info>,
+
+     //!  The randomness service's state account. Responsible for storing the
+     //!  reward escrow and the cost per random byte.
+     #[account(
+         seeds = [b"STATE"],
+         bump = randomness_state.bump,
+         seeds::program = randomness_service.key(),
+     )]
+     pub randomness_state: Box<Account<'info, solana_randomness_service::State>>,
+
+     //!  The token mint to use for paying for randomness requests.
+     #[account(address = NativeMint::ID)]
+     pub randomness_mint: Account<'info, Mint>,
+
+     //!  The account that will pay for the randomness request.
+     #[account(mut)]
+     pub payer: Signer<'info>,
+
+     //!  The Solana System program. Used to allocate space on-chain for the randomness_request account.
+     pub system_program: Program<'info, System>,
+
+     //!  The Solana Token program. Used to transfer funds to the randomness escrow.
+     pub token_program: Program<'info, Token>,
+
+     //!  The Solana Associated Token program. Used to create the TokenAccount for the randomness escrow.
+     pub associated_token_program: Program<'info, AssociatedToken>,
+ }
+
+ #[derive(Accounts)]
+ pub struct ConsumeRandomness<'info> {
+     //!  We need to make sure the randomness service signed this requests so it can only be invoked by a PDA and not a user.
+     #[account(
+         signer,
+         seeds = [b"STATE"],
+         seeds::program = SolanaRandomnessServiceID,
+         bump = randomness_state.bump,
+     )]
+     pub randomness_state: Box<Account<'info, solana_randomness_service::State>>,
+
+     pub request: Box<Account<'info, SimpleRandomnessV1Account>>,
+ }
+```

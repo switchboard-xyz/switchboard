@@ -82,3 +82,7 @@
   display: inline-block;
   margin-right: 8px;
 }
+
+.custom-admonition.tip .custom-details {
+  color: var(--ifm-color-content);
+}

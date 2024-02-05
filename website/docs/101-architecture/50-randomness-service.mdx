@@ -1,45 +1,92 @@
 ---
 slug: ./randomness-service
-title: Randomness Service WIP
+title: Randomness Service
 keywords:
-  [
-    Switchboard,
-    web3,
-    oracle,
-    randomness,
-    vrf,
-    solana,
-    evm,
-    arbitrum,
-    core,
-    coredao,
-  ]
+  [Switchboard, web3, oracle, randomness, vrf, solana, evm, arbitrum, core, coredao,]
 ---
 
-## Work in progress
+import CustomAdmonition from "/src/components/CustomAdmonition";
+
+<CustomAdmonition type="caution">
+
+Be wary and skeptical of teams claiming they offer true randomness from 
+both on-chain and off-chain sources!
+
+</CustomAdmonition>
 
 While true-randomness on some computers can be made possible via atmospheric
 noise and special hardware modules, such solutions on blockchains are not
 possible since they are virtual machines without physical hardware. Thus,
-pseudorandom-functions are needed to close this gap. **_You should be skeptical
-of teams claiming they offer true randomness._**
+pseudorandom-functions are needed to close this gap. 
 
-Random numbers are crucial for many DeFi applications whether its fair NFT
-launches, gambling, gaming, or assigning user roles in a DAO. Without an element
-of randomness, each of the above could be exploited and the final outcome
-predicted.
+Random numbers are crucial for many types of applications whether its fair NFT
+mints, gambling, gaming, etc. Without an element of randomness, each of the 
+above could be exploited and the final outcome predicted.
 
 Switchboard has had a Verifiable Random Function (VRF) deployed on Solana since
 February 2022. While this is not going away, it should be replaced in favor of
-using a [Switchboard Function](/functions) to generate randomness within a TEE
-and perform the callback into the users program. The Solana VRF implementation
-required 40+ transactions in order to perform the necessary computations while a
-Switchboard Function will take only a single transaction to settle resulting in
-a better user experience.
+using a the [V3 oracle infrastructure](./switchboard/tee) to generate randomness 
+within a TEE and optimize latency, costs and developer experience.
 
-:::tip
+<CustomAdmonition type="info">
 
-A [**Switchboard Function**](/functions) can be used to generate randomness
-within a secure enclave.
+The Solana VRF implementation required 40+ transactions in order to perform the 
+necessary computations while a Switchboard Function will take only a single 
+transaction to settle, resulting in a better developer and user experience.
 
-:::
+**Read below to find out the costs and latency for the Randomness Service!**
+
+</CustomAdmonition>
+
+### Introducing Switchboard Randomness Service
+
+The Randomness Service uses a Switchboard SGX enabled oracle to provide randomness 
+to any Solana program using a callback instruction. The Service Product allows you 
+as a developer and user of Switchboard to seamlessly tap into common use cases such 
+as randomness, hence, through this method of usage, you do not need to run your own 
+queue or function to achieve a set of on-chain randomness byte(s).
+
+<CustomAdmonition type="note">
+
+The Randomness Service is currently supported on Solana. Future expansion of the 
+service to other ecosystems/blockchains are to subject to demand.
+
+To start using it, read the [Requesting From Randomness Service Guide](../solana/randomness-guides/request-from-randomness-service).
+
+</CustomAdmonition>
+
+### Request lifecycle
+
+1. User's program invokes the `simple_randomness_v1` instruction with a CPI call along with the number of randomness bytes, the custom callback instruction, and the priority fee configuration.
+    - Creates a `SimpleRandomnessV1Account` account
+    - Sets the custom callback
+    - Wraps funds into an escrow to reward the oracle for fulfilling the request
+2. Off-chain SGX enabled oracle reads the request account
+    - Generates random bytes inside of the enclave
+    - Builds a transaction with your callback and desired priority fees
+    - Simulates the transaction. If successful, relays the transaction on-chain.
+        - If error, relays an error instruction with the error message which is viewable in a blockchain explorer.
+3. Transaction relayed on-chain
+    - Oracle rewarded for fulfilling request
+    - Oracle invokes the users callback instruction
+    - Request account is closed and the rent-exemption is returned to the original payer
+
+### Latency
+
+Each randomness request round trip is about 1-2 slots latency. However this will subject 
+to network health and confirmation time.
+
+### Costs
+
+Each randomness request cost can be calculated by the following equation: 
+
+$$
+T_{costPerRequest}=T_{transactionCost}+T_{oracleReward}+T_{userPriorityFee}
+$$
+
+where,
+
+* `T` is the raw token amount in base units, in this case lamports
+* `transactionCost` = 10_000 lamports
+* `oracleReward` = 10_000 lamports
+* `userPriorityFee` = user defined amount of lamports

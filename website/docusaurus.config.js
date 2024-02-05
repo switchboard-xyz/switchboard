@@ -50,13 +50,7 @@ const config = {
     locales: ["en"],
   },
 
-  // stylesheets: [
-  //   "https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.css",
-  //   "https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap",
-  //   "https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css",
-  //   "https://unpkg.com/aos@next/dist/aos.css",
-  //   "https://fonts.googleapis.com/icon?family=Material+Icons",
-  // ],
+  stylesheets: ["https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.css",],
 
   plugins: ["docusaurus-plugin-api-docs"],
 
