@@ -34,3 +34,8 @@ Or add the following line to your Cargo.toml:
 [dependencies]
 switchboard-utils = "0.8.0"
 ```
+
+## Environment Variables
+
+- `JUPITER_SWAP_URL` - default: https://public.jupiterapi.com/
+- `JUPITER_SWAP_API_KEY`
