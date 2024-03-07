@@ -92,8 +92,21 @@ pub enum SbError {
     InvalidSignature,
 
     // Solana
+    /// Failed to fetch a network resource
+    SolanaFetchError(String),
+    /// Failed to fetch a blockhash from the cluster
     SolanaBlockhashError,
+    /// Failed to fetch a blockhash from the cluster
+    SolanaBlockhashFetchError(ParentError),
+    /// THe provided payer does not match the payer of the transaction
+    /// Expected vs actual
+    SolanaPayerMismatch(String, String),
+    SolanaPayerSignerMissing(String),
+    /// A required Solana signer is missing
+    SolanaMissingSigner(String),
     SolanaSignError(ParentError, String),
+    SolanaInstructionsEmpty,
+    SolanaInstructionOverflow,
     FunctionResultIxMissingDiscriminator,
     FunctionResultError(&'static str),
     FunctionResultIxError(&'static str),
@@ -132,9 +145,42 @@ impl fmt::Display for SbError {
             SbError::FunctionResultNonRetryableError(source) => {
                 write!(f, "error: FunctionResultNonRetryableError - {:?}", source)
             }
+            SbError::SolanaPayerMismatch(expected, actual) => {
+                write!(
+                    f,
+                    "error: SolanaPayerMismatch - expected: {}, actual: {}",
+                    expected, actual
+                )
+            }
+            SbError::SolanaMissingSigner(missing_signer) => {
+                write!(f, "error: Missing required signer: {}", missing_signer)
+            }
+            SbError::SolanaInstructionsEmpty => write!(
+                f,
+                "error: The attempted action requires at least one instruction but none were provided"
+            ),
+            SbError::SolanaInstructionOverflow => write!(
+                f,
+                "error: The transaction exceeded the maximum number of instructions (10)"
+            ),
+            SbError::SolanaPayerSignerMissing(payer) => write!(
+                f,
+                "error: The payer keypair is missing from the provided signers: {}",
+                payer
+            ),
+            SbError::SolanaBlockhashFetchError(source) => write!(
+                f,
+                "error: Failed to fetch blockhash from the cluster. Please try again. - {:?}", source
+            ),
             // Handle other error variants as needed
             _ => write!(f, "{:#?}", self),
         }
+    }
+}
+
+impl<T> From<SbError> for Result<T, Box<SbError>> {
+    fn from(err: SbError) -> Result<T, Box<SbError>> {
+        Err(Box::new(err))
     }
 }
 
@@ -228,5 +274,11 @@ mod tests {
         let serde_json_error = serde_json::from_str::<serde_json::Value>(json).unwrap_err();
         let error: SbError = serde_json_error.into();
         assert!(format!("{}", error).starts_with("error: serde_json error - "));
+    }
+}
+
+impl From<SbError> for Box<dyn StdError + Send> {
+    fn from(err: SbError) -> Self {
+        Box::new(err) // Assuming SbError implements StdError and Send
     }
 }

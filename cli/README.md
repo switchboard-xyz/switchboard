@@ -175,6 +175,7 @@ node bin/dev print GvDMxPzN1sCj7L26YDK2HnMRXEQmQ2aemov8YBtPS7vR
 * [`sb solana aggregator withdraw AGGREGATORKEY`](#sb-solana-aggregator-withdraw-aggregatorkey)
 * [`sb solana anchor test`](#sb-solana-anchor-test)
 * [`sb solana attestation-queue add-enclave QUEUEKEY`](#sb-solana-attestation-queue-add-enclave-queuekey)
+* [`sb solana attestation-queue bootstrap`](#sb-solana-attestation-queue-bootstrap)
 * [`sb solana attestation-queue create`](#sb-solana-attestation-queue-create)
 * [`sb solana attestation-queue print QUEUEKEY`](#sb-solana-attestation-queue-print-queuekey)
 * [`sb solana attestation-queue remove-enclave QUEUEKEY`](#sb-solana-attestation-queue-remove-enclave-queuekey)
@@ -196,7 +197,6 @@ node bin/dev print GvDMxPzN1sCj7L26YDK2HnMRXEQmQ2aemov8YBtPS7vR
 * [`sb solana function get`](#sb-solana-function-get)
 * [`sb solana function print FUNCTIONKEY`](#sb-solana-function-print-functionkey)
 * [`sb solana function remove-enclave FUNCTIONKEY`](#sb-solana-function-remove-enclave-functionkey)
-* [`sb solana function rmMrEnclave FUNCTIONKEY`](#sb-solana-function-rmmrenclave-functionkey)
 * [`sb solana function send-request FUNCTIONKEY`](#sb-solana-function-send-request-functionkey)
 * [`sb solana function sync-enclave FUNCTIONKEY`](#sb-solana-function-sync-enclave-functionkey)
 * [`sb solana function test`](#sb-solana-function-test)
@@ -230,6 +230,18 @@ node bin/dev print GvDMxPzN1sCj7L26YDK2HnMRXEQmQ2aemov8YBtPS7vR
 * [`sb solana routine create FUNCTIONKEY`](#sb-solana-routine-create-functionkey)
 * [`sb solana routine fund ROUTINEKEY`](#sb-solana-routine-fund-routinekey)
 * [`sb solana routine print ROUTINEKEY`](#sb-solana-routine-print-routinekey)
+* [`sb solana secrets add-mrenclave`](#sb-solana-secrets-add-mrenclave)
+* [`sb solana secrets create SECRETNAME`](#sb-solana-secrets-create-secretname)
+* [`sb solana secrets delete SECRETNAME`](#sb-solana-secrets-delete-secretname)
+* [`sb solana secrets print`](#sb-solana-secrets-print)
+* [`sb solana service-worker configure SERVICEWORKERKEY`](#sb-solana-service-worker-configure-serviceworkerkey)
+* [`sb solana service-worker create ATTESTATIONQUEUEKEY`](#sb-solana-service-worker-create-attestationqueuekey)
+* [`sb solana service-worker print SERVICEWORKERKEY`](#sb-solana-service-worker-print-serviceworkerkey)
+* [`sb solana service-worker remove-service SERVICEWORKERKEY`](#sb-solana-service-worker-remove-service-serviceworkerkey)
+* [`sb solana service configure SERVICEKEY`](#sb-solana-service-configure-servicekey)
+* [`sb solana service create FUNCTIONKEY`](#sb-solana-service-create-functionkey)
+* [`sb solana service print SERVICEKEY`](#sb-solana-service-print-servicekey)
+* [`sb solana service set-worker SERVICEKEY`](#sb-solana-service-set-worker-servicekey)
 * [`sb solana verifier-oracle create QUEUEKEY`](#sb-solana-verifier-oracle-create-queuekey)
 * [`sb solana verifier-oracle print VERIFIERKEY`](#sb-solana-verifier-oracle-print-verifierkey)
 * [`sb solana version`](#sb-solana-version)
@@ -237,6 +249,20 @@ node bin/dev print GvDMxPzN1sCj7L26YDK2HnMRXEQmQ2aemov8YBtPS7vR
 * [`sb solana vrf print VRFKEY`](#sb-solana-vrf-print-vrfkey)
 * [`sb solana vrf request VRFKEY`](#sb-solana-vrf-request-vrfkey)
 * [`sb solana vrf update VRFKEY`](#sb-solana-vrf-update-vrfkey)
+* [`sb starknet function add-enclave FUNCTIONID`](#sb-starknet-function-add-enclave-functionid)
+* [`sb starknet function addMrEnclave FUNCTIONID`](#sb-starknet-function-addmrenclave-functionid)
+* [`sb starknet function configure FUNCTIONID`](#sb-starknet-function-configure-functionid)
+* [`sb starknet function create ATTESTATIONQUEUEID`](#sb-starknet-function-create-attestationqueueid)
+* [`sb starknet function print FUNCTIONID`](#sb-starknet-function-print-functionid)
+* [`sb starknet function remove-enclave FUNCTIONID`](#sb-starknet-function-remove-enclave-functionid)
+* [`sb starknet function rmMrEnclave FUNCTIONID`](#sb-starknet-function-rmmrenclave-functionid)
+* [`sb starknet queue print ATTESTATIONQUEUEID`](#sb-starknet-queue-print-attestationqueueid)
+* [`sb starknet request create FUNCTIONID`](#sb-starknet-request-create-functionid)
+* [`sb starknet request print REQUESTID`](#sb-starknet-request-print-requestid)
+* [`sb starknet routine create FUNCTIONID`](#sb-starknet-routine-create-functionid)
+* [`sb starknet routine fund ROUTINEKEY`](#sb-starknet-routine-fund-routinekey)
+* [`sb starknet routine print ROUTINEID`](#sb-starknet-routine-print-routineid)
+* [`sb starknet verifier print VERIFIERID`](#sb-starknet-verifier-print-verifierid)
 * [`sb update [CHANNEL]`](#sb-update-channel)
 * [`sb version`](#sb-version)
 
@@ -306,7 +332,7 @@ DESCRIPTION
   request an airdrop
 ```
 
-_See code: [dist/commands/aptos/account/airdrop.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.12/dist/commands/aptos/account/airdrop.js)_
+_See code: [dist/commands/aptos/account/airdrop.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.32/dist/commands/aptos/account/airdrop.js)_
 
 ## `sb aptos aggregator add job AGGREGATORHEXSTRING`
 
@@ -346,7 +372,7 @@ ALIASES
   $ sb aptos aggregator job add
 ```
 
-_See code: [dist/commands/aptos/aggregator/add/job.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.12/dist/commands/aptos/aggregator/add/job.js)_
+_See code: [dist/commands/aptos/aggregator/add/job.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.32/dist/commands/aptos/aggregator/add/job.js)_
 
 ## `sb aptos aggregator create QUEUEHEXSTRING`
 
@@ -399,7 +425,7 @@ ALIASES
   $ sb aptos create aggregator
 ```
 
-_See code: [dist/commands/aptos/aggregator/create.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.12/dist/commands/aptos/aggregator/create.js)_
+_See code: [dist/commands/aptos/aggregator/create.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.32/dist/commands/aptos/aggregator/create.js)_
 
 ## `sb aptos aggregator job add AGGREGATORHEXSTRING`
 
@@ -470,7 +496,7 @@ ALIASES
   $ sb aptos update aggregator
 ```
 
-_See code: [dist/commands/aptos/aggregator/update.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.12/dist/commands/aptos/aggregator/update.js)_
+_See code: [dist/commands/aptos/aggregator/update.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.32/dist/commands/aptos/aggregator/update.js)_
 
 ## `sb aptos crank create QUEUEHEXSTRING`
 
@@ -511,7 +537,7 @@ ALIASES
   $ sb aptos create crank
 ```
 
-_See code: [dist/commands/aptos/crank/create.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.12/dist/commands/aptos/crank/create.js)_
+_See code: [dist/commands/aptos/crank/create.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.32/dist/commands/aptos/crank/create.js)_
 
 ## `sb aptos crank list CRANKHEXSTRING`
 
@@ -544,7 +570,7 @@ ALIASES
   $ sb aptos list crank
 ```
 
-_See code: [dist/commands/aptos/crank/list.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.12/dist/commands/aptos/crank/list.js)_
+_See code: [dist/commands/aptos/crank/list.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.32/dist/commands/aptos/crank/list.js)_
 
 ## `sb aptos crank pop CRANKHEXSTRING`
 
@@ -580,7 +606,7 @@ ALIASES
   $ sb aptos pop crank
 ```
 
-_See code: [dist/commands/aptos/crank/pop.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.12/dist/commands/aptos/crank/pop.js)_
+_See code: [dist/commands/aptos/crank/pop.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.32/dist/commands/aptos/crank/pop.js)_
 
 ## `sb aptos crank push CRANKHEXSTRING`
 
@@ -617,7 +643,7 @@ ALIASES
   $ sb aptos push crank
 ```
 
-_See code: [dist/commands/aptos/crank/push.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.12/dist/commands/aptos/crank/push.js)_
+_See code: [dist/commands/aptos/crank/push.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.32/dist/commands/aptos/crank/push.js)_
 
 ## `sb aptos create aggregator QUEUEHEXSTRING`
 
@@ -876,7 +902,7 @@ ALIASES
   $ sb aptos create job
 ```
 
-_See code: [dist/commands/aptos/job/create.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.12/dist/commands/aptos/job/create.js)_
+_See code: [dist/commands/aptos/job/create.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.32/dist/commands/aptos/job/create.js)_
 
 ## `sb aptos list crank CRANKHEXSTRING`
 
@@ -948,7 +974,7 @@ ALIASES
   $ sb aptos create oracle
 ```
 
-_See code: [dist/commands/aptos/oracle/create.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.12/dist/commands/aptos/oracle/create.js)_
+_See code: [dist/commands/aptos/oracle/create.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.32/dist/commands/aptos/oracle/create.js)_
 
 ## `sb aptos oracle metrics ORACLEHEXSTRING`
 
@@ -978,7 +1004,7 @@ DESCRIPTION
   list oracle metrics
 ```
 
-_See code: [dist/commands/aptos/oracle/metrics.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.12/dist/commands/aptos/oracle/metrics.js)_
+_See code: [dist/commands/aptos/oracle/metrics.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.32/dist/commands/aptos/oracle/metrics.js)_
 
 ## `sb aptos oracle up ORACLEHEXSTRING`
 
@@ -1013,7 +1039,7 @@ DESCRIPTION
   start an aptos docker oracle
 ```
 
-_See code: [dist/commands/aptos/oracle/up.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.12/dist/commands/aptos/oracle/up.js)_
+_See code: [dist/commands/aptos/oracle/up.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.32/dist/commands/aptos/oracle/up.js)_
 
 ## `sb aptos permission create GRANTER`
 
@@ -1049,7 +1075,7 @@ DESCRIPTION
   create a new permission
 ```
 
-_See code: [dist/commands/aptos/permission/create.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.12/dist/commands/aptos/permission/create.js)_
+_See code: [dist/commands/aptos/permission/create.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.32/dist/commands/aptos/permission/create.js)_
 
 ## `sb aptos permission set GRANTER`
 
@@ -1085,7 +1111,7 @@ DESCRIPTION
   create a new permission
 ```
 
-_See code: [dist/commands/aptos/permission/set.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.12/dist/commands/aptos/permission/set.js)_
+_See code: [dist/commands/aptos/permission/set.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.32/dist/commands/aptos/permission/set.js)_
 
 ## `sb aptos pop crank CRANKHEXSTRING`
 
@@ -1153,7 +1179,7 @@ ALIASES
   $ sb aptos print
 ```
 
-_See code: [dist/commands/aptos/print.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.12/dist/commands/aptos/print.js)_
+_See code: [dist/commands/aptos/print.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.32/dist/commands/aptos/print.js)_
 
 ## `sb aptos push crank CRANKHEXSTRING`
 
@@ -1236,7 +1262,7 @@ ALIASES
   $ sb aptos create queue
 ```
 
-_See code: [dist/commands/aptos/queue/create.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.12/dist/commands/aptos/queue/create.js)_
+_See code: [dist/commands/aptos/queue/create.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.32/dist/commands/aptos/queue/create.js)_
 
 ## `sb aptos update aggregator AGGREGATORHEXSTRING`
 
@@ -1292,7 +1318,7 @@ EXAMPLES
   $ sb config:print
 ```
 
-_See code: [dist/commands/config/print.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.12/dist/commands/config/print.js)_
+_See code: [dist/commands/config/print.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.32/dist/commands/config/print.js)_
 
 ## `sb config set CHAIN NETWORK PARAMETER [VALUE]`
 
@@ -1318,7 +1344,7 @@ DESCRIPTION
   set a configuration option
 ```
 
-_See code: [dist/commands/config/set.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.12/dist/commands/config/set.js)_
+_See code: [dist/commands/config/set.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.32/dist/commands/config/set.js)_
 
 ## `sb enclave`
 
@@ -1353,8 +1379,8 @@ Print an enclave's state
 ```
 USAGE
   $ sb evm enclave print ENCLAVEKEY [-h] [-v] [-s] [--chain coredao|arbitrum|optimism|base|aurora | --coredao |
-    --arbitrum | --optimism | --base | --aurora] [--network mainnet|testnet | --mainnet | --testnet] [-u <value>]
-    [--programId <value>] [--json]
+    --arbitrum | --optimism | --base | --aurora] [--network mainnet|testnet|sepolia | --mainnet | --testnet | ] [-u
+    <value>] [--programId <value>] [--json]
 
 ARGUMENTS
   ENCLAVEKEY  address of the enclave
@@ -1372,7 +1398,7 @@ FLAGS
   --coredao             use the coredao chain
   --mainnet             use the mainnet network
   --network=<option>    the EVM network to connect to
-                        <options: mainnet|testnet>
+                        <options: mainnet|testnet|sepolia>
   --optimism            use the optimism chain
   --programId=<value>   alternative Switchboard program ID to interact with
   --testnet             use the testnet network
@@ -1387,7 +1413,7 @@ EXAMPLES
   $ sb evm enclave print 0xaA43ba6f18b138A0B3313dDbFaC2b920D240108E --chain arbitrum --network testnet --programId 0x4F706C62535d171883A6cc9384f3f3d926A6BA49
 ```
 
-_See code: [dist/commands/evm/enclave/print.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.12/dist/commands/evm/enclave/print.js)_
+_See code: [dist/commands/evm/enclave/print.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.32/dist/commands/evm/enclave/print.js)_
 
 ## `sb evm function add-enclave FUNCTIONKEY`
 
@@ -1397,7 +1423,7 @@ Add MrEnclave to a function account
 USAGE
   $ sb evm function add-enclave FUNCTIONKEY --account <value> --mrEnclave <value> [-h] [-v] [-s] [--chain
     coredao|arbitrum|optimism|base|aurora | --coredao | --arbitrum | --optimism | --base | --aurora] [--network
-    mainnet|testnet | --mainnet | --testnet] [-u <value>] [--programId <value>] [--json]
+    mainnet|testnet|sepolia | --mainnet | --testnet | ] [-u <value>] [--programId <value>] [--json]
 
 ARGUMENTS
   FUNCTIONKEY  address of the function account
@@ -1417,7 +1443,7 @@ FLAGS
   --mainnet             use the mainnet network
   --mrEnclave=<value>   (required) The MrEnclave to add
   --network=<option>    the EVM network to connect to
-                        <options: mainnet|testnet>
+                        <options: mainnet|testnet|sepolia>
   --optimism            use the optimism chain
   --programId=<value>   alternative Switchboard program ID to interact with
   --testnet             use the testnet network
@@ -1432,7 +1458,7 @@ EXAMPLES
   $ sb evm function add-enclave $FUNCTION_ID --chain arbitrum --network testnet --mrEnclave $MEASUREMENT --account ../.kp.txt --programId $SWITCHBOARD_ADDRESS
 ```
 
-_See code: [dist/commands/evm/function/add-enclave.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.12/dist/commands/evm/function/add-enclave.js)_
+_See code: [dist/commands/evm/function/add-enclave.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.32/dist/commands/evm/function/add-enclave.js)_
 
 ## `sb evm function configure FUNCTIONKEY`
 
@@ -1441,8 +1467,8 @@ Configure a function account
 ```
 USAGE
   $ sb evm function configure FUNCTIONKEY --account <value> [-h] [-v] [-s] [--chain coredao|arbitrum|optimism|base|aurora |
-    --coredao | --arbitrum | --optimism | --base | --aurora] [--network mainnet|testnet | --mainnet | --testnet] [-u
-    <value>] [--programId <value>] [--json] [--name <value>] [--authority <value>] [--containerRegistry <value>]
+    --coredao | --arbitrum | --optimism | --base | --aurora] [--network mainnet|testnet|sepolia | --mainnet | --testnet
+    | ] [-u <value>] [--programId <value>] [--json] [--name <value>] [--authority <value>] [--containerRegistry <value>]
     [--container <value>] [--version <value>]
 
 ARGUMENTS
@@ -1466,7 +1492,7 @@ FLAGS
   --mainnet                    use the mainnet network
   --name=<value>               update the name for the function
   --network=<option>           the EVM network to connect to
-                               <options: mainnet|testnet>
+                               <options: mainnet|testnet|sepolia>
   --optimism                   use the optimism chain
   --programId=<value>          alternative Switchboard program ID to interact with
   --testnet                    use the testnet network
@@ -1482,7 +1508,7 @@ EXAMPLES
   $ sb evm function fund 0xaA43ba6f18b138A0B3313dDbFaC2b920D240108E --chain arbitrum --network testnet --fundAmount 0.02 --account ~/.arbitrum-kp.txt --programId 0x4F706C62535d171883A6cc9384f3f3d926A6BA49
 ```
 
-_See code: [dist/commands/evm/function/configure.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.12/dist/commands/evm/function/configure.js)_
+_See code: [dist/commands/evm/function/configure.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.32/dist/commands/evm/function/configure.js)_
 
 ## `sb evm function create QUEUEKEY`
 
@@ -1492,8 +1518,8 @@ create a new function account for a given queue
 USAGE
   $ sb evm function create QUEUEKEY --account <value> --container <value> [-h] [-v] [-s] [--chain
     coredao|arbitrum|optimism|base|aurora | --coredao | --arbitrum | --optimism | --base | --aurora] [--network
-    mainnet|testnet | --mainnet | --testnet] [-u <value>] [--programId <value>] [--json] [-n <value>] [-a <value>]
-    [--fundAmount <value>] [--containerRegistry dockerhub|ipfs] [--version <value>] [--mrEnclave <value>]
+    mainnet|testnet|sepolia | --mainnet | --testnet | ] [-u <value>] [--programId <value>] [--json] [-n <value>] [-a
+    <value>] [--fundAmount <value>] [--containerRegistry dockerhub|ipfs] [--version <value>] [--mrEnclave <value>]
 
 ARGUMENTS
   QUEUEKEY  address of the attestation queue account
@@ -1520,7 +1546,7 @@ FLAGS
   --mrEnclave=<value>           the MrEnclave value to set for the function - if not provided, will be set automatically
                                 after its first run
   --network=<option>            the EVM network to connect to
-                                <options: mainnet|testnet>
+                                <options: mainnet|testnet|sepolia>
   --optimism                    use the optimism chain
   --programId=<value>           alternative Switchboard program ID to interact with
   --testnet                     use the testnet network
@@ -1537,7 +1563,7 @@ EXAMPLES
   $ sb evm function create F8ce7MsckeZAbAGmxjJNetxYXQa9mKr9nnrC3qKubyYy --name function-1 --fundAmount 0.25 --container switchboardlabs/basic-oracle-function --version latest
 ```
 
-_See code: [dist/commands/evm/function/create.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.12/dist/commands/evm/function/create.js)_
+_See code: [dist/commands/evm/function/create.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.32/dist/commands/evm/function/create.js)_
 
 ## `sb evm function fund FUNCTIONKEY`
 
@@ -1546,8 +1572,8 @@ Fund a function account
 ```
 USAGE
   $ sb evm function fund FUNCTIONKEY --account <value> [-h] [-v] [-s] [--chain coredao|arbitrum|optimism|base|aurora |
-    --coredao | --arbitrum | --optimism | --base | --aurora] [--network mainnet|testnet | --mainnet | --testnet] [-u
-    <value>] [--programId <value>] [--json] [--fundAmount <value>]
+    --coredao | --arbitrum | --optimism | --base | --aurora] [--network mainnet|testnet|sepolia | --mainnet | --testnet
+    | ] [-u <value>] [--programId <value>] [--json] [--fundAmount <value>]
 
 ARGUMENTS
   FUNCTIONKEY  address of the function account
@@ -1567,7 +1593,7 @@ FLAGS
   --fundAmount=<value>  [default: 0.0] token amount to load into the function's escrow wallet.
   --mainnet             use the mainnet network
   --network=<option>    the EVM network to connect to
-                        <options: mainnet|testnet>
+                        <options: mainnet|testnet|sepolia>
   --optimism            use the optimism chain
   --programId=<value>   alternative Switchboard program ID to interact with
   --testnet             use the testnet network
@@ -1582,7 +1608,7 @@ EXAMPLES
   $ sb evm function fund 0xaA43ba6f18b138A0B3313dDbFaC2b920D240108E --chain arbitrum --network testnet --fundAmount 0.02 --account ~/.arbitrum-kp.txt --programId 0x4F706C62535d171883A6cc9384f3f3d926A6BA49
 ```
 
-_See code: [dist/commands/evm/function/fund.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.12/dist/commands/evm/function/fund.js)_
+_See code: [dist/commands/evm/function/fund.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.32/dist/commands/evm/function/fund.js)_
 
 ## `sb evm function print FUNCTIONKEY`
 
@@ -1591,8 +1617,8 @@ Print a function account
 ```
 USAGE
   $ sb evm function print FUNCTIONKEY [-h] [-v] [-s] [--chain coredao|arbitrum|optimism|base|aurora | --coredao |
-    --arbitrum | --optimism | --base | --aurora] [--network mainnet|testnet | --mainnet | --testnet] [-u <value>]
-    [--programId <value>] [--json]
+    --arbitrum | --optimism | --base | --aurora] [--network mainnet|testnet|sepolia | --mainnet | --testnet | ] [-u
+    <value>] [--programId <value>] [--json]
 
 ARGUMENTS
   FUNCTIONKEY  address of the function account
@@ -1610,7 +1636,7 @@ FLAGS
   --coredao             use the coredao chain
   --mainnet             use the mainnet network
   --network=<option>    the EVM network to connect to
-                        <options: mainnet|testnet>
+                        <options: mainnet|testnet|sepolia>
   --optimism            use the optimism chain
   --programId=<value>   alternative Switchboard program ID to interact with
   --testnet             use the testnet network
@@ -1625,7 +1651,7 @@ EXAMPLES
   $ sb evm function print 0xaA43ba6f18b138A0B3313dDbFaC2b920D240108E --chain arbitrum --network testnet --programId 0x4F706C62535d171883A6cc9384f3f3d926A6BA49
 ```
 
-_See code: [dist/commands/evm/function/print.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.12/dist/commands/evm/function/print.js)_
+_See code: [dist/commands/evm/function/print.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.32/dist/commands/evm/function/print.js)_
 
 ## `sb evm function remove-enclave FUNCTIONKEY`
 
@@ -1635,7 +1661,7 @@ Remove MrEnclave to a function account
 USAGE
   $ sb evm function remove-enclave FUNCTIONKEY --account <value> --mrEnclave <value> [-h] [-v] [-s] [--chain
     coredao|arbitrum|optimism|base|aurora | --coredao | --arbitrum | --optimism | --base | --aurora] [--network
-    mainnet|testnet | --mainnet | --testnet] [-u <value>] [--programId <value>] [--json]
+    mainnet|testnet|sepolia | --mainnet | --testnet | ] [-u <value>] [--programId <value>] [--json]
 
 ARGUMENTS
   FUNCTIONKEY  address of the function account
@@ -1655,7 +1681,7 @@ FLAGS
   --mainnet             use the mainnet network
   --mrEnclave=<value>   (required) The MrEnclave to remove
   --network=<option>    the EVM network to connect to
-                        <options: mainnet|testnet>
+                        <options: mainnet|testnet|sepolia>
   --optimism            use the optimism chain
   --programId=<value>   alternative Switchboard program ID to interact with
   --testnet             use the testnet network
@@ -1670,7 +1696,7 @@ EXAMPLES
   $ sb evm function removeMrEnclave 0xaA43ba6f18b138A0B3313dDbFaC2b920D240108E --chain arbitrum --network testnet --removeMrEnclace 0xDEADBEEF --account ~/.arbitrum-kp.txt --programId 0x4F706C62535d171883A6cc9384f3f3d926A6BA49
 ```
 
-_See code: [dist/commands/evm/function/remove-enclave.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.12/dist/commands/evm/function/remove-enclave.js)_
+_See code: [dist/commands/evm/function/remove-enclave.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.32/dist/commands/evm/function/remove-enclave.js)_
 
 ## `sb evm function test`
 
@@ -1679,8 +1705,8 @@ Test a local function before publishing
 ```
 USAGE
   $ sb evm function test [-h] [-v] [-s] [--chain coredao|arbitrum|optimism|base|aurora | --coredao | --arbitrum |
-    --optimism | --base | --aurora] [--network mainnet|testnet | --mainnet | --testnet] [-u <value>] [--programId
-    <value>] [--json] [--parameters <value>]
+    --optimism | --base | --aurora] [--network mainnet|testnet|sepolia | --mainnet | --testnet | ] [-u <value>]
+    [--programId <value>] [--json] [--parameters <value>]
 
 FLAGS
   -h, --help            Show CLI help.
@@ -1695,7 +1721,7 @@ FLAGS
   --coredao             use the coredao chain
   --mainnet             use the mainnet network
   --network=<option>    the EVM network to connect to
-                        <options: mainnet|testnet>
+                        <options: mainnet|testnet|sepolia>
   --optimism            use the optimism chain
   --parameters=<value>  Parameters to pass to the run
   --programId=<value>   alternative Switchboard program ID to interact with
@@ -1711,7 +1737,7 @@ EXAMPLES
   $ sb evm function test --parameters 'uint256:1,string:hello
 ```
 
-_See code: [dist/commands/evm/function/test.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.12/dist/commands/evm/function/test.js)_
+_See code: [dist/commands/evm/function/test.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.32/dist/commands/evm/function/test.js)_
 
 ## `sb evm queue print QUEUEKEY`
 
@@ -1720,8 +1746,8 @@ Print an attestation queue account
 ```
 USAGE
   $ sb evm queue print QUEUEKEY [-h] [-v] [-s] [--chain coredao|arbitrum|optimism|base|aurora | --coredao |
-    --arbitrum | --optimism | --base | --aurora] [--network mainnet|testnet | --mainnet | --testnet] [-u <value>]
-    [--programId <value>] [--json]
+    --arbitrum | --optimism | --base | --aurora] [--network mainnet|testnet|sepolia | --mainnet | --testnet | ] [-u
+    <value>] [--programId <value>] [--json]
 
 ARGUMENTS
   QUEUEKEY  address of the attestation queue
@@ -1739,7 +1765,7 @@ FLAGS
   --coredao             use the coredao chain
   --mainnet             use the mainnet network
   --network=<option>    the EVM network to connect to
-                        <options: mainnet|testnet>
+                        <options: mainnet|testnet|sepolia>
   --optimism            use the optimism chain
   --programId=<value>   alternative Switchboard program ID to interact with
   --testnet             use the testnet network
@@ -1754,7 +1780,7 @@ EXAMPLES
   $ sb evm queue print 0xaA43ba6f18b138A0B3313dDbFaC2b920D240108E --chain arbitrum --network testnet --programId 0x4F706C62535d171883A6cc9384f3f3d926A6BA49
 ```
 
-_See code: [dist/commands/evm/queue/print.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.12/dist/commands/evm/queue/print.js)_
+_See code: [dist/commands/evm/queue/print.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.32/dist/commands/evm/queue/print.js)_
 
 ## `sb evm request print REQUESTKEY`
 
@@ -1763,8 +1789,8 @@ Print a function request
 ```
 USAGE
   $ sb evm request print REQUESTKEY [-h] [-v] [-s] [--chain coredao|arbitrum|optimism|base|aurora | --coredao |
-    --arbitrum | --optimism | --base | --aurora] [--network mainnet|testnet | --mainnet | --testnet] [-u <value>]
-    [--programId <value>] [--json]
+    --arbitrum | --optimism | --base | --aurora] [--network mainnet|testnet|sepolia | --mainnet | --testnet | ] [-u
+    <value>] [--programId <value>] [--json]
 
 ARGUMENTS
   REQUESTKEY  address of the request account
@@ -1782,7 +1808,7 @@ FLAGS
   --coredao             use the coredao chain
   --mainnet             use the mainnet network
   --network=<option>    the EVM network to connect to
-                        <options: mainnet|testnet>
+                        <options: mainnet|testnet|sepolia>
   --optimism            use the optimism chain
   --programId=<value>   alternative Switchboard program ID to interact with
   --testnet             use the testnet network
@@ -1797,7 +1823,7 @@ EXAMPLES
   $ sb evm request print 0xaA43ba6f18b138A0B3313dDbFaC2b920D240108E --chain arbitrum --network testnet --programId 0x4F706C62535d171883A6cc9384f3f3d926A6BA49
 ```
 
-_See code: [dist/commands/evm/request/print.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.12/dist/commands/evm/request/print.js)_
+_See code: [dist/commands/evm/request/print.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.32/dist/commands/evm/request/print.js)_
 
 ## `sb evm request send FUNCTIONKEY`
 
@@ -1806,8 +1832,8 @@ create a new function account for a given queue
 ```
 USAGE
   $ sb evm request send FUNCTIONKEY --account <value> [-h] [-v] [-s] [--chain coredao|arbitrum|optimism|base|aurora |
-    --coredao | --arbitrum | --optimism | --base | --aurora] [--network mainnet|testnet | --mainnet | --testnet] [-u
-    <value>] [--programId <value>] [--json] [-a <value>] [--fundAmount <value>] [--params <value>]
+    --coredao | --arbitrum | --optimism | --base | --aurora] [--network mainnet|testnet|sepolia | --mainnet | --testnet
+    | ] [-u <value>] [--programId <value>] [--json] [-a <value>] [--fundAmount <value>] [--params <value>]
 
 ARGUMENTS
   FUNCTIONKEY  address of the function account
@@ -1828,7 +1854,7 @@ FLAGS
   --fundAmount=<value>     [default: 0.0] token amount to load into the function's escrow wallet.
   --mainnet                use the mainnet network
   --network=<option>       the EVM network to connect to
-                           <options: mainnet|testnet>
+                           <options: mainnet|testnet|sepolia>
   --optimism               use the optimism chain
   --params=<value>         The parameters to send in this request
   --programId=<value>      alternative Switchboard program ID to interact with
@@ -1844,7 +1870,7 @@ EXAMPLES
   $ sb evm function send F8ce7MsckeZAbAGmxjJNetxYXQa9mKr9nnrC3qKubyYy --fundAmount 0.01 --params abc123
 ```
 
-_See code: [dist/commands/evm/request/send.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.12/dist/commands/evm/request/send.js)_
+_See code: [dist/commands/evm/request/send.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.32/dist/commands/evm/request/send.js)_
 
 ## `sb evm routine create FUNCTIONKEY`
 
@@ -1853,9 +1879,9 @@ create a new routine account for a given function
 ```
 USAGE
   $ sb evm routine create FUNCTIONKEY --account <value> [-h] [-v] [-s] [--chain coredao|arbitrum|optimism|base|aurora |
-    --coredao | --arbitrum | --optimism | --base | --aurora] [--network mainnet|testnet | --mainnet | --testnet] [-u
-    <value>] [--programId <value>] [--json] [--authority <value>] [--fundAmount <value>] [--schedule <value>] [--params
-    <value>]
+    --coredao | --arbitrum | --optimism | --base | --aurora] [--network mainnet|testnet|sepolia | --mainnet | --testnet
+    | ] [-u <value>] [--programId <value>] [--json] [--authority <value>] [--fundAmount <value>] [--schedule <value>]
+    [--params <value>]
 
 ARGUMENTS
   FUNCTIONKEY  address of the function account
@@ -1876,7 +1902,7 @@ FLAGS
   --fundAmount=<value>  [default: 0.0] token amount to load into the function's escrow wallet.
   --mainnet             use the mainnet network
   --network=<option>    the EVM network to connect to
-                        <options: mainnet|testnet>
+                        <options: mainnet|testnet|sepolia>
   --optimism            use the optimism chain
   --params=<value>      the parameters this routine should pass to the function
   --programId=<value>   alternative Switchboard program ID to interact with
@@ -1894,7 +1920,7 @@ EXAMPLES
   $ sb evm routine create F8ce7MsckeZAbAGmxjJNetxYXQa9mKr9nnrC3qKubyYy --fundAmount 0.25 --container "mgild/randomness" --version latest
 ```
 
-_See code: [dist/commands/evm/routine/create.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.12/dist/commands/evm/routine/create.js)_
+_See code: [dist/commands/evm/routine/create.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.32/dist/commands/evm/routine/create.js)_
 
 ## `sb evm routine fund ROUTINEKEY`
 
@@ -1903,8 +1929,8 @@ create a new routine account for a given function
 ```
 USAGE
   $ sb evm routine fund ROUTINEKEY --account <value> [-h] [-v] [-s] [--chain coredao|arbitrum|optimism|base|aurora |
-    --coredao | --arbitrum | --optimism | --base | --aurora] [--network mainnet|testnet | --mainnet | --testnet] [-u
-    <value>] [--programId <value>] [--json] [--fundAmount <value>]
+    --coredao | --arbitrum | --optimism | --base | --aurora] [--network mainnet|testnet|sepolia | --mainnet | --testnet
+    | ] [-u <value>] [--programId <value>] [--json] [--fundAmount <value>]
 
 ARGUMENTS
   ROUTINEKEY  address of the routine account
@@ -1924,7 +1950,7 @@ FLAGS
   --fundAmount=<value>  [default: 0.0] token amount to load into the function's escrow wallet.
   --mainnet             use the mainnet network
   --network=<option>    the EVM network to connect to
-                        <options: mainnet|testnet>
+                        <options: mainnet|testnet|sepolia>
   --optimism            use the optimism chain
   --programId=<value>   alternative Switchboard program ID to interact with
   --testnet             use the testnet network
@@ -1939,7 +1965,7 @@ EXAMPLES
   $ sb evm routine fund F8ce7MsckeZAbAGmxjJNetxYXQa9mKr9nnrC3qKubyYy --fundAmount 0.25
 ```
 
-_See code: [dist/commands/evm/routine/fund.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.12/dist/commands/evm/routine/fund.js)_
+_See code: [dist/commands/evm/routine/fund.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.32/dist/commands/evm/routine/fund.js)_
 
 ## `sb evm routine print ROUTINEKEY`
 
@@ -1948,8 +1974,8 @@ Print a function routine
 ```
 USAGE
   $ sb evm routine print ROUTINEKEY [-h] [-v] [-s] [--chain coredao|arbitrum|optimism|base|aurora | --coredao |
-    --arbitrum | --optimism | --base | --aurora] [--network mainnet|testnet | --mainnet | --testnet] [-u <value>]
-    [--programId <value>] [--json]
+    --arbitrum | --optimism | --base | --aurora] [--network mainnet|testnet|sepolia | --mainnet | --testnet | ] [-u
+    <value>] [--programId <value>] [--json]
 
 ARGUMENTS
   ROUTINEKEY  address of the routine account
@@ -1967,7 +1993,7 @@ FLAGS
   --coredao             use the coredao chain
   --mainnet             use the mainnet network
   --network=<option>    the EVM network to connect to
-                        <options: mainnet|testnet>
+                        <options: mainnet|testnet|sepolia>
   --optimism            use the optimism chain
   --programId=<value>   alternative Switchboard program ID to interact with
   --testnet             use the testnet network
@@ -1982,7 +2008,7 @@ EXAMPLES
   $ sb evm routine print 0xaA43ba6f18b138A0B3313dDbFaC2b920D240108E --chain arbitrum --network testnet --programId 0x4F706C62535d171883A6cc9384f3f3d926A6BA49
 ```
 
-_See code: [dist/commands/evm/routine/print.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.12/dist/commands/evm/routine/print.js)_
+_See code: [dist/commands/evm/routine/print.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.32/dist/commands/evm/routine/print.js)_
 
 ## `sb function-init TEMPLATE`
 
@@ -2005,7 +2031,7 @@ DESCRIPTION
   initialize a new function template
 ```
 
-_See code: [dist/commands/function-init.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.12/dist/commands/function-init.js)_
+_See code: [dist/commands/function-init.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.32/dist/commands/function-init.js)_
 
 ## `sb help [COMMANDS]`
 
@@ -2052,7 +2078,7 @@ EXAMPLES
   $ sb job:test
 ```
 
-_See code: [dist/commands/job/test.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.12/dist/commands/job/test.js)_
+_See code: [dist/commands/job/test.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.32/dist/commands/job/test.js)_
 
 ## `sb mrenclave`
 
@@ -2080,7 +2106,7 @@ ALIASES
   $ sb enclave
 ```
 
-_See code: [dist/commands/mrenclave.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.12/dist/commands/mrenclave.js)_
+_See code: [dist/commands/mrenclave.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.32/dist/commands/mrenclave.js)_
 
 ## `sb oracle logs NETWORK SEARCHSTRING`
 
@@ -2107,7 +2133,7 @@ DESCRIPTION
   fetch logs for a switchboard oracle
 ```
 
-_See code: [dist/commands/oracle/logs.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.12/dist/commands/oracle/logs.js)_
+_See code: [dist/commands/oracle/logs.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.32/dist/commands/oracle/logs.js)_
 
 ## `sb solana aggregator add history AGGREGATORKEY`
 
@@ -2149,7 +2175,7 @@ EXAMPLES
   $ sb solana:aggregator:add:history
 ```
 
-_See code: [dist/commands/solana/aggregator/add/history.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.12/dist/commands/solana/aggregator/add/history.js)_
+_See code: [dist/commands/solana/aggregator/add/history.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.32/dist/commands/solana/aggregator/add/history.js)_
 
 ## `sb solana aggregator add job AGGREGATORKEY`
 
@@ -2191,7 +2217,7 @@ EXAMPLES
   $ sb solana aggregator add job
 ```
 
-_See code: [dist/commands/solana/aggregator/add/job.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.12/dist/commands/solana/aggregator/add/job.js)_
+_See code: [dist/commands/solana/aggregator/add/job.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.32/dist/commands/solana/aggregator/add/job.js)_
 
 ## `sb solana aggregator authority AGGREGATORKEY`
 
@@ -2225,7 +2251,7 @@ FLAGS
   --programId=<value>             alternative Switchboard program ID to interact with
 ```
 
-_See code: [dist/commands/solana/aggregator/authority.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.12/dist/commands/solana/aggregator/authority.js)_
+_See code: [dist/commands/solana/aggregator/authority.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.32/dist/commands/solana/aggregator/authority.js)_
 
 ## `sb solana aggregator close AGGREGATORKEY`
 
@@ -2266,7 +2292,7 @@ EXAMPLES
   $ sb solana aggregator close J7j9xX8JP2B2ErvUzuqGAKBGeggsxPyFXj5MqZcYDxfa --keypair ../payer-keypair.json
 ```
 
-_See code: [dist/commands/solana/aggregator/close.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.12/dist/commands/solana/aggregator/close.js)_
+_See code: [dist/commands/solana/aggregator/close.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.32/dist/commands/solana/aggregator/close.js)_
 
 ## `sb solana aggregator create QUEUEKEY`
 
@@ -2338,7 +2364,7 @@ DESCRIPTION
   create an aggregator account
 ```
 
-_See code: [dist/commands/solana/aggregator/create/index.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.12/dist/commands/solana/aggregator/create/index.js)_
+_See code: [dist/commands/solana/aggregator/create/index.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.32/dist/commands/solana/aggregator/create/index.js)_
 
 ## `sb solana aggregator create json DEFINITIONFILE`
 
@@ -2386,7 +2412,7 @@ EXAMPLES
   $ sb solana aggregator create json examples/aggregator.json --keypair ../payer-keypair.json --queueKey GhYg3R1V6DmJbwuc57qZeoYG6gUuvCotUF1zU3WCj98U --outputFile aggregator.schema.json
 ```
 
-_See code: [dist/commands/solana/aggregator/create/json.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.12/dist/commands/solana/aggregator/create/json.js)_
+_See code: [dist/commands/solana/aggregator/create/json.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.32/dist/commands/solana/aggregator/create/json.js)_
 
 ## `sb solana aggregator deposit AGGREGATORKEY`
 
@@ -2551,7 +2577,7 @@ DESCRIPTION
   print an aggregator's history'
 ```
 
-_See code: [dist/commands/solana/aggregator/history.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.12/dist/commands/solana/aggregator/history.js)_
+_See code: [dist/commands/solana/aggregator/history.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.32/dist/commands/solana/aggregator/history.js)_
 
 ## `sb solana aggregator lease set AGGREGATORKEY`
 
@@ -2630,7 +2656,7 @@ DESCRIPTION
   get a list of aggregators from a provided authority pubkey
 ```
 
-_See code: [dist/commands/solana/aggregator/list.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.12/dist/commands/solana/aggregator/list.js)_
+_See code: [dist/commands/solana/aggregator/list.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.32/dist/commands/solana/aggregator/list.js)_
 
 ## `sb solana aggregator lock AGGREGATORKEY`
 
@@ -2667,7 +2693,7 @@ DESCRIPTION
   lock an aggregator's configuration and prevent further changes
 ```
 
-_See code: [dist/commands/solana/aggregator/lock.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.12/dist/commands/solana/aggregator/lock.js)_
+_See code: [dist/commands/solana/aggregator/lock.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.32/dist/commands/solana/aggregator/lock.js)_
 
 ## `sb solana aggregator metrics AGGREGATORKEY`
 
@@ -2704,7 +2730,7 @@ DESCRIPTION
   print an aggregator's metrics'
 ```
 
-_See code: [dist/commands/solana/aggregator/metrics.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.12/dist/commands/solana/aggregator/metrics.js)_
+_See code: [dist/commands/solana/aggregator/metrics.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.32/dist/commands/solana/aggregator/metrics.js)_
 
 ## `sb solana aggregator mode AGGREGATORKEY`
 
@@ -2747,7 +2773,7 @@ DESCRIPTION
   set an aggregators resolution mode config
 ```
 
-_See code: [dist/commands/solana/aggregator/mode.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.12/dist/commands/solana/aggregator/mode.js)_
+_See code: [dist/commands/solana/aggregator/mode.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.32/dist/commands/solana/aggregator/mode.js)_
 
 ## `sb solana aggregator open-round AGGREGATORKEY`
 
@@ -2823,7 +2849,7 @@ DESCRIPTION
   create a permission account for an aggregator
 ```
 
-_See code: [dist/commands/solana/aggregator/permission/create.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.12/dist/commands/solana/aggregator/permission/create.js)_
+_See code: [dist/commands/solana/aggregator/permission/create.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.32/dist/commands/solana/aggregator/permission/create.js)_
 
 ## `sb solana aggregator print AGGREGATORKEY`
 
@@ -2860,7 +2886,7 @@ DESCRIPTION
   print an aggregator and it's associated accounts
 ```
 
-_See code: [dist/commands/solana/aggregator/print.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.12/dist/commands/solana/aggregator/print.js)_
+_See code: [dist/commands/solana/aggregator/print.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.32/dist/commands/solana/aggregator/print.js)_
 
 ## `sb solana aggregator remove job AGGREGATORKEY JOBKEY`
 
@@ -2898,7 +2924,7 @@ DESCRIPTION
   remove a switchboard job account from an aggregator
 ```
 
-_See code: [dist/commands/solana/aggregator/remove/job.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.12/dist/commands/solana/aggregator/remove/job.js)_
+_See code: [dist/commands/solana/aggregator/remove/job.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.32/dist/commands/solana/aggregator/remove/job.js)_
 
 ## `sb solana aggregator set AGGREGATORKEY`
 
@@ -2957,7 +2983,7 @@ DESCRIPTION
   set an aggregators config
 ```
 
-_See code: [dist/commands/solana/aggregator/set.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.12/dist/commands/solana/aggregator/set.js)_
+_See code: [dist/commands/solana/aggregator/set.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.32/dist/commands/solana/aggregator/set.js)_
 
 ## `sb solana aggregator transfer AGGREGATORKEY`
 
@@ -3006,7 +3032,7 @@ EXAMPLES
   $ sb solana aggregator transfer GvDMxPzN1sCj7L26YDK2HnMRXEQmQ2aemov8YBtPS7vR --mainnetBeta --loadAmount 0.1 --newQueue 3HBb2DQqDfuMdzWxNk1Eo9RTMkFYmuEAd32RiLKn9pAn --newCrank GdNVLWzcE6h9SPuSbmu69YzxAj8enim9t6mjzuqTXgLd --keypair ~/.config/solana/id.json
 ```
 
-_See code: [dist/commands/solana/aggregator/transfer.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.12/dist/commands/solana/aggregator/transfer.js)_
+_See code: [dist/commands/solana/aggregator/transfer.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.32/dist/commands/solana/aggregator/transfer.js)_
 
 ## `sb solana aggregator update AGGREGATORKEY`
 
@@ -3048,7 +3074,7 @@ EXAMPLES
   $ sb solana aggregator update J7j9xX8JP2B2ErvUzuqGAKBGeggsxPyFXj5MqZcYDxfa --keypair ../payer-keypair.json
 ```
 
-_See code: [dist/commands/solana/aggregator/update.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.12/dist/commands/solana/aggregator/update.js)_
+_See code: [dist/commands/solana/aggregator/update.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.32/dist/commands/solana/aggregator/update.js)_
 
 ## `sb solana aggregator watch AGGREGATORKEY`
 
@@ -3082,7 +3108,7 @@ DESCRIPTION
   watch an aggregator account and stream the results
 ```
 
-_See code: [dist/commands/solana/aggregator/watch.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.12/dist/commands/solana/aggregator/watch.js)_
+_See code: [dist/commands/solana/aggregator/watch.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.32/dist/commands/solana/aggregator/watch.js)_
 
 ## `sb solana aggregator withdraw AGGREGATORKEY`
 
@@ -3168,7 +3194,7 @@ ALIASES
   $ sb anchor test
 ```
 
-_See code: [dist/commands/solana/anchor/test.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.12/dist/commands/solana/anchor/test.js)_
+_See code: [dist/commands/solana/anchor/test.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.32/dist/commands/solana/anchor/test.js)_
 
 ## `sb solana attestation-queue add-enclave QUEUEKEY`
 
@@ -3212,7 +3238,62 @@ DESCRIPTION
   add enclave(s) to an attestation queue's config
 ```
 
-_See code: [dist/commands/solana/attestation-queue/add-enclave.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.12/dist/commands/solana/attestation-queue/add-enclave.js)_
+_See code: [dist/commands/solana/attestation-queue/add-enclave.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.32/dist/commands/solana/attestation-queue/add-enclave.js)_
+
+## `sb solana attestation-queue bootstrap`
+
+bootstrap an attestation queue
+
+```
+USAGE
+  $ sb solana attestation-queue bootstrap [-h] [-v] [-s] [--mainnetBeta | --cluster devnet|mainnet-beta|mainnet|localnet] [-u <value>]
+    [--programId <value>] [--attestationProgramId <value>] [--commitment confirmed|finalized|processed] [-k <value>]
+    [--ledgerPath <value> --ledger] [--json] [-a <value>] [--queueKeypair <value>] [--reward <value>]
+    [--allowAuthorityOverrideAfter <value>] [--maxQuoteVerificationAge <value>] [--nodeTimeout <value>]
+    [--requireAuthorityHeartbeatPermissions] [--requireUsagePermissions] [--enclaveSigner <value>]
+
+FLAGS
+  -a, --authority=<value>                 alternate keypair that is the authority for the queue and is required to
+                                          approve permissions
+  -h, --help                              Show CLI help.
+  -k, --keypair=<value>                   keypair that will pay for onchain transactions. defaults to new account
+                                          authority if no alternate authority provided
+  -s, --silent                            suppress cli prompts
+  -u, --rpcUrl=<value>                    alternate RPC url
+  -v, --verbose                           log everything
+  --allowAuthorityOverrideAfter=<value>   [default: 86400] Allow authority to force add a node after X seconds with no
+                                          heartbeat.
+  --attestationProgramId=<value>          alternative Switchboard Attestation program ID to interact with
+  --cluster=<option>                      the solana cluster to connect to
+                                          <options: devnet|mainnet-beta|mainnet|localnet>
+  --commitment=<option>                   [default: confirmed] transaction commitment level to use
+                                          <options: confirmed|finalized|processed>
+  --enclaveSigner=<value>                 Signer used for the verifier oracle to verify quotes
+  --ledger                                enable ledger support
+  --ledgerPath=<value>                    HID path to the ledger
+  --mainnetBeta                           WARNING: use mainnet-beta solana cluster
+  --maxQuoteVerificationAge=<value>       [default: 604800] The maximum allowable time until a EnclaveAccount needs to
+                                          be re-verified on-chain.
+  --nodeTimeout=<value>                   [default: 86400] The maximum allowable time until a node needs to send a
+                                          heartbeat.
+  --programId=<value>                     alternative Switchboard program ID to interact with
+  --queueKeypair=<value>                  keypair to use for the attestation queue account. This will be the account's
+                                          publicKey
+  --requireAuthorityHeartbeatPermissions  Even if a heartbeating machine quote verifies with proper measurement, require
+                                          authority signoff.
+  --requireUsagePermissions               Require FunctionAccounts to have PermitQueueUsage before they are executed.
+  --reward=<value>                        [default: 0] the reward payed out to oracles for responding to an update
+                                          request on-chain, Ex: A reward of 0.0000075 with a feed with a batchSize of 4
+                                          would deduct (4 * 0.0000075) wSOL from an aggregators lease each round.
+
+GLOBAL FLAGS
+  --json  Format output as json.
+
+DESCRIPTION
+  bootstrap an attestation queue
+```
+
+_See code: [dist/commands/solana/attestation-queue/bootstrap.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.32/dist/commands/solana/attestation-queue/bootstrap.js)_
 
 ## `sb solana attestation-queue create`
 
@@ -3266,7 +3347,7 @@ DESCRIPTION
   create an attestation queue
 ```
 
-_See code: [dist/commands/solana/attestation-queue/create.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.12/dist/commands/solana/attestation-queue/create.js)_
+_See code: [dist/commands/solana/attestation-queue/create.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.32/dist/commands/solana/attestation-queue/create.js)_
 
 ## `sb solana attestation-queue print QUEUEKEY`
 
@@ -3301,7 +3382,7 @@ DESCRIPTION
   print an attestation queue account
 ```
 
-_See code: [dist/commands/solana/attestation-queue/print.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.12/dist/commands/solana/attestation-queue/print.js)_
+_See code: [dist/commands/solana/attestation-queue/print.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.32/dist/commands/solana/attestation-queue/print.js)_
 
 ## `sb solana attestation-queue remove-enclave QUEUEKEY`
 
@@ -3343,7 +3424,7 @@ DESCRIPTION
   remove enclave(s) from an attestation queue's config
 ```
 
-_See code: [dist/commands/solana/attestation-queue/remove-enclave.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.12/dist/commands/solana/attestation-queue/remove-enclave.js)_
+_See code: [dist/commands/solana/attestation-queue/remove-enclave.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.32/dist/commands/solana/attestation-queue/remove-enclave.js)_
 
 ## `sb solana buffer create QUEUEKEY`
 
@@ -3389,7 +3470,7 @@ DESCRIPTION
   create a buffer relayer account
 ```
 
-_See code: [dist/commands/solana/buffer/create.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.12/dist/commands/solana/buffer/create.js)_
+_See code: [dist/commands/solana/buffer/create.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.32/dist/commands/solana/buffer/create.js)_
 
 ## `sb solana buffer open-round BUFFERRELAYERKEY`
 
@@ -3471,7 +3552,7 @@ EXAMPLES
   $ sb solana buffer update J7j9xX8JP2B2ErvUzuqGAKBGeggsxPyFXj5MqZcYDxfa --keypair ../payer-keypair.json
 ```
 
-_See code: [dist/commands/solana/buffer/update.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.12/dist/commands/solana/buffer/update.js)_
+_See code: [dist/commands/solana/buffer/update.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.32/dist/commands/solana/buffer/update.js)_
 
 ## `sb solana crank create QUEUEKEY`
 
@@ -3516,7 +3597,7 @@ DESCRIPTION
   create a new crank account
 ```
 
-_See code: [dist/commands/solana/crank/create.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.12/dist/commands/solana/crank/create.js)_
+_See code: [dist/commands/solana/crank/create.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.32/dist/commands/solana/crank/create.js)_
 
 ## `sb solana crank events AGGREGATORKEY`
 
@@ -3550,7 +3631,7 @@ DESCRIPTION
   watch an aggregator account and stream the on-chain events
 ```
 
-_See code: [dist/commands/solana/crank/events.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.12/dist/commands/solana/crank/events.js)_
+_See code: [dist/commands/solana/crank/events.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.32/dist/commands/solana/crank/events.js)_
 
 ## `sb solana crank pop CRANKKEY`
 
@@ -3586,7 +3667,7 @@ DESCRIPTION
   pop the crank
 ```
 
-_See code: [dist/commands/solana/crank/pop.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.12/dist/commands/solana/crank/pop.js)_
+_See code: [dist/commands/solana/crank/pop.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.32/dist/commands/solana/crank/pop.js)_
 
 ## `sb solana crank print CRANKKEY`
 
@@ -3622,7 +3703,7 @@ DESCRIPTION
   print a crank
 ```
 
-_See code: [dist/commands/solana/crank/print.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.12/dist/commands/solana/crank/print.js)_
+_See code: [dist/commands/solana/crank/print.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.32/dist/commands/solana/crank/print.js)_
 
 ## `sb solana crank push AGGREGATORKEY`
 
@@ -3659,7 +3740,7 @@ DESCRIPTION
   push the crank
 ```
 
-_See code: [dist/commands/solana/crank/push.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.12/dist/commands/solana/crank/push.js)_
+_See code: [dist/commands/solana/crank/push.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.32/dist/commands/solana/crank/push.js)_
 
 ## `sb solana crank reset AGGREGATORKEY`
 
@@ -3697,7 +3778,7 @@ DESCRIPTION
   reset an aggregators crank
 ```
 
-_See code: [dist/commands/solana/crank/reset.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.12/dist/commands/solana/crank/reset.js)_
+_See code: [dist/commands/solana/crank/reset.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.32/dist/commands/solana/crank/reset.js)_
 
 ## `sb solana function add-enclave FUNCTIONKEY`
 
@@ -3744,7 +3825,7 @@ ALIASES
   $ sb solana function addMrEnclave
 ```
 
-_See code: [dist/commands/solana/function/add-enclave.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.12/dist/commands/solana/function/add-enclave.js)_
+_See code: [dist/commands/solana/function/add-enclave.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.32/dist/commands/solana/function/add-enclave.js)_
 
 ## `sb solana function addMrEnclave FUNCTIONKEY`
 
@@ -3829,7 +3910,7 @@ DESCRIPTION
   close a function account
 ```
 
-_See code: [dist/commands/solana/function/close.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.12/dist/commands/solana/function/close.js)_
+_See code: [dist/commands/solana/function/close.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.32/dist/commands/solana/function/close.js)_
 
 ## `sb solana function configure FUNCTIONKEY`
 
@@ -3840,33 +3921,46 @@ USAGE
   $ sb solana function configure FUNCTIONKEY [-h] [-v] [-s] [--mainnetBeta | --cluster devnet|mainnet-beta|mainnet|localnet]
     [-u <value>] [--programId <value>] [--attestationProgramId <value>] [--commitment confirmed|finalized|processed] [-k
     <value>] [--ledgerPath <value> --ledger] [--json] [--name <value>] [--metadata <value>] [--container <value>]
-    [--containerRegistry <value>] [--version <value>] [--schedule <value>]
+    [--containerRegistry <value>] [--version <value>] [--requestsDisabled <value>] [--requestsDevFee <value>]
+    [--requestsRequireAuthorization <value>] [--routinesDisabled <value>] [--routinesRequireAuthorization <value>]
+    [--routinesDevFee <value>] [-a <value>] [--enableServices] [--servicesRotationInterval <value>]
 
 ARGUMENTS
   FUNCTIONKEY  public key of the function account
 
 FLAGS
-  -h, --help                      Show CLI help.
-  -k, --keypair=<value>           keypair that will pay for onchain transactions. defaults to new account authority if
-                                  no alternate authority provided
-  -s, --silent                    suppress cli prompts
-  -u, --rpcUrl=<value>            alternate RPC url
-  -v, --verbose                   log everything
-  --attestationProgramId=<value>  alternative Switchboard Attestation program ID to interact with
-  --cluster=<option>              the solana cluster to connect to
-                                  <options: devnet|mainnet-beta|mainnet|localnet>
-  --commitment=<option>           [default: confirmed] transaction commitment level to use
-                                  <options: confirmed|finalized|processed>
-  --container=<value>             set the function container
-  --containerRegistry=<value>     set the function containerRegistry
-  --ledger                        enable ledger support
-  --ledgerPath=<value>            HID path to the ledger
-  --mainnetBeta                   WARNING: use mainnet-beta solana cluster
-  --metadata=<value>              set the function metadata
-  --name=<value>                  set the function name
-  --programId=<value>             alternative Switchboard program ID to interact with
-  --schedule=<value>              set the function schedule
-  --version=<value>               set the function version
+  -a, --authority=<value>                 keypair or public key to delegate authority to for managing the function
+                                          account
+  -h, --help                              Show CLI help.
+  -k, --keypair=<value>                   keypair that will pay for onchain transactions. defaults to new account
+                                          authority if no alternate authority provided
+  -s, --silent                            suppress cli prompts
+  -u, --rpcUrl=<value>                    alternate RPC url
+  -v, --verbose                           log everything
+  --attestationProgramId=<value>          alternative Switchboard Attestation program ID to interact with
+  --cluster=<option>                      the solana cluster to connect to
+                                          <options: devnet|mainnet-beta|mainnet|localnet>
+  --commitment=<option>                   [default: confirmed] transaction commitment level to use
+                                          <options: confirmed|finalized|processed>
+  --container=<value>                     set the function container
+  --containerRegistry=<value>             set the function containerRegistry
+  --enableServices                        set whether services can be made for this function
+  --ledger                                enable ledger support
+  --ledgerPath=<value>                    HID path to the ledger
+  --mainnetBeta                           WARNING: use mainnet-beta solana cluster
+  --metadata=<value>                      set the function metadata
+  --name=<value>                          set the function name
+  --programId=<value>                     alternative Switchboard program ID to interact with
+  --requestsDevFee=<value>                set the extra developer fee charged when a users calls a reqeusts on this
+                                          function
+  --requestsDisabled=<value>              set whether requests can be made on this function
+  --requestsRequireAuthorization=<value>  set whether anyone can make requests on this function
+  --routinesDevFee=<value>                set the extra developer fee charged when a users calls a reqeusts on this
+                                          function
+  --routinesDisabled=<value>              set whether routines can be made on this function
+  --routinesRequireAuthorization=<value>  set whether anyone can make routines on this function
+  --servicesRotationInterval=<value>
+  --version=<value>                       set the function version
 
 GLOBAL FLAGS
   --json  Format output as json.
@@ -3875,7 +3969,7 @@ DESCRIPTION
   Configure a solana funciton's settings
 ```
 
-_See code: [dist/commands/solana/function/configure.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.12/dist/commands/solana/function/configure.js)_
+_See code: [dist/commands/solana/function/configure.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.32/dist/commands/solana/function/configure.js)_
 
 ## `sb solana function create QUEUEKEY`
 
@@ -3939,7 +4033,7 @@ EXAMPLES
   $ sb solana function create CkvizjVnm2zA5Wuwan34NhVT3zFc7vqUyGnA6tuEF5aE --name function-1 --fundAmount 1.25 --container switchboardlabs/basic-oracle-function --version solana
 ```
 
-_See code: [dist/commands/solana/function/create.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.12/dist/commands/solana/function/create.js)_
+_See code: [dist/commands/solana/function/create.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.32/dist/commands/solana/function/create.js)_
 
 ## `sb solana function fund FUNCTIONKEY`
 
@@ -3979,7 +4073,7 @@ DESCRIPTION
   wrap SOL into a function accounts escrow wallet
 ```
 
-_See code: [dist/commands/solana/function/fund.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.12/dist/commands/solana/function/fund.js)_
+_See code: [dist/commands/solana/function/fund.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.32/dist/commands/solana/function/fund.js)_
 
 ## `sb solana function get`
 
@@ -4012,7 +4106,7 @@ DESCRIPTION
   print a function account
 ```
 
-_See code: [dist/commands/solana/function/get.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.12/dist/commands/solana/function/get.js)_
+_See code: [dist/commands/solana/function/get.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.32/dist/commands/solana/function/get.js)_
 
 ## `sb solana function print FUNCTIONKEY`
 
@@ -4047,7 +4141,7 @@ DESCRIPTION
   print a function account
 ```
 
-_See code: [dist/commands/solana/function/print.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.12/dist/commands/solana/function/print.js)_
+_See code: [dist/commands/solana/function/print.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.32/dist/commands/solana/function/print.js)_
 
 ## `sb solana function remove-enclave FUNCTIONKEY`
 
@@ -4089,49 +4183,7 @@ DESCRIPTION
   Configure a solana funciton's mrEnclave settings
 ```
 
-_See code: [dist/commands/solana/function/remove-enclave.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.12/dist/commands/solana/function/remove-enclave.js)_
-
-## `sb solana function rmMrEnclave FUNCTIONKEY`
-
-Configure a solana funciton's mrEnclave settings
-
-```
-USAGE
-  $ sb solana function rmMrEnclave FUNCTIONKEY [-h] [-v] [-s] [--mainnetBeta | --cluster devnet|mainnet-beta|mainnet|localnet]
-    [-u <value>] [--programId <value>] [--attestationProgramId <value>] [--commitment confirmed|finalized|processed] [-k
-    <value>] [--ledgerPath <value> --ledger] [--json] [-a <value>] (--all | -e <value>)
-
-ARGUMENTS
-  FUNCTIONKEY  public key of the function account
-
-FLAGS
-  -a, --authority=<value>         keypair or public key to delegate authority to for managing the function account
-  -e, --mrEnclave=<value>...      (required) set the mr enclave to remove
-  -h, --help                      Show CLI help.
-  -k, --keypair=<value>           keypair that will pay for onchain transactions. defaults to new account authority if
-                                  no alternate authority provided
-  -s, --silent                    suppress cli prompts
-  -u, --rpcUrl=<value>            alternate RPC url
-  -v, --verbose                   log everything
-  --all
-  --attestationProgramId=<value>  alternative Switchboard Attestation program ID to interact with
-  --cluster=<option>              the solana cluster to connect to
-                                  <options: devnet|mainnet-beta|mainnet|localnet>
-  --commitment=<option>           [default: confirmed] transaction commitment level to use
-                                  <options: confirmed|finalized|processed>
-  --ledger                        enable ledger support
-  --ledgerPath=<value>            HID path to the ledger
-  --mainnetBeta                   WARNING: use mainnet-beta solana cluster
-  --programId=<value>             alternative Switchboard program ID to interact with
-
-GLOBAL FLAGS
-  --json  Format output as json.
-
-DESCRIPTION
-  Configure a solana funciton's mrEnclave settings
-```
-
-_See code: [dist/commands/solana/function/rmMrEnclave.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.12/dist/commands/solana/function/rmMrEnclave.js)_
+_See code: [dist/commands/solana/function/remove-enclave.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.32/dist/commands/solana/function/remove-enclave.js)_
 
 ## `sb solana function send-request FUNCTIONKEY`
 
@@ -4171,7 +4223,7 @@ DESCRIPTION
   Init and trigger a request to a function.
 ```
 
-_See code: [dist/commands/solana/function/send-request.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.12/dist/commands/solana/function/send-request.js)_
+_See code: [dist/commands/solana/function/send-request.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.32/dist/commands/solana/function/send-request.js)_
 
 ## `sb solana function sync-enclave FUNCTIONKEY`
 
@@ -4181,13 +4233,15 @@ Fetch the MrEnclave value for your function and add if neccessary, add it to the
 USAGE
   $ sb solana function sync-enclave FUNCTIONKEY [-h] [-v] [-s] [--mainnetBeta | --cluster devnet|mainnet-beta|mainnet|localnet]
     [-u <value>] [--programId <value>] [--attestationProgramId <value>] [--commitment confirmed|finalized|processed] [-k
-    <value>] [--ledgerPath <value> --ledger] [--json] [-a <value>] [--force]
+    <value>] [--ledgerPath <value> --ledger] [--json] [-a <value>] [-a <value>] [--force] [--secret <value>]
 
 ARGUMENTS
   FUNCTIONKEY  public key of the function account
 
 FLAGS
   -a, --authority=<value>         keypair or public key to delegate authority to for managing the function account
+  -a, --setVersion=<value>        Set the version of the container before setting the enclave. If not set, the version
+                                  from the current function config will be used.
   -h, --help                      Show CLI help.
   -k, --keypair=<value>           keypair that will pay for onchain transactions. defaults to new account authority if
                                   no alternate authority provided
@@ -4205,6 +4259,7 @@ FLAGS
   --ledgerPath=<value>            HID path to the ledger
   --mainnetBeta                   WARNING: use mainnet-beta solana cluster
   --programId=<value>             alternative Switchboard program ID to interact with
+  --secret=<value>...             name of the secret(s) to add the MrEnclave measurement to
 
 GLOBAL FLAGS
   --json  Format output as json.
@@ -4213,7 +4268,7 @@ DESCRIPTION
   Fetch the MrEnclave value for your function and add if neccessary, add it to the function config
 ```
 
-_See code: [dist/commands/solana/function/sync-enclave.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.12/dist/commands/solana/function/sync-enclave.js)_
+_See code: [dist/commands/solana/function/sync-enclave.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.32/dist/commands/solana/function/sync-enclave.js)_
 
 ## `sb solana function test`
 
@@ -4222,19 +4277,23 @@ Simulate the switchboard function runtime to test your functions locally
 ```
 USAGE
   $ sb solana function test [-h] [-v] [-s] [--mainnetBeta | --cluster <value>] [-u <value>] [--programId <value>]
-    [--attestationProgramId <value>] [--commitment confirmed|finalized|processed] [--parameters <value>]
-    [--devnetSimulate]
+    [--attestationProgramId <value>] [--commitment confirmed|finalized|processed] [--parameters <value>] [--function
+    <value>] [--devnetSimulate] [--asRequest] [--asRoutine]
 
 FLAGS
   -h, --help                      Show CLI help.
   -s, --silent                    suppress cli prompts
   -u, --rpcUrl=<value>            alternate RPC url
   -v, --verbose                   log everything
+  --asRequest                     Run this test as if it were a function request
+  --asRoutine                     Run this test as if it were a function routine
   --attestationProgramId=<value>  alternative Switchboard Attestation program ID to interact with
   --cluster=<value>               The cluster to load if your function dynamically loads it
   --commitment=<option>           [default: confirmed] transaction commitment level to use
                                   <options: confirmed|finalized|processed>
   --devnetSimulate                If the cluster is set to devnet, attempt to simulate
+  --function=<value>              [default: 9noXMrBqCPAFa5N7cvKneqNDfGNHvp5Nx5xh2nFRSoVL] The pubkey of the function to
+                                  test with
   --mainnetBeta                   WARNING: use mainnet-beta solana cluster
   --parameters=<value>            Parameters to pass to your function
   --programId=<value>             alternative Switchboard program ID to interact with
@@ -4243,7 +4302,7 @@ DESCRIPTION
   Simulate the switchboard function runtime to test your functions locally
 ```
 
-_See code: [dist/commands/solana/function/test.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.12/dist/commands/solana/function/test.js)_
+_See code: [dist/commands/solana/function/test.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.32/dist/commands/solana/function/test.js)_
 
 ## `sb solana function withdraw FUNCTIONKEY`
 
@@ -4287,7 +4346,7 @@ DESCRIPTION
   Withdraw funds from a function's escrow
 ```
 
-_See code: [dist/commands/solana/function/withdraw.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.12/dist/commands/solana/function/withdraw.js)_
+_See code: [dist/commands/solana/function/withdraw.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.32/dist/commands/solana/function/withdraw.js)_
 
 ## `sb solana job create`
 
@@ -4328,7 +4387,7 @@ DESCRIPTION
   create a job account
 ```
 
-_See code: [dist/commands/solana/job/create.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.12/dist/commands/solana/job/create.js)_
+_See code: [dist/commands/solana/job/create.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.32/dist/commands/solana/job/create.js)_
 
 ## `sb solana job print JOBKEY`
 
@@ -4363,7 +4422,7 @@ DESCRIPTION
   print an job and it's associated accounts
 ```
 
-_See code: [dist/commands/solana/job/print.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.12/dist/commands/solana/job/print.js)_
+_See code: [dist/commands/solana/job/print.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.32/dist/commands/solana/job/print.js)_
 
 ## `sb solana json create aggregator DEFINITIONFILE`
 
@@ -4450,7 +4509,7 @@ EXAMPLES
   $ sb solana lease create GvDMxPzN1sCj7L26YDK2HnMRXEQmQ2aemov8YBtPS7vR --amount 1.5 --keypair ../payer-keypair.json
 ```
 
-_See code: [dist/commands/solana/lease/create.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.12/dist/commands/solana/lease/create.js)_
+_See code: [dist/commands/solana/lease/create.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.32/dist/commands/solana/lease/create.js)_
 
 ## `sb solana lease extend AGGREGATORKEY`
 
@@ -4495,7 +4554,7 @@ EXAMPLES
   $ sb solana:aggregator:fund GvDMxPzN1sCj7L26YDK2HnMRXEQmQ2aemov8YBtPS7vR --amount 1.1 --keypair ../payer-keypair.json
 ```
 
-_See code: [dist/commands/solana/lease/extend.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.12/dist/commands/solana/lease/extend.js)_
+_See code: [dist/commands/solana/lease/extend.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.32/dist/commands/solana/lease/extend.js)_
 
 ## `sb solana lease print LEASEKEY`
 
@@ -4530,7 +4589,7 @@ DESCRIPTION
   print a lease account
 ```
 
-_See code: [dist/commands/solana/lease/print.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.12/dist/commands/solana/lease/print.js)_
+_See code: [dist/commands/solana/lease/print.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.32/dist/commands/solana/lease/print.js)_
 
 ## `sb solana lease set AGGREGATORKEY`
 
@@ -4576,7 +4635,7 @@ EXAMPLES
   $ sb solana:lease:set GvDMxPzN1sCj7L26YDK2HnMRXEQmQ2aemov8YBtPS7vR --keypair ../payer-keypair.json
 ```
 
-_See code: [dist/commands/solana/lease/set.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.12/dist/commands/solana/lease/set.js)_
+_See code: [dist/commands/solana/lease/set.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.32/dist/commands/solana/lease/set.js)_
 
 ## `sb solana lease withdraw AGGREGATORKEY`
 
@@ -4623,7 +4682,7 @@ EXAMPLES
   $ sb solana:aggregator:withdraw GvDMxPzN1sCj7L26YDK2HnMRXEQmQ2aemov8YBtPS7vR --amount 1.1 --keypair ../payer-keypair.json
 ```
 
-_See code: [dist/commands/solana/lease/withdraw.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.12/dist/commands/solana/lease/withdraw.js)_
+_See code: [dist/commands/solana/lease/withdraw.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.32/dist/commands/solana/lease/withdraw.js)_
 
 ## `sb solana network create`
 
@@ -4662,7 +4721,7 @@ DESCRIPTION
   create an oracle queue
 ```
 
-_See code: [dist/commands/solana/network/create.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.12/dist/commands/solana/network/create.js)_
+_See code: [dist/commands/solana/network/create.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.32/dist/commands/solana/network/create.js)_
 
 ## `sb solana network save`
 
@@ -4697,7 +4756,7 @@ DESCRIPTION
   save an existing switchboard network
 ```
 
-_See code: [dist/commands/solana/network/save.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.12/dist/commands/solana/network/save.js)_
+_See code: [dist/commands/solana/network/save.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.32/dist/commands/solana/network/save.js)_
 
 ## `sb solana network start`
 
@@ -4741,7 +4800,7 @@ DESCRIPTION
   start a switchboard network from a JSON file
 ```
 
-_See code: [dist/commands/solana/network/start.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.12/dist/commands/solana/network/start.js)_
+_See code: [dist/commands/solana/network/start.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.32/dist/commands/solana/network/start.js)_
 
 ## `sb solana oracle create QUEUEKEY`
 
@@ -4790,7 +4849,7 @@ EXAMPLES
   $ sb solana:oracle:create F8ce7MsckeZAbAGmxjJNetxYXQa9mKr9nnrC3qKubyYy --name oracle-1 --stakeAmount 1
 ```
 
-_See code: [dist/commands/solana/oracle/create.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.12/dist/commands/solana/oracle/create.js)_
+_See code: [dist/commands/solana/oracle/create.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.32/dist/commands/solana/oracle/create.js)_
 
 ## `sb solana oracle print ORACLEKEY`
 
@@ -4825,7 +4884,7 @@ DESCRIPTION
   print an oracle account
 ```
 
-_See code: [dist/commands/solana/oracle/print.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.12/dist/commands/solana/oracle/print.js)_
+_See code: [dist/commands/solana/oracle/print.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.32/dist/commands/solana/oracle/print.js)_
 
 ## `sb solana oracle up`
 
@@ -4864,7 +4923,7 @@ DESCRIPTION
   start a solana docker oracle
 ```
 
-_See code: [dist/commands/solana/oracle/up.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.12/dist/commands/solana/oracle/up.js)_
+_See code: [dist/commands/solana/oracle/up.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.32/dist/commands/solana/oracle/up.js)_
 
 ## `sb solana oracle withdraw ORACLEKEY`
 
@@ -4907,7 +4966,7 @@ DESCRIPTION
   withdraw from an oracle's staking wallet
 ```
 
-_See code: [dist/commands/solana/oracle/withdraw.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.12/dist/commands/solana/oracle/withdraw.js)_
+_See code: [dist/commands/solana/oracle/withdraw.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.32/dist/commands/solana/oracle/withdraw.js)_
 
 ## `sb solana permission create`
 
@@ -4951,7 +5010,7 @@ DESCRIPTION
   create a permission account
 ```
 
-_See code: [dist/commands/solana/permission/create.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.12/dist/commands/solana/permission/create.js)_
+_See code: [dist/commands/solana/permission/create.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.32/dist/commands/solana/permission/create.js)_
 
 ## `sb solana permission grant PERMISSIONKEY`
 
@@ -4988,7 +5047,7 @@ DESCRIPTION
   enable a resources permissions
 ```
 
-_See code: [dist/commands/solana/permission/grant.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.12/dist/commands/solana/permission/grant.js)_
+_See code: [dist/commands/solana/permission/grant.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.32/dist/commands/solana/permission/grant.js)_
 
 ## `sb solana permission print PERMISSIONKEY`
 
@@ -5023,7 +5082,7 @@ DESCRIPTION
   print a permission account
 ```
 
-_See code: [dist/commands/solana/permission/print.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.12/dist/commands/solana/permission/print.js)_
+_See code: [dist/commands/solana/permission/print.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.32/dist/commands/solana/permission/print.js)_
 
 ## `sb solana permission revoke PERMISSIONKEY`
 
@@ -5060,7 +5119,7 @@ DESCRIPTION
   disable a resources permissions
 ```
 
-_See code: [dist/commands/solana/permission/revoke.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.12/dist/commands/solana/permission/revoke.js)_
+_See code: [dist/commands/solana/permission/revoke.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.32/dist/commands/solana/permission/revoke.js)_
 
 ## `sb solana print PUBKEY`
 
@@ -5095,7 +5154,7 @@ DESCRIPTION
   print a Switchboard account
 ```
 
-_See code: [dist/commands/solana/print.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.12/dist/commands/solana/print.js)_
+_See code: [dist/commands/solana/print.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.32/dist/commands/solana/print.js)_
 
 ## `sb solana queue create`
 
@@ -5163,7 +5222,7 @@ DESCRIPTION
   create an oracle queue
 ```
 
-_See code: [dist/commands/solana/queue/create.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.12/dist/commands/solana/queue/create.js)_
+_See code: [dist/commands/solana/queue/create.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.32/dist/commands/solana/queue/create.js)_
 
 ## `sb solana queue print QUEUEKEY`
 
@@ -5199,7 +5258,7 @@ DESCRIPTION
   print a queue account
 ```
 
-_See code: [dist/commands/solana/queue/print.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.12/dist/commands/solana/queue/print.js)_
+_See code: [dist/commands/solana/queue/print.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.32/dist/commands/solana/queue/print.js)_
 
 ## `sb solana queue set QUEUEKEY`
 
@@ -5262,7 +5321,7 @@ DESCRIPTION
   set an oracle queue's config
 ```
 
-_See code: [dist/commands/solana/queue/set.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.12/dist/commands/solana/queue/set.js)_
+_See code: [dist/commands/solana/queue/set.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.32/dist/commands/solana/queue/set.js)_
 
 ## `sb solana request print REQUESTKEY`
 
@@ -5297,7 +5356,7 @@ DESCRIPTION
   print a function request account
 ```
 
-_See code: [dist/commands/solana/request/print.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.12/dist/commands/solana/request/print.js)_
+_See code: [dist/commands/solana/request/print.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.32/dist/commands/solana/request/print.js)_
 
 ## `sb solana request send FUNCTIONKEY`
 
@@ -5337,11 +5396,11 @@ DESCRIPTION
   Init and trigger a request to a function.
 ```
 
-_See code: [dist/commands/solana/request/send.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.12/dist/commands/solana/request/send.js)_
+_See code: [dist/commands/solana/request/send.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.32/dist/commands/solana/request/send.js)_
 
 ## `sb solana routine configure ROUTINEKEY`
 
-create a new routine account for a given function
+configure a routine account
 
 ```
 USAGE
@@ -5380,13 +5439,13 @@ GLOBAL FLAGS
   --json  Format output as json.
 
 DESCRIPTION
-  create a new routine account for a given function
+  configure a routine account
 
 EXAMPLES
-  $ sb solana routine create CkvizjVnm2zA5Wuwan34NhVT3zFc7vqUyGnA6tuEF5aE --name function-1 --fundAmount 1.25 --container switchboardlabs/basic-oracle-function --version solana --schedule "*/10 * * * * *" --params=xyz
+  $ sb solana routine configure CkvizjVnm2zA5Wuwan34NhVT3zFc7vqUyGnA6tuEF5aE --name function-1 --fundAmount 1.25 --container switchboardlabs/basic-oracle-function --version solana --schedule "*/10 * * * * *" --params=xyz
 ```
 
-_See code: [dist/commands/solana/routine/configure.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.12/dist/commands/solana/routine/configure.js)_
+_See code: [dist/commands/solana/routine/configure.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.32/dist/commands/solana/routine/configure.js)_
 
 ## `sb solana routine create FUNCTIONKEY`
 
@@ -5403,7 +5462,7 @@ ARGUMENTS
   FUNCTIONKEY  public key of the function account
 
 FLAGS
-  -a, --authority=<value>         keypair or public key to delegate authority to for managing the function account
+  -a, --authority=<value>         keypair or public key to delegate authority to for managing the routine account
   -h, --help                      Show CLI help.
   -k, --keypair=<value>           keypair that will pay for onchain transactions. defaults to new account authority if
                                   no alternate authority provided
@@ -5422,7 +5481,7 @@ FLAGS
   --metadata=<value>              metadata of the function for easier identification
   --parameters=<value>            parameters to pass to the function
   --programId=<value>             alternative Switchboard program ID to interact with
-  --schedule=<value>              (required) cron schedule
+  --schedule=<value>              (required) cron schedule to execute the function routine on
 
 GLOBAL FLAGS
   --json  Format output as json.
@@ -5434,7 +5493,7 @@ EXAMPLES
   $ sb solana routine create CkvizjVnm2zA5Wuwan34NhVT3zFc7vqUyGnA6tuEF5aE --name function-1 --fundAmount 1.25 --container switchboardlabs/basic-oracle-function --version solana --schedule "*/10 * * * * *" --params=xyz
 ```
 
-_See code: [dist/commands/solana/routine/create.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.12/dist/commands/solana/routine/create.js)_
+_See code: [dist/commands/solana/routine/create.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.32/dist/commands/solana/routine/create.js)_
 
 ## `sb solana routine fund ROUTINEKEY`
 
@@ -5477,7 +5536,7 @@ EXAMPLES
   $ sb solana routine fund CkvizjVnm2zA5Wuwan34NhVT3zFc7vqUyGnA6tuEF5aE --fundAmount 1.25
 ```
 
-_See code: [dist/commands/solana/routine/fund.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.12/dist/commands/solana/routine/fund.js)_
+_See code: [dist/commands/solana/routine/fund.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.32/dist/commands/solana/routine/fund.js)_
 
 ## `sb solana routine print ROUTINEKEY`
 
@@ -5512,7 +5571,520 @@ DESCRIPTION
   print a function routine account
 ```
 
-_See code: [dist/commands/solana/routine/print.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.12/dist/commands/solana/routine/print.js)_
+_See code: [dist/commands/solana/routine/print.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.32/dist/commands/solana/routine/print.js)_
+
+## `sb solana secrets add-mrenclave`
+
+```
+USAGE
+  $ sb solana secrets add-mrenclave -m <value> --secret <value> [-h] [-v] [-s] [--mainnetBeta | --cluster
+    devnet|mainnet-beta|mainnet|localnet] [-u <value>] [--programId <value>] [--attestationProgramId <value>]
+    [--commitment confirmed|finalized|processed] [-k <value>] [--ledgerPath <value> --ledger] [--json]
+
+FLAGS
+  -h, --help                      Show CLI help.
+  -k, --keypair=<value>           keypair that will pay for onchain transactions. defaults to new account authority if
+                                  no alternate authority provided
+  -m, --mrEnclave=<value>         (required)
+  -s, --silent                    suppress cli prompts
+  -u, --rpcUrl=<value>            alternate RPC url
+  -v, --verbose                   log everything
+  --attestationProgramId=<value>  alternative Switchboard Attestation program ID to interact with
+  --cluster=<option>              the solana cluster to connect to
+                                  <options: devnet|mainnet-beta|mainnet|localnet>
+  --commitment=<option>           [default: confirmed] transaction commitment level to use
+                                  <options: confirmed|finalized|processed>
+  --ledger                        enable ledger support
+  --ledgerPath=<value>            HID path to the ledger
+  --mainnetBeta                   WARNING: use mainnet-beta solana cluster
+  --programId=<value>             alternative Switchboard program ID to interact with
+  --secret=<value>...             (required) name of the secret(s) to add the MrEnclave measurement to
+
+GLOBAL FLAGS
+  --json  Format output as json.
+
+EXAMPLES
+  $ sb solana secrets add-mrenclave --mrEnclave a4e00d5ef4d89e046aa134f9930069f261268574b6e7f3e48dad963d86cbbffb --secret FFF_MAINNET_SERVICE_RPC_URL --keypair ~/.config/solana/id.json
+```
+
+_See code: [dist/commands/solana/secrets/add-mrenclave.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.32/dist/commands/solana/secrets/add-mrenclave.js)_
+
+## `sb solana secrets create SECRETNAME`
+
+creates a switchboard secret
+
+```
+USAGE
+  $ sb solana secrets create SECRETNAME [-h] [-v] [-s] [--mainnetBeta | --cluster devnet|mainnet-beta|mainnet|localnet] [-u
+    <value>] [--programId <value>] [--attestationProgramId <value>] [--commitment confirmed|finalized|processed] [-k
+    <value>] [--ledgerPath <value> --ledger] [--json] [-m <value>] [--secret <value> | --secretFile <value>]
+
+ARGUMENTS
+  SECRETNAME  the name of the secret to create
+
+FLAGS
+  -h, --help                      Show CLI help.
+  -k, --keypair=<value>           keypair that will pay for onchain transactions. defaults to new account authority if
+                                  no alternate authority provided
+  -m, --mrEnclave=<value>         optional mrEnclave to add to the secret
+  -s, --silent                    suppress cli prompts
+  -u, --rpcUrl=<value>            alternate RPC url
+  -v, --verbose                   log everything
+  --attestationProgramId=<value>  alternative Switchboard Attestation program ID to interact with
+  --cluster=<option>              the solana cluster to connect to
+                                  <options: devnet|mainnet-beta|mainnet|localnet>
+  --commitment=<option>           [default: confirmed] transaction commitment level to use
+                                  <options: confirmed|finalized|processed>
+  --ledger                        enable ledger support
+  --ledgerPath=<value>            HID path to the ledger
+  --mainnetBeta                   WARNING: use mainnet-beta solana cluster
+  --programId=<value>             alternative Switchboard program ID to interact with
+  --secret=<value>                the value of the secret to create
+  --secretFile=<value>            the file containing the value of the secret to create
+
+GLOBAL FLAGS
+  --json  Format output as json.
+
+DESCRIPTION
+  creates a switchboard secret
+```
+
+_See code: [dist/commands/solana/secrets/create.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.32/dist/commands/solana/secrets/create.js)_
+
+## `sb solana secrets delete SECRETNAME`
+
+delete a switchboard secret for a given user
+
+```
+USAGE
+  $ sb solana secrets delete SECRETNAME [-h] [-v] [-s] [--mainnetBeta | --cluster devnet|mainnet-beta|mainnet|localnet] [-u
+    <value>] [--programId <value>] [--attestationProgramId <value>] [--commitment confirmed|finalized|processed] [-k
+    <value>] [--ledgerPath <value> --ledger] [--json]
+
+ARGUMENTS
+  SECRETNAME  the name of the secret to create
+
+FLAGS
+  -h, --help                      Show CLI help.
+  -k, --keypair=<value>           keypair that will pay for onchain transactions. defaults to new account authority if
+                                  no alternate authority provided
+  -s, --silent                    suppress cli prompts
+  -u, --rpcUrl=<value>            alternate RPC url
+  -v, --verbose                   log everything
+  --attestationProgramId=<value>  alternative Switchboard Attestation program ID to interact with
+  --cluster=<option>              the solana cluster to connect to
+                                  <options: devnet|mainnet-beta|mainnet|localnet>
+  --commitment=<option>           [default: confirmed] transaction commitment level to use
+                                  <options: confirmed|finalized|processed>
+  --ledger                        enable ledger support
+  --ledgerPath=<value>            HID path to the ledger
+  --mainnetBeta                   WARNING: use mainnet-beta solana cluster
+  --programId=<value>             alternative Switchboard program ID to interact with
+
+GLOBAL FLAGS
+  --json  Format output as json.
+
+DESCRIPTION
+  delete a switchboard secret for a given user
+```
+
+_See code: [dist/commands/solana/secrets/delete.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.32/dist/commands/solana/secrets/delete.js)_
+
+## `sb solana secrets print`
+
+print the list of user secrets along with their whitelisted MrEnclaves
+
+```
+USAGE
+  $ sb solana secrets print [-h] [-v] [-s] [--mainnetBeta | --cluster devnet|mainnet-beta|mainnet|localnet] [-u <value>]
+    [--programId <value>] [--attestationProgramId <value>] [--commitment confirmed|finalized|processed] [-k <value>]
+    [--ledgerPath <value> --ledger] [--json]
+
+FLAGS
+  -h, --help                      Show CLI help.
+  -k, --keypair=<value>           keypair that will pay for onchain transactions. defaults to new account authority if
+                                  no alternate authority provided
+  -s, --silent                    suppress cli prompts
+  -u, --rpcUrl=<value>            alternate RPC url
+  -v, --verbose                   log everything
+  --attestationProgramId=<value>  alternative Switchboard Attestation program ID to interact with
+  --cluster=<option>              the solana cluster to connect to
+                                  <options: devnet|mainnet-beta|mainnet|localnet>
+  --commitment=<option>           [default: confirmed] transaction commitment level to use
+                                  <options: confirmed|finalized|processed>
+  --ledger                        enable ledger support
+  --ledgerPath=<value>            HID path to the ledger
+  --mainnetBeta                   WARNING: use mainnet-beta solana cluster
+  --programId=<value>             alternative Switchboard program ID to interact with
+
+GLOBAL FLAGS
+  --json  Format output as json.
+
+DESCRIPTION
+  print the list of user secrets along with their whitelisted MrEnclaves
+```
+
+_See code: [dist/commands/solana/secrets/print.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.32/dist/commands/solana/secrets/print.js)_
+
+## `sb solana service-worker configure SERVICEWORKERKEY`
+
+configure a service worker
+
+```
+USAGE
+  $ sb solana service-worker configure SERVICEWORKERKEY [-h] [-v] [-s] [--mainnetBeta | --cluster
+    devnet|mainnet-beta|mainnet|localnet] [-u <value>] [--programId <value>] [--attestationProgramId <value>]
+    [--commitment confirmed|finalized|processed] [-k <value>] [--ledgerPath <value> --ledger] [--json] [-a <value>]
+    [--region UnitedStates|Canada|UnitedKingdom|Europe|Asia|Russia|SouthAmerica|LatinAmerica] [--zone
+    North|NorthEast|East|SouthEast|South|SouthWest|West|NorthWest] [--permissionsRequired | --permissionsNotRequired]
+    [--availableEnclaveSize <value>] [--maxEnclaveSize <value>]
+
+ARGUMENTS
+  SERVICEWORKERKEY  public key of the service worker account
+
+FLAGS
+  -a, --authority=<value>         keypair of the service worker's authority that is permitted to make account changes
+  -h, --help                      Show CLI help.
+  -k, --keypair=<value>           keypair that will pay for onchain transactions. defaults to new account authority if
+                                  no alternate authority provided
+  -s, --silent                    suppress cli prompts
+  -u, --rpcUrl=<value>            alternate RPC url
+  -v, --verbose                   log everything
+  --attestationProgramId=<value>  alternative Switchboard Attestation program ID to interact with
+  --availableEnclaveSize=<value>  The total amount of enclave space, in MB, available to the service worker
+  --cluster=<option>              the solana cluster to connect to
+                                  <options: devnet|mainnet-beta|mainnet|localnet>
+  --commitment=<option>           [default: confirmed] transaction commitment level to use
+                                  <options: confirmed|finalized|processed>
+  --ledger                        enable ledger support
+  --ledgerPath=<value>            HID path to the ledger
+  --mainnetBeta                   WARNING: use mainnet-beta solana cluster
+  --maxEnclaveSize=<value>        The highest amount of enclave space, in MB, allowed for a single service
+  --permissionsNotRequired        Whether the service worker requires permissions for services to join
+  --permissionsRequired           Whether the service worker requires permissions for services to join
+  --programId=<value>             alternative Switchboard program ID to interact with
+  --region=<option>               The geographical region where the service worker will be run
+                                  <options:
+                                  UnitedStates|Canada|UnitedKingdom|Europe|Asia|Russia|SouthAmerica|LatinAmerica>
+  --zone=<option>                 The geographical zone where the service worker will be run
+                                  <options: North|NorthEast|East|SouthEast|South|SouthWest|West|NorthWest>
+
+GLOBAL FLAGS
+  --json  Format output as json.
+
+DESCRIPTION
+  configure a service worker
+```
+
+_See code: [dist/commands/solana/service-worker/configure.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.32/dist/commands/solana/service-worker/configure.js)_
+
+## `sb solana service-worker create ATTESTATIONQUEUEKEY`
+
+create a new service worker account
+
+```
+USAGE
+  $ sb solana service-worker create ATTESTATIONQUEUEKEY [-h] [-v] [-s] [--mainnetBeta | --cluster
+    devnet|mainnet-beta|mainnet|localnet] [-u <value>] [--programId <value>] [--attestationProgramId <value>]
+    [--commitment confirmed|finalized|processed] [-k <value>] [--ledgerPath <value> --ledger] [--json] [-a <value>]
+    [--region UnitedStates|Canada|UnitedKingdom|Europe|Asia|Russia|SouthAmerica|LatinAmerica] [--zone
+    North|NorthEast|East|SouthEast|South|SouthWest|West|NorthWest] [--permissionsRequired] [--availableEnclaveSize
+    <value>] [--maxEnclaveSize <value>] [--maxServices <value>]
+
+ARGUMENTS
+  ATTESTATIONQUEUEKEY  public key of the attestation queue account
+
+FLAGS
+  -a, --authority=<value>         keypair or public key to delegate authority to for managing the routine account
+  -h, --help                      Show CLI help.
+  -k, --keypair=<value>           keypair that will pay for onchain transactions. defaults to new account authority if
+                                  no alternate authority provided
+  -s, --silent                    suppress cli prompts
+  -u, --rpcUrl=<value>            alternate RPC url
+  -v, --verbose                   log everything
+  --attestationProgramId=<value>  alternative Switchboard Attestation program ID to interact with
+  --availableEnclaveSize=<value>  [default: 10240] The total amount of enclave space, in MB, available to the service
+                                  worker
+  --cluster=<option>              the solana cluster to connect to
+                                  <options: devnet|mainnet-beta|mainnet|localnet>
+  --commitment=<option>           [default: confirmed] transaction commitment level to use
+                                  <options: confirmed|finalized|processed>
+  --ledger                        enable ledger support
+  --ledgerPath=<value>            HID path to the ledger
+  --mainnetBeta                   WARNING: use mainnet-beta solana cluster
+  --maxEnclaveSize=<value>        [default: 1024] The highest amount of enclave space, in MB, allowed for a single
+                                  service
+  --maxServices=<value>           [default: 128] The maximum number of services allowed to join the ServiceWorker
+  --permissionsRequired           Whether the service worker requires permissions for services to join
+  --programId=<value>             alternative Switchboard program ID to interact with
+  --region=<option>               The geographical region where the service worker will be run
+                                  <options:
+                                  UnitedStates|Canada|UnitedKingdom|Europe|Asia|Russia|SouthAmerica|LatinAmerica>
+  --zone=<option>                 The geographical zone where the service worker will be run
+                                  <options: North|NorthEast|East|SouthEast|South|SouthWest|West|NorthWest>
+
+GLOBAL FLAGS
+  --json  Format output as json.
+
+DESCRIPTION
+  create a new service worker account
+
+EXAMPLES
+  $ sb solana service-worker create CkvizjVnm2zA5Wuwan34NhVT3zFc7vqUyGnA6tuEF5aE
+```
+
+_See code: [dist/commands/solana/service-worker/create.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.32/dist/commands/solana/service-worker/create.js)_
+
+## `sb solana service-worker print SERVICEWORKERKEY`
+
+print a service worker account
+
+```
+USAGE
+  $ sb solana service-worker print SERVICEWORKERKEY [-h] [-v] [-s] [--mainnetBeta | --cluster
+    devnet|mainnet-beta|mainnet|localnet] [-u <value>] [--programId <value>] [--attestationProgramId <value>]
+    [--commitment confirmed|finalized|processed] [--json]
+
+ARGUMENTS
+  SERVICEWORKERKEY  public key of the service worker account
+
+FLAGS
+  -h, --help                      Show CLI help.
+  -s, --silent                    suppress cli prompts
+  -u, --rpcUrl=<value>            alternate RPC url
+  -v, --verbose                   log everything
+  --attestationProgramId=<value>  alternative Switchboard Attestation program ID to interact with
+  --cluster=<option>              the solana cluster to connect to
+                                  <options: devnet|mainnet-beta|mainnet|localnet>
+  --commitment=<option>           [default: confirmed] transaction commitment level to use
+                                  <options: confirmed|finalized|processed>
+  --mainnetBeta                   WARNING: use mainnet-beta solana cluster
+  --programId=<value>             alternative Switchboard program ID to interact with
+
+GLOBAL FLAGS
+  --json  Format output as json.
+
+DESCRIPTION
+  print a service worker account
+```
+
+_See code: [dist/commands/solana/service-worker/print.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.32/dist/commands/solana/service-worker/print.js)_
+
+## `sb solana service-worker remove-service SERVICEWORKERKEY`
+
+remove a service from the worker
+
+```
+USAGE
+  $ sb solana service-worker remove-service SERVICEWORKERKEY [-h] [-v] [-s] [--mainnetBeta | --cluster
+    devnet|mainnet-beta|mainnet|localnet] [-u <value>] [--programId <value>] [--attestationProgramId <value>]
+    [--commitment confirmed|finalized|processed] [-k <value>] [--ledgerPath <value> --ledger] [--json] [-a <value>]
+    [--service <value>]
+
+ARGUMENTS
+  SERVICEWORKERKEY  public key of the service worker account
+
+FLAGS
+  -a, --authority=<value>         keypair of the service worker's authority that is permitted to make account changes
+  -h, --help                      Show CLI help.
+  -k, --keypair=<value>           keypair that will pay for onchain transactions. defaults to new account authority if
+                                  no alternate authority provided
+  -s, --silent                    suppress cli prompts
+  -u, --rpcUrl=<value>            alternate RPC url
+  -v, --verbose                   log everything
+  --attestationProgramId=<value>  alternative Switchboard Attestation program ID to interact with
+  --cluster=<option>              the solana cluster to connect to
+                                  <options: devnet|mainnet-beta|mainnet|localnet>
+  --commitment=<option>           [default: confirmed] transaction commitment level to use
+                                  <options: confirmed|finalized|processed>
+  --ledger                        enable ledger support
+  --ledgerPath=<value>            HID path to the ledger
+  --mainnetBeta                   WARNING: use mainnet-beta solana cluster
+  --programId=<value>             alternative Switchboard program ID to interact with
+  --service=<value>...            The highest amount of enclave space, in MB, allowed for a single service
+
+GLOBAL FLAGS
+  --json  Format output as json.
+
+DESCRIPTION
+  remove a service from the worker
+```
+
+_See code: [dist/commands/solana/service-worker/remove-service.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.32/dist/commands/solana/service-worker/remove-service.js)_
+
+## `sb solana service configure SERVICEKEY`
+
+configure a service account for a given function
+
+```
+USAGE
+  $ sb solana service configure SERVICEKEY [-h] [-v] [-s] [--mainnetBeta | --cluster devnet|mainnet-beta|mainnet|localnet] [-u
+    <value>] [--programId <value>] [--attestationProgramId <value>] [--commitment confirmed|finalized|processed] [-k
+    <value>] [--ledgerPath <value> --ledger] [--json] [-a <value>] [-n <value>] [--metadata <value>] [--parameters
+    <value>] [--enclaveSize <value>] [--serviceWorker <value>]
+
+ARGUMENTS
+  SERVICEKEY  public key of the service account
+
+FLAGS
+  -a, --authority=<value>         keypair of the service's authority that is permitted to make account changes
+  -h, --help                      Show CLI help.
+  -k, --keypair=<value>           keypair that will pay for onchain transactions. defaults to new account authority if
+                                  no alternate authority provided
+  -n, --name=<value>              name of the service for easier identification
+  -s, --silent                    suppress cli prompts
+  -u, --rpcUrl=<value>            alternate RPC url
+  -v, --verbose                   log everything
+  --attestationProgramId=<value>  alternative Switchboard Attestation program ID to interact with
+  --cluster=<option>              the solana cluster to connect to
+                                  <options: devnet|mainnet-beta|mainnet|localnet>
+  --commitment=<option>           [default: confirmed] transaction commitment level to use
+                                  <options: confirmed|finalized|processed>
+  --enclaveSize=<value>           size of the enclave to create in MB
+  --ledger                        enable ledger support
+  --ledgerPath=<value>            HID path to the ledger
+  --mainnetBeta                   WARNING: use mainnet-beta solana cluster
+  --metadata=<value>              metadata of the service for easier identification
+  --parameters=<value>            parameters to pass to the service
+  --programId=<value>             alternative Switchboard program ID to interact with
+  --serviceWorker=<value>         public key of the service worker
+
+GLOBAL FLAGS
+  --json  Format output as json.
+
+DESCRIPTION
+  configure a service account for a given function
+```
+
+_See code: [dist/commands/solana/service/configure.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.32/dist/commands/solana/service/configure.js)_
+
+## `sb solana service create FUNCTIONKEY`
+
+create a new service account for a given function
+
+```
+USAGE
+  $ sb solana service create FUNCTIONKEY [-h] [-v] [-s] [--mainnetBeta | --cluster devnet|mainnet-beta|mainnet|localnet]
+    [-u <value>] [--programId <value>] [--attestationProgramId <value>] [--commitment confirmed|finalized|processed] [-k
+    <value>] [--ledgerPath <value> --ledger] [--json] [-n <value>] [--metadata <value>] [-a <value>] [--parameters
+    <value>] [--enclaveSize <value>]
+
+ARGUMENTS
+  FUNCTIONKEY  public key of the function account
+
+FLAGS
+  -a, --authority=<value>         keypair or public key to delegate authority to for managing the routine account
+  -h, --help                      Show CLI help.
+  -k, --keypair=<value>           keypair that will pay for onchain transactions. defaults to new account authority if
+                                  no alternate authority provided
+  -n, --name=<value>              name of the service for easier identification
+  -s, --silent                    suppress cli prompts
+  -u, --rpcUrl=<value>            alternate RPC url
+  -v, --verbose                   log everything
+  --attestationProgramId=<value>  alternative Switchboard Attestation program ID to interact with
+  --cluster=<option>              the solana cluster to connect to
+                                  <options: devnet|mainnet-beta|mainnet|localnet>
+  --commitment=<option>           [default: confirmed] transaction commitment level to use
+                                  <options: confirmed|finalized|processed>
+  --enclaveSize=<value>           [default: 256] size of the enclave to create in MB
+  --ledger                        enable ledger support
+  --ledgerPath=<value>            HID path to the ledger
+  --mainnetBeta                   WARNING: use mainnet-beta solana cluster
+  --metadata=<value>              metadata of the service for easier identification
+  --parameters=<value>            parameters to pass to the service
+  --programId=<value>             alternative Switchboard program ID to interact with
+
+GLOBAL FLAGS
+  --json  Format output as json.
+
+DESCRIPTION
+  create a new service account for a given function
+
+EXAMPLES
+  $ sb solana service create CkvizjVnm2zA5Wuwan34NhVT3zFc7vqUyGnA6tuEF5aE
+```
+
+_See code: [dist/commands/solana/service/create.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.32/dist/commands/solana/service/create.js)_
+
+## `sb solana service print SERVICEKEY`
+
+print a service account
+
+```
+USAGE
+  $ sb solana service print SERVICEKEY [-h] [-v] [-s] [--mainnetBeta | --cluster devnet|mainnet-beta|mainnet|localnet] [-u
+    <value>] [--programId <value>] [--attestationProgramId <value>] [--commitment confirmed|finalized|processed]
+    [--json]
+
+ARGUMENTS
+  SERVICEKEY  public key of the service account
+
+FLAGS
+  -h, --help                      Show CLI help.
+  -s, --silent                    suppress cli prompts
+  -u, --rpcUrl=<value>            alternate RPC url
+  -v, --verbose                   log everything
+  --attestationProgramId=<value>  alternative Switchboard Attestation program ID to interact with
+  --cluster=<option>              the solana cluster to connect to
+                                  <options: devnet|mainnet-beta|mainnet|localnet>
+  --commitment=<option>           [default: confirmed] transaction commitment level to use
+                                  <options: confirmed|finalized|processed>
+  --mainnetBeta                   WARNING: use mainnet-beta solana cluster
+  --programId=<value>             alternative Switchboard program ID to interact with
+
+GLOBAL FLAGS
+  --json  Format output as json.
+
+DESCRIPTION
+  print a service account
+```
+
+_See code: [dist/commands/solana/service/print.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.32/dist/commands/solana/service/print.js)_
+
+## `sb solana service set-worker SERVICEKEY`
+
+Set the service worker for a given service account
+
+```
+USAGE
+  $ sb solana service set-worker SERVICEKEY -w <value> [-h] [-v] [-s] [--mainnetBeta | --cluster
+    devnet|mainnet-beta|mainnet|localnet] [-u <value>] [--programId <value>] [--attestationProgramId <value>]
+    [--commitment confirmed|finalized|processed] [-k <value>] [--ledgerPath <value> --ledger] [--json] [--authority
+    <value>] [--workerAuthority <value>]
+
+ARGUMENTS
+  SERVICEKEY  public key of the function service account
+
+FLAGS
+  -h, --help                      Show CLI help.
+  -k, --keypair=<value>           keypair that will pay for onchain transactions. defaults to new account authority if
+                                  no alternate authority provided
+  -s, --silent                    suppress cli prompts
+  -u, --rpcUrl=<value>            alternate RPC url
+  -v, --verbose                   log everything
+  -w, --worker=<value>            (required) public key of the ServiceWorker to set for the given service
+  --attestationProgramId=<value>  alternative Switchboard Attestation program ID to interact with
+  --authority=<value>             alternative keypair designated as the service's authority. Required for making account
+                                  changes.
+  --cluster=<option>              the solana cluster to connect to
+                                  <options: devnet|mainnet-beta|mainnet|localnet>
+  --commitment=<option>           [default: confirmed] transaction commitment level to use
+                                  <options: confirmed|finalized|processed>
+  --ledger                        enable ledger support
+  --ledgerPath=<value>            HID path to the ledger
+  --mainnetBeta                   WARNING: use mainnet-beta solana cluster
+  --programId=<value>             alternative Switchboard program ID to interact with
+  --workerAuthority=<value>       alternative keypair designated as the ServiceWorker's authority. Required to approve
+                                  new services if permissionedRequired is set to true.
+
+GLOBAL FLAGS
+  --json  Format output as json.
+
+DESCRIPTION
+  Set the service worker for a given service account
+```
+
+_See code: [dist/commands/solana/service/set-worker.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.32/dist/commands/solana/service/set-worker.js)_
 
 ## `sb solana verifier-oracle create QUEUEKEY`
 
@@ -5559,7 +6131,7 @@ DESCRIPTION
   create a verifier oracle for a given attestation queue
 ```
 
-_See code: [dist/commands/solana/verifier-oracle/create.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.12/dist/commands/solana/verifier-oracle/create.js)_
+_See code: [dist/commands/solana/verifier-oracle/create.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.32/dist/commands/solana/verifier-oracle/create.js)_
 
 ## `sb solana verifier-oracle print VERIFIERKEY`
 
@@ -5594,7 +6166,7 @@ DESCRIPTION
   print a verifier oracle account
 ```
 
-_See code: [dist/commands/solana/verifier-oracle/print.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.12/dist/commands/solana/verifier-oracle/print.js)_
+_See code: [dist/commands/solana/verifier-oracle/print.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.32/dist/commands/solana/verifier-oracle/print.js)_
 
 ## `sb solana version`
 
@@ -5630,7 +6202,7 @@ DESCRIPTION
   print a Switchboard account
 ```
 
-_See code: [dist/commands/solana/version.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.12/dist/commands/solana/version.js)_
+_See code: [dist/commands/solana/version.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.32/dist/commands/solana/version.js)_
 
 ## `sb solana vrf open-round VRFKEY`
 
@@ -5707,7 +6279,7 @@ DESCRIPTION
   print a VRF and it's associated accounts
 ```
 
-_See code: [dist/commands/solana/vrf/print.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.12/dist/commands/solana/vrf/print.js)_
+_See code: [dist/commands/solana/vrf/print.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.32/dist/commands/solana/vrf/print.js)_
 
 ## `sb solana vrf request VRFKEY`
 
@@ -5751,7 +6323,7 @@ EXAMPLES
   $ sb solana vrf request
 ```
 
-_See code: [dist/commands/solana/vrf/request.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.12/dist/commands/solana/vrf/request.js)_
+_See code: [dist/commands/solana/vrf/request.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.32/dist/commands/solana/vrf/request.js)_
 
 ## `sb solana vrf update VRFKEY`
 
@@ -5794,6 +6366,516 @@ ALIASES
 EXAMPLES
   $ sb solana vrf request
 ```
+
+## `sb starknet function add-enclave FUNCTIONID`
+
+Configure a starknet function's mrEnclave settings
+
+```
+USAGE
+  $ sb starknet function add-enclave FUNCTIONID --accountAddress <value> --accountPrivateKey <value> -e <value> [-h] [-v] [-s]
+    [--network goerli|sepolia|mainnet] [-u <value>] [--programId <value>] [--json]
+
+ARGUMENTS
+  FUNCTIONID  id of the function to build a request for
+
+FLAGS
+  -e, --mrEnclave=<value>      (required) set the mr enclave to add
+  -h, --help                   Show CLI help.
+  -s, --silent                 suppress cli prompts
+  -u, --rpcUrl=<value>         alternate RPC url
+  -v, --verbose                log everything
+  --accountAddress=<value>     (required) The payer account public address
+  --accountPrivateKey=<value>  (required) The signing private key for the payer account
+  --network=<option>           [default: goerli] the network to connect with
+                               <options: goerli|sepolia|mainnet>
+  --programId=<value>          alternative Switchboard program ID to interact with
+
+GLOBAL FLAGS
+  --json  Format output as json.
+
+DESCRIPTION
+  Configure a starknet function's mrEnclave settings
+
+ALIASES
+  $ sb starknet function addMrEnclave
+```
+
+_See code: [dist/commands/starknet/function/add-enclave.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.32/dist/commands/starknet/function/add-enclave.js)_
+
+## `sb starknet function addMrEnclave FUNCTIONID`
+
+Configure a starknet function's mrEnclave settings
+
+```
+USAGE
+  $ sb starknet function addMrEnclave FUNCTIONID --accountAddress <value> --accountPrivateKey <value> -e <value> [-h] [-v] [-s]
+    [--network goerli|sepolia|mainnet] [-u <value>] [--programId <value>] [--json]
+
+ARGUMENTS
+  FUNCTIONID  id of the function to build a request for
+
+FLAGS
+  -e, --mrEnclave=<value>      (required) set the mr enclave to add
+  -h, --help                   Show CLI help.
+  -s, --silent                 suppress cli prompts
+  -u, --rpcUrl=<value>         alternate RPC url
+  -v, --verbose                log everything
+  --accountAddress=<value>     (required) The payer account public address
+  --accountPrivateKey=<value>  (required) The signing private key for the payer account
+  --network=<option>           [default: goerli] the network to connect with
+                               <options: goerli|sepolia|mainnet>
+  --programId=<value>          alternative Switchboard program ID to interact with
+
+GLOBAL FLAGS
+  --json  Format output as json.
+
+DESCRIPTION
+  Configure a starknet function's mrEnclave settings
+
+ALIASES
+  $ sb starknet function addMrEnclave
+```
+
+## `sb starknet function configure FUNCTIONID`
+
+Configure a starknet function's settings
+
+```
+USAGE
+  $ sb starknet function configure FUNCTIONID --accountAddress <value> --accountPrivateKey <value> [-h] [-v] [-s] [--network
+    goerli|sepolia|mainnet] [-u <value>] [--programId <value>] [--json] [--name <value>] [--authorityId <value>]
+    [--container <value>] [--containerRegistry dockerhub|ipfs] [--version <value>]
+
+ARGUMENTS
+  FUNCTIONID  id of the function to configure
+
+FLAGS
+  -h, --help                    Show CLI help.
+  -s, --silent                  suppress cli prompts
+  -u, --rpcUrl=<value>          alternate RPC url
+  -v, --verbose                 log everything
+  --accountAddress=<value>      (required) The payer account public address
+  --accountPrivateKey=<value>   (required) The signing private key for the payer account
+  --authorityId=<value>         address to delegate authority to for managing the function account
+  --container=<value>           the location of the container (Ex. switchboardlabs/basic-oracle-function)
+  --containerRegistry=<option>  [default: dockerhub] the registry to pull the container from (Ex. Docker or IPFS)
+                                <options: dockerhub|ipfs>
+  --name=<value>                set the function name
+  --network=<option>            [default: goerli] the network to connect with
+                                <options: goerli|sepolia|mainnet>
+  --programId=<value>           alternative Switchboard program ID to interact with
+  --version=<value>             the version of the container to pull from the registry (Ex. 'latest' or 'mainnet')
+
+GLOBAL FLAGS
+  --json  Format output as json.
+
+DESCRIPTION
+  Configure a starknet function's settings
+
+EXAMPLES
+  $ sb starknet function configure F8ce7MsckeZAbAGmxjJNetxYXQa9mKr9nnrC3qKubyYy --name function-1 --fundAmount 0.25 --container switchboardlabs/basic-oracle-function --version latest
+```
+
+_See code: [dist/commands/starknet/function/configure.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.32/dist/commands/starknet/function/configure.js)_
+
+## `sb starknet function create ATTESTATIONQUEUEID`
+
+create a new function account for a given queue
+
+```
+USAGE
+  $ sb starknet function create ATTESTATIONQUEUEID --accountAddress <value> --accountPrivateKey <value> --container <value>
+    [-h] [-v] [-s] [--network goerli|sepolia|mainnet] [-u <value>] [--programId <value>] [--json] [-n <value>] [-a
+    <value>] [--containerRegistry dockerhub|ipfs] [--version <value>]
+
+ARGUMENTS
+  ATTESTATIONQUEUEID  id of the attestation queue
+
+FLAGS
+  -a, --authority=<value>       address to delegate authority to for managing the function account
+  -h, --help                    Show CLI help.
+  -n, --name=<value>            name of the function for easier identification
+  -s, --silent                  suppress cli prompts
+  -u, --rpcUrl=<value>          alternate RPC url
+  -v, --verbose                 log everything
+  --accountAddress=<value>      (required) The payer account public address
+  --accountPrivateKey=<value>   (required) The signing private key for the payer account
+  --container=<value>           (required) the location of the container (Ex. switchboardlabs/basic-oracle-function)
+  --containerRegistry=<option>  [default: dockerhub] the registry to pull the container from (Ex. Docker or IPFS)
+                                <options: dockerhub|ipfs>
+  --network=<option>            [default: goerli] the network to connect with
+                                <options: goerli|sepolia|mainnet>
+  --programId=<value>           alternative Switchboard program ID to interact with
+  --version=<value>             [default: latest] the version of the container to pull from the registry (Ex. 'latest'
+                                or 'mainnet')
+
+GLOBAL FLAGS
+  --json  Format output as json.
+
+DESCRIPTION
+  create a new function account for a given queue
+
+EXAMPLES
+  $ sb starknet function create F8ce7MsckeZAbAGmxjJNetxYXQa9mKr9nnrC3qKubyYy --name function-1 --fundAmount 0.25 --container switchboardlabs/basic-oracle-function --version latest
+```
+
+_See code: [dist/commands/starknet/function/create.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.32/dist/commands/starknet/function/create.js)_
+
+## `sb starknet function print FUNCTIONID`
+
+Print an function's state
+
+```
+USAGE
+  $ sb starknet function print FUNCTIONID [-h] [-v] [-s] [--network goerli|sepolia|mainnet] [-u <value>] [--programId
+    <value>] [--json]
+
+ARGUMENTS
+  FUNCTIONID  id of the function
+
+FLAGS
+  -h, --help            Show CLI help.
+  -s, --silent          suppress cli prompts
+  -u, --rpcUrl=<value>  alternate RPC url
+  -v, --verbose         log everything
+  --network=<option>    [default: goerli] the network to connect with
+                        <options: goerli|sepolia|mainnet>
+  --programId=<value>   alternative Switchboard program ID to interact with
+
+GLOBAL FLAGS
+  --json  Format output as json.
+
+DESCRIPTION
+  Print an function's state
+
+EXAMPLES
+  $ sb starknet function print 0xaA43ba6f18b138A0B3313dDbFaC2b920D240108E --network testnet
+```
+
+_See code: [dist/commands/starknet/function/print.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.32/dist/commands/starknet/function/print.js)_
+
+## `sb starknet function remove-enclave FUNCTIONID`
+
+Configure a starknet function's mrEnclave settings
+
+```
+USAGE
+  $ sb starknet function remove-enclave FUNCTIONID --accountAddress <value> --accountPrivateKey <value> -e <value> [-h] [-v] [-s]
+    [--network goerli|sepolia|mainnet] [-u <value>] [--programId <value>] [--json]
+
+ARGUMENTS
+  FUNCTIONID  id of the function to build a request for
+
+FLAGS
+  -e, --mrEnclave=<value>      (required) set the mr enclave to add
+  -h, --help                   Show CLI help.
+  -s, --silent                 suppress cli prompts
+  -u, --rpcUrl=<value>         alternate RPC url
+  -v, --verbose                log everything
+  --accountAddress=<value>     (required) The payer account public address
+  --accountPrivateKey=<value>  (required) The signing private key for the payer account
+  --network=<option>           [default: goerli] the network to connect with
+                               <options: goerli|sepolia|mainnet>
+  --programId=<value>          alternative Switchboard program ID to interact with
+
+GLOBAL FLAGS
+  --json  Format output as json.
+
+DESCRIPTION
+  Configure a starknet function's mrEnclave settings
+
+ALIASES
+  $ sb starknet function rmMrEnclave
+```
+
+_See code: [dist/commands/starknet/function/remove-enclave.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.32/dist/commands/starknet/function/remove-enclave.js)_
+
+## `sb starknet function rmMrEnclave FUNCTIONID`
+
+Configure a starknet function's mrEnclave settings
+
+```
+USAGE
+  $ sb starknet function rmMrEnclave FUNCTIONID --accountAddress <value> --accountPrivateKey <value> -e <value> [-h] [-v] [-s]
+    [--network goerli|sepolia|mainnet] [-u <value>] [--programId <value>] [--json]
+
+ARGUMENTS
+  FUNCTIONID  id of the function to build a request for
+
+FLAGS
+  -e, --mrEnclave=<value>      (required) set the mr enclave to add
+  -h, --help                   Show CLI help.
+  -s, --silent                 suppress cli prompts
+  -u, --rpcUrl=<value>         alternate RPC url
+  -v, --verbose                log everything
+  --accountAddress=<value>     (required) The payer account public address
+  --accountPrivateKey=<value>  (required) The signing private key for the payer account
+  --network=<option>           [default: goerli] the network to connect with
+                               <options: goerli|sepolia|mainnet>
+  --programId=<value>          alternative Switchboard program ID to interact with
+
+GLOBAL FLAGS
+  --json  Format output as json.
+
+DESCRIPTION
+  Configure a starknet function's mrEnclave settings
+
+ALIASES
+  $ sb starknet function rmMrEnclave
+```
+
+## `sb starknet queue print ATTESTATIONQUEUEID`
+
+Print an attestation queue's state
+
+```
+USAGE
+  $ sb starknet queue print ATTESTATIONQUEUEID [-h] [-v] [-s] [--network goerli|sepolia|mainnet] [-u <value>] [--programId
+    <value>] [--json]
+
+ARGUMENTS
+  ATTESTATIONQUEUEID  id of the attestation queue
+
+FLAGS
+  -h, --help            Show CLI help.
+  -s, --silent          suppress cli prompts
+  -u, --rpcUrl=<value>  alternate RPC url
+  -v, --verbose         log everything
+  --network=<option>    [default: goerli] the network to connect with
+                        <options: goerli|sepolia|mainnet>
+  --programId=<value>   alternative Switchboard program ID to interact with
+
+GLOBAL FLAGS
+  --json  Format output as json.
+
+DESCRIPTION
+  Print an attestation queue's state
+
+EXAMPLES
+  $ sb starknet queue print 0xaA43ba6f18b138A0B3313dDbFaC2b920D240108E --network testnet
+```
+
+_See code: [dist/commands/starknet/queue/print.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.32/dist/commands/starknet/queue/print.js)_
+
+## `sb starknet request create FUNCTIONID`
+
+create a new request account for a given function
+
+```
+USAGE
+  $ sb starknet request create FUNCTIONID --accountAddress <value> --accountPrivateKey <value> [-h] [-v] [-s] [--network
+    goerli|sepolia|mainnet] [-u <value>] [--programId <value>] [--json] [--id <value>] [-a <value>] [--escrowId <value>]
+    [--params <value>] [--startAfter <value>] [--initialFunding <value>]
+
+ARGUMENTS
+  FUNCTIONID  id of the function to build a request for
+
+FLAGS
+  -a, --authorityId=<value>    address to delegate authority to for managing the request account
+  -h, --help                   Show CLI help.
+  -s, --silent                 suppress cli prompts
+  -u, --rpcUrl=<value>         alternate RPC url
+  -v, --verbose                log everything
+  --accountAddress=<value>     (required) The payer account public address
+  --accountPrivateKey=<value>  (required) The signing private key for the payer account
+  --escrowId=<value>           the address of the escrow that will fund this request
+  --id=<value>                 an id to give the request
+  --initialFunding=<value>     [default: 0.0] token amount to load into the request's escrow wallet.
+  --network=<option>           [default: goerli] the network to connect with
+                               <options: goerli|sepolia|mainnet>
+  --params=<value>             a utf8 encoded params buffer to submit as arguments with the request
+  --programId=<value>          alternative Switchboard program ID to interact with
+  --startAfter=<value>         a delay to add to your request triggers
+
+GLOBAL FLAGS
+  --json  Format output as json.
+
+DESCRIPTION
+  create a new request account for a given function
+
+EXAMPLES
+  $ sb starknet request create F8ce7MsckeZAbAGmxjJNetxYXQa9mKr9nnrC3qKubyYy --name function-1 --fundAmount 0.25 --container switchboardlabs/basic-oracle-function --version latest
+```
+
+_See code: [dist/commands/starknet/request/create.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.32/dist/commands/starknet/request/create.js)_
+
+## `sb starknet request print REQUESTID`
+
+Print a request's state
+
+```
+USAGE
+  $ sb starknet request print REQUESTID [-h] [-v] [-s] [--network goerli|sepolia|mainnet] [-u <value>] [--programId <value>]
+    [--json]
+
+ARGUMENTS
+  REQUESTID  id of the request
+
+FLAGS
+  -h, --help            Show CLI help.
+  -s, --silent          suppress cli prompts
+  -u, --rpcUrl=<value>  alternate RPC url
+  -v, --verbose         log everything
+  --network=<option>    [default: goerli] the network to connect with
+                        <options: goerli|sepolia|mainnet>
+  --programId=<value>   alternative Switchboard program ID to interact with
+
+GLOBAL FLAGS
+  --json  Format output as json.
+
+DESCRIPTION
+  Print a request's state
+
+EXAMPLES
+  $ sb starknet request print 0xaA43ba6f18b138A0B3313dDbFaC2b920D240108E --network testnet
+```
+
+_See code: [dist/commands/starknet/request/print.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.32/dist/commands/starknet/request/print.js)_
+
+## `sb starknet routine create FUNCTIONID`
+
+create a new routine account for a given queue
+
+```
+USAGE
+  $ sb starknet routine create FUNCTIONID --accountAddress <value> --accountPrivateKey <value> --schedule <value> [-h] [-v]
+    [-s] [--network goerli|sepolia|mainnet] [-u <value>] [--programId <value>] [--json] [--id <value>] [-a <value>]
+    [--escrowId <value>] [--params <value>] [--initialFunding <value>]
+
+ARGUMENTS
+  FUNCTIONID  id of the function to build a routine for
+
+FLAGS
+  -a, --authorityId=<value>    address to delegate authority to for managing the routine account
+  -h, --help                   Show CLI help.
+  -s, --silent                 suppress cli prompts
+  -u, --rpcUrl=<value>         alternate RPC url
+  -v, --verbose                log everything
+  --accountAddress=<value>     (required) The payer account public address
+  --accountPrivateKey=<value>  (required) The signing private key for the payer account
+  --escrowId=<value>           the address of the escrow that will fund this routine
+  --id=<value>                 an id to give the routine
+  --initialFunding=<value>     [default: 0.0] token amount to load into the routine's escrow wallet.
+  --network=<option>           [default: goerli] the network to connect with
+                               <options: goerli|sepolia|mainnet>
+  --params=<value>             a utf8 encoded params buffer to submit as arguments with the routine
+  --programId=<value>          alternative Switchboard program ID to interact with
+  --schedule=<value>           (required) the cron schedule to run this routine on
+
+GLOBAL FLAGS
+  --json  Format output as json.
+
+DESCRIPTION
+  create a new routine account for a given queue
+
+EXAMPLES
+  $ sb starknet routine create F8ce7MsckeZAbAGmxjJNetxYXQa9mKr9nnrC3qKubyYy --name function-1 --fundAmount 0.25 --container switchboardlabs/basic-oracle-function --version latest
+```
+
+_See code: [dist/commands/starknet/routine/create.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.32/dist/commands/starknet/routine/create.js)_
+
+## `sb starknet routine fund ROUTINEKEY`
+
+Fund a new routine account
+
+```
+USAGE
+  $ sb starknet routine fund ROUTINEKEY --accountAddress <value> --accountPrivateKey <value> --fundAmount <value> [-h] [-v]
+    [-s] [--network goerli|sepolia|mainnet] [-u <value>] [--programId <value>] [--json]
+
+ARGUMENTS
+  ROUTINEKEY  public key of the routine account
+
+FLAGS
+  -h, --help                   Show CLI help.
+  -s, --silent                 suppress cli prompts
+  -u, --rpcUrl=<value>         alternate RPC url
+  -v, --verbose                log everything
+  --accountAddress=<value>     (required) The payer account public address
+  --accountPrivateKey=<value>  (required) The signing private key for the payer account
+  --fundAmount=<value>         (required) token amount to load into the routines's escrow wallet.
+  --network=<option>           [default: goerli] the network to connect with
+                               <options: goerli|sepolia|mainnet>
+  --programId=<value>          alternative Switchboard program ID to interact with
+
+GLOBAL FLAGS
+  --json  Format output as json.
+
+DESCRIPTION
+  Fund a new routine account
+
+EXAMPLES
+  $ sb solana routine fund CkvizjVnm2zA5Wuwan34NhVT3zFc7vqUyGnA6tuEF5aE --fundAmount 1.25
+```
+
+_See code: [dist/commands/starknet/routine/fund.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.32/dist/commands/starknet/routine/fund.js)_
+
+## `sb starknet routine print ROUTINEID`
+
+Print a routine's state
+
+```
+USAGE
+  $ sb starknet routine print ROUTINEID [-h] [-v] [-s] [--network goerli|sepolia|mainnet] [-u <value>] [--programId <value>]
+    [--json]
+
+ARGUMENTS
+  ROUTINEID  id of the routine
+
+FLAGS
+  -h, --help            Show CLI help.
+  -s, --silent          suppress cli prompts
+  -u, --rpcUrl=<value>  alternate RPC url
+  -v, --verbose         log everything
+  --network=<option>    [default: goerli] the network to connect with
+                        <options: goerli|sepolia|mainnet>
+  --programId=<value>   alternative Switchboard program ID to interact with
+
+GLOBAL FLAGS
+  --json  Format output as json.
+
+DESCRIPTION
+  Print a routine's state
+
+EXAMPLES
+  $ sb starknet routine print 0xaA43ba6f18b138A0B3313dDbFaC2b920D240108E --network testnet
+```
+
+_See code: [dist/commands/starknet/routine/print.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.32/dist/commands/starknet/routine/print.js)_
+
+## `sb starknet verifier print VERIFIERID`
+
+Print a verifier's state
+
+```
+USAGE
+  $ sb starknet verifier print VERIFIERID [-h] [-v] [-s] [--network goerli|sepolia|mainnet] [-u <value>] [--programId
+    <value>] [--json]
+
+ARGUMENTS
+  VERIFIERID  id of the verifier
+
+FLAGS
+  -h, --help            Show CLI help.
+  -s, --silent          suppress cli prompts
+  -u, --rpcUrl=<value>  alternate RPC url
+  -v, --verbose         log everything
+  --network=<option>    [default: goerli] the network to connect with
+                        <options: goerli|sepolia|mainnet>
+  --programId=<value>   alternative Switchboard program ID to interact with
+
+GLOBAL FLAGS
+  --json  Format output as json.
+
+DESCRIPTION
+  Print a verifier's state
+
+EXAMPLES
+  $ sb starknet verifier print 0xaA43ba6f18b138A0B3313dDbFaC2b920D240108E --network testnet
+```
+
+_See code: [dist/commands/starknet/verifier/print.js](https://github.com/switchboard-xyz/core-sdk/blob/v3.3.32/dist/commands/starknet/verifier/print.js)_
 
 ## `sb update [CHANNEL]`
 

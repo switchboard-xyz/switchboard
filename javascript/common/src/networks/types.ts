@@ -33,6 +33,7 @@ export const SWITCHBOARD_CHAINS = [
   "aptos",
   "near",
   "solana",
+  "starknet",
   "sui",
   ...SWITCHBOARD_EVM_CHAINS,
 ] as const;
@@ -44,7 +45,7 @@ export type ChainType = (typeof SWITCHBOARD_CHAINS)[number];
 ///////////////////////////////////////////////////////////////////////////////
 export const SUPPORTED_EVM_CHAIN_IDS = [
   // arbitrum
-  42161, 421613,
+  42161, 421613, 421614,
   // base
   8453, 84531,
   // core
@@ -103,6 +104,12 @@ export type IEvmNetworkConfig = IBaseNetworkConfig & {
   attestationQueues: Array<ISwitchboardAttestationQueueConfig>;
 };
 
+export type IStarknetNetworkConfig = IBaseNetworkConfig & {
+  chainId: string;
+  queues: Array<ISwitchboardQueueConfig>;
+  attestationQueues: Array<ISwitchboardAttestationQueueConfig>;
+};
+
 export type IChainNetworkConfig = IBaseNetworkConfig & {
   attestationService?: string;
   queues: Array<ISwitchboardQueueConfig>;
@@ -123,6 +130,7 @@ export type INetworkConfig =
   | IEvmNetworkConfig
   | IChainNetworkConfig
   | ISolanaNetworkConfig
+  | IStarknetNetworkConfig
   | IMoveNetworkConfig;
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -131,11 +139,18 @@ export type INetworkConfig =
 export type IChainConfig = {
   mainnet: IChainNetworkConfig;
   testnet: IChainNetworkConfig;
+  sepolia?: IChainNetworkConfig;
 };
 
 export type ISolanaConfig = Rename<IChainConfig, "testnet", "devnet">;
 
-export type ChainConfig = IChainConfig | ISolanaConfig;
+export type IStarknetConfig = {
+  mainnet: IChainNetworkConfig;
+  sepolia: IChainNetworkConfig;
+  goerli: IChainNetworkConfig;
+};
+
+export type ChainConfig = IChainConfig | ISolanaConfig | IStarknetConfig;
 
 export type EvmChainConfigs = {
   arbitrum: IChainConfig;
@@ -150,6 +165,7 @@ export type ChainConfigs = EvmChainConfigs & {
   aptos: IChainConfig;
   near: IChainConfig;
   solana: ISolanaConfig;
+  starknet: IStarknetConfig;
   sui: IChainConfig;
 };
 

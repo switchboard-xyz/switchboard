@@ -1,4 +1,4 @@
-import { isBase64, isBytes, isHex, parseSecretString } from "../src";
+import { isBase64, isBytes, isHex, parseSecretString } from "../src/index.js";
 
 import { expect } from "chai";
 

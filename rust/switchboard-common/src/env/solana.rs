@@ -1,6 +1,6 @@
 use crate::SbError;
 use serde::Deserialize;
-use envy::Error as EnvyError;
+use serde::Serialize;
 
 fn default_cluster() -> String {
     "devnet".to_string()
@@ -8,8 +8,45 @@ fn default_cluster() -> String {
 
 const DEFAULT_PUBKEY: &str = "11111111111111111111111111111111";
 
+#[derive(Clone, Debug, Default, Deserialize, Serialize)]
+pub enum FunctionTriggerType {
+    #[default]
+    Request,
+    Routine,
+    Service,
+}
 /// The expected environment variables when a solana function is being executed
-#[derive(Clone, Debug, Default, Deserialize)]
+#[derive(Clone, Debug, Default, Deserialize, Serialize)]
+pub struct SolanaFunctionSimulationEnvironment {
+    ///  SB_FUNCTION_TRIGGER: request* | routine
+    #[serde(default)]
+    pub sb_function_trigger: FunctionTriggerType,
+    // /// SB_FUNCTION_REQUEST: 0* | 1
+    // pub sb_function_request: bool,
+    // /// SB_FUNCTION_ROUTINE: 0* | 1
+    // pub sb_function_routine: bool,
+    // /// SB_FUNCTION_SERVICE: 0* | 1
+    // pub sb_function_service: bool,
+    /// SB_CONTAINER_PARAMS: 0* | 1
+    #[serde(default)]
+    pub sb_container_params: Vec<u8>,
+}
+impl SolanaFunctionSimulationEnvironment {
+    pub fn parse() -> Result<Self, SbError> {
+        match envy::from_env::<SolanaFunctionSimulationEnvironment>() {
+            Ok(env) => Ok(env),
+            Err(error) => match &error {
+                envy::Error::MissingValue(msg) => Err(SbError::EnvVariableMissing(msg.to_string())),
+                envy::Error::Custom(msg) => Err(SbError::CustomMessage(format!(
+                    "failed to decode environment variables: {}",
+                    msg
+                ))),
+            },
+        }
+    }
+}
+/// The expected environment variables when a solana function is being executed
+#[derive(Clone, Debug, Default, Deserialize, Serialize)]
 pub struct SolanaFunctionEnvironment {
     /// FUNCTION_KEY: the pubkey of the function being executed
     pub function_key: String,
@@ -66,18 +103,13 @@ impl SolanaFunctionEnvironment {
     pub fn parse() -> Result<Self, SbError> {
         match envy::from_env::<SolanaFunctionEnvironment>() {
             Ok(env) => Ok(env),
-            Err(error) => {
-                match &error {
-                    EnvyError::MissingValue(msg) =>
-                        Err(SbError::EnvVariableMissing(msg.to_string())),
-                    EnvyError::Custom(msg) =>
-                        Err(
-                            SbError::CustomMessage(
-                                format!("failed to decode environment variables: {}", msg)
-                            )
-                        ),
-                }
-            }
+            Err(error) => match &error {
+                envy::Error::MissingValue(msg) => Err(SbError::EnvVariableMissing(msg.to_string())),
+                envy::Error::Custom(msg) => Err(SbError::CustomMessage(format!(
+                    "failed to decode environment variables: {}",
+                    msg
+                ))),
+            },
         }
     }
 
@@ -92,14 +124,17 @@ impl SolanaFunctionEnvironment {
         env.push(format!("VERIFIER={}", self.verifier));
         env.push(format!("REWARD_RECEIVER={}", self.reward_receiver));
 
-        if
-            !self.verifier_enclave_signer.is_empty() &&
-            &self.verifier_enclave_signer != &DEFAULT_PUBKEY.to_string()
+        if !self.verifier_enclave_signer.is_empty()
+            && &self.verifier_enclave_signer != &DEFAULT_PUBKEY.to_string()
         {
-            env.push(format!("VERIFIER_ENCLAVE_SIGNER={}", self.verifier_enclave_signer));
+            env.push(format!(
+                "VERIFIER_ENCLAVE_SIGNER={}",
+                self.verifier_enclave_signer
+            ));
         }
 
-        if !self.queue_authority.is_empty() && &self.queue_authority != &DEFAULT_PUBKEY.to_string() {
+        if !self.queue_authority.is_empty() && &self.queue_authority != &DEFAULT_PUBKEY.to_string()
+        {
             env.push(format!("QUEUE_AUTHORITY={}", self.queue_authority));
         }
 
@@ -107,32 +142,40 @@ impl SolanaFunctionEnvironment {
             env.push(format!("FUNCTION_DATA={}", self.function_data));
         }
 
-        if
-            !self.function_routine_key.is_empty() &&
-            &self.function_routine_key != &DEFAULT_PUBKEY.to_string()
+        if !self.function_routine_key.is_empty()
+            && &self.function_routine_key != &DEFAULT_PUBKEY.to_string()
         {
-            env.push(format!("FUNCTION_ROUTINE_KEY={}", self.function_routine_key));
+            env.push(format!(
+                "FUNCTION_ROUTINE_KEY={}",
+                self.function_routine_key
+            ));
         }
 
-        if
-            !self.function_routine_data.is_empty() &&
-            !self.function_routine_data.chars().all(|c| c == '0')
+        if !self.function_routine_data.is_empty()
+            && !self.function_routine_data.chars().all(|c| c == '0')
         {
-            env.push(format!("FUNCTION_ROUTINE_DATA={}", self.function_routine_data));
+            env.push(format!(
+                "FUNCTION_ROUTINE_DATA={}",
+                self.function_routine_data
+            ));
         }
 
-        if
-            !self.function_request_key.is_empty() &&
-            &self.function_request_key != &DEFAULT_PUBKEY.to_string()
+        if !self.function_request_key.is_empty()
+            && &self.function_request_key != &DEFAULT_PUBKEY.to_string()
         {
-            env.push(format!("FUNCTION_REQUEST_KEY={}", self.function_request_key));
+            env.push(format!(
+                "FUNCTION_REQUEST_KEY={}",
+                self.function_request_key
+            ));
         }
 
-        if
-            !self.function_request_data.is_empty() &&
-            !self.function_request_data.chars().all(|c| c == '0')
+        if !self.function_request_data.is_empty()
+            && !self.function_request_data.chars().all(|c| c == '0')
         {
-            env.push(format!("FUNCTION_REQUEST_DATA={}", self.function_request_data));
+            env.push(format!(
+                "FUNCTION_REQUEST_DATA={}",
+                self.function_request_data
+            ));
         }
 
         if let Some(minimum_context_slot) = self.minimum_context_slot {
@@ -160,7 +203,10 @@ impl SolanaFunctionEnvironment {
             std::env::set_var("FUNCTION_DATA", self.function_data.clone());
         }
         if !self.verifier_enclave_signer.is_empty() {
-            std::env::set_var("VERIFIER_ENCLAVE_SIGNER", self.verifier_enclave_signer.clone());
+            std::env::set_var(
+                "VERIFIER_ENCLAVE_SIGNER",
+                self.verifier_enclave_signer.clone(),
+            );
         }
         if !self.queue_authority.is_empty() {
             std::env::set_var("QUEUE_AUTHORITY", self.queue_authority.clone());

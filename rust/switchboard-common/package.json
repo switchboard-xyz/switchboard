@@ -1,8 +1,9 @@
 {
   "name": "switchboard-common",
   "scripts": {
-    "cargo:build": "cargo build",
+    "cargo:build": "cargo build --features all",
+    "lint": "cargo fmt -- --check",
     "fix": "cargo fmt",
-    "test": "cargo test"
+    "test": "cargo test --features all -- --nocapture"
   }
 }

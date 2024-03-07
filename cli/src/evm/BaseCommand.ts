@@ -45,7 +45,7 @@ import path from "path";
 
 type EvmChain = "coredao" | "arbitrum" | "optimism" | "base" | "aurora";
 
-type EvmNetwork = "mainnet" | "testnet";
+type EvmNetwork = "mainnet" | "testnet" | "sepolia";
 
 export abstract class EvmBaseCommand extends BaseCommand implements IBaseChain {
   static flags = {
@@ -84,8 +84,8 @@ export abstract class EvmBaseCommand extends BaseCommand implements IBaseChain {
     }),
     network: Flags.string({
       description: "the EVM network to connect to",
-      options: ["mainnet", "testnet"],
-      exclusive: ["mainnet", "testnet"],
+      options: ["mainnet", "testnet", "sepolia"],
+      exclusive: ["mainnet", "testnet", "sepolia"],
     }),
     mainnet: Flags.boolean({
       description: "use the mainnet network",
@@ -241,8 +241,12 @@ export abstract class EvmBaseCommand extends BaseCommand implements IBaseChain {
       throw new Error(`Need to provide --network`);
     }
 
-    if (networkOption !== "mainnet" && networkOption !== "testnet") {
-      throw new Error(`--network must be 'mainnet' or 'testnet'`);
+    if (
+      networkOption !== "mainnet" &&
+      networkOption !== "testnet" &&
+      networkOption !== "sepolia"
+    ) {
+      throw new Error(`--network must be 'mainnet', 'testnet', or 'sepolia'`);
     }
 
     return networkOption;
@@ -332,10 +336,6 @@ export abstract class EvmBaseCommand extends BaseCommand implements IBaseChain {
         .map((e) => (e as any).toString())
         .join("\n")}`
     );
-  }
-
-  convertRawNumber(num: BigNumber): Big {
-    return fromBigNumber(num);
   }
 
   loadJobDefinitionWithMeta(definitionPath: string): JobDefinition {
