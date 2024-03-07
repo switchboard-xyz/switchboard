@@ -717,6 +717,9 @@ _**Example**_: The Chainlink SOL/USD oracle price.
     }
     /// Value (as a percentage) that the lower bound confidence interval is of the actual value.
     /// Confidence intervals that are larger that this treshold are rejected.
+    ///
+    /// The confidence interval should be provided as a raw percentage value. For example, to 
+    /// represent 10%, enter the value as 10, not 0.1.
     optional double pyth_allowed_confidence_interval = 4;
   }
   
