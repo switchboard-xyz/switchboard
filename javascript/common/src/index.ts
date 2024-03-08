@@ -15,6 +15,7 @@ export {
   simulateOracleJobs,
 } from "./OracleJob.js";
 export { IOracleJob, ITask, OracleJob, Task } from "./protos.js";
+export * from "./secrets.js";
 export * from "./SwitchboardDecimal.js";
 export * from "./utils/index.js";
 export { Big } from "big.js";

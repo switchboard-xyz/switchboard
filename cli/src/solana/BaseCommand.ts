@@ -19,6 +19,8 @@ import {
   prettyPrintRequest,
   prettyPrintRoutine,
   prettyPrintSbstate,
+  prettyPrintService,
+  prettyPrintServiceWorker,
   prettyPrintVerifierOracle,
   prettyPrintVrf,
   prettyPrintVrfAccounts,
@@ -29,6 +31,7 @@ import { Flags } from "@oclif/core";
 import type { Input } from "@oclif/parser";
 import type { AccountInfo, Cluster } from "@solana/web3.js";
 import { Connection, Keypair, PublicKey } from "@solana/web3.js";
+import type { BN } from "@switchboard-xyz/common";
 import { OracleJob } from "@switchboard-xyz/common";
 import type {
   AggregatorAccounts,
@@ -280,7 +283,7 @@ export abstract class SolanaBaseCommand
 
   // Converts a string to a tokenAmount
   // If a decimal is found, it will be normalized using 9 decimal places
-  getTokenAmount(value: string, decimals = 9): anchor.BN {
+  getTokenAmount(value: string, decimals = 9): BN {
     if (Number.isNaN(Number(value))) {
       throw new TypeError("tokenAmount must be an integer or decimal");
     }
@@ -521,6 +524,24 @@ export abstract class SolanaBaseCommand
     SPACING = 24
   ) {
     this.logger.info(prettyPrintFunction(functionState, publicKey, SPACING));
+  }
+
+  prettyPrintService(
+    serviceState: attestationTypes.FunctionServiceAccountData,
+    publicKey: PublicKey,
+    SPACING = 24
+  ) {
+    this.logger.info(prettyPrintService(serviceState, publicKey, SPACING));
+  }
+
+  prettyPrintServiceWorker(
+    serviceWorkerState: attestationTypes.ServiceWorkerAccountData,
+    publicKey: PublicKey,
+    SPACING = 24
+  ) {
+    this.logger.info(
+      prettyPrintServiceWorker(serviceWorkerState, publicKey, SPACING)
+    );
   }
 
   prettyPrintRequest(

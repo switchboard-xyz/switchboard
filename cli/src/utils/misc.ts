@@ -13,7 +13,8 @@ export const chalkString = (
     | boolean
     | PublicKey
     | Big
-    | anchor.BN
+    | BN
+    | BN
     | BigNumber
     | undefined
     | null,

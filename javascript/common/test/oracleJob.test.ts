@@ -1,4 +1,4 @@
-import { OracleJob } from "../src";
+import { OracleJob } from "../src/index.js";
 
 import { expect } from "chai";
 

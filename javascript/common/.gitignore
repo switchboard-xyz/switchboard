@@ -10,4 +10,7 @@ protos.d.ts
 networks.cjs
 networks.js
 networks.d.ts
+secrets.cjs
+secrets.js
+secrets.d.ts
 !src/esm-utils.js

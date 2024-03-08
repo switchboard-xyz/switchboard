@@ -5,6 +5,7 @@ import { Args, Flags } from "@oclif/core";
 import { PublicKey } from "@solana/web3.js";
 import { isBase58 } from "@switchboard-xyz/common";
 import {
+  AttestationQueueAccount,
   FunctionAccount,
   FunctionRoutineAccount,
 } from "@switchboard-xyz/solana.js";
@@ -34,34 +35,18 @@ export default class FunctionRoutineCreate extends BaseCommand {
     authority: Flags.string({
       char: "a",
       description:
-        "keypair or public key to delegate authority to for managing the function account",
+        "keypair or public key to delegate authority to for managing the routine account",
     }),
-    // fundAmount: Flags.string({
-    //   required: false,
-    //   description: "token amount to load into the function's escrow wallet.",
-    //   default: "0.0",
-    // }),
-    schedule: Flags.string({ description: "cron schedule", required: true }),
+    schedule: Flags.string({
+      description: "cron schedule to execute the function routine on",
+      required: true,
+    }),
     parameters: Flags.string({
       description: "parameters to pass to the function",
       default: "",
       required: false,
       aliases: ["params"],
     }),
-    // enable: Flags.boolean({
-    //   description: "enable oracle heartbeat permissions",
-    // }),
-    // functionAuthority: Flags.string({
-    //   description: "alternative keypair to use for function authority",
-    // }),
-    // wallet: Flags.string({
-    //   description:
-    //     "public key of the Switchboard wallet to use for the function escrow",
-    // }),
-    // walletAuthority: Flags.string({
-    //   description:
-    //     "alternative keypair to use for wallet authority to authorize new functions",
-    // }),
   };
 
   static args = {
@@ -74,69 +59,35 @@ export default class FunctionRoutineCreate extends BaseCommand {
   async run() {
     const { args, flags } = await this.parse(FunctionRoutineCreate);
 
-    let authority: PublicKey | undefined;
-    if (flags.authority) {
-      if (isBase58(flags.authority)) {
-        authority = new PublicKey(flags.authority);
-      } else {
-        const authorityKeypair = await this.loadAuthority(flags.authority);
-        authority = authorityKeypair.publicKey;
-      }
-    }
-
-    const fundAmount = flags.fundAmount ? Number(flags.fundAmount) : undefined;
-    if (fundAmount && fundAmount < 0) {
-      throw new Error("amount to fund must be greater than 0");
-    }
-
     const [functionAccount, functionState] = await FunctionAccount.load(
       this.program,
       args.functionKey
     );
 
-    // const [attestationQueueAccount, attestationQueue] =
-    //   await AttestationQueueAccount.load(
-    //     this.program,
-    //     functionState.attestationQueue
-    //   );
+    const authority = await this.loadAuthority(flags.authority);
+
+    // If the provided authority matches the function authority, then use the same SwitchboardWallet to simplify managing funds
+    // We need the SbWallet authority to sign to approve new resources
+    const sbWallet =
+      this.payer.equals(authority.publicKey) &&
+      functionState.authority.equals(authority.publicKey)
+        ? await functionAccount.wallet
+        : undefined;
 
     const [routineAccount, txn] =
-      await FunctionRoutineAccount.createInstruction(this.program, this.payer, {
-        name: flags.name ?? "",
-        metadata: flags.metadata ?? "",
-        schedule: flags.schedule,
-        functionAccount,
-        containerParams: Buffer.from(flags.parameters),
-        authority: authority ?? this.payer,
-      });
-
-    // if (fundAmount) {
-    //   const wallet = await functionAccount.wallet;
-    //   txn.add(
-    //     attestationTypes.walletFund(
-    //       this.program,
-    //       {
-    //         params: {
-    //           // eslint-disable-next-line unicorn/no-null
-    //           transferAmount: null,
-    //           wrapAmount: this.program.mint.toTokenAmountBN(fundAmount),
-    //         },
-    //       },
-    //       {
-    //         wallet: wallet.publicKey,
-    //         mint: this.program.mint.address,
-    //         authority: authority ?? this.payer,
-    //         attestationQueue: attestationQueueAccount.publicKey,
-    //         tokenWallet: wallet.tokenWallet,
-    //         funderWallet: SB_ATTESTATION_PID,
-    //         funder: this.payer,
-    //         state: this.program.attestationProgramState.publicKey,
-    //         tokenProgram: anchor.utils.token.TOKEN_PROGRAM_ID,
-    //         systemProgram: anchor.web3.SystemProgram.programId,
-    //       }
-    //     )
-    //   );
-    // }
+      await FunctionRoutineAccount.createInstruction(
+        this.program,
+        this.payer,
+        {
+          name: flags.name ?? "",
+          metadata: flags.metadata ?? "",
+          schedule: flags.schedule,
+          functionAccount,
+          containerParams: Buffer.from(flags.parameters),
+          authority: authority.publicKey,
+        },
+        sbWallet
+      );
 
     const signature = await this.signAndSend(txn);
 

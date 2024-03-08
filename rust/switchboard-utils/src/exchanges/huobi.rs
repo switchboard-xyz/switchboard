@@ -1,7 +1,7 @@
 use crate::*;
 
 use futures_util::TryFutureExt;
-use rust_decimal::Decimal;
+
 use serde::Deserialize;
 
 #[allow(dead_code)]
@@ -65,14 +65,14 @@ mod tests {
         let server_url = server.url();
 
         // Create a mock
-        let mock = server
+        let _mock = server
             .mock("GET", "/market/detail/merged?symbol=btcusdt")
             .with_status(201)
             .with_header("content-type", "application/json")
             .with_body(MOCK_HUOBI_RESPONSE)
             .create();
 
-        let ticker = HuobiApi::fetch_ticker("btcusdt", Some(server_url.as_str()))
+        let _ticker = HuobiApi::fetch_ticker("btcusdt", Some(server_url.as_str()))
             .await
             .unwrap();
         // TODO: fix test

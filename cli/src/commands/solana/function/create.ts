@@ -180,9 +180,9 @@ export default class FunctionCreate extends BaseCommand {
         requestsRequireAuthorization: flags.requestsRequireAuthorization,
 
         // Routines Config
-        // routinesDisabled: flags.routinesDisabled,
-        // routinesFee: flags.routinesFee ? Number(flags.routinesFee) : undefined,
-        // routinesRequireAuthorization: flags.routinesRequireAuthorization,
+        routinesDisabled: flags.routinesDisabled,
+        routinesFee: flags.routinesFee ? Number(flags.routinesFee) : undefined,
+        routinesRequireAuthorization: flags.routinesRequireAuthorization,
       }
     );
 

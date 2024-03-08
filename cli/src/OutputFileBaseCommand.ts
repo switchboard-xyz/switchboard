@@ -3,7 +3,7 @@ import { CliBaseCommand } from "./BaseCommand";
 import * as anchor from "@coral-xyz/anchor";
 import { Flags } from "@oclif/core";
 import type { Input } from "@oclif/parser";
-import { SwitchboardDecimal } from "@switchboard-xyz/common";
+import { BN, SwitchboardDecimal } from "@switchboard-xyz/common";
 import { Big } from "@switchboard-xyz/common";
 import fs from "fs";
 import path from "path";
@@ -89,7 +89,7 @@ export abstract class OutputFileBaseCommand extends CliBaseCommand {
       return value.toString();
     }
 
-    if (anchor.BN.isBN(value)) {
+    if (BN.isBN(value)) {
       return value.toString(10);
     }
 

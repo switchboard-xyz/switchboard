@@ -29,7 +29,7 @@ export default class FunctionFund extends BaseCommand {
   async run() {
     const { args, flags } = await this.parse(FunctionFund);
 
-    const fundAmount = flags.fundAmount ? Number(flags.fundAmount) : undefined;
+    const fundAmount = flags.amount ? Number(flags.amount) : undefined;
     if (!fundAmount || fundAmount < 0) {
       throw new Error("amount to fund must be greater than 0");
     }

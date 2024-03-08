@@ -1,4 +1,5 @@
 import bs58 from "bs58";
+import { isValidCron } from "cron-validator";
 import _ from "lodash";
 
 const assertPositiveInteger = (int?: number): void => {
@@ -155,6 +156,34 @@ export function parseMrEnclave(hexString: string): Uint8Array {
   }
 
   return myUint8Array;
+}
+
+/**
+ * Validate a cron schedule and return a valid 6 element cron string which includes seconds
+ * @param cronSchedule - the cron string to validate
+ * @returns - a valid cron schedule with seconds included
+ * @throws {@link InvalidCronSchedule} if the cron schedule is not valid
+ */
+export function parseCronSchedule(cronSchedule: string): string {
+  if (!isValidCron(cronSchedule, { seconds: true })) {
+    throw new Error(
+      `invalid cron schedule, expected format: '* * * * * *', received: ${cronSchedule}`
+    );
+  }
+
+  const fields = cronSchedule.split(" ");
+  if (fields.length === 0) {
+    throw new Error(
+      `invalid cron schedule, expected format: '* * * * * *', received: ${cronSchedule}`
+    );
+  }
+
+  if (fields.length === 6) {
+    return cronSchedule;
+  }
+
+  fields.unshift(...Array(6 - fields.length).fill("0"));
+  return fields.join(" ");
 }
 
 export function parseRawMrEnclave(

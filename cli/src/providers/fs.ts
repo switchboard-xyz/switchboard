@@ -3,7 +3,7 @@ import { DEFAULT_LOGGER } from "./logging";
 
 import * as anchor from "@coral-xyz/anchor";
 import { Keypair } from "@solana/web3.js";
-import { Big, toUtf8 } from "@switchboard-xyz/common";
+import { Big, BN, toUtf8 } from "@switchboard-xyz/common";
 import { SwitchboardDecimal } from "@switchboard-xyz/common";
 import bs58 from "bs58";
 import chalk from "chalk";
@@ -87,7 +87,7 @@ export class FsProvider {
       return value.toString();
     }
 
-    if (anchor.BN.isBN(value)) {
+    if (BN.isBN(value)) {
       return value.toString(10);
     }
 

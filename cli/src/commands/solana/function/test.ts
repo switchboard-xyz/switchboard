@@ -49,8 +49,20 @@ export default class FunctionTest extends BaseCommand {
     cluster: Flags.string({
       description: "The cluster to load if your function dynamically loads it",
     }),
+    function: Flags.string({
+      description: "The pubkey of the function to test with",
+      default: "9noXMrBqCPAFa5N7cvKneqNDfGNHvp5Nx5xh2nFRSoVL",
+    }),
     devnetSimulate: Flags.boolean({
       description: "If the cluster is set to devnet, attempt to simulate",
+      default: false,
+    }),
+    asRequest: Flags.boolean({
+      description: "Run this test as if it were a function request",
+      default: false,
+    }),
+    asRoutine: Flags.boolean({
+      description: "Run this test as if it were a function routine",
       default: false,
     }),
   };
@@ -73,7 +85,7 @@ export default class FunctionTest extends BaseCommand {
     let rewardReceiver = "rewardRece1ver11111111111111111111111111111";
     let queueAuthority = "queueAuthor1ty11111111111111111111111111111";
     let verifierEnclaveSigner = "ver1f1erEnc1aveS1gner1111111111111111111111";
-    fnKey = "9noXMrBqCPAFa5N7cvKneqNDfGNHvp5Nx5xh2nFRSoVL";
+    fnKey = flags.function;
     routine = "6hfAjU7xXSYyHwjzinvEcaSXqc3Jt4qHi9eJZ8YgePxU";
     request = "Czt2sEABWZDZNSbQPPgsvAnPscGhTF2J3GGSE3jztbat";
     verifier = "FT41PAvhJj7YqQwuALeSr2PDh7kEub2wb9Ve64jPjDXk";
@@ -86,12 +98,9 @@ export default class FunctionTest extends BaseCommand {
     const signer = Keypair.generate();
     const programId = PID;
     const wallet = new anchor.Wallet(signer);
-    // const fnBuffer = Buffer.alloc(3895);
     const fnBufferOut = Buffer.alloc(3895);
-    // const routineBuffer = Buffer.alloc(1248);
     const routineBufferOut = Buffer.alloc(1247 + params.length);
     const reqBufferOut = Buffer.alloc(789 + params.length);
-    // const reqBuffer = Buffer.alloc(789);
     const url = "https://api.devnet.solana.com";
     const connection = new Connection(url);
     const fnBuffer = (await connection.getAccountInfo(new PublicKey(fnKey)))!
@@ -106,37 +115,20 @@ export default class FunctionTest extends BaseCommand {
       reqBuffer.slice(8)
     );
     const routineData = FunctionRoutineAccountData.layout.decode(
-      // Buffer.alloc(1249)
       routineBuffer.slice(8)
     );
     const verifierData = await VerifierAccount.load(
       this.program,
       new PublicKey(verifier)
     );
-    console.log(verifierData[1].enclave.enclaveSigner.toString());
     verifierEnclaveSigner = verifierData[1].enclave.enclaveSigner.toString();
-
-    // console.log(routineData);
-    // fnData.authority = new PublicKey(fnAuthority);
-    // fnData.queueIdx = 1;
-    // reqData.function = new PublicKey(fnKey);
-    // // reqData.maxContainerParamsLength = params.length;
     routineData.function = new PublicKey(fnKey);
-
     routineData.containerParams = params;
     reqData.containerParams = params;
     FunctionAccountData.layout.encode(fnData, fnBufferOut);
     FunctionRequestAccountData.layout.encode(reqData, reqBufferOut);
     FunctionRoutineAccountData.layout.encode(routineData, routineBufferOut);
-    const routineBufferOutAdjusted = Buffer.alloc(routineBufferOut.length - 1);
-    routineBufferOut.copy(
-      routineBufferOutAdjusted,
-      2,
-      0,
-      routineBufferOut.length
-    );
-    // console.log(routineData);
-    const env = {
+    const env: any = {
       PAYER: payer,
       REWARD_RECEIVER: rewardReceiver,
       VERIFIER: verifier,
@@ -145,12 +137,16 @@ export default class FunctionTest extends BaseCommand {
       CLUSTER: cluster,
       FUNCTION_KEY: fnKey,
       FUNCTION_DATA: fnBufferOut.toString("hex"),
-      FUNCTION_REQUEST_KEY: request,
-      FUNCTION_REQUEST_DATA: reqBufferOut.toString("hex"),
-      FUNCTION_ROUTINE_KEY: routine,
-      FUNCTION_ROUTINE_DATA: routineBufferOut.toString("hex"),
       SWITCHBOARD_FUNCTION_SIMULATION: "1",
     };
+    if (flags.asRequest || (!flags.asRequest && !flags.asRoutine)) {
+      env.FUNCTION_REQUEST_KEY = request;
+      env.FUNCTION_REQUEST_DATA = reqBufferOut.toString("hex");
+    }
+    if (flags.asRoutine) {
+      env.FUNCTION_ROUTINE_KEY = routine;
+      env.FUNCTION_ROUTINE_DATA = routineBufferOut.toString("hex");
+    }
     const childProcess = spawn("cargo", ["run"], {
       env: { ...process.env, ...env },
     });
