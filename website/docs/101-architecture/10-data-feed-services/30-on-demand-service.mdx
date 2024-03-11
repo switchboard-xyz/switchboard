@@ -1,0 +1,124 @@
+---
+slug: ../on-demand-service
+title: On Demand Service
+keywords: [Switchboard, web3, oracle, data feeds]
+---
+
+import MarkdownImage from "/src/components/MarkdownImage";
+import { Box, Typography, Grid } from "@mui/material";
+import Link from "@docusaurus/Link";
+import CustomAdmonition from "/src/components/CustomAdmonition";
+
+<CustomAdmonition type="tip">
+
+Switchboard On Demand Service exclusively propagates quantitative data, if you 
+wish to securely formulate your own complete transactions on-chain, please see 
+the [Switchboard Function Service](../function-service)
+
+</CustomAdmonition>
+
+Oracles are **NOT** a one-size-fits-all solution. While some solutions 
+focus very narrowly on pricing fidelity, other's focus on risk management
+or customizability. Switchboard has pioneered the customizable oracle solution 
+through our Data Feed Builder and have been heavily involved in the step-wise 
+evolutions of each of these arch-types and, after viewing market behavior, 
+have seen many pain points remain in oracles as a blockchain primitive.
+
+### Introducing Switchboard On Demand Service
+
+<CustomAdmonition type="note">
+
+The On Demand Service is currently supported on Solana. Future expansion of the 
+service to other ecosystems/blockchains are to subject to demand.
+
+To start using it, read the [Request From On Demand Service Guide](../../solana/data-feed-guides/request-from-on-demand-service).
+
+</CustomAdmonition>
+
+The Switchboard On Demand Service is built on the principles of:
+- [ ] Highest data security level to the protocol
+- [ ] Lowest cost to maintain data
+- [ ] Fastest oracle in any blockchain
+- [ ] Easiest to build and develop with
+
+To dive into the Switchboard On Demand architecture, let's review all personas in 
+its request lifecycle:
+
+| Entity                  | Role                                                                                                                                                                                       |
+|-------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Guardian                | A set of peer SGX-verified machines that is onboarded through a DAO approval before kicking off the SGX verification process for the entire process. |
+| Oracle Queue            | Read about [Switchboard Queues](../switchboard-v3/queue). In short, Switchboard utilizes Queues to segragate different network operations run by different set of nodes and/or protocols. |
+| On-Demand Oracle        | An oracle that acts as its own web service, hosting a REST API to fetch and sign data where users pay for and to utilize on-chain. The On Demand Oracle is different from a Push Oracle, and as such have been broken down into 3 components: |
+| Oracle Router Frontend  | To mitigate DOS risks on oracles' public web service, a dedicated frontend is implemented to traffic control unfiltered public access from price processing infrastructure. |
+| Oracle Router (Gateway) | A Gateway is utilized to route how requests are distributed between the queue where it takes into consideration: **current oracle stake, current oracle performance, oracle self-advertised capacity (oracles are slashed if they over-advertise), and oracle successful liveness checks**. |
+| Oracle Worker           | This is the ultimate destination of a user request where the data is fetched, processed, and signed. |
+| Data Feed               | A Data Feed is deployed on IPFS and its hash will be fetched upon every request to be executed. |
+| Data Feed (Job)         | A Data Feed can be built with a combination of multiple jobs, typically each job represents a data source such as a job for Binance and another for Jupiter. This allows oracles to take a median from these results |
+| Data Feed (Task)        | A Data Feed consists of multiple jobs built using task types. These task types facilitate the composition of the jobs, such as an `HttpTask` or `JupiterSwapTask`. Check out our list of [task types](../../api/protos/Task).
+
+### Oracle Onboarding Procedure
+
+1. Guardians are DAO-approved and onboarded to the network as the root of SGX attestations.
+2. Oracle gets DAO approval to join the default queue.
+3. Guardians attest SGX quotes of the onboarding oracle and add it to the oracle queue.
+
+### Request Lifecycle
+
+1. User requests Data Feed from Gateway and receives a signature-set in response.
+2. User posts signatures on-chain and updates price in their transaction.
+
+### Configuration WIP
+
+1. [Build your own jobs](../../solana/data-feed-guides/build-data-feeds) to utilize in data feeds.
+2. Understand [data feeds best practices](../../solana/data-feed-guides/data-feed-best-practices).
+3. Create on-chain data feed account and integration.
+3. Submit requests when users invoke.
+
+### Data Feed Composability WIP [MIGRATE TO BUILD DATA FEEDS](../../solana/data-feed-guides/build-data-feeds)
+
+Data feeds may reference other data feeds and build upon each other. It is
+**_strongly_** recommended that you own any feed that you reference in case of
+downstream impacts out of your control.
+
+As an example, you could construct the following feed definition:
+
+- Create a Switchboard feed that sources SOL/USD prices from a variety of
+  exchanges, each weighted by their 7d volume, along with a history buffer
+- Create a Switchboard feed that uses an OracleTask to fetch the Pyth SOL/USD
+  price every 10 seconds, along with a history buffer
+- Create a Switchboard feed that uses an OracleTask to fetch the Chainlink
+  SOL/USD price every 10 seconds, along with a history buffer
+- Finally, create a Switchboard feed that calculates the 1min TWAP of each
+  source above and returns the median of the results
+
+This is just a small window into how Switchboard feeds can build on each other
+and let the downstream consumer configure their feeds to meet their own use
+cases.
+
+### Latency WIP
+
+**How fast is this? Do we have a set of data that we can back it up with?**
+
+### Cost WIP
+
+Since end users submits the requests for an update, the users are to pay for 
+the update. Each data feed update cost can be calculated by the following equation:
+
+$T_{costPerUpdate}=(1 + numSuccess) × T_{queueReward}$
+
+where,
+
+- `T` is the raw token amount in base units (_Ex: lamports or satoshis_)
+- _`+1`_ is to reward the update requester for keeping the feed updating
+- `numSuccess` is the number of successful oracle responses, which will always
+  be between `[aggregator.minOracleResults, aggregator.oracleRequestBatchSize]`
+- `queue.reward` is the queue's set oracle reward
+
+If an update round fails to receive `minOracleResults`, only the update
+requester receives funds from the lease escrow.
+
+<CustomAdmonition type="note">
+
+On the default permissionless queue on Solana, the rewards are at 12500 lamports.
+
+</CustomAdmonition>

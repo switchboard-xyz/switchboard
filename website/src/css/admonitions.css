@@ -36,9 +36,16 @@
 
 .custom-admonition.caution {
   border-left-width: 10px;
-  border-left-color: #d78304;
-  border-color: #d78304;
-  color: #d78304;
+  border-left-color: #ff0000;
+  border-color: #ff0000;
+  color: #ff0000;
+}
+
+.custom-admonition.construction {
+  border-left-width: 10px;
+  border-left-color: #ffa600;
+  border-color: #ffa600;
+  color: #ffa600;
 }
 
 .custom-admonition.deprecated {
@@ -71,6 +78,13 @@
 
 .custom-admonition.caution .custom-admonition-header::before {
   content: '\1F6A8';
+  font-size: 120%;
+  display: inline-block;
+  margin-right: 8px;
+}
+
+.custom-admonition.construction .custom-admonition-header::before {
+  content: '\1F6A7';
   font-size: 120%;
   display: inline-block;
   margin-right: 8px;

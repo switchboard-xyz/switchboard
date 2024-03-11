@@ -1,0 +1,192 @@
+---
+slug: ./request-from-on-demand-service
+title: Request From On Demand Service
+description: "Learn how to seamlessly request data from Switchboard On Demand Service."
+---
+
+import CustomAdmonition from "/src/components/CustomAdmonition";
+import CustomDetails from "/src/components/CustomDetails";
+
+In this guide, you are going to initialize a data feed account on-chain 
+with its necessary configurations, integrate it and request an update from 
+the Switchboard On Demand Service.
+
+<CustomAdmonition type="caution">
+
+Switchboard is a permissionless protocol, in order to fully utilize it, you 
+create your own data feeds and choose your own data sources for your jobs.
+
+To understand how to build a data feed, read the [Build Data Feeds Guide](./build-data-feeds).
+
+Additionally, as with greater permissionlessness, comes greater responsibility, 
+read the [Data Feed Best Practices Guide](./data-feed-best-practices) to learn 
+more about maintenance and monitoring of your data feeds.
+
+</CustomAdmonition>
+
+<CustomAdmonition type="tip">
+
+To learn more about the architecture of this service, read [here](../../architecture/data-feed-services/on-demand-service).
+
+</CustomAdmonition>
+
+### Program & SDK
+
+**Program ID**: `?` (Applicable for mainnet-beta and devnet)
+
+```bash
+npm i @switchboard-xyz/on-demand
+```
+
+### Integration
+
+<CustomAdmonition type="tip">
+
+Here's a recap of the Request Lifecycle:
+
+<CustomDetails header="Request Lifecycle">
+
+1. User requests Data Feed from Gateway and receives a signature-set in response.
+2. User posts signatures on-chain and updates price in their transaction.
+
+</CustomDetails>
+
+</CustomAdmonition>
+
+```typescript
+// 1. Set up your boilerplate code to communicate with Switchboard's staging environment
+
+import {
+  InstructionUtils,
+  PullFeed,
+  Queue,
+  RecentSlotHashes,
+} from "@switchboard-xyz/on-demand";
+import * as anchor from "@coral-xyz/anchor";
+
+(async () => {
+  const [wallet, payer] = await initWalletFromFile("payer.json");
+  const PID = new PublicKey("FnaRmqv87EE7M7DJNpaWRHC9rPA2WrDJpnvvbGp4irPA");
+  const connection = new Connection("https://api.devnet.solana.com", "confirmed");
+  const queue = new PublicKey("v1k9qvCuvYgDkAcTExnrkt2BPNENfVVpowp5d7PYKAa");
+  const provider = new anchor.AnchorProvider(connection, wallet, {});
+  const idl = (await anchor.Program.fetchIdl(PID, provider))!;
+  const program = new anchor.Program(idl, PID, provider);
+  const feedKp = Keypair.generate();
+  ...
+})();
+
+// 2. Initializa feedKp as a generated account to store the new data feed
+//    This method will direct the oracles to perform the work listed in the jobs field
+
+// feed          : Data Feed account that will be created and/or updated with new values
+// queue         : Network of oracles assigned to update this feed
+// jobs          : Work schema that all oracles will perform
+// numSignatures : Number of oracles that is assigned to update the on-chain price
+// returns       : An array of instructions for creating and updating the desired feed
+
+// |--------------------------------------------------------|
+// | InstructionVec                                         |
+// |--------------------------------------------------------|
+// | instruction-0: If required, create a data feed account |
+// |--------------------------------------------------------|
+// | instruction-1: A produced result and signature of an   |
+// |                oracle producing the output of the      |
+// |                provided job                            |
+// |--------------------------------------------------------|
+
+const ixs = await PullFeed.solanaFetchUpdateIxs(program, {
+      feed: feedKp.publicKey,
+      queue,
+      jobs: [buildBinanceComJob("BTCUSDT")],
+      numSignatures: 2,
+  });
+
+// 3. Upon receiving oracle signatures, we can then submit the response on-chain
+
+const tx = await InstructionUtils.asV0Tx(program, ixs, []);
+/* If not creating the feed, exclude the feedKp signer */
+const signers = [payer, feedKp];
+tx.sign(signers);
+await program.provider.connection
+  .sendTransaction(tx, {
+    // preflightCommitment is REQUIRED to be processed or disabled
+    preflightCommitment: "processed",
+  });
+```
+
+<CustomAdmonition type="note">
+
+Pre-flight commitment needs to be processed for our use case. 
+That's due to how Switchboard provides your price data fresssssshh
+out of the oven.
+
+Off-chain, Switchboard selects the most recent slothash it can while 
+reducing the risk of choosing a forked slot to prove the data the oracle 
+provides was at least produced after that slot was created. If the 
+transaction simulation uses the confirmed or finalized chain state to 
+simulate then the likeliness of the signed slot being confirmed already 
+are slim.
+
+To keep time constraints as tight as possible, testing simulation at the 
+processed slot or not at all is optimal.
+
+</CustomAdmonition>
+
+### Usage
+
+- [X] Create data feed account
+- [X] Request data from oracles
+- [ ] Save and utilize the data on-chain
+
+```rust
+// Save the data on-chain in the created data feed account
+
+// oracle : The public key of the oracle that submitted this value
+// slot   : The slot at which this value was signed
+// value  : The value that was submitted
+
+pub struct OracleSubmission {   
+    pub oracle: Pubkey,
+    pub slot: u64,
+    pub value: i128,
+}
+```
+
+<CustomAdmonition type="note">
+
+For every oracle submission, we track which oracle submitted the value 
+and at which slot. In this way, we can track the freshest data from each 
+oracle.
+
+To use this data feed, you do not just want to collect the most 
+recent oracle report, but a set of samples within your staleness tolerance. 
+
+The following method is used to read the feed value using all samples within 
+a staleness range.
+
+</CustomAdmonition>
+
+```bash
+cargo add switchboard-on-demand
+```
+
+```rust
+// Returns the median value of the submissions in the last `max_staleness` slots.
+// If there are fewer than `min_samples` submissions, returns an error.
+
+// clock         : Clock to use for the current slot
+// max_staleness : Maximum number of slots to consider
+// min_samples   : Minimum number of samples required to return a value 
+// returns       : Median value of the submissions in the last `max_staleness` slots
+
+impl PullFeedAccountData {
+    pub fn get_value(
+        &self,
+        clock: &Clock,
+        max_staleness: u64,
+        min_samples: u32,
+        only_positive: bool,
+    ) -> Result<Decimal>;
+}
+```

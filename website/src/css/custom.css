@@ -109,6 +109,28 @@
   padding: 2em 1em;
 } */
 
+@media (max-width: 768px) {
+  h1 {
+    font-size: 26px;
+    line-height: normal;
+  }
+
+  .simple-card-container {
+    grid-template-columns: 1fr; /* Stack columns on smaller screens */
+    display: grid;
+    gap: 16px;
+  }
+}
+
+@media (min-width: 769px) {
+  .simple-card-container {
+    grid-template-columns: repeat(2, 1fr); /* Use a two-column layout on larger screens */
+    display: grid;
+    gap: 16px;
+  }
+}
+
+
 table tr:nth-child(2n) {
   background-color: inherit;
 }
@@ -206,13 +228,6 @@ h1 {
   font-family: "Geist";
   font-size: 48px;
   line-height: 60px;
-}
-
-@media screen and (max-width: 640px) {
-  h1 {
-    font-size: 26px;
-    line-height: normal;
-  }
 }
 
 .container {

@@ -29,7 +29,7 @@ export default function SolanaAddresses(props?: {
         alignItems="center"
       >
         <Grid item xs={12} md={2}>
-          <AvatarIcon title="Deployment" image={`/img/icons/switchboard/newlogo.svg`}
+          <AvatarIcon title="Deployment" image={`/img/icons/solana/logo.svg`}
           />
         </Grid>
         <Grid item xs={12} md={10}>
@@ -101,6 +101,7 @@ export default function SolanaAddresses(props?: {
           </>
         </Grid>
       </Grid>
+      <hr />
 
       {!props || !props.disableTestnet ? (
         <>

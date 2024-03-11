@@ -1,6 +1,6 @@
 ---
-slug: ./task-runner
-title: Build Data Feeds On Task Runner WIP
+slug: ./build-data-feeds
+title: 🚧 Build Data Feeds
 description: "Learn how to seamlessly build customizable Switchboard data feeds."
 ---
 
@@ -14,45 +14,44 @@ import TabItem from "@theme/TabItem";
 import CustomDetails from "/src/components/CustomDetails";
 import CustomAdmonition from "/src/components/CustomAdmonition";
 
-
 Switchboard provides a permissionless and customizable method for developers 
-to create and manage their own data feeds. In order to fully utilize the Data 
-Feed Program, please refer to the Data Feed Service page to understand the 
-architecture and what/how to utilize the Task Runner.
+to create and manage their own data feeds. In order to fully utilize this product, 
+please refer to [On Demand Data Feed Service](../../architecture/on-demand-service) 
+and [Push Data Feed Service](../../architecture/push-service) to understand the architecture. 
+For integration guide, please refer to the [Request From On Demand Service Guide](./request-from-on-demand-service).
 
 ### Quick Recap
 
-<CustomDetails header="What is the Switchboard Task Runner?">
+<CustomDetails header="What is a Feed, a Job and a Task?">
 
-Switchboard provides a ...
-
-</CustomDetails>
-
-<CustomDetails header="What is an Aggregator, Job and Task?">
-
-Switchboard provides a ...
+| Type | Description |
+|------|-------------|
+| Feed | It is an on-chain account that is made of various configurations, jobs, and the save result details. |
+| Job  | It is a hash generated from a pre-defined work schema such as fetching latest quote from Jupiter. |
+| [Task](../../api/protos/Task) | Is is a function for various types of Job operations such as an `HttpTask`, `JupiterSwapTask`, `CacheTask`, `MultiplyTask`, etc. |
 
 </CustomDetails>
 
 <CustomAdmonition type="tip">
 
 In order to build Data Feeds outside the constraints or sandbox of the 
-task runner, you can utilize Switchboard Functions to perform more dynamic 
-executions such as VWAPs and bulk updates.
+pre-built task types, you can utilize Switchboard Functions to perform more dynamic 
+executions such as VWAPs, bulk updates.
 
-Read [Build Data Feeds On Functions](/) to find out more.
+Read [Function Service](../../architecture/function-service) to find out more.
 
 </CustomAdmonition>
-
 
 ### Identify Data & Its Sources
 
 Since Switchboard allows you to set up your very own data feeds,
-you'll need to provision your own data sources, be it on-chain, off-chain 
-(public or private) data can be utilized.
+you'll need to provision your own data sources, be it on-chain data 
+such as Jupiter, off-chain public data such as Binance API or private 
+off-chain data such as enterprise data solutions, sportsbook, insurance, etc
+(possible through [Switchboard Secrets](../../architecture/secrets-service)!).
 
 1. Identify what is the data you want to be brought on-chain: price, weather, sports are all achievable
-2. Identify the data source, you refer to [Frequently Used Data Sources](/)
+2. Identify the data source, we've curated a list of [Frequently Used Data Sources](./frequently-used-data-sources) for reference
 
 <CustomAdmonition type="tip">
 
@@ -63,28 +62,20 @@ Binance or Jupiter)
 </CustomAdmonition>
 
 3. Once you've identified the data you need and the sources supporting it, now you can build the Data Feed in 3 methods: 
-  - [Drag-n-drop](./task-runner?build-feed-method=drag-n-drop)
-  - [Importing JSON/YAML](./task-runner?build-feed-method=import-json-yaml)
-  - [CLI](./task-runner?build-feed-method=cli)
+  - Drag-n-drop
+  - Importing JSON/YAML
+  - CLI
 
 ### Building The Data Feed
-
-<CustomAdmonition type="tip">
-
-For other types of data feeds such as weather, sports or more, check out 
-our blog for more walkthroughs???
-
-</CustomAdmonition>
 
 To simplify this example walkthrough, we'll be assuming the creation of a 
 price feed fetching the data of `SOL/USD` market pair and the images below 
 from CoinGecko and Solscan are the representations of the market data 
 which can be utilized as price sources.
 
-<Tabs queryString="build-feed-method">
-  <TabItem value="drag-n-drop" label="Drag-n-drop" default>
+<Tabs queryString="method">
+  <TabItem value="drag-n-drop" label="Drag-n-drop">
     <div>
-      <h3>Method [1]: Drag-n-drop</h3>
       <ol>
         <li>Navigate to the <a href="https://app.switchboard.xyz/build/feed">Feed Builder</a> in the Switchboard App</li>
         <li>Connect your wallet</li>
@@ -102,7 +93,6 @@ which can be utilized as price sources.
   </TabItem>
   <TabItem value="import-json-yaml" label="Importing JSON/YAML">
     <div>
-      <h3>Method [2]: Importing JSON/YAML</h3>
       <ol>
         <li>Navigate to the <a href="https://app.switchboard.xyz/build/feed">Feed Builder</a> in the Switchboard App</li>
         <li>Connect your wallet</li>
@@ -157,6 +147,11 @@ tasks:
 
   </TabItem>
   <TabItem value="cli" label="CLI">
-    To do
+    <div>
+      <ol>
+        <li>test</li>
+        <li>test2</li>
+      </ol>
+    </div>
   </TabItem>
 </Tabs>
