@@ -622,7 +622,7 @@ pub mod oracle_job {
             /// / Orca pool address. A full list can be found here: <https://www.orca.so/pools>
             #[prost(string, tag = "3")]
             OrcaPoolAddress(::prost::alloc::string::String),
-            /// / The Raydium liquidity pool ammId. A full list can be found here: <https://sdk.raydium.io/liquidity/mainnet.json>
+            /// / The Raydium liquidity pool ammId. A full list can be found here: <https://raydium.io/pools>
             #[prost(string, tag = "4")]
             RaydiumPoolAddress(::prost::alloc::string::String),
         }
@@ -673,7 +673,7 @@ pub mod oracle_job {
             /// / **@deprecated** Use orcaPoolAddress
             #[prost(string, tag = "5")]
             OrcaPoolTokenMintAddress(::prost::alloc::string::String),
-            /// / The Raydium liquidity pool ammId. A full list can be found here: <https://sdk.raydium.io/liquidity/mainnet.json>
+            /// / The Raydium liquidity pool ammId. A full list can be found here: <https://raydium.io/pools>
             #[prost(string, tag = "6")]
             RaydiumPoolAddress(::prost::alloc::string::String),
             /// / Pool address for an Orca LP pool or whirlpool.

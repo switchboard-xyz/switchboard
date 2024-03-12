@@ -16,7 +16,7 @@ export default function ProtoPage({ route }: ProtoPageProps) {
     id === "oracle-job"
       ? "/api/common/class/OracleJob"
       : id === "task"
-      ? "/api/common/class/Task"
+      ? "/api/common/interface/ITaskk"
       : `/api/common/namespace/OracleJob#${message.name}`;
 
   return (

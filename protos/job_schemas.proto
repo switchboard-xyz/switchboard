@@ -469,7 +469,7 @@ _**Example**_: Fetch the fair price Raydium LP token price of the SOL/USDC pool
       string saber_pool_address = 2;
       /// Orca pool address. A full list can be found here: https://www.orca.so/pools
       string orca_pool_address = 3;
-      /// The Raydium liquidity pool ammId. A full list can be found here: https://sdk.raydium.io/liquidity/mainnet.json
+      /// The Raydium liquidity pool ammId. A full list can be found here: https://raydium.io/pools
       string raydium_pool_address = 4;
     }
     /// A list of Switchboard aggregator accounts used to calculate the fair LP price. This ensures the price is based on the previous round to mitigate flash loan price manipulation.
@@ -511,8 +511,7 @@ _**Example**_: Fetch the exchange rate from the Raydium SOL/USDC pool
       string saber_pool_address = 4;
       /// **@deprecated** Use orcaPoolAddress
       string orca_pool_token_mint_address = 5 [deprecated=true];
-      /// The Raydium liquidity pool ammId. A full list can be found here: https://sdk.raydium.io/liquidity/mainnet.json
-      string raydium_pool_address = 6;
+      /// The Raydium liquidity pool ammId. A full list can be found here: https://raydium.io/pools
       /// Pool address for an Orca LP pool or whirlpool. 
       /// A full list of Orca LP pools can be found here: https://www.orca.so/pools
       string orca_pool_address = 7;

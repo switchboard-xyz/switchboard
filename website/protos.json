@@ -1454,20 +1454,8 @@
               }
             },
             {
-              "name": "raydium_pool_address",
-              "description": "The Raydium liquidity pool ammId. A full list can be found here: https://sdk.raydium.io/liquidity/mainnet.json",
-              "label": "optional",
-              "type": "string",
-              "longType": "string",
-              "fullType": "string",
-              "ismap": false,
-              "isoneof": true,
-              "oneofdecl": "PoolAddress",
-              "defaultValue": ""
-            },
-            {
               "name": "orca_pool_address",
-              "description": "Pool address for an Orca LP pool or whirlpool. \n/ A full list of Orca LP pools can be found here: https://www.orca.so/pools",
+              "description": "The Raydium liquidity pool ammId. A full list can be found here: https://raydium.io/pools\n/ Pool address for an Orca LP pool or whirlpool. \n/ A full list of Orca LP pools can be found here: https://www.orca.so/pools",
               "label": "optional",
               "type": "string",
               "longType": "string",
@@ -1539,7 +1527,7 @@
             },
             {
               "name": "raydium_pool_address",
-              "description": "The Raydium liquidity pool ammId. A full list can be found here: https://sdk.raydium.io/liquidity/mainnet.json",
+              "description": "The Raydium liquidity pool ammId. A full list can be found here: https://raydium.io/pools",
               "label": "optional",
               "type": "string",
               "longType": "string",
@@ -1886,7 +1874,7 @@
             },
             {
               "name": "pyth_allowed_confidence_interval",
-              "description": "Value (as a percentage) that the lower bound confidence interval is of the actual value.\n/ Confidence intervals that are larger that this treshold are rejected.",
+              "description": "Value (as a percentage) that the lower bound confidence interval is of the actual value.\n/ Confidence intervals that are larger that this treshold are rejected.\n/\n/ The confidence interval should be provided as a raw percentage value. For example, to \n/ represent 10%, enter the value as 10, not 0.1.",
               "label": "optional",
               "type": "double",
               "longType": "double",
