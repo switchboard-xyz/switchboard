@@ -103,7 +103,7 @@ impl JupiterSwapClient {
             out_token_address,
             amount,
             slippage_bps.unwrap_or(100.0),
-            base_url = std::env::var("JUPITER_SWAP_URL").unwrap_or("https://public.jupiterapi.com/".to_string())
+            base_url = std::env::var("JUPITER_SWAP_URL").unwrap_or("https://quote-api.jup.ag/v6".to_string())
         );
         let jupiter_api_key = std::env::var("JUPITER_SWAP_API_KEY").unwrap_or(String::new());
         if !jupiter_api_key.is_empty() {

@@ -37,5 +37,5 @@ switchboard-utils = "0.8.0"
 
 ## Environment Variables
 
-- `JUPITER_SWAP_URL` - default: https://public.jupiterapi.com/
+- `JUPITER_SWAP_URL` - for higher rate limits use: https://public.jupiterapi.com
 - `JUPITER_SWAP_API_KEY`
