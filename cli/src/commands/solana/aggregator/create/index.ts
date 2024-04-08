@@ -198,7 +198,12 @@ export default class AggregatorCreate extends BaseCommand {
         jobs: jobs,
       });
 
-    const signatures = await this.signAndSendAll(aggregatorInitTxns);
+    const signatures = await this.signAndSendAll(
+      aggregatorInitTxns,
+      { maxRetries: 5 },
+      false,
+      "Create Aggregator Account"
+    );
 
     if (flags.json) {
       const accounts = await aggregatorAccount.toAccountsJSON();

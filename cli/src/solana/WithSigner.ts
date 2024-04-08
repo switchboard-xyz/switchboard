@@ -12,7 +12,12 @@ import type {
   Keypair,
   TransactionSignature,
 } from "@solana/web3.js";
-import { PublicKey, sendAndConfirmRawTransaction } from "@solana/web3.js";
+import {
+  ComputeBudgetInstruction,
+  ComputeBudgetProgram,
+  PublicKey,
+  sendAndConfirmRawTransaction,
+} from "@solana/web3.js";
 import type { TransactionObject } from "@switchboard-xyz/solana.js";
 import bs58 from "bs58";
 import chalk from "chalk";
@@ -180,12 +185,22 @@ export abstract class SolanaWithSignerBaseCommand extends SolanaBaseCommand {
     }
   }
 
+  private prependPrioFees(txns: Array<TransactionObject>) {
+    const cbi = ComputeBudgetProgram.setComputeUnitPrice({
+      microLamports: 200_000,
+    });
+    for (const txn of txns) {
+      txn.ixns.push(cbi);
+    }
+  }
+
   public async signAndSendAll(
     txns: Array<TransactionObject>,
     options?: ConfirmOptions,
     silent = false,
     title = "Send Transactions"
   ): Promise<Array<TransactionSignature>> {
+    this.prependPrioFees(txns);
     this.verifyTransactions(txns);
 
     switch (this.signerType) {
@@ -255,9 +270,8 @@ export abstract class SolanaWithSignerBaseCommand extends SolanaBaseCommand {
           const partiallySignedTxn = txn.sign(blockhash);
 
           try {
-            let status = `sign transaction #${index + 1}/${
-              txns.length
-            } on your ledger ...`;
+            let status = `sign transaction #${index + 1}/${txns.length
+              } on your ledger ...`;
             if (!silent) {
               ux.ux.action.start(status);
             }
@@ -270,9 +284,8 @@ export abstract class SolanaWithSignerBaseCommand extends SolanaBaseCommand {
               return partiallySignedTxn;
             });
 
-            const newStatus = `transaction #${index + 1}/${
-              txns.length
-            } sending ...`;
+            const newStatus = `transaction #${index + 1}/${txns.length
+              } sending ...`;
             if (!silent) {
               (ux.ux.action as any)._updateStatus(status, newStatus);
             }
@@ -288,8 +301,7 @@ export abstract class SolanaWithSignerBaseCommand extends SolanaBaseCommand {
             if (!silent) {
               ux.ux.action.stop(
                 chalk.green(
-                  `${CHECK_ICON}transaction #${index + 1}/${
-                    txns.length
+                  `${CHECK_ICON}transaction #${index + 1}/${txns.length
                   } confirmed`
                 )
               );
