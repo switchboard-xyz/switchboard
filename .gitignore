@@ -1,3 +1,6 @@
+job.yaml
+retry.sh
+
 # Javascript
 node_modules
 dist

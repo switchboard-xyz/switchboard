@@ -200,7 +200,7 @@ export default class AggregatorCreate extends BaseCommand {
 
     const signatures = await this.signAndSendAll(
       aggregatorInitTxns,
-      { maxRetries: 5 },
+      { maxRetries: 12 },
       false,
       "Create Aggregator Account"
     );

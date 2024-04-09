@@ -187,7 +187,7 @@ export abstract class SolanaWithSignerBaseCommand extends SolanaBaseCommand {
 
   private prependPrioFees(txns: Array<TransactionObject>) {
     const cbi = ComputeBudgetProgram.setComputeUnitPrice({
-      microLamports: 200_000,
+      microLamports: 1_400_000,
     });
     for (const txn of txns) {
       txn.ixns.push(cbi);
