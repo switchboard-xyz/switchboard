@@ -12,6 +12,16 @@ import {
 } from "@switchboard-xyz/solana.js";
 import chalk from "chalk";
 
+function stringToBool(s: string | undefined): boolean | undefined {
+  if (s === undefined) {
+    return undefined;
+  }
+  if (s === "true" || s === "1") {
+    return true;
+  }
+  return false;
+}
+
 export default class FunctionConfigure extends BaseCommand {
   static enableJsonFlag = true;
 
@@ -39,9 +49,43 @@ export default class FunctionConfigure extends BaseCommand {
       description: "set the function version",
       default: undefined,
     }),
-    schedule: Flags.string({
-      description: "set the function schedule",
+    requestsDisabled: Flags.string({
+      description: "set whether requests can be made on this function",
       default: undefined,
+    }),
+    requestsDevFee: Flags.integer({
+      description:
+        "set the extra developer fee charged when a users calls a reqeusts on this function",
+      default: undefined,
+    }),
+    requestsRequireAuthorization: Flags.string({
+      description: "set whether anyone can make requests on this function",
+      default: undefined,
+    }),
+    routinesDisabled: Flags.string({
+      description: "set whether routines can be made on this function",
+      default: undefined,
+    }),
+    routinesRequireAuthorization: Flags.string({
+      description: "set whether anyone can make routines on this function",
+      default: undefined,
+    }),
+    routinesDevFee: Flags.integer({
+      description:
+        "set the extra developer fee charged when a users calls a reqeusts on this function",
+      default: undefined,
+    }),
+    authority: Flags.string({
+      char: "a",
+      description:
+        "keypair or public key to delegate authority to for managing the function account",
+    }),
+    enableServices: Flags.boolean({
+      description: "set whether services can be made for this function",
+      default: undefined,
+    }),
+    servicesRotationInterval: Flags.integer({
+      description: "",
     }),
   };
 
@@ -59,14 +103,40 @@ export default class FunctionConfigure extends BaseCommand {
       this.program,
       args.functionKey
     );
-    const signature = await functionAccount.setConfig({
+
+    const authority = await this.loadAuthority(
+      flags.authority,
+      functionState.authority
+    );
+
+    let servicesDisabled: boolean | undefined;
+    if (flags.enableServices !== undefined && flags.enableServices) {
+      servicesDisabled = false;
+    }
+
+    const txn = await functionAccount.setConfigInstruction(this.payer, {
       name: flags.name,
       metadata: flags.metadata,
       container: flags.container,
       containerRegistry: flags.containerRegistry as ContainerRegistryType,
       version: flags.version,
-      schedule: flags.schedule,
+      requestsDisabled: stringToBool(flags.requestsDisabled),
+      requestsFee: flags.requestsDevFee,
+      requestsRequireAuthorization: stringToBool(
+        flags.requestsRequireAuthorization
+      ),
+      routinesDisabled: stringToBool(flags.routinesDisabled),
+      routinesFee: flags.routinesDevFee,
+      routinesRequireAuthorization: stringToBool(
+        flags.routinesRequireAuthorization
+      ),
+
+      servicesDisabled: servicesDisabled,
+      servicesSignerRotationInterval: flags.servicesRotationInterval,
+
+      authority: authority,
     });
+    const signature = await this.signAndSend(txn);
 
     if (flags.silent) {
       this.logger.info(signature);

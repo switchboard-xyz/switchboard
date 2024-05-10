@@ -3,6 +3,7 @@ import { CHECK_ICON } from "../../../utils";
 
 import * as anchor from "@coral-xyz/anchor";
 import { Args, Flags } from "@oclif/core";
+import { BN } from "@switchboard-xyz/common";
 import {
   AggregatorAccount,
   LeaseAccount,
@@ -60,7 +61,7 @@ export default class LeaseCreate extends BaseCommand {
     );
     const funderBalance = await this.program.connection
       .getTokenAccountBalance(funder)
-      .then((balance) => new anchor.BN(balance.value.amount));
+      .then((balance) => new BN(balance.value.amount));
     if (this.getTokenAmount(amount.toString()).gt(funderBalance)) {
       throw new Error(
         `not enough token balance to load lease\nLoadAmount: ${amount}\nBalance: ${funderBalance.toString()}`

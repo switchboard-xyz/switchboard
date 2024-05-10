@@ -3,6 +3,7 @@ import { chalkString, CHECK_ICON } from "../../../utils";
 
 import * as anchor from "@coral-xyz/anchor";
 import { Args, Flags } from "@oclif/core";
+import { ComputeBudgetProgram } from "@solana/web3.js";
 import {
   AggregatorAccount,
   LeaseAccount,
@@ -24,6 +25,10 @@ export default class LeaseExtend extends BaseCommand {
     amount: Flags.string({
       required: true,
       description: "amount to deposit into the lease escrow",
+    }),
+    priorityFee: Flags.string({
+      description: "priority fee to pay for the transaction",
+      default: "0",
     }),
   };
 
@@ -89,9 +94,13 @@ export default class LeaseExtend extends BaseCommand {
       funderTokenWallet: funderTokenWallet,
       funderAuthority: this.program.wallet.payer,
     });
-    const signature = await this.signAndSend(
-      wrapFundsTxn ? wrapFundsTxn.combine(txn) : txn
-    );
+    const to = wrapFundsTxn ? wrapFundsTxn.combine(txn) : txn;
+    const priorityFeeIx = ComputeBudgetProgram.setComputeUnitPrice({
+      microLamports: Number(flags.priorityFee),
+    });
+
+    to.insert(priorityFeeIx, 0);
+    const signature = await this.signAndSend(to);
 
     if (!this.silent) {
       const newBalance = await this.program.mint.fetchBalance(lease.escrow);

@@ -5,9 +5,9 @@ import { NoPayerKeypairProvided } from "../types";
 import { chalkString } from "../utils";
 
 import type { AccountMeta } from "@solana/web3.js";
-import { Keypair, PublicKey } from "@solana/web3.js";
+import { Keypair, LAMPORTS_PER_SOL, PublicKey } from "@solana/web3.js";
 import type { OracleJob } from "@switchboard-xyz/common";
-import { BNtoDateTimeString, buf2String } from "@switchboard-xyz/common";
+import { BNtoDateTimeString, bs58, buf2String } from "@switchboard-xyz/common";
 import { BN } from "@switchboard-xyz/common";
 import type {
   AggregatorAccounts,
@@ -760,6 +760,18 @@ export function prettyPrintFunction(
     chalkString("version", buf2String(functionState.version), SPACING)
   );
 
+  output.push(
+    chalkString("requestsDisabled", functionState.requestsDisabled > 0, SPACING)
+  );
+
+  const routinesDisabled =
+    functionState.routinesDisabled.kind.startsWith("True");
+  output.push(chalkString("routinesDisabled", routinesDisabled, SPACING));
+
+  const servicesEnabled =
+    !functionState.servicesEnabled.kind.startsWith("False");
+  output.push(chalkString("servicesDisabled", !servicesEnabled, SPACING));
+
   const mrEnclaves = functionState.mrEnclaves
     .filter((msr) => msr.some((x) => x !== 0))
     .map((x) => `0x${Buffer.from(x).toString("hex")}`);
@@ -773,6 +785,236 @@ export function prettyPrintFunction(
       SPACING
     )
   );
+
+  return output.join("\n");
+}
+
+export function prettyPrintService(
+  serviceState: attestationTypes.FunctionServiceAccountData,
+  publicKey: PublicKey,
+  SPACING = 24
+): string {
+  const output: string[] = [];
+
+  output.push(chalk.underline(chalkString("## Service", publicKey, SPACING)));
+
+  output.push(chalkString("name", buf2String(serviceState.name), SPACING));
+  output.push(
+    chalkString("metadata", buf2String(serviceState.metadata), SPACING)
+  );
+  output.push(
+    chalkString(
+      "createdAt",
+      BNtoDateTimeString(serviceState.createdAt),
+      SPACING
+    )
+  );
+  output.push(
+    chalkString(
+      "updatedAt",
+      BNtoDateTimeString(serviceState.updatedAt),
+      SPACING
+    )
+  );
+  output.push(chalkString("status", serviceState.status.kind, SPACING));
+
+  output.push(chalkString("authority", serviceState.authority, SPACING));
+  output.push(
+    chalkString("attestationQueue", serviceState.attestationQueue, SPACING)
+  );
+  output.push(chalkString("escrowWallet", serviceState.escrowWallet, SPACING));
+
+  output.push(
+    chalkString("enclaveSize (bytes)", serviceState.enclaveSize, SPACING)
+  );
+  output.push(
+    chalkString(
+      "enclaveSize (Mb)",
+      serviceState.enclaveSize.toNumber() / 1024,
+      SPACING
+    )
+  );
+
+  // Quotes
+  output.push(chalk.underline(chalkString("## Enclave", "", SPACING)));
+  output.push(
+    chalkString(
+      "verificationStatus",
+      serviceState.enclave.verificationStatus,
+      SPACING
+    )
+  );
+  output.push(
+    chalkString(
+      "validUntil",
+      BNtoDateTimeString(serviceState.enclave.validUntil),
+      SPACING
+    )
+  );
+  output.push(
+    chalkString("enclaveSigner", serviceState.enclave.enclaveSigner, SPACING)
+  );
+  output.push(chalkString("verifier", serviceState.enclave.verifier, SPACING));
+  output.push(
+    chalkString("mrEnclave", `[${serviceState.enclave.mrEnclave}]`, SPACING)
+  );
+  output.push(
+    chalkString(
+      "quoteRegistry",
+      buf2String(serviceState.enclave.quoteRegistry),
+      SPACING
+    )
+  );
+  output.push(
+    chalkString(
+      "registryKey",
+      bs58.encode(serviceState.enclave.registryKey.filter((v) => v !== 0)),
+      SPACING
+    )
+  );
+
+  output.push(chalk.underline(chalkString("## Pending Enclave", "", SPACING)));
+  output.push(
+    chalkString(
+      "verificationStatus",
+      serviceState.pendingEnclave.verificationStatus,
+      SPACING
+    )
+  );
+  output.push(
+    chalkString(
+      "validUntil",
+      BNtoDateTimeString(serviceState.pendingEnclave.validUntil),
+      SPACING
+    )
+  );
+  output.push(
+    chalkString(
+      "enclaveSigner",
+      serviceState.pendingEnclave.enclaveSigner,
+      SPACING
+    )
+  );
+  output.push(
+    chalkString("verifier", serviceState.pendingEnclave.verifier, SPACING)
+  );
+  output.push(
+    chalkString(
+      "mrEnclave",
+      `[${serviceState.pendingEnclave.mrEnclave}]`,
+      SPACING
+    )
+  );
+  output.push(
+    chalkString(
+      "quoteRegistry",
+      buf2String(serviceState.pendingEnclave.quoteRegistry),
+      SPACING
+    )
+  );
+  output.push(
+    chalkString(
+      "registryKey",
+      bs58.encode(
+        serviceState.pendingEnclave.registryKey.filter((v) => v !== 0)
+      ),
+      SPACING
+    )
+  );
+
+  return output.join("\n");
+}
+
+export function prettyPrintServiceWorker(
+  serviceWorkerState: attestationTypes.ServiceWorkerAccountData,
+  publicKey: PublicKey,
+  SPACING = 24
+): string {
+  const output: string[] = [];
+
+  output.push(
+    chalk.underline(chalkString("## Service Worker", publicKey, SPACING))
+  );
+
+  output.push(chalkString("authority", serviceWorkerState.authority, SPACING));
+  output.push(
+    chalkString(
+      "attestationQueue",
+      serviceWorkerState.attestationQueue,
+      SPACING
+    )
+  );
+  output.push(
+    chalkString("rewardEscrow", serviceWorkerState.rewardEscrow, SPACING)
+  );
+  output.push(
+    chalkString(
+      "permissionsRequired",
+      Boolean(serviceWorkerState.permissionsRequired.kind.startsWith("True")),
+      SPACING
+    )
+  );
+
+  output.push(chalkString("region", serviceWorkerState.region.kind, SPACING));
+  output.push(chalkString("zone", serviceWorkerState.zone.kind, SPACING));
+
+  output.push(
+    chalkString(
+      "availableEnclaveSize",
+      `${serviceWorkerState.availableEnclaveSize.div(new BN(1024))} MB`,
+      SPACING
+    )
+  );
+  output.push(
+    chalkString(
+      "maxEnclaveSize",
+      `${serviceWorkerState.maxEnclaveSize.div(new BN(1024))} MB`,
+      SPACING
+    )
+  );
+  output.push(
+    chalkString(
+      "enclaveCost",
+      `${
+        serviceWorkerState.enclaveCost.toNumber() / LAMPORTS_PER_SOL
+      } SOL (not used)`,
+      SPACING
+    )
+  );
+
+  output.push(
+    chalkString(
+      "createdAt",
+      BNtoDateTimeString(serviceWorkerState.createdAt),
+      SPACING
+    )
+  );
+  output.push(
+    chalkString(
+      "updatedAt",
+      BNtoDateTimeString(serviceWorkerState.updatedAt),
+      SPACING
+    )
+  );
+
+  output.push(
+    chalkString("servicesLen", serviceWorkerState.servicesLen, SPACING)
+  );
+  if (serviceWorkerState.servicesLen > 0) {
+    for (const [n, serviceRow] of serviceWorkerState.services
+      .slice(0, serviceWorkerState.servicesLen)
+      .entries()) {
+      output.push(
+        chalkString(
+          `service #${n + 1}`,
+          `Function: ${serviceRow.function}\n${" ".repeat(SPACING)}Service:  ${
+            serviceRow.service
+          }`,
+          SPACING
+        )
+      );
+    }
+  }
 
   return output.join("\n");
 }
