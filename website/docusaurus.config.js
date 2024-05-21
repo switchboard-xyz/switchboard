@@ -140,10 +140,7 @@ const config = {
       navbar: {
         title: "Switchboard",
         logo: {
-<<<<<<< Updated upstream
-=======
           href: "/api/protos/OracleJob",
->>>>>>> Stashed changes
           alt: "Switchboard Logo",
           src: "img/logo.svg",
           srcDark: "img/logo_white.svg",
