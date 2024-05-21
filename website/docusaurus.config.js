@@ -58,7 +58,9 @@ const config = {
   //   "https://fonts.googleapis.com/icon?family=Material+Icons",
   // ],
 
-  plugins: ["docusaurus-plugin-api-docs"],
+  plugins: [
+    "docusaurus-plugin-api-docs",
+  ],
 
   presets: [
     [
@@ -138,6 +140,10 @@ const config = {
       navbar: {
         title: "Switchboard",
         logo: {
+<<<<<<< Updated upstream
+=======
+          href: "/api/protos/OracleJob",
+>>>>>>> Stashed changes
           alt: "Switchboard Logo",
           src: "img/logo.svg",
           srcDark: "img/logo_white.svg",
@@ -145,23 +151,23 @@ const config = {
           height: 72,
         },
         items: [
+          // {
+            // type: "docSidebar",
+            // sidebarId: "sidebar",
+            // position: "left",
+            // label: "Docs",
+          // },
           {
-            type: "docSidebar",
-            sidebarId: "sidebar",
-            position: "left",
-            label: "Docs",
-          },
-          {
-            to: "/api",
-            label: "API",
+            to: "/api/protos/OracleJob",
+            label: "Job Schemas",
             position: "left",
           },
           {
             type: "search",
-            position: "left",
+            position: "right",
           },
 
-          { to: "/blog", label: "Blog", position: "right" },
+          // { to: "/blog", label: "Blog", position: "right" },
           {
             href: "https://github.com/switchboard-xyz",
             position: "right",

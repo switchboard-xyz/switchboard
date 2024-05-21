@@ -355,11 +355,11 @@ export default function apiDocsPlugin(
         const sortedTypedocItems = sidebarItems[version].sort(sortPackages);
         const protoSidebarItems = protobufSidebarItems[version] ?? [];
         const versionSidebarItems: PropSidebarItem[] = [
-          {
-            type: "link",
-            label: "Overview",
-            href: normalizeUrl(["/api"]),
-          },
+          // {
+          // type: "link",
+          // label: "Overview",
+          // href: normalizeUrl(["/api"]),
+          // },
           {
             type: "html",
             value: '<div class="sidebar-buffer" />',
@@ -378,54 +378,54 @@ export default function apiDocsPlugin(
             type: "html",
             value: '<div class="sidebar-buffer" />',
           },
-          {
-            type: "html",
-            className: "heading_icon__typescript",
-            value: " <b>Typescript</b>",
-          },
-          {
-            type: "html",
-            value: '<hr class="dropdown-separator">',
-          },
-          ...sortedTypedocItems,
-          {
-            type: "html",
-            value: '<div class="sidebar-buffer" />',
-          },
-          {
-            type: "html",
-            className: "heading_icon__rust",
-            value: " <b>Rust</b>",
-          },
-          {
-            type: "html",
-            value: '<hr class="dropdown-separator">',
-          },
-          {
-            type: "link",
-            label: "switchboard-common",
-            href: "https://docs.rs/switchboard-common/latest/switchboard_common/",
-          },
-          {
-            type: "link",
-            label: "switchboard-evm",
-            href: "https://docs.rs/switchboard-evm/latest/switchboard_evm/",
-          },
-          {
-            type: "link",
-            label: "switchboard-solana",
-            href: "https://docs.rs/switchboard-solana/latest/switchboard_solana/",
-          },
-          {
-            type: "link",
-            label: "switchboard-utils",
-            href: "https://docs.rs/switchboard-utils/latest/switchboard_utils/",
-          },
-          {
-            type: "link",
-            label: "[deprecated ]switchboard-v2",
-            href: "https://docs.rs/switchboard-v2/latest/switchboard_v2/",
-          },
+          // {
+          // type: "html",
+          // className: "heading_icon__typescript",
+          // value: " <b>Typescript</b>",
+          // },
+          // {
+          // type: "html",
+          // value: '<hr class="dropdown-separator">',
+          // },
+          // ...sortedTypedocItems,
+          // {
+          // type: "html",
+          // value: '<div class="sidebar-buffer" />',
+          // },
+          // {
+          // type: "html",
+          // className: "heading_icon__rust",
+          // value: " <b>Rust</b>",
+          // },
+          // {
+          // type: "html",
+          // value: '<hr class="dropdown-separator">',
+          // },
+          // {
+          // type: "link",
+          // label: "switchboard-common",
+          // href: "https://docs.rs/switchboard-common/latest/switchboard_common/",
+          // },
+          // {
+          // type: "link",
+          // label: "switchboard-evm",
+          // href: "https://docs.rs/switchboard-evm/latest/switchboard_evm/",
+          // },
+          // {
+          // type: "link",
+          // label: "switchboard-solana",
+          // href: "https://docs.rs/switchboard-solana/latest/switchboard_solana/",
+          // },
+          // {
+          // type: "link",
+          // label: "switchboard-utils",
+          // href: "https://docs.rs/switchboard-utils/latest/switchboard_utils/",
+          // },
+          // {
+          // type: "link",
+          // label: "[deprecated ]switchboard-v2",
+          // href: "https://docs.rs/switchboard-v2/latest/switchboard_v2/",
+          // },
           // {
           //   type: "html",
           //   value: '<div class="sidebar-buffer" />',

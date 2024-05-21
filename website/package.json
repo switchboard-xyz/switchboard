@@ -27,6 +27,7 @@
   },
   "dependencies": {
     "@docusaurus/core": "^2.4.1",
+    "@docusaurus/plugin-client-redirects": "^3.3.2",
     "@docusaurus/plugin-content-docs": "^2.4.1",
     "@docusaurus/preset-classic": "^2.4.1",
     "@docusaurus/remark-plugin-npm2yarn": "^2.4.1",

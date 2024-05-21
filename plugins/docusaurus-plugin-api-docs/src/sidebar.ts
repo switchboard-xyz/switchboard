@@ -3,17 +3,17 @@ import { normalizeUrl } from "@docusaurus/utils";
 
 /** Map of category label to sort priority */
 export const SIDEBAR_PRIORITY: Map<string, number> = new Map([
-  ["Overview", 1],
-  ["@switchboard-xyz/cli", 5],
-  ["@switchboard-xyz/common", 10],
-  ["@switchboard-xyz/oracle", 11],
-  ["@switchboard-xyz/aptos.js", 21],
-  ["@switchboard-xyz/evm.js", 31],
-  // skip 10, evm might be popular
-  ["@switchboard-xyz/near.js", 51],
-  ["@switchboard-xyz/solana.js", 61],
-  ["@switchboard-xyz/starknet.js", 71],
-  ["@switchboard-xyz/sui.js", 81],
+  // ["Overview", 1],
+  // ["@switchboard-xyz/cli", 5],
+  // ["@switchboard-xyz/common", 10],
+  // ["@switchboard-xyz/oracle", 11],
+  // ["@switchboard-xyz/aptos.js", 21],
+  // ["@switchboard-xyz/evm.js", 31],
+  // // skip 10, evm might be popular
+  // ["@switchboard-xyz/near.js", 51],
+  // ["@switchboard-xyz/solana.js", 61],
+  // ["@switchboard-xyz/starknet.js", 71],
+  // ["@switchboard-xyz/sui.js", 81],
 ]);
 
 export const sortPackages = (a: PropSidebarItem, b: PropSidebarItem) => {
