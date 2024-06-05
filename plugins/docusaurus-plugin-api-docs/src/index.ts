@@ -355,11 +355,11 @@ export default function apiDocsPlugin(
         const sortedTypedocItems = sidebarItems[version].sort(sortPackages);
         const protoSidebarItems = protobufSidebarItems[version] ?? [];
         const versionSidebarItems: PropSidebarItem[] = [
-          {
-            type: "link",
-            label: "Overview",
-            href: normalizeUrl(["/"]),
-          },
+          // {
+          // type: "link",
+          // label: "Overview",
+          // href: normalizeUrl(["/"]),
+          // },
           {
             type: "html",
             value: '<div class="sidebar-buffer" />',
@@ -374,10 +374,10 @@ export default function apiDocsPlugin(
             value: '<hr class="dropdown-separator">',
           },
           ...protoSidebarItems,
-          // {
-          //   type: "html",
-          //   value: '<div class="sidebar-buffer" />',
-          // },
+          {
+            type: "html",
+            value: '<div class="sidebar-buffer" />',
+          },
           // {
           //   type: "html",
           //   className: "heading_icon__typescript",
