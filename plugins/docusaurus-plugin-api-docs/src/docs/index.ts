@@ -1,4 +1,25 @@
-import type { CommanderStatic } from "commander";
+import { createSidebarsUtils } from "./sidebars/utils";
+import { getCategoryGeneratedIndexMetadataList } from "./categoryGeneratedIndex";
+import { VERSIONS_JSON_FILE } from "./constants";
+import {
+  addDocNavigation,
+  type DocEnv,
+  processDocMetadata,
+  readVersionDocs,
+} from "./docs";
+import { toGlobalDataVersion } from "./globalData";
+import { toTagDocListProp } from "./props";
+import { createVersionRoutes } from "./routes";
+import { loadSidebars } from "./sidebars";
+import { getVersionTags } from "./tags";
+import type {
+  DocsMarkdownOption,
+  FullVersion,
+  SourceToPermalink,
+  VersionTag,
+} from "./types";
+
+import logger from "@docusaurus/logger";
 import type {
   DocFrontMatter,
   DocMetadataBase,
@@ -8,22 +29,12 @@ import type {
   PropTagsListPage,
   VersionMetadata,
 } from "@docusaurus/plugin-content-docs";
-import type { Configuration, RuleSetRule } from "webpack";
-import {
-  addDocNavigation,
-  type DocEnv,
-  processDocMetadata,
-  readVersionDocs,
-} from "./docs";
-import path from "path";
-import logger from "@docusaurus/logger";
 import type {
   ConfigureWebpackUtils,
   DocusaurusConfig,
   LoadContext,
   PluginContentLoadedActions,
 } from "@docusaurus/types";
-import { loadSidebars } from "./sidebars";
 import {
   addTrailingPathSeparator,
   aliasedSitePath,
@@ -34,21 +45,10 @@ import {
   normalizeUrl,
   posixPath,
 } from "@docusaurus/utils";
-import { createSidebarsUtils } from "./sidebars/utils";
+import type { CommanderStatic } from "commander";
 import _ from "lodash";
-import type {
-  DocsMarkdownOption,
-  FullVersion,
-  SourceToPermalink,
-  VersionTag,
-} from "./types";
-import { getVersionTags } from "./tags";
-import { toTagDocListProp } from "./props";
-import { createVersionRoutes } from "./routes";
-import { toGlobalDataVersion } from "./globalData";
-import { getCategoryGeneratedIndexMetadataList } from "./categoryGeneratedIndex";
-import { cliDocsVersionCommand } from "./cli";
-import { VERSIONS_JSON_FILE } from "./constants";
+import path from "path";
+import type { Configuration, RuleSetRule } from "webpack";
 
 export type DocFile = {
   contentPath: string; // /!\ may be localized
@@ -72,14 +72,6 @@ export async function apiDocsExtendCli(
   const commandDescription = isDefaultPluginId
     ? "Tag a new docs version"
     : `Tag a new docs version (${pluginId})`;
-
-  cli
-    .command(command)
-    .arguments("<version>")
-    .description(commandDescription)
-    .action((version: unknown) =>
-      cliDocsVersionCommand(version, options, context)
-    );
 }
 
 export async function apiDocsLoadContent(
@@ -135,15 +127,9 @@ export async function apiDocsLoadContent(
       categoryLabelSlugger: createSlugger(),
     });
 
-    const sidebarsUtils = createSidebarsUtils(sidebars);
-
     return {
       ...versionMetadata,
-      docs: addDocNavigation(
-        docs,
-        sidebarsUtils,
-        versionMetadata.sidebarFilePath as string
-      ),
+      docs: [],
       drafts,
       sidebars,
     };

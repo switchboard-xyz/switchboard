@@ -28,6 +28,7 @@ export abstract class CliBaseCommand extends Command {
     verbose: Flags.boolean({
       char: "v",
       description: "log everything",
+      default: false,
     }),
     silent: Flags.boolean({
       char: "s",

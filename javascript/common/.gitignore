@@ -11,3 +11,4 @@ networks.cjs
 networks.js
 networks.d.ts
 !src/esm-utils.js
+lib-cjs

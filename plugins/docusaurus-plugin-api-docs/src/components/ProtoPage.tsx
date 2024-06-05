@@ -1,23 +1,17 @@
-import React from "react";
 import "./styles.css";
+
 import type { Props as DocItemProps } from "@theme/DocItem";
+import React from "react";
+
+import { useProto } from "../hooks/useProto";
 import ApiItemLayout from "./ApiItemLayout";
 import { Markdown } from "./Markdown";
-import { useProto } from "../hooks/useProto";
-import Link from "@docusaurus/Link";
 
 export interface ProtoPageProps extends Pick<DocItemProps, "route"> {}
 
 export default function ProtoPage({ route }: ProtoPageProps) {
   const id = (route as unknown as { id: string }).id;
   const message = useProto(id)!;
-
-  const typedocLink =
-    id === "oracle-job"
-      ? "/api/common/class/OracleJob"
-      : id === "task"
-      ? "/api/common/interface/ITaskk"
-      : `/api/common/namespace/OracleJob#${message.name}`;
 
   return (
     <ApiItemLayout
@@ -39,11 +33,8 @@ export default function ProtoPage({ route }: ProtoPageProps) {
           <Markdown content={message.description} />
         </section>
 
-        <br />
-
         <p>
-          See the {message.name} typescript definition in{" "}
-          <Link href={typedocLink}>@switchboard-xyz/common</Link>
+          <br />
         </p>
 
         <h2>Fields</h2>

@@ -2,6 +2,7 @@ import type {
   DocusaurusPluginTypeDocApiOptions,
   VersionMetadata,
 } from "./types";
+
 import { DEFAULT_PLUGIN_ID } from "@docusaurus/utils";
 
 export const CURRENT_VERSION_METADATA: VersionMetadata = {
@@ -37,7 +38,7 @@ export const DEFAULT_OPTIONS: Required<DocusaurusPluginTypeDocApiOptions> = {
   readmeName: "README.md",
   readmes: false,
   removeScopes: [],
-  routeBasePath: "api",
+  routeBasePath: "",
   tsconfigName: "tsconfig.json",
   typedocOptions: {},
   versions: {},

@@ -1,25 +1,26 @@
-import type {
-  ParsedProtobufMessage,
-  ProtobufVersionMetadata,
-  Protobufs,
-  ProtobufJson,
-  Message,
-  ParsedProtobufEnum,
-} from "./types";
 import {
   Generator,
   type GeneratorContext,
   type GeneratorType,
   type VersionMetadata,
 } from "../../types";
-import path from "path";
-import fs from "fs";
+import { capitalizeWords, getComponentPath } from "../../utils";
+
+import type {
+  Message,
+  ParsedProtobufEnum,
+  ParsedProtobufMessage,
+  ProtobufJson,
+  Protobufs,
+  ProtobufVersionMetadata,
+} from "./types";
 
 import logger from "@docusaurus/logger";
-import { normalizeUrl } from "@docusaurus/utils";
 import type { PropSidebarItem } from "@docusaurus/plugin-content-docs";
 import type { RouteConfig } from "@docusaurus/types";
-import { capitalizeWords, getComponentPath } from "../../utils";
+import { normalizeUrl } from "@docusaurus/utils";
+import fs from "fs";
+import path from "path";
 
 const DISABLED_TASK_TYPES = [
   "HistoryFunctionTask",
@@ -130,7 +131,7 @@ export class ProtobufGenerator extends Generator<ProtobufVersionMetadata> {
           }),
         };
 
-        links.set(message.name, messagePermalink);
+        links.set(`${task}-${message.name}`, messagePermalink);
       }
 
       for (const e of file.enums) {
@@ -163,7 +164,7 @@ export class ProtobufGenerator extends Generator<ProtobufVersionMetadata> {
           }),
         };
 
-        links.set(e.name, messagePermalink);
+        links.set(`${task}-${e.name}`, messagePermalink);
       }
     }
 
@@ -173,20 +174,6 @@ export class ProtobufGenerator extends Generator<ProtobufVersionMetadata> {
       oracleJob: addHyperlinks(oracleJob, links),
       oracleJobTask: addHyperlinks(oracleJobTask, links),
     };
-
-    // load examples
-    // const examplesDir = normalizeUrl([
-    //   context.siteDir,
-    //   context.options.protoExamples?.examplesDir ?? "api/protos/examples",
-    // ]);
-
-    // const items: PropSidebarItem[] = [];
-
-    // if (fs.existsSync(examplesDir)) {
-    //   for (const item of context.options.protoExamples?.items ?? []) {
-
-    //   }
-    // }
 
     logger.info(`Found ${protobufs.tasks.length} OracleJob tasks`);
 
@@ -222,7 +209,7 @@ export class ProtobufGenerator extends Generator<ProtobufVersionMetadata> {
               return {
                 type: "link",
                 label: capitalizeWords(task.name),
-                href: normalizeUrl([v.versionPath, task.permalink]),
+                href: normalizeUrl([v.versionPath, "protos", task.permalink]),
               };
             }),
           },
@@ -262,7 +249,11 @@ export class ProtobufGenerator extends Generator<ProtobufVersionMetadata> {
               return this.createRoute({
                 ...message,
                 name: capitalizeWords(message.name),
-                permalink: normalizeUrl([v.versionPath, message.permalink]),
+                permalink: normalizeUrl([
+                  v.versionPath,
+                  "protos", // Provides the task with its URL (e.g. "protos/AddTask").
+                  message.permalink,
+                ]),
               });
             }),
         ];
@@ -291,7 +282,7 @@ const parseTask = (message: Message, protobufExamplesDir?: string) => {
     ...message,
     name: capitalizeWords(message.name),
     id: taskNameToId(message.name),
-    permalink: normalizeUrl(["protos", message.name]),
+    permalink: normalizeUrl([message.name]),
     fields: message.fields.map((f) => {
       return { ...f, name: snakeToCamel(f.name) };
     }),
@@ -302,17 +293,17 @@ function addHyperlinks(
   message: ParsedProtobufMessage,
   links: Map<string, string>
 ): ParsedProtobufMessage {
+  const protoName = snakeToCamel(message.name);
   return {
     ...message,
-    name: snakeToCamel(message.name),
+    name: protoName,
     fields: message.fields.map((f) => {
+      const link = links.get(`${protoName}-${f.type}`) ?? links.get(f.type);
       return {
         ...f,
         name: snakeToCamel(f.name),
-        type: links.has(f.type)
-          ? `[${
-              f.label === "repeated" ? `${f.type}[]` : f.type
-            }](/api/${links.get(f.type)!})`
+        type: link
+          ? `[${f.label === "repeated" ? `${f.type}[]` : f.type}](${link})`
           : f.type,
       };
     }),

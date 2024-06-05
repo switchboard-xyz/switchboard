@@ -2,14 +2,14 @@
   "name": "docusaurus-plugin-api-docs",
   "version": "3.0.0",
   "description": "Docusaurus plugin that provides source code API documentation powered by TypeDoc. ",
-  "author": "Miles Johnson",
-  "license": "MIT",
   "keywords": [
     "docusaurus",
     "plugin",
     "typedoc",
     "api"
   ],
+  "license": "MIT",
+  "author": "Miles Johnson",
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
   "files": [
@@ -19,44 +19,29 @@
     "styles.css"
   ],
   "scripts": {
-    "swizzle": "docusaurus swizzle",
     "build": "packemon build --addEngines",
+    "swizzle": "docusaurus swizzle",
     "watch": "packemon watch"
-  },
-  "packemon": {
-    "format": "lib",
-    "platform": "node",
-    "externals": [
-      "@theme/*",
-      "@docusaurus/*",
-      "@vscode/*",
-      "react",
-      "react-dom",
-      "css$"
-    ]
-  },
-  "peerDependencies": {
-    "@docusaurus/core": "^2.0.0",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2",
-    "typescript": "^4.0.0 || ^5.0.0"
   },
   "dependencies": {
     "@docusaurus/logger": "^2.4.1",
     "@docusaurus/mdx-loader": "^2.4.1",
     "@docusaurus/plugin-content-docs": "^2.4.1",
     "@docusaurus/theme-classic": "^2.4.1",
+    "@docusaurus/theme-common": "^2.4.1",
     "@docusaurus/types": "^2.4.1",
     "@docusaurus/utils": "^2.4.1",
     "@docusaurus/utils-validation": "^2.4.1",
     "@vscode/codicons": "^0.0.32",
     "combine-promises": "^1.1.0",
     "commander": "^5.1.0",
+    "crypto-browserify": "^3.12.0",
     "fs-extra": "^11.1.1",
     "import-fresh": "^3.3.0",
     "js-yaml": "^4.1.0",
     "lodash": "^4.17.21",
     "marked": "^4.3.0",
+    "stream-browserify": "^3.0.0",
     "tslib": "^2.5.0",
     "typedoc": "^0.23.28",
     "utility-types": "^3.10.0"
@@ -75,7 +60,25 @@
     "tsconfig-moon": "^1.3.0",
     "typescript": "^5.0.2"
   },
+  "peerDependencies": {
+    "@docusaurus/core": "^2.0.0",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "typescript": "^4.0.0 || ^5.0.0"
+  },
   "engines": {
     "node": ">=16.12.0"
+  },
+  "packemon": {
+    "format": "lib",
+    "platform": "node",
+    "externals": [
+      "@theme/*",
+      "@docusaurus/*",
+      "@vscode/*",
+      "react",
+      "react-dom",
+      "css$"
+    ]
   }
 }

@@ -46,6 +46,10 @@ export class ConfigProvider {
       mainnet: { rpcUrl: networks.solana.mainnet.metadata.defaultRpcUrl },
       devnet: { rpcUrl: networks.solana.devnet.metadata.defaultRpcUrl },
     },
+    starknet: {
+      goerli: { rpcUrl: networks.starknet.goerli.metadata.defaultRpcUrl },
+      mainnet: { rpcUrl: networks.starknet.mainnet.metadata.defaultRpcUrl },
+    },
     sui: {
       mainnet: { rpcUrl: networks.sui.mainnet.metadata.defaultRpcUrl },
       testnet: { rpcUrl: networks.sui.testnet.metadata.defaultRpcUrl },

@@ -1,17 +1,13 @@
-import React, { useState, useRef, useEffect } from "react";
 import "./styles.css";
+
 import Link from "@docusaurus/Link";
-import type { PropVersionMetadata } from "@docusaurus/plugin-content-docs";
-import type { GlobalVersion } from "@docusaurus/plugin-content-docs/client";
-import { useDocsPreferredVersion } from "@docusaurus/theme-common";
-import { useDocsVersion } from "@docusaurus/theme-common/internal";
 import type { Props as DocItemProps } from "@theme/DocItem";
+import React, { useEffect, useRef, useState } from "react";
+
+import type { ParsedProtobufMessage } from "../modules/protobufs";
 import type { ApiOptions } from "../types";
 import ApiItemLayout from "./ApiItemLayout";
-import type { ParsedProtobufMessage } from "../modules/protobufs";
 import { Markdown } from "./Markdown";
-import ProtoPage from "./ProtoPage";
-import useBaseUrl from "@docusaurus/useBaseUrl";
 
 export interface ProtoIndexProps extends Pick<DocItemProps, "route"> {
   history: {
@@ -30,12 +26,6 @@ export default function ProtoIndex({
   readme: Readme,
   route,
 }: ProtoIndexProps) {
-  const latestVersion = useDocsVersion();
-  const { preferredVersion } = useDocsPreferredVersion(latestVersion.pluginId);
-
-  const oracleJobProto = tasks.find((t) => t.name === "OracleJob");
-  const taskProto = tasks.find((t) => t.name === "Task");
-
   // useEffect(() => {
   //   // Redirect to package when only 1
   //   if (commands.length === 1) {
@@ -59,17 +49,7 @@ export default function ProtoIndex({
   // }, [commands, history, latestVersion, preferredVersion]);
 
   return (
-    <ApiItemLayout
-      heading={
-        <h1>
-          {/* <img src={useBaseUrl("/img/icons/protobuf/logo.svg")} /> */}
-          Protobufs
-        </h1>
-      }
-      route={route}
-      toc={[]}
-      disableToc
-    >
+    <ApiItemLayout heading={"Protobufs"} route={route} toc={[]} disableToc>
       <article>
         <div className="markdown">
           {Readme && (
@@ -82,7 +62,7 @@ export default function ProtoIndex({
 
           <section className="tsd-panel">
             <h3 className="tsd-panel-header">
-              <Link href="/api/protos/Task">Task Types</Link>
+              <Link href="/protos/Task">Task Types</Link>
             </h3>
             <div className="tsd-panel-content">
               <ul className="tsd-index-list">
@@ -98,7 +78,7 @@ export default function ProtoIndex({
                         href={"/api/" + task.permalink}
                         description={task.description}
                       /> */}
-                      <Link href={"/api/" + task.permalink}>{task.name}</Link>
+                      <Link href={task.permalink}>{task.name}</Link>
                     </li>
                   ))}
               </ul>

@@ -1,12 +1,14 @@
 syntax = "proto2";
 
+package oracle_job;
+
 /// Represnts a list of tasks to be performed by a switchboard oracle.
 message OracleJob {
 /*
-The adapter will report the text body of a successful HTTP request to the 
-specified url, or return an error if the response status code is greater 
+The adapter will report the text body of a successful HTTP request to the
+specified url, or return an error if the response status code is greater
 than or equal to 400.
- 
+
 _**Input**_: None
 
 _**Returns**_: String representation of the http response.
@@ -86,11 +88,11 @@ _**Example**_: Parses the price field from a JSON object
       MEAN = 4;
       /// Grab the median of the results.
       MEDIAN = 5;
-    } 
+    }
     /// The technique that will be used to aggregate the results if walking the specified path returns multiple numerical results.
     optional AggregationMethod aggregation_method = 2;
   }
-  
+
 /*
 Returns the median (middle) of all the results returned by the provided subtasks and subjobs. Nested tasks must return a Number.
 
@@ -433,7 +435,7 @@ _**Example**_: Returns the numerical result by multiplying by a big.
 
 
 /*
-Fetch LP token price info from a number of supported exchanges. 
+Fetch LP token price info from a number of supported exchanges.
 
 See our blog post on [Fair LP Token Oracles](/blog/2022/01/20/Fair-LP-Token-Oracles)
 
@@ -441,7 +443,7 @@ See our blog post on [Fair LP Token Oracles](/blog/2022/01/20/Fair-LP-Token-Orac
 
 _**Input**_: None
 
-_**Returns**_: The price of an LP token for a given AMM pool. 
+_**Returns**_: The price of an LP token for a given AMM pool.
 
 _**Example**_: Fetch the Orca LP token price of the SOL/USDC pool
 
@@ -512,7 +514,8 @@ _**Example**_: Fetch the exchange rate from the Raydium SOL/USDC pool
       /// **@deprecated** Use orcaPoolAddress
       string orca_pool_token_mint_address = 5 [deprecated=true];
       /// The Raydium liquidity pool ammId. A full list can be found here: https://raydium.io/pools
-      /// Pool address for an Orca LP pool or whirlpool. 
+      string raydium_pool_address = 6;
+      /// Pool address for an Orca LP pool or whirlpool.
       /// A full list of Orca LP pools can be found here: https://www.orca.so/pools
       string orca_pool_address = 7;
       /// The Port reserve pubkey. A full list can be found here: https://api-v1.port.finance/reserves
@@ -540,7 +543,7 @@ _**Example**_: Fetch the exchange rate from the Raydium SOL/USDC pool
 
 /*
 Takes a twap over a set period for a certain aggregator. Aggregators have an optional history buffer account storing the last N accepted results. The TwapTask will iterate over an aggregators history buffer and calculate the time weighted average of the samples within a given time period.
- 
+
 _**Input**_: None
 
 _**Returns**_: The time weighted average of an aggregator over a given time period.
@@ -574,7 +577,7 @@ _**Example**_: The 1hr Twap of the SOL/USD Aggregator, requiring at least 60 sam
 
 /*
 Round the current running result to an exponential power.
- 
+
 _**Input**_: The current running numerical result.
 
 _**Returns**_: The input raised to an exponential power.
@@ -664,6 +667,9 @@ _**Example**_: Fetch the JupiterSwap price for exchanging 1000 SOL into USDC.
       /// The amount of `out_token_address` tokens to swap.
       string quote_amount_string = 8;
     }
+
+    /// The allowable slippage on the swap in decimal form (e.g. 0.5 is 0.5% slippage)
+    optional double slippage = 9;
   }
 
   /// Fetch the current price of a perpetual market.
@@ -681,8 +687,8 @@ _**Example**_: Fetch the JupiterSwap price for exchanging 1000 SOL into USDC.
   }
 
 /*
-Fetch the current price of a Solana oracle protocol. 
- 
+Fetch the current price of a Solana oracle protocol.
+
 _**Input**_: None
 
 _**Returns**_: The current price of an on-chain oracle.
@@ -707,7 +713,7 @@ _**Example**_: The Chainlink SOL/USD oracle price.
 */
   message OracleTask {
     oneof AggregatorAddress {
-      /// Mainnet address of a Switchboard V2 feed. Switchboard is decentralized and allows anyone to build their own feed. A small subset of feeds is available here: https://switchboard.xyz/explorer
+      /// Mainnet address of a Switchboard feed. Switchboard is decentralized and allows anyone to build their own feed.
       string switchboard_address = 1;
       /// Mainnet address for a Pyth feed. A full list can be found here: https://pyth.network/price-feeds/
       string pyth_address = 2;
@@ -717,11 +723,11 @@ _**Example**_: The Chainlink SOL/USD oracle price.
     /// Value (as a percentage) that the lower bound confidence interval is of the actual value.
     /// Confidence intervals that are larger that this treshold are rejected.
     ///
-    /// The confidence interval should be provided as a raw percentage value. For example, to 
+    /// The confidence interval should be provided as a raw percentage value. For example, to
     /// represent 10%, enter the value as 10, not 0.1.
     optional double pyth_allowed_confidence_interval = 4;
   }
-  
+
   /// Load a parse an Anchor based solana account.
   message AnchorFetchTask {
     /// Owning program of the account to parse.
@@ -810,7 +816,7 @@ _**Example**_: The Chainlink SOL/USD oracle price.
 
   /*
 Execute a job and store the result in a variable to reference later.
- 
+
 _**Input**_: None
 
 _**Returns**_: The input
@@ -831,7 +837,7 @@ _**Example**_: CacheTask storing ${ONE} = 1
     /// A list of cached variables to reference in the job with `${VARIABLE_NAME}`.
     repeated CacheItem cache_items = 1;
   }
-  
+
   /// Return the difference between an oracle's clock and the current timestamp at `SYSVAR_CLOCK_PUBKEY`.
   message SysclockOffsetTask {}
 
@@ -969,11 +975,11 @@ _**Example**_: Return the unix timestamp for next friday at 5pm UTC
       /// String or `${CACHE_KEY}` representing the right hand side operand.
       string rhs_value = 5;
     }
-    /// The OracleJob to execute if the condition evaluates to true. 
+    /// The OracleJob to execute if the condition evaluates to true.
     optional OracleJob on_true = 6;
     /// The result to use if the condition evaluates to true. Can be set to a `${CACHE_KEY}`.
     optional string on_true_value = 7;
-    /// The OracleJob to execute if the condition evaluates to false. 
+    /// The OracleJob to execute if the condition evaluates to false.
     optional OracleJob on_false = 8;
     /// The result to use if the condition evaluates to false. Can be set to a `${CACHE_KEY}`.
     optional string on_false_value = 9;
@@ -1011,7 +1017,7 @@ _**Example**_: Round down the running resul to 8 decimal places
 
 /*
 Bound the running result to an upper/lower bound. This is typically the last task in an OracleJob.
- 
+
 _**Input**_: The current running numerical result.
 
 _**Returns**_: The running result bounded to an upper or lower bound if it exceeds a given threshold.
@@ -1041,16 +1047,48 @@ _**Example**_: Bound the running result to a value between 0.90 and 1.10
     optional string on_exceeds_lower_bound_value = 8;
   }
 
+/*
+Securely request secrets from a Switchboard SecretsServer that are owned by a specific authority. Any secrets that are returned for the current feed will then be unwrapped into variables to be accessed later.
+
+_**Input**_: None
+
+_**Returns**_: The input
+
+_**Example**_: SecretsTask
+
+```json
+{ "secretsTask": { "authority": "Accb21tUCWocJea6Uk3DgrNZawgmKegDVeHw8cGMDPi5" } }
+```
+*/
+  message SecretsTask {
+    /// The authority of the secrets that are to be requested.
+    optional string authority = 1;
+    /// The url of the server to request secrets from. The default is https://api.secrets.switchboard.xyz.
+    optional string url = 2;
+  }
+
+  message SanctumLstPriceTask {
+    optional string lst_mint = 1;
+  }
+
+  message OndoUsdyTask {
+    enum Strategy {
+      STRATEGY_FAIR_VALUE = 0;
+      STRATEGY_MARKET = 1;
+    }
+    optional Strategy strategy = 1;
+  }
+
   /*
     Represents a singular operation performed by an oracle to yield an eventual numerical result.
   */
   message Task {
     oneof Task {
 /*
-The adapter will report the text body of a successful HTTP request to the 
-specified url, or return an error if the response status code is greater 
+The adapter will report the text body of a successful HTTP request to the
+specified url, or return an error if the response status code is greater
 than or equal to 400.
- 
+
 _**Input**_: None
 
 _**Returns**_: String representation of the http response.
@@ -1190,7 +1228,7 @@ _**Example**_: Returns the numerical result by multiplying by a big.
 */
       MultiplyTask multiply_task = 8;
 /*
-Fetch LP token price info from a number of supported exchanges. 
+Fetch LP token price info from a number of supported exchanges.
 
 See our blog post on [Fair LP Token Oracles](/blog/2022/01/20/Fair-LP-Token-Oracles)
 
@@ -1198,7 +1236,7 @@ See our blog post on [Fair LP Token Oracles](/blog/2022/01/20/Fair-LP-Token-Orac
 
 _**Input**_: None
 
-_**Returns**_: The price of an LP token for a given AMM pool. 
+_**Returns**_: The price of an LP token for a given AMM pool.
 
 _**Example**_: Fetch the Orca LP token price of the SOL/USDC pool
 
@@ -1355,7 +1393,7 @@ _**Example**_: Returns the numerical result by multiplying by a big.
       SubtractTask subtract_task = 17;
 /*
 Takes a twap over a set period for a certain aggregator. Aggregators have an optional history buffer account storing the last N accepted results. The TwapTask will iterate over an aggregators history buffer and calculate the time weighted average of the samples within a given time period.
- 
+
 _**Input**_: None
 
 _**Returns**_: The time weighted average of an aggregator over a given time period.
@@ -1370,7 +1408,7 @@ _**Example**_: The 1hr Twap of the SOL/USD Aggregator, requiring at least 60 sam
       SerumSwapTask serum_swap_task = 19;
 /*
 Round the current running result to an exponential power.
- 
+
 _**Input**_: The current running numerical result.
 
 _**Returns**_: The input raised to an exponential power.
@@ -1406,8 +1444,8 @@ _**Example**_: Fetch the JupiterSwap price for exchanging 1000 SOL into USDC.
       JupiterSwapTask jupiter_swap_task = 23;
       PerpMarketTask perp_market_task = 24;
 /*
-Fetch the current price of a Solana oracle protocol. 
- 
+Fetch the current price of a Solana oracle protocol.
+
 _**Input**_: None
 
 _**Returns**_: The current price of an on-chain oracle.
@@ -1441,7 +1479,7 @@ _**Example**_: The Chainlink SOL/USD oracle price.
       PancakeswapExchangeRateTask pancakeswap_exchange_rate_task = 33;
   /*
 Execute a job and store the result in a variable to reference later.
- 
+
 _**Input**_: None
 
 _**Returns**_: The input
@@ -1517,7 +1555,7 @@ _**Example**_: Round down the running resul to 8 decimal places
       RoundTask round_task = 45;
 /*
 Bound the running result to an upper/lower bound. This is typically the last task in an OracleJob.
- 
+
 _**Input**_: The current running numerical result.
 
 _**Returns**_: The running result bounded to an upper or lower bound if it exceeds a given threshold.
@@ -1529,6 +1567,24 @@ _**Example**_: Bound the running result to a value between 0.90 and 1.10
 ```
 */
       BoundTask bound_task = 46;
+/*
+Securely request secrets from a Switchboard SecretsServer that are owned by a specific authority. Any secrets that are returned for the current feed will then be unwrapped into variables to be accessed later.
+
+_**Input**_: None
+
+_**Returns**_: The input
+
+_**Example**_: SecretsTask
+
+```json
+{ "secretsTask": { "authority": "Accb21tUCWocJea6Uk3DgrNZawgmKegDVeHw8cGMDPi5" } }
+```
+*/
+      SecretsTask secrets_task = 47;
+
+      SanctumLstPriceTask sanctum_lst_price_task = 48;
+
+      OndoUsdyTask ondo_usdy_task = 49;
     }
   }
   /// The chain of tasks to perform for this OracleJob.

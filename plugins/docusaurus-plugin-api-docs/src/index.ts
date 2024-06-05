@@ -358,7 +358,7 @@ export default function apiDocsPlugin(
           // {
           // type: "link",
           // label: "Overview",
-          // href: normalizeUrl(["/api"]),
+          // href: normalizeUrl(["/"]),
           // },
           {
             type: "html",
@@ -379,52 +379,52 @@ export default function apiDocsPlugin(
             value: '<div class="sidebar-buffer" />',
           },
           // {
-          // type: "html",
-          // className: "heading_icon__typescript",
-          // value: " <b>Typescript</b>",
+          //   type: "html",
+          //   className: "heading_icon__typescript",
+          //   value: " <b>Typescript</b>",
           // },
           // {
-          // type: "html",
-          // value: '<hr class="dropdown-separator">',
+          //   type: "html",
+          //   value: '<hr class="dropdown-separator">',
           // },
           // ...sortedTypedocItems,
           // {
-          // type: "html",
-          // value: '<div class="sidebar-buffer" />',
+          //   type: "html",
+          //   value: '<div class="sidebar-buffer" />',
           // },
           // {
-          // type: "html",
-          // className: "heading_icon__rust",
-          // value: " <b>Rust</b>",
+          //   type: "html",
+          //   className: "heading_icon__rust",
+          //   value: " <b>Rust</b>",
           // },
           // {
-          // type: "html",
-          // value: '<hr class="dropdown-separator">',
+          //   type: "html",
+          //   value: '<hr class="dropdown-separator">',
           // },
           // {
-          // type: "link",
-          // label: "switchboard-common",
-          // href: "https://docs.rs/switchboard-common/latest/switchboard_common/",
+          //   type: "link",
+          //   label: "switchboard-common",
+          //   href: "https://docs.rs/switchboard-common/latest/switchboard_common/",
           // },
           // {
-          // type: "link",
-          // label: "switchboard-evm",
-          // href: "https://docs.rs/switchboard-evm/latest/switchboard_evm/",
+          //   type: "link",
+          //   label: "switchboard-evm",
+          //   href: "https://docs.rs/switchboard-evm/latest/switchboard_evm/",
           // },
           // {
-          // type: "link",
-          // label: "switchboard-solana",
-          // href: "https://docs.rs/switchboard-solana/latest/switchboard_solana/",
+          //   type: "link",
+          //   label: "switchboard-solana",
+          //   href: "https://docs.rs/switchboard-solana/latest/switchboard_solana/",
           // },
           // {
-          // type: "link",
-          // label: "switchboard-utils",
-          // href: "https://docs.rs/switchboard-utils/latest/switchboard_utils/",
+          //   type: "link",
+          //   label: "switchboard-utils",
+          //   href: "https://docs.rs/switchboard-utils/latest/switchboard_utils/",
           // },
           // {
-          // type: "link",
-          // label: "[deprecated ]switchboard-v2",
-          // href: "https://docs.rs/switchboard-v2/latest/switchboard_v2/",
+          //   type: "link",
+          //   label: "[deprecated ]switchboard-v2",
+          //   href: "https://docs.rs/switchboard-v2/latest/switchboard_v2/",
           // },
           // {
           //   type: "html",
@@ -546,20 +546,6 @@ export default function apiDocsPlugin(
             return;
           }
 
-          // Create the cli overview routes
-          allRoutes.push({
-            path: normalizeUrl([loadedVersion.versionPath, "cli"]),
-            exact: true,
-            component: getComponentPath("CliIndex"),
-            modules: {
-              options: pluginOptions,
-              commands,
-              versionMetadata,
-              readme: path.join(context.siteDir, "api", "cli", "index.mdx"),
-            },
-            sidebar: "api",
-          });
-
           // Create the protobuf overview routes
           allRoutes.push({
             path: normalizeUrl([
@@ -572,7 +558,8 @@ export default function apiDocsPlugin(
             modules: {
               options: pluginOptions,
               versionMetadata,
-              readme: path.join(context.siteDir, "api", "protos", "index.mdx"),
+              // This is the README text at the top of the page.
+              readme: path.join(context.siteDir, "protos", "index.mdx"),
               tasks: protobufMessages,
             },
             sidebar: "api",
@@ -583,12 +570,13 @@ export default function apiDocsPlugin(
           allRoutes.push({
             path: indexPermalink,
             exact: true,
-            component: getComponentPath("ApiIndex"),
+            component: getComponentPath("OverviewPage"),
             modules: {
               options: pluginOptions,
               packages,
               versionMetadata,
-              readme: path.join(context.siteDir, "api", "index.mdx"),
+              // This is the README text at the top of the page.
+              readme: path.join(context.siteDir, "index.mdx"),
               tasks: protobufMessages,
             },
             sidebar: "api",
@@ -628,6 +616,13 @@ export default function apiDocsPlugin(
       ]);
 
       return {
+        resolve: {
+          fallback: {
+            crypto: require.resolve("crypto-browserify"),
+            stream: require.resolve("stream-browserify"),
+            process: "process/browser",
+          },
+        },
         module: {
           rules: [
             {

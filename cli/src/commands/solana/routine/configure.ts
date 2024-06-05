@@ -13,10 +13,10 @@ import chalk from "chalk";
 export default class FunctionRoutineConfigure extends BaseCommand {
   static enableJsonFlag = true;
 
-  static description = "create a new routine account for a given function";
+  static description = "configure a routine account";
 
   static examples = [
-    '$ sb solana routine create CkvizjVnm2zA5Wuwan34NhVT3zFc7vqUyGnA6tuEF5aE --name function-1 --fundAmount 1.25 --container switchboardlabs/basic-oracle-function --version solana --schedule "*/10 * * * * *" --params=xyz',
+    '$ sb solana routine configure CkvizjVnm2zA5Wuwan34NhVT3zFc7vqUyGnA6tuEF5aE --name function-1 --fundAmount 1.25 --container switchboardlabs/basic-oracle-function --version solana --schedule "*/10 * * * * *" --params=xyz',
   ];
 
   static flags = {
@@ -94,7 +94,7 @@ export default class FunctionRoutineConfigure extends BaseCommand {
 
     this.logger.log(
       `${chalk.green(
-        `${CHECK_ICON}Routine Account created successfully:`,
+        `${CHECK_ICON}Routine Account updated successfully:`,
         routineAccount.publicKey.toBase58()
       )}`
     );
@@ -103,6 +103,6 @@ export default class FunctionRoutineConfigure extends BaseCommand {
   }
 
   async catch(error: any) {
-    super.catch(error, "failed to create a routine account");
+    super.catch(error, "failed to configure a routine account");
   }
 }
