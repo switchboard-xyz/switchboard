@@ -47,7 +47,7 @@
     "networks.d.ts"
   ],
   "scripts": {
-    "build": "pnpm exec rimraf lib lib-cjs && node ./compile-protos.js && echo '!src/esm-utils.js' >> .gitignore",
+    "build": "pnpm exec rimraf lib lib-cjs && node ./compile-protos.js",
     "clean": "pnpm exec rimraf node_modules lib .turbo",
     "fix": "pnpm exec eslint --fix src/**/*.ts",
     "lint": "pnpm exec eslint src/**/*.ts",

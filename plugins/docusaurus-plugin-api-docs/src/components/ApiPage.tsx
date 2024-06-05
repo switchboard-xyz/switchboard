@@ -2,20 +2,22 @@
 
 import "@vscode/codicons/dist/codicon.css";
 import "./styles.css";
+
+import DocPage, { type Props as DocPageProps } from "@theme/DocPage";
 import React, { useMemo } from "react";
 import type { JSONOutput } from "typedoc";
-import DocPage, { type Props as DocPageProps } from "@theme/DocPage";
+
+import type { OclifCommandMap, ParsedCommand } from "../modules/oclif/types";
+import type {
+  ParsedProtobufMessage,
+  ProtoMessageMap,
+} from "../modules/protobufs";
 import type {
   ApiOptions,
   DeclarationReflectionMap,
   PackageReflectionGroup,
 } from "../types";
 import { ApiDataContext } from "./ApiDataContext";
-import type { OclifCommandMap, ParsedCommand } from "../modules/oclif/types";
-import type {
-  ParsedProtobufMessage,
-  ProtoMessageMap,
-} from "../modules/protobufs";
 
 function isObject(value: unknown): value is JSONOutput.Reflection {
   return typeof value === "object" && value !== null && !Array.isArray(value);

@@ -41,7 +41,7 @@ export const preSidebarItems: PropSidebarItem[] = [
   {
     type: "link",
     label: "Overview",
-    href: normalizeUrl(["/api"]),
+    href: normalizeUrl(["/"]),
   },
   {
     type: "html",

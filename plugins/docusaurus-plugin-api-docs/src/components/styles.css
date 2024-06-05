@@ -288,6 +288,11 @@ html[data-theme="light"] .tsd-panel-content {
   word-break: break-all;
 }
 
+.apiPage {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
 .apiPage .menu__link:not(.menu__link--sublist),
 .apiPage .table-of-contents__link,
 .tsd-truncate {

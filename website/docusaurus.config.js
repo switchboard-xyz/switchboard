@@ -65,53 +65,53 @@ const config = {
       "classic",
       /** @type {import('@docusaurus/preset-classic').Options} */
       ({
-        docs: {
-          // ignore versioning, only needed for docusaurus-plugin-typedoc-api
-          // lastVersion: "current",
-          versions: Object.fromEntries(
-            getVersions().map((v) => {
-              return [
-                v,
-                {
-                  badge: false,
-                },
-              ];
-            })
-          ),
-          lastVersion: undefined,
-          onlyIncludeVersions: ["current"],
-          routeBasePath: "/",
-          sidebarPath: require.resolve("./sidebars.js"),
-          remarkPlugins: [
-            [
-              require("@docusaurus/remark-plugin-npm2yarn"),
-              {
-                sync: true,
-                converters: [
-                  "yarn",
-                  "pnpm",
-                  // ["Turbo", (code) => code.replace(/npm/g, "turbo")],
-                ],
-              },
-            ],
-            require("remark-math"),
-          ],
-          rehypePlugins: [
-            [
-              require("rehype-katex"),
-              {
-                throwOnError: true,
-                globalGroup: true,
-              },
-            ],
-          ],
-        },
-        blog: {
-          showReadingTime: true,
-          include: ["**/*.md", "**/*.mdx"], // need double asterik for nested dirs
-          blogSidebarTitle: "All posts",
-          blogSidebarCount: "ALL",
-        },
+        // docs: {
+        //   // ignore versioning, only needed for docusaurus-plugin-typedoc-api
+        //   // lastVersion: "current",
+        //   versions: Object.fromEntries(
+        //     getVersions().map((v) => {
+        //       return [
+        //         v,
+        //         {
+        //           badge: false,
+        //         },
+        //       ];
+        //     })
+        //   ),
+        //   lastVersion: undefined,
+        //   onlyIncludeVersions: ["current"],
+        //   routeBasePath: "/",
+        //   sidebarPath: require.resolve("./sidebars.js"),
+        //   remarkPlugins: [
+        //     [
+        //       require("@docusaurus/remark-plugin-npm2yarn"),
+        //       {
+        //         sync: true,
+        //         converters: [
+        //           "yarn",
+        //           "pnpm",
+        //           // ["Turbo", (code) => code.replace(/npm/g, "turbo")],
+        //         ],
+        //       },
+        //     ],
+        //     require("remark-math"),
+        //   ],
+        //   rehypePlugins: [
+        //     [
+        //       require("rehype-katex"),
+        //       {
+        //         throwOnError: true,
+        //         globalGroup: true,
+        //       },
+        //     ],
+        //   ],
+        // },
+        // blog: {
+        //   showReadingTime: true,
+        //   include: ["**/*.md", "**/*.mdx"], // need double asterik for nested dirs
+        //   blogSidebarTitle: "All posts",
+        //   blogSidebarCount: "ALL",
+        // },
         theme: {
           customCss: [require.resolve("./src/css/custom.css")],
         },
@@ -129,12 +129,12 @@ const config = {
       sidebar: {
         hideable: true,
       },
-      algolia: {
-        appId: "XO84KDTPTB",
-        apiKey: "def6c1d8ee548183d6c709055199e10d",
-        indexName: "switchboard",
-        contextualSearch: true,
-      },
+      // algolia: {
+      //   appId: "XO84KDTPTB",
+      //   apiKey: "def6c1d8ee548183d6c709055199e10d",
+      //   indexName: "switchboard",
+      //   contextualSearch: true,
+      // },
       navbar: {
         title: "Switchboard",
         logo: {
@@ -145,23 +145,16 @@ const config = {
           height: 72,
         },
         items: [
-          {
-            type: "docSidebar",
-            sidebarId: "sidebar",
-            position: "left",
-            label: "Docs",
-          },
-          {
-            to: "/api",
-            label: "API",
-            position: "left",
-          },
+          // {
+          //   to: "/",
+          //   label: "API",
+          //   position: "left",
+          // },
           {
             type: "search",
             position: "left",
           },
 
-          { to: "/blog", label: "Blog", position: "right" },
           {
             href: "https://github.com/switchboard-xyz",
             position: "right",

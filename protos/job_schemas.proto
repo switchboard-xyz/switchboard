@@ -713,7 +713,7 @@ _**Example**_: The Chainlink SOL/USD oracle price.
 */
   message OracleTask {
     oneof AggregatorAddress {
-      /// Mainnet address of a Switchboard V2 feed. Switchboard is decentralized and allows anyone to build their own feed. A small subset of feeds is available here: https://switchboard.xyz/explorer
+      /// Mainnet address of a Switchboard feed. Switchboard is decentralized and allows anyone to build their own feed.
       string switchboard_address = 1;
       /// Mainnet address for a Pyth feed. A full list can be found here: https://pyth.network/price-feeds/
       string pyth_address = 2;
@@ -843,11 +843,7 @@ _**Example**_: CacheTask storing ${ONE} = 1
 
   message MarinadeStateTask {}
 
-/*
-_**OBSOLETE**_: THIS TASK TYPE IS NO LONGER SUPPORTED!
-
-Fetch the account data in a stringified buffer format.
-*/
+  /// Fetch the account data in a stringified buffer format.
   message SolanaAccountDataFetchTask {
     /// The on-chain account to fetch the account data from.
     optional string pubkey = 1;
@@ -1073,6 +1069,14 @@ _**Example**_: SecretsTask
 
   message SanctumLstPriceTask {
     optional string lst_mint = 1;
+  }
+
+  message OndoUsdyTask {
+    enum Strategy {
+      STRATEGY_FAIR_VALUE = 0;
+      STRATEGY_MARKET = 1;
+    }
+    optional Strategy strategy = 1;
   }
 
   /*
@@ -1489,7 +1493,7 @@ _**Example**_: CacheTask storing ${ONE} = 1
       CacheTask cache_task = 34;
       SysclockOffsetTask sysclock_offset_task = 35;
       MarinadeStateTask marinade_state_task = 36;
-      SolanaAccountDataFetchTask OBSOLETE_solana_account_data_fetch_task = 37 [deprecated = true];
+      SolanaAccountDataFetchTask solana_account_data_fetch_task = 37;
       BufferLayoutParseTask buffer_layout_parse_task = 38;
 /*
 Return a timestamp from a crontab instruction.
@@ -1579,6 +1583,8 @@ _**Example**_: SecretsTask
       SecretsTask secrets_task = 47;
 
       SanctumLstPriceTask sanctum_lst_price_task = 48;
+
+      OndoUsdyTask ondo_usdy_task = 49;
     }
   }
   /// The chain of tasks to perform for this OracleJob.

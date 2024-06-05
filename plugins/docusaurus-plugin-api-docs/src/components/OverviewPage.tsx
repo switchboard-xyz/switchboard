@@ -1,19 +1,14 @@
 import Link from "@docusaurus/Link";
-import type { PropVersionMetadata } from "@docusaurus/plugin-content-docs";
-import type { GlobalVersion } from "@docusaurus/plugin-content-docs/client";
 import { ThemeClassNames } from "@docusaurus/theme-common";
-import { useDocsPreferredVersion } from "@docusaurus/theme-common";
-import { useDocsVersion } from "@docusaurus/theme-common/internal";
 import type { Props as DocItemProps } from "@theme/DocItem";
 import MDXContent from "@theme/MDXContent";
-import React, { useEffect } from "react";
+import React from "react";
 
 import type { ParsedProtobufMessage } from "../modules/protobufs";
 import type { ApiOptions, PackageReflectionGroup } from "../types";
-import { removeScopes } from "../utils/links";
 import ApiItemLayout from "./ApiItemLayout";
 
-export interface ApiIndexProps extends Pick<DocItemProps, "route"> {
+interface OverviewPageProps extends Pick<DocItemProps, "route"> {
   history: {
     location: { pathname: string };
     replace: (path: string) => void;
@@ -24,72 +19,23 @@ export interface ApiIndexProps extends Pick<DocItemProps, "route"> {
   readme?: React.ComponentType;
 }
 
-function addVersionToUrl(
-  url: string,
-  latestVersion: PropVersionMetadata,
-  preferredVersion: GlobalVersion | null | undefined
-) {
-  if (
-    !url.match(/api\/([\d.]+)/) &&
-    !url.includes("api/next") &&
-    preferredVersion &&
-    preferredVersion.name !== latestVersion.version
-  ) {
-    const version =
-      preferredVersion.name === "current" ? "next" : preferredVersion.name;
-
-    if (url.endsWith("/api")) {
-      return `${url}/${version}`;
-    }
-
-    return url.replace("/api/", `/api/${version}/`);
-  }
-
-  return url;
-}
-
-export default function ApiIndex({
+export default function OverviewPage({
   history,
   options,
   packages,
   tasks,
   readme: Readme,
   route,
-}: ApiIndexProps) {
-  const latestVersion = useDocsVersion();
-  const { preferredVersion } = useDocsPreferredVersion(latestVersion.pluginId);
-
-  useEffect(() => {
-    // Redirect to package when only 1
-    if (packages.length === 1) {
-      history.replace(
-        addVersionToUrl(
-          packages[0].entryPoints[0].reflection.permalink,
-          latestVersion,
-          preferredVersion
-        )
-      );
-
-      // Redirect to preferred version
-    } else if (preferredVersion) {
-      history.replace(
-        addVersionToUrl(
-          history.location.pathname,
-          latestVersion,
-          preferredVersion
-        )
-      );
-    }
-  }, [packages, history, latestVersion, preferredVersion]);
-
+}: OverviewPageProps) {
   return (
     <ApiItemLayout
-      heading={<h1>{"API"}</h1>}
+      heading={"API"}
       route={route}
       toc={[
-        { value: "Typescript", id: "typescript", level: 2 },
+        // Links in the top-right corner of the page.
         { value: "Protobufs", id: "protobufs", level: 2 },
-        { value: "Rust", id: "rust", level: 2 },
+        // { value: "Typescript", id: "typescript", level: 2 },
+        // { value: "Rust", id: "rust", level: 2 },
       ]}
     >
       <article>
@@ -179,7 +125,7 @@ export default function ApiIndex({
           </section> */}
 
           {/* <h2 id="typescript">Typescript</h2> */}
-          <section id="typescript" className="tsd-panel">
+          {/* <section id="typescript" className="tsd-panel">
             <h3 id="packages" className="tsd-panel-header">
               NPM Packages
             </h3>
@@ -228,9 +174,9 @@ export default function ApiIndex({
                 ))}
               </ul>
             </div>
-          </section>
+          </section> */}
 
-          <section id="rust" className="tsd-panel">
+          {/* <section id="rust" className="tsd-panel">
             <h3 className="tsd-panel-header">Rust Crates</h3>
             <div className="tsd-panel-content">
               <ul className="tsd-index-list">
@@ -281,12 +227,12 @@ export default function ApiIndex({
                 </li>
               </ul>
             </div>
-          </section>
+          </section> */}
 
           {/* <h2 id="protobufs">Protobufs</h2> */}
           <section id="protobufs" className="tsd-panel">
             <h3 className="tsd-panel-header">
-              <Link href="/api/protos/Task">Task Types</Link>
+              <Link href="/protos/Task">Task Types</Link>
             </h3>
             <div className="tsd-panel-content">
               <ul className="tsd-index-list">
@@ -302,7 +248,7 @@ export default function ApiIndex({
                         href={"/api/" + task.permalink}
                         description={task.description}
                       /> */}
-                      <Link href={"/api/" + task.permalink}>{task.name}</Link>
+                      <Link href={"protos/" + task.permalink}>{task.name}</Link>
                     </li>
                   ))}
               </ul>

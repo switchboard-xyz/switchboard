@@ -18,19 +18,13 @@ running result.
 
 Represents a list of tasks to be performed by a Switchboard oracle.
 
-See the OracleJob typescript definition in
-[@switchboard-xyz/common](/api/common/class/OracleJob)
-
-| Name                                                                                                                          | Type                       | Description                                       |
-| ----------------------------------------------------------------------------------------------------------------------------- | -------------------------- | ------------------------------------------------- |
-| <i className={`codicon codicon-symbol-property`} style={{color: "var(--ifm-color-success)",fontSize: "1.25rem"}}/>&nbsp;tasks | [Task[]](/api/protos/Task) | The chain of tasks to perform for this OracleJob. |
+| Name                                                                                                                          | Type                   | Description                                       |
+| ----------------------------------------------------------------------------------------------------------------------------- | ---------------------- | ------------------------------------------------- |
+| <i className={`codicon codicon-symbol-property`} style={{color: "var(--ifm-color-success)",fontSize: "1.25rem"}}/>&nbsp;tasks | [Task[]](/protos/Task) | The chain of tasks to perform for this OracleJob. |
 
 ## <i className={`codicon codicon-symbol-method`} style={{ color: "var(--ifm-color-info)", fontSize: "1.5rem" }} /> Task
 
 Represents a singular operation performed by an oracle to yield an eventual
 numerical result.
 
-See a table of task types with examples: [OracleJob.Task](/api/protos/Task)
-
-See the Task typescript definition in
-[@switchboard-xyz/common](/api/common/interface/ITask)
+See a table of task types with examples: [OracleJob.Task](/protos/Task)
