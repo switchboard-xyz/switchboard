@@ -12,6 +12,10 @@ export interface ProtoPageProps extends Pick<DocItemProps, "route"> {}
 export default function ProtoPage({ route }: ProtoPageProps) {
   const id = (route as unknown as { id: string }).id;
   const message = useProto(id)!;
+  const showDescription = message?.name !== "Task";
+  const fields = message.fields.sort((a, b) =>
+    a.name.toLowerCase().localeCompare(b.name.toLowerCase())
+  );
 
   return (
     <ApiItemLayout
@@ -39,7 +43,7 @@ export default function ProtoPage({ route }: ProtoPageProps) {
 
         <h2>Fields</h2>
 
-        {message.fields.length === 0 ? (
+        {fields.length === 0 ? (
           <p>{message.name} has no fields.</p>
         ) : (
           <div id="fields">
@@ -48,11 +52,11 @@ export default function ProtoPage({ route }: ProtoPageProps) {
                 <tr>
                   <th>Name</th>
                   <th>Type</th>
-                  <th>Description</th>
+                  {showDescription && <th>Description</th>}
                 </tr>
               </thead>
               <tbody>
-                {message.fields.map((field, index) => (
+                {fields.map((field, index) => (
                   <tr key={index}>
                     <td>
                       <i
@@ -68,9 +72,11 @@ export default function ProtoPage({ route }: ProtoPageProps) {
                     <td>
                       <Markdown content={field.type} />
                     </td>
-                    <td>
-                      <Markdown content={field.description} />
-                    </td>
+                    {showDescription && (
+                      <td>
+                        <Markdown content={field.description} />
+                      </td>
+                    )}
                   </tr>
                 ))}
               </tbody>

@@ -1101,6 +1101,12 @@ _**Example**_: SecretsTask
 
   /// Represents a singular operation performed by an oracle to yield an eventual numerical result.
   message Task {
+    // Reserve obsolete task keys / field numbers.
+    reserved 27;
+    reserved "defi_kingdoms_task";
+    reserved 28;
+    reserved "tps_task";
+
     oneof Task {
       HttpTask http_task = 1;
       JsonParseTask json_parse_task = 2;
@@ -1127,7 +1133,6 @@ _**Example**_: SecretsTask
       PerpMarketTask perp_market_task = 24;
       OracleTask oracle_task = 25;
       AnchorFetchTask anchor_fetch_task = 26;
-      // reserved 27, 28;
       SplStakePoolTask spl_stake_pool_task = 29;
       SplTokenParseTask spl_token_parse_task = 30;
       UniswapExchangeRateTask uniswap_exchange_rate_task = 31;
