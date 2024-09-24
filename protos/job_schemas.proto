@@ -236,6 +236,8 @@ _**Example**_: Returns the value stored in a CacheTask variable
       string big = 3;
       /// A stringified hex number (0x prefix is optional).
       string hex = 4;
+      // A utf8 string.
+      string utf8 = 5;
     }
   }
 
@@ -716,6 +718,21 @@ _**Example**_: The Chainlink SOL/USD oracle price.
 ```
 */
   message OracleTask {
+    message ChainlinkConfigs {
+      optional string provider = 1;
+    }
+    message PythConfigs {
+      optional string hermes_url = 1;
+      optional double pyth_allowed_confidence_interval = 2;
+    }
+    message SwitchboardConfigs {
+      optional int32 version = 1;
+      repeated OracleJob jobs = 2;
+    }
+    message EdgeConfigs {
+    }
+    message RedstoneConfigs {
+    }
     oneof AggregatorAddress {
       /// Mainnet address of a Switchboard feed. Switchboard is decentralized and allows anyone to build their own feed.
       string switchboard_address = 1;
@@ -723,13 +740,21 @@ _**Example**_: The Chainlink SOL/USD oracle price.
       string pyth_address = 2;
       /// Mainnet address for a Chainlink feed. A full list can be found here: https://docs.chain.link/docs/solana/data-feeds-solana
       string chainlink_address = 3;
+      string edge_id = 7;
+      string redstone_id = 8;
     }
     /// Value (as a percentage) that the lower bound confidence interval is of the actual value.
     /// Confidence intervals that are larger that this treshold are rejected.
     ///
     /// The confidence interval should be provided as a raw percentage value. For example, to
     /// represent 10%, enter the value as 10, not 0.1.
-    optional double pyth_allowed_confidence_interval = 4;
+    optional double pyth_allowed_confidence_interval = 4; // Deprecated "pyth_allowed_confidence_interval"
+    optional ChainlinkConfigs chainlink_configs = 5;
+    optional PythConfigs pyth_configs = 6;
+    optional SwitchboardConfigs switchboard_configs = 9;
+    optional EdgeConfigs edge_configs = 10;
+    optional RedstoneConfigs redstone_configs = 11;
+
   }
 
   /// Load a parse an Anchor based solana account.
@@ -760,8 +785,10 @@ _**Example**_: The Chainlink SOL/USD oracle price.
   /// Fetch the swap price from UniSwap.
   message UniswapExchangeRateTask {
     enum Version {
-      VERSION_V2 = 0;
-      VERSION_V3 = 1;
+      VERSION_V2_DEPRECATED = 0;
+      VERSION_V3_DEPRECATED = 1;
+      VERSION_V2 = 2;
+      VERSION_V3 = 3;
     }
     /// The input token address.
     optional string in_token_address = 1;
@@ -775,6 +802,9 @@ _**Example**_: The Chainlink SOL/USD oracle price.
     optional string provider = 5;
     /// The version of the Uniswap exchange to use.
     optional Version version = 6;
+    optional string router_address = 7;
+    optional string factory_address = 8;
+    optional string quoter_address = 9;
   }
 
   /// Fetch the swap price from SushiSwap.
@@ -1092,11 +1122,18 @@ _**Example**_: SecretsTask
   message MeteoraSwapTask {
     enum Type {
       TYPE_DLMM = 0;
+      TYPE_STANDARD = 1;
     }
     /// The address of the pool.
     optional string pool = 1;
     /// The pool type.
     optional Type type = 2;
+  }
+
+  /// Get current time in seconds since Unix epoch.
+  message UnixTimeTask {
+    /// The offset to subtract from the current time.
+    optional int32 offset = 1;
   }
 
   /// Represents a singular operation performed by an oracle to yield an eventual numerical result.
@@ -1155,6 +1192,7 @@ _**Example**_: SecretsTask
       SanctumLstPriceTask sanctum_lst_price_task = 48;
       OndoUsdyTask ondo_usdy_task = 49;
       MeteoraSwapTask meteora_swap_task = 50;
+      UnixTimeTask unix_time_task = 51;
     }
   }
   /// The chain of tasks to perform for this OracleJob.
