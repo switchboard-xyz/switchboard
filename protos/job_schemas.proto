@@ -1143,17 +1143,17 @@ _**Input**_: None
 
 _**Returns**_: The requested price or value based on the specified method.
 
-_**Example**_: Fetch the USDC fair price from Maple Finance
+_**Example**_: Fetch the syrupUSDC fair price from Maple Finance
 
 ```json
-{ "mapleFinanceTask": { "method": "METHOD_USDC_FAIR_PRICE" } }
+{ "mapleFinanceTask": { "method": "METHOD_SYRUP_USDC_FAIR_PRICE" } }
 ```
 */
   message MapleFinanceTask {
     /// Specifies the method to use for fetching Maple Finance data.
     enum Method {
-      /// Fetch the fair price of USDC in the Maple Finance ecosystem.
-      METHOD_USDC_FAIR_PRICE = 0;
+      /// Fetch the fair price of syrupUSDC in the Maple Finance ecosystem.
+      METHOD_SYRUP_USDC_FAIR_PRICE = 0;
     }
     /// The specific method to use for this task.
     optional Method method = 1;
