@@ -1136,6 +1136,29 @@ _**Example**_: SecretsTask
     optional int32 offset = 1;
   }
 
+/*
+Fetch pricing information for Maple Finance assets.
+
+_**Input**_: None
+
+_**Returns**_: The requested price or value based on the specified method.
+
+_**Example**_: Fetch the USDC fair price from Maple Finance
+
+```json
+{ "mapleFinanceTask": { "method": "METHOD_USDC_FAIR_PRICE" } }
+```
+*/
+  message MapleFinanceTask {
+    /// Specifies the method to use for fetching Maple Finance data.
+    enum Method {
+      /// Fetch the fair price of USDC in the Maple Finance ecosystem.
+      METHOD_USDC_FAIR_PRICE = 0;
+    }
+    /// The specific method to use for this task.
+    optional Method method = 1;
+  }
+
   /// Represents a singular operation performed by an oracle to yield an eventual numerical result.
   message Task {
     // Reserve obsolete task keys / field numbers.
@@ -1193,6 +1216,7 @@ _**Example**_: SecretsTask
       OndoUsdyTask ondo_usdy_task = 49;
       MeteoraSwapTask meteora_swap_task = 50;
       UnixTimeTask unix_time_task = 51;
+      MapleFinanceTask maple_finance_task = 52;
     }
   }
   /// The chain of tasks to perform for this OracleJob.
