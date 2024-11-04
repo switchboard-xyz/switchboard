@@ -530,11 +530,51 @@ _**Example**_: Fetch the exchange rate from the Raydium SOL/USDC pool
   }
 
 
-  /// Find a pattern within a string of a previous task and extract a group number.
+/*
+Find and extract text using regular expressions from the previous task's output.
+
+_**Input**_: String output from previous task
+
+_**Returns**_: The matched string based on the regex pattern and group number
+
+_**Example**_: Extract the first number from a string
+
+```json
+{
+  "regexExtractTask": {
+    "pattern": "\\d+",
+    "groupNumber": 0
+  }
+}
+```
+
+_**Example**_: Extract text between quotes
+
+```json
+{
+  "regexExtractTask": {
+    "pattern": "\"([^\"]+)\"",
+    "groupNumber": 1
+  }
+}
+```
+
+_**Example**_: Extract the first JSON object from a stream
+
+```json
+{
+  "regexExtractTask": {
+    "pattern": "\\{[^}]+\\}"
+  }
+}
+```
+*/
   message RegexExtractTask {
-    /// Regex pattern to find.
+    /// The regular expression pattern to match against the input string.
+    /// Uses the fancy-regex Rust crate syntax.
     optional string pattern = 1;
-    /// Group number to extract.
+    /// The capture group number to extract (0 returns full match, 1+ returns respective capture group).
+    /// Defaults to 0 if not specified.
     optional int32 group_number = 2;
   }
 
@@ -1159,6 +1199,25 @@ _**Example**_: Fetch the syrupUSDC fair price from Maple Finance
     optional Method method = 1;
   }
 
+  message GlyphTask {
+    enum Version {
+      VERSION_NONE = 0;
+      VERSION_2 = 2;
+      VERSION_4 = 4;
+    }
+    optional string in_token = 1;
+    optional string out_token = 2;
+    optional double slippage = 3;
+    optional Version version = 4;
+  }
+
+  message CorexTask {
+    optional string in_token = 1;
+    optional string out_token = 2;
+    optional double slippage = 3;
+  }
+
+
   /// Represents a singular operation performed by an oracle to yield an eventual numerical result.
   message Task {
     // Reserve obsolete task keys / field numbers.
@@ -1217,6 +1276,8 @@ _**Example**_: Fetch the syrupUSDC fair price from Maple Finance
       MeteoraSwapTask meteora_swap_task = 50;
       UnixTimeTask unix_time_task = 51;
       MapleFinanceTask maple_finance_task = 52;
+      GlyphTask glyph_task = 53;
+      CorexTask corex_task = 54;
     }
   }
   /// The chain of tasks to perform for this OracleJob.
