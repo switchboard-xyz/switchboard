@@ -508,6 +508,10 @@ _**Example**_: Fetch the exchange rate from the Raydium SOL/USDC pool
 ```
 */
   message LpExchangeRateTask {
+    enum Chain {
+      SOLANA = 0;
+      ECLIPSE = 1;
+    }
     /// Used alongside mercurial_pool_address to specify the input token for a swap.
     optional string in_token_address = 1;
     /// Used alongside mercurial_pool_address to specify the output token for a swap.
@@ -527,6 +531,8 @@ _**Example**_: Fetch the exchange rate from the Raydium SOL/USDC pool
       /// The Port reserve pubkey. A full list can be found here: https://api-v1.port.finance/reserves
       string port_reserve_address = 8;
     }
+
+    optional Chain chain = 9;
   }
 
 
@@ -1331,6 +1337,67 @@ _**Example**_: Fetch the price using a custom RPC provider
     optional uint32 out_decimals = 4;
   }
 
+/*
+Fetches tETH/WETH redemption rate
+*/
+  message TurboEthRedemptionRateTask {
+    optional string provider = 1;
+  }
+
+/*
+Fetch the current swap price from a BitFlux pool.
+
+_**Input**_: None
+
+_**Returns**_: The swap price between the specified input and output tokens.
+
+_**Example**_: Fetch the swap price using a custom RPC provider
+
+```json
+{
+  "bitFluxTask": {
+    "provider": "https://my-custom-rpc.example.com",
+    "poolAddress": "0x0000000000000000000000000000000000000000",
+    "inToken": "0x0000000000000000000000000000000000000000",
+    "outToken": "0x0000000000000000000000000000000000000000"
+  }
+}
+```
+*/
+  message BitFluxTask {
+    /// Optional. The RPC endpoint to use for requests. If not specified, a default RPC will be used.
+    optional string provider = 1;
+    /// The address of the BitFlux pool.
+    optional string pool_address = 2;
+    /// The address of the input token.
+    optional string in_token = 3;
+    /// The address of the output token.
+    optional string out_token = 4;
+  }
+/*
+Fetch the current price for Fragmetric liquid restaking tokens.
+
+_**Input**_: None
+
+_**Returns**_: The current price of the specified Fragmetric token relative to SOL (1.0 = 1 SOL)
+
+_**Example**_: Fetch the fragSOL token price
+
+```json
+{ "fragmetricTask": { "token": "TOKEN_FRAG_SOL" } }
+```
+*/
+  message FragmetricTask {
+    enum Token {
+      /// Fragmetric's liquid restaking token (fragSOL)
+      TOKEN_FRAG_SOL = 0;
+      /// Fragmetric's native staking token (nSOL)
+      TOKEN_N_SOL = 1;
+    }
+    /// The Fragmetric token to fetch the price for
+    optional Token token = 1;
+  }
+
   /// Represents a singular operation performed by an oracle to yield an eventual numerical result.
   message Task {
     // Reserve obsolete task keys / field numbers.
@@ -1394,6 +1461,9 @@ _**Example**_: Fetch the price using a custom RPC provider
       LlmTask llm_task = 55;
       SolayerSusdTask solayer_susd_task = 56;
       CurveFinanceTask curve_finance_task = 57;
+      TurboEthRedemptionRateTask turbo_eth_redemption_rate_task = 58;
+      BitFluxTask bit_flux_task = 59;
+      FragmetricTask fragmetric_task = 60;
     }
   }
   /// The chain of tasks to perform for this OracleJob.
