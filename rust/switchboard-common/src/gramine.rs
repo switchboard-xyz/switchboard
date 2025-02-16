@@ -77,7 +77,7 @@ impl Gramine {
     // pub fn read_rand_unsafe(output: &mut [u8]) -> std::result::Result<(), SbError> {
     //     // https://is.gd/vlVLpC
     //     // https://github.com/rust-random/getrandom/blob/master/src/linux_android.rs#L17-L48
-    //     // Gramine direct documentation: https://tinyurl.com/2hfc8n6y
+    //     // Gramine direct documentation: https://github.com/gramineproject/gramine/blob/ede508c69217477c1cd6fdb3e7689da824ba4ea7/Documentation/devel/features.md#randomness
     //     let buf = output.as_mut_ptr() as *mut libc::c_void;
     //     let buflen: libc::ssize_t = output.len().try_into().unwrap();
     //     let res = unsafe { libc::syscall(libc::SYS_getrandom, buf, buflen, 0) as libc::ssize_t };
