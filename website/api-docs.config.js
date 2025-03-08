@@ -1,5 +1,3 @@
-const { normalizeUrl } = require("@docusaurus/utils");
-
 const packageSortPriority = new Map([
   ["@switchboard-xyz/common", 1],
   ["@switchboard-xyz/oracle", 2],

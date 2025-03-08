@@ -32,7 +32,7 @@
     "eslint-config-prettier": "^8.8.0",
     "eslint-plugin-prettier": "^4.2.1",
     "prettier": "^2.8.8",
-    "rimraf": "latest",
+    "rimraf": "^5.0.1",
     "shelljs": "latest",
     "shx": "latest",
     "ts-node": "^10.9.1",

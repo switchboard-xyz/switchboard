@@ -10,12 +10,6 @@ program
   .description('CLI to some JavaScript string utilities')
   .version('1.0.0');
 
-// sbv2-scripts cli ./cli/README.md ./website/docs/dev/cli
-program
-  .command('cli <cliReadmePath> <outputDirectory>')
-  .description('Generate markdown files from the CLI README.md')
-  .action(actions.cli);
-
 // sbv2-scripts near-types ../near/contract/src ../sbv2-near/javascript/near.js/src/generated
 program
   .command('near-types <nearSourceDir> <outputDirectory>')

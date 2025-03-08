@@ -1,7 +1,6 @@
 /* eslint-disable no-console, sort-keys */
 
 import { CURRENT_VERSION_NAME } from "./docs/constants";
-import { OclifGenerator } from "./modules/oclif";
 import { ProtobufGenerator } from "./modules/protobufs/generator";
 import { TypedocGenerator } from "./modules/typedoc";
 import {
@@ -44,7 +43,6 @@ import path from "path";
 
 type MyPluginContent = {
   typedocs: TypedocGenerator;
-  oclif: OclifGenerator;
   protos: ProtobufGenerator;
 };
 
@@ -123,75 +121,6 @@ export default function apiDocsPlugin(
   return {
     name: "docusaurus-plugin-api-docs",
 
-    extendCli(cli) {
-      const command = isDefaultPluginId
-        ? "api:version"
-        : `api:version:${pluginId}`;
-      const commandDescription = isDefaultPluginId
-        ? "Tag a new API version"
-        : `Tag a new API version (${pluginId})`;
-
-      cli
-        .command(command)
-        .arguments("<version>")
-        .description(commandDescription)
-        .action(async (version: unknown) => {
-          const outDir = path.join(versionsDocsDir, `version-${version}`);
-          const prefix = isDefaultPluginId ? "api" : pluginId;
-
-          console.log(`[${prefix}]:`, "Generating docs...");
-
-          await generateJson(
-            projectRoot,
-            entryPoints,
-            path.join(outDir, "api-typedoc.json"),
-            options
-          );
-
-          console.log(`[${prefix}]:`, "Persisting packages...");
-
-          // Load info from `package.json`s
-          packageConfigs.forEach((cfg) => {
-            const { packageJson } = loadPackageJsonAndDocs(
-              path.join(options.projectRoot, cfg.packagePath),
-              options.packageJsonName,
-              options.readmeName,
-              options.changelogName
-            );
-
-            // eslint-disable-next-line no-param-reassign
-            cfg.packageName = packageJson.name;
-            // eslint-disable-next-line no-param-reassign
-            cfg.packageVersion = packageJson.version;
-          });
-
-          await fs.promises.writeFile(
-            path.join(outDir, "api-packages.json"),
-            JSON.stringify(packageConfigs),
-            "utf8"
-          );
-
-          logger.info(`[${prefix}]: version ${version} created!`);
-
-          try {
-            const protos = await ProtobufGenerator.load(
-              generatorContext,
-              await versionsMetadata
-            );
-            await fs.promises.writeFile(
-              path.join(outDir, "protobuf-messages.json"),
-              JSON.stringify(protos.protobufs.tasks),
-              "utf8"
-            );
-            logger.info(`[${prefix}]: protobuf version ${version} created!`);
-          } catch (error) {
-            logger.warn(
-              `[${prefix}]: failed to create protobuf JSON for version ${version}`
-            );
-          }
-        });
-    },
-
     getPathsToWatch(): Array<string> {
       const pluginRoot = path.join(__dirname, "..");
 
@@ -217,17 +146,12 @@ export default function apiDocsPlugin(
         entryPoints
       );
 
-      const oclif = await OclifGenerator.load(
-        generatorContext,
-        await versionsMetadata
-      );
-
       const protos = await ProtobufGenerator.load(
         generatorContext,
         await versionsMetadata
       );
 
-      return { typedocs, oclif, protos };
+      return { typedocs, protos };
     },
 
     async contentLoaded({
@@ -285,11 +209,6 @@ export default function apiDocsPlugin(
           JSON.stringify(formatPackagesWithoutHostInfo(loadedVersion.packages))
         );
 
-        const commandsData = await actions.createData(
-          `commands-${version}.json`,
-          JSON.stringify(content.oclif.commands)
-        );
-
         const protosData = await actions.createData(
           `protobuf-messages-${version}.json`,
           JSON.stringify(
@@ -304,7 +223,6 @@ export default function apiDocsPlugin(
           versionMetadata,
           pluginOptions: pluginOptions,
           packages: packagesData,
-          commands: commandsData,
           protobufMessages: protosData,
         };
       }
@@ -341,12 +259,10 @@ export default function apiDocsPlugin(
       }
 
       const typedocSidebarItems = await content.typedocs.fetchSidebarItems();
-      const oclifSidebarItems = await content.oclif.fetchSidebarItems();
       const protobufSidebarItems = await content.protos.fetchSidebarItems();
 
       const sidebarItems = mergeObjects(
-        typedocSidebarItems,
-        oclifSidebarItems
+        typedocSidebarItems
         // protobufSidebarItems
       );
 
@@ -476,7 +392,6 @@ export default function apiDocsPlugin(
         await createPluginData(content.typedocs.loadedVersions);
 
       const typedocVersionsRoutes = await content.typedocs.fetchRoutes();
-      const oclifVersionsRoutes = await content.oclif.fetchRoutes();
       const protobufVersionsRoutes = await content.protos.fetchRoutes();
 
       const versionsMetadata = pluginData;
@@ -498,15 +413,6 @@ export default function apiDocsPlugin(
             return;
           }
 
-          const oclifRoutes =
-            oclifVersionsRoutes[loadedVersion.versionName] ?? [];
-          allRoutes.push(...oclifRoutes);
-          if (oclifRoutes.length === 0) {
-            logger.warn(
-              `No cli routes found for version ${loadedVersion.versionName}`
-            );
-          }
-
           const protobufRoutes =
             protobufVersionsRoutes[loadedVersion.versionName] ?? [];
           allRoutes.push(...protobufRoutes);
@@ -517,27 +423,19 @@ export default function apiDocsPlugin(
           }
 
           // Then get the pluginData paths to build the components
-          const {
-            versionMetadata,
-            pluginOptions,
-            packages,
-            commands,
-            protobufMessages,
-          } =
+          const { versionMetadata, pluginOptions, packages, protobufMessages } =
             loadedVersion.versionName in versionsMetadata
               ? versionsMetadata[loadedVersion.versionName]
               : {
                   versionMetadata: undefined,
                   pluginOptions: undefined,
                   packages: undefined,
-                  commands: undefined,
                   protobufMessages: undefined,
                 };
           if (
             !versionMetadata ||
             !pluginOptions ||
             !packages ||
-            !commands ||
             !protobufMessages
           ) {
             logger.warn(
@@ -590,7 +488,6 @@ export default function apiDocsPlugin(
             modules: {
               options: pluginOptions,
               packages,
-              commands,
               versionMetadata,
               protobufMessages,
             },

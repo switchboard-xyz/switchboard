@@ -9,12 +9,8 @@ export interface WeightedValue {
 }
 
 function comparator(a: Big, b: Big): number {
-  if (a.gt(b)) {
-    return 1;
-  }
-  if (a.lt(b)) {
-    return -1;
-  }
+  if (a.gt(b)) return 1;
+  if (a.lt(b)) return -1;
   return 0;
 }
 
@@ -119,55 +115,6 @@ export function safeMul(...n: Big[]): Big {
   for (const x of n) {
     result = result.mul(x);
   }
-
-  return result;
-}
-
-export function safeNthRoot(big: Big, nthRoot: number, decimals = 20): Big {
-  if (nthRoot <= 0) {
-    throw new Error(`cannot take the nth root of a negative number`);
-  }
-
-  const oldDp = Big.DP;
-  Big.DP = decimals;
-  const oldPrecision = Decimal.precision;
-  Decimal.set({ precision: decimals });
-
-  const decimal = toDecimal(big);
-  const frac = new Decimal(1).div(nthRoot);
-  const root: Decimal =
-    big.s === -1
-      ? decimal.abs().pow(frac).mul(new Decimal(big.s))
-      : decimal.pow(frac);
-
-  const result: Big = fromDecimal(root);
-
-  Decimal.set({ precision: oldPrecision });
-  Big.DP = oldDp;
-
-  return result;
-}
-
-export function safeSqrt(n: Big, decimals = 20): Big {
-  const oldDp = Big.DP;
-  Big.DP = decimals;
-  const result = n.sqrt();
-  Big.DP = oldDp;
-  return result;
-}
-
-export function safePow(n: Big, exp: number, decimals = 20): Big {
-  const oldDp = Big.DP;
-  Big.DP = decimals;
-
-  const oldPrecision = Decimal.precision;
-  Decimal.set({ precision: decimals });
-  const base = toDecimal(n);
-  const value = base.pow(exp);
-  const result = fromDecimal(value);
-
-  Decimal.set({ precision: oldPrecision });
-  Big.DP = oldDp;
 
   return result;
 }

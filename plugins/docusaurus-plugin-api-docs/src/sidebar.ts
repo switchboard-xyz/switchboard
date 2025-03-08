@@ -4,7 +4,6 @@ import { normalizeUrl } from "@docusaurus/utils";
 /** Map of category label to sort priority */
 export const SIDEBAR_PRIORITY: Map<string, number> = new Map([
   ["Overview", 1],
-  ["@switchboard-xyz/cli", 5],
   ["@switchboard-xyz/common", 10],
   ["@switchboard-xyz/oracle", 11],
 ]);

@@ -5,42 +5,42 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import path from "path";
-import fs from "fs-extra";
+import type { SidebarsUtils } from "./sidebars/utils";
+import { toDocNavigationLink, toNavigationLink } from "./sidebars/utils";
+import { CURRENT_VERSION_NAME } from "./constants";
+import { validateDocFrontMatter } from "./frontMatter";
+import { getFileLastUpdate } from "./lastUpdate";
+import { stripPathNumberPrefixes } from "./numberPrefix";
+import getSlug from "./slug";
+import type { DocFile } from "./types";
+
 import logger from "@docusaurus/logger";
+import type {
+  DocFrontMatter,
+  DocMetadata,
+  DocMetadataBase,
+  FileChange,
+  LastUpdateData,
+  LoadedVersion,
+  MetadataOptions,
+  PluginOptions,
+  PropNavigationLink,
+  VersionMetadata,
+} from "@docusaurus/plugin-content-docs";
+import type { LoadContext } from "@docusaurus/types";
 import {
   aliasedSitePath,
+  getContentPathList,
   getEditUrl,
   getFolderContainingFile,
-  getContentPathList,
+  Globby,
+  normalizeFrontMatterTags,
   normalizeUrl,
   parseMarkdownString,
   posixPath,
-  Globby,
-  normalizeFrontMatterTags,
 } from "@docusaurus/utils";
-
-import { getFileLastUpdate } from "./lastUpdate";
-import getSlug from "./slug";
-import { CURRENT_VERSION_NAME } from "./constants";
-import { stripPathNumberPrefixes } from "./numberPrefix";
-import { validateDocFrontMatter } from "./frontMatter";
-import { toDocNavigationLink, toNavigationLink } from "./sidebars/utils";
-import type {
-  MetadataOptions,
-  PluginOptions,
-  DocMetadataBase,
-  DocMetadata,
-  PropNavigationLink,
-  LastUpdateData,
-  VersionMetadata,
-  DocFrontMatter,
-  LoadedVersion,
-  FileChange,
-} from "@docusaurus/plugin-content-docs";
-import type { LoadContext } from "@docusaurus/types";
-import type { SidebarsUtils } from "./sidebars/utils";
-import type { DocFile } from "./types";
+import fs from "fs-extra";
+import path from "path";
 
 type LastUpdateOptions = Pick<
   PluginOptions,
@@ -435,10 +435,20 @@ export function getDocIds(doc: DocMetadataBase): [string, string] {
 export function createDocsByIdIndex<
   Doc extends { id: string; unversionedId: string }
 >(docs: Doc[]): { [docId: string]: Doc } {
-  return Object.fromEntries(
+  // Add logging to help debug which docs are being indexed
+  if (docs.length === 0) {
+    logger.warn("No documents found to index");
+  }
+
+  const result = Object.fromEntries(
     docs.flatMap((doc) => [
       [doc.unversionedId, doc],
       [doc.id, doc],
     ])
   );
+
+  // Log the number of indexed documents
+  logger.info(`Indexed ${Object.keys(result).length} document IDs`);
+
+  return result;
 }

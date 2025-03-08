@@ -1,4 +1,6 @@
 import bs58 from "bs58";
+import { Buffer } from "buffer";
+import { isValidCron } from "cron-validator";
 import _ from "lodash";
 
 const assertPositiveInteger = (int?: number): void => {
@@ -14,9 +16,7 @@ const assertPositiveInteger = (int?: number): void => {
  *
  * @returns utf-8 encoded string
  */
-export const buf2String = (
-  buf: Uint8Array | number[] | string | Buffer
-): string =>
+export const buf2String = (buf: Uint8Array | Buffer | number[]): string =>
   Buffer.from(buf)
     .toString("utf8")
     .replace(/\u0000/g, "")
@@ -97,42 +97,27 @@ export const isBase64 = (value: string, length?: number): boolean => {
 };
 
 /**
- * Attempt to parse a raw string into a valid secret
+ * Attempt to parse a string into a valid a buffer format.
  *
  * Accepted formats:
  *  - byte array "[1, 2, 3, ...]"
- *  - hex string "0x123..."
+ *  - hex string "0xabc123..."
  *  - base64 string "VGhpcyBpcyBhIHRlc3Qgc3RyaW5nLg=="
  *  - base58 string "12DsSDs23..."
  *
  * @returns the parsed string in Buffer format or undefined if no regex matches found
  */
-export const parseSecretString = (
-  _secretString: string
-): Buffer | undefined => {
-  const secretString = _secretString.trim();
-
-  if (isBytes(secretString)) {
-    return Buffer.from(new Uint8Array(JSON.parse(secretString)));
+export const decodeString = (data: string): Buffer | undefined => {
+  const trimmed = data.trim();
+  if (isBytes(trimmed)) {
+    return Buffer.from(new Uint8Array(JSON.parse(trimmed)));
+  } else if (isHex(trimmed)) {
+    return Buffer.from(trimmed.toLowerCase().replace(/^0x/, ""), "hex");
+  } else if (isBase58(trimmed)) {
+    return Buffer.from(bs58.decode(trimmed));
+  } else if (isBase64(trimmed)) {
+    return Buffer.from(trimmed, "base64");
   }
-
-  if (isHex(secretString)) {
-    return Buffer.from(
-      secretString.startsWith("0x") || secretString.startsWith("0X")
-        ? secretString.slice(2)
-        : secretString,
-      "hex"
-    );
-  }
-
-  if (isBase64(secretString)) {
-    return Buffer.from(secretString, "base64");
-  }
-
-  if (isBase58(secretString)) {
-    return Buffer.from(bs58.decode(secretString));
-  }
-
   return undefined;
 };
 
@@ -155,6 +140,34 @@ export function parseMrEnclave(hexString: string): Uint8Array {
   }
 
   return myUint8Array;
+}
+
+/**
+ * Validate a cron schedule and return a valid 6 element cron string which includes seconds
+ * @param cronSchedule - the cron string to validate
+ * @returns - a valid cron schedule with seconds included
+ * @throws {@link InvalidCronSchedule} if the cron schedule is not valid
+ */
+export function parseCronSchedule(cronSchedule: string): string {
+  if (!isValidCron(cronSchedule, { seconds: true })) {
+    throw new Error(
+      `invalid cron schedule, expected format: '* * * * * *', received: ${cronSchedule}`
+    );
+  }
+
+  const fields = cronSchedule.split(" ");
+  if (fields.length === 0) {
+    throw new Error(
+      `invalid cron schedule, expected format: '* * * * * *', received: ${cronSchedule}`
+    );
+  }
+
+  if (fields.length === 6) {
+    return cronSchedule;
+  }
+
+  fields.unshift(...Array(6 - fields.length).fill("0"));
+  return fields.join(" ");
 }
 
 export function parseRawMrEnclave(

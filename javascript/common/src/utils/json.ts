@@ -41,7 +41,7 @@ export function jsonReplacers(key: any, value: any): any {
 
   // name and metadata replacers
   if (key === "name" || key === "metadata") {
-    if (Array.isArray(value) || Buffer.isBuffer(value)) {
+    if (value instanceof Uint8Array || Buffer.isBuffer(value)) {
       return buf2String(value);
     }
   }

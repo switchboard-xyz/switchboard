@@ -6,6 +6,7 @@ import type {
   IChainConfig,
   IChainNetworkConfig,
   ISolanaConfig,
+  IStarknetConfig,
 } from "../networks/types.js";
 import { SWITCHBOARD_CHAINS } from "../networks/types.js";
 
@@ -55,13 +56,26 @@ export const getSupportedNetwork = (
     return (chainConfig as ISolanaConfig)[_network];
   }
 
-  if (_network !== "mainnet" && _network !== "testnet") {
+  if (chain === "starknet") {
+    const supported = new Set(["goerli", "sepolia", "mainnet"]);
+    if (supported.has(_network)) {
+      const starknetNetwork = _network as keyof IStarknetConfig;
+      return (chainConfig as IStarknetConfig)[starknetNetwork];
+    }
+    throw new Error(`UnsupportedNetwork: '${_network}'`);
+  }
+
+  if (
+    _network !== "mainnet" &&
+    _network !== "testnet" &&
+    _network !== "sepolia"
+  ) {
     throw new Error(
-      `UnsupportedNetwork: network needs to be 'mainnet' or 'testnet'`
+      `UnsupportedNetwork: network needs to be 'mainnet', 'sepolia', or 'testnet'`
     );
   }
 
-  return (chainConfig as IChainConfig)[_network];
+  return (chainConfig as IChainConfig)[_network]!;
 };
 
 /**

@@ -1,24 +1,22 @@
-import type { JSONOutput, TypeDocOptions } from "typedoc";
 import type {
+  LoadedVersion as DocsLoadedVersion,
   PropSidebarItem,
-  PropSidebarItemCategory,
   VersionBanner,
   VersionsOptions,
-  LoadedVersion as DocsLoadedVersion,
 } from "@docusaurus/plugin-content-docs";
 import type { RouteConfig } from "@docusaurus/types";
+import type { JSONOutput, TypeDocOptions } from "typedoc";
 
 export type { VersionBanner };
 
 export interface PluginRouteData {
   versionMetadata: string;
   pluginOptions: string;
-  commands: string;
   packages: string;
   protobufMessages: string;
 }
 
-export type GeneratorType = "docs" | "typedocs" | "oclif" | "protos";
+export type GeneratorType = "docs" | "typedocs" | "protos";
 
 export interface GeneratorContext {
   options: DocusaurusPluginTypeDocApiOptions;

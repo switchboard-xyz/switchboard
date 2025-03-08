@@ -1,3 +1,6 @@
+import { CURRENT_VERSION_NAME } from "../../docs/constants";
+import { flattenAndGroupPackages, generateJson } from "../../plugin/data";
+import { extractSidebar } from "../../plugin/sidebar";
 import {
   Generator,
   type GeneratorContext,
@@ -7,14 +10,12 @@ import {
   type ResolvedPackageConfig,
   type VersionMetadata,
 } from "../../types";
-import path from "path";
-import { normalizeUrl } from "@docusaurus/utils";
+import { getComponentPath, importFile } from "../../utils";
+
 import type { PropSidebarItem } from "@docusaurus/plugin-content-docs";
 import type { RouteConfig } from "@docusaurus/types";
-import { CURRENT_VERSION_NAME } from "../../docs/constants";
-import { flattenAndGroupPackages, generateJson } from "../../plugin/data";
-import { getComponentPath, importFile } from "../../utils";
-import { extractSidebar } from "../../plugin/sidebar";
+import { normalizeUrl } from "@docusaurus/utils";
+import path from "path";
 import type { JSONOutput } from "typedoc";
 
 export class TypedocGenerator extends Generator<LoadedVersion> {
@@ -59,18 +60,17 @@ export class TypedocGenerator extends Generator<LoadedVersion> {
 
           // Versioned data is stored in the file system
         } else {
-          const outDir = path.join(
-            context.versionsDocsDir,
-            `version-${metadata.versionName}`
-          );
-
-          packages = flattenAndGroupPackages(
-            await importFile(path.join(outDir, "api-packages.json")),
-            await importFile(path.join(outDir, "api-typedoc.json")),
-            metadata.versionPath,
-            context.options,
-            true
-          );
+          // const outDir = path.join(
+          //   context.versionsDocsDir,
+          //   `version-${metadata.versionName}`
+          // );
+          // packages = flattenAndGroupPackages(
+          //   await importFile(path.join(outDir, "api-packages.json")),
+          //   await importFile(path.join(outDir, "api-typedoc.json")),
+          //   metadata.versionPath,
+          //   context.options,
+          //   true
+          // );
         }
 
         packages.sort((a, d) => context.options.sortPackages!(a, d));

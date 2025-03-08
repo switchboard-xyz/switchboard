@@ -1,9 +1,9 @@
 import type { JestConfigWithTsJest } from "ts-jest";
 
 const jestConfig: JestConfigWithTsJest = {
-  coverageDirectory: "./tests/.coverage",
+  coverageDirectory: "./test/.coverage",
   collectCoverageFrom: ["src/**/*.ts"],
-  preset: "ts-jest/presets/default-esm",
+  preset: "ts-jest/presets/js-with-ts-esm",
   extensionsToTreatAsEsm: [".ts"],
   moduleNameMapper: {
     "^(\\.{1,2}/.*)\\.js$": "$1",

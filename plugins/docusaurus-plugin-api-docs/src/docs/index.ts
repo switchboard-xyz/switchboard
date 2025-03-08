@@ -1,12 +1,7 @@
 import { createSidebarsUtils } from "./sidebars/utils";
 import { getCategoryGeneratedIndexMetadataList } from "./categoryGeneratedIndex";
 import { VERSIONS_JSON_FILE } from "./constants";
-import {
-  addDocNavigation,
-  type DocEnv,
-  processDocMetadata,
-  readVersionDocs,
-} from "./docs";
+import { type DocEnv, processDocMetadata, readVersionDocs } from "./docs";
 import { toGlobalDataVersion } from "./globalData";
 import { toTagDocListProp } from "./props";
 import { createVersionRoutes } from "./routes";

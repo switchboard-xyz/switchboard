@@ -7,7 +7,6 @@ import DocPage, { type Props as DocPageProps } from "@theme/DocPage";
 import React, { useMemo } from "react";
 import type { JSONOutput } from "typedoc";
 
-import type { OclifCommandMap, ParsedCommand } from "../modules/oclif/types";
 import type {
   ParsedProtobufMessage,
   ProtoMessageMap,
@@ -71,16 +70,6 @@ function mapPackagesToReflection(
   return map;
 }
 
-function mapCommands(commands: ParsedCommand[]): OclifCommandMap {
-  const map: OclifCommandMap = {};
-
-  commands.filter(Boolean).forEach((c) => {
-    map[c.id] = c;
-  });
-
-  return map;
-}
-
 function mapProtos(tasks: ParsedProtobufMessage[]): ProtoMessageMap {
   const map: ProtoMessageMap = {};
 
@@ -94,7 +83,6 @@ function mapProtos(tasks: ParsedProtobufMessage[]): ProtoMessageMap {
 export interface ApiPageProps extends DocPageProps {
   options: ApiOptions;
   packages: PackageReflectionGroup[];
-  commands: ParsedCommand[];
   protobufMessages: ParsedProtobufMessage[];
 }
 
@@ -109,7 +97,6 @@ function ApiPage({
     () => ({
       options,
       reflections: mapPackagesToReflection(packages),
-      commands: mapCommands(commands),
       protobufs: mapProtos(protobufMessages),
     }),
     [options, packages, commands, protobufMessages]

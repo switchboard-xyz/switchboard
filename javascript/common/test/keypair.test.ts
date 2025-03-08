@@ -1,4 +1,4 @@
-import { isBase64, isBytes, isHex, parseSecretString } from "../src";
+import { decodeString, isBase64, isBytes, isHex } from "../src/index.js";
 
 import { expect } from "chai";
 
@@ -16,7 +16,7 @@ describe("Secret Parsing Tests", () => {
     it("it should parse a valid byteString", () => {
       expect(isBytes(byteString)).to.equal(true);
 
-      const secretBuffer = parseSecretString(byteString);
+      const secretBuffer = decodeString(byteString);
       if (secretBuffer === undefined) {
         throw new Error(`Failed to parse byte string`);
       }
@@ -28,7 +28,7 @@ describe("Secret Parsing Tests", () => {
     it("it should parse a valid byteString with a trailing newline", () => {
       const byteStringWithNewLine = byteString + "\n";
 
-      const secretBuffer = parseSecretString(byteStringWithNewLine);
+      const secretBuffer = decodeString(byteStringWithNewLine);
       if (secretBuffer === undefined) {
         throw new Error(`Failed to parse byte string`);
       }
@@ -46,7 +46,7 @@ describe("Secret Parsing Tests", () => {
     it("it should parse a valid hexString", () => {
       expect(isHex(hexString)).to.equal(true);
 
-      const secretBuffer = parseSecretString(hexString);
+      const secretBuffer = decodeString(hexString);
       if (secretBuffer === undefined) {
         throw new Error(`Failed to parse hex string`);
       }
@@ -58,7 +58,7 @@ describe("Secret Parsing Tests", () => {
     it("it should parse a valid hexString with a trailing newline", () => {
       const hexStringWithNewLine = hexString + "\n";
 
-      const secretBuffer = parseSecretString(hexStringWithNewLine);
+      const secretBuffer = decodeString(hexStringWithNewLine);
       if (secretBuffer === undefined) {
         throw new Error(`Failed to parse hex string`);
       }
@@ -71,7 +71,7 @@ describe("Secret Parsing Tests", () => {
     it("it should parse a valid base64String", () => {
       expect(isBase64(base64String)).to.equal(true);
 
-      const secretBuffer = parseSecretString(base64String);
+      const secretBuffer = decodeString(base64String);
       if (secretBuffer === undefined) {
         throw new Error(`Failed to parse base64 string`);
       }
@@ -83,7 +83,7 @@ describe("Secret Parsing Tests", () => {
     it("it should parse a valid base64String with a trailing newline", () => {
       const base64StringWithNewLine = base64String + "\n";
 
-      const secretBuffer = parseSecretString(base64StringWithNewLine);
+      const secretBuffer = decodeString(base64StringWithNewLine);
       if (secretBuffer === undefined) {
         throw new Error(`Failed to parse base64 string`);
       }

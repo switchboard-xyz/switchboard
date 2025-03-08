@@ -26,7 +26,7 @@
     <strong>Npm: </strong><a href="https://www.npmjs.com/package/@switchboard-xyz/common">npmjs.com/package/@switchboard-xyz/common</a>
   </h4>
   <h4>
-    <strong>Typedocs: </strong><a href="https://docs.switchboard.xyz/api/common">docs.switchboard.xyz/api/common</a>
+    <strong>Typedocs: </strong><a href="https://docs.switchboard.xyz/api/@switchboard-xyz/common">docs.switchboard.xyz/api/@switchboard-xyz/common</a>
   </h4>
 </div>
 

@@ -1,4 +1,4 @@
-import { OracleJob, parseMrEnclave } from "../src";
+import { OracleJob, parseMrEnclave } from "../src/index.js";
 
 import { assert, expect } from "chai";
 
