@@ -5,17 +5,16 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import {matchPath} from '@docusaurus/router';
-
 import type {
+  ActiveDocContext,
+  ActivePlugin,
+  DocVersionSuggestions,
+  GlobalDoc,
   GlobalPluginData,
   GlobalVersion,
-  GlobalDoc,
-  ActivePlugin,
-  ActiveDocContext,
-  DocVersionSuggestions,
-} from '@docusaurus/plugin-content-docs/client';
-import type {UseDataOptions} from '@docusaurus/types';
+} from "@docusaurus/plugin-content-docs/client";
+import { matchPath } from "@docusaurus/router";
+import type { UseDataOptions } from "@docusaurus/types";
 
 // This code is not part of the api surface, not in ./theme on purpose
 
@@ -23,9 +22,9 @@ import type {UseDataOptions} from '@docusaurus/types';
 // ie the docs of that plugin are currently browsed
 // it is useful to support multiple docs plugin instances
 export function getActivePlugin(
-  allPluginData: {[pluginId: string]: GlobalPluginData},
+  allPluginData: { [pluginId: string]: GlobalPluginData },
   pathname: string,
-  options: UseDataOptions = {},
+  options: UseDataOptions = {}
 ): ActivePlugin | undefined {
   const activeEntry = Object.entries(allPluginData)
     // Route sorting: '/android/foo' should match '/android' instead of '/'
@@ -36,20 +35,20 @@ export function getActivePlugin(
           path: pluginData.path,
           exact: false,
           strict: false,
-        }),
+        })
     );
 
   const activePlugin: ActivePlugin | undefined = activeEntry
-    ? {pluginId: activeEntry[0], pluginData: activeEntry[1]}
+    ? { pluginId: activeEntry[0], pluginData: activeEntry[1] }
     : undefined;
 
   if (!activePlugin && options.failfast) {
     throw new Error(
       `Can't find active docs plugin for "${pathname}" pathname, while it was expected to be found. Maybe you tried to use a docs feature that can only be used on a docs-related page? Existing docs plugin paths are: ${Object.values(
-        allPluginData,
+        allPluginData
       )
         .map((plugin) => plugin.path)
-        .join(', ')}`,
+        .join(", ")}`
     );
   }
 
@@ -61,7 +60,7 @@ export const getLatestVersion = (data: GlobalPluginData): GlobalVersion =>
 
 export function getActiveVersion(
   data: GlobalPluginData,
-  pathname: string,
+  pathname: string
 ): GlobalVersion | undefined {
   const lastVersion = getLatestVersion(data);
   // Last version is a route like /docs/*,
@@ -76,13 +75,13 @@ export function getActiveVersion(
         path: version.path,
         exact: false,
         strict: false,
-      }),
+      })
   );
 }
 
 export function getActiveDocContext(
   data: GlobalPluginData,
-  pathname: string,
+  pathname: string
 ): ActiveDocContext {
   const activeVersion = getActiveVersion(data, pathname);
   const activeDoc = activeVersion?.docs.find(
@@ -91,13 +90,13 @@ export function getActiveDocContext(
         path: doc.path,
         exact: true,
         strict: false,
-      }),
+      })
   );
 
   function getAlternateVersionDocs(
-    docId: string,
-  ): ActiveDocContext['alternateDocVersions'] {
-    const result: ActiveDocContext['alternateDocVersions'] = {};
+    docId: string
+  ): ActiveDocContext["alternateDocVersions"] {
+    const result: ActiveDocContext["alternateDocVersions"] = {};
     data.versions.forEach((version) => {
       version.docs.forEach((doc) => {
         if (doc.id === docId) {
@@ -121,11 +120,11 @@ export function getActiveDocContext(
 
 export function getDocVersionSuggestions(
   data: GlobalPluginData,
-  pathname: string,
+  pathname: string
 ): DocVersionSuggestions {
   const latestVersion = getLatestVersion(data);
   const activeDocContext = getActiveDocContext(data, pathname);
   const latestDocSuggestion: GlobalDoc | undefined =
     activeDocContext.alternateDocVersions[latestVersion.name];
-  return {latestDocSuggestion, latestVersionSuggestion: latestVersion};
+  return { latestDocSuggestion, latestVersionSuggestion: latestVersion };
 }

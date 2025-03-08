@@ -5,20 +5,20 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import {useLocation} from '@docusaurus/router';
+import {
+  getActiveDocContext,
+  getActivePlugin,
+  getActiveVersion,
+  getDocVersionSuggestions,
+  getLatestVersion,
+} from "./docsClientUtils";
+
+import { useLocation } from "@docusaurus/router";
+import type { UseDataOptions } from "@docusaurus/types";
 import {
   useAllPluginInstancesData,
   usePluginData,
-} from '@docusaurus/useGlobalData';
-
-import {
-  getActivePlugin,
-  getLatestVersion,
-  getActiveVersion,
-  getActiveDocContext,
-  getDocVersionSuggestions,
-} from './docsClientUtils';
-import type {UseDataOptions} from '@docusaurus/types';
+} from "@docusaurus/useGlobalData";
 
 export type ActivePlugin = {
   pluginId: string;
@@ -27,7 +27,7 @@ export type ActivePlugin = {
 export type ActiveDocContext = {
   activeVersion?: GlobalVersion;
   activeDoc?: GlobalDoc;
-  alternateDocVersions: {[versionName: string]: GlobalDoc};
+  alternateDocVersions: { [versionName: string]: GlobalDoc };
 };
 export type GlobalDoc = {
   /**
@@ -50,7 +50,7 @@ export type GlobalVersion = {
   docs: GlobalDoc[];
   /** Unversioned IDs. In development, this list is empty. */
   draftIds: string[];
-  sidebars?: {[sidebarId: string]: GlobalSidebar};
+  sidebars?: { [sidebarId: string]: GlobalSidebar };
 };
 
 export type GlobalSidebar = {
@@ -78,34 +78,34 @@ const StableEmptyObject = {};
 
 // In blog-only mode, docs hooks are still used by the theme. We need a fail-
 // safe fallback when the docs plugin is not in use
-export const useAllDocsData = (): {[pluginId: string]: GlobalPluginData} =>
-  (useAllPluginInstancesData('docusaurus-plugin-content-docs') as
+export const useAllDocsData = (): { [pluginId: string]: GlobalPluginData } =>
+  (useAllPluginInstancesData("docusaurus-plugin-content-docs") as
     | {
         [pluginId: string]: GlobalPluginData;
       }
     | undefined) ?? StableEmptyObject;
 
 export const useDocsData = (pluginId: string | undefined): GlobalPluginData =>
-  usePluginData('docusaurus-plugin-content-docs', pluginId, {
+  usePluginData("docusaurus-plugin-content-docs", pluginId, {
     failfast: true,
   }) as GlobalPluginData;
 
 // TODO this feature should be provided by docusaurus core
 export function useActivePlugin(
-  options: UseDataOptions = {},
+  options: UseDataOptions = {}
 ): ActivePlugin | undefined {
   const data = useAllDocsData();
-  const {pathname} = useLocation();
+  const { pathname } = useLocation();
   return getActivePlugin(data, pathname, options);
 }
 
 export function useActivePluginAndVersion(
-  options: UseDataOptions = {},
+  options: UseDataOptions = {}
 ):
-  | {activePlugin: ActivePlugin; activeVersion: GlobalVersion | undefined}
+  | { activePlugin: ActivePlugin; activeVersion: GlobalVersion | undefined }
   | undefined {
   const activePlugin = useActivePlugin(options);
-  const {pathname} = useLocation();
+  const { pathname } = useLocation();
   if (!activePlugin) {
     return undefined;
   }
@@ -132,27 +132,27 @@ export function useLatestVersion(pluginId: string | undefined): GlobalVersion {
  * currently considered as active.
  */
 export function useActiveVersion(
-  pluginId: string | undefined,
+  pluginId: string | undefined
 ): GlobalVersion | undefined {
   const data = useDocsData(pluginId);
-  const {pathname} = useLocation();
+  const { pathname } = useLocation();
   return getActiveVersion(data, pathname);
 }
 
 export function useActiveDocContext(
-  pluginId: string | undefined,
+  pluginId: string | undefined
 ): ActiveDocContext {
   const data = useDocsData(pluginId);
-  const {pathname} = useLocation();
+  const { pathname } = useLocation();
   return getActiveDocContext(data, pathname);
 }
 /**
  * Useful to say "hey, you are not on the latest docs version, please switch"
  */
 export function useDocVersionSuggestions(
-  pluginId: string | undefined,
+  pluginId: string | undefined
 ): DocVersionSuggestions {
   const data = useDocsData(pluginId);
-  const {pathname} = useLocation();
+  const { pathname } = useLocation();
   return getDocVersionSuggestions(data, pathname);
 }

@@ -5,20 +5,22 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import path from "path";
-import _ from "lodash";
-import logger from "@docusaurus/logger";
-import { addTrailingSlash } from "@docusaurus/utils";
 import { createDocsByIdIndex } from "../docs";
+import { toCategoryIndexMatcherParam } from "../utils";
+
 import type {
+  NormalizedSidebarItem,
+  NormalizedSidebarItemCategory,
+  SidebarItemCategoryLinkConfig,
   SidebarItemDoc,
   SidebarItemsGenerator,
   SidebarItemsGeneratorDoc,
-  NormalizedSidebarItemCategory,
-  NormalizedSidebarItem,
-  SidebarItemCategoryLinkConfig,
 } from "./types";
-import { toCategoryIndexMatcherParam } from "../utils";
+
+import logger from "@docusaurus/logger";
+import { addTrailingSlash } from "@docusaurus/utils";
+import _ from "lodash";
+import path from "path";
 
 const BreadcrumbSeparator = "/";
 

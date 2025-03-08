@@ -60,17 +60,17 @@ export class TypedocGenerator extends Generator<LoadedVersion> {
 
           // Versioned data is stored in the file system
         } else {
-          // const outDir = path.join(
-          //   context.versionsDocsDir,
-          //   `version-${metadata.versionName}`
-          // );
-          // packages = flattenAndGroupPackages(
-          //   await importFile(path.join(outDir, "api-packages.json")),
-          //   await importFile(path.join(outDir, "api-typedoc.json")),
-          //   metadata.versionPath,
-          //   context.options,
-          //   true
-          // );
+          const outDir = path.join(
+            context.versionsDocsDir,
+            `version-${metadata.versionName}`
+          );
+          packages = flattenAndGroupPackages(
+            [], // await importFile(path.join(outDir, "api-packages.json")),
+            {}, // await importFile(path.join(outDir, "api-typedoc.json")),
+            metadata.versionPath,
+            context.options,
+            true
+          );
         }
 
         packages.sort((a, d) => context.options.sortPackages!(a, d));

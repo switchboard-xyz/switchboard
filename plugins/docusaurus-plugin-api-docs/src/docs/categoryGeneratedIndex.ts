@@ -5,13 +5,14 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import {type SidebarsUtils, toNavigationLink} from './sidebars/utils';
-import {createDocsByIdIndex} from './docs';
+import type { SidebarItemCategoryWithGeneratedIndex } from "./sidebars/types";
+import { type SidebarsUtils, toNavigationLink } from "./sidebars/utils";
+import { createDocsByIdIndex } from "./docs";
+
 import type {
   CategoryGeneratedIndexMetadata,
   DocMetadataBase,
-} from '@docusaurus/plugin-content-docs';
-import type {SidebarItemCategoryWithGeneratedIndex} from './sidebars/types';
+} from "@docusaurus/plugin-content-docs";
 
 function getCategoryGeneratedIndexMetadata({
   category,
@@ -20,9 +21,9 @@ function getCategoryGeneratedIndexMetadata({
 }: {
   category: SidebarItemCategoryWithGeneratedIndex;
   sidebarsUtils: SidebarsUtils;
-  docsById: {[docId: string]: DocMetadataBase};
+  docsById: { [docId: string]: DocMetadataBase };
 }): CategoryGeneratedIndexMetadata {
-  const {sidebarName, previous, next} =
+  const { sidebarName, previous, next } =
     sidebarsUtils.getCategoryGeneratedIndexNavigation(category.link.permalink);
   return {
     title: category.link.title ?? category.label,
@@ -55,6 +56,6 @@ export function getCategoryGeneratedIndexMetadataList({
       category,
       sidebarsUtils,
       docsById,
-    }),
+    })
   );
 }

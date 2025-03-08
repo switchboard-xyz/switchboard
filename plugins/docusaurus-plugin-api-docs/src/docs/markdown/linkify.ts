@@ -5,14 +5,15 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import {replaceMarkdownLinks, getContentPathList} from '@docusaurus/utils';
-import type {DocsMarkdownOption} from '../types';
+import type { DocsMarkdownOption } from "../types";
+
+import { getContentPathList, replaceMarkdownLinks } from "@docusaurus/utils";
 
 function getVersion(filePath: string, options: DocsMarkdownOption) {
   const versionFound = options.versionsMetadata.find((version) =>
     getContentPathList(version).some((docsDirPath) =>
-      filePath.startsWith(docsDirPath),
-    ),
+      filePath.startsWith(docsDirPath)
+    )
   );
   // At this point, this should never happen, because the MDX loaders' paths are
   // literally using the version content paths; but if we allow sourcing content
@@ -20,7 +21,7 @@ function getVersion(filePath: string, options: DocsMarkdownOption) {
   // is there a compelling use-case?), this would actually be testable
   if (!versionFound) {
     throw new Error(
-      `Unexpected error: Markdown file at "${filePath}" does not belong to any docs version!`,
+      `Unexpected error: Markdown file at "${filePath}" does not belong to any docs version!`
     );
   }
   return versionFound;
@@ -29,11 +30,11 @@ function getVersion(filePath: string, options: DocsMarkdownOption) {
 export function linkify(
   fileString: string,
   filePath: string,
-  options: DocsMarkdownOption,
+  options: DocsMarkdownOption
 ): string {
-  const {siteDir, sourceToPermalink, onBrokenMarkdownLink} = options;
+  const { siteDir, sourceToPermalink, onBrokenMarkdownLink } = options;
 
-  const {newContent, brokenMarkdownLinks} = replaceMarkdownLinks({
+  const { newContent, brokenMarkdownLinks } = replaceMarkdownLinks({
     siteDir,
     fileString,
     filePath,

@@ -6,10 +6,10 @@
  */
 
 /** The name of the version that's actively worked on (e.g. `website/docs`) */
-export const CURRENT_VERSION_NAME = 'current';
+export const CURRENT_VERSION_NAME = "current";
 /** All doc versions are stored here by version names */
-export const VERSIONED_DOCS_DIR = 'versioned_docs';
+export const VERSIONED_DOCS_DIR = "versioned_docs";
 /** All doc versioned sidebars are stored here by version names */
-export const VERSIONED_SIDEBARS_DIR = 'versioned_sidebars';
+export const VERSIONED_SIDEBARS_DIR = "versioned_sidebars";
 /** The version names. Should 1-1 map to the content of versioned docs dir. */
-export const VERSIONS_JSON_FILE = 'versions.json';
+export const VERSIONS_JSON_FILE = "versions.json";

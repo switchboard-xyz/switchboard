@@ -3,17 +3,12 @@
 import { CURRENT_VERSION_NAME } from "./docs/constants";
 import { ProtobufGenerator } from "./modules/protobufs/generator";
 import { TypedocGenerator } from "./modules/typedoc";
-import {
-  formatPackagesWithoutHostInfo,
-  generateJson,
-  loadPackageJsonAndDocs,
-} from "./plugin/data";
+import { formatPackagesWithoutHostInfo } from "./plugin/data";
 import {
   getVersionedDocsDirPath,
   readVersionsMetadata,
 } from "./plugin/version";
 import { DEFAULT_OPTIONS } from "./const";
-import { postSidebarItems, preSidebarItems, sortPackages } from "./sidebar";
 import type {
   DocusaurusPluginTypeDocApiOptions,
   GeneratorContext,
@@ -36,7 +31,7 @@ import type {
   PluginContentLoadedActions,
   RouteConfig,
 } from "@docusaurus/types";
-import { DEFAULT_PLUGIN_ID, normalizeUrl } from "@docusaurus/utils";
+import { normalizeUrl } from "@docusaurus/utils";
 import fs from "fs";
 import _ from "lodash";
 import path from "path";
@@ -65,7 +60,6 @@ export default function apiDocsPlugin(
     ...localOptions,
   };
   const { changelogs, id: pluginId, projectRoot, readmes } = options;
-  const isDefaultPluginId = pluginId === DEFAULT_PLUGIN_ID;
   const versionsMetadata = readVersionsMetadata(context, options);
   const versionsDocsDir = getVersionedDocsDirPath(context.siteDir, pluginId);
 
@@ -268,7 +262,6 @@ export default function apiDocsPlugin(
 
       // sort sidebar items then add some hard coded links
       Object.keys(sidebarItems).forEach((version) => {
-        const sortedTypedocItems = sidebarItems[version].sort(sortPackages);
         const protoSidebarItems = protobufSidebarItems[version] ?? [];
         const versionSidebarItems: PropSidebarItem[] = [
           // {

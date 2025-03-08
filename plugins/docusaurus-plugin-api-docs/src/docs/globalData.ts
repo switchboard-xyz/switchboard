@@ -5,19 +5,20 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import _ from 'lodash';
-import {getMainDocId} from './docs';
-import type {FullVersion} from './types';
+import type { Sidebars } from "./sidebars/types";
+import { getMainDocId } from "./docs";
+import type { FullVersion } from "./types";
+
 import type {
   CategoryGeneratedIndexMetadata,
   DocMetadata,
-} from '@docusaurus/plugin-content-docs';
+} from "@docusaurus/plugin-content-docs";
 import type {
-  GlobalVersion,
-  GlobalSidebar,
   GlobalDoc,
-} from '@docusaurus/plugin-content-docs/client';
-import type {Sidebars} from './sidebars/types';
+  GlobalSidebar,
+  GlobalVersion,
+} from "@docusaurus/plugin-content-docs/client";
+import _ from "lodash";
 
 function toGlobalDataDoc(doc: DocMetadata): GlobalDoc {
   return {
@@ -28,7 +29,7 @@ function toGlobalDataDoc(doc: DocMetadata): GlobalDoc {
 }
 
 function toGlobalDataGeneratedIndex(
-  doc: CategoryGeneratedIndexMetadata,
+  doc: CategoryGeneratedIndexMetadata
 ): GlobalDoc {
   return {
     id: doc.slug,
@@ -39,8 +40,8 @@ function toGlobalDataGeneratedIndex(
 
 function toGlobalSidebars(
   sidebars: Sidebars,
-  version: FullVersion,
-): {[sidebarId: string]: GlobalSidebar} {
+  version: FullVersion
+): { [sidebarId: string]: GlobalSidebar } {
   return _.mapValues(sidebars, (sidebar, sidebarId) => {
     const firstLink = version.sidebarsUtils.getFirstLink(sidebarId);
     if (!firstLink) {
@@ -49,11 +50,11 @@ function toGlobalSidebars(
     return {
       link: {
         path:
-          firstLink.type === 'generated-index'
+          firstLink.type === "generated-index"
             ? firstLink.permalink
             : version.docs.find(
                 (doc) =>
-                  doc.id === firstLink.id || doc.unversionedId === firstLink.id,
+                  doc.id === firstLink.id || doc.unversionedId === firstLink.id
               )!.permalink,
         label: firstLink.label,
       },

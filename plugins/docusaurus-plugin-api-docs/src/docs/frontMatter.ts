@@ -5,17 +5,17 @@
  * LICENSE file in the root directory of this source tree.
  */
 
+import type { DocFrontMatter } from "@docusaurus/plugin-content-docs";
 import {
-  JoiFrontMatter as Joi, // Custom instance for front matter
-  URISchema,
   FrontMatterTagsSchema,
   FrontMatterTOCHeadingLevels,
+  JoiFrontMatter as Joi, // Custom instance for front matter
+  URISchema,
   validateFrontMatter,
-} from '@docusaurus/utils-validation';
-import type {DocFrontMatter} from '@docusaurus/plugin-content-docs';
+} from "@docusaurus/utils-validation";
 
 const FrontMatterLastUpdateErrorMessage =
-  '{{#label}} does not look like a valid front matter FileChange object. Please use a FileChange object (with an author and/or date).';
+  "{{#label}} does not look like a valid front matter FileChange object. Please use a FileChange object (with an author and/or date).";
 
 // NOTE: we don't add any default value on purpose here
 // We don't want default values to magically appear in doc metadata and props
@@ -24,13 +24,13 @@ const FrontMatterLastUpdateErrorMessage =
 const DocFrontMatterSchema = Joi.object<DocFrontMatter>({
   id: Joi.string(),
   // See https://github.com/facebook/docusaurus/issues/4591#issuecomment-822372398
-  title: Joi.string().allow(''),
+  title: Joi.string().allow(""),
   hide_title: Joi.boolean(),
   hide_table_of_contents: Joi.boolean(),
   keywords: Joi.array().items(Joi.string().required()),
   image: URISchema,
   // See https://github.com/facebook/docusaurus/issues/4591#issuecomment-822372398
-  description: Joi.string().allow(''),
+  description: Joi.string().allow(""),
   slug: Joi.string(),
   sidebar_label: Joi.string(),
   sidebar_position: Joi.number(),
@@ -39,7 +39,7 @@ const DocFrontMatterSchema = Joi.object<DocFrontMatter>({
   displayed_sidebar: Joi.string().allow(null),
   tags: FrontMatterTagsSchema,
   pagination_label: Joi.string(),
-  custom_edit_url: URISchema.allow('', null),
+  custom_edit_url: URISchema.allow("", null),
   parse_number_prefixes: Joi.boolean(),
   pagination_next: Joi.string().allow(null),
   pagination_prev: Joi.string().allow(null),
@@ -49,10 +49,10 @@ const DocFrontMatterSchema = Joi.object<DocFrontMatter>({
     author: Joi.string(),
     date: Joi.date().raw(),
   })
-    .or('author', 'date')
+    .or("author", "date")
     .messages({
-      'object.missing': FrontMatterLastUpdateErrorMessage,
-      'object.base': FrontMatterLastUpdateErrorMessage,
+      "object.missing": FrontMatterLastUpdateErrorMessage,
+      "object.base": FrontMatterLastUpdateErrorMessage,
     }),
 }).unknown();
 

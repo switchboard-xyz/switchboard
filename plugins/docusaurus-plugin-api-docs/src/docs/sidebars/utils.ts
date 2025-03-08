@@ -5,38 +5,39 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import _ from 'lodash';
-import {toMessageRelativeFilePath} from '@docusaurus/utils';
 import type {
-  Sidebars,
   Sidebar,
+  SidebarCategoriesShorthand,
   SidebarItem,
   SidebarItemCategory,
-  SidebarItemLink,
-  SidebarItemDoc,
-  SidebarItemType,
-  SidebarCategoriesShorthand,
-  SidebarItemConfig,
   SidebarItemCategoryWithGeneratedIndex,
+  SidebarItemConfig,
+  SidebarItemDoc,
+  SidebarItemLink,
+  SidebarItemType,
   SidebarNavigationItem,
-} from './types';
+  Sidebars,
+} from "./types";
+
 import type {
   DocMetadataBase,
   PropNavigationLink,
-} from '@docusaurus/plugin-content-docs';
+} from "@docusaurus/plugin-content-docs";
+import { toMessageRelativeFilePath } from "@docusaurus/utils";
+import _ from "lodash";
 
 export function isCategoriesShorthand(
-  item: SidebarItemConfig,
+  item: SidebarItemConfig
 ): item is SidebarCategoriesShorthand {
-  return typeof item === 'object' && !item.type;
+  return typeof item === "object" && !item.type;
 }
 
 export function transformSidebarItems(
   sidebar: Sidebar,
-  updateFn: (item: SidebarItem) => SidebarItem,
+  updateFn: (item: SidebarItem) => SidebarItem
 ): Sidebar {
   function transformRecursive(item: SidebarItem): SidebarItem {
-    if (item.type === 'category') {
+    if (item.type === "category") {
       return updateFn({
         ...item,
         items: item.items.map(transformRecursive),
@@ -54,7 +55,7 @@ export function transformSidebarItems(
  */
 function flattenSidebarItems(items: SidebarItem[]): SidebarItem[] {
   function flattenRecursive(item: SidebarItem): SidebarItem[] {
-    return item.type === 'category'
+    return item.type === "category"
       ? [item, ...item.items.flatMap(flattenRecursive)]
       : [item];
   }
@@ -63,35 +64,35 @@ function flattenSidebarItems(items: SidebarItem[]): SidebarItem[] {
 
 function collectSidebarItemsOfType<
   Type extends SidebarItemType,
-  Item extends SidebarItem & {type: SidebarItemType},
+  Item extends SidebarItem & { type: SidebarItemType }
 >(type: Type, sidebar: Sidebar): Item[] {
   return flattenSidebarItems(sidebar).filter(
-    (item) => item.type === type,
+    (item) => item.type === type
   ) as Item[];
 }
 
 export function collectSidebarDocItems(sidebar: Sidebar): SidebarItemDoc[] {
-  return collectSidebarItemsOfType('doc', sidebar);
+  return collectSidebarItemsOfType("doc", sidebar);
 }
 export function collectSidebarCategories(
-  sidebar: Sidebar,
+  sidebar: Sidebar
 ): SidebarItemCategory[] {
-  return collectSidebarItemsOfType('category', sidebar);
+  return collectSidebarItemsOfType("category", sidebar);
 }
 export function collectSidebarLinks(sidebar: Sidebar): SidebarItemLink[] {
-  return collectSidebarItemsOfType('link', sidebar);
+  return collectSidebarItemsOfType("link", sidebar);
 }
 export function collectSidebarRefs(sidebar: Sidebar): SidebarItemDoc[] {
-  return collectSidebarItemsOfType('ref', sidebar);
+  return collectSidebarItemsOfType("ref", sidebar);
 }
 
 // /!\ docId order matters for navigation!
 export function collectSidebarDocIds(sidebar: Sidebar): string[] {
   return flattenSidebarItems(sidebar).flatMap((item) => {
-    if (item.type === 'category') {
-      return item.link?.type === 'doc' ? [item.link.id] : [];
+    if (item.type === "category") {
+      return item.link?.type === "doc" ? [item.link.id] : [];
     }
-    if (item.type === 'doc') {
+    if (item.type === "doc") {
       return [item.id];
     }
     return [];
@@ -99,13 +100,13 @@ export function collectSidebarDocIds(sidebar: Sidebar): string[] {
 }
 
 export function collectSidebarNavigation(
-  sidebar: Sidebar,
+  sidebar: Sidebar
 ): SidebarNavigationItem[] {
   return flattenSidebarItems(sidebar).flatMap((item) => {
-    if (item.type === 'category' && item.link) {
+    if (item.type === "category" && item.link) {
       return [item as SidebarNavigationItem];
     }
-    if (item.type === 'doc') {
+    if (item.type === "doc") {
       return [item];
     }
     return [];
@@ -138,11 +139,11 @@ export type SidebarsUtils = {
   getDocNavigation: (
     unversionedId: string,
     versionedId: string,
-    displayedSidebar: string | null | undefined,
+    displayedSidebar: string | null | undefined
   ) => SidebarNavigation;
   getCategoryGeneratedIndexList: () => SidebarItemCategoryWithGeneratedIndex[];
   getCategoryGeneratedIndexNavigation: (
-    categoryGeneratedIndexPermalink: string,
+    categoryGeneratedIndexPermalink: string
   ) => SidebarNavigation;
   /**
    * This function may return undefined. This is usually a user mistake, because
@@ -151,12 +152,12 @@ export type SidebarsUtils = {
    */
   getFirstLink: (sidebarId: string) =>
     | {
-        type: 'doc';
+        type: "doc";
         id: string;
         label: string;
       }
     | {
-        type: 'generated-index';
+        type: "generated-index";
         permalink: string;
         label: string;
       }
@@ -172,8 +173,8 @@ export function createSidebarsUtils(sidebars: Sidebars): SidebarsUtils {
   // Reverse mapping
   const docIdToSidebarName = Object.fromEntries(
     Object.entries(sidebarNameToDocIds).flatMap(([sidebarName, docIds]) =>
-      docIds.map((docId) => [docId, sidebarName]),
-    ),
+      docIds.map((docId) => [docId, sidebarName])
+    )
   );
 
   function getFirstDocIdOfFirstSidebar(): string | undefined {
@@ -195,7 +196,7 @@ export function createSidebarsUtils(sidebars: Sidebars): SidebarsUtils {
   function getDocNavigation(
     unversionedId: string,
     versionedId: string,
-    displayedSidebar: string | null | undefined,
+    displayedSidebar: string | null | undefined
   ): SidebarNavigation {
     // TODO legacy id retro-compatibility!
     let docId = unversionedId;
@@ -214,20 +215,20 @@ export function createSidebarsUtils(sidebars: Sidebars): SidebarsUtils {
     const navigationItems = sidebarNameToNavigationItems[sidebarName];
     if (!navigationItems) {
       throw new Error(
-        `Doc with ID ${docId} wants to display sidebar ${sidebarName} but a sidebar with this name doesn't exist`,
+        `Doc with ID ${docId} wants to display sidebar ${sidebarName} but a sidebar with this name doesn't exist`
       );
     }
     const currentItemIndex = navigationItems.findIndex((item) => {
-      if (item.type === 'doc') {
+      if (item.type === "doc") {
         return item.id === docId;
       }
-      if (item.type === 'category' && item.link.type === 'doc') {
+      if (item.type === "category" && item.link.type === "doc") {
         return item.link.id === docId;
       }
       return false;
     });
     if (currentItemIndex === -1) {
-      return {sidebarName, next: undefined, previous: undefined};
+      return { sidebarName, next: undefined, previous: undefined };
     }
 
     return {
@@ -241,7 +242,7 @@ export function createSidebarsUtils(sidebars: Sidebars): SidebarsUtils {
     return Object.values(sidebarNameToNavigationItems)
       .flat()
       .flatMap((item) => {
-        if (item.type === 'category' && item.link.type === 'generated-index') {
+        if (item.type === "category" && item.link.type === "generated-index") {
           return [item as SidebarItemCategoryWithGeneratedIndex];
         }
         return [];
@@ -253,25 +254,25 @@ export function createSidebarsUtils(sidebars: Sidebars): SidebarsUtils {
    * unique). More reliable than using object identity
    */
   function getCategoryGeneratedIndexNavigation(
-    categoryGeneratedIndexPermalink: string,
+    categoryGeneratedIndexPermalink: string
   ): SidebarNavigation {
     function isCurrentCategoryGeneratedIndexItem(
-      item: SidebarNavigationItem,
+      item: SidebarNavigationItem
     ): boolean {
       return (
-        item.type === 'category' &&
-        item.link.type === 'generated-index' &&
+        item.type === "category" &&
+        item.link.type === "generated-index" &&
         item.link.permalink === categoryGeneratedIndexPermalink
       );
     }
 
     const sidebarName = Object.entries(sidebarNameToNavigationItems).find(
       ([, navigationItems]) =>
-        navigationItems.find(isCurrentCategoryGeneratedIndexItem),
+        navigationItems.find(isCurrentCategoryGeneratedIndexItem)
     )![0];
     const navigationItems = sidebarNameToNavigationItems[sidebarName]!;
     const currentItemIndex = navigationItems.findIndex(
-      isCurrentCategoryGeneratedIndexItem,
+      isCurrentCategoryGeneratedIndexItem
     );
     return {
       sidebarName,
@@ -286,46 +287,46 @@ export function createSidebarsUtils(sidebars: Sidebars): SidebarsUtils {
     if (invalidSidebarDocIds.length > 0) {
       throw new Error(
         `Invalid sidebar file at "${toMessageRelativeFilePath(
-          sidebarFilePath,
+          sidebarFilePath
         )}".
 These sidebar document ids do not exist:
-- ${invalidSidebarDocIds.sort().join('\n- ')}
+- ${invalidSidebarDocIds.sort().join("\n- ")}
 
 Available document ids are:
-- ${_.uniq(validDocIds).sort().join('\n- ')}`,
+- ${_.uniq(validDocIds).sort().join("\n- ")}`
       );
     }
   }
 
   function getFirstLink(sidebar: Sidebar):
     | {
-        type: 'doc';
+        type: "doc";
         id: string;
         label: string;
       }
     | {
-        type: 'generated-index';
+        type: "generated-index";
         permalink: string;
         label: string;
       }
     | undefined {
     for (const item of sidebar) {
-      if (item.type === 'doc') {
+      if (item.type === "doc") {
         return {
-          type: 'doc',
+          type: "doc",
           id: item.id,
           label: item.label ?? item.id,
         };
-      } else if (item.type === 'category') {
-        if (item.link?.type === 'doc') {
+      } else if (item.type === "category") {
+        if (item.link?.type === "doc") {
           return {
-            type: 'doc',
+            type: "doc",
             id: item.link.id,
             label: item.label,
           };
-        } else if (item.link?.type === 'generated-index') {
+        } else if (item.link?.type === "generated-index") {
           return {
-            type: 'generated-index',
+            type: "generated-index",
             permalink: item.link.permalink,
             label: item.label,
           };
@@ -360,18 +361,18 @@ export function toDocNavigationLink(doc: DocMetadataBase): PropNavigationLink {
       sidebar_label: sidebarLabel,
     },
   } = doc;
-  return {title: paginationLabel ?? sidebarLabel ?? title, permalink};
+  return { title: paginationLabel ?? sidebarLabel ?? title, permalink };
 }
 
 export function toNavigationLink(
   navigationItem: SidebarNavigationItem | undefined,
-  docsById: {[docId: string]: DocMetadataBase},
+  docsById: { [docId: string]: DocMetadataBase }
 ): PropNavigationLink | undefined {
   function getDocById(docId: string) {
     const doc = docsById[docId];
     if (!doc) {
       throw new Error(
-        `Can't create navigation link: no doc found with id=${docId}`,
+        `Can't create navigation link: no doc found with id=${docId}`
       );
     }
     return doc;
@@ -381,8 +382,8 @@ export function toNavigationLink(
     return undefined;
   }
 
-  if (navigationItem.type === 'category') {
-    return navigationItem.link.type === 'doc'
+  if (navigationItem.type === "category") {
+    return navigationItem.link.type === "doc"
       ? toDocNavigationLink(getDocById(navigationItem.link.id))
       : {
           title: navigationItem.label,
