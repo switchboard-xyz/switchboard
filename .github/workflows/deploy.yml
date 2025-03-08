@@ -9,7 +9,6 @@ on:
         website/**,
         .github/workflows/**,
         cli/**,
-        sdks/**,
         javascript/common/**,
         javascript/sbv2-scripts/**,
       ]
@@ -21,8 +20,6 @@ jobs:
     steps:
       - name: Checkout repository and submodules
         uses: actions/checkout@v3
-        with:
-          submodules: recursive
 
       # Need this to build the protobuf definitions for the doc pages
       - name: Install Protoc
