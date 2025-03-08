@@ -1215,12 +1215,19 @@ _**Example**_: Fetch the syrupUSDC fair price from Maple Finance
   message GlyphTask {
     optional string pool_address = 1;
     optional bool zero_for_one = 2;
-  }
+  } 
 
   message CorexTask {
     optional string in_token = 1;
     optional string out_token = 2;
     optional double slippage = 3;
+  }
+
+  message AftermathTask {
+    optional string pool_address = 1;
+    optional double in_amount = 2;
+    optional string in_coin_type = 3;
+    optional string out_coin_type = 4;
   }
 
 /*
@@ -1398,6 +1405,54 @@ _**Example**_: Fetch the fragSOL token price
     optional Token token = 1;
   }
 
+  message EtherfuseTask {
+    enum Token {
+      TOKEN_CETES   = 0;
+      TOKEN_USTRY   = 1;
+      TOKEN_EUROB   = 2;
+      TOKEN_TESOURO = 3;
+      TOKEN_GILTS   = 4;
+    }
+    optional Token token = 1;
+  }
+
+/*
+Query historical yield data for a given Liquid Staking Token (LST)
+and perform a statistical reduction operation over the dataset.
+
+_**Input**_: LST mint address, reduction operation type, and number of epochs to sample.
+
+_**Returns**_: The computed yield value based on the specified operation.
+
+_**Example**_: Compute the median APY for an LST over the last 100 epochs
+
+```json
+{
+  "lstHistoricalYieldTask": {
+    "lstMint": "J1toso1uCk3RLmjorhTtrVwY9HJ7X8V9yYac6Y7kGCPn",
+    "operation": "OPERATION_MEDIAN",
+    "epochs": 100
+  }
+}
+*/
+  message LstHistoricalYieldTask {
+    enum Operation {
+      OPERATION_MEDIAN = 0;
+      OPERATION_MEAN = 1;
+      OPERATION_MIN = 2;
+      OPERATION_MAX = 3;
+    }
+
+    /// Required. The LST mint address for which historical yield data is queried.
+    optional string lst_mint = 1;
+    /// Required. The statistical operation to apply to the historical yield dataset.
+    optional Operation operation = 2;
+    /// Optional. The number of epochs to sample for the computation.
+    /// - If `epochs = 0`, all available historical data will be used.
+    /// - If `epochs > 0`, only the last `epochs` entries will be included.
+    optional int32 epochs = 3;
+  }
+
   /// Represents a singular operation performed by an oracle to yield an eventual numerical result.
   message Task {
     // Reserve obsolete task keys / field numbers.
@@ -1405,6 +1460,8 @@ _**Example**_: Fetch the fragSOL token price
     reserved "defi_kingdoms_task";
     reserved 28;
     reserved "tps_task";
+    reserved 62;
+    reserved "hop_swap_task";
 
     oneof Task {
       HttpTask http_task = 1;
@@ -1464,9 +1521,16 @@ _**Example**_: Fetch the fragSOL token price
       TurboEthRedemptionRateTask turbo_eth_redemption_rate_task = 58;
       BitFluxTask bit_flux_task = 59;
       FragmetricTask fragmetric_task = 60;
+      AftermathTask aftermath_task = 61;
+      EtherfuseTask etherfuse_task = 63;
+      LstHistoricalYieldTask lst_historical_yield_task = 64;
     }
   }
   /// The chain of tasks to perform for this OracleJob.
   repeated Task tasks = 1;
 
+  /// The weight to assign to this job's result when aggregating multiple job results. A higher
+  /// weight means this job's result will have more influence on the final aggregated value. This
+  /// value must be greater than or equal to 0.
+  optional uint32 weight = 2 [default = 1];
 }
