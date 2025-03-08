@@ -1,7 +1,8 @@
-import path from "path";
-import { dirExists } from "./utils";
 import { Sdk } from "./sdk";
-import { SupportedChain } from "@site/src/components/Networks/types";
+import { dirExists } from "./utils";
+
+import type { SupportedChain } from "@site/src/components/Networks/types";
+import path from "path";
 
 const IS_DEVELOPMENT: boolean = true;
 
@@ -12,14 +13,7 @@ function sdkPath(chain: string): string {
 }
 
 const evmChains: Array<SupportedChain> = ["coredao", "arbitrum"];
-const chains: Array<SupportedChain> = [
-  "solana",
-  "arbitrum",
-  "aptos",
-  "sui",
-  "near",
-  "coredao",
-];
+const chains: Array<SupportedChain> = [];
 
 async function main() {
   const networks = (await import("@switchboard-xyz/common/networks"))

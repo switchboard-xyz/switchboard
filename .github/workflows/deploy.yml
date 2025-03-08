@@ -17,8 +17,10 @@ jobs:
     name: Deploy to GitHub Pages
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout repository and submodules
+      - name: Checkout repository
         uses: actions/checkout@v3
+        with:
+          submodules: false
 
       # Need this to build the protobuf definitions for the doc pages
       - name: Install Protoc
