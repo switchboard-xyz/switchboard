@@ -8,7 +8,6 @@ on:
       [
         website/**,
         .github/workflows/**,
-        cli/**,
         javascript/common/**,
         javascript/sbv2-scripts/**,
       ]
