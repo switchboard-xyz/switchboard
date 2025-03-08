@@ -1,7 +1,7 @@
 {
   "$schema": "https://turbo.build/schema.json",
   "globalDependencies": ["**/.env.*local"],
-  "pipeline": {
+  "tasks": {
     "lint": { "inputs": ["src/**/*.tsx", "src/**/*.ts"] },
     "fix": {
       "inputs": ["src/**/*.tsx", "src/**/*.ts"]
