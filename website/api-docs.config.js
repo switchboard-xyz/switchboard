@@ -38,12 +38,6 @@ const config = {
         },
       },
     },
-    "javascript/oracle",
-    "sdks/aptos/javascript/aptos.js",
-    "sdks/evm/javascript/evm.js",
-    "sdks/near/javascript/near.js",
-    "sdks/solana/javascript/solana.js",
-    "sdks/sui/javascript/sui.js",
   ],
   apiIndexMarkdown: "api/index.mdx",
 };
