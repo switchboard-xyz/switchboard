@@ -19,9 +19,9 @@ const getVersions = () => {
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
-  title: "Switchboard",
-  tagline: "Community curated lightspeed data feeds on-chain",
-  favicon: "img/favicon.ico",
+  title: "Switchboard | Proto Docs",
+  tagline: "The Everything Oracle",
+  favicon: "img/sb.svg",
 
   // Set the production url of your site here
   url:
@@ -139,8 +139,8 @@ const config = {
         title: "Switchboard",
         logo: {
           alt: "Switchboard Logo",
-          src: "img/logo.svg",
-          srcDark: "img/logo_white.svg",
+          src: "img/sb.svg",
+          srcDark: "img/sb.svg",
           width: 72,
           height: 72,
         },
@@ -162,16 +162,12 @@ const config = {
             "aria-label": "GitHub repository",
           },
           {
-            href: "https://twitter.com/switchboardxyz",
+            href: "https://x.com/switchboardxyz",
             position: "right",
             className: "navbar_icon__twitter",
-            "aria-label": "Twitter Link",
+            "aria-label": "X Link",
           },
         ],
-      },
-      footer: {
-        style: "dark",
-        links: [],
       },
       prism: {
         theme: lightCodeTheme,
