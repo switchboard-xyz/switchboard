@@ -1,4 +1,4 @@
 packages:
   - "javascript/*"
+  - "plugins/*"
   - "website"
-  - "plugins/docusaurus-plugin-api-docs"

@@ -9,19 +9,14 @@
     "declarationDir": "lib",
     "outDir": "lib",
     "rootDir": "src",
-    "lib": [
-      "esnext",
-      "dom"
-    ],
+    "lib": ["esnext", "dom"],
     "jsx": "react",
     "types": [
       "node",
       "@docusaurus/module-type-aliases",
       "@docusaurus/theme-classic"
-    ],
+    ]
   },
-  "include": [
-    "src/**/*",
-  ],
+  "include": ["src/**/*"],
   "references": []
 }

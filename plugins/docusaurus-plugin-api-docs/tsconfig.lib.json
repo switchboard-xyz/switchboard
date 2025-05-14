@@ -7,17 +7,10 @@
     "emitDeclarationOnly": true,
     "esModuleInterop": true,
     "resolveJsonModule": true,
-    "lib": [
-      "esnext",
-      "dom"
-    ],
+    "lib": ["esnext", "dom"],
     "jsx": "react"
   },
-  "exclude": [
-    "tests"
-  ],
-  "include": [
-    "src/**/*",
-  ],
+  "exclude": ["tests"],
+  "include": ["src/**/*"],
   "references": []
 }
