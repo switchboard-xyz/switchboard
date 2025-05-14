@@ -10,9 +10,5 @@
     "resolveJsonModule": true,
     "jsx": "react-jsx"
   },
-  "references": [
-    {
-      "path": "../plugins/docusaurus-plugin-api-docs"
-    }
-  ]
+  "references": [{ "path": "../plugins/docusaurus-plugin-api-docs" }]
 }

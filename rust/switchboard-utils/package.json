@@ -1,8 +1,0 @@
-{
-  "name": "switchboard-utils",
-  "scripts": {
-    "cargo:build": "cargo build",
-    "fix": "cargo fmt",
-    "test": "cargo test"
-  }
-}
