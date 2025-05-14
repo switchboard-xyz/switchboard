@@ -1,9 +1,9 @@
-import { SwitchboardDecimal } from "../SwitchboardDecimal.js";
+import { SwitchboardDecimal } from '../SwitchboardDecimal.js';
 
-import { buf2String } from "./string.js";
+import { buf2String } from './string.js';
 
-import { Big } from "big.js";
-import BN from "bn.js";
+import { Big } from 'big.js';
+import BN from 'bn.js';
 
 function big2NumberOrString(big: Big): number | string {
   const oldStrict = Big.strict;
@@ -12,7 +12,7 @@ function big2NumberOrString(big: Big): number | string {
     const num = big.toNumber();
     Big.strict = oldStrict;
     return num;
-  } catch {}
+  } catch {} // eslint-disable-line no-empty
   Big.strict = oldStrict;
   return big.toString();
 }
@@ -20,17 +20,18 @@ function big2NumberOrString(big: Big): number | string {
 /**
  * Utility function for JSON.stringify to convert common types
  */
-export function jsonReplacers(key: any, value: any): any {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export function jsonReplacers(key: string, value: any): any {
   if (
-    typeof value === "string" ||
-    typeof value === "number" ||
-    typeof value === "boolean"
+    typeof value === 'string' ||
+    typeof value === 'number' ||
+    typeof value === 'boolean'
   ) {
     return value;
   }
 
   // bigint
-  if (typeof value === "bigint") {
+  if (typeof value === 'bigint') {
     return value.toString();
   }
 
@@ -40,8 +41,8 @@ export function jsonReplacers(key: any, value: any): any {
   }
 
   // name and metadata replacers
-  if (key === "name" || key === "metadata") {
-    if (Array.isArray(value) || Buffer.isBuffer(value)) {
+  if (key === 'name' || key === 'metadata') {
+    if (value instanceof Uint8Array || Buffer.isBuffer(value)) {
       return buf2String(value);
     }
   }
@@ -50,9 +51,9 @@ export function jsonReplacers(key: any, value: any): any {
   if (
     value instanceof SwitchboardDecimal ||
     (value &&
-      typeof value === "object" &&
-      "mantissa" in value &&
-      "scale" in value)
+      typeof value === 'object' &&
+      'mantissa' in value &&
+      'scale' in value)
   ) {
     const swbDecimal = new SwitchboardDecimal(value.mantissa, value.scale);
     return big2NumberOrString(swbDecimal.toBig());
@@ -64,12 +65,12 @@ export function jsonReplacers(key: any, value: any): any {
   }
 
   // pubkey
-  if ("toBase58" in value && typeof value.toBase58 === "function") {
+  if ('toBase58' in value && typeof value.toBase58 === 'function') {
     return value.toBase58();
   }
 
   // toString
-  if ("toString" in value && typeof value.toString === "function") {
+  if ('toString' in value && typeof value.toString === 'function') {
     return value.toString();
   }
 

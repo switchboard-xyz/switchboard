@@ -777,6 +777,7 @@ _**Example**_: The Chainlink SOL/USD oracle price.
     message PythConfigs {
       optional string hermes_url = 1;
       optional double pyth_allowed_confidence_interval = 2;
+      optional int32 max_stale_seconds = 3;
     }
     message SwitchboardConfigs {
       optional int32 version = 1;
@@ -1154,6 +1155,9 @@ _**Example**_: SecretsTask
     ///
     /// e.g. INF - 5oVNBeEEQvYi1cX3ir8Dx5n1P7pdxydbGF2X4TxVusJm
     optional string lst_mint = 1;
+
+    /// Allow the check to see if the LST was cranked for the current epoch to be skipped.
+    optional bool skip_epoch_check = 2;
   }
 
   /// OndoUsdyTask represents a task that computes the price of USDY relative to USD using a
@@ -1215,7 +1219,7 @@ _**Example**_: Fetch the syrupUSDC fair price from Maple Finance
   message GlyphTask {
     optional string pool_address = 1;
     optional bool zero_for_one = 2;
-  } 
+  }
 
   message CorexTask {
     optional string in_token = 1;
@@ -1453,6 +1457,130 @@ _**Example**_: Compute the median APY for an LST over the last 100 epochs
     optional int32 epochs = 3;
   }
 
+  /*
+  Execute a swap task in the Pump AMM based on the given parameters.
+
+  _**Input**_: Pool address, input token amount, max allowed slippage, and swap direction.
+
+  _**Returns**_: Executes the swap operation in the Pump AMM with the given parameters.
+
+  _**Example**_: Swap 10 tokens from X to Y with a maximum slippage of 0.5%
+
+  ```json
+  {
+    "pumpAmmTask": {
+      "pool_address": "Gf7sXMoP8iRw4iiXmJ1nq4vxcRycbGXy5RL8a8LnTd3v",
+      "in_amount": "10",
+      "max_slippage": 0.5,
+      "is_x_for_y": true
+    }
+  }
+  */
+  message PumpAmmTask {
+    /// Required. The address of the liquidity pool in the Pump AMM.
+    optional string pool_address = 1;
+
+    /// Optional. The input token amount for the swap.
+    /// - This value should in full units of the input token.
+    /// - Default value: `1` (Swap 1 full token).
+    optional double in_amount = 2;
+
+    /// Optional. The maximum allowed slippage for the swap, expressed as a percentage.
+    /// - Example: `0.5` represents 0.5% slippage tolerance.
+    /// - Default value: `3` (3% slippage tolerance).
+    optional double max_slippage = 3;
+
+    /// Optional. Indicates the swap direction:
+    /// - `true`: Swapping token X for token Y.
+    /// - `false`: Swapping token Y for token X.
+    /// - Default value: `true`.
+    optional bool is_x_for_y = 4;
+  }
+
+
+  /*
+   * Derive the fair LP token price for a given Pump AMM liquidity pool.
+   *
+   * _**Input**_: Pool address, X token price job, Y token price job.
+   * _**Returns**_: The fair LP token price for the given Pump AMM liquidity pool.
+   * _**Example**_: Derive the fair LP token price for a given Pump AMM liquidity pool.
+   * ```json
+   {
+     "pumpAmmLpTokenPriceTask": {
+       "pool_address": "Gf7sXMoP8iRw4iiXmJ1nq4vxcRycbGXy5RL8a8LnTd3v", // USDC/SOL
+       "x_price_job": {
+         "oracleTask": {
+           "switchboardAddress": "..." // USDC/USD
+         }
+       },
+       "y_price_job": {
+         "oracleTask": {
+           "switchboardAddress": "..." // SOL/USD
+         }
+       }
+     }
+   }
+  */
+  message PumpAmmLpTokenPriceTask {
+    /// Required. The address of the liquidity pool in the Pump AMM.
+    optional string pool_address = 1;
+    /// Required. The job to execute to fetch the price of the pool x token
+    optional OracleJob x_price_job = 2;
+    /// Required. The job to execute
+    optional OracleJob y_price_job = 3;
+  }
+
+  /*
+   * Get the exchange rate between and Exponent vault pricipal token and
+   * underlying token.
+   * _**Input**_: Vault address
+   * _**Returns**_: The exchange rate between the vault principal token and
+   * underlying token.
+   * _**Example**_: Get the exchange rate between the vault principal token and
+   * underlying token.
+   * ```json
+   {
+     "exponentTask": {
+       "vault": "9YbaicMsXrtupkpD72pdWBfU6R7EJfSByw75sEpDM1uH"
+     }
+   }
+   */
+  message ExponentTask {
+    optional string vault = 1;
+  }
+
+  message ExponentPTLinearPricingTask {
+    optional string vault = 1;
+    optional double start_price = 2;
+  }
+
+  /*
+   * Apply Solana Token 2022 extension modifiers to a feed.
+   * _**Input**_: Token address and extension type.
+   * _**Returns**_: The value associated with the token2022 extension.
+   */
+  message SolanaToken2022ExtensionTask {
+    enum Token2022Extension {
+      TOKEN_2022_SCALED_AMOUNT_FACTOR = 0;
+    }
+    optional string mint = 1;
+    optional Token2022Extension extension = 2;
+  }
+
+  /*
+   * Mega-charged Switchboard feeds with direct streams to top exchanges
+   */
+  message SurgeTask {
+    enum Source {
+      BINANCE = 0;
+      BYBIT = 1;
+      OKX = 2;
+      COINBASE = 3;
+    }
+    optional Source source = 1;
+    optional string symbol = 2;
+  }
+
   /// Represents a singular operation performed by an oracle to yield an eventual numerical result.
   message Task {
     // Reserve obsolete task keys / field numbers.
@@ -1524,6 +1652,11 @@ _**Example**_: Compute the median APY for an LST over the last 100 epochs
       AftermathTask aftermath_task = 61;
       EtherfuseTask etherfuse_task = 63;
       LstHistoricalYieldTask lst_historical_yield_task = 64;
+      PumpAmmTask pump_amm_task = 65;
+      PumpAmmLpTokenPriceTask pump_amm_lp_token_price_task = 66;
+      ExponentTask exponent_task = 67;
+      ExponentPTLinearPricingTask exponent_pt_linear_pricing_task = 68;
+      SolanaToken2022ExtensionTask solana_token_2022_extension_task = 69;
     }
   }
   /// The chain of tasks to perform for this OracleJob.

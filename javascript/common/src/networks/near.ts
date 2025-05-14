@@ -1,18 +1,18 @@
-import type { IChainConfig, IChainNetworkConfig } from "./types.js";
+import type { IChainConfig, IChainNetworkConfig } from './types.js';
 
 export const SWITCHBOARD_NEAR_MAINNET_CONFIG: IChainNetworkConfig = {
-  chain: "near",
-  networkName: "Mainnet",
-  address: "switchboard-v2.near",
+  chain: 'near',
+  networkName: 'Mainnet',
+  address: 'switchboard-v2.near',
   metadata: {
-    defaultRpcUrl: "https://rpc.mainnet.near.org",
-    defaultExplorer: "https://explorer.near.org",
+    defaultRpcUrl: 'https://rpc.mainnet.near.org',
+    defaultExplorer: 'https://explorer.near.org',
   },
   queues: [
     {
-      name: "Permissionless Queue",
-      address: "Ztup1aJ8WTe81RZHx7nUP9zxUMrDe9r2TyTCzRzpRoY",
-      crankAddress: "HeS3xrDqHA2CSHTmN9osstz8vbXfgh2mmcGixJ1v9NFx",
+      name: 'Permissionless Queue',
+      address: 'Ztup1aJ8WTe81RZHx7nUP9zxUMrDe9r2TyTCzRzpRoY',
+      crankAddress: 'HeS3xrDqHA2CSHTmN9osstz8vbXfgh2mmcGixJ1v9NFx',
       permissioned: false,
     },
   ],
@@ -20,18 +20,18 @@ export const SWITCHBOARD_NEAR_MAINNET_CONFIG: IChainNetworkConfig = {
 };
 
 export const SWITCHBOARD_NEAR_TESTNET_CONFIG: IChainNetworkConfig = {
-  chain: "near",
-  networkName: "Testnet",
-  address: "switchboard-v2.testnet",
+  chain: 'near',
+  networkName: 'Testnet',
+  address: 'switchboard-v2.testnet',
   metadata: {
-    defaultRpcUrl: "https://rpc.testnet.near.org",
-    defaultExplorer: "https://explorer.testnet.near.org",
+    defaultRpcUrl: 'https://rpc.testnet.near.org',
+    defaultExplorer: 'https://explorer.testnet.near.org',
   },
   queues: [
     {
-      name: "Permissionless Queue",
-      address: "HFSJrvA1w2uhciLGLUfE4sADGwGBpUiAjxZPgeFSs61M",
-      crankAddress: "9Vzzu1Z74oPLctxwjRHwkKSd5H32AiQe32iMesuQwKnQ",
+      name: 'Permissionless Queue',
+      address: 'HFSJrvA1w2uhciLGLUfE4sADGwGBpUiAjxZPgeFSs61M',
+      crankAddress: '9Vzzu1Z74oPLctxwjRHwkKSd5H32AiQe32iMesuQwKnQ',
       permissioned: false,
     },
   ],

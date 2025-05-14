@@ -3,7 +3,7 @@ import { Button, Typography } from "@mui/material";
 import Layout from "@theme/Layout";
 import React from "react";
 
-import { ChainComponent, ProductGuidesGrid } from "../components";
+import { ProductGuidesGrid } from "../components";
 import styles from "./old-home.module.css";
 
 export default function Home(): JSX.Element {
@@ -65,16 +65,6 @@ export default function Home(): JSX.Element {
               Get Started
             </Button>
           </a>
-          <h3
-            className="landing_page"
-            style={{
-              marginBottom: "8px",
-              marginTop: "24px",
-            }}
-          >
-            Quick Start Guides by Network
-          </h3>
-          <ChainComponent hideTitle />
         </div>
         <ProductGuidesGrid />
       </div>

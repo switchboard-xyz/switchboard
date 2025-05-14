@@ -6,7 +6,7 @@ import {
   type VersionMetadata,
 } from "../../types";
 import path from "path";
-import { convertToCommands, readCliCommands } from "./utils";
+import { convertToCommands } from "./utils";
 import logger from "@docusaurus/logger";
 import { normalizeUrl } from "@docusaurus/utils";
 import type { PropSidebarItem } from "@docusaurus/plugin-content-docs";
@@ -28,13 +28,8 @@ export class OclifGenerator extends Generator<CliVersionMetadata> {
     context: GeneratorContext,
     versionsMetadata: VersionMetadata[]
   ): Promise<OclifGenerator> {
-    const allCommands: ParsedCommand[] = readCliCommands(
-      context.projectRoot
-    ).filter(Boolean);
+    const allCommands: ParsedCommand[] = [];
     logger.warn(`Found ${allCommands.length} OCLIF CLI commands`);
-    if (allCommands.length === 0) {
-      throw new Error(`Failed to find any commands`);
-    }
 
     const oclifGenerator = new OclifGenerator(
       context,

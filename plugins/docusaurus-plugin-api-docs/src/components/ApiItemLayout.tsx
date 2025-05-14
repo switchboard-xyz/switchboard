@@ -15,7 +15,6 @@ import TOC from "@theme/TOC";
 import TOCCollapsible from "@theme/TOCCollapsible";
 import { useBreadcrumbs } from "../hooks/useBreadcrumbs";
 import type { TOCItem } from "../types";
-import { Footer } from "./Footer";
 import { VersionBanner } from "./VersionBanner";
 
 export interface ApiItemLayoutProps extends Pick<DocItemProps, "route"> {
@@ -77,8 +76,6 @@ export default function ApiItemLayout({
 
                 <MDXContent>{children}</MDXContent>
               </div>
-
-              <Footer />
             </article>
 
             {pagingMetadata && <DocPaginator {...pagingMetadata} />}

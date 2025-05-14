@@ -1,6 +1,7 @@
 {
   "include": [
-    "src/**/*"
+    "src/**/*",
+    "types"
   ],
   "exclude": [
     "test/**/*",
@@ -12,43 +13,38 @@
     "src/index.ts"
   ],
   "compilerOptions": {
+    "target": "es2019",
     "module": "ESNext",
-    "outDir": "lib",
-    "rootDir": "./src",
-    "target": "es2022",
+    "moduleResolution": "bundler",
     "lib": [
       "ES2021",
-      "ES2022.Object",
       "DOM"
     ],
-    "moduleResolution": "nodenext",
+    "outDir": "lib",
+    "rootDir": "./src",
+    "types": [],
+    "skipLibCheck": true,
+    "strict": true,
     "composite": true,
-    "inlineSources": true,
-    "inlineSourceMap": true,
     "declaration": true,
     "declarationMap": true,
-    "allowSyntheticDefaultImports": true,
-    "experimentalDecorators": true,
-    "emitDecoratorMetadata": true,
+    "noImplicitAny": true,
     "esModuleInterop": true,
-    "resolveJsonModule": true,
-    "skipLibCheck": true,
-    "types": [
-      "node",
-      "chai",
-      "jest"
-    ],
-    "allowJs": true,
-    "checkJs": false,
-    "strict": true,
-    "noImplicitAny": true
+    "resolveJsonModule": true
   },
   "typedocOptions": {
     "entryPoints": [
       "src/index.ts",
       "src/esm-utils.ts",
       "src/protos.ts",
-      "src/networks/index.ts"
+      "src/networks/index.ts",
+      "src/secrets.ts",
+      "src/utils/async.ts",
+      "src/utils/axios.ts",
+      "src/utils/big.ts",
+      "src/utils/non-empty-array.ts",
+      "src/utils/number.ts",
+      "src/utils/oracle-job.ts"
     ]
   }
 }

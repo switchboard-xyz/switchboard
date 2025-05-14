@@ -64,11 +64,10 @@ git submodule update --remote sdks/solana
 
 ## Packages
 
-| **Lang** | **Name**                                                                                                                                                                                    | **Description**                                                                     |
-| -------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------- |
-| JS       | [@switchboard-xyz/cli](/cli/) <br />[[npmjs](https://www.npmjs.com/package/@switchboard-xyz/cli), [Typedocs](https://docs.switchboard.xyz/dev/cli)]                                         | Command line interface to interact with Switchboard                                 |
+| **Lang** | **Name**                                                                                                                                                                   | **Description**                                                                     |
+| -------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------- |
+| JS       | [@switchboard-xyz/cli](/cli/) <br />[[npmjs](https://www.npmjs.com/package/@switchboard-xyz/cli), [Typedocs](https://docs.switchboard.xyz/dev/cli)]                        | Command line interface to interact with Switchboard                                 |
 | JS       | [@switchboard-xyz/common](/javascript/common/) <br />[[npmjs](https://www.npmjs.com/package/@switchboard-xyz/common), [Typedocs](https://docs.switchboard.xyz/api/common)] | Contains the OracleJob protobufs and other types and utilities shared across chains |
-| JS       | [@switchboard-xyz/oracle](/javascript/oracle/) <br />[[npmjs](https://www.npmjs.com/package/@switchboard-xyz/oracle), [Typedocs](https://https://docs.switchboard.xyz/api/oracle)] | A Typescript wrapper for the Switchboard V2 oracle                                  |
 
 ## Troubleshooting
 

@@ -4,15 +4,7 @@ on:
   workflow_dispatch:
   push:
     branches: [main, docs]
-    paths:
-      [
-        website/**,
-        .github/workflows/**,
-        cli/**,
-        sdks/**,
-        javascript/common/**,
-        javascript/sbv2-scripts/**,
-      ]
+    paths: [website/**, .github/workflows/**, javascript/common/**]
 
 jobs:
   deploy:
@@ -62,11 +54,8 @@ jobs:
         run: |
           npm i -g typescript ts-node tsx @types/node turbo
 
-      - name: Install sbv2-core Dependencies
+      - name: Install Dependencies
         run: pnpm install --frozen-lockfile
-
-      - name: Build sbv2-core
-        run: pnpm build
 
       - name: Generate Protobuf JSON
         working-directory: website
