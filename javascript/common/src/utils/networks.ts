@@ -1,13 +1,14 @@
-import SWITCHBOARD_NETWORKS from "../networks/index.js";
-import { isSupportedChain } from "../networks/index.js";
+import SWITCHBOARD_NETWORKS from '../networks/index.js';
+import { isSupportedChain } from '../networks/index.js';
 import type {
   ChainConfig,
   ChainType,
   IChainConfig,
   IChainNetworkConfig,
   ISolanaConfig,
-} from "../networks/types.js";
-import { SWITCHBOARD_CHAINS } from "../networks/types.js";
+  IStarknetConfig,
+} from '../networks/types.js';
+import { SWITCHBOARD_CHAINS } from '../networks/types.js';
 
 /**
  * Type assertion for whether the given chain is supported. Throws an error if Switchboard is not deployed on the target chain.
@@ -46,22 +47,35 @@ export const getSupportedNetwork = (
   const chain: ChainType = validateSupportedChain(_chain);
   const chainConfig: ChainConfig = SWITCHBOARD_NETWORKS[chain];
 
-  if (chain === "solana") {
-    if (_network !== "mainnet" && _network !== "devnet") {
+  if (chain === 'solana') {
+    if (_network !== 'mainnet' && _network !== 'devnet') {
       throw new Error(
-        `UnsupportedNetwork: network needs to be 'mainnet' or 'devnet'`
+        "UnsupportedNetwork: network needs to be 'mainnet' or 'devnet'"
       );
     }
     return (chainConfig as ISolanaConfig)[_network];
   }
 
-  if (_network !== "mainnet" && _network !== "testnet") {
+  if (chain === 'starknet') {
+    const supported = new Set(['goerli', 'sepolia', 'mainnet']);
+    if (supported.has(_network)) {
+      const starknetNetwork = _network as keyof IStarknetConfig;
+      return (chainConfig as IStarknetConfig)[starknetNetwork];
+    }
+    throw new Error(`UnsupportedNetwork: '${_network}'`);
+  }
+
+  if (
+    _network !== 'mainnet' &&
+    _network !== 'testnet' &&
+    _network !== 'sepolia'
+  ) {
     throw new Error(
-      `UnsupportedNetwork: network needs to be 'mainnet' or 'testnet'`
+      "UnsupportedNetwork: network needs to be 'mainnet', 'sepolia', or 'testnet'"
     );
   }
 
-  return (chainConfig as IChainConfig)[_network];
+  return (chainConfig as IChainConfig)[_network]!;
 };
 
 /**
@@ -79,10 +93,8 @@ export const isSwitchboardLabsQueue = (
   try {
     const networkConfig = getSupportedNetwork(_chain, _network);
     for (const queue of networkConfig.queues) {
-      if (queue.address === _queue) {
-        return true;
-      }
+      if (queue.address === _queue) return true;
     }
-  } catch {}
+  } catch {} // eslint-disable-line no-empty
   return false;
 };

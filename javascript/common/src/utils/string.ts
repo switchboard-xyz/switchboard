@@ -1,9 +1,9 @@
-import bs58 from "bs58";
-import _ from "lodash";
+import bs58 from 'bs58';
+import { Buffer } from 'buffer';
 
 const assertPositiveInteger = (int?: number): void => {
-  if (int && (!_.isInteger(int) || int < 0)) {
-    throw new Error("parameter expects a positive integer.");
+  if (int && (!Number.isInteger(int) || int < 0)) {
+    throw new Error('parameter expects a positive integer.');
   }
 };
 
@@ -14,13 +14,11 @@ const assertPositiveInteger = (int?: number): void => {
  *
  * @returns utf-8 encoded string
  */
-export const buf2String = (
-  buf: Uint8Array | number[] | string | Buffer
-): string =>
-  Buffer.from(buf)
-    .toString("utf8")
-    .replace(/\u0000/g, "")
-    .replace(/\0/g, "");
+export const buf2String = (buf: Uint8Array | Buffer | number[]): string =>
+  (Buffer.isBuffer(buf) ? buf : Buffer.from(buf))
+    .toString('utf8')
+    .split('\0')
+    .join('');
 
 /**
  * Converts to utf-8 encoding and removes null characters.
@@ -48,7 +46,7 @@ export const isBase58 = (value: string): boolean =>
 export const isBytes = (value: string, length?: number): boolean => {
   assertPositiveInteger(length);
 
-  const lengthPattern = length ? `{${length},}` : "*";
+  const lengthPattern = length ? `{${length},}` : '*';
   const bytesRegexPattern = new RegExp(
     `^\\[\\s*(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)((\\s*,\\s*(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?))${lengthPattern})?\\s*\\]$`
   );
@@ -74,7 +72,7 @@ export const isHex = (value: string, length?: number): boolean => {
 
   const hexRegexPattern = length
     ? new RegExp(`^(0x|0X)?[a-fA-F0-9]{${length ?? 64}}`)
-    : new RegExp(`^(0x|0X)?[a-fA-F0-9]+$`);
+    : new RegExp('^(0x|0X)?[a-fA-F0-9]+$');
   return hexRegexPattern.test(value);
 };
 
@@ -91,48 +89,33 @@ export const isBase64 = (value: string, length?: number): boolean => {
         `^([A-Za-z0-9+/]{4})*([A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=|[A-Za-z0-9+/]{4}){${length},}$`
       )
     : new RegExp(
-        `^([A-Za-z0-9+/]{4})*([A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=|[A-Za-z0-9+/]{4})$`
+        '^([A-Za-z0-9+/]{4})*([A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=|[A-Za-z0-9+/]{4})$'
       );
   return base64RegexPattern.test(value);
 };
 
 /**
- * Attempt to parse a raw string into a valid secret
+ * Attempt to parse a string into a valid a buffer format.
  *
  * Accepted formats:
  *  - byte array "[1, 2, 3, ...]"
- *  - hex string "0x123..."
+ *  - hex string "0xabc123..."
  *  - base64 string "VGhpcyBpcyBhIHRlc3Qgc3RyaW5nLg=="
  *  - base58 string "12DsSDs23..."
  *
  * @returns the parsed string in Buffer format or undefined if no regex matches found
  */
-export const parseSecretString = (
-  _secretString: string
-): Buffer | undefined => {
-  const secretString = _secretString.trim();
-
-  if (isBytes(secretString)) {
-    return Buffer.from(new Uint8Array(JSON.parse(secretString)));
+export const decodeString = (data: string): Buffer | undefined => {
+  const trimmed = data.trim();
+  if (isBytes(trimmed)) {
+    return Buffer.from(new Uint8Array(JSON.parse(trimmed)));
+  } else if (isHex(trimmed)) {
+    return Buffer.from(trimmed.toLowerCase().replace(/^0x/, ''), 'hex');
+  } else if (isBase58(trimmed)) {
+    return Buffer.from(bs58.decode(trimmed));
+  } else if (isBase64(trimmed)) {
+    return Buffer.from(trimmed, 'base64');
   }
-
-  if (isHex(secretString)) {
-    return Buffer.from(
-      secretString.startsWith("0x") || secretString.startsWith("0X")
-        ? secretString.slice(2)
-        : secretString,
-      "hex"
-    );
-  }
-
-  if (isBase64(secretString)) {
-    return Buffer.from(secretString, "base64");
-  }
-
-  if (isBase58(secretString)) {
-    return Buffer.from(bs58.decode(secretString));
-  }
-
   return undefined;
 };
 
@@ -141,16 +124,16 @@ export type RawBuffer = string | Buffer | Uint8Array | number[];
 export function parseMrEnclave(hexString: string): Uint8Array {
   if (!isHex(hexString, 64)) {
     throw new Error(
-      `Not a valid hex string representation of a MRENCLAVE measurement`
+      'Not a valid hex string representation of a MRENCLAVE measurement'
     );
   }
 
   const myUint8Array = new Uint8Array(
-    Buffer.from(hexString.replaceAll(/0x|0X/g, ""), "hex")
+    Buffer.from(hexString.replaceAll(/0x|0X/g, ''), 'hex')
   );
   if (myUint8Array.byteLength !== 32) {
     throw new Error(
-      `Not a valid hex string representation of a MRENCLAVE measurement`
+      'Not a valid hex string representation of a MRENCLAVE measurement'
     );
   }
 
@@ -163,21 +146,21 @@ export function parseRawMrEnclave(
 ): Uint8Array {
   let myUint8Array: Uint8Array;
 
-  if (typeof rawBuffer === "string") {
+  if (typeof rawBuffer === 'string') {
     if (isBytes(rawBuffer, 32)) {
       // check if its a string of bytes '[1,2,3]'
       myUint8Array = new Uint8Array(JSON.parse(rawBuffer));
     } else if (isHex(rawBuffer, 64)) {
       // check if its a hex string '0x1A'
       myUint8Array = new Uint8Array(
-        Buffer.from(rawBuffer.replaceAll(/0x|0X/g, ""), "hex")
+        Buffer.from(rawBuffer.replaceAll(/0x|0X/g, ''), 'hex')
       );
     } else if (isBase64(rawBuffer, 32)) {
       // check if its a base64 string
-      myUint8Array = new Uint8Array(Buffer.from(rawBuffer, "base64"));
+      myUint8Array = new Uint8Array(Buffer.from(rawBuffer, 'base64'));
     } else {
       // assume utf-8
-      myUint8Array = new Uint8Array(Buffer.from(rawBuffer, "utf-8"));
+      myUint8Array = new Uint8Array(Buffer.from(rawBuffer, 'utf-8'));
     }
   } else if (rawBuffer instanceof Buffer) {
     myUint8Array = new Uint8Array(rawBuffer);
@@ -197,7 +180,7 @@ export function parseRawMrEnclave(
 
   if (myUint8Array.byteLength !== 32) {
     throw new Error(
-      `Not a valid hex string representation of a MRENCLAVE measurement`
+      'Not a valid hex string representation of a MRENCLAVE measurement'
     );
   }
 

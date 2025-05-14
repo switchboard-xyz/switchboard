@@ -1,6 +1,6 @@
-import { Big } from "big.js";
-import BN from "bn.js";
-import { Decimal } from "decimal.js";
+import { Big } from 'big.js';
+import BN from 'bn.js';
+import { Decimal } from 'decimal.js';
 
 export interface WeightedValue {
   idx: number;
@@ -9,17 +9,13 @@ export interface WeightedValue {
 }
 
 function comparator(a: Big, b: Big): number {
-  if (a.gt(b)) {
-    return 1;
-  }
-  if (a.lt(b)) {
-    return -1;
-  }
+  if (a.gt(b)) return 1;
+  if (a.lt(b)) return -1;
   return 0;
 }
 
 export function median(results: Array<Big>): Big {
-  if (!results?.length) throw new Error("Cannot take median of empty array.");
+  if (!results?.length) throw new Error('Cannot take median of empty array.');
 
   const arrSort = results.slice().sort(comparator);
   const mid = Math.ceil(arrSort.length / 2);
@@ -35,7 +31,7 @@ export function weightedAverage(v1: Big, w1: Big, v2: Big, w2: Big): Big {
 }
 
 export function weightedMedian(results: Array<WeightedValue>): Big {
-  if (!results?.length) throw new Error("Cannot take median of empty array.");
+  if (!results?.length) throw new Error('Cannot take median of empty array.');
   for (let i = 0; i < results.length; ++i) {
     if (results[i].weight === 0) {
       results[i].weight = 1;
@@ -68,7 +64,7 @@ export function weightedMedian(results: Array<WeightedValue>): Big {
 
 export function min(results: Array<Big>): Big {
   if (results.length === 0) {
-    throw new Error("Cannot reduce empty array.");
+    throw new Error('Cannot reduce empty array.');
   }
   return results.reduce(
     (val, current) => (val.lt(current) ? val : current),
@@ -78,7 +74,7 @@ export function min(results: Array<Big>): Big {
 
 export function max(results: Array<Big>): Big {
   if (results.length === 0) {
-    throw new Error("Cannot reduce empty array.");
+    throw new Error('Cannot reduce empty array.');
   }
   return results.reduce(
     (val, current) => (val.gt(current) ? val : current),
@@ -90,7 +86,7 @@ export function max(results: Array<Big>): Big {
 // If we pull data that may be negative, this information is not entirely relevant.
 export function variance(results: Array<Big>): Big {
   if (results?.length === 0) {
-    throw new Error("Cannot take variance of empty array");
+    throw new Error('Cannot take variance of empty array');
   }
   const arrSort = results
     .slice()
@@ -119,55 +115,6 @@ export function safeMul(...n: Big[]): Big {
   for (const x of n) {
     result = result.mul(x);
   }
-
-  return result;
-}
-
-export function safeNthRoot(big: Big, nthRoot: number, decimals = 20): Big {
-  if (nthRoot <= 0) {
-    throw new Error(`cannot take the nth root of a negative number`);
-  }
-
-  const oldDp = Big.DP;
-  Big.DP = decimals;
-  const oldPrecision = Decimal.precision;
-  Decimal.set({ precision: decimals });
-
-  const decimal = toDecimal(big);
-  const frac = new Decimal(1).div(nthRoot);
-  const root: Decimal =
-    big.s === -1
-      ? decimal.abs().pow(frac).mul(new Decimal(big.s))
-      : decimal.pow(frac);
-
-  const result: Big = fromDecimal(root);
-
-  Decimal.set({ precision: oldPrecision });
-  Big.DP = oldDp;
-
-  return result;
-}
-
-export function safeSqrt(n: Big, decimals = 20): Big {
-  const oldDp = Big.DP;
-  Big.DP = decimals;
-  const result = n.sqrt();
-  Big.DP = oldDp;
-  return result;
-}
-
-export function safePow(n: Big, exp: number, decimals = 20): Big {
-  const oldDp = Big.DP;
-  Big.DP = decimals;
-
-  const oldPrecision = Decimal.precision;
-  Decimal.set({ precision: decimals });
-  const base = toDecimal(n);
-  const value = base.pow(exp);
-  const result = fromDecimal(value);
-
-  Decimal.set({ precision: oldPrecision });
-  Big.DP = oldDp;
 
   return result;
 }
@@ -241,11 +188,11 @@ export function toDecimal(big: Big, decimals = 20): Decimal {
  */
 export function fromDecimal(decimal: Decimal, decimals = 20): Big {
   if (decimal.isNaN()) {
-    throw new TypeError(`cannot convert NaN decimal.js to Big.js`);
+    throw new TypeError('cannot convert NaN decimal.js to Big.js');
   }
 
   if (!decimal.isFinite()) {
-    throw new TypeError(`cannot convert INF decimal.js to Big.js`);
+    throw new TypeError('cannot convert INF decimal.js to Big.js');
   }
 
   const big = new Big(decimal.toFixed(decimals, 0));

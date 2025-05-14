@@ -18,22 +18,23 @@ type Rename<T, K extends keyof T, N extends string> = Omit<T, K> & {
 ///////////////////////////////////////////////////////////////////////////////
 /** The current EVM chains Switchboard is currently deployed on. */
 export const SWITCHBOARD_EVM_CHAINS = [
-  "arbitrum",
-  "base",
-  "coredao",
-  "ethereum",
-  "optimism",
-  "aurora",
+  'arbitrum',
+  'base',
+  'coredao',
+  'ethereum',
+  'optimism',
+  'aurora',
 ] as const;
 /** The current EVM chains Switchboard is currently deployed on. */
 export type EvmChainType = (typeof SWITCHBOARD_EVM_CHAINS)[number];
 
 /** The current chains Switchboard is currently deployed on. */
 export const SWITCHBOARD_CHAINS = [
-  "aptos",
-  "near",
-  "solana",
-  "sui",
+  'aptos',
+  'near',
+  'solana',
+  'starknet',
+  'sui',
   ...SWITCHBOARD_EVM_CHAINS,
 ] as const;
 /** The current chains Switchboard is currently deployed on. */
@@ -44,11 +45,11 @@ export type ChainType = (typeof SWITCHBOARD_CHAINS)[number];
 ///////////////////////////////////////////////////////////////////////////////
 export const SUPPORTED_EVM_CHAIN_IDS = [
   // arbitrum
-  42161, 421613,
+  42161, 421613, 421614,
   // base
   8453, 84531,
   // core
-  1116, 1115,
+  1116, 1114,
   // ethereum
   1, 5,
   // optimism
@@ -78,10 +79,11 @@ type ISwitchboardQueueConfig = IBaseQueueConfig & {
 ///////////////////////////////////////////////////////////////////////////////
 /////////////// Supported Networks ////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////
-const EVM_SUPPPORTED_NETWORKS = ["mainnet", "testnet"] as const;
+const EVM_SUPPPORTED_NETWORKS = ['mainnet', 'testnet'] as const;
 export type EvmNetworkType = (typeof EVM_SUPPPORTED_NETWORKS)[number];
 
-const SUPPPORTED_NETWORKS = [...EVM_SUPPPORTED_NETWORKS, "devnet"] as const;
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+const SUPPPORTED_NETWORKS = [...EVM_SUPPPORTED_NETWORKS, 'devnet'] as const;
 export type NetworkType = (typeof SUPPPORTED_NETWORKS)[number];
 
 type INetworkMetadata = {
@@ -99,6 +101,12 @@ type IBaseNetworkConfig = {
 export type IEvmNetworkConfig = IBaseNetworkConfig & {
   sbPushOracle: string;
   chainId: number;
+  queues: Array<ISwitchboardQueueConfig>;
+  attestationQueues: Array<ISwitchboardAttestationQueueConfig>;
+};
+
+export type IStarknetNetworkConfig = IBaseNetworkConfig & {
+  chainId: string;
   queues: Array<ISwitchboardQueueConfig>;
   attestationQueues: Array<ISwitchboardAttestationQueueConfig>;
 };
@@ -123,6 +131,7 @@ export type INetworkConfig =
   | IEvmNetworkConfig
   | IChainNetworkConfig
   | ISolanaNetworkConfig
+  | IStarknetNetworkConfig
   | IMoveNetworkConfig;
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -131,11 +140,18 @@ export type INetworkConfig =
 export type IChainConfig = {
   mainnet: IChainNetworkConfig;
   testnet: IChainNetworkConfig;
+  sepolia?: IChainNetworkConfig;
 };
 
-export type ISolanaConfig = Rename<IChainConfig, "testnet", "devnet">;
+export type ISolanaConfig = Rename<IChainConfig, 'testnet', 'devnet'>;
 
-export type ChainConfig = IChainConfig | ISolanaConfig;
+export type IStarknetConfig = {
+  mainnet: IChainNetworkConfig;
+  sepolia: IChainNetworkConfig;
+  goerli: IChainNetworkConfig;
+};
+
+export type ChainConfig = IChainConfig | ISolanaConfig | IStarknetConfig;
 
 export type EvmChainConfigs = {
   arbitrum: IChainConfig;
@@ -150,6 +166,7 @@ export type ChainConfigs = EvmChainConfigs & {
   aptos: IChainConfig;
   near: IChainConfig;
   solana: ISolanaConfig;
+  starknet: IStarknetConfig;
   sui: IChainConfig;
 };
 
