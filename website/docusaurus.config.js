@@ -19,9 +19,9 @@ const getVersions = () => {
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
-  title: "Switchboard",
-  tagline: "Community curated lightspeed data feeds on-chain",
-  favicon: "img/favicon.ico",
+  title: "Switchboard | OracleJob Documentation",
+  tagline: "The Everything Oracle",
+  favicon: "img/sb.svg",
 
   // Set the production url of your site here
   url:
