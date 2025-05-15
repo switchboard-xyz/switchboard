@@ -61,7 +61,7 @@ jobs:
         run: |
           npm i -g typescript ts-node tsx @types/node turbo
 
-      - name: Install sbv2-core Dependencies
+      - name: Install Dependencies
         run: pnpm install --frozen-lockfile
 
       - name: Build sbv2-core
