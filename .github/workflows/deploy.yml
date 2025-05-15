@@ -9,7 +9,6 @@ on:
         website/**,
         .github/workflows/**,
         cli/**,
-        sdks/**,
         javascript/common/**,
         javascript/sbv2-scripts/**,
       ]

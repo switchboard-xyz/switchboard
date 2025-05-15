@@ -1,5 +1,3 @@
-const { normalizeUrl } = require("@docusaurus/utils");
-
 const packageSortPriority = new Map([
   ["@switchboard-xyz/common", 1],
   ["@switchboard-xyz/oracle", 2],
@@ -39,11 +37,6 @@ const config = {
       },
     },
     "javascript/oracle",
-    "sdks/aptos/javascript/aptos.js",
-    "sdks/evm/javascript/evm.js",
-    "sdks/near/javascript/near.js",
-    "sdks/solana/javascript/solana.js",
-    "sdks/sui/javascript/sui.js",
   ],
   apiIndexMarkdown: "api/index.mdx",
 };

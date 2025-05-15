@@ -37,37 +37,12 @@ cd core-sdk
 pnpm install
 ```
 
-## SDKs
-
-| **Chain**               | **Name**                                                    |
-| ----------------------- | ----------------------------------------------------------- |
-| Aptos                   | [aptos-sdk](https://github.com/switchboard-xyz/aptos-sdk)   |
-| EVM (Arbitrum, CoreDAO) | [evm-sdk](https://github.com/switchboard-xyz/evm-sdk)       |
-| NEAR                    | [near-sdk](https://github.com/switchboard-xyz/near-sdk)     |
-| Solana                  | [solana-sdk](https://github.com/switchboard-xyz/solana-sdk) |
-| Sui                     | [sui-sdk](https://github.com/switchboard-xyz/sui-sdk)       |
-
-To add SDKs,
-
-```bash
-git submodule add https://github.com/switchboard-xyz/switchboard-v2 sdks/solana
-```
-
-To update SDKs,
-
-```bash
-# All
-git submodule update --remote
-# Single SDK
-git submodule update --remote sdks/solana
-```
-
 ## Packages
 
-| **Lang** | **Name**                                                                                                                                                                                    | **Description**                                                                     |
-| -------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------- |
-| JS       | [@switchboard-xyz/cli](/cli/) <br />[[npmjs](https://www.npmjs.com/package/@switchboard-xyz/cli), [Typedocs](https://docs.switchboard.xyz/dev/cli)]                                         | Command line interface to interact with Switchboard                                 |
-| JS       | [@switchboard-xyz/common](/javascript/common/) <br />[[npmjs](https://www.npmjs.com/package/@switchboard-xyz/common), [Typedocs](https://docs.switchboard.xyz/api/common)] | Contains the OracleJob protobufs and other types and utilities shared across chains |
+| **Lang** | **Name**                                                                                                                                                                           | **Description**                                                                     |
+| -------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------- |
+| JS       | [@switchboard-xyz/cli](/cli/) <br />[[npmjs](https://www.npmjs.com/package/@switchboard-xyz/cli), [Typedocs](https://docs.switchboard.xyz/dev/cli)]                                | Command line interface to interact with Switchboard                                 |
+| JS       | [@switchboard-xyz/common](/javascript/common/) <br />[[npmjs](https://www.npmjs.com/package/@switchboard-xyz/common), [Typedocs](https://docs.switchboard.xyz/api/common)]         | Contains the OracleJob protobufs and other types and utilities shared across chains |
 | JS       | [@switchboard-xyz/oracle](/javascript/oracle/) <br />[[npmjs](https://www.npmjs.com/package/@switchboard-xyz/oracle), [Typedocs](https://https://docs.switchboard.xyz/api/oracle)] | A Typescript wrapper for the Switchboard V2 oracle                                  |
 
 ## Troubleshooting

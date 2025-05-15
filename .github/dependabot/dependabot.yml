@@ -14,7 +14,3 @@ updates:
       - dependency-name: "fs-extra"
       - dependency-name: "*"
         update-types: ["version-update:semver-major"]
-  - package-ecosystem: gitsubmodule
-    schedule:
-      interval: "daily"
-    directory: ./sdks
