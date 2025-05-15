@@ -64,7 +64,7 @@ jobs:
       - name: Install Dependencies
         run: pnpm install --frozen-lockfile
 
-      - name: Build sbv2-core
+      - name: Build Base
         run: pnpm build
 
       - name: Generate Protobuf JSON
