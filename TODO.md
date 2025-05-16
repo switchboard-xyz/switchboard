@@ -3,3 +3,4 @@
 - ✅ Update logo
 - ✅ Update twitter logo --> X
 - ✅ Get rid of footer
+- ✅ Tweet card

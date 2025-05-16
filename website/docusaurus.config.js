@@ -125,7 +125,7 @@ const config = {
   themeConfig:
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
-      image: "img/documentation_card.jpg",
+      image: "img/documentation_card.png",
       sidebar: {
         hideable: true,
       },
