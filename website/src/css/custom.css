@@ -2,8 +2,8 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap");
 
 @font-face {
-  font-family: "Snasm";
-  src: url("/static/fonts/Snasm/Snasm-400.woff2") format("woff");
+  font-family: "PPNeueBit";
+  src: url("/static/fonts/PPNeueBit/PPNeueBit-400.woff2") format("woff");
 }
 
 @font-face {
@@ -174,10 +174,10 @@ table li::marker {
 }
 
 h1 {
-  font-family: "Snasm";
-  font-weight: 400;
-  font-size: 52px;
-  line-height: 62.4px;
+  font-family: "PPNeueBit";
+  font-weight: 700;
+  font-size: 64px;
+  line-height: 100%;
 }
 
 @media screen and (max-width: 640px) {

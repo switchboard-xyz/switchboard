@@ -1,6 +1,5 @@
 // Set MUI Theme
 import { default as firaCode } from "./typography/firaCode";
-import { default as snasm } from "./typography/snasm";
 import { MuiButton, MuiIconButton } from "./muiButton";
 import typography from "./muiTypography";
 import Palette from "./palette";
@@ -23,7 +22,7 @@ export const theme = createTheme({
     },
     MuiButton: { styleOverrides: MuiButton },
     MuiIconButton: { styleOverrides: MuiIconButton },
-    MuiCssBaseline: { styleOverrides: `${snasm}${firaCode}` },
+    MuiCssBaseline: { styleOverrides: `${firaCode}` },
   },
   palette: Palette,
 });
