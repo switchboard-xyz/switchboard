@@ -1,0 +1,5 @@
+- Remove CLI
+- Update fonts
+- Update logo
+- Update twitter logo --> X
+- Get rid of footer

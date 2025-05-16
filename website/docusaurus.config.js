@@ -19,7 +19,7 @@ const getVersions = () => {
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
-  title: "Switchboard | OracleJob Documentation",
+  title: "Switchboard | Protos Documentation",
   tagline: "The Everything Oracle",
   favicon: "img/sb.svg",
 
