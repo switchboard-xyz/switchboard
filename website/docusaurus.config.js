@@ -136,12 +136,12 @@ const config = {
       //   contextualSearch: true,
       // },
       navbar: {
-        title: "Switchboard",
+        title: "", // Don't need a title because our logos include the Switchboard text
         logo: {
           alt: "Switchboard Logo",
-          src: "img/logo.svg",
-          srcDark: "img/logo_white.svg",
-          width: 72,
+          src: "img/logo.png",
+          srcDark: "img/logo_white.png",
+          width: 320,
           height: 72,
         },
         items: [
@@ -169,10 +169,10 @@ const config = {
           },
         ],
       },
-      footer: {
-        style: "dark",
-        links: [],
-      },
+      // footer: {
+      // style: "dark",
+      // links: [],
+      // },
       prism: {
         theme: lightCodeTheme,
         darkTheme: darkCodeTheme,
