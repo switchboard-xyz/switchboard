@@ -3,38 +3,10 @@ import createTypography from "@mui/material/styles/createTypography";
 import { theme } from ".";
 import Palette from "./palette";
 import firaCodeFamily from "./typography/firaCode";
-import snasmFamily from "./typography/snasm";
 
 export const MuiTypography = createTypography(Palette, (palette) => ({
-  fontFamily: ["Source Sans Pro", firaCodeFamily, snasmFamily].join(","),
+  fontFamily: ["Source Sans Pro", firaCodeFamily].join(","),
   fontPrimary: "Source Sans Pro",
-  root: {
-    fontFamily: "Snasm",
-    fontSize: 16,
-    fontWeight: "normal",
-    fontStretch: "normal",
-    fontStyle: "normal",
-    lineHeight: "normal",
-    letterSpacing: "normal",
-    color: theme.palette.pageText.title,
-    marginRight: 12,
-  },
-
-  h1: {
-    fontFamily: "Snasm",
-    fontSize: 56,
-    fontWeight: 500,
-    fontStretch: "normal",
-    fontStyle: "normal",
-    lineHeight: 1.21,
-    letterSpacing: 0.08,
-    color: theme.palette.pageText.title,
-    [theme.breakpoints.down("sm")]: {
-      fontSize: 42,
-      lineHeight: 1.28,
-      letterSpacing: -2.23,
-    },
-  },
 
   h2: {
     fontFamily: "Source Sans Pro",
